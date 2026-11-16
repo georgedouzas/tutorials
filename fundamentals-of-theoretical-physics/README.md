@@ -11,7 +11,7 @@ The tutorial's pages render with the rest of the site. Everything else that belo
 | `lean/` | Lean package, with certificates and tests in `lean/.veriphy/` |
 | `verification/` | Verification manifests and logs |
 | `scripts/`, `tests/` | Checkers and their tests |
-| `_references/notes/` | Reading notes; the bibliography and PDFs are in `../references/` |
+| `notes/` | Reading notes; the bibliography is in `../references/`, the PDFs in Zotero |
 | `_archive/` | Earlier chapter versions, ignored by git |
 
 ## Commands

@@ -1,0 +1,49 @@
+---
+title: "<Tutorial title>"
+description: "<One line: what the tutorial covers, from where to where>"
+date: <YYYY-MM-DD>
+image: "cover.svg"
+categories: [<Main topic>, <Topic>, <Topic>]
+order: <position among the tutorials>
+---
+
+<!--
+Landing page template for a tutorial (openspec/templates/tutorial-index.qmd), laid out like
+fundamentals-of-mathematics-for-physicists/index.qmd. Copy it to <tutorial>/index.qmd and replace every <placeholder>.
+
+- Chapters are listed flat, one link per chapter file, in reading order; no parts or nested lists. Each chapter starts
+  from openspec/templates/chapter.qmd.
+- Anything that is not a chapter goes in its own "##" section after the chapter list, e.g. "Software for symbolic
+  computation". Add one section per such topic, and none if there is nothing to add.
+- The categories become the topic chips; keep them in sync with the data-topics list in _includes/topics.html.
+- Add the same chapters, in the same order, to the tutorial's section of the sidebar in _quarto.yml.
+-->
+
+<What the tutorial covers: where it starts, what it moves through, and where it ends.>
+
+<How the chapters work: each sets out definitions and results, works through examples and gives exercises to try. How
+the tutorial connects to the others, with links such as [<Other tutorial>](../<other-tutorial>/index.qmd).>
+
+## Chapters
+
+- [<Chapter 1 title>](<chapter-1-file>.qmd)
+- [<Chapter 2 title>](<chapter-2-file>.qmd)
+- [<Chapter 3 title>](<chapter-3-file>.qmd)
+
+## Software for symbolic computation
+
+<What the software is used for in this tutorial, and which chapters use it.>
+
+Main libraries:
+
+- [<Library>](<url>): <what it does and what it is used for here>.
+
+Other libraries:
+
+- [<Library>](<url>): <what it does>.
+
+## <Other additional section, if any>
+
+<Content that belongs to the tutorial as a whole rather than to one chapter.>
+
+This tutorial has its own [glossary](glossary.qmd) and [verification registry](registry.qmd).

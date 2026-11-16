@@ -8,9 +8,9 @@ Rules (specs/bibliography):
    classic marked `note = {Not on arXiv ...}`, cited for attribution only, or a textbook (`keywords = {textbook}`,
    design D32) with a reading note that maps it to chapters (a textbook need not be cited before the chapters it
    serves are written); every PDF in references/textbooks/ is mapped by a note or recorded as unused in
-   references/notes/README.md;
+   notes/README.md;
 3. every citation key used in tutorial/*.qmd exists in the bibliography, and every entry is cited at least once;
-4. every cited arXiv paper has a reading note references/notes/<key>.md naming at least one section or equation;
+4. every cited arXiv paper has a reading note notes/<key>.md naming at least one section or equation;
 5. no displayed result block (thm-/prp-/lem-/cor-) cites only attribution-only entries.
 
 Usage: python3 check_bib.py [--refresh]        exit code 1 on any problem
@@ -20,7 +20,7 @@ import glob, json, os, re, sys, time, urllib.request
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 BIB = os.path.join(ROOT, "..", "references", "references.bib")
 CACHE = os.path.join(ROOT, "scripts", "arxiv_cache.json")
-NOTES = os.path.join(ROOT, "_references", "notes")
+NOTES = os.path.join(ROOT, "notes")
 TEXTBOOKS = os.path.join(ROOT, "..", "references", "textbooks")
 TUTORIAL = ROOT
 CROSSREF = ("fig-", "sec-", "eq-", "thm-", "prp-", "lem-", "cor-", "tbl-", "def-", "exm-", "exr-", "lst-", "refs")
@@ -113,7 +113,7 @@ def problems(refresh=False):
         if "textbook" in f.get("keywords", "").lower():
             note = os.path.join(NOTES, f"{k}.md")
             if not os.path.exists(note) or "## Chapters it serves" not in open(note).read():
-                out.append(("textbooks are mapped", f"{k}: no reading note mapping it to chapters (references/notes/{k}.md)"))
+                out.append(("textbooks are mapped", f"{k}: no reading note mapping it to chapters (notes/{k}.md)"))
             continue
         if re.search(r"not on arxiv", f.get("note", ""), re.I):
             attribution.add(k)
@@ -126,7 +126,7 @@ def problems(refresh=False):
         if k not in cited and "textbook" not in ents[k].get("keywords", "").lower():
             out.append(("entries are cited", f"{k}: never cited"))
     if os.path.isdir(TEXTBOOKS):
-        mapped = " ".join(open(n).read() for n in glob.glob(os.path.join(ROOT, "..", "*", "_references", "notes", "*.md")))
+        mapped = " ".join(open(n).read() for n in glob.glob(os.path.join(ROOT, "..", "*", "notes", "*.md")))
         for pdf in sorted(os.listdir(TEXTBOOKS)):
             if pdf.endswith(".pdf") and pdf not in mapped and os.path.splitext(pdf)[0] not in mapped:
                 out.append(("textbooks are mapped", f"references/textbooks/{pdf}: no reading note and not recorded as unused"))
@@ -135,7 +135,7 @@ def problems(refresh=False):
             continue
         note = os.path.join(NOTES, f"{k}.md")
         if not os.path.exists(note):
-            out.append(("reading notes", f"{k}: no reading note references/notes/{k}.md"))
+            out.append(("reading notes", f"{k}: no reading note notes/{k}.md"))
         elif not re.search(r"(sec(tion)?\.?\s*\d|§|eq(uation)?\.?\s*\(?\d|\(\d+(\.\d+)*\))", open(note).read(), re.I):
             out.append(("reading notes", f"{k}: reading note names no section or equation"))
     for lab, keys in sorted(blocks.items()):
