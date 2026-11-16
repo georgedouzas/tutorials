@@ -897,3 +897,35 @@ img {
   color: var(--site-muted);
   opacity: 1 !important;
 }
+
+// The sidebar is navigation, not prose: left-aligned and unhyphenated.
+#quarto-sidebar li,
+#quarto-sidebar p {
+  text-align: left;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+// Sidebar navigation (the tutorials tree, in the left sidebar or moved into the right margin by
+// _includes/tutorials-nav.html): text colour, not the link blue. The current page is marked by weight instead.
+#quarto-sidebar,
+#quarto-margin-sidebar {
+  .sidebar-link,
+  .sidebar-item-text,
+  .sidebar-item-toggle,
+  .sidebar-item-section > .sidebar-item-container a {
+    color: var(--site-text);
+  }
+
+  .sidebar-link:hover,
+  .sidebar-link:hover .sidebar-item-text {
+    color: var(--site-text);
+    text-decoration: underline;
+  }
+
+  .sidebar-link.active,
+  .sidebar-link.active .sidebar-item-text {
+    color: var(--site-text);
+    font-weight: 600;
+  }
+}

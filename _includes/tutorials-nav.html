@@ -1,0 +1,47 @@
+<!--
+Moves the tutorials tree (Quarto's sidebar menu) from the left sidebar into the right margin; the left sidebar
+keeps the topic chips. Pages have no table of contents (toc: false), so a margin column is created for the tree
+when Quarto has not made one. Below the width where Quarto hides the right margin, the tree
+goes back into the left sidebar so it stays reachable from the mobile menu.
+-->
+<style>
+  #tutorials-nav { margin-bottom: 1.25rem; }
+  #tutorials-nav .sidebar-menu-container { padding: 0; }
+  #tutorials-nav .sidebar-item { text-align: left; hyphens: none; -webkit-hyphens: none; }
+  #quarto-margin-sidebar.tutorials-only { padding-top: 1rem; }
+</style>
+
+<script>
+(() => {
+  const sidebar = document.getElementById("quarto-sidebar");
+  const menu = sidebar && sidebar.querySelector(".sidebar-menu-container");
+  if (!menu) return;
+
+  const home = document.createComment("tutorials-menu-home");
+  menu.before(home);
+
+  let margin = document.getElementById("quarto-margin-sidebar");
+  if (!margin) {
+    margin = document.createElement("div");
+    margin.id = "quarto-margin-sidebar";
+    margin.className = "sidebar margin-sidebar tutorials-only";
+    const main = document.querySelector("#quarto-content > main, main.content");
+    if (!main) return;
+    main.after(margin);
+    // pages without a TOC are laid out full width; switch to the layout with a right margin column
+    document.body.classList.remove("fullcontent");
+  }
+  const slot = document.createElement("div");
+  slot.id = "tutorials-nav";
+  margin.prepend(slot);
+
+  const wide = window.matchMedia("(min-width: 992px)");
+  const place = () => {
+    if (wide.matches) slot.appendChild(menu);
+    else home.after(menu);
+    slot.hidden = !wide.matches;
+  };
+  place();
+  wide.addEventListener("change", place);
+})();
+</script>

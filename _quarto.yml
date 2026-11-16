@@ -3,14 +3,10 @@ project:
   render:
     - "**/*.qmd"
     - "!openspec/"
-  resources:
-    - "references/papers/*.pdf"
-    - "references/textbooks/*.pdf"
 
 website:
   title: "Tutorials"
-  search:
-    location: sidebar
+  search: false
   navbar:
     right:
       - icon: github
@@ -18,26 +14,11 @@ website:
   sidebar:
     - id: tutorials
       style: docked
-      search: true
       collapse-level: 2
       contents:
-        - section: Topics
-          contents:
-            - text: "All"
-              href: index.qmd
-            - text: "Mathematics"
-              href: "index.qmd#category=Mathematics"
-            - text: "Physics"
-              href: "index.qmd#category=Physics"
-            - text: "Machine Learning"
-              href: "index.qmd#category=Machine%20Learning"
-            - text: "Kaluza-Klein"
-              href: "index.qmd#category=Kaluza-Klein"
-            - text: "Reinforcement Learning"
-              href: "index.qmd#category=Reinforcement%20Learning"
         - section: Tutorials
           contents:
-            - section: "Mathematics for Physicists"
+            - section: "Fundamentals of Mathematics for Physicists"
               href: fundamentals-of-mathematics-for-physicists/index.qmd
               contents:
                 - fundamentals-of-mathematics-for-physicists/part-i-01-sets-relations-topology.qmd
@@ -55,7 +36,7 @@ website:
                 - fundamentals-of-mathematics-for-physicists/part-i-13-spinors-dirac-operator.qmd
                 - fundamentals-of-mathematics-for-physicists/registry.qmd
                 - fundamentals-of-mathematics-for-physicists/glossary.qmd
-            - section: "Theoretical Physics"
+            - section: "Fundamentals of Theoretical Physics"
               href: fundamentals-of-theoretical-physics/index.qmd
               contents:
                 - fundamentals-of-theoretical-physics/part-ii-01-classical-mechanics.qmd
@@ -87,12 +68,12 @@ website:
                 - kaluza-klein-theories/part-vi-02-compactifications.qmd
                 - kaluza-klein-theories/registry.qmd
                 - kaluza-klein-theories/glossary.qmd
-            - section: "Mathematics for Machine Learning"
+            - section: "Fundamentals of Mathematics for Machine Learning"
               href: fundamentals-of-mathematics-for-machine-learning/index.qmd
               contents:
                 - fundamentals-of-mathematics-for-machine-learning/mathematical-and-statistical-foundations.qmd
                 - fundamentals-of-mathematics-for-machine-learning/appendices-and-technical-background.qmd
-            - section: "Machine Learning"
+            - section: "Fundamentals of Machine Learning"
               href: fundamentals-of-machine-learning/index.qmd
               contents:
                 - fundamentals-of-machine-learning/foundations-of-learning-theory.qmd
@@ -104,7 +85,11 @@ format:
   html:
     theme: [cosmo, theme.scss]
     grid:
+      sidebar-width: 320px
       body-width: 760px
+    include-after-body:
+      - _includes/topics.html
+      - _includes/tutorials-nav.html
 
 execute:
   cache: true
