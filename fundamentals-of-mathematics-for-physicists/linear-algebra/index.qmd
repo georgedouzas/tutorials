@@ -1,0 +1,3506 @@
+---
+pagetitle: "Linear algebra"
+---
+
+# Linear algebra {#sec-linear-algebra}
+
+Linear algebra is the study of vector spaces, the sets in which one can add and rescale, and of the maps between
+them that respect those two operations. This chapter collects the part of it that geometry and field theory use on
+every page, in four sections. Vector spaces defines spans, linear independence, bases and dimension, with
+$\mathbb{R}^n$, spaces of matrices and spaces of functions as running examples. Linear maps and dual spaces treats
+linear maps and their matrices, kernels and images, and the linear functionals that make up the dual space, with
+the dual basis as the bridge between coordinates and functionals. Bilinear forms introduces the rule that assigns a
+number to two vectors, with the Euclidean dot product and the Minkowski form of special relativity as the two
+cases that matter most, and defines symmetry, non-degeneracy and signature. Multilinear maps and tensor products
+generalises to maps of several arguments and to tensors of mixed type, their components and their contractions.
+Each definition is followed by three examples of increasing complexity and three exercises of increasing
+difficulty with hidden solutions, and each part closes with propositions that collect its key computations. The
+reader who knows this material can skim the definitions and try the exercises; the exact conventions for indices and
+the summation convention are fixed in @sec-conventions.
+
+## Vector spaces {#sec-vector-spaces}
+
+A vector space is a set in which vectors can be added and rescaled. The six notions of this section, vector
+spaces, linear combinations, spans, linear independence, bases and dimension, are the vocabulary in which every
+later definition is phrased; the two propositions at its end record two dimension counts and the coordinates of one
+vector in a skewed basis.
+
+For more on this topic, see @axler2024linear [Ch. 1-2].
+
+### Vector spaces
+
+Everything in this chapter rests on two operations, adding two vectors and stretching one by a number, together with
+the rules those operations obey. The definition below lists the rules once and for all; the picture to keep is that of
+arrows in the plane, added tip to tail and rescaled along their own line. It also names the subsets that inherit the
+structure, the subspaces, which is where most of the work will happen.
+
+:::: {.statement-box}
+::: {#def-vector-space}
+#### Vector space
+
+A **real vector space** is a set $V$ with an addition $v + w$ and a multiplication $\lambda v$ by real numbers
+(**scalars**) that obey the usual rules: addition is commutative and associative with a zero vector $0$ and
+negatives, and $\lambda(v + w) = \lambda v + \lambda w$, $(\lambda + \mu) v = \lambda v + \mu v$, $(\lambda\mu) v =
+\lambda(\mu v)$, $1 v = v$. Replacing $\mathbb{R}$ by $\mathbb{C}$ gives a **complex vector space**. A subset closed
+under both operations is a **subspace**.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first instance is the one every reader already knows: columns of $n$ real numbers, added and rescaled entry by
+entry. It also shows the subspace test at work in both directions, since a plane through the origin passes it while
+the unit sphere does not.
+
+::: {#exm-vs-rn}
+#### $\mathbb{R}^n$
+
+$\mathbb{R}^n$, the set of columns $(x^1, \dots, x^n)$, with entrywise addition and scaling, is a vector space;
+the plane $\{x^3 = 0\}$ is a subspace of $\mathbb{R}^3$, while the sphere $S^2$ is not (the sum of two unit vectors
+is not a unit vector).
+:::
+
+Vectors need not be columns. Square matrices add and rescale entrywise just as well, and applying the subspace test to
+antisymmetric matrices on the one hand and to rotation matrices on the other separates a Lie algebra, which is a
+vector space, from a Lie group, which is not.
+
+::: {#exm-vs-matrices}
+#### Matrices
+
+The $n \times n$ real matrices form a vector space of dimension $n^2$ under entrywise operations; the
+antisymmetric matrices $A^{\mathsf{T}} = -A$ form a subspace, the Lie algebra $\mathfrak{so}(n)$ of
+@sec-lie-algebras. The rotation matrices $SO(n)$ do not: the sum of two rotations is not a rotation.
+:::
+
+The third instance has no finite list of coordinates at all. Functions on a set are added pointwise, so they form a
+vector space that is usually infinite-dimensional, and the scalar fields of physics live in such a space; the
+polynomials of bounded degree sit inside it as a finite-dimensional subspace.
+
+::: {#exm-vs-functions}
+#### Functions and fields
+
+The real functions on a set $X$, with $(f + g)(x) = f(x) + g(x)$ and $(\lambda f)(x) = \lambda f(x)$, form a vector
+space, infinite-dimensional when $X$ is infinite; the polynomials of degree at most $2$ form a three-dimensional
+subspace. A scalar field on spacetime (@sec-scalar-fields) is an element of such a function space.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The subspace test, closure under addition and under rescaling, is best learned on sets that fail it for different
+reasons. Three subsets of $\mathbb{R}^3$ follow, and the reader should identify a different culprit in each case: a
+missing zero vector, or a sum that escapes the set.
+
+::: {#exr-vs-subspace-check}
+#### Which subsets are subspaces?
+
+Decide whether the plane $x + y + z = 0$, the plane $x + y + z = 1$ and the union of the two coordinate axes are
+subspaces of $\mathbb{R}^3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The plane $x + y + z = 0$ is a subspace: sums and multiples of solutions are solutions, and $0$ lies in it. The
+plane $x + y + z = 1$ is not: it does not contain $0$, and the sum of two of its points has coordinate sum $2$. The
+union of the axes is closed under scaling but not under addition: $(1, 0, 0) + (0, 1, 0) = (1, 1, 0)$ lies on
+neither axis.
+:::
+
+The same test can be run in Sage, which becomes useful as soon as the sets are too large to inspect by hand. This time
+the matrices are symmetric rather than antisymmetric, their subspace has a dimension to be found, and the failure of
+rotations to add up to a rotation is confirmed numerically.
+
+::: {#exr-vs-symmetric-matrices}
+#### Symmetric matrices and rotations
+
+Show with Sage that the symmetric $3 \times 3$ matrices form a subspace of the $3 \times 3$ matrices, find its
+dimension, and check that the sum of two rotation matrices is not a rotation.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(A + B)^{\mathsf{T}} = A^{\mathsf{T}} + B^{\mathsf{T}} = A + B$ and $(\lambda A)^{\mathsf{T}} = \lambda A$, so
+sums and multiples of symmetric matrices are symmetric; the matrices $E_{ii}$ and $E_{ij} + E_{ji}$ ($i < j$) span
+the subspace, which has dimension $3 + 3 = 6$. Two rotations by $90^\circ$ about different axes add to a matrix
+$R$ with $R^{\mathsf{T}} R \neq 1$:
+
+```python
+M = MatrixSpace(QQ, 3, 3)
+A = matrix(QQ, [[1, 2, 0], [2, 3, 1], [0, 1, 4]]); B = matrix(QQ, [[0, 1, 1], [1, 0, 2], [1, 2, 5]])
+print("A, B symmetric:", A.is_symmetric(), B.is_symmetric(), "; A + B and 3A symmetric:", (A + B).is_symmetric(), (3 * A).is_symmetric())
+basis = [m for m in M.basis()]
+sym = [m + m.transpose() for m in basis]
+S = M.span(sym) if hasattr(M, "span") else None
+# the subspace of symmetric matrices, as the span of E_ii and E_ij + E_ji
+sym_space = span([vector(QQ, (m + m.transpose()).list()) for m in basis], QQ)
+print("dimension of the symmetric 3 x 3 matrices:", sym_space.dimension(), "= 3 * 4 / 2")
+R1 = matrix(QQ, [[0, -1, 0], [1, 0, 0], [0, 0, 1]]); R2 = matrix(QQ, [[1, 0, 0], [0, 0, -1], [0, 1, 0]])
+print("R1, R2 rotations (R^T R = 1, det 1):", R1.transpose() * R1 == 1 and R1.det() == 1, R2.transpose() * R2 == 1 and R2.det() == 1)
+print("R1 + R2 is a rotation:", (R1 + R2).transpose() * (R1 + R2) == 1, " (so SO(3) is not a subspace)")
+```
+
+*Output:*
+
+```text
+A, B symmetric: True True ; A + B and 3A symmetric: True True
+dimension of the symmetric 3 x 3 matrices: 6 = 3 * 4 / 2
+R1, R2 rotations (R^T R = 1, det 1): True True
+R1 + R2 is a rotation: False  (so SO(3) is not a subspace)
+```
+:::
+
+Function spaces are checked in the same way, with pointwise operations in place of entrywise ones. The point of the
+last exercise in this group is the difference between a bound on the degree, which gives a subspace, and an exact
+degree, which does not; the same distinction appears whenever an expansion is truncated.
+
+::: {#exr-vs-polynomials-axioms}
+#### Polynomials of bounded degree
+
+Show that the polynomials of degree at most $2$ form a subspace of the functions on $\mathbb{R}$, and that the
+polynomials of degree exactly $2$ do not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(a + bx + cx^2) + (a' + b'x + c'x^2) = (a + a') + (b + b')x + (c + c')x^2$ and $\lambda(a + bx + cx^2) = \lambda a +
+\lambda b x + \lambda c x^2$ have degree at most $2$, and the zero polynomial is included. The polynomials of
+degree exactly $2$ miss the zero polynomial, and $x^2 + (-x^2 + x) = x$ has degree $1$: the set is closed under
+neither operation.
+:::
+::::
+
+### Linear combinations
+
+With addition and rescaling available, the simplest object one can build from a finite family of vectors is a weighted
+sum of them. The definition that follows names this operation and fixes the index convention, upper indices on
+coefficients and lower indices on vectors, on which every later formula relies.
+
+:::: {.statement-box}
+::: {#def-linear-combination}
+#### Linear combination
+
+A **linear combination** of vectors $v_1, \dots, v_k$ is a vector $\lambda^1 v_1 + \dots + \lambda^k v_k$ with real
+coefficients $\lambda^i$. Repeated upper and lower indices are summed, $\lambda^i v_i$ (the summation convention of
+@sec-conventions).
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+In coordinates a weighted sum is a sum of rescaled columns, and the standard basis vectors show that every column is
+such a sum. The first example records one explicit combination of three-component columns; the same three vectors
+return throughout the chapter as a running case.
+
+::: {#exm-combination-r3}
+#### In $\mathbb{R}^3$
+
+$(1, 3, 1) = 1\cdot(1, 2, 0) + 1\cdot(0, 1, 1)$ is a linear combination of $(1, 2, 0)$ and $(0, 1, 1)$; every vector
+$(x, y, z)$ is the combination $x e_1 + y e_2 + z e_3$ of the standard basis vectors.
+:::
+
+The same operation applied to the three generators of rotations produces every antisymmetric $3 \times 3$ matrix. This
+is the first appearance of the pattern "general element equals weighted sum of generators" that the notion of span
+will make precise in the next section.
+
+::: {#exm-combination-matrices}
+#### Antisymmetric matrices
+
+$a L_1 + b L_2 + c L_3$, with the three generators $L_a$ of @sec-lie-algebras and real $a, b, c$, is a linear
+combination; it is the general antisymmetric $3 \times 3$ matrix.
+:::
+
+Functions can be combined with coefficients exactly as columns can. Fourier series, sums of cosines and sines with
+numerical coefficients, are the most important instance for physics, and they show that the candidate vectors may be
+infinitely many as long as only finitely many coefficients are non-zero.
+
+::: {#exm-combination-fourier}
+#### Fourier modes
+
+$a\cos\varphi + b\sin\varphi$ is a linear combination of the two functions $\cos\varphi$ and $\sin\varphi$; a
+finite Fourier series $\sum_n (a_n \cos n\varphi + b_n \sin n\varphi)$ is a linear combination of modes.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Given a target vector and a family, the coefficients are the unknowns of a linear system with as many equations as
+there are coordinates. The first exercise asks the reader to solve such a system by hand and then to recognise it in
+Sage as a matrix equation whose columns are the given vectors.
+
+::: {#exr-combination-solve}
+#### Finding the coefficients
+
+Write $w = (4, 7, 2)$ as a linear combination of $v_1 = (1, 2, 0)$, $v_2 = (0, 1, 1)$ and $v_4 = (0, 0, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The coefficients solve the linear system $\lambda^1 = 4$, $2\lambda^1 + \lambda^2 = 7$, $\lambda^2 + \lambda^4 =
+2$, so $\lambda = (4, -1, 3)$; in Sage the system is the matrix with columns $v_1, v_2, v_4$:
+
+```python
+v1, v2, v4 = vector(QQ, [1, 2, 0]), vector(QQ, [0, 1, 1]), vector(QQ, [0, 0, 1])
+w = vector(QQ, [4, 7, 2])
+C = matrix(QQ, [v1, v2, v4]).transpose()          # columns v1, v2, v4
+lam = C.solve_right(w)
+print("coefficients (lambda^1, lambda^2, lambda^4) =", lam)
+print("check:", lam[0] * v1 + lam[1] * v2 + lam[2] * v4 == w)
+```
+
+*Output:*
+
+```text
+coefficients (lambda^1, lambda^2, lambda^4) = (4, -1, 3)
+check: True
+```
+:::
+
+For functions the same question is not a system of equations but an identity to be recognised. Here the double-angle
+and triple-angle formulas of trigonometry are reread as statements that a power of a cosine or sine is a weighted sum
+of a few Fourier modes.
+
+::: {#exr-combination-fourier}
+#### A trigonometric identity as a combination
+
+Write $\cos^2\varphi$ as a linear combination of the functions $1$ and $\cos 2\varphi$, and $\sin^3\varphi$ as a
+combination of $\sin\varphi$ and $\sin 3\varphi$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+From $\cos 2\varphi = 2\cos^2\varphi - 1$, $\cos^2\varphi = \tfrac12 \cdot 1 + \tfrac12 \cos 2\varphi$. From $\sin
+3\varphi = 3\sin\varphi - 4\sin^3\varphi$, $\sin^3\varphi = \tfrac34 \sin\varphi - \tfrac14 \sin 3\varphi$. Every
+polynomial in $\cos\varphi$ and $\sin\varphi$ is a linear combination of modes in this way.
+:::
+
+For antisymmetric matrices the coefficients can be read off directly, because each generator occupies its own pair of
+entries. The task is to extract the three coefficients of a given matrix while keeping track of the sign convention
+$(L_a)_{bc} = -\epsilon_{abc}$, which is easy to get backwards.
+
+::: {#exr-combination-so3}
+#### Reading off the coefficients of an antisymmetric matrix
+
+Write the antisymmetric matrix with entries $X_{12} = -5$, $X_{13} = 2$, $X_{23} = -7$ as $a L_1 + b L_2 + c L_3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $(L_a)_{bc} = -\epsilon_{abc}$, the matrix $a L_1 + b L_2 + c L_3$ has $X_{32} = a$, $X_{13} = b$, $X_{21} =
+c$, so $(a, b, c) = (7, 2, 5)$:
+
+```python
+L1 = matrix(QQ, [[0, 0, 0], [0, 0, -1], [0, 1, 0]])
+L2 = matrix(QQ, [[0, 0, 1], [0, 0, 0], [-1, 0, 0]])
+L3 = matrix(QQ, [[0, -1, 0], [1, 0, 0], [0, 0, 0]])
+X = matrix(QQ, [[0, -5, 2], [5, 0, -7], [-2, 7, 0]])
+print("X antisymmetric:", X.transpose() == -X)
+a, b, c = X[2, 1], X[0, 2], X[1, 0]
+print("coefficients (a, b, c) = (X_32, X_13, X_21) =", (a, b, c), "; a L1 + b L2 + c L3 == X:", a * L1 + b * L2 + c * L3 == X)
+```
+
+*Output:*
+
+```text
+X antisymmetric: True
+coefficients (a, b, c) = (X_32, X_13, X_21) = (7, 2, 5) ; a L1 + b L2 + c L3 == X: True
+```
+:::
+::::
+
+### Spans
+
+Taking all weighted sums of a family at once produces a set, and this set is itself a subspace, the smallest one
+containing the family. The following definition gives it a name; the picture is a line or a plane through the origin
+swept out by the vectors drawn in it.
+
+:::: {.statement-box}
+::: {#def-span}
+#### Span
+
+The **span** of $v_1, \dots, v_k$ is the set of all their linear combinations. It is a subspace, the smallest one
+containing them.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two vectors of $\mathbb{R}^3$ that are not aligned sweep out a plane. The first example records which plane the
+running vectors $v_1$ and $v_2$ generate and observes that adding their sum to the family changes nothing, a first
+hint of the notion of dependence.
+
+::: {#exm-span-plane}
+#### A plane in $\mathbb{R}^3$
+
+The span of $v_1 = (1, 2, 0)$ and $v_2 = (0, 1, 1)$ is a plane through the origin; $v_3 = (1, 3, 1) = v_1 + v_2$
+lies in it, so adding $v_3$ does not enlarge the span (@exr-span-dimension).
+:::
+
+The matrix example of the previous section can now be rephrased: the whole Lie algebra $\mathfrak{so}(3)$ is the span
+of three matrices. This is how a Lie algebra is usually presented, by a finite list of generators whose weighted sums
+exhaust it.
+
+::: {#exm-span-pauli}
+#### Antisymmetric matrices
+
+Every antisymmetric $3 \times 3$ matrix is a linear combination $a L_1 + b L_2 + c L_3$ of the three generators
+$L_a$ of @sec-lie-algebras, so $\mathfrak{so}(3)$ is the span of $L_1, L_2, L_3$.
+:::
+
+For functions the span of finitely many modes is finite-dimensional, while the span of all of them is not. Both cases
+are shown on the circle, and they prepare the count of modes carried out in the section on dimension.
+
+::: {#exm-span-functions}
+#### Fourier modes
+
+The span of $\cos\varphi$ and $\sin\varphi$ in the functions on the circle is the two-dimensional space of first
+Fourier modes $a\cos\varphi + b\sin\varphi$; the span of all $\cos n\varphi$, $\sin n\varphi$ is the
+infinite-dimensional space of finite Fourier series.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Deciding whether a vector lies in a span is again a linear system, now one that may have no solution at all. The
+exercise asks for two such decisions and for the Cartesian equation of the plane, which provides a second,
+coordinate-free way of answering the same question.
+
+::: {#exr-span-membership}
+#### Membership in a span
+
+Decide whether $(2, 5, 1)$ and $(1, 1, 1)$ lie in the span of $v_1 = (1, 2, 0)$ and $v_2 = (0, 1, 1)$, and find
+the equation of the plane they span.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(2, 5, 1) = 2 v_1 + 1 v_2$ lies in the span; $(1, 1, 1) = a v_1 + b v_2$ would need $a = 1$, $2a + b = 1$, $b = 1$,
+which is contradictory. The plane is $x - \tfrac12 y + \tfrac12 z = 0$, that is, $2x - y + z = 0$:
+
+```python
+V = QQ ^ 3
+v1, v2 = vector(QQ, [1, 2, 0]), vector(QQ, [0, 1, 1])
+W = V.span([v1, v2])
+for w in [vector(QQ, [2, 5, 1]), vector(QQ, [1, 1, 1])]:
+    print(w, "in span(v1, v2):", w in W, (" with coordinates " + str(W.coordinates(w))) if w in W else "")
+n = matrix(QQ, [v1, v2]).right_kernel().basis()[0]
+print("the plane span(v1, v2) is the solution set of n . x = 0 with n =", n, "; check n . v1 = n . v2 = 0:", n * v1 == 0 and n * v2 == 0)
+```
+
+*Output:*
+
+```text
+(2, 5, 1) in span(v1, v2): True  with coordinates [2, 5]
+(1, 1, 1) in span(v1, v2): False 
+the plane span(v1, v2) is the solution set of n . x = 0 with n = (1, -1/2, 1/2) ; check n . v1 = n . v2 = 0: True
+```
+:::
+
+The geometric vocabulary of lines and planes through the origin should be matched with the algebraic notion just
+defined. The reader is asked to describe the span of one, two and three vectors of $\mathbb{R}^3$ and to prove that a
+dependent third vector leaves the span unchanged.
+
+::: {#exr-span-line-plane}
+#### Spans of one, two and three vectors
+
+Describe the span of one non-zero vector of $\mathbb{R}^3$, of two vectors neither of which is a multiple of the
+other, and of three vectors one of which is a combination of the other two.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+One vector spans the line through the origin in its direction. Two non-proportional vectors span the plane
+through the origin containing both. If $v_3 = a v_1 + b v_2$, then $\lambda^1 v_1 + \lambda^2 v_2 + \lambda^3 v_3 =
+(\lambda^1 + a\lambda^3) v_1 + (\lambda^2 + b\lambda^3) v_2$, so the span of the three is the same plane as the
+span of the first two.
+:::
+
+Two different families can generate the same subspace, and proving this means expressing each family in terms of the
+other. The polynomial exercise practises this with the shifted powers $(x + 1)^k$ against the plain powers $x^k$, and
+also exhibits a vector that lies outside a span.
+
+::: {#exr-span-polynomials}
+#### Spans of polynomials
+
+Show that $(x + 1)^2$ lies in the span of $1, x, x^2$, that $x^3$ does not, and that the span of $1, x, x^2$ equals
+the span of $1, x + 1, (x + 1)^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(x + 1)^2 = 1 + 2x + x^2$. A combination $a + bx + cx^2$ has degree at most $2$, so $x^3$ is not one. The three
+functions $1, x + 1, (x + 1)^2$ are combinations of $1, x, x^2$, and conversely $x = (x + 1) - 1$ and $x^2 = (x +
+1)^2 - 2(x + 1) + 1$, so each span contains the other's generators and the spans coincide.
+:::
+::::
+
+### Linear independence
+
+A span can be generated by many families, some of them wasteful. The notion defined next singles out the economical
+ones, those in which no vector is a weighted sum of the others, through a single condition on the combinations that
+vanish.
+
+:::: {.statement-box}
+::: {#def-linear-independence}
+#### Linear independence
+
+Vectors $v_1, \dots, v_k$ are **linearly independent** if the only linear combination equal to zero is the one
+with all coefficients zero: $\lambda^i v_i = 0$ implies $\lambda^1 = \dots = \lambda^k = 0$. Otherwise they are
+**linearly dependent**, and one of them is a combination of the others.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The two triples of running vectors of three-dimensional space illustrate both cases. The first triple admits no
+vanishing combination, while the second satisfies $v_1 + v_2 - v_3 = 0$, the very relation that explained why the
+third vector added nothing to the span.
+
+::: {#exm-independent-r3}
+#### In $\mathbb{R}^3$
+
+$(1, 2, 0)$, $(0, 1, 1)$, $(0, 0, 1)$ are independent; $(1, 2, 0)$, $(0, 1, 1)$, $(1, 3, 1)$ are dependent, with
+the relation $v_1 + v_2 - v_3 = 0$ that Sage finds in @exr-span-dimension.
+:::
+
+In the plane, the independence of two vectors is a pair of equations in two unknown coefficients. The second example
+checks it for the pair $f_1, f_2$ on which the figure of the next section is built, and contrasts it with a pair of
+proportional vectors.
+
+::: {#exm-independent-basis-change}
+#### Two vectors in the plane
+
+$f_1 = (2, 1)$ and $f_2 = (1, 2)$ are independent, since $\lambda f_1 + \mu f_2 = (2\lambda + \mu, \lambda + 2\mu)$
+vanishes only for $\lambda = \mu = 0$ (@fig-basis-change): from $2\lambda + \mu = 0$ and $\lambda + 2\mu = 0$,
+$3\lambda = 2(2\lambda + \mu) - (\lambda + 2\mu) = 0$ and likewise $3\mu = 0$. The vectors $(2, 1)$ and $(4, 2)$ are
+dependent, since $2 \cdot (2, 1) - (4, 2) = 0$.
+:::
+
+
+For functions a vanishing combination must vanish at every point, so evaluating at a few well-chosen points is the
+standard route to independence. Dependence, by contrast, is a trigonometric identity, and $\cos^2 + \sin^2 = 1$ is the
+classic one.
+
+::: {#exm-independent-functions}
+#### Functions
+
+$1$, $\cos\varphi$, $\sin\varphi$ are independent functions on the circle (evaluate a vanishing combination at
+$\varphi = 0, \pi/2, \pi$); $\cos^2\varphi$, $\sin^2\varphi$ and $1$ are dependent, since $\cos^2 + \sin^2 - 1 = 0$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The evaluation trick of the last example deserves to be carried out in full. The exercise asks for the three equations
+that force the coefficients of $1$, $\cos\varphi$, $\sin\varphi$ to vanish, and for the explicit relation that makes
+$1$, $\cos^2\varphi$, $\sin^2\varphi$ dependent.
+
+::: {#exr-independence-functions}
+#### Independent functions
+
+Show that $1$, $\cos\varphi$, $\sin\varphi$ are linearly independent functions on the circle and that
+$1$, $\cos^2\varphi$, $\sin^2\varphi$ are not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $a + b\cos\varphi + c\sin\varphi = 0$ for all $\varphi$, evaluating at $\varphi = 0, \pi, \pi/2$ gives
+$a + b = 0$, $a - b = 0$, $a + c = 0$, so $a = b = c = 0$. For the second family, $1 - \cos^2\varphi - \sin^2\varphi
+= 0$ is a vanishing combination with non-zero coefficients.
+:::
+
+When there are as many vectors as coordinates, a single number decides the matter: the determinant of the matrix with
+the vectors as columns. The test is applied to two families in $\mathbb{R}^4$, and Sage is asked for the dependence
+relation in the case where the determinant vanishes.
+
+::: {#exr-independence-determinant}
+#### Independence by a determinant
+
+Use the determinant to decide whether $(1, 0, 1, 0)$, $(0, 1, 0, 1)$, $(1, 1, 0, 0)$, $(0, 0, 1, -1)$ are
+independent in $\mathbb{R}^4$, and whether the family with the last vector replaced by $(0, 0, 1, 1)$ is; find the
+dependence relation when there is one.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$n$ vectors of $\mathbb{R}^n$ are independent exactly when the matrix with these columns has non-zero determinant
+(its kernel is then $\{0\}$). The first family has determinant $2$; the second has determinant $0$ and the relation
+$v_1 + v_2 - v_3 - v_4 = 0$:
+
+```python
+V = QQ ^ 4
+F = [vector(QQ, [1, 0, 1, 0]), vector(QQ, [0, 1, 0, 1]), vector(QQ, [1, 1, 0, 0]), vector(QQ, [0, 0, 1, -1])]
+G = [vector(QQ, [1, 0, 1, 0]), vector(QQ, [0, 1, 0, 1]), vector(QQ, [1, 1, 0, 0]), vector(QQ, [0, 0, 1, 1])]
+for name, fam in [("F", F), ("G", G)]:
+    d = matrix(QQ, fam).transpose().det()
+    print(name + ": determinant", d, "; independent:", V.linear_dependence(fam) == [], "; dependence relations:", V.linear_dependence(fam))
+```
+
+*Output:*
+
+```text
+F: determinant 2 ; independent: True ; dependence relations: [
+
+]
+G: determinant 0 ; independent: False ; dependence relations: [
+(1, 1, -1, -1)
+]
+```
+:::
+
+An independent family can be enlarged by any vector outside its span, and this is the step by which bases are built
+one vector at a time. The exercise asks for the proof, a short argument by contradiction on the coefficient of the new
+vector.
+
+::: {#exr-independence-extend}
+#### Extending an independent family
+
+Prove that if $v_1, \dots, v_k$ are independent and $v$ is not in their span, then $v_1, \dots, v_k, v$ are
+independent.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Suppose $\lambda^i v_i + \mu v = 0$. If $\mu \neq 0$, then $v = -\mu^{-1}\lambda^i v_i$ lies in the span,
+contradicting the hypothesis; so $\mu = 0$, and then $\lambda^i v_i = 0$ forces every $\lambda^i = 0$ by the
+independence of the $v_i$. Repeating the step builds a basis from any independent family, the argument behind
+@def-basis.
+:::
+::::
+
+### Bases
+
+![One vector, two bases: $v = (5, 4)$ has coordinates $(5, 4)$ in the standard basis $e_1, e_2$ (grey grid) and
+$(2, 1)$ in the basis $f_1 = (2, 1)$, $f_2 = (1, 2)$ (blue grid). Generated by `figures/basis_change.sage` with
+Sage's `VectorSpace`.](figures/basis_change.svg){#fig-basis-change width=55%}
+
+{{< interactive basis_change 520 >}}
+
+An independent family that also spans the whole space is the ideal coordinate system: every vector is a weighted sum
+of it in exactly one way. The definition names such families and their coefficients; the figure above shows one vector
+read off two different grids.
+
+:::: {.statement-box}
+::: {#def-basis}
+#### Basis
+
+A **basis** of $V$ is a linearly independent family $e_1, \dots, e_n$ that spans $V$. Every vector is then a
+unique linear combination $v = v^i e_i$, and the numbers $v^i$ are the **coordinates** (or **components**) of $v$
+in the basis.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first instance is the grid of the coordinate axes themselves. Its coordinates are simply the entries of the
+column, which is why this basis is invisible in most computations and why one forgets that a choice was made.
+
+::: {#exm-basis-standard}
+#### The standard basis
+
+$e_1 = (1, 0, \dots, 0), \dots, e_n = (0, \dots, 0, 1)$ is the standard basis of $\mathbb{R}^n$, and the
+coordinates of $(x^1, \dots, x^n)$ are the $x^i$ themselves.
+:::
+
+The second grid of the figure is skewed. The example gives the coordinates of $v = (5, 4)$ in it, which differ from
+its standard entries, and draws the moral that a change of coordinates is nothing but a change of basis.
+
+::: {#exm-basis-f}
+#### A different basis of the plane
+
+$f_1 = (2, 1)$, $f_2 = (1, 2)$ is a basis of $\mathbb{R}^2$, and $v = (5, 4) = 2 f_1 + 1 f_2$ has coordinates
+$(2, 1)$ in it (@fig-basis-change, @prp-coordinates-f). The same vector has different coordinates in different bases;
+this is the whole content of "coordinate transformations". In the interactive figure, hovering a node of the blue
+grid shows both sets of coordinates.
+:::
+
+The generators of $\mathfrak{so}(3)$ and the Fourier modes of order at most one were already seen to span their
+spaces. Adding independence makes them bases, and both return in the dimension counts below.
+
+::: {#exm-basis-so3}
+#### Bases of $\mathfrak{so}(3)$ and of the Fourier modes
+
+$L_1, L_2, L_3$ is a basis of the antisymmetric $3 \times 3$ matrices; $1, \cos\varphi, \sin\varphi$ is a basis of
+the span of the Fourier modes of order at most one.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Checking that three vectors of $\mathbb{R}^3$ form a basis, and then computing coordinates in it, is a determinant
+followed by a linear system. The exercise carries out both steps for a basis $b$ that the section on the dual basis
+will take up again.
+
+::: {#exr-basis-coordinates}
+#### Checking a basis and finding coordinates
+
+Show that $b_1 = (1, 1, 0)$, $b_2 = (0, 1, 1)$, $b_3 = (1, 0, 1)$ is a basis of $\mathbb{R}^3$ and find the
+coordinates of $(2, 3, 4)$ in it.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The matrix with columns $b_j$ has determinant $2 \neq 0$, so the three vectors are independent, and three
+independent vectors in a three-dimensional space span it. The coordinates solve $C\lambda = (2, 3, 4)$, giving
+$(\tfrac12, \tfrac52, \tfrac32)$:
+
+```python
+V = QQ ^ 3
+b = [vector(QQ, [1, 1, 0]), vector(QQ, [0, 1, 1]), vector(QQ, [1, 0, 1])]
+C = matrix(QQ, b).transpose()
+print("determinant of the matrix of columns b1, b2, b3:", C.det(), "; basis of Q^3:", V.span(b) == V and V.linear_dependence(b) == [])
+w = vector(QQ, [2, 3, 4])
+coords = V.span_of_basis(b).coordinates(w)
+print("coordinates of (2, 3, 4):", coords, "; check:", sum(c * v for c, v in zip(coords, b)) == w)
+print("the same from the inverse matrix C^-1 w:", C.inverse() * w)
+```
+
+*Output:*
+
+```text
+determinant of the matrix of columns b1, b2, b3: 2 ; basis of Q^3: True
+coordinates of (2, 3, 4): [1/2, 5/2, 3/2] ; check: True
+the same from the inverse matrix C^-1 w: (1/2, 5/2, 3/2)
+```
+:::
+
+For the matrix example a proof is called for rather than a computation: the three generators span and are independent.
+The argument runs through the three entries above the diagonal of an antisymmetric matrix, which determine it
+completely.
+
+::: {#exr-basis-so3}
+#### The generators form a basis
+
+Prove that $L_1, L_2, L_3$ with $(L_a)_{bc} = -\epsilon_{abc}$ form a basis of the antisymmetric $3 \times 3$
+matrices.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+An antisymmetric matrix is determined by its three entries above the diagonal, $X_{12}, X_{13}, X_{23}$, and
+$a L_1 + b L_2 + c L_3$ has $(X_{12}, X_{13}, X_{23}) = (-c, b, -a)$. Any triple of entries is reached (spanning),
+and the zero triple only by $a = b = c = 0$ (independence); @exr-combination-so3 reads off the coefficients for one
+matrix.
+:::
+
+A basis can be chosen so that the coordinates of a polynomial are its values at chosen points rather than its monomial
+coefficients. The exercise constructs the simplest such basis, for degree one, and reads the coordinates of $3x + 2$
+off its values at $0$ and $1$.
+
+::: {#exr-basis-lagrange}
+#### A basis adapted to evaluation
+
+Show that $\ell_0(x) = 1 - x$ and $\ell_1(x) = x$ form a basis of the polynomials of degree at most $1$, and find
+the coordinates of $p(x) = 3x + 2$ in it.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$a\ell_0 + b\ell_1 = a + (b - a)x$ vanishes only if $a = 0$ and $b = a = 0$, and $c + dx = c\,\ell_0 + (c + d)\ell_1$
+shows spanning. Since $\ell_0(0) = 1, \ell_0(1) = 0$ and $\ell_1(0) = 0, \ell_1(1) = 1$, the coordinates of $p$ are
+its values $(p(0), p(1)) = (2, 5)$: $3x + 2 = 2(1 - x) + 5x$. Bases adapted to evaluation are the Lagrange bases of
+interpolation.
+:::
+::::
+
+### Dimension
+
+The number of vectors in a basis does not depend on which basis is chosen, and this number is the first invariant of a
+vector space. The definition records it; the picture is the number of independent directions available in the space.
+
+:::: {.statement-box}
+::: {#def-dimension}
+#### Dimension
+
+All bases of $V$ have the same number of elements, the **dimension** $\dim V$. A vector space with a finite basis
+is **finite-dimensional**.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+$\mathbb{R}^n$ and the spaces of matrices are the first dimensions to know by heart. The example lists them, including
+the count $n(n-1)/2$ for antisymmetric matrices, which is the dimension of the Lie algebra of the rotation group.
+
+::: {#exm-dimension-rn}
+#### Coordinate spaces
+
+$\dim \mathbb{R}^n = n$ (@prp-dimensions); the $n \times n$ matrices have dimension $n^2$ and the antisymmetric
+ones $n(n-1)/2$, which is $3$ for $n = 3$ and $6$ for $n = 4$.
+:::
+
+A span's dimension is not the number of generators but the number of independent ones among them. The example returns
+to the dependent triple of $\mathbb{R}^3$, whose span is only a plane.
+
+::: {#exm-dimension-span}
+#### Dimension of a span
+
+The span of $(1, 2, 0)$, $(0, 1, 1)$, $(1, 3, 1)$ has dimension $2$, not $3$, because of the dependence relation
+(@exr-span-dimension); the dimension of a span is the number of independent vectors among the generators.
+:::
+
+The third example collects several counts that come back throughout the lectures. Tangent spaces, the Lie algebra of
+$SO(n)$ and the space of symmetric $4 \times 4$ matrices, where a spacetime metric at a point lives, all have counts
+the reader should recognise on sight.
+
+::: {#exm-dimension-tangent}
+#### Dimensions that recur
+
+The tangent space of an $n$-dimensional manifold has dimension $n$ (@sec-tangent-vectors); the Lie algebra of $SO(n)$
+has dimension $n(n-1)/2$; the space of symmetric $4 \times 4$ matrices, where a metric at a point lives, has
+dimension $10$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Sage's `VectorSpace` computes dimensions, dependence relations and coordinates in one go. The exercise gathers the
+three questions asked so far about the running vectors of $\mathbb{R}^3$ into one script, and the dependence
+relation it finds is the one already met in the examples.
+
+::: {#exr-span-dimension}
+#### Span and dimension
+
+With Sage's `VectorSpace`, find the dimension of the span of $(1, 2, 0)$, $(0, 1, 1)$, $(1, 3, 1)$ in
+$\mathbb{Q}^3$, the dependence relation among them, and the coordinates of $(2, 5, 1)$ in the basis $(1, 2, 0)$,
+$(0, 1, 1)$, $(0, 0, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The span is a plane (dimension $2$) because $v_3 = v_1 + v_2$; replacing $v_3$ by $(0, 0, 1)$ gives a basis of
+$\mathbb{Q}^3$, in which $(2, 5, 1) = 2 v_1 + 1 v_2 + 0 v_4$:
+
+```python
+V = QQ ^ 3
+v1, v2, v3, v4 = vector(QQ, [1, 2, 0]), vector(QQ, [0, 1, 1]), vector(QQ, [1, 3, 1]), vector(QQ, [0, 0, 1])
+W = V.span([v1, v2, v3])
+print("span of v1, v2, v3 has dimension", W.dimension(), "(v3 = v1 + v2 is redundant)")
+print("linear dependence among v1, v2, v3:", V.linear_dependence([v1, v2, v3]))
+print("v1, v2, v4 independent:", V.linear_dependence([v1, v2, v4]) == [], "; their span is all of QQ^3:", V.span([v1, v2, v4]) == V)
+print("coordinates of (2, 5, 1) in the basis (v1, v2, v4):", V.span_of_basis([v1, v2, v4]).coordinates(vector(QQ, [2, 5, 1])))
+```
+
+*Output:*
+
+```text
+span of v1, v2, v3 has dimension 2 (v3 = v1 + v2 is redundant)
+linear dependence among v1, v2, v3: [
+(1, 1, -1)
+]
+v1, v2, v4 independent: True ; their span is all of QQ^3: True
+coordinates of (2, 5, 1) in the basis (v1, v2, v4): [2, 1, 0]
+```
+:::
+
+Splitting a matrix into symmetric and antisymmetric parts gives two subspaces whose dimensions must add up to $n^2$.
+The exercise asks for both counts and for the reason the sum comes out right, which is a direct-sum decomposition.
+
+::: {#exr-dimension-symmetric}
+#### Symmetric and antisymmetric matrices
+
+Find the dimensions of the symmetric and of the antisymmetric $n \times n$ matrices and check that they add up to
+$n^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A symmetric matrix is determined by its entries on and above the diagonal, $n + (n^2 - n)/2 = n(n + 1)/2$ of
+them; an antisymmetric one by the entries strictly above the diagonal, $n(n - 1)/2$ of them. The sum is $n^2$, as
+it must be: every matrix is uniquely $\tfrac12(A + A^{\mathsf{T}}) + \tfrac12(A - A^{\mathsf{T}})$, so the space of
+all matrices is the direct sum of the two subspaces (@exr-symmetric-tensors-dim computes the counts for small $n$).
+:::
+
+Counting the trigonometric modes up to a fixed order gives the dimension of a space of trigonometric polynomials. The
+exercise contrasts the count $2N + 1$ for sines and cosines with the count for powers of a cosine, which generate only
+the even modes.
+
+::: {#exr-dimension-fourier}
+#### Fourier modes of bounded order
+
+Find the dimension of the span of $1, \cos\varphi, \sin\varphi, \dots, \cos N\varphi, \sin N\varphi$, and of the
+span of $\cos^k\varphi$ for $k = 0, \dots, N$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The $2N + 1$ modes are independent (a vanishing combination has zero Fourier coefficients, by integrating against
+each mode as in @exr-functional-integration), so the dimension is $2N + 1$. The powers $\cos^k\varphi$, $k \leq N$,
+are also independent (a vanishing polynomial in $\cos\varphi$ of degree $\leq N$ has infinitely many roots), so
+that span has dimension $N + 1$; it is the subspace of even modes $1, \cos\varphi, \dots, \cos N\varphi$.
+:::
+::::
+
+### Dimensions and coordinates
+
+The two simplest dimension counts are those of the coordinate space and of the square matrices. The proposition
+records them for size three, where every later example of this chapter lives.
+
+:::: {.statement-box}
+::: {#prp-dimensions}
+#### Dimensions
+
+$\dim \mathbb{R}^3 = 3$ and the $3 \times 3$ real matrices have dimension $9$.
+:::
+::::
+
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first count is an instance of a general fact about functions on a finite set. A column of $n$ numbers is a
+function on $\{1, \dots, n\}$, and the functions that are $1$ at one point and $0$ elsewhere form a basis.
+
+::: {#exm-dim-lean-pi}
+#### Functions on a finite set
+
+The real functions on a finite set $X$ form a vector space of dimension $|X|$: the functions $\delta_x$, equal to
+$1$ at $x$ and $0$ elsewhere, form a basis, since $f = \sum_x f(x)\, \delta_x$. For $X = \{1, 2, 3\}$ this is
+$\dim \mathbb{R}^3 = 3$; the functions on a five-element set form a five-dimensional space.
+:::
+
+The second count works the same way once a matrix is seen as a function of two indices. The example spells out the
+product of the two index ranges, the first time in this chapter that a dimension is seen to multiply.
+
+::: {#exm-dim-lean-matrix}
+#### Matrices as functions of two indices
+
+A $3 \times 3$ matrix is a function of a row index and a column index, so the matrices are the functions on the
+$3 \cdot 3 = 9$ index pairs and have dimension $9$; the $2 \times 3$ matrices have dimension $2 \cdot 3 = 6$. The
+dimension of a space of matrices is the product of the index ranges.
+:::
+
+A single linear condition on a space of matrices lowers its dimension by one. The trace is such a condition, and
+the matrices it annihilates form the Lie algebra of the special linear group.
+
+::: {#exm-dim-sage}
+#### Traceless matrices
+
+The trace $A \mapsto A_{11} + A_{22} + A_{33}$ is a non-zero linear functional on the $3 \times 3$ matrices, so its
+kernel, the traceless matrices, has dimension $9 - 1 = 8$ by rank-nullity (@def-linear-map).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The product formula for matrices applies to other shapes and other fields of scalars. The exercise asks for three
+counts, and the last two show that the dimension of a complex space depends on whether one counts over $\mathbb{R}$
+or over $\mathbb{C}$.
+
+::: {#exr-dim-matrix-lean}
+#### Dimensions over $\mathbb{R}$ and over $\mathbb{C}$
+
+Find the dimension of the $2 \times 3$ real matrices, of the $2 \times 2$ complex matrices as a complex vector space,
+and of the same matrices as a real vector space.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$2 \cdot 3 \cdot \dim_{\mathbb{R}} \mathbb{R} = 6$, and $2 \cdot 2 \cdot \dim_{\mathbb{C}} \mathbb{C} = 4$. As a
+real vector space the complex $2 \times 2$ matrices have dimension $8$, since $\dim_{\mathbb{R}} \mathbb{C} = 2$:
+the dimension depends on the field of scalars.
+:::
+
+A plane through the origin has dimension two, but a basis of it still has to be found, and more than one choice is
+possible. The exercise asks for two different bases of the plane $x + y + z = 0$ and compares them with the
+echelonised basis that Sage returns.
+
+::: {#exr-dim-plane}
+#### Dimension of a plane
+
+Find the dimension of the plane $x + y + z = 0$ in $\mathbb{R}^3$ and two different bases of it.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The plane is the kernel of the row $(1, 1, 1)$; two independent solutions, such as $(1, -1, 0)$ and $(0, 1, -1)$,
+span it, so its dimension is $2$. Sage's echelonised basis is another:
+
+```python
+P = matrix(QQ, [[1, 1, 1]]).right_kernel()
+print("the plane x + y + z = 0:", P)
+print("dimension:", P.dimension())
+alt = [vector(QQ, [1, -1, 0]), vector(QQ, [0, 1, -1])]
+print("(1, -1, 0), (0, 1, -1) lie in the plane and span it:", all(v in P for v in alt) and P.span(alt) == P)
+```
+
+*Output:*
+
+```text
+the plane x + y + z = 0: Vector space of degree 3 and dimension 2 over Rational Field
+Basis matrix:
+[ 1  0 -1]
+[ 0  1 -1]
+dimension: 2
+(1, -1, 0), (0, 1, -1) lie in the plane and span it: True
+```
+:::
+
+For two subspaces, the dimensions of their sum and of their intersection are tied together by a formula. The exercise
+verifies it for two planes in $\mathbb{R}^3$, which meet in a line and together fill the whole space.
+
+::: {#exr-dim-sum-intersection}
+#### Dimension of a sum and an intersection
+
+For two planes $U, W$ through the origin in $\mathbb{R}^3$, verify $\dim(U + W) = \dim U + \dim W - \dim(U \cap W)$
+with $U = \{z = 0\}$ and $W = \operatorname{span}\{(1, 2, 0), (0, 1, 1)\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Two distinct planes through the origin meet in a line and together span the space: $3 = 2 + 2 - 1$. The
+intersection is the line through $(1, 2, 0)$, the only direction of $W$ with $z = 0$:
+
+```python
+V = QQ ^ 3
+U = V.span([vector(QQ, [1, 0, 0]), vector(QQ, [0, 1, 0])])      # the plane z = 0
+W = V.span([vector(QQ, [1, 2, 0]), vector(QQ, [0, 1, 1])])      # the plane of the span example
+I = U.intersection(W); S = U + W
+print("dim U =", U.dimension(), ", dim W =", W.dimension(), ", dim(U cap W) =", I.dimension(), ", dim(U + W) =", S.dimension())
+print("U cap W is the line spanned by", I.basis()[0], "; dim(U + W) = dim U + dim W - dim(U cap W):", S.dimension() == U.dimension() + W.dimension() - I.dimension())
+```
+
+*Output:*
+
+```text
+dim U = 2 , dim W = 2 , dim(U cap W) = 1 , dim(U + W) = 3
+U cap W is the line spanned by (1, 2, 0) ; dim(U + W) = dim U + dim W - dim(U cap W): True
+```
+:::
+::::
+
+The coordinates of $(5, 4)$ in the basis $f$ were read off the figure; the second proposition records them. They are
+the solution of a linear system with two unknowns, and the examples that follow find it in three different ways.
+
+:::: {.statement-box}
+::: {#prp-coordinates-f}
+#### Coordinates in the basis $f$
+
+$(5, 4) = 2 f_1 + 1 f_2$ for $f_1 = (2, 1)$, $f_2 = (1, 2)$: the coordinates of $(5, 4)$ in the basis $f$ are
+$(2, 1)$.
+:::
+::::
+
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The two coordinates solve a pair of linear equations, and doing it by hand is the most direct route. One
+elimination step recovers $a = 2$ and $b = 1$.
+
+::: {#exm-coords-system}
+#### Solving the system by hand
+
+$a f_1 + b f_2 = (5, 4)$ means $2a + b = 5$ and $a + 2b = 4$; subtracting twice the second from the first gives
+$-3b = -3$, so $b = 1$ and $a = 2$.
+:::
+
+A solution found by any method can be checked by substituting it back, and the determinant of the system decides
+whether it is the only one. The second example does both for the coordinates of $(5, 4)$.
+
+::: {#exm-coords-witness}
+#### Checking the coordinates
+
+Substituting $a = 2$, $b = 1$ gives $2 \cdot 2 + 1 = 5$ and $2 + 2 \cdot 1 = 4$, so $2 f_1 + f_2 = (5, 4)$. The
+solution is unique because the matrix of the system, with columns $f_1, f_2$, has determinant $2 \cdot 2 - 1 \cdot 1
+= 3 \neq 0$.
+:::
+
+The third reading of the same coordinates is geometric. Counting blue grid lines from the origin to the tip of $v$ in
+@fig-basis-change gives $(2, 1)$, which is exactly what coordinates in a basis mean.
+
+::: {#exm-coords-picture}
+#### Counting grid lines
+
+In @fig-basis-change the tip of $v$ sits two blue lines along $f_1$ and one along $f_2$ from the origin; the
+coordinates are read off the grid of the basis, exactly as $(5, 4)$ is read off the grey grid.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Other vectors in the same skewed basis have other coordinates, found either by the same system or by one matrix
+inverse. The exercise asks for two of them and introduces the formula $F^{-1} v$ in Sage.
+
+::: {#exr-coords-f-other}
+#### Other vectors in the same basis
+
+Find the coordinates of $(1, 5)$ and of $(-1, 1)$ in the basis $f$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(1, 5) = -f_1 + 3 f_2$ and $(-1, 1) = -f_1 + f_2$; in general the coordinates are $F^{-1} v$ with $F$ the matrix
+of columns $f_1, f_2$:
+
+```python
+f1, f2 = vector(QQ, [2, 1]), vector(QQ, [1, 2])
+F = matrix(QQ, [f1, f2]).transpose()
+for v in [vector(QQ, [1, 5]), vector(QQ, [-1, 1]), vector(QQ, [5, 4])]:
+    c = F.inverse() * v
+    print("v =", v, ": coordinates", c, "; check", c[0] * f1 + c[1] * f2 == v)
+```
+
+*Output:*
+
+```text
+v = (1, 5) : coordinates (-1, 3) ; check True
+v = (-1, 1) : coordinates (-1, 1) ; check True
+v = (5, 4) : coordinates (2, 1) ; check True
+```
+:::
+
+The inverse-matrix formula for coordinates deserves both a proof and a worked instance. The exercise asks for both,
+and the inverse for the basis $f$ turns out to carry the dual basis of the next section in its rows.
+
+::: {#exr-coords-inverse-matrix}
+#### Coordinates by the inverse matrix
+
+Show that the coordinates of $v$ in a basis $f_1, \dots, f_n$ of $\mathbb{R}^n$ are $F^{-1} v$, where $F$ is the
+matrix with columns $f_j$, and compute $F^{-1}$ for $f = ((2, 1), (1, 2))$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$v = \lambda^j f_j$ is the matrix product $v = F\lambda$, and $F$ is invertible because its columns are
+independent, so $\lambda = F^{-1} v$. For $F = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, $\det F = 3$ and
+$F^{-1} = \tfrac13 \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$, whose rows are the dual basis of
+@exm-dual-f; $F^{-1}(5, 4) = (2, 1)$.
+:::
+
+With two non-standard bases in play one needs the matrix that converts coordinates from one to the other. The exercise
+derives it as the product of one inverse and one basis matrix and tests it on the vector $(5, 4)$.
+
+::: {#exr-change-of-basis}
+#### The change-of-basis matrix
+
+With $g_1 = (1, 1)$, $g_2 = (1, -1)$, find the matrix $M$ that converts $f$-coordinates into $g$-coordinates and
+check it on $(5, 4)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$v = F\lambda_f = G\lambda_g$ gives $\lambda_g = G^{-1} F \lambda_f$, so $M = G^{-1} F$, whose columns are the
+$g$-coordinates of $f_1$ and $f_2$; for $(5, 4)$, $\lambda_f = (2, 1)$ and $\lambda_g = (\tfrac92, \tfrac12)$:
+
+```python
+F = matrix(QQ, [[2, 1], [1, 2]]).transpose(); G = matrix(QQ, [[1, 1], [1, -1]]).transpose()
+M = G.inverse() * F
+print("M = G^-1 F =", M.rows(), "; its columns are the g-coordinates of f1, f2")
+v = vector(QQ, [5, 4])
+cf, cg = F.inverse() * v, G.inverse() * v
+print("coordinates of (5, 4): in f", cf, ", in g", cg, "; M cf == cg:", M * cf == cg)
+```
+
+*Output:*
+
+```text
+M = G^-1 F = [(3/2, 3/2), (1/2, -1/2)] ; its columns are the g-coordinates of f1, f2
+coordinates of (5, 4): in f (2, 1) , in g (9/2, 1/2) ; M cf == cg: True
+```
+:::
+::::
+
+## Linear maps and dual spaces {#sec-linear-maps-dual}
+
+A linear map is a map between vector spaces that respects addition and scaling; its matrix is the array of
+numbers that every computation in these lectures manipulates. The linear maps to the real numbers, the covectors,
+form the dual space, and the dual basis turns coordinates into functionals. Four definitions and two propositions,
+on a kernel vector and on the dual basis of $f$.
+
+For more on this topic, see @axler2024linear [Ch. 3] and @scott2023problems [Ch. 2].
+
+### Linear maps
+
+A map between vector spaces is useful only if it respects the two operations, and the maps that do are the subject of
+this section. The definition also names the kernel and the image, states the rank-nullity count that ties them to the
+dimension, and explains how a matrix arises once bases are fixed.
+
+:::: {.statement-box}
+::: {#def-linear-map}
+#### Linear map
+
+A map $L : V \to W$ between vector spaces is **linear** if $L(v + w) = L(v) + L(w)$ and $L(\lambda v) = \lambda
+L(v)$. Its **kernel** $\ker L = \{v : L(v) = 0\}$ and **image** $L(V)$ are subspaces, and $\dim \ker L + \dim L(V)
+= \dim V$ (**rank-nullity**). In bases $e_j$ of $V$ and $f_i$ of $W$, $L(e_j) = L^i{}_j f_i$ defines the **matrix**
+$L^i{}_j$ of $L$, and $L(v)^i = L^i{}_j v^j$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A rectangular matrix defines a linear map from one coordinate space to another, and in the simplest non-trivial case
+its kernel is a plane and its image a line. The example introduces the $2 \times 3$ matrix $A$ whose kernel returns
+in the propositions at the end of the section.
+
+::: {#exm-linear-matrix}
+#### A matrix map
+
+$A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$ defines $x \mapsto Ax$ from $\mathbb{R}^3$ to
+$\mathbb{R}^2$; its image is the line spanned by $(1, 2)$ (rank $1$) and its kernel is a plane (nullity $2$),
+containing $(1, 1, -1)$ (@prp-kernel-vector, @exr-kernel-image).
+:::
+
+Rotations and the derivative are linear maps of a different flavour: one is a bijection of $\mathbb{R}^3$, the other
+lowers the degree of polynomials and annihilates the constants. The example records the kernel of each and the rank of
+the derivative.
+
+::: {#exm-linear-rotation}
+#### Rotations and derivatives
+
+A rotation $R \in SO(3)$ is a linear bijection of $\mathbb{R}^3$ with kernel $\{0\}$. The derivative $f \mapsto f'$
+is a linear map of the polynomials of degree at most $2$ to those of degree at most $1$, with kernel the constants
+and rank $2$ (@exr-matrix-of-derivative).
+:::
+
+To see what linearity excludes, a few familiar maps that are not linear are listed. Translations, squares and the
+parametrisation of a circle all fail, and the example closes with the consequence that makes linear maps tractable:
+their values on a basis determine them.
+
+::: {#exm-linear-not}
+#### Non-linear maps
+
+$x \mapsto x + 1$ is not linear ($L(0) \neq 0$), nor is $x \mapsto x^2$; the parametrisation $\varphi \mapsto
+(\cos\varphi, \sin\varphi)$ of the circle is not linear either. Linearity is a strong condition: a linear map is
+determined by its values on a basis.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Testing linearity means checking additivity and homogeneity, or finding a single input that breaks one of them. Four
+maps are presented, two on the plane and two on functions, and the reader should name the specific counterexample for
+each one that fails.
+
+::: {#exr-linear-check}
+#### Which maps are linear?
+
+Decide which of the following maps are linear: $(x, y) \mapsto (x + y, xy)$; $(x, y) \mapsto (2x - y, 0)$;
+$f \mapsto \int_0^1 f(x)\,dx$ on polynomials; $f \mapsto f^2$ on functions.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The second and third are linear: $2(x + x') - (y + y') = (2x - y) + (2x' - y')$, and the integral of a sum is the
+sum of the integrals. The first is not, because of the product $xy$: $L(2(1, 1)) = (4, 4) \neq 2L(1, 1) = (4, 2)$.
+The fourth is not: $(f + g)^2 \neq f^2 + g^2$ in general.
+:::
+
+The kernel and the image of the running matrix $A$ can be computed completely. The exercise asks for them, for the
+rank and the nullity, and for the rank-nullity check, with Sage computing each part.
+
+::: {#exr-kernel-image}
+#### Kernel and image
+
+Compute the kernel, the image, the rank and the nullity of $A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6
+\end{pmatrix}$ and check rank-nullity.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The rows are proportional, so the rank is $1$ and the image is the line through $(1, 2)$; the kernel is the plane
+$x + 2y + 3z = 0$ of dimension $2$, and $1 + 2 = 3$. In Sage:
+
+```python
+A = matrix(QQ, [[1, 2, 3], [2, 4, 6]])
+print("A =", A.rows())
+print("kernel (solutions of A x = 0):", A.right_kernel())
+print("image (column space):", A.column_space())
+print("rank + nullity =", A.rank(), "+", A.right_nullity(), "=", A.rank() + A.right_nullity(), "= number of columns", A.ncols())
+print("A (1, 1, -1) =", A * vector(QQ, [1, 1, -1]))
+```
+
+*Output:*
+
+```text
+A = [(1, 2, 3), (2, 4, 6)]
+kernel (solutions of A x = 0): Vector space of degree 3 and dimension 2 over Rational Field
+Basis matrix:
+[   1    0 -1/3]
+[   0    1 -2/3]
+image (column space): Vector space of degree 2 and dimension 1 over Rational Field
+Basis matrix:
+[1 2]
+rank + nullity = 1 + 2 = 3 = number of columns 3
+A (1, 1, -1) = (0, 0)
+```
+
+:::
+
+
+A linear map between function spaces acquires a matrix once bases are chosen, and the derivative on quadratics is the
+smallest interesting case. The exercise asks for its $2 \times 3$ matrix and reads kernel and rank off the columns.
+
+::: {#exr-matrix-of-derivative}
+#### The matrix of the derivative
+
+Write the matrix of $f \mapsto f'$ from the polynomials of degree $\leq 2$ to those of degree $\leq 1$ in the
+bases $1, x, x^2$ and $1, x$, and read off its kernel and rank.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$1 \mapsto 0$, $x \mapsto 1$, $x^2 \mapsto 2x$, so the columns are $(0, 0)$, $(1, 0)$, $(0, 2)$ and the matrix is
+$\begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 2 \end{pmatrix}$. Its rank is $2$ (the map is surjective) and its kernel
+is the span of the first basis vector, the constants, of dimension $3 - 2 = 1$.
+
+:::
+::::
+
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Matrices of linear maps can be multiplied and diagonalised by a computer algebra system. The example below uses
+SageMath [@sagemath] to compose a map $\mathbb{R}^3 \to \mathbb{R}^2$ with a map $\mathbb{R}^2 \to \mathbb{R}^3$,
+and to find the eigenvalues and eigenvectors of a diagonal matrix.
+
+::: {#exm-sage-matrices}
+#### Matrix products and eigenvectors in SageMath
+
+The product of a $3 \times 2$ and a $2 \times 3$ matrix is $3 \times 3$. For $C = \operatorname{diag}(1, 2)$ the eigenvectors are the standard basis vectors, and each satisfies $Cv = \lambda v$.
+
+```python
+A = Matrix([[1, 2], [3, 4], [5, 6]])
+print(A)
+# Define matrix B
+B = Matrix([[7, 8, 9], [9, 10, 11]])
+print(B)
+# Matrix multiplication
+print(A * B)
+# Define matrix C
+C = Matrix([[1, 0], [0, 2]])
+print(C)
+# Eigenvalue equation
+print(C.eigenvectors_right())
+# Validation of eigenvalue equation
+for eigenvalue, (eigenvector, *_), _ in C.eigenvectors_right():
+    print(eigenvector, eigenvalue, C * eigenvector == eigenvalue * eigenvector)
+```
+
+*Output:*
+
+```text
+[1 2]
+[3 4]
+[5 6]
+[ 7  8  9]
+[ 9 10 11]
+[ 25  28  31]
+[ 57  64  71]
+[ 89 100 111]
+[1 0]
+[0 2]
+[(2, [
+(0, 1)
+], 1), (1, [
+(1, 0)
+], 1)]
+(0, 1) 2 True
+(1, 0) 1 True
+```
+:::
+::::
+
+
+### Linear functionals
+
+![Level lines of the linear functional $\alpha = 2x + y$ on $\mathbb{R}^2$: the black line is the kernel, and
+$\alpha(v)$ counts the level lines a vector crosses. Generated by
+`figures/level_sets.sage`.](figures/level_sets.svg){#fig-level-sets width=50%}
+
+The simplest target for a linear map is the real line itself, and linear maps into it are important enough to deserve
+their own name. The figure above shows one on the plane: its level lines are parallel, and its kernel is the one line
+among them that passes through the origin.
+
+:::: {.statement-box}
+::: {#def-linear-functional}
+#### Linear functional
+
+A **linear functional** (or **covector**) on $V$ is a linear map $\alpha : V \to \mathbb{R}$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The functional of the figure, $2x + y$, and the maps $v \mapsto v^i$ that return a coordinate are the first instances.
+The example reads kernel and level sets off the picture and observes that each coordinate of a vector is itself a
+linear functional.
+
+::: {#exm-functional-coordinate}
+#### Coordinate functionals
+
+$(x, y) \mapsto 2x + y$ is a linear functional on $\mathbb{R}^2$ (@fig-level-sets); its level sets are parallel
+lines and its kernel is the line $y = -2x$. The $i$-th coordinate $v \mapsto v^i$ is a linear functional on
+$\mathbb{R}^n$.
+:::
+
+Every linear functional on $\mathbb{R}^n$ is given by a row of numbers, and evaluating it is a row-times-column
+product. The example fixes the convention used from here on: columns are vectors, rows are covectors.
+
+::: {#exm-functional-row}
+#### Row vectors
+
+Every linear functional on $\mathbb{R}^n$ is $v \mapsto a_i v^i$ for a unique row $(a_1, \dots, a_n)$: columns are
+vectors, rows are covectors. The pairing $a_i v^i$ is the matrix product of a row with a column.
+:::
+
+On function spaces the natural functionals are evaluation at a point and integration over the domain. The example
+records both and points ahead to the differential of a function, the functional on tangent vectors that @sec-one-forms
+studies.
+
+::: {#exm-functional-evaluation}
+#### Evaluation and integration
+
+On the functions on the circle, $f \mapsto f(0)$ and $f \mapsto \int_0^{2\pi} f(\varphi)\, d\varphi$ are linear
+functionals; the differential $df_p$ of a function at a point is a linear functional on the tangent space
+(@sec-one-forms).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The level-set picture of the figure extends to three dimensions, where the kernel of a functional is a plane and the
+level sets are parallel planes. The exercise asks for them and for the dimension of the kernel, obtained by
+rank-nullity.
+
+::: {#exr-functional-kernel}
+#### Kernel and level sets of a functional
+
+For $\alpha(x, y, z) = 3x - y + 2z$ on $\mathbb{R}^3$, describe the kernel and the level sets $\alpha = c$, and
+find the dimension of the kernel.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The kernel is the plane $3x - y + 2z = 0$ through the origin, of dimension $3 - 1 = 2$ by rank-nullity (the image
+of a non-zero functional is all of $\mathbb{R}$, rank $1$). The level sets are the parallel planes $3x - y + 2z =
+c$, translates of the kernel; the row $(3, -1, 2)$ is normal to all of them.
+:::
+
+The claim that rows exhaust the functionals on $\mathbb{R}^n$ was only asserted; the exercise asks for the proof. The
+argument sets $a_i = \alpha(e_i)$ and uses linearity, and the uniqueness part shows that a functional is determined by
+its values on a basis.
+
+::: {#exr-functional-rows}
+#### Every functional is a row
+
+Prove that every linear functional $\alpha$ on $\mathbb{R}^n$ is of the form $v \mapsto a_i v^i$, and that the row
+$(a_i)$ is unique.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Set $a_i = \alpha(e_i)$. By linearity, $\alpha(v) = \alpha(v^i e_i) = v^i \alpha(e_i) = a_i v^i$. If also $\alpha(v)
+= b_i v^i$ for all $v$, then evaluating at $v = e_j$ gives $a_j = b_j$. A linear functional is therefore determined
+by its $n$ values on a basis, like any linear map.
+:::
+
+Integration over the circle is a functional on the Fourier modes, and its row is particularly simple. The exercise
+evaluates it on a few modes, checks linearity, and finds that every non-constant mode lies in its kernel, the fact
+behind the orthogonality of Fourier modes.
+
+::: {#exr-functional-integration}
+#### The integral as a functional
+
+Compute the functional $I(f) = \int_0^{2\pi} f(\varphi)\, d\varphi$ on $1$, $\cos\varphi$, $\sin 2\varphi$ and
+$\cos^2\varphi$, check its linearity on two combinations, and write its row on the basis $1, \cos\varphi,
+\sin\varphi$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$I(1) = 2\pi$, $I(\cos\varphi) = I(\sin 2\varphi) = 0$, $I(\cos^2\varphi) = \pi$; its row on $(1, \cos\varphi,
+\sin\varphi)$ is $(2\pi, 0, 0)$, so its kernel contains every non-constant mode:
+
+```python
+phi = var("phi")
+I = lambda f: integrate(f, phi, 0, 2 * pi)
+print("I(1) =", I(1), "; I(cos phi) =", I(cos(phi)), "; I(sin 2phi) =", I(sin(2 * phi)), "; I(cos^2 phi) =", I(cos(phi) ^ 2))
+f, g = 3 + 2 * cos(phi), 1 - sin(2 * phi)
+print("linearity: I(f + g) = I(f) + I(g):", bool(I(f + g) == I(f) + I(g)), "; I(5 f) = 5 I(f):", bool(I(5 * f) == 5 * I(f)))
+print("row of I on the basis (1, cos phi, sin phi):", [I(b) for b in [1, cos(phi), sin(phi)]])
+```
+
+*Output:*
+
+```text
+I(1) = 2*pi ; I(cos phi) = 0 ; I(sin 2phi) = 0 ; I(cos^2 phi) = pi
+linearity: I(f + g) = I(f) + I(g): True ; I(5 f) = 5 I(f): True
+row of I on the basis (1, cos phi, sin phi): [2*pi, 0, 0]
+```
+:::
+::::
+
+### The dual space
+
+The linear functionals on $V$ can themselves be added and rescaled, so they form a vector space of their own. The
+definition names this space and records that it has the same dimension as $V$; the picture is the rows standing beside
+the columns.
+
+:::: {.statement-box}
+::: {#def-dual-space}
+#### Dual space
+
+The **dual space** $V^*$ is the vector space of all linear functionals on $V$, with $(\alpha + \beta)(v) = \alpha(v) +
+\beta(v)$ and $(\lambda\alpha)(v) = \lambda\,\alpha(v)$; $\dim V^* = \dim V$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For coordinate space the dual is the space of rows. The example stresses that although rows and columns have the same
+dimension they are different kinds of object, which is what the position of an index will keep track of.
+
+::: {#exm-dual-space-rows}
+#### Rows
+
+The dual of $\mathbb{R}^n$ (columns) is the space of rows $(a_1, \dots, a_n)$, acting by $a_i v^i$; it has
+dimension $n$, like $\mathbb{R}^n$ itself, but a row and a column are different kinds of object.
+:::
+
+On a manifold the dual of each tangent space is the cotangent space, the home of differentials. The example makes the
+connection now so that the one-forms of @sec-one-forms are recognised as covectors when they appear.
+
+::: {#exm-dual-space-cotangent}
+#### Cotangent spaces
+
+The dual of the tangent space $T_pM$ of a manifold is the **cotangent space** $T_p^*M$, where differentials of
+functions and components of one-forms live (@sec-one-forms).
+:::
+
+Taking the dual twice brings one back to the original space, at least in finite dimension. The example explains how a
+vector acts on covectors, which is the reason vectors and covectors enter the tensor calculus on an equal footing.
+
+::: {#exm-dual-space-dual-dual}
+#### The double dual
+
+The dual of $V^*$ is $V$ again for finite-dimensional $V$: a vector $v$ acts on covectors by $\alpha \mapsto
+\alpha(v)$, and every linear functional on $V^*$ is of this form. This is why vectors and covectors are treated
+symmetrically in the tensor calculus of @sec-tensor-products.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The operations in the dual space are the operations on rows, and this is best seen on numbers. The exercise evaluates
+sums and multiples of two functionals on a fixed vector and checks that the coordinate functionals span the dual.
+
+::: {#exr-dual-rows}
+#### Operations on functionals
+
+For $\alpha = (2, 1, 0)$ and $\beta = (1, -1, 3)$ as rows on $\mathbb{R}^3$, compute $\alpha(v)$, $\beta(v)$,
+$(\alpha + \beta)(v)$ and $(4\alpha)(v)$ for $v = (1, 2, 3)$, and check that the coordinate functionals span the
+dual.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\alpha(v) = 4$, $\beta(v) = 8$, $(\alpha + \beta)(v) = 12$, $(4\alpha)(v) = 16$: the sum and the multiple of
+functionals are the sum and the multiple of their rows. $\alpha = 2e^1 + e^2$ is a combination of the coordinate
+functionals, which span the row space:
+
+```python
+alpha, beta = vector(QQ, [2, 1, 0]), vector(QQ, [1, -1, 3])
+v = vector(QQ, [1, 2, 3])
+print("alpha(v) =", alpha * v, ", beta(v) =", beta * v, ", (alpha + beta)(v) =", (alpha + beta) * v, ", (4 alpha)(v) =", (4 * alpha) * v)
+print("alpha + beta as a row:", alpha + beta, "; 4 alpha:", 4 * alpha)
+e = identity_matrix(QQ, 3).rows()
+print("alpha = 2 e^1 + 1 e^2 + 0 e^3:", alpha == 2 * e[0] + 1 * e[1] + 0 * e[2], "; the coordinate functionals span the dual (Q^3)*:", (QQ ^ 3).span(e) == QQ ^ 3)
+```
+
+*Output:*
+
+```text
+alpha(v) = 4 , beta(v) = 8 , (alpha + beta)(v) = 12 , (4 alpha)(v) = 16
+alpha + beta as a row: (3, 0, 3) ; 4 alpha: (8, 4, 0)
+alpha = 2 e^1 + 1 e^2 + 0 e^3: True ; the coordinate functionals span the dual (Q^3)*: True
+```
+:::
+
+The claim $\dim V^* = \dim V$ needs a basis of the dual, and constructing one is the content of this exercise. The
+functionals that return coordinates do the job, and the proof is a preview of the dual basis defined in the next
+section.
+
+::: {#exr-dual-dimension}
+#### The dual has the same dimension
+
+Prove that $\dim V^* = \dim V$ for finite-dimensional $V$ by exhibiting a basis of $V^*$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Let $e_1, \dots, e_n$ be a basis and $e^i$ the functionals with $e^i(e_j) = \delta^i_j$ (they exist, since a linear
+map is determined by its values on a basis). They span: $\alpha = \alpha(e_i) e^i$, because both sides agree on
+every $e_j$. They are independent: if $\lambda_i e^i = 0$, evaluating at $e_j$ gives $\lambda_j = 0$. So $V^*$ has a
+basis of $n$ elements; this is the dual basis of @def-dual-basis.
+:::
+
+The identification of $V$ with its double dual is made precise by an explicit map, evaluation. The exercise asks for
+its linearity and injectivity, and rank-nullity then upgrades injectivity to an isomorphism.
+
+::: {#exr-dual-double}
+#### Into the double dual
+
+Show that $v \mapsto \mathrm{ev}_v$, with $\mathrm{ev}_v(\alpha) = \alpha(v)$, is an injective linear map $V \to
+V^{**}$, hence an isomorphism when $\dim V < \infty$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Linearity: $\mathrm{ev}_{v + \lambda w}(\alpha) = \alpha(v) + \lambda\alpha(w)$. Injectivity: if $v \neq 0$, extend
+$v$ to a basis and let $\alpha$ be the dual basis element with $\alpha(v) = 1$; then $\mathrm{ev}_v \neq 0$. Since
+$\dim V^{**} = \dim V^* = \dim V$ by @exr-dual-dimension, an injective linear map between spaces of the same finite
+dimension is bijective (rank-nullity).
+:::
+::::
+
+### The dual basis
+
+A basis of $V$ singles out a basis of $V^*$: the functionals that return the coordinates. The definition states the
+Kronecker-delta property that characterises them and records that every covector expands in this basis with
+coefficients given by its values on the original basis.
+
+:::: {.statement-box}
+::: {#def-dual-basis}
+#### Dual basis
+
+Given a basis $e_1, \dots, e_n$ of $V$, the **dual basis** $e^1, \dots, e^n$ of $V^*$ consists of the functionals
+with $e^i(e_j) = \delta^i_j$ (equal to $1$ if $i = j$ and $0$ otherwise). Then $e^i(v) = v^i$ is the $i$-th
+coordinate of $v$, and $\alpha = \alpha_i e^i$ with $\alpha_i = \alpha(e_i)$ for every covector.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For the standard basis the dual basis consists of the coordinate functionals, and evaluating one of them on a vector
+picks out an entry. The example gives the single evaluation that @prp-dual-basis records.
+
+::: {#exm-dual-standard}
+#### The standard dual basis
+
+For the standard basis of $\mathbb{R}^3$, $e^i$ is the $i$-th coordinate functional, so $e^2(5, 7, 9) = 7$
+(@prp-dual-basis).
+:::
+
+For the skewed basis $f$ the dual basis is less obvious: its elements are the rows of the inverse matrix. The example
+writes them down and shows that applying them to $(5, 4)$ returns the coordinates read off the figure.
+
+::: {#exm-dual-f}
+#### Dual basis of $f_1 = (2, 1)$, $f_2 = (1, 2)$
+
+The dual basis is $f^1 = \tfrac13(2, -1)$, $f^2 = \tfrac13(-1, 2)$ as rows, the rows of the inverse of the matrix
+with columns $f_1, f_2$; $f^1(5, 4) = 2$ and $f^2(5, 4) = 1$ are the coordinates found in @fig-basis-change
+(@exr-dual-basis, @prp-dual-basis).
+:::
+
+On a manifold the differentials $dx^i$ are dual to the coordinate vector fields $\partial_j$. The example records this
+identification, which is the form in which the dual basis appears in every later chapter.
+
+::: {#exm-dual-coordinate-differentials}
+#### Coordinate differentials
+
+On a manifold the dual basis of the coordinate basis $\partial_1, \dots, \partial_n$ of the tangent space is the
+basis $dx^1, \dots, dx^n$ of coordinate differentials, $dx^i(\partial_j) = \delta^i_j$ (@sec-one-forms).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Computing a dual basis by hand means inverting the matrix of the basis. The exercise does this for $f$ and uses the
+result to recover the coordinates of $(5, 4)$ without solving a system.
+
+::: {#exr-dual-basis}
+#### Dual basis of a non-standard basis
+
+Find the dual basis of $f_1 = (2, 1)$, $f_2 = (1, 2)$ and use it to read off the coordinates of $(5, 4)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Write the dual basis vectors as rows $f^1, f^2$; the conditions $f^i(f_j) = \delta^i_j$ say that the matrix with
+rows $f^i$ times the matrix with columns $f_j$ is the identity, so the rows are the rows of the inverse matrix.
+The coordinates are $f^1(v) = 2$, $f^2(v) = 1$, as in @fig-basis-change:
+
+```python
+B = matrix(QQ, [[2, 1], [1, 2]]).transpose()      # columns f1, f2
+D = B.inverse()                                   # rows f^1, f^2
+print("dual basis f^1, f^2 =", D.rows())
+print("f^i(f_j) = delta^i_j:", D * B == identity_matrix(QQ, 2))
+v = vector(QQ, [5, 4])
+print("coordinates of v = (5, 4): f^1(v) =", D.row(0) * v, ", f^2(v) =", D.row(1) * v, " so v = 2 f1 + 1 f2:", 2 * B.column(0) + 1 * B.column(1) == v)
+```
+
+*Output:*
+
+```text
+dual basis f^1, f^2 = [(2/3, -1/3), (-1/3, 2/3)]
+f^i(f_j) = delta^i_j: True
+coordinates of v = (5, 4): f^1(v) = 2 , f^2(v) = 1  so v = 2 f1 + 1 f2: True
+```
+:::
+
+The same computation in three dimensions is a $3 \times 3$ inverse. The exercise returns to the basis $b$ of
+@exr-basis-coordinates and recovers the coordinates found there from the rows of the inverse.
+
+::: {#exr-dual-basis-r3}
+#### A dual basis in three dimensions
+
+Find the dual basis of $b_1 = (1, 1, 0)$, $b_2 = (0, 1, 1)$, $b_3 = (1, 0, 1)$ and use it to recover the coordinates
+of $(2, 3, 4)$ found in @exr-basis-coordinates.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The rows of the inverse of the matrix with columns $b_j$ are $b^1 = \tfrac12(1, 1, -1)$, $b^2 = \tfrac12(-1, 1, 1)$,
+$b^3 = \tfrac12(1, -1, 1)$, and $(b^1(w), b^2(w), b^3(w)) = (\tfrac12, \tfrac52, \tfrac32)$:
+
+```python
+B = matrix(QQ, [[1, 1, 0], [0, 1, 1], [1, 0, 1]]).transpose()
+D = B.inverse()
+print("dual basis rows b^1, b^2, b^3:", D.rows())
+print("b^i(b_j) = delta^i_j:", D * B == 1)
+w = vector(QQ, [2, 3, 4])
+print("coordinates of (2, 3, 4) = (b^1(w), b^2(w), b^3(w)) =", D * w)
+```
+
+*Output:*
+
+```text
+dual basis rows b^1, b^2, b^3: [(1/2, 1/2, -1/2), (-1/2, 1/2, 1/2), (1/2, -1/2, 1/2)]
+b^i(b_j) = delta^i_j: True
+coordinates of (2, 3, 4) = (b^1(w), b^2(w), b^3(w)) = (1/2, 5/2, 3/2)
+```
+:::
+
+Changing the basis of $V$ changes its dual basis, and the two change in opposite ways. The exercise derives the rule
+and extracts from it the transformation laws of vector and covector components, which is where the words covariant and
+contravariant come from.
+
+::: {#exr-dual-basis-transform}
+#### How the dual basis transforms
+
+If $e'_j = A^i{}_j e_i$ is a new basis, show that the new dual basis is $e'^i = (A^{-1})^i{}_j e^j$: vectors'
+components transform with $A^{-1}$, covectors' components with $A$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(A^{-1})^i{}_k e^k(e'_j) = (A^{-1})^i{}_k A^k{}_j = \delta^i_j$, so these functionals satisfy the defining
+property and are the dual basis by uniqueness. For a vector $v = v^j e_j = v'^i e'_i$, applying $e'^i$ gives $v'^i
+= (A^{-1})^i{}_j v^j$; for a covector, $\alpha'_j = \alpha(e'_j) = A^i{}_j \alpha_i$. The two transformation laws
+are the origin of the words contravariant and covariant in @def-tensor-type.
+:::
+::::
+
+### Kernel vectors and dual bases
+
+The kernel vector of the running matrix $A$ and the proportionality of its rows are the first facts collected in this
+section. The proposition states them; together they fix the rank and the nullity of $A$.
+
+:::: {.statement-box}
+::: {#prp-kernel-vector}
+#### A kernel vector
+
+For $A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$, $A(1, 1, -1)^{\mathsf{T}} = 0$, and the second row
+of $A$ is twice the first.
+:::
+::::
+
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The kernel condition is two dot products, which the reader can do in one line. The example writes them out, one for
+each row of $A$.
+
+::: {#exm-kernel-by-hand}
+#### The product by hand
+
+$1 \cdot 1 + 2 \cdot 1 + 3 \cdot (-1) = 0$ and $2 \cdot 1 + 4 \cdot 1 + 6 \cdot (-1) = 0$: both rows pair to zero
+with $(1, 1, -1)$, which is what $A(1, 1, -1)^{\mathsf{T}} = 0$ means row by row.
+:::
+
+A single kernel vector already bounds the rank, and the proportional rows pin it down. The example draws the
+rank-nullity consequences: rank one, nullity two, and a kernel that is a plane.
+
+::: {#exm-kernel-rank-nullity}
+#### What the kernel vector tells about the rank
+
+The kernel contains a non-zero vector, so the nullity is at least $1$ and the rank at most $2$; the proportional
+rows show that the rank is exactly $1$, and rank-nullity gives nullity $2$: the kernel is a plane, and $(1, 1, -1)$
+is one of its directions.
+:::
+
+One kernel vector gives a whole line of them, and the plane $x + 2y + 3z = 0$ contains other directions too. The
+example exhibits a second, independent kernel vector.
+
+::: {#exm-kernel-lean-route}
+#### More kernel vectors
+
+Every multiple $t(1, 1, -1)$ lies in the kernel, since $A(t v) = t A v = 0$, and so does $(-2, 1, 0)$: $1 \cdot (-2) +
+2 \cdot 1 + 3 \cdot 0 = 0$ and $2 \cdot (-2) + 4 \cdot 1 + 6 \cdot 0 = 0$. The two directions $(1, 1, -1)$ and
+$(-2, 1, 0)$ are not proportional, as a plane requires.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The kernel of $A$ is a plane and needs two basis vectors. The exercise asks for a basis and for the expression of two
+given kernel vectors in it, with Sage's echelonised basis for comparison.
+
+::: {#exr-kernel-basis}
+#### A basis of the kernel
+
+Find a basis of $\ker A$ and write the kernel vectors $(1, 1, -1)$ and $(3, 0, -1)$ in it.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Solving $x + 2y + 3z = 0$ for $x$ gives $x = -2y - 3z$, so $(-2, 1, 0)$ and $(-3, 0, 1)$ (or Sage's echelonised
+pair) form a basis; $(1, 1, -1)$ and $(3, 0, -1)$ also lie in the kernel and are themselves a basis of it:
+
+```python
+A = matrix(QQ, [[1, 2, 3], [2, 4, 6]])
+K = A.right_kernel()
+print("kernel basis (echelon form):", K.basis())
+for v in [vector(QQ, [1, 1, -1]), vector(QQ, [3, 0, -1])]:
+    print(v, ": A v =", A * v, "; coordinates in the kernel basis:", K.coordinates(v))
+print("the two vectors (1, 1, -1), (3, 0, -1) form another basis of the kernel:", K.span([vector(QQ, [1, 1, -1]), vector(QQ, [3, 0, -1])]) == K)
+```
+
+*Output:*
+
+```text
+kernel basis (echelon form): [
+(1, 0, -1/3),
+(0, 1, -2/3)
+]
+(1, 1, -1) : A v = (0, 0) ; coordinates in the kernel basis: [1, 1]
+(3, 0, -1) : A v = (0, 0) ; coordinates in the kernel basis: [3, 0]
+the two vectors (1, 1, -1), (3, 0, -1) form another basis of the kernel: True
+```
+:::
+
+The proportional rows of $A$ are the reason its rank is one, and this is a general fact about $2 \times n$ matrices.
+The exercise asks for the proof, which identifies the rank with the dimension of the row space.
+
+::: {#exr-kernel-rows-rank}
+#### Proportional rows and rank one
+
+Prove that a non-zero $2 \times n$ matrix has rank $1$ exactly when its two rows are proportional.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The rank is the dimension of the row space (equal to that of the column space). Two rows span a space of dimension
+$1$ exactly when they are dependent, that is, when one is a multiple of the other, since both cannot vanish. For
+$A$, the second row is $2$ times the first, so the rank is $1$.
+:::
+
+A second kernel vector can be checked in the same two lines as the first. The exercise asks for that check and for
+the reason the two vectors together span the kernel.
+
+::: {#exr-kernel-second-vector}
+#### A second kernel vector
+
+Show that $(3, 0, -1)$ is in the kernel of $A$ and that it is not a multiple of $(1, 1, -1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The two components of $A(3, 0, -1)^{\mathsf{T}}$ are $3 + 0 - 3 = 0$ and $6 + 0 - 6 = 0$. A multiple of $(1, 1, -
+1)$ has equal first two entries, which $(3, 0, -1)$ does not, so the two kernel vectors are independent and span the
+two-dimensional kernel.
+:::
+::::
+
+The dual-basis facts of this section can now be collected: the Kronecker table for the standard basis, and for $f$
+the matrix identity that makes its dual basis correct. The proposition states both, with one evaluation of each.
+
+:::: {.statement-box}
+::: {#prp-dual-basis}
+#### Dual basis evaluations
+
+$e^2(5, 7, 9) = 7$ and $e^i(e_j) = \delta^i_j$ for the standard basis of $\mathbb{R}^3$; the dual basis of $f$ is
+the pair of rows of $\tfrac13\begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$, which multiplies the matrix of
+columns $f_1, f_2$ to the identity and reads off the coordinates $(2, 1)$ of $(5, 4)$.
+:::
+::::
+
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For the standard basis the table of values $e^i(e_j)$ has nine entries, one for each pair of indices. The example
+lists them and places the single evaluation $e^2(5, 7, 9) = 7$ among them.
+
+::: {#exm-dualbasis-table}
+#### The Kronecker table
+
+The nine values $e^i(e_j)$ form the identity matrix: $e^i(e_j) = 1$ for the three pairs with $i = j$ and $0$ for the
+six others. The evaluation $e^2(5, 7, 9) = 7$ is the second coordinate functional applied to $5 e_1 + 7 e_2 + 9
+e_3$, which by linearity is $5 \cdot 0 + 7 \cdot 1 + 9 \cdot 0$.
+:::
+
+Behind the dual basis of $f$ stands a $2 \times 2$ matrix product. The example performs it and reads the four entries
+as the four values $f^i(f_j)$.
+
+::: {#exm-dualbasis-f-product}
+#### The product behind the dual basis
+
+$\tfrac13\begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}\begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix} = \tfrac13
+\begin{pmatrix} 3 & 0 \\ 0 & 3 \end{pmatrix} = 1$: the diagonal entries are $f^1(f_1) = f^2(f_2) = 1$ and the
+off-diagonal ones $f^1(f_2) = f^2(f_1) = 0$.
+:::
+
+Applying the two dual rows to $(5, 4)$ gives the coordinates of @prp-coordinates-f a second time. The example does the
+arithmetic and notes that no system had to be solved.
+
+::: {#exm-dualbasis-coordinates}
+#### Coordinates as dual basis values
+
+The two rows applied to $(5, 4)$ give $\tfrac13(10 - 4) = 2$ and $\tfrac13(-5 + 8) = 1$, the
+coordinates of @prp-coordinates-f, obtained now without solving a system.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The dual basis of $f$ can be applied to any vector of the plane. The exercise asks for the coordinates of two vectors
+already treated by linear systems and compares the two methods.
+
+::: {#exr-dual-f-apply}
+#### Applying the dual basis
+
+Use the dual basis of $f$ to find the coordinates of $(1, 5)$ and of $(-1, 1)$, and compare with
+@exr-coords-f-other.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$f^1(1, 5) = \tfrac13(2 - 5) = -1$, $f^2(1, 5) = \tfrac13(-1 + 10) = 3$; $f^1(-1, 1) = \tfrac13(-2 - 1) = -1$,
+$f^2(-1, 1) = \tfrac13(1 + 2) = 1$. These agree with the solutions of the linear systems: the dual basis is the
+inverse matrix applied row by row.
+:::
+
+The four entries of the identity $F^{-1} F = 1$ are each a rational computation. The exercise asks the reader to carry
+them out by hand, one for each pair of a dual vector and a basis vector.
+
+::: {#exr-dual-f-check}
+#### Checking the dual basis by hand
+
+Verify entry by entry that the rows $f^1, f^2$ of @exm-dual-f satisfy $f^i(f_j) = \delta^i_j$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$f^1(f_1) = \tfrac13(4 - 1) = 1$, $f^1(f_2) = \tfrac13(2 - 2) = 0$, $f^2(f_1) = \tfrac13(-2 + 2) = 0$, $f^2(f_2) =
+\tfrac13(-1 + 4) = 1$. These are the four entries of the product $F^{-1} F = 1$ of @exm-dualbasis-f-product.
+:::
+
+Everything done for $f$ and for $b$ can be automated. The exercise asks for a Sage function that returns the dual
+basis of any basis of $\mathbb{Q}^n$, with the matrix product as the check.
+
+::: {#exr-dual-basis-general}
+#### Dual bases in general
+
+Write a Sage function that returns the dual basis of any basis of $\mathbb{Q}^n$, and test it on the standard
+basis of $\mathbb{Q}^2$, on $f$, and on the basis $b$ of @exr-dual-basis-r3.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The dual basis is the list of rows of the inverse of the matrix whose columns are the basis vectors; the check
+$d^i(b_j) = \delta^i_j$ is the product of the two matrices:
+
+```python
+def dual_basis(vectors):
+    B = matrix(QQ, vectors).transpose()
+    return B.inverse().rows()
+for name, b in [("standard", identity_matrix(QQ, 2).rows()), ("f", [vector(QQ, [2, 1]), vector(QQ, [1, 2])]),
+                ("b", [vector(QQ, [1, 1, 0]), vector(QQ, [0, 1, 1]), vector(QQ, [1, 0, 1])])]:
+    d = dual_basis(b)
+    print(name, ": dual basis", d, "; d^i(b_j) = delta:", matrix(QQ, d) * matrix(QQ, b).transpose() == 1)
+```
+
+*Output:*
+
+```text
+standard : dual basis [(1, 0), (0, 1)] ; d^i(b_j) = delta: True
+f : dual basis [(2/3, -1/3), (-1/3, 2/3)] ; d^i(b_j) = delta: True
+b : dual basis [(1/2, 1/2, -1/2), (-1/2, 1/2, 1/2), (1/2, -1/2, 1/2)] ; d^i(b_j) = delta: True
+```
+:::
+::::
+
+## Bilinear forms {#sec-bilinear-forms}
+
+A bilinear form assigns a number to two vectors, linearly in each. This section treats bilinear forms on a fixed
+vector space, their symmetry, non-degeneracy and signature, with the Euclidean dot product and the Minkowski form
+of special relativity as the running examples; the light cone of @fig-minkowski-cone is the picture to keep in mind.
+Four definitions and one proposition on the values of the Minkowski form; a degenerate form on the plane serves as
+the counterexample throughout.
+
+For more on this topic, see @axler2024linear [Secs. 9A].
+
+### Bilinear forms
+
+Two vectors in, one number out, linearly in each slot: this is the structure the rest of the chapter is about. The
+definition fixes the component convention $B_{ij} = B(e_i, e_j)$, under which such a map is a square matrix once a
+basis is chosen, and every metric tensor in the lectures follows it.
+
+:::: {.statement-box}
+::: {#def-bilinear-form}
+#### Bilinear form
+
+A **bilinear form** on $V$ is a map $B : V \times V \to \mathbb{R}$ linear in each argument separately. Its
+**components** in a basis are $B_{ij} = B(e_i, e_j)$, and $B(v, w) = B_{ij} v^i w^j$: a bilinear form is an
+$n \times n$ matrix once a basis is chosen.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first instance everyone meets is the Euclidean inner product of $\mathbb{R}^n$. Its components are the Kronecker
+delta, so in the standard basis its matrix is the identity.
+
+::: {#exm-bilinear-dot}
+#### The dot product
+
+$B(v, w) = v^1 w^1 + \dots + v^n w^n$ on $\mathbb{R}^n$ is bilinear with components $\delta_{ij}$, the identity
+matrix.
+:::
+
+The second instance is the one special relativity is built on, with one positive sign and three negative ones. The
+example records two values, a unit timelike vector and a null one, that @prp-minkowski-values collects.
+
+::: {#exm-bilinear-minkowski}
+#### The Minkowski form
+
+$\eta(v, w) = v^0 w^0 - v^1 w^1 - v^2 w^2 - v^3 w^3$ on $\mathbb{R}^4$ is bilinear with components
+$\eta_{\mu\nu} = \mathrm{diag}(1, -1, -1, -1)$; $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$ and $\eta(v, v) = 0$ for
+$v = (1, 1, 0, 0)$ (@prp-minkowski-values).
+:::
+
+Not every such form is symmetric, and the third example shows two ways to build one that is not. A product of two
+covectors has rank one, and the $2 \times 2$ determinant changes sign when its arguments are swapped.
+
+::: {#exm-bilinear-general}
+#### Products of functionals and antisymmetric forms
+
+For covectors $\alpha, \beta$, $B(v, w) = \alpha(v)\beta(w)$ is bilinear with components $\alpha_i \beta_j$; the
+determinant $B(v, w) = v^1 w^2 - v^2 w^1$ on $\mathbb{R}^2$ is bilinear with $B(w, v) = -B(v, w)$. Bilinear forms
+need not be symmetric.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Bilinearity fails as soon as a constant is added or an absolute value appears. The exercise presents four candidate
+expressions on the plane and asks which are bilinear, with a specific counterexample for each one that is not.
+
+::: {#exr-bilinear-check}
+#### Which maps are bilinear?
+
+Decide which of the following are bilinear forms on $\mathbb{R}^2$: $v \cdot w + 1$; $v^1 w^2$; $|v|\,|w|$;
+$v^1 w^1 - 3 v^2 w^1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$v^1 w^2$ and $v^1 w^1 - 3v^2 w^1$ are bilinear (each is a sum of products of one component of $v$ and one of
+$w$). $v \cdot w + 1$ is not: $B(0, w) = 1 \neq 0$. $|v|\,|w|$ is not: $B(-v, w) = |v|\,|w| \neq -B(v, w)$.
+:::
+
+Reading the component matrix off an explicit formula and evaluating the form on two vectors in both orders is the
+basic skill. The exercise does this for a non-symmetric form, so that $B(v, w)$ and $B(w, v)$ come out different.
+
+::: {#exr-bilinear-matrix}
+#### Components of a bilinear form
+
+Find the components $B_{ij}$ of $B(v, w) = v^1 w^1 + 2 v^1 w^2 - v^2 w^1$ on $\mathbb{R}^2$, evaluate $B(v, w)$ and
+$B(w, v)$ for $v = (1, 3)$, $w = (2, -1)$, and decide whether $B$ is symmetric.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$B_{ij}$ is the coefficient of $v^i w^j$: $B = \begin{pmatrix} 1 & 2 \\ -1 & 0 \end{pmatrix}$. Then $B(v, w) = v^{\mathsf
+T} B w = -6$ while $B(w, v) = 15$, so $B$ is not symmetric:
+
+```python
+B = matrix(QQ, [[1, 2], [-1, 0]])
+v, w = vector(QQ, [1, 3]), vector(QQ, [2, -1])
+print("B =", B.rows())
+print("B(v, w) = v^T B w =", v * B * w, "; by the formula v1 w1 + 2 v1 w2 - v2 w1 =", v[0] * w[0] + 2 * v[0] * w[1] - v[1] * w[0])
+print("B(w, v) =", w * B * v, "; symmetric:", B.is_symmetric())
+print("components: B(e1, e1), B(e1, e2), B(e2, e1), B(e2, e2) =", [e_i * B * e_j for e_i in identity_matrix(QQ, 2).rows() for e_j in identity_matrix(QQ, 2).rows()])
+```
+
+*Output:*
+
+```text
+B = [(1, 2), (-1, 0)]
+B(v, w) = v^T B w = -6 ; by the formula v1 w1 + 2 v1 w2 - v2 w1 = -6
+B(w, v) = 15 ; symmetric: False
+components: B(e1, e1), B(e1, e2), B(e2, e1), B(e2, e2) = [1, 2, -1, 0]
+```
+:::
+
+Components of a bilinear form transform with two factors of the change-of-basis matrix. The exercise derives the rule
+$B' = A^{\mathsf{T}} B A$ and applies it to the dot product in the basis $f$, producing the Gram matrix that the final
+exercises return to.
+
+::: {#exr-bilinear-change-basis}
+#### Components under a change of basis
+
+Show that under $e'_j = A^i{}_j e_i$ the components become $B'_{ij} = A^k{}_i A^l{}_j B_{kl}$, that is, $B' =
+A^{\mathsf{T}} B A$, and compute the components of the dot product of $\mathbb{R}^2$ in the basis $f$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$B'_{ij} = B(e'_i, e'_j) = B(A^k{}_i e_k, A^l{}_j e_l) = A^k{}_i A^l{}_j B_{kl}$ by bilinearity. For the dot
+product and $A$ the matrix with columns $f_1, f_2$, $B' = A^{\mathsf{T}} A = \begin{pmatrix} 5 & 4 \\ 4 & 5
+\end{pmatrix}$, the Gram matrix of $f$; $|v|^2 = 41$ comes out the same from standard coordinates and from the
+$f$-coordinates $(2, 1)$:
+
+```python
+A = matrix(QQ, [[2, 1], [1, 2]]).transpose()      # columns f1, f2
+B = identity_matrix(QQ, 2)                         # the dot product
+Bp = A.transpose() * B * A
+print("B' = A^T B A =", Bp.rows(), "= Gram matrix of f: f1.f1, f1.f2, f2.f2 =", A.column(0) * A.column(0), A.column(0) * A.column(1), A.column(1) * A.column(1))
+v = vector(QQ, [5, 4]); c = A.inverse() * v       # f-coordinates (2, 1)
+print("|v|^2 in the standard basis:", v * B * v, "; with the f-coordinates", c, "and B':", c * Bp * c)
+```
+
+*Output:*
+
+```text
+B' = A^T B A = [(5, 4), (4, 5)] = Gram matrix of f: f1.f1, f1.f2, f2.f2 = 5 4 5
+|v|^2 in the standard basis: 41 ; with the f-coordinates (2, 1) and B': 41
+```
+:::
+::::
+
+### Symmetric forms
+
+Most forms in geometry are symmetric, and for them the values on single vectors already determine everything. The
+definition states the symmetry condition and the polarisation identity that recovers $B(v, w)$ from the quadratic form
+$B(v, v)$.
+
+:::: {.statement-box}
+::: {#def-symmetric-form}
+#### Symmetric bilinear form
+
+A bilinear form is **symmetric** if $B(v, w) = B(w, v)$, that is, $B_{ij} = B_{ji}$. A symmetric form is
+determined by its values $B(v, v)$ on single vectors (its **quadratic form**), by $2B(v, w) = B(v + w, v + w) -
+B(v, v) - B(w, w)$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Both running forms are symmetric, since their matrices are diagonal. The example records the symmetry
+$\eta^{\mathsf{T}} = \eta$ and points ahead to metrics on manifolds, which are symmetric forms on tangent spaces.
+
+::: {#exm-symmetric-dot-minkowski}
+#### Dot product and Minkowski form
+
+The dot product and the Minkowski form have diagonal, hence symmetric, matrices; $\eta^{\mathsf{T}} = \eta$
+(@prp-minkowski-values). A metric on a manifold is a symmetric bilinear form on each tangent space (@sec-metric).
+:::
+
+A quadratic polynomial in two variables encodes a symmetric matrix, with half the mixed coefficient off the diagonal.
+The example extracts the matrix $S$ from $x^2 + 4xy + 4y^2$ and shows that this form never takes a negative value.
+
+::: {#exm-symmetric-quadratic}
+#### Reading a form off its quadratic form
+
+The quadratic form $Q(x, y) = x^2 + 4xy + 4y^2$ comes from the symmetric matrix $S = \begin{pmatrix} 1 & 2 \\ 2 & 4
+\end{pmatrix}$: the off-diagonal entry is half the coefficient of $xy$. Since $Q = (x + 2y)^2$, $Q \geq 0$
+everywhere, with $Q = 0$ exactly on the line $x = -2y$.
+:::
+
+
+At the opposite extreme stand the forms that change sign when their arguments are exchanged, whose quadratic form
+vanishes identically. The example names the two-forms of differential geometry and the electromagnetic field strength
+as the instances that later chapters rely on.
+
+::: {#exm-symmetric-not}
+#### Antisymmetric forms
+
+The determinant form $v^1 w^2 - v^2 w^1$ is antisymmetric, not symmetric, and its quadratic form is identically
+zero; antisymmetric bilinear forms are the two-forms of @sec-forms, and the field strength $F_{\mu\nu}$ of
+electromagnetism is one.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Extracting a symmetric matrix from a quadratic form in three variables follows the same rule as in two. The exercise
+asks for the matrix and for one value of the form, which turns out negative while other values are positive.
+
+::: {#exr-symmetric-quadratic}
+#### The symmetric matrix of a quadratic form
+
+Find the symmetric matrix of $Q(x, y, z) = 2x^2 - 3xy + y^2 + 4yz$ and the value $Q(1, 2, -1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Diagonal entries are the coefficients of the squares and off-diagonal entries half the mixed coefficients:
+$\begin{pmatrix} 2 & -\tfrac32 & 0 \\ -\tfrac32 & 1 & 2 \\ 0 & 2 & 0 \end{pmatrix}$. $Q(1, 2, -1) = 2 - 6 + 4 - 8 = -
+8$; the form takes both signs, so it is not positive definite (its signature is found as in @exr-signature-3x3).
+:::
+
+Every bilinear form splits uniquely into a symmetric and an antisymmetric part. The exercise asks for the proof and
+applies it to the non-symmetric form of @exr-bilinear-matrix, noting which part the quadratic form sees.
+
+::: {#exr-symmetric-decompose}
+#### Symmetric plus antisymmetric
+
+Show that every bilinear form is uniquely the sum of a symmetric and an antisymmetric one, and decompose the form
+of @exr-bilinear-matrix.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$B = \tfrac12(B + B^{\mathsf{T}}) + \tfrac12(B - B^{\mathsf{T}})$, and if $B = S + A$ with $S$ symmetric and $A$
+antisymmetric then $B^{\mathsf{T}} = S - A$, which forces $S = \tfrac12(B + B^{\mathsf{T}})$. For $B =
+\begin{pmatrix} 1 & 2 \\ -1 & 0 \end{pmatrix}$: $S = \begin{pmatrix} 1 & \tfrac12 \\ \tfrac12 & 0 \end{pmatrix}$ and
+$A = \begin{pmatrix} 0 & \tfrac32 \\ -\tfrac32 & 0 \end{pmatrix}$. Only $S$ contributes to the quadratic form.
+:::
+
+The identity that recovers $B(v, w)$ from the quadratic form can be tested numerically, and its proof is a two-line
+expansion. The exercise checks it on random vectors for the Minkowski form and explains why it says nothing about an
+antisymmetric form.
+
+::: {#exr-polarisation}
+#### The polarisation identity
+
+Check the identity $2B(v, w) = B(v + w, v + w) - B(v, v) - B(w, w)$ for the Minkowski form on random integer
+vectors, and show why it fails to recover an antisymmetric form.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Expanding by bilinearity, $B(v + w, v + w) = B(v, v) + B(v, w) + B(w, v) + B(w, w)$, and symmetry turns the two
+middle terms into $2B(v, w)$. For an antisymmetric form the middle terms cancel instead, and the right-hand side
+is $0$ whatever $B(v, w)$ is:
+
+```python
+import random
+random.seed(int(7))
+eta = diagonal_matrix(QQ, [1, -1, -1, -1])
+ok = True
+for _ in range(10):
+    v = vector(QQ, [random.randint(-5, 5) for _ in range(4)]); w = vector(QQ, [random.randint(-5, 5) for _ in range(4)])
+    ok = ok and (2 * (v * eta * w) == (v + w) * eta * (v + w) - v * eta * v - w * eta * w)
+print("polarisation identity for eta on 10 random pairs:", ok)
+J = matrix(QQ, [[0, 1], [-1, 0]]); v, w = vector(QQ, [1, 0]), vector(QQ, [0, 1])
+print("antisymmetric J: J(v, w) =", v * J * w, "but the polarisation formula gives", ((v + w) * J * (v + w) - v * J * v - w * J * w) / 2)
+```
+
+*Output:*
+
+```text
+polarisation identity for eta on 10 random pairs: True
+antisymmetric J: J(v, w) = 1 but the polarisation formula gives 0
+```
+:::
+::::
+
+### Non-degenerate forms
+
+![The Minkowski form $\eta(v, v) = t^2 - x^2$ on $\mathbb{R}^2$: the light cone $\eta = 0$ and the timelike
+($\eta > 0$) and spacelike ($\eta < 0$) regions. Generated by
+`figures/minkowski_cone.sage`.](figures/minkowski_cone.svg){#fig-minkowski-cone width=45%}
+
+{{< interactive minkowski_cone 520 >}}
+
+A form may have directions that pair to zero with everything, and when it has none it identifies vectors with
+covectors. The definition names this property, gives the determinant test, and introduces the lowering and raising of
+indices; the light cone above is the picture for the Minkowski form.
+
+:::: {.statement-box}
+::: {#def-nondegenerate}
+#### Non-degenerate bilinear form
+
+A bilinear form is **non-degenerate** if $B(v, w) = 0$ for all $w$ forces $v = 0$; equivalently its matrix
+$B_{ij}$ is invertible, $\det B \neq 0$. A non-degenerate form identifies $V$ with $V^*$ by $v \mapsto B(v, \cdot)$,
+which in components is **lowering an index**, $v_i = B_{ij} v^j$; the inverse matrix $B^{ij}$ **raises** it.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Both running forms pass the determinant test. The example stresses that non-degeneracy allows null vectors: $\eta$
+vanishes on $(1, 1, 0, 0)$ and yet $\det\eta = -1 \neq 0$.
+
+::: {#exm-nondegenerate-minkowski}
+#### Minkowski and Euclidean forms
+
+$\det \eta = -1 \neq 0$ (@prp-minkowski-values) and $\det \delta = 1$: both are non-degenerate, although
+$\eta(v, v) = 0$ for the non-zero null vector $(1, 1, 0, 0)$. Non-degeneracy does not require $B(v, v) \neq 0$.
+:::
+
+The matrix $S$ of the quadratic-form example fails the test. Its determinant vanishes, and the example exhibits the
+vector that pairs to zero with everything.
+
+::: {#exm-degenerate}
+#### A degenerate form
+
+$S = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ has determinant $1 \cdot 4 - 2 \cdot 2 = 0$: the vector
+$(2, -1)$ pairs to zero with everything, $S (2, -1)^{\mathsf{T}} = 0$, so the form is degenerate and does not identify
+$V$ with $V^*$ (@exr-minkowski-signature).
+:::
+
+
+With $\eta$, lowering flips the sign of the spatial components, while with $\delta_{ij}$ it changes nothing. The
+example works one case and explains why the position of an index goes unnoticed in Euclidean space.
+
+::: {#exm-nondegenerate-lowering}
+#### Lowering an index
+
+With $\eta$, the vector $v^\mu = (1, 1, 0, 0)$ has covector $v_\mu = \eta_{\mu\nu} v^\nu = (1, -1, 0, 0)$; with the
+Euclidean $\delta_{ij}$, lowering does nothing, which is why index position is invisible in Euclidean space.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+A single four-vector is enough to practise moving an index down and back up with $\eta$. The exercise asks for the
+covector, the vector recovered from it, and the invariant $v_\mu v^\mu$, whose sign classifies the vector.
+
+::: {#exr-lower-index}
+#### Lowering and raising
+
+Lower the index of $v^\mu = (2, 1, 0, 3)$ with $\eta$, raise it again with $\eta^{\mu\nu}$, and compute
+$v_\mu v^\mu$. Is $v$ timelike, spacelike or null?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$v_\mu = \eta_{\mu\nu} v^\nu = (2, -1, 0, -3)$; since $\eta^{-1} = \eta$, raising gives back $(2, 1, 0, 3)$;
+$v_\mu v^\mu = 4 - 1 - 0 - 9 = -6 < 0$, so $v$ is spacelike.
+
+:::
+
+
+The determinant test applies to any symmetric matrix. The exercise runs it on three forms, including the degenerate
+$S$, and asks for the kernel vectors of the degenerate one.
+
+::: {#exr-nondegenerate-test}
+#### Testing non-degeneracy
+
+Decide which of $\mathrm{diag}(1, -1, -1, -1)$, $\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ and
+$\begin{pmatrix} 2 & 1 & 0 \\ 1 & 2 & 1 \\ 0 & 1 & 2 \end{pmatrix}$ are non-degenerate, and find the vectors that
+pair to zero with everything for the degenerate one.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The determinants are $-1$, $0$ and $4$, so the first and third are non-degenerate. For the second, the kernel is
+the line through $(1, -\tfrac12)$, equivalently $(2, -1)$, and indeed $(2, -1) \cdot S e_1 = 2 - 2 = 0$, $(2, -1)
+\cdot S e_2 = 4 - 4 = 0$:
+
+```python
+mats = {"diag(1, -1, -1, -1)": diagonal_matrix(QQ, [1, -1, -1, -1]), "[[1, 2], [2, 4]]": matrix(QQ, [[1, 2], [2, 4]]),
+        "[[2, 1, 0], [1, 2, 1], [0, 1, 2]]": matrix(QQ, [[2, 1, 0], [1, 2, 1], [0, 1, 2]])}
+for name, B in mats.items():
+    print(name, ": det =", B.det(), "; non-degenerate:", B.det() != 0, ("; kernel basis " + str(B.right_kernel().basis())) if B.det() == 0 else "")
+S = mats["[[1, 2], [2, 4]]"]; k = S.right_kernel().basis()[0]
+print("the kernel vector", k, "pairs to zero with e1 and e2:", [k * S * e for e in identity_matrix(QQ, 2).rows()])
+```
+
+*Output:*
+
+```text
+diag(1, -1, -1, -1) : det = -1 ; non-degenerate: True 
+[[1, 2], [2, 4]] : det = 0 ; non-degenerate: False ; kernel basis [
+(1, -1/2)
+]
+[[2, 1, 0], [1, 2, 1], [0, 1, 2]] : det = 4 ; non-degenerate: True 
+the kernel vector (1, -1/2) pairs to zero with e1 and e2: [0, 0]
+```
+:::
+
+The identification of $V$ with $V^*$ by a non-degenerate form is a linear isomorphism, and this exercise proves it.
+Injectivity is non-degeneracy restated; rank-nullity supplies surjectivity.
+
+::: {#exr-nondegenerate-iso}
+#### Non-degeneracy as an isomorphism
+
+Show that $v \mapsto B(v, \cdot)$ is a linear map $V \to V^*$, that it is injective exactly when $B$ is
+non-degenerate, and that it is then an isomorphism for finite-dimensional $V$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Linearity in the first argument makes $v \mapsto B(v, \cdot)$ linear, and each $B(v, \cdot)$ is a functional by
+linearity in the second. Its kernel is $\{v : B(v, w) = 0 \ \forall w\}$, which is $\{0\}$ exactly by the
+definition of non-degeneracy. An injective linear map between spaces of equal finite dimension ($\dim V^* = \dim
+V$) is surjective by rank-nullity. In components the map is $v^j \mapsto B_{ij} v^j$, invertible when $\det B \neq
+0$, with inverse $B^{ij}$.
+:::
+::::
+
+### Signature
+
+Every symmetric form can be diagonalised to entries $\pm 1$ and $0$, and the number of each kind does not depend on
+the basis chosen. The definition records these counts and names the two cases that matter for geometry, positive
+definite and Lorentzian.
+
+:::: {.statement-box}
+::: {#def-signature}
+#### Signature
+
+Every symmetric bilinear form has a basis in which its matrix is diagonal with entries $+1$, $-1$ and $0$; the
+numbers $(p, q, z)$ of each kind do not depend on the basis (Sylvester's law of inertia) and form the
+**signature**. The form is non-degenerate when $z = 0$, **positive definite** (an **inner product**) when $q = z =
+0$, and **Lorentzian** when $(p, q) = (1, n - 1)$: one positive direction, the time direction, and $n - 1$ negative
+ones.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The dot product has only positive directions. The example records its signature and the fact that Riemannian metrics
+are positive definite on every tangent space.
+
+::: {#exm-signature-euclid}
+#### Euclidean
+
+The dot product on $\mathbb{R}^3$ has signature $(3, 0, 0)$: it is an inner product, $v \cdot v > 0$ for $v \neq
+0$, and it defines lengths and angles. Riemannian metrics (@sec-metric) are positive definite on every tangent
+space.
+:::
+
+The Minkowski form has one positive direction and three negative ones, which is the Lorentzian case. The example
+introduces the timelike, spacelike and null vocabulary and connects it to the cone and hyperboloids of the interactive
+figure.
+
+::: {#exm-signature-minkowski}
+#### Lorentzian
+
+$\eta$ has signature $(1, 3, 0)$ (@exr-minkowski-signature, @fig-minkowski-cone): vectors with $\eta(v, v) > 0$ are
+**timelike**, $< 0$ **spacelike**, $= 0$ **null**. The interactive figure shows the light cone of $t^2 - x^2 - y^2$
+with the two hyperboloids of unit timelike and unit spacelike vectors. The metrics of general relativity have this
+signature on every tangent space (@sec-einstein-hilbert).
+:::
+
+The degenerate matrix $S$ has one positive direction and one null direction. The example gives the explicit change of
+basis that diagonalises it.
+
+::: {#exm-signature-degenerate}
+#### Degenerate
+
+$S = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ has signature $(1, 0, 1)$: in the basis $e'_1 = e_1$, $e'_2 = -
+2e_1 + e_2$ its matrix is $P^{\mathsf{T}} S P = \mathrm{diag}(1, 0)$ with $P = \begin{pmatrix} 1 & -2 \\ 0 & 1
+\end{pmatrix}$, one positive direction and one null direction $(-2, 1)$ along which the form vanishes identically.
+The congruence is the product $\begin{pmatrix} 1 & 0 \\ -2 & 1 \end{pmatrix} S \begin{pmatrix} 1 & -2 \\ 0 & 1
+\end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$.
+:::
+::::
+
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Sage's `QuadraticForm` computes signatures directly. The exercise asks for the values, the symmetry, the
+non-degeneracy and the signature of $\eta$, and then the same for the degenerate $S$, whose determinant vanishes.
+
+::: {#exr-minkowski-signature}
+#### Symmetry, non-degeneracy, signature
+
+For $\eta = \mathrm{diag}(1, -1, -1, -1)$, compute $\eta(v, v)$ for $v = (1, 1, 0, 0)$ and $w = (1, 0, 0, 0)$, check
+symmetry and non-degeneracy, and find the signature with Sage's `QuadraticForm`; do the same for the degenerate
+form $\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$v$ is null and $w$ timelike; $\eta$ is symmetric with $\det\eta = -1$ and signature $(1, 3, 0)$. The second form
+has a one-dimensional kernel spanned by $(1, -\tfrac12)$, so its signature is $(1, 0, 1)$:
+
+```python
+eta = diagonal_matrix(QQ, [1, -1, -1, -1])
+v, w = vector(QQ, [1, 1, 0, 0]), vector(QQ, [1, 0, 0, 0])
+print("eta(v, v) for v = (1, 1, 0, 0):", v * eta * v, " (null) ; eta(w, w) for w = (1, 0, 0, 0):", w * eta * w, " (timelike)")
+print("symmetric:", eta.is_symmetric(), "; non-degenerate (det != 0):", eta.det() != 0)
+print("signature (positive, negative, zero):", QuadraticForm(QQ, 2 * eta).signature_vector(), " (one time direction, three space directions)")
+S = matrix(QQ, [[1, 2], [2, 4]])
+print("the form with matrix [[1,2],[2,4]] is degenerate: det =", S.det(), "; kernel:", S.right_kernel().basis())
+E = identity_matrix(QQ, 3)
+print("the Euclidean inner product on R^3 has signature", QuadraticForm(QQ, 2 * E).signature_vector(), "(positive definite:", E.is_positive_definite(), ")")
+```
+
+*Output:*
+
+```text
+eta(v, v) for v = (1, 1, 0, 0): 0  (null) ; eta(w, w) for w = (1, 0, 0, 0): 1  (timelike)
+symmetric: True ; non-degenerate (det != 0): True
+signature (positive, negative, zero): (1, 3, 0)  (one time direction, three space directions)
+the form with matrix [[1,2],[2,4]] is degenerate: det = 0 ; kernel: [
+(1, -1/2)
+]
+the Euclidean inner product on R^3 has signature (3, 0, 0) (positive definite: True )
+```
+
+:::
+
+
+Completing the square is Sylvester's diagonalisation done by hand. The exercise applies it to two quadratic forms
+differing in one coefficient, one degenerate and one Lorentzian, and asks for the change of basis in each case.
+
+::: {#exr-signature-complete-square}
+#### Signature by completing the square
+
+Find the signature of $Q(x, y) = x^2 + 4xy + 4y^2$ and of $Q'(x, y) = x^2 + 4xy + 3y^2$ by completing the square,
+and write down the change of basis $P$ that diagonalises each.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$Q = (x + 2y)^2$: with $x' = x + 2y$, $y' = y$ the form is $x'^2$, signature $(1, 0, 1)$; the new coordinates are
+$P^{-1}(x, y)$ with $P = \begin{pmatrix} 1 & -2 \\ 0 & 1 \end{pmatrix}$, and $P^{\mathsf{T}} S P = \mathrm{diag}(1,
+0)$. $Q' = (x + 2y)^2 - y^2$: signature $(1, 1, 0)$, Lorentzian in two dimensions (the time
+direction being the one with the positive sign), with the same
+$P$ and diagonal $\mathrm{diag}(1, -1)$. Completing the square is Sylvester's algorithm, and for $Q$ it also shows
+$Q \geq 0$.
+:::
+
+For larger matrices the eigenvalues give the signature, since an orthogonal change of basis diagonalises a symmetric
+matrix. The exercise asks for the signatures of two $3 \times 3$ forms, by eigenvalues and by `QuadraticForm`.
+
+::: {#exr-signature-3x3}
+#### Signatures of $3 \times 3$ forms
+
+Find the signatures of $\begin{pmatrix} 2 & 1 & 0 \\ 1 & 2 & 1 \\ 0 & 1 & 2 \end{pmatrix}$ and
+$\begin{pmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & -1 \end{pmatrix}$ from the signs of their eigenvalues and
+with `QuadraticForm`.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A symmetric matrix is diagonalised by an orthogonal change of basis, so the signs of its eigenvalues give the
+signature. The first has eigenvalues $2 \pm \sqrt2$ and $2$, all positive: $(3, 0, 0)$, positive definite. The
+second has eigenvalues $1, -1, -1$: $(1, 2, 0)$:
+
+```python
+for name, B in [("B", matrix(QQ, [[2, 1, 0], [1, 2, 1], [0, 1, 2]])), ("C", matrix(QQ, [[0, 1, 0], [1, 0, 0], [0, 0, -1]]))]:
+    ev = B.change_ring(QQbar).eigenvalues()
+    signs = (sum(1 for e in ev if e > 0), sum(1 for e in ev if e < 0), sum(1 for e in ev if e == 0))
+    print(name, ": eigenvalues", [e.radical_expression() for e in ev], "; signs (+, -, 0) =", signs, "; QuadraticForm signature:", QuadraticForm(QQ, 2 * B).signature_vector())
+```
+
+*Output:*
+
+```text
+B : eigenvalues [sqrt(2) + 2, 2, -sqrt(2) + 2] ; signs (+, -, 0) = (3, 0, 0) ; QuadraticForm signature: (3, 0, 0)
+C : eigenvalues [1, -1, -1] ; signs (+, -, 0) = (1, 2, 0) ; QuadraticForm signature: (1, 2, 0)
+```
+:::
+::::
+
+### The Minkowski form
+
+Four facts about $\eta$ used throughout this section are collected here: a null vector, a timelike vector, symmetry
+and the determinant. The proposition states them; the examples and exercises after it compute with them. The physics of this form, Minkowski spacetime with its light cones and its group of
+isometries, is developed in @sec-special-relativity.
+
+:::: {.statement-box}
+::: {#prp-minkowski-values}
+#### Values of the Minkowski form
+
+$\eta(v, v) = 0$ for $v = (1, 1, 0, 0)$, $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$, $\eta^{\mathsf{T}} = \eta$ and
+$\det \eta = -1$.
+:::
+::::
+
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The norm of the null vector is a one-line cancellation. The example performs it and identifies the cancellation with
+the defining property of a light ray.
+
+::: {#exm-minkowski-null-hand}
+#### The null vector by hand
+
+$\eta(v, v) = 1 \cdot 1 - 1 \cdot 1 - 0 - 0 = 0$: the time and space contributions cancel, which is the defining
+property of a light ray.
+:::
+
+For a diagonal matrix the determinant is simply the product of the diagonal entries. The example computes it for
+$\eta$ and states the general rule.
+
+::: {#exm-minkowski-det-hand}
+#### The determinant of a diagonal matrix
+
+$\det \mathrm{diag}(1, -1, -1, -1) = 1 \cdot (-1) \cdot (-1) \cdot (-1) = -1$: the determinant of a diagonal matrix is
+the product of its diagonal entries, since every other term of the Leibniz expansion contains an off-diagonal zero.
+:::
+
+A determinant's sign captures only part of the signature. The example explains what $\det\eta < 0$ does and does not
+say about the number of negative directions.
+
+::: {#exm-minkowski-sign-det}
+#### What the sign of the determinant records
+
+$\det \eta < 0$ shows that $\eta$ is non-degenerate and that the number $q$ of negative directions is odd; it does
+not fix $q$ ($q = 1$ would give the same sign as $q = 3$): $\det \mathrm{diag}(1, -1, 1, 1) = -1$ as well. For a
+diagonal matrix with entries $\pm 1$ the determinant is $(-1)^q$. The signature itself is found by the methods of
+@exr-signature-3x3.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Classifying four-vectors by the sign of $\eta(v, v)$ is a quick computation. The exercise asks for three
+classifications, one in each of the three classes or on their boundary.
+
+::: {#exr-minkowski-other-vectors}
+#### Classifying vectors
+
+Classify $(2, 1, 0, 3)$, $(1, 0, 1, 0)$ and $(0, 1, 0, 0)$ as timelike, spacelike or null.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\eta(v, v) = 4 - 1 - 9 = -6$ (spacelike), $1 - 1 = 0$ (null), $-1$ (spacelike).
+
+:::
+
+
+A Lorentz boost is the change of basis that preserves $\eta$, and the hyperbolic functions turn the preservation into
+an identity. The exercise verifies it in the $(t, x)$ block and checks that the type of each vector survives the
+boost.
+
+::: {#exr-lorentz-boost}
+#### A boost preserves $\eta$
+
+Show that the boost $\Lambda = \begin{pmatrix} \cosh u & \sinh u \\ \sinh u & \cosh u \end{pmatrix} \oplus 1_2$
+satisfies $\Lambda^{\mathsf{T}} \eta \Lambda = \eta$, and check that it maps the three vectors of
+@exr-minkowski-other-vectors to vectors of the same type.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+In the $(t, x)$ block, $\Lambda^{\mathsf{T}} \mathrm{diag}(1, -1) \Lambda$ has entries $\cosh^2 u - \sinh^2 u =
+1$, $\cosh u\sinh u - \sinh u\cosh u = 0$ and $\sinh^2 u - \cosh^2 u = -1$; the other block is untouched. Since
+$\eta(\Lambda v, \Lambda v) = v^{\mathsf{T}} \Lambda^{\mathsf{T}} \eta \Lambda v = \eta(v, v)$, the type of every
+vector is preserved:
+
+```python
+u = var("u")
+L = matrix(SR, [[cosh(u), sinh(u), 0, 0], [sinh(u), cosh(u), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+eta = diagonal_matrix(SR, [1, -1, -1, -1])
+print("Lambda^T eta Lambda - eta =", (L.transpose() * eta * L - eta).simplify_full().list() == [0] * 16, "(all 16 entries vanish by cosh^2 - sinh^2 = 1)")
+for v in [vector(SR, [1, 0, 0, 0]), vector(SR, [1, 1, 0, 0]), vector(SR, [2, 1, 0, 3])]:
+    print("v =", v, ": eta(v, v) =", v * eta * v, "; eta(Lambda v, Lambda v) =", ((L * v) * eta * (L * v)).simplify_full())
+```
+
+*Output:*
+
+```text
+Lambda^T eta Lambda - eta = True (all 16 entries vanish by cosh^2 - sinh^2 = 1)
+v = (1, 0, 0, 0) : eta(v, v) = 1 ; eta(Lambda v, Lambda v) = 1
+v = (1, 1, 0, 0) : eta(v, v) = 0 ; eta(Lambda v, Lambda v) = 0
+v = (2, 1, 0, 3) : eta(v, v) = -6 ; eta(Lambda v, Lambda v) = -6
+```
+:::
+
+The inverse of $\eta$ has the same entries as $\eta$, which is why raising and lowering with it is so simple. The
+exercise asks for the proof and for the contraction $\eta^{\mu\nu}\eta_{\nu\rho} = \delta^\mu_\rho$.
+
+::: {#exr-minkowski-inverse}
+#### The inverse metric
+
+Show that $\eta^{\mu\nu}$, the inverse matrix of $\eta_{\mu\nu}$, has the same entries as $\eta_{\mu\nu}$, and
+that $\eta^{\mu\nu}\eta_{\nu\rho} = \delta^\mu_\rho$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A diagonal matrix with entries $\pm 1$ is its own inverse, since $(\pm1)^2 = 1$: $\eta^{-1} = \eta$, and
+$\eta\eta = 1$ is the stated contraction. This is why raising and lowering with $\eta$ only changes the sign of the
+space components, as in @exr-lower-index; for a general metric $g_{\mu\nu}$ the inverse must be computed.
+:::
+::::
+
+## Multilinear maps and tensor products {#sec-tensor-products}
+
+A multilinear map takes several vectors and covectors and returns a number, linearly in each; equivalently it is
+an array of components that transforms in a fixed way under a change of basis. This section defines tensors on a
+single vector space $V$: multilinear maps, the tensor product space, elementary tensors, tensors of mixed type,
+their components and their contractions, with a closing proposition on the dimension of a tensor product.
+
+For more on this topic, see @axler2024linear.
+
+### Multilinear maps
+
+Linear functionals take one vector and bilinear forms take two; the next step is to allow any number of arguments. The
+definition requires linearity in each slot separately, and the determinant is the picture to keep in mind.
+
+:::: {.statement-box}
+::: {#def-multilinear-map}
+#### Multilinear map
+
+A map $T : V_1 \times \dots \times V_k \to \mathbb{R}$ is **multilinear** ($k$-**linear**) if it is linear in each
+argument when the others are held fixed. Bilinear forms (@def-bilinear-form) are the case $k = 2$, linear
+functionals the case $k = 1$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Seen as a function of its $n$ columns, $\det$ is multilinear and alternating. The example records both properties and
+names it as the volume form of @sec-forms.
+
+::: {#exm-multilinear-det}
+#### The determinant
+
+$(v_1, \dots, v_n) \mapsto \det(v_1 | \dots | v_n)$ on $\mathbb{R}^n$ is $n$-linear, and alternating: it changes
+sign when two arguments are swapped. It is the volume form of @sec-forms.
+:::
+
+Multiplying the values of several covectors gives a multilinear map, one factor per argument. The example gives the
+trilinear case, which is an elementary tensor of covectors in disguise.
+
+::: {#exm-multilinear-product}
+#### Products of functionals
+
+For covectors $\alpha, \beta, \gamma$, $(u, v, w) \mapsto \alpha(u)\beta(v)\gamma(w)$ is trilinear; its value is a
+product of three linear functions, one of each argument.
+:::
+
+The Riemann tensor is a four-linear map at each point, with one covector slot and three vector slots. The example also
+shows a function of two vectors, sectional curvature, that is not multilinear, to mark the boundary of the notion.
+
+::: {#exm-multilinear-riemann}
+#### Curvature
+
+The Riemann tensor at a point (@sec-riemann) is a $4$-linear map $R(\alpha, u, v, w) = \alpha(R(v, w) u)$ taking one
+covector and three vectors; the quantity "the sectional curvature of the plane of $v$ and $w$" is a function of two
+vector arguments that is not bilinear but a ratio of multilinear expressions.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Trilinearity on $\mathbb{R}^3$ is tested slot by slot. The exercise presents three expressions built from dot and
+cross products and asks which are trilinear, naming the slot that fails.
+
+::: {#exr-multilinear-check}
+#### Which maps are trilinear?
+
+Decide which of the following maps $\mathbb{R}^3 \times \mathbb{R}^3 \times \mathbb{R}^3 \to \mathbb{R}$ are
+trilinear: $(u, v, w) \mapsto u \cdot (v \times w)$; $(u, v, w) \mapsto |u|\,(v \cdot w)$; $(u, v, w) \mapsto (u
+\cdot v)(v \cdot w)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The triple product $u \cdot (v \times w) = \det(u | v | w)$ is trilinear. $|u|\,(v \cdot w)$ is not linear in $u$
+($|{-u}| = |u|$, not $-|u|$). $(u \cdot v)(v \cdot w)$ is quadratic in $v$: replacing $v$ by $2v$ multiplies it by
+$4$, not $2$.
+:::
+
+A trilinear map on $\mathbb{R}^3$ has $27$ components, most of which may vanish. The exercise computes them for a
+simple instance, counts them, and evaluates the map by contracting components with arguments, in SageManifolds.
+
+::: {#exr-trilinear-components}
+#### Components of a trilinear map
+
+For $T(u, v, w) = u^1 v^2 w^3 - u^2 v^1 w^3$ on $\mathbb{R}^3$, find the components $T_{ijk} = T(e_i, e_j, e_k)$,
+count how many components a trilinear map on $\mathbb{R}^3$ has, and evaluate $T$ on $u = (1, 2, 3)$, $v = (0, 1, -
+1)$, $w = (2, 0, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$T_{123} = 1$, $T_{213} = -1$, all other $25$ of the $3^3 = 27$ components vanish; $T(u, v, w) = T_{ijk} u^i v^j
+w^k = 1 \cdot 1 \cdot 1 - 2 \cdot 0 \cdot 1 = 1$. In SageManifolds' free-module tensors:
+
+```python
+V = FiniteRankFreeModule(QQ, 3, name="V")
+e = V.basis("e")
+T = V.tensor((0, 3), name="T")
+T[0, 1, 2] = 1; T[1, 0, 2] = -1
+print("non-zero components T_ijk (indices from 0):", {k: v for k, v in T.comp(e)._comp.items()}, "; number of components: 3^3 =", 3 ** 3)
+u = V([1, 2, 3], basis=e); v = V([0, 1, -1], basis=e); w = V([2, 0, 1], basis=e)
+print("T(u, v, w) =", T(u, v, w), "; by the formula u1 v2 w3 - u2 v1 w3 =", 1 * 1 * 1 - 2 * 0 * 1)
+print("linearity in the first slot: T(2u + v, v, w) = 2 T(u, v, w) + T(v, v, w):", T(2 * u + v, v, w) == 2 * T(u, v, w) + T(v, v, w))
+```
+
+*Output:*
+
+```text
+non-zero components T_ijk (indices from 0): {(0, 1, 2): 1, (1, 0, 2): -1} ; number of components: 3^3 = 27
+T(u, v, w) = 1 ; by the formula u1 v2 w3 - u2 v1 w3 = 1
+linearity in the first slot: T(2u + v, v, w) = 2 T(u, v, w) + T(v, v, w): True
+```
+:::
+
+When two arguments of an alternating map coincide its value is zero, and conversely a form that vanishes on the
+diagonal is antisymmetric. The exercise asks for both proofs and connects them to singular matrices with repeated
+columns.
+
+::: {#exr-multilinear-alternating}
+#### Alternating maps vanish on repeated arguments
+
+Show that an alternating bilinear or multilinear map vanishes whenever two of its arguments coincide, and
+conversely that a bilinear form with $B(v, v) = 0$ for all $v$ is antisymmetric.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Swapping two equal arguments changes nothing but, by the alternating property, changes the sign: $T(\dots, v,
+\dots, v, \dots) = -T(\dots, v, \dots, v, \dots)$, so the value is $0$. Conversely, $0 = B(v + w, v + w) = B(v, v) +
+B(v, w) + B(w, v) + B(w, w) = B(v, w) + B(w, v)$. For the determinant this says that a matrix with two equal
+columns is singular.
+:::
+::::
+
+### Tensor products
+
+![Tensors as arrays. Left: the components $u^i v^j$ of the elementary tensor $u \otimes v$ form a rank-one matrix.
+Middle: a sum of two elementary tensors has rank two. Right: a general element of $V \otimes V$ with nine
+independent components. Generated by `figures/tensor_grid.sage`.](figures/tensor_grid.svg){#fig-tensor-grid width=90%}
+
+{{< interactive tensor_grid 360 >}}
+
+Bilinear maps on pairs of covectors form a vector space, and this is the tensor product. The definition gives its
+basis and its dimension, the product of the two dimensions; the figure above shows its elements as arrays.
+
+:::: {.statement-box}
+::: {#def-tensor-product-space}
+#### Tensor product space
+
+The **tensor product** $V \otimes W$ of two finite-dimensional vector spaces is the vector space of bilinear maps
+$V^* \times W^* \to \mathbb{R}$. If $e_i$ is a basis of $V$ and $f_a$ a basis of $W$, the bilinear maps $e_i \otimes
+f_a$ defined by $(e_i \otimes f_a)(\alpha, \beta) = \alpha(e_i)\beta(f_a)$ form a basis of $V \otimes W$, so
+$\dim (V \otimes W) = \dim V \cdot \dim W$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first instance is the tensor square of $\mathbb{R}^3$, which is nine-dimensional. The example identifies its
+elements with $3 \times 3$ arrays and refers to the figure for the picture.
+
+::: {#exm-tensor-space-dim}
+#### $\mathbb{R}^3 \otimes \mathbb{R}^3$
+
+$\mathbb{R}^3 \otimes \mathbb{R}^3$ has dimension $9$ (@prp-tensor-dimension), with basis $e_i \otimes e_j$, $i, j =
+1, 2, 3$; an element is a $3 \times 3$ array of coefficients (@fig-tensor-grid; hovering a cell of the interactive
+figure shows its component).
+:::
+
+Tensoring two copies of the dual recovers the bilinear forms of the previous section. The example records this and
+locates the metric at a point as an element of $T_p^*M \otimes T_p^*M$.
+
+::: {#exm-tensor-space-dual}
+#### $V^* \otimes V^*$ and bilinear forms
+
+$V^* \otimes V^*$ is the space of bilinear maps $V \times V \to \mathbb{R}$, the bilinear forms of @sec-bilinear-forms;
+the metric at a point is an element of $T_p^*M \otimes T_p^*M$ with components $g_{ij}$.
+:::
+
+Mixing one dual factor with one original factor gives the linear maps of $V$ to itself. The example describes the
+element $\alpha \otimes v$ as a map and notes that the dimension is again nine.
+
+::: {#exm-tensor-space-mixed}
+#### $V^* \otimes V$ and linear maps
+
+$V^* \otimes V$ is the space of linear maps $V \to V$: the element $\alpha \otimes v$ is the map $w \mapsto
+\alpha(w) v$, and in a basis the components $T^i{}_j$ are a matrix. Its dimension is again $9$ for $\dim V = 3$
+(@exr-tensor-components, @prp-tensor-dimension).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+SageManifolds' free modules implement tensors with their types, components and contractions. The exercise is a long
+script that forms an outer product, checks dimensions, contracts a covector, changes basis and verifies the invariance
+of the trace; it is referred to repeatedly below.
+
+::: {#exr-tensor-components}
+#### Tensors on a free module
+
+With SageManifolds' `FiniteRankFreeModule` on $\mathbb{Q}^3$, form $u \otimes v$ for $u = (1, 2, 3)$,
+$v = (1, 0, -1)$, print its type and components, the dimensions of $V \otimes V$ and $V^* \otimes V$, contract the
+covector $a = (1, 0, -1)$ with its first slot, change to the basis $f = (e_1 + e_2, e_2, e_3)$, and check that the
+trace of a type $(1, 1)$ tensor is the same in both bases.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+```python
+V = FiniteRankFreeModule(QQ, 3, name="V")
+e = V.basis("e")
+u = V([1, 2, 3], basis=e, name="u"); v = V([1, 0, -1], basis=e, name="v")
+t = u * v
+print("u (x) v is a tensor of type", t.tensor_type(), "with components u^i v^j:", t.comp(e)[:])
+print("dimension of V (x) V:", V.tensor_module(2, 0).rank(), "; of V* (x) V:", V.tensor_module(1, 1).rank())
+a = V.linear_form(name="a"); a[:] = [1, 0, -1]
+print("a(u) = a_i u^i =", a(u), "; contracting a with the first slot of u (x) v gives the vector a(u) v =", a.contract(t).comp(e)[:])
+f = V.basis("f", from_family=(e[0] + e[1], e[1], e[2]))
+print("components of u in the basis f = (e0 + e1, e1, e2):", u.comp(f)[:], "; of u (x) v:", t.comp(f)[:])
+T = V.tensor((1, 1), name="T"); T[:] = [[1, 2, 0], [0, 3, 1], [0, 0, 5]]
+print("the trace (contraction of the two indices) of the type (1,1) tensor T is basis independent:", T.trace(), "=", sum(T.comp(f)[i, i] for i in range(3)))
+```
+
+*Output:*
+
+```text
+u (x) v is a tensor of type (2, 0) with components u^i v^j: [ 1  0 -1]
+[ 2  0 -2]
+[ 3  0 -3]
+dimension of V (x) V: 9 ; of V* (x) V: 9
+a(u) = a_i u^i = -2 ; contracting a with the first slot of u (x) v gives the vector a(u) v = [-2, 0, 2]
+components of u in the basis f = (e0 + e1, e1, e2): [1, 1, 3] ; of u (x) v: [ 1 -1 -1]
+[ 1 -1 -1]
+[ 3 -3 -3]
+the trace (contraction of the two indices) of the type (1,1) tensor T is basis independent: 9 = 9
+```
+:::
+
+Dimensions of tensor products multiply, so iterated products have dimensions that are products of several factors. The
+exercise asks for two such counts and for the general $n^k$.
+
+::: {#exr-tensor-dim-general}
+#### Dimensions of iterated tensor products
+
+Find $\dim(V \otimes W \otimes U)$ for $\dim V = 2$, $\dim W = 3$, $\dim U = 4$, and $\dim(V^{\otimes k})$ for
+$\dim V = n$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Bases multiply: $e_i \otimes f_a \otimes g_\alpha$ with $i, a, \alpha$ ranging independently gives $2 \cdot 3 \cdot
+4 = 24$ basis elements, and $V^{\otimes k}$ has $n^k$. A tensor with $k$ indices in dimension $n$ has $n^k$
+components (@exr-tensor-type-sage lists several cases).
+:::
+
+Four tensors $e_i \otimes e_j$ form a basis of $\mathbb{R}^2 \otimes \mathbb{R}^2$, and a general tensor is a
+combination of them. The exercise asks the reader to evaluate such a tensor on two covectors, which is a contraction
+of components with arguments.
+
+::: {#exr-tensor-basis-r2}
+#### The basis of $\mathbb{R}^2 \otimes \mathbb{R}^2$
+
+List the basis $e_i \otimes e_j$ of $\mathbb{R}^2 \otimes \mathbb{R}^2$, write a general element with components
+$T^{ij}$, and evaluate it as a bilinear map on the covectors $\alpha = (1, 2)$, $\beta = (3, -1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The basis is $e_1 \otimes e_1, e_1 \otimes e_2, e_2 \otimes e_1, e_2 \otimes e_2$, and $T = T^{ij} e_i \otimes e_j$.
+Since $(e_i \otimes e_j)(\alpha, \beta) = \alpha_i \beta_j$, $T(\alpha, \beta) = T^{ij}\alpha_i\beta_j = 3T^{11} -
+T^{12} + 6T^{21} - 2T^{22}$: a tensor is the multilinear map obtained by contracting its components with those of
+its arguments.
+:::
+::::
+
+### Elementary tensors
+
+The tensor product of two vectors is the simplest element of the tensor product space. The definition gives its
+components, the products $v^i w^a$, and names the tensors of this form elementary; a general tensor is a sum of
+elementary ones.
+
+:::: {.statement-box}
+::: {#def-elementary-tensor}
+#### Elementary tensor
+
+The **tensor product of vectors** $v \in V$, $w \in W$ is the element $v \otimes w \in V \otimes W$ with
+$(v \otimes w)(\alpha, \beta) = \alpha(v)\beta(w)$; it is bilinear in $(v, w)$, and its components are the products
+$v^i w^a$. Tensors of the form $v \otimes w$ are **elementary** (or **decomposable**); a general tensor is a sum
+of them.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The outer product of two vectors in $\mathbb{R}^3$ is a rank-one matrix. The example gives the one of the figure and
+notes that a sum of two elementary tensors need not be elementary.
+
+::: {#exm-elementary-outer}
+#### An outer product
+
+For $u = (1, 2, 3)$ and $v = (1, 0, -1)$, the components $(u \otimes v)^{ij} = u^i v^j$ form the rank-one matrix
+of @fig-tensor-grid, $\begin{pmatrix} 1 & 0 & -1 \\ 2 & 0 & -2 \\ 3 & 0 & -3 \end{pmatrix}$; the sum of two
+elementary tensors can have rank two and then is not elementary (@exr-elementary-sum).
+:::
+
+
+The metric of a product space is a sum of elementary tensors of covectors. The example writes one down and identifies
+the term $dx^\mu \otimes dx^\nu$ as the tensor product of two coordinate differentials.
+
+::: {#exm-elementary-metric}
+#### Product metrics
+
+The metric of a product of two spaces is $g = g_{\mu\nu}\, dx^\mu \otimes dx^\nu + h_{ab}\, dy^a \otimes dy^b$, a
+sum of elementary tensors of covectors; the term $dx^\mu \otimes dx^\nu$ is the tensor product of two coordinate
+differentials.
+:::
+
+Elementary tensors in $\mathbb{R}^3 \otimes \mathbb{R}^3$ are exactly the matrices of rank at most one. The example
+notes that the identity needs three elementary terms, matching the rank-three array of the figure.
+
+::: {#exm-elementary-matrix}
+#### Rank-one matrices
+
+A $3 \times 3$ matrix is elementary in $\mathbb{R}^3 \otimes \mathbb{R}^3$ exactly when it has rank at most one;
+the identity matrix is a sum $e_1 \otimes e_1 + e_2 \otimes e_2 + e_3 \otimes e_3$ of three and no fewer
+(@fig-tensor-grid, rank three).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The rank criterion for elementary tensors can be tested on two matrices. The exercise asks whether a given rank-one
+matrix and the identity are elementary, and the ranks decide.
+
+::: {#exr-rank-one}
+#### Which matrices are elementary?
+
+Decide whether $\begin{pmatrix} 1 & 0 & -1 \\ 2 & 0 & -2 \\ 3 & 0 & -3 \end{pmatrix}$ and the $3 \times 3$ identity
+are elementary tensors in $\mathbb{R}^3 \otimes \mathbb{R}^3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The first is $u \otimes v$ with $u = (1, 2, 3)$, $v = (1, 0, -1)$: every row is a multiple of $v$, rank one,
+elementary. The identity has rank three; an elementary tensor $u \otimes v$ has rank at most one (all rows are
+multiples of $v$), so the identity is not elementary and needs three terms $e_i \otimes e_i$.
+:::
+
+An elementary tensor evaluated on two covectors is the product of their values. The exercise computes this both
+directly and by summing components, and finds the rank of the component matrix.
+
+::: {#exr-elementary-evaluate}
+#### An elementary tensor as a bilinear map
+
+Evaluate $u \otimes v$, for $u = (1, 2, 3)$, $v = (1, 0, -1)$, on the covectors $a = (1, 0, -1)$ and $b = (0, 1,
+1)$, both directly and as $a(u) b(v)$, and find the rank of its component matrix.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$a(u) = 1 - 3 = -2$, $b(v) = 0 - 1 = -1$, so $(u \otimes v)(a, b) = 2$; the same number is $a_i b_j u^i v^j$
+summed over the nine components, and the component matrix has rank $1$:
+
+```python
+V = FiniteRankFreeModule(QQ, 3, name="V")
+e = V.basis("e")
+u = V([1, 2, 3], basis=e, name="u"); v = V([1, 0, -1], basis=e, name="v")
+a = V.linear_form(name="a"); a[:] = [1, 0, -1]
+b = V.linear_form(name="b"); b[:] = [0, 1, 1]
+t = u * v
+print("(u (x) v)(a, b) =", t(a, b), "; a(u) b(v) =", a(u) * b(v), "; equal:", t(a, b) == a(u) * b(v))
+print("components u^i v^j:", t.comp(e)[:], "; rank of the component matrix:", matrix(QQ, t.comp(e)[:]).rank())
+```
+
+*Output:*
+
+```text
+(u (x) v)(a, b) = 2 ; a(u) b(v) = 2 ; equal: True
+components u^i v^j: [ 1  0 -1]
+[ 2  0 -2]
+[ 3  0 -3] ; rank of the component matrix: 1
+```
+:::
+
+A sum of two elementary tensors is elementary only under a proportionality condition. The exercise asks for the proof
+and for a counterexample, and identifies the rank of the component matrix with the minimal number of elementary terms.
+
+::: {#exr-elementary-sum}
+#### When is a sum of two elementary tensors elementary?
+
+Show that $u \otimes v + w \otimes z$ is elementary if $w$ is a multiple of $u$ or $z$ a multiple of $v$, and that
+$e_1 \otimes e_1 + e_2 \otimes e_2$ is not elementary.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $w = \lambda u$, bilinearity gives $u \otimes v + \lambda u \otimes z = u \otimes (v + \lambda z)$; similarly
+for $z = \mu v$. The component matrix of $e_1 \otimes e_1 + e_2 \otimes e_2$ is $\mathrm{diag}(1, 1, 0)$ of rank
+$2$, while an elementary tensor has rank at most $1$ (@exr-rank-one), so it is not elementary. The rank of the
+component matrix is the smallest number of elementary terms needed.
+:::
+::::
+
+### Tensors of mixed type
+
+Tensors can mix original and dual factors, and the number of each is the type. The definition names the contravariant
+and covariant ranks and lists the types of vectors, covectors, bilinear forms and linear maps.
+
+:::: {.statement-box}
+::: {#def-tensor-type}
+#### Mixed tensor
+
+A **tensor of type $(r, s)$** (a **mixed tensor** when both $r, s > 0$) on $V$ is an element of $V^{\otimes r} \otimes (V^*)^{\otimes s}$, equivalently a
+multilinear map of $r$ covectors and $s$ vectors. It is **contravariant** of rank $r$ and **covariant** of rank
+$s$; vectors are of type $(1, 0)$, covectors $(0, 1)$, bilinear forms $(0, 2)$, linear maps $(1, 1)$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The metric and its inverse are of opposite types. The example records them and identifies the Kronecker delta as the
+type $(1, 1)$ identity map.
+
+::: {#exm-type-metric}
+#### Metric and inverse metric
+
+$g_{ij}$ is of type $(0, 2)$ and its inverse $g^{ij}$ of type $(2, 0)$; the Kronecker delta $\delta^i_j$ is of type
+$(1, 1)$, the identity map.
+:::
+
+The tensors of general relativity and the fields of electromagnetism each have a definite type. The example lists
+them, from the type $(1, 3)$ Riemann tensor down to the type $(0, 0)$ scalar curvature.
+
+::: {#exm-type-riemann}
+#### Curvature tensors
+
+The Riemann tensor $R^i{}_{jkl}$ is of type $(1, 3)$, the Ricci tensor $R_{ij}$ of type $(0, 2)$, the scalar
+curvature of type $(0, 0)$ (a number); the field strength $F_{\mu\nu}$ is of type $(0, 2)$ and the energy-momentum
+tensor $T^{\mu\nu}$ of type $(2, 0)$.
+:::
+
+SageManifolds records the type of every tensor it builds. The example shows how the type is read off and how a tensor
+of prescribed type is created.
+
+::: {#exm-type-sage}
+#### Types in Sage
+
+SageManifolds' `FiniteRankFreeModule` records the type: `u * v` for two vectors has `tensor_type() == (2, 0)`,
+a `linear_form` has type $(0, 1)$, and `V.tensor((1, 1))` creates a type $(1, 1)$ tensor (@exr-tensor-components,
+@exr-tensor-type-sage).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The type of an index expression is read off its free indices. The exercise asks for five classifications, including a
+contracted expression in which the summed indices do not count.
+
+::: {#exr-type-classify}
+#### Classifying tensors by type
+
+Give the type of $\delta^i_j$, of $\epsilon_{ijk}$, of $g^{ij} T_{jk}$, of $v^i w^j$ and of $\alpha_i v^i$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\delta^i_j$: $(1, 1)$. $\epsilon_{ijk}$: $(0, 3)$. $g^{ij} T_{jk}$: one free upper and one free lower index,
+$(1, 1)$. $v^i w^j$: $(2, 0)$. $\alpha_i v^i$: no free index, $(0, 0)$, a number. The type is read off the free
+indices; contracted pairs do not count (@def-contraction).
+:::
+
+A tensor of type $(r, s)$ in dimension $n$ has $n^{r + s}$ components. The exercise asks for the count and for the
+$256$ components of the Riemann tensor in four dimensions, before symmetries are taken into account.
+
+::: {#exr-type-count-components}
+#### Counting components
+
+How many components does a tensor of type $(r, s)$ on an $n$-dimensional space have? How many for the Riemann
+tensor in four dimensions before symmetries are taken into account?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Each of the $r + s$ indices runs over $n$ values, so $n^{r + s}$ components: $4^4 = 256$ for $R^i{}_{jkl}$ in four
+dimensions (its symmetries reduce the independent ones to $20$). The count does not depend on how the indices are
+split between upper and lower.
+:::
+
+Creating tensors of several types in Sage and reading off their component counts practises the two previous exercises.
+The exercise asks for six types and for the identity map as a type $(1, 1)$ tensor.
+
+::: {#exr-tensor-type-sage}
+#### Types and component counts in Sage
+
+Create tensors of types $(1, 0)$, $(0, 1)$, $(0, 2)$, $(1, 1)$, $(1, 2)$ and $(2, 2)$ on a free module of rank
+$3$, print their types and the ranks of the corresponding tensor modules, and display the identity map as a type
+$(1, 1)$ tensor.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+```python
+V = FiniteRankFreeModule(QQ, 3, name="V")
+e = V.basis("e")
+for (r, s) in [(1, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2)]:
+    t = V.tensor((r, s))
+    print("type", t.tensor_type(), ": tensor module of rank", V.tensor_module(r, s).rank(), "= 3^", r + s)
+delta = V.identity_map()
+print("the identity map has type", delta.tensor_type(), "and components", delta.comp(e)[:])
+```
+
+*Output:*
+
+```text
+type (1, 0) : tensor module of rank 3 = 3^ 1
+type (0, 1) : tensor module of rank 3 = 3^ 1
+type (0, 2) : tensor module of rank 9 = 3^ 2
+type (1, 1) : tensor module of rank 9 = 3^ 2
+type (1, 2) : tensor module of rank 27 = 3^ 3
+type (2, 2) : tensor module of rank 81 = 3^ 4
+the identity map has type (1, 1) and components [1 0 0]
+[0 1 0]
+[0 0 1]
+```
+:::
+::::
+
+### Components
+
+A tensor's components are its values on dual-basis and basis vectors, one index per slot. The definition gives the
+formula and the transformation rule: upper indices transform with $A^{-1}$, lower ones with $A$.
+
+:::: {.statement-box}
+::: {#def-tensor-components}
+#### Components of a tensor
+
+The **components** of a type $(r, s)$ tensor $T$ in a basis $e_i$ with dual basis $e^j$ are the numbers
+$T^{i_1 \dots i_r}{}_{j_1 \dots j_s} = T(e^{i_1}, \dots, e^{i_r}, e_{j_1}, \dots, e_{j_s})$, so that $T =
+T^{i_1 \dots i_r}{}_{j_1 \dots j_s}\, e_{i_1} \otimes \dots \otimes e^{j_s}$. Under a change of basis
+$e'_i = A^j{}_i e_j$, each upper index transforms with $A^{-1}$ and each lower index with $A$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The components of an outer product are the products of the components of the factors. The example records how they
+change under the basis change of @exr-tensor-components.
+
+::: {#exm-components-outer}
+#### Components of $u \otimes v$
+
+In the standard basis, $(u \otimes v)^{ij} = u^i v^j$ is the array of @fig-tensor-grid; in the basis $f = (e_1 +
+e_2, e_2, e_3)$ the components of $u = (1, 2, 3)$ become $(1, 1, 3)$ and those of $u \otimes v$ change
+accordingly (@exr-tensor-components).
+:::
+
+In a chart, the numbers $g_{ij}$ are the coefficients of the line element. The example records this and the two
+Jacobian factors that appear under a change of chart.
+
+::: {#exm-components-metric}
+#### Metric components
+
+The components $g_{ij} = g(\partial_i, \partial_j)$ of the metric in a chart are the coefficients that appear in
+$ds^2 = g_{ij}\, dx^i dx^j$ (@sec-metric); under a change of chart they transform with two factors of the Jacobian
+(@sec-calculus).
+:::
+
+The tensor is the same object in every basis; only its array changes. The example names the trace and the determinant
+of a type $(1, 1)$ tensor as invariants and explains why $\sqrt{|\det g|}$ carries a Jacobian.
+
+::: {#exm-components-basis-independent}
+#### What does not depend on the basis
+
+The tensor is the same object in every basis; only the array changes. The determinant of a type $(1, 1)$ tensor
+and its trace are basis independent, while the determinant of a type $(0, 2)$ tensor is multiplied by $(\det
+A)^2$: that is why $\sqrt{|\det g|}$ carries a Jacobian factor in the volume element of @sec-einstein-hilbert.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Transforming the components of a vector by hand means solving for the new coefficients. The exercise does this for a
+simple change of basis and compares with Sage.
+
+::: {#exr-transform-components}
+#### Transforming components
+
+With $e'_1 = e_1 + e_2$, $e'_2 = e_2$, $e'_3 = e_3$, find the components of $u = (1, 2, 3)$ in the primed basis by
+hand and compare with Sage.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$u = u'^1 e'_1 + u'^2 e'_2 + u'^3 e'_3 = u'^1 e_1 + (u'^1 + u'^2) e_2 + u'^3 e_3$, so $u'^1 = 1$, $u'^2 = 2 - 1 = 1$,
+$u'^3 = 3$: the components are $(1, 1, 3)$, as Sage prints in @exr-tensor-components. The matrix $A$ of the change
+has columns $(1, 1, 0)$, $(0, 1, 0)$, $(0, 0, 1)$ and the new components are $A^{-1} u$.
+:::
+
+Covector components transform the other way, with the matrix acting on the right. The exercise computes them for the
+same change of basis and checks that the pairing $a_i u^i$ is invariant.
+
+::: {#exr-covector-transform}
+#### Covectors transform the other way
+
+For the same change of basis, find the components of the covector $a = (1, 0, -1)$ in the primed basis, check that
+they are $a A$ (row times matrix), and verify that $a_i u^i$ is the same number in both bases.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$a'_j = a(e'_j)$: $a(e_1 + e_2) = 1$, $a(e_2) = 0$, $a(e_3) = -1$, so $a' = (1, 0, -1)$ happens to be unchanged
+(because $a(e_2) = 0$), and $a'_i u'^i = 1 + 0 - 3 = -2 = a_i u^i$:
+
+```python
+V = FiniteRankFreeModule(QQ, 3, name="V")
+e = V.basis("e")
+u = V([1, 2, 3], basis=e, name="u")
+a = V.linear_form(name="a"); a[:] = [1, 0, -1]
+f = V.basis("f", from_family=(e[0] + e[1], e[1], e[2]))
+print("components of u: in e", u.comp(e)[:], ", in f", u.comp(f)[:])
+print("components of a: in e", a.comp(e)[:], ", in f", a.comp(f)[:])
+print("a(u) = a_i u^i in e:", sum(a.comp(e)[i] * u.comp(e)[i] for i in range(3)), "; in f:", sum(a.comp(f)[i] * u.comp(f)[i] for i in range(3)), "; a(u) =", a(u))
+A = matrix(QQ, [[1, 0, 0], [1, 1, 0], [0, 0, 1]])   # columns: f_j in the basis e
+print("A =", A.rows(), "; u_f = A^-1 u_e:", list(A.inverse() * vector(QQ, u.comp(e)[:])) == list(u.comp(f)[:]), "; a_f = a_e A (row times A):", list(vector(QQ, a.comp(e)[:]) * A) == list(a.comp(f)[:]))
+```
+
+*Output:*
+
+```text
+components of u: in e [1, 2, 3] , in f [1, 1, 3]
+components of a: in e [1, 0, -1] , in f [1, 0, -1]
+a(u) = a_i u^i in e: -2 ; in f: -2 ; a(u) = -2
+A = [(1, 0, 0), (1, 1, 0), (0, 0, 1)] ; u_f = A^-1 u_e: True ; a_f = a_e A (row times A): True
+```
+:::
+
+A type $(0, 2)$ tensor transforms with two factors of $A$, and its determinant picks up $(\det A)^2$. The exercise
+derives this and contrasts it with the invariant determinant of a type $(1, 1)$ tensor.
+
+::: {#exr-components-bilinear-transform}
+#### Two lower indices
+
+Show that the components of a type $(0, 2)$ tensor transform as $B'_{ij} = A^k{}_i A^l{}_j B_{kl}$, and use it to
+explain why $\det B' = (\det A)^2 \det B$ while for a type $(1, 1)$ tensor $\det T' = \det T$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$B'_{ij} = B(e'_i, e'_j) = B(A^k{}_i e_k, A^l{}_j e_l) = A^k{}_i A^l{}_j B_{kl}$, that is, $B' = A^{\mathsf{T}} B A$,
+whose determinant is $(\det A)^2 \det B$. A type $(1, 1)$ tensor transforms as $T' = A^{-1} T A$, and $\det(A^{-1}
+T A) = \det T$; @exr-la-map-tensor checks both the trace and the determinant in the basis $f$.
+:::
+::::
+
+### Contraction
+
+Setting an upper index equal to a lower one and summing produces a tensor with two fewer indices. The definition names
+this operation, records its basis independence, and identifies the pairing of a covector with a vector as its simplest
+case.
+
+:::: {.statement-box}
+::: {#def-contraction}
+#### Contraction
+
+The **contraction** of a type $(r, s)$ tensor over one upper and one lower index is the type $(r - 1, s - 1)$
+tensor obtained by setting the two indices equal and summing: $(\mathrm{tr}\, T)^{i_1 \dots}{}_{j_1 \dots} =
+T^{k\, i_1 \dots}{}_{k\, j_1 \dots}$. It does not depend on the basis. Pairing a covector with a vector,
+$\alpha(v) = \alpha_i v^i$, is a contraction.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Contracting a type $(1, 1)$ tensor over its two indices sums the diagonal entries of its matrix. The example gives a
+$3 \times 3$ instance, together with the general fact that the result does not depend on the basis.
+
+::: {#exm-contraction-trace}
+#### The trace
+
+Contracting a type $(1, 1)$ tensor gives its trace $T^i{}_i$; for the tensor with components
+$\begin{pmatrix} 1 & 2 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 5 \end{pmatrix}$ the trace is $9$ in every basis
+(@exr-tensor-components): $1 + 3 + 5 = 9$, and $\mathrm{tr}(QTP) = \mathrm{tr}\, T$ whenever $QP = 1$.
+:::
+
+
+The Ricci tensor and the scalar curvature are contractions of the Riemann tensor. The example records both, the second
+requiring the inverse metric to raise an index first.
+
+::: {#exm-contraction-ricci}
+#### Ricci tensor and scalar curvature
+
+The Ricci tensor is the contraction $R_{jl} = R^i{}_{jil}$ of the Riemann tensor, and the scalar curvature is the
+further contraction $R = g^{jl} R_{jl}$ after raising an index with the inverse metric (@sec-ricci).
+:::
+
+Contracting a covector with one slot of an outer product gives a vector. The example computes it for the running $u$,
+$v$, $a$ and names the electromagnetic current as a contraction of the same kind.
+
+::: {#exm-contraction-pairing}
+#### Pairing a covector with a tensor
+
+Contracting the covector $a = (1, 0, -1)$ with the first slot of $u \otimes v$ gives the vector $a(u)\, v = -
+2\, v = (-2, 0, 2)$ (@exr-tensor-components; $a(u) = 1 - 3 = -2$); in
+electromagnetism $j^\mu = \partial_\nu F^{\nu\mu}$ is a contraction of a derivative index with an index of the field
+strength.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The invariance of the trace follows from the cyclic property $\mathrm{tr}(XY) = \mathrm{tr}(YX)$. The exercise asks
+for the proof and for its consequence for type $(1, 1)$ tensors.
+
+::: {#exr-contraction-trace-invariance}
+#### The trace does not depend on the basis
+
+Prove that $\mathrm{tr}(A^{-1} T A) = \mathrm{tr}\, T$ for every invertible $A$, and conclude that the contraction of
+a type $(1, 1)$ tensor does not depend on the basis.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathrm{tr}(XY) = X^i{}_j Y^j{}_i = \mathrm{tr}(YX)$, so $\mathrm{tr}(A^{-1} (TA)) = \mathrm{tr}((TA) A^{-1}) =
+\mathrm{tr}\, T$, where the cyclic step is applied to $X = A^{-1}$, $Y = TA$ and then $A A^{-1} = 1$ is used. Since
+$T' = A^{-1} T A$ is the matrix of the same type $(1, 1)$ tensor in another basis, its contraction is a well-defined
+number.
+:::
+
+A type $(2, 2)$ tensor admits four single contractions and two full ones. The exercise asks for the count and for the
+specific contraction of an elementary tensor that gives $\alpha(u)\beta(v)$.
+
+::: {#exr-contraction-count}
+#### How many contractions?
+
+How many distinct contractions does a tensor of type $(2, 2)$ admit, and what are their types? Which contraction of
+$T^{ij}{}_{kl} = u^i v^j \alpha_k \beta_l$ gives $\alpha(u)\,\beta(v)$?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+One contraction pairs one of the two upper indices with one of the two lower ones: $2 \cdot 2 = 4$ contractions,
+each of type $(1, 1)$; contracting again gives two full contractions of type $(0, 0)$. For the elementary tensor,
+contracting $i$ with $k$ and $j$ with $l$ gives $u^i\alpha_i\, v^j\beta_j = \alpha(u)\beta(v)$; contracting $i$ with
+$l$ and $j$ with $k$ gives $\beta(u)\alpha(v)$ instead.
+:::
+
+SageManifolds' `trace` and `contract` methods implement contractions. The exercise computes the trace of the running
+type $(1, 1)$ tensor, a partial contraction of a type $(2, 1)$ tensor, and $a(u)$.
+
+::: {#exr-contraction-sage}
+#### Contractions in Sage
+
+With a free module of rank $3$, compute the trace of the type $(1, 1)$ tensor of @exm-contraction-trace, contract
+a type $(2, 1)$ tensor $S^{ij}{}_k$ over $i$ and $k$, and recover $a(u)$ as a contraction.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+`trace()` contracts the two indices of a type $(1, 1)$ tensor; `trace(0, 2)` contracts the first and third index
+positions of $S$, leaving a vector; `a.contract(u)` is $a_i u^i$:
+
+```python
+V = FiniteRankFreeModule(QQ, 3, name="V")
+e = V.basis("e")
+T = V.tensor((1, 1), name="T"); T[:] = [[1, 2, 0], [0, 3, 1], [0, 0, 5]]
+print("trace of T (type (1, 1)):", T.trace(), "= 1 + 3 + 5")
+S = V.tensor((2, 1), name="S")
+S[0, 0, 0] = 1; S[1, 0, 1] = 2; S[2, 1, 2] = 3; S[0, 2, 0] = 4
+c = S.trace(0, 2)   # contract the first (upper) index with the third (lower) one
+print("S^{ij}_k contracted over i = k gives the vector with components", c.comp(e)[:], "of type", c.tensor_type())
+a = V.linear_form(name="a"); a[:] = [1, 0, -1]; u = V([1, 2, 3], basis=e, name="u")
+print("the pairing a_i u^i as a contraction:", a.contract(u), "= a(u) =", a(u))
+```
+
+*Output:*
+
+```text
+trace of T (type (1, 1)): 9 = 1 + 3 + 5
+S^{ij}_k contracted over i = k gives the vector with components [3, 3, 4] of type (1, 0)
+the pairing a_i u^i as a contraction: -2 = a(u) = -2
+```
+:::
+::::
+
+### Dimensions of tensor products
+
+The dimensions of $\mathbb{R}^3 \otimes \mathbb{R}^3$ and of $(\mathbb{R}^3)^* \otimes \mathbb{R}^3$ close the chapter's
+account of tensors. The proposition states both; the second rests on the equality of the dimensions of a space and its
+dual.
+
+:::: {.statement-box}
+::: {#prp-tensor-dimension}
+#### Dimension of a tensor product
+
+$\dim(\mathbb{R}^3 \otimes \mathbb{R}^3) = 9$ and $\dim((\mathbb{R}^3)^* \otimes \mathbb{R}^3) = 9$.
+:::
+::::
+
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The nine basis tensors $e_i \otimes e_j$ are independent and spanning. The example gives the argument, with the
+component array of a combination as the key.
+
+::: {#exm-tensordim-basis-count}
+#### Counting the basis
+
+The $e_i \otimes e_j$ with $i, j \in \{1, 2, 3\}$ are nine tensors; they are independent because the component
+array of $\sum c^{ij} e_i \otimes e_j$ is $(c^{ij})$, and they span because every bilinear map on $V^* \times V^*$
+is determined by its nine values on pairs of dual basis vectors.
+:::
+
+The same product formula applies when both factors are dual spaces. Then the tensor product is the space of bilinear
+forms of @sec-bilinear-forms, and its dimension matches the count of their component matrices.
+
+::: {#exm-tensordim-lean}
+#### The tensor square of the dual
+
+$\dim(V^* \otimes V^*) = \dim V^* \cdot \dim V^* = 3 \cdot 3 = 9$ for $\dim V = 3$, using $\dim V^* = \dim V$: the
+bilinear forms on $\mathbb{R}^3$ form a nine-dimensional space, matching their $3 \times 3$ component matrices.
+:::
+
+Tensoring with the scalars themselves changes nothing, and the dimension formula shows it at once. This is the
+reason a scalar can be moved freely through a tensor product.
+
+::: {#exm-tensordim-sage}
+#### Tensoring with $\mathbb{R}$
+
+$\dim(\mathbb{R}^3 \otimes \mathbb{R}) = 3 \cdot 1 = 3$: the elements $v \otimes c = (c v) \otimes 1$ are the vectors
+of $\mathbb{R}^3$ again, and $V \otimes \mathbb{R}$ is identified with $V$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+A tensor product of spaces of different dimensions has rectangular component arrays. The exercise asks for the
+dimension of $\mathbb{R}^2 \otimes \mathbb{R}^3$, its basis, and the shape of its arrays.
+
+::: {#exr-tensordim-r2-r3}
+#### A rectangular tensor product
+
+Find $\dim(\mathbb{R}^2 \otimes \mathbb{R}^3)$ and list its basis; what shape do the component arrays have?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$2 \cdot 3 = 6$, with basis $e_i \otimes f_a$ for $i = 1, 2$ and $a = 1, 2, 3$; the components $T^{ia}$ form a
+$2 \times 3$ matrix, and $\mathbb{R}^2 \otimes \mathbb{R}^3$ is the space of such matrices (equivalently of linear
+maps $(\mathbb{R}^3)^* \to \mathbb{R}^2$).
+:::
+
+The proposition is stated for $\mathbb{R}^3$, but the same two facts prove the general case. The exercise asks for
+that proof and for its meaning in terms of matrices.
+
+::: {#exr-tensordim-lean-reading}
+#### The dimension of $V^* \otimes V$
+
+Prove that $\dim(V^* \otimes V) = (\dim V)^2$ for every finite-dimensional $V$, and explain the count in terms of the
+matrices of linear maps $V \to V$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The product formula gives $\dim(V^* \otimes V) = \dim V^* \cdot \dim V$, and $\dim V^* = \dim V$ (@def-dual-space)
+turns it into $(\dim V)^2$. In a basis, $V^* \otimes V$ is the space of linear maps $V \to V$ (@exm-tensor-space-mixed),
+whose matrices have $n \cdot n = n^2$ entries.
+:::
+
+Inside $V \otimes V$ the symmetric tensors and the antisymmetric ones have dimensions $n(n+1)/2$ and $n(n-1)/2$, as
+matrices do. The exercise asks for these counts for $n = 2, 3, 4$ and checks in Sage that they add up to $n^2$.
+
+::: {#exr-symmetric-tensors-dim}
+#### Symmetric and antisymmetric tensors
+
+Find the dimensions of the symmetric ($T^{ij} = T^{ji}$) and antisymmetric ($T^{ij} = -T^{ji}$) tensors in
+$V \otimes V$ for $\dim V = 2, 3, 4$, and check that they add up to $n^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$n(n + 1)/2$ and $n(n - 1)/2$, as for matrices (@exr-dimension-symmetric): $3 + 1 = 4$, $6 + 3 = 9$, $10 + 6 = 16$:
+
+```python
+for n in [2, 3, 4]:
+    M = MatrixSpace(QQ, n, n)
+    sym = span([vector(QQ, (m + m.transpose()).list()) for m in M.basis()], QQ)
+    anti = span([vector(QQ, (m - m.transpose()).list()) for m in M.basis()], QQ)
+    print("n =", n, ": symmetric", sym.dimension(), "= n(n+1)/2:", sym.dimension() == n * (n + 1) / 2, "; antisymmetric", anti.dimension(), "= n(n-1)/2:", anti.dimension() == n * (n - 1) / 2, "; sum", sym.dimension() + anti.dimension(), "= n^2")
+```
+
+*Output:*
+
+```text
+n = 2 : symmetric 3 = n(n+1)/2: True ; antisymmetric 1 = n(n-1)/2: True ; sum 4 = n^2
+n = 3 : symmetric 6 = n(n+1)/2: True ; antisymmetric 3 = n(n-1)/2: True ; sum 9 = n^2
+n = 4 : symmetric 10 = n(n+1)/2: True ; antisymmetric 6 = n(n-1)/2: True ; sum 16 = n^2
+```
+:::
+::::
+
+## Exercises {#sec-linear-algebra-exercises}
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Three exercises that combine the sections of this chapter: a bilinear form seen through a non-standard basis, a
+linear map seen as a mixed tensor, and an antisymmetric tensor on Minkowski space.
+
+The first integrative exercise looks at the dot product through the skewed basis $f$. Its Gram matrix, its signature
+and the lowering and raising of an index all appear, and the invariant $v_i v^i$ must come out equal to the standard
+$|v|^2$.
+
+::: {#exr-la-gram-f}
+#### The dot product in the basis $f$
+
+Compute the Gram matrix $G_{ij} = f_i \cdot f_j$ of the basis $f = ((2, 1), (1, 2))$, its signature, lower the
+index of the vector with $f$-coordinates $(2, 1)$ and raise it back, and check that $v_i v^i$ equals the standard
+$|v|^2$ of $v = (5, 4)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$G = A^{\mathsf{T}} A = \begin{pmatrix} 5 & 4 \\ 4 & 5 \end{pmatrix}$ (@exr-bilinear-change-basis), positive
+definite with signature $(2, 0, 0)$ and $\det G = 9 = (\det A)^2$. Lowering: $v_i = G_{ij} v^j = (14, 13)$;
+raising with $G^{-1}$ returns $(2, 1)$; $v_i v^i = 28 + 13 = 41 = 5^2 + 4^2$:
+
+```python
+A = matrix(QQ, [[2, 1], [1, 2]]).transpose()
+G = A.transpose() * A
+print("Gram matrix G_ij = f_i . f_j =", G.rows(), "; symmetric:", G.is_symmetric(), "; det =", G.det(), "; signature:", QuadraticForm(QQ, 2 * G).signature_vector())
+c = vector(QQ, [2, 1])             # f-coordinates of v = (5, 4)
+low = G * c
+print("v^i = (2, 1) lowered: v_i = G_ij v^j =", low, "; raised again with G^-1:", G.inverse() * low)
+v = A * c
+print("|v|^2 = v_i v^i =", low * c, "= standard |v|^2 =", v * v)
+```
+
+*Output:*
+
+```text
+Gram matrix G_ij = f_i . f_j = [(5, 4), (4, 5)] ; symmetric: True ; det = 9 ; signature: (2, 0, 0)
+v^i = (2, 1) lowered: v_i = G_ij v^j = (14, 13) ; raised again with G^-1: (2, 1)
+|v|^2 = v_i v^i = 41 = standard |v|^2 = 41
+```
+:::
+
+The second views the matrix $T$ as a mixed tensor of type $(1, 1)$. The exercise asks for its matrix in the basis $f$,
+compares traces, determinants and individual components, and checks its action on coordinates.
+
+::: {#exr-la-map-tensor}
+#### A linear map as a type $(1, 1)$ tensor
+
+For $T = \begin{pmatrix} 1 & 3 \\ 0 & 2 \end{pmatrix}$ on $\mathbb{R}^2$, find its matrix $T' = A^{-1} T A$ in the
+basis $f$, compare the traces, determinants and individual components, and check that $T'$ applied to the
+$f$-coordinates of $v = (5, 4)$ gives the $f$-coordinates of $Tv$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$T' = \tfrac13\begin{pmatrix} 8 & 10 \\ -1 & 1 \end{pmatrix}$: the components change, the trace $3$ and the
+determinant $2$ do not (the trace by @exr-contraction-trace-invariance, the determinant by multiplicativity). $Tv = (17, 8)$ has $f$-coordinates $(\tfrac{26}3, -\tfrac13) = T'(2, 1)$:
+
+```python
+A = matrix(QQ, [[2, 1], [1, 2]]).transpose()
+T = matrix(QQ, [[1, 3], [0, 2]])
+Tp = A.inverse() * T * A
+print("T in the standard basis:", T.rows(), "; in the basis f:", Tp.rows())
+print("trace:", T.trace(), "=", Tp.trace(), "; determinant:", T.det(), "=", Tp.det(), "; components equal:", T == Tp)
+v = vector(QQ, [5, 4]); c = A.inverse() * v
+print("T v in standard coordinates:", T * v, "; T' c in f-coordinates:", Tp * c, "; consistent (A T' c = T v):", A * (Tp * c) == T * v)
+```
+
+*Output:*
+
+```text
+T in the standard basis: [(1, 3), (0, 2)] ; in the basis f: [(8/3, 10/3), (-1/3, 1/3)]
+trace: 3 = 3 ; determinant: 2 = 2 ; components equal: False
+T v in standard coordinates: (17, 8) ; T' c in f-coordinates: (26/3, -1/3) ; consistent (A T' c = T v): True
+```
+:::
+
+The third brings in the Minkowski form and an antisymmetric tensor. The exercise raises both indices of a field
+strength with $\eta$ and computes the invariant $F_{\mu\nu}F^{\mu\nu}$, the electromagnetic Lagrangian up to a factor.
+
+::: {#exr-la-field-strength}
+#### An antisymmetric tensor on Minkowski space
+
+Let $F_{\mu\nu}$ be antisymmetric with $F_{01} = -E$, $F_{12} = B$ and all other independent components zero.
+Raise both indices with $\eta^{\mu\nu}$ and compute the invariant $F_{\mu\nu}F^{\mu\nu}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$F^{\mu\nu} = \eta^{\mu\alpha}\eta^{\nu\beta}F_{\alpha\beta}$ flips the sign of the components with one time index
+and leaves the purely spatial ones alone: $F^{01} = E$, $F^{12} = B$. Then $F_{\mu\nu}F^{\mu\nu} = 2(F_{01}F^{01} +
+F_{12}F^{12}) = 2(-E^2 + B^2)$, the Lagrangian density of electromagnetism up to a factor; the value does not depend
+on the signature, two indices being raised:
+
+```python
+E1, B3 = var("E1 B3")
+eta = diagonal_matrix(SR, [1, -1, -1, -1])
+F = matrix(SR, [[0, -E1, 0, 0], [E1, 0, B3, 0], [0, -B3, 0, 0], [0, 0, 0, 0]])
+print("F antisymmetric:", F.transpose() == -F)
+Fup = eta.inverse() * F * eta.inverse()           # F^{mu nu} = eta^{mu a} F_{ab} eta^{b nu}
+print("F^{mu nu} =", Fup.rows())
+inv = sum(F[m, n] * Fup[m, n] for m in range(4) for n in range(4)).expand()
+print("F_{mu nu} F^{mu nu} =", inv, "= 2 (B3^2 - E1^2):", bool(inv == 2 * (B3 ^ 2 - E1 ^ 2)))
+```
+
+*Output:*
+
+```text
+F antisymmetric: True
+F^{mu nu} = [(0, E1, 0, 0), (-E1, 0, B3, 0), (0, -B3, 0, 0), (0, 0, 0, 0)]
+F_{mu nu} F^{mu nu} = 2*B3^2 - 2*E1^2 = 2 (B3^2 - E1^2): True
+```
+:::
+::::

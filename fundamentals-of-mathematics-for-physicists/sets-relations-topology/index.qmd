@@ -1,0 +1,3397 @@
+---
+pagetitle: "Sets, relations and topology"
+---
+
+# Sets, relations and topology {#sec-sets-relations-topology}
+
+Mathematics starts with sets and the maps between them, continues with the two ways of building new sets, by
+gluing elements together and by pairing them, and reaches geometry when a set is given enough structure to speak
+of nearness: a topology. This chapter contains those first steps, in four sections. Sets and maps fixes the
+vocabulary of elements, images, injective, surjective and bijective maps and inverses. Relations, quotients and
+products introduces composition, equivalence relations and quotient sets, and Cartesian products. Topological
+spaces defines open sets, continuity and homeomorphisms, and the subspace and quotient topologies. Compact and
+connected spaces adds the three global properties, Hausdorff, compact and connected, that the spaces of the later
+chapters all share. The reader who knows this material can skim the definitions and try the exercises; every
+notion used later is defined here first, and every counting statement is proved. The standard references
+are any introductory text on sets and point-set topology; the examples here are drawn from the circle, the sphere
+and the rotation group, which recur throughout the book.
+
+## Sets and maps {#sec-sets}
+
+A set is a collection of things, a map a rule assigning to each thing of one set a thing of another. The six
+notions of this section, sets, maps, injective, surjective and bijective maps, and inverse maps, are the vocabulary
+in which every later definition is phrased. Each definition is followed by three examples of increasing complexity
+and three exercises of increasing difficulty with hidden solutions; the counting results of the section are
+collected in @prp-count-maps, after the definition of the inverse map.
+
+For more on this topic, see @chirivi2020selected [Theory Ch. 1], @komjath2006problems [Ch. 1, Ch. 6] and @radozycki2020solving [Ch. 1].
+
+### Sets
+
+Before anything can be counted, mapped or given a shape, one has to say what a collection of objects is and when
+one collection sits inside another. The picture to keep in mind is a bag of labelled items, with no order and no
+repetition, together with the smaller bags that can be taken out of it. The first definition fixes this vocabulary
+and the two symbols, membership and inclusion, that recur on every page of the book.
+
+:::: {.statement-box}
+::: {#def-set}
+#### Set
+
+A **set** is a collection of distinct objects, its **elements**; $x \in X$ means that $x$ is an element of $X$. A
+set $Y$ is a **subset** of $X$, written $Y \subseteq X$, if every element of $Y$ is an element of $X$. The set with
+no elements is the **empty set** $\emptyset$, and $|X|$ denotes the number of elements of a finite set.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The simplest sets are those whose elements can be written out in full, so that the size is a matter of counting.
+The three sets below are of this kind, and the last of them, the six rotations of a hexagon, is the first
+appearance of a set of symmetries, the kind of set on which the groups of later chapters are built.
+
+::: {#exm-set-finite}
+#### Finite sets
+
+$\{1, 2, 3\}$ has three elements; $\{0, 2, 4\}$ is a subset of $\{0, 1, 2, 3, 4, 5\}$; the set of six rotations of a
+regular hexagon by multiples of $60^\circ$ has $|X| = 6$.
+:::
+
+Most sets of analysis and physics cannot be listed element by element. The familiar number systems are the standard
+infinite sets, and they come with inclusions among them that will be taken for granted throughout; the lists of $n$
+real numbers are the coordinate spaces in which every chart of a manifold takes its values.
+
+::: {#exm-set-numbers}
+#### Number sets
+
+$\mathbb{Z}$ (integers), $\mathbb{R}$ (real numbers), $\mathbb{C}$ (complex numbers) and $\mathbb{R}^n$ (lists of
+$n$ real numbers) are infinite sets, with $\mathbb{Z} \subseteq \mathbb{R} \subseteq \mathbb{C}$.
+:::
+
+A set can also be specified by a condition rather than by a list or a name: its elements are the points of some
+ambient space that satisfy an equation. The circle, the sphere and the rotation group are all described this way,
+and this is how they will be handled throughout the book, as subsets of a coordinate space cut out by polynomial
+conditions.
+
+::: {#exm-set-geometric}
+#### Geometric sets
+
+The circle $S^1 = \{(X, Y) \in \mathbb{R}^2 : X^2 + Y^2 = 1\}$ and the sphere $S^2 = \{(X, Y, Z) \in \mathbb{R}^3 :
+X^2 + Y^2 + Z^2 = 1\}$ are subsets of $\mathbb{R}^2$ and $\mathbb{R}^3$ cut out by one equation; the set $SO(3)$ of
+rotations of space is a subset of the set of all $3 \times 3$ real matrices, cut out by the conditions
+$R^{\mathsf{T}} R = 1$ and $\det R = 1$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The first exercise asks for the full inventory of subsets of a three-element set, including the empty set and the
+set itself. Doing it by hand shows where the count $2^3$ comes from, and the Sage check introduces the enumeration
+style that recurs in the counting exercises of this section.
+
+::: {#exr-set-subsets}
+#### Subsets of a small set
+
+List all subsets of $\{a, b, c\}$ and count them.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Each element is in or out, so there are $2^3 = 8$ subsets: $\emptyset$, $\{a\}$, $\{b\}$, $\{c\}$, $\{a, b\}$,
+$\{a, c\}$, $\{b, c\}$, $\{a, b, c\}$. In Sage:
+
+```python
+X = Set(["a", "b", "c"])
+subs = list(X.subsets())
+for s in subs: print(sorted(s))
+print("[PASS] the number of subsets is 2^3 = 8:", len(subs) == 8)
+```
+
+*Output:*
+
+```text
+[]
+['b']
+['c']
+['a']
+['b', 'c']
+['a', 'b']
+['a', 'c']
+['a', 'b', 'c']
+[PASS] the number of subsets is 2^3 = 8: True
+```
+:::
+
+Inclusions between sets are the first relations that need checking rather than assuming, and each failed inclusion
+is witnessed by a single element. This exercise runs through the chain of number systems and then through the
+circle and the two discs, where the question becomes whether a boundary belongs to a region.
+
+::: {#exr-set-inclusions}
+#### Inclusions among familiar sets
+
+Decide which inclusions hold among $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, $\mathbb{C}$, the circle
+$S^1 \subset \mathbb{R}^2$, the closed disc $D = \{X^2 + Y^2 \leq 1\}$ and the open disc.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbb{N} \subseteq \mathbb{Z} \subseteq \mathbb{Q} \subseteq \mathbb{R} \subseteq \mathbb{C}$, each inclusion
+strict ($-1 \notin \mathbb{N}$, $\tfrac12 \notin \mathbb{Z}$, $\sqrt2 \notin \mathbb{Q}$, $i \notin \mathbb{R}$). The
+open disc is a subset of the closed disc, and the circle is a subset of the closed disc but disjoint from the open
+one: $S^1 \subseteq D$, $S^1 \cap \{X^2 + Y^2 < 1\} = \emptyset$.
+:::
+
+Cutting a set out by two conditions at once is intersecting two sets, and the result can be much smaller than
+either. The exercise intersects the circle and the sphere with a plane, where the same slicing has very different
+outcomes in two and in three dimensions; the circles of latitude obtained here return when the sphere is given
+coordinates.
+
+::: {#exr-set-circle-line}
+#### A set cut out by two equations
+
+Describe the set of points of the circle $S^1$ that lie on the line $Y = \tfrac12$, and the set of points of the
+sphere $S^2$ with $Z = \tfrac12$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+On the circle $X^2 + \tfrac14 = 1$ gives $X = \pm\tfrac{\sqrt3}{2}$: a set of two points. On the sphere $X^2 + Y^2
+= \tfrac34$: a circle of radius $\tfrac{\sqrt3}{2}$, a set with infinitely many elements. In Sage:
+
+```python
+X, Y, Z = var("X Y Z")
+print("circle and the line Y = 1/2:", solve([X^2 + Y^2 == 1, Y == 1/2], [X, Y]))
+print("sphere and the plane Z = 1/2:", (X^2 + Y^2 + Z^2 - 1).subs(Z=1/2), "= 0, a circle of radius", sqrt(3/4))
+print("[PASS] two points on the circle, a circle of radius sqrt(3)/2 on the sphere:", len(solve([X^2 + Y^2 == 1, Y == 1/2], [X, Y])) == 2)
+```
+
+*Output:*
+
+```text
+circle and the line Y = 1/2: [
+[X == -1/2*sqrt(3), Y == (1/2)],
+[X == 1/2*sqrt(3), Y == (1/2)]
+]
+sphere and the plane Z = 1/2: X^2 + Y^2 - 3/4 = 0, a circle of radius 1/2*sqrt(3)
+[PASS] two points on the circle, a circle of radius sqrt(3)/2 on the sphere: True
+```
+:::
+::::
+
+### Maps
+
+With sets in place, the next notion is a rule that sends elements of one set to elements of another. The picture is
+a set of arrows, exactly one leaving each point of the domain, and the two subsets attached to such a rule, the
+values actually taken and the points sent into a given target region, are the objects in which continuity and
+quotients are later phrased.
+
+:::: {.statement-box}
+::: {#def-map}
+#### Map
+
+A **map** $f : X \to Y$ assigns to every element $x$ of the **domain** $X$ exactly one element $f(x)$ of the
+**codomain** $Y$. The **image** of $f$ is the subset $\{f(x) : x \in X\} \subseteq Y$ of values actually taken, and
+the **preimage** of a subset $V \subseteq Y$ is $f^{-1}(V) = \{x \in X : f(x) \in V\}$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+When both sets are finite the map is a table, and its image and preimages are read off directly from that table.
+The example also gives a first count, the number of all maps between two small sets, which is the first of the
+counts collected in @prp-count-maps.
+
+::: {#exm-map-finite}
+#### Maps between finite sets
+
+$f : \{1, 2, 3\} \to \{x, y\}$ with $f(1) = f(2) = x$, $f(3) = y$ is a map with image $\{x, y\}$ and preimage
+$f^{-1}(\{x\}) = \{1, 2\}$. There are $2^3 = 8$ maps from a three-element set to a two-element set, one choice of
+value for each element (@prp-count-maps).
+:::
+
+The functions of calculus are maps with the real line as domain, and their images are the ranges one learns to
+compute. The second map of this example goes further: it wraps the line around the circle, so that its image is a
+curve rather than an interval and its preimages are infinite sets of angles. This wrapping map is the model for
+every parametrisation in the book.
+
+::: {#exm-map-functions}
+#### Functions and parametrisations
+
+$\cos : \mathbb{R} \to \mathbb{R}$ is a map with image $[-1, 1]$. The map $\varphi \mapsto (\cos\varphi, \sin\varphi)$
+from $\mathbb{R}$ to $\mathbb{R}^2$ has image the circle $S^1$: it parametrises the circle, and the preimage of the
+single point $(1, 0)$ is the set of multiples of $2\pi$.
+:::
+
+Maps need not start from a line or a plane; the domain can itself be a curved set or a set of matrices. The height
+function on the sphere and the map that sends a rotation to the point where it moves the north pole are the two
+examples from which the coset description of the sphere is built, and both reappear in the exercises that follow.
+
+::: {#exm-map-projection}
+#### Projections and the orbit map
+
+The projection $(X, Y, Z) \mapsto Z$ from the sphere to $\mathbb{R}$ (the height function) has image $[-1, 1]$;
+the map $g \mapsto g \cdot (0, 0, 1)$, sending a rotation to the point where it moves the north pole, has domain
+$SO(3)$ and image the whole sphere.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+![Three maps between finite sets, drawn as bipartite graphs: an injective map that is not surjective, a surjective
+map that is not injective, and a bijection. Generated by `figures/map_diagram.sage` with Sage's graph
+module.](figures/map_diagram.svg){#fig-map-diagram width=70%}
+
+With @fig-map-diagram in view, the first exercise asks the reader to read images and preimages off an explicit
+table of values. The point to notice is that a preimage can be empty, and that the preimage of a set of two values
+collects everything sent to either of them.
+
+::: {#exr-map-image-preimage}
+#### Image and preimage of a finite map
+
+For $f : \{1, 2, 3, 4\} \to \{a, b, c\}$ with $f(1) = f(3) = a$, $f(2) = c$, $f(4) = a$, find the image of $f$ and
+the preimages of $\{a\}$, $\{b\}$ and $\{a, c\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Image $\{a, c\}$; $f^{-1}(\{a\}) = \{1, 3, 4\}$, $f^{-1}(\{b\}) = \emptyset$, $f^{-1}(\{a, c\}) = \{1, 2, 3, 4\}$. In
+Sage, with the map as a dictionary:
+
+```python
+f = {1: "a", 2: "c", 3: "a", 4: "a"}
+image = set(f.values())
+preimage = lambda V: {x for x in f if f[x] in V}
+print("image:", sorted(image))
+for V in ({"a"}, {"b"}, {"a", "c"}): print("preimage of", sorted(V), ":", sorted(preimage(V)))
+print("[PASS] image {a, c}; preimages {1,3,4}, {}, {1,2,3,4}:", image == {"a", "c"} and preimage({"a"}) == {1, 3, 4} and preimage({"b"}) == set() and preimage({"a", "c"}) == {1, 2, 3, 4})
+```
+
+*Output:*
+
+```text
+image: ['a', 'c']
+preimage of ['a'] : [1, 3, 4]
+preimage of ['b'] : []
+preimage of ['a', 'c'] : [1, 2, 3, 4]
+[PASS] image {a, c}; preimages {1,3,4}, {}, {1,2,3,4}: True
+```
+:::
+
+For a function on the real line, images and preimages are computed by solving inequalities rather than by reading a
+table. The squaring map is the standard example in which the preimage of an interval splits into two pieces and the
+preimage of a point can be empty.
+
+::: {#exr-map-square}
+#### Image and preimage of $x \mapsto x^2$
+
+Find the image of $x \mapsto x^2$ on $\mathbb{R}$, and the preimages of $[1, 4]$ and of $\{-1\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The image is $[0, \infty)$. $x^2 \in [1, 4]$ means $1 \leq |x| \leq 2$, so the preimage is $[-2, -1] \cup [1, 2]$;
+the preimage of $\{-1\}$ is empty, since no square is negative. A preimage can be empty, or larger than the set
+whose preimage it is.
+:::
+
+The same questions make sense for the height function on the sphere, where the answers are regions of a surface
+rather than subsets of a line. This exercise produces preimages that are caps, circles and the empty set, and the
+circles of latitude among them are the level sets used later to give the sphere coordinates.
+
+::: {#exr-map-height-cap}
+#### Preimage of a cap
+
+For the height function $h(X, Y, Z) = Z$ on the sphere, describe the preimages of the interval $(\tfrac12, 1]$, of
+the point $0$ and of the interval $[2, 3]$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$h^{-1}((\tfrac12, 1])$ is the open cap of points above the plane $Z = \tfrac12$, including the north pole;
+$h^{-1}(0)$ is the equator, a circle; $h^{-1}([2, 3])$ is empty, as $|Z| \leq 1$ on the sphere. The level sets
+$h^{-1}(c)$ for $-1 < c < 1$ are the circles of latitude, which are used in @sec-charts to see the sphere as a
+surface.
+:::
+::::
+
+Of the maps seen so far, some lose information, sending two points to the same value, and some do not. The first of
+the three properties of a map singles out the ones that do not: the picture is a set of arrows with no two
+arrowheads meeting, and the equivalent statement in terms of preimages, at most one point over each value, is the
+form that will be used in proofs.
+
+:::: {.statement-box}
+::: {#def-injective}
+#### Injective map
+
+A map $f : X \to Y$ is **injective** (one-to-one) if distinct elements have distinct values: $f(x) = f(x')$
+implies $x = x'$. Equivalently, every point of $Y$ has at most one preimage.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For maps between finite sets injectivity can be settled by inspection, and the first map in @fig-map-diagram is the
+model. The second half of the example is the pigeonhole principle in its simplest form: a set with more elements
+cannot be mapped injectively into a set with fewer, which is one of the counts collected in @prp-count-maps.
+
+::: {#exm-injective-finite}
+#### On finite sets
+
+The first map of @fig-map-diagram, $1 \mapsto x$, $2 \mapsto y$ into $\{x, y, z\}$, is injective. No map from a
+three-element set to a two-element set is injective, because three elements cannot have three distinct values among
+two (@prp-count-maps).
+:::
+
+For functions on the real line, injectivity is the question whether a horizontal line can meet the graph twice.
+Exponential and square give the two possible answers, and the square's failure, two arguments with the same value,
+is the obstruction that later forces coordinates on a sphere to be restricted.
+
+::: {#exm-injective-exp}
+#### The exponential
+
+$\exp : \mathbb{R} \to \mathbb{R}$ is injective, since $e^{x} = e^{x'}$ forces $x = x'$; $x \mapsto x^2$ is not,
+since $(-1)^2 = 1^2$.
+:::
+
+The wrapping map of @exm-map-functions is not injective on the whole line, since an angle is only determined up to
+multiples of $2\pi$, but it becomes injective once the domain is restricted to an open interval of length $2\pi$.
+This restriction is exactly what a chart does, and the example records the reason before manifolds are introduced.
+
+::: {#exm-injective-chart}
+#### The angle on an arc
+
+$\varphi \mapsto (\cos\varphi, \sin\varphi)$ is injective on the interval $(0, 2\pi)$, where distinct angles give
+distinct points, but not on all of $\mathbb{R}$, where $\varphi$ and $\varphi + 2\pi$ give the same point. Charts
+of manifolds (@sec-charts) are injective for exactly this reason: they are restricted to a piece on which
+coordinates label points uniquely.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is now asked to settle injectivity for three maps given by their lists of values, and then to count all
+injective maps between two small sets. The count is the first instance of the falling factorial, each value having
+to avoid the ones already chosen, which @exr-count-general states in general.
+
+::: {#exr-injective-finite-check}
+#### Deciding injectivity
+
+Which of the maps $\{1, 2, 3\} \to \{a, b, c, d\}$ given by $(a, b, c)$, $(a, a, b)$, $(d, c, b)$ (the values of
+$1, 2, 3$ in order) are injective? Count all the injective maps from a three-element set to a four-element set.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The first and third are injective (distinct values), the second is not ($1$ and $2$ share the value $a$). An
+injective map chooses a value for $1$ among $4$, then for $2$ among the $3$ remaining, then for $3$ among $2$:
+$4 \cdot 3 \cdot 2 = 24$ injective maps. In Sage, by enumeration:
+
+```python
+from itertools import product
+maps = {"(a,b,c)": ("a", "b", "c"), "(a,a,b)": ("a", "a", "b"), "(d,c,b)": ("d", "c", "b")}
+inj = lambda vals: len(set(vals)) == len(vals)
+for k, v in maps.items(): print(k, "injective:", inj(v))
+count = sum(1 for vals in product("abcd", repeat=3) if inj(vals))
+print("[PASS] injective maps from 3 to 4 elements: 4*3*2 = 24:", count == 24, count)
+```
+
+*Output:*
+
+```text
+(a,b,c) injective: True
+(a,a,b) injective: False
+(d,c,b) injective: True
+[PASS] injective maps from 3 to 4 elements: 4*3*2 = 24: True 24
+```
+:::
+
+For a differentiable function a sign condition on the derivative is the practical test for injectivity, since a
+strictly increasing function cannot take the same value twice. This exercise applies the test to two cubics, one
+that passes and one that fails at three points, and lets Sage find the roots that witness the failure.
+
+::: {#exr-injective-monotone}
+#### A strictly increasing function is injective
+
+Show that $f(x) = x^3 + x$ is injective on $\mathbb{R}$, and that $g(x) = x^3 - x$ is not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$f'(x) = 3x^2 + 1 > 0$, so $f$ is strictly increasing: $x < x'$ gives $f(x) < f(x')$, and equal values force equal
+arguments. For $g$, $g(-1) = g(0) = g(1) = 0$: three arguments with the same value. In Sage, the derivative and the
+three roots:
+
+```python
+x = var("x")
+f = x^3 + x; g = x^3 - x
+print("f' =", diff(f, x), "> 0 for all x")
+print("roots of g:", solve(g == 0, x))
+print("[PASS] f' = 3x^2 + 1 is positive and g has three zeros:", bool(diff(f, x) == 3 * x^2 + 1) and len(solve(g == 0, x)) == 3)
+```
+
+*Output:*
+
+```text
+f' = 3*x^2 + 1 > 0 for all x
+roots of g: [
+x == -1,
+x == 1,
+x == 0
+]
+[PASS] f' = 3x^2 + 1 is positive and g has three zeros: True
+```
+:::
+
+The restriction that rescued the circle parametrisation in @exm-injective-chart has a two-dimensional analogue for
+the sphere. Spherical coordinates are injective on an open rectangle of angles but collapse an entire edge of the
+closed rectangle to the north pole; the exercise locates the collapse precisely, and that is why the spherical
+chart of a later chapter leaves out the poles.
+
+::: {#exr-injective-sphere-parametrisation}
+#### Where spherical coordinates are injective
+
+Is $(\theta, \varphi) \mapsto (\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)$ injective on $(0, \pi)
+\times (0, 2\pi)$? On $[0, \pi] \times [0, 2\pi)$?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+On $(0, \pi) \times (0, 2\pi)$ it is: $\cos\theta$ determines $\theta$ in $(0, \pi)$, and then $\sin\theta > 0$ lets
+$(\cos\varphi, \sin\varphi)$ determine $\varphi$ in $(0, 2\pi)$. On $[0, \pi] \times [0, 2\pi)$ it is not: every
+$(0, \varphi)$ is sent to the north pole $(0, 0, 1)$, so the pole has infinitely many preimages. This is why the
+spherical chart of @sec-charts excludes the poles.
+:::
+::::
+
+The second property of a map looks at the other end of the arrows: whether every point of the codomain is reached.
+The picture is that no element of the target is left without an incoming arrow, and the condition is simply that
+the image, defined in @def-map, is the whole codomain.
+
+:::: {.statement-box}
+::: {#def-surjective}
+#### Surjective map
+
+A map $f : X \to Y$ is **surjective** (onto) if its image is all of $Y$: every $y \in Y$ equals $f(x)$ for at
+least one $x$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+On a finite set, surjectivity is checked by seeing whether every target value appears in the table, and the second
+map of @fig-map-diagram shows the typical case. Counting the surjective maps among the eight maps from three
+elements to two is a matter of excluding the constant maps, a count that returns in @exr-surjective-count.
+
+::: {#exm-surjective-finite}
+#### On finite sets
+
+The second map of @fig-map-diagram, $1, 2 \mapsto x$, $3 \mapsto y$, is surjective onto $\{x, y\}$. Of the eight
+maps from a three-element set to $\{x, y\}$, six are surjective, all but the two constant maps.
+:::
+
+For functions on the real line, surjectivity onto $\mathbb{R}$ asks whether every horizontal line meets the graph
+at least once. The cube, the square and the exponential give three different images, and comparing them with
+@exm-injective-exp shows that injectivity and surjectivity are independent properties.
+
+::: {#exm-surjective-cube}
+#### Polynomials
+
+$x \mapsto x^3$ is surjective onto $\mathbb{R}$ (every real number has a cube root); $x \mapsto x^2$ is not (its
+image misses the negative numbers); $\exp$ is not (its image is the positive numbers).
+:::
+
+The wrapping map onto the circle and the orbit map onto the sphere reach every point of their targets, so they are
+surjective even though neither is injective. The surjectivity of the orbit map is what allows the sphere to be
+described as a quotient of the rotation group, the theme that @sec-relations-products takes up.
+
+::: {#exm-surjective-orbit}
+#### Parametrisations and orbit maps
+
+$\varphi \mapsto (\cos\varphi, \sin\varphi)$ is surjective from $\mathbb{R}$ onto the circle, and $g \mapsto g \cdot
+(0, 0, 1)$ is surjective from $SO(3)$ onto the sphere, since every point of the sphere is reached by some rotation
+of the north pole. This surjection is the starting point of the coset description of the sphere
+(@sec-coset-spaces).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Surjections are harder to count than arbitrary maps, because the maps that miss a value have to be excluded. The
+exercise does this for two small cases, one by excluding the constant maps and one where surjective turns out to
+mean bijective, and an enumeration in Sage displays the maps behind each count.
+
+::: {#exr-surjective-count}
+#### Counting surjections
+
+How many of the $2^4 = 16$ maps from $\{1, 2, 3, 4\}$ to $\{x, y\}$ are surjective? And how many maps from a
+three-element set to a three-element set are surjective?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+All but the two constant maps: $16 - 2 = 14$. From three elements to three, a map is surjective exactly when it
+is injective, hence a bijection: $3! = 6$. In Sage:
+
+```python
+from itertools import product
+s42 = sum(1 for v in product("xy", repeat=4) if set(v) == {"x", "y"})
+s33 = sum(1 for v in product("abc", repeat=3) if set(v) == {"a", "b", "c"})
+print("surjections 4 -> 2:", s42, "; surjections 3 -> 3:", s33)
+print("[PASS] 14 and 6:", s42 == 14 and s33 == 6)
+```
+
+*Output:*
+
+```text
+surjections 4 -> 2: 14 ; surjections 3 -> 3: 6
+[PASS] 14 and 6: True
+```
+:::
+
+Whether a map is surjective depends on the codomain declared for it, not on the rule alone. This exercise asks for
+the images of two familiar functions and then for the codomains onto which they are surjective, making the point
+that any map becomes surjective once its codomain is shrunk to its image.
+
+::: {#exr-surjective-sin}
+#### The image of a function
+
+Find the image of $\sin : \mathbb{R} \to \mathbb{R}$ and of $x \mapsto x^2 + 1$; onto which codomains are they
+surjective?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\sin$ has image $[-1, 1]$: it is surjective onto $[-1, 1]$ but not onto $\mathbb{R}$. $x^2 + 1$ has image
+$[1, \infty)$. Surjectivity depends on the codomain chosen: every map is surjective onto its image.
+:::
+
+The orbit maps of @exm-surjective-orbit behave differently in the plane and in space, and the exercise asks the
+reader to find out how. For plane rotations acting on a point of the circle the orbit map is a bijection, while in
+space every point of the sphere has a whole circle of rotations above it; these preimages are the first cosets of
+the book.
+
+::: {#exr-surjective-rotation-orbit}
+#### A surjection with equal-size preimages
+
+Show that $g \mapsto g \cdot (1, 0)$ from $SO(2)$, the rotations of the plane, onto the circle is a bijection, and
+that $g \mapsto g \cdot (0, 0, 1)$ from $SO(3)$ onto the sphere has, for every point, a preimage that is a copy of
+$SO(2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A plane rotation by $\alpha$ sends $(1, 0)$ to $(\cos\alpha, \sin\alpha)$, each point of the circle once: a
+bijection. In space, the rotations sending the pole to a given point $p$ are $g_0 h$ with $g_0$ one such rotation
+and $h$ any rotation about the $Z$-axis, which fixes the pole: the preimage of $p$ is a copy of $SO(2)$. These
+preimages are the cosets of @sec-cosets-quotients.
+:::
+::::
+
+A map with both properties sets up a perfect correspondence: every element of the target is hit, and hit exactly
+once. The picture is a pairing of the two sets, arrow by arrow, and the consequence recorded in the definition,
+that paired sets have the same number of elements, is the basis of every count in this section.
+
+:::: {.statement-box}
+::: {#def-bijection}
+#### Bijection
+
+A map is a **bijection** if it is both injective and surjective, so that every element of $Y$ is the value of
+exactly one element of $X$. Two sets related by a bijection have the same number of elements.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The third map of @fig-map-diagram pairs two three-element sets, and when a finite set is paired with itself the
+bijection is a rearrangement of its elements. These rearrangements are counted by the factorial, and their count is
+among the statements of @prp-count-maps below.
+
+::: {#exm-bijection-finite}
+#### Permutations
+
+The third map of @fig-map-diagram is a bijection of $\{1, 2, 3\}$ onto $\{x, y, z\}$. A bijection of a finite set
+to itself is a **permutation**; there are $3! = 6$ permutations of a three-element set (@prp-count-maps).
+:::
+
+On the real line a bijection is a function whose graph meets every horizontal line exactly once, and a suitable
+choice of codomain can make this true. The exponential onto the positive numbers and the tangent onto the whole
+line are two examples of this that will serve as homeomorphisms in @sec-topology.
+
+::: {#exm-bijection-cube}
+#### Bijections of the line
+
+$x \mapsto x^3$ and $x \mapsto 2x + 1$ are bijections of $\mathbb{R}$; $\exp$ is a bijection of $\mathbb{R}$ onto the
+positive numbers; $\tan$ is a bijection of $(-\pi/2, \pi/2)$ onto $\mathbb{R}$.
+:::
+
+Restricting the wrapping map to an open interval of angles made it injective in @exm-injective-chart; shrinking the
+codomain to the circle minus one point makes it a bijection as well. The result is a one-to-one labelling of points
+by angles, which is what a chart is, and the inverse of this labelling appears in @exm-inverse-rotation.
+
+::: {#exm-bijection-chart}
+#### Coordinates on the circle minus a point
+
+$\varphi \mapsto (\cos\varphi, \sin\varphi)$ restricted to $(0, 2\pi)$ is a bijection onto the circle minus the
+point $(1, 0)$: every other point has exactly one angle in that range. A chart (@sec-charts) is a bijection of this
+kind.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to count the bijections of a four-element set to itself and to pick out those that leave one
+element fixed. The second count shows how the permutations of a smaller set sit inside those of a larger one, and
+Sage's symmetric group does the listing.
+
+::: {#exr-bijection-count-4}
+#### Permutations of four elements
+
+Count the bijections of $\{1, 2, 3, 4\}$ to itself and list the ones that fix $4$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$4! = 24$ bijections; those fixing $4$ are the $3! = 6$ permutations of $\{1, 2, 3\}$. In Sage, with
+`SymmetricGroup`:
+
+```python
+G = SymmetricGroup(4)
+fix4 = [g for g in G if g(4) == 4]
+print("order of S_4:", G.order()); print("permutations fixing 4:", [str(g) for g in fix4])
+print("[PASS] 24 bijections, 6 fixing 4:", G.order() == 24 and len(fix4) == 6)
+```
+
+*Output:*
+
+```text
+order of S_4: 24
+permutations fixing 4: ['()', '(1,3,2)', '(1,2,3)', '(1,2)', '(2,3)', '(1,3)']
+[PASS] 24 bijections, 6 fixing 4: True
+```
+:::
+
+For a function given by a formula, the cleanest proof that it is a bijection is to solve $f(x) = y$ and find
+exactly one solution for each $y$. The exercise does this for an affine map of the line, and then shows that the
+same formula, read on the integers, loses surjectivity: the domain matters as much as the rule.
+
+::: {#exr-bijection-affine}
+#### An affine bijection
+
+Show that $f(x) = 2x + 1$ is a bijection of $\mathbb{R}$ by exhibiting the unique solution of $f(x) = y$ for each
+$y$, and decide whether $x \mapsto 2x + 1$ is a bijection of $\mathbb{Z}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$2x + 1 = y$ has the unique real solution $x = (y - 1)/2$, so $f$ is injective (one solution at most) and
+surjective (one solution at least). On $\mathbb{Z}$ the equation has no solution for even $y$: the map is
+injective but not surjective, its image being the odd integers.
+:::
+
+Stereographic projection sends the sphere minus one point onto the whole plane, and the exercise asks for a proof
+that this is a bijection by writing down the inverse. The explicit formula found here is the second chart of the
+sphere used throughout the book, and Sage checks both compositions symbolically.
+
+::: {#exr-bijection-stereographic}
+#### Stereographic projection is a bijection
+
+Show that $(X, Y, Z) \mapsto (X, Y)/(1 - Z)$ is a bijection from the sphere minus the north pole onto the plane,
+by finding its inverse.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For $(u, v)$ in the plane, the point $(2u, 2v, u^2 + v^2 - 1)/(u^2 + v^2 + 1)$ lies on the sphere, is not the north
+pole, and projects to $(u, v)$; conversely projecting and then applying this formula returns the original point.
+Sage checks both compositions:
+
+```python
+X, Y, Z, u, v = var("X Y Z u v")
+proj = lambda P: vector([P[0] / (1 - P[2]), P[1] / (1 - P[2])])
+inv = lambda q: vector([2 * q[0], 2 * q[1], q[0]^2 + q[1]^2 - 1]) / (q[0]^2 + q[1]^2 + 1)
+back = proj(inv(vector([u, v]))).apply_map(lambda e: e.simplify_full())
+print("proj(inv(u, v)) =", back)
+print("[PASS] inv(u, v) lies on the sphere:", bool((inv(vector([u, v])).norm()^2 - 1).simplify_full() == 0))
+# on the sphere, parametrise by (theta, phi) to check inv(proj(P)) = P
+th, ph = var("th ph")
+P = vector([sin(th) * cos(ph), sin(th) * sin(ph), cos(th)])
+forth = inv(proj(P)).apply_map(lambda e: e.simplify_full())
+print("inv(proj(P)) - P =", (forth - P).apply_map(lambda e: e.simplify_full()))
+print("[PASS] both compositions are the identity:", back == vector([u, v]) and all(bool(e == 0) for e in (forth - P).apply_map(lambda e: e.simplify_full())))
+```
+
+*Output:*
+
+```text
+proj(inv(u, v)) = (u, v)
+[PASS] inv(u, v) lies on the sphere: True
+inv(proj(P)) - P = (0, 0, 0)
+[PASS] both compositions are the identity: True
+```
+:::
+::::
+
+The exercises above all proved bijectivity by exhibiting a map that undoes the given one. That undoing map is the
+subject of the next definition: the picture is the arrows of a bijection reversed, and the two identities in the
+definition say that going there and back, in either order, changes nothing.
+
+:::: {.statement-box}
+::: {#def-inverse-map}
+#### Inverse map
+
+The **inverse** of a bijection $f : X \to Y$ is the map $f^{-1} : Y \to X$ sending $y$ to the unique $x$ with $f(x)
+= y$; it satisfies $f^{-1}(f(x)) = x$ and $f(f^{-1}(y)) = y$. Only bijections have inverses.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+On a finite set with modular addition, the inverse of a shift is the shift in the opposite direction, while a map
+that is not a bijection, such as doubling, has no inverse at all. The shift's bijectivity is the fourth
+statement of @prp-count-maps.
+
+::: {#exm-inverse-shift}
+#### The shift of $\mathbb{Z}_6$
+
+$k \mapsto k + 1$ on $\{0, \dots, 5\}$ with addition modulo $6$ is a bijection with inverse $k \mapsto k - 1$
+(@prp-count-maps); $k \mapsto 2k$ is not a bijection, as it sends both $0$ and $3$ to $0$, so it has no inverse.
+:::
+
+The inverses of the bijections of the line in @exm-bijection-cube are functions with their own names. Logarithm,
+arctangent and cube root are the standard examples, and each is defined on exactly the image of the function it
+inverts.
+
+::: {#exm-inverse-log}
+#### Logarithm and arctangent
+
+The inverse of $\exp : \mathbb{R} \to (0, \infty)$ is $\log$; the inverse of $\tan : (-\pi/2, \pi/2) \to \mathbb{R}$
+is $\arctan$; the inverse of $x \mapsto x^3$ is the cube root.
+:::
+
+For rotations, the inverse is geometric: turning back by the same angle, which for matrices is the transpose. The
+example also returns to the angle labelling of the circle from @exm-bijection-chart and identifies its inverse as
+the chart that reads off the angle of a point.
+
+::: {#exm-inverse-rotation}
+#### Rotations
+
+A rotation by the angle $\alpha$ about an axis is a bijection of space whose inverse is the rotation by $-\alpha$
+about the same axis; as a matrix, $R^{-1} = R^{\mathsf{T}}$. The inverse of the coordinate bijection of
+@exm-bijection-chart sends a point of the circle to its angle in $(0, 2\pi)$, which is the chart itself.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The first exercise asks the reader to verify the claims of @exm-inverse-shift on $\mathbb{Z}_6$: produce the
+inverse of the shift and show that doubling has none. Exhibiting an inverse that undoes the map in both orders is
+the quickest proof of bijectivity, and it is the argument behind the last count of @prp-count-maps.
+
+::: {#exr-inverse-check}
+#### Inverse of a bijection
+
+Show that $k \mapsto k + 1$ on $\mathbb{Z}_6$ is a bijection and give its inverse; show that $k \mapsto 2k$ is not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$k \mapsto k - 1$ undoes the shift in both orders, so the shift is a bijection. Doubling sends $0$ and $3$ both to
+$0$, so it is not injective, and its image $\{0, 2, 4\}$ is not all of $\mathbb{Z}_6$, so it is not surjective
+either.
+:::
+
+Finding an inverse of a rational function means solving for $x$ in terms of $y$ and keeping track of which values
+have to be excluded on each side. The exercise does this for a simple Möbius transformation and asks for a check of
+the composition, which Sage carries out.
+
+::: {#exr-inverse-moebius}
+#### Inverting a rational function
+
+Find the inverse of $f(x) = \dfrac{x - 1}{x + 1}$ on its natural domain and codomain, and check $f(f^{-1}(y)) = y$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Solving $y = (x - 1)/(x + 1)$ gives $x = (1 + y)/(1 - y)$, so $f$ is a bijection from $\mathbb{R} \setminus \{-1\}$
+onto $\mathbb{R} \setminus \{1\}$ with that inverse. In Sage, both compositions:
+
+```python
+x, y = var("x y")
+f = (x - 1) / (x + 1)
+finv = solve(f == y, x)[0].rhs()
+print("f^{-1}(y) =", finv)
+print("[PASS] f(f^{-1}(y)) = y and f^{-1}(f(x)) = x:", bool(f.subs(x=finv).simplify_full() == y) and bool(finv.subs(y=f).simplify_full() == x))
+```
+
+*Output:*
+
+```text
+f^{-1}(y) = -(y + 1)/(y - 1)
+[PASS] f(f^{-1}(y)) = y and f^{-1}(f(x)) = x: True
+```
+:::
+
+The statement in @exm-inverse-rotation that a rotation is undone by its transpose is checked here for a rotation
+about the $Z$-axis. The proof uses only the addition formulas for sine and cosine and the parity of those
+functions, and Sage does it symbolically.
+
+::: {#exr-inverse-rotation-matrix}
+#### The inverse of a rotation is its transpose
+
+For the rotation matrix $R(\alpha)$ about the $Z$-axis, verify $R(\alpha)^{-1} = R(-\alpha) = R(\alpha)^{\mathsf{T}}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$R(\alpha)R(-\alpha) = 1$ by the addition formulas for sine and cosine, and $R(-\alpha)$ is the transpose because
+$\cos$ is even and $\sin$ odd. In Sage, symbolically:
+
+```python
+a = var("a")
+R = lambda t: matrix(SR, [[cos(t), -sin(t), 0], [sin(t), cos(t), 0], [0, 0, 1]])
+print("R(a) R(-a) =", (R(a) * R(-a)).simplify_full())
+print("[PASS] R(a)^{-1} = R(-a) = R(a)^T:", (R(a) * R(-a)).simplify_full() == identity_matrix(3) and R(-a) == R(a).transpose())
+```
+
+*Output:*
+
+```text
+R(a) R(-a) = [1 0 0]
+[0 1 0]
+[0 0 1]
+[PASS] R(a)^{-1} = R(-a) = R(a)^T: True
+```
+:::
+::::
+
+Several counts have been stated in the examples: eight maps from three elements to two, none of them injective, six
+bijections of a three-element set, and the shift of $\mathbb{Z}_6$ as a bijection. The proposition collects them,
+and the three examples that follow explain the first three counts by arguments that work for sets of any size.
+
+:::: {.statement-box}
+::: {#prp-count-maps}
+#### Counting maps
+
+There are $8$ maps from a three-element set to a two-element set, none of them injective; there are $6$
+bijections of a three-element set; and $k \mapsto k + 1$ is a bijection of $\mathbb{Z}_6$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first of the four counts has a conceptual explanation: a map from a three-element set is the list of its
+values, so the maps form a threefold product of the codomain with itself. The same argument counts the maps
+between any two finite sets, and it anticipates the products of @def-product.
+
+::: {#exm-count-product}
+#### Eight maps as a product
+
+A map $\{1, 2, 3\} \to \{x, y\}$ is the list of its three values, an element of $\{x, y\}^3$ with $2 \cdot 2 \cdot 2
+= 8$ elements (@def-product). In general the maps $X \to Y$ between finite sets number $|Y|^{|X|}$.
+:::
+
+The count of bijections comes from a tree of successive choices, each with one fewer option than the last.
+Following this tree down to its leaves gives the factorial, and the same tree on $n$ elements gives $n!$
+bijections.
+
+::: {#exm-count-factorial}
+#### Six bijections by a tree
+
+Choose the value of $1$ ($3$ ways), then of $2$ ($2$ remaining), then of $3$ ($1$ remaining): $3 \cdot 2 \cdot 1 =
+3! = 6$ bijections.
+:::
+
+The negative statement among the four, that no injection exists from three elements to two, is the pigeonhole
+principle. It follows from the inequality between the sizes of the domain and the codomain of an injective map,
+the form in which the principle is used in every later counting argument.
+
+::: {#exm-count-pigeonhole}
+#### No injection from three to two
+
+Three distinct values cannot fit in a two-element set: this is the pigeonhole principle, which follows from the
+inequality $|X| \leq |Y|$ for an injective map $X \to Y$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader now repeats the counts for a four-element domain and a three-element codomain, where no injections exist
+and the surjections require inclusion-exclusion. The solution obtains the totals by counting arguments and then
+lists the maps in Sage, where all three numbers can be read off at once.
+
+::: {#exr-count-maps-4-3}
+#### Maps from four elements to three
+
+Count the maps, the injective maps and the surjective maps from a four-element set to a three-element set.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$3^4 = 81$ maps; no injective ones (four distinct values among three is impossible); surjective ones: $81 - 3 \cdot
+2^4 + 3 \cdot 1 = 36$ by inclusion-exclusion (subtract the maps missing one value, add back those missing two). In
+Sage, by enumeration:
+
+```python
+from itertools import product
+maps = list(product("abc", repeat=4))
+inj = sum(1 for v in maps if len(set(v)) == 4); sur = sum(1 for v in maps if set(v) == {"a", "b", "c"})
+print("maps:", len(maps), "; injective:", inj, "; surjective:", sur)
+print("[PASS] 81 maps, 0 injective, 36 surjective:", (len(maps), inj, sur) == (81, 0, 36))
+```
+
+*Output:*
+
+```text
+maps: 81 ; injective: 0 ; surjective: 36
+[PASS] 81 maps, 0 injective, 36 surjective: True
+```
+:::
+
+This exercise returns to the three-to-two case of @prp-count-maps and asks for all of its counts by hand: maps,
+injections, surjections and bijections. Doing it directly, and then by a Sage enumeration, shows what each count
+of the proposition asserts about the individual maps.
+
+::: {#exr-count-maps}
+#### Counting maps
+
+Count the maps, the injective maps and the surjective maps from $\{1, 2, 3\}$ to $\{x, y\}$, and the bijections of
+$\{x, y, z\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$2^3 = 8$ maps (two values for each of three elements); no injective ones; $8 - 2 = 6$ surjective ones (all but
+the two constant maps); $3! = 6$ bijections (the permutations). In Sage, by enumeration:
+
+```python
+A = Set([1, 2, 3]); B = Set(["x", "y"])
+maps = [dict(zip(A, vals)) for vals in cartesian_product([list(B)] * len(A))]
+print("maps A -> B:", len(maps), "= 2^3")
+injective = [m for m in maps if len(set(m.values())) == len(A)]
+surjective = [m for m in maps if set(m.values()) == set(B)]
+print("injective maps A -> B:", len(injective), " (none: |A| > |B|);  surjective maps:", len(surjective), "= 2^3 - 2")
+C = Set(["x", "y", "z"])
+bij = [p for p in Permutations(list(C))]
+print("bijections C -> C:", len(bij), "= 3!")
+```
+
+*Output:*
+
+```text
+maps A -> B: 8 = 2^3
+injective maps A -> B: 0  (none: |A| > |B|);  surjective maps: 6 = 2^3 - 2
+bijections C -> C: 6 = 3!
+```
+:::
+
+The last exercise of the section asks for the closed formulas behind the special cases: the number of maps,
+injections and bijections between finite sets of sizes $m$ and $n$. The arguments of the three examples above
+transfer verbatim, and the result contains the counts of @prp-count-maps as special cases.
+
+::: {#exr-count-general}
+#### The general formulas
+
+For finite sets with $|X| = m$ and $|Y| = n$, give the number of maps $X \to Y$, of injective maps, and of
+bijections, and prove them by the counting arguments of the examples.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Maps: $n^m$ (independent choices). Injective maps: $n(n - 1)\cdots(n - m + 1)$ for $m \leq n$ and $0$ for $m > n$
+(each value must avoid the previous ones). Bijections: $n!$ when $m = n$ and $0$ otherwise. The first three
+counts of @prp-count-maps are the instances $2^3 = 8$, no injection for $m = 3 > n = 2$, and $3! = 6$.
+:::
+::::
+
+## Relations, quotients and products {#sec-relations-products}
+
+Maps are combined by composition, and sets are built from other sets in two ways: by gluing elements together
+(quotients) and by pairing them (products). An equivalence relation says which elements are to be identified, its
+classes are the glued-together pieces, and the quotient set is the set of pieces; a product pairs an element of one
+set with an element of another. The section defines composition, equivalence relations, classes, quotient sets and
+products, with the remainders modulo $n$, the angles on a circle and the rotations with a common image of the pole
+as running examples.
+
+For more on this topic, see @komjath2006problems [Ch. 2-3] and @radozycki2020solving [Ch. 1].
+
+### Composition
+
+Two maps whose domains and codomains fit together can be performed one after the other, and the result is a single
+map. The picture is a chain of arrows followed from end to end, and the identity map and the inverse of
+@def-inverse-map find their natural statements here, as the map that composes to nothing and the map that composes
+to the identity.
+
+:::: {.statement-box}
+::: {#def-composition}
+#### Composition of maps
+
+The **composition** of $f : X \to Y$ and $g : Y \to Z$ is the map $g \circ f : X \to Z$, $x \mapsto g(f(x))$:
+first $f$, then $g$. The **identity map** $\mathrm{id}_X : X \to X$ sends every element to itself, and
+a bijection $f$ and its inverse (@def-inverse-map) satisfy $f^{-1} \circ f = \mathrm{id}_X$, $f \circ f^{-1} =
+\mathrm{id}_Y$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Composing permutations of a small set is the first place where the order of composition visibly matters. A swap
+followed by a cycle differs from the cycle followed by the swap, and this failure of commutativity is what makes
+the symmetric groups and the rotation groups of later chapters non-abelian.
+
+::: {#exm-composition-permutations}
+#### Permutations
+
+For the swap $s$ of $1$ and $2$ and the cycle $t : 1 \mapsto 2 \mapsto 3 \mapsto 1$ of $\{1, 2, 3\}$, the two
+compositions $t \circ s$ and $s \circ t$ are different permutations: composition is not commutative in general
+(@exr-compose-permutations).
+:::
+
+Composing a coordinate bijection with the inverse of another produces the map that converts one set of coordinates
+into the other. For the two stereographic charts of the sphere this conversion is an inversion of the punctured
+plane, the first concrete instance of the compatibility condition that defines a manifold.
+
+::: {#exm-composition-transition}
+#### Transition maps
+
+Two coordinate bijections $x$ and $x'$ on overlapping pieces of a space are composed into $x' \circ x^{-1}$, the
+**transition map** of @sec-charts. For the two stereographic charts of the sphere it is the inversion
+$(u, v) \mapsto (u, v)/(u^2 + v^2)$ of the punctured plane, which is its own inverse.
+:::
+
+For rotations, composition is the operation on which the whole of group theory is built: performing one rotation
+after another. About a common axis the angles simply add, while about different axes the order matters, exactly as
+for the permutations of @exm-composition-permutations; @exr-compose-rotations-noncommute makes this concrete.
+
+::: {#exm-composition-rotations}
+#### Rotations
+
+Composing a rotation by $\alpha$ with a rotation by $\beta$ about the same axis is the rotation by $\alpha + \beta$;
+for rotations about different axes the order matters, as for permutations. Composition is the multiplication of
+the groups of @sec-groups.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The first exercise puts the two permutations of @exm-composition-permutations into Sage and composes them in both
+orders. The point to watch is Sage's convention that products are read left to right, which is the opposite of the
+notation $g \circ f$.
+
+::: {#exr-compose-permutations}
+#### Composing permutations
+
+With Sage's `SymmetricGroup`, compose the swap $s = (1\,2)$ and the cycle $t = (1\,2\,3)$ in both orders, find the
+inverse of $t$ and check that $t \circ t^{-1}$ is the identity.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Sage multiplies permutations left to right, so `s*t` means first $s$ then $t$. The two orders give different
+permutations, and $t^{-1} = (1\,3\,2)$:
+
+```python
+S3 = SymmetricGroup(3)
+s = S3([(1, 2)])        # swaps 1 and 2
+t = S3([(1, 2, 3)])     # 1 -> 2 -> 3 -> 1
+print("s =", s, "; t =", t)
+print("s then t:", s * t, "; t then s:", t * s, "; equal:", s * t == t * s)
+print("inverse of t:", t.inverse(), "; t * t^-1 is the identity:", (t * t.inverse()).is_one())
+print("number of bijections of {1,2,3}:", S3.order())
+print("every element composed with its inverse gives the identity:", all((g * g.inverse()).is_one() for g in S3))
+```
+
+*Output:*
+
+```text
+s = (1,2) ; t = (1,2,3)
+s then t: (1,3) ; t then s: (2,3) ; equal: False
+inverse of t: (1,3,2) ; t * t^-1 is the identity: True
+number of bijections of {1,2,3}: 6
+every element composed with its inverse gives the identity: True
+```
+:::
+
+Composition is not commutative, but it is associative: the two bracketings of a triple composition describe the
+same rule. The exercise asks for the short proof and for a numerical check on random permutations, the first of the
+group axioms to be verified in this book.
+
+::: {#exr-compose-associative}
+#### Associativity
+
+Show that composition is associative, $(h \circ g) \circ f = h \circ (g \circ f)$, and check it on three random
+permutations of $\{1, \dots, 5\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Both sides send $x$ to $h(g(f(x)))$: the two bracketings describe the same rule, so they are the same map. In
+Sage, three random permutations:
+
+```python
+G = SymmetricGroup(5)
+f, g, h = [G.random_element() for _ in range(3)]
+print("f, g, h =", f, g, h)
+print("[PASS] (h g) f = h (g f):", (f * g) * h == f * (g * h))
+```
+
+*Output:*
+
+```text
+f, g, h = (1,5,4,2) (1,3,4,5,2) (1,2,5,3)
+[PASS] (h g) f = h (g f): True
+```
+:::
+
+The claim of @exm-composition-rotations that rotations about different axes do not commute is made quantitative
+here. Multiplying two explicit rotation matrices in both orders and comparing a single entry suffices, and Sage
+carries out the symbolic multiplication.
+
+::: {#exr-compose-rotations-noncommute}
+#### Rotations about different axes do not commute
+
+Compute $R_z(\alpha)R_x(\beta)$ and $R_x(\beta)R_z(\alpha)$ for rotations about the $Z$- and $X$-axes and find an
+entry in which they differ.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The $(1, 3)$ entries are $\sin\alpha\sin\beta$ and $0$ respectively, so the products differ whenever both angles are
+non-zero multiples that keep $\sin\alpha\sin\beta \neq 0$. In Sage:
+
+```python
+a, b = var("a b")
+Rz = matrix(SR, [[cos(a), -sin(a), 0], [sin(a), cos(a), 0], [0, 0, 1]])
+Rx = matrix(SR, [[1, 0, 0], [0, cos(b), -sin(b)], [0, sin(b), cos(b)]])
+D = (Rz * Rx - Rx * Rz).simplify_full()
+print("Rz Rx - Rx Rz ="); print(D)
+print("[PASS] the (1,3) entry of Rz Rx is sin a sin b while that of Rx Rz is 0:", bool((Rz * Rx)[0, 2] == sin(a) * sin(b)) and bool((Rx * Rz)[0, 2] == 0))
+```
+
+*Output:*
+
+```text
+Rz Rx - Rx Rz =
+[                      0 -cos(b)*sin(a) + sin(a)           sin(a)*sin(b)]
+[-cos(b)*sin(a) + sin(a)                       0    -(cos(a) - 1)*sin(b)]
+[         -sin(a)*sin(b)    -(cos(a) - 1)*sin(b)                       0]
+[PASS] the (1,3) entry of Rz Rx is sin a sin b while that of Rx Rz is 0: True
+```
+:::
+::::
+
+### Equivalence relations and quotients
+
+The first way of building a new set from an old one is to declare certain elements to be the same. The declaration
+has to be consistent, and the three axioms of the next definition say exactly what consistency means: every element
+is like itself, likeness is mutual, and likeness is passed along a chain.
+
+:::: {.statement-box}
+::: {#def-equivalence-relation}
+#### Equivalence relation
+
+An **equivalence relation** $\sim$ on $X$ is a relation between elements that is **reflexive** ($x \sim x$),
+**symmetric** ($x \sim y$ implies $y \sim x$) and **transitive** ($x \sim y$ and $y \sim z$ imply $x \sim z$).
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Congruence of integers is the basic example: two integers are alike when their difference is a multiple of a fixed
+$n$. The three axioms translate into three facts about divisibility, each one line long, and this relation is the
+source of the finite sets $\mathbb{Z}_n$.
+
+::: {#exm-equivalence-mod}
+#### Congruence modulo $n$
+
+$a \sim b$ if $n$ divides $a - b$ is an equivalence relation on $\mathbb{Z}$: $n$ divides $0$, divides $b - a$ if
+it divides $a - b$, and divides $(a - b) + (b - c)$ if it divides both terms.
+:::
+
+Replacing the integer $n$ by the real number $2\pi$ gives the relation that identifies angles differing by full
+turns. It is the same congruence in a continuous setting, and it is the relation whose classes are glued into the
+circle in @fig-quotient-circle.
+
+::: {#exm-equivalence-angle}
+#### Angles
+
+$\varphi \sim \varphi'$ if $\varphi' - \varphi$ is a multiple of $2\pi$ is an equivalence relation on $\mathbb{R}$,
+the congruence of @exm-equivalence-mod with $n$ replaced by $2\pi$; it identifies the angles that label the same
+point of the circle (@fig-quotient-circle).
+:::
+
+Every map produces an equivalence relation on its domain, relating points that share a value, and the axioms hold
+automatically. For the orbit map on the rotation group this relation groups together the rotations that move the
+north pole to the same place, and its classes are the cosets around which the coset spaces of the book are
+organised.
+
+::: {#exm-equivalence-coset}
+#### Same image under a map
+
+For any map $f : X \to Y$, $x \sim x'$ if $f(x) = f(x')$ is an equivalence relation. For the orbit map $g \mapsto g
+\cdot (0, 0, 1)$ on $SO(3)$ it relates two rotations that send the north pole to the same point; this relation is
+the one whose classes are the cosets of @sec-cosets-quotients.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Testing the three axioms on a finite set is a finite job, and the exercise asks for it on three relations chosen so
+that a different axiom fails in each case that fails. Sage runs through all pairs and triples, which is the
+mechanical version of the same check.
+
+::: {#exr-equivalence-check}
+#### Which relations are equivalence relations?
+
+On $\{1, 2, 3, 4\}$, test the three axioms for the relations "$a \sim b$ iff $a - b$ is even", "$a \sim b$ iff
+$a \leq b$" and "$a \sim b$ iff $|a - b| \leq 1$".
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Same parity: reflexive, symmetric, transitive. $\leq$: reflexive and transitive but not symmetric ($1 \leq 2$,
+$2 \not\leq 1$). $|a - b| \leq 1$: reflexive and symmetric but not transitive ($1 \sim 2$, $2 \sim 3$, $1 \not\sim
+3$). Sage tests the axioms on all pairs and triples:
+
+```python
+X = [1, 2, 3, 4]
+rels = {"same parity": lambda a, b: (a - b) % 2 == 0, "a <= b": lambda a, b: a <= b, "|a - b| <= 1": lambda a, b: abs(a - b) <= 1}
+for name, r in rels.items():
+    refl = all(r(a, a) for a in X); symm = all(r(a, b) == r(b, a) for a in X for b in X)
+    trans = all((not (r(a, b) and r(b, c))) or r(a, c) for a in X for b in X for c in X)
+    print("%-14s reflexive %s symmetric %s transitive %s" % (name, refl, symm, trans))
+ok = lambda r: all(r(a, a) for a in X) and all(r(a, b) == r(b, a) for a in X for b in X) and all((not (r(a, b) and r(b, c))) or r(a, c) for a in X for b in X for c in X)
+print("[PASS] only 'same parity' is an equivalence relation:", [ok(r) for r in rels.values()] == [True, False, False])
+```
+
+*Output:*
+
+```text
+same parity    reflexive True symmetric True transitive True
+a <= b         reflexive True symmetric False transitive True
+|a - b| <= 1   reflexive True symmetric True transitive False
+[PASS] only 'same parity' is an equivalence relation: True
+```
+:::
+
+The parity relation is congruence modulo $2$, and the exercise asks the reader to prove the three axioms rather
+than test them. The companion relation, differing by an odd number, fails already at reflexivity, a reminder that
+the first axiom is not automatic.
+
+::: {#exr-equivalence-parity}
+#### Same parity
+
+Prove that "$a \sim b$ iff $a - b$ is even" is an equivalence relation on $\mathbb{Z}$, and that "$a \sim b$ iff
+$a - b$ is odd" is not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$a - a = 0$ is even; if $a - b$ is even so is $b - a = -(a - b)$; if $a - b$ and $b - c$ are even so is their sum
+$a - c$. For the odd relation, $a - a = 0$ is not odd, so reflexivity already fails (and transitivity too: odd plus
+odd is even).
+:::
+
+Being within distance one of each other is a natural relation that fails to be an equivalence relation, and the
+exercise asks why, and what the smallest equivalence relation containing it looks like. The answer depends on
+whether the underlying set is in one piece, a first glimpse of connectedness.
+
+::: {#exr-equivalence-closeness}
+#### Closeness is not transitive
+
+Explain why "$x \sim y$ iff $|x - y| < 1$" is not an equivalence relation on $\mathbb{R}$, and find the smallest
+relation containing it that is one.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Transitivity fails: $0 \sim 0.9$ and $0.9 \sim 1.8$ but $|0 - 1.8| \geq 1$. Chaining closeness, any two real
+numbers are joined by finitely many steps of length less than $1$, so the smallest equivalence relation containing
+it relates every pair: one class, all of $\mathbb{R}$. On a disconnected set like $(0, 1) \cup (5, 6)$ the chains
+cannot cross the gap and there would be two classes (@sec-compact-connected).
+:::
+::::
+
+Once an equivalence relation is given, each element gathers around it the elements it is related to. The next
+definition names this cluster and records its key property: two clusters are either identical or disjoint, so that
+the set falls apart into non-overlapping pieces. The picture is a tiling of the set.
+
+:::: {.statement-box}
+::: {#def-equivalence-class}
+#### Equivalence class
+
+The **equivalence class** of $x$ is the subset $[x] = \{y \in X : y \sim x\}$. Two classes are either equal or
+disjoint, so the classes **partition** $X$: every element lies in exactly one class.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For congruence modulo $3$ the classes are the sets of integers with a given remainder, and on a finite range they
+can be listed. The example shows the three disjoint tiles covering twelve numbers, and @exr-equivalence-classes
+asks for the same list by computation.
+
+::: {#exm-class-mod}
+#### Remainders
+
+Modulo $3$, the classes in $\{0, \dots, 11\}$ are $\{0, 3, 6, 9\}$, $\{1, 4, 7, 10\}$ and $\{2, 5, 8, 11\}$, the
+numbers with remainder $0$, $1$, $2$: three disjoint sets covering everything (@exr-equivalence-classes).
+:::
+
+For the angle relation each class is an arithmetic progression of step $2\pi$, with exactly one representative in
+every interval of that length. The three coloured classes in @fig-quotient-circle are of this kind, and the picture
+shows how each class is about to become a single point.
+
+::: {#exm-class-angle}
+#### Classes of angles
+
+The class of $\varphi$ under the angle relation is $\{\varphi + 2\pi k : k \in \mathbb{Z}\}$, one angle in every
+interval of length $2\pi$; @fig-quotient-circle shows three such classes on the line in three colours.
+:::
+
+For the relation of @exm-equivalence-coset on the rotation group, the class of a rotation is obtained by first
+turning about the axis through the pole and then applying the rotation. Such a class is a copy of the plane
+rotations, and the notation $g\,SO(2)$ for it is the coset notation of the group chapters.
+
+::: {#exm-class-rotations}
+#### Rotations with the same image of the pole
+
+The class of a rotation $g$ under the relation of @exm-equivalence-coset is the set $\{g h : h \text{ a rotation
+about the } Z\text{-axis}\}$: rotating first about the $Z$-axis leaves the north pole fixed, so $gh$ sends it where
+$g$ does. These classes are the cosets $g\,SO(2)$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+![The circle as the quotient $\mathbb{R}/2\pi\mathbb{Z}$: three equivalence classes of angles on the line (three
+colours) are each sent to one point of the circle by the quotient map. Generated by
+`figures/quotient_circle.sage`.](figures/quotient_circle.svg){#fig-quotient-circle width=75%}
+
+The reader is asked to compute the classes of @exm-class-mod and to check that they form a partition. The Sage
+enumeration here is the model for computing the classes of any relation on a finite set.
+
+::: {#exr-equivalence-classes}
+#### Classes modulo 3
+
+List the equivalence classes of $n \sim m$ iff $3 \mid (n - m)$ on $\{0, \dots, 11\}$ and check that they
+partition the set.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Three classes, the numbers with remainder $0$, $1$ and $2$: $\{0, 3, 6, 9\}$, $\{1, 4, 7, 10\}$, $\{2, 5, 8, 11\}$,
+disjoint and covering the set. In Sage:
+
+```python
+X = range(12)
+classes = {}
+for n in X:
+    classes.setdefault(n % 3, []).append(n)
+print("equivalence classes of n ~ m iff 3 | (n - m):", classes)
+print("the quotient set has", len(classes), "elements, the remainders", sorted(classes), "; the classes partition X:", sorted(sum(classes.values(), [])) == list(X))
+print("Sage's Zmod(3) is this quotient set with its addition:", Zmod(3).list())
+```
+
+*Output:*
+
+```text
+equivalence classes of n ~ m iff 3 | (n - m): {0: [0, 3, 6, 9], 1: [1, 4, 7, 10], 2: [2, 5, 8, 11]}
+the quotient set has 3 elements, the remainders [0, 1, 2] ; the classes partition X: True
+Sage's Zmod(3) is this quotient set with its addition: [0, 1, 2]
+```
+:::
+
+Relations of the form "same value under a map" have classes equal to the preimages of the values, and the exercise
+computes them for the square and for the cosine. In each case most classes have the same size and a few are
+exceptional, a phenomenon that recurs for quotients by group actions.
+
+::: {#exr-class-square}
+#### Classes of "same square"
+
+Describe the classes of $x \sim y$ iff $x^2 = y^2$ on $\mathbb{R}$, and the classes of "same value of $\cos$".
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$[x] = \{x, -x\}$, a two-element class for $x \neq 0$ and the single element $\{0\}$ for $x = 0$: the quotient is
+labelled by $|x|$. For $\cos$, $[x] = \{\pm x + 2\pi k\}$: the quotient is labelled by $\cos x \in [-1, 1]$, and a
+class has two elements per period except for $x \in \pi\mathbb{Z}$.
+:::
+
+The partition property stated in @def-equivalence-class deserves a proof, and the exercise asks for it. The
+argument is a short chain of symmetry and transitivity, and it is exactly what makes the quotient set of the next
+definition well defined.
+
+::: {#exr-class-partition-proof}
+#### Classes are equal or disjoint
+
+Prove that if two equivalence classes $[x]$ and $[y]$ share an element then $[x] = [y]$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Let $z \in [x] \cap [y]$, so $z \sim x$ and $z \sim y$. For any $w \in [x]$, $w \sim x \sim z \sim y$ by symmetry and
+transitivity, so $w \in [y]$; the same argument in the other direction gives $[y] \subseteq [x]$. Every $x$ lies in
+$[x]$ by reflexivity, so the classes cover $X$: they partition it.
+:::
+::::
+
+The classes of an equivalence relation can now be taken as the elements of a new set, the set of tiles of the
+partition. The next definition introduces this set together with the map that sends each element to its tile, and
+with the criterion for a function on the old set to make sense on the new one: it has to take the same value
+throughout each tile.
+
+:::: {.statement-box}
+::: {#def-quotient-set}
+#### Quotient set
+
+The **quotient set** $X/{\sim}$ is the set whose elements are the equivalence classes. The **quotient map**
+$\pi : X \to X/{\sim}$, $x \mapsto [x]$, is surjective, and a map $f : X \to Y$ that is constant on each class
+**descends** to the map $\bar f : X/{\sim} \to Y$, $[x] \mapsto f(x)$, with $f = \bar f \circ \pi$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The quotient of the integers by congruence modulo $n$ is the finite set of remainders, and addition descends to it
+because the remainder of a sum depends only on the remainders of the summands. Its size is the statement of
+@prp-quotient-z3, and the addition makes it the cyclic group of the group chapters.
+
+::: {#exm-quotient-zn}
+#### $\mathbb{Z}/n\mathbb{Z}$
+
+The quotient of $\mathbb{Z}$ by congruence modulo $n$ is the set $\mathbb{Z}_n$ of $n$ remainders
+(@prp-quotient-z3); addition descends to it, since the remainder of a sum depends only on the remainders of the
+terms, giving the group $\mathbb{Z}_n$ of @sec-groups.
+:::
+
+The quotient of the line by the angle relation is the circle, each class of angles collapsing to one point as in
+@fig-quotient-circle. The functions that descend to the circle are exactly the $2\pi$-periodic ones, which is the
+criterion of @def-quotient-set made concrete; @exr-descend tests it on three functions.
+
+::: {#exm-quotient-circle}
+#### The circle as a quotient
+
+$\mathbb{R}/2\pi\mathbb{Z}$, the quotient by the angle relation, is the circle: the class of $\varphi$ corresponds to
+the point $(\cos\varphi, \sin\varphi)$ (@fig-quotient-circle). $\cos$ and $\sin$ descend to the circle, being
+$2\pi$-periodic, while $\varphi \mapsto \varphi$ does not.
+:::
+
+The quotient of the rotation group by the relation "same image of the pole" is the sphere, since a class is
+determined by where it sends the pole and every point is reached. This is the set-theoretic content of the
+statement $S^2 = SO(3)/SO(2)$, whose topological version appears in @exm-quotient-sphere-top.
+
+::: {#exm-quotient-sphere}
+#### The sphere as a quotient of the rotation group
+
+The quotient of $SO(3)$ by the relation of @exm-equivalence-coset is the sphere: the class of $g$ is determined by
+the point $g \cdot (0, 0, 1)$, and every point arises. This is the coset space $SO(3)/SO(2)$ of @sec-coset-spaces.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to check that addition is well defined on the classes modulo $5$, which is the descent
+criterion of @def-quotient-set for a function of two arguments. Writing out the table, with Sage's help, shows the
+finite group that results.
+
+::: {#exr-quotient-z5-table}
+#### Addition on $\mathbb{Z}_5$
+
+Write the addition table of $\mathbb{Z}/5\mathbb{Z}$ and check that addition is well defined on classes.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Well defined: if $a \equiv a'$ and $b \equiv b'$ modulo $5$ then $a + b \equiv a' + b'$, since $(a + b) - (a' + b')
+= (a - a') + (b - b')$ is a multiple of $5$. The table, from Sage's `Zmod(5)`:
+
+```python
+R = Zmod(5)
+print(matrix(ZZ, 5, 5, lambda i, j: (R(i) + R(j)).lift()))
+print("[PASS] every row is a permutation of 0..4 (adding a class is a bijection):", all(sorted((R(i) + R(j)).lift() for j in range(5)) == list(range(5)) for i in range(5)))
+```
+
+*Output:*
+
+```text
+[0 1 2 3 4]
+[1 2 3 4 0]
+[2 3 4 0 1]
+[3 4 0 1 2]
+[4 0 1 2 3]
+[PASS] every row is a permutation of 0..4 (adding a class is a bijection): True
+```
+:::
+
+Which functions of an angle are really functions of a point on the circle? The exercise answers this for three
+candidates, and the test is simply periodicity, since a function descends to the quotient exactly when it is
+constant on the classes.
+
+::: {#exr-descend}
+#### Which functions descend to the circle?
+
+Decide which of $\varphi \mapsto \cos 2\varphi$, $\varphi \mapsto \cos(\varphi/2)$ and $\varphi \mapsto e^{i\varphi}$
+descend from $\mathbb{R}$ to the quotient $\mathbb{R}/2\pi\mathbb{Z}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A function descends exactly when it is constant on classes, that is, $2\pi$-periodic. $\cos 2\varphi$ and
+$e^{i\varphi}$ are $2\pi$-periodic and descend; $\cos(\varphi/2)$ changes sign under $\varphi \mapsto \varphi +
+2\pi$ and does not. Sage checks periodicity symbolically:
+
+```python
+p = var("p")
+fs = {"cos(2p)": cos(2 * p), "cos(p/2)": cos(p / 2), "e^{ip}": exp(I * p)}
+res = {k: bool((f.subs(p=p + 2 * pi) - f).simplify_full() == 0) for k, f in fs.items()}
+print(res)
+print("[PASS] cos 2p and e^{ip} descend, cos(p/2) does not:", res == {"cos(2p)": True, "cos(p/2)": False, "e^{ip}": True})
+```
+
+*Output:*
+
+```text
+{'cos(2p)': True, 'cos(p/2)': False, 'e^{ip}': True}
+[PASS] cos 2p and e^{ip} descend, cos(p/2) does not: True
+```
+:::
+
+Equivalence relations can glue geometric figures too, and the exercise glues the opposite edges of a square.
+Counting the elements in the classes of corners, edge points and interior points shows the structure of the
+resulting surface, which @exm-quotient-torus identifies as the torus.
+
+::: {#exr-quotient-square}
+#### Gluing the edges of a square
+
+Identify the opposite edges of the square $[0, 1]^2$: $(0, v) \sim (1, v)$ and $(u, 0) \sim (u, 1)$. How many
+classes do the four corners form? Which points of the square have classes with exactly two elements?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The four corners are all identified: $(0, 0) \sim (1, 0) \sim (1, 1) \sim (0, 1)$, one class. Points in the interior
+of an edge have two-element classes, $\{(0, v), (1, v)\}$ or $\{(u, 0), (u, 1)\}$; interior points are alone in their
+class. The quotient is the torus (@exm-quotient-torus): a surface with one vertex, two edges and one face.
+:::
+::::
+
+### Products
+
+The second way of building a new set pairs an element of one set with an element of another, with no identification
+at all. The picture is a rectangle whose rows are indexed by one set and whose columns are indexed by the other,
+and the two projections of the definition read off the row and the column of a pair.
+
+:::: {.statement-box}
+::: {#def-product}
+#### Cartesian product
+
+The **Cartesian product** $X \times Y$ is the set of ordered pairs $(x, y)$ with $x \in X$ and $y \in Y$; it has
+$|X| \cdot |Y|$ elements when both sets are finite. The **projections** $(x, y) \mapsto x$ and $(x, y) \mapsto y$
+are surjective maps onto the factors, and $X \times Y \times Z$ is the set of triples.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The coordinate spaces are products of copies of the line, which is why a point of $\mathbb{R}^n$ is a list of $n$
+numbers. The torus is the product of two circles, and the example makes the point that a product space is labelled
+by pairs of labels of its factors.
+
+::: {#exm-product-rn}
+#### $\mathbb{R}^n$ and the torus
+
+$\mathbb{R}^n = \mathbb{R} \times \dots \times \mathbb{R}$ with $n$ factors; the torus $T^2 = S^1 \times S^1$ is the
+set of pairs of points of the circle, which is why a point of the torus is labelled by a pair of angles.
+:::
+
+Products are how physics combines independent degrees of freedom: the configuration space of two systems is the
+product of their configuration spaces. The example lists two mechanical instances and then the one that drives this
+book, a spacetime with extra dimensions as a product of ordinary spacetime with an internal space.
+
+::: {#exm-product-spacetime}
+#### Product spaces in physics
+
+The configuration space of two particles on a line is $\mathbb{R} \times \mathbb{R}$, of a particle on a circle
+and one on a sphere $S^1 \times S^2$; the spacetimes with extra dimensions of Parts III to V are products $M_4
+\times K$ of spacetime with an internal space, a point being a pair (spacetime point, internal point).
+:::
+
+The count of maps from a three-element set in @exm-count-product was really a statement about products, and the
+example makes the identification explicit. A map out of a finite set is a tuple of values, that is, an element of a
+product of copies of the codomain.
+
+::: {#exm-product-maps}
+#### Counting maps as a product
+
+A map from $\{1, 2, 3\}$ to $\{x, y\}$ is the triple of its values, an element of $\{x, y\} \times \{x, y\} \times
+\{x, y\}$, which has $2 \cdot 2 \cdot 2 = 8$ elements: this is how @exr-count-maps enumerates the maps.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The first exercise asks the reader to list a product of two small sets and to count a product of three. The
+multiplicativity of the count, stated in @def-product, is the thing to see in the list, and Sage's Cartesian
+product constructor does the enumeration.
+
+::: {#exr-product-count}
+#### Counting pairs
+
+List $\{1, 2\} \times \{a, b, c\}$ and count $\{1, 2\} \times \{a, b, c\} \times \{x, y\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Six pairs $(1, a), (1, b), (1, c), (2, a), (2, b), (2, c)$, and $2 \cdot 3 \cdot 2 = 12$ triples. In Sage with
+`cartesian_product`:
+
+```python
+P = cartesian_product([[1, 2], ["a", "b", "c"]]); Q = cartesian_product([[1, 2], ["a", "b", "c"], ["x", "y"]])
+print(list(P)); print("|{1,2} x {a,b,c} x {x,y}| =", Q.cardinality())
+print("[PASS] 6 pairs and 12 triples:", P.cardinality() == 6 and Q.cardinality() == 12)
+```
+
+*Output:*
+
+```text
+[(1, 'a'), (1, 'b'), (1, 'c'), (2, 'a'), (2, 'b'), (2, 'c')]
+|{1,2} x {a,b,c} x {x,y}| = 12
+[PASS] 6 pairs and 12 triples: True
+```
+:::
+
+A point of the torus is a pair of angles, and the exercise asks for the point corresponding to one particular pair,
+first in the product description inside $\mathbb{R}^4$ and then on the familiar doughnut surface in $\mathbb{R}^3$.
+Comparing the two coordinate descriptions of the same point shows that the product and the surface of revolution
+are two pictures of one set.
+
+::: {#exr-product-torus-point}
+#### A point of the torus from two angles
+
+Give the point of $T^2 = S^1 \times S^1 \subset \mathbb{R}^4$ with angles $(\pi/3, \pi/2)$, and the point of the
+torus embedded in $\mathbb{R}^3$ as a surface of revolution with the same angles.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+In $\mathbb{R}^4$: $(\cos\tfrac{\pi}{3}, \sin\tfrac{\pi}{3}, \cos\tfrac{\pi}{2}, \sin\tfrac{\pi}{2}) = (\tfrac12,
+\tfrac{\sqrt3}{2}, 0, 1)$. In $\mathbb{R}^3$ with radii $2$ and $1$: $((2 + \cos v)\cos u, (2 + \cos v)\sin u, \sin v)$ at
+$(u, v) = (\pi/3, \pi/2)$ gives $(1, \sqrt3, 1)$. Sage evaluates both:
+
+```python
+u, v = pi / 3, pi / 2
+P4 = vector([cos(u), sin(u), cos(v), sin(v)])
+P3 = vector([(2 + cos(v)) * cos(u), (2 + cos(v)) * sin(u), sin(v)])
+print("in R^4:", P4, "; in R^3:", P3)
+print("[PASS] (1/2, sqrt3/2, 0, 1) and (1, sqrt3, 1):", P4 == vector([1/2, sqrt(3)/2, 0, 1]) and P3 == vector([1, sqrt(3), 1]))
+```
+
+*Output:*
+
+```text
+in R^4: (1/2, 1/2*sqrt(3), 0, 1) ; in R^3: (1, sqrt(3), 1)
+[PASS] (1/2, sqrt3/2, 0, 1) and (1, sqrt3, 1): True
+```
+:::
+
+Maps between factors combine into a map between products, and the exercise asks how injectivity and surjectivity
+behave under this operation. The answer, that the product map has a property exactly when both factors do, is what
+makes coordinates on a product space the product of the coordinates on the factors.
+
+::: {#exr-product-of-maps}
+#### Products of maps
+
+For $f : X \to X'$ and $g : Y \to Y'$ define $f \times g : X \times Y \to X' \times Y'$ by $(x, y) \mapsto (f(x),
+g(y))$. Show that $f \times g$ is injective exactly when both $f$ and $g$ are, and likewise for surjective.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $f$ and $g$ are injective, $(f(x), g(y)) = (f(x'), g(y'))$ gives $x = x'$ and $y = y'$. If $f$ is not injective,
+$f(x) = f(x')$ with $x \neq x'$, then $(x, y)$ and $(x', y)$ have the same image. Surjectivity: every pair $(x', y')$
+is hit exactly when every $x'$ and every $y'$ are. The coordinates $(x^\mu, y^m)$ on a product space are the product
+of the coordinate maps of the factors (@sec-charts).
+:::
+::::
+
+The size of the quotient $\mathbb{Z}/n\mathbb{Z}$ was stated in @exm-quotient-zn, and here it is recorded as a
+proposition, first for $n = 3$ and then for every $n$. The proof is division with remainder
+(@exr-quotient-general-card), and the three examples that follow unpack what the count says.
+
+:::: {.statement-box}
+::: {#prp-quotient-z3}
+#### The quotient $\mathbb{Z}/3\mathbb{Z}$ has three elements
+
+$\mathbb{Z}/3\mathbb{Z}$ has three elements, $\mathbb{Z}/5\mathbb{Z}$ has five, and $\mathbb{Z}/n\mathbb{Z}$ has
+$n$ elements for every $n \geq 1$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The three elements of the quotient are the three residue classes, and the example lists them as subsets of the
+integers. Each integer lies in exactly one of them, which is the partition property of @def-equivalence-class in
+this case.
+
+::: {#exm-z3-elements}
+#### The three classes
+
+$[0] = 3\mathbb{Z}$, $[1] = 1 + 3\mathbb{Z}$, $[2] = 2 + 3\mathbb{Z}$: every integer has exactly one remainder.
+:::
+
+Both addition and multiplication of integers descend to the three classes, and the example gives the relations that
+result. The outcome is the smallest field after $\mathbb{Z}_2$, a first indication that quotients can carry more
+structure than the sets they come from.
+
+::: {#exm-z3-table}
+#### Addition and multiplication
+
+$1 + 2 = 0$, $2 + 2 = 1$, $2 \cdot 2 = 1$ in $\mathbb{Z}_3$: the operations descend from $\mathbb{Z}$ and make
+$\mathbb{Z}_3$ a field, the smallest after $\mathbb{Z}_2$.
+:::
+
+The same construction works for every $n$ and produces a set of $n$ remainders. The example connects the general
+case to the shift of @exm-inverse-shift on six elements and to the cyclic groups with which the group chapters
+begin.
+
+::: {#exm-z3-general}
+#### $\mathbb{Z}_n$ for any $n$
+
+$\mathbb{Z}_n$ has $n$ elements, the remainders $0, \dots, n - 1$; $\mathbb{Z}_6$ is the set of the shift of
+@exm-inverse-shift, and $\mathbb{Z}_n$ is the cyclic group of @sec-groups.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to carry out the count for $n = 5$ by hand, following the model of @exm-z3-elements and
+@exm-z3-table. Listing the classes gives the count of @prp-quotient-z3, and the multiplication table shows that,
+as for $n = 3$, every non-zero class has an inverse.
+
+::: {#exr-quotient-z5-card}
+#### The five classes of $\mathbb{Z}/5\mathbb{Z}$
+
+List the classes of $\mathbb{Z}/5\mathbb{Z}$, show that there are exactly five, and find the multiplicative
+inverse of each non-zero class.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The classes are $[r] = r + 5\mathbb{Z}$ for $r = 0, 1, 2, 3, 4$: every integer has one of these remainders, and two
+distinct remainders differ by less than $5$, so they are not congruent and the five classes are distinct. Since $2
+\cdot 3 = 6 \equiv 1$ and $4 \cdot 4 = 16 \equiv 1$, the inverses are $[1]^{-1} = [1]$, $[2]^{-1} = [3]$, $[3]^{-1} =
+[2]$ and $[4]^{-1} = [4]$, so $\mathbb{Z}_5$ is a field, like $\mathbb{Z}_3$.
+:::
+
+Quotients by different moduli are related when one modulus divides the other, and the exercise explores this for
+$12$ and $4$. The map from remainders modulo $12$ to remainders modulo $4$ descends from the identity on the
+integers, an instance of the descent criterion of @def-quotient-set with equal-size preimages.
+
+::: {#exr-quotient-z12-classes}
+#### Classes modulo 12 and modulo 4
+
+List the classes of $\mathbb{Z}/12\mathbb{Z}$ that contain multiples of $4$, and explain how $\mathbb{Z}_{12}$ maps
+onto $\mathbb{Z}_4$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The multiples of $4$ fall into the classes $[0], [4], [8]$. Since $4 \mid 12$, the remainder modulo $4$ depends only
+on the remainder modulo $12$, so $k \mapsto k \bmod 4$ descends to a surjective map $\mathbb{Z}_{12} \to
+\mathbb{Z}_4$ whose preimages have three elements each. In Sage:
+
+```python
+R12 = Zmod(12)
+classes = sorted(set(R12(4 * k).lift() for k in range(12)))
+print("classes of multiples of 4:", classes)
+fibres = {r: [k for k in range(12) if k % 4 == r] for r in range(4)}
+print("preimages of k -> k mod 4:", fibres)
+print("[PASS] classes [0], [4], [8] and three-element preimages:", classes == [0, 4, 8] and all(len(f) == 3 for f in fibres.values()))
+```
+
+*Output:*
+
+```text
+classes of multiples of 4: [0, 4, 8]
+preimages of k -> k mod 4: {0: [0, 4, 8], 1: [1, 5, 9], 2: [2, 6, 10], 3: [3, 7, 11]}
+[PASS] classes [0], [4], [8] and three-element preimages: True
+```
+:::
+
+The last exercise of the section asks for the proof of the count in @prp-quotient-z3: why
+congruence modulo $n$ has exactly $n$ classes. Division with remainder provides one representative per class, and
+the reader has to show that distinct remainders give distinct classes.
+
+::: {#exr-quotient-general-card}
+#### Why $\mathbb{Z}/n\mathbb{Z}$ has $n$ elements
+
+Prove that congruence modulo $n$ has exactly $n$ classes, using division with remainder.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Every integer $a$ is $qn + r$ with a unique remainder $0 \leq r < n$, so $a \sim r$ and every class contains one
+of $0, \dots, n - 1$; two distinct remainders differ by less than $n$ and are not congruent, so the $n$ classes
+are distinct. This proves @prp-quotient-z3 for every $n \geq 1$.
+:::
+::::
+
+## Topological spaces {#sec-topology}
+
+To say that two points are close, that a map is continuous or that a set has no edge, one needs to know which
+subsets are open. A topology is exactly that: a choice of open sets, subject to three axioms, and every notion of
+this section, continuity, homeomorphism, the topology of a subspace or of a quotient, is expressed through open
+sets alone. The section starts from the open sets of $\mathbb{R}^n$, abstracts them to the axioms, and then shows how
+the circle, the sphere and the rotation group acquire their topologies as subspaces of $\mathbb{R}^n$ and as
+quotients; a Sage enumeration of all topologies on three points makes the axioms concrete.
+
+For more on this topic, see @gasinski2014exercises [Ch. 1].
+
+### Open sets in $\mathbb{R}^n$
+
+Before a topology can be defined on an abstract set, one needs the example that motivates the axioms: the open sets
+of a coordinate space. The picture is a region with no edge, in which every point has some room around it, and the
+open ball is the unit of room. Closed sets are then the complements, the regions that contain their edges.
+
+:::: {.statement-box}
+::: {#def-open-set}
+#### Open set in $\mathbb{R}^n$
+
+The **open ball** of radius $\epsilon$ around $p \in \mathbb{R}^n$ is $B_\epsilon(p) = \{x : |x - p| < \epsilon\}$.
+A subset $V \subseteq \mathbb{R}^n$ is **open** if around every one of its points some open ball is contained in
+$V$; a subset is **closed** if its complement is open.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+On the real line, the three kinds of interval illustrate the three possibilities for a set: open, closed, or
+neither. The endpoints decide everything, since a ball around an endpoint always sticks out of the interval.
+
+::: {#exm-open-intervals}
+#### Intervals
+
+$(0, 2\pi)$ is open in $\mathbb{R}$; $[0, 2\pi]$ is closed and not open, since no ball around $0$ stays inside;
+$[0, 2\pi)$ is neither open nor closed.
+:::
+
+In the plane the same distinction appears between the open disc, the closed disc and the circle that separates
+them. @fig-open-sets shows the room around an interior point and the lack of it at a boundary point; the circle has
+no interior points at all in the plane, which is why it is closed and far from open.
+
+::: {#exm-open-disc}
+#### Discs
+
+The open disc $\{u^2 + v^2 < 1\}$ is open, the closed disc $\{u^2 + v^2 \leq 1\}$ is closed, and the circle
+$\{u^2 + v^2 = 1\}$ is closed (@fig-open-sets): a point on the circle has points off the circle in every ball
+around it.
+:::
+
+The domains on which coordinates are defined are always open sets, and the example lists the two domains used for
+the sphere in this book: an open rectangle of angles and the whole plane. A punctured coordinate space is open too,
+a fact used whenever a point has to be removed.
+
+::: {#exm-open-rectangle}
+#### Coordinate domains
+
+$(0, \pi) \times (0, 2\pi)$, the domain of spherical coordinates, is open in $\mathbb{R}^2$; so is $\mathbb{R}^2$
+itself, the domain of stereographic coordinates; and $\mathbb{R}^n$ minus a point is open. Chart domains
+(@sec-charts) are always open sets.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+![Open and closed sets in the plane: an interior point of the open disc has a ball around it inside the disc
+(green); a boundary point of the closed disc does not (red). On the circle, an open arc is a neighbourhood of a
+point in the circle's own topology. Generated by `figures/open_sets.sage`.](figures/open_sets.svg){#fig-open-sets width=70%}
+
+{{< interactive open_sets 460 >}}
+
+Deciding whether a given set is open or closed is a matter of checking points on its boundary, and the exercise
+provides five sets on which to practise. The region above a parabola and the hyperbola are the two-dimensional
+cases, and Sage tests the open one numerically by finding a ball around sampled points.
+
+::: {#exr-open-decide}
+#### Open, closed or neither
+
+Decide, with a sentence each, whether the following subsets of $\mathbb{R}$ or $\mathbb{R}^2$ are open, closed, both
+or neither: $(1, 2]$, $\mathbb{Z}$, $\{(u, v) : v > u^2\}$, $\{(u, v) : uv = 1\}$, $\mathbb{R}^2 \setminus \{0\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(1, 2]$: neither (no ball around $2$ inside, and the complement has no ball around $1$). $\mathbb{Z}$: closed
+(its complement is a union of open intervals), not open. $\{v > u^2\}$: open (the region strictly above a parabola;
+Sage checks that sampled points have balls inside). $\{uv = 1\}$: closed, a hyperbola. $\mathbb{R}^2 \setminus
+\{0\}$: open. In Sage, a numerical test of the parabola region:
+
+```python
+import random
+random.seed(int(1))
+inside = lambda u, v: v > u**2
+def has_ball(u, v, eps=1e-3, n=200):
+    import math
+    return all(inside(u + eps * math.cos(2 * math.pi * k / n), v + eps * math.sin(2 * math.pi * k / n)) for k in range(n))
+pts = [(random.uniform(-1, 1), None) for _ in range(5)]
+pts = [(u, u**2 + random.uniform(0.01, 1)) for u, _ in pts]
+print("interior points have balls inside:", [has_ball(u, v) for u, v in pts])
+print("boundary points do not:", [has_ball(u, u**2) for u in (-0.5, 0.0, 0.7)])
+print("[PASS] sampled interior points have balls inside the region and boundary points do not:", all(has_ball(u, v) for u, v in pts) and not any(has_ball(u, u**2) for u in (-0.5, 0.0, 0.7)))
+```
+
+*Output:*
+
+```text
+interior points have balls inside: [True, True, True, True, True]
+boundary points do not: [False, False, False]
+[PASS] sampled interior points have balls inside the region and boundary points do not: True
+```
+:::
+
+The definition calls the balls open, and the exercise asks the reader to prove that they deserve the name. The
+proof is the triangle inequality and nothing else, and the radius it produces shrinks as the point approaches the
+boundary, which explains why boundary points are excluded in @fig-open-sets.
+
+::: {#exr-open-ball-is-open}
+#### Open balls are open
+
+Prove that $B_\epsilon(p)$ is an open set: around every $x \in B_\epsilon(p)$ find a ball contained in $B_\epsilon(p)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Let $x \in B_\epsilon(p)$ and $\delta = \epsilon - |x - p| > 0$. For $y \in B_\delta(x)$ the triangle inequality gives
+$|y - p| \leq |y - x| + |x - p| < \delta + |x - p| = \epsilon$, so $B_\delta(x) \subseteq B_\epsilon(p)$. The radius
+$\delta$ shrinks as $x$ approaches the boundary, which is why the boundary points themselves are excluded
+(@fig-open-sets).
+:::
+
+The three properties proved in this exercise, closure under arbitrary unions, closure under finite intersections,
+and the failure for infinite intersections, are the properties that the abstract definition of a topology will take
+as axioms. The exercise establishes them for the coordinate spaces, so that @def-topological-space has its first
+example ready.
+
+::: {#exr-open-union-intersection}
+#### Unions and intersections
+
+Show that any union of open sets of $\mathbb{R}^n$ is open and any finite intersection is open, and give an infinite
+intersection of open sets that is not open.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A point of the union lies in one of the sets, which contains a ball around it, and that ball lies in the union.
+A point of a finite intersection has a ball in each set; the smallest radius works for all. Infinitely many: the
+intervals $(-1/n, 1/n)$ intersect in $\{0\}$, which is not open. These three facts are the axioms of
+@def-topological-space, satisfied by $\mathbb{R}^n$.
+:::
+::::
+
+### Topological spaces
+
+Only the three properties of @exr-open-union-intersection were ever used in reasoning about open sets, so they can
+be taken as axioms on an arbitrary set. The definition does this: a topology is a declaration of which subsets are
+open, consistent with unions and finite intersections, and nearness is whatever the declared open sets say it is.
+
+:::: {.statement-box}
+::: {#def-topological-space}
+#### Topological space
+
+A **topology** on a set $X$ is a collection of subsets, the **open sets**, that contains $\emptyset$ and $X$ and
+is closed under finite intersections and arbitrary unions. A set with a topology is a **topological space**, an
+open set containing $p$ is a **neighbourhood** of $p$, and a subset is **closed** if its complement is open.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first example of a topology is the one the axioms were abstracted from. The open sets of @def-open-set satisfy
+the axioms by the arguments of @exr-open-union-intersection, and this is the topology meant whenever a coordinate
+space appears in this book.
+
+::: {#exm-topology-rn}
+#### $\mathbb{R}^n$
+
+The open sets of @def-open-set form a topology on $\mathbb{R}^n$: a union of open sets contains a ball around each
+of its points, and so does a finite intersection (take the smallest of the finitely many radii).
+:::
+
+Every set carries two trivial topologies, the largest and the smallest possible collections of open sets. Between
+these extremes there can be many others, and on a three-point set the number is $29$, a count established by
+enumeration in @prp-finite-topologies.
+
+::: {#exm-topology-discrete}
+#### Discrete and indiscrete topologies
+
+On any set, declaring every subset open gives the **discrete** topology, and declaring only $\emptyset$ and $X$
+open gives the **indiscrete** one. On a three-point set there are exactly $29$ topologies between these two
+extremes (@prp-finite-topologies).
+:::
+
+On a finite set the axioms can be checked by hand, and the example gives one family that passes and one that fails.
+The failing family is missing a union, which is the most common way a candidate fails; @exr-finite-topologies
+enumerates all the families that pass.
+
+::: {#exm-topology-finite}
+#### A topology on three points
+
+On $\{1, 2, 3\}$ the family $\{\emptyset, \{1\}, \{1, 2\}, \{1, 2, 3\}\}$ is a topology (any union or intersection
+of its members is again a member), while $\{\emptyset, \{1\}, \{2\}, \{1, 2, 3\}\}$ is not, since the union
+$\{1, 2\}$ is missing (@exr-finite-topologies).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to apply the axioms to three more families of subsets of a three-point set. One of them
+requires checking both unions and intersections before a verdict is reached, and Sage decides each case by testing
+every pair of members.
+
+::: {#exr-topology-axioms-check}
+#### Checking the axioms
+
+Decide which of the families $\{\emptyset, \{1\}, \{2, 3\}, X\}$, $\{\emptyset, \{1\}, \{1, 2\}, \{1, 3\}, X\}$ and
+$\{\emptyset, \{1, 2\}, \{2, 3\}, X\}$ are topologies on $X = \{1, 2, 3\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The first is a topology (unions and intersections of its members stay inside). The second is not: $\{1, 2\} \cap
+\{1, 3\} = \{1\}$ is in, but $\{1, 2\} \cup \{1, 3\} = X$ is in too, so check again: all unions and intersections
+are present, it is a topology. The third is not: $\{1, 2\} \cap \{2, 3\} = \{2\}$ is missing. Sage decides each case
+by testing the axioms:
+
+```python
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _topologies import is_topology
+X = [1, 2, 3]; F = frozenset
+fams = {"{0,{1},{2,3},X}": [F(), F([1]), F([2, 3]), F(X)], "{0,{1},{1,2},{1,3},X}": [F(), F([1]), F([1, 2]), F([1, 3]), F(X)], "{0,{1,2},{2,3},X}": [F(), F([1, 2]), F([2, 3]), F(X)]}
+res = {k: is_topology(v, X) for k, v in fams.items()}
+print(res)
+print("[PASS] the first two are topologies, the third is not ({2} is missing):", list(res.values()) == [True, True, False])
+```
+
+*Output:*
+
+```text
+{'{0,{1},{2,3},X}': True, '{0,{1},{1,2},{1,3},X}': True, '{0,{1,2},{2,3},X}': False}
+[PASS] the first two are topologies, the third is not ({2} is missing): True
+```
+:::
+
+On a two-element set there are only sixteen families of subsets, and the exercise asks which of them are
+topologies. The two asymmetric answers, the Sierpiński topologies, are the smallest examples of a space in which
+the points are not interchangeable, and they return in @exr-hausdorff-sierpinski.
+
+::: {#exr-topology-two-points}
+#### Topologies on two points
+
+List all topologies on $\{1, 2\}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Four: the indiscrete $\{\emptyset, X\}$, the discrete one, and the two Sierpiński topologies $\{\emptyset, \{1\},
+X\}$ and $\{\emptyset, \{2\}, X\}$. In Sage, by enumerating the $2^4 = 16$ families:
+
+```python
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _topologies import topologies
+T = topologies([1, 2])
+for t in T: print(sorted(sorted(s) for s in t))
+print("[PASS] there are 4 topologies on two points:", len(T) == 4)
+```
+
+*Output:*
+
+```text
+[[], [1, 2]]
+[[], [1], [1, 2]]
+[[], [1, 2], [2]]
+[[], [1], [1, 2], [2]]
+[PASS] there are 4 topologies on two points: True
+```
+:::
+
+Two topologies on the same set can be combined, and the exercise asks what happens under intersection and under
+union. The intersection always works, the union usually does not, and the counterexample on three points shows
+which axiom is lost.
+
+::: {#exr-topology-intersection}
+#### The intersection of two topologies
+
+Show that the common open sets of two topologies on $X$ form a topology, and that their union need not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A union or finite intersection of sets open in both topologies is open in both, and $\emptyset$, $X$ are in
+both, so the intersection is a topology. The union of the two Sierpiński topologies on $\{1, 2\}$ is $\{\emptyset,
+\{1\}, \{2\}, X\}$, which is a topology, but on three points the union of $\{\emptyset, \{1\}, X\}$ and $\{\emptyset,
+\{2\}, X\}$ lacks $\{1, 2\}$ and is not.
+:::
+::::
+
+The circle, the sphere and the rotation group sit inside coordinate spaces, and they should inherit a topology from
+there. The next definition says how: the open sets of a subset are the traces of the open sets of the ambient
+space, and the picture is a region of the plane cutting an arc out of the circle.
+
+:::: {.statement-box}
+::: {#def-subspace-topology}
+#### Subspace topology
+
+A subset $Y \subseteq X$ of a topological space inherits the **subspace topology**: its open sets are the
+intersections $U \cap Y$ with $U$ open in $X$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The circle inherits its topology from the plane, and the example describes what the inherited open sets look like:
+arcs and unions of arcs. @fig-open-sets shows one such arc as the trace of an open disc, which is the picture to
+keep for every subspace.
+
+::: {#exm-subspace-circle}
+#### The circle
+
+The circle $S^1 \subset \mathbb{R}^2$ carries the subspace topology: an open set of the circle is the intersection of
+the circle with an open set of the plane, an open arc or a union of arcs (@fig-open-sets).
+:::
+
+The sphere inside three-dimensional space and the rotation group inside the nine-dimensional space of matrices
+acquire their topologies in the same way. An open set of rotations is a set of matrices whose entries vary within
+open ranges, and this is the sense in which two rotations can be close to each other.
+
+::: {#exm-subspace-sphere}
+#### The sphere and the rotation group
+
+The sphere $S^2 \subset \mathbb{R}^3$ and the rotation group $SO(3) \subset \mathbb{R}^{9}$ (as $3 \times 3$ matrices)
+are subspaces; an open set of the sphere is a cap or a union of caps, and an open set of $SO(3)$ is a set of
+rotations whose matrix entries vary within open ranges.
+:::
+
+The subspace topology can declare open a set that is not open in the ambient space, and a half-open interval shows
+how. The example makes the point that openness is always relative to the space one is in, a point that
+@exr-subspace-open develops on the circle.
+
+::: {#exm-subspace-interval}
+#### Intervals
+
+$[0, 1) \subset \mathbb{R}$ as a subspace has $[0, \tfrac12) = (-\tfrac12, \tfrac12) \cap [0, 1)$ among its open sets,
+although $[0, \tfrac12)$ is not open in $\mathbb{R}$: openness is relative to the space.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to decide which halves of the circle are open in the circle's own topology. The open upper half
+is the trace of an open half-plane, while the closed upper half contains two points at which every arc sticks out,
+so the answer hinges on the two points on the horizontal axis.
+
+::: {#exr-subspace-open}
+#### Open sets of a subspace
+
+Show that the upper half of the circle, $\{(X, Y) \in S^1 : Y > 0\}$, is open in the circle, and that the closed
+upper half $\{Y \geq 0\}$ is not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The open upper half-plane $\{Y > 0\}$ is open in $\mathbb{R}^2$ and its intersection with the circle is the open
+upper half, which is therefore open in the subspace topology. The closed upper half contains the points $(\pm 1,
+0)$, and every arc around them contains points with $Y < 0$, so no open set of the plane cuts out exactly the
+closed half.
+:::
+
+Some subsets of the line inherit the discrete topology, in which every point is isolated, and the exercise
+identifies two of them. Adding the limit point $0$ to the sequence $1/n$ destroys discreteness, which shows how a
+single point can change the inherited topology.
+
+::: {#exr-subspace-discrete}
+#### Discrete subspaces
+
+Show that $\mathbb{Z} \subset \mathbb{R}$ and $\{1/n : n \geq 1\} \subset \mathbb{R}$ carry the discrete topology as
+subspaces, and that $\{0\} \cup \{1/n\}$ does not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\{k\} = (k - \tfrac12, k + \tfrac12) \cap \mathbb{Z}$ is open in $\mathbb{Z}$, so every subset is open. Likewise
+$\{1/n\}$ is cut out by a small interval around $1/n$ not containing its neighbours. With $0$ added, every open
+set of $\mathbb{R}$ containing $0$ contains infinitely many $1/n$, so $\{0\}$ is not open in the subspace: the
+subspace is not discrete.
+:::
+
+A subset of a subset can inherit its topology in two ways, directly from the ambient space or in two steps, and the
+exercise shows that the two agree. The consequence is that the topology of an arc of the circle does not depend on
+whether the arc is regarded inside the circle or inside the plane.
+
+::: {#exr-subspace-transitive}
+#### Subspace of a subspace
+
+For $Z \subseteq Y \subseteq X$, show that the subspace topology $Z$ inherits from $Y$ equals the one it inherits
+from $X$ directly.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+An open set of $Z$ from $Y$ is $(U \cap Y) \cap Z$ with $U$ open in $X$, and $(U \cap Y) \cap Z = U \cap Z$ since
+$Z \subseteq Y$, which is an open set of $Z$ from $X$; conversely every $U \cap Z$ has this form. So the topology of
+an arc of the circle is the same whether the arc is viewed inside the circle or inside the plane.
+:::
+::::
+
+With open sets available on both sides, a map between topological spaces can be called continuous without any
+mention of distances. The definition asks that open sets pull back to open sets, and the picture is that points
+close to a given point are sent close to its image; for subsets of coordinate spaces this is the familiar
+$\epsilon$-$\delta$ condition.
+
+:::: {.statement-box}
+::: {#def-continuous-map}
+#### Continuous map
+
+A map $f : X \to Y$ between topological spaces is **continuous** if the preimage $f^{-1}(V)$ of every open set
+$V \subseteq Y$ is open in $X$. For maps between subsets of $\mathbb{R}^n$ this is the $\epsilon$-$\delta$
+definition: points close to $p$ are sent close to $f(p)$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The elementary functions are continuous, and the example contrasts them with a step function, which is not. The
+failure is witnessed by one open interval whose preimage contains an endpoint without any room around it, the
+computation that @exr-preimages asks for in full.
+
+::: {#exm-continuous-elementary}
+#### Elementary functions and a step
+
+$\cos$, $\sin$, $\exp$, polynomials and their compositions are continuous on $\mathbb{R}$; the step function
+$x \mapsto 0$ for $x < 0$, $1$ for $x \geq 0$ is not: the preimage of the open set $(\tfrac12, 2)$ is $[0, \infty)$,
+not open (@exr-preimages).
+:::
+
+The parametrisations of the circle and the sphere are continuous because their components are, a principle that
+reduces continuity into a coordinate space to the continuity of finitely many real functions. These maps are the
+inverses of charts, and their continuity is half of what makes a chart a homeomorphism.
+
+::: {#exm-continuous-chart}
+#### Parametrisations
+
+$\varphi \mapsto (\cos\varphi, \sin\varphi)$ is continuous from $\mathbb{R}$ to the circle, and so is $(\theta,
+\varphi) \mapsto (\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)$ from $\mathbb{R}^2$ to the sphere, as
+their components are continuous functions.
+:::
+
+Operations on matrices are continuous because each entry of the result is a polynomial in the entries of the
+inputs. The orbit map on the rotation group is of this type, and its continuity is the ingredient that
+@exr-continuous-composition and @exr-sphere-quotient-homeomorphism use.
+
+::: {#exm-continuous-matrix}
+#### Matrix maps
+
+Matrix multiplication, the determinant and the orbit map $g \mapsto g \cdot (0, 0, 1)$ on $SO(3)$ are continuous,
+since each entry of the result is a polynomial in the entries of the arguments.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to compute two preimages of the same open interval, under the step function and under the
+cosine, and to read off continuity from the result. One preimage is a half-line closed at one end, the other a
+union of open intervals, and Sage shows both on a grid.
+
+::: {#exr-preimages}
+#### Continuity through preimages
+
+Compute the preimage of the open interval $(\tfrac12, 2)$ under the step function and under $\cos$, and decide
+which map is continuous.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Under the step function the preimage is $[0, \infty)$, which contains $0$ but no ball around it, so it is not
+open and the step function is not continuous. Under $\cos$ the preimage is the union of the open intervals
+$(-\pi/3 + 2\pi k, \pi/3 + 2\pi k)$, open, as for every open set, since $\cos$ is continuous. In Sage on a grid:
+
+```python
+step = lambda x: 0 if x < 0 else 1
+pts = [k / 10 for k in range(-20, 21)]
+pre_step = [x for x in pts if 1/2 < step(x) < 2]
+print("step: preimage of (1/2, 2) on the grid starts at", min(pre_step), "which is included (the set [0, oo) is not open)")
+pre_cos = [x for x in pts if 1/2 < cos(x) < 2]
+print("cos: preimage of (1/2, 2) on the grid is", min(pre_cos), "..", max(pre_cos), "(the open interval (-pi/3, pi/3) contains it)")
+print("endpoints excluded:", bool(cos(pi/3) == 1/2), "-> cos(pi/3) = 1/2 is not in the open preimage")
+```
+
+*Output:*
+
+```text
+step: preimage of (1/2, 2) on the grid starts at 0 which is included (the set [0, oo) is not open)
+cos: preimage of (1/2, 2) on the grid is -1 .. 1 (the open interval (-pi/3, pi/3) contains it)
+endpoints excluded: True -> cos(pi/3) = 1/2 is not in the open preimage
+```
+:::
+
+Rounding down to the nearest integer gives a function with infinitely many discontinuities, and the exercise asks
+the reader to locate all of them by the preimage criterion. A single well-chosen open interval around each integer
+value does the job, and the same interval shows continuity between consecutive integers.
+
+::: {#exr-continuous-floor}
+#### The floor function
+
+Find all points where $x \mapsto \lfloor x\rfloor$ is discontinuous, by exhibiting an open set whose preimage is not
+open.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The preimage of the open interval $(k - \tfrac12, k + \tfrac12)$ is $[k, k + 1)$, not open at $k$: the floor
+function is discontinuous at every integer and continuous elsewhere (on $(k, k + 1)$ it is constant). Sage
+samples the jumps:
+
+```python
+f = lambda x: floor(x)
+jumps = [k for k in range(-2, 3) if f(k) != f(k - 1e-9)]
+print("jump points among -2..2:", jumps)
+print("preimage of (k - 1/2, k + 1/2) for k = 1 is [1, 2): endpoints", f(1), f(1.999), "and", f(0.999), "outside")
+print("[PASS] discontinuous exactly at the integers (sampled), continuous between:", jumps == [-2, -1, 0, 1, 2] and f(1.2) == f(1.7))
+```
+
+*Output:*
+
+```text
+jump points among -2..2: [-2, -1, 0, 1, 2]
+preimage of (k - 1/2, k + 1/2) for k = 1 is [1, 2): endpoints 1 1 and 0 outside
+[PASS] discontinuous exactly at the integers (sampled), continuous between: True
+```
+:::
+
+Composition of continuous maps is continuous, and the proof is one line about preimages. The exercise asks for that
+line and for its application to a point carried along by a continuous family of rotations, which produces a
+continuous curve on the sphere; curves of this kind are the geodesics of the sphere.
+
+::: {#exr-continuous-composition}
+#### Compositions and the orbit map
+
+Prove that the composition of continuous maps is continuous, and conclude that $t \mapsto R(t) \cdot (0, 0, 1)$,
+for a continuous family of rotations $R(t)$, is a continuous curve on the sphere.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(g \circ f)^{-1}(W) = f^{-1}(g^{-1}(W))$: an open $W$ has open $g^{-1}(W)$, whose preimage under $f$ is open. The
+curve is the composition of $t \mapsto R(t)$, continuous into the matrices, with the orbit map, continuous by
+@exm-continuous-matrix. Paths on a sphere obtained by rotating a point are the geodesics of @sec-geodesics.
+:::
+::::
+
+When two spaces are related by a bijection that is continuous in both directions, their open sets correspond
+exactly and nothing topological distinguishes them. The next definition names such a bijection, and the picture is
+a deformation without tearing or gluing; @exr-homeomorphism-invariance makes the correspondence of open sets
+precise.
+
+:::: {.statement-box}
+::: {#def-homeomorphism}
+#### Homeomorphism
+
+A **homeomorphism** is a continuous bijection whose inverse is also continuous; two spaces related by one are
+**homeomorphic**, indistinguishable as topological spaces.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The tangent, already a bijection in @exm-bijection-cube, is continuous with continuous inverse, so an open interval
+and the whole line are the same space topologically. The example also announces that a closed interval is a
+different space, a distinction that needs compactness to prove.
+
+::: {#exm-homeomorphism-interval}
+#### Intervals and the line
+
+$x \mapsto \tan x$ is a homeomorphism from $(-\pi/2, \pi/2)$ onto $\mathbb{R}$: an open interval and the whole
+line are homeomorphic. A closed interval is not homeomorphic to an open one (@sec-compact-connected explains why).
+:::
+
+Stereographic projection is a homeomorphism from the punctured sphere onto the plane, which is why it serves as a
+chart. The example also exhibits a continuous bijection that is not a homeomorphism, the wrapping of a half-open
+interval onto the circle, whose inverse jumps at one point; continuity of the inverse is a genuine extra condition.
+
+::: {#exm-homeomorphism-sphere}
+#### The sphere minus a point
+
+Stereographic projection (@sec-charts) is a homeomorphism from the sphere minus the north pole onto the plane
+$\mathbb{R}^2$; a continuous bijection whose inverse is not continuous is $\varphi \mapsto (\cos\varphi,
+\sin\varphi)$ from $[0, 2\pi)$ onto the circle, whose inverse jumps at $(1, 0)$.
+:::
+
+Radial projection shows that the boundary of a square and the circle are homeomorphic, as any picture of a square
+being rounded off suggests. Showing that two spaces are not homeomorphic needs an invariant, and the example
+introduces the standard one: count the pieces left after removing a point.
+
+::: {#exm-homeomorphism-square}
+#### Square and circle
+
+The boundary of a square is homeomorphic to the circle by radial projection $x \mapsto x/|x|$; a figure eight is
+not homeomorphic to the circle, since removing its crossing point leaves two pieces while removing a point from a
+circle leaves one (@sec-compact-connected).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to verify the homeomorphism of @exm-homeomorphism-interval in detail and to find a second one,
+from the interval $(-1, 1)$ onto the line. In both cases a strictly increasing continuous function with the right
+limits at the ends is a homeomorphism, and Sage checks the compositions and the derivative.
+
+::: {#exr-homeomorphism-tan}
+#### $\tan$ and its inverse
+
+Verify that $\tan : (-\pi/2, \pi/2) \to \mathbb{R}$ and $\arctan$ are inverse continuous bijections, and that
+$x \mapsto x/(1 - x^2)$ is a homeomorphism from $(-1, 1)$ onto $\mathbb{R}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\tan$ is continuous, strictly increasing and unbounded in both directions on $(-\pi/2, \pi/2)$, hence a bijection
+onto $\mathbb{R}$, with the continuous inverse $\arctan$. The second map is continuous, strictly increasing
+(derivative $(1 + x^2)/(1 - x^2)^2 > 0$) and tends to $\pm\infty$ at $\pm1$, hence a homeomorphism. Sage checks
+the compositions and the derivative:
+
+```python
+x = var("x")
+print("tan(arctan(x)) =", tan(arctan(x)).simplify_full())
+g = x / (1 - x^2)
+print("g' =", diff(g, x).simplify_full())
+print("[PASS] tan(arctan x) = x, and g' = (1 + x^2)/(1 - x^2)^2 > 0 on (-1, 1) with g -> +-infinity at +-1:",
+      bool(tan(arctan(x)).simplify_full() == x) and bool((diff(g, x) - (1 + x^2) / (1 - x^2)^2).simplify_full() == 0) and bool(limit(g, x=1, dir="-") == +Infinity))
+```
+
+*Output:*
+
+```text
+tan(arctan(x)) = x
+g' = (x^2 + 1)/(x^4 - 2*x^2 + 1)
+[PASS] tan(arctan x) = x, and g' = (1 + x^2)/(1 - x^2)^2 > 0 on (-1, 1) with g -> +-infinity at +-1: True
+```
+:::
+
+The point-removal invariant of @exm-homeomorphism-square is applied here to two intervals that differ by a single
+endpoint. Removing that endpoint leaves one piece in one interval and two in the other, and the exercise asks for
+the argument that this contradicts the existence of a homeomorphism.
+
+::: {#exr-homeomorphism-half-open}
+#### $[0, 1)$ and $(0, 1)$ are not homeomorphic
+
+Prove it by removing a point.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A homeomorphism $f : [0, 1) \to (0, 1)$ would restrict to a homeomorphism from $[0, 1) \setminus \{0\} = (0, 1)$
+onto $(0, 1) \setminus \{f(0)\}$. The first space is connected (@def-connected), the second is the union of the
+two disjoint open intervals $(0, f(0))$ and $(f(0), 1)$, not connected, and connectedness is preserved by
+homeomorphisms. Removing points is the standard way to distinguish spaces (@exm-homeomorphism-square).
+:::
+
+A homeomorphism sends open sets to open sets, not only preimages of open sets to open sets, and the exercise asks
+for the short proof. This is the statement that makes "indistinguishable as topological spaces" literally true: the
+two topologies correspond under the bijection.
+
+::: {#exr-homeomorphism-invariance}
+#### Homeomorphisms preserve open sets
+
+Show that a homeomorphism $f : X \to Y$ sends open sets to open sets and closed sets to closed sets.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For $U$ open in $X$, $f(U) = (f^{-1})^{-1}(U)$ is the preimage of $U$ under the continuous map $f^{-1}$, hence
+open; closed sets are complements of open sets and $f$ is a bijection. Thus a homeomorphism identifies the two
+topologies completely, which is what "indistinguishable as topological spaces" means.
+:::
+::::
+
+The quotient sets of @sec-relations-products become topological spaces by the next definition, which declares a set
+of classes open when the elements it collects form an open set. The picture is the circle inheriting its arcs from
+the periodic open sets of the line, and the criterion for continuity of a map out of the quotient is the
+topological version of descent.
+
+:::: {.statement-box}
+::: {#def-quotient-topology}
+#### Quotient topology
+
+A quotient set $X/{\sim}$ (@def-quotient-set) of a topological space carries the **quotient topology**: a set of
+classes is open if its preimage under the quotient map is open in $X$. A map from $X/{\sim}$ is then continuous
+exactly when its composition with the quotient map is continuous.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The identification of the quotient of the line with the circle, made as a bijection in @exm-quotient-circle, is now
+a homeomorphism. The example checks that open sets of angles map to open arcs, so that the inverse is continuous as
+well, which @exr-quotient-interval-circle asks the reader to verify starting from a closed interval.
+
+::: {#exm-quotient-circle-top}
+#### $\mathbb{R}/2\pi\mathbb{Z}$
+
+The quotient $\mathbb{R}/2\pi\mathbb{Z}$ is homeomorphic to the circle by $[\varphi] \mapsto (\cos\varphi,
+\sin\varphi)$: the map is a continuous bijection, and the image of an open interval of angles is an open arc, so
+the inverse is continuous too.
+:::
+
+The bijection of @exm-quotient-sphere between the quotient of the rotation group and the sphere is likewise a
+homeomorphism. This is the topological meaning of the sphere as a coset space of the rotation group, and
+@exr-sphere-quotient-homeomorphism in the final section supplies the proof, which needs compactness.
+
+::: {#exm-quotient-sphere-top}
+#### $SO(3)/SO(2)$
+
+The quotient of $SO(3)$ by the relation "same image of the north pole" is homeomorphic to the sphere by
+$[g] \mapsto g \cdot (0, 0, 1)$; this is what "the sphere is the coset space $SO(3)/SO(2)$" means topologically
+(@sec-coset-spaces).
+:::
+
+Gluing the opposite edges of a square, the construction of @exr-quotient-square, produces a space homeomorphic to
+the torus as a product of two circles. The homeomorphism is the pair of wrapping maps, one for each coordinate, so
+the torus can be studied either as a quotient or as a product.
+
+::: {#exm-quotient-torus}
+#### The torus from a square
+
+Identifying opposite edges of the square $[0, 2\pi] \times [0, 2\pi]$, $(0, v) \sim (2\pi, v)$ and $(u, 0) \sim
+(u, 2\pi)$, gives a quotient homeomorphic to the torus $S^1 \times S^1$, by $(u, v) \mapsto ((\cos u, \sin u),
+(\cos v, \sin v))$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to build the circle from a closed interval by identifying its two endpoints and to prove that
+the result is homeomorphic to the circle. The contrast with the half-open interval, where the same map fails to be
+a homeomorphism, shows that the identification is what repairs the continuity of the inverse.
+
+::: {#exr-quotient-interval-circle}
+#### The circle from an interval
+
+Show that $[0, 2\pi]$ with $0 \sim 2\pi$ is homeomorphic to the circle, and explain why $[0, 2\pi)$ with no
+identification is not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$[\varphi] \mapsto (\cos\varphi, \sin\varphi)$ is a continuous bijection from the quotient onto the circle; an
+open set of the quotient containing $[0]$ has preimage containing $[0, \epsilon) \cup (2\pi - \epsilon, 2\pi]$,
+whose image is an open arc around $(1, 0)$, so the inverse is continuous. On $[0, 2\pi)$ the same map is a
+continuous bijection but $[0, \epsilon)$ is open while its image, a half-open arc, is not open in the circle.
+:::
+
+The exercise asks for a description of which sets of classes are open in the quotient of the line by full turns, in
+terms of periodic open subsets of the line. It then shows that the quotient map is open, sending open sets to open
+sets, a property not shared by all continuous maps, and Sage checks the periodicity on a sample.
+
+::: {#exr-quotient-open-sets}
+#### Open sets of the quotient
+
+Describe the open sets of $\mathbb{R}/2\pi\mathbb{Z}$ in terms of open sets of $\mathbb{R}$, and show that the
+quotient map sends open sets to open sets.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A set of classes is open when its preimage, a union of classes, is open in $\mathbb{R}$: the $2\pi$-periodic open
+sets. For $U$ open in $\mathbb{R}$, the preimage of $\pi(U)$ is $\bigcup_k(U + 2\pi k)$, a union of open sets,
+so $\pi(U)$ is open. Sage checks periodicity of a sampled open set:
+
+```python
+U = (0.5, 1.2)
+in_preimage = lambda t: any(U[0] < t - 2 * k * float(pi) < U[1] for k in range(-3, 4))
+samples = [0.7, 0.7 + 2 * float(pi), 0.7 - 4 * float(pi), 2.0, 2.0 + 2 * float(pi)]
+print([(round(t, 2), in_preimage(t)) for t in samples])
+print("[PASS] membership is 2 pi periodic (translates of the interval are in, others out):", [in_preimage(t) for t in samples] == [True, True, True, False, False])
+```
+
+*Output:*
+
+```text
+[(0.7, True), (6.98, True), (-11.87, True), (2.0, False), (8.28, False)]
+[PASS] membership is 2 pi periodic (translates of the interval are in, others out): True
+```
+:::
+
+Gluing the edges of a square with a half twist instead of straight produces a different surface, and the exercise
+asks the reader to describe it and its boundary. The comparison with the cylinder, obtained from the same square by
+a different relation, is the first encounter with a twisted bundle, a theme of the bundle chapters.
+
+::: {#exr-quotient-moebius}
+#### The Möbius band
+
+Identify the edges $(0, v) \sim (1, 1 - v)$ of the square $[0, 1]^2$. Describe the quotient, its boundary, and
+compare with the cylinder obtained from $(0, v) \sim (1, v)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The quotient is the Möbius band: the two vertical edges are glued with a half twist. The boundary is a single
+circle (follow the top edge, then, after the twist, the bottom edge), whereas the cylinder has two boundary
+circles. Both are quotients of the same square by different equivalence relations, and both are the total spaces
+of bundles over the circle (@sec-bundles), the cylinder trivial and the Möbius band not.
+:::
+::::
+
+The number of topologies a three-element set admits was quoted in @exm-topology-discrete, and it is recorded here
+as a proposition. Its proof is an exhaustive test of the families of subsets against the axioms, carried out in
+@exr-finite-topologies, and no shorter argument is known.
+
+:::: {.statement-box}
+::: {#prp-finite-topologies}
+#### Topologies on three points
+
+There are $29$ topologies on a three-element set (@exr-finite-topologies).
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The same enumeration on a two-element set gives the four topologies listed in @exr-topology-two-points. The example
+records this smaller count so that the growth from two to three points can be seen.
+
+::: {#exm-topologies-two}
+#### Two points
+
+On $\{1, 2\}$ the same enumeration gives $4$ topologies (@exr-topology-two-points).
+:::
+
+The topologies on a set are ordered by inclusion of their collections of open sets, from indiscrete to discrete.
+The example explains how this order affects continuity: more open sets on the domain make continuity easier, more
+on the codomain make it harder.
+
+::: {#exm-topologies-lattice}
+#### Finer and coarser
+
+The $29$ topologies are ordered by inclusion, from the indiscrete (coarsest) to the discrete (finest): a topology
+with more open sets makes more maps out of the space continuous and fewer maps into it.
+:::
+
+On four and five points the counts are $355$ and $6942$, and the example records how quickly the numbers grow. No
+closed formula is known, which is why enumeration, as in @exr-topology-four-points, is the only way to obtain them.
+
+::: {#exm-topologies-count-grows}
+#### Four points and beyond
+
+On four points there are $355$ topologies, on five $6942$: the number grows faster than exponentially, and no
+closed formula is known (@exr-topology-four-points).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to carry out the enumeration behind @prp-finite-topologies: test every family of subsets of a
+three-point set against the axioms. The same enumeration also records which of the $29$ topologies separate points, a count
+that @sec-compact-connected uses when discussing Hausdorff spaces.
+
+::: {#exr-finite-topologies}
+#### All topologies on three points
+
+Enumerate the topologies on $\{1, 2, 3\}$ by checking the axioms on every family of subsets.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+There are $2^8 = 256$ families of subsets; $29$ of them contain $\emptyset$ and $X$ and are closed under unions
+and intersections. The enumeration also counts how many of them separate points, which @sec-compact-connected uses. In
+Sage:
+
+```python
+X = frozenset([1, 2, 3])
+subsets = [frozenset(s) for s in Subsets(X)]
+def is_topology(T):
+    T = set(T)
+    if frozenset() not in T or X not in T: return False
+    for A in T:
+        for B in T:
+            if (A | B) not in T or (A & B) not in T: return False
+    return True
+tops = [T for T in Subsets(subsets) if is_topology(T)]
+print("number of topologies on a 3-point set:", len(tops))
+print("the coarsest (indiscrete) topology:", sorted([sorted(s) for s in min(tops, key=len)]))
+print("the finest (discrete) topology has", len(max(tops, key=len)), "open sets = 2^3")
+def is_hausdorff(T):
+    return all(any(x in U and y in V and not (U & V) for U in T for V in T) for x in X for y in X if x != y)
+hausdorff = [T for T in tops if is_hausdorff(T)]
+print("Hausdorff topologies among them (distinct points have disjoint open neighbourhoods):", len(hausdorff), " -> only the discrete one")
+```
+
+*Output:*
+
+```text
+number of topologies on a 3-point set: 29
+the coarsest (indiscrete) topology: [[], [1, 2, 3]]
+the finest (discrete) topology has 8 open sets = 2^3
+Hausdorff topologies among them (distinct points have disjoint open neighbourhoods): 1  -> only the discrete one
+```
+:::
+
+Among the $29$ topologies, some can tell any two points apart by an open set containing one and not the other. The
+exercise asks for the number of these, a first separation condition weaker than the Hausdorff property of the next
+section, and Sage tests it pair by pair.
+
+::: {#exr-topology-t0-count}
+#### Topologies that separate points
+
+Among the $29$ topologies on three points, count those in which any two distinct points have an open set
+containing one and not the other ($T_0$ topologies).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$19$ of the $29$ are $T_0$. Sage tests the condition on every pair of points for each topology:
+
+```python
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _topologies import topologies
+X = [1, 2, 3]; T = topologies(X)
+def t0(t):
+    return all(any((a in U) != (b in U) for U in t) for a in X for b in X if a < b)
+n0 = sum(1 for t in T if t0(t))
+print("topologies:", len(T), "; T0 among them:", n0)
+print("[PASS] 19 of the 29 topologies are T0:", (len(T), n0) == (29, 19))
+```
+
+*Output:*
+
+```text
+topologies: 29 ; T0 among them: 19
+[PASS] 19 of the 29 topologies are T0: True
+```
+:::
+
+The final exercise of the section asks for the enumeration on four points, which tests $2^{16}$ families and
+gives the count $355$ quoted in @exm-topologies-count-grows. It is the same algorithm as before, now at a size
+where the running time becomes noticeable.
+
+::: {#exr-topology-four-points}
+#### Topologies on four points
+
+Enumerate the topologies on a four-element set (there are $2^{16}$ families of subsets to test).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$355$. The enumeration tests $65536$ families and takes a few seconds:
+
+```python
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _topologies import topologies
+T = topologies([1, 2, 3, 4])
+print("topologies on four points:", len(T))
+print("[PASS] 355 topologies on four points:", len(T) == 355)
+```
+
+*Output:*
+
+```text
+topologies on four points: 355
+[PASS] 355 topologies on four points: True
+```
+:::
+::::
+
+## Compact and connected spaces {#sec-compact-connected}
+
+Three global properties of a topological space decide much of what can be done on it. A Hausdorff space is one in
+which points can be told apart by open sets, so that limits are unique; a compact space is one on which every
+continuous function is bounded and attains its extremes, and on which the eigenvalues of a Laplacian form a
+discrete set; a connected space is one in one piece. The section defines the three properties, with intervals,
+spheres, rotation groups and finite graphs as examples, and ends with the enumeration of the Hausdorff topologies
+on three points.
+
+For more on this topic, see @cheung2024metric [Ch. 1, Ch. 3], @gasinski2014exercises [Ch. 2] and @radozycki2020solving [Ch. 6].
+
+### Hausdorff spaces
+
+The first of the three global properties concerns whether open sets can distinguish points. The picture is two
+points each sitting in its own open set, with the two sets not overlapping, and the consequences listed in the
+definition, unique limits and closed points, are what make this property a requirement for manifolds.
+
+:::: {.statement-box}
+::: {#def-hausdorff}
+#### Hausdorff space
+
+A topological space is **Hausdorff** if any two distinct points have disjoint neighbourhoods. In a Hausdorff
+space limits are unique and single points are closed sets; manifolds (@sec-manifolds) are required to be
+Hausdorff.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Coordinate spaces are Hausdorff because two distinct points are at a positive distance, and half that distance
+gives the disjoint balls. Since the property passes to subspaces, all the geometric examples of this chapter,
+circle, sphere, torus and rotation group, are Hausdorff at once.
+
+::: {#exm-hausdorff-rn}
+#### $\mathbb{R}^n$ and its subspaces
+
+Two distinct points of $\mathbb{R}^n$ at distance $d$ have disjoint balls of radius $d/2$; every subspace of a
+Hausdorff space is Hausdorff, so the circle, the sphere, the torus and $SO(3)$ all are.
+:::
+
+On a finite set the Hausdorff property is very restrictive, and the example states the outcome: only the discrete
+topology qualifies. For three points this is one topology out of $29$, the count that @prp-hausdorff-topologies
+records.
+
+::: {#exm-hausdorff-finite}
+#### Finite spaces
+
+The discrete topology on a finite set is Hausdorff (each point is its own neighbourhood); the indiscrete topology
+is not, and among the $29$ topologies on a three-point set only the discrete one is Hausdorff
+(@prp-hausdorff-topologies).
+:::
+
+Quotients can destroy the Hausdorff property even when the original space has it, and the example gives the
+standard case, the line modulo rational differences, where every class is dense. Quotients of a group by a closed
+subgroup escape this, which is why coset spaces are formed with closed subgroups.
+
+::: {#exm-hausdorff-quotient}
+#### Quotients can fail
+
+The quotient of $\mathbb{R}$ by $x \sim y$ iff $x - y \in \mathbb{Q}$ is not Hausdorff: every open set of the
+quotient is empty or everything, because every open interval contains a member of every class. Quotients of a group
+by a closed subgroup, such as $SO(3)/SO(2)$, are Hausdorff, which is one reason the subgroup $R$ in a coset space
+$S/R$ is taken closed (@sec-coset-spaces).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to test the Hausdorff condition on all the finite topologies enumerated so far, four on two
+points and $29$ on three. Sage looks for disjoint open sets around each pair of distinct points, and the result
+agrees with @exm-hausdorff-finite.
+
+::: {#exr-hausdorff-check-finite}
+#### Which small topologies are Hausdorff?
+
+Test the Hausdorff condition on the four topologies of a two-point set and on the $29$ of a three-point set.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Only the discrete topology in each case. Sage tests, for every pair of distinct points, whether disjoint open sets
+containing them exist:
+
+```python
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _topologies import topologies
+def hausdorff(t, X):
+    return all(any(a in U and b in V and not (U & V) for U in t for V in t) for a in X for b in X if a < b)
+res = {}
+for X in ([1, 2], [1, 2, 3]):
+    T = topologies(X); h = [t for t in T if hausdorff(t, X)]
+    res[len(X)] = (len(T), len(h), all(len(t) == 2**len(X) for t in h))
+    print("points:", len(X), "topologies:", len(T), "Hausdorff:", len(h), "(discrete)" if res[len(X)][2] else "")
+print("[PASS] exactly one Hausdorff topology, the discrete one, on two and on three points:", res == {2: (4, 1, True), 3: (29, 1, True)})
+```
+
+*Output:*
+
+```text
+points: 2 topologies: 4 Hausdorff: 1 (discrete)
+points: 3 topologies: 29 Hausdorff: 1 (discrete)
+[PASS] exactly one Hausdorff topology, the discrete one, on two and on three points: True
+```
+:::
+
+The claim in @def-hausdorff that a single point forms a closed set is proved here. The proof assembles the
+complement of the point from the neighbourhoods separating it from every other point, and the exercise also notes
+that the converse fails.
+
+::: {#exr-hausdorff-points-closed}
+#### Points are closed
+
+Prove that in a Hausdorff space every single point $\{p\}$ is a closed set.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For each $q \neq p$ choose disjoint neighbourhoods $U_q \ni q$, $V_q \ni p$; then $U_q$ misses $p$. The union of
+all $U_q$ is open and equals $X \setminus \{p\}$, so $\{p\}$ is closed. The converse fails: the cofinite topology
+on an infinite set has closed points but is not Hausdorff.
+:::
+
+Doubling the origin of the real line gives the standard example of a space that looks like the line near every
+point and yet is not Hausdorff. The exercise asks for the proof that the two origins cannot be separated, and this
+example is the reason the definition of a manifold imposes the Hausdorff property as a separate condition.
+
+::: {#exr-hausdorff-two-origins}
+#### The line with two origins
+
+Take two copies of $\mathbb{R}$ and identify $x \sim x'$ for all $x \neq 0$. Show the quotient is not Hausdorff.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The two origins $0$ and $0'$ are distinct points of the quotient; a neighbourhood of either contains the image of
+an interval $(-\epsilon, \epsilon)$ minus the origin, so any two neighbourhoods meet. The space is locally like
+$\mathbb{R}$ everywhere but is not a manifold: this is why @def-manifold requires the Hausdorff property
+separately.
+:::
+::::
+
+### Compact spaces
+
+The second global property replaces finiteness for infinite spaces: whatever can be done with finitely many open
+sets can be done on the whole space. The definition phrases this through open covers, and the picture for subsets
+of a coordinate space is a closed and bounded set, with the consequence that continuous functions on it attain
+their extremes.
+
+:::: {.statement-box}
+::: {#def-compact}
+#### Compact space
+
+An **open cover** of a space is a family of open sets whose union is the whole space. The space is **compact** if
+every open cover has a finite subfamily that still covers. For subsets of $\mathbb{R}^n$ this is equivalent to being
+closed and bounded (the Heine-Borel theorem), and a continuous real function on a compact space is bounded and
+attains its maximum and minimum.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+An interval with its endpoints and one without are the first pair to compare, and only the first is compact. The
+open interval has a cover with no finite subcover, which @exr-compact-proof asks the reader to write down, and this
+settles the question left open in @exm-homeomorphism-interval.
+
+::: {#exm-compact-interval}
+#### Closed and open intervals
+
+$[0, 1]$ is compact; $(0, 1)$ is not, since the cover by the intervals $(1/n, 1)$ has no finite subcover
+(@exr-compact-proof), nor is $\mathbb{R}$; so an open interval is not homeomorphic to a closed one.
+:::
+
+The circle, the sphere, the torus and the rotation group are closed and bounded in their coordinate spaces, so they
+are compact, and so is every coset space of a compact group. The example also states the consequence that matters
+most for this book: on a compact space the Laplacian has a discrete spectrum, the origin of the Kaluza-Klein
+towers.
+
+::: {#exm-compact-spheres}
+#### Spheres, tori, groups
+
+$S^1$, $S^2$, $T^2$ and $SO(3)$ are closed and bounded in their ambient spaces, hence compact; so is every coset
+space $S/R$ of a compact group $S$. On a compact space the eigenvalues of the Laplacian form a discrete set, which
+is why the spectra of @sec-kk-tower are towers.
+:::
+
+The non-compact spaces of the book are listed here for contrast: coordinate spaces, the open disc, and the
+spacetimes, Minkowski and de Sitter, on which the four-dimensional physics takes place. In each case the space is
+unbounded or fails to contain its boundary.
+
+::: {#exm-compact-plane}
+#### The plane and the hyperboloid
+
+$\mathbb{R}^n$ and the open disc are not compact; neither is the hyperboloid of @sec-einstein-equations (de Sitter
+space), nor Minkowski space.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to prove the non-compactness of the open interval claimed in @exm-compact-interval by
+exhibiting an open cover none of whose finite subfamilies suffices. The second part asks why the same cover does
+not work for the closed interval, and the answer is the Heine-Borel mechanism in miniature.
+
+::: {#exr-compact-proof}
+#### A cover without a finite subcover
+
+Show that the open interval $(0, 1)$ is not compact by exhibiting an open cover with no finite subcover, and
+explain why the same cover cannot be used for $[0, 1]$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The sets $U_n = (1/n, 1)$, $n \geq 2$, cover $(0, 1)$, but any finite subfamily is contained in $(1/N, 1)$ for its
+largest $N$ and misses $(0, 1/N]$. For $[0, 1]$ the family does not cover the points $0$ and $1$; open sets
+containing them contain $(-\epsilon, \epsilon)$ and $(1 - \epsilon, 1 + \epsilon)$, and together with finitely many
+$U_n$ they cover $[0, 1]$, which is the Heine-Borel conclusion.
+:::
+
+Compactness guarantees that a continuous function attains its maximum and minimum, and the exercise shows the
+guarantee in action and its failure without compactness. The same function on a closed and on an open interval has
+the same maximum but loses its minimum when the endpoint is removed, and Sage computes the critical points.
+
+::: {#exr-compact-extremes}
+#### Extremes on a compact set
+
+Find the maximum and minimum of $f(x) = xe^{-x}$ on $[0, 2]$, and explain why $f$ has a maximum but no minimum
+on the open interval $(0, 2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$f'(x) = (1 - x)e^{-x}$ vanishes at $x = 1$, the maximum $e^{-1}$, attained inside $(0, 2)$ as well; the minimum
+on $[0, 2]$ is $f(0) = 0$ at the endpoint, which $(0, 2)$ lacks: on the open interval $f > 0$ with infimum $0$ not
+attained. Compactness guarantees attained extremes; without it they may be missing. In Sage:
+
+```python
+x = var("x"); f = x * exp(-x)
+crit = solve(diff(f, x) == 0, x)
+print("critical points:", crit, "; f(1) =", f.subs(x=1), "; f(0) =", f.subs(x=0), "; f(2) =", f.subs(x=2))
+print("[PASS] maximum e^{-1} at x = 1, minimum 0 at the endpoint 0 (not attained on the open interval, where f > 0):",
+      crit == [x == 1] and bool(f.subs(x=1) == exp(-1)) and bool(f.subs(x=0) == 0) and bool(f.subs(x=0.5) > 0))
+```
+
+*Output:*
+
+```text
+critical points: [
+x == 1
+] ; f(1) = e^(-1) ; f(0) = 0 ; f(2) = 2*e^(-2)
+[PASS] maximum e^{-1} at x = 1, minimum 0 at the endpoint 0 (not attained on the open interval, where f > 0): True
+```
+:::
+
+A closed subset of a compact space is itself compact, and the exercise asks for the proof, which adds the
+complement of the subset to any cover. The consequence is a second proof that the circle and the spheres are
+compact, as closed subsets of closed discs and balls.
+
+::: {#exr-compact-closed-subset}
+#### Closed subsets of compact spaces
+
+Prove that a closed subset of a compact space is compact, and deduce that the circle $\{u^2 + v^2 = 1\}$ is
+compact from the compactness of the closed disc.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Given an open cover of the closed subset $C$, add the open set $X \setminus C$ to get a cover of $X$; a finite
+subcover of $X$, with $X \setminus C$ removed, is a finite subcover of $C$. The circle is closed in the compact
+disc $[-1, 1]^2 \cap \{u^2 + v^2 \leq 1\}$, so it is compact; the same argument gives the compactness of every
+sphere, as a closed subset of a closed ball.
+:::
+::::
+
+### Connected spaces
+
+The third global property asks whether a space is in one piece. The definition phrases this negatively, through the
+impossibility of splitting the space into two disjoint non-empty open sets, and the picture is of a set that cannot
+be pulled apart; the components of the definition are the pieces when it can.
+
+:::: {.statement-box}
+::: {#def-connected}
+#### Connected space
+
+A space is **connected** if it is not the union of two disjoint non-empty open sets. Its maximal connected
+subsets are its **connected components**, and they partition the space.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The circle, the sphere, the torus and the coordinate spaces are connected, and the example shows how the circle
+behaves under removal of points: one removal leaves it connected, two removals cut it into two arcs. This behaviour
+is the invariant used in @exm-homeomorphism-square, and @fig-components-graph shows a finite model of it.
+
+::: {#exm-connected-circle}
+#### Circles and spheres
+
+$S^1$, $S^2$, $T^2$ and $\mathbb{R}^n$ are connected. Removing one point from a circle leaves it connected; removing
+two points disconnects it into two arcs, the two open arcs between them (@fig-components-graph).
+:::
+
+The group of all orthogonal transformations of space has two pieces, the rotations and the reflections, separated
+by the sign of the determinant. The example makes the point that a continuous function taking only two values
+splits a space, and it explains why the Lie algebra of a group sees only the component of the identity.
+
+::: {#exm-connected-groups}
+#### Groups with two components
+
+$O(3)$, the rotations and reflections of space, has two connected components, the rotations $SO(3)$ (determinant
+$+1$) and the reflections (determinant $-1$), since the determinant is continuous and takes only the values $\pm 1$.
+A Lie algebra (@sec-lie-algebras) sees only the component of the identity.
+:::
+
+A finite graph is a discrete model of a space, and connectedness of the graph is the combinatorial version of
+connectedness of the space. The example introduces the graph with two components and the six-cycle of
+@fig-components-graph, which behaves like the circle under removal of vertices.
+
+::: {#exm-connected-finite}
+#### Finite models
+
+A finite graph is a finite model of a space, its vertices the regions and its edges the adjacencies: the graph of
+@fig-components-graph with edges $AB$, $BC$, $DE$ has two components, and the six-cycle, a discrete circle,
+behaves like the circle under the removal of one or two vertices (@exr-connected-components).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+![Finite models of connectedness, drawn with Sage's graph module: a graph with two components, the six-cycle with
+one vertex removed (still connected), and with two opposite vertices removed (two components), as for a circle
+with one or two points removed. Generated by
+`figures/components_graph.sage`.](figures/components_graph.svg){#fig-components-graph width=85%}
+
+The reader is asked to compute the components of the graphs of @exm-connected-finite with Sage's graph module, and
+to remove one and two vertices from the six-cycle. The result mirrors the behaviour of the circle described in
+@exm-connected-circle.
+
+::: {#exr-connected-components}
+#### Components of a finite model
+
+With Sage's graph module, find the connected components of the graph with edges $AB$, $BC$, $DE$, and check what
+removing one or two vertices does to a six-cycle.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Two components, $\{A, B, C\}$ and $\{D, E\}$. The six-cycle stays connected after removing one vertex and splits
+into two components after removing two opposite ones, like the circle. In Sage:
+
+```python
+G = Graph({"A": ["B"], "B": ["C"], "C": [], "D": ["E"], "E": []})
+print("connected:", G.is_connected(), "; components:", G.connected_components(sort=True))
+H = graphs.CycleGraph(6)
+H1 = H.copy(); H1.delete_vertex(0)
+H2 = H.copy(); H2.delete_vertices([0, 3])
+print("the 6-cycle (a discrete circle) is connected:", H.is_connected())
+print("removing one vertex leaves it connected:", H1.is_connected())
+print("removing two opposite vertices gives", H2.connected_components_number(), "components (like removing two points from a circle)")
+```
+
+*Output:*
+
+```text
+connected: False ; components: [['A', 'B', 'C'], ['D', 'E']]
+the 6-cycle (a discrete circle) is connected: True
+removing one vertex leaves it connected: True
+removing two opposite vertices gives 2 components (like removing two points from a circle)
+```
+:::
+
+The determinant argument of @exm-connected-groups is applied here to the invertible two-by-two matrices and to the
+orthogonal group of the plane. The exercise asks for at least two components in the first case and exactly two in
+the second, where each component is a circle, and Sage exhibits a path within one of them.
+
+::: {#exr-connected-gl2}
+#### The invertible matrices
+
+Show that the set $GL(2, \mathbb{R})$ of invertible $2 \times 2$ real matrices has at least two connected
+components, and that $O(2)$ has exactly two.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The determinant is continuous and never zero on $GL(2, \mathbb{R})$, so $\{\det > 0\}$ and $\{\det < 0\}$ are
+disjoint non-empty open sets covering it: at least two components (in fact exactly two). $O(2)$ consists of the
+rotations (a circle, connected) and the reflections (another circle), with $\det = \pm1$: exactly two components.
+Sage finds a path of rotations and the sign of the determinant:
+
+```python
+t = var("t")
+R = matrix(SR, [[cos(t), -sin(t)], [sin(t), cos(t)]]); S = matrix(SR, [[1, 0], [0, -1]])
+print("det R(t) =", R.det().simplify_trig(), "; det of a reflection:", S.det())
+print("[PASS] rotations have det +1 along the whole path, reflections det -1: two components of O(2):", bool(R.det().simplify_trig() == 1) and bool(S.det() == -1))
+```
+
+*Output:*
+
+```text
+det R(t) = 1 ; det of a reflection: -1
+[PASS] rotations have det +1 along the whole path, reflections det -1: two components of O(2): True
+```
+:::
+
+Continuous maps preserve connectedness, and the exercise asks for the proof by pulling back a splitting of the
+image to a splitting of the domain. The intermediate value theorem is the corollary when the domain is an interval,
+and the result is used again in @exr-path-connected-implies.
+
+::: {#exr-connected-image}
+#### Continuous images of connected spaces
+
+Prove that the image of a connected space under a continuous map is connected, and deduce the intermediate value
+theorem for a continuous $f : [0, 1] \to \mathbb{R}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $f(X) = U \cup V$ with $U$, $V$ disjoint non-empty open sets of $f(X)$, then $f^{-1}(U)$ and $f^{-1}(V)$ are
+disjoint non-empty open sets covering $X$, contradicting connectedness. A connected subset of $\mathbb{R}$ is an
+interval, so $f([0, 1])$ is an interval containing $f(0)$ and $f(1)$, hence every value between them.
+:::
+::::
+
+A more concrete way for a space to be in one piece is that any two of its points can be joined by a continuous
+curve. The next definition introduces paths and the spaces in which every pair of points is joined by one, and
+records that this stronger property implies connectedness, which @exr-path-connected-implies asks the reader to
+prove.
+
+:::: {.statement-box}
+::: {#def-path-connected}
+#### Path-connected space
+
+A **path** from $p$ to $q$ is a continuous map $\gamma : [0, 1] \to X$ with $\gamma(0) = p$ and $\gamma(1) = q$.
+A space is **path-connected** if any two of its points are joined by a path; a path-connected space is connected.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+On the sphere the natural path between two points runs along a great circle, and in a coordinate space along a
+straight segment. Both spaces are therefore path-connected, and the explicit formulas for such paths are what the
+exercises ask for.
+
+::: {#exm-path-sphere}
+#### Spheres
+
+Any two points of $S^2$ are joined by an arc of a great circle, and any two points of $\mathbb{R}^n$ by a straight
+segment $\gamma(t) = (1 - t)p + tq$; both spaces are path-connected.
+:::
+
+The rotation group is path-connected, and the example gives the path: turn gradually about the axis of the given
+rotation until the full angle is reached. No path leads from a rotation to a reflection, because the determinant
+cannot jump, which is the two-component structure of @exm-connected-groups seen through paths.
+
+::: {#exm-path-rotations}
+#### Rotations
+
+Any rotation is joined to the identity by the path $t \mapsto R(t\alpha)$ of rotations about the same axis by the
+angles $t\alpha$, so $SO(3)$ is path-connected; no path joins a rotation to a reflection, as the determinant would
+have to jump from $1$ to $-1$.
+:::
+
+In a finite graph a path is a sequence of adjacent vertices, and connectedness and path-connectedness coincide. The
+example makes the point that Sage's connectivity routines compute exactly this, and it closes the graph-theoretic
+examples begun in @exm-connected-finite.
+
+::: {#exm-path-graph}
+#### Finite models
+
+In a graph, a path is a sequence of adjacent vertices, and a graph is connected exactly when every pair of vertices
+is joined by one; Sage's `is_connected` and `connected_components` compute exactly this (@exr-connected-components).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to write down an explicit path along a great circle from the north pole to a point on the
+equator and to check that it stays on the sphere. The check is the Pythagorean identity, and the solution also
+evaluates it symbolically in Sage.
+
+::: {#exr-path-great-circle}
+#### A path on the sphere
+
+Write down a path on $S^2$ from the north pole to the point $(1, 0, 0)$ along a great circle, and check that it
+stays on the sphere.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\gamma(t) = (\sin\tfrac{\pi t}{2}, 0, \cos\tfrac{\pi t}{2})$, a quarter of the great circle through the pole in the
+$XZ$-plane: $|\gamma(t)|^2 = \sin^2 + \cos^2 = 1$. In Sage:
+
+```python
+t = var("t")
+g = vector([sin(pi * t / 2), 0, cos(pi * t / 2)])
+print("gamma(0) =", g.subs(t=0), ", gamma(1) =", g.subs(t=1), ", |gamma|^2 =", (g * g).simplify_full())
+print("[PASS] the path starts at the pole, ends at (1,0,0) and stays on the sphere:", g.subs(t=0) == vector([0, 0, 1]) and g.subs(t=1) == vector([1, 0, 0]) and bool((g * g).simplify_full() == 1))
+```
+
+*Output:*
+
+```text
+gamma(0) = (0, 0, 1) , gamma(1) = (1, 0, 0) , |gamma|^2 = 1
+[PASS] the path starts at the pole, ends at (1,0,0) and stays on the sphere: True
+```
+:::
+
+The path of @exm-path-rotations joins a rotation to the identity, and the exercise asks for a path between two
+arbitrary rotations. The construction composes a path from the identity with a fixed rotation, and it relies on the
+fact that every rotation has an axis, which is the surjectivity of the exponential map for this group.
+
+::: {#exr-path-rotations-connect}
+#### Connecting two rotations
+
+Given rotations $R_1$ and $R_2$, construct a path in $SO(3)$ from $R_1$ to $R_2$, using the fact that every
+rotation is a rotation about some axis by some angle.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$R_1^{-1}R_2$ is a rotation by some angle $\alpha$ about some axis $n$; let $R(t)$ be the rotation by $t\alpha$ about
+$n$, a continuous path from the identity to $R_1^{-1}R_2$. Then $t \mapsto R_1R(t)$ is a path from $R_1$ to $R_2$.
+The existence of the axis is the statement that $SO(3)$ is the image of the exponential map of @sec-exponential.
+:::
+
+The implication stated in @def-path-connected is proved here using the preservation of connectedness under
+continuous maps from @exr-connected-image. The exercise also records that the converse fails, with the topologist's
+sine curve as the standard counterexample.
+
+::: {#exr-path-connected-implies}
+#### Path-connected implies connected
+
+Prove that a path-connected space is connected, using @exr-connected-image.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Suppose $X = U \cup V$ with $U$, $V$ disjoint non-empty open sets; pick $p \in U$, $q \in V$ and a path $\gamma$
+from $p$ to $q$. Its image $\gamma([0, 1])$ is connected (image of the connected interval), yet it is covered by
+the disjoint non-empty open sets $U \cap \gamma([0, 1])$ and $V \cap \gamma([0, 1])$: a contradiction. The converse
+fails for the topologist's sine curve, the closure of the graph of $\sin(1/x)$, which is connected but not
+path-connected.
+:::
+::::
+
+The Hausdorff count on three points, quoted in @exm-hausdorff-finite, is recorded here as a proposition. Like
+@prp-finite-topologies it rests on the enumeration of @exr-finite-topologies, and the three examples below explain
+why the answer is one.
+
+:::: {.statement-box}
+::: {#prp-hausdorff-topologies}
+#### Hausdorff topologies on three points
+
+Of the $29$ topologies on a three-element set, exactly one, the discrete topology, is Hausdorff
+(@exr-finite-topologies).
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+On a two-element set the enumeration of @exr-hausdorff-check-finite found the same pattern, a single Hausdorff
+topology among four. The example records it as the first instance of the general finite case.
+
+::: {#exm-hausdorff-two-points}
+#### Two points
+
+Of the $4$ topologies on two points, only the discrete one is Hausdorff (@exr-hausdorff-check-finite).
+:::
+
+The pattern on two and three points holds on every finite set: the discrete topology is the only Hausdorff one. The
+example states the general fact, and @exr-hausdorff-finite asks for its proof from the closedness of points.
+
+::: {#exm-hausdorff-discrete-general}
+#### The general finite case
+
+On any finite set the discrete topology is the only Hausdorff one (@exr-hausdorff-finite): a finite Hausdorff
+space is discrete.
+:::
+
+Finiteness is what makes the Hausdorff topology unique, and the example shows that on an infinite set there are
+many, including the usual and the discrete topologies on the line. The contrast explains why the enumeration
+results of this chapter are statements about finite sets only.
+
+::: {#exm-hausdorff-infinite}
+#### Infinite spaces
+
+On an infinite set there are many Hausdorff topologies, for instance the usual one on $\mathbb{R}$ and the discrete
+one, which differ; finiteness is what collapses the count to one.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader is asked to prove the general statement of @exm-hausdorff-discrete-general: a finite Hausdorff space is
+discrete. The argument passes through the closedness of points from @exr-hausdorff-points-closed, and the result is
+compared with the enumeration count.
+
+::: {#exr-hausdorff-finite}
+#### Which finite topologies are Hausdorff?
+
+Explain why the only Hausdorff topology on a finite set is the discrete one, and compare with the count of
+@exr-finite-topologies.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+In a Hausdorff space every point is closed, so in a finite space every subset, a finite union of points, is
+closed, hence every subset is open: the topology is discrete. The enumeration of @exr-finite-topologies finds
+exactly one Hausdorff topology among the $29$, the discrete one, in agreement.
+:::
+
+A weaker separation condition than Hausdorff asks only that every point be closed, and the exercise counts the
+three-point topologies satisfying it. On a finite set the two conditions turn out to agree, and the solution
+tests in Sage which topologies contain the complement of each point.
+
+::: {#exr-hausdorff-count-t1}
+#### Topologies with closed points
+
+Count the topologies on three points in which every single point is closed, and compare with the Hausdorff count.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Exactly one again, the discrete topology: if all points are closed in a finite space, all subsets are closed, hence
+open. In Sage, testing which of the $29$ topologies contain the complement of each point:
+
+```python
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _topologies import topologies
+X = [1, 2, 3]; T = topologies(X)
+t1 = [t for t in T if all(frozenset(set(X) - {p}) in t for p in X)]
+print("topologies with all points closed:", len(t1))
+print("[PASS] exactly one (the discrete topology):", len(t1) == 1 and len(t1[0]) == 8)
+```
+
+*Output:*
+
+```text
+topologies with all points closed: 1
+[PASS] exactly one (the discrete topology): True
+```
+:::
+
+The two-point topology with a single open singleton is the smallest in which separation fails, and the exercise
+asks for an inventory of its neighbourhoods, its limits and its closed points. Non-unique limits and a non-closed
+point appear together, as @def-hausdorff predicts they should in a non-Hausdorff space.
+
+::: {#exr-hausdorff-sierpinski}
+#### The Sierpiński space
+
+For the topology $\{\emptyset, \{1\}, \{1, 2\}\}$ on $\{1, 2\}$, list the neighbourhoods of each point, decide
+whether limits are unique, and which points are closed.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Neighbourhoods of $1$: $\{1\}$ and $\{1, 2\}$; of $2$: only $\{1, 2\}$. The constant sequence $1, 1, 1, \dots$
+converges to $1$ and also to $2$, since every neighbourhood of $2$ contains $1$: limits are not unique. The point
+$2$ is closed ($\{1\}$ is open), the point $1$ is not. One of the four two-point topologies, and not Hausdorff.
+:::
+::::
+
+## Exercises {#sec-sets-topology-exercises}
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Three exercises combining the sections of this chapter.
+
+The first shows that a quotient of a non-compact space can be compact, by using the compactness of a closed
+interval and the continuity of the quotient map. It also asks for the Hausdorff property of the quotient circle,
+which has to be checked because quotients can lose it, as @exm-hausdorff-quotient showed.
+
+::: {#exr-circle-quotient-compact}
+#### The circle as a compact quotient of a non-compact space
+
+Show that $\mathbb{R}/2\pi\mathbb{Z}$ with the quotient topology is compact and Hausdorff although $\mathbb{R}$ is
+not compact.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The quotient map restricted to the compact interval $[0, 2\pi]$ is still surjective and continuous, and a
+continuous image of a compact space is compact (a cover of the image pulls back to a cover of the interval with a
+finite subcover). Hausdorff: two distinct classes have representatives $\varphi < \varphi'$ in $[0, 2\pi)$ at
+distance $d$, and the images of $\epsilon$-intervals around them with $\epsilon < \min(d, 2\pi - d)/2$ are
+disjoint open sets of the quotient. Alternatively, the quotient is homeomorphic to the circle (@exm-quotient-circle-top),
+which is compact and Hausdorff as a closed bounded subspace of the plane.
+:::
+
+The second exercise proves the homeomorphism announced in @exm-quotient-sphere-top. The key tool is that a
+continuous bijection from a compact space onto a Hausdorff space is automatically a homeomorphism, and the exercise
+assembles this from the closed-subset result of @exr-compact-closed-subset and the compactness of the rotation
+group.
+
+::: {#exr-sphere-quotient-homeomorphism}
+#### $SO(3)/SO(2)$ is the sphere, topologically
+
+Using that $SO(3)$ is compact and the sphere is Hausdorff, prove that $[g] \mapsto g \cdot (0, 0, 1)$ is a
+homeomorphism from the quotient of $SO(3)$ by "same image of the pole" onto $S^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The map descends from the continuous surjective orbit map (@exm-continuous-matrix) and is injective by
+construction of the relation: a continuous bijection $F$ from the quotient onto the sphere. The quotient is
+compact, as the continuous image of compact $SO(3)$. A continuous bijection from a compact space to a Hausdorff
+space is a homeomorphism: a closed set $C$ of the quotient is compact (@exr-compact-closed-subset), its image
+$F(C)$ is compact, hence closed in the Hausdorff sphere, so $F$ sends closed sets to closed sets and $F^{-1}$ is
+continuous. This is the topological content of $S^2 = SO(3)/SO(2)$, studied as a coset space in @sec-coset-spaces.
+:::
+
+The third exercise joins descent of maps from @def-quotient-set with continuity in the quotient topology from
+@def-quotient-topology. A function constant on classes descends, and the exercise shows that the descended function
+is continuous exactly when the original one is, which turns every periodic continuous function into a continuous
+function on the circle.
+
+::: {#exr-descend-continuity}
+#### Descending maps and continuity
+
+A map $f : X \to Y$ constant on the classes of $\sim$ descends to $\bar f : X/{\sim} \to Y$. Show that $\bar f$ is
+continuous if and only if $f$ is, and apply it to $\cos : \mathbb{R} \to \mathbb{R}$ and the circle.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$f = \bar f \circ \pi$. If $\bar f$ is continuous so is $f$, as a composition. Conversely, for $V$ open in $Y$,
+$\pi^{-1}(\bar f^{-1}(V)) = f^{-1}(V)$ is open, which by @def-quotient-topology means $\bar f^{-1}(V)$ is open:
+$\bar f$ is continuous. $\cos$ is continuous and $2\pi$-periodic, so it descends to a continuous function on
+$\mathbb{R}/2\pi\mathbb{Z} \cong S^1$, the first coordinate of a point of the circle; the same argument makes every
+periodic continuous function a continuous function on the circle, the functions of @exr-descend.
+:::
+::::
+

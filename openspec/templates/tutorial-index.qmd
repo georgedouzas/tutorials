@@ -11,7 +11,7 @@ order: <position among the tutorials>
 Landing page template for a tutorial (openspec/templates/tutorial-index.qmd), laid out like
 fundamentals-of-mathematics-for-physicists/index.qmd. Copy it to <tutorial>/index.qmd and replace every <placeholder>.
 
-- Chapters are listed flat, one link per chapter file, in reading order; no parts or nested lists. Each chapter starts
+- Chapters are listed flat, one link per chapter folder (<chapter-slug>/index.qmd), in reading order; no parts or nested lists. Each chapter starts
   from openspec/templates/chapter.qmd.
 - Anything that is not a chapter goes in its own "##" section after the chapter list, e.g. "Software for symbolic
   computation". Add one section per such topic, and none if there is nothing to add.
@@ -26,9 +26,9 @@ the tutorial connects to the others, with links such as [<Other tutorial>](../<o
 
 ## Chapters
 
-- [<Chapter 1 title>](<chapter-1-file>.qmd)
-- [<Chapter 2 title>](<chapter-2-file>.qmd)
-- [<Chapter 3 title>](<chapter-3-file>.qmd)
+- [<Chapter 1 title>](<chapter-1-slug>/index.qmd)
+- [<Chapter 2 title>](<chapter-2-slug>/index.qmd)
+- [<Chapter 3 title>](<chapter-3-slug>/index.qmd)
 
 ## Software for symbolic computation
 
@@ -46,4 +46,4 @@ Other libraries:
 
 <Content that belongs to the tutorial as a whole rather than to one chapter.>
 
-This tutorial has its own [glossary](glossary.qmd) and [verification registry](registry.qmd).
+This tutorial has its own [glossary](glossary/index.qmd).

@@ -1,9 +1,0 @@
-import KaluzaKlein.Foundations.FieldTheory
-import KaluzaKlein.Foundations.Higgs
-import KaluzaKlein.Foundations.Relativity
-import KaluzaKlein.Foundations.Primers
-import KaluzaKlein.Foundations.Mechanics
-import KaluzaKlein.Foundations.Fields
-import KaluzaKlein.Foundations.Actions
-import KaluzaKlein.Foundations.Supersymmetry
-import KaluzaKlein.Foundations.Supergravity
