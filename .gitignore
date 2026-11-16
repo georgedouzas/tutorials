@@ -38,7 +38,7 @@ _*.local
 **/*.quarto_ipynb
 
 # Unpublished drafts
-posts/_*/
+/_drafts/
 
 # Book build output and local files
 **/tutorial/_book/
@@ -52,14 +52,17 @@ posts/_*/
 .coverage
 
 # Copyrighted reference PDFs kept beside each tutorial
-posts/*/_references/**/*.pdf
+*/_references/**/*.pdf
 
 # Lean build output and generated Sage files in the tutorials
 **/.lake/
 *.sage.py
 
 # Earlier chapter versions and the original book files
-posts/*/_archive/
+*/_archive/
 
 # Full-text copies of textbooks kept beside each tutorial
-posts/*/_references/textbooks/
+*/_references/textbooks/
+
+# Reference PDFs: deployed with the site (behind login), not committed
+references/**/*.pdf
