@@ -1,0 +1,10 @@
+# Exercise exr-rgb-pa-parabola-blow: the half parabolic segment y^2 <= 4 a x, 0 <= x <= a, y >= 0, fixed at its vertex and struck perpendicularly at the end (a, 2a) of the latus rectum.
+a, x, y, rho, P = var('a x y rho P'); assume(a > 0, x > 0)
+I_xx = integrate(integrate(rho*y^2, y, 0, 2*sqrt(a*x)), x, 0, a)
+I_yy = integrate(integrate(rho*x^2, y, 0, 2*sqrt(a*x)), x, 0, a)
+F = integrate(integrate(rho*x*y, y, 0, 2*sqrt(a*x)), x, 0, a)
+print('A = int y^2 dm =', I_xx, ', B = int x^2 dm =', I_yy, ', F = int x y dm =', F)
+I = matrix([[I_xx, -F, 0], [-F, I_yy, 0], [0, 0, I_xx + I_yy]])
+K = vector([a, 2*a, 0]).cross_product(vector([0, 0, P]))
+w = (I.inverse()*K).simplify_full()
+print('omega =', w, ';  tan of its angle with the axis =', (w[1]/w[0]).simplify_full())

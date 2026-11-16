@@ -1,0 +1,104 @@
+project:
+  type: website
+  render:
+    - "**/*.qmd"
+    - "!openspec/"
+
+website:
+  title: "Tutorials"
+  search: true
+  navbar:
+    left:
+      - text: Tutorials
+        href: index.qmd
+    right:
+      - icon: github
+        href: https://github.com/georgedouzas
+  sidebar:
+    - id: kaluza-klein-theories
+      title: "Kaluza-Klein Theories"
+      style: docked
+      contents:
+        - text: Overview
+          href: posts/kaluza-klein-theories/index.qmd
+        - posts/kaluza-klein-theories/preface.qmd
+        - posts/kaluza-klein-theories/conventions.qmd
+        - posts/kaluza-klein-theories/part-iii-01-kaluza-klein-reduction.qmd
+        - posts/kaluza-klein-theories/part-iii-02-gauge-tower.qmd
+        - posts/kaluza-klein-theories/part-iv-01-isometries-gauge-fields.qmd
+        - posts/kaluza-klein-theories/part-iv-02-reduced-theory.qmd
+        - posts/kaluza-klein-theories/part-v-01-symmetric-fields.qmd
+        - posts/kaluza-klein-theories/part-v-02-four-dimensional-theory.qmd
+        - posts/kaluza-klein-theories/part-vi-01-consistent-reductions.qmd
+        - posts/kaluza-klein-theories/part-vi-02-compactifications.qmd
+        - posts/kaluza-klein-theories/registry.qmd
+        - posts/kaluza-klein-theories/glossary.qmd
+    - id: fundamentals-of-mathematics-for-physicists
+      title: "Mathematics for Physicists"
+      style: docked
+      contents:
+        - text: Overview
+          href: posts/fundamentals-of-mathematics-for-physicists/index.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-01-sets-relations-topology.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-02-linear-algebra.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-03-real-analysis.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-04-complex-analysis.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-05-differential-equations.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-06-fourier-analysis.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-07-hilbert-spaces-operators.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-08-probability.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-09-differential-geometry.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-10-group-theory.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-11-lie-groups-algebras.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-12-homogeneous-spaces-bundles.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/part-i-13-spinors-dirac-operator.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/registry.qmd
+        - posts/fundamentals-of-mathematics-for-physicists/glossary.qmd
+    - id: fundamentals-of-theoretical-physics
+      title: "Theoretical Physics"
+      style: docked
+      contents:
+        - text: Overview
+          href: posts/fundamentals-of-theoretical-physics/index.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-01-classical-mechanics.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-01b-electromagnetism.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-08b-special-relativity.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-02-thermodynamics-statistical-mechanics.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-03-quantum-mechanics.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-04-classical-field-theory.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-05-dirac-equation.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-07-quantum-field-theory.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-06-gauge-theories.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-08-renormalisation.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-09-general-relativity.qmd
+        - posts/fundamentals-of-theoretical-physics/part-ii-10-supersymmetry-supergravity.qmd
+        - posts/fundamentals-of-theoretical-physics/registry.qmd
+        - posts/fundamentals-of-theoretical-physics/glossary.qmd
+    - id: fundamentals-of-machine-learning
+      title: "Machine Learning"
+      style: docked
+      contents:
+        - text: Overview
+          href: posts/fundamentals-of-machine-learning/index.qmd
+        - posts/fundamentals-of-machine-learning/foundations-of-learning-theory.qmd
+        - posts/fundamentals-of-machine-learning/supervised-learning.qmd
+        - posts/fundamentals-of-machine-learning/unsupervised-learning.qmd
+        - posts/fundamentals-of-machine-learning/reinforcement-learning.qmd
+    - id: fundamentals-of-mathematics-for-machine-learning
+      title: "Mathematics for Machine Learning"
+      style: docked
+      contents:
+        - text: Overview
+          href: posts/fundamentals-of-mathematics-for-machine-learning/index.qmd
+        - posts/fundamentals-of-mathematics-for-machine-learning/mathematical-and-statistical-foundations.qmd
+        - posts/fundamentals-of-mathematics-for-machine-learning/appendices-and-technical-background.qmd
+
+format:
+  html:
+    theme: [cosmo, theme.scss]
+    grid:
+      body-width: 760px
+
+execute:
+  cache: true
+  freeze: auto

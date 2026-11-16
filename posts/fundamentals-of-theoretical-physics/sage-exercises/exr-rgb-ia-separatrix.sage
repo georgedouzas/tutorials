@@ -1,0 +1,12 @@
+# Exercise exr-rgb-ia-separatrix: the motion on the separatrix 2 T I2 = |Pi|^2 of the free asymmetric body, Pi_2 = Pi_0 tanh(lambda t), and lambda against the linearised rate.
+I1, I2, I3, P0, t = var('I1 I2 I3 P0 t'); assume(I1 > 0, I2 > I1, I3 > I2, P0 > 0)
+k = sqrt((1/I2 - 1/I3)/(1/I1 - 1/I2))
+lam = k*P0*(1/I1 - 1/I3)/(1 + k^2)
+P3 = P0/sqrt(1 + k^2)/cosh(lam*t)
+Pi = vector([k*P3, P0*tanh(lam*t), P3])
+om = vector([Pi[0]/I1, Pi[1]/I2, Pi[2]/I3])
+print('Euler residual Pi_dot - Pi x omega =', (diff(Pi, t) - Pi.cross_product(om)).simplify_full())
+print('|Pi|^2 - P0^2 =', (Pi*Pi - P0^2).simplify_full(), ', 2T I2 - P0^2 =', (I2*(Pi*om) - P0^2).simplify_full())
+lin = (P0/I2)*sqrt((I2 - I1)*(I3 - I2)/(I1*I3))
+print('lambda^2 - (linearised rate)^2 =', (lam^2 - lin^2).simplify_full())
+print('(I1, I2, I3) = (1, 2, 3), P0 = 1: lambda =', lam.subs(I1=1, I2=2, I3=3, P0=1).simplify_full())

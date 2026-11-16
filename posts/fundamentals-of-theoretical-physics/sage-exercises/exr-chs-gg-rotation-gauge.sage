@@ -1,0 +1,22 @@
+# Exercise exr-chs-gg-rotation-gauge: L = (1/2)|xdot - w x x|^2 - V(|x|) with a gauge field w; constraints, closure and counting.
+def PB(f, g, qs, ps):
+    return sum(diff(f, a)*diff(g, b) - diff(f, b)*diff(g, a) for a, b in zip(qs, ps))
+xs = list(var('x1 x2 x3')); ws = list(var('w1 w2 w3')); ps = list(var('p1 p2 p3')); rs = list(var('r1 r2 r3'))
+vs = list(var('v1 v2 v3')); us = list(var('u1 u2 u3'))
+X, W, P, Vv = vector(xs), vector(ws), vector(ps), vector(vs)
+V = function('V')
+rr = sqrt(X*X)
+Lag = (Vv - W.cross_product(X))*(Vv - W.cross_product(X))/2 - V(rr)
+print('L contains no velocity of w, so the primary constraints are p_w = 0')
+print('p = dL/dv:', [diff(Lag, v).expand() for v in vs])
+H = P*P/2 + W*(X.cross_product(P)) + V(rr)
+qs, pps = xs + ws, ps + rs
+HT = H + sum(u*r for u, r in zip(us, rs))
+print('d/dt p_w =', [PB(r, HT, qs, pps).expand() for r in rs], ' = -(x cross p): secondary L = x cross p = 0')
+Lv = X.cross_product(P)
+print('{L1, L2} - L3 =', (PB(Lv[0], Lv[1], qs, pps) - Lv[2]).expand())
+print('d/dt L - w cross L =', [(PB(c, HT, qs, pps) - (W.cross_product(Lv))[i]).expand() for i, c in enumerate(Lv)])
+print('x . L =', (X*Lv).expand(), ' identically: only two of the L_i are independent')
+J = matrix(SR, 3, 6, lambda i, j: diff(Lv[i], (xs + ps)[j]))
+print('rank of d(L1, L2, L3) at x = (1, 0, 0), p = (2, 0, 0):', J.subs(dict(zip(xs + ps, [1, 0, 0, 2, 0, 0]))).rank())
+print('counting: N = 6, first class 3 + 2 = 5, N_phys = 6 - 5 = 1 (the radial motion)')

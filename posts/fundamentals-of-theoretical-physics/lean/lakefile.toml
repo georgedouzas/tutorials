@@ -1,0 +1,16 @@
+name = "kaluza_klein_physics"
+defaultTargets = ["kaluza_klein_physics_root"]
+
+# `lake build` compiles the root module, as the book did. Modules it does not import are unfinished.
+[[lean_lib]]
+name = "kaluza_klein_physics_root"
+roots = ["KaluzaKleinPhysics"]
+
+[[lean_lib]]
+name = "kaluza_klein_physics_lib"
+roots = ["KaluzaKlein.PartII", "KaluzaKlein.Foundations.Actions", "KaluzaKlein.Foundations.FieldTheory", "KaluzaKlein.Foundations.Fields", "KaluzaKlein.Foundations.Higgs", "KaluzaKlein.Foundations.Mechanics", "KaluzaKlein.Foundations.Primers", "KaluzaKlein.Foundations.Relativity", "KaluzaKlein.Foundations.Supergravity", "KaluzaKlein.Foundations.Supersymmetry"]
+globs = ["KaluzaKlein.PartII.+", "KaluzaKlein.Foundations.Actions", "KaluzaKlein.Foundations.FieldTheory", "KaluzaKlein.Foundations.Fields", "KaluzaKlein.Foundations.Higgs", "KaluzaKlein.Foundations.Mechanics", "KaluzaKlein.Foundations.Primers", "KaluzaKlein.Foundations.Relativity", "KaluzaKlein.Foundations.Supergravity", "KaluzaKlein.Foundations.Supersymmetry"]
+
+[[require]]
+name = "kaluza_klein_mathematics"
+path = "../../fundamentals-of-mathematics-for-physicists/lean"

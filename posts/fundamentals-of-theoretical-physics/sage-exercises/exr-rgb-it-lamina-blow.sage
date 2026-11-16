@@ -1,0 +1,10 @@
+# Exercise exr-rgb-it-lamina-blow: a triangular lamina free to turn about its vertex A, struck at B perpendicular to its plane, starts to turn about AD with CD = CB/3.
+x2, y2, x3, y3, M, P = var('x2 y2 x3 y3 M P')
+B, C = vector([x2, y2, 0]), vector([x3, y3, 0])
+mids = [B/2, (B + C)/2, C/2]                               # equimomental masses M/3 (exr-rgb-it-triangle)
+I = sum((M/3)*((X*X)*identity_matrix(3) - X.column()*X.row()) for X in mids)
+K = B.cross_product(vector([0, 0, P]))                     # moment of the blow about A
+w = (I.inverse()*K).simplify_full()
+D = C + (B - C)/3
+print('omega after the blow =', w)
+print('omega x AD =', w.cross_product(D).simplify_full())

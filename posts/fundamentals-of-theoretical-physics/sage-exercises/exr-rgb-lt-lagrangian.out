@@ -1,0 +1,6 @@
+L = -1/2*(I1 - I3)*cos(theta(t))^2*diff(phi(t), t)^2 + 1/2*I1*diff(phi(t), t)^2 + 1/2*I3*diff(psi(t), t)^2 + 1/2*I1*diff(theta(t), t)^2 - (M*g*l - I3*diff(phi(t), t)*diff(psi(t), t))*cos(theta(t))
+p_theta = I1*qd1 
+p_phi = I3*qd3*cos(q1) - ((I1 - I3)*cos(q1)^2 - I1)*qd2 
+p_psi = I3*qd2*cos(q1) + I3*qd3
+L depends on phi, psi: False False
+theta equation: I1 theta_dd - I1 sin cos phi_d^2 + p_psi sin phi_d - M g l sin = 0
