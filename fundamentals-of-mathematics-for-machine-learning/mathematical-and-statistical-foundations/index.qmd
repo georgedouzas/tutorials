@@ -9,6 +9,19 @@ foundational concepts is essential for comprehending the machine learning algori
 will cover key topics in linear algebra, probability and statistics, optimization, and information theory, with a focus on
 providing the formal definitions and mathematical rigor necessary for a deep understanding of the field.
 
+Notation fixes the symbols used throughout. Linear Algebra and Geometry defines systems of linear equations, vector spaces,
+linear independence, span, bases and rank; Inner Products, Norms and Orthogonality adds lengths, angles and projections; Matrix
+Decompositions treats eigenvalues, the eigendecomposition, the SVD and the Bellman equation. Probability and Statistics sets up
+probability spaces, random variables, the sum and product rules and Bayes' theorem; Discrete Random Variables works through
+PMFs, independence and the laws that connect joint, marginal and conditional distributions; Common Probability Distributions
+lists the Bernoulli, binomial, Gaussian and multinomial laws; Stochastic Processes and Markov Decision Processes introduces the
+sequential models of reinforcement learning; Statistical Concepts defines expectation, variance and covariance and proves the
+bias-variance decomposition. Optimization Foundations covers gradient methods and stochastic approximation, and Convex and
+Constrained Optimization covers convexity and Lagrange multipliers. Information Theory and Inference defines entropy, the KL
+divergence, mutual information and the maximum likelihood and MAP estimates, and Cross-Entropy and Entropy Regularization closes
+with the losses used to train classifiers and policies. Every statement is followed by a fold of examples and a fold of
+exercises with hidden solutions, and the chapter ends with three integrative exercises.
+
 ## Notation {#sec-notation}
 
 To ensure clarity and consistency, we will adopt the following notational conventions throughout this chapter and the remainder of
@@ -63,7 +76,7 @@ For more on this topic, see @bishop2024deeplearning [Preface], @deisenroth2020mm
 ### Machine Learning
 
 - Number of data points or observations: $n$.
-- Number of features or dimensions: $p$ or $d$. 
+- Number of features or dimensions: $p$ or $d$.
 - Matrix of observations: $\mathbf{X}$.
 - Feature vector for the $i$-th observation$: \mathbf{x}_i$.
 - Response or label for the $i$-th observation: $y_i$.
@@ -72,7 +85,7 @@ For more on this topic, see @bishop2024deeplearning [Preface], @deisenroth2020mm
 - Hypothesis or predictor: $h$.
 - Vector of model parameters: $\boldsymbol{\theta}$ or $\mathbf{w}$.
 - Loss function: $\ell(h, z)$.
-- True error or risk: $L_{\mathcal{D}}(h)$. 
+- True error or risk: $L_{\mathcal{D}}(h)$.
 - Empirical error or risk: $L_{S}(h)$.
 
 ## Linear Algebra and Geometry {#sec-linear-algebra}
@@ -88,27 +101,63 @@ For more on this topic, see @theodoridis2025ml [Chs. 3, 11].
 A system of linear equations is a collection of linear equations involving the same set of variables. For a system with $m$
 equations and $n$ unknowns, the general form is:
 
+:::: {.statement-box}
 ::: {#def-linear-system-general}
+#### System of Linear Equations General Form
 
-System of Linear Equations General Form
-
-\begin{gather*} 
-a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = b_1 \\ 
-a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = b_2 \\ 
+\begin{gather*}
+a_{11}x_1 + a_{12}x_2 + \dots + a_{1n}x_n = b_1 \\
+a_{21}x_1 + a_{22}x_2 + \dots + a_{2n}x_n = b_2 \\
 \vdots \\
-a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n = b_m 
+a_{m1}x_1 + a_{m2}x_2 + \dots + a_{mn}x_n = b_m
 \end{gather*}
 
 where $x_1, x_2, \dots, x_n$ are the unknown variables, $a_{ij}$ are the coefficients of the variables, and $b_i$ are the constant
 terms.
 :::
 
-A solution to the system is an $n$-tuple $(x_1, \dots, x_n)$ that satisfies all $m$ equations simultaneously. This system can be
-expressed more compactly using matrix notation.
+::::
 
+A solution to the system is an $n$-tuple $(x_1, \dots, x_n)$ that satisfies all $m$ equations simultaneously. The examples
+below solve one small system by hand, so that the word "solution" has a concrete meaning before the matrix notation is introduced.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The simplest non-trivial case has two equations in two unknowns. Solving it by elimination shows that a solution is a single
+pair of numbers satisfying both equations at once.
+
+::: {#exm-msf-linear-system-two-lines}
+#### Two equations in two unknowns
+
+The system $x_1 + x_2 = 3$, $x_1 - x_2 = 1$ has $m = n = 2$, $a_{11} = a_{12} = a_{21} = 1$, $a_{22} = -1$, $b_1 = 3$ and
+$b_2 = 1$. Adding the equations gives $2x_1 = 4$, so $x_1 = 2$ and then $x_2 = 1$: the unique solution is $(2, 1)$.
+:::
+::::
+
+A system need not have a solution at all, and recognising this case early saves work. The exercise asks the reader to detect
+an inconsistent system by elimination.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise below looks like the example but behaves differently. The reader should find that the two equations contradict
+each other and say what this means for the solution set.
+
+::: {#exr-msf-linear-system-inconsistent}
+#### An inconsistent system
+
+Show that the system $2x_1 + x_2 = 5$, $4x_1 + 2x_2 = 7$ has no solution.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Twice the first equation reads $4x_1 + 2x_2 = 10$, while the second requires $4x_1 + 2x_2 = 7$. No pair $(x_1, x_2)$ can make
+the same expression equal to both $10$ and $7$, so the solution set is empty.
+:::
+::::
+
+This system can be expressed more compactly using matrix notation. Collecting the coefficients into a matrix turns the $m$
+equations into a single equation between vectors.
+
+:::: {.statement-box}
 ::: {#def-linear-system-matrix}
-
-System of Linear Equations Matrix Form
+#### System of Linear Equations Matrix Form
 
 Let $\mathbf{A}$ be the $m \times n$ matrix of coefficients, $\mathbf{x}$ be the $n \times 1$ column vector of unknowns, and
 $\mathbf{b}$ be the $m \times 1$ column vector of constants:
@@ -122,6 +171,8 @@ The system of linear equations can then be written as:
 $$ \mathbf{Ax} = \mathbf{b} $$
 :::
 
+::::
+
 Geometrically, each linear equation in the system represents a hyperplane in an $n$-dimensional space. For example, in a
 two-dimensional space ($n=2$), each equation represents a line. In a three-dimensional space ($n=3$), each equation represents a
 plane. The solution to the system of equations is the set of points that lie at the intersection of all these hyperplanes. For a
@@ -130,14 +181,50 @@ solution), a line (infinitely many solutions), or an empty set (no solution) if 
 geometric interpretation extends to higher dimensions, where the solution set is the intersection of $m$ hyperplanes in
 $\mathbb{R}^n$.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first example rewrites the two-line system above in the form $\mathbf{Ax} = \mathbf{b}$. Checking the solution then
+becomes a single matrix-vector product.
+
+::: {#exm-msf-linear-system-matrix-form}
+#### The two-line system in matrix form
+
+For $x_1 + x_2 = 3$, $x_1 - x_2 = 1$ we have
+$\mathbf{A} = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{b} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$, and
+$\mathbf{A}\begin{bmatrix} 2 \\ 1 \end{bmatrix} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$ confirms that $(2, 1)$ is the solution.
+Geometrically, the two lines meet in a single point.
+:::
+::::
+
+When there are fewer equations than unknowns, the intersection of the hyperplanes is typically larger than a point. The
+exercise below makes this concrete for two planes in $\mathbb{R}^3$.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader writes a system with $m = 2$ and $n = 3$ in matrix form and then finds all of its solutions. The answer is a line,
+the intersection of two planes.
+
+::: {#exr-msf-linear-system-underdetermined}
+#### Two planes in space
+
+Write the system $x_1 + 2x_2 - x_3 = 0$, $3x_2 + x_3 = 4$ as $\mathbf{Ax} = \mathbf{b}$, check that $(-1, 1, 1)$ is a solution,
+and find all solutions.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Here $\mathbf{A} = \begin{bmatrix} 1 & 2 & -1 \\ 0 & 3 & 1 \end{bmatrix}$ and $\mathbf{b} = (0, 4)^T$. For $(-1, 1, 1)$:
+$-1 + 2 - 1 = 0$ and $3 + 1 = 4$. In general set $x_3 = t$; the second equation gives $x_2 = (4 - t)/3$, and the first
+gives $x_1 = -2x_2 + t = (5t - 8)/3$. The solutions form the line $\{((5t - 8)/3, (4 - t)/3, t) : t \in \mathbb{R}\}$, and
+$t = 1$ recovers $(-1, 1, 1)$.
+:::
+::::
+
 ### Vectors and Vector Spaces
 
 A vector space is a fundamental concept in linear algebra. It is a set of objects called vectors, which can be added together and
 multiplied by scalars. To be a vector space, this set and its operations must satisfy a set of axioms.
 
+:::: {.statement-box}
 ::: {#def-vector-space}
-
-Vector Space
+#### Vector Space
 
 A real vector space is a set $\mathcal{V}$ with two operations, vector addition $+$ and scalar multiplication $\cdot$, that
 satisfy the following axioms for all vectors $\mathbf{u}, \mathbf{v}, \mathbf{w} \in \mathcal{V}$ and all scalars $\alpha, \beta
@@ -159,19 +246,54 @@ satisfy the following axioms for all vectors $\mathbf{u}, \mathbf{v}, \mathbf{w}
 - Identity element of scalar multiplication: $1 \cdot \mathbf{v} = \mathbf{v}$.
 :::
 
+::::
+
 The most common vector space in machine learning is $\mathbb{R}^d$, the space of $d$-dimensional vectors of real numbers. However,
 other sets, such as the set of all $m \times n$ matrices or the set of all polynomials, can also form vector spaces. The abstract
 nature of vector spaces allows us to apply the same linear algebra tools to a wide variety of objects [@deisenroth2020mml].
 
-### Linear Independence, Span, Basis, and Rank
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example below checks that polynomials, which do not look like columns of numbers, still form a vector space. This is the
+kind of space used when a model fits a polynomial curve to data.
+
+::: {#exm-msf-vector-space-polynomials}
+#### Polynomials of degree at most two
+
+The polynomials $a + bx + cx^2$ with real coefficients, added and rescaled coefficient by coefficient, form a vector space: the
+sum and any multiple of such polynomials are again of degree at most two, the zero polynomial is the additive identity, and
+the remaining axioms hold because they hold for the coefficients. Identifying $a + bx + cx^2$ with $(a, b, c)$ shows that this
+space behaves exactly like $\mathbb{R}^3$.
+:::
+::::
+
+Not every subset of $\mathbb{R}^d$ inherits the vector space structure. The exercise asks the reader to find which axiom fails
+for a line that misses the origin.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The set in this exercise is a line in the plane, but not one through the origin. The reader checks the axioms and finds the
+first one that breaks.
+
+::: {#exr-msf-vector-space-affine-line}
+#### A shifted line
+
+Is the set $\{(x, y) \in \mathbb{R}^2 : y = 2x + 1\}$, with the operations of $\mathbb{R}^2$, a vector space?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+No. The zero vector $(0, 0)$ does not satisfy $0 = 2 \cdot 0 + 1$, so there is no additive identity in the set. Closure under
+addition also fails: $(0, 1)$ and $(1, 3)$ lie on the line, but their sum $(1, 4)$ does not, since $2 \cdot 1 + 1 = 3 \neq 4$.
+:::
+::::
+
+### Linear Independence and Span
 
 These concepts [@deisenroth2020mml] are central to understanding the structure of vector spaces. A vector $\mathbf{v}$ is a linear
 combination of a set of vectors ${\mathbf{x}_1, \dots, \mathbf{x}_k}$ if it can be expressed as a sum of scalar multiples of these
 vectors: $\mathbf{v} = \sum_{i=1}^k \lambda_i \mathbf{x}_i$, where $\lambda_i$ are scalars.
 
+:::: {.statement-box}
 ::: {#def-linear-independence}
-
-Linear Independence
+#### Linear Independence
 
 A set of vectors ${\mathbf{x}_1, \dots, \mathbf{x}_k}$ is linearly independent if the only solution to the equation $\sum_{i=1}^k
 \lambda_i \mathbf{x}_i = \mathbf{0}$ is $\lambda_1 = \dots = \lambda_k = 0$. If there is any non-trivial solution (where at least
@@ -179,26 +301,147 @@ one $\lambda_i \neq 0$), the vectors are linearly dependent. In a set of linearl
 expressed as a linear combination of the others.
 :::
 
-::: {#def-span}
+::::
 
-Span of Vectors
+Linear independence says that no vector in the set is redundant. The example tests one independent and one dependent pair
+in the plane, so that both outcomes of the definition appear side by side.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two vectors in $\mathbb{R}^2$ are the smallest interesting case. The test reduces to a $2 \times 2$ system for the
+coefficients $\lambda_1, \lambda_2$.
+
+::: {#exm-msf-linear-independence-plane}
+#### Independent and dependent pairs
+
+For $(1, 0)$ and $(1, 1)$, the equation $\lambda_1 (1, 0) + \lambda_2 (1, 1) = (0, 0)$ gives $\lambda_2 = 0$ from the second
+coordinate and then $\lambda_1 = 0$: the pair is linearly independent. For $(1, 2)$ and $(2, 4)$, the choice
+$\lambda_1 = 2$, $\lambda_2 = -1$ gives $2(1, 2) - (2, 4) = \mathbf{0}$: the pair is linearly dependent, and $(2, 4)$ is a
+multiple of $(1, 2)$.
+:::
+::::
+
+In three dimensions a dependence can hide in a combination of three vectors none of which is a multiple of another. The
+exercise asks the reader to find such a hidden relation.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The three vectors below are pairwise non-parallel. The reader decides whether the set is nonetheless dependent.
+
+::: {#exr-msf-linear-independence-three}
+#### Three vectors in space
+
+Decide whether $(1, 0, 1)$, $(0, 1, 1)$ and $(1, 1, 2)$ are linearly independent.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+They are linearly dependent: $(1, 0, 1) + (0, 1, 1) - (1, 1, 2) = (0, 0, 0)$ is a non-trivial solution with
+$\lambda = (1, 1, -1)$. Equivalently, the third vector is the sum of the first two.
+:::
+::::
+
+Once linear combinations are available, one can collect all of them into a single set. This set is the span, and it is
+always a subspace.
+
+:::: {.statement-box}
+::: {#def-span}
+#### Span of Vectors
 
 The span of a set of vectors ${\mathbf{x}_1, \dots, \mathbf{x}_k}$ is the set of all possible linear combinations of these
 vectors. The span forms a subspace of the original vector space.
 :::
 
-::: {#def-basis}
+::::
 
-Basis of a Vector Space
+The span describes everything one can reach from a few given directions. The example identifies the span of two coordinate
+vectors with a familiar plane.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first span to know is that of two standard basis vectors in $\mathbb{R}^3$. It is a coordinate plane.
+
+::: {#exm-msf-span-plane}
+#### A coordinate plane
+
+The span of $(1, 0, 0)$ and $(0, 1, 0)$ is the set of vectors $\lambda_1 (1, 0, 0) + \lambda_2 (0, 1, 0) = (\lambda_1,
+\lambda_2, 0)$, which is the plane $\{z = 0\}$ in $\mathbb{R}^3$. The vector $(0, 0, 1)$ is not in this span.
+:::
+::::
+
+Deciding membership in a span is the same as solving a linear system for the coefficients. The exercise asks for one such
+membership test.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader sets up the coefficient equations for a candidate vector and solves them. Membership holds exactly when the system
+is consistent.
+
+::: {#exr-msf-span-membership}
+#### Is a vector in the span?
+
+Is $(3, -1, 2)$ in the span of $(1, 0, 1)$ and $(0, 1, 1)$?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+We need $a (1, 0, 1) + b (0, 1, 1) = (a, b, a + b) = (3, -1, 2)$. The first two coordinates force $a = 3$, $b = -1$, and then
+$a + b = 2$ matches the third coordinate. So $(3, -1, 2) = 3(1, 0, 1) - (0, 1, 1)$ lies in the span.
+:::
+::::
+
+### Basis and Rank
+
+Combining the two previous notions gives a set of vectors that reaches every vector without redundancy. Such a set is a basis,
+and its size measures how large the space is.
+
+:::: {.statement-box}
+::: {#def-basis}
+#### Basis of a Vector Space
 
 A basis of a vector space is a set of linearly independent vectors that span the entire space. A basis is a minimal generating set
 for the vector space. While a vector space can have many different bases, the number of vectors in any basis is the same. This
 number is called the dimension of the vector space.
 :::
 
-::: {#def-matrix-rank}
+::::
 
-Matrix Rank
+Every vector has unique coordinates with respect to a basis, because the vectors are independent and span the space. The
+example records the basis used implicitly whenever we write a vector as a list of numbers.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The standard basis of $\mathbb{R}^d$ is the default choice in machine learning, where features are listed coordinate by
+coordinate. It also shows that $\mathbb{R}^d$ has dimension $d$.
+
+::: {#exm-msf-basis-standard}
+#### The standard basis
+
+The vectors $\mathbf{e}_1 = (1, 0, \dots, 0), \dots, \mathbf{e}_d = (0, \dots, 0, 1)$ are linearly independent and every
+$\mathbf{x} = (x_1, \dots, x_d)$ equals $\sum_i x_i \mathbf{e}_i$, so they form a basis of $\mathbb{R}^d$, which therefore has
+dimension $d$.
+:::
+::::
+
+Other bases are often more convenient than the standard one, for example bases of eigenvectors. The exercise checks a second
+basis of the plane and computes coordinates in it.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader verifies both conditions of the definition for two vectors in $\mathbb{R}^2$. Then the coordinates of a given
+vector in the new basis are found by solving a small system.
+
+::: {#exr-msf-basis-coordinates}
+#### Coordinates in a rotated basis
+
+Show that $(1, 1)$ and $(1, -1)$ form a basis of $\mathbb{R}^2$ and find the coordinates of $(3, 1)$ in this basis.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Solving $a(1, 1) + b(1, -1) = (x, y)$ gives $a = (x + y)/2$ and $b = (x - y)/2$, a unique solution for every $(x, y)$. So the
+two vectors span $\mathbb{R}^2$, and taking $(x, y) = (0, 0)$ shows that $a = b = 0$ is the only way to reach zero, so they are
+independent. For $(3, 1)$: $a = 2$, $b = 1$, and indeed $2(1, 1) + (1, -1) = (3, 1)$.
+:::
+::::
+
+Applied to the columns of a matrix, the dimension of their span gives one number that summarises the matrix. That number is
+the rank.
+
+:::: {.statement-box}
+::: {#def-matrix-rank}
+#### Matrix Rank
 
 The rank of a matrix $\mathbf{A}$ is the dimension of the vector space spanned by its columns (column space). It is also equal to
 the dimension of the space spanned by its rows (row space). The rank represents the number of linearly independent columns (or
@@ -206,11 +449,56 @@ rows) of the matrix. A matrix is said to have full rank if its rank is equal to 
 dimensions.
 :::
 
+::::
+
+The rank counts how many genuinely different directions the columns of a matrix contain. The example computes it for a matrix
+whose columns are parallel.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A data matrix whose second feature is a multiple of the first carries only one direction of information. Its rank is one.
+
+::: {#exm-msf-matrix-rank-one}
+#### A rank-one matrix
+
+For $\mathbf{A} = \begin{bmatrix} 1 & 2 \\ 2 & 4 \\ 3 & 6 \end{bmatrix}$ the second column is twice the first, so the column
+space is the line spanned by $(1, 2, 3)$ and $\text{rk}(\mathbf{A}) = 1$. The maximum possible rank of a $3 \times 2$ matrix is
+$2$, so $\mathbf{A}$ does not have full rank.
+:::
+::::
+
+The exercise links rank back to the independence test done earlier. The reader computes the rank of the matrix whose columns
+are the three vectors of that test.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The columns of the matrix below are the three vectors of @exr-msf-linear-independence-three. The reader uses that exercise to
+find the rank.
+
+::: {#exr-msf-matrix-rank-three}
+#### Rank of a $3 \times 3$ matrix
+
+Find the rank of $\mathbf{A} = \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 1 & 1 & 2 \end{bmatrix}$. Does it have full rank?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The third column is the sum of the first two, so the column space is spanned by the first two columns. These are independent
+(neither is a multiple of the other), so $\text{rk}(\mathbf{A}) = 2$. The maximum possible rank is $3$, so $\mathbf{A}$ does not
+have full rank; in particular it is not invertible.
+:::
+::::
+
+## Inner Products, Norms and Orthogonality {#sec-msf-inner-products-norms}
+
+Vector spaces by themselves have no notion of length or angle. This section adds that geometry through inner products and
+norms, and uses it to define orthogonality and projections, which least squares and PCA rely on.
+
 ### Inner Products and Norms
 
 Inner products and norms introduce geometric concepts like length, distance, and angle into vector spaces.
 
+:::: {.statement-box}
 ::: {#def-inner-product}
+#### Inner Product
+
 An inner product is a function that takes two vectors and returns a scalar. For a real vector space, an inner product
 $\langle\cdot, \cdot\rangle$ must satisfy the following properties for all vectors $\mathbf{x}, \mathbf{y}, \mathbf{z}$ and scalar
 $\alpha$:
@@ -221,12 +509,50 @@ $\alpha$:
 - Positive-definiteness: $\langle\mathbf{x}, \mathbf{x}\rangle \ge 0$, with equality if and only if $\mathbf{x} = \mathbf{0}$.
 :::
 
+::::
+
 The most common inner product is the dot product, defined as $\langle\mathbf{x}, \mathbf{y}\rangle = \mathbf{x}^T\mathbf{y} =
 \sum_i x_i y_i$.
 
-::: {#def-norm}
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example evaluates the dot product on two vectors and then shows a second inner product on the same space. Weighting the
+coordinates differently still satisfies all three properties.
 
-Norm
+::: {#exm-msf-inner-product-dot-weighted}
+#### The dot product and a weighted inner product
+
+For $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, -1)$, $\mathbf{x}^T\mathbf{y} = 3 - 2 = 1$. The weighted form
+$\langle\mathbf{x}, \mathbf{y}\rangle_w = 2x_1y_1 + x_2y_2$ is also an inner product on $\mathbb{R}^2$: it is symmetric, linear
+in the first argument, and $\langle\mathbf{x}, \mathbf{x}\rangle_w = 2x_1^2 + x_2^2 > 0$ unless $\mathbf{x} = \mathbf{0}$. For
+the same vectors it gives $2 \cdot 3 - 2 = 4$.
+:::
+::::
+
+Of the three properties, positive-definiteness is the one most easily lost. The exercise asks the reader to show that a
+form with a minus sign fails it.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The form below is symmetric and linear, which makes it look like an inner product. The reader finds a vector that breaks
+positive-definiteness.
+
+::: {#exr-msf-inner-product-indefinite}
+#### An indefinite form
+
+Show that $\langle\mathbf{x}, \mathbf{y}\rangle = x_1y_1 - x_2y_2$ is not an inner product on $\mathbb{R}^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For $\mathbf{x} = (0, 1)$ we get $\langle\mathbf{x}, \mathbf{x}\rangle = -1 < 0$, which violates positive-definiteness. (Also
+$(1, 1)$ is a non-zero vector with $\langle\mathbf{x}, \mathbf{x}\rangle = 0$.)
+:::
+::::
+
+A norm measures the size of a single vector, without reference to a second one. The definition lists the three properties
+that any such measure of length must have.
+
+:::: {.statement-box}
+::: {#def-norm}
+#### Norm
 
 A norm is a function that assigns a strictly positive length or size to each vector in a vector space, with the zero vector being
 the only vector with a length of zero. A norm $\|\cdot\|$ must satisfy:
@@ -236,36 +562,142 @@ the only vector with a length of zero. A norm $\|\cdot\|$ must satisfy:
 - Triangle inequality: $\|\mathbf{x} + \mathbf{y}\| \le \|\mathbf{x}\| + \|\mathbf{y}\|$.
 :::
 
-An inner product induces a norm.
+::::
 
+The triangle inequality is the property that makes a norm behave like a distance. The example checks it on two concrete
+vectors with the Euclidean norm.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The Euclidean norm is the length of an arrow in the plane. The example computes two lengths and checks the triangle inequality
+on their sum.
+
+::: {#exm-msf-norm-triangle}
+#### The triangle inequality in the plane
+
+With $\|\mathbf{x}\| = \sqrt{x_1^2 + x_2^2}$, $\|(3, 4)\| = 5$ and $\|(-3, 0)\| = 3$. Their sum $(0, 4)$ has norm $4 \le 5 + 3$,
+as the triangle inequality requires.
+:::
+::::
+
+A function can be non-negative and homogeneous and still fail to be a norm. The exercise asks for the property that a
+"partial" length violates.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The function below only looks at the first coordinate. The reader identifies which axiom it breaks.
+
+::: {#exr-msf-norm-seminorm}
+#### Measuring one coordinate
+
+Show that $f(\mathbf{x}) = |x_1|$ is not a norm on $\mathbb{R}^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$f((0, 1)) = 0$ although $(0, 1) \neq \mathbf{0}$, so positive-definiteness fails. (It is homogeneous and satisfies the triangle
+inequality, so it is only a seminorm.)
+:::
+::::
+
+An inner product induces a norm. The construction below is how the Euclidean length arises from the dot product.
+
+:::: {.statement-box}
 ::: {#def-inner-product-induced-norm}
-
-Norm Induced by Inner Product
+#### Norm Induced by Inner Product
 
 $\|\mathbf{x}\| = \sqrt{\langle\mathbf{x}, \mathbf{x}\rangle}$.
 :::
 
+::::
+
+Every inner product therefore comes with its own notion of length. The example applies the formula to the dot product, where
+it recovers the Euclidean norm.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With the dot product, the induced norm is the square root of the sum of squared coordinates. The example evaluates it on a
+vector with integer length.
+
+::: {#exm-msf-induced-norm-euclidean}
+#### The Euclidean norm
+
+For the dot product, $\|\mathbf{x}\| = \sqrt{\sum_i x_i^2}$, the Euclidean norm. For $\mathbf{x} = (1, 2, 2)$,
+$\|\mathbf{x}\| = \sqrt{1 + 4 + 4} = 3$.
+:::
+::::
+
+A different inner product induces a different norm on the same space. The exercise uses the weighted inner product of
+@exm-msf-inner-product-dot-weighted.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader computes lengths with respect to the weighted inner product $2x_1y_1 + x_2y_2$. The answers differ from the
+Euclidean ones.
+
+::: {#exr-msf-induced-norm-weighted}
+#### A weighted norm
+
+For $\langle\mathbf{x}, \mathbf{y}\rangle_w = 2x_1y_1 + x_2y_2$, compute the induced norms of $(1, 1)$ and $(1, -2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\|\mathbf{x}\|_w = \sqrt{2x_1^2 + x_2^2}$, so $\|(1, 1)\|_w = \sqrt{3}$ and $\|(1, -2)\|_w = \sqrt{2 + 4} = \sqrt{6}$. The
+Euclidean norms would be $\sqrt{2}$ and $\sqrt{5}$.
+:::
+::::
+
 The angle $\theta$ between two vectors can be defined using the inner product.
 
+:::: {.statement-box}
 ::: {#def-vectors-angle}
-
-Angle Between Vectors
+#### Angle Between Vectors
 
 $\cos(\theta) = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\| \|\mathbf{y}\|}$.
 :::
 
+::::
+
+The formula turns the inner product into a number between $-1$ and $1$, the cosine of the angle. The example recovers a
+familiar angle in the plane.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first coordinate axis and the diagonal of the plane meet at $45^\circ$. The formula confirms this.
+
+::: {#exm-msf-angle-diagonal}
+#### Axis and diagonal
+
+For $\mathbf{x} = (1, 0)$ and $\mathbf{y} = (1, 1)$, $\cos\theta = 1/(1 \cdot \sqrt{2})$, so $\theta = \pi/4$.
+:::
+::::
+
+Angles between data vectors are what cosine similarity measures in practice. The exercise computes two angles in
+$\mathbb{R}^3$, one of them a right angle.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader evaluates the formula for two pairs of vectors. One pair turns out to be perpendicular.
+
+::: {#exr-msf-angle-space}
+#### Two angles in space
+
+Find the angle between $(1, 2, 2)$ and $(2, -2, 1)$, and between $(1, 1, 0)$ and $(1, 0, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(1, 2, 2)^T(2, -2, 1) = 2 - 4 + 2 = 0$, so $\cos\theta = 0$ and $\theta = \pi/2$. For the second pair the inner product is $1$
+and both norms are $\sqrt{2}$, so $\cos\theta = 1/2$ and $\theta = \pi/3$.
+:::
+::::
+
 A widely used class of norms is the $\ell_p$ norm.
 
+:::: {.statement-box}
 ::: {#def-norm-p}
-
-$\ell_p$ Norm
+#### $\ell_p$ Norm
 
 
 $\|\mathbf{x}\|_p = (\sum_{i=1}^d |x_i|^p)^{1/p}$ for $p \ge 1$.
 
 :::
 
-Important special cases include: 
+::::
+
+Important special cases include:
 
 - $p=1$: The $\ell_1$ norm, or Manhattan norm.
 - $p=2$: The $\ell_2$ norm, or Euclidean norm.
@@ -274,47 +706,211 @@ Important special cases include:
 The geometric shape of the unit ball (the set of all vectors with norm 1) depends on the value of $p$. For $p=2$, it is a sphere;
 for $p=1$, it is a diamond; and for $p=\infty$, it is a square [@deisenroth2020mml].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The three special cases give three different sizes for the same vector. The example evaluates them on one vector in the plane.
+
+::: {#exm-msf-norm-p-three}
+#### Three norms of one vector
+
+For $\mathbf{x} = (3, -4)$: $\|\mathbf{x}\|_1 = 3 + 4 = 7$, $\|\mathbf{x}\|_2 = \sqrt{9 + 16} = 5$ and
+$\|\mathbf{x}\|_\infty = 4$.
+:::
+::::
+
+The values in the example are ordered, $4 \le 5 \le 7$, and this is no accident. The exercise asks the reader to prove the
+ordering for every vector.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader proves a chain of inequalities between the three most common norms. The all-ones vector then shows how far apart
+they can be.
+
+::: {#exr-msf-norm-p-ordering}
+#### Comparing $\ell_1$, $\ell_2$ and $\ell_\infty$
+
+Show that $\|\mathbf{x}\|_\infty \le \|\mathbf{x}\|_2 \le \|\mathbf{x}\|_1$ for every $\mathbf{x} \in \mathbb{R}^d$, and
+evaluate the three norms on $(1, 1, \dots, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $|x_j| = \max_i |x_i|$, then $\|\mathbf{x}\|_\infty^2 = x_j^2 \le \sum_i x_i^2 = \|\mathbf{x}\|_2^2$. Next,
+$\|\mathbf{x}\|_1^2 = (\sum_i |x_i|)^2 = \sum_i x_i^2 + \sum_{i \neq j} |x_i||x_j| \ge \|\mathbf{x}\|_2^2$. Taking square roots
+gives the chain. For the all-ones vector the three norms are $1$, $\sqrt{d}$ and $d$.
+:::
+::::
+
 ### Orthogonality and Projections
 
+The inner product also says when two vectors are perpendicular. The definition below collects the vocabulary of
+perpendicular sets, which is what makes coordinates easy to compute.
+
+:::: {.statement-box}
+::: {#def-msf-orthogonality}
 #### Orthogonality
 
 Two vectors $\mathbf{x}$ and $\mathbf{y}$ are orthogonal if their inner product is zero, i.e., $\langle\mathbf{x},
 \mathbf{y}\rangle = 0$. A set of vectors is orthogonal if every pair of distinct vectors in the set is orthogonal. If, in
 addition, all vectors in the set have a norm of 1, the set is orthonormal.
 
-An orthonormal basis is a basis of a vector space whose vectors are orthonormal. Working with an orthonormal basis simplifies many
+An orthonormal basis is a basis of a vector space whose vectors are orthonormal.
+:::
+
+::::
+
+Working with an orthonormal basis simplifies many
 calculations, as the coordinates of a vector can be found by taking the inner product with the basis vectors.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example normalises the basis of @exr-msf-basis-coordinates and recomputes the coordinates of $(3, 1)$. With an orthonormal
+basis no system has to be solved.
+
+::: {#exm-msf-orthonormal-basis-plane}
+#### A rotated orthonormal basis
+
+$\mathbf{u}_1 = (1, 1)/\sqrt{2}$ and $\mathbf{u}_2 = (1, -1)/\sqrt{2}$ are orthogonal and of norm $1$, so they form an
+orthonormal basis of $\mathbb{R}^2$. For $\mathbf{y} = (3, 1)$, $\langle\mathbf{y}, \mathbf{u}_1\rangle = 2\sqrt{2}$ and
+$\langle\mathbf{y}, \mathbf{u}_2\rangle = \sqrt{2}$, and indeed $2\sqrt{2}\,\mathbf{u}_1 + \sqrt{2}\,\mathbf{u}_2 = (2, 2) +
+(1, -1) = (3, 1)$.
+:::
+::::
+
+In three dimensions, two orthonormal vectors can always be completed to an orthonormal basis. The exercise asks the reader to
+carry out the completion.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader checks orthonormality of two given vectors and then finds a third. The cross product is one way to produce it.
+
+::: {#exr-msf-orthonormal-completion}
+#### Completing an orthonormal basis
+
+Show that $\frac{1}{3}(1, 2, 2)$ and $\frac{1}{3}(2, -2, 1)$ are orthonormal and find a third vector that completes them to an
+orthonormal basis of $\mathbb{R}^3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Both have norm $\frac{1}{3}\sqrt{9} = 1$, and $(1, 2, 2)^T(2, -2, 1) = 0$ (@exr-msf-angle-space). The cross product
+$(1, 2, 2) \times (2, -2, 1) = (6, 3, -6)$ is orthogonal to both; normalising gives $\frac{1}{3}(2, 1, -2)$. Check:
+$(1, 2, 2)^T(2, 1, -2) = 0$ and $(2, -2, 1)^T(2, 1, -2) = 0$.
+:::
+::::
+
+Orthonormal bases make it easy to find the point of a subspace nearest to a given vector. That nearest point is the
+orthogonal projection.
+
+:::: {.statement-box}
+::: {#def-msf-orthogonal-projection}
+#### Orthogonal Projection
 
 The orthogonal projection of a vector $\mathbf{y}$ onto a subspace $\mathcal{U}$ is the vector in $\mathcal{U}$ that is closest to
 $\mathbf{y}$. If ${\mathbf{u}_1, \dots, \mathbf{u}_n}$ is an orthonormal basis for $\mathcal{U}$, the projection of $\mathbf{y}$
 onto $\mathcal{U}$ is given by:
 
 $$ \text{proj}_{\mathcal{U}}(\mathbf{y}) = \sum_{i=1}^n \langle \mathbf{y}, \mathbf{u}_i \rangle \mathbf{u}_i $$
+:::
+
+::::
 
 Projections are fundamental to many machine learning algorithms, including least squares regression, where the goal is to find the
 vector in the column space of a matrix that is closest to a target vector [@deisenroth2020mml].
 
-### Matrix Decompositions
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example projects onto a coordinate plane and onto a line. In both cases the formula keeps the components along the
+subspace and discards the rest.
+
+::: {#exm-msf-projection-plane-line}
+#### Projecting onto a plane and a line
+
+Onto $\mathcal{U} = \text{span}[\mathbf{e}_1, \mathbf{e}_2] \subset \mathbb{R}^3$, $\mathbf{y} = (1, 2, 3)$ projects to
+$(1, 2, 0)$. Onto the line spanned by $\mathbf{u} = (1, 1)/\sqrt{2}$, $\mathbf{y} = (3, 1)$ projects to
+$\langle\mathbf{y}, \mathbf{u}\rangle\mathbf{u} = \frac{4}{\sqrt{2}} \cdot \frac{(1, 1)}{\sqrt{2}} = (2, 2)$.
+:::
+::::
+
+Projecting a data vector onto the constant direction is the simplest least squares problem. The exercise shows that it
+returns the mean.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader projects onto the line of constant vectors and checks that the residual is orthogonal to it. The result is the
+best constant fit to the data.
+
+::: {#exr-msf-projection-mean}
+#### Projection onto the constants
+
+Project $\mathbf{y} = (1, 2, 3)$ onto the line spanned by $(1, 1, 1)$, and check that $\mathbf{y} - \text{proj}(\mathbf{y})$ is
+orthogonal to $(1, 1, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+An orthonormal basis of the line is $\mathbf{u} = (1, 1, 1)/\sqrt{3}$. Then $\langle\mathbf{y}, \mathbf{u}\rangle = 6/\sqrt{3}$
+and $\text{proj}(\mathbf{y}) = \frac{6}{3}(1, 1, 1) = (2, 2, 2)$, the mean of the entries in every coordinate. The residual
+$(-1, 0, 1)$ has inner product $-1 + 0 + 1 = 0$ with $(1, 1, 1)$.
+:::
+::::
+
+## Matrix Decompositions {#sec-msf-matrix-decompositions}
 
 Matrix decompositions are factorizations of a matrix into a product of matrices with specific properties. They are essential for
 understanding the properties of linear transformations and for solving systems of linear equations.
 
-::: {#def-eigenvalue-eigenvector}
+### Eigenvalues and Eigenvectors
 
-Eigenvalue and Eigenvector
+Some directions are special for a given square matrix: the matrix only rescales them. The definition below names these
+directions and the scale factors.
+
+:::: {.statement-box}
+::: {#def-eigenvalue-eigenvector}
+#### Eigenvalue and Eigenvector
 
 For a square matrix $\mathbf{A}$, an eigenvector $\mathbf{v}$ and its corresponding eigenvalue $\lambda$ satisfy:
 
 $$ \mathbf{Av} = \lambda\mathbf{v} $$
 :::
 
+::::
+
 This means that when the linear transformation $\mathbf{A}$ is applied to an eigenvector
 $\mathbf{v}$, the result is a scaled version of $\mathbf{v}$. The eigenvectors are the directions that are only stretched or
-compressed by the transformation. If a matrix $\mathbf{A}$ is symmetric, it can be decomposed as:
+compressed by the transformation.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For a diagonal matrix the eigenvectors are the coordinate axes, and for a symmetric $2 \times 2$ matrix they are often the
+diagonals. The example shows both cases.
+
+::: {#exm-msf-eigen-diagonal-symmetric}
+#### A diagonal and a symmetric matrix
+
+For $\mathbf{A} = \text{diag}(2, 3)$, $\mathbf{e}_1$ has eigenvalue $2$ and $\mathbf{e}_2$ has eigenvalue $3$. For
+$\mathbf{A} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$, $\mathbf{A}(1, 1)^T = (3, 3)^T$ and $\mathbf{A}(1, -1)^T =
+(1, -1)^T$, so $(1, 1)$ has eigenvalue $3$ and $(1, -1)$ has eigenvalue $1$.
+:::
+::::
+
+In general the eigenvalues are the roots of the characteristic polynomial $\det(\mathbf{A} - \lambda\mathbf{I})$. The exercise
+asks the reader to use it on a non-symmetric matrix.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader finds the characteristic polynomial, its roots, and an eigenvector for each root. The final check is the defining
+equation $\mathbf{Av} = \lambda\mathbf{v}$.
+
+::: {#exr-msf-eigen-characteristic}
+#### Eigenpairs of a $2 \times 2$ matrix
+
+Find the eigenvalues and eigenvectors of $\mathbf{A} = \begin{bmatrix} 4 & 1 \\ 2 & 3 \end{bmatrix}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\det(\mathbf{A} - \lambda\mathbf{I}) = (4 - \lambda)(3 - \lambda) - 2 = \lambda^2 - 7\lambda + 10 = (\lambda - 5)(\lambda - 2)$.
+For $\lambda = 5$, $(\mathbf{A} - 5\mathbf{I})\mathbf{v} = \mathbf{0}$ reads $-v_1 + v_2 = 0$, so $\mathbf{v} = (1, 1)$. For
+$\lambda = 2$, $2v_1 + v_2 = 0$, so $\mathbf{v} = (1, -2)$; check: $\mathbf{A}(1, -2)^T = (2, -4)^T = 2(1, -2)^T$.
+:::
+::::
+
+### Eigendecomposition and SVD
+
+If a matrix $\mathbf{A}$ is symmetric, it can be decomposed as:
+
+:::: {.statement-box}
 ::: {#def-eigendecomposition}
-
-Eigendecomposition
+#### Eigendecomposition
 
 For a symmetric matrix $\mathbf{A}$:
 
@@ -323,17 +919,59 @@ $$ \mathbf{A} = \mathbf{PDP}^T $$
 where $\mathbf{P}$ is an orthogonal matrix whose columns are the eigenvectors of $\mathbf{A}$, and $\mathbf{D}$ is a diagonal matrix whose diagonal entries are the corresponding eigenvalues.
 :::
 
+::::
+
 This decomposition is fundamental to Principal Component Analysis
 (PCA), a widely used dimensionality reduction technique [@deisenroth2020mml].
 
-::: {#def-svd}
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The symmetric matrix of @exm-msf-eigen-diagonal-symmetric has orthogonal eigenvectors $(1, 1)$ and $(1, -1)$. Normalising
+them gives $\mathbf{P}$, and the product $\mathbf{PDP}^T$ can be checked by hand.
 
-Singular Value Decomposition (SVD)
+::: {#exm-msf-eigendecomposition-two}
+#### Diagonalising a symmetric $2 \times 2$ matrix
+
+With $\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \text{diag}(3, 1)$,
+$$ \mathbf{PDP}^T = \frac{1}{2}\begin{bmatrix} 3 & 1 \\ 3 & -1 \end{bmatrix}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} =
+\frac{1}{2}\begin{bmatrix} 4 & 2 \\ 2 & 4 \end{bmatrix} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}. $$
+:::
+::::
+
+The decomposition turns matrix functions into functions of numbers, since $\mathbf{A}^{-1} = \mathbf{PD}^{-1}\mathbf{P}^T$
+when no eigenvalue vanishes. The exercise uses this to invert a matrix.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader diagonalises a symmetric matrix and inverts it through its eigenvalues. Multiplying back confirms the answer.
+
+::: {#exr-msf-eigendecomposition-inverse}
+#### Inverting through the eigendecomposition
+
+Find the eigendecomposition of $\mathbf{A} = \begin{bmatrix} 3 & -1 \\ -1 & 3 \end{bmatrix}$ and use it to compute
+$\mathbf{A}^{-1}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbf{A}(1, 1)^T = 2(1, 1)^T$ and $\mathbf{A}(1, -1)^T = 4(1, -1)^T$, so $\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 &
+1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \text{diag}(2, 4)$. Then
+$\mathbf{A}^{-1} = \frac{1}{2}\mathbf{u}_1\mathbf{u}_1^T + \frac{1}{4}\mathbf{u}_2\mathbf{u}_2^T = \frac{1}{4}\begin{bmatrix}
+1 & 1 \\ 1 & 1 \end{bmatrix} + \frac{1}{8}\begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} = \frac{1}{8}\begin{bmatrix} 3 & 1
+\\ 1 & 3 \end{bmatrix}$, and $\mathbf{A}\mathbf{A}^{-1} = \frac{1}{8}\begin{bmatrix} 8 & 0 \\ 0 & 8 \end{bmatrix} = \mathbf{I}$.
+:::
+::::
+
+The eigendecomposition needs a square symmetric matrix, while data matrices are usually rectangular. The singular value
+decomposition removes both restrictions.
+
+:::: {.statement-box}
+::: {#def-svd}
+#### Singular Value Decomposition (SVD)
 
 The SVD is a generalization of the eigendecomposition to any $m \times n$ matrix $\mathbf{A}$. It is given by:
 
 $$ \mathbf{A} = \mathbf{U\Sigma V}^T $$
 :::
+
+::::
 
 where $\mathbf{U}$ is an $m \times m$ orthogonal matrix, $\mathbf{\Sigma}$ is an $m \times n$ rectangular diagonal matrix of
 singular values, and $\mathbf{V}$ is an $n \times n$ orthogonal matrix. The columns of $\mathbf{U}$ are the left-singular vectors,
@@ -341,19 +979,55 @@ and the columns of $\mathbf{V}$ are the right-singular vectors. The SVD provides
 transformation: it decomposes the transformation into a rotation ($\mathbf{V}^T$), a scaling along the axes ($\mathbf{\Sigma}$),
 and another rotation ($\mathbf{U}$) [@deisenroth2020mml].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A single column is the smallest rectangular matrix. Its SVD has one singular value, the length of the column.
+
+::: {#exm-msf-svd-column}
+#### SVD of a column vector
+
+For $\mathbf{A} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ ($m = 2$, $n = 1$), take $\mathbf{U} = \frac{1}{\sqrt{2}}\begin{bmatrix}
+1 & -1 \\ 1 & 1 \end{bmatrix}$, $\mathbf{\Sigma} = \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix}$ and $\mathbf{V} = [1]$. Then
+$\mathbf{U\Sigma V}^T = \frac{1}{\sqrt{2}}\begin{bmatrix} \sqrt{2} \\ \sqrt{2} \end{bmatrix} = \mathbf{A}$, and the singular value
+$\sqrt{2}$ is $\|\mathbf{A}\|$.
+:::
+::::
+
+The singular values are the square roots of the eigenvalues of $\mathbf{A}^T\mathbf{A}$, which gives a way to compute them.
+The exercise applies this recipe to a rank-one matrix.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader computes $\mathbf{A}^T\mathbf{A}$, reads off the singular values, and builds $\mathbf{U}$ from
+$\mathbf{u}_i = \mathbf{A}\mathbf{v}_i/\sigma_i$. One singular value is zero, reflecting the rank.
+
+::: {#exr-msf-svd-rank-one}
+#### SVD of a rank-one matrix
+
+Find an SVD of $\mathbf{A} = \begin{bmatrix} 3 & 0 \\ 4 & 0 \end{bmatrix}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbf{A}^T\mathbf{A} = \text{diag}(25, 0)$, so the singular values are $5$ and $0$ with $\mathbf{V} = \mathbf{I}$. Then
+$\mathbf{u}_1 = \mathbf{A}\mathbf{e}_1/5 = (3, 4)/5$, and $\mathbf{u}_2 = (-4, 3)/5$ completes an orthonormal basis. With
+$\mathbf{U} = \frac{1}{5}\begin{bmatrix} 3 & -4 \\ 4 & 3 \end{bmatrix}$ and $\mathbf{\Sigma} = \text{diag}(5, 0)$,
+$\mathbf{U\Sigma V}^T = \begin{bmatrix} 3 & 0 \\ 4 & 0 \end{bmatrix}$. One non-zero singular value means rank one.
+:::
+::::
+
 ### Linear Algebra in Reinforcement Learning: The Bellman Equation
 
 The Bellman equation is a central component of reinforcement learning. For a given policy $\pi$, the state-value function
 $v_\pi(s)$ is the expected return from state $s$. The Bellman equation expresses this value recursively:
 
+:::: {.statement-box}
 ::: {#def-bellman-equation}
-
-Bellman Equation
+#### Bellman Equation
 
 For a policy $\pi$, the state-value function satisfies:
 
 $$ v_\pi(s) = \mathbb{E}_\pi[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s] $$
 :::
+
+::::
 
 This can be written as a system of linear equations, one for each state. In matrix-vector form, this is:
 
@@ -366,6 +1040,41 @@ $$ \mathbf{v}_\pi = (I - \gamma P_\pi)^{-1} \mathbf{r}_\pi $$
 
 This demonstrates how linear algebra is used to solve for the value function in reinforcement learning [@zhao2025rl].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example solves the matrix form for two states that alternate deterministically. Inverting a $2 \times 2$ matrix gives the
+values, and the recursion confirms them.
+
+::: {#exm-msf-bellman-two-states}
+#### Two alternating states
+
+Let the policy move $s_1 \to s_2 \to s_1 \to \cdots$, so $P_\pi = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$, with
+$\mathbf{r}_\pi = (1, 0)$ and $\gamma = 0.5$. Then $I - \gamma P_\pi = \begin{bmatrix} 1 & -0.5 \\ -0.5 & 1 \end{bmatrix}$ has
+determinant $0.75$, and $\mathbf{v}_\pi = \frac{1}{0.75}\begin{bmatrix} 1 & 0.5 \\ 0.5 & 1 \end{bmatrix}\begin{bmatrix} 1 \\ 0
+\end{bmatrix} = (4/3, 2/3)$. Check: $v(s_1) = 1 + 0.5 \cdot 2/3 = 4/3$ and $v(s_2) = 0 + 0.5 \cdot 4/3 = 2/3$.
+:::
+::::
+
+The linear system can also be solved without inverting a matrix, by exploiting its structure. The exercise treats one state
+alone and then two states with random transitions.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader solves the Bellman equation in two small cases. The second one can be reduced to an equation for the average
+value.
+
+::: {#exr-msf-bellman-random-transitions}
+#### Solving small Bellman equations
+
+(a) A single state loops to itself with reward $r$ per step; find $v_\pi$ for $0 \le \gamma < 1$. (b) Two states with
+$P_\pi = \begin{bmatrix} 1/2 & 1/2 \\ 1/2 & 1/2 \end{bmatrix}$, $\mathbf{r}_\pi = (2, 0)$ and $\gamma = 0.5$: find
+$\mathbf{v}_\pi$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $v = r + \gamma v$ gives $v = r/(1 - \gamma)$. (b) Let $m = (v_1 + v_2)/2$; then $P_\pi\mathbf{v}_\pi = (m, m)$ and
+$v_1 = 2 + 0.5m$, $v_2 = 0.5m$. Averaging gives $m = 1 + 0.5m$, so $m = 2$, $v_1 = 3$ and $v_2 = 1$; indeed $(3 + 1)/2 = 2$.
+:::
+::::
+
 ## Probability and Statistics {#sec-probability-statistics}
 
 Probability theory provides the framework for quantifying uncertainty, which is inherent in most real-world data and in the
@@ -374,16 +1083,16 @@ inferences about the underlying processes that generate the data.
 
 For more on this topic, see @james2023statistical [Ch. 2] and @theodoridis2025ml [Chs. 4, 5].
 
-### Basic Probability Concepts
-
-Probability theory provides a formal framework for reasoning about uncertainty. The two fundamental rules of probability are the
-sum rule and the product rule.
-
-#### Probability Spaces and Random Variables
+### Probability Spaces and Random Variables
 
 The following definitions use one running example, a roll of a fair die [@zhao2025rl].
 
-A random experiment is a process that produces an unpredictable outcome, such as rolling a fair die.
+A random experiment is a process that produces an unpredictable outcome, such as rolling a fair die. A probability space
+collects the possible outcomes, the events to which a probability is assigned, and the probabilities themselves.
+
+:::: {.statement-box}
+::: {#def-msf-probability-space}
+#### Probability Space
 
 A probability space $(S, F, P)$ is defined as follows:
 
@@ -397,28 +1106,105 @@ A probability space $(S, F, P)$ is defined as follows:
         - Non-negativity $P(A) \geq 0$ for all $A \in F$
         - Normalization $P(S) = 1$
         - Countable additivity $P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$, $A_i$ disjoint
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+The three ingredients are easiest to see on the running example. The die gives a finite sample space in which every subset
+is an event.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The fair die is the running example of this and the following sections. Its probability space assigns the same probability to
+each face.
+
+::: {#exm-msf-die-probability-space}
+#### The fair die
+
 - Sample space $S = \{1, 2, 3, 4, 5, 6\}$
 - Sigma-algebra $F = \{\emptyset, \{1\}, \{2\}, \dots, S\}$
 - Probability measure $P(\{i\}) = \frac{1}{6}$ for each $i \in S$
 :::
+::::
+
+The axioms are short, but they already imply further rules. The exercise derives one of them and uses additivity on a second
+finite example.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader builds the probability space of two coin tosses and computes an event probability by additivity. The second part
+derives $P(\emptyset) = 0$ from the axioms alone.
+
+::: {#exr-msf-probability-space-coins}
+#### Two coin tosses
+
+(a) Write down a probability space for two tosses of a fair coin and compute the probability of at least one head. (b) Show
+from the axioms that $P(\emptyset) = 0$ in any probability space.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $S = \{HH, HT, TH, TT\}$, $F$ the set of all subsets of $S$, and $P(\{\omega\}) = 1/4$ for each outcome. The event "at
+least one head" is the disjoint union $\{HH\} \cup \{HT\} \cup \{TH\}$, so its probability is $3/4$. (b) Write
+$S = S \cup \emptyset \cup \emptyset \cup \cdots$, a union of disjoint sets. Countable additivity gives
+$P(S) = P(S) + \sum_{i \ge 2} P(\emptyset)$, so the non-negative terms $P(\emptyset)$ sum to $0$, hence $P(\emptyset) = 0$.
+:::
+::::
+
+Outcomes such as die faces are rarely used directly; one measures numbers attached to them. A random variable is such a
+numerical measurement, required to be compatible with the events of $F$.
+
+:::: {.statement-box}
+::: {#def-msf-random-variable}
+#### Random Variable
 
 A random variable $X$ is a function $X: S \to \mathbb{R}$ such that $\forall x \in \mathbb{R}$:
 
 $$X^{-1}((-\infty, x]) \in F$$
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+On the die, where every subset is an event, every function of the face is a random variable. The three below are used for
+the rest of the probability sections.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The face value $X$, the parity indicator $Y$ and the "low face" indicator $Z$ are the three random variables of the running
+example. All later examples on the die refer to them.
+
+::: {#exm-msf-die-random-variables}
+#### Three random variables on the die
+
 - $X(s) = s$
 - $Y(s) = \begin{cases} 1, & \text{if } s \text{ is even} \\ 0, & \text{if } s \text{ is odd} \end{cases}$
 - $Z(s) = \begin{cases} 1, & \text{if } s \leq 3 \\ 0, & \text{if } s > 3 \end{cases}$
 :::
+::::
 
+The measurability condition only bites when $F$ is smaller than the set of all subsets. The exercise shows a coarse
+sigma-algebra on which some functions fail to be random variables.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The sigma-algebra below only knows whether the face is even or odd. The reader checks which of $X$ and $Y$ remain random
+variables.
+
+::: {#exr-msf-random-variable-coarse}
+#### A coarse sigma-algebra
+
+On $S = \{1, \dots, 6\}$ take $F = \{\emptyset, \{1, 3, 5\}, \{2, 4, 6\}, S\}$. Show that $Y$ is a random variable but $X$ is not.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$Y^{-1}((-\infty, x])$ is $\emptyset$ for $x < 0$, $\{1, 3, 5\}$ for $0 \le x < 1$ and $S$ for $x \ge 1$, all in $F$. But
+$X^{-1}((-\infty, 1]) = \{1\} \notin F$, so $X$ is not a random variable with respect to this $F$.
+:::
+::::
+
+### Basic Probability Concepts
+
+Probability theory provides a formal framework for reasoning about uncertainty. The two fundamental rules of probability are the
+sum rule and the product rule.
+
+:::: {.statement-box}
 ::: {#def-sum-rule}
-
-Sum Rule of Probability
+#### Sum Rule of Probability
 
 For any two events $A$ and $B$, the probability that either $A$ or $B$ will occur is given by:
 
@@ -431,21 +1217,111 @@ values of another variable $Y$:
 $$ P(X) = \sum_Y P(X, Y) \quad \text{(for discrete Y)} $$$$ p(x) = \int p(x, y) dy \quad \text{(for continuous Y)} $$
 :::
 
+::::
+
+The rule has two faces: the inclusion-exclusion formula for two events, and marginalisation over a second variable. The
+example shows both on the die.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The events "even" and "at most three" overlap in the face $2$, so the correction term matters. Marginalising the joint
+probabilities of $X$ and $Y$ recovers the probability of an even face.
+
+::: {#exm-msf-sum-rule-die}
+#### Union and marginal on the die
+
+With $A = \{Y = 1\} = \{2, 4, 6\}$ and $B = \{Z = 1\} = \{1, 2, 3\}$, $P(A \cup B) = \frac{1}{2} + \frac{1}{2} - \frac{1}{6} =
+\frac{5}{6}$, which matches $A \cup B = \{1, 2, 3, 4, 6\}$. Marginalising, $P(Y = 1) = \sum_x P(X = x, Y = 1) = 3 \cdot
+\frac{1}{6} = \frac{1}{2}$.
+:::
+::::
+
+Inclusion-exclusion can be run backwards to find an intersection. The exercise does this and then marginalises a continuous
+density.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader first recovers $P(A \cap B)$ from the other three probabilities. The second part integrates out one variable of a
+uniform density on the square.
+
+::: {#exr-msf-sum-rule-backwards}
+#### Using the sum rule in both directions
+
+(a) If $P(A) = 0.5$, $P(B) = 0.4$ and $P(A \cup B) = 0.7$, find $P(A \cap B)$; are $A$ and $B$ mutually exclusive? (b) If
+$p(x, y) = 1$ on $[0, 1]^2$, find $p(x)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $P(A \cap B) = 0.5 + 0.4 - 0.7 = 0.2 \neq 0$, so they are not mutually exclusive. (b) $p(x) = \int_0^1 1 \, dy = 1$ for
+$x \in [0, 1]$: the marginal is uniform.
+:::
+::::
+
+The second fundamental rule relates joint and conditional probabilities. It is also the definition of the conditional
+probability $P(A|B)$ when $P(B) > 0$.
+
+:::: {.statement-box}
+::: {#def-msf-product-rule}
 #### Product Rule and Conditional Probability
 
 The joint probability of two events $A$ and $B$ occurring is given by:
 
 $$ P(A \cap B) = P(A|B)P(B) = P(B|A)P(A) $$
 
-where $P(A|B)$ is the conditional probability of $A$ given that $B$ has occurred. This rule is fundamental for connecting joint,
+where $P(A|B)$ is the conditional probability of $A$ given that $B$ has occurred.
+:::
+
+::::
+
+This rule is fundamental for connecting joint,
 conditional, and marginal probabilities.
 
-#### Bayes Theorem
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+On the die, conditioning on a low face changes the probability of an even face from one half to one third. The product rule
+then recovers the joint probability.
+
+::: {#exm-msf-product-rule-die}
+#### Even and low faces
+
+Given $B = \{1, 2, 3\}$, only the face $2$ is even, so $P(A|B) = \frac{1}{3}$ for $A = \{2, 4, 6\}$. The product rule gives
+$P(A \cap B) = \frac{1}{3} \cdot \frac{1}{2} = \frac{1}{6}$, the probability of the face $2$.
+:::
+::::
+
+Sequential draws without replacement are the classic use of the product rule. The exercise applies it to two cards.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader multiplies a marginal probability by a conditional one. The conditional probability accounts for the card already
+removed.
+
+::: {#exr-msf-product-rule-cards}
+#### Two aces
+
+Two cards are drawn without replacement from a standard 52-card deck. What is the probability that both are aces?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$P(\text{first ace}) = 4/52$ and $P(\text{second ace} \mid \text{first ace}) = 3/51$, so
+$P(\text{both}) = \frac{4}{52} \cdot \frac{3}{51} = \frac{1}{221}$.
+:::
+::::
+
+### Bayes Theorem
 
 Derived from the product rule, Bayes' theorem is a cornerstone of machine learning and inference. It allows us to update our
 beliefs about a hypothesis in light of new evidence:
 
+:::: {.statement-box}
+::: {#thm-msf-bayes}
+#### Bayes' Theorem
+
+For a hypothesis $H$ and evidence $E$ with $P(E) > 0$,
+
 $$ P(H|E) = \frac{P(E|H)P(H)}{P(E)} $$
+:::
+
+::::
+
+The proof is one line: by @def-msf-product-rule, $P(H|E)P(E) = P(H \cap E) = P(E|H)P(H)$, and dividing by $P(E) > 0$ gives
+the formula.
 
 In this formula:
 
@@ -459,74 +1335,345 @@ normalization constant.
 Bayes' theorem is central to Bayesian inference, where we treat model parameters as random variables and update their
 distributions as we observe more data [@deisenroth2020mml; @bishop2024deeplearning].
 
-#### Discrete Random Variables
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A diagnostic test is the standard illustration of how a small prior keeps the posterior small. The evidence is computed with
+the sum and product rules.
+
+::: {#exm-msf-bayes-diagnostic}
+#### A diagnostic test
+
+A condition has prevalence $P(H) = 0.01$; a test detects it with $P(E|H) = 0.99$ and gives a false positive with
+$P(E|H^c) = 0.05$. Then $P(E) = 0.99 \cdot 0.01 + 0.05 \cdot 0.99 = 0.0594$ and $P(H|E) = 0.0099/0.0594 \approx 0.167$: a positive
+test raises the probability from $1\%$ to about $17\%$.
+:::
+::::
+
+Bayes' theorem is also how a naive spam filter updates its belief after seeing a word. The exercise does one update on the die
+and one on email.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader inverts a conditional probability twice. In both parts the evidence must first be computed from the sum rule.
+
+::: {#exr-msf-bayes-spam}
+#### Inverting conditional probabilities
+
+(a) On the die, find $P(Z = 1 \mid Y = 1)$ with Bayes' theorem. (b) If $P(\text{spam}) = 0.3$, a word appears in spam with
+probability $0.6$ and in other email with probability $0.1$, find $P(\text{spam} \mid \text{word})$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $P(Z = 1 | Y = 1) = P(Y = 1 | Z = 1)P(Z = 1)/P(Y = 1) = \frac{1}{3} \cdot \frac{1}{2} / \frac{1}{2} = \frac{1}{3}$. (b)
+$P(\text{word}) = 0.6 \cdot 0.3 + 0.1 \cdot 0.7 = 0.25$, so $P(\text{spam} | \text{word}) = 0.18/0.25 = 0.72$.
+:::
+::::
+
+## Discrete Random Variables {#sec-msf-discrete-random-variables}
+
+For a random variable with finitely or countably many values, every probability statement reduces to a table of numbers. This
+section defines these tables (PMFs) and states the rules that connect joint, marginal and conditional tables, all on the die of
+@exm-msf-die-random-variables.
+
+### Probability Mass Functions
+
+The basic table lists the probability of each value of a single random variable. It is the probability mass function.
+
+:::: {.statement-box}
+::: {#def-msf-pmf}
+#### Probability Mass Function
 
 The probability mass function (PMF) of a discrete random variable $X$ is a function $p_X: \mathbb{R} \to [0, 1]$ such that
 
 $$p_X(x) = P(X = x)$$
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+For the three variables of the die, the PMFs follow by counting faces. The example lists them.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The face value is uniform on six values, while both indicators are fair binary variables. Each PMF sums to one.
+
+::: {#exm-msf-pmf-die}
+#### PMFs on the die
+
 - $p_X(x) = \frac{1}{6}$ for $x = 1, 2, 3, 4, 5, 6$
 - $p_Y(0) = p_Y(1) = \frac{3}{6} = 0.5$
 - $p_Z(0) = p_Z(1) = \frac{3}{6} = 0.5$
 :::
+::::
+
+A PMF need not be uniform even when the underlying outcomes are equally likely. The exercise counts heads in two tosses.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader counts the outcomes of two fair tosses for each number of heads. The resulting PMF is not uniform.
+
+::: {#exr-msf-pmf-heads}
+#### Number of heads
+
+Find the PMF of the number of heads in two tosses of a fair coin and check that it sums to one.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Of the four equally likely outcomes, one has no head, two have one head and one has two heads: $p(0) = 1/4$, $p(1) = 1/2$,
+$p(2) = 1/4$, which sum to $1$.
+:::
+::::
+
+### Joint and Conditional PMFs
+
+Two random variables on the same experiment are described jointly by the probability of each pair of values. This is the
+joint PMF.
+
+:::: {.statement-box}
+::: {#def-msf-joint-pmf}
+#### Joint PMF
 
 The joint PMF of two discrete random variables $X$ and $Y$ is
 
 $$p_{X,Y}(x, y) = P(X = x, Y = y)$$
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+Because $Y$ is a function of $X$ on the die, only six pairs have positive probability. The example lists them.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Each face determines the pair (face, parity). The joint PMF therefore puts mass $\frac{1}{6}$ on six pairs.
+
+::: {#exm-msf-joint-pmf-die}
+#### Face and parity
+
 - $p_{X,Y}(x, y) =\begin{cases} \frac{1}{6}, & \text{if } (x, y) \in \{(1, 0), (2, 1), (3, 0), (4, 1), (5, 0), (6, 1)\} \\ 0,
   & \text{otherwise} \end{cases}$
 :::
+::::
+
+The pair $(Y, Z)$ is more interesting, because neither indicator determines the other. The exercise asks for its joint PMF.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader sorts the six faces into the four cells of a $2 \times 2$ table. This table is reused in several later exercises.
+
+::: {#exr-msf-joint-pmf-yz}
+#### Parity and low face
+
+Find the joint PMF of $(Y, Z)$ on the die.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$p_{Y,Z}(1, 1) = P(\{2\}) = \frac{1}{6}$, $p_{Y,Z}(1, 0) = P(\{4, 6\}) = \frac{1}{3}$, $p_{Y,Z}(0, 1) = P(\{1, 3\}) =
+\frac{1}{3}$ and $p_{Y,Z}(0, 0) = P(\{5\}) = \frac{1}{6}$. The four values sum to $1$.
+:::
+::::
+
+Dividing a joint PMF by a marginal gives the distribution of one variable once the other is known. This is the conditional PMF.
+
+:::: {.statement-box}
+::: {#def-msf-conditional-pmf}
+#### Conditional PMF
 
 The conditional PMF of $Y$ given $X$ is
 
 $$p_{Y|X}(y | x) = \frac{p_{X,Y}(x, y)}{p_X(x)}$$
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+When $Y$ is determined by $X$, the conditional PMF puts all its mass on one value. The example conditions on the face $2$.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Knowing that the face is $2$ fixes the parity. The conditional PMF is therefore a point mass.
+
+::: {#exm-msf-conditional-pmf-die}
+#### Parity given the face
+
 - $p_{Y|X}(y | x=2) = \begin{cases} 1, & \text{if } y = 1 \\ 0, & \text{if } y = 0 \end{cases}$
 :::
+::::
+
+Conditioning on a variable that only partly determines another gives a genuine distribution. The exercise uses the joint PMF of
+@exr-msf-joint-pmf-yz.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader divides one row of the $(Y, Z)$ table by the marginal of $Y$. The result is used again for the chain rule.
+
+::: {#exr-msf-conditional-pmf-zy}
+#### Low face given an even face
+
+Compute $p_{Z|Y}(z \mid 1)$ for $z = 0, 1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$p_{Z|Y}(1 \mid 1) = \frac{1/6}{1/2} = \frac{1}{3}$ and $p_{Z|Y}(0 \mid 1) = \frac{1/3}{1/2} = \frac{2}{3}$: among the even faces
+$2, 4, 6$, only $2$ is low.
+:::
+::::
+
+### Independence
+
+When the joint PMF factorises, knowing one variable says nothing about the other. This is independence.
+
+:::: {.statement-box}
+::: {#def-msf-independence}
+#### Independence
 
 Two random variables $X$ and $Y$ are independent when for all $x, y$
 
 $$p_{X,Y}(x, y) = p_X(x)p_Y(y)$$
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+Face and parity on the die are as far from independent as possible, since one determines the other. The example records the
+failure of the factorisation.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For instance $p_{X,Y}(1, 1) = 0$ while $p_X(1)p_Y(1) = \frac{1}{12}$. One such pair is enough to rule out independence.
+
+::: {#exm-msf-independence-die}
+#### Face and parity are dependent
+
 - $p_{X,Y}(x, y) \neq p_X(x)p_Y(y)$, so $X$ and $Y$ are not independent
 :::
+::::
+
+Independent variables arise from separate experiments, such as two different coins. The exercise contrasts this with the two
+indicators on the die.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader checks the factorisation for two coin tosses and for $(Y, Z)$. Only one of the two pairs is independent.
+
+::: {#exr-msf-independence-coins}
+#### Testing independence
+
+(a) Let $U$ and $V$ indicate heads on the first and second of two fair tosses; are they independent? (b) Are $Y$ and $Z$ on the
+die independent?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) Yes: each of the four pairs has probability $\frac{1}{4} = \frac{1}{2} \cdot \frac{1}{2}$. (b) No:
+$p_{Y,Z}(1, 1) = \frac{1}{6}$ (@exr-msf-joint-pmf-yz) while $p_Y(1)p_Z(1) = \frac{1}{4}$.
+:::
+::::
+
+Dependence can disappear once a third variable is known. The definition below makes this precise.
+
+:::: {.statement-box}
+::: {#def-msf-conditional-independence}
+#### Conditional Independence
 
 Two random variables $X$ and $Y$ are conditionally independent given the random variable $Z$ when for all $x, y, z$
 
 $$p_{Y|X, Z}(y | x, z) = p_{Y|Z}(y | z)$$
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+The definition says that, once $Z$ is known, learning $X$ does not change the distribution of $Y$. On the die the roles can be
+read with $X$ as the conditioning variable, as the example shows.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Since the face fixes the parity, adding the low-face indicator to the conditioning set changes nothing. The conditional PMF is
+the same with or without $Z$.
+
+::: {#exm-msf-conditional-independence-die}
+#### Parity given the face
+
 - Once $X$ is known, $Y$ is fixed, so $Y$ is conditionally independent of $Z$ given $X$: $p_{Y|X,Z}(y | x, z) = p_{Y|X}(y | x) =
   \begin{cases} 1, & \text{if } x \text{ is even and } y = 1 \\ 1, & \text{if } x \text{ is odd and } y = 0 \\ 0,
   & \text{otherwise} \end{cases}$
 :::
+::::
+
+Conditional independence does not imply independence, and this is the basis of latent variable models. The exercise builds the
+standard example with a hidden coin.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+A hidden fair coin $Z$ selects one of two biased coins, which is then tossed twice. The reader shows that the two tosses are
+conditionally independent but not independent.
+
+::: {#exr-msf-conditional-independence-mixture}
+#### A hidden coin
+
+Let $P(Z = 0) = P(Z = 1) = \frac{1}{2}$; given $Z = z$, the tosses $X, Y \in \{0, 1\}$ are independent with $P(X = 1 | Z = z) =
+P(Y = 1 | Z = z) = q_z$, where $q_0 = 0.9$ and $q_1 = 0.1$. Show that $X$ and $Y$ are conditionally independent given $Z$ but
+not independent.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By construction $p_{Y|X,Z}(y | x, z) = p_{Y|Z}(y | z)$. Unconditionally, $P(X = 1) = P(Y = 1) = \frac{1}{2}(0.9 + 0.1) = 0.5$,
+but $P(X = 1, Y = 1) = \frac{1}{2}(0.81 + 0.01) = 0.41 \neq 0.25$. Seeing one head makes the head-biased coin more likely, and
+hence a second head more likely.
+:::
+::::
+
+### Total Probability and the Chain Rule
 
 A joint PMF gives the marginal PMFs through the law of total probability, the discrete form of the sum rule:
 
-$$p_X(x) = \sum_y p_{X, Y}(x, y)$$
+:::: {.statement-box}
+::: {#prp-msf-total-probability}
+#### Law of Total Probability
 
-::: {.callout-tip}
-##### Example
+$$p_X(x) = \sum_y p_{X, Y}(x, y)$$
+:::
+
+::::
+
+Proof: the events $\{X = x, Y = y\}$, for the countably many values $y$ of $Y$, are disjoint and their union is $\{X = x\}$.
+Countable additivity (@def-msf-probability-space) gives the formula.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Summing the joint PMF of face and parity over one variable gives the PMF of the other. The example does this in both
+directions.
+
+::: {#exm-msf-total-probability-die}
+#### Marginals of face and parity
+
 - $\sum_y p_{X, Y}(x, y) = p_{X, Y}(x, 0) + p_{X, Y}(x, 1) = p_X(x)$
 - $\sum_x p_{X, Y}(x, y) = p_{X, Y}(1, y) + p_{X, Y}(2, y) + \cdots = p_Y(y)$
 :::
+::::
 
-Conditional PMFs satisfy the chain rule
+The same computation on the $(Y, Z)$ table recovers the marginal of $Z$. The exercise asks for it.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader sums a column of the table from @exr-msf-joint-pmf-yz. The answer should agree with @exm-msf-pmf-die.
+
+::: {#exr-msf-total-probability-z}
+#### Marginal of the low-face indicator
+
+Compute $p_Z(1)$ and $p_Z(0)$ from the joint PMF of $(Y, Z)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$p_Z(1) = p_{Y,Z}(0, 1) + p_{Y,Z}(1, 1) = \frac{1}{3} + \frac{1}{6} = \frac{1}{2}$ and $p_Z(0) = \frac{1}{6} + \frac{1}{3} =
+\frac{1}{2}$, as in @exm-msf-pmf-die.
+:::
+::::
+
+Conditioning on an extra variable and then averaging it out gives back the original conditional PMF. Conditional PMFs satisfy
+the chain rule
+
+:::: {.statement-box}
+::: {#prp-msf-conditional-chain-rule}
+#### Chain Rule for Conditional PMFs
 
 $$p_{X|Y}(x \mid y)=\sum_z p_{X|Z,Y}(x \mid z, y) p_{Z|Y}(z \mid y)$$
+:::
 
-::: {.callout-tip}
-##### Example
+::::
+
+Proof: for each $z$ with $p_{Z,Y}(z, y) > 0$, $p_{X|Z,Y}(x \mid z, y)\, p_{Z|Y}(z \mid y) = \frac{p_{X,Z,Y}(x, z, y)}{p_{Z,Y}(z, y)}
+\cdot \frac{p_{Z,Y}(z, y)}{p_Y(y)} = \frac{p_{X,Z,Y}(x, z, y)}{p_Y(y)}$, and the terms with $p_{Z,Y}(z, y) = 0$ vanish. Summing over
+$z$ with @prp-msf-total-probability gives $p_{X,Y}(x, y)/p_Y(y) = p_{X|Y}(x \mid y)$.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example writes out the three conditional PMFs of the chain rule for the die. Inserting the first two into the sum gives
+the third.
+
+::: {#exm-msf-chain-rule-die}
+#### The chain rule on the die
+
 - $p_{X|Z,Y}(x \mid z, y) =\begin{cases} \frac{1}{2}, & \text{if } x = 4 \text{ or } 6, z = 0, y = 1 \\ 1, & \text{if } x = 2,
   z = 1, y = 1 \\ 1, & \text{if } x = 5, z = 0, y = 0 \\ \frac{1}{2}, & \text{if } x = 1 \text{ or } 3, z = 1, y = 0 \\ 0,
   & \text{otherwise} \end{cases}$
@@ -536,39 +1683,90 @@ $$p_{X|Y}(x \mid y)=\sum_z p_{X|Z,Y}(x \mid z, y) p_{Z|Y}(z \mid y)$$
 - $p_{X|Y}(x \mid y) = \begin{cases} \frac{1}{3}, & \text{if } x \text{ is even and } y = 1 \\ \frac{1}{3}, & \text{if } x
   \text{ is odd and } y = 0 \\ 0, & \text{otherwise} \end{cases}$
 :::
+::::
 
-### Common Probability Distributions
+The example states the three PMFs; the exercise asks the reader to carry out the sum for two values. This confirms the chain
+rule numerically.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader evaluates the right-hand side of the chain rule term by term. Each sum has two terms, one per value of $Z$.
+
+::: {#exr-msf-chain-rule-check}
+#### Checking the chain rule
+
+Using @exm-msf-chain-rule-die, evaluate $\sum_z p_{X|Z,Y}(x \mid z, 1)\, p_{Z|Y}(z \mid 1)$ for $x = 4$ and $x = 2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For $x = 4$: $\frac{1}{2} \cdot \frac{2}{3} + 0 \cdot \frac{1}{3} = \frac{1}{3}$. For $x = 2$: $0 \cdot \frac{2}{3} + 1 \cdot
+\frac{1}{3} = \frac{1}{3}$. Both equal $p_{X|Y}(x \mid 1) = \frac{1}{3}$.
+:::
+::::
+
+## Common Probability Distributions {#sec-msf-distributions}
 
 Probability distributions are mathematical functions that describe the likelihood of different outcomes in a random experiment. In
 machine learning, we use these distributions to model uncertainty in data, represent prior beliefs about parameters, and
 characterize the behavior of learning algorithms. Understanding these distributions is essential for both theoretical analysis and
 practical implementation of machine learning methods.
 
-#### Bernoulli Distribution
+### Bernoulli and Binomial Distributions
 
 The simplest probability distribution models a single binary outcome, such as a coin flip. Consider an experiment where we observe
 whether an email is spam (1) or not spam (0). If the probability of spam is $p = 0.3$, then the Bernoulli distribution describes
 this random variable:
 
+:::: {.statement-box}
 ::: {#def-bernoulli}
-
-Bernoulli Distribution
+#### Bernoulli Distribution
 
 The Bernoulli distribution for a binary random variable $x \in \{0,1\}$ with success probability $p$:
 
 $$ \text{Bern}(x|p) = p^x (1-p)^{1-x} $$
 :::
 
+::::
+
 The Bernoulli distribution has
 mean $\mathbb{E}[x] = p$ and variance $\text{Var}(x) = p(1-p)$. In machine learning, Bernoulli distributions appear in binary
 classification problems and as building blocks for more complex models like naive Bayes classifiers.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example evaluates the formula for the spam probability $p = 0.3$. The exponent notation simply selects $p$ or $1 - p$.
+
+::: {#exm-msf-bernoulli-spam}
+#### Spam as a Bernoulli variable
+
+With $p = 0.3$, $\text{Bern}(1|0.3) = 0.3$ and $\text{Bern}(0|0.3) = 0.7$. The mean is $0.3$ and the variance
+$0.3 \cdot 0.7 = 0.21$.
+:::
+::::
+
+The mean and variance quoted above follow directly from the definition of expectation. The exercise asks the reader to derive
+them.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader computes $\mathbb{E}[x]$ and $\mathbb{E}[x^2]$ from the two-point distribution. The variance then follows from
+@def-variance.
+
+::: {#exr-msf-bernoulli-moments}
+#### Moments of a Bernoulli variable
+
+Show that $\mathbb{E}[x] = p$ and $\text{Var}(x) = p(1 - p)$, and find the $p$ that maximises the variance.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbb{E}[x] = 0 \cdot (1 - p) + 1 \cdot p = p$ and, since $x^2 = x$, $\mathbb{E}[x^2] = p$. So
+$\text{Var}(x) = p - p^2 = p(1 - p)$, a downward parabola with maximum $\frac{1}{4}$ at $p = \frac{1}{2}$.
+:::
+::::
+
 When we repeat a Bernoulli trial multiple times independently, the total number of successes follows a binomial distribution. For
 example, if we send 10 emails and each has a 0.3 probability of being spam, the number of spam emails $k$ follows:
 
+:::: {.statement-box}
 ::: {#def-binomial}
-
-Binomial Distribution
+#### Binomial Distribution
 
 The binomial distribution for $k$ successes in $n$ independent Bernoulli trials with success probability $p$:
 
@@ -576,56 +1774,157 @@ $$ \text{Bin}(k|n, p) = \binom{n}{k} p^k (1-p)^{n-k} $$
 
 where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$.
 :::
-For our email example with $n=10$ and $p=0.3$, the probability of exactly 3 spam emails is $\binom{10}{3}(0.3)^3(0.7)^7 \approx
-0.267$. The binomial distribution has mean $np$ and variance $np(1-p)$. This distribution is fundamental in analyzing the sample
+
+::::
+
+The binomial distribution has mean $np$ and variance $np(1-p)$. This distribution is fundamental in analyzing the sample
 complexity of learning algorithms, as discussed in [PAC Learning Framework](../../fundamentals-of-machine-learning/foundations-of-learning-theory/index.qmd#sec-pac-learning).
 
-#### Gaussian Distribution
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example evaluates the formula for the email scenario above. It gives the probability of the most likely count.
+
+::: {#exm-msf-binomial-email}
+#### Three spam emails out of ten
+
+For our email example with $n=10$ and $p=0.3$, the probability of exactly 3 spam emails is $\binom{10}{3}(0.3)^3(0.7)^7 \approx
+0.267$.
+:::
+::::
+
+Events such as "at least one success" are easiest to compute through their complement. The exercise does this for the email
+example.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader evaluates the binomial PMF at $k = 0$ and uses the complement rule. The mean and variance come from the formulas
+above.
+
+::: {#exr-msf-binomial-at-least-one}
+#### At least one spam email
+
+With $n = 10$ and $p = 0.3$, find the probability of no spam, of at least one spam email, and the mean and variance of $k$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\text{Bin}(0|10, 0.3) = 0.7^{10} \approx 0.0282$, so $P(k \ge 1) \approx 0.9718$. The mean is $np = 3$ and the variance
+$np(1 - p) = 2.1$.
+:::
+::::
+
+### Gaussian Distribution
 
 The Gaussian distribution is the most important continuous distribution in statistics and machine learning. Its ubiquity stems
 from the Central Limit Theorem, which states that sums of independent random variables tend toward a Gaussian distribution
-regardless of the original distribution. 
+regardless of the original distribution.
 
 For a single continuous variable $x$, such as a person's height, the univariate Gaussian is:
 
+:::: {.statement-box}
 ::: {#def-gaussian-univariate}
-
-Univariate Gaussian Distribution
+#### Univariate Gaussian Distribution
 
 The univariate Gaussian distribution with mean $\mu$ and variance $\sigma^2$:
 
 $$ \mathcal{N}(x | \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} $$
 :::
 
+::::
+
 The factor
-$\frac{1}{\sqrt{2\pi\sigma^2}}$ ensures the distribution integrates to 1. For example, if human heights follow $\mathcal{N}(170,
+$\frac{1}{\sqrt{2\pi\sigma^2}}$ ensures the distribution integrates to 1.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Heights are the textbook example of an approximately Gaussian quantity. The example uses the rule that about $68\%$ of the mass
+lies within one standard deviation of the mean.
+
+::: {#exm-msf-gaussian-heights}
+#### Human heights
+
+For example, if human heights follow $\mathcal{N}(170,
 100)$ (mean 170cm, standard deviation 10cm), approximately 68% of people have heights between 160cm and 180cm (within one standard
 deviation of the mean).
+:::
+::::
+
+Probabilities for any Gaussian reduce to the standard normal by subtracting the mean and dividing by the standard deviation. The
+exercise uses this for a tail probability and evaluates the peak of the density.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader standardises a height threshold and reads a tail probability of the standard normal. The second part evaluates the
+density at its maximum.
+
+::: {#exr-msf-gaussian-tail}
+#### Tall people
+
+For heights $\sim \mathcal{N}(170, 100)$, estimate $P(\text{height} > 190)$, and find the maximum value of the density.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$(190 - 170)/10 = 2$, so the probability is $P(Z > 2) \approx 0.0228$ for a standard normal $Z$. The density is largest at
+$x = \mu$, where it equals $1/\sqrt{2\pi \cdot 100} = 1/(10\sqrt{2\pi}) \approx 0.0399$ per cm.
+:::
+::::
 
 For multivariate data, such as feature vectors $\mathbf{x} \in \mathbb{R}^d$, we use the multivariate Gaussian:
 
+:::: {.statement-box}
 ::: {#def-gaussian-multivariate}
-
-Multivariate Gaussian Distribution
+#### Multivariate Gaussian Distribution
 
 The multivariate Gaussian distribution with mean vector $\boldsymbol{\mu} \in \mathbb{R}^d$ and covariance matrix $\Sigma \in \mathbb{R}^{d \times d}$:
 
 $$ \mathcal{N}(\mathbf{x} | \boldsymbol{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d |\Sigma|}} e^{-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})} $$
 :::
 
+::::
+
 The covariance matrix must be positive
 semidefinite (see [Linear Algebra Recap](../appendices-and-technical-background/index.qmd#sec-linear-algebra-recap)). The Gaussian distribution is central to linear regression ([Linear Models](../../fundamentals-of-machine-learning/supervised-learning/index.qmd#sec-linear-models)),
 Gaussian processes, and many other machine learning models [@deisenroth2020mml; @bishop2024deeplearning].
 
-#### Multinomial Distribution
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With zero mean and identity covariance the formula becomes a product of univariate standard normals. The example writes this
+out in two dimensions.
+
+::: {#exm-msf-gaussian-standard-2d}
+#### The standard bivariate Gaussian
+
+For $d = 2$, $\boldsymbol{\mu} = \mathbf{0}$ and $\Sigma = \mathbf{I}$: $|\Sigma| = 1$ and
+$\mathcal{N}(\mathbf{x} | \mathbf{0}, \mathbf{I}) = \frac{1}{2\pi} e^{-\|\mathbf{x}\|^2/2} = \mathcal{N}(x_1|0, 1)\,
+\mathcal{N}(x_2|0, 1)$. Its contours are circles centred at the origin.
+:::
+::::
+
+The factorisation persists whenever the covariance is diagonal, which means the coordinates are independent. The exercise asks
+for the proof in two dimensions.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader computes the determinant and inverse of a diagonal covariance and inserts them into the formula. The exponent splits
+into a sum, so the density splits into a product.
+
+::: {#exr-msf-gaussian-diagonal}
+#### Diagonal covariance
+
+Show that for $\Sigma = \text{diag}(\sigma_1^2, \sigma_2^2)$, $\mathcal{N}(\mathbf{x} | \boldsymbol{\mu}, \Sigma) =
+\mathcal{N}(x_1 | \mu_1, \sigma_1^2)\,\mathcal{N}(x_2 | \mu_2, \sigma_2^2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$|\Sigma| = \sigma_1^2\sigma_2^2$, so $\sqrt{(2\pi)^2|\Sigma|} = \sqrt{2\pi\sigma_1^2}\sqrt{2\pi\sigma_2^2}$. Also
+$\Sigma^{-1} = \text{diag}(1/\sigma_1^2, 1/\sigma_2^2)$, so $(\mathbf{x} - \boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x} -
+\boldsymbol{\mu}) = (x_1 - \mu_1)^2/\sigma_1^2 + (x_2 - \mu_2)^2/\sigma_2^2$, and the exponential of the sum is the product of the
+exponentials. Grouping the factors gives the two univariate densities.
+:::
+::::
+
+### Multinomial Distribution
 
 The multinomial distribution generalizes the binomial to cases with more than two outcomes. Consider rolling a six-sided die $n$
 times: the counts of each face follow a multinomial distribution. If we roll the die 60 times, the expected count for each face is
 10, but the actual counts will vary according to:
 
+:::: {.statement-box}
 ::: {#def-multinomial}
-
-Multinomial Distribution
+#### Multinomial Distribution
 
 The multinomial distribution for counts $(x_1, \ldots, x_k)$ of $k$ outcomes in $n$ trials with probabilities $(p_1, \ldots, p_k)$:
 
@@ -634,51 +1933,167 @@ $$ \text{Mult}(x_1, \ldots, x_k | n, p_1, \ldots, p_k) = \frac{n!}{x_1! \cdots x
 where $\sum_{i=1}^k x_i = n$ and $\sum_{i=1}^k p_i = 1$.
 :::
 
+::::
+
 This distribution is fundamental in
 text classification and topic modeling, where we model word counts in documents.
 
-### Stochastic Processes and Markov Decision Processes
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A small number of rolls keeps the factorials manageable. The example asks for three different faces in three rolls.
 
-#### Stochastic Processes
+::: {#exm-msf-multinomial-three-rolls}
+#### Three rolls, three faces
+
+The probability that three rolls of a fair die show the faces $1$, $2$ and $3$ once each, in any order, is
+$\text{Mult}(1, 1, 1, 0, 0, 0 | 3, \tfrac{1}{6}, \dots, \tfrac{1}{6}) = \frac{3!}{1!\,1!\,1!}\left(\tfrac{1}{6}\right)^3 =
+\frac{6}{216} = \frac{1}{36}$.
+:::
+::::
+
+The multinomial should contain the binomial as its two-outcome case. The exercise asks the reader to confirm this.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader sets $k = 2$ and eliminates the second count and probability with the constraints. The binomial formula appears.
+
+::: {#exr-msf-multinomial-binomial}
+#### Two outcomes
+
+Show that for $k = 2$ the multinomial distribution reduces to the binomial distribution of @def-binomial.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $x_2 = n - x_1$ and $p_2 = 1 - p_1$, $\text{Mult}(x_1, x_2 | n, p_1, p_2) = \frac{n!}{x_1!(n - x_1)!}p_1^{x_1}(1 -
+p_1)^{n - x_1} = \text{Bin}(x_1 | n, p_1)$.
+:::
+::::
+
+## Stochastic Processes and Markov Decision Processes {#sec-msf-stochastic-processes}
+
+Sequential decision problems need random variables that evolve in time. This section defines stochastic processes, the Markov
+property that makes them tractable, and the Markov decision processes on which reinforcement learning is built.
+
+### Stochastic Processes
+
+Single random variables describe one measurement; many problems involve a whole sequence of them. A stochastic process is such a
+sequence.
+
+:::: {.statement-box}
+::: {#def-msf-stochastic-process}
+#### Stochastic Process
 
 A stochastic process is a collection of random variables indexed by time, representing the evolution of a system with inherent
-randomness. For example, the daily closing price of a stock, the position of a robot navigating a room, or the state of a game
+randomness.
+:::
+
+::::
+
+For example, the daily closing price of a stock, the position of a robot navigating a room, or the state of a game
 being played all constitute stochastic processes. Understanding these processes is crucial for sequential decision-making
 problems, which form the foundation of reinforcement learning ([Reinforcement Learning](../../fundamentals-of-machine-learning/reinforcement-learning/index.qmd#sec-reinforcement-learning)).
 
-#### Markov Property
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The two simplest processes are an independent sequence and a sum of independent steps. Both are built from the coin and die
+experiments of the previous sections.
+
+::: {#exm-msf-stochastic-process-walk}
+#### Repeated rolls and a random walk
+
+Repeated rolls of a die give a process $X_1, X_2, \dots$ of independent, identically distributed random variables. Adding
+independent steps $\xi_t = \pm 1$, each with probability $\frac{1}{2}$, gives the simple random walk $S_0 = 0$,
+$S_t = S_{t-1} + \xi_t$, whose values at different times are dependent.
+:::
+::::
+
+The distribution of a random walk spreads out over time. The exercise computes it after two steps.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader lists the four equally likely step sequences of length two. The PMF, mean and variance of $S_2$ follow.
+
+::: {#exr-msf-random-walk-two-steps}
+#### Two steps of a random walk
+
+For the simple random walk of @exm-msf-stochastic-process-walk, find the PMF, mean and variance of $S_2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The step pairs $(+1, +1)$, $(+1, -1)$, $(-1, +1)$, $(-1, -1)$ each have probability $\frac{1}{4}$, so $P(S_2 = 2) = \frac{1}{4}$,
+$P(S_2 = 0) = \frac{1}{2}$, $P(S_2 = -2) = \frac{1}{4}$. Then $\mathbb{E}[S_2] = 0$ and $\text{Var}(S_2) = \mathbb{E}[S_2^2] =
+\frac{1}{4} \cdot 4 + \frac{1}{4} \cdot 4 = 2$.
+:::
+::::
+
+### Markov Property
 
 Many stochastic processes satisfy a special property that greatly simplifies their analysis: the future depends only on the
 present, not on the past. This is called the Markov property or "memorylessness." Formally, for a sequence of states $S_0, S_1,
 S_2, \ldots$:
 
+:::: {.statement-box}
 ::: {#def-markov-property}
-
-Markov Property
+#### Markov Property
 
 $$ P(S_{t+1} | S_t, S_{t-1}, \ldots, S_0) = P(S_{t+1} | S_t) $$
 :::
 
+::::
+
+The property is easiest to appreciate through one process that has it and one that does not. The examples give both.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A board game is Markov as long as the state records the full board. The first example explains why the history of moves is
+irrelevant.
+
+::: {#exm-msf-markov-chess}
+#### Chess
+
 To understand this intuitively, consider a chess game. If we know the current board position (the present state), we can determine
 all legal moves and their consequences without knowing how the game reached this position. The history of moves doesn't
 matter—only the current configuration. This property dramatically reduces the complexity of modeling sequential processes.
+:::
+
+Weather is the usual counterexample, because yesterday's weather carries information that today's does not. The second example
+shows how the property can fail, and why it is still used as an approximation.
+
+::: {#exm-msf-markov-weather}
+#### Weather
 
 As a counterexample, consider predicting tomorrow's weather. If we only know today's weather (sunny), our prediction might be less
 accurate than if we also knew yesterday's weather (rainy). In this case, the Markov property might not hold perfectly, though it
 often serves as a useful approximation.
+:::
+::::
 
-#### Markov Decision Processes
+A process built by adding independent increments forgets everything except its current value. The exercise asks the reader to
+prove this for the random walk.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader writes $S_{t+1}$ in terms of $S_t$ and a fresh step. Independence of the step from the past gives the Markov
+property.
+
+::: {#exr-msf-markov-random-walk}
+#### The random walk is Markov
+
+Show that the simple random walk of @exm-msf-stochastic-process-walk has the Markov property.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$S_{t+1} = S_t + \xi_{t+1}$, and $\xi_{t+1}$ is independent of $\xi_1, \dots, \xi_t$, hence of $S_0, \dots, S_t$. So
+$P(S_{t+1} = s' | S_t = s, S_{t-1}, \ldots, S_0) = P(\xi_{t+1} = s' - s)$, which depends only on $s$; this equals
+$P(S_{t+1} = s' | S_t = s)$.
+:::
+::::
+
+### Markov Decision Processes
 
 A Markov Decision Process (MDP) extends the Markov property to include decision-making. An MDP models situations where an agent
 interacts with an environment: the agent observes the current state, chooses an action, receives a reward, and transitions to a
 new state. This framework is fundamental to reinforcement learning ([Reinforcement Learning Foundations](../../fundamentals-of-machine-learning/reinforcement-learning/index.qmd#sec-rl-foundations)).
 
+:::: {.statement-box}
 ::: {#def-mdp}
-
-Markov Decision Process (MDP)
+#### Markov Decision Process (MDP)
 
 A Markov Decision Process (MDP) is a tuple $(\mathcal{S}, \mathcal{A}, P, R, \gamma)$ where:
-:::
 
 - $\mathcal{S}$ is the state space, the set of all possible states the system can be in. For a robot navigating a grid, this might
 be all possible positions.
@@ -697,6 +2112,9 @@ be all possible positions.
 - $\gamma \in [0, 1]$ is the discount factor, which determines how much the agent values future rewards compared to immediate
   ones. With $\gamma = 0$, the agent is myopic and only cares about immediate rewards. With $\gamma$ close to 1, the agent is
   far-sighted and values future rewards almost as much as immediate ones.
+:::
+
+::::
 
 The objective in an MDP is to find a policy $\pi: \mathcal{S} \rightarrow \mathcal{A}$, a mapping from states to actions, that
 maximizes the expected cumulative discounted reward:
@@ -706,55 +2124,194 @@ $$ \mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^t R(S_t, A_t, S_{t+1})\right] $$
 This framework provides the mathematical foundation for reinforcement learning algorithms discussed in [Reinforcement Learning](../../fundamentals-of-machine-learning/reinforcement-learning/index.qmd#sec-reinforcement-learning)
 [@zhao2025rl].
 
-### Statistical Concepts
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The smallest useful MDP has two states and two actions. The example computes the discounted return of one policy by summing a
+geometric series.
+
+::: {#exm-msf-mdp-two-states}
+#### Two states, stay or switch
+
+Let $\mathcal{S} = \{s_1, s_2\}$, $\mathcal{A} = \{\text{stay}, \text{switch}\}$ with deterministic transitions,
+$R(s, a, s') = 1$ if $s' = s_2$ and $0$ otherwise, and $\gamma = 0.9$. The policy "switch in $s_1$, stay in $s_2$" earns $1$ at
+every step from $s_2$, a return of $\sum_t 0.9^t = 10$, and from $s_1$ it earns $1 + 0.9 \cdot 10 = 10$ as well.
+:::
+::::
+
+The discount factor decides how an agent weighs a delayed goal against step costs. The exercise computes returns in a small
+corridor for several discount factors.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader sums the discounted rewards along the shortest path to a goal. Changing $\gamma$ changes how much the goal reward
+counts.
+
+::: {#exr-msf-mdp-corridor}
+#### A corridor with a goal
+
+A robot moves deterministically along cells $1 \to 2 \to 3$; the transition into the goal cell $3$ gives reward $+10$, and the
+other step gives $-1$. Find the return of the path from cell $1$ for $\gamma = 1$, $\gamma = 0.9$ and $\gamma = 0$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The rewards are $-1$ then $+10$. The return is $-1 + \gamma \cdot 10$: $9$ for $\gamma = 1$, $8$ for $\gamma = 0.9$, and $-1$ for
+$\gamma = 0$, where the myopic agent sees only the immediate step cost.
+:::
+::::
+
+## Statistical Concepts {#sec-msf-statistical-concepts}
 
 Statistical concepts provide the tools for summarizing, analyzing, and making inferences from data. These concepts are essential
 for understanding how machine learning algorithms learn from finite samples and generalize to new data.
 
-::: {#def-expected-value}
-
-Expected Value
+### Expected Value
 
 The expected value (or expectation) of a random variable represents its long-run average value. Imagine rolling a fair six-sided
 die many times: while any single roll is unpredictable, the average value converges to 3.5. This is the expected value.
 
+:::: {.statement-box}
+::: {#def-expected-value}
+#### Expected Value
+
 For a discrete random variable $X$ taking values $x_1, x_2, \ldots$ with probabilities $P(x_i)$:
 
 $$ \mathbb{E}[X] = \sum_i x_i P(x_i) $$
-
-For example, if $X$ represents the outcome of rolling a die, $\mathbb{E}[X] = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + \cdots +
-6 \cdot \frac{1}{6} = 3.5$.
 
 For a continuous random variable with probability density function $p(x)$:
 
 $$ \mathbb{E}[X] = \int x p(x) dx $$
 :::
 
+::::
+
+The discrete formula is a weighted average of the values, the weights being their probabilities. The example confirms the value
+$3.5$ for the die.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Each face has weight $\frac{1}{6}$, so the expectation is the plain average of the faces. This is the long-run average quoted
+above.
+
+::: {#exm-msf-expected-value-die}
+#### The fair die
+
+For example, if $X$ represents the outcome of rolling a die, $\mathbb{E}[X] = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + \cdots +
+6 \cdot \frac{1}{6} = 3.5$.
+:::
+::::
+
+The continuous formula replaces the sum by an integral against the density. The exercise uses both formulas once.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader computes one continuous and one discrete expectation. Both are needed later in the chapter.
+
+::: {#exr-msf-expected-value-uniform}
+#### Two expectations
+
+Compute $\mathbb{E}[X]$ for $X$ uniform on $[0, 1]$ (density $p(x) = 1$) and for $X \sim \text{Bern}(p)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\int_0^1 x \, dx = \frac{1}{2}$, and $0 \cdot (1 - p) + 1 \cdot p = p$.
+:::
+::::
+
 The expectation is linear: $\mathbb{E}[aX + bY] = a\mathbb{E}[X] + b\mathbb{E}[Y]$ for any constants $a, b$ and random variables
 $X, Y$. This property is fundamental in analyzing learning algorithms, where we often need to compute expected losses or errors.
+
+:::: {.statement-box}
+::: {#prp-msf-linearity-expectation}
+#### Linearity of Expectation
+
+For any constants $a, b$ and random variables $X, Y$ with finite expectations,
+$\mathbb{E}[aX + bY] = a\mathbb{E}[X] + b\mathbb{E}[Y]$.
+:::
+
+::::
+
+Proof (discrete case): by @def-expected-value applied to the pair, $\mathbb{E}[aX + bY] = \sum_{x, y}(ax + by)\,p_{X,Y}(x, y) =
+a\sum_x x \sum_y p_{X,Y}(x, y) + b\sum_y y \sum_x p_{X,Y}(x, y)$, and @prp-msf-total-probability turns the inner sums into
+$p_X(x)$ and $p_Y(y)$. The continuous case is the same with integrals. No independence is needed.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Linearity gives the expected sum of two dice without listing the 36 outcomes. The two dice need not even be independent.
+
+::: {#exm-msf-linearity-two-dice}
+#### Sum of two dice
+
+If $X_1, X_2$ are two die rolls, $\mathbb{E}[X_1 + X_2] = 3.5 + 3.5 = 7$.
+:::
+::::
+
+Writing a count as a sum of indicators is the main trick that linearity enables. The exercise uses it for the binomial mean.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader expresses a binomial count as a sum of Bernoulli variables. The second part is a direct evaluation on the die.
+
+::: {#exr-msf-linearity-binomial}
+#### The binomial mean by linearity
+
+(a) Show that $k \sim \text{Bin}(n, p)$ has mean $np$. (b) Compute $\mathbb{E}[X - 2Y]$ on the die.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $k = x_1 + \cdots + x_n$ with $x_i \sim \text{Bern}(p)$, so $\mathbb{E}[k] = \sum_i \mathbb{E}[x_i] = np$. (b)
+$\mathbb{E}[X] - 2\mathbb{E}[Y] = 3.5 - 2 \cdot 0.5 = 2.5$.
+:::
+::::
+
+### Variance and Covariance
 
 While the expected value tells us the center of a distribution, the variance measures its spread. A distribution with high
 variance has values that are typically far from the mean, while low variance indicates values cluster tightly around the mean.
 
+:::: {.statement-box}
 ::: {#def-variance}
-
-Variance
+#### Variance
 
 The variance is defined as the expected squared deviation from the mean:
 
 $$ \text{Var}(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 $$
 :::
 
+::::
+
 The second equality provides a computational shortcut: we can compute the variance from the expectation of $X^2$ and the square of
 the expectation of $X$.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The shortcut formula needs only $\mathbb{E}[X^2]$ and $\mathbb{E}[X]$. The example applies it to the die.
+
+::: {#exm-msf-variance-die}
+#### Variance of the die
 
 For our die example, $\mathbb{E}[X^2] = 1^2 \cdot \frac{1}{6} + 2^2 \cdot \frac{1}{6} + \cdots + 6^2 \cdot \frac{1}{6} = 15.17$,
 so $\text{Var}(X) = 15.17 - 3.5^2 = 2.92$. The standard deviation $\sigma = \sqrt{\text{Var}(X)} \approx 1.71$ provides a measure
 of spread in the same units as $X$.
+:::
+::::
 
+Rescaling a random variable rescales its spread, while shifting it does not. The exercise proves this rule and applies it.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader uses linearity of expectation inside the definition of variance. The result is then applied to the die.
+
+::: {#exr-msf-variance-affine}
+#### Variance of an affine transformation
+
+Show that $\text{Var}(aX + b) = a^2\text{Var}(X)$ and compute $\text{Var}(2X + 1)$ for the die.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbb{E}[aX + b] = a\mathbb{E}[X] + b$, so $aX + b - \mathbb{E}[aX + b] = a(X - \mathbb{E}[X])$, and squaring and taking
+expectations gives $a^2\text{Var}(X)$. For the die, $\text{Var}(X) = \frac{35}{12}$, so $\text{Var}(2X + 1) = \frac{35}{3} \approx
+11.67$.
+:::
+::::
+
+Variance describes one variable; to see how two variables move together, one replaces the square by a product of deviations.
+The result is the covariance.
+
+:::: {.statement-box}
 ::: {#def-covariance}
-
-Covariance
+#### Covariance
 
 The covariance measures how two random variables vary together. If $X$ and $Y$ tend to be large together and small together, their
 covariance is positive. If one tends to be large when the other is small, the covariance is negative. If they vary independently,
@@ -763,35 +2320,196 @@ the covariance is zero (though zero covariance doesn't guarantee independence).
 $$ \text{Cov}(X, Y) = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])] = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] $$
 :::
 
-For example, consider height $X$ and weight $Y$ in humans. These variables have positive covariance because taller people tend to
-weigh more. The covariance matrix $\Sigma$ for a random vector $\mathbf{X} = [X_1, \ldots, X_d]^T$ has entries $\Sigma_{ij} =
-\text{Cov}(X_i, X_j)$. This matrix appears in the multivariate Gaussian distribution and is central to dimensionality reduction
-techniques like PCA ([Dimensionality Reduction](../../fundamentals-of-machine-learning/unsupervised-learning/index.qmd#sec-dimensionality-reduction)).
+::::
 
-In matrix form, the covariance matrix of a random vector $\vec{X}$ is
+The sign of the covariance carries most of its meaning. The examples give one qualitative case and one exact computation on the
+die.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Height and weight are the standard case of positive covariance. No numbers are needed to see the sign.
+
+::: {#exm-msf-covariance-height-weight}
+#### Height and weight
+
+For example, consider height $X$ and weight $Y$ in humans. These variables have positive covariance because taller people tend to
+weigh more.
+:::
+
+On the die, the face value and the parity indicator are positively related, because even faces are on average larger. The second
+example computes the covariance exactly.
+
+::: {#exm-msf-covariance-die}
+#### Face and parity
+
+For the die example, $\text{Cov}(X, Y)=\sum_{x,y} p_{X, Y}(x, y) xy - \mathbb{E}[X] \mathbb{E}[Y] = 0.25$.
+:::
+::::
+
+The parenthetical remark in the definition, that zero covariance does not imply independence, deserves a concrete
+counterexample. The exercise provides one and also relates covariance to variance.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader first checks that a variable's covariance with itself is its variance. Then a symmetric example shows uncorrelated but
+dependent variables.
+
+::: {#exr-msf-covariance-uncorrelated}
+#### Uncorrelated but dependent
+
+(a) Show that $\text{Cov}(X, X) = \text{Var}(X)$. (b) Let $X$ be uniform on $\{-1, 0, 1\}$ and $Y = X^2$. Show that
+$\text{Cov}(X, Y) = 0$ but $X$ and $Y$ are not independent.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) Set $Y = X$ in the definition. (b) $\mathbb{E}[X] = 0$ and $\mathbb{E}[XY] = \mathbb{E}[X^3] = 0$, so the covariance is $0$.
+But $p_{X,Y}(0, 1) = 0$ while $p_X(0)p_Y(1) = \frac{1}{3} \cdot \frac{2}{3} \neq 0$.
+:::
+::::
+
+Collecting the covariances of all pairs of coordinates of a random vector gives a matrix. This matrix is the covariance matrix.
+
+:::: {.statement-box}
+::: {#def-msf-covariance-matrix}
+#### Covariance Matrix
+
+The covariance matrix $\Sigma$ for a random vector $\mathbf{X} = [X_1, \ldots, X_d]^T$ has entries $\Sigma_{ij} =
+\text{Cov}(X_i, X_j)$. In matrix form, the covariance matrix of a random vector $\vec{X}$ is
 
 $$\Sigma=\mathbb{E} \left[(\vec{X}- \bar{\vec{X}})(\vec{X}-\bar{\vec{X}})^T\right] \in \mathbb{R}^{n \times n}$$
+:::
 
-For the die example, $\text{Cov}(X, Y)=\sum_{x,y} p_{X, Y}(x, y) xy - \mathbb{E}[X] \mathbb{E}[Y] = 0.25$, and the covariance
+::::
+
+This matrix appears in the multivariate Gaussian distribution and is central to dimensionality reduction
+techniques like PCA ([Dimensionality Reduction](../../fundamentals-of-machine-learning/unsupervised-learning/index.qmd#sec-dimensionality-reduction)).
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The three variables of the die give a $3 \times 3$ covariance matrix. Its diagonal holds the variances and its off-diagonal
+entries the covariances.
+
+::: {#exm-msf-covariance-matrix-die}
+#### The die vector $(X, Y, Z)$
+
+The covariance
 matrix of the random vector $(X, Y, Z)$ is
 
 $$\Sigma = \begin{pmatrix} \text{Var}(X) & \text{Cov}(X, Y) & \text{Cov}(X, Z) \\ \text{Cov}(Y, X) & \text{Var}(Y) &
 \text{Cov}(Y, Z) \\ \text{Cov}(Z, X) & \text{Cov}(Z, Y) & \text{Var}(Z) \end{pmatrix} = \begin{pmatrix} 2.92 & 0.25 & -0.75 \\
 0.25 & 0.25 & -\frac{1}{12} \\ -0.75 & -\frac{1}{12} & 0.25 \end{pmatrix}$$
+:::
+::::
+
+Every covariance matrix is symmetric and positive semidefinite, which is why the multivariate Gaussian can use it. The exercise
+asks for the proof.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader relates the quadratic form $\mathbf{u}^T\Sigma\mathbf{u}$ to the variance of a scalar random variable. Non-negativity
+of variance does the rest.
+
+::: {#exr-msf-covariance-matrix-psd}
+#### Covariance matrices are positive semidefinite
+
+Show that $\Sigma$ is symmetric and that $\mathbf{u}^T\Sigma\mathbf{u} = \text{Var}(\mathbf{u}^T\mathbf{X}) \ge 0$ for every
+$\mathbf{u} \in \mathbb{R}^d$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\text{Cov}(X_i, X_j) = \text{Cov}(X_j, X_i)$ gives symmetry. With $\mathbf{m} = \mathbb{E}[\mathbf{X}]$,
+$\mathbf{u}^T\Sigma\mathbf{u} = \mathbb{E}[\mathbf{u}^T(\mathbf{X} - \mathbf{m})(\mathbf{X} - \mathbf{m})^T\mathbf{u}] =
+\mathbb{E}[(\mathbf{u}^T\mathbf{X} - \mathbf{u}^T\mathbf{m})^2] = \text{Var}(\mathbf{u}^T\mathbf{X}) \ge 0$.
+:::
+::::
+
+### Conditional Expectation
+
+Conditioning on an event changes the distribution, and with it the average. The conditional expectation is the average under the
+conditional PMF.
+
+:::: {.statement-box}
+::: {#def-msf-conditional-expectation}
+#### Conditional Expectation
 
 The conditional expectation of $X$ given $Y = y$ is
 
 $$\mathbb{E}[X \mid Y=y]=\sum_x x p_{X|Y}(x \mid y)$$
+:::
+
+::::
+
+Knowing that the face is even shifts the average upward. The example quantifies the shift.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Given an even face, the faces $2, 4, 6$ are equally likely. Their average is the conditional expectation.
+
+::: {#exm-msf-conditional-expectation-die}
+#### Average of an even face
 
 For the die, $\mathbb{E}[X \mid Y=1] = \sum_x x p_{X|Y}(x \mid y=1) = (2 + 4 + 6) \cdot \frac{1}{3} = 4$.
+:::
+::::
 
-The law of total expectation recovers the expectation from the conditional ones:
+The same computation can be done for the other conditioning events of the running example. The exercise asks for two of them.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader averages the odd faces and the low faces. Both answers are used in the next exercise.
+
+::: {#exr-msf-conditional-expectation-odd-low}
+#### Odd and low faces
+
+Compute $\mathbb{E}[X \mid Y = 0]$, $\mathbb{E}[X \mid Z = 1]$ and $\mathbb{E}[X \mid Z = 0]$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbb{E}[X | Y = 0] = (1 + 3 + 5)/3 = 3$, $\mathbb{E}[X | Z = 1] = (1 + 2 + 3)/3 = 2$ and $\mathbb{E}[X | Z = 0] =
+(4 + 5 + 6)/3 = 5$.
+:::
+::::
+
+Averaging the conditional expectations with the right weights must return the overall expectation. The law of total expectation
+recovers the expectation from the conditional ones:
+
+:::: {.statement-box}
+::: {#prp-msf-total-expectation}
+#### Law of Total Expectation
 
 $$\mathbb{E}[X]=\sum_y \mathbb{E}[X \mid Y=y] p_Y(y)$$
+:::
+
+::::
+
+Proof: $\sum_y \mathbb{E}[X \mid Y = y]\,p_Y(y) = \sum_y \sum_x x\, p_{X|Y}(x \mid y)\,p_Y(y) = \sum_x x \sum_y p_{X,Y}(x, y) =
+\sum_x x\, p_X(x)$, by @def-msf-conditional-pmf and @prp-msf-total-probability.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Conditioning on parity splits the die into two halves with averages $4$ and $3$. Weighting each by one half returns $3.5$.
+
+::: {#exm-msf-total-expectation-die}
+#### Recovering the mean of the die
 
 For the die, $\mathbb{E}[X]= \mathbb{E}[X \mid Y=1] p_Y(1) + \mathbb{E}[X \mid Y=0] p_Y(0) = \frac{4 + 3}{2} = 3.5$.
+:::
+::::
 
-#### Bias-Variance Decomposition
+Any other partition of the die must give the same answer. The exercise checks this with the low-face indicator and applies the law
+to a two-stage experiment.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader conditions on $Z$ instead of $Y$ and then on a coin that decides how many dice are rolled. In both cases the law of
+total expectation does the bookkeeping.
+
+::: {#exr-msf-total-expectation-two-stage}
+#### Conditioning in two ways
+
+(a) Verify the law of total expectation on the die with $Z$ in place of $Y$. (b) A fair coin decides whether one die or two dice
+are rolled; find the expected total.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $2 \cdot \frac{1}{2} + 5 \cdot \frac{1}{2} = 3.5$ (@exr-msf-conditional-expectation-odd-low). (b) The conditional
+expectations are $3.5$ and $7$ (@exm-msf-linearity-two-dice), so the expected total is $\frac{1}{2}(3.5 + 7) = 5.25$.
+:::
+::::
+
+### Bias-Variance Decomposition
 
 Bias-Variance Decomposition. One of the most important concepts in machine learning is the bias-variance decomposition, which
 explains why models fail to generalize. Consider a regression problem where we want to predict $y = f(x) + \epsilon$, where $f(x)$
@@ -800,9 +2518,31 @@ is the true function and $\epsilon$ is irreducible noise with $\mathbb{E}[\epsil
 Suppose we train a model $\hat{f}(x)$ on a training set. If we could repeat this process with many different training sets drawn
 from the same distribution, the expected squared error at a point $x$ decomposes as:
 
+:::: {.statement-box}
+::: {#thm-msf-bias-variance}
+#### Bias-Variance Decomposition
+
+If the noise $\epsilon$ at $x$ is independent of the training set, then
+
 $$ \mathbb{E}[(y - \hat{f}(x))^2] = \underbrace{(f(x) - \mathbb{E}[\hat{f}(x)])^2}_{\text{Bias}^2} +
 \underbrace{\mathbb{E}[(\hat{f}(x) - \mathbb{E}[\hat{f}(x)])^2]}_{\text{Variance}} + \underbrace{\sigma^2}_{\text{Irreducible
 Error}} $$
+:::
+
+::::
+
+Proof: write $m = \mathbb{E}[\hat{f}(x)]$, so that $y - \hat{f}(x) = (f(x) - m) + (m - \hat{f}(x)) + \epsilon$. Squaring gives the
+three squares plus three cross terms. The term $f(x) - m$ is a constant, and $\mathbb{E}[m - \hat{f}(x)] = 0$ and
+$\mathbb{E}[\epsilon] = 0$, so the cross terms with $f(x) - m$ have zero expectation; the cross term
+$2\,\mathbb{E}[(m - \hat{f}(x))\epsilon]$ factorises by independence into $2\,\mathbb{E}[m - \hat{f}(x)]\,\mathbb{E}[\epsilon] = 0$.
+What remains is $(f(x) - m)^2 + \mathbb{E}[(\hat{f}(x) - m)^2] + \mathbb{E}[\epsilon^2]$, and $\mathbb{E}[\epsilon^2] = \sigma^2$.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example reads each of the three terms for a model that is too simple for the data. A linear fit to a quadratic truth has
+high bias and low variance.
+
+::: {#exm-msf-bias-variance-linear-fit}
+#### A linear model for a quadratic truth
 
 Let's understand each term through an example. Suppose the true relationship is $f(x) = x^2$, but we fit a linear model
 $\hat{f}(x) = ax + b$:
@@ -816,6 +2556,30 @@ training sets. A linear model has relatively low variance because its prediction
 training data.
 
 This is the noise $\sigma^2$ in the data itself, which no model can eliminate.
+:::
+::::
+
+The two extreme estimators, one that ignores the data and one that averages it, show the trade-off in closed form. The exercise
+computes all three terms for both.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader evaluates the decomposition for a constant predictor and for a sample mean. One has zero variance, the other zero
+bias.
+
+::: {#exr-msf-bias-variance-sample-mean}
+#### A constant and a sample mean
+
+Let $f(x) = \mu$ be constant and the training set be $y_i = \mu + \epsilon_i$, $i = 1, \dots, n$, with independent noise of
+variance $\sigma^2$. Compute bias, variance and expected error for (a) $\hat{f} = c$, a fixed number, and (b)
+$\hat{f} = \bar{y} = \frac{1}{n}\sum_i y_i$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $\mathbb{E}[\hat{f}] = c$, so the bias$^2$ is $(\mu - c)^2$, the variance $0$, and the expected error
+$(\mu - c)^2 + \sigma^2$. (b) $\mathbb{E}[\bar{y}] = \mu$, so the bias is $0$; $\text{Var}(\bar{y}) = \sigma^2/n$ by independence
+and @exr-msf-variance-affine; the expected error at a new point is $\sigma^2/n + \sigma^2$.
+:::
+::::
 
 Now consider fitting a high-degree polynomial. This flexible model can fit $f(x) = x^2$ well (low bias), but it's sensitive to the
 specific training data and might fit the noise (high variance). The bias-variance trade-off is fundamental: simple models have
@@ -829,17 +2593,15 @@ find the parameters $\mathbf{w}$ that minimize a loss function $L(\mathbf{w})$. 
 squared error, in logistic regression we minimize the cross-entropy loss, and in neural networks we minimize task-specific
 objectives. Understanding optimization is therefore essential for both implementing and analyzing machine learning algorithms.
 
-### Gradient-Based Optimization
-
-#### Gradient Descent
+### Gradient Descent
 
 Gradient-based optimization is the workhorse of modern machine learning, used to train everything from simple linear models to
 massive neural networks with billions of parameters. The fundamental insight is beautifully simple: if we want to minimize a
 function, we should move in the direction where it decreases most rapidly. The gradient tells us this direction.
 
+:::: {.statement-box}
 ::: {#def-gradient}
-
-Gradient
+#### Gradient
 
 The gradient $\nabla L(\mathbf{w})$ is a vector pointing in the direction of steepest increase of the loss function
 $L(\mathbf{w})$. To minimize the loss, we move in the opposite direction:
@@ -847,45 +2609,151 @@ $L(\mathbf{w})$. To minimize the loss, we move in the opposite direction:
 $$ \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \nabla L(\mathbf{w}_t) $$
 :::
 
+::::
+
 The learning rate $\eta > 0$ controls the step size. If $\eta$ is too small, we take tiny steps and convergence is painfully
 slow—imagine taking millimeter steps down the mountain. If $\eta$ is too large, we might overshoot the minimum and even
 diverge—like taking such large steps that we leap past the valley and up the other side.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A one-dimensional quadratic shows all three regimes of the learning rate. The update becomes multiplication by a fixed factor.
+
+::: {#exm-msf-gradient-descent-quadratic}
+#### Gradient descent on $w^2$
 
 For example, consider minimizing $L(w) = w^2$. The gradient is $\nabla L(w) = 2w$, so the update rule becomes $w_{t+1} = w_t -
 2\eta w_t = (1 - 2\eta)w_t$. Starting from $w_0 = 1$ with $\eta = 0.1$, we get the sequence $1, 0.8, 0.64, 0.512, \ldots$
 converging to 0. But with $\eta = 0.6$, we get $1, -0.2, 0.04, -0.008, \ldots$ which oscillates but still converges. With $\eta =
 1$, we get $1, -1, 1, -1, \ldots$ which oscillates forever.
+:::
+::::
 
-#### Stochastic Gradient Descent
+In several dimensions, each direction of a quadratic can have its own curvature, and the step size must suit the steepest one.
+The exercise shows this on an elongated bowl.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader computes a gradient, takes one step, and finds the range of learning rates for which the iteration converges. The
+steeper coordinate sets the limit.
+
+::: {#exr-msf-gradient-descent-anisotropic}
+#### An elongated bowl
+
+For $L(w_1, w_2) = w_1^2 + 3w_2^2$, compute $\nabla L$, one gradient step from $(1, 1)$ with $\eta = 0.1$, and the learning
+rates for which gradient descent converges from every starting point.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\nabla L = (2w_1, 6w_2)$, so the step gives $(1 - 0.2, 1 - 0.6) = (0.8, 0.4)$. The coordinates evolve as
+$w_1 \leftarrow (1 - 2\eta)w_1$ and $w_2 \leftarrow (1 - 6\eta)w_2$; both factors have absolute value below $1$ exactly when
+$0 < \eta < 1/3$.
+:::
+::::
+
+### Stochastic Gradient Descent
 
 In machine learning, the loss function typically has the form $L(\mathbf{w}) = \frac{1}{n}\sum_{i=1}^n L_i(\mathbf{w})$, where
 $L_i$ is the loss on the $i$-th training example and $n$ might be millions or billions. Computing the full gradient $\nabla
 L(\mathbf{w}) = \frac{1}{n}\sum_{i=1}^n \nabla L_i(\mathbf{w})$ requires processing the entire dataset at each step—prohibitively
 expensive for large datasets.
 
+:::: {.statement-box}
 ::: {#def-sgd}
+#### Stochastic Gradient Descent
+
 Stochastic Gradient Descent (SGD) approximates the gradient using a single randomly selected example:
 
 $$ \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \nabla L_i(\mathbf{w}_t) $$
 :::
 
+::::
+
 This gradient estimate is noisy—sometimes it points in the wrong direction—but it's unbiased: $\mathbb{E}[\nabla L_i(\mathbf{w})]
 = \nabla L(\mathbf{w})$. On average, we're moving in the right direction, and we can take many more steps in the time it would
 take to compute one full gradient. The noise can even be beneficial, helping the algorithm escape shallow local minima.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Fitting a single number to three data points is small enough to list every possible stochastic gradient. The example takes one
+SGD step and checks unbiasedness.
+
+::: {#exm-msf-sgd-three-points}
+#### Estimating a mean with SGD
+
+Take $L_i(w) = \frac{1}{2}(w - y_i)^2$ with data $y = (1, 2, 3)$, so $\nabla L_i(w) = w - y_i$ and $\nabla L(w) = w - 2$. At
+$w = 0$ with $\eta = 0.5$, drawing $i = 3$ gives $w = 0 - 0.5(0 - 3) = 1.5$. The three possible gradients at $w = 0$ are
+$-1, -2, -3$, whose average $-2$ equals $\nabla L(0)$.
+:::
+::::
+
+Unbiasedness is a one-line computation, while the noise of the estimate is measured by its variance. The exercise asks for
+both.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader proves unbiasedness for a uniformly drawn index. The variance is then computed for the data of the example.
+
+::: {#exr-msf-sgd-unbiased}
+#### Mean and variance of the stochastic gradient
+
+(a) Show that $\mathbb{E}[\nabla L_i(\mathbf{w})] = \nabla L(\mathbf{w})$ when $i$ is uniform on $\{1, \dots, n\}$. (b) For
+@exm-msf-sgd-three-points, find the variance of $\nabla L_i(0)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $\mathbb{E}[\nabla L_i(\mathbf{w})] = \sum_i \frac{1}{n}\nabla L_i(\mathbf{w}) = \nabla L(\mathbf{w})$. (b) The values
+$-1, -2, -3$ have mean $-2$, so the variance is $\frac{1}{3}(1 + 0 + 1) = \frac{2}{3}$.
+:::
+::::
+
 Mini-batch Gradient Descent strikes a balance between full-batch gradient descent and SGD. Instead of using one example or all
 examples, we use a small random subset (mini-batch) of size $b$ (typically 32, 64, or 256):
 
+:::: {.statement-box}
 ::: {#def-minibatch-gd}
+#### Mini-batch Gradient Descent
+
 Mini-batch gradient descent uses a subset of size $b$:
 
 $$ \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \frac{1}{b}\sum_{i \in \text{batch}} \nabla L_i(\mathbf{w}_t) $$
 :::
 
+::::
+
 Mini-batches reduce the noise in the gradient estimate while remaining computationally efficient. They also enable efficient
 parallel computation on modern hardware (GPUs), where processing 64 examples simultaneously is nearly as fast as processing one.
 
-#### Advanced Optimizers
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With the data of @exm-msf-sgd-three-points, a batch of two points averages two stochastic gradients. The example shows one
+such batch.
+
+::: {#exm-msf-minibatch-two}
+#### A batch of two
+
+At $w = 0$, the batch $\{1, 3\}$ gives $\frac{1}{2}((0 - 1) + (0 - 3)) = -2$, which here happens to equal the full gradient.
+The batch $\{1, 2\}$ gives $-1.5$, closer to $-2$ than the worst single-example gradients $-1$ and $-3$.
+:::
+::::
+
+The noise reduction can be quantified: averaging $b$ independent draws divides the variance by $b$. The exercise asks for this
+calculation.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader assumes the batch indices are drawn independently and uniformly, with replacement. The variance of an average of
+independent variables does the rest.
+
+::: {#exr-msf-minibatch-variance}
+#### Variance of a mini-batch gradient
+
+Show that if the $b$ batch indices are drawn independently and uniformly, the mini-batch gradient has the variance of one
+stochastic gradient divided by $b$. Evaluate it for @exm-msf-sgd-three-points with $b = 2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The batch gradient is $\frac{1}{b}\sum_{j=1}^b G_j$ with $G_j$ independent copies of $\nabla L_i(\mathbf{w})$. Variances of
+independent variables add, and @exr-msf-variance-affine gives the factor $1/b^2$, so the variance is $b \cdot v/b^2 = v/b$. With
+$v = 2/3$ (@exr-msf-sgd-unbiased) and $b = 2$, it is $1/3$.
+:::
+::::
+
+### Advanced Optimizers
 
 Standard gradient descent treats all parameters equally and uses a fixed learning rate. Modern optimizers improve on this in
 various ways:
@@ -900,18 +2768,9 @@ larger learning rates (to make progress). Adam (Adaptive Moment Estimation) comb
 become the default optimizer for many deep learning applications.
 
 These advanced optimizers are essential for training deep neural networks ([Neural Networks](../../fundamentals-of-machine-learning/supervised-learning/index.qmd#sec-neural-networks)), where the loss landscape can be
-highly non-convex with many saddle points and plateaus [@deisenroth2020mml; @bishop2024deeplearning; @shalev2014ml]. using a small
-random subset (a mini-batch) of the training data. This reduces the noise in the gradient estimate while remaining computationally
-efficient.
-
-Several advanced optimizers have been developed to improve upon standard gradient descent. These include methods like Momentum,
-which helps accelerate gradients vectors in the right direction, thus leading to faster converging, and RMSProp and Adam, which
-adapt the learning rate for each parameter, often leading to faster convergence and better performance [@deisenroth2020mml;
-@bishop2024deeplearning; @shalev2014ml].
+highly non-convex with many saddle points and plateaus [@deisenroth2020mml; @bishop2024deeplearning; @shalev2014ml].
 
 ### Stochastic Approximation
-
-#### Robbins-Monro Conditions
 
 Stochastic approximation methods are a class of iterative algorithms used to find the root or optimum of a function that can only
 be observed with noise. These methods are fundamental to online learning and are widely used in reinforcement learning for
@@ -924,7 +2783,16 @@ $$ \mathbf{w}_{k+1} = \mathbf{w}_k - \alpha_k \hat{g}(\mathbf{w}_k) $$
 where $\hat{g}(\mathbf{w}_k)$ is a noisy estimate of the gradient of the objective function, and $\{\alpha_k\}$ is a sequence of
 step sizes. For the algorithm to converge, the step sizes must satisfy the Robbins-Monro conditions:
 
+:::: {.statement-box}
+::: {#def-msf-robbins-monro}
+#### Robbins-Monro Conditions
+
+A sequence of step sizes $\{\alpha_k\}$ satisfies the Robbins-Monro conditions if
+
 $$ \sum_{k=1}^\infty \alpha_k = \infty \quad \text{and} \quad \sum_{k=1}^\infty \alpha_k^2 < \infty $$
+:::
+
+::::
 
 The first condition ensures that the algorithm can reach any point, while the second condition ensures that the noise in the
 gradient estimates eventually cancels out.
@@ -933,43 +2801,193 @@ Stochastic Gradient Descent (SGD) can be viewed as a special case of stochastic 
 stochastic approximation is used in algorithms like Temporal-Difference (TD) learning to update value function estimates based on
 noisy returns from the environment [@zhao2025rl; @theodoridis2025ml].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The step sizes $\alpha_k = 1/k$ are the standard choice that satisfies both conditions. With them, stochastic approximation
+computes a running mean.
+
+::: {#exm-msf-robbins-monro-running-mean}
+#### The running mean
+
+$\alpha_k = 1/k$ satisfies the conditions, since $\sum_k 1/k$ diverges and $\sum_k 1/k^2 = \pi^2/6$. With
+$\hat{g}(w_k) = w_k - x_k$ for observations $x_1, x_2, \dots$, the update $w_{k+1} = w_k - \frac{1}{k}(w_k - x_k)$ gives
+$w_2 = x_1$, $w_3 = \frac{1}{2}(x_1 + x_2)$ and in general $w_{k+1} = \frac{1}{k}\sum_{j \le k} x_j$. A constant step violates the
+second condition, and $\alpha_k = 1/k^2$ violates the first.
+:::
+::::
+
+Polynomially decaying step sizes are the usual family to choose from. The exercise finds exactly which decay rates are allowed.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader applies the $p$-series test to both sums. The admissible exponents form a half-open interval.
+
+::: {#exr-msf-robbins-monro-power}
+#### Power-law step sizes
+
+For which $p > 0$ does $\alpha_k = 1/k^p$ satisfy the Robbins-Monro conditions?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\sum_k k^{-p}$ diverges if and only if $p \le 1$, and $\sum_k k^{-2p}$ converges if and only if $2p > 1$. Both hold exactly when
+$\frac{1}{2} < p \le 1$.
+:::
+::::
+
+## Convex and Constrained Optimization {#sec-msf-convex-constrained}
+
+Gradient methods only promise to find stationary points, and constraints are common in practice. This section introduces the
+convex problems for which stationary points are global minima, and the Lagrangian that handles equality constraints.
+
 ### Convex Optimization
 
 Convex optimization is a subfield of optimization that deals with minimizing convex functions over convex sets. A key property of
 convex optimization problems is that any local minimum is also a global minimum, which makes them particularly well-suited for
 efficient optimization algorithms.
 
+:::: {.statement-box}
 ::: {#def-convex-set}
-
-Convex Set
+#### Convex Set
 
 A set $\mathcal{C}$ is convex if for any two points $\mathbf{x}, \mathbf{y} \in \mathcal{C}$, the line segment connecting them is
 also in $\mathcal{C}$. That is, for any $\alpha \in [0, 1]$, $\alpha \mathbf{x} + (1-\alpha)\mathbf{y} \in \mathcal{C}$.
 :::
 
-::: {#def-convex-function}
+::::
 
-Convex Function
+Balls and half-spaces are the basic convex sets from which feasible regions are built. The example checks both.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The norm properties of @def-norm make every norm ball convex. A half-space is convex because the condition defining it is
+linear.
+
+::: {#exm-msf-convex-set-ball}
+#### Balls and half-spaces
+
+If $\|\mathbf{x}\| \le 1$ and $\|\mathbf{y}\| \le 1$, the triangle inequality and homogeneity give
+$\|\alpha\mathbf{x} + (1 - \alpha)\mathbf{y}\| \le \alpha\|\mathbf{x}\| + (1 - \alpha)\|\mathbf{y}\| \le 1$: the unit ball is
+convex. If $\mathbf{a}^T\mathbf{x} \le b$ and $\mathbf{a}^T\mathbf{y} \le b$, then
+$\mathbf{a}^T(\alpha\mathbf{x} + (1 - \alpha)\mathbf{y}) \le b$: the half-space is convex.
+:::
+::::
+
+A set with a hole is the simplest non-convex set, and intersections preserve convexity. The exercise covers both facts.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader finds a segment that leaves an annulus. The second part proves that convexity survives intersection.
+
+::: {#exr-msf-convex-set-annulus}
+#### An annulus and an intersection
+
+(a) Show that $\{\mathbf{x} \in \mathbb{R}^2 : 1 \le \|\mathbf{x}\| \le 2\}$ is not convex. (b) Show that the intersection of two
+convex sets is convex.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $(1.5, 0)$ and $(-1.5, 0)$ lie in the set, but their midpoint $(0, 0)$ has norm $0 < 1$. (b) If $\mathbf{x}, \mathbf{y}$ lie
+in both convex sets, every point $\alpha\mathbf{x} + (1 - \alpha)\mathbf{y}$ lies in each of them, hence in the intersection.
+:::
+::::
+
+Convexity of a function is defined through the same segments, now compared with the graph. The definition requires the domain
+itself to be convex, so that the segments make sense.
+
+:::: {.statement-box}
+::: {#def-convex-function}
+#### Convex Function
 
 A function $f$ is convex if its domain is a convex set and for any two points $\mathbf{x}, \mathbf{y}$ in its domain and any $\alpha \in [0, 1]$:
 
 $$ f(\alpha \mathbf{x} + (1-\alpha)\mathbf{y}) \le \alpha f(\mathbf{x}) + (1-\alpha)f(\mathbf{y}) $$
 :::
 
+::::
+
 Geometrically, this means that the line segment connecting any two points on the function's graph lies on or above the graph.
 
-#### Applications in Machine Learning
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The squared loss is the basic convex function of machine learning. The example verifies the inequality for it directly.
+
+::: {#exm-msf-convex-function-square}
+#### The square function
+
+For $f(x) = x^2$, $\alpha x^2 + (1 - \alpha)y^2 - (\alpha x + (1 - \alpha)y)^2 = \alpha(1 - \alpha)(x - y)^2 \ge 0$, so $f$ is
+convex. By the triangle inequality, every norm is convex as well.
+:::
+::::
+
+A single pair of points with a segment below the graph is enough to show non-convexity. The exercise asks for one such pair.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader proves convexity of the absolute value and finds a counterexample for the cube. Both are functions on $\mathbb{R}$.
+
+::: {#exr-msf-convex-function-cube}
+#### Absolute value and cube
+
+Show that $f(x) = |x|$ is convex and that $g(x) = x^3$ is not convex on $\mathbb{R}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$|\alpha x + (1 - \alpha)y| \le \alpha|x| + (1 - \alpha)|y|$ by the triangle inequality. For $g$, take $x = -1$, $y = 0$,
+$\alpha = \frac{1}{2}$: $g(-\frac{1}{2}) = -\frac{1}{8}$, but $\frac{1}{2}g(-1) + \frac{1}{2}g(0) = -\frac{1}{2} < -\frac{1}{8}$.
+:::
+::::
+
+The key property announced at the start of this unit can now be stated and proved. It is the reason convex problems are
+considered easy.
+
+:::: {.statement-box}
+::: {#prp-msf-convex-local-global}
+#### Local Minima of Convex Functions
+
+If $f$ is convex, then any local minimum of $f$ is also a global minimum.
+:::
+
+::::
+
+Proof: let $\mathbf{x}^*$ be a local minimum and suppose $f(\mathbf{y}) < f(\mathbf{x}^*)$ for some $\mathbf{y}$. For
+$\alpha \in (0, 1]$, the point $\mathbf{z}_\alpha = \alpha\mathbf{y} + (1 - \alpha)\mathbf{x}^*$ satisfies
+$f(\mathbf{z}_\alpha) \le \alpha f(\mathbf{y}) + (1 - \alpha)f(\mathbf{x}^*) < f(\mathbf{x}^*)$. As $\alpha \to 0$,
+$\mathbf{z}_\alpha$ enters every neighbourhood of $\mathbf{x}^*$, contradicting local minimality.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The statement fails without convexity, and a cubic shows how. The example contrasts it with the convex square.
+
+::: {#exm-msf-convex-local-global-cubic}
+#### A convex and a non-convex loss
+
+$L(w) = w^2$ is convex, and its only local minimum $w = 0$ is global. $L(w) = w^3 - 3w$ has a local minimum at $w = 1$ with
+$L(1) = -2$, but $L(w) \to -\infty$ as $w \to -\infty$, so the local minimum is not global; $L$ is not convex.
+:::
+::::
+
+For a differentiable convex function, a zero gradient is therefore enough to certify a global minimum. The exercise applies this
+to a quadratic in two variables.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader checks convexity, solves $\nabla f = \mathbf{0}$, and concludes with @prp-msf-convex-local-global. No second-order test
+is needed.
+
+::: {#exr-msf-convex-stationary}
+#### Certifying a global minimum
+
+Show that $f(w_1, w_2) = (w_1 - 1)^2 + (w_2 + 2)^2$ is convex and find its global minimum.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Each term is a convex square (@exm-msf-convex-function-square) of an affine function, and sums of convex functions are convex.
+$\nabla f = (2(w_1 - 1), 2(w_2 + 2)) = \mathbf{0}$ at $(1, -2)$, a local minimum with $f = 0$; by convexity it is global.
+:::
+::::
+
+### Applications in Machine Learning
 
 Many machine learning problems can be formulated as convex optimization problems. For example, training a Support Vector Machine
 (SVM) involves minimizing a convex loss function. The efficiency and guarantees of convex optimization make it a powerful tool in
 the machine learning practitioner's toolbox [@shalev2014ml; @deisenroth2020mml].
 
-### Constrained Optimization
+### Lagrange Multipliers
 
 Constrained optimization problems involve minimizing or maximizing a function subject to constraints on the variables. A common
 method for solving such problems is the method of Lagrange multipliers.
-
-#### Lagrange Multipliers
 
 For a problem of the form:
 
@@ -977,9 +2995,9 @@ minimize $f(\mathbf{x})$ subject to $g(\mathbf{x}) = 0$
 
 we introduce a new variable $\lambda$, called a Lagrange multiplier, and define the Lagrangian function:
 
+:::: {.statement-box}
 ::: {#def-lagrangian}
-
-Lagrangian
+#### Lagrangian
 
 For a constrained optimization problem with objective $f(\mathbf{x})$ and constraint $g(\mathbf{x}) = 0$, the Lagrangian is:
 
@@ -987,6 +3005,8 @@ $$ \mathcal{L}(\mathbf{x}, \lambda) = f(\mathbf{x}) - \lambda g(\mathbf{x}) $$
 
 where $\lambda$ is the Lagrange multiplier.
 :::
+
+::::
 
 The solution to the constrained optimization problem can be found by finding the stationary points of the Lagrangian, which
 involves solving the system of equations:
@@ -996,33 +3016,154 @@ $$ \nabla_{\mathbf{x}, \lambda} \mathcal{L}(\mathbf{x}, \lambda) = 0 $$
 This method can be extended to handle inequality constraints as well, using the Karush-Kuhn-Tucker (KKT) conditions. Constrained
 optimization is used in many machine learning algorithms, such as Support Vector Machines (SVMs) [@deisenroth2020mml].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The point of a line closest to the origin is the simplest constrained problem. The stationarity equations of the Lagrangian solve
+it in two lines.
+
+::: {#exm-msf-lagrangian-closest-point}
+#### Closest point on a line
+
+Minimize $x^2 + y^2$ subject to $x + y - 1 = 0$. With $\mathcal{L} = x^2 + y^2 - \lambda(x + y - 1)$, stationarity gives
+$2x = \lambda$, $2y = \lambda$ and $x + y = 1$, so $x = y = \frac{1}{2}$, $\lambda = 1$, and the minimum value is $\frac{1}{2}$.
+:::
+::::
+
+When the constraint set is a circle, the stationarity equations have several solutions, and the objective must be compared at
+each. The exercise works through such a case.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader solves the Lagrange equations for a linear objective on a circle. Two stationary points appear, the minimum and the
+maximum.
+
+::: {#exr-msf-lagrangian-circle}
+#### A linear objective on a circle
+
+Minimize $f(x, y) = x + y$ subject to $x^2 + y^2 = 2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $g = x^2 + y^2 - 2$, stationarity gives $1 = 2\lambda x$ and $1 = 2\lambda y$, so $x = y = 1/(2\lambda)$, and the constraint
+gives $2x^2 = 2$, $x = \pm 1$. At $(1, 1)$, $f = 2$ (the maximum, $\lambda = \frac{1}{2}$); at $(-1, -1)$, $f = -2$ (the minimum,
+$\lambda = -\frac{1}{2}$).
+:::
+::::
+
 ## Information Theory and Inference {#sec-information-theory}
 
-Information theory provides a mathematical framework for quantifying information.
+Information theory provides a mathematical framework for quantifying information. This section defines entropy, the KL divergence
+and mutual information, and then the two estimation principles, maximum likelihood and maximum a posteriori, that turn these
+quantities into training objectives.
 
 ### Entropy
 
 Entropy is a key concept in information theory that measures the uncertainty of a random variable. It quantifies the average
 amount of information needed to specify the state of a random variable.
 
+:::: {.statement-box}
+::: {#def-msf-entropy}
+#### Shannon Entropy
+
 For a discrete random variable $X$ with probability mass function $P(x)$, the Shannon entropy is defined as:
 
 $$ H(X) = -\sum_{i=1}^n P(x_i) \log_2 P(x_i) $$
+:::
+
+::::
 
 The logarithm is typically base 2, in which case the entropy is measured in bits. A distribution that is sharply peaked around a
 few values will have a low entropy, while a distribution that is spread more evenly across many values will have a higher entropy.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A fair coin, a fair die and the spam variable of @exm-msf-bernoulli-spam span a range of uncertainty. Their entropies are
+ordered accordingly.
+
+::: {#exm-msf-entropy-coin-die}
+#### Coin, die and spam
+
+A fair coin has $H = -2 \cdot \frac{1}{2}\log_2\frac{1}{2} = 1$ bit, a fair die $H = \log_2 6 \approx 2.585$ bits, and
+$\text{Bern}(0.3)$ has $H = -0.3\log_2 0.3 - 0.7\log_2 0.7 \approx 0.881$ bits, less than the fair coin because it is less
+uncertain.
+:::
+::::
+
+The two extreme cases, no uncertainty and maximal spread, have simple entropies. The exercise computes them and one
+intermediate case.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader evaluates the entropy of a constant, of a uniform variable, and of a skewed three-valued variable. The answers are
+whole or half bits.
+
+::: {#exr-msf-entropy-extremes}
+#### Extreme and intermediate entropies
+
+Compute the entropy of a constant random variable, of a uniform variable on $n$ values, and of the distribution
+$(\frac{1}{2}, \frac{1}{4}, \frac{1}{4})$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A constant has $P = 1$ on one value, and $1 \cdot \log_2 1 = 0$, so $H = 0$. The uniform variable has
+$H = -n \cdot \frac{1}{n}\log_2\frac{1}{n} = \log_2 n$. The third has $H = \frac{1}{2} \cdot 1 + \frac{1}{4} \cdot 2 +
+\frac{1}{4} \cdot 2 = 1.5$ bits.
+:::
+::::
+
+For a continuous random variable the sum becomes an integral against the density. The result behaves differently from the discrete
+entropy.
+
+:::: {.statement-box}
+::: {#def-msf-differential-entropy}
+#### Differential Entropy
+
 For a continuous random variable with probability density function $p(x)$, the differential entropy is:
 
 $$ h(X) = -\int p(x) \log_2 p(x) dx $$
+:::
+
+::::
 
 Unlike Shannon entropy, differential entropy can be negative. The Gaussian distribution has the maximum differential entropy among
 all distributions with the same variance [@theodoridis2025ml; @bishop2024deeplearning].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The uniform density on an interval has a constant integrand, so the integral is immediate. It also shows how the entropy becomes
+negative.
+
+::: {#exm-msf-differential-entropy-uniform}
+#### Uniform on an interval
+
+For $p(x) = 1/a$ on $[0, a]$, $h(X) = -\int_0^a \frac{1}{a}\log_2\frac{1}{a}\,dx = \log_2 a$. For $a = \frac{1}{2}$ this is
+$-1$ bit: a density concentrated on a short interval has negative differential entropy.
+:::
+::::
+
+The Gaussian's entropy is the benchmark mentioned above. The exercise derives its closed form.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader takes the expectation of $-\log_2$ of the Gaussian density. Only the variance of $X$ is needed.
+
+::: {#exr-msf-differential-entropy-gaussian}
+#### Entropy of a Gaussian
+
+Show that $X \sim \mathcal{N}(\mu, \sigma^2)$ has $h(X) = \frac{1}{2}\log_2(2\pi e\sigma^2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$-\log_2 p(x) = \frac{1}{2}\log_2(2\pi\sigma^2) + \frac{(x - \mu)^2}{2\sigma^2}\log_2 e$. Taking expectations, with
+$\mathbb{E}[(X - \mu)^2] = \sigma^2$, gives $\frac{1}{2}\log_2(2\pi\sigma^2) + \frac{1}{2}\log_2 e = \frac{1}{2}\log_2(2\pi
+e\sigma^2)$.
+:::
+::::
+
 ### Kullback-Leibler (KL) Divergence
 
 The Kullback-Leibler (KL) divergence, also known as relative entropy, is a measure of how one probability distribution diverges
-from a second, expected probability distribution. For two discrete probability distributions $P$ and $Q$, the KL divergence is
+from a second, expected probability distribution.
+
+:::: {.statement-box}
+::: {#def-msf-kl-divergence}
+#### Kullback-Leibler Divergence
+
+For two discrete probability distributions $P$ and $Q$, the KL divergence is
 defined as:
 
 $$ D_{KL}(P || Q) = \sum_{i} P(i) \log\left(\frac{P(i)}{Q(i)}\right) $$
@@ -1030,11 +3171,45 @@ $$ D_{KL}(P || Q) = \sum_{i} P(i) \log\left(\frac{P(i)}{Q(i)}\right) $$
 For continuous distributions $p(x)$ and $q(x)$, it is:
 
 $$ D_{KL}(p || q) = \int_{-\infty}^{\infty} p(x) \log\left(\frac{p(x)}{q(x)}\right) dx $$
+:::
+
+::::
 
 The KL divergence is always non-negative ($D_{KL}(P || Q) \ge 0$) and is zero if and only if $P$ and $Q$ are the same
 distribution. However, it is not a true distance metric because it is not symmetric, i.e., $D_{KL}(P || Q) \neq D_{KL}(Q || P)$.
 In machine learning, the KL divergence is often used as a loss function to measure the dissimilarity between a model's predicted
 distribution and the true data distribution [@bishop2024deeplearning].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two Bernoulli distributions are enough to see the asymmetry. The example computes the divergence in both directions, in nats.
+
+::: {#exm-msf-kl-bernoulli}
+#### Two coins
+
+For $P = \text{Bern}(0.5)$ and $Q = \text{Bern}(0.3)$: $D_{KL}(P || Q) = 0.5\log\frac{0.5}{0.3} + 0.5\log\frac{0.5}{0.7} \approx
+0.0872$, while $D_{KL}(Q || P) = 0.3\log\frac{0.3}{0.5} + 0.7\log\frac{0.7}{0.5} \approx 0.0823$. Both are positive, and they
+differ.
+:::
+::::
+
+Between two Gaussians with the same variance, the KL divergence has a closed form. The exercise derives it.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader writes the log-ratio of the two densities and takes its expectation under $p$. Only the first two moments of $p$ are
+needed.
+
+::: {#exr-msf-kl-gaussians}
+#### KL divergence between Gaussians
+
+Show that $D_{KL}(\mathcal{N}(\mu_1, \sigma^2) || \mathcal{N}(\mu_2, \sigma^2)) = \frac{(\mu_1 - \mu_2)^2}{2\sigma^2}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\log\frac{p(x)}{q(x)} = \frac{(x - \mu_2)^2 - (x - \mu_1)^2}{2\sigma^2}$. Under $p$, $\mathbb{E}[(x - \mu_1)^2] = \sigma^2$ and
+$\mathbb{E}[(x - \mu_2)^2] = \sigma^2 + (\mu_1 - \mu_2)^2$, so the expectation is $\frac{(\mu_1 - \mu_2)^2}{2\sigma^2}$. It is
+symmetric in this special case and vanishes exactly when $\mu_1 = \mu_2$.
+:::
+::::
 
 ### Mutual Information
 
@@ -1046,18 +3221,50 @@ $$ I(X; Y) = D_{KL}(P(x,y) || P(x)P(y)) = \sum_{x,y} P(x,y) \log\left(\frac{P(x,
 
 It can also be expressed in terms of entropy:
 
+:::: {.statement-box}
 ::: {#def-mutual-information}
-
-Mutual Information
+#### Mutual Information
 
 The mutual information between random variables $X$ and $Y$:
 
 $$ I(X; Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) $$
 :::
 
+::::
+
 where $H(X|Y)$ is the conditional entropy of $X$ given $Y$. This shows that the mutual information is the reduction in uncertainty
 about one variable given knowledge of the other. Mutual information is always non-negative and is zero if and only if the two
 variables are independent [@theodoridis2025ml; @bishop2024deeplearning].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+When one variable determines the other, all the uncertainty of the second is removed. On the die, the face determines the parity.
+
+::: {#exm-msf-mutual-information-parity}
+#### Face and parity
+
+$H(Y) = 1$ bit, and $H(Y|X) = 0$ because $Y$ is a function of $X$. So $I(X; Y) = 1 - 0 = 1$ bit: the face tells everything about
+the parity.
+:::
+::::
+
+Partial dependence gives a mutual information strictly between zero and the entropies. The exercise computes it for the two
+indicators of the die.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader uses the KL form of the mutual information with the table of @exr-msf-joint-pmf-yz. The answer is small but positive.
+
+::: {#exr-msf-mutual-information-yz}
+#### Parity and low face
+
+Compute $I(Y; Z)$ in bits for the die, and state $I(U; V)$ for the two independent coins of @exr-msf-independence-coins.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Both marginals are uniform, so $P(y)P(z) = \frac{1}{4}$. Then $I(Y; Z) = 2 \cdot \frac{1}{6}\log_2\frac{1/6}{1/4} + 2 \cdot
+\frac{1}{3}\log_2\frac{1/3}{1/4} = \frac{1}{3}\log_2\frac{2}{3} + \frac{2}{3}\log_2\frac{4}{3} \approx -0.195 + 0.277 = 0.082$
+bits. For independent coins every log-ratio is $\log_2 1 = 0$, so $I(U; V) = 0$.
+:::
+::::
 
 ### Maximum Likelihood Estimation
 
@@ -1071,12 +3278,52 @@ The principle of Maximum Likelihood Estimation is to choose the parameters $\the
 equivalent to finding the parameters that make the observed data most probable.
 
 In practice, it is often easier to work with the log-likelihood function, since the logarithm converts the product into a sum and
-does not change the location of the maximum. The Maximum Likelihood Estimate (MLE) of $\theta$ is therefore given by:
+does not change the location of the maximum.
+
+:::: {.statement-box}
+::: {#def-msf-maximum-likelihood}
+#### Maximum Likelihood Estimate
+
+The Maximum Likelihood Estimate (MLE) of $\theta$ is therefore given by:
 
 $$ \hat{\theta}_{MLE} = \arg\max_{\theta} \log L(\theta | D) = \arg\max_{\theta} \sum_{i=1}^n \log P(x_i | \theta) $$
+:::
+
+::::
 
 MLE is a cornerstone of statistical inference and is widely used to train machine learning models [@shalev2014ml;
 @bishop2024deeplearning].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For coin tosses the maximum likelihood estimate is the observed frequency of heads. The example derives this from the
+log-likelihood.
+
+::: {#exm-msf-mle-bernoulli}
+#### Estimating a coin's bias
+
+With $k$ heads in $n$ independent $\text{Bern}(p)$ tosses, $\log L(p) = k\log p + (n - k)\log(1 - p)$. Setting the derivative
+$k/p - (n - k)/(1 - p)$ to zero gives $\hat{p}_{MLE} = k/n$; for $7$ heads in $10$ tosses, $\hat{p} = 0.7$.
+:::
+::::
+
+For Gaussian data with known variance, maximising the likelihood is the same as minimising squared error. The exercise derives the
+resulting estimate of the mean.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader writes the Gaussian log-likelihood, drops the constant terms, and differentiates. The estimate is the sample mean.
+
+::: {#exr-msf-mle-gaussian-mean}
+#### The mean of a Gaussian
+
+Find $\hat{\mu}_{MLE}$ for i.i.d. data from $\mathcal{N}(\mu, \sigma^2)$ with $\sigma^2$ known, and evaluate it on $(2, 4, 9)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\log L(\mu) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_i (x_i - \mu)^2$. Its derivative
+$\frac{1}{\sigma^2}\sum_i (x_i - \mu)$ vanishes at $\hat{\mu} = \frac{1}{n}\sum_i x_i$, which is a maximum since $\log L$ is a
+downward parabola. For $(2, 4, 9)$, $\hat{\mu} = 5$.
+:::
+::::
 
 ### Maximum A Posteriori Estimation
 
@@ -1085,9 +3332,16 @@ Using Bayes' theorem, the posterior distribution of the parameters given the dat
 
 $$ P(\theta | D) = \frac{P(D | \theta) P(\theta)}{P(D)} $$
 
+:::: {.statement-box}
+::: {#def-msf-map-estimation}
+#### Maximum A Posteriori Estimate
+
 The MAP estimate is the mode of the posterior distribution:
 
 $$ \hat{\theta}_{MAP} = \arg\max_{\theta} P(\theta | D) = \arg\max_{\theta} P(D | \theta) P(\theta) $$
+:::
+
+::::
 
 Since the denominator $P(D)$ does not depend on $\theta$, it can be ignored in the optimization. Taking logarithms, we get:
 
@@ -1098,34 +3352,181 @@ particular parameter value). The prior allows us to incorporate domain knowledge
 For example, a Gaussian prior on the parameters corresponds to $\ell_2$ regularization, while a Laplace prior corresponds to
 $\ell_1$ regularization [@bishop2024deeplearning; @deisenroth2020mml].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A Beta prior on a coin's bias acts like a few imaginary tosses added to the data. The example compares the MAP estimate with the
+MLE of @exm-msf-mle-bernoulli.
+
+::: {#exm-msf-map-beta}
+#### A coin with a Beta prior
+
+With prior density $P(p) \propto p^{a - 1}(1 - p)^{b - 1}$ and $k$ heads in $n$ tosses, the log-posterior is
+$(k + a - 1)\log p + (n - k + b - 1)\log(1 - p)$ up to a constant, maximised at $\hat{p}_{MAP} = \frac{k + a - 1}{n + a + b - 2}$.
+For $a = b = 2$ and $7$ heads in $10$ tosses, $\hat{p}_{MAP} = 8/12 = 2/3$, pulled from $0.7$ toward $\frac{1}{2}$.
+:::
+::::
+
+The correspondence between Gaussian priors and $\ell_2$ regularization can be derived in one line for a linear model. The exercise
+asks for the derivation and the resulting estimate.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader writes the negative log-posterior of a one-parameter regression with a Gaussian prior. It is a penalised least squares
+objective.
+
+::: {#exr-msf-map-ridge}
+#### Gaussian prior and ridge regression
+
+Let $y_i \sim \mathcal{N}(wx_i, \sigma^2)$ independently and $w \sim \mathcal{N}(0, \tau^2)$. Show that $\hat{w}_{MAP}$ minimises
+$\sum_i (y_i - wx_i)^2 + \lambda w^2$ with $\lambda = \sigma^2/\tau^2$, and find it.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Up to constants, $-\log P(D | w) - \log P(w) = \frac{1}{2\sigma^2}\sum_i (y_i - wx_i)^2 + \frac{w^2}{2\tau^2}$; multiplying by
+$2\sigma^2$ gives the stated objective. Setting its derivative $-2\sum_i x_i(y_i - wx_i) + 2\lambda w$ to zero gives
+$\hat{w}_{MAP} = \frac{\sum_i x_iy_i}{\sum_i x_i^2 + \lambda}$, which shrinks the least squares estimate toward $0$.
+:::
+::::
+
+## Cross-Entropy and Entropy Regularization {#sec-msf-cross-entropy}
+
+Two information-theoretic quantities appear directly in training objectives. Cross-entropy is the standard classification loss,
+and policy entropy is the bonus that encourages exploration in reinforcement learning.
+
 ### Cross-Entropy
 
 Cross-entropy is a measure from information theory that quantifies the difference between two probability distributions. It is
 widely used as a loss function in classification tasks. For two discrete probability distributions $P$ and $Q$, the cross-entropy
 is defined as:
 
+:::: {.statement-box}
 ::: {#def-cross-entropy-discrete}
-
-Cross-Entropy (Discrete)
+#### Cross-Entropy (Discrete)
 
 $$ H(P, Q) = -\sum_{i} P(i) \log Q(i) $$
 :::
 
+::::
+
+Cross-entropy is the average surprise, measured with $Q$, of outcomes that actually follow $P$. The example evaluates it for a
+one-hot target.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+When $P$ is one-hot, only one term of the sum survives. This is the situation of a labelled training example.
+
+::: {#exm-msf-cross-entropy-one-hot}
+#### A one-hot target
+
+For $P = (1, 0)$ and a prediction $Q = (0.8, 0.2)$, $H(P, Q) = -\log 0.8 \approx 0.223$ nats.
+:::
+::::
+
+With a non-degenerate $P$, every outcome contributes. The exercise computes such a cross-entropy in bits.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader evaluates the formula for a fair coin predicted by a biased model. The answer exceeds the entropy of the fair coin.
+
+::: {#exr-msf-cross-entropy-bits}
+#### A fair coin, a biased model
+
+Compute $H(P, Q)$ in bits for $P = (\frac{1}{2}, \frac{1}{2})$ and $Q = (\frac{1}{4}, \frac{3}{4})$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$H(P, Q) = -\frac{1}{2}\log_2\frac{1}{4} - \frac{1}{2}\log_2\frac{3}{4} = 1 + \frac{1}{2}\log_2\frac{4}{3} \approx 1.208$ bits,
+more than $H(P) = 1$ bit.
+:::
+::::
+
 For continuous distributions:
 
+:::: {.statement-box}
 ::: {#def-cross-entropy-continuous}
-
-Cross-Entropy (Continuous)
+#### Cross-Entropy (Continuous)
 
 $$ H(p, q) = -\int p(x) \log q(x) dx $$
 :::
 
-The cross-entropy can be decomposed as:
+::::
+
+The continuous version replaces the sum by an integral, just as differential entropy does. When $q = p$ it reduces to the
+differential entropy, measured in nats.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The standard Gaussian against itself gives the differential entropy of @exr-msf-differential-entropy-gaussian, now in nats. This is
+the smallest cross-entropy any $q$ can achieve for this $p$.
+
+::: {#exm-msf-cross-entropy-gaussian-self}
+#### A Gaussian against itself
+
+For $p = q = \mathcal{N}(0, 1)$, $H(p, q) = \frac{1}{2}\log(2\pi e) \approx 1.419$ nats.
+:::
+::::
+
+Shifting the model's mean away from the data's mean raises the cross-entropy. The exercise computes by how much.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader takes the expectation of $-\log q$ under $p$ for two Gaussians with equal variance. The excess over the entropy matches
+@exr-msf-kl-gaussians.
+
+::: {#exr-msf-cross-entropy-gaussians}
+#### Two Gaussians
+
+Compute $H(p, q)$ in nats for $p = \mathcal{N}(\mu_1, \sigma^2)$ and $q = \mathcal{N}(\mu_2, \sigma^2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$-\log q(x) = \frac{1}{2}\log(2\pi\sigma^2) + \frac{(x - \mu_2)^2}{2\sigma^2}$, and under $p$,
+$\mathbb{E}[(x - \mu_2)^2] = \sigma^2 + (\mu_1 - \mu_2)^2$. So $H(p, q) = \frac{1}{2}\log(2\pi e\sigma^2) + \frac{(\mu_1 -
+\mu_2)^2}{2\sigma^2}$: the entropy of $p$ plus the KL divergence.
+:::
+::::
+
+The two exercises above both found the entropy of $P$ plus an excess equal to the KL divergence. The cross-entropy can be
+decomposed as:
+
+:::: {.statement-box}
+::: {#prp-msf-cross-entropy-decomposition}
+#### Cross-Entropy Decomposition
 
 $$ H(P, Q) = H(P) + D_{KL}(P || Q) $$
+:::
 
-where $H(P)$ is the entropy of $P$ and $D_{KL}(P || Q)$ is the KL divergence from $P$ to $Q$. Since $H(P)$ is constant with
+::::
+
+where $H(P)$ is the entropy of $P$ and $D_{KL}(P || Q)$ is the KL divergence from $P$ to $Q$. Proof: $-\sum_i P(i)\log Q(i) =
+-\sum_i P(i)\log P(i) + \sum_i P(i)\log\frac{P(i)}{Q(i)}$, which is $H(P) + D_{KL}(P || Q)$ (with the same logarithm base
+throughout). Since $H(P)$ is constant with
 respect to $Q$, minimizing the cross-entropy is equivalent to minimizing the KL divergence.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The two coins of @exm-msf-kl-bernoulli make the decomposition concrete. All three quantities are computed in nats.
+
+::: {#exm-msf-cross-entropy-decomposition-coins}
+#### Two coins again
+
+For $P = \text{Bern}(0.5)$, $Q = \text{Bern}(0.3)$: $H(P) = \log 2 \approx 0.6931$, $H(P, Q) = -0.5\log 0.3 - 0.5\log 0.7 \approx
+0.7803$, and their difference $0.0872$ is $D_{KL}(P || Q)$.
+:::
+::::
+
+For a one-hot target the entropy term vanishes, so the cross-entropy loss is itself a KL divergence. The exercise makes this
+explicit for one training example.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader evaluates the binary cross-entropy loss below on one prediction. The decomposition then explains why it equals a KL
+divergence.
+
+::: {#exr-msf-cross-entropy-one-hot-kl}
+#### One-hot targets
+
+For a label $y = 1$ and a prediction $\hat{y} = 0.9$, compute the binary cross-entropy loss, and show that for one-hot $P$,
+$H(P, Q) = D_{KL}(P || Q)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$L = -\log 0.9 \approx 0.105$ nats. A one-hot $P$ has $H(P) = -1 \cdot \log 1 = 0$, so by @prp-msf-cross-entropy-decomposition
+$H(P, Q) = D_{KL}(P || Q)$.
+:::
+::::
 
 In machine learning, particularly in classification problems, we often use cross-entropy as a loss function. For a binary
 classification problem with true labels $y \in \{0, 1\}$ and predicted probabilities $\hat{y}$, the binary cross-entropy loss is:
@@ -1148,24 +3549,169 @@ exploration-exploitation trade-offs and in developing entropy-regularized algori
 The entropy of a policy $\pi$ measures its randomness or uncertainty. For a discrete action space, the entropy of a policy at
 state $s$ is:
 
+:::: {.statement-box}
 ::: {#def-policy-entropy}
-
-Policy Entropy
+#### Policy Entropy
 
 $$ H(\pi(\cdot|s)) = -\sum_{a \in \mathcal{A}} \pi(a|s) \log \pi(a|s) $$
 :::
 
-A deterministic policy has zero entropy, while a uniform random policy has maximum entropy. Entropy regularization adds an entropy
+::::
+
+A deterministic policy has zero entropy, while a uniform random policy has maximum entropy. The examples below evaluate the
+formula at these two ends and in between.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With two actions, the policy entropy ranges from zero to $\log 2$. The example evaluates both ends and one point in between.
+
+::: {#exm-msf-policy-entropy-two-actions}
+#### Two actions
+
+A deterministic policy, $\pi(a_1|s) = 1$, has entropy $0$. The uniform policy has entropy $\log 2 \approx 0.693$ nats, and the
+policy $(0.9, 0.1)$ has $-0.9\log 0.9 - 0.1\log 0.1 \approx 0.325$ nats.
+:::
+::::
+
+The claim that the uniform policy has maximum entropy follows from non-negativity of the KL divergence. The exercise asks for this
+argument.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader compares a policy with the uniform policy $U$ on $\mathcal{A}$ using @def-msf-kl-divergence. The bound and the case of
+equality both follow.
+
+::: {#exr-msf-policy-entropy-maximum}
+#### The uniform policy maximises entropy
+
+Show that $H(\pi(\cdot|s)) \le \log|\mathcal{A}|$, with equality for the uniform policy.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $U(a) = 1/|\mathcal{A}|$, $D_{KL}(\pi || U) = \sum_a \pi(a|s)\log(\pi(a|s)|\mathcal{A}|) = \log|\mathcal{A}| -
+H(\pi(\cdot|s))$. Since the KL divergence is non-negative and vanishes only for $\pi = U$, the bound holds with equality exactly
+for the uniform policy.
+:::
+::::
+
+A policy that maximises reward alone tends to become deterministic early and stop exploring. Entropy regularization adds an entropy
 bonus to the objective function, encouraging the agent to explore more:
 
+:::: {.statement-box}
 ::: {#def-entropy-regularization}
-
-Entropy Regularization
+#### Entropy Regularization
 
 $$ J(\pi) = \mathbb{E}_{\tau \sim \pi}\left[\sum_{t=0}^\infty \gamma^t (R_t + \alpha H(\pi(\cdot|S_t)))\right] $$
 
 where $\alpha$ is a temperature parameter that controls the strength of the entropy regularization.
 :::
 
+::::
+
 This approach is used in modern reinforcement learning algorithms such as Soft Actor-Critic (SAC) and has been shown to improve
 exploration and robustness [@zhao2025rl].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A single decision with two actions shows what the regularised optimum looks like. The best policy is no longer deterministic.
+
+::: {#exm-msf-entropy-regularization-bandit}
+#### One step, two actions
+
+Take one step with rewards $r(a_1) = 1$, $r(a_2) = 0$, so $J(\pi) = \pi(a_1) + \alpha H(\pi)$. The maximiser is the softmax policy
+$\pi(a) \propto e^{r(a)/\alpha}$ (@exr-msf-entropy-regularization-softmax); for $\alpha = 1$, $\pi(a_1) = e/(e + 1) \approx 0.731$
+instead of $1$.
+:::
+::::
+
+The softmax form of the optimum can be derived with the Lagrangian of @def-lagrangian. The exercise carries this out and reads off
+the two limits of the temperature.
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The reader maximises a one-step entropy-regularised objective under the constraint that the probabilities sum to one. The
+temperature then interpolates between greedy and uniform behaviour.
+
+::: {#exr-msf-entropy-regularization-softmax}
+#### The softmax policy
+
+Maximise $\sum_a \pi(a)r(a) + \alpha H(\pi)$ over distributions $\pi$ on a finite $\mathcal{A}$, and describe the limits
+$\alpha \to 0$ and $\alpha \to \infty$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With the constraint $g(\pi) = \sum_a \pi(a) - 1 = 0$ and the Lagrangian $\sum_a \pi(a)r(a) - \alpha\sum_a \pi(a)\log\pi(a) -
+\lambda g(\pi)$, the derivative in $\pi(a)$ is $r(a) - \alpha(\log\pi(a) + 1) - \lambda = 0$, so $\pi(a) \propto e^{r(a)/\alpha}$;
+normalising gives $\pi(a) = e^{r(a)/\alpha}/\sum_b e^{r(b)/\alpha}$. The objective is concave (a linear term plus $\alpha$ times
+the concave entropy), so this stationary point is the maximum. As $\alpha \to 0$ the policy concentrates on the best actions
+(greedy); as $\alpha \to \infty$ it tends to the uniform policy.
+:::
+::::
+
+## Exercises {#sec-mathematical-and-statistical-foundations-exercises}
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The integrative exercises below combine several sections of the chapter. The first one fits a Gaussian mean by maximum
+likelihood, certifies the answer by convexity, and then reaches it by gradient descent.
+
+::: {#exr-msf-int-1}
+#### Fitting a Gaussian mean three ways
+
+Data $x = (1, 2, 6)$ are modelled as i.i.d. $\mathcal{N}(\mu, 1)$. (a) Write the negative log-likelihood $\ell(\mu)$ and find
+$\hat{\mu}_{MLE}$ (Information Theory and Inference). (b) Show that $\ell$ is convex and conclude that $\hat{\mu}_{MLE}$ is its
+global minimum (Convex and Constrained Optimization). (c) Run gradient descent on $\ell$ from $\mu_0 = 0$ with $\eta = 0.2$ for two
+steps, and find the learning rates for which it converges (Optimization Foundations).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $\ell(\mu) = \frac{3}{2}\log(2\pi) + \frac{1}{2}\sum_i (x_i - \mu)^2$, and $\ell'(\mu) = 3\mu - 9 = 0$ gives
+$\hat{\mu}_{MLE} = 3$, the sample mean (@exr-msf-mle-gaussian-mean). (b) Each $(x_i - \mu)^2$ is convex
+(@exm-msf-convex-function-square) and sums of convex functions are convex, so by @prp-msf-convex-local-global the stationary point
+$\mu = 3$ is the global minimum. (c) The update is $\mu_{t+1} = \mu_t - \eta(3\mu_t - 9)$, i.e. $\mu_{t+1} - 3 = (1 - 3\eta)(\mu_t -
+3)$. With $\eta = 0.2$ the factor is $0.4$: $\mu_1 = 1.8$, $\mu_2 = 2.52$. Convergence holds exactly when $|1 - 3\eta| < 1$, i.e.
+$0 < \eta < 2/3$, as in @exm-msf-gradient-descent-quadratic.
+:::
+
+The second exercise returns to the die of the probability sections and measures, in bits, what the parity reveals about the face.
+It combines Bayes' theorem, mutual information and the cross-entropy decomposition.
+
+::: {#exr-msf-int-2}
+#### What parity reveals about a die
+
+Let $X$ be the face of a fair die and $Y$ its parity indicator. (a) Use Bayes' theorem to find $P(X = x \mid Y = 1)$, and compute
+$H(X \mid Y = 1)$ (Probability and Statistics). (b) Compute $I(X; Y) = H(X) - H(X|Y)$ and compare with $H(Y) - H(Y|X)$
+(Information Theory and Inference). (c) A model ignores the parity and predicts $Q$ uniform on $\{1, \dots, 6\}$ even when $Y = 1$
+is known. Compute $H(P, Q)$ for $P = p_{X|Y}(\cdot \mid 1)$ and check @prp-msf-cross-entropy-decomposition (Cross-Entropy and
+Entropy Regularization).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $P(X = x | Y = 1) = P(Y = 1 | X = x)P(X = x)/P(Y = 1)$, which is $\frac{1 \cdot 1/6}{1/2} = \frac{1}{3}$ for even $x$ and $0$
+for odd $x$, as in @exm-msf-chain-rule-die. This is uniform on three faces, so $H(X | Y = 1) = \log_2 3$; by symmetry
+$H(X | Y = 0) = \log_2 3$ too, so $H(X|Y) = \log_2 3$. (b) $I(X; Y) = \log_2 6 - \log_2 3 = 1$ bit, which equals
+$H(Y) - H(Y|X) = 1 - 0$ (@exm-msf-mutual-information-parity). (c) $H(P, Q) = -\sum_{x \text{ even}} \frac{1}{3}\log_2\frac{1}{6} =
+\log_2 6$ bits, while $H(P) = \log_2 3$ and $D_{KL}(P || Q) = \sum_{x \text{ even}} \frac{1}{3}\log_2\frac{1/3}{1/6} = 1$ bit;
+indeed $\log_2 6 = \log_2 3 + 1$. The bit wasted by ignoring the parity is exactly the mutual information.
+:::
+
+The third exercise builds the covariance matrix of the two indicators of the die and analyses it as PCA would. It combines
+statistical concepts, the eigendecomposition and projections onto unit vectors.
+
+::: {#exr-msf-int-3}
+#### A small principal component analysis
+
+Let $Y$ and $Z$ be the parity and low-face indicators of the die. (a) Compute the covariance matrix $\Sigma$ of $(Y, Z)$
+(Statistical Concepts). (b) Find the eigendecomposition $\Sigma = \mathbf{PDP}^T$ and check that $\Sigma$ is positive
+semidefinite (Matrix Decompositions). (c) For a unit vector $\mathbf{u}$, $\text{Var}(\mathbf{u}^T(Y, Z)) = \mathbf{u}^T\Sigma
+\mathbf{u}$ (@exr-msf-covariance-matrix-psd). Find the direction of largest variance and check the answer by computing
+$\text{Var}(Y - Z)$ directly (Inner Products, Norms and Orthogonality).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $\text{Var}(Y) = \text{Var}(Z) = \frac{1}{4}$ and $\text{Cov}(Y, Z) = \frac{1}{6} - \frac{1}{4} = -\frac{1}{12}$ (from
+@exr-msf-joint-pmf-yz), so $\Sigma = \begin{bmatrix} 1/4 & -1/12 \\ -1/12 & 1/4 \end{bmatrix}$, as in
+@exm-msf-covariance-matrix-die. (b) $\Sigma(1, 1)^T = \frac{1}{6}(1, 1)^T$ and $\Sigma(1, -1)^T = \frac{1}{3}(1, -1)^T$, so
+$\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \text{diag}(\frac{1}{6},
+\frac{1}{3})$; both eigenvalues are positive, so $\Sigma$ is positive (semi)definite. (c) Writing $\mathbf{u} = c_1\mathbf{p}_1 +
+c_2\mathbf{p}_2$ in the orthonormal eigenbasis with $c_1^2 + c_2^2 = 1$ gives $\mathbf{u}^T\Sigma\mathbf{u} = \frac{1}{6}c_1^2 +
+\frac{1}{3}c_2^2 \le \frac{1}{3}$, with equality for $\mathbf{u} = \mathbf{p}_2 = (1, -1)/\sqrt{2}$. Directly,
+$\text{Var}(Y - Z) = \frac{1}{4} + \frac{1}{4} + 2 \cdot \frac{1}{12} = \frac{2}{3} = 2 \cdot \frac{1}{3}$, consistent with
+$\mathbf{u} = (1, -1)/\sqrt{2}$ since $\text{Var}(\mathbf{u}^T(Y, Z)) = \frac{1}{2}\text{Var}(Y - Z)$.
+:::
+::::

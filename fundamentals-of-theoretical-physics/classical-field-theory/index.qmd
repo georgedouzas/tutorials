@@ -2522,136 +2522,6 @@ identity of $16$ entries, $160$ entry checks in all.
 :::
 ::::
 
-### Exercises {#sec-fields-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the sections of this chapter: the charge carried by complex Klein-Gordon waves, the
-conserved current of the Dirac field, and the modes of a spinor on a product with a circle.
-
-The first integrative exercise combines plane waves and their dispersion relation with the current of the phase
-rotation. It shows why the charge density of a scalar field cannot be a probability density.
-
-::: {#exr-fld-int-current}
-#### The current of complex plane waves
-
-For $\phi = a e^{-ik_\mu x^\mu}$ on the mass shell in $3 + 1$ dimensions, compute with Sage $j^\mu = i(\bar\phi\partial^\mu\phi -
-\phi\partial^\mu\bar\phi)$ and $j_\mu j^\mu$. Do the same for the negative-frequency wave $a e^{ik_\mu x^\mu}$ and for
-the superposition $a e^{-ik\cdot x} + b e^{ik\cdot x}$, and check conservation.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-For the positive-frequency wave $\partial^\mu\phi = -ik^\mu\phi$, so $j^\mu = 2a^2k^\mu$: parallel to the momentum, with
-$j_\mu j^\mu = 4a^4k_\mu k^\mu = 4a^4m^2$ by the dispersion relation, a timelike vector with $j^0 = 2a^2\omega > 0$. The
-negative-frequency wave has $j^\mu = -2a^2k^\mu$, negative density: it carries the opposite charge, an antiparticle.
-For the superposition the cross terms cancel and $j^0 = 2(a^2 - b^2)\omega$, of either sign: $j^0$ is a charge
-density, not a probability density, which is why the Klein-Gordon field is interpreted as a field of particles and
-antiparticles (@sec-quantisation) and not as a one-particle wavefunction:
-
-```python
-t, x, y, z, m, k1 = var("t x y z m k1", domain="real"); assume(m > 0)
-X = [t, x, y, z]; eta = diagonal_matrix([1, -1, -1, -1])
-a = var("a", domain="real"); assume(a > 0)
-w = sqrt(k1**2 + m**2)
-def current(phi):
-    phib = phi.conjugate()
-    dlow = [I * (phib * diff(phi, X[i]) - phi * diff(phib, X[i])) for i in range(4)]
-    return vector([(eta[i, i] * dlow[i]).simplify_full() for i in range(4)])
-jp = current(a * exp(-I * (w * t - k1 * x)))
-print("positive frequency: j^mu =", jp, " = 2 a^2 k^mu with k^mu = (omega, k1, 0, 0)")
-print("j_mu j^mu =", (jp * eta * jp).simplify_full())
-jm = current(a * exp(I * (w * t - k1 * x)))
-print("negative frequency: j^mu =", jm)
-b = var("b", domain="real")
-jmix = current(a * exp(-I * (w * t - k1 * x)) + b * exp(I * (w * t - k1 * x)))
-print("superposition: j^0 =", jmix[0].simplify_full())
-div = sum(diff(jmix[i], X[i]) for i in range(4)).simplify_full()
-print("conserved, d_mu j^mu =", div)
-```
-
-*Output:*
-
-```text
-positive frequency: j^mu = (2*sqrt(k1^2 + m^2)*a^2, 2*a^2*k1, 0, 0)  = 2 a^2 k^mu with k^mu = (omega, k1, 0, 0)
-j_mu j^mu = 4*a^4*m^2
-negative frequency: j^mu = (-2*sqrt(k1^2 + m^2)*a^2, -2*a^2*k1, 0, 0)
-superposition: j^0 = 2*(a^2 - b^2)*sqrt(k1^2 + m^2)
-conserved, d_mu j^mu = 0
-```
-:::
-
-The second integrative exercise transfers the phase rotation of the complex scalar to the Dirac field. It uses the Dirac
-equation, its conjugate and the reality properties of @exr-fld-bilinear-real.
-
-::: {#exr-fld-int-dirac-current}
-#### The conserved current of the Dirac field
-
-Show that $\mathcal{L} = \bar\psi(i\gamma^\mu\partial_\mu - m)\psi$ is invariant under $\psi \mapsto e^{i\alpha}\psi$. Derive
-the conjugate equation $i\partial_\mu\bar\psi\,\gamma^\mu + m\bar\psi = 0$ from @eq-dirac, prove that $j^\mu =
-\bar\psi\gamma^\mu\psi$ is conserved on solutions, and compare its density with that of @exr-fld-int-current.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$\bar\psi \mapsto e^{-i\alpha}\bar\psi$, and the phases cancel in every bilinear, as for $|\phi|^2$ (@prp-phase-rotation).
-Taking the Hermitian conjugate of $i\gamma^\mu\partial_\mu\psi = m\psi$ gives $-i\partial_\mu\psi^\dagger\gamma^{\mu\dagger} =
-m\psi^\dagger$; multiplying by $\gamma^0$ on the right and using $\gamma^{\mu\dagger}\gamma^0 = \gamma^0\gamma^\mu$ gives
-$-i\partial_\mu\bar\psi\,\gamma^\mu = m\bar\psi$. Then $\partial_\mu j^\mu = (\partial_\mu\bar\psi)\gamma^\mu\psi +
-\bar\psi\gamma^\mu\partial_\mu\psi = im\bar\psi\psi - im\bar\psi\psi = 0$. The density $j^0 = \bar\psi\gamma^0\psi =
-\psi^\dagger\psi \geq 0$ is positive for every spinor, unlike the scalar charge density; this is what Dirac was looking
-for, although in the quantum field theory $j^\mu$ again becomes a charge current, the electric current of the electron
-field to which the photon couples.
-:::
-
-The third integrative exercise brings together all three sections: the Kaluza-Klein modes of the first, the phase of
-the second, and the gamma matrices and Dirac equation of the third. A massless five-dimensional spinor becomes a tower
-of massive four-dimensional ones.
-
-::: {#exr-fld-int-kk-dirac}
-#### A spinor on a circle
-
-On $M_4 \times S^1$ with the gamma matrices of @exr-fld-clifford-5d, let $\Psi = u\,e^{-ik_\mu x^\mu}e^{iny/R}$ solve the
-massless equation $i\Gamma^M\partial_M\Psi = 0$. Show that $u$ satisfies $(\gamma^\mu k_\mu - i\tfrac nR\gamma_5)u = 0$,
-that this has solutions iff $k_\mu k^\mu = n^2/R^2$, and with Sage that the chiral rotation $u = e^{-i\pi\gamma_5/4}u'$
-turns it into the ordinary Dirac equation of mass $n/R$ for $u'$.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$i\gamma^\mu\partial_\mu$ gives $\gamma^\mu k_\mu$ and $i\Gamma^4\partial_y$ gives $i(i\gamma_5)(in/R) = -i\tfrac nR\gamma_5$.
-Since $\gamma_5$ anticommutes with $\gamma^\mu k_\mu$, $(\gamma\cdot k - i\tfrac nR\gamma_5)^2 = k^2 - \tfrac{n^2}{R^2}$, so
-the operator is invertible unless $k^2 = n^2/R^2$, the dispersion relation of mass $|n|/R$, as for the scalar of
-@exr-fields-kk-modes. With $C = e^{-i\pi\gamma_5/4}$, $C\gamma^\mu C = \gamma^\mu$ because $\gamma_5$ anticommutes with
-$\gamma^\mu$, and $C(-i\tfrac nR\gamma_5)C = -i\tfrac nR\gamma_5e^{-i\pi\gamma_5/2} = -\tfrac nR$; so $C(\gamma\cdot k -
-i\tfrac nR\gamma_5)Cu' = (\gamma\cdot k - \tfrac nR)u' = 0$ for $u = Cu'$. The chiral rotation is a phase rotation
-acting oppositely on the two chiralities, and $n = 0$ gives a massless four-dimensional spinor:
-
-```python
-w, k3, n, R = var("w k3 n R", domain="real"); assume(R > 0)
-s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
-Z, one = zero_matrix(SR, 2), identity_matrix(SR, 2)
-g = [block_matrix([[Z, one], [one, Z]], subdivide=False)] + [block_matrix([[Z, s[i]], [-s[i], Z]], subdivide=False) for i in range(3)]
-g5 = I * g[0] * g[1] * g[2] * g[3]; G4 = I * g5; E4 = identity_matrix(SR, 4)
-klow = [w, 0, 0, -k3]                                       # k_mu = (omega, 0, 0, -k3)
-gk = sum(g[a] * klow[a] for a in range(4))
-D = gk - (n / R) * G4
-print("D = gamma^mu k_mu - i (n/R) gamma_5:", D == gk - I * (n / R) * g5)
-print("det D =", D.det().factor())
-print("det D vanishes on w^2 = k3^2 + n^2/R^2:", bool(D.det().subs(w=sqrt(k3**2 + n**2 / R**2)).simplify_full() == 0))
-C = (-I * pi / 4 * g5).exp().simplify_full()               # e^{-i pi gamma_5 / 4}
-print("C D C = gamma^mu k_mu - n/R:", bool((C * D * C - (gk - (n / R) * E4)).simplify_full() == 0))
-print("C gamma^mu C = gamma^mu (gamma_5 anticommutes with gamma^mu):", all(bool((C * g[a] * C - g[a]).simplify_full() == 0) for a in range(4)))
-```
-
-*Output:*
-
-```text
-D = gamma^mu k_mu - i (n/R) gamma_5: True
-det D = (R^4*k3^4 - 2*R^4*k3^2*w^2 + R^4*w^4 + 2*R^2*k3^2*n^2 - 2*R^2*n^2*w^2 + n^4)/R^4
-det D vanishes on w^2 = k3^2 + n^2/R^2: True
-C D C = gamma^mu k_mu - n/R: True
-C gamma^mu C = gamma^mu (gamma_5 anticommutes with gamma^mu): True
-```
-:::
-::::
-
 ## Actions and symmetries {#sec-actions-symmetries}
 
 A classical field theory is specified by a single function, its Lagrangian density, and everything else follows from
@@ -4606,10 +4476,136 @@ $1836$ times smaller and the loss $1836^4 \approx 10^{13}$ times smaller.
 :::
 ::::
 
-### Exercises {#sec-actions-symmetries-exercises}
+## Exercises {#sec-classical-field-theory-exercises}
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The three integrative exercises combine the two sections. The first follows one Lagrangian, the complex scalar with a
+Three exercises that combine the units of @sec-fields: the charge carried by complex Klein-Gordon waves, the
+conserved current of the Dirac field, and the modes of a spinor on a product with a circle.
+
+The first integrative exercise combines plane waves and their dispersion relation with the current of the phase
+rotation. It shows why the charge density of a scalar field cannot be a probability density.
+
+::: {#exr-fld-int-current}
+#### The current of complex plane waves
+
+For $\phi = a e^{-ik_\mu x^\mu}$ on the mass shell in $3 + 1$ dimensions, compute with Sage $j^\mu = i(\bar\phi\partial^\mu\phi -
+\phi\partial^\mu\bar\phi)$ and $j_\mu j^\mu$. Do the same for the negative-frequency wave $a e^{ik_\mu x^\mu}$ and for
+the superposition $a e^{-ik\cdot x} + b e^{ik\cdot x}$, and check conservation.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For the positive-frequency wave $\partial^\mu\phi = -ik^\mu\phi$, so $j^\mu = 2a^2k^\mu$: parallel to the momentum, with
+$j_\mu j^\mu = 4a^4k_\mu k^\mu = 4a^4m^2$ by the dispersion relation, a timelike vector with $j^0 = 2a^2\omega > 0$. The
+negative-frequency wave has $j^\mu = -2a^2k^\mu$, negative density: it carries the opposite charge, an antiparticle.
+For the superposition the cross terms cancel and $j^0 = 2(a^2 - b^2)\omega$, of either sign: $j^0$ is a charge
+density, not a probability density, which is why the Klein-Gordon field is interpreted as a field of particles and
+antiparticles (@sec-quantisation) and not as a one-particle wavefunction:
+
+```python
+t, x, y, z, m, k1 = var("t x y z m k1", domain="real"); assume(m > 0)
+X = [t, x, y, z]; eta = diagonal_matrix([1, -1, -1, -1])
+a = var("a", domain="real"); assume(a > 0)
+w = sqrt(k1**2 + m**2)
+def current(phi):
+    phib = phi.conjugate()
+    dlow = [I * (phib * diff(phi, X[i]) - phi * diff(phib, X[i])) for i in range(4)]
+    return vector([(eta[i, i] * dlow[i]).simplify_full() for i in range(4)])
+jp = current(a * exp(-I * (w * t - k1 * x)))
+print("positive frequency: j^mu =", jp, " = 2 a^2 k^mu with k^mu = (omega, k1, 0, 0)")
+print("j_mu j^mu =", (jp * eta * jp).simplify_full())
+jm = current(a * exp(I * (w * t - k1 * x)))
+print("negative frequency: j^mu =", jm)
+b = var("b", domain="real")
+jmix = current(a * exp(-I * (w * t - k1 * x)) + b * exp(I * (w * t - k1 * x)))
+print("superposition: j^0 =", jmix[0].simplify_full())
+div = sum(diff(jmix[i], X[i]) for i in range(4)).simplify_full()
+print("conserved, d_mu j^mu =", div)
+```
+
+*Output:*
+
+```text
+positive frequency: j^mu = (2*sqrt(k1^2 + m^2)*a^2, 2*a^2*k1, 0, 0)  = 2 a^2 k^mu with k^mu = (omega, k1, 0, 0)
+j_mu j^mu = 4*a^4*m^2
+negative frequency: j^mu = (-2*sqrt(k1^2 + m^2)*a^2, -2*a^2*k1, 0, 0)
+superposition: j^0 = 2*(a^2 - b^2)*sqrt(k1^2 + m^2)
+conserved, d_mu j^mu = 0
+```
+:::
+
+The second integrative exercise transfers the phase rotation of the complex scalar to the Dirac field. It uses the Dirac
+equation, its conjugate and the reality properties of @exr-fld-bilinear-real.
+
+::: {#exr-fld-int-dirac-current}
+#### The conserved current of the Dirac field
+
+Show that $\mathcal{L} = \bar\psi(i\gamma^\mu\partial_\mu - m)\psi$ is invariant under $\psi \mapsto e^{i\alpha}\psi$. Derive
+the conjugate equation $i\partial_\mu\bar\psi\,\gamma^\mu + m\bar\psi = 0$ from @eq-dirac, prove that $j^\mu =
+\bar\psi\gamma^\mu\psi$ is conserved on solutions, and compare its density with that of @exr-fld-int-current.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\bar\psi \mapsto e^{-i\alpha}\bar\psi$, and the phases cancel in every bilinear, as for $|\phi|^2$ (@prp-phase-rotation).
+Taking the Hermitian conjugate of $i\gamma^\mu\partial_\mu\psi = m\psi$ gives $-i\partial_\mu\psi^\dagger\gamma^{\mu\dagger} =
+m\psi^\dagger$; multiplying by $\gamma^0$ on the right and using $\gamma^{\mu\dagger}\gamma^0 = \gamma^0\gamma^\mu$ gives
+$-i\partial_\mu\bar\psi\,\gamma^\mu = m\bar\psi$. Then $\partial_\mu j^\mu = (\partial_\mu\bar\psi)\gamma^\mu\psi +
+\bar\psi\gamma^\mu\partial_\mu\psi = im\bar\psi\psi - im\bar\psi\psi = 0$. The density $j^0 = \bar\psi\gamma^0\psi =
+\psi^\dagger\psi \geq 0$ is positive for every spinor, unlike the scalar charge density; this is what Dirac was looking
+for, although in the quantum field theory $j^\mu$ again becomes a charge current, the electric current of the electron
+field to which the photon couples.
+:::
+
+The third integrative exercise brings together all three sections: the Kaluza-Klein modes of the first, the phase of
+the second, and the gamma matrices and Dirac equation of the third. A massless five-dimensional spinor becomes a tower
+of massive four-dimensional ones.
+
+::: {#exr-fld-int-kk-dirac}
+#### A spinor on a circle
+
+On $M_4 \times S^1$ with the gamma matrices of @exr-fld-clifford-5d, let $\Psi = u\,e^{-ik_\mu x^\mu}e^{iny/R}$ solve the
+massless equation $i\Gamma^M\partial_M\Psi = 0$. Show that $u$ satisfies $(\gamma^\mu k_\mu - i\tfrac nR\gamma_5)u = 0$,
+that this has solutions iff $k_\mu k^\mu = n^2/R^2$, and with Sage that the chiral rotation $u = e^{-i\pi\gamma_5/4}u'$
+turns it into the ordinary Dirac equation of mass $n/R$ for $u'$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$i\gamma^\mu\partial_\mu$ gives $\gamma^\mu k_\mu$ and $i\Gamma^4\partial_y$ gives $i(i\gamma_5)(in/R) = -i\tfrac nR\gamma_5$.
+Since $\gamma_5$ anticommutes with $\gamma^\mu k_\mu$, $(\gamma\cdot k - i\tfrac nR\gamma_5)^2 = k^2 - \tfrac{n^2}{R^2}$, so
+the operator is invertible unless $k^2 = n^2/R^2$, the dispersion relation of mass $|n|/R$, as for the scalar of
+@exr-fields-kk-modes. With $C = e^{-i\pi\gamma_5/4}$, $C\gamma^\mu C = \gamma^\mu$ because $\gamma_5$ anticommutes with
+$\gamma^\mu$, and $C(-i\tfrac nR\gamma_5)C = -i\tfrac nR\gamma_5e^{-i\pi\gamma_5/2} = -\tfrac nR$; so $C(\gamma\cdot k -
+i\tfrac nR\gamma_5)Cu' = (\gamma\cdot k - \tfrac nR)u' = 0$ for $u = Cu'$. The chiral rotation is a phase rotation
+acting oppositely on the two chiralities, and $n = 0$ gives a massless four-dimensional spinor:
+
+```python
+w, k3, n, R = var("w k3 n R", domain="real"); assume(R > 0)
+s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
+Z, one = zero_matrix(SR, 2), identity_matrix(SR, 2)
+g = [block_matrix([[Z, one], [one, Z]], subdivide=False)] + [block_matrix([[Z, s[i]], [-s[i], Z]], subdivide=False) for i in range(3)]
+g5 = I * g[0] * g[1] * g[2] * g[3]; G4 = I * g5; E4 = identity_matrix(SR, 4)
+klow = [w, 0, 0, -k3]                                       # k_mu = (omega, 0, 0, -k3)
+gk = sum(g[a] * klow[a] for a in range(4))
+D = gk - (n / R) * G4
+print("D = gamma^mu k_mu - i (n/R) gamma_5:", D == gk - I * (n / R) * g5)
+print("det D =", D.det().factor())
+print("det D vanishes on w^2 = k3^2 + n^2/R^2:", bool(D.det().subs(w=sqrt(k3**2 + n**2 / R**2)).simplify_full() == 0))
+C = (-I * pi / 4 * g5).exp().simplify_full()               # e^{-i pi gamma_5 / 4}
+print("C D C = gamma^mu k_mu - n/R:", bool((C * D * C - (gk - (n / R) * E4)).simplify_full() == 0))
+print("C gamma^mu C = gamma^mu (gamma_5 anticommutes with gamma^mu):", all(bool((C * g[a] * C - g[a]).simplify_full() == 0) for a in range(4)))
+```
+
+*Output:*
+
+```text
+D = gamma^mu k_mu - i (n/R) gamma_5: True
+det D = (R^4*k3^4 - 2*R^4*k3^2*w^2 + R^4*w^4 + 2*R^2*k3^2*n^2 - 2*R^2*n^2*w^2 + n^4)/R^4
+det D vanishes on w^2 = k3^2 + n^2/R^2: True
+C D C = gamma^mu k_mu - n/R: True
+C gamma^mu C = gamma^mu (gamma_5 anticommutes with gamma^mu): True
+```
+:::
+
+The three integrative exercises combine the units of @sec-actions-symmetries. The first follows one Lagrangian, the complex scalar with a
 quartic self-interaction, through field equations, currents and energy; the second treats the kink of
 @exr-acsym-solutions-kink as a particle.
 

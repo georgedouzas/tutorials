@@ -12,7 +12,9 @@ labeled data is often expensive or impossible to obtain, while unlabeled data is
 The methods in this chapter serve different purposes: clustering (@sec-clustering) groups similar data points together,
 dimensionality reduction (@sec-dimensionality-reduction) finds compact representations that preserve essential structure, and
 generative models (@sec-generative-latent) learn probability distributions that can generate new data. These techniques are
-foundational for exploratory data analysis, data preprocessing, and understanding complex datasets.
+foundational for exploratory data analysis, data preprocessing, and understanding complex datasets. Every definition and result
+below is followed by examples and by exercises with hidden solutions, and the chapter closes with integrative exercises
+(@sec-unsupervised-learning-exercises) that combine the three sections.
 
 ## Clustering Methods {#sec-clustering}
 
@@ -33,26 +35,60 @@ its simplicity, efficiency, and effectiveness. The algorithm's elegance lies in 
 points to clusters and update cluster centers, guaranteed to converge to a local optimum.
 
 **Problem Formulation:** Given a dataset $\mathcal{X} = \{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$ where $\mathbf{x}_i \in
-\mathbb{R}^d$, we want to partition the data into $K$ clusters. We represent this partition by: - Cluster centers
-$\{\boldsymbol{\mu}_1, \ldots, \boldsymbol{\mu}_K\}$ where $\boldsymbol{\mu}_k \in \mathbb{R}^d$
-- Assignments $\{c_1, \ldots,
-c_n\}$ where $c_i \in \{1, \ldots, K\}$ indicates which cluster contains $\mathbf{x}_i$
+\mathbb{R}^d$, we want to partition the data into $K$ clusters. We represent this partition by:
 
-**Objective Function:** K-means minimizes the within-cluster sum of squares (WCSS), also called inertia or distortion:
+- Cluster centers $\{\boldsymbol{\mu}_1, \ldots, \boldsymbol{\mu}_K\}$ where $\boldsymbol{\mu}_k \in \mathbb{R}^d$
+- Assignments $\{c_1, \ldots, c_n\}$ where $c_i \in \{1, \ldots, K\}$ indicates which cluster contains $\mathbf{x}_i$
 
+**Objective Function:** K-means minimizes the within-cluster sum of squares (WCSS), also called inertia or distortion. The
+definition below fixes this objective as a function of both the centers and the assignments, so that the two steps of the
+algorithm can each be read as a partial minimization of it.
+
+:::: {.statement-box}
 ::: {#def-kmeans-objective}
-
-K-Means Objective Function
+#### K-Means Objective Function
 
 $$J(\mathbf{C}, \boldsymbol{\mu}) = \sum_{k=1}^K \sum_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}_k\|^2 = \sum_{i=1}^n \|\mathbf{x}_i - \boldsymbol{\mu}_{c_i}\|^2$$
+
+where $C_k = \{i : c_i = k\}$ is the set of indices of points assigned to cluster $k$.
 :::
 
-where $C_k = \{i : c_i = k\}$ is the set of indices of points assigned to cluster $k$. This objective measures cluster
-compactness: we want points close to their cluster centers.
+::::
+
+This objective measures cluster compactness: we want points close to their cluster centers.
 
 **Intuition:** Imagine you have customer data and want to identify $K=3$ market segments. K-means finds three "prototype"
 customers (the centers $\boldsymbol{\mu}_k$) and assigns each actual customer to their nearest prototype. The objective ensures
 that customers within a segment are similar (close to the prototype) while segments are distinct.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The smallest useful illustration of @def-kmeans-objective uses four points on a line that fall into two obvious groups. Computing
+the objective for the natural partition shows how small $J$ becomes when centers sit in the middle of tight groups.
+
+::: {#exm-uns-kmeans-objective-line}
+#### Four points on a line
+
+Take $\mathcal{X} = \{0, 2, 10, 12\} \subset \mathbb{R}$ and $K = 2$, with $C_1 = \{0, 2\}$, $C_2 = \{10, 12\}$ and centers
+$\mu_1 = 1$, $\mu_2 = 11$. Each point is at distance $1$ from its center, so $J = 1 + 1 + 1 + 1 = 4$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise evaluates @def-kmeans-objective for a worse partition of the same four points. It shows that an unbalanced split
+pays heavily in squared distances, which is what drives the algorithm towards the natural partition.
+
+::: {#exr-uns-kmeans-objective-bad-split}
+#### An unbalanced partition
+
+For $\mathcal{X} = \{0, 2, 10, 12\}$, let $C_1 = \{0, 2, 10\}$ and $C_2 = \{12\}$, with each center equal to the mean of its
+cluster. Compute $J$ and compare it with @exm-uns-kmeans-objective-line.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The means are $\mu_1 = 4$ and $\mu_2 = 12$. Then $J = (0-4)^2 + (2-4)^2 + (10-4)^2 + 0 = 16 + 4 + 36 = 56$, fourteen times the
+value $4$ of the natural partition.
+:::
+::::
 
 **Lloyd's Algorithm (Standard K-Means):**
 
@@ -62,34 +98,31 @@ The algorithm alternates between two steps that each decrease the objective:
 (initialization strategies discussed below)
 
 2. **Repeat until convergence:**
-   
+
    a. **Assignment Step:** Assign each point to the nearest center: $$c_i^{(t)} = \arg\min_{k \in \{1,\ldots,K\}} \|\mathbf{x}_i -
    \boldsymbol{\mu}_k^{(t)}\|^2$$
-   
+
    This is optimal for fixed centers: each point goes to its closest center, minimizing its contribution to the objective.
-   
+
    b. **Update Step:** Recompute cluster centers as the mean of assigned points: $$\boldsymbol{\mu}_k^{(t+1)} =
    \frac{1}{|C_k^{(t)}|}\sum_{i \in C_k^{(t)}} \mathbf{x}_i$$
-   
+
    This is optimal for fixed assignments: the mean minimizes the sum of squared distances (see proof below).
 
 3. **Convergence:** Stop when assignments no longer change or centers move less than a threshold $\epsilon$.
 
-**Example:** Consider 2D data with three natural clusters. Starting with random centers, the algorithm iteratively refines them: -
-Iteration 1: Centers are random, assignments are poor - Iteration 2: Centers move toward cluster means, assignments improve -
-Iteration 3-5: Centers converge to cluster centroids - Convergence: Assignments stabilize, centers no longer move
+The update step rests on a single fact about squared distances, which deserves to be stated on its own. It says that among all
+candidate centers for a fixed group of points, the sample mean is the one that minimizes the sum of squared distances.
 
-**Convergence Properties:**
+:::: {.statement-box}
+::: {#prp-uns-mean-minimizes-squares}
+#### Optimality of the update step
 
-1. **Monotonic Decrease:** Each iteration decreases (or maintains) the objective $J^{(t+1)} \leq J^{(t)}$ because: - Assignment
-   step: Choosing the nearest center minimizes distance for each point - Update step: The mean minimizes sum of squared distances
-   (proven below)
+For fixed assignments, the center of cluster $k$ that minimizes $\sum_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}\|^2$ is the
+sample mean $\boldsymbol{\mu}_k^* = \frac{1}{|C_k|}\sum_{i \in C_k} \mathbf{x}_i$.
+:::
 
-2. **Finite Convergence:** Since there are finitely many possible assignments ($K^n$ possibilities) and the objective strictly
-decreases except at convergence, the algorithm must terminate in finite time.
-
-3. **Local Minimum:** K-means converges to a local minimum, not necessarily the global optimum. The solution depends critically on
-initialization, which is why multiple runs with different initializations are recommended.
+::::
 
 **Proof of Update Step Optimality:** For fixed assignments, the optimal center for cluster $k$ minimizes:
 
@@ -104,34 +137,177 @@ $$\frac{\partial}{\partial \boldsymbol{\mu}} \sum_{i \in C_k} \|\mathbf{x}_i - \
 Solving for $\boldsymbol{\mu}$: $$\sum_{i \in C_k} \mathbf{x}_i = |C_k|\boldsymbol{\mu} \implies \boldsymbol{\mu}^* =
 \frac{1}{|C_k|}\sum_{i \in C_k} \mathbf{x}_i$$
 
-This is the sample mean of the cluster, justifying the name "K-means."
+This is the sample mean of the cluster, justifying the name "K-means." Since the objective is a convex quadratic in
+$\boldsymbol{\mu}$, this stationary point is its unique minimum.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A three-point computation makes @prp-uns-mean-minimizes-squares concrete. Comparing the mean with another candidate center also
+reveals the exact size of the penalty for moving away from the mean, which the exercise then proves in general.
+
+::: {#exm-uns-mean-three-points}
+#### Three numbers
+
+For the points $1, 2, 6$ the mean is $3$ and $\sum_i (x_i - 3)^2 = 4 + 1 + 9 = 14$. At $\mu = 2$ the sum is
+$1 + 0 + 16 = 17 = 14 + 3 \cdot (3 - 2)^2$: moving the center away from the mean by $1$ costs exactly $|C| \cdot 1^2 = 3$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise turns the observation of @exm-uns-mean-three-points into an identity. It gives a second proof of
+@prp-uns-mean-minimizes-squares that needs no derivatives and shows directly that the minimum is unique.
+
+::: {#exr-uns-mean-decomposition}
+#### Bias-variance decomposition of the cluster cost
+
+With $\bar{\mathbf{x}}$ the mean of the points of $C$, prove that
+$\sum_{i \in C} \|\mathbf{x}_i - \boldsymbol{\mu}\|^2 = \sum_{i \in C} \|\mathbf{x}_i - \bar{\mathbf{x}}\|^2 + |C|\,\|\bar{\mathbf{x}} - \boldsymbol{\mu}\|^2$
+for every $\boldsymbol{\mu}$, and deduce that the mean is the unique minimizer.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Write $\mathbf{x}_i - \boldsymbol{\mu} = (\mathbf{x}_i - \bar{\mathbf{x}}) + (\bar{\mathbf{x}} - \boldsymbol{\mu})$ and expand the
+square. The cross term is $2(\bar{\mathbf{x}} - \boldsymbol{\mu})^T \sum_{i \in C} (\mathbf{x}_i - \bar{\mathbf{x}}) = 0$, because
+the deviations from the mean sum to zero, which gives the identity. The second term is non-negative and vanishes only when
+$\boldsymbol{\mu} = \bar{\mathbf{x}}$, so the mean is the unique minimizer.
+:::
+::::
+
+**Example:** Consider 2D data with three natural clusters. Starting with random centers, the algorithm iteratively refines them:
+
+- Iteration 1: Centers are random, assignments are poor
+- Iteration 2: Centers move toward cluster means, assignments improve
+- Iteration 3-5: Centers converge to cluster centroids
+- Convergence: Assignments stabilize, centers no longer move
+
+With the optimality of both steps in hand, the behaviour of Lloyd's algorithm as a whole can be stated. The proposition below
+collects its convergence properties: the objective never increases, the algorithm stops after finitely many steps, and what it
+reaches is in general only a local minimum.
+
+:::: {.statement-box}
+::: {#prp-uns-lloyd-convergence}
+#### Convergence of Lloyd's algorithm
+
+1. **Monotonic Decrease:** Each iteration decreases (or maintains) the objective, $J^{(t+1)} \leq J^{(t)}$.
+2. **Finite Convergence:** The algorithm terminates after finitely many iterations.
+3. **Local Minimum:** K-means converges to a local minimum, not necessarily the global optimum.
+:::
+
+::::
+
+**Convergence Properties:**
+
+1. **Monotonic Decrease:** Each iteration decreases (or maintains) the objective $J^{(t+1)} \leq J^{(t)}$ because:
+   - Assignment step: Choosing the nearest center minimizes distance for each point
+   - Update step: The mean minimizes sum of squared distances (@prp-uns-mean-minimizes-squares)
+
+2. **Finite Convergence:** Since there are finitely many possible assignments ($K^n$ possibilities) and the objective strictly
+decreases except at convergence, the algorithm must terminate in finite time.
+
+3. **Local Minimum:** K-means converges to a local minimum, not necessarily the global optimum. The solution depends critically on
+initialization, which is why multiple runs with different initializations are recommended.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first example below is the author's qualitative description of the iterations on two-dimensional data, given above, made
+fully explicit on four points of a line. Tracking the objective after every step shows the monotonic decrease of
+@prp-uns-lloyd-convergence at work.
+
+::: {#exm-uns-lloyd-iterations}
+#### Lloyd's iterations by hand
+
+Take $\{0, 2, 10, 12\}$, $K = 2$ and the poor initialization $\mu_1 = 0$, $\mu_2 = 2$. The assignment step sends $0$ to
+$\mu_1$ and $2, 10, 12$ to $\mu_2$, with $J = 0 + 0 + 64 + 100 = 164$. The update gives $\mu_1 = 0$, $\mu_2 = 8$, and
+$J = 0 + 36 + 4 + 16 = 56$. Reassigning moves $2$ to $\mu_1$ ($|2 - 0| < |2 - 8|$), with $J = 0 + 4 + 4 + 16 = 24$. The update
+gives $\mu_1 = 1$, $\mu_2 = 11$ and $J = 4$, after which the assignments no longer change. The sequence $164, 56, 24, 4$ is
+decreasing, as the proposition requires.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The third part of @prp-uns-lloyd-convergence says that the limit may be a poor local minimum. The exercise exhibits a stable
+configuration of Lloyd's algorithm whose objective is sixteen times the optimal one.
+
+::: {#exr-uns-lloyd-local-minimum}
+#### A bad fixed point
+
+Consider the four points $(0,0), (0,1), (4,0), (4,1)$ and $K = 2$. Show that the partition into a bottom pair and a top pair is a
+fixed point of Lloyd's algorithm, compute its objective, and compare it with the left/right partition.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The bottom pair has mean $(2, 0)$ and the top pair has mean $(2, 1)$. Each point is at squared distance $4$ from its own center
+and $4 + 1 = 5$ from the other, so the assignment step changes nothing, and the update step returns the same means: the
+configuration is a fixed point with $J = 4 \cdot 4 = 16$. The left/right partition has centers $(0, 0.5)$ and $(4, 0.5)$ and
+$J = 4 \cdot 0.25 = 1$, so the fixed point is a local but not a global minimum.
+:::
+::::
 
 **Initialization Methods:**
 
-1. **Random Initialization:** Select $K$ random points as initial centers - Simple but can lead to poor solutions - Highly
-   sensitive to outliers
+1. **Random Initialization:** Select $K$ random points as initial centers
+   - Simple but can lead to poor solutions
+   - Highly sensitive to outliers
 
 2. **Forgy Method:** Randomly assign points to clusters, then compute initial centers
 
 3. **Random Partition:** Randomly partition data, compute centers
 
 4. **K-Means++ (Recommended):** Probabilistic initialization that spreads out initial centers:
-   
+
    a. Choose first center $\boldsymbol{\mu}_1$ uniformly at random from data
-   
-   b. For $k = 2, \ldots, K$: - For each point $\mathbf{x}_i$, compute distance to nearest existing center: $$D(\mathbf{x}_i) =
+
+   b. For $k = 2, \ldots, K$:
+      - For each point $\mathbf{x}_i$, compute the squared distance to the nearest existing center: $$D(\mathbf{x}_i) =
       \min_{j < k} \|\mathbf{x}_i - \boldsymbol{\mu}_j\|^2$$
-- Choose next center $\boldsymbol{\mu}_k$ with probability
-        proportional to $D(\mathbf{x}_i)^2$
-   
-   **Guarantee:** K-means++ initialization ensures that the objective is $O(\log K)$-competitive with the optimal clustering in
-   expectation.
+      - Choose next center $\boldsymbol{\mu}_k$ with probability proportional to this squared distance $D(\mathbf{x}_i)$
+
+The reason K-means++ is recommended is a guarantee on the quality of its starting point, before any Lloyd iteration is run. The
+theorem below states it; its proof is a probabilistic argument beyond the scope of this chapter.
+
+:::: {.statement-box}
+::: {#thm-uns-kmeans-plus-plus}
+#### K-means++ guarantee
+
+K-means++ initialization ensures that the objective is $O(\log K)$-competitive with the optimal clustering in expectation:
+$\mathbb{E}[J] \leq 8(\ln K + 2)\, J_{\text{opt}}$.
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The guarantee of @thm-uns-kmeans-plus-plus comes from the fact that sampling proportionally to squared distance strongly favours
+unexplored regions. The example computes these sampling probabilities on the four points used throughout this unit.
+
+::: {#exm-uns-kmeans-plus-plus-line}
+#### Seeding four points
+
+For $\{0, 2, 10, 12\}$ with first center $0$, the squared distances are $D = 0, 4, 100, 144$, with total $248$. The second center
+is $2$ with probability $4/248$ and lies in the far group $\{10, 12\}$ with probability $244/248 \approx 0.984$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise repeats the computation of @exm-uns-kmeans-plus-plus-line on a smaller set. It also asks for the structural reason why
+the seeding of @thm-uns-kmeans-plus-plus never selects the same point twice.
+
+::: {#exr-uns-kmeans-plus-plus-probabilities}
+#### Seeding probabilities
+
+For the points $\{0, 1, 5\}$ with first center $0$, compute the probability of each point being chosen as second center, and
+explain why an existing center is never chosen again.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$D = 0, 1, 25$ with total $26$, so the probabilities are $0$, $1/26$ and $25/26$. An existing center has $D = 0$, hence
+probability $0$ (as long as some point has $D > 0$).
+:::
+::::
 
 **Computational Complexity:**
 
-- **Per iteration:** $O(nKd)$ for assignment step, $O(nd)$ for update step - **Total:** $O(nKdT)$ where $T$ is the number of
-iterations - **Typical behavior:** $T$ is often small (10-100), but can be large for difficult datasets - **Space:** $O(nd + Kd)$
-to store data and centers
+- **Per iteration:** $O(nKd)$ for assignment step, $O(nd)$ for update step
+- **Total:** $O(nKdT)$ where $T$ is the number of iterations
+- **Typical behavior:** $T$ is often small (10-100), but can be large for difficult datasets
+- **Space:** $O(nd + Kd)$ to store data and centers
 
 **Choosing the Number of Clusters $K$:**
 
@@ -139,13 +315,8 @@ to store data and centers
    \sum_{k=1}^K \sum_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}_k\|^2$$ The elbow indicates a good tradeoff between fit and
    complexity.
 
-2. **Silhouette Analysis:** For each point $i$, compute: $$s_i = \frac{b_i - a_i}{\max(a_i, b_i)}$$ where: - $a_i$: Average
-   distance to points in same cluster - $b_i$: Average distance to points in nearest other cluster
-   
-   The silhouette coefficient ranges from -1 to 1: - $s_i \approx 1$: Well clustered - $s_i \approx 0$: On cluster boundary - $s_i
-   < 0$: Possibly misclassified
-   
-   Choose $K$ that maximizes average silhouette score.
+2. **Silhouette Analysis:** For each point $i$, compute the silhouette of @def-uns-silhouette below, and choose $K$ that maximizes
+   average silhouette score.
 
 3. **Gap Statistic:** Compare WCSS to expected WCSS under null reference distribution: $$\text{Gap}(K) =
    \mathbb{E}[\log(\text{WCSS}_0(K))] - \log(\text{WCSS}(K))$$ Choose smallest $K$ such that $\text{Gap}(K) \geq \text{Gap}(K+1) -
@@ -153,26 +324,82 @@ to store data and centers
 
 4. **Cross-Validation:** Use clustering quality metrics on held-out data.
 
+Of these criteria, the silhouette is the one that judges each point individually, by comparing its own cluster with the nearest
+other one. Its definition is stated here because it is used again for hierarchical clustering and for Gaussian mixtures.
+
+:::: {.statement-box}
+::: {#def-uns-silhouette}
+#### Silhouette coefficient
+
+For each point $i$, the **silhouette** is $$s_i = \frac{b_i - a_i}{\max(a_i, b_i)}$$ where:
+
+- $a_i$: Average distance to points in same cluster
+- $b_i$: Average distance to points in nearest other cluster
+:::
+
+::::
+
+The silhouette coefficient ranges from -1 to 1:
+
+- $s_i \approx 1$: Well clustered
+- $s_i \approx 0$: On cluster boundary
+- $s_i < 0$: Possibly misclassified
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example computes @def-uns-silhouette for two points of a small clustering on a line. The point closer to the other cluster
+gets the smaller silhouette, as the interpretation above predicts.
+
+::: {#exm-uns-silhouette-line}
+#### Silhouettes on a line
+
+Cluster $A = \{0, 1\}$ and $B = \{5\}$. For the point $0$: $a = 1$, $b = 5$, $s = 4/5 = 0.8$. For the point $1$: $a = 1$,
+$b = 4$, $s = 3/4 = 0.75$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The range $[-1, 1]$ quoted after @def-uns-silhouette is the subject of the exercise. The proof distinguishes the two cases of the
+maximum in the denominator.
+
+::: {#exr-uns-silhouette-range}
+#### Range of the silhouette
+
+Show that $-1 \leq s_i \leq 1$ whenever $\max(a_i, b_i) > 0$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $a_i \leq b_i$, then $s_i = 1 - a_i/b_i$ with $0 \leq a_i/b_i \leq 1$, so $0 \leq s_i \leq 1$. If $a_i > b_i$, then
+$s_i = b_i/a_i - 1$ with $0 \leq b_i/a_i < 1$, so $-1 \leq s_i < 0$.
+:::
+::::
+
 **Assumptions and Limitations:**
 
-1. **Spherical Clusters:** K-means assumes clusters are roughly spherical (isotropic Gaussian) 2. **Similar Sizes:** Works best
-when clusters have similar numbers of points 3. **Similar Variances:** Assumes clusters have similar spread 4. **Convex
-Boundaries:** Cannot capture non-convex cluster shapes 5. **Sensitive to Outliers:** Outliers can significantly affect cluster
-centers 6. **Euclidean Distance:** Assumes Euclidean distance is appropriate
+1. **Spherical Clusters:** K-means assumes clusters are roughly spherical (isotropic Gaussian)
+2. **Similar Sizes:** Works best when clusters have similar numbers of points
+3. **Similar Variances:** Assumes clusters have similar spread
+4. **Convex Boundaries:** Cannot capture non-convex cluster shapes
+5. **Sensitive to Outliers:** Outliers can significantly affect cluster centers
+6. **Euclidean Distance:** Assumes Euclidean distance is appropriate
 
 **Variants and Extensions:**
 
-1. **K-Medoids (PAM):** Use actual data points as centers instead of means - More robust to outliers - Works with arbitrary
-   distance metrics - More computationally expensive
+1. **K-Medoids (PAM):** Use actual data points as centers instead of means
+   - More robust to outliers
+   - Works with arbitrary distance metrics
+   - More computationally expensive
 
-2. **K-Means with Different Distances:** Generalize to other distance metrics - Manhattan distance: K-medians - Cosine distance:
-   Spherical K-means
+2. **K-Means with Different Distances:** Generalize to other distance metrics
+   - Manhattan distance: K-medians
+   - Cosine distance: Spherical K-means
 
 3. **Fuzzy C-Means:** Soft assignments with membership degrees: $$u_{ik} = \frac{1}{\sum_{j=1}^K (\|\mathbf{x}_i -
    \boldsymbol{\mu}_k\| / \|\mathbf{x}_i - \boldsymbol{\mu}_j\|)^{2/(m-1)}}$$ where $m > 1$ is the fuzziness parameter.
 
-4. **Mini-Batch K-Means:** Use random mini-batches for scalability: - Much faster for large datasets - Slightly lower quality -
-   $O(nKd)$ complexity per epoch
+4. **Mini-Batch K-Means:** Use random mini-batches for scalability:
+   - Much faster for large datasets
+   - Slightly lower quality
+   - $O(nKd)$ complexity per epoch
 
 5. **K-Means++:** Improved initialization (described above)
 
@@ -185,18 +412,21 @@ centers 6. **Euclidean Distance:** Assumes Euclidean distance is appropriate
 
 2. **Multiple Runs:** Run K-means multiple times with different initializations and choose the best result (lowest WCSS).
 
-3. **Convergence Criteria:** Stop when: - Assignments don't change - Centers move less than threshold: $\max_k
-   \|\boldsymbol{\mu}_k^{(t+1)} - \boldsymbol{\mu}_k^{(t)}\| < \epsilon$
-- Maximum iterations reached
+3. **Convergence Criteria:** Stop when:
+   - Assignments don't change
+   - Centers move less than threshold: $\max_k \|\boldsymbol{\mu}_k^{(t+1)} - \boldsymbol{\mu}_k^{(t)}\| < \epsilon$
+   - Maximum iterations reached
 
-4. **Empty Clusters:** If a cluster becomes empty: - Reinitialize its center - Split the largest cluster - Remove the empty
-   cluster
+4. **Empty Clusters:** If a cluster becomes empty:
+   - Reinitialize its center
+   - Split the largest cluster
+   - Remove the empty cluster
 
 5. **High-Dimensional Data:** K-means can struggle in high dimensions due to the curse of dimensionality. Consider dimensionality
 reduction first.
 
-**Applications:** - Image compression (color quantization) - Customer segmentation - Document clustering - Anomaly detection -
-Feature learning (as preprocessing) - Vector quantization
+**Applications:** Image compression (color quantization), customer segmentation, document clustering, anomaly detection, feature
+learning (as preprocessing), vector quantization.
 
 K-means remains one of the most practical and widely used clustering algorithms despite its limitations, particularly when
 combined with good initialization and appropriate preprocessing [@james2023statistical; @shalev2014ml].
@@ -209,55 +439,119 @@ advance and provide a complete clustering hierarchy.
 
 **Two Approaches:**
 
-1. **Agglomerative (Bottom-Up):** Start with individual points and merge clusters 2. **Divisive (Top-Down):** Start with all
-points in one cluster and recursively split
+1. **Agglomerative (Bottom-Up):** Start with individual points and merge clusters
+2. **Divisive (Top-Down):** Start with all points in one cluster and recursively split
 
 Agglomerative methods are more common and computationally tractable.
 
 **Agglomerative Hierarchical Clustering Algorithm:**
 
-``` Input: Data points {x₁, ..., xₙ}, distance metric d, linkage criterion L Initialize: Each point as its own cluster: C = {{x₁},
-{x₂}, ..., {xₙ}}
+```
+Input: Data points {x₁, ..., xₙ}, distance metric d, linkage criterion L
+Initialize: Each point as its own cluster: C = {{x₁}, {x₂}, ..., {xₙ}}
 
-While |C| > 1: Find pair of closest clusters: (Cᵢ, Cⱼ) = argmin_{Cₐ,Cᵦ∈C, a≠b} L(Cₐ, Cᵦ) Merge clusters: C_new = Cᵢ ∪ Cⱼ C = (C \
-    {Cᵢ, Cⱼ}) ∪ {C_new} Record merge in dendrogram
+While |C| > 1:
+    Find pair of closest clusters: (Cᵢ, Cⱼ) = argmin_{Cₐ,Cᵦ∈C, a≠b} L(Cₐ, Cᵦ)
+    Merge clusters: C_new = Cᵢ ∪ Cⱼ
+    C = (C \ {Cᵢ, Cⱼ}) ∪ {C_new}
+    Record merge in dendrogram
 
-Return: Dendrogram encoding merge sequence ```
+Return: Dendrogram encoding merge sequence
+```
 
-**Linkage Criteria:** The linkage criterion $L(C_i, C_j)$ defines the distance between clusters:
+The algorithm is only specified once one says how far apart two clusters are, given a distance between points. The definition
+below collects the four classical answers, each of which turns the point distance $d$ into a cluster distance.
+
+:::: {.statement-box}
+::: {#def-uns-linkage}
+#### Linkage criteria
+
+The linkage criterion $L(C_i, C_j)$ defines the distance between clusters:
+
+1. **Single Linkage (Minimum Linkage):** $d_{\text{single}}(C_i, C_j) = \min_{\mathbf{x} \in C_i, \mathbf{x}' \in C_j}
+   d(\mathbf{x}, \mathbf{x}')$, the distance between closest points in the two clusters.
+2. **Complete Linkage (Maximum Linkage):** $d_{\text{complete}}(C_i, C_j) = \max_{\mathbf{x} \in C_i, \mathbf{x}' \in C_j}
+   d(\mathbf{x}, \mathbf{x}')$, the distance between farthest points in the two clusters.
+3. **Average Linkage (UPGMA):** $d_{\text{average}}(C_i, C_j) = \frac{1}{|C_i||C_j|}\sum_{\mathbf{x} \in C_i}\sum_{\mathbf{x}'
+   \in C_j} d(\mathbf{x}, \mathbf{x}')$, the average distance between all pairs of points.
+4. **Centroid Linkage:** $d_{\text{centroid}}(C_i, C_j) = d(\boldsymbol{\mu}_i, \boldsymbol{\mu}_j)$, where
+   $\boldsymbol{\mu}_i = \frac{1}{|C_i|}\sum_{\mathbf{x} \in C_i} \mathbf{x}$ is the centroid.
+:::
+
+::::
+
+**Linkage Criteria:** The criteria behave very differently in practice.
 
 **1. Single Linkage (Minimum Linkage):** $$d_{\text{single}}(C_i, C_j) = \min_{\mathbf{x} \in C_i, \mathbf{x}' \in C_j}
 d(\mathbf{x}, \mathbf{x}')$$
 
 Distance between closest points in the two clusters.
 
-**Properties:** - Can find non-convex clusters - Sensitive to noise and outliers (chaining effect) - Tends to produce elongated
-clusters - Computationally efficient
+**Properties:** Can find non-convex clusters; sensitive to noise and outliers (chaining effect); tends to produce elongated
+clusters; computationally efficient.
 
 **2. Complete Linkage (Maximum Linkage):** $$d_{\text{complete}}(C_i, C_j) = \max_{\mathbf{x} \in C_i, \mathbf{x}' \in C_j}
 d(\mathbf{x}, \mathbf{x}')$$
 
 Distance between farthest points in the two clusters.
 
-**Properties:** - Produces compact, spherical clusters - Less sensitive to outliers than single linkage - Breaks large clusters -
-Preferred for well-separated clusters
+**Properties:** Produces compact, spherical clusters; less sensitive to outliers than single linkage; breaks large clusters;
+preferred for well-separated clusters.
 
 **3. Average Linkage (UPGMA):** $$d_{\text{average}}(C_i, C_j) = \frac{1}{|C_i||C_j|}\sum_{\mathbf{x} \in C_i}\sum_{\mathbf{x}'
 \in C_j} d(\mathbf{x}, \mathbf{x}')$$
 
 Average distance between all pairs of points.
 
-**Properties:** - Compromise between single and complete linkage - Less sensitive to outliers - Produces relatively balanced
-clusters - Widely used in practice
+**Properties:** Compromise between single and complete linkage; less sensitive to outliers; produces relatively balanced
+clusters; widely used in practice.
 
 **4. Centroid Linkage:** $$d_{\text{centroid}}(C_i, C_j) = d(\boldsymbol{\mu}_i, \boldsymbol{\mu}_j)$$
 
 where $\boldsymbol{\mu}_i = \frac{1}{|C_i|}\sum_{\mathbf{x} \in C_i} \mathbf{x}$ is the centroid.
 
-**Properties:** - Intuitive interpretation - Can produce inversions in dendrogram - Similar to K-means distance (see
-@sec-clustering)
+**Properties:** Intuitive interpretation; can produce inversions in dendrogram; similar to K-means distance (see
+@sec-clustering).
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example evaluates all four criteria of @def-uns-linkage on the same pair of clusters. The four numbers differ, which is why the
+choice of linkage changes the resulting hierarchy.
+
+::: {#exm-uns-linkage-four-values}
+#### Four linkages for one pair
+
+On the line take $C_1 = \{0, 1\}$ and $C_2 = \{4, 7\}$. The pairwise distances are $4, 7, 3, 6$, so
+$d_{\text{single}} = 3$, $d_{\text{complete}} = 7$ and $d_{\text{average}} = 20/4 = 5$; the centroids are $0.5$ and $5.5$, so
+$d_{\text{centroid}} = 5$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The ordering visible in @exm-uns-linkage-four-values holds in general for three of the four criteria. The exercise asks for the
+one-line proof.
+
+::: {#exr-uns-linkage-ordering}
+#### Ordering of linkages
+
+Show that $d_{\text{single}}(C_i, C_j) \leq d_{\text{average}}(C_i, C_j) \leq d_{\text{complete}}(C_i, C_j)$ for all clusters.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The three quantities are the minimum, the arithmetic mean and the maximum of the same finite list of numbers
+$\{d(\mathbf{x}, \mathbf{x}') : \mathbf{x} \in C_i, \mathbf{x}' \in C_j\}$, and the mean of a list lies between its minimum and
+its maximum.
+:::
+::::
 
 **5. Ward's Method (Minimum Variance):**
+
+Ward's method chooses the merge that increases the total within-cluster variance the least, which links hierarchical clustering
+to the K-means objective of @def-kmeans-objective. The definition gives the merge cost in closed form and as a difference of
+sums of squares.
+
+:::: {.statement-box}
+::: {#def-uns-ward-linkage}
+#### Ward's linkage
 
 Minimize increase in total within-cluster variance: $$d_{\text{Ward}}(C_i, C_j) = \frac{|C_i||C_j|}{|C_i| + |C_j|}
 \|\boldsymbol{\mu}_i - \boldsymbol{\mu}_j\|^2$$
@@ -267,80 +561,184 @@ Equivalently, minimize: $$\Delta(C_i, C_j) = \sum_{\mathbf{x} \in C_i \cup C_j} 
 \boldsymbol{\mu}_j\|^2$$
 
 where $\boldsymbol{\mu}_{ij}$ is the centroid of the merged cluster.
+:::
 
-**Properties:** - Produces compact, spherical clusters - Minimizes same objective as K-means - Most popular linkage method - Tends
-to create equal-sized clusters
+::::
+
+**Properties:** Produces compact, spherical clusters; minimizes same objective as K-means; most popular linkage method; tends
+to create equal-sized clusters.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example checks on three numbers that the two expressions in @def-uns-ward-linkage agree. The exercise then proves the
+agreement in general.
+
+::: {#exm-uns-ward-numbers}
+#### Ward's cost of one merge
+
+Let $C_i = \{0, 2\}$ ($\mu_i = 1$) and $C_j = \{6\}$. Then $d_{\text{Ward}} = \frac{2 \cdot 1}{3} \cdot 25 = 50/3$. The merged mean
+is $8/3$, with sum of squares $(64 + 4 + 100)/9 = 56/3$; subtracting $2$ for $C_i$ and $0$ for $C_j$ gives $\Delta = 50/3$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The word "Equivalently" in @def-uns-ward-linkage is a claim, and the exercise asks for its proof. The decomposition of
+@exr-uns-mean-decomposition does most of the work.
+
+::: {#exr-uns-ward-equivalence}
+#### The two forms of Ward's cost
+
+Prove that $\Delta(C_i, C_j) = d_{\text{Ward}}(C_i, C_j)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Write $n_i = |C_i|$, $n_j = |C_j|$, $N = n_i + n_j$. Applying @exr-uns-mean-decomposition to each part with
+$\boldsymbol{\mu} = \boldsymbol{\mu}_{ij}$ gives
+$\Delta = n_i \|\boldsymbol{\mu}_i - \boldsymbol{\mu}_{ij}\|^2 + n_j \|\boldsymbol{\mu}_j - \boldsymbol{\mu}_{ij}\|^2$. Since
+$\boldsymbol{\mu}_{ij} = (n_i \boldsymbol{\mu}_i + n_j \boldsymbol{\mu}_j)/N$, we have
+$\boldsymbol{\mu}_i - \boldsymbol{\mu}_{ij} = \frac{n_j}{N}(\boldsymbol{\mu}_i - \boldsymbol{\mu}_j)$ and
+$\boldsymbol{\mu}_j - \boldsymbol{\mu}_{ij} = -\frac{n_i}{N}(\boldsymbol{\mu}_i - \boldsymbol{\mu}_j)$. Hence
+$\Delta = \frac{n_i n_j^2 + n_j n_i^2}{N^2}\|\boldsymbol{\mu}_i - \boldsymbol{\mu}_j\|^2 = \frac{n_i n_j}{N}\|\boldsymbol{\mu}_i - \boldsymbol{\mu}_j\|^2$.
+:::
+::::
 
 **Dendrograms:** A dendrogram is a tree diagram that records the sequence of merges:
 
-- **Vertical axis:** Distance or dissimilarity at which clusters merge - **Horizontal axis:** Individual data points -
-**Branches:** Connect clusters that merge - **Height:** Indicates merge distance
+- **Vertical axis:** Distance or dissimilarity at which clusters merge
+- **Horizontal axis:** Individual data points
+- **Branches:** Connect clusters that merge
+- **Height:** Indicates merge distance
 
 **Cutting the Dendrogram:** To obtain $k$ clusters, cut the dendrogram at a height that produces $k$ branches:
 
-1. **Fixed number of clusters:** Cut to produce exactly $k$ clusters 2. **Distance threshold:** Cut at height $h$ to get clusters
-with maximum within-cluster distance $\leq h$
+1. **Fixed number of clusters:** Cut to produce exactly $k$ clusters
+2. **Distance threshold:** Cut at height $h$ to get clusters with maximum within-cluster distance $\leq h$
 3. **Inconsistency criterion:** Cut where merge distances increase sharply
 
 **Computational Complexity:**
 
-- **Naive implementation:** $O(n^3)$ time, $O(n^2)$ space - $O(n^2)$ to compute all pairwise distances - $O(n)$ iterations, each
-  requiring $O(n^2)$ to find minimum
-
+- **Naive implementation:** $O(n^3)$ time, $O(n^2)$ space
+  - $O(n^2)$ to compute all pairwise distances
+  - $O(n)$ iterations, each requiring $O(n^2)$ to find minimum
 - **Efficient implementation (SLINK for single linkage):** $O(n^2)$ time
-
 - **Space:** $O(n^2)$ to store distance matrix
 
-**Lance-Williams Update Formula:** For efficient computation, update distances after each merge:
+Recomputing every cluster distance from the points after each merge is what makes the naive implementation slow. The proposition
+below shows that the classical linkages can instead be updated from the distances already in the matrix.
+
+:::: {.statement-box}
+::: {#prp-uns-lance-williams}
+#### Lance-Williams update formula
+
+For efficient computation, update distances after each merge:
 
 $$d(C_k, C_i \cup C_j) = \alpha_i d(C_k, C_i) + \alpha_j d(C_k, C_j) + \beta d(C_i, C_j) + \gamma |d(C_k, C_i) - d(C_k, C_j)|$$
 
 Different linkage methods correspond to different values of $\alpha_i, \alpha_j, \beta, \gamma$:
 
 - **Single:** $\alpha_i = \alpha_j = 0.5$, $\beta = 0$, $\gamma = -0.5$
-- **Complete:** $\alpha_i = \alpha_j = 0.5$, $\beta = 0$,
-$\gamma = 0.5$
+- **Complete:** $\alpha_i = \alpha_j = 0.5$, $\beta = 0$, $\gamma = 0.5$
 - **Average:** $\alpha_i = |C_i|/(|C_i|+|C_j|)$, $\alpha_j = |C_j|/(|C_i|+|C_j|)$, $\beta = \gamma = 0$
--
-**Ward's:** More complex formula involving cluster sizes
+- **Ward's:** More complex formula involving cluster sizes
+:::
+
+::::
+
+For single and complete linkage the formula is the identity $\min(a, b) = \frac{a + b}{2} - \frac{|a - b|}{2}$ and
+$\max(a, b) = \frac{a + b}{2} + \frac{|a - b|}{2}$, applied to $a = d(C_k, C_i)$ and $b = d(C_k, C_j)$: the closest (farthest)
+point of $C_i \cup C_j$ to $C_k$ is the closer (farther) of the closest (farthest) points of $C_i$ and $C_j$. For average
+linkage, split the double sum over $C_i \cup C_j$ into the sums over $C_i$ and over $C_j$:
+$\sum_{\mathbf{x} \in C_k}\sum_{\mathbf{x}' \in C_i \cup C_j} d = |C_k||C_i|\, d(C_k, C_i) + |C_k||C_j|\, d(C_k, C_j)$, and
+divide by $|C_k|(|C_i| + |C_j|)$.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example runs single linkage on four numbers using only @prp-uns-lance-williams to update the distances. The merge heights it
+produces are those of the dendrogram of the data.
+
+::: {#exm-uns-lance-williams-single}
+#### A single-linkage dendrogram by updates
+
+Take $\{0, 1, 4, 9\}$. The closest pair is $\{0\}, \{1\}$ at height $1$. The update gives
+$d(\{4\}, \{0,1\}) = 0.5 \cdot 4 + 0.5 \cdot 3 - 0.5 \cdot 1 = 3$ and $d(\{9\}, \{0,1\}) = 0.5 \cdot 9 + 0.5 \cdot 8 - 0.5 \cdot 1 = 8$.
+Since $d(\{4\}, \{9\}) = 5 > 3$, the next merge is $\{0,1\} \cup \{4\}$ at height $3$, and
+$d(\{9\}, \{0,1,4\}) = 0.5 \cdot 8 + 0.5 \cdot 5 - 0.5 \cdot 3 = 5$ is the last merge height. The dendrogram has merges at heights
+$1, 3, 5$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise repeats @exm-uns-lance-williams-single with complete linkage. The same data then produce a different tree, which shows
+concretely how the linkage of @def-uns-linkage shapes the hierarchy.
+
+::: {#exr-uns-lance-williams-complete}
+#### Complete linkage by updates
+
+Run agglomerative clustering with complete linkage on $\{0, 1, 4, 9\}$, updating distances with @prp-uns-lance-williams, and list
+the merges with their heights.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+First merge $\{0\}, \{1\}$ at height $1$. Then $d(\{4\}, \{0,1\}) = 0.5 \cdot 4 + 0.5 \cdot 3 + 0.5 \cdot 1 = 4$ and
+$d(\{9\}, \{0,1\}) = 0.5 \cdot 9 + 0.5 \cdot 8 + 0.5 \cdot 1 = 9$. The smallest remaining distance is $d(\{0,1\}, \{4\}) = 4$
+(against $d(\{4\}, \{9\}) = 5$), so merge at height $4$. Finally
+$d(\{9\}, \{0,1,4\}) = 0.5 \cdot 9 + 0.5 \cdot 5 + 0.5 \cdot 4 = 9$, the last merge height. The heights are $1, 4, 9$.
+:::
+::::
 
 **Advantages of Hierarchical Clustering:**
 
-1. **No need to specify $k$:** Produces complete hierarchy 2. **Deterministic:** No random initialization (unlike K-means) 3.
-**Dendrogram visualization:** Provides insight into data structure 4. **Flexible:** Can cut at any level to get different
-granularities 5. **Works with any distance metric:** Not limited to Euclidean distance
+1. **No need to specify $k$:** Produces complete hierarchy
+2. **Deterministic:** No random initialization (unlike K-means)
+3. **Dendrogram visualization:** Provides insight into data structure
+4. **Flexible:** Can cut at any level to get different granularities
+5. **Works with any distance metric:** Not limited to Euclidean distance
 
 **Disadvantages:**
 
-1. **Computational cost:** $O(n^2)$ or $O(n^3)$ time and $O(n^2)$ space 2. **Not scalable:** Impractical for large datasets ($n >
-10,000$) 3. **Greedy:** Merges are irreversible, no global optimization 4. **Sensitive to noise:** Especially single linkage 5.
-**Difficulty with high dimensions:** Distance metrics become less meaningful
+1. **Computational cost:** $O(n^2)$ or $O(n^3)$ time and $O(n^2)$ space
+2. **Not scalable:** Impractical for large datasets ($n > 10,000$)
+3. **Greedy:** Merges are irreversible, no global optimization
+4. **Sensitive to noise:** Especially single linkage
+5. **Difficulty with high dimensions:** Distance metrics become less meaningful
 
 **Comparison with K-Means:**
 
-| Aspect | K-Means | Hierarchical | |--------|---------|-------------| | Number of clusters | Must specify | Flexible | |
-Complexity | $O(nkdT)$ | $O(n^2)$ to $O(n^3)$ | | Scalability | Good | Poor | | Cluster shape | Spherical | Flexible (depends on
-linkage) | | Deterministic | No (random init) | Yes | | Visualization | Limited | Dendrogram |
+| Aspect | K-Means | Hierarchical |
+|--------|---------|-------------|
+| Number of clusters | Must specify | Flexible |
+| Complexity | $O(nkdT)$ | $O(n^2)$ to $O(n^3)$ |
+| Scalability | Good | Poor |
+| Cluster shape | Spherical | Flexible (depends on linkage) |
+| Deterministic | No (random init) | Yes |
+| Visualization | Limited | Dendrogram |
 
 **Practical Considerations:**
 
-1. **Distance metric:** Choice significantly affects results - Euclidean: For continuous features - Manhattan: For mixed features
-   - Cosine: For text data - Correlation: For time series
+1. **Distance metric:** Choice significantly affects results
+   - Euclidean: For continuous features
+   - Manhattan: For mixed features
+   - Cosine: For text data
+   - Correlation: For time series
 
 2. **Feature scaling:** Standardize features to equal importance (see @sec-linear-algebra for normalization)
 
-3. **Linkage selection:** - Ward's: Default choice for most applications - Complete: When clusters are well-separated - Average:
-   Compromise between single and complete - Single: For non-convex clusters (use with caution)
+3. **Linkage selection:**
+   - Ward's: Default choice for most applications
+   - Complete: When clusters are well-separated
+   - Average: Compromise between single and complete
+   - Single: For non-convex clusters (use with caution)
 
-4. **Determining number of clusters:** - Look for large gaps in dendrogram heights - Use silhouette analysis - Domain knowledge
+4. **Determining number of clusters:**
+   - Look for large gaps in dendrogram heights
+   - Use silhouette analysis
+   - Domain knowledge
 
-5. **Handling large datasets:** - Sample data first - Use mini-batch hierarchical clustering - Consider BIRCH (Balanced Iterative
-   Reducing and Clustering using Hierarchies)
+5. **Handling large datasets:**
+   - Sample data first
+   - Use mini-batch hierarchical clustering
+   - Consider BIRCH (Balanced Iterative Reducing and Clustering using Hierarchies)
 
-**Applications:**
-
-- Taxonomy construction in biology - Document organization - Gene expression analysis - Social network analysis - Image
-segmentation
+**Applications:** Taxonomy construction in biology, document organization, gene expression analysis, social network analysis,
+image segmentation.
 
 Hierarchical clustering provides a rich representation of data structure at multiple scales, complementing partition-based methods
 like K-means [@james2023statistical; @shalev2014ml].
@@ -356,7 +754,13 @@ automatically identify outliers.
 DBSCAN is the most widely used density-based clustering algorithm. It groups together points that are closely packed while marking
 points in low-density regions as outliers.
 
-**Key Definitions:**
+**Key Definitions:** DBSCAN first sorts every point into one of three kinds according to how many neighbours it has within a
+radius $\epsilon$. The definition below fixes these kinds, with the two parameters $\epsilon$ and MinPts that the whole algorithm
+depends on.
+
+:::: {.statement-box}
+::: {#def-uns-dbscan-points}
+#### Core, border and noise points
 
 1. **$\epsilon$-neighborhood:** The set of points within distance $\epsilon$ of a point $\mathbf{x}$: $$N_\epsilon(\mathbf{x}) =
    \{\mathbf{x}' \in \mathcal{X} : d(\mathbf{x}, \mathbf{x}') \leq \epsilon\}$$
@@ -368,11 +772,52 @@ points in low-density regions as outliers.
 on the edge of clusters.
 
 4. **Noise point (Outlier):** A point that is neither a core point nor a border point.
+:::
 
-5. **Directly density-reachable:** Point $\mathbf{x}'$ is directly density-reachable from $\mathbf{x}$ if: - $\mathbf{x}'$ is in
-   $N_\epsilon(\mathbf{x})$
-- $\mathbf{x}$ is a core point
-   
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example classifies five points on a line according to @def-uns-dbscan-points. It produces all three kinds of points at once,
+and the same data return in the next two units.
+
+::: {#exm-uns-dbscan-points-line}
+#### Five points on a line
+
+Take $\{0, 1, 2, 3, 10\}$, $\epsilon = 1.5$ and MinPts $= 3$ (a point counts in its own neighborhood). Then
+$N(0) = \{0, 1\}$, $N(1) = \{0, 1, 2\}$, $N(2) = \{1, 2, 3\}$, $N(3) = \{2, 3\}$ and $N(10) = \{10\}$. The core points are $1$ and
+$2$; the points $0$ and $3$ are border points (they lie in $N(1)$ and $N(2)$); and $10$ is noise.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise examines the extreme choice MinPts $= 1$ in @def-uns-dbscan-points. It also asks how the set of core points reacts
+when the radius grows.
+
+::: {#exr-uns-dbscan-points-parameters}
+#### Effect of the parameters
+
+Show that with MinPts $= 1$ every point is a core point, so there is no noise. Show also that increasing $\epsilon$ with MinPts
+fixed can only enlarge the set of core points.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Since $d(\mathbf{x}, \mathbf{x}) = 0 \leq \epsilon$, every neighborhood contains its own point, so $|N_\epsilon(\mathbf{x})| \geq 1$
+and every point is core. If $\epsilon \leq \epsilon'$ then $N_\epsilon(\mathbf{x}) \subseteq N_{\epsilon'}(\mathbf{x})$, so
+$|N_\epsilon(\mathbf{x})| \geq \text{MinPts}$ implies $|N_{\epsilon'}(\mathbf{x})| \geq \text{MinPts}$.
+:::
+::::
+
+Clusters are then built by chaining core points together. The next definition makes the chaining precise through three relations
+of increasing reach; only the last one is symmetric.
+
+:::: {.statement-box}
+::: {#def-uns-density-reachable}
+#### Density-reachability and density-connectedness
+
+5. **Directly density-reachable:** Point $\mathbf{x}'$ is directly density-reachable from $\mathbf{x}$ if:
+   - $\mathbf{x}'$ is in $N_\epsilon(\mathbf{x})$
+   - $\mathbf{x}$ is a core point
+
    Note: This relation is not symmetric.
 
 6. **Density-reachable:** Point $\mathbf{x}'$ is density-reachable from $\mathbf{x}$ if there exists a chain of points
@@ -381,116 +826,236 @@ is directly density-reachable from $\mathbf{p}_i$.
 
 7. **Density-connected:** Points $\mathbf{x}$ and $\mathbf{x}'$ are density-connected if there exists a point $\mathbf{o}$ such
 that both $\mathbf{x}$ and $\mathbf{x}'$ are density-reachable from $\mathbf{o}$. This relation is symmetric.
+:::
 
-**Cluster Definition:** A cluster $C$ satisfies: 1. **Maximality:** If $\mathbf{x} \in C$ and $\mathbf{x}'$ is density-reachable
-from $\mathbf{x}$, then $\mathbf{x}' \in C$
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example reuses the five points of @exm-uns-dbscan-points-line to show the three relations of @def-uns-density-reachable. It
+exhibits the asymmetry of direct reachability and a pair of border points that are density-connected.
+
+::: {#exm-uns-density-reachable-line}
+#### Reachability on a line
+
+With $\{0, 1, 2, 3, 10\}$, $\epsilon = 1.5$, MinPts $= 3$: the point $3$ is directly density-reachable from the core point $2$, but
+$2$ is not directly density-reachable from $3$, which is not core. The point $3$ is density-reachable from $1$ via the chain
+$1, 2, 3$, and $0$ is directly density-reachable from $1$; hence the border points $0$ and $3$ are density-connected through
+$\mathbf{o} = 1$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise proves the two structural properties of @def-uns-density-reachable that the cluster definition relies on. Both follow
+by manipulating chains.
+
+::: {#exr-uns-density-reachable-properties}
+#### Transitivity and symmetry
+
+Show that density-reachability is transitive and that density-connectedness is symmetric.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $\mathbf{y}$ is density-reachable from $\mathbf{x}$ by a chain $\mathbf{x} = \mathbf{p}_1, \ldots, \mathbf{p}_m = \mathbf{y}$
+and $\mathbf{z}$ from $\mathbf{y}$ by $\mathbf{y} = \mathbf{q}_1, \ldots, \mathbf{q}_l = \mathbf{z}$, the concatenated chain
+$\mathbf{p}_1, \ldots, \mathbf{p}_m, \mathbf{q}_2, \ldots, \mathbf{q}_l$ has each step directly density-reachable, so $\mathbf{z}$
+is density-reachable from $\mathbf{x}$. Symmetry of density-connectedness is immediate, since its definition ("both are
+density-reachable from some $\mathbf{o}$") does not distinguish the two points.
+:::
+::::
+
+**Cluster Definition:** With these relations a cluster can be defined as a set closed under reachability and held together by
+connectedness. The definition is the one DBSCAN computes.
+
+:::: {.statement-box}
+::: {#def-uns-dbscan-cluster}
+#### DBSCAN cluster
+
+A cluster $C$ satisfies:
+
+1. **Maximality:** If $\mathbf{x} \in C$ and $\mathbf{x}'$ is density-reachable from $\mathbf{x}$, then $\mathbf{x}' \in C$
 2. **Connectivity:** All points in $C$ are density-connected
+:::
+
+::::
 
 **DBSCAN Algorithm:**
 
-``` Input: Dataset X, parameters ε, MinPts Output: Cluster assignments
+```
+Input: Dataset X, parameters ε, MinPts
+Output: Cluster assignments
 
-Initialize: All points as unvisited Cluster_ID = 0
+Initialize: All points as unvisited
+Cluster_ID = 0
 
-For each unvisited point x in X: Mark x as visited N = get_neighbors(x, ε)  // Find ε-neighborhood
-    
-    If |N| < MinPts: Mark x as noise Else: Cluster_ID = Cluster_ID + 1 expand_cluster(x, N, Cluster_ID, ε, MinPts)
+For each unvisited point x in X:
+    Mark x as visited
+    N = get_neighbors(x, ε)  // Find ε-neighborhood
 
-Function expand_cluster(x, N, Cluster_ID, ε, MinPts): Add x to Cluster_ID
-    
-    For each point x' in N: If x' is unvisited: Mark x' as visited N' = get_neighbors(x', ε) If |N'| ≥ MinPts: N = N ∪ N'  //
-        Expand neighborhood
-        
-        If x' is not yet in any cluster: Add x' to Cluster_ID ```
+    If |N| < MinPts:
+        Mark x as noise
+    Else:
+        Cluster_ID = Cluster_ID + 1
+        expand_cluster(x, N, Cluster_ID, ε, MinPts)
+
+Function expand_cluster(x, N, Cluster_ID, ε, MinPts):
+    Add x to Cluster_ID
+
+    For each point x' in N:
+        If x' is unvisited:
+            Mark x' as visited
+            N' = get_neighbors(x', ε)
+            If |N'| ≥ MinPts:
+                N = N ∪ N'  // Expand neighborhood
+
+        If x' is not yet in any cluster:
+            Add x' to Cluster_ID
+```
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first example finishes the five-point computation by reading off the clusters of @def-uns-dbscan-cluster. The second is the
+anomaly-detection use of DBSCAN, where the noise points of the same definition are the output of interest.
+
+::: {#exm-uns-dbscan-cluster-line}
+#### Clusters on a line
+
+For $\{0, 1, 2, 3, 10\}$, $\epsilon = 1.5$, MinPts $= 3$, every point density-reachable from the core point $1$ is in $\{0, 1, 2, 3\}$,
+and all four are density-connected (@exm-uns-density-reachable-line). So DBSCAN returns one cluster $\{0, 1, 2, 3\}$ and marks $10$
+as noise.
+:::
+
+Noise points are not discarded but reported, which is what makes DBSCAN useful beyond clustering. The second example records
+this use as the author describes it.
+
+::: {#exm-uns-dbscan-anomaly}
+#### Example Application - Anomaly Detection
+
+DBSCAN naturally identifies outliers, making it useful for anomaly detection:
+
+1. Run DBSCAN on data
+2. Points marked as noise are potential anomalies
+3. Can combine with other methods (see @sec-supervised-learning for classification approaches)
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise shows that the cluster of a core point is forced by @def-uns-dbscan-cluster. It explains why DBSCAN can grow a
+cluster by expanding neighborhoods, as the pseudocode does.
+
+::: {#exr-uns-dbscan-cluster-core}
+#### Neighbors of core points
+
+Let $C$ be a cluster and $\mathbf{x} \in C$ a core point. Show that $N_\epsilon(\mathbf{x}) \subseteq C$. Deduce that two core
+points at distance at most $\epsilon$ lie in the same cluster.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Every $\mathbf{x}' \in N_\epsilon(\mathbf{x})$ is directly, hence density-, reachable from the core point $\mathbf{x}$, so
+maximality puts it in $C$. If $\mathbf{y}$ is a core point with $d(\mathbf{x}, \mathbf{y}) \leq \epsilon$, then
+$\mathbf{y} \in N_\epsilon(\mathbf{x}) \subseteq C$; any cluster containing $\mathbf{y}$ contains $\mathbf{x}$ by the same argument,
+so the two lie in the same cluster.
+:::
+::::
 
 **Computational Complexity:**
 
-- **Without spatial index:** $O(n^2)$ time - Each point requires checking all other points
-  
-- **With spatial index (R*-tree, KD-tree):** $O(n \log n)$ average case - Neighborhood queries become $O(\log n)$
-  
+- **Without spatial index:** $O(n^2)$ time
+  - Each point requires checking all other points
+- **With spatial index (R*-tree, KD-tree):** $O(n \log n)$ average case
+  - Neighborhood queries become $O(\log n)$
 - **Space:** $O(n)$ for storing cluster assignments
 
 **Parameter Selection:**
 
 Choosing $\epsilon$ and MinPts is crucial:
 
-**1. MinPts:** - **Rule of thumb:** MinPts $\geq d + 1$ where $d$ is the dimensionality - **Common choice:** MinPts = 4 for 2D
-data, MinPts = 5-10 for higher dimensions - **Larger MinPts:** More robust to noise, but may merge clusters - **Smaller MinPts:**
-More sensitive to noise, may split clusters
+**1. MinPts:**
+
+- **Rule of thumb:** MinPts $\geq d + 1$ where $d$ is the dimensionality
+- **Common choice:** MinPts = 4 for 2D data, MinPts = 5-10 for higher dimensions
+- **Larger MinPts:** More robust to noise, but may merge clusters
+- **Smaller MinPts:** More sensitive to noise, may split clusters
 
 **2. $\epsilon$ (k-distance graph method):**
 
-1. For each point, compute distance to its $k$-th nearest neighbor (use $k$ = MinPts) 2. Sort these distances in ascending order
-3. Plot the sorted k-distances 4. Look for an "elbow" or sharp change in the curve 5. Choose $\epsilon$ at the elbow point
+1. For each point, compute distance to its $k$-th nearest neighbor (use $k$ = MinPts)
+2. Sort these distances in ascending order
+3. Plot the sorted k-distances
+4. Look for an "elbow" or sharp change in the curve
+5. Choose $\epsilon$ at the elbow point
 
 **Intuition:** The elbow indicates the transition from dense regions (small k-distances) to sparse regions (large k-distances).
 
 **Advantages of DBSCAN:**
 
-1. **Arbitrary cluster shapes:** Can find non-convex clusters (unlike K-means) 2. **Automatic outlier detection:** Identifies
-noise points naturally 3. **No need to specify number of clusters:** Determined automatically 4. **Robust to outliers:** Outliers
-don't affect cluster formation 5. **Single scan:** Only requires one pass through data 6. **Deterministic:** Same result every
-time (no random initialization)
+1. **Arbitrary cluster shapes:** Can find non-convex clusters (unlike K-means)
+2. **Automatic outlier detection:** Identifies noise points naturally
+3. **No need to specify number of clusters:** Determined automatically
+4. **Robust to outliers:** Outliers don't affect cluster formation
+5. **Single scan:** Only requires one pass through data
+6. **Deterministic:** Same result every time (no random initialization)
 
 **Disadvantages:**
 
-1. **Parameter sensitivity:** Results depend heavily on $\epsilon$ and MinPts 2. **Varying densities:** Struggles with clusters of
-different densities 3. **High-dimensional data:** Distance becomes less meaningful (curse of dimensionality, see
-@sec-dimensionality-reduction) 4. **Border point ambiguity:** Border points may be assigned to different clusters 5. **Memory
-requirements:** Spatial index can be memory-intensive
+1. **Parameter sensitivity:** Results depend heavily on $\epsilon$ and MinPts
+2. **Varying densities:** Struggles with clusters of different densities
+3. **High-dimensional data:** Distance becomes less meaningful (curse of dimensionality, see @sec-dimensionality-reduction)
+4. **Border point ambiguity:** Border points may be assigned to different clusters
+5. **Memory requirements:** Spatial index can be memory-intensive
 
 **Variants and Extensions:**
 
-**1. HDBSCAN (Hierarchical DBSCAN):** - Builds hierarchy of clusters at different density levels - Automatically selects optimal
-$\epsilon$ for each cluster - More robust to varying densities - Uses minimum spanning tree approach
+**1. HDBSCAN (Hierarchical DBSCAN):** Builds hierarchy of clusters at different density levels; automatically selects optimal
+$\epsilon$ for each cluster; more robust to varying densities; uses minimum spanning tree approach.
 
-**2. OPTICS (Ordering Points To Identify Clustering Structure):** - Produces ordering of points representing density-based
-clustering structure - Creates reachability plot showing cluster hierarchy - Doesn't require explicit $\epsilon$ parameter - Can
-extract clusters at multiple scales
+**2. OPTICS (Ordering Points To Identify Clustering Structure):** Produces ordering of points representing density-based
+clustering structure; creates reachability plot showing cluster hierarchy; doesn't require explicit $\epsilon$ parameter; can
+extract clusters at multiple scales.
 
-**3. DENCLUE (DENsity-based CLUstEring):** - Uses kernel density estimation - Models clusters as density attractors - Can handle
-arbitrary shapes and noise
+**3. DENCLUE (DENsity-based CLUstEring):** Uses kernel density estimation; models clusters as density attractors; can handle
+arbitrary shapes and noise.
 
 **Comparison with Other Methods:**
 
-| Aspect | DBSCAN | K-Means | Hierarchical | |--------|--------|---------|-------------| | Cluster shape | Arbitrary | Spherical |
-Depends on linkage | | Number of clusters | Automatic | Must specify | Flexible | | Outlier handling | Explicit | Assigns all |
-Assigns all | | Complexity | $O(n \log n)$ | $O(nkdT)$ | $O(n^2)$ | | Parameters | $\epsilon$, MinPts | $k$ | Linkage, cut height
-| | Varying density | Poor | Poor | Depends on linkage |
+| Aspect | DBSCAN | K-Means | Hierarchical |
+|--------|--------|---------|-------------|
+| Cluster shape | Arbitrary | Spherical | Depends on linkage |
+| Number of clusters | Automatic | Must specify | Flexible |
+| Outlier handling | Explicit | Assigns all | Assigns all |
+| Complexity | $O(n \log n)$ | $O(nkdT)$ | $O(n^2)$ |
+| Parameters | $\epsilon$, MinPts | $k$ | Linkage, cut height |
+| Varying density | Poor | Poor | Depends on linkage |
 
 **Practical Considerations:**
 
 1. **Feature scaling:** Standardize features so distances are comparable (see @sec-linear-algebra)
 
-2. **Distance metric:** - Euclidean: Default for continuous features - Manhattan: For mixed feature types - Cosine: For
-   high-dimensional sparse data
+2. **Distance metric:**
+   - Euclidean: Default for continuous features
+   - Manhattan: For mixed feature types
+   - Cosine: For high-dimensional sparse data
 
 3. **Spatial indexing:** Use R*-tree or KD-tree for large datasets
 
-4. **Validation:** - Silhouette score - Davies-Bouldin index - Visual inspection
+4. **Validation:** Silhouette score, Davies-Bouldin index, visual inspection
 
-5. **Handling varying densities:** - Use HDBSCAN instead - Apply DBSCAN to subsets with similar density - Use local density
-   estimates
-
-**Example Application - Anomaly Detection:**
-
-DBSCAN naturally identifies outliers, making it useful for anomaly detection:
-
-1. Run DBSCAN on data 2. Points marked as noise are potential anomalies 3. Can combine with other methods (see
-@sec-supervised-learning for classification approaches)
+5. **Handling varying densities:**
+   - Use HDBSCAN instead
+   - Apply DBSCAN to subsets with similar density
+   - Use local density estimates
 
 **Connection to Graph Theory:**
 
-DBSCAN can be viewed as finding connected components in a graph: - **Nodes:** Data points - **Edges:** Connect points within
-$\epsilon$ distance - **Core points:** Nodes with degree $\geq$ MinPts - **Clusters:** Connected components of core points
+DBSCAN can be viewed as finding connected components in a graph:
+
+- **Nodes:** Data points
+- **Edges:** Connect points within $\epsilon$ distance
+- **Core points:** Nodes with degree $\geq$ MinPts
+- **Clusters:** Connected components of core points
 
 This perspective connects to spectral clustering (see @sec-clustering) and graph-based methods.
 
-**Applications:**
-
-- Spatial data analysis (GIS) - Anomaly detection in network traffic - Image segmentation - Customer segmentation with outlier
-detection - Astronomical data analysis - Trajectory clustering
+**Applications:** Spatial data analysis (GIS), anomaly detection in network traffic, image segmentation, customer segmentation
+with outlier detection, astronomical data analysis, trajectory clustering.
 
 DBSCAN provides a powerful alternative to centroid-based methods when clusters have complex shapes or when outlier detection is
 important [@james2023statistical; @shalev2014ml].
@@ -501,17 +1066,26 @@ Gaussian Mixture Models provide a probabilistic approach to clustering by modeli
 distributions. Unlike K-means (see @sec-clustering) which performs hard assignment, GMMs provide soft assignments through
 posterior probabilities, making them more flexible and statistically principled.
 
-**Model Definition:** A GMM represents the data distribution as a weighted sum of $K$ Gaussian components:
+**Model Definition:** A GMM represents the data distribution as a weighted sum of $K$ Gaussian components. The definition below
+gives the density and the meaning of each parameter; the latent-variable reading that follows it is what makes the model
+estimable.
+
+:::: {.statement-box}
+::: {#def-uns-gmm}
+#### Gaussian mixture model
 
 $$p(\mathbf{x}) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$$
 
-where: - $\pi_k$ are mixing coefficients (weights) with $\pi_k \geq 0$ and $\sum_{k=1}^K \pi_k = 1$
-- $\boldsymbol{\mu}_k \in
-\mathbb{R}^d$ is the mean of component $k$
-- $\boldsymbol{\Sigma}_k \in \mathbb{R}^{d \times d}$ is the covariance matrix of
-component $k$
+where:
+
+- $\pi_k$ are mixing coefficients (weights) with $\pi_k \geq 0$ and $\sum_{k=1}^K \pi_k = 1$
+- $\boldsymbol{\mu}_k \in \mathbb{R}^d$ is the mean of component $k$
+- $\boldsymbol{\Sigma}_k \in \mathbb{R}^{d \times d}$ is the covariance matrix of component $k$
 - $\mathcal{N}(\mathbf{x}|\boldsymbol{\mu}, \boldsymbol{\Sigma})$ is the multivariate Gaussian density (see
 @sec-probability-statistics)
+:::
+
+::::
 
 **Latent Variable Interpretation:** Introduce latent variable $z_i \in \{1, \ldots, K\}$ indicating which component generated
 $\mathbf{x}_i$:
@@ -522,6 +1096,37 @@ The marginal distribution is:
 
 $$p(\mathbf{x}_i) = \sum_{k=1}^K p(z_i = k) p(\mathbf{x}_i | z_i = k) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_i |
 \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$$
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The simplest instance of @def-uns-gmm is a one-dimensional mixture of two unit-variance Gaussians. Evaluating its density
+half-way between the two means shows how both components contribute.
+
+::: {#exm-uns-gmm-two-components}
+#### Two components on a line
+
+Let $\pi = (1/2, 1/2)$, $\mu_1 = 0$, $\mu_2 = 4$, $\sigma_1^2 = \sigma_2^2 = 1$. At $x = 2$ both components give the value
+$\varphi(2) = e^{-2}/\sqrt{2\pi} \approx 0.0540$, so $p(2) = \frac12 \varphi(2) + \frac12 \varphi(2) \approx 0.0540$, a dip between
+the two peaks $p(0) = p(4) \approx \frac12 \cdot 0.399 + \frac12 \cdot 0.0001 \approx 0.200$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise computes the first two moments of a mixture from those of its components. The variance formula shows that a mixture
+is wider than its components whenever the means differ.
+
+::: {#exr-uns-gmm-moments}
+#### Moments of a mixture
+
+For a one-dimensional mixture $\sum_k \pi_k \mathcal{N}(\mu_k, \sigma_k^2)$ show that the mean is $\sum_k \pi_k \mu_k$ and the
+variance is $\sum_k \pi_k(\sigma_k^2 + \mu_k^2) - (\sum_k \pi_k \mu_k)^2$. Evaluate both for @exm-uns-gmm-two-components.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By the law of total expectation with the latent $z$, $\mathbb{E}[x] = \sum_k \pi_k \mathbb{E}[x | z = k] = \sum_k \pi_k \mu_k$
+and $\mathbb{E}[x^2] = \sum_k \pi_k (\sigma_k^2 + \mu_k^2)$; subtract the square of the mean. In the example the mean is $2$ and
+the variance is $\frac12(1 + 0) + \frac12(1 + 16) - 4 = 5$.
+:::
+::::
 
 **Maximum Likelihood Estimation:** Given data $\mathcal{X} = \{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$, maximize the log-likelihood:
 
@@ -535,20 +1140,18 @@ iterative solution.
 
 **Expectation-Maximization (EM) Algorithm:**
 
-EM alternates between computing the expected complete-data log-likelihood (E-step) and maximizing it (M-step).
+EM alternates between computing the expected complete-data log-likelihood (E-step) and maximizing it (M-step). The proposition
+below gives both steps in closed form for a Gaussian mixture; the derivation follows it.
+
+:::: {.statement-box}
+::: {#prp-uns-gmm-em-updates}
+#### EM updates for a Gaussian mixture
 
 **E-Step (Expectation):** Compute the posterior probability (responsibility) that component $k$ generated point $\mathbf{x}_i$:
 
 $$\gamma_{ik} = p(z_i = k | \mathbf{x}_i, \boldsymbol{\theta}^{(t)}) = \frac{\pi_k^{(t)} \mathcal{N}(\mathbf{x}_i |
 \boldsymbol{\mu}_k^{(t)}, \boldsymbol{\Sigma}_k^{(t)})}{\sum_{j=1}^K \pi_j^{(t)} \mathcal{N}(\mathbf{x}_i |
 \boldsymbol{\mu}_j^{(t)}, \boldsymbol{\Sigma}_j^{(t)})}$$
-
-This follows from Bayes' theorem (see @sec-probability-statistics):
-
-$$p(z_i = k | \mathbf{x}_i) = \frac{p(\mathbf{x}_i | z_i = k) p(z_i = k)}{p(\mathbf{x}_i)} = \frac{p(\mathbf{x}_i | z_i = k) p(z_i
-= k)}{\sum_{j=1}^K p(\mathbf{x}_i | z_i = j) p(z_i = j)}$$
-
-The responsibilities satisfy $\sum_{k=1}^K \gamma_{ik} = 1$ for each $i$.
 
 **M-Step (Maximization):** Update parameters to maximize the expected complete-data log-likelihood:
 
@@ -560,6 +1163,16 @@ The responsibilities satisfy $\sum_{k=1}^K \gamma_{ik} = 1$ for each $i$.
 
 **Update covariances:** $$\boldsymbol{\Sigma}_k^{(t+1)} = \frac{1}{N_k} \sum_{i=1}^n \gamma_{ik} (\mathbf{x}_i -
 \boldsymbol{\mu}_k^{(t+1)})(\mathbf{x}_i - \boldsymbol{\mu}_k^{(t+1)})^T$$
+:::
+
+::::
+
+The E-step follows from Bayes' theorem (see @sec-probability-statistics):
+
+$$p(z_i = k | \mathbf{x}_i) = \frac{p(\mathbf{x}_i | z_i = k) p(z_i = k)}{p(\mathbf{x}_i)} = \frac{p(\mathbf{x}_i | z_i = k) p(z_i
+= k)}{\sum_{j=1}^K p(\mathbf{x}_i | z_i = j) p(z_i = j)}$$
+
+The responsibilities satisfy $\sum_{k=1}^K \gamma_{ik} = 1$ for each $i$.
 
 **Derivation of M-Step Updates:** The M-step maximizes:
 
@@ -578,124 +1191,309 @@ Similar derivations yield the updates for $\boldsymbol{\Sigma}_k$ and $\pi_k$ (w
 
 **Complete EM Algorithm:**
 
-``` Input: Data X = {x₁, ..., xₙ}, number of components K Initialize: πₖ, μₖ, Σₖ for k = 1, ..., K
+```
+Input: Data X = {x₁, ..., xₙ}, number of components K
+Initialize: πₖ, μₖ, Σₖ for k = 1, ..., K
 
-Repeat until convergence: # E-Step For i = 1 to n: For k = 1 to K: γᵢₖ = πₖ N(xᵢ|μₖ,Σₖ) / Σⱼ πⱼ N(xᵢ|μⱼ,Σⱼ)
-    
-    # M-Step For k = 1 to K: Nₖ = Σᵢ γᵢₖ πₖ = Nₖ / n μₖ = (Σᵢ γᵢₖ xᵢ) / Nₖ Σₖ = (Σᵢ γᵢₖ (xᵢ-μₖ)(xᵢ-μₖ)ᵀ) / Nₖ
-    
-    # Check convergence If change in log-likelihood < threshold: Break
+Repeat until convergence:
+    # E-Step
+    For i = 1 to n:
+        For k = 1 to K:
+            γᵢₖ = πₖ N(xᵢ|μₖ,Σₖ) / Σⱼ πⱼ N(xᵢ|μⱼ,Σⱼ)
 
-Return: πₖ, μₖ, Σₖ ```
+    # M-Step
+    For k = 1 to K:
+        Nₖ = Σᵢ γᵢₖ
+        πₖ = Nₖ / n
+        μₖ = (Σᵢ γᵢₖ xᵢ) / Nₖ
+        Σₖ = (Σᵢ γᵢₖ (xᵢ-μₖ)(xᵢ-μₖ)ᵀ) / Nₖ
 
-**Convergence Properties:**
+    # Check convergence
+    If change in log-likelihood < threshold: Break
+
+Return: πₖ, μₖ, Σₖ
+```
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example computes one responsibility of the E-step of @prp-uns-gmm-em-updates for the mixture of
+@exm-uns-gmm-two-components. It shows how quickly the soft assignment becomes nearly hard away from the midpoint.
+
+::: {#exm-uns-gmm-responsibility}
+#### A responsibility
+
+For $\pi = (1/2, 1/2)$, $\mu = (0, 4)$, unit variances and $x = 1$, the equal weights and normalizations cancel and
+$\gamma_1 = \frac{e^{-1/2}}{e^{-1/2} + e^{-9/2}} = \frac{1}{1 + e^{-4}} \approx 0.982$, $\gamma_2 \approx 0.018$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The derivation above leaves the update of the mixing coefficients in @prp-uns-gmm-em-updates to "similar derivations". The exercise
+asks for it, with the constraint handled by a Lagrange multiplier.
+
+::: {#exr-uns-gmm-mixing-update}
+#### The update of the mixing coefficients
+
+Maximize the part of $Q$ that depends on $\pi$, namely $\sum_k N_k \log \pi_k$, subject to $\sum_k \pi_k = 1$, and show that
+$\pi_k = N_k/n$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Set $\mathcal{L} = \sum_k N_k \log \pi_k - \lambda(\sum_k \pi_k - 1)$. Then $\partial \mathcal{L}/\partial \pi_k = N_k/\pi_k - \lambda = 0$,
+so $\pi_k = N_k/\lambda$. Summing over $k$ gives $1 = \sum_k N_k/\lambda = n/\lambda$, because $\sum_k \gamma_{ik} = 1$ for every $i$.
+Hence $\lambda = n$ and $\pi_k = N_k/n$; the objective is concave, so this is the maximum.
+:::
+::::
+
+The updates are only useful if iterating them improves the fit. The theorem below states the convergence properties of EM, and the
+proof that follows explains why the log-likelihood cannot go down.
+
+:::: {.statement-box}
+::: {#thm-uns-em-monotone}
+#### Convergence of EM
 
 1. **Monotonic increase:** EM guarantees that the log-likelihood increases (or stays the same) at each iteration: $$\log
    p(\mathcal{X} | \boldsymbol{\theta}^{(t+1)}) \geq \log p(\mathcal{X} | \boldsymbol{\theta}^{(t)})$$
 
 2. **Local maximum:** EM converges to a local maximum of the likelihood, not necessarily global
+:::
 
-3. **Convergence criterion:** Stop when: - Change in log-likelihood $< \epsilon$
+::::
+
+For any distributions $q_i$ over $z_i$, write
+$F(q, \boldsymbol{\theta}) = \sum_i \sum_k q_i(k) \log \frac{p(\mathbf{x}_i, z_i = k | \boldsymbol{\theta})}{q_i(k)}$. Then
+$\log p(\mathcal{X} | \boldsymbol{\theta}) = F(q, \boldsymbol{\theta}) + \sum_i \mathrm{KL}(q_i \,\|\, p(z_i | \mathbf{x}_i, \boldsymbol{\theta}))$,
+so $F \leq \log p(\mathcal{X} | \boldsymbol{\theta})$, with equality when $q_i$ is the posterior. The E-step chooses
+$q_i = \gamma_{i\cdot}$, the posterior at $\boldsymbol{\theta}^{(t)}$, so $\log p(\mathcal{X} | \boldsymbol{\theta}^{(t)}) = F(\gamma, \boldsymbol{\theta}^{(t)})$.
+The M-step maximizes $F(\gamma, \cdot)$, which differs from $Q$ only by a term independent of $\boldsymbol{\theta}$, so
+$F(\gamma, \boldsymbol{\theta}^{(t+1)}) \geq F(\gamma, \boldsymbol{\theta}^{(t)})$. Finally
+$\log p(\mathcal{X} | \boldsymbol{\theta}^{(t+1)}) \geq F(\gamma, \boldsymbol{\theta}^{(t+1)})$, and the chain of inequalities gives
+monotonic increase. The same bound reappears as the ELBO of @thm-uns-elbo.
+
+**Convergence criterion:** Stop when:
+
+- Change in log-likelihood $< \epsilon$
 - Change in parameters $< \epsilon$
-- Maximum
-   iterations reached
+- Maximum iterations reached
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The simplest case of @thm-uns-em-monotone is a mixture with a single component. There EM reaches the maximum in one step, so the
+log-likelihood is constant from then on.
+
+::: {#exm-uns-em-one-component}
+#### One component
+
+With $K = 1$ every responsibility is $\gamma_{i1} = 1$, so the M-step returns $\pi_1 = 1$, the sample mean and the sample covariance
+(with factor $1/n$). These are the maximum-likelihood estimates of a single Gaussian, so after one iteration the parameters, and
+the log-likelihood, no longer change.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The second part of @thm-uns-em-monotone speaks of local maxima, but the likelihood of a Gaussian mixture may have no global maximum
+at all. The exercise shows this, which is the origin of the singularities discussed below.
+
+::: {#exr-uns-gmm-unbounded-likelihood}
+#### An unbounded likelihood
+
+For one-dimensional data with at least two distinct points and $K = 2$, show that the log-likelihood is unbounded above by letting
+$\mu_1 = x_1$ and $\sigma_1 \to 0$ while the second component is fixed.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Fix $\pi_1 = \pi_2 = 1/2$, $\mu_2$ and $\sigma_2 > 0$. Each point satisfies $p(x_i) \geq \frac12 \mathcal{N}(x_i | \mu_2, \sigma_2^2) > 0$,
+a bound independent of $\sigma_1$. For $x_1$ in addition $p(x_1) \geq \frac12 \mathcal{N}(x_1 | x_1, \sigma_1^2) = \frac{1}{2\sqrt{2\pi}\sigma_1}$,
+which tends to infinity as $\sigma_1 \to 0$. Hence the sum of logs tends to $+\infty$.
+:::
+::::
 
 **Initialization Strategies:**
 
-1. **K-means initialization:** Run K-means first, use cluster centers as initial means 2. **Random initialization:** Randomly
-select $K$ data points as initial means 3. **Multiple random starts:** Run EM multiple times with different initializations, keep
-best result 4. **Hierarchical clustering:** Use hierarchical clustering to initialize
+1. **K-means initialization:** Run K-means first, use cluster centers as initial means
+2. **Random initialization:** Randomly select $K$ data points as initial means
+3. **Multiple random starts:** Run EM multiple times with different initializations, keep best result
+4. **Hierarchical clustering:** Use hierarchical clustering to initialize
 
 **Covariance Matrix Constraints:**
 
 To reduce parameters and improve stability:
 
-1. **Full covariance:** $\boldsymbol{\Sigma}_k$ is unconstrained ($d(d+1)/2$ parameters per component) 2. **Diagonal covariance:**
-$\boldsymbol{\Sigma}_k = \text{diag}(\sigma_{k1}^2, \ldots, \sigma_{kd}^2)$ ($d$ parameters) 3. **Spherical covariance:**
-$\boldsymbol{\Sigma}_k = \sigma_k^2 \mathbf{I}$ (1 parameter) 4. **Tied covariance:** All components share the same
-$\boldsymbol{\Sigma}$
+1. **Full covariance:** $\boldsymbol{\Sigma}_k$ is unconstrained ($d(d+1)/2$ parameters per component)
+2. **Diagonal covariance:** $\boldsymbol{\Sigma}_k = \text{diag}(\sigma_{k1}^2, \ldots, \sigma_{kd}^2)$ ($d$ parameters)
+3. **Spherical covariance:** $\boldsymbol{\Sigma}_k = \sigma_k^2 \mathbf{I}$ (1 parameter)
+4. **Tied covariance:** All components share the same $\boldsymbol{\Sigma}$
 
-**Model Selection:** Choose the number of components $K$:
+**Model Selection:** Choose the number of components $K$. More components always fit the training data at least as well, so the
+criteria below add a penalty for the number of free parameters.
+
+:::: {.statement-box}
+::: {#def-uns-bic-aic}
+#### Information criteria
 
 **1. Bayesian Information Criterion (BIC):** $$\text{BIC} = -2\log p(\mathcal{X} | \hat{\boldsymbol{\theta}}) + p \log n$$
 
-where $p$ is the number of free parameters: - Full covariance: $p = K(1 + d + d(d+1)/2) - 1$
-- Diagonal: $p = K(1 + 2d) - 1$
--
-Spherical: $p = K(1 + d + 1) - 1$
-
-Choose $K$ that minimizes BIC.
-
 **2. Akaike Information Criterion (AIC):** $$\text{AIC} = -2\log p(\mathcal{X} | \hat{\boldsymbol{\theta}}) + 2p$$
 
-AIC tends to favor more complex models than BIC.
+where $p$ is the number of free parameters. Choose $K$ that minimizes the criterion.
+:::
+
+::::
+
+For a GMM, $p$ is:
+
+- Full covariance: $p = K(1 + d + d(d+1)/2) - 1$
+- Diagonal: $p = K(1 + 2d) - 1$
+- Spherical: $p = K(1 + d + 1) - 1$
+
+Choose $K$ that minimizes BIC. AIC tends to favor more complex models than BIC.
 
 **3. Cross-Validation:** Evaluate held-out log-likelihood
 
 **4. Silhouette Score:** Assign points to most likely component, compute silhouette
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example counts the free parameters entering @def-uns-bic-aic for the three covariance structures. The counts show how much a
+full covariance costs even in two dimensions.
+
+::: {#exm-uns-bic-parameter-count}
+#### Parameter counts
+
+For $d = 2$ and $K = 3$: full covariance gives $p = 3(1 + 2 + 3) - 1 = 17$, diagonal gives $p = 3(1 + 4) - 1 = 14$, and spherical
+gives $p = 3(1 + 2 + 1) - 1 = 11$. The $-1$ accounts for the constraint $\sum_k \pi_k = 1$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The remark that AIC favours more complex models than BIC can be made exact. The exercise finds the sample size from which the BIC
+penalty of @def-uns-bic-aic is the larger one.
+
+::: {#exr-uns-bic-versus-aic}
+#### When BIC penalizes more
+
+Show that the BIC penalty exceeds the AIC penalty exactly when $n > e^2 \approx 7.39$, using the natural logarithm.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The likelihood terms are identical, so compare $p \log n$ with $2p$: for $p > 0$, $p \log n > 2p$ if and only if $\log n > 2$,
+i.e. $n > e^2$. For any data set with $n \geq 8$ points, BIC penalizes each parameter more and so selects a $K$ no larger than AIC's.
+:::
+::::
+
 **Relationship to K-Means:**
 
-K-means is a special case of GMM: - Set all $\boldsymbol{\Sigma}_k = \sigma^2 \mathbf{I}$ with $\sigma \to 0$
-- Hard assignments:
-$\gamma_{ik} \in \{0, 1\}$
+K-means is a special case of GMM:
+
+- Set all $\boldsymbol{\Sigma}_k = \sigma^2 \mathbf{I}$ with $\sigma \to 0$
+- Hard assignments: $\gamma_{ik} \in \{0, 1\}$
 - K-means objective emerges as limiting case
 
-GMM generalizes K-means by: - Allowing elliptical clusters (full covariance) - Providing soft assignments (probabilities) - Having
-probabilistic interpretation
+GMM generalizes K-means by allowing elliptical clusters (full covariance), providing soft assignments (probabilities), and having a
+probabilistic interpretation.
 
 **Advantages of GMMs:**
 
-1. **Probabilistic framework:** Provides uncertainty estimates 2. **Soft clustering:** Points can belong to multiple clusters 3.
-**Flexible cluster shapes:** Can model elliptical clusters 4. **Generative model:** Can sample new data points 5. **Principled
-model selection:** Use BIC/AIC 6. **Density estimation:** Models full data distribution
+1. **Probabilistic framework:** Provides uncertainty estimates
+2. **Soft clustering:** Points can belong to multiple clusters
+3. **Flexible cluster shapes:** Can model elliptical clusters
+4. **Generative model:** Can sample new data points
+5. **Principled model selection:** Use BIC/AIC
+6. **Density estimation:** Models full data distribution
 
 **Disadvantages:**
 
-1. **Computational cost:** $O(nKd^2T)$ where $T$ is number of EM iterations 2. **Local optima:** Sensitive to initialization 3.
-**Number of components:** Must specify $K$
-4. **Singularities:** Covariance matrices can become singular 5. **Overfitting:** Can
-overfit with too many components 6. **Assumes Gaussian:** May not fit non-Gaussian data well
+1. **Computational cost:** $O(nKd^2T)$ where $T$ is number of EM iterations
+2. **Local optima:** Sensitive to initialization
+3. **Number of components:** Must specify $K$
+4. **Singularities:** Covariance matrices can become singular
+5. **Overfitting:** Can overfit with too many components
+6. **Assumes Gaussian:** May not fit non-Gaussian data well
 
 **Regularization Techniques:**
 
-1. **Add small constant to diagonal:** $\boldsymbol{\Sigma}_k + \epsilon \mathbf{I}$ to prevent singularities 2. **Minimum
-covariance:** Enforce minimum eigenvalues 3. **Bayesian GMM:** Place priors on parameters (Dirichlet process mixture models) 4.
-**Constrain covariance:** Use diagonal or spherical covariances
+1. **Add small constant to diagonal:** $\boldsymbol{\Sigma}_k + \epsilon \mathbf{I}$ to prevent singularities
+2. **Minimum covariance:** Enforce minimum eigenvalues
+3. **Bayesian GMM:** Place priors on parameters (Dirichlet process mixture models)
+4. **Constrain covariance:** Use diagonal or spherical covariances
 
 **Extensions:**
 
-1. **Variational Bayesian GMM:** Bayesian treatment with variational inference 2. **Dirichlet Process Mixture Models:** Infinite
-mixture models 3. **Student's t-Mixture Models:** More robust to outliers 4. **Factor Analysis:** GMM with low-rank covariance
-structure (see @sec-generative-latent)
+1. **Variational Bayesian GMM:** Bayesian treatment with variational inference
+2. **Dirichlet Process Mixture Models:** Infinite mixture models
+3. **Student's t-Mixture Models:** More robust to outliers
+4. **Factor Analysis:** GMM with low-rank covariance structure (see @sec-generative-latent)
 
-**Applications:**
-
-- Image segmentation - Speaker recognition (GMM-UBM) - Anomaly detection - Density estimation - Background subtraction in video -
-Bioinformatics (gene expression clustering)
+**Applications:** Image segmentation, speaker recognition (GMM-UBM), anomaly detection, density estimation, background subtraction
+in video, bioinformatics (gene expression clustering).
 
 **Connection to Other Methods:**
 
-- **K-means:** Special case with spherical, equal-variance components - **PCA:** Related through factor analysis (see
-@sec-dimensionality-reduction) - **Hidden Markov Models:** GMMs for emission distributions - **Variational Autoencoders:** Can use
-GMM prior (see @sec-generative-latent)
+- **K-means:** Special case with spherical, equal-variance components
+- **PCA:** Related through factor analysis (see @sec-dimensionality-reduction)
+- **Hidden Markov Models:** GMMs for emission distributions
+- **Variational Autoencoders:** Can use GMM prior (see @sec-generative-latent)
 
 GMMs provide a flexible, probabilistic framework for clustering and density estimation, bridging the gap between simple methods
 like K-means and more complex generative models [@bishop2024deeplearning; @deisenroth2020mml].
 
 ### Spectral Clustering
 
-**Algorithm:** 1. Construct similarity graph with weights $w_{ij} = \exp(-\|\mathbf{x}_i - \mathbf{x}_j\|^2/(2\sigma^2))$
-2.
-Compute graph Laplacian: $\mathbf{L} = \mathbf{D} - \mathbf{W}$ where $D_{ii} = \sum_j w_{ij}$
-3. Compute first $K$ eigenvectors
-of $\mathbf{L}$
+Spectral clustering replaces the data by a weighted graph and clusters the graph instead of the points. The central object is the
+graph Laplacian defined below, whose eigenvectors with small eigenvalues vary little across strongly connected points.
+
+:::: {.statement-box}
+::: {#def-uns-graph-laplacian}
+#### Graph Laplacian
+
+Given a similarity graph with symmetric non-negative weights $w_{ij}$ and degrees $D_{ii} = \sum_j w_{ij}$, the **graph
+Laplacian** is $\mathbf{L} = \mathbf{D} - \mathbf{W}$ and the **normalized Laplacian** is $\mathbf{L}_{\text{norm}} =
+\mathbf{D}^{-1/2}\mathbf{L}\mathbf{D}^{-1/2}$.
+:::
+
+::::
+
+**Algorithm:**
+
+1. Construct similarity graph with weights $w_{ij} = \exp(-\|\mathbf{x}_i - \mathbf{x}_j\|^2/(2\sigma^2))$
+2. Compute graph Laplacian: $\mathbf{L} = \mathbf{D} - \mathbf{W}$ where $D_{ii} = \sum_j w_{ij}$
+3. Compute first $K$ eigenvectors of $\mathbf{L}$
 4. Apply K-means to rows of eigenvector matrix
 
 **Normalized Spectral Clustering:** Use normalized Laplacian $\mathbf{L}_{\text{norm}} =
 \mathbf{D}^{-1/2}\mathbf{L}\mathbf{D}^{-1/2}$.
 
 **Advantages:** Can find non-convex clusters by working in spectral space [@james2023statistical; @shalev2014ml].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example writes out @def-uns-graph-laplacian for a path of three nodes with unit weights. It also checks that the constant
+vector lies in the kernel, a fact the exercise generalizes.
+
+::: {#exm-uns-laplacian-path}
+#### A path graph
+
+For the path $1 - 2 - 3$ with unit weights, $\mathbf{D} = \mathrm{diag}(1, 2, 1)$ and
+$$\mathbf{L} = \begin{pmatrix} 1 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 1 \end{pmatrix},$$
+whose rows sum to zero, so $\mathbf{L}\mathbf{1} = \mathbf{0}$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise proves the two properties of @def-uns-graph-laplacian that justify step 3 of the algorithm. Small eigenvalues signal
+weakly connected pieces, and zero eigenvalues count disconnected ones.
+
+::: {#exr-uns-laplacian-quadratic-form}
+#### The quadratic form of the Laplacian
+
+Show that $\mathbf{f}^T\mathbf{L}\mathbf{f} = \frac12 \sum_{i,j} w_{ij}(f_i - f_j)^2$ for every $\mathbf{f}$, so that $\mathbf{L}$
+is positive semi-definite, and that the indicator vector of each connected component of the graph lies in the kernel of
+$\mathbf{L}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbf{f}^T\mathbf{L}\mathbf{f} = \sum_i D_{ii} f_i^2 - \sum_{i,j} w_{ij} f_i f_j = \frac12 \sum_{i,j} w_{ij}(f_i^2 + f_j^2 - 2 f_i f_j)$,
+using $\sum_i D_{ii} f_i^2 = \sum_{i,j} w_{ij} f_i^2 = \sum_{i,j} w_{ij} f_j^2$ and the symmetry of $w$. This is a sum of non-negative
+terms. If $\mathbf{f}$ is the indicator of a component $A$, then $w_{ij} = 0$ whenever exactly one of $i, j$ lies in $A$, so every
+term vanishes; since $\mathbf{L}$ is positive semi-definite, $\mathbf{f}^T\mathbf{L}\mathbf{f} = 0$ implies $\mathbf{L}\mathbf{f} = \mathbf{0}$.
+:::
+::::
 
 ## Dimensionality Reduction {#sec-dimensionality-reduction}
 
@@ -711,18 +1509,79 @@ the data varies most, providing both a method for visualization and a preprocess
 
 **Problem Setup:** Given data $\mathbf{X} = [\mathbf{x}_1, \ldots, \mathbf{x}_n]^T \in \mathbb{R}^{n \times d}$ where each
 $\mathbf{x}_i \in \mathbb{R}^d$, find a lower-dimensional representation $\mathbf{Z} \in \mathbb{R}^{n \times k}$ with $k < d$
-that preserves as much information as possible.
+that preserves as much information as possible. The definition below fixes the sample covariance and the principal components in
+terms of its eigenvectors; the theorem after it explains why these are the right directions.
+
+:::: {.statement-box}
+::: {#def-uns-principal-components}
+#### Principal components
+
+Let $\bar{\mathbf{x}} = \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i$ be the sample mean and $\mathbf{S} = \frac{1}{n}\sum_{i=1}^n
+(\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T$ the sample covariance matrix, with eigendecomposition
+$\mathbf{S} = \mathbf{W}\boldsymbol{\Lambda}\mathbf{W}^T$, $\boldsymbol{\Lambda} = \text{diag}(\lambda_1, \ldots, \lambda_d)$ and
+$\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d \geq 0$. The **principal components** are the orthonormal eigenvectors
+$\mathbf{w}_1, \ldots, \mathbf{w}_d$ (the columns of $\mathbf{W}$), and the projection of $\mathbf{x}_i$ onto the first $k$ of them is
+$\mathbf{z}_i = \mathbf{W}_k^T(\mathbf{x}_i - \bar{\mathbf{x}})$ with $\mathbf{W}_k = [\mathbf{w}_1, \ldots, \mathbf{w}_k]$.
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example computes @def-uns-principal-components for four centered points in the plane. The same data serve as the running example
+for the rest of the PCA unit.
+
+::: {#exm-uns-pca-four-points}
+#### Four points in the plane
+
+The points $(2, 2), (-2, -2), (1, -1), (-1, 1)$ have mean $\mathbf{0}$. Their outer products sum to
+$\begin{pmatrix} 10 & 6 \\ 6 & 10 \end{pmatrix}$, so $\mathbf{S} = \begin{pmatrix} 2.5 & 1.5 \\ 1.5 & 2.5 \end{pmatrix}$, with
+eigenvalues $\lambda_1 = 4$ for $\mathbf{w}_1 = (1, 1)/\sqrt2$ and $\lambda_2 = 1$ for $\mathbf{w}_2 = (1, -1)/\sqrt2$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise asks for the projections $\mathbf{z}_i$ of @def-uns-principal-components on the data of @exm-uns-pca-four-points. Their
+covariance turns out to be diagonal, as the properties listed later state.
+
+::: {#exr-uns-pca-scores}
+#### Scores of the four points
+
+Compute the two-dimensional scores $\mathbf{z}_i = \mathbf{W}^T \mathbf{x}_i$ of the four points of @exm-uns-pca-four-points and their
+covariance matrix.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $\mathbf{w}_1 = (1,1)/\sqrt2$ and $\mathbf{w}_2 = (1,-1)/\sqrt2$ the scores are $(2\sqrt2, 0)$, $(-2\sqrt2, 0)$,
+$(0, \sqrt2)$, $(0, -\sqrt2)$. Their mean is zero and their covariance is
+$\frac14 \mathrm{diag}(8 + 8, 2 + 2) = \mathrm{diag}(4, 1) = \boldsymbol{\Lambda}$.
+:::
+::::
 
 **Two Equivalent Formulations:**
 
-**1. Maximum Variance Formulation:** Find directions that maximize the variance of projected data.
+**1. Maximum Variance Formulation:** Find directions that maximize the variance of projected data. The theorem below states that
+the principal components solve this problem one direction at a time, and the Lagrange-multiplier argument after it is the proof.
+
+:::: {.statement-box}
+::: {#thm-uns-pca-max-variance}
+#### PCA maximizes projected variance
 
 For the first principal component, solve:
 
 $$\max_{\mathbf{w}_1: \|\mathbf{w}_1\|=1} \text{Var}(\mathbf{X}\mathbf{w}_1) = \max_{\mathbf{w}_1: \|\mathbf{w}_1\|=1}
 \mathbf{w}_1^T\mathbf{S}\mathbf{w}_1$$
 
-where $\mathbf{S} = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T$ is the sample
+The maximum is $\lambda_1$, attained at the eigenvector of $\mathbf{S}$ for the largest eigenvalue. For subsequent components,
+maximize variance subject to orthogonality:
+
+$$\max_{\mathbf{w}_j: \|\mathbf{w}_j\|=1, \mathbf{w}_j \perp \mathbf{w}_i \forall i<j} \mathbf{w}_j^T\mathbf{S}\mathbf{w}_j$$
+
+The solution is the eigenvector corresponding to the $j$-th largest eigenvalue.
+:::
+
+::::
+
+Here $\mathbf{S} = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T$ is the sample
 covariance matrix and $\bar{\mathbf{x}} = \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i$ is the sample mean.
 
 **Solution via Lagrange Multipliers:** Form the Lagrangian:
@@ -743,13 +1602,41 @@ $$\mathbf{w}_1^T\mathbf{S}\mathbf{w}_1 = \mathbf{w}_1^T(\lambda\mathbf{w}_1) = \
 
 To maximize variance, choose $\mathbf{w}_1$ as the eigenvector corresponding to the largest eigenvalue $\lambda_1$.
 
-For subsequent components, maximize variance subject to orthogonality:
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example compares the variance along the first principal component of @exm-uns-pca-four-points with the variance along a
+coordinate axis. The comparison shows @thm-uns-pca-max-variance in numbers.
 
-$$\max_{\mathbf{w}_j: \|\mathbf{w}_j\|=1, \mathbf{w}_j \perp \mathbf{w}_i \forall i<j} \mathbf{w}_j^T\mathbf{S}\mathbf{w}_j$$
+::: {#exm-uns-pca-variance-directions}
+#### Variance in two directions
 
-The solution is the eigenvector corresponding to the $j$-th largest eigenvalue.
+For $\mathbf{S} = \begin{pmatrix} 2.5 & 1.5 \\ 1.5 & 2.5 \end{pmatrix}$, the variance along $\mathbf{e}_1$ is
+$\mathbf{e}_1^T\mathbf{S}\mathbf{e}_1 = 2.5$, while along $\mathbf{w}_1 = (1,1)/\sqrt2$ it is $\frac12(2.5 + 1.5 + 1.5 + 2.5) = 4 = \lambda_1$.
+:::
+::::
 
-**2. Minimum Reconstruction Error Formulation:** Find a $k$-dimensional subspace that minimizes reconstruction error.
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The Lagrange argument shows that the optimum is an eigenvector, but not directly that no unit vector does better than $\lambda_1$.
+The exercise closes this gap with an eigenvector expansion.
+
+::: {#exr-uns-pca-rayleigh-bound}
+#### The Rayleigh bound
+
+Show that $\mathbf{w}^T\mathbf{S}\mathbf{w} \leq \lambda_1$ for every unit vector $\mathbf{w}$, with equality for $\mathbf{w} = \mathbf{w}_1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Expand $\mathbf{w} = \sum_j c_j \mathbf{w}_j$ in the orthonormal eigenbasis, with $\sum_j c_j^2 = 1$. Then
+$\mathbf{w}^T\mathbf{S}\mathbf{w} = \sum_j \lambda_j c_j^2 \leq \lambda_1 \sum_j c_j^2 = \lambda_1$, with equality when all the weight
+sits on eigenvalue $\lambda_1$, in particular for $\mathbf{w} = \mathbf{w}_1$.
+:::
+::::
+
+**2. Minimum Reconstruction Error Formulation:** Find a $k$-dimensional subspace that minimizes reconstruction error. The
+proposition below states that the same principal components solve this second problem and computes the minimal error.
+
+:::: {.statement-box}
+::: {#prp-uns-pca-reconstruction}
+#### PCA minimizes reconstruction error
 
 $$\min_{\mathbf{W}_k, \mathbf{Z}} \sum_{i=1}^n \|\mathbf{x}_i - \bar{\mathbf{x}} - \mathbf{W}_k\mathbf{z}_i\|^2$$
 
@@ -759,8 +1646,50 @@ where $\mathbf{W}_k \in \mathbb{R}^{d \times k}$ has orthonormal columns and $\m
 
 $$\mathbf{z}_i = \mathbf{W}_k^T(\mathbf{x}_i - \bar{\mathbf{x}})$$
 
+With $\tilde{\mathbf{x}}_i = \bar{\mathbf{x}} + \mathbf{W}_k\mathbf{z}_i$, the minimal mean reconstruction error is
+$\frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \sum_{j=k+1}^d \lambda_j$.
+:::
+
+::::
+
 **Equivalence:** These two formulations are equivalent. Maximizing variance in the projection is equivalent to minimizing
-reconstruction error.
+reconstruction error. Indeed, for fixed orthonormal $\mathbf{W}_k$ the best $\mathbf{z}_i$ is the orthogonal projection
+$\mathbf{W}_k^T(\mathbf{x}_i - \bar{\mathbf{x}})$, and by Pythagoras
+$\frac1n\sum_i \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \mathrm{tr}(\mathbf{S}) - \sum_{j=1}^k \mathbf{w}_j^T\mathbf{S}\mathbf{w}_j$.
+The trace is fixed, so minimizing the error is maximizing the captured variance, which @thm-uns-pca-max-variance solves with value
+$\lambda_1 + \cdots + \lambda_k$; the error is then $\mathrm{tr}(\mathbf{S}) - \sum_{j \leq k}\lambda_j = \sum_{j > k}\lambda_j$.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example reconstructs the four points of @exm-uns-pca-four-points from their first principal component. Only the two points off
+the diagonal lose anything, and the loss matches @prp-uns-pca-reconstruction.
+
+::: {#exm-uns-pca-reconstruction-four-points}
+#### Reconstruction from one component
+
+With $k = 1$, the points $(2, 2)$ and $(-2, -2)$ lie on the line spanned by $\mathbf{w}_1$ and are reconstructed exactly. The points
+$(1, -1)$ and $(-1, 1)$ project to $\mathbf{0}$ and lose their full squared norm $2$ each. The mean error is
+$(0 + 0 + 2 + 2)/4 = 1 = \lambda_2$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise shows that the variance kept and the error made add up to a fixed total. It is the bookkeeping behind the equivalence
+argument after @prp-uns-pca-reconstruction.
+
+::: {#exr-uns-pca-total-variance}
+#### Total variance
+
+Show that $\frac1n\sum_i \|\mathbf{x}_i - \bar{\mathbf{x}}\|^2 = \mathrm{tr}(\mathbf{S}) = \sum_{j=1}^d \lambda_j$, and conclude that
+the variance of the scores plus the mean reconstruction error equals the total variance.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\|\mathbf{v}\|^2 = \mathrm{tr}(\mathbf{v}\mathbf{v}^T)$, so averaging over $i$ gives $\mathrm{tr}(\mathbf{S})$, which equals the
+sum of the eigenvalues. The scores have total variance $\sum_{j \leq k}\lambda_j$ (@exr-uns-pca-scores in the case $k = d$, and in
+general $\mathrm{Cov}(\mathbf{Z}) = \boldsymbol{\Lambda}_k$), the error is $\sum_{j > k}\lambda_j$, and the two add up to
+$\sum_j \lambda_j$.
+:::
+::::
 
 **Algorithm (PCA via Eigendecomposition):**
 
@@ -778,14 +1707,31 @@ reconstruction error.
 
 **Algorithm (PCA via SVD - Preferred):**
 
-For numerical stability and efficiency, use Singular Value Decomposition:
+For numerical stability and efficiency, use Singular Value Decomposition. The proposition below records how the singular value
+decomposition of the centered data matrix yields the principal components and their eigenvalues without forming $\mathbf{S}$.
+
+:::: {.statement-box}
+::: {#prp-uns-pca-svd}
+#### PCA from the singular value decomposition
+
+Let $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ be the SVD of the centered data. Then the columns of
+$\mathbf{V}$ are principal components, the eigenvalues are $\lambda_j = \sigma_j^2 / n$ where $\sigma_j$ are the singular values,
+and the scores are $\mathbf{Z} = \mathbf{U}_{:,1:k}\boldsymbol{\Sigma}_{1:k,1:k} = \tilde{\mathbf{X}}\mathbf{W}_k$ with
+$\mathbf{W}_k = \mathbf{V}_{:,1:k}$.
+:::
+
+::::
+
+The proof is one line: $\mathbf{S} = \frac1n \tilde{\mathbf{X}}^T\tilde{\mathbf{X}} = \mathbf{V}\left(\frac1n
+\boldsymbol{\Sigma}^T\boldsymbol{\Sigma}\right)\mathbf{V}^T$, which is an eigendecomposition with eigenvectors the columns of
+$\mathbf{V}$ and eigenvalues $\sigma_j^2/n$.
 
 1. **Center the data:** $\tilde{\mathbf{X}} = \mathbf{X} - \mathbf{1}\bar{\mathbf{x}}^T$
 
 2. **SVD:** Compute $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$
-- $\mathbf{U} \in \mathbb{R}^{n \times n}$:
-   Left singular vectors - $\boldsymbol{\Sigma} \in \mathbb{R}^{n \times d}$: Singular values (diagonal) - $\mathbf{V} \in
-   \mathbb{R}^{d \times d}$: Right singular vectors (principal components)
+   - $\mathbf{U} \in \mathbb{R}^{n \times n}$: Left singular vectors
+   - $\boldsymbol{\Sigma} \in \mathbb{R}^{n \times d}$: Singular values (diagonal)
+   - $\mathbf{V} \in \mathbb{R}^{d \times d}$: Right singular vectors (principal components)
 
 3. **Principal components:** $\mathbf{W}_k = \mathbf{V}_{:,1:k}$ (first $k$ columns of $\mathbf{V}$)
 
@@ -793,9 +1739,38 @@ For numerical stability and efficiency, use Singular Value Decomposition:
 
 5. **Project data:** $\mathbf{Z} = \mathbf{U}_{:,1:k}\boldsymbol{\Sigma}_{1:k,1:k} = \tilde{\mathbf{X}}\mathbf{W}_k$
 
-**Advantages of SVD:** - More numerically stable - Avoids forming $\mathbf{S}$ explicitly (saves memory) - Faster for $n \ll d$ or
-$d \ll n$
-- Directly provides principal components
+**Advantages of SVD:** More numerically stable; avoids forming $\mathbf{S}$ explicitly (saves memory); faster for $n \ll d$ or
+$d \ll n$; directly provides principal components.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example reads the singular values of the four-point data off its eigenvalues, using @prp-uns-pca-svd backwards. It is a quick
+consistency check between the two algorithms above.
+
+::: {#exm-uns-pca-svd-four-points}
+#### Singular values of the four points
+
+For @exm-uns-pca-four-points, $n = 4$ and $\lambda = (4, 1)$, so $\sigma_j^2 = n\lambda_j = 16, 4$ and the singular values of
+$\tilde{\mathbf{X}}$ are $4$ and $2$. The right singular vectors are $\mathbf{w}_1$ and $\mathbf{w}_2$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise checks the last claim of @prp-uns-pca-svd, that the scores can be read off from $\mathbf{U}$ and
+$\boldsymbol{\Sigma}$ alone. This is how SVD-based PCA avoids a second matrix product.
+
+::: {#exr-uns-pca-svd-scores}
+#### Scores from the SVD
+
+Show that $\tilde{\mathbf{X}}\mathbf{V}_{:,1:k} = \mathbf{U}_{:,1:k}\boldsymbol{\Sigma}_{1:k,1:k}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Multiply $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ on the right by $\mathbf{V}$ and use
+$\mathbf{V}^T\mathbf{V} = \mathbf{I}$: $\tilde{\mathbf{X}}\mathbf{V} = \mathbf{U}\boldsymbol{\Sigma}$. Because $\boldsymbol{\Sigma}$
+is diagonal, the $j$-th column of $\mathbf{U}\boldsymbol{\Sigma}$ is $\sigma_j$ times the $j$-th column of $\mathbf{U}$; keeping
+the first $k$ columns gives the claim.
+:::
+::::
 
 **Dimensionality Reduction and Reconstruction:**
 
@@ -803,15 +1778,23 @@ $d \ll n$
 
 **Reconstruction (Decoding):** $$\tilde{\mathbf{x}}_i = \bar{\mathbf{x}} + \mathbf{W}_k\mathbf{z}_i \in \mathbb{R}^d$$
 
-**Reconstruction Error:** $$\text{Error} = \sum_{i=1}^n \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \sum_{j=k+1}^d \lambda_j$$
+**Reconstruction Error:** $$\text{Error} = \frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \sum_{j=k+1}^d \lambda_j$$
 
-The reconstruction error equals the sum of discarded eigenvalues.
+The reconstruction error equals the sum of discarded eigenvalues (@prp-uns-pca-reconstruction).
 
-**Choosing the Number of Components $k$:**
+**Choosing the Number of Components $k$:** The most common criterion measures how much of the total variance the first $k$
+components keep. The definition below names this fraction; the other rules listed after it are alternatives.
+
+:::: {.statement-box}
+::: {#def-uns-pve}
+#### Proportion of variance explained
 
 1. **Proportion of Variance Explained (PVE):** $$\text{PVE}(k) = \frac{\sum_{j=1}^k \lambda_j}{\sum_{j=1}^d \lambda_j}$$
-   
+
    Choose $k$ such that PVE$(k) \geq 0.9$ (or 0.95, 0.99)
+:::
+
+::::
 
 2. **Scree Plot:** Plot eigenvalues vs. component number and look for an "elbow"
 
@@ -821,11 +1804,41 @@ The reconstruction error equals the sum of discarded eigenvalues.
 
 5. **Parallel Analysis:** Compare eigenvalues to those from random data
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example evaluates @def-uns-pve on the four-point data. By @exr-uns-pca-total-variance the complement of the PVE is the relative
+reconstruction error.
+
+::: {#exm-uns-pve-four-points}
+#### PVE of the four points
+
+With $\lambda = (4, 1)$, $\text{PVE}(1) = 4/5 = 0.8$ and $\text{PVE}(2) = 1$. One component keeps $80\%$ of the variance and
+leaves a relative error of $20\%$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise applies two of the rules for choosing $k$ to the same spectrum. They give different answers, which is typical.
+
+::: {#exr-uns-pve-choose-k}
+#### Two rules, two answers
+
+For eigenvalues $\lambda = (5, 3, 1, 1)$ find the smallest $k$ with $\text{PVE}(k) \geq 0.9$, and the $k$ given by the Kaiser
+criterion.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The total is $10$, so $\text{PVE} = 0.5, 0.8, 0.9, 1$ for $k = 1, 2, 3, 4$, and the PVE rule gives $k = 3$. The average eigenvalue
+is $2.5$, and only $5$ and $3$ exceed it, so the Kaiser criterion gives $k = 2$.
+:::
+::::
+
 **Geometric Interpretation:**
 
-- PCA finds the best-fitting $k$-dimensional hyperplane through the data - Principal components are orthogonal axes of this
-hyperplane - First PC points in direction of maximum variance - Each subsequent PC is orthogonal and captures maximum remaining
-variance - Data points are projected onto this hyperplane
+- PCA finds the best-fitting $k$-dimensional hyperplane through the data
+- Principal components are orthogonal axes of this hyperplane
+- First PC points in direction of maximum variance
+- Each subsequent PC is orthogonal and captures maximum remaining variance
+- Data points are projected onto this hyperplane
 
 **Properties of PCA:**
 
@@ -834,7 +1847,7 @@ variance - Data points are projected onto this hyperplane
 2. **Uncorrelated Projections:** Projected data has diagonal covariance: $$\text{Cov}(\mathbf{Z}) = \boldsymbol{\Lambda}_k =
    \text{diag}(\lambda_1, \ldots, \lambda_k)$$
 
-3. **Optimal Linear Projection:** PCA is optimal among all linear projections for: - Maximizing variance - Minimizing
+3. **Optimal Linear Projection:** PCA is optimal among all linear projections for maximizing variance and minimizing
    reconstruction error
 
 4. **Rotation Invariant:** PCA is invariant to rotations of the coordinate system
@@ -853,12 +1866,17 @@ the correlation matrix instead of covariance matrix.
 - **Covariance matrix:** $O(nd^2)$
 - **Eigendecomposition:** $O(d^3)$
 - **SVD:** $O(\min(nd^2, n^2d))$
-- **Total:** $O(nd^2 +
-d^3)$ for eigendecomposition, $O(\min(nd^2, n^2d))$ for SVD - **Projection:** $O(ndk)$ for projecting $n$ points
+- **Total:** $O(nd^2 + d^3)$ for eigendecomposition, $O(\min(nd^2, n^2d))$ for SVD
+- **Projection:** $O(ndk)$ for projecting $n$ points
 
 **Kernel PCA (Nonlinear Extension):**
 
 For nonlinear dimensionality reduction, apply PCA in a high-dimensional feature space $\phi(\mathbf{x})$ using the kernel trick.
+The definition below states the procedure entirely in terms of the kernel matrix, so that $\phi$ never has to be computed.
+
+:::: {.statement-box}
+::: {#def-uns-kernel-pca}
+#### Kernel PCA
 
 **Kernel Matrix:** $\mathbf{K}_{ij} = k(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T\phi(\mathbf{x}_j)$
 
@@ -870,35 +1888,87 @@ where $\mathbf{1}_n = \frac{1}{n}\mathbf{1}\mathbf{1}^T$.
 **Eigendecomposition:** Solve $\tilde{\mathbf{K}}\boldsymbol{\alpha} = \lambda\boldsymbol{\alpha}$
 
 **Projection:** For a new point $\mathbf{x}$: $$z_j = \sum_{i=1}^n \alpha_{ij} k(\mathbf{x}_i, \mathbf{x})$$
+:::
 
-**Common Kernels:** - **RBF:** $k(\mathbf{x}, \mathbf{x}') = \exp(-\gamma\|\mathbf{x} - \mathbf{x}'\|^2)$
-- **Polynomial:**
-$k(\mathbf{x}, \mathbf{x}') = (\mathbf{x}^T\mathbf{x}' + c)^p$
+::::
+
+**Common Kernels:**
+
+- **RBF:** $k(\mathbf{x}, \mathbf{x}') = \exp(-\gamma\|\mathbf{x} - \mathbf{x}'\|^2)$
+- **Polynomial:** $k(\mathbf{x}, \mathbf{x}') = (\mathbf{x}^T\mathbf{x}' + c)^p$
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The linear kernel turns @def-uns-kernel-pca back into ordinary PCA. The example makes the relation between the two sets of
+eigenvalues explicit.
+
+::: {#exm-uns-kernel-pca-linear}
+#### The linear kernel
+
+For $k(\mathbf{x}, \mathbf{x}') = \mathbf{x}^T\mathbf{x}'$, the centered kernel matrix is $\tilde{\mathbf{K}} = \tilde{\mathbf{X}}\tilde{\mathbf{X}}^T$.
+Its nonzero eigenvalues equal those of $\tilde{\mathbf{X}}^T\tilde{\mathbf{X}} = n\mathbf{S}$, namely $n\lambda_j$, so kernel PCA with
+the linear kernel recovers the principal components of @def-uns-principal-components.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The centering formula of @def-uns-kernel-pca looks arbitrary until it is expanded. The exercise shows that it computes inner products
+of centered feature vectors.
+
+::: {#exr-uns-kernel-centering}
+#### Centering in feature space
+
+With $\bar{\phi} = \frac1n\sum_l \phi(\mathbf{x}_l)$, show that $\tilde{\mathbf{K}}_{ij} = (\phi(\mathbf{x}_i) - \bar{\phi})^T(\phi(\mathbf{x}_j) - \bar{\phi})$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Expanding the right side gives $\mathbf{K}_{ij} - \bar{\phi}^T\phi(\mathbf{x}_j) - \phi(\mathbf{x}_i)^T\bar{\phi} + \bar{\phi}^T\bar{\phi}$.
+Now $(\mathbf{1}_n\mathbf{K})_{ij} = \frac1n\sum_l \mathbf{K}_{lj} = \bar{\phi}^T\phi(\mathbf{x}_j)$,
+$(\mathbf{K}\mathbf{1}_n)_{ij} = \phi(\mathbf{x}_i)^T\bar{\phi}$ and
+$(\mathbf{1}_n\mathbf{K}\mathbf{1}_n)_{ij} = \frac{1}{n^2}\sum_{l,m}\mathbf{K}_{lm} = \bar{\phi}^T\bar{\phi}$, which are the four terms of
+the centering formula.
+:::
+::::
 
 **Applications of PCA:**
 
-1. **Visualization:** Project high-dimensional data to 2D or 3D 2. **Noise reduction:** Remove components with small eigenvalues
-3. **Feature extraction:** Create uncorrelated features 4. **Preprocessing:** Reduce dimensionality before applying other
-algorithms 5. **Compression:** Reduce storage requirements 6. **Anomaly detection:** Points far from the principal subspace are
-anomalies 7. **Face recognition:** Eigenfaces for face representation
+1. **Visualization:** Project high-dimensional data to 2D or 3D
+2. **Noise reduction:** Remove components with small eigenvalues
+3. **Feature extraction:** Create uncorrelated features
+4. **Preprocessing:** Reduce dimensionality before applying other algorithms
+5. **Compression:** Reduce storage requirements
+6. **Anomaly detection:** Points far from the principal subspace are anomalies
+7. **Face recognition:** Eigenfaces for face representation
 
 **Limitations:**
 
-1. **Linearity:** Only captures linear relationships 2. **Global Method:** Finds global structure, may miss local patterns 3.
-**Variance ≠ Information:** High variance directions may not be most informative 4. **Interpretability:** Principal components are
-linear combinations, hard to interpret 5. **Outlier Sensitivity:** Sensitive to outliers (use robust PCA variants) 6. **Assumes
-Gaussian:** Implicitly assumes data is Gaussian-distributed
+1. **Linearity:** Only captures linear relationships
+2. **Global Method:** Finds global structure, may miss local patterns
+3. **Variance ≠ Information:** High variance directions may not be most informative
+4. **Interpretability:** Principal components are linear combinations, hard to interpret
+5. **Outlier Sensitivity:** Sensitive to outliers (use robust PCA variants)
+6. **Assumes Gaussian:** Implicitly assumes data is Gaussian-distributed
 
 **Practical Tips:**
 
-1. **Always center data:** Essential for PCA 2. **Standardize features:** When features have different scales 3. **Check for
-outliers:** Remove or use robust PCA 4. **Visualize:** Plot first 2-3 components 5. **Validate:** Check if downstream tasks
-improve 6. **Consider alternatives:** t-SNE, UMAP for visualization; autoencoders for nonlinear reduction
+1. **Always center data:** Essential for PCA
+2. **Standardize features:** When features have different scales
+3. **Check for outliers:** Remove or use robust PCA
+4. **Visualize:** Plot first 2-3 components
+5. **Validate:** Check if downstream tasks improve
+6. **Consider alternatives:** t-SNE, UMAP for visualization; autoencoders for nonlinear reduction
 
 PCA remains one of the most fundamental and widely used techniques in machine learning, providing a principled approach to
 dimensionality reduction with strong theoretical foundations [@james2023statistical; @deisenroth2020mml].
 
 ### Multidimensional Scaling (MDS)
+
+Multidimensional scaling starts from distances rather than coordinates: only the dissimilarities between objects are given, and a
+point configuration is sought that reproduces them. The definition below states the stress criterion that measures how well a
+configuration does this.
+
+:::: {.statement-box}
+::: {#def-uns-mds-stress}
+#### MDS stress
 
 **Classical MDS:** Find configuration preserving pairwise distances.
 
@@ -906,48 +1976,168 @@ Given distance matrix $\mathbf{D}$ with $D_{ij} = d(\mathbf{x}_i, \mathbf{x}_j)$
 \mathbb{R}^k$ minimizing:
 
 $$\text{Stress} = \sqrt{\sum_{i<j}(d_{ij} - \|\mathbf{z}_i - \mathbf{z}_j\|)^2}$$
+:::
+
+::::
 
 **Metric MDS:** Preserve distances exactly (when possible).
 
 **Non-metric MDS:** Preserve rank order of distances.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example uses three objects at mutual distance one, the simplest data for which the target dimension matters. Stress zero is
+reachable in the plane, which is the case of an exact embedding.
+
+::: {#exm-uns-mds-triangle-plane}
+#### An equilateral triangle in the plane
+
+If $d_{12} = d_{13} = d_{23} = 1$, the vertices of an equilateral triangle of side $1$ in $\mathbb{R}^2$ reproduce all three
+distances, so the stress of @def-uns-mds-stress is $0$ for $k = 2$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+In one dimension the same three distances cannot be reproduced, since three points on a line cannot be mutually equidistant. The
+exercise computes the stress of a natural attempt.
+
+::: {#exr-uns-mds-triangle-line}
+#### The triangle on a line
+
+For $d_{12} = d_{13} = d_{23} = 1$ and $k = 1$, compute the stress of the configuration $z = (0, 1, 2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The embedded distances are $|z_1 - z_2| = 1$, $|z_2 - z_3| = 1$ and $|z_1 - z_3| = 2$. The residuals are $0, 0, -1$, so
+$\text{Stress} = \sqrt{0 + 0 + 1} = 1$.
+:::
+::::
+
 ### Manifold Learning
 
-**Isomap (Isometric Mapping):** 1. Construct $k$-nearest neighbor graph 2. Compute geodesic distances using shortest paths 3.
-Apply classical MDS to geodesic distance matrix
+Manifold learning assumes that the data lie near a low-dimensional curved surface and tries to preserve its local geometry rather
+than global distances.
 
-**Locally Linear Embedding (LLE):** 1. Find $k$ nearest neighbors for each point 2. Compute reconstruction weights:
-$\min_{\mathbf{W}} \sum_i \|\mathbf{x}_i - \sum_j W_{ij}\mathbf{x}_j\|^2$
-3. Find low-dimensional embedding preserving weights:
-$\min_{\mathbf{Z}} \sum_i \|\mathbf{z}_i - \sum_j W_{ij}\mathbf{z}_j\|^2$
+**Isomap (Isometric Mapping):**
+
+1. Construct $k$-nearest neighbor graph
+2. Compute geodesic distances using shortest paths
+3. Apply classical MDS to geodesic distance matrix
+
+**Locally Linear Embedding (LLE):**
+
+1. Find $k$ nearest neighbors for each point
+2. Compute reconstruction weights: $\min_{\mathbf{W}} \sum_i \|\mathbf{x}_i - \sum_j W_{ij}\mathbf{x}_j\|^2$
+3. Find low-dimensional embedding preserving weights: $\min_{\mathbf{Z}} \sum_i \|\mathbf{z}_i - \sum_j W_{ij}\mathbf{z}_j\|^2$
 
 **t-SNE (t-Distributed Stochastic Neighbor Embedding):**
+
+t-SNE compares two probability distributions over pairs of points, one built from the data and one from the embedding, and moves
+the embedded points until the two agree. The definition below gives both distributions and the objective.
+
+:::: {.statement-box}
+::: {#def-uns-tsne}
+#### t-SNE objective
 
 Define similarity in high-dimensional space:
 
 $$p_{j|i} = \frac{\exp(-\|\mathbf{x}_i - \mathbf{x}_j\|^2/(2\sigma_i^2))}{\sum_{k \neq i}\exp(-\|\mathbf{x}_i -
 \mathbf{x}_k\|^2/(2\sigma_i^2))}$$
 
-Define similarity in low-dimensional space using t-distribution:
+symmetrized as $p_{ij} = (p_{j|i} + p_{i|j})/(2n)$. Define similarity in low-dimensional space using t-distribution:
 
 $$q_{ij} = \frac{(1 + \|\mathbf{z}_i - \mathbf{z}_j\|^2)^{-1}}{\sum_{k \neq l}(1 + \|\mathbf{z}_k - \mathbf{z}_l\|^2)^{-1}}$$
 
 Minimize KL divergence: $\text{KL}(P||Q) = \sum_{i,j} p_{ij}\log(p_{ij}/q_{ij})$
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The heavy tail of the Student-t kernel in @def-uns-tsne is what lets t-SNE separate clusters in the embedding. The example compares
+how fast the two kernels decay.
+
+::: {#exm-uns-tsne-heavy-tail}
+#### Gaussian versus Student-t decay
+
+For two pairs at distances $1$ and $3$, the Student-t kernel gives the ratio $(1 + 1)^{-1}/(1 + 9)^{-1} = 5$, while a unit Gaussian
+gives $e^{-1/2}/e^{-9/2} = e^4 \approx 54.6$. Moderately distant points keep much more similarity under $q$, so to match small
+$p_{ij}$ the embedding must push them further apart.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The objective of @def-uns-tsne is meaningful only because the KL divergence is non-negative and vanishes exactly when the two
+distributions agree. The exercise asks for the proof.
+
+::: {#exr-uns-kl-nonnegative}
+#### Gibbs' inequality
+
+Show that $\text{KL}(P||Q) \geq 0$ for probability distributions $P, Q$ on the same finite set with $q_{ij} > 0$, with equality if
+and only if $P = Q$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Use $\log x \leq x - 1$, with equality only at $x = 1$. Summing over pairs with $p_{ij} > 0$,
+$-\text{KL}(P||Q) = \sum p_{ij}\log(q_{ij}/p_{ij}) \leq \sum p_{ij}(q_{ij}/p_{ij} - 1) = \sum_{p_{ij} > 0} q_{ij} - 1 \leq 0$.
+Equality forces $q_{ij} = p_{ij}$ wherever $p_{ij} > 0$ and $\sum_{p_{ij} > 0} q_{ij} = 1$, hence $P = Q$.
+:::
+::::
 
 **UMAP (Uniform Manifold Approximation and Projection):** Based on Riemannian geometry and algebraic topology. Often faster than
 t-SNE with better global structure preservation.
 
 ### Random Projections
 
-**Johnson-Lindenstrauss Lemma:** For any $\epsilon \in (0,1)$ and set of $n$ points in $\mathbb{R}^d$, there exists a linear map
+A surprising alternative to fitting a projection is to draw one at random. The lemma below says that this preserves all pairwise
+distances up to a small factor, with a target dimension that depends on the number of points but not on $d$.
+
+:::: {.statement-box}
+::: {#lem-uns-johnson-lindenstrauss}
+#### Johnson-Lindenstrauss Lemma
+
+For any $\epsilon \in (0,1)$ and set of $n$ points in $\mathbb{R}^d$, there exists a linear map
 $f: \mathbb{R}^d \to \mathbb{R}^k$ with $k = O(\epsilon^{-2}\log n)$ such that:
 
 $$(1-\epsilon)\|\mathbf{x}_i - \mathbf{x}_j\|^2 \leq \|f(\mathbf{x}_i) - f(\mathbf{x}_j)\|^2 \leq (1+\epsilon)\|\mathbf{x}_i -
 \mathbf{x}_j\|^2$$
+:::
+
+::::
 
 **Random Projection Matrix:** Sample entries from $\mathcal{N}(0, 1/k)$ or $\{-1/\sqrt{k}, +1/\sqrt{k}\}$.
 
 **Applications:** Fast approximate nearest neighbor search, compressed sensing [@james2023statistical; @shalev2014ml].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example puts numbers into @lem-uns-johnson-lindenstrauss using one explicit form of the constant. The striking feature is that
+the original dimension $d$ never enters.
+
+::: {#exm-uns-jl-dimension}
+#### How small can $k$ be?
+
+A common explicit sufficient condition (Dasgupta and Gupta) is $k \geq 4\ln n/(\epsilon^2/2 - \epsilon^3/3)$. For $n = 10^6$ points
+and $\epsilon = 0.1$ this gives $k \geq 4 \cdot 13.82/0.004667 \approx 11{,}842$, whether the points live in $\mathbb{R}^{10^5}$ or
+$\mathbb{R}^{10^9}$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The first step of every proof of @lem-uns-johnson-lindenstrauss is that a Gaussian random projection preserves squared lengths on
+average. The exercise asks for this computation.
+
+::: {#exr-uns-jl-expectation}
+#### Norms are preserved in expectation
+
+Let $\mathbf{A} \in \mathbb{R}^{k \times d}$ have independent $\mathcal{N}(0, 1/k)$ entries. Show that
+$\mathbb{E}\|\mathbf{A}\mathbf{x}\|^2 = \|\mathbf{x}\|^2$ for every $\mathbf{x} \in \mathbb{R}^d$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Each coordinate $(\mathbf{A}\mathbf{x})_r = \sum_j A_{rj}x_j$ is a sum of independent centered Gaussians, with variance
+$\sum_j x_j^2/k = \|\mathbf{x}\|^2/k$. Hence $\mathbb{E}(\mathbf{A}\mathbf{x})_r^2 = \|\mathbf{x}\|^2/k$, and summing over the $k$
+rows gives $\|\mathbf{x}\|^2$.
+:::
+::::
 
 ## Generative Models and Latent Variables {#sec-generative-latent}
 
@@ -957,11 +2147,57 @@ For more on this topic, see @deisenroth2020mml [Ch. 11], @james2023statistical [
 
 ### Latent Variable Models
 
+Most generative models in this section explain each observation through an unobserved cause. The definition below states this
+general framework, of which the Gaussian mixture of @def-uns-gmm is already an instance.
+
+:::: {.statement-box}
+::: {#def-uns-latent-variable-model}
+#### Latent variable model
+
 **General Framework:** Introduce latent variables $\mathbf{z}$:
 
 $$p(\mathbf{x}) = \int p(\mathbf{x}|\mathbf{z})p(\mathbf{z})d\mathbf{z}$$
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example identifies the Gaussian mixture as a latent variable model of @def-uns-latent-variable-model. When $\mathbf{z}$ is
+discrete, the integral becomes a sum.
+
+::: {#exm-uns-latent-gmm}
+#### Mixtures as latent variable models
+
+For a GMM, $z \in \{1, \ldots, K\}$ with $p(z = k) = \pi_k$ and $p(\mathbf{x}|z = k) = \mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$;
+the integral over $\mathbf{z}$ is the sum $\sum_k \pi_k \mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ of
+@def-uns-gmm.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise computes a marginal and a posterior in a two-state latent variable model. It shows how a prior on $z$ and an
+observation combine through Bayes' theorem.
+
+::: {#exr-uns-latent-posterior}
+#### Marginal and posterior
+
+Let $z \in \{0, 1\}$ with $p(z = 1) = 0.3$, and $x | z \sim \mathcal{N}(2z, 1)$. Compute $p(x = 0)$ and $p(z = 1 | x = 0)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $\varphi$ the standard normal density, $p(0) = 0.7\varphi(0) + 0.3\varphi(2) = 0.7 \cdot 0.3989 + 0.3 \cdot 0.0540 \approx 0.2955$.
+Bayes' theorem gives $p(z = 1 | x = 0) = 0.3\varphi(2)/p(0) \approx 0.0162/0.2955 \approx 0.055$.
+:::
+::::
 
 ### Factor Analysis
+
+Factor analysis is the continuous, linear-Gaussian case of a latent variable model. The definition states the model, and the
+proposition after it computes the distribution it implies for the observations.
+
+:::: {.statement-box}
+::: {#def-uns-factor-analysis}
+#### Factor analysis model
 
 **Model:**
 
@@ -969,83 +2205,441 @@ $$\mathbf{x} = \mathbf{W}\mathbf{z} + \boldsymbol{\mu} + \boldsymbol{\epsilon}$$
 
 where $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and $\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0},
 \boldsymbol{\Psi})$ with $\boldsymbol{\Psi}$ diagonal.
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example reads @def-uns-factor-analysis as a model of test scores driven by one hidden ability. It shows what each parameter
+means in such an application.
+
+::: {#exm-uns-factor-analysis-scores}
+#### One factor behind two scores
+
+Let $x_1, x_2$ be a student's scores on two tests, $z$ an unobserved ability, $\mathbf{W} = (1, 1)^T$ and
+$\boldsymbol{\Psi} = \mathrm{diag}(0.5, 0.5)$. Each score is the common ability plus the test-specific noise $\epsilon_j$, with
+variance $0.5$; the two scores are correlated only through $z$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise counts the parameters of @def-uns-factor-analysis. The count is what makes factor analysis cheaper than a full
+covariance model in high dimension.
+
+::: {#exr-uns-factor-analysis-parameters}
+#### Counting parameters
+
+For $\mathbf{x} \in \mathbb{R}^d$ and $\mathbf{z} \in \mathbb{R}^k$, count the parameters of the factor analysis model and compare
+with a full Gaussian on $\mathbb{R}^d$ for $d = 100$, $k = 5$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbf{W}$ has $dk$ entries, $\boldsymbol{\mu}$ has $d$ and the diagonal $\boldsymbol{\Psi}$ has $d$: in total $dk + 2d$
+($dk + 2d - k(k-1)/2$ after removing the rotations of $\mathbf{z}$, which leave the model unchanged). For $d = 100$, $k = 5$ this is
+$700$ (or $690$), against $d + d(d+1)/2 = 5150$ for a full Gaussian.
+:::
+::::
+
+Integrating out $\mathbf{z}$ gives a Gaussian whose covariance has a low-rank-plus-diagonal structure. The proposition records it.
+
+:::: {.statement-box}
+::: {#prp-uns-factor-analysis-marginal}
+#### Marginal of the factor analysis model
 
 **Marginal Distribution:**
 
 $$p(\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}, \mathbf{W}\mathbf{W}^T + \boldsymbol{\Psi})$$
+:::
+
+::::
+
+The vector $(\mathbf{z}, \boldsymbol{\epsilon})$ is jointly Gaussian, and $\mathbf{x}$ is an affine function of it, so $\mathbf{x}$
+is Gaussian. Its mean is $\mathbf{W}\mathbb{E}[\mathbf{z}] + \boldsymbol{\mu} + \mathbb{E}[\boldsymbol{\epsilon}] = \boldsymbol{\mu}$,
+and by independence of $\mathbf{z}$ and $\boldsymbol{\epsilon}$ its covariance is
+$\mathbf{W}\,\mathrm{Cov}(\mathbf{z})\,\mathbf{W}^T + \boldsymbol{\Psi} = \mathbf{W}\mathbf{W}^T + \boldsymbol{\Psi}$.
 
 **Estimation:** Use EM algorithm or variational methods.
 
 **Difference from PCA:** Factor analysis is probabilistic and models observation noise.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The example evaluates @prp-uns-factor-analysis-marginal for the two-test model of @exm-uns-factor-analysis-scores. The off-diagonal
+entry comes entirely from the shared factor.
+
+::: {#exm-uns-factor-analysis-covariance}
+#### Covariance of the two scores
+
+With $\mathbf{W} = (1, 1)^T$ and $\boldsymbol{\Psi} = \mathrm{diag}(0.5, 0.5)$,
+$\mathbf{W}\mathbf{W}^T + \boldsymbol{\Psi} = \begin{pmatrix} 1.5 & 1 \\ 1 & 1.5 \end{pmatrix}$, so the two scores have
+correlation $1/1.5 = 2/3$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The loadings $\mathbf{W}$ in @prp-uns-factor-analysis-marginal have a direct statistical meaning. The exercise identifies them as the
+covariance between observations and factors.
+
+::: {#exr-uns-factor-analysis-cross-covariance}
+#### Loadings as covariances
+
+Show that $\mathrm{Cov}(\mathbf{x}, \mathbf{z}) = \mathbf{W}$ in the factor analysis model.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathrm{Cov}(\mathbf{x}, \mathbf{z}) = \mathbb{E}[(\mathbf{x} - \boldsymbol{\mu})\mathbf{z}^T] = \mathbf{W}\mathbb{E}[\mathbf{z}\mathbf{z}^T] + \mathbb{E}[\boldsymbol{\epsilon}\mathbf{z}^T] = \mathbf{W}\mathbf{I} + \mathbf{0} = \mathbf{W}$,
+using independence of $\boldsymbol{\epsilon}$ and $\mathbf{z}$ and $\mathbb{E}[\boldsymbol{\epsilon}] = \mathbf{0}$.
+:::
+::::
+
 ### Autoencoders
 
-**Architecture:** Encoder-decoder network: - **Encoder:** $\mathbf{z} = f_{\text{enc}}(\mathbf{x};
-\boldsymbol{\theta}_{\text{enc}})$
-- **Decoder:** $\hat{\mathbf{x}} = f_{\text{dec}}(\mathbf{z};
-\boldsymbol{\theta}_{\text{dec}})$
+An autoencoder replaces the linear projection and reconstruction of PCA by two learned, possibly nonlinear maps. The definition
+below fixes the architecture and the training objective.
+
+:::: {.statement-box}
+::: {#def-uns-autoencoder}
+#### Autoencoder
+
+**Architecture:** Encoder-decoder network:
+
+- **Encoder:** $\mathbf{z} = f_{\text{enc}}(\mathbf{x}; \boldsymbol{\theta}_{\text{enc}})$
+- **Decoder:** $\hat{\mathbf{x}} = f_{\text{dec}}(\mathbf{z}; \boldsymbol{\theta}_{\text{dec}})$
 
 **Objective:** Minimize reconstruction error:
 
 $$L = \sum_{i=1}^n \|\mathbf{x}_i - f_{\text{dec}}(f_{\text{enc}}(\mathbf{x}_i))\|^2$$
+:::
 
-**Variants:** - **Sparse autoencoders:** Add sparsity penalty on $\mathbf{z}$
-- **Denoising autoencoders:** Reconstruct from
-corrupted input - **Contractive autoencoders:** Penalize sensitivity to input perturbations
+::::
+
+**Variants:**
+
+- **Sparse autoencoders:** Add sparsity penalty on $\mathbf{z}$
+- **Denoising autoencoders:** Reconstruct from corrupted input
+- **Contractive autoencoders:** Penalize sensitivity to input perturbations
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With linear encoder and decoder and centered data, @def-uns-autoencoder becomes the reconstruction problem of
+@prp-uns-pca-reconstruction. The example states the consequence.
+
+::: {#exm-uns-linear-autoencoder}
+#### The linear autoencoder
+
+Take $f_{\text{enc}}(\mathbf{x}) = \mathbf{A}\mathbf{x}$ and $f_{\text{dec}}(\mathbf{z}) = \mathbf{B}\mathbf{z}$ with
+$\mathbf{z} \in \mathbb{R}^k$, on centered data. The reconstruction $\mathbf{B}\mathbf{A}\mathbf{x}$ lies in a $k$-dimensional
+subspace, so $L$ is at least the PCA error $n\sum_{j > k}\lambda_j$, and this value is attained by $\mathbf{A} = \mathbf{W}_k^T$,
+$\mathbf{B} = \mathbf{W}_k$: the optimal linear autoencoder spans the principal subspace.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise evaluates the objective of @def-uns-autoencoder for the PCA encoder on the four points of @exm-uns-pca-four-points. The
+answer matches the reconstruction error computed earlier.
+
+::: {#exr-uns-autoencoder-loss}
+#### Loss of the PCA autoencoder
+
+With $\mathbf{w} = (1, 1)/\sqrt2$, encoder $z = \mathbf{w}^T\mathbf{x}$ and decoder $\hat{\mathbf{x}} = \mathbf{w}z$, compute $L$ for
+the points $(2, 2), (-2, -2), (1, -1), (-1, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The first two points lie on the span of $\mathbf{w}$ and are reconstructed exactly. The last two are orthogonal to $\mathbf{w}$,
+so $\hat{\mathbf{x}} = \mathbf{0}$ and each contributes $\|\mathbf{x}\|^2 = 2$. Hence $L = 4 = n\lambda_2$, in agreement with
+@exm-uns-pca-reconstruction-four-points.
+:::
+::::
 
 ### Variational Autoencoders (VAEs)
 
-**Probabilistic Formulation:** - **Prior:** $p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})$
-- **Decoder:**
-$p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\theta}}(\mathbf{z}),
+A variational autoencoder turns the autoencoder into a latent variable model whose likelihood is intractable but can be bounded
+from below. The model is as follows.
+
+**Probabilistic Formulation:**
+
+- **Prior:** $p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})$
+- **Decoder:** $p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\theta}}(\mathbf{z}),
 \boldsymbol{\sigma}_{\boldsymbol{\theta}}^2(\mathbf{z})\mathbf{I})$
-- **Encoder (recognition model):**
-$q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\phi}}(\mathbf{x}),
+- **Encoder (recognition model):** $q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\phi}}(\mathbf{x}),
 \boldsymbol{\sigma}_{\boldsymbol{\phi}}^2(\mathbf{x})\mathbf{I})$
 
-**Evidence Lower Bound (ELBO):**
+Training maximizes a lower bound on the log-likelihood instead of the log-likelihood itself. The theorem below states this
+evidence lower bound, and the proof after it identifies the gap.
+
+:::: {.statement-box}
+::: {#thm-uns-elbo}
+#### Evidence Lower Bound (ELBO)
 
 $$\log p(\mathbf{x}) \geq \mathbb{E}_{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}[\log
 p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})] - D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p(\mathbf{z}))$$
+:::
+
+::::
+
+Write $\log p(\mathbf{x}) = \log \mathbb{E}_{q}\left[\frac{p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}\right]$
+and apply Jensen's inequality to the concave logarithm:
+$\log p(\mathbf{x}) \geq \mathbb{E}_q[\log p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})] + \mathbb{E}_q\left[\log \frac{p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}\right]$,
+and the second term is $-D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p(\mathbf{z}))$.
 
 **Reparameterization Trick:** Sample $\mathbf{z} = \boldsymbol{\mu}_{\boldsymbol{\phi}}(\mathbf{x}) +
 \boldsymbol{\sigma}_{\boldsymbol{\phi}}(\mathbf{x}) \odot \boldsymbol{\epsilon}$ where $\boldsymbol{\epsilon} \sim
 \mathcal{N}(\mathbf{0}, \mathbf{I})$.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For the Gaussian encoder and prior of a VAE, the KL term of @thm-uns-elbo has a closed form. The example evaluates it in one
+dimension.
+
+::: {#exm-uns-elbo-kl-gaussian}
+#### The KL term in closed form
+
+For $q = \mathcal{N}(\mu, \sigma^2)$ and $p = \mathcal{N}(0, 1)$ in one dimension,
+$D_{\text{KL}}(q \| p) = \frac12(\mu^2 + \sigma^2 - 1 - \log\sigma^2)$. For $\mu = 1$, $\sigma = 1$ this is $\frac12$, and it
+vanishes only for $\mu = 0$, $\sigma = 1$, when the encoder ignores the input.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise computes the gap in @thm-uns-elbo exactly. It shows that the bound is tight when the encoder equals the true
+posterior, the situation the E-step of EM achieves in the proof of @thm-uns-em-monotone.
+
+::: {#exr-uns-elbo-gap}
+#### The gap of the ELBO
+
+Show that $\log p(\mathbf{x}) - \text{ELBO} = D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x}))$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Since $p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})p(\mathbf{z}) = p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x})p(\mathbf{x})$, the
+ELBO equals $\mathbb{E}_q\left[\log \frac{p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x})p(\mathbf{x})}{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}\right] = \log p(\mathbf{x}) - D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x}))$.
+By Gibbs' inequality (@exr-uns-kl-nonnegative) the gap is non-negative and vanishes exactly when $q$ is the posterior.
+:::
+::::
+
 ### Generative Adversarial Networks (GANs)
 
-**Framework:** Two networks compete: - **Generator:** $G(\mathbf{z}; \boldsymbol{\theta}_G)$ maps noise to data -
-**Discriminator:** $D(\mathbf{x}; \boldsymbol{\theta}_D)$ distinguishes real from fake
+A GAN never writes down a density at all. Instead it trains a sampler against a classifier, and the definition below states the
+game the two networks play.
+
+:::: {.statement-box}
+::: {#def-uns-gan}
+#### GAN objective
+
+**Framework:** Two networks compete:
+
+- **Generator:** $G(\mathbf{z}; \boldsymbol{\theta}_G)$ maps noise to data
+- **Discriminator:** $D(\mathbf{x}; \boldsymbol{\theta}_D)$ distinguishes real from fake
 
 **Objective (Minimax Game):**
 
 $$\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}}[\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim
 p(\mathbf{z})}[\log(1 - D(G(\mathbf{z})))]$$
+:::
 
-**Training:** 1. Update $D$ to maximize $V(D, G)$
+::::
+
+**Training:**
+
+1. Update $D$ to maximize $V(D, G)$
 2. Update $G$ to minimize $V(D, G)$
 
-**Challenges:** - Mode collapse: Generator produces limited variety - Training instability: Difficult to balance $D$ and $G$
+**Challenges:**
 
-**Variants:** - **DCGAN:** Deep convolutional architecture - **Wasserstein GAN:** Uses Wasserstein distance - **StyleGAN:**
-Disentangled style-based generation - **Conditional GAN:** Condition on labels or other information
+- Mode collapse: Generator produces limited variety
+- Training instability: Difficult to balance $D$ and $G$
+
+**Variants:**
+
+- **DCGAN:** Deep convolutional architecture
+- **Wasserstein GAN:** Uses Wasserstein distance
+- **StyleGAN:** Disentangled style-based generation
+- **Conditional GAN:** Condition on labels or other information
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For a fixed generator, the inner maximization of @def-uns-gan can be solved point by point. The example derives the optimal
+discriminator.
+
+::: {#exm-uns-gan-optimal-discriminator}
+#### The optimal discriminator
+
+Let $p_g$ be the distribution of $G(\mathbf{z})$. Then $V = \int [p_{\text{data}}(\mathbf{x})\log D(\mathbf{x}) + p_g(\mathbf{x})\log(1 - D(\mathbf{x}))]\,d\mathbf{x}$.
+For $a, b > 0$ the function $t \mapsto a\log t + b\log(1 - t)$ on $(0, 1)$ is maximized at $t = a/(a + b)$, so
+$D^*(\mathbf{x}) = \frac{p_{\text{data}}(\mathbf{x})}{p_{\text{data}}(\mathbf{x}) + p_g(\mathbf{x})}$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise evaluates the game of @def-uns-gan at the point where the generator is perfect. The value it finds is the minimum of
+the outer problem.
+
+::: {#exr-uns-gan-equilibrium}
+#### The value at equilibrium
+
+Show that if $p_g = p_{\text{data}}$, then $D^* \equiv 1/2$ and $V(D^*, G) = -\log 4$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By @exm-uns-gan-optimal-discriminator, $D^* = p_{\text{data}}/(2p_{\text{data}}) = 1/2$. Then
+$V = \mathbb{E}[\log\frac12] + \mathbb{E}[\log\frac12] = -2\log 2 = -\log 4$.
+:::
+::::
 
 ### Normalizing Flows
 
-**Idea:** Transform simple distribution through invertible mappings.
+**Idea:** Transform simple distribution through invertible mappings. Because the mapping is invertible, the density of the output
+can be computed exactly by the change-of-variables formula stated below.
 
-Given invertible $f: \mathbb{R}^d \to \mathbb{R}^d$:
+:::: {.statement-box}
+::: {#prp-uns-change-of-variables}
+#### Change of variables for flows
+
+Given invertible $f: \mathbb{R}^d \to \mathbb{R}^d$, with $\mathbf{x} = f(\mathbf{z})$:
 
 $$p_{\mathbf{x}}(\mathbf{x}) = p_{\mathbf{z}}(f^{-1}(\mathbf{x}))\left|\det\frac{\partial f^{-1}}{\partial \mathbf{x}}\right|$$
+:::
+
+::::
 
 **Composition:** Chain multiple transformations:
 
 $$\mathbf{x} = f_K \circ f_{K-1} \circ \cdots \circ f_1(\mathbf{z})$$
 
-**Requirements:** - Easy to compute $f$ and $f^{-1}$
+**Requirements:**
+
+- Easy to compute $f$ and $f^{-1}$
 - Easy to compute Jacobian determinant
 
-**Examples:** - **RealNVP:** Affine coupling layers - **Glow:** Invertible 1×1 convolutions - **Neural Spline Flows:** Monotonic
-spline transformations
+**Examples:**
+
+- **RealNVP:** Affine coupling layers
+- **Glow:** Invertible 1×1 convolutions
+- **Neural Spline Flows:** Monotonic spline transformations
 
 **Advantages:** Exact likelihood computation, stable training [@bishop2024deeplearning; @theodoridis2025ml].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The simplest flow is an affine map in one dimension. Applying @prp-uns-change-of-variables to it recovers the familiar fact that an
+affine image of a standard normal is normal.
+
+::: {#exm-uns-flow-affine}
+#### An affine flow
+
+Let $z \sim \mathcal{N}(0, 1)$ and $x = f(z) = az + b$ with $a \neq 0$. Then $f^{-1}(x) = (x - b)/a$ with derivative $1/a$, so
+$p_x(x) = \varphi((x - b)/a)/|a|$, the density of $\mathcal{N}(b, a^2)$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The exercise extends @prp-uns-change-of-variables to a composition of flows. The result is the formula that makes deep flows
+trainable by maximum likelihood.
+
+::: {#exr-uns-flow-composition}
+#### Log-density of a composed flow
+
+For $\mathbf{x} = f_K \circ \cdots \circ f_1(\mathbf{z})$ with $\mathbf{h}_0 = \mathbf{z}$ and $\mathbf{h}_k = f_k(\mathbf{h}_{k-1})$,
+show that $\log p_{\mathbf{x}}(\mathbf{x}) = \log p_{\mathbf{z}}(\mathbf{z}) - \sum_{k=1}^K \log\left|\det\frac{\partial f_k}{\partial \mathbf{h}_{k-1}}\right|$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By the inverse function theorem $\det\frac{\partial f^{-1}}{\partial \mathbf{x}} = \left(\det\frac{\partial f}{\partial \mathbf{z}}\right)^{-1}$,
+so @prp-uns-change-of-variables reads $\log p_{\mathbf{x}}(\mathbf{x}) = \log p_{\mathbf{z}}(\mathbf{z}) - \log\left|\det\frac{\partial f}{\partial \mathbf{z}}\right|$.
+For the composition, the chain rule gives $\frac{\partial f}{\partial \mathbf{z}} = \prod_k \frac{\partial f_k}{\partial \mathbf{h}_{k-1}}$,
+and the determinant of a product is the product of the determinants, whose logarithm is the sum.
+:::
+::::
+
+## Exercises {#sec-unsupervised-learning-exercises}
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The integrative exercises below combine the three sections of the chapter. The first one clusters four points in the plane with
+K-means, reduces them with PCA, and compares the two objectives.
+
+::: {#exr-unsupervised-learning-int-1}
+#### Clustering before and after PCA
+
+Consider the points $(0, 0), (0, 2), (10, 0), (10, 2)$.
+
+(a) Find the K-means partition with $K = 2$ of minimal objective (@def-kmeans-objective) and its value $J$.
+
+(b) Compute the sample covariance, the principal components and $\text{PVE}(1)$ (@def-uns-principal-components, @def-uns-pve).
+
+(c) Project the data onto the first principal component, run K-means with $K = 2$ on the one-dimensional scores, and explain why
+the two-dimensional $J$ of (a) equals the one-dimensional objective plus $n\lambda_2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) By @prp-uns-mean-minimizes-squares each center is the mean of its group, and a pair at squared distance $\delta$
+contributes $\delta/2$. The three $2 + 2$ splits give: left/right, $J = 4/2 + 4/2 = 4$; top/bottom, $J = 100/2 + 100/2 = 100$;
+diagonal pairs, $J = 104/2 + 104/2 = 104$. By symmetry all four $3 + 1$ splits cost the same; for $\{(0,0),(0,2),(10,0)\}$ the
+mean is $(10/3, 2/3)$ and the sum of squares is $(100 - 100/3) + (4 - 4/3) = 208/3 \approx 69.3$. So the optimum is left/right with
+centers $(0, 1)$, $(10, 1)$ and $J = 4$.
+
+(b) The mean is $(5, 1)$ and the centered points are $(\pm 5, \pm 1)$, so $\mathbf{S} = \mathrm{diag}(25, 1)$. The principal
+components are $\mathbf{e}_1$ ($\lambda_1 = 25$) and $\mathbf{e}_2$ ($\lambda_2 = 1$), and $\text{PVE}(1) = 25/26 \approx 0.96$.
+
+(c) The scores are $-5, -5, 5, 5$. K-means puts the two $-5$ in one cluster and the two $5$ in the other, with objective $0$. The
+two-dimensional residuals from the cluster centers have zero first coordinate and second coordinate $\pm 1$, which is exactly the
+component along $\mathbf{w}_2$ discarded by PCA; it contributes $\sum_i (\mathbf{w}_2^T\tilde{\mathbf{x}}_i)^2 = n\lambda_2 = 4$
+(@prp-uns-pca-reconstruction). Hence $4 = 0 + 4$. The decomposition holds here because the cluster centers differ only along
+$\mathbf{w}_1$.
+:::
+
+The second exercise moves from geometry to probability. It combines the soft assignments of a Gaussian mixture, the information
+criteria for choosing the number of components, and the evidence lower bound that underlies both EM and VAEs.
+
+::: {#exr-unsupervised-learning-int-2}
+#### Mixtures, model selection and the ELBO
+
+Consider the one-dimensional mixture $\pi = (1/2, 1/2)$, $\mu = (0, 4)$, $\sigma_1^2 = \sigma_2^2 = 1$.
+
+(a) Compute the responsibilities at $x = 2$ and $x = 0$ (@prp-uns-gmm-em-updates).
+
+(b) For $n = 100$ one-dimensional points, give the numbers of free parameters for $K = 1$ and $K = 2$ (full covariance) and the
+gain in maximized log-likelihood that $K = 2$ needs to be preferred by BIC (@def-uns-bic-aic).
+
+(c) Explain, with @thm-uns-elbo and @exr-uns-elbo-gap, why the E-step makes the lower bound equal to the log-likelihood.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) With equal weights and variances, $\gamma_1(x) = \frac{e^{-x^2/2}}{e^{-x^2/2} + e^{-(x-4)^2/2}}$. At $x = 2$ the two exponents
+agree, so $\gamma = (1/2, 1/2)$. At $x = 0$, $\gamma_1 = 1/(1 + e^{-8}) \approx 0.99966$ and $\gamma_2 \approx 0.00034$.
+
+(b) With $d = 1$, $p = K(1 + 1 + 1) - 1$, so $p = 2$ for $K = 1$ and $p = 5$ for $K = 2$. BIC prefers $K = 2$ when
+$-2L_2 + 5\ln 100 < -2L_1 + 2\ln 100$, that is $L_2 - L_1 > \frac32 \ln 100 \approx 6.91$.
+
+(c) For a GMM the latent variable is the component label, and the lower bound with any distribution $q_i$ over labels has gap
+$\mathrm{KL}(q_i \| p(z_i | \mathbf{x}_i))$ (@exr-uns-elbo-gap, with $q$ in place of the encoder). The E-step sets $q_i$ to the
+responsibilities, which are exactly this posterior, so the gap vanishes and the bound touches the log-likelihood; the M-step then
+raises the bound, which is the proof of @thm-uns-em-monotone.
+:::
+
+The third exercise studies one small data set with three tools from the clustering section and one from dimensionality
+reduction. It shows that density-based, graph-based and single-linkage clustering agree on well-separated data.
+
+::: {#exr-unsupervised-learning-int-3}
+#### Density, graphs and linkage on a line
+
+Consider the points $\{0, 1, 2, 10, 11\}$.
+
+(a) Run DBSCAN with $\epsilon = 1.5$ and MinPts $= 2$ (@def-uns-dbscan-points, @def-uns-dbscan-cluster).
+
+(b) Form the graph with $w_{ij} = 1$ when $0 < |x_i - x_j| \leq 1.5$ and $0$ otherwise, and find the kernel of its Laplacian
+(@def-uns-graph-laplacian).
+
+(c) Compute the single-linkage merge heights (@def-uns-linkage, @prp-uns-lance-williams) and show that cutting the dendrogram at any
+height $h \in [1, 8)$ reproduces the clusters of (a).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $N(0) = \{0, 1\}$, $N(1) = \{0, 1, 2\}$, $N(2) = \{1, 2\}$, $N(10) = N(11) = \{10, 11\}$, all of size at least $2$, so every
+point is core. Density-reachability links $0, 1, 2$ and links $10, 11$, giving the clusters $\{0, 1, 2\}$ and $\{10, 11\}$ and no
+noise.
+
+(b) The edges are $0 - 1$, $1 - 2$ and $10 - 11$, so the graph has two connected components. By @exr-uns-laplacian-quadratic-form
+the indicators $(1, 1, 1, 0, 0)$ and $(0, 0, 0, 1, 1)$ lie in the kernel; conversely $\mathbf{f}^T\mathbf{L}\mathbf{f} = 0$ forces
+$\mathbf{f}$ to be constant on each component, so the kernel is exactly their span and the zero eigenvalue has multiplicity two.
+
+(c) Single linkage merges $\{0\}, \{1\}$ and $\{10\}, \{11\}$ at height $1$, then $\{2\}$ joins $\{0, 1\}$ at height
+$\min(2, 1) = 1$, and finally the two groups merge at $\min |x_i - x_j| = 10 - 2 = 8$. Cutting at any $h \in [1, 8)$ leaves
+$\{0, 1, 2\}$ and $\{10, 11\}$, the clusters of (a) and the components of (b).
+:::
+::::

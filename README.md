@@ -21,18 +21,26 @@ A tutorial folder holds only its pages (`.qmd`), its cover and its figures. Ever
     `_quarto.yml` sets `citeproc: false`.
   - `cross-references.lua` and `cross-references.json`: turn a reference to a label on another page into a link.
     The index is split into a physics and a machine-learning group, and a page resolves labels in its own group.
+    `harvest.py` rebuilds the index from the sources; run `.venv/bin/python _filters/harvest.py` after adding,
+    removing or renaming a label.
   - `interactive.lua`: the `{{< interactive name >}}` shortcode, which embeds `figures/interactive/<name>.html`.
 
 The specifications and planned changes are in `openspec/`.
 
 ## Build
 
-The site uses `freeze: auto`, so code runs only when its source changes. Render one chapter or the whole site:
+The code cells run in the project's virtual environment. Create it once and install the requirements:
 
-    quarto render fundamentals-of-theoretical-physics/part-ii-01-classical-mechanics.qmd
+    uv venv .venv
+    uv pip install --python .venv/bin/python -r requirements.txt
+
+`_environment` sets `QUARTO_PYTHON=.venv/bin/python`, so Quarto uses this environment without activating it.
+
+The site uses `freeze: auto`: a full render reuses the stored results in `_freeze/` and runs code only when its source
+changed, while rendering a single page always runs its code. Render one chapter or the whole site:
+
+    quarto render fundamentals-of-theoretical-physics/classical-mechanics/index.qmd
     quarto render
-
-The Python requirements of the machine-learning code cells are in `requirements.txt`.
 
 ## Deploy
 

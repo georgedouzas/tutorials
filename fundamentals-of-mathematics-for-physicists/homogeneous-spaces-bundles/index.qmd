@@ -2599,144 +2599,6 @@ metric is round and $de_N^3 = de^3 = -e_N^1 \wedge e_N^2$; the other two relatio
 :::
 ::::
 
-### Exercises {#sec-coset-spaces-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the three sections of this chapter: the three-sphere as a coset of $SO(4)$ followed from
-its homogeneous action to its curvature, the flag manifold assembled from its dimension, charges, radii and
-connections, and the three-sphere as a circle bundle over the two-sphere, read off from the Maurer-Cartan form of
-$SU(2)$.
-
-The first integrative exercise runs the whole chapter on $S^3 = SO(4)/SO(3)$. It starts from the homogeneous action,
-uses the symmetric decomposition of @prp-coset-so4, and ends with the vielbein, the invariant metric and its
-curvature computed in Sage.
-
-::: {#exr-cs-integrative-s3}
-#### $S^3 = SO(4)/SO(3)$ from end to end
-
-(a) Explain why $SO(4)$ acts transitively on $S^3$ with isotropy group $SO(3)$ at $o = e_3$, and why the invariant
-metrics have a single radius. (b) For the representative $L = e^{\varphi M_{01}}e^{\theta M_{12}}e^{\chi M_{23}}$, compute
-$L \cdot o$, the components of $L^{-1}dL$ along $\mathfrak{k} = \operatorname{span}(M_{03}, M_{13}, M_{23})$ and along
-$\mathfrak{r}$, the metric $\sum_a(e^a)^2$ and its scalar curvature. (c) Check one relation $de^a + f_{ib}{}^ae^i \wedge
-e^b = 0$ by hand.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) Any unit vector is the last column of some rotation, so the action is transitive, and the isotropy group of
-$e_3$ is $SO(3)$ by @exr-cs-isotropy-sn; its isotropy representation is the vector representation
-(@exm-cs-so4-vector), irreducible, so the invariant metrics are $R_0^2$ times one of them (@def-invariant-metric).
-(b) Sage gives $L \cdot o = (\sin\chi\sin\theta\sin\varphi, \sin\chi\sin\theta\cos\varphi, \sin\chi\cos\theta, \cos\chi)$, the
-hyperspherical coordinates; the vielbein along $(M_{23}, M_{13}, M_{03})$ is $(d\chi, \sin\chi\,d\theta, \sin\chi\sin\theta\,d\varphi)$
-and the $\mathfrak{r}$-components along $(M_{12}, M_{02}, M_{01})$ are $(\cos\chi\,d\theta, \cos\chi\sin\theta\,d\varphi, \cos\theta\,d\varphi)$.
-The metric is $d\chi^2 + \sin^2\chi(d\theta^2 + \sin^2\theta\,d\varphi^2)$, the round unit three-sphere, with scalar curvature $6$.
-(c) Take $e^{(13)} = \sin\chi\,d\theta$: $de^{(13)} = \cos\chi\,d\chi \wedge d\theta$. The only connection term pairing with
-another vielbein component to give $d\chi \wedge d\theta$ is $\omega^{(12)} = \cos\chi\,d\theta$ against $e^{(23)} = d\chi$, and
-$[M_{12}, M_{23}] = M_{13}$ gives $f_{(12)(23)}{}^{(13)} = 1$, so the term is $\cos\chi\,d\theta \wedge d\chi$, which cancels
-$de^{(13)}$; the only other term, from $[M_{01}, M_{03}] = -M_{13}$, pairs $e^{(01)} = \cos\theta\,d\varphi$ with $e^{(03)} =
-\sin\chi\sin\theta\,d\varphi$ and vanishes, both being multiples of $d\varphi$:
-
-```python
-ch, th, ph = var("ch th ph", domain="real")
-def M(i, j):
-    m = matrix(SR, 4, 4); m[i, j] = 1; m[j, i] = -1; return m
-simp = lambda A: A.apply_map(lambda x: x.simplify_full())
-def R(i, j, t):                                   # exp(t M_ij): a rotation in the (i, j)-plane
-    m = identity_matrix(SR, 4); m[i, i] = m[j, j] = cos(t); m[i, j] = sin(t); m[j, i] = -sin(t); return m
-print("exp(t M_12) agrees with the matrix exponential:", simp((ch * M(1, 2)).exp().apply_map(lambda x: x.rectform())) == R(1, 2, ch))
-L = simp(R(0, 1, ph) * R(1, 2, th) * R(2, 3, ch))
-o = vector(SR, [0, 0, 0, 1])
-print("L . o =", (L * o).apply_map(lambda x: x.simplify_full()).list())
-coords = [ch, th, ph]
-MC = [simp(L.transpose() * diff(L, x)) for x in coords]            # L^{-1} = L^T for a rotation
-kk = [(0, 3), (1, 3), (2, 3)]; rr = [(0, 1), (0, 2), (1, 2)]
-e = [[MC[m][p] for m in range(3)] for p in kk]                    # coefficient of M_ij is the (i, j) entry
-w = [[MC[m][p] for m in range(3)] for p in rr]
-for (p, comp) in zip(kk, e):
-    print(f"e along M_{p[0]}{p[1]}: ", [c.simplify_full() for c in comp], " (d chi, d theta, d phi)")
-for (p, comp) in zip(rr, w):
-    print(f"r-component along M_{p[0]}{p[1]}: ", [c.simplify_full() for c in comp])
-G = matrix(SR, 3, 3, lambda m, n: sum(e[a][m] * e[a][n] for a in range(3)).simplify_full())
-print("sum_a e^a e^a =", G.rows())
-S = Manifold(3, "S3", structure="Riemannian")
-Y.<chi, theta, phi> = S.chart(r"chi:(0,pi):\chi theta:(0,pi):\theta phi:(0,2*pi):\phi")
-g = S.metric(); g[0, 0], g[1, 1], g[2, 2] = 1, sin(chi)^2, sin(chi)^2 * sin(theta)^2
-print("the round metric:", G == diagonal_matrix([1, sin(ch)^2, sin(ch)^2 * sin(th)^2]), " Ricci scalar:", g.ricci_scalar().expr())
-```
-
-*Output:*
-
-```text
-exp(t M_12) agrees with the matrix exponential: True
-L . o = [sin(ch)*sin(ph)*sin(th), cos(ph)*sin(ch)*sin(th), cos(th)*sin(ch), cos(ch)]
-e along M_03:  [0, 0, sin(ch)*sin(th)]  (d chi, d theta, d phi)
-e along M_13:  [0, sin(ch), 0]  (d chi, d theta, d phi)
-e along M_23:  [1, 0, 0]  (d chi, d theta, d phi)
-r-component along M_01:  [0, 0, cos(th)]
-r-component along M_02:  [0, 0, cos(ch)*sin(th)]
-r-component along M_12:  [0, cos(ch), 0]
-sum_a e^a e^a = [(1, 0, 0), (0, sin(ch)^2, 0), (0, 0, sin(ch)^2*sin(th)^2)]
-the round metric: True  Ricci scalar: 6
-```
-:::
-
-The second integrative exercise assembles the flag manifold from statements scattered over the three sections. No
-new computation is needed beyond reading off structure constants, but every section contributes one piece.
-
-::: {#exr-cs-integrative-flag}
-#### The flag manifold $SU(3)/U(1) \times U(1)$
-
-(a) Give the dimension of the flag manifold and the charges of its three complex coset directions. (b) Explain, using
-the charges, why it has a three-parameter family of invariant metrics and why it is not symmetric. (c) Write the
-curvature two-forms $F^3 = de^3$ and $F^8 = de^8$ of its two $U(1)$ connections in terms of the vielbein, using
-$f_{12}{}^3 = 1$, $f_{45}{}^3 = \tfrac12$, $f_{67}{}^3 = -\tfrac12$ and $f_{45}{}^8 = f_{67}{}^8 = \tfrac{\sqrt3}{2}$, and find the
-combination of $\lambda_3$ and $\lambda_8$ whose connection has no curvature component along $e^1 \wedge e^2$.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $\dim = 8 - 2 = 6$ (@exr-coset-dimensions), with charges $(2, 0)$, $(1, \sqrt3)$, $(-1, \sqrt3)$ under $(\lambda_3,
-\lambda_8)$ (@prp-coset-su3). (b) The three complex lines carry different charges, even up to sign, so they are
-inequivalent irreducible components and each gets its own radius (@exr-cs-invariant-flag); and $\alpha_1 + \alpha_3 =
-\alpha_2$, so two coset directions bracket into a third (@exr-cs-su3-charge-addition), $f_{ab}{}^c \neq 0$ and the coset is
-not symmetric. (c) For abelian $\mathfrak{r}$, @def-r-connection gives $F^i = -\tfrac12 f_{ab}{}^ie^a \wedge e^b = -\sum_{a <
-b}f_{ab}{}^ie^a \wedge e^b$, so
-$$
-F^3 = -\left(e^1 \wedge e^2 + \tfrac12 e^4 \wedge e^5 - \tfrac12 e^6 \wedge e^7\right), \qquad
-F^8 = -\tfrac{\sqrt3}{2}\left(e^4 \wedge e^5 + e^6 \wedge e^7\right).
-$$
-The connection along $\lambda_8$ has no $e^1 \wedge e^2$ component, reflecting the charge $0$ of $\lambda_1 + i\lambda_2$ under
-$\lambda_8$: the charge of a direction is the coefficient with which the corresponding curvature sees its plane, up to
-the normalisation of the generators.
-:::
-
-The third integrative exercise reads the Hopf fibration $SU(2) \to S^2$ off the Maurer-Cartan form of $SU(2)$. The
-coset fibres of the first section, the charges of the second and the vielbein and connection of the third combine
-into one formula for the round metric of the three-sphere.
-
-::: {#exr-cs-integrative-hopf}
-#### The three-sphere as a circle bundle
-
-Using @exr-cs-vielbein-su2-full, show that $\sigma^1 + i\sigma^2 = e^{-i\psi}(e^1 + ie^2)$ and $\sigma^3 = d\psi + e^3$, and
-deduce
-$$
-\tfrac14\left((\sigma^1)^2 + (\sigma^2)^2 + (\sigma^3)^2\right) = \tfrac14\left(d\theta^2 + \sin^2\theta\,d\varphi^2\right) + \tfrac14(d\psi +
-\cos\theta\,d\varphi)^2 .
-$$
-Interpret the two terms using @exr-cs-hopf-fibre, @exm-charges-sphere and @def-r-connection, and check the volumes:
-the unit three-sphere has volume $2\pi^2$, and $\psi$ runs over $[0, 4\pi)$.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$\sigma^1 + i\sigma^2 = (\cos\psi - i\sin\psi)\,d\theta + \sin\theta(\sin\psi + i\cos\psi)\,d\varphi = e^{-i\psi}(d\theta + i\sin\theta\,d\varphi)$,
-and $|\sigma^1 + i\sigma^2|^2 = (e^1)^2 + (e^2)^2$, which gives the formula. The fibres of $SU(2) \to S^2$ are the circles of
-constant $(\theta, \varphi)$ parametrised by $\psi$ (@exr-cs-hopf-fibre), so the first term is the round metric of a sphere
-of radius $\tfrac12$ on the base, and the second measures lengths along the fibres, corrected by the $R$-connection
-$e^3$: the metric is the base metric plus the square of the connection form $d\psi + e^3$. Moving along the fibre
-rotates the complex frame $e^1 + ie^2$ by the phase $e^{-i\psi}$, the charge $\pm 1$ of the coset directions
-(@exm-charges-sphere). Volumes: the base has area $4\pi \cdot \tfrac14 = \pi$, each fibre has length $\tfrac12 \cdot 4\pi =
-2\pi$, and $\pi \cdot 2\pi = 2\pi^2$, the volume of the unit three-sphere.
-:::
-::::
-
 ## Fibre bundles {#sec-fibre-bundles}
 
 A fibre bundle is a space built by attaching a copy of a fixed space, the fibre, to every point of a base manifold,
@@ -5192,10 +5054,144 @@ pi^* vol (d/dpsi, .) = 0, the pulled-back form is horizontal: 0
 :::
 ::::
 
-### Exercises {#sec-bundles-exercises}
+## Exercises {#sec-homogeneous-spaces-bundles-exercises}
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the three sections of this chapter: the normalisation of the fibre of the Hopf bundle
+Three exercises that combine the three units of @sec-coset-geometry: the three-sphere as a coset of $SO(4)$ followed from
+its homogeneous action to its curvature, the flag manifold assembled from its dimension, charges, radii and
+connections, and the three-sphere as a circle bundle over the two-sphere, read off from the Maurer-Cartan form of
+$SU(2)$.
+
+The first integrative exercise runs the whole chapter on $S^3 = SO(4)/SO(3)$. It starts from the homogeneous action,
+uses the symmetric decomposition of @prp-coset-so4, and ends with the vielbein, the invariant metric and its
+curvature computed in Sage.
+
+::: {#exr-cs-integrative-s3}
+#### $S^3 = SO(4)/SO(3)$ from end to end
+
+(a) Explain why $SO(4)$ acts transitively on $S^3$ with isotropy group $SO(3)$ at $o = e_3$, and why the invariant
+metrics have a single radius. (b) For the representative $L = e^{\varphi M_{01}}e^{\theta M_{12}}e^{\chi M_{23}}$, compute
+$L \cdot o$, the components of $L^{-1}dL$ along $\mathfrak{k} = \operatorname{span}(M_{03}, M_{13}, M_{23})$ and along
+$\mathfrak{r}$, the metric $\sum_a(e^a)^2$ and its scalar curvature. (c) Check one relation $de^a + f_{ib}{}^ae^i \wedge
+e^b = 0$ by hand.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) Any unit vector is the last column of some rotation, so the action is transitive, and the isotropy group of
+$e_3$ is $SO(3)$ by @exr-cs-isotropy-sn; its isotropy representation is the vector representation
+(@exm-cs-so4-vector), irreducible, so the invariant metrics are $R_0^2$ times one of them (@def-invariant-metric).
+(b) Sage gives $L \cdot o = (\sin\chi\sin\theta\sin\varphi, \sin\chi\sin\theta\cos\varphi, \sin\chi\cos\theta, \cos\chi)$, the
+hyperspherical coordinates; the vielbein along $(M_{23}, M_{13}, M_{03})$ is $(d\chi, \sin\chi\,d\theta, \sin\chi\sin\theta\,d\varphi)$
+and the $\mathfrak{r}$-components along $(M_{12}, M_{02}, M_{01})$ are $(\cos\chi\,d\theta, \cos\chi\sin\theta\,d\varphi, \cos\theta\,d\varphi)$.
+The metric is $d\chi^2 + \sin^2\chi(d\theta^2 + \sin^2\theta\,d\varphi^2)$, the round unit three-sphere, with scalar curvature $6$.
+(c) Take $e^{(13)} = \sin\chi\,d\theta$: $de^{(13)} = \cos\chi\,d\chi \wedge d\theta$. The only connection term pairing with
+another vielbein component to give $d\chi \wedge d\theta$ is $\omega^{(12)} = \cos\chi\,d\theta$ against $e^{(23)} = d\chi$, and
+$[M_{12}, M_{23}] = M_{13}$ gives $f_{(12)(23)}{}^{(13)} = 1$, so the term is $\cos\chi\,d\theta \wedge d\chi$, which cancels
+$de^{(13)}$; the only other term, from $[M_{01}, M_{03}] = -M_{13}$, pairs $e^{(01)} = \cos\theta\,d\varphi$ with $e^{(03)} =
+\sin\chi\sin\theta\,d\varphi$ and vanishes, both being multiples of $d\varphi$:
+
+```python
+ch, th, ph = var("ch th ph", domain="real")
+def M(i, j):
+    m = matrix(SR, 4, 4); m[i, j] = 1; m[j, i] = -1; return m
+simp = lambda A: A.apply_map(lambda x: x.simplify_full())
+def R(i, j, t):                                   # exp(t M_ij): a rotation in the (i, j)-plane
+    m = identity_matrix(SR, 4); m[i, i] = m[j, j] = cos(t); m[i, j] = sin(t); m[j, i] = -sin(t); return m
+print("exp(t M_12) agrees with the matrix exponential:", simp((ch * M(1, 2)).exp().apply_map(lambda x: x.rectform())) == R(1, 2, ch))
+L = simp(R(0, 1, ph) * R(1, 2, th) * R(2, 3, ch))
+o = vector(SR, [0, 0, 0, 1])
+print("L . o =", (L * o).apply_map(lambda x: x.simplify_full()).list())
+coords = [ch, th, ph]
+MC = [simp(L.transpose() * diff(L, x)) for x in coords]            # L^{-1} = L^T for a rotation
+kk = [(0, 3), (1, 3), (2, 3)]; rr = [(0, 1), (0, 2), (1, 2)]
+e = [[MC[m][p] for m in range(3)] for p in kk]                    # coefficient of M_ij is the (i, j) entry
+w = [[MC[m][p] for m in range(3)] for p in rr]
+for (p, comp) in zip(kk, e):
+    print(f"e along M_{p[0]}{p[1]}: ", [c.simplify_full() for c in comp], " (d chi, d theta, d phi)")
+for (p, comp) in zip(rr, w):
+    print(f"r-component along M_{p[0]}{p[1]}: ", [c.simplify_full() for c in comp])
+G = matrix(SR, 3, 3, lambda m, n: sum(e[a][m] * e[a][n] for a in range(3)).simplify_full())
+print("sum_a e^a e^a =", G.rows())
+S = Manifold(3, "S3", structure="Riemannian")
+Y.<chi, theta, phi> = S.chart(r"chi:(0,pi):\chi theta:(0,pi):\theta phi:(0,2*pi):\phi")
+g = S.metric(); g[0, 0], g[1, 1], g[2, 2] = 1, sin(chi)^2, sin(chi)^2 * sin(theta)^2
+print("the round metric:", G == diagonal_matrix([1, sin(ch)^2, sin(ch)^2 * sin(th)^2]), " Ricci scalar:", g.ricci_scalar().expr())
+```
+
+*Output:*
+
+```text
+exp(t M_12) agrees with the matrix exponential: True
+L . o = [sin(ch)*sin(ph)*sin(th), cos(ph)*sin(ch)*sin(th), cos(th)*sin(ch), cos(ch)]
+e along M_03:  [0, 0, sin(ch)*sin(th)]  (d chi, d theta, d phi)
+e along M_13:  [0, sin(ch), 0]  (d chi, d theta, d phi)
+e along M_23:  [1, 0, 0]  (d chi, d theta, d phi)
+r-component along M_01:  [0, 0, cos(th)]
+r-component along M_02:  [0, 0, cos(ch)*sin(th)]
+r-component along M_12:  [0, cos(ch), 0]
+sum_a e^a e^a = [(1, 0, 0), (0, sin(ch)^2, 0), (0, 0, sin(ch)^2*sin(th)^2)]
+the round metric: True  Ricci scalar: 6
+```
+:::
+
+The second integrative exercise assembles the flag manifold from statements scattered over the three sections. No
+new computation is needed beyond reading off structure constants, but every section contributes one piece.
+
+::: {#exr-cs-integrative-flag}
+#### The flag manifold $SU(3)/U(1) \times U(1)$
+
+(a) Give the dimension of the flag manifold and the charges of its three complex coset directions. (b) Explain, using
+the charges, why it has a three-parameter family of invariant metrics and why it is not symmetric. (c) Write the
+curvature two-forms $F^3 = de^3$ and $F^8 = de^8$ of its two $U(1)$ connections in terms of the vielbein, using
+$f_{12}{}^3 = 1$, $f_{45}{}^3 = \tfrac12$, $f_{67}{}^3 = -\tfrac12$ and $f_{45}{}^8 = f_{67}{}^8 = \tfrac{\sqrt3}{2}$, and find the
+combination of $\lambda_3$ and $\lambda_8$ whose connection has no curvature component along $e^1 \wedge e^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $\dim = 8 - 2 = 6$ (@exr-coset-dimensions), with charges $(2, 0)$, $(1, \sqrt3)$, $(-1, \sqrt3)$ under $(\lambda_3,
+\lambda_8)$ (@prp-coset-su3). (b) The three complex lines carry different charges, even up to sign, so they are
+inequivalent irreducible components and each gets its own radius (@exr-cs-invariant-flag); and $\alpha_1 + \alpha_3 =
+\alpha_2$, so two coset directions bracket into a third (@exr-cs-su3-charge-addition), $f_{ab}{}^c \neq 0$ and the coset is
+not symmetric. (c) For abelian $\mathfrak{r}$, @def-r-connection gives $F^i = -\tfrac12 f_{ab}{}^ie^a \wedge e^b = -\sum_{a <
+b}f_{ab}{}^ie^a \wedge e^b$, so
+$$
+F^3 = -\left(e^1 \wedge e^2 + \tfrac12 e^4 \wedge e^5 - \tfrac12 e^6 \wedge e^7\right), \qquad
+F^8 = -\tfrac{\sqrt3}{2}\left(e^4 \wedge e^5 + e^6 \wedge e^7\right).
+$$
+The connection along $\lambda_8$ has no $e^1 \wedge e^2$ component, reflecting the charge $0$ of $\lambda_1 + i\lambda_2$ under
+$\lambda_8$: the charge of a direction is the coefficient with which the corresponding curvature sees its plane, up to
+the normalisation of the generators.
+:::
+
+The third integrative exercise reads the Hopf fibration $SU(2) \to S^2$ off the Maurer-Cartan form of $SU(2)$. The
+coset fibres of the first section, the charges of the second and the vielbein and connection of the third combine
+into one formula for the round metric of the three-sphere.
+
+::: {#exr-cs-integrative-hopf}
+#### The three-sphere as a circle bundle
+
+Using @exr-cs-vielbein-su2-full, show that $\sigma^1 + i\sigma^2 = e^{-i\psi}(e^1 + ie^2)$ and $\sigma^3 = d\psi + e^3$, and
+deduce
+$$
+\tfrac14\left((\sigma^1)^2 + (\sigma^2)^2 + (\sigma^3)^2\right) = \tfrac14\left(d\theta^2 + \sin^2\theta\,d\varphi^2\right) + \tfrac14(d\psi +
+\cos\theta\,d\varphi)^2 .
+$$
+Interpret the two terms using @exr-cs-hopf-fibre, @exm-charges-sphere and @def-r-connection, and check the volumes:
+the unit three-sphere has volume $2\pi^2$, and $\psi$ runs over $[0, 4\pi)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\sigma^1 + i\sigma^2 = (\cos\psi - i\sin\psi)\,d\theta + \sin\theta(\sin\psi + i\cos\psi)\,d\varphi = e^{-i\psi}(d\theta + i\sin\theta\,d\varphi)$,
+and $|\sigma^1 + i\sigma^2|^2 = (e^1)^2 + (e^2)^2$, which gives the formula. The fibres of $SU(2) \to S^2$ are the circles of
+constant $(\theta, \varphi)$ parametrised by $\psi$ (@exr-cs-hopf-fibre), so the first term is the round metric of a sphere
+of radius $\tfrac12$ on the base, and the second measures lengths along the fibres, corrected by the $R$-connection
+$e^3$: the metric is the base metric plus the square of the connection form $d\psi + e^3$. Moving along the fibre
+rotates the complex frame $e^1 + ie^2$ by the phase $e^{-i\psi}$, the charge $\pm 1$ of the coset directions
+(@exm-charges-sphere). Volumes: the base has area $4\pi \cdot \tfrac14 = \pi$, each fibre has length $\tfrac12 \cdot 4\pi =
+2\pi$, and $\pi \cdot 2\pi = 2\pi^2$, the volume of the unit three-sphere.
+:::
+
+Three exercises that combine the three units of @sec-fibre-bundles: the normalisation of the fibre of the Hopf bundle
 and its Chern number $-1$, charged fields on the monopole bundle and Dirac's quantisation condition, and the tangent
 bundle of the sphere as a circle bundle with its Levi-Civita connection.
 

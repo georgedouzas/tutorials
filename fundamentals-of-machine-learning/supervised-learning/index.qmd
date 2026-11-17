@@ -8,6 +8,16 @@ Supervised learning encompasses methods where we have access to labeled training
 outputs. This chapter covers the major paradigms of supervised learning, from classical linear models to modern deep learning
 approaches.
 
+The chapter is organised in eleven sections. Linear and generalized linear models defines the linear regression model,
+derives the least squares estimator and its statistical properties, and extends it to logistic regression and GLMs.
+Generative probabilistic models classifies with Bayes' rule, through Naive Bayes, LDA and QDA. Margin-based methods
+develops support vector machines and kernels. Tree-based and ensemble methods treats decision trees, bagging, random
+forests and boosting. The next five sections cover neural networks: feedforward networks and their training, CNNs,
+RNNs, Transformers, large language models, and vision-language models with the techniques used to train large models.
+Structured outputs and complex prediction closes with multiclass and multilabel classification, sequence labeling,
+ranking and structured prediction. Every statement is followed by a fold of examples and a fold of exercises with
+hidden solutions, and the chapter ends with three integrative exercises.
+
 ## Linear and Generalized Linear Models {#sec-linear-models}
 
 Linear models form the foundation of supervised learning, providing interpretable and often effective solutions for both
@@ -36,17 +46,55 @@ $$Y = \tilde{\mathbf{w}}^T\tilde{\mathbf{x}} + \epsilon$$
 
 **Training Data:** Given $n$ observations $\{(\mathbf{x}_i, y_i)\}_{i=1}^n$, we can write in matrix form:
 
+:::: {.statement-box}
 ::: {#def-linear-regression-model}
-
-Linear Regression Model
+#### Linear Regression Model
 
 $$\mathbf{y} = \mathbf{X}\mathbf{w} + \boldsymbol{\epsilon}$$
-:::
 
 where: - $\mathbf{y} = (y_1, \ldots, y_n)^T \in \mathbb{R}^n$ is the response vector - $\mathbf{X} \in \mathbb{R}^{n \times p}$ is
 the design matrix with rows $\mathbf{x}_i^T$
 - $\boldsymbol{\epsilon} = (\epsilon_1, \ldots, \epsilon_n)^T \in \mathbb{R}^n$ is
 the noise vector
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The simplest instance has a single predictor and three observations, small enough to write every matrix out. It shows
+how absorbing the intercept turns the scalar model into the matrix form of @def-linear-regression-model, with a column
+of ones in the design matrix.
+
+::: {#exm-sup-linear-regression-design-matrix}
+#### Three observations, one predictor
+
+Take the observations $(x_i, y_i) = (0, 1), (1, 3), (2, 4)$ and the model $y_i = w_0 + w_1 x_i + \epsilon_i$. Augmenting
+each input with a 1 gives
+$$\mathbf{y} = \begin{pmatrix} 1 \\ 3 \\ 4 \end{pmatrix}, \quad \mathbf{X} = \begin{pmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2
+\end{pmatrix}, \quad \mathbf{w} = \begin{pmatrix} w_0 \\ w_1 \end{pmatrix},$$
+so that $\mathbf{y} = \mathbf{X}\mathbf{w} + \boldsymbol{\epsilon}$ with $n = 3$ observations and $p = 2$ coefficients
+(the intercept counted). The same data are fitted in the examples of @def-ols-solution.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The first exercise checks that the shapes in @def-linear-regression-model fit together. It asks for the dimensions of
+every object for a realistic data set and for the row-by-row form of the matrix equation.
+
+::: {#exr-sup-linear-regression-dimensions}
+#### Shapes of the model
+
+A data set has $n = 100$ observations of $4$ predictors, and the intercept is absorbed into $\mathbf{X}$. Give the
+dimensions of $\mathbf{y}$, $\mathbf{X}$, $\mathbf{w}$ and $\boldsymbol{\epsilon}$, and write out the $i$-th row of
+$\mathbf{y} = \mathbf{X}\mathbf{w} + \boldsymbol{\epsilon}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With the column of ones, $\mathbf{X} \in \mathbb{R}^{100 \times 5}$, $\mathbf{w} = (w_0, \ldots, w_4)^T \in
+\mathbb{R}^5$, and $\mathbf{y}, \boldsymbol{\epsilon} \in \mathbb{R}^{100}$. The $i$-th row reads $y_i = w_0 +
+\sum_{j=1}^4 w_j x_{ij} + \epsilon_i$, which is the scalar model of the previous paragraphs for observation $i$.
+:::
+::::
 
 **Ordinary Least Squares (OLS):** The most common estimation method minimizes the sum of squared residuals:
 
@@ -62,18 +110,66 @@ $$\hat{\mathbf{w}} = \arg\min_{\mathbf{w}} \sum_{i=1}^n (y_i - \mathbf{w}^T\math
 
 Solving the **normal equations** $\mathbf{X}^T\mathbf{X}\mathbf{w} = \mathbf{X}^T\mathbf{y}$ gives:
 
+:::: {.statement-box}
 ::: {#def-ols-solution}
-
-Ordinary Least Squares (OLS) Solution
+#### Ordinary Least Squares (OLS) Solution
 
 $$\hat{\mathbf{w}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$$
 :::
 
+::::
+
 This requires that $\mathbf{X}^T\mathbf{X}$ is invertible, which holds when $\mathbf{X}$ has full column rank (no perfect
 multicollinearity).
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The formula is best checked on the three observations of @exm-sup-linear-regression-design-matrix, where every
+product can be done by hand. The example also verifies that the residuals sum to zero and are orthogonal to the
+predictor, as the normal equations demand.
+
+::: {#exm-sup-ols-three-points}
+#### Least squares line through three points
+
+For $\mathbf{X}$ and $\mathbf{y}$ of @exm-sup-linear-regression-design-matrix,
+$$\mathbf{X}^T\mathbf{X} = \begin{pmatrix} 3 & 3 \\ 3 & 5 \end{pmatrix}, \quad \mathbf{X}^T\mathbf{y} =
+\begin{pmatrix} 8 \\ 11 \end{pmatrix}, \quad (\mathbf{X}^T\mathbf{X})^{-1} = \frac{1}{6}\begin{pmatrix} 5 & -3 \\ -3 & 3
+\end{pmatrix},$$
+so $\hat{\mathbf{w}} = \frac{1}{6}(40 - 33, -24 + 33)^T = (7/6, 3/2)^T$ and the fitted line is $\hat{y} = 7/6 + 3x/2$.
+The fitted values are $(7/6, 8/3, 25/6)$ and the residuals $\mathbf{r} = (-1/6, 1/3, -1/6)$, which satisfy $\sum_i r_i =
+0$ and $\sum_i x_i r_i = 0$, that is $\mathbf{X}^T\mathbf{r} = 0$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Without an intercept the design matrix has a single column and the OLS formula collapses to a ratio of sums. The
+exercise derives that ratio and evaluates it on a small data set that reappears in the ridge regression examples.
+
+::: {#exr-sup-ols-through-origin}
+#### Regression through the origin
+
+For the model $y_i = w x_i + \epsilon_i$ (no intercept, $p = 1$), show that @def-ols-solution gives $\hat{w} = \sum_i
+x_i y_i / \sum_i x_i^2$, and evaluate it for the data $(1, 2), (2, 3), (3, 7)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Here $\mathbf{X} = (x_1, \ldots, x_n)^T$ is a column, so $\mathbf{X}^T\mathbf{X} = \sum_i x_i^2$ is a positive number
+(when some $x_i \neq 0$) and $\mathbf{X}^T\mathbf{y} = \sum_i x_i y_i$; their ratio is $\hat{w}$. For the data,
+$\sum_i x_i y_i = 2 + 6 + 21 = 29$ and $\sum_i x_i^2 = 1 + 4 + 9 = 14$, so $\hat{w} = 29/14 \approx 2.071$.
+:::
+::::
+
+### Geometry and statistics of least squares
+
+The closed form of @def-ols-solution can also be read geometrically, as a statement about subspaces of
+$\mathbb{R}^n$ rather than about coefficients. That reading explains why the residuals are uncorrelated with the
+predictors and prepares the variance computations that follow.
+
 **Geometric Interpretation:** The OLS solution has a beautiful geometric interpretation (see @sec-linear-algebra for projection
 concepts):
+
+:::: {.statement-box}
+::: {#prp-sup-ols-projection}
+#### Least squares as orthogonal projection
 
 1. The predicted values $\hat{\mathbf{y}} = \mathbf{X}\hat{\mathbf{w}}$ form the orthogonal projection of $\mathbf{y}$ onto the
 column space of $\mathbf{X}$
@@ -85,6 +181,51 @@ column space of $\mathbf{X}$
 - $\mathbf{H}$ is symmetric and idempotent: $\mathbf{H}^2 = \mathbf{H}$
 - $\mathbf{I}
    - \mathbf{H}$ projects onto the orthogonal complement
+:::
+
+::::
+
+*Proof.* By the normal equations, $\mathbf{X}^T\mathbf{r} = \mathbf{X}^T\mathbf{y} - \mathbf{X}^T\mathbf{X}\hat{\mathbf{w}}
+= 0$, so $\mathbf{r}$ is orthogonal to every column of $\mathbf{X}$, hence to the column space; since $\hat{\mathbf{y}} =
+\mathbf{X}\hat{\mathbf{w}}$ lies in that space and $\mathbf{y} = \hat{\mathbf{y}} + \mathbf{r}$, $\hat{\mathbf{y}}$ is the
+orthogonal projection of $\mathbf{y}$. Substituting @def-ols-solution gives $\hat{\mathbf{y}} = \mathbf{H}\mathbf{y}$.
+$\mathbf{H}^T = \mathbf{H}$ because $(\mathbf{X}^T\mathbf{X})^{-1}$ is symmetric, and $\mathbf{H}^2 =
+\mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T = \mathbf{H}$.
+Finally $(\mathbf{I} - \mathbf{H})^2 = \mathbf{I} - 2\mathbf{H} + \mathbf{H}^2 = \mathbf{I} - \mathbf{H}$ and
+$(\mathbf{I} - \mathbf{H})\mathbf{y} = \mathbf{r}$ is orthogonal to the column space, so $\mathbf{I} - \mathbf{H}$
+projects onto the orthogonal complement.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The three-point fit of @exm-sup-ols-three-points makes the projection concrete. The residual vector found there can be
+tested against both columns of the design matrix, which is exactly the orthogonality the proposition asserts.
+
+::: {#exm-sup-ols-projection-three-points}
+#### Orthogonal residuals
+
+With $\mathbf{r} = (-1/6, 1/3, -1/6)$ and the columns $(1, 1, 1)$ and $(0, 1, 2)$ of $\mathbf{X}$, the inner products
+are $-1/6 + 1/3 - 1/6 = 0$ and $0 + 1/3 - 1/3 = 0$. Hence $\hat{\mathbf{y}} = (7/6, 8/3, 25/6)$ is the point of the plane
+spanned by the two columns that is closest to $\mathbf{y} = (1, 3, 4)$, at distance $\|\mathbf{r}\| = \sqrt{1/6}$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Idempotent symmetric matrices have a rigid spectral structure, and the trace of the hat matrix counts the fitted
+parameters. The exercise proves both facts from the identities of @prp-sup-ols-projection.
+
+::: {#exr-sup-hat-matrix-trace}
+#### Trace and eigenvalues of the hat matrix
+
+Show that $\operatorname{tr}\mathbf{H} = p$ and that every eigenvalue of $\mathbf{H}$ is $0$ or $1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By the cyclic property of the trace, $\operatorname{tr}\mathbf{H} =
+\operatorname{tr}((\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{X}) = \operatorname{tr}\mathbf{I}_p = p$. If
+$\mathbf{H}\mathbf{v} = \lambda\mathbf{v}$ with $\mathbf{v} \neq 0$, then $\lambda\mathbf{v} = \mathbf{H}\mathbf{v} =
+\mathbf{H}^2\mathbf{v} = \lambda^2\mathbf{v}$, so $\lambda^2 = \lambda$ and $\lambda \in \{0, 1\}$. Together, $\mathbf{H}$
+has exactly $p$ eigenvalues equal to $1$.
+:::
+::::
 
 **Statistical Assumptions:** Classical linear regression assumes:
 
@@ -100,9 +241,25 @@ column space of $\mathbf{X}$
 
 These assumptions are often summarized as: $\epsilon_i \stackrel{iid}{\sim} \mathcal{N}(0, \sigma^2)$
 
+Under these assumptions the estimator of @def-ols-solution is a random vector, since it is a linear function of the
+noisy responses. Its first two moments follow from that linearity alone and are collected in the next proposition.
+
 **Statistical Properties of OLS:**
 
 Under the classical assumptions:
+
+:::: {.statement-box}
+::: {#prp-sup-ols-moments}
+#### Mean and covariance of the OLS estimator
+
+Under the classical assumptions (normality is not needed), $\mathbb{E}[\hat{\mathbf{w}}] = \mathbf{w}$ and
+$\text{Cov}(\hat{\mathbf{w}}) = \sigma^2(\mathbf{X}^T\mathbf{X})^{-1}$.
+:::
+
+::::
+
+*Proof.* Both statements follow from $\hat{\mathbf{w}} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$, with
+$\mathbb{E}[\mathbf{y}] = \mathbf{X}\mathbf{w}$ and $\text{Cov}(\mathbf{y}) = \sigma^2\mathbf{I}$:
 
 **1. Unbiasedness:** $$\mathbb{E}[\hat{\mathbf{w}}] = \mathbb{E}[(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}] =
 (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbb{E}[\mathbf{y}] = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{X}\mathbf{w} =
@@ -115,8 +272,92 @@ Under the classical assumptions:
 (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T (\sigma^2\mathbf{I}) \mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1} \\ &=
 \sigma^2(\mathbf{X}^T\mathbf{X})^{-1} \end{align*}
 
-**3. Gauss-Markov Theorem:** Among all linear unbiased estimators, OLS has the smallest variance (is BLUE: Best Linear Unbiased
-Estimator).
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For simple regression the covariance matrix has an explicit entry for the slope, which shows how the spread of the
+inputs controls the precision. The example evaluates it for the inputs of @exm-sup-ols-three-points.
+
+::: {#exm-sup-ols-slope-variance}
+#### Variance of the slope
+
+For $\mathbf{X}$ of @exm-sup-linear-regression-design-matrix, $(\mathbf{X}^T\mathbf{X})^{-1} = \frac{1}{6}\begin{pmatrix}
+5 & -3 \\ -3 & 3 \end{pmatrix}$, so $\text{Var}(\hat{w}_1) = \sigma^2 \cdot 3/6 = \sigma^2/2$. This agrees with the
+general formula $\text{Var}(\hat{w}_1) = \sigma^2/\sum_i (x_i - \bar{x})^2$ for simple regression, since
+$\sum_i (x_i - 1)^2 = 2$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Spreading the inputs further apart should make the slope easier to estimate. The exercise quantifies that intuition with
+@prp-sup-ols-moments for a second design.
+
+::: {#exr-sup-ols-design-variance}
+#### A wider design
+
+Compute $\text{Var}(\hat{w}_1)$ for the inputs $x = (-1, 1, 3)$ with an intercept, and compare with
+@exm-sup-ols-slope-variance.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Now $\mathbf{X}^T\mathbf{X} = \begin{pmatrix} 3 & 3 \\ 3 & 11 \end{pmatrix}$ with determinant $24$, so
+$[(\mathbf{X}^T\mathbf{X})^{-1}]_{22} = 3/24 = 1/8$ and $\text{Var}(\hat{w}_1) = \sigma^2/8$. Equivalently $\sum_i (x_i
+- \bar{x})^2 = 4 + 0 + 4 = 8$. The variance is four times smaller than the $\sigma^2/2$ of the design $x = (0, 1, 2)$,
+because the inputs are twice as spread out.
+:::
+::::
+
+Unbiasedness alone does not single out OLS, since many linear functions of $\mathbf{y}$ are unbiased for $\mathbf{w}$.
+The Gauss-Markov theorem says that among all of them OLS has the smallest covariance, which is the classical
+justification for least squares.
+
+:::: {.statement-box}
+::: {#thm-sup-gauss-markov}
+#### Gauss-Markov Theorem
+
+Among all linear unbiased estimators, OLS has the smallest variance (is BLUE: Best Linear Unbiased Estimator).
+Precisely, under assumptions 1, 2, 3 and 5 above, for every estimator $\tilde{\mathbf{w}} = \mathbf{C}\mathbf{y}$ with
+$\mathbb{E}[\tilde{\mathbf{w}}] = \mathbf{w}$ for all $\mathbf{w}$, the matrix $\text{Cov}(\tilde{\mathbf{w}}) -
+\text{Cov}(\hat{\mathbf{w}})$ is positive semi-definite.
+:::
+
+::::
+
+*Proof.* Write $\mathbf{C} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T + \mathbf{D}$. Unbiasedness for every
+$\mathbf{w}$ means $\mathbf{C}\mathbf{X}\mathbf{w} = \mathbf{w}$, that is $\mathbf{D}\mathbf{X} = 0$. Then
+$\text{Cov}(\tilde{\mathbf{w}}) = \sigma^2\mathbf{C}\mathbf{C}^T = \sigma^2(\mathbf{X}^T\mathbf{X})^{-1} +
+\sigma^2\mathbf{D}\mathbf{D}^T$, because the cross terms contain $\mathbf{D}\mathbf{X} = 0$. The difference
+$\sigma^2\mathbf{D}\mathbf{D}^T$ is positive semi-definite.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A natural competitor to the OLS slope uses only the two extreme observations. It is linear and unbiased, so the theorem
+predicts that its variance cannot beat that of OLS, and the example checks this.
+
+::: {#exm-sup-gauss-markov-endpoints}
+#### The endpoint slope
+
+For $x = (0, 1, 2, 3)$, the estimator $\tilde{w}_1 = (y_4 - y_1)/3$ is linear in $\mathbf{y}$ and unbiased, since
+$\mathbb{E}[y_4 - y_1] = 3w_1$; its variance is $2\sigma^2/9 \approx 0.222\sigma^2$. The OLS slope has variance
+$\sigma^2/\sum_i (x_i - 1.5)^2 = \sigma^2/5 = 0.2\sigma^2$, which is smaller, as @thm-sup-gauss-markov requires.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The simplest linear model has only an intercept, so OLS is the sample mean. The exercise proves the theorem by hand in
+that case, using nothing more than the Cauchy-Schwarz inequality.
+
+::: {#exr-sup-gauss-markov-mean}
+#### The mean is the best weighted average
+
+For $y_i = \mu + \epsilon_i$, consider estimators $\tilde{\mu} = \sum_i c_i y_i$. Show that they are unbiased iff
+$\sum_i c_i = 1$, and that the variance is then smallest for $c_i = 1/n$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbb{E}[\tilde{\mu}] = \mu\sum_i c_i$, which equals $\mu$ for every $\mu$ iff $\sum_i c_i = 1$. The variance is
+$\sigma^2\sum_i c_i^2$, and by Cauchy-Schwarz $1 = (\sum_i c_i \cdot 1)^2 \leq n\sum_i c_i^2$, so $\sum_i c_i^2 \geq
+1/n$ with equality iff all $c_i$ are equal, that is $c_i = 1/n$. The minimizer is the sample mean, the OLS estimator of
+$\mu$.
+:::
+::::
 
 **4. Sampling Distribution:** Under normality assumption: $$\hat{\mathbf{w}} \sim \mathcal{N}(\mathbf{w},
 \sigma^2(\mathbf{X}^T\mathbf{X})^{-1})$$
@@ -150,9 +391,17 @@ where TSS (Total Sum of Squares) = $\sum_i (y_i - \bar{y})^2$.
 
 **Model Assessment:**
 
-**1. Coefficient of Determination ($R^2$):** $$R^2 = 1 - \frac{\text{RSS}}{\text{TSS}} = \frac{\text{ESS}}{\text{TSS}}$$
+:::: {.statement-box}
+::: {#def-sup-coefficient-of-determination}
+#### Coefficient of determination
+
+For a fitted model with an intercept, the **coefficient of determination** is
+$$R^2 = 1 - \frac{\text{RSS}}{\text{TSS}} = \frac{\text{ESS}}{\text{TSS}}$$
 
 where ESS (Explained Sum of Squares) = $\sum_i (\hat{y}_i - \bar{y})^2$.
+:::
+
+::::
 
 $R^2 \in [0,1]$ measures the proportion of variance explained. However, $R^2$ always increases with more predictors.
 
@@ -163,6 +412,37 @@ Penalizes model complexity, can decrease when adding irrelevant predictors.
 **3. Residual Standard Error (RSE):** $$\text{RSE} = \sqrt{\frac{\text{RSS}}{n-p}} = \hat{\sigma}$$
 
 Estimates standard deviation of errors.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The three-point fit has residuals small compared with the spread of the responses, so $R^2$ should be close to one.
+The example computes it and its adjusted version, which charges for the second parameter.
+
+::: {#exm-sup-r-squared-three-points}
+#### $R^2$ of the three-point fit
+
+For @exm-sup-ols-three-points, $\bar{y} = 8/3$, $\text{TSS} = 25/9 + 1/9 + 16/9 = 14/3$ and $\text{RSS} = 1/36 + 4/36 +
+1/36 = 1/6$. Hence $R^2 = 1 - (1/6)/(14/3) = 27/28 \approx 0.964$, while $R^2_{\text{adj}} = 1 - (1/6)/(7/3) = 13/14
+\approx 0.929$ with $n = 3$ and $p = 2$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The second expression for $R^2$ in @def-sup-coefficient-of-determination rests on the decomposition TSS = ESS + RSS.
+The exercise derives it from the orthogonality of @prp-sup-ols-projection.
+
+::: {#exr-sup-sum-of-squares-decomposition}
+#### Decomposing the total sum of squares
+
+Show that $\text{TSS} = \text{ESS} + \text{RSS}$ when the model contains an intercept.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Write $y_i - \bar{y} = (\hat{y}_i - \bar{y}) + r_i$ and square: $\text{TSS} = \text{ESS} + \text{RSS} + 2\sum_i
+(\hat{y}_i - \bar{y})r_i$. The cross term is $\hat{\mathbf{y}}^T\mathbf{r} - \bar{y}\mathbf{1}^T\mathbf{r}$. Both
+$\hat{\mathbf{y}}$ and the intercept column $\mathbf{1}$ lie in the column space of $\mathbf{X}$, to which $\mathbf{r}$ is
+orthogonal by @prp-sup-ols-projection, so the cross term vanishes.
+:::
+::::
 
 **Diagnostics:**
 
@@ -182,8 +462,50 @@ where $\hat{\mathbf{y}}_{(-i)}$ is prediction without observation $i$. Values $D
 **Regularization:** When $p$ is large or multicollinearity exists, regularization improves stability (see @sec-model-selection for
 Ridge and Lasso):
 
-**Ridge Regression:** $$\hat{\mathbf{w}}_{\text{ridge}} = \arg\min_{\mathbf{w}} \left\{\|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2 +
+:::: {.statement-box}
+::: {#def-sup-ridge-regression}
+#### Ridge Regression
+
+For $\lambda > 0$, the **ridge regression** estimator is
+$$\hat{\mathbf{w}}_{\text{ridge}} = \arg\min_{\mathbf{w}} \left\{\|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2 +
 \lambda\|\mathbf{w}\|^2\right\} = (\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}^T\mathbf{y}$$
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+On the data of @exr-sup-ols-through-origin the penalty has a visible effect. The example compares the ridge and OLS
+slopes and shows the shrinkage toward zero.
+
+::: {#exm-sup-ridge-shrinkage}
+#### Shrinkage of a single slope
+
+For $y = wx$ with data $(1, 2), (2, 3), (3, 7)$, the ridge estimator is $\hat{w}_{\text{ridge}} = \sum_i x_i y_i/(\sum_i
+x_i^2 + \lambda) = 29/(14 + \lambda)$. For $\lambda = 1$ this is $29/15 \approx 1.933$, against the OLS value $29/14
+\approx 2.071$; as $\lambda \to \infty$ the slope tends to $0$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The closed form in @def-sup-ridge-regression needs the matrix $\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I}$ to be
+invertible, even when OLS fails. The exercise derives the formula and proves the invertibility.
+
+::: {#exr-sup-ridge-closed-form}
+#### Ridge closed form
+
+Derive the closed form of the ridge estimator, and show that $\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I}$ is invertible
+for every $\lambda > 0$, even when $\mathbf{X}$ does not have full column rank.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The gradient of the objective is $-2\mathbf{X}^T\mathbf{y} + 2(\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I})\mathbf{w}$;
+setting it to zero gives the stated formula, and the objective is strictly convex, so this is the minimum. For $\mathbf{v}
+\neq 0$, $\mathbf{v}^T(\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I})\mathbf{v} = \|\mathbf{X}\mathbf{v}\|^2 +
+\lambda\|\mathbf{v}\|^2 > 0$, so the matrix is positive definite and hence invertible.
+:::
+::::
+
+The second classical penalty replaces the squared norm by the $\ell_1$ norm.
 
 **Lasso Regression:** $$\hat{\mathbf{w}}_{\text{lasso}} = \arg\min_{\mathbf{w}} \left\{\|\mathbf{y} - \mathbf{X}\mathbf{w}\|^2 +
 \lambda\|\mathbf{w}\|_1\right\}$$
@@ -208,11 +530,22 @@ networks (single-layer network), SVMs (linear kernel), and Gaussian processes [@
 
 ### Logistic Regression
 
+Logistic regression keeps the linear predictor of linear regression but passes it through a squashing function, so
+that the output is a probability. It is the basic discriminative classifier and the model against which the
+generative classifiers of @sec-generative-models are compared.
+
+:::: {.statement-box}
+::: {#def-sup-logistic-regression}
+#### Logistic regression
+
 For binary classification with $y \in \{0,1\}$, logistic regression models the conditional probability:
 
 $$P(y=1|\mathbf{x}) = \sigma(\mathbf{w}^T\mathbf{x}) = \frac{1}{1 + e^{-\mathbf{w}^T\mathbf{x}}}$$
 
 where $\sigma(\cdot)$ is the logistic sigmoid function.
+:::
+
+::::
 
 **Maximum Likelihood Estimation:** We maximize the log-likelihood:
 
@@ -224,7 +557,46 @@ Newton-Raphson methods.
 **Decision Boundary:** The decision boundary is the hyperplane $\{\mathbf{x}: \mathbf{w}^T\mathbf{x} = 0\}$ where
 $P(y=1|\mathbf{x}) = 0.5$.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A one-dimensional model with an intercept shows how the weights place the decision boundary. The example evaluates the
+probability on both sides of it.
+
+::: {#exm-sup-logistic-one-dimension}
+#### A one-dimensional logistic model
+
+With $\tilde{\mathbf{x}} = (1, x)$ and $\mathbf{w} = (-3, 1)$, $P(y = 1|x) = \sigma(x - 3)$. At $x = 3$ the
+probability is $\sigma(0) = 0.5$, so the decision boundary is the point $x = 3$; at $x = 5$ it is $\sigma(2) \approx
+0.881$ and at $x = 1$ it is $\sigma(-2) \approx 0.119$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Gradient methods for logistic regression need the derivative of the log-likelihood. The exercise derives it from the
+derivative of the sigmoid.
+
+::: {#exr-sup-logistic-gradient}
+#### Gradient of the log-likelihood
+
+Show that $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ and that $\nabla\ell(\mathbf{w}) = \sum_i (y_i -
+\sigma(\mathbf{w}^T\mathbf{x}_i))\mathbf{x}_i$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\sigma'(z) = e^{-z}/(1 + e^{-z})^2 = \sigma(z)\cdot e^{-z}/(1 + e^{-z}) = \sigma(z)(1 - \sigma(z))$. Writing $\sigma_i
+= \sigma(\mathbf{w}^T\mathbf{x}_i)$, the chain rule gives $\nabla\log\sigma_i = (1 - \sigma_i)\mathbf{x}_i$ and
+$\nabla\log(1 - \sigma_i) = -\sigma_i\mathbf{x}_i$. Hence $\nabla\ell = \sum_i [y_i(1 - \sigma_i) - (1 -
+y_i)\sigma_i]\mathbf{x}_i = \sum_i (y_i - \sigma_i)\mathbf{x}_i$.
+:::
+::::
+
 ### Generalized Linear Models
+
+Linear and logistic regression share one pattern: a linear predictor, a distribution for the response, and a function
+connecting the two. Generalized linear models name these three components and let each vary.
+
+:::: {.statement-box}
+::: {#def-sup-generalized-linear-model}
+#### Generalized linear model
 
 GLMs extend linear regression to non-Gaussian response distributions through a link function $g$:
 
@@ -233,6 +605,9 @@ $$\mathbb{E}[Y|\mathbf{x}] = \mu = g^{-1}(\mathbf{w}^T\mathbf{x})$$
 **Components:** 1. **Random component:** $Y$ follows an exponential family distribution 2. **Systematic component:** Linear
 predictor $\eta = \mathbf{w}^T\mathbf{x}$
 3. **Link function:** $g(\mu) = \eta$
+:::
+
+::::
 
 **Common GLMs:** - **Linear regression:** Identity link, Gaussian distribution - **Logistic regression:** Logit link, Bernoulli
 distribution  
@@ -240,6 +615,36 @@ distribution
 
 **Estimation:** Parameters are estimated via iteratively reweighted least squares (IRLS) or gradient-based methods
 [@james2023statistical; @bishop2024deeplearning].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Poisson regression is the GLM for counts, and its log link makes the coefficients multiplicative. The example evaluates
+the mean at two inputs.
+
+::: {#exm-sup-poisson-regression}
+#### Poisson regression
+
+With the log link, $\mu = \exp(w_0 + w_1 x)$. For $w_0 = 0.5$, $w_1 = 0.2$, the mean count is $e^{0.5} \approx 1.649$ at
+$x = 0$ and $e^{1.5} \approx 4.482$ at $x = 5$; each unit increase of $x$ multiplies the mean by $e^{0.2} \approx 1.221$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Logistic regression appears in the list of common GLMs with the logit link. The exercise checks that this link is the
+natural one for the Bernoulli distribution.
+
+::: {#exr-sup-logit-link}
+#### The logit link
+
+Write the Bernoulli distribution $p^y(1 - p)^{1 - y}$ in exponential family form and identify the natural parameter.
+Conclude that logistic regression is the GLM with the logit link.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$p^y(1 - p)^{1 - y} = \exp(y\log\frac{p}{1 - p} + \log(1 - p))$, so the natural parameter is $\eta = \log\frac{p}{1 -
+p}$, the logit of the mean $\mu = p$. Setting $g(\mu) = \log\frac{\mu}{1 - \mu} = \mathbf{w}^T\mathbf{x}$ and inverting
+gives $\mu = \sigma(\mathbf{w}^T\mathbf{x})$, which is @def-sup-logistic-regression.
+:::
+::::
 
 ## Generative Probabilistic Models {#sec-generative-models}
 
@@ -251,6 +656,14 @@ Classification is then performed using Bayes' rule.
 For more on this topic, see @james2023statistical [Ch. 4] and @theodoridis2025ml [Ch. 10].
 
 ### The Generative Approach
+
+Every generative classifier in this section ends with the same decision step, whatever model it uses for the
+class-conditional densities. The step is stated once here, so that Naive Bayes, LDA and QDA only have to say how they
+model $P(\mathbf{x}|y)$.
+
+:::: {.statement-box}
+::: {#def-sup-bayes-classifier}
+#### Bayes classification rule
 
 **Bayes' Rule for Classification:** Given an observation $\mathbf{x}$, the posterior probability of class $k$ is:
 
@@ -264,6 +677,10 @@ is the **marginal density** (evidence)
 
 $$\hat{y} = \arg\max_{k} P(y=k|\mathbf{x}) = \arg\max_{k} P(\mathbf{x}|y=k)P(y=k)$$
 
+:::
+
+::::
+
 Since $P(\mathbf{x})$ is constant across classes, it can be omitted from the maximization.
 
 **Advantages of Generative Models:** 1. Can generate synthetic data by sampling from $P(\mathbf{x}|y)$
@@ -276,10 +693,48 @@ predictions
 hold 3. Waste modeling capacity on $P(\mathbf{x}|y)$ when only $P(y|\mathbf{x})$ is needed 4. Can be outperformed by
 discriminative models with sufficient data
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two classes with known priors and density values at a point are enough to see the rule at work. The example shows that
+the class with the larger prior can still lose when its likelihood is small.
+
+::: {#exm-sup-bayes-two-classes}
+#### Prior against likelihood
+
+Let $P(y = 1) = 0.7$, $P(y = 2) = 0.3$, and at an observed $\mathbf{x}$ let $P(\mathbf{x}|y = 1) = 0.2$ and
+$P(\mathbf{x}|y = 2) = 0.6$. The products are $0.14$ and $0.18$, so $P(y = 1|\mathbf{x}) = 0.14/0.32 = 0.4375$,
+$P(y = 2|\mathbf{x}) = 0.5625$, and the rule assigns class 2 despite its smaller prior.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+With equal priors the rule of @def-sup-bayes-classifier reduces to maximum likelihood. The exercise asks for that
+reduction and for the decision boundary of two unit-variance Gaussians.
+
+::: {#exr-sup-bayes-gaussian-boundary}
+#### Boundary between two Gaussians
+
+Show that with equal priors the rule picks the class of largest likelihood. Find the decision boundary for the
+one-dimensional classes $\mathcal{N}(0, 1)$ and $\mathcal{N}(2, 1)$ with equal priors.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+If $P(y = k) = 1/K$ for all $k$, the factor $P(y = k)$ is common to all classes and drops out of the $\arg\max$. For the
+two Gaussians, compare $-x^2/2$ with $-(x - 2)^2/2$: class 1 wins iff $x^2 < (x - 2)^2$, iff $4x < 4$, iff $x < 1$. The
+boundary is the midpoint $x = 1$.
+:::
+::::
+
 ### Naive Bayes
 
 Naive Bayes is one of the simplest and most effective generative classifiers, based on a strong conditional independence
 assumption.
+
+The model is fixed by one assumption on the class-conditional density, after which @def-sup-bayes-classifier does the
+rest. The assumption and the resulting classification rule are stated together.
+
+:::: {.statement-box}
+::: {#def-sup-naive-bayes}
+#### Naive Bayes
 
 **The Naive Bayes Assumption:** Features are conditionally independent given the class:
 
@@ -290,6 +745,9 @@ This "naive" assumption dramatically simplifies the model, reducing the number o
 **Classification Rule:** Combining with Bayes' rule:
 
 $$\hat{y} = \arg\max_k P(y=k) \prod_{j=1}^p P(x_j|y=k)$$
+:::
+
+::::
 
 In practice, we work with log-probabilities to avoid numerical underflow:
 
@@ -350,10 +808,46 @@ dependent features
 **Applications:** - Text classification (spam filtering, sentiment analysis) - Medical diagnosis - Real-time prediction (very
 fast) - Baseline model for comparison
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A toy spam filter with two binary features shows how the product of per-feature probabilities is formed. The example
+is Bernoulli Naive Bayes with known parameters.
+
+::: {#exm-sup-naive-bayes-spam}
+#### A two-word spam filter
+
+Let $P(\text{spam}) = 0.4$, $P(\text{"free"}|\text{spam}) = 0.5$, $P(\text{"free"}|\text{ham}) = 0.05$,
+$P(\text{"meeting"}|\text{spam}) = 0.1$ and $P(\text{"meeting"}|\text{ham}) = 0.4$. An e-mail containing "free" but not
+"meeting" scores $0.4 \cdot 0.5 \cdot 0.9 = 0.18$ for spam and $0.6 \cdot 0.05 \cdot 0.6 = 0.018$ for ham, so
+$P(\text{spam}|\mathbf{x}) = 0.18/0.198 \approx 0.909$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Laplace smoothing keeps unseen features from forcing a posterior to zero. The exercise applies the multinomial estimate
+of the text to a small vocabulary.
+
+::: {#exr-sup-naive-bayes-smoothing}
+#### Laplace smoothing
+
+In class $k$ the word counts over a vocabulary of $p = 4$ words are $N_{jk} = (3, 0, 5, 2)$. Compute
+$\hat{\theta}_{jk}$ with $\alpha = 1$, and explain what goes wrong with $\alpha = 0$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$N_k = 10$, so $\hat{\theta}_{jk} = (N_{jk} + 1)/(10 + 4) = (4, 1, 6, 3)/14 \approx (0.286, 0.071, 0.429, 0.214)$,
+which sums to one. With $\alpha = 0$, $\hat{\theta}_{2k} = 0$, and any document containing word 2 gets
+$P(\mathbf{x}|y = k) = 0$, ruling out class $k$ whatever the other words say.
+:::
+::::
+
 ### Linear Discriminant Analysis (LDA)
 
 LDA is a generative classifier that assumes Gaussian class-conditional distributions with shared covariance structure. It provides
 a principled probabilistic framework while producing linear decision boundaries.
+
+:::: {.statement-box}
+::: {#def-sup-linear-discriminant-analysis}
+#### Linear discriminant analysis
 
 **Model Assumptions:** For each class $k$:
 
@@ -361,6 +855,10 @@ $$P(\mathbf{x}|y=k) = \mathcal{N}(\boldsymbol{\mu}_k, \boldsymbol{\Sigma})$$
 
 where: - $\boldsymbol{\mu}_k \in \mathbb{R}^p$ is the class-specific mean - $\boldsymbol{\Sigma} \in \mathbb{R}^{p \times p}$ is
 the shared covariance matrix
+
+:::
+
+::::
 
 The shared covariance assumption is key to obtaining linear decision boundaries.
 
@@ -432,15 +930,58 @@ Solutions include:
 **Diagonal LDA:** Assume $\boldsymbol{\Sigma}$ is diagonal 3. **Dimensionality reduction:** Use PCA before LDA (see
 @sec-dimensionality-reduction)
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+In one dimension the discriminant functions of LDA are affine in $x$ and the boundary is a single point. The example
+locates that point with equal priors and then shows how an unequal prior shifts it.
+
+::: {#exm-sup-lda-one-dimension}
+#### LDA on the line
+
+Take $\mu_1 = 0$, $\mu_2 = 2$ and $\Sigma = \sigma^2 = 1$. Then $\delta_1(x) = \log\pi_1$ and $\delta_2(x) = 2x - 2 +
+\log\pi_2$. With equal priors the boundary is $x = 1$. With $\pi_1 = 0.75$, $\pi_2 = 0.25$, it solves $2x - 2 = \log
+3$, so it moves to $x = 1 + (\log 3)/2 \approx 1.549$, away from the more probable class.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The Fisher direction $\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_2)$ differs from the mean
+difference when the features are correlated. The exercise computes it for a correlated covariance.
+
+::: {#exr-sup-lda-fisher-direction}
+#### A Fisher direction
+
+For $\boldsymbol{\mu}_1 = (1, 0)$, $\boldsymbol{\mu}_2 = (-1, 0)$ and $\boldsymbol{\Sigma} = \begin{pmatrix} 2 & 1 \\ 1
+& 2 \end{pmatrix}$, compute the normal vector of the LDA boundary.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\boldsymbol{\Sigma}^{-1} = \frac{1}{3}\begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}$ and $\boldsymbol{\mu}_1 -
+\boldsymbol{\mu}_2 = (2, 0)$, so $\mathbf{w} \propto \frac{1}{3}(4, -2) \propto (2, -1)$. The boundary is tilted away
+from the vertical line $x_1 = 0$ that the mean difference alone would suggest, because the covariance correlates the
+two features.
+:::
+::::
+
 ### Quadratic Discriminant Analysis (QDA)
 
 QDA relaxes the shared covariance assumption, allowing each class to have its own covariance matrix.
+
+Dropping the shared covariance changes a single line of the LDA model. The consequences, quadratic boundaries and many
+more parameters, are worked out after the definition.
+
+:::: {.statement-box}
+::: {#def-sup-quadratic-discriminant-analysis}
+#### Quadratic discriminant analysis
 
 **Model Assumptions:** For each class $k$:
 
 $$P(\mathbf{x}|y=k) = \mathcal{N}(\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$$
 
 where both $\boldsymbol{\mu}_k$ and $\boldsymbol{\Sigma}_k$ are class-specific.
+
+:::
+
+::::
 
 **Discriminant Function:** Following the same derivation as LDA, but now the $\mathbf{x}^T\boldsymbol{\Sigma}_k^{-1}\mathbf{x}$
 term is not constant:
@@ -484,6 +1025,35 @@ large relative to $p$, covariances clearly differ
 
 **Rule of Thumb:** Use LDA when $n < 10p$, consider QDA when $n > 10p$.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two classes with the same mean but different variances cannot be separated by LDA at all, but QDA separates them by
+spread. The example finds the two-point boundary.
+
+::: {#exm-sup-qda-same-mean}
+#### Same mean, different spread
+
+Let class 1 be $\mathcal{N}(0, 1)$, class 2 be $\mathcal{N}(0, 4)$, with equal priors. Then $\delta_1(x) = -x^2/2$ and
+$\delta_2(x) = -\log 2 - x^2/8$, and class 1 wins iff $3x^2/8 < \log 2$, that is $|x| < \sqrt{8\log 2/3} \approx
+1.360$. The region of class 1 is an interval, bounded by two points, which no linear rule can produce.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The parameter counts of the text decide in practice between LDA and QDA. The exercise evaluates them for a moderate
+problem.
+
+::: {#exr-sup-qda-parameter-count}
+#### Counting parameters
+
+For $p = 10$ features and $K = 3$ classes, count the mean and covariance parameters of LDA and QDA.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+LDA: $Kp + p(p + 1)/2 = 30 + 55 = 85$. QDA: $Kp + Kp(p + 1)/2 = 30 + 165 = 195$. The covariance part triples, and by
+the rule of thumb of the text QDA becomes reasonable once $n > 10p = 100$.
+:::
+::::
+
 ### Comparison with Discriminative Methods
 
 **Generative vs. Discriminative:**
@@ -492,6 +1062,26 @@ large relative to $p$, covariances clearly differ
 \sigma(\mathbf{w}^T\mathbf{x})$$
 
 **LDA (Generative):** Models $P(\mathbf{x}|y)$ and $P(y)$, derives $P(y|\mathbf{x})$ via Bayes' rule.
+
+The two models are closer than they look. When the LDA assumptions hold, the posterior it derives has exactly the
+functional form that logistic regression assumes, as the next proposition shows for two classes.
+
+:::: {.statement-box}
+::: {#prp-sup-lda-logistic-posterior}
+#### LDA posteriors are logistic
+
+Under the assumptions of @def-sup-linear-discriminant-analysis with two classes,
+$$P(y = 1|\mathbf{x}) = \sigma(\mathbf{w}^T\mathbf{x} + w_0), \quad \mathbf{w} =
+\boldsymbol{\Sigma}^{-1}(\boldsymbol{\mu}_1 - \boldsymbol{\mu}_2), \quad w_0 =
+-\tfrac{1}{2}\boldsymbol{\mu}_1^T\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_1 +
+\tfrac{1}{2}\boldsymbol{\mu}_2^T\boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}_2 + \log\frac{\pi_1}{\pi_2}.$$
+:::
+
+::::
+
+*Proof.* By Bayes' rule, $P(y = 1|\mathbf{x}) = 1/(1 + \exp(-a))$ with $a = \log\frac{P(\mathbf{x}|y = 1)\pi_1}{P(\mathbf{x}|y
+= 2)\pi_2} = \delta_1(\mathbf{x}) - \delta_2(\mathbf{x})$, where the class-independent terms cancel. By the LDA
+discriminant function, $\delta_1 - \delta_2 = \mathbf{w}^T\mathbf{x} + w_0$ with $\mathbf{w}$ and $w_0$ as stated.
 
 **Interesting Result:** If the Gaussian assumptions of LDA hold, the resulting $P(y|\mathbf{x})$ has the logistic form! However: -
 LDA makes stronger assumptions (Gaussian, shared covariance) - Logistic regression is more robust to assumption violations - LDA
@@ -517,6 +1107,38 @@ Interpretability is important
 However, discriminative methods like logistic regression (see @sec-linear-models) and SVMs (see @sec-margin-methods) often achieve
 better classification performance, especially with large datasets [@james2023statistical; @shalev2014ml; @bishop2024deeplearning].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The one-dimensional LDA of @exm-sup-lda-one-dimension can be rewritten as a logistic model. The example computes its
+weights and checks the boundary.
+
+::: {#exm-sup-lda-as-logistic}
+#### The logistic form of a one-dimensional LDA
+
+With $\mu_1 = 0$, $\mu_2 = 2$, $\sigma^2 = 1$ and equal priors, $w = \mu_1 - \mu_2 = -2$ and $w_0 = 0 + 2 + 0 = 2$, so
+$P(y = 1|x) = \sigma(2 - 2x)$. The probability is $0.5$ at $x = 1$, the boundary found before, and decreases toward the
+class-2 mean.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The comparison in the text also links LDA with a diagonal covariance to Naive Bayes. The exercise asks for the short
+argument.
+
+::: {#exr-sup-diagonal-lda-naive-bayes}
+#### Diagonal LDA is Naive Bayes
+
+Show that LDA with $\boldsymbol{\Sigma} = \text{diag}(\sigma_1^2, \ldots, \sigma_p^2)$ is Gaussian Naive Bayes with
+variances shared across classes.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With a diagonal covariance the Gaussian density factorizes, $\mathcal{N}(\mathbf{x}; \boldsymbol{\mu}_k,
+\boldsymbol{\Sigma}) = \prod_j \mathcal{N}(x_j; \mu_{jk}, \sigma_j^2)$, which is the Naive Bayes assumption of
+@def-sup-naive-bayes with Gaussian factors and $\sigma_{jk} = \sigma_j$. Both models then use the same classification
+rule.
+:::
+::::
+
 ## Margin-Based Methods {#sec-margin-methods}
 
 Margin-based methods represent a paradigm shift in classification: instead of merely finding any decision boundary that separates
@@ -540,6 +1162,10 @@ $$f(\mathbf{x}) = \mathbf{w}^T\mathbf{x} + w_0$$
 The decision rule is: $\hat{y} = \text{sign}(f(\mathbf{x}))$. Points with $f(\mathbf{x}) > 0$ are classified as +1, those with
 $f(\mathbf{x}) < 0$ as -1.
 
+:::: {.statement-box}
+::: {#def-sup-geometric-margin}
+#### Geometric margin
+
 **Geometric Margin:** Consider a point $\mathbf{x}_i$ and the hyperplane defined by $\mathbf{w}^T\mathbf{x} + w_0 = 0$. The
 perpendicular distance from $\mathbf{x}_i$ to this hyperplane is:
 
@@ -553,9 +1179,43 @@ The **margin** of the classifier is the minimum distance over all training point
 
 $$\gamma = \min_{i=1,\ldots,n} \gamma_i$$
 
+:::
+
+::::
+
 Intuitively, a large margin means the decision boundary is far from all training points, suggesting the classifier will generalize
 well to new data. This intuition is formalized by VC theory: the VC dimension of linear classifiers with margin $\gamma$ in a ball
 of radius $R$ is bounded by $R^2/\gamma^2$, independent of the ambient dimension $d$.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A concrete hyperplane and two points show how the margin is computed and why it is set by the closest point. The
+example uses the formula of @def-sup-geometric-margin directly.
+
+::: {#exm-sup-margin-two-points}
+#### Margin of a line in the plane
+
+For $\mathbf{w} = (1, 1)$, $w_0 = -1$, the point $(2, 2)$ with label $+1$ has $\gamma = (4 - 1)/\sqrt{2} \approx 2.121$,
+and $(0, 0)$ with label $-1$ has $\gamma = (-1)(-1)/\sqrt{2} \approx 0.707$. The margin is the smaller value,
+$0.707$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The margin should depend on the hyperplane only, not on how its equation is written. The exercise checks this
+invariance, which is what allows the canonical normalization of the SVM.
+
+::: {#exr-sup-margin-scaling}
+#### Invariance under rescaling
+
+Show that $\gamma_i$ is unchanged when $(\mathbf{w}, w_0)$ is replaced by $(c\mathbf{w}, cw_0)$ with $c > 0$, and changes
+sign for $c < 0$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\gamma_i(c) = y_i c(\mathbf{w}^T\mathbf{x}_i + w_0)/(|c|\|\mathbf{w}\|) = \text{sign}(c)\gamma_i$. For $c > 0$ nothing
+changes; for $c < 0$ the orientation of the normal flips and all signed distances change sign.
+:::
+::::
 
 **Hard-Margin SVM (Linearly Separable Case):**
 
@@ -568,8 +1228,17 @@ $$\max_{\mathbf{w}, w_0} \gamma \quad \text{s.t.} \quad \frac{y_i(\mathbf{w}^T\m
 By rescaling (multiplying $\mathbf{w}$ and $w_0$ by a constant doesn't change the hyperplane), we can set $\min_i
 y_i(\mathbf{w}^T\mathbf{x}_i + w_0) = 1$. This gives the canonical form:
 
+:::: {.statement-box}
+::: {#def-sup-hard-margin-svm}
+#### Hard-margin SVM
+
+For linearly separable data, the **hard-margin SVM** is the solution of the canonical problem
 $$\min_{\mathbf{w}, w_0} \frac{1}{2}\|\mathbf{w}\|^2 \quad \text{s.t.} \quad y_i(\mathbf{w}^T\mathbf{x}_i + w_0) \geq 1, \forall
 i$$
+
+:::
+
+::::
 
 The margin is now $\gamma = 2/\|\mathbf{w}\|$. Minimizing $\|\mathbf{w}\|^2$ (equivalently, $\frac{1}{2}\|\mathbf{w}\|^2$)
 maximizes the margin. The factor $\frac{1}{2}$ simplifies the derivative.
@@ -580,17 +1249,55 @@ boundaries) at distance $1/\|\mathbf{w}\|$ from the decision boundary. Points th
 boundary—removing any non-support vector doesn't change the solution. Typically, only a small fraction of training points are
 support vectors, making SVMs memory-efficient at test time.
 
-**Example:** Consider two-dimensional data with positive examples at $(1,1)$ and $(2,2)$, and negative examples at $(-1,-1)$ and
-$(-2,-2)$. The maximum-margin hyperplane passes through the origin with $\mathbf{w} = (1,1)^T$ (perpendicular to the line $y=x$).
-The support vectors are $(1,1)$ and $(-1,-1)$, the closest points to the boundary.
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Four symmetric points give a hard-margin SVM that can be found by inspection. The example identifies the boundary and the
+support vectors.
+
+::: {#exm-sup-hard-margin-four-points}
+#### Four points on a diagonal
+
+Consider two-dimensional data with positive examples at $(1,1)$ and $(2,2)$, and negative examples at $(-1,-1)$ and
+$(-2,-2)$. The maximum-margin hyperplane passes through the origin with normal vector along $(1,1)^T$: it is the line
+$x_1 + x_2 = 0$, perpendicular to the line $y=x$, and in canonical form $\mathbf{w} = (1/2, 1/2)^T$, $w_0 = 0$. The
+support vectors are $(1,1)$ and $(-1,-1)$, the closest points to the boundary.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Removing or adding a point that is not a support vector leaves the solution unchanged. The exercise verifies this on
+the smallest possible data set.
+
+::: {#exr-sup-hard-margin-two-points}
+#### Two points and a bystander
+
+Find the hard-margin SVM for $(1, 0)$ with label $+1$ and $(-1, 0)$ with label $-1$, and its margin. Show that adding
+the point $(2, 1)$ with label $+1$ does not change it.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By symmetry the boundary is $x_1 = 0$, so $\mathbf{w} = (c, 0)$, $w_0 = 0$; the constraints $y_i\mathbf{w}^T\mathbf{x}_i
+\geq 1$ require $c \geq 1$, and $\|\mathbf{w}\|$ is smallest at $c = 1$. The margin is $2/\|\mathbf{w}\| = 2$. For
+$(2, 1)$, $y(\mathbf{w}^T\mathbf{x} + w_0) = 2 \geq 1$, so the old solution stays feasible and optimal: the new point
+is not a support vector.
+:::
+::::
 
 **Soft-Margin SVM (Non-Separable Case):**
 
 Real data is rarely linearly separable. Outliers or overlapping classes make perfect separation impossible or undesirable (it
 would overfit). The soft-margin SVM introduces slack variables $\xi_i \geq 0$ that allow violations of the margin:
 
+:::: {.statement-box}
+::: {#def-sup-soft-margin-svm}
+#### Soft-margin SVM
+
+For $C > 0$, the **soft-margin SVM** solves
 $$\min_{\mathbf{w}, w_0, \boldsymbol{\xi}} \frac{1}{2}\|\mathbf{w}\|^2 + C\sum_{i=1}^n \xi_i$$ $$\text{s.t.} \quad
 y_i(\mathbf{w}^T\mathbf{x}_i + w_0) \geq 1 - \xi_i, \quad \xi_i \geq 0, \quad \forall i$$
+
+:::
+
+::::
 
 **Interpretation of Slack Variables:** - $\xi_i = 0$: Point is correctly classified with margin $\geq 1$ (outside or on the margin
 boundary) - $0 < \xi_i < 1$: Point is correctly classified but within the margin (between the margin boundary and decision
@@ -614,7 +1321,57 @@ $$\ell_{\text{hinge}}(y, f(\mathbf{x})) = \max(0, 1 - yf(\mathbf{x}))$$
 
 The hinge loss is convex and provides a margin-based upper bound on the 0-1 loss (see @sec-learning-theory for loss functions).
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The slack of a point measures by how much it violates the margin of a fixed hyperplane. The example computes it for
+three points in the three regimes listed above.
+
+::: {#exm-sup-slack-values}
+#### Three slack values
+
+For $\mathbf{w} = (1, 0)$, $w_0 = 0$ and label $+1$, the smallest feasible slack is $\xi = \max(0, 1 - x_1)$. The point
+$(3, 0)$ has $\xi = 0$ (outside the margin), $(0.5, 0)$ has $\xi = 0.5$ (inside the margin, correctly classified),
+and $(-0.2, 0)$ has $\xi = 1.2 > 1$ (misclassified).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The hinge-loss form of the soft-margin SVM rests on eliminating the slack variables from the problem. The exercise
+carries out that elimination and recovers the regularized hinge loss quoted in the text.
+
+::: {#exr-sup-slack-elimination}
+#### Eliminating the slack
+
+Show that at the optimum of @def-sup-soft-margin-svm, $\xi_i = \max(0, 1 - y_i(\mathbf{w}^T\mathbf{x}_i + w_0))$, and
+deduce the hinge-loss form of the problem.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For fixed $(\mathbf{w}, w_0)$ the constraints say $\xi_i \geq 1 - y_i f(\mathbf{x}_i)$ and $\xi_i \geq 0$, and the
+objective increases with each $\xi_i$, so the optimum takes the smallest allowed value, $\max(0, 1 - y_i
+f(\mathbf{x}_i))$. Substituting gives $\frac{1}{2}\|\mathbf{w}\|^2 + C\sum_i \max(0, 1 - y_i f(\mathbf{x}_i))$, the
+regularized hinge-loss problem.
+:::
+::::
+
 **Dual Formulation:**
+
+Lagrangian duality turns the soft-margin problem into a problem in one multiplier per training point. The dual is stated
+first and derived afterwards; it is the form in which kernels enter.
+
+:::: {.statement-box}
+::: {#prp-sup-svm-dual}
+#### Dual of the soft-margin SVM
+
+The dual problem of @def-sup-soft-margin-svm is
+$$\max_{\boldsymbol{\alpha}} \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i,j=1}^n \alpha_i\alpha_j y_i y_j
+\mathbf{x}_i^T\mathbf{x}_j$$ $$\text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0$$
+
+and the primal solution is $\mathbf{w} = \sum_i \alpha_i y_i \mathbf{x}_i$.
+:::
+
+::::
+
+*Proof.*
 
 Using Lagrange multipliers $\alpha_i \geq 0$ for the margin constraints and $\mu_i \geq 0$ for $\xi_i \geq 0$, the Lagrangian is:
 
@@ -630,10 +1387,8 @@ $$\frac{\partial \mathcal{L}}{\partial w_0} = -\sum_i \alpha_i y_i = 0 \implies 
 
 $$\frac{\partial \mathcal{L}}{\partial \xi_i} = C - \alpha_i - \mu_i = 0 \implies \alpha_i + \mu_i = C$$
 
-Substituting back gives the dual problem:
-
-$$\max_{\boldsymbol{\alpha}} \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i,j=1}^n \alpha_i\alpha_j y_i y_j
-\mathbf{x}_i^T\mathbf{x}_j$$ $$\text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0$$
+Substituting back gives the dual problem stated above, since $\boldsymbol{\mu}$ drops out through $\alpha_i + \mu_i = C$
+and $\mu_i \geq 0$ becomes $\alpha_i \leq C$.
 
 This is a quadratic programming (QP) problem with linear constraints.
 
@@ -656,12 +1411,57 @@ $$w_0 = y_i - \sum_{j=1}^n \alpha_j y_j \mathbf{x}_j^T\mathbf{x}_i \quad \text{f
 
 In practice, average over all such support vectors for numerical stability.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two points on a line give a dual with a single free multiplier. The example solves it and recovers the primal solution
+of @exr-sup-hard-margin-two-points.
+
+::: {#exm-sup-svm-dual-two-points}
+#### Solving a dual by hand
+
+For $\mathbf{x}_1 = (1, 0)$, $y_1 = 1$ and $\mathbf{x}_2 = (-1, 0)$, $y_2 = -1$, the constraint $\sum_i\alpha_i y_i = 0$
+forces $\alpha_1 = \alpha_2 = \alpha$. The quadratic term is $\alpha^2(1 + 1 + 2 \cdot (1)(-1)(-1)) = 4\alpha^2$, so
+the dual objective is $2\alpha - 2\alpha^2$, maximized at $\alpha = 1/2$ (if $C \geq 1/2$). Then $\mathbf{w} =
+\frac{1}{2}(1, 0) + \frac{1}{2}(-1)(-1, 0) = (1, 0)$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The intercept is not part of the dual and must be recovered from a support vector on the margin. The exercise does
+this and checks complementary slackness for the solution just found.
+
+::: {#exr-sup-svm-intercept}
+#### Recovering the intercept
+
+For @exm-sup-svm-dual-two-points with $C = 1$, compute $w_0$ from the formula of the text and check the KKT conditions.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Both multipliers satisfy $0 < \alpha_i = 1/2 < C$, so either point can be used: $w_0 = y_1 - \sum_j \alpha_j y_j
+\mathbf{x}_j^T\mathbf{x}_1 = 1 - (\frac{1}{2} \cdot 1 \cdot 1 + \frac{1}{2}(-1)(-1)) = 0$. Both points satisfy $y_i
+f(\mathbf{x}_i) = 1$ with $\xi_i = 0$, so $\alpha_i[y_i f(\mathbf{x}_i) - 1 + \xi_i] = 0$, and $\mu_i = C - \alpha_i =
+1/2$ with $\mu_i\xi_i = 0$.
+:::
+::::
+
+### The Kernel Trick
+
+The dual of @prp-sup-svm-dual touches the data only through inner products. Replacing those inner products by another
+function of two points is the kernel trick, and the next definition fixes what such a function must be.
+
+:::: {.statement-box}
+::: {#def-sup-kernel}
+#### Kernel
+
 **Kernel Trick:** The dual formulation only requires inner products $\mathbf{x}_i^T\mathbf{x}_j$. We can replace these with a
 kernel function:
 
 $$K(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T\phi(\mathbf{x}_j)$$
 
 where $\phi: \mathbb{R}^d \to \mathcal{H}$ maps to a (possibly infinite-dimensional) feature space $\mathcal{H}$.
+
+:::
+
+::::
 
 **Dual with Kernels:**
 
@@ -687,11 +1487,89 @@ $$f(\mathbf{x}) = \sum_{i=1}^n \alpha_i y_i K(\mathbf{x}_i, \mathbf{x}) + w_0$$
 4. **Sigmoid:** $K(\mathbf{x}, \mathbf{x}') = \tanh(\gamma\mathbf{x}^T\mathbf{x}' + r)$
 - Related to neural networks
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The polynomial kernel of degree two in the plane has a feature map small enough to write down. The example checks that
+the kernel and the inner product of features agree.
+
+::: {#exm-sup-polynomial-kernel-features}
+#### Explicit features of a quadratic kernel
+
+For $K(\mathbf{x}, \mathbf{x}') = (\mathbf{x}^T\mathbf{x}')^2$ on $\mathbb{R}^2$, take $\phi(\mathbf{x}) = (x_1^2,
+\sqrt{2}x_1x_2, x_2^2)$. For $\mathbf{x} = (1, 2)$, $\mathbf{x}' = (3, 1)$: $\mathbf{x}^T\mathbf{x}' = 5$, so $K = 25$,
+while $\phi(\mathbf{x})^T\phi(\mathbf{x}') = (1, 2\sqrt{2}, 4) \cdot (9, 3\sqrt{2}, 1) = 9 + 12 + 4 = 25$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+A kernel determines distances in feature space, not only inner products. The exercise computes them for the RBF kernel,
+whose features turn out to lie on a sphere.
+
+::: {#exr-sup-rbf-distance}
+#### Distances under the RBF kernel
+
+For the RBF kernel, show that $K(\mathbf{x}, \mathbf{x}) = 1$ and $\|\phi(\mathbf{x}) - \phi(\mathbf{x}')\|^2 = 2 -
+2K(\mathbf{x}, \mathbf{x}')$. What happens for points far apart?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$K(\mathbf{x}, \mathbf{x}) = e^0 = 1$, so every $\phi(\mathbf{x})$ is a unit vector. Expanding,
+$\|\phi(\mathbf{x}) - \phi(\mathbf{x}')\|^2 = K(\mathbf{x}, \mathbf{x}) + K(\mathbf{x}', \mathbf{x}') - 2K(\mathbf{x},
+\mathbf{x}') = 2 - 2K(\mathbf{x}, \mathbf{x}')$. For far-apart points $K \to 0$ and the features become orthogonal, at
+distance $\sqrt{2}$.
+:::
+::::
+
+Not every symmetric function of two points is an inner product of features. Mercer's theorem gives a test that uses
+only kernel values on finite sets of points.
+
+:::: {.statement-box}
+::: {#thm-sup-mercer}
+#### Mercer's Theorem
+
 **Mercer's Theorem:** A function $K$ is a valid kernel if and only if the kernel matrix $\mathbf{K}$ with $K_{ij} =
 K(\mathbf{x}_i, \mathbf{x}_j)$ is positive semi-definite for any set of points.
 
+:::
+
+::::
+
+The proof, which constructs the feature space from the kernel, is not given here.
+
 **Kernel Properties:** - **Closure under addition:** $K_1 + K_2$ is a kernel - **Closure under multiplication:** $K_1 \cdot K_2$
 is a kernel - **Closure under scaling:** $cK$ is a kernel for $c > 0$
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The criterion can be applied to a two-point set, where the kernel matrix is $2 \times 2$. The example shows one function
+that passes and one that fails.
+
+::: {#exm-sup-mercer-gram-matrices}
+#### A valid and an invalid kernel
+
+For the linear kernel on the points $1, 2 \in \mathbb{R}$, $\mathbf{K} = \begin{pmatrix} 1 & 2 \\ 2 & 4
+\end{pmatrix}$ with eigenvalues $0$ and $5$, which is positive semi-definite. For $K(x, x') = -(x - x')^2$ on the points
+$0, 1$, $\mathbf{K} = \begin{pmatrix} 0 & -1 \\ -1 & 0 \end{pmatrix}$ has eigenvalue $-1$, so it is not a kernel.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The closure properties listed above follow from the criterion of @thm-sup-mercer applied to finite sets of points. The
+exercise proves two of them and points to the proof of the third.
+
+::: {#exr-sup-kernel-closure}
+#### Closure under sums and scaling
+
+Show with Mercer's criterion that $K_1 + K_2$ and $cK$ ($c > 0$) are kernels when $K_1$, $K_2$, $K$ are.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+On any finite set of points the kernel matrices satisfy $\mathbf{K}_{K_1 + K_2} = \mathbf{K}_1 + \mathbf{K}_2$ and
+$\mathbf{K}_{cK} = c\mathbf{K}$. For any vector $\mathbf{a}$, $\mathbf{a}^T(\mathbf{K}_1 + \mathbf{K}_2)\mathbf{a} =
+\mathbf{a}^T\mathbf{K}_1\mathbf{a} + \mathbf{a}^T\mathbf{K}_2\mathbf{a} \geq 0$ and $\mathbf{a}^Tc\mathbf{K}\mathbf{a} =
+c\,\mathbf{a}^T\mathbf{K}\mathbf{a} \geq 0$. (Closure under products follows similarly from the Schur product theorem.)
+:::
+::::
+
+### SVMs in Practice
 
 **Optimization Algorithms:**
 
@@ -795,6 +1673,13 @@ For more on this topic, see @james2023statistical [Ch. 8].
 
 Decision trees are non-parametric supervised learning methods that recursively partition the feature space using a tree structure.
 
+The parts of a tree and the prediction made in a leaf are the vocabulary of the whole section. They are collected in
+one definition, for regression and classification alike.
+
+:::: {.statement-box}
+::: {#def-sup-decision-tree}
+#### Decision tree
+
 **Tree Structure:** A decision tree consists of: - **Root node:** Contains all training data - **Internal nodes:** Represent
 decision rules (splits) on features - **Branches:** Represent outcomes of decision rules - **Leaf nodes (terminal nodes):**
 Contain predictions
@@ -807,7 +1692,40 @@ prediction at reached leaf node
 **Classification Trees:** Predict majority class or class probabilities $\hat{p}_k = \frac{1}{|R|}\sum_{i:x_i \in R}
 \mathbb{1}_{[y_i=k]}$
 
-#### Growing Trees: Recursive Binary Splitting
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A tree with a single split on one feature already shows both the routing of an input and the prediction in a leaf. The
+example builds one for four regression observations.
+
+::: {#exm-sup-tree-one-split}
+#### A one-split regression tree
+
+For $x = (1, 1.5, 3, 4)$ and $y = (1, 2, 6, 8)$, split the root at $x < 2$. The left leaf contains $y = 1, 2$ and
+predicts $1.5$; the right leaf contains $y = 6, 8$ and predicts $7$. A new input $x = 3.5$ follows the right branch and
+receives the prediction $7$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+In a classification leaf the prediction is a vector of class proportions. The exercise computes it and the resulting
+majority vote.
+
+::: {#exr-sup-tree-leaf-proportions}
+#### Class proportions in a leaf
+
+A leaf contains the labels $A, A, B, A, C$. Compute $\hat{p}_k$ for each class and the predicted class.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\hat{p}_A = 3/5 = 0.6$, $\hat{p}_B = 0.2$, $\hat{p}_C = 0.2$, which sum to one. The leaf predicts the majority class
+$A$, or the vector $(0.6, 0.2, 0.2)$ when class probabilities are wanted.
+:::
+::::
+
+### Growing Trees: Recursive Binary Splitting
 
 **Algorithm (Top-Down Greedy):**
 
@@ -826,6 +1744,10 @@ $$\min_{j,s} \left\{ \min_{c_1} \sum_{i:x_i \in R_1(j,s)}(y_i - c_1)^2 + \min_{c
 
 The optimal constants are the region means: $\hat{c}_1 = \text{avg}(y_i: x_i \in R_1)$, $\hat{c}_2 = \text{avg}(y_i: x_i \in
 R_2)$.
+
+:::: {.statement-box}
+::: {#def-sup-node-impurity}
+#### Node impurity
 
 **For Classification:** Minimize node impurity. Let $\hat{p}_{mk}$ be the proportion of class $k$ in node $m$.
 
@@ -849,12 +1771,54 @@ $$\Delta I = I_m - \frac{|m_L|}{|m|} I_{m_L} - \frac{|m_R|}{|m|} I_{m_R}$$
 
 where $I$ is the impurity measure and $|m|$ is the number of samples in node $m$.
 
+:::
+
+::::
+
 **Stopping Criteria:** 1. Maximum depth reached 2. Minimum samples per node 3. Minimum impurity decrease 4. All samples in node
 have same label
 
-#### Pruning
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A balanced node split into two nearly pure children shows the Gini index and the impurity reduction at work. The
+example computes both for ten samples.
+
+::: {#exm-sup-gini-split}
+#### Impurity reduction of a split
+
+A node with $5$ samples of each of two classes has $G = 1 - 0.25 - 0.25 = 0.5$ and $D = \log 2 \approx 0.693$. Split
+it into children with class counts $(4, 1)$ and $(1, 4)$: each child has $G = 1 - 0.64 - 0.04 = 0.32$, so $\Delta I =
+0.5 - \frac{1}{2}0.32 - \frac{1}{2}0.32 = 0.18$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The interpretation of the Gini index says it vanishes on pure nodes and peaks on uniform ones. The exercise proves both
+claims.
+
+::: {#exr-sup-gini-extremes}
+#### Extremes of the Gini index
+
+Show that $0 \leq G_m \leq 1 - 1/K$, with $G_m = 0$ iff the node is pure and $G_m = 1 - 1/K$ iff all classes are
+equally frequent.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$G_m = \sum_k \hat{p}_{mk}(1 - \hat{p}_{mk}) \geq 0$, with equality iff each $\hat{p}_{mk} \in \{0, 1\}$, that is, one
+class has proportion $1$. By Cauchy-Schwarz, $1 = (\sum_k \hat{p}_{mk})^2 \leq K\sum_k \hat{p}_{mk}^2$, so $G_m = 1 -
+\sum_k \hat{p}_{mk}^2 \leq 1 - 1/K$, with equality iff all $\hat{p}_{mk} = 1/K$.
+:::
+::::
+
+### Pruning
 
 Fully grown trees overfit. **Pruning** reduces tree size to improve generalization.
+
+The criterion below makes the trade-off between fit and size explicit, with one tuning parameter that prices each
+leaf. Pruning then means minimizing it over the subtrees of a large tree.
+
+:::: {.statement-box}
+::: {#def-sup-cost-complexity}
+#### Cost-complexity criterion
 
 **Cost-Complexity Pruning (Weakest Link Pruning):**
 
@@ -864,6 +1828,10 @@ $$C_\alpha(T) = \sum_{m=1}^{|T|} \sum_{i:x_i \in R_m}(y_i - \hat{y}_{R_m})^2 + \
 
 where: - First term: Training error - Second term: Complexity penalty - $\alpha \geq 0$: Tuning parameter controlling trade-off
 
+:::
+
+::::
+
 **Algorithm:** 1. Grow large tree $T_0$
 2. For increasing $\alpha$, find subtree $T_\alpha \subseteq T_0$ minimizing $C_\alpha(T)$
 3. Use cross-validation to select $\alpha^*$ (see @sec-model-selection) 4. Return $T_{\alpha^*}$
@@ -871,7 +1839,39 @@ where: - First term: Training error - Second term: Complexity penalty - $\alpha 
 **Efficient Implementation:** For each $\alpha$, can find $T_\alpha$ by recursively collapsing the internal node that produces
 smallest increase in training error per leaf removed.
 
-#### Advantages and Disadvantages
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two candidate trees trade training error against size. The example finds the value of $\alpha$ at which the criterion
+switches from one to the other.
+
+::: {#exm-sup-cost-complexity-switch}
+#### Where the penalty takes over
+
+Let $T_1$ have $1$ leaf with training error $50$ and $T_2$ have $4$ leaves with training error $20$. Then $C_\alpha(T_1)
+= 50 + \alpha$ and $C_\alpha(T_2) = 20 + 4\alpha$, which are equal at $\alpha = 10$. For $\alpha < 10$ the larger tree
+$T_2$ is preferred, for $\alpha > 10$ the stump $T_1$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The two ends of the range of $\alpha$ should give the full tree and the root. The exercise proves this, using that a
+split never increases training error.
+
+::: {#exr-sup-cost-complexity-extremes}
+#### The extremes of $\alpha$
+
+Show that for $\alpha = 0$ the full tree $T_0$ minimizes $C_\alpha$ among its subtrees, and that for $\alpha$ large
+enough the root alone does.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Splitting a region never increases its sum of squares: the parent's constant is a feasible choice for both children,
+and the child means do at least as well. So training error decreases along refinements and $T_0$ minimizes $C_0$. The
+training error of any subtree is at most that of the root, $\text{TSS}$, so a subtree with $|T| \geq 2$ has
+$C_\alpha(T) \geq 2\alpha > \text{TSS} + \alpha$ as soon as $\alpha > \text{TSS}$, and the root wins.
+:::
+::::
+
+### Advantages and Disadvantages
 
 **Advantages:** 1. **Interpretable:** Easy to visualize and explain 2. **No preprocessing:** Handle mixed data types, no scaling
 needed 3. **Nonlinear:** Capture complex interactions automatically 4. **Feature selection:** Implicitly select important features
@@ -894,6 +1894,22 @@ $$\hat{f}_{\text{ensemble}}(\mathbf{x}) = \frac{1}{B}\sum_{b=1}^B \hat{f}_b(\mat
 $$\hat{y}_{\text{ensemble}}(\mathbf{x}) = \text{majority vote of } \{\hat{f}_b(\mathbf{x})\}_{b=1}^B \quad
 \text{(classification)}$$
 
+The variance computation behind ensembles is short enough to state and prove. It shows what averaging gains and where
+the gain stops.
+
+:::: {.statement-box}
+::: {#prp-sup-ensemble-variance}
+#### Variance of an average
+
+If $\hat{f}_1, \ldots, \hat{f}_B$ each have variance $\sigma^2$ and every pair has correlation $\rho$, then
+$$\text{Var}\left(\frac{1}{B}\sum_{b=1}^B \hat{f}_b\right) = \rho\sigma^2 + \frac{1-\rho}{B}\sigma^2.$$
+:::
+
+::::
+
+*Proof.* The variance of the sum is the sum of all covariances: $B$ variances $\sigma^2$ and $B(B - 1)$ covariances
+$\rho\sigma^2$. Dividing by $B^2$ gives $\sigma^2/B + (B - 1)\rho\sigma^2/B = \rho\sigma^2 + (1 - \rho)\sigma^2/B$.
+
 **Why Ensembles Work:** Consider $B$ independent models with variance $\sigma^2$. The ensemble variance is:
 
 $$\text{Var}\left(\frac{1}{B}\sum_{b=1}^B \hat{f}_b\right) = \frac{\sigma^2}{B}$$
@@ -906,9 +1922,45 @@ $$\text{Var}\left(\frac{1}{B}\sum_{b=1}^B \hat{f}_b\right) = \rho\sigma^2 + \fra
 
 As $B \to \infty$: variance approaches $\rho\sigma^2$. Key insight: **decorrelating models is crucial**.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A moderate correlation already caps the benefit of averaging. The example evaluates the formula for ten models and for
+infinitely many.
+
+::: {#exm-sup-ensemble-variance-numbers}
+#### Correlated averages
+
+With $\sigma^2 = 1$ and $\rho = 0.3$, ten models give variance $0.3 + 0.7/10 = 0.37$, and infinitely many give $0.3$.
+Independent models ($\rho = 0$) would give $0.1$ for ten and $0$ in the limit.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+How many models are worth averaging depends on $\rho$. The exercise asks when the ensemble is within ten percent of
+its limit.
+
+::: {#exr-sup-ensemble-size}
+#### How large an ensemble?
+
+For which $B$ is the variance of @prp-sup-ensemble-variance within $10\%$ of its limit $\rho\sigma^2$? Evaluate for
+$\rho = 0.3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+We need $(1 - \rho)\sigma^2/B \leq 0.1\rho\sigma^2$, that is $B \geq 10(1 - \rho)/\rho$. For $\rho = 0.3$ this is $B
+\geq 23.3$, so $24$ models suffice.
+:::
+::::
+
 ### Bagging (Bootstrap Aggregating)
 
 Bagging reduces variance by training models on bootstrap samples and averaging predictions.
+
+The algorithm is the definition: bootstrap samples, one model per sample, and an average or a vote. It is stated for
+any base learner, although trees are the usual choice.
+
+:::: {.statement-box}
+::: {#def-sup-bagging}
+#### Bagging
 
 **Algorithm:**
 
@@ -917,6 +1969,10 @@ Bagging reduces variance by training models on bootstrap samples and averaging p
 2. For regression: $\hat{f}_{\text{bag}}(\mathbf{x}) = \frac{1}{B}\sum_{b=1}^B \hat{f}_b(\mathbf{x})$
 3. For
    classification: $\hat{y}_{\text{bag}}(\mathbf{x}) = \text{majority vote of } \{\hat{f}_b(\mathbf{x})\}_{b=1}^B$
+
+:::
+
+::::
 
 **Bootstrap Sampling:** Each bootstrap sample: - Contains $n$ observations sampled with replacement - On average, includes $(1 -
 1/e) \approx 63.2\%$ of unique training observations - Remaining $\approx 36.8\%$ are "out-of-bag" (OOB)
@@ -943,9 +1999,46 @@ OOB error 4. Importance = increase in error
 
 Large increase indicates important feature.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The fraction of observations left out of a bootstrap sample approaches $1/e$ quickly. The example evaluates it for a
+small sample and in the limit.
+
+::: {#exm-sup-bootstrap-out-of-bag}
+#### The out-of-bag fraction
+
+An observation is missed by one draw with probability $1 - 1/n$, hence by all $n$ draws with probability $(1 -
+1/n)^n$. For $n = 10$ this is $0.9^{10} \approx 0.349$, and as $n \to \infty$ it tends to $1/e \approx 0.368$, the
+out-of-bag fraction quoted above.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Counting distinct observations in a bootstrap sample is a direct application of the same probability. The exercise
+does it for three observations.
+
+::: {#exr-sup-bootstrap-distinct}
+#### Distinct observations in a bootstrap sample
+
+For $n = 3$, compute the probability that a given observation is out of bag and the expected number of distinct
+observations in a bootstrap sample.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The out-of-bag probability is $(2/3)^3 = 8/27 \approx 0.296$. By linearity of expectation, the expected number of
+distinct observations is $3(1 - 8/27) = 19/9 \approx 2.11$.
+:::
+::::
+
 ### Random Forests
 
 Random Forests extend bagging by decorrelating trees through random feature selection.
+
+A random forest changes one step of bagged trees, the choice of the split. The definition records that change and the
+algorithm it produces.
+
+:::: {.statement-box}
+::: {#def-sup-random-forest}
+#### Random forest
 
 **Key Modification:** At each split, consider only $m$ randomly selected features (instead of all $p$).
 
@@ -955,6 +2048,10 @@ Random Forests extend bagging by decorrelating trees through random feature sele
 - Grow tree $T_b$ on $S_b$: - At each node, randomly select $m$ features
    - Find best split among these $m$ features - Split node - Grow to maximum depth (no pruning) 2. Aggregate predictions as in
    bagging
+
+:::
+
+::::
 
 **Hyperparameter $m$:** - **Classification:** Default $m = \sqrt{p}$
 - **Regression:** Default $m = p/3$
@@ -979,6 +2076,35 @@ Further decorrelate by: 1. Using full training set (no bootstrap) 2. Selecting s
 
 Often faster and sometimes more accurate.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The default values of $m$ give concrete numbers of candidate features per split. The example lists them for a
+classification and a regression problem.
+
+::: {#exm-sup-random-forest-m}
+#### Candidate features per split
+
+With $p = 16$ features, a classification forest uses $m = \sqrt{16} = 4$ candidates per split. With $p = 30$, a
+regression forest uses $m = 30/3 = 10$. With $m = p$ the forest is plain bagging, by @def-sup-bagging.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Random feature selection decorrelates trees because a dominant feature is often unavailable at a split. The exercise
+computes how often this happens for the default value of $m$.
+
+::: {#exr-sup-random-forest-strong-feature}
+#### Hiding a strong feature
+
+At a split, $m$ of the $p$ features are drawn without replacement. Find the probability that a given feature is not
+among them, and evaluate it for $p = 16$, $m = 4$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The probability is $\binom{p - 1}{m}/\binom{p}{m} = (p - m)/p$. For $p = 16$, $m = 4$ it is $12/16 = 0.75$: three
+splits in four cannot use the strongest feature, and must find structure elsewhere, which decorrelates the trees.
+:::
+::::
+
 ### Boosting
 
 Boosting sequentially trains models, each focusing on mistakes of previous models. Unlike bagging (parallel), boosting is
@@ -986,9 +2112,16 @@ sequential.
 
 **Core Idea:** Combine many weak learners (slightly better than random) to create a strong learner.
 
-#### AdaBoost (Adaptive Boosting)
+### AdaBoost (Adaptive Boosting)
 
 AdaBoost for binary classification with $y \in \{-1, +1\}$.
+
+AdaBoost reweights the observations after every round and weights each classifier by its accuracy. The full algorithm
+is the definition.
+
+:::: {.statement-box}
+::: {#def-sup-adaboost}
+#### AdaBoost
 
 **Algorithm:**
 
@@ -1005,9 +2138,14 @@ AdaBoost for binary classification with $y \in \{-1, +1\}$.
    
    d. Update observation weights: $$w_i^{(m+1)} = w_i^{(m)} \exp(\alpha_m \mathbb{1}_{[y_i \neq G_m(\mathbf{x}_i)]})$$
    
-   Equivalently: $w_i^{(m+1)} = w_i^{(m)} \exp(-\alpha_m y_i G_m(\mathbf{x}_i))$
+   Equivalently, up to normalization of the weights and with $\alpha_m$ replaced by $\alpha_m/2$: $w_i^{(m+1)} = w_i^{(m)}
+   \exp(-\alpha_m y_i G_m(\mathbf{x}_i))$
 
 3. Output final classifier: $$G(\mathbf{x}) = \text{sign}\left(\sum_{m=1}^M \alpha_m G_m(\mathbf{x})\right)$$
+
+:::
+
+::::
 
 **Interpretation:** - $\alpha_m$ large when $\text{err}_m$ small (accurate classifiers get more weight) - Misclassified
 observations get increased weight (focus on hard examples) - Correctly classified observations get decreased weight
@@ -1018,17 +2156,97 @@ $$L(y, f(\mathbf{x})) = \exp(-y f(\mathbf{x}))$$
 
 where $f(\mathbf{x}) = \sum_{m=1}^M \alpha_m G_m(\mathbf{x})$.
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+One round of AdaBoost with ten observations shows how the weight update rebalances the data. The example follows the
+weights of the misclassified points.
+
+::: {#exm-sup-adaboost-round}
+#### One boosting round
+
+With $n = 10$ and uniform weights, let $G_1$ misclassify three points, so $\text{err}_1 = 0.3$ and $\alpha_1 = \log(7/3)
+\approx 0.847$. The three misclassified weights are multiplied by $7/3$, to $0.7/3$ each; after normalization the
+misclassified points carry total weight $0.7/1.4 = 0.5$ and the correctly classified ones the other $0.5$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The balance seen in the example holds in general, which is why the next classifier cannot simply repeat the last one.
+The exercise proves it.
+
+::: {#exr-sup-adaboost-half}
+#### The previous classifier becomes a coin flip
+
+Show that after the update of @def-sup-adaboost, the weighted error of $G_m$ under the weights $w^{(m+1)}$ is exactly
+$1/2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Normalize so that $\sum_i w_i^{(m)} = 1$. The misclassified mass $\text{err}_m$ is multiplied by $e^{\alpha_m} = (1 -
+\text{err}_m)/\text{err}_m$, becoming $1 - \text{err}_m$, while the correctly classified mass stays $1 - \text{err}_m$.
+The weighted error of $G_m$ is therefore $(1 - \text{err}_m)/(2(1 - \text{err}_m)) = 1/2$.
+:::
+::::
+
+The exponential loss explains why AdaBoost drives the training error down so fast. The next theorem bounds the training
+error by a product over rounds.
+
 **Training Error Bound:**
 
-$$\frac{1}{n}\sum_{i=1}^n \mathbb{1}_{[y_i \neq G(\mathbf{x}_i)]} \leq \prod_{m=1}^M \sqrt{(1-\text{err}_m)\text{err}_m} =
+:::: {.statement-box}
+::: {#thm-sup-adaboost-training-error}
+#### AdaBoost training error bound
+
+$$\frac{1}{n}\sum_{i=1}^n \mathbb{1}_{[y_i \neq G(\mathbf{x}_i)]} \leq \prod_{m=1}^M 2\sqrt{(1-\text{err}_m)\text{err}_m} =
 \prod_{m=1}^M \sqrt{1 - 4\gamma_m^2}$$
 
 where $\gamma_m = 1/2 - \text{err}_m$ is the edge. If each $\gamma_m \geq \gamma > 0$, training error decreases exponentially.
+:::
+
+::::
+
+*Proof.* The sign of $f = \sum_m \alpha_m G_m$ does not change if all $\alpha_m$ are halved, so take $\alpha_m =
+\frac{1}{2}\log\frac{1 - \text{err}_m}{\text{err}_m}$ and normalized weights updated by $w_i^{(m+1)} =
+w_i^{(m)}e^{-\alpha_m y_i G_m(\mathbf{x}_i)}/Z_m$. A misclassified point has $y_i f(\mathbf{x}_i) \leq 0$, so
+$\mathbb{1}_{[y_i \neq G(\mathbf{x}_i)]} \leq e^{-y_i f(\mathbf{x}_i)}$, and unrolling the updates gives $\frac{1}{n}\sum_i
+e^{-y_i f(\mathbf{x}_i)} = \prod_m Z_m$. Finally $Z_m = (1 - \text{err}_m)e^{-\alpha_m} + \text{err}_m e^{\alpha_m} =
+2\sqrt{\text{err}_m(1 - \text{err}_m)}$, and $4\,\text{err}_m(1 - \text{err}_m) = (1 - 2\gamma_m)(1 + 2\gamma_m) = 1 -
+4\gamma_m^2$.
 
 **Generalization:** AdaBoost has remarkable generalization properties. Even after training error reaches zero, test error often
 continues to decrease with more iterations! This is explained by margin theory (see @sec-margin-methods).
 
-#### Gradient Boosting
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+An edge of $0.1$ per round is small, yet the bound decays geometrically. The example evaluates it after 100 and 200
+rounds.
+
+::: {#exm-sup-adaboost-bound-numbers}
+#### A weak edge, many rounds
+
+With $\gamma_m = 0.1$, each factor is $\sqrt{0.96} \approx 0.980$. After $M = 100$ rounds the bound is $0.96^{50}
+\approx 0.130$, after $M = 200$ it is $0.96^{100} \approx 0.017$. For $n = 50$ points the training error is a multiple
+of $0.02$, so it is zero once the bound drops below $0.02$, which happens for $M \geq 192$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The bound turns into a number of rounds after which the training error must vanish. The exercise derives that number
+for a constant edge.
+
+::: {#exr-sup-adaboost-rounds}
+#### Rounds to zero training error
+
+Assume $\gamma_m \geq \gamma > 0$ for all $m$. Show that the training error is zero once $M > 2\log n/(-\log(1 -
+4\gamma^2))$, and that this is approximately $\log n/(2\gamma^2)$ for small $\gamma$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By @thm-sup-adaboost-training-error the training error is at most $(1 - 4\gamma^2)^{M/2}$. It is a multiple of $1/n$,
+so it is zero once the bound is below $1/n$, that is $(M/2)(-\log(1 - 4\gamma^2)) > \log n$. For small $\gamma$,
+$-\log(1 - 4\gamma^2) \approx 4\gamma^2$, giving $M > \log n/(2\gamma^2)$.
+:::
+::::
+
+### Gradient Boosting
 
 Gradient Boosting is a general framework that views boosting as gradient descent in function space.
 
@@ -1037,6 +2255,10 @@ Gradient Boosting is a general framework that views boosting as gradient descent
 $$L(f) = \sum_{i=1}^n \ell(y_i, f(\mathbf{x}_i))$$
 
 where $f(\mathbf{x}) = \sum_{m=0}^M h_m(\mathbf{x})$ is the ensemble.
+
+:::: {.statement-box}
+::: {#def-sup-gradient-boosting}
+#### Gradient boosting machine
 
 **Algorithm (Gradient Boosting Machine):**
 
@@ -1057,6 +2279,10 @@ where $f(\mathbf{x}) = \sum_{m=0}^M h_m(\mathbf{x})$ is the ensemble.
    where $\nu \in (0,1]$ is the learning rate (shrinkage)
 
 3. Output: $f_M(\mathbf{x})$
+
+:::
+
+::::
 
 **Common Loss Functions:**
 
@@ -1111,6 +2337,36 @@ Tree-based ensemble methods are among the most powerful techniques for tabular d
 many real-world problems. They combine the interpretability of trees with the predictive power of ensembles, making them a go-to
 choice for practitioners [@james2023statistical; @shalev2014ml; @theodoridis2025ml].
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With squared error the pseudo-residuals are ordinary residuals, so gradient boosting fits trees to what is left over. The
+example carries out the first step on three points.
+
+::: {#exm-sup-gradient-boosting-squared}
+#### First step with squared error
+
+For $y = (1, 3, 8)$ and $\ell(y, f) = \frac{1}{2}(y - f)^2$, the initial constant is the mean $f_0 = 4$, and the
+pseudo-residuals are $r_{i1} = y_i - f_0 = (-3, -1, 4)$. (With $\ell = (y - f)^2$ they are doubled, which the line
+search absorbs.) The first tree $h_1$ is fitted to these residuals.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Changing the loss changes both the initial constant and the residuals. The exercise does the first step with absolute
+error.
+
+::: {#exr-sup-gradient-boosting-absolute}
+#### First step with absolute error
+
+Repeat @exm-sup-gradient-boosting-squared with $\ell(y, f) = |y - f|$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\sum_i |y_i - c|$ is minimized by the median, so $f_0 = 3$. The pseudo-residuals are $\text{sign}(y_i - f_0) = (-1,
+0, 1)$: every point pulls with the same strength whatever its distance, which is why absolute error is robust to the
+outlying value $8$.
+:::
+::::
+
 ## Neural Networks and Deep Models {#sec-neural-networks}
 
 Neural networks represent one of the most transformative developments in machine learning. Inspired by the structure of biological
@@ -1132,6 +2388,10 @@ Feedforward neural networks, also called multilayer perceptrons (MLPs), are the 
 in one direction: from input through hidden layers to output, with no cycles or feedback loops. Despite their simplicity,
 feedforward networks are powerful function approximators capable of learning complex nonlinear relationships.
 
+:::: {.statement-box}
+::: {#def-sup-feedforward-network}
+#### Feedforward neural network
+
 **Architecture:** A feedforward network consists of: - **Input layer:** Receives the raw features $\mathbf{x} \in \mathbb{R}^d$
 -
 **Hidden layers:** One or more layers that transform the input through nonlinear functions - **Output layer:** Produces the final
@@ -1147,7 +2407,18 @@ weights connecting layer $\ell-1$ to layer $\ell$
 - $\sigma$ is the activation function (applied element-wise) - $\mathbf{h}^{(\ell)} \in \mathbb{R}^{d_\ell}$ are the activations
 (outputs) of layer $\ell$
 
-**Example:** Consider a simple network for binary classification with input dimension 2, one hidden layer with 3 units, and one
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The smallest interesting network has one hidden layer of three units. The example writes its layers and counts its
+parameters.
+
+::: {#exm-sup-feedforward-small}
+#### A network with three hidden units
+
+Consider a simple network for binary classification with input dimension 2, one hidden layer with 3 units, and one
 output: - Input: $\mathbf{x} = [x_1, x_2]^T \in \mathbb{R}^2$
 - Hidden layer: $\mathbf{h} = \sigma(\mathbf{W}_1\mathbf{x} +
 \mathbf{b}_1)$ where $\mathbf{W}_1 \in \mathbb{R}^{3 \times 2}$, $\mathbf{b}_1 \in \mathbb{R}^3$
@@ -1158,6 +2429,27 @@ This network has $2 \times 3 + 3 + 3 \times 1 + 1 = 13$ parameters. For a specif
 computes: 1. $\mathbf{z}_1 = \mathbf{W}_1\mathbf{x} + \mathbf{b}_1$ (linear transformation) 2. $\mathbf{h} = \sigma(\mathbf{z}_1)$
 (nonlinear activation) 3. $z_2 = \mathbf{w}_2^T\mathbf{h} + b_2$ (linear transformation) 4. $\hat{y} = \sigma(z_2)$ (final
 activation)
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Counting parameters is the first check of any architecture, and removing the nonlinearity shows why the activation is
+needed. The exercise does both.
+
+::: {#exr-sup-feedforward-mnist}
+#### Counting and collapsing
+
+Count the parameters of a network with layer sizes $[784, 256, 128, 10]$. Then show that if $\sigma$ is the identity,
+a two-layer network computes an affine function of $\mathbf{x}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The layers have $784 \cdot 256 + 256 = 200{,}960$, $256 \cdot 128 + 128 = 32{,}896$ and $128 \cdot 10 + 10 = 1{,}290$
+parameters, $235{,}146$ in total. With $\sigma$ the identity, $\mathbf{W}^{(2)}(\mathbf{W}^{(1)}\mathbf{x} +
+\mathbf{b}^{(1)}) + \mathbf{b}^{(2)} = (\mathbf{W}^{(2)}\mathbf{W}^{(1)})\mathbf{x} + (\mathbf{W}^{(2)}\mathbf{b}^{(1)} +
+\mathbf{b}^{(2)})$, a single affine layer.
+:::
+::::
 
 **Activation Functions:** The activation function $\sigma$ introduces nonlinearity, enabling the network to learn complex
 patterns. Without nonlinearity, stacking multiple layers would be equivalent to a single linear transformation. Common choices
@@ -1191,9 +2483,22 @@ probability distribution over $K$ classes - Output: $\sum_k \text{softmax}(\math
 - **Use case:** Multi-class
 classification output layer
 
+Activation functions make the network nonlinear, but how expressive does that make it? The universal approximation
+theorem answers that a single hidden layer already suffices in principle.
+
+:::: {.statement-box}
+::: {#thm-sup-universal-approximation}
+#### Universal Approximation Theorem
+
 **Universal Approximation Theorem:** A remarkable theoretical result states that a feedforward network with a single hidden layer
 containing a finite number of neurons can approximate any continuous function on a compact set to arbitrary accuracy (given
 appropriate activation functions). This means neural networks are universal function approximators.
+
+:::
+
+::::
+
+The proof is not given here; the examples below show the mechanism for ReLU units in one dimension.
 
 However, this theorem doesn't tell us: - How many neurons are needed (could be exponentially many) - How to find the right weights
 (training algorithm) - Whether the network will generalize to new data
@@ -1204,6 +2509,39 @@ Layer 2: Combines edges into shapes and textures - Layer 3: Combines shapes into
 complete objects
 
 This hierarchical feature learning is a key advantage of deep networks [@bishop2024deeplearning; @theodoridis2025ml].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+In one dimension, three ReLU units build a hat function, and sums of hats interpolate any continuous function. The
+example constructs the hat.
+
+::: {#exm-sup-relu-hat}
+#### A hat function from three ReLUs
+
+$h(x) = \text{ReLU}(x + 1) - 2\,\text{ReLU}(x) + \text{ReLU}(x - 1)$ is $0$ for $x \leq -1$, rises linearly to $1$ at
+$x = 0$, falls back to $0$ at $x = 1$, and is $0$ for $x \geq 1$, since there $(x + 1) - 2x + (x - 1) = 0$. Shifted and
+scaled hats give every piecewise linear interpolant, which approximates a continuous function on an interval
+uniformly as the nodes get dense.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The approximation error of a ReLU interpolant can be computed exactly for a simple function. The exercise does it for
+$x^2$ on $[0, 1]$.
+
+::: {#exr-sup-relu-square}
+#### Approximating a parabola
+
+Write the linear interpolant of $f(x) = x^2$ at the nodes $0, \frac{1}{2}, 1$ as a one-hidden-layer ReLU network and
+compute its maximum error on $[0, 1]$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The slopes of the interpolant are $\frac{1}{2}$ on $[0, \frac{1}{2}]$ and $\frac{3}{2}$ on $[\frac{1}{2}, 1]$, so $g(x)
+= \frac{1}{2}\text{ReLU}(x) + \text{ReLU}(x - \frac{1}{2})$. On $[0, \frac{1}{2}]$ the error $g - f = \frac{1}{2}x - x^2$
+peaks at $x = \frac{1}{4}$ with value $\frac{1}{16}$; on $[\frac{1}{2}, 1]$, $g - f = \frac{3}{2}x - \frac{1}{2} - x^2$
+peaks at $x = \frac{3}{4}$, again with value $\frac{1}{16}$. With $N$ equal intervals the error is $1/(4N^2)$.
+:::
+::::
 
 ### Training Neural Networks
 
@@ -1255,6 +2593,24 @@ We store all $\mathbf{z}^{(\ell)}$ and $\mathbf{h}^{(\ell)}$ for use in the back
 Define $\boldsymbol{\delta}^{(\ell)} = \frac{\partial L}{\partial \mathbf{z}^{(\ell)}}$ as the gradient of the loss with respect
 to the pre-activations at layer $\ell$. These are sometimes called "error signals."
 
+The backward pass is summarized in three equations, one for the output layer, one recursion for hidden layers, and one
+for the parameters. They are stated as a proposition and then spelled out with their intuition and proof.
+
+:::: {.statement-box}
+::: {#prp-sup-backpropagation}
+#### Backpropagation equations
+
+For the network of @def-sup-feedforward-network with pre-activations $\mathbf{z}^{(\ell)}$ and error signals
+$\boldsymbol{\delta}^{(\ell)} = \partial L/\partial\mathbf{z}^{(\ell)}$,
+$$\boldsymbol{\delta}^{(L)} = \frac{\partial L}{\partial \hat{\mathbf{y}}} \odot \sigma'^{(L)}(\mathbf{z}^{(L)}), \quad
+\boldsymbol{\delta}^{(\ell)} = [(\mathbf{W}^{(\ell+1)})^T\boldsymbol{\delta}^{(\ell+1)}] \odot
+\sigma'^{(\ell)}(\mathbf{z}^{(\ell)}),$$
+$$\frac{\partial L}{\partial \mathbf{W}^{(\ell)}} = \boldsymbol{\delta}^{(\ell)}(\mathbf{h}^{(\ell-1)})^T, \quad
+\frac{\partial L}{\partial \mathbf{b}^{(\ell)}} = \boldsymbol{\delta}^{(\ell)}.$$
+:::
+
+::::
+
 1. **Output layer gradient:** $$\boldsymbol{\delta}^{(L)} = \frac{\partial L}{\partial \mathbf{z}^{(L)}} = \frac{\partial
    L}{\partial \hat{\mathbf{y}}} \odot \sigma'^{(L)}(\mathbf{z}^{(L)})$$
    
@@ -1276,7 +2632,26 @@ to the pre-activations at layer $\ell$. These are sometimes called "error signal
 
 where $\odot$ denotes element-wise multiplication (Hadamard product).
 
-**Concrete Example:** Consider a tiny network for binary classification: - Input: $x = 2$
+*Proof.*
+
+**Why Backpropagation Works:** The chain rule from calculus tells us that for a composition of functions $f(g(x))$:
+$$\frac{df}{dx} = \frac{df}{dg} \cdot \frac{dg}{dx}$$
+
+A neural network is just a long composition: $L = f_L(f_{L-1}(\cdots f_1(x)))$. The chain rule gives: $$\frac{\partial L}{\partial
+\mathbf{W}^{(\ell)}} = \frac{\partial L}{\partial f_L} \cdot \frac{\partial f_L}{\partial f_{L-1}} \cdots \frac{\partial
+f_{\ell+1}}{\partial f_\ell} \cdot \frac{\partial f_\ell}{\partial \mathbf{W}^{(\ell)}}$$
+
+Backpropagation computes this efficiently by reusing the products $\frac{\partial L}{\partial f_L} \cdot \frac{\partial
+f_L}{\partial f_{L-1}} \cdots$ as we move backward through the network [@bishop2024deeplearning; @theodoridis2025ml].
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A network with one hidden unit is small enough to run both passes by hand. The example does so and takes one gradient
+step.
+
+::: {#exm-sup-backprop-tiny}
+#### Backpropagation by hand
+
+Consider a tiny network for binary classification: - Input: $x = 2$
 - One hidden unit: $h = \sigma(w_1 x +
 b_1)$ with $w_1 = 0.5$, $b_1 = 0$
 - Output: $\hat{y} = \sigma(w_2 h + b_2)$ with $w_2 = 1$, $b_2 = 0$
@@ -1308,23 +2683,36 @@ With learning rate $\eta = 0.1$, we update: - $w_2 \leftarrow 1 - 0.1 \cdot (-0.
 
 The weights move in the direction that reduces the loss, bringing $\hat{y}$ closer to $y = 1$.
 
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+For a sigmoid output with cross-entropy loss, the output error signal simplifies dramatically. The exercise derives the
+simplification, which is why this pairing is standard.
+
+::: {#exr-sup-backprop-cross-entropy}
+#### Sigmoid and cross-entropy
+
+For $\hat{y} = \sigma(z^{(L)})$ and $\ell = -[y\log\hat{y} + (1 - y)\log(1 - \hat{y})]$, show that $\delta^{(L)} =
+\hat{y} - y$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\partial\ell/\partial\hat{y} = -y/\hat{y} + (1 - y)/(1 - \hat{y}) = (\hat{y} - y)/(\hat{y}(1 - \hat{y}))$, and
+$\sigma'(z^{(L)}) = \hat{y}(1 - \hat{y})$. Their product is $\hat{y} - y$: the factor that causes saturation with the
+squared loss cancels.
+:::
+::::
+
 **Computational Complexity:** - **Forward pass:** $O(\sum_{\ell=1}^L d_{\ell-1}d_{\ell})$ where $d_{\ell}$ is the dimension of
 layer $\ell$
 - **Backward pass:** Same complexity as forward pass (each gradient computation mirrors a forward computation) -
 **Total per sample:** $O(2\sum_{\ell=1}^L d_{\ell-1}d_{\ell})$
 
 For a network with layers of size [784, 256, 128, 10] (e.g., MNIST), this is $O(2(784 \cdot 256 + 256 \cdot 128 + 128 \cdot 10))
-\approx 434,000$ operations per sample—remarkably efficient given we're computing gradients for over 200,000 parameters!
+\approx 469,000$ operations per sample—remarkably efficient given we're computing gradients for over 200,000 parameters!
 
-**Why Backpropagation Works:** The chain rule from calculus tells us that for a composition of functions $f(g(x))$:
-$$\frac{df}{dx} = \frac{df}{dg} \cdot \frac{dg}{dx}$$
-
-A neural network is just a long composition: $L = f_L(f_{L-1}(\cdots f_1(x)))$. The chain rule gives: $$\frac{\partial L}{\partial
-\mathbf{W}^{(\ell)}} = \frac{\partial L}{\partial f_L} \cdot \frac{\partial f_L}{\partial f_{L-1}} \cdots \frac{\partial
-f_{\ell+1}}{\partial f_\ell} \cdot \frac{\partial f_\ell}{\partial \mathbf{W}^{(\ell)}}$$
-
-Backpropagation computes this efficiently by reusing the products $\frac{\partial L}{\partial f_L} \cdot \frac{\partial
-f_L}{\partial f_{L-1}} \cdots$ as we move backward through the network [@bishop2024deeplearning; @theodoridis2025ml].
+### Optimization Algorithms
 
 **Optimization Algorithms:**
 
@@ -1373,6 +2761,10 @@ Uses exponential moving average instead of cumulative sum, preventing learning r
 
 Combines momentum and RMSProp:
 
+:::: {.statement-box}
+::: {#def-sup-adam}
+#### Adam
+
 \begin{align*} \mathbf{g}_t &= \nabla L(\boldsymbol{\theta}_t) \\ \mathbf{m}_t &= \beta_1\mathbf{m}_{t-1} +
 (1-\beta_1)\mathbf{g}_t \quad \text{(first moment)} \\ \mathbf{v}_t &= \beta_2\mathbf{v}_{t-1} + (1-\beta_2)\mathbf{g}_t \odot
 \mathbf{g}_t \quad \text{(second moment)} \\ \hat{\mathbf{m}}_t &= \frac{\mathbf{m}_t}{1-\beta_1^t} \quad \text{(bias correction)}
@@ -1380,6 +2772,10 @@ Combines momentum and RMSProp:
 \boldsymbol{\theta}_t - \frac{\eta}{\sqrt{\hat{\mathbf{v}}_t} + \epsilon} \odot \hat{\mathbf{m}}_t \end{align*}
 
 **Default hyperparameters:** $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$, $\eta = 0.001$
+
+:::
+
+::::
 
 Adam is the most popular optimizer for deep learning due to its robustness and good default performance.
 
@@ -1391,6 +2787,40 @@ $$\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t - \eta\left(\frac{\hat{\math
 \lambda\boldsymbol{\theta}_t\right)$$
 
 Often works better than Adam with L2 regularization.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first Adam step shows the effect of bias correction and of the division by the root of the second moment. The
+example compares a small and a large gradient.
+
+::: {#exm-sup-adam-first-step}
+#### The first step
+
+At $t = 1$, $\mathbf{m}_1 = (1 - \beta_1)\mathbf{g}_1$ and $\mathbf{v}_1 = (1 - \beta_2)\mathbf{g}_1^2$, so the bias
+corrections give $\hat{\mathbf{m}}_1 = \mathbf{g}_1$ and $\hat{\mathbf{v}}_1 = \mathbf{g}_1^2$. The step is
+$\eta\,g/(|g| + \epsilon) \approx \eta\,\text{sign}(g)$: for $g = 0.5$ and $g = 50$ alike, the parameter moves by about
+$\eta = 0.001$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The bias correction is designed to make the moment estimates exact for a constant gradient. The exercise proves this
+for the first moment.
+
+::: {#exr-sup-adam-bias-correction}
+#### Why the bias correction works
+
+Show that if $\mathbf{g}_t = \mathbf{g}$ for all $t$ and $\mathbf{m}_0 = 0$, then $\mathbf{m}_t = (1 -
+\beta_1^t)\mathbf{g}$ and $\hat{\mathbf{m}}_t = \mathbf{g}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Unrolling the recursion, $\mathbf{m}_t = (1 - \beta_1)\sum_{s=0}^{t-1}\beta_1^s\mathbf{g} = (1 - \beta_1)\frac{1 -
+\beta_1^t}{1 - \beta_1}\mathbf{g} = (1 - \beta_1^t)\mathbf{g}$. Dividing by $1 - \beta_1^t$ gives $\hat{\mathbf{m}}_t =
+\mathbf{g}$. The same computation with $\beta_2$ gives $\hat{\mathbf{v}}_t = \mathbf{g}^2$.
+:::
+::::
+
+### Regularization Techniques
 
 **Regularization Techniques:**
 
@@ -1409,12 +2839,24 @@ The term $(1-\eta\lambda)$ shrinks weights toward zero, hence "weight decay."
 
 **2. Dropout:**
 
+Dropout regularizes differently from weight decay: instead of shrinking the weights, it perturbs the activations at
+random during training. The definition states the inverted form, in which the surviving activations are rescaled during
+training so that nothing changes at test time.
+
+:::: {.statement-box}
+::: {#def-sup-dropout}
+#### Dropout
+
 During training, randomly set activations to zero with probability $p$:
 
 $$\mathbf{h}_i^{(\ell)} = \begin{cases} 0 & \text{with probability } p \\ \frac{1}{1-p}\sigma(\mathbf{z}_i^{(\ell)}) & \text{with
 probability } 1-p \end{cases}$$
 
 The factor $\frac{1}{1-p}$ ensures expected value remains unchanged. At test time, use all units without dropout.
+
+:::
+
+::::
 
 **Intuition:** Dropout prevents co-adaptation of neurons, forcing the network to learn robust features. It can be viewed as
 training an ensemble of $2^n$ sub-networks.
@@ -1493,7 +2935,36 @@ jittering - **Text:** Synonym replacement, back-translation - **Audio:** Time st
 Training neural networks is as much art as science, requiring careful tuning of hyperparameters and monitoring of training
 dynamics [@bishop2024deeplearning; @theodoridis2025ml].
 
-### Convolutional Neural Networks (CNNs)
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A single activation passed through dropout shows the role of the factor $1/(1 - p)$. The example lists both outcomes and
+their mean.
+
+::: {#exm-sup-dropout-mean}
+#### Dropout keeps the mean
+
+With $p = 0.5$ and an activation $a = 2$, dropout outputs $0$ with probability $0.5$ and $2/(1 - 0.5) = 4$ with
+probability $0.5$. The expected output is $2 = a$, which is why no rescaling is needed at test time.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Dropout preserves the mean of an activation but adds noise to it. The exercise computes the variance of that noise and
+shows how it grows with the dropout rate.
+
+::: {#exr-sup-dropout-variance}
+#### The noise of dropout
+
+For an activation $a$ and dropout rate $p$, compute the variance of the output of @def-sup-dropout. Evaluate for $p =
+0.5$ and $p = 0.2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The output is $a m/(1 - p)$ with $m \sim \text{Bernoulli}(1 - p)$, so its variance is $a^2(1 - p)p/(1 - p)^2 =
+a^2 p/(1 - p)$. This is $a^2$ for $p = 0.5$ and $a^2/4$ for $p = 0.2$.
+:::
+::::
+
+## Convolutional Neural Networks (CNNs) {#sec-sup-convolutional-networks}
 
 Convolutional Neural Networks represent a breakthrough in computer vision, transforming how machines perceive and understand
 images. Introduced by Yann LeCun in the 1980s and refined over decades, CNNs have achieved superhuman performance on tasks like
@@ -1524,10 +2995,14 @@ reducing parameters 2. **Parameter sharing:** The same filter is applied across 
 invariance 3. **Spatial pooling:** Progressively reduce spatial dimensions while increasing depth, building hierarchical
 representations
 
-#### Convolutional Layers
+### Convolutional Layers
 
 The convolutional layer is the core building block of CNNs. Instead of connecting every input to every output, we slide a small
 filter (kernel) across the input, computing local features.
+
+:::: {.statement-box}
+::: {#def-sup-convolutional-layer}
+#### Convolutional layer
 
 **The Convolution Operation:** For a 2D input $\mathbf{H}^{(\ell-1)} \in \mathbb{R}^{H \times W \times C_{in}}$ (height × width ×
 channels) and a filter $\mathbf{W}^{(\ell)} \in \mathbb{R}^{K \times K \times C_{in}}$:
@@ -1539,7 +3014,18 @@ where: - $(i,j)$ are spatial coordinates in the output feature map - $c$ indexes
 - $K$ is the kernel size (typically 3×3 or 5×5) - $C_{in}$ is the number of input channels (3 for RGB images) - $C_{out}$ is the
 number of output channels (number of different filters) - $\sigma$ is the activation function (typically ReLU)
 
-**Concrete Example:** Consider a 5×5 grayscale image (1 channel) and a 3×3 edge detection filter:
+:::
+
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A vertical edge in a tiny image and a vertical edge filter show what a convolution detects. The example evaluates the
+filter at two positions.
+
+::: {#exm-sup-convolution-edge}
+#### Detecting a vertical edge
+
+Consider a 5×5 grayscale image (1 channel) and a 3×3 edge detection filter:
 
 Input image: ``` 0 0 0 1 1 0 0 0 1 1 0 0 0 1 1 0 0 0 1 1 0 0 0 1 1 ```
 
@@ -1551,6 +3037,25 @@ At position (1,1), the convolution computes: $$(-1)(0) + (0)(0) + (1)(0) + (-1)(
 At position (1,2), where the edge is: $$(-1)(0) + (0)(0) + (1)(1) + (-1)(0) + (0)(0) + (1)(1) + (-1)(0) + (0)(0) + (1)(1) = 3$$
 
 The output feature map will have high values along the vertical edge, detecting its presence!
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The number of parameters of a convolutional layer does not depend on the image size. The exercise checks this against
+a fully connected layer on a small input.
+
+::: {#exr-sup-convolution-parameters}
+#### Parameters of a first layer
+
+A layer applies $C_{out} = 16$ filters of size $5 \times 5$ to a $28 \times 28 \times 1$ image. Count its parameters,
+and compare with a fully connected layer mapping the image to $16$ maps of size $24 \times 24$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The convolutional layer has $(5 \cdot 5 \cdot 1) \cdot 16 + 16 = 416$ parameters. The fully connected layer has $784
+\cdot (16 \cdot 576) = 7{,}225{,}344$ weights (plus $9{,}216$ biases), about $17{,}000$ times more.
+:::
+::::
 
 **Intuitive Interpretation:** Each filter is a feature detector: - **Early layers:** Detect simple features like edges, corners,
 colors - Horizontal edge filter: $\begin{bmatrix} 1 & 1 & 1 \\ 0 & 0 & 0 \\ -1 & -1 & -1 \end{bmatrix}$
@@ -1572,9 +3077,48 @@ downsampling
 \times (W-K+1)$. Shrinks with each layer. - **Same (pad to maintain size):** $p = \lfloor K/2 \rfloor$, output size $H \times W$.
 Preserves spatial dimensions.
 
+The output size of a convolution follows from counting the positions at which the filter fits. The formula is stated
+as a proposition because every architecture table relies on it.
+
+:::: {.statement-box}
+::: {#prp-sup-convolution-output-size}
+#### Output size of a convolution
+
 **Output dimensions:** $$H_{out} = \lfloor (H + 2p - K)/s \rfloor + 1, \quad W_{out} = \lfloor (W + 2p - K)/s \rfloor + 1$$
 
-**Example:** Input 32×32, kernel 5×5, padding 2, stride 1: $$H_{out} = \lfloor (32 + 2(2) - 5)/1 \rfloor + 1 = 32$$
+:::
+
+::::
+
+*Proof.* After padding, the input has height $H + 2p$, and the filter fits at the offsets $0, s, 2s, \ldots$ that
+satisfy $ks + K \leq H + 2p$, that is $k \leq (H + 2p - K)/s$. There are $\lfloor (H + 2p - K)/s \rfloor + 1$ such
+offsets $k = 0, 1, \ldots$, and the same count holds for the width.
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+"Same" padding is designed to keep the spatial size of the input unchanged. The example confirms this with the formula
+of @prp-sup-convolution-output-size for a $5 \times 5$ kernel.
+
+::: {#exm-sup-same-padding}
+#### Same padding
+
+Input 32×32, kernel 5×5, padding 2, stride 1: $$H_{out} = \lfloor (32 + 2(2) - 5)/1 \rfloor + 1 = 32$$
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The first layer of a ResNet halves a $224 \times 224$ image with a large kernel. The exercise checks the size with the
+formula of @prp-sup-convolution-output-size.
+
+::: {#exr-sup-resnet-stem}
+#### A strided first layer
+
+Compute $H_{out}$ for $H = 224$, $K = 7$, $p = 3$, $s = 2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$H_{out} = \lfloor (224 + 6 - 7)/2 \rfloor + 1 = \lfloor 111.5 \rfloor + 1 = 112$, half of the input size.
+:::
+::::
 
 **Parameter Efficiency:** For a convolutional layer with $C_{out}$ filters: $$\text{Parameters} = (K \times K \times C_{in})
 \times C_{out} + C_{out}$$
@@ -1583,9 +3127,9 @@ For a 3×3 filter with 64 input channels and 128 output channels: $$\text{Parame
 73,856$$
 
 Compare to a fully connected layer connecting 32×32×64 inputs to 32×32×128 outputs: $$\text{Parameters} = (32 \times 32 \times 64)
-\times (32 \times 32 \times 128) = 4.3 \text{ billion!}$$
+\times (32 \times 32 \times 128) \approx 8.6 \text{ billion!}$$
 
-The convolutional layer achieves a 58,000× parameter reduction through local connectivity and parameter sharing.
+The convolutional layer achieves a 116,000× parameter reduction through local connectivity and parameter sharing.
 
 **Receptive Field:** The receptive field is the region in the original input that affects a particular output neuron. It grows
 with network depth: - Layer 1 with 3×3 kernel: receptive field = 3×3 - Layer 2 with 3×3 kernel: receptive field = 5×5 (each layer
@@ -1594,9 +3138,16 @@ with network depth: - Layer 1 with 3×3 kernel: receptive field = 3×3 - Layer 2
 Deep networks achieve large receptive fields (seeing the whole image) while maintaining parameter efficiency. This is why depth
 matters in CNNs!
 
-#### Pooling Layers
+### Pooling Layers
 
 Pooling reduces spatial dimensions, providing translation invariance and reducing computation.
+
+Two pooling rules are in common use, one keeping the strongest response in a window and one the mean. Both are fixed
+operations without parameters.
+
+:::: {.statement-box}
+::: {#def-sup-pooling}
+#### Max and average pooling
 
 **Max Pooling:** Take maximum value in each pooling window: $$h_{ij}^{(\ell)} = \max_{(a,b) \in \mathcal{N}_{ij}}
 h_{ab}^{(\ell-1)}$$
@@ -1606,13 +3157,48 @@ Typically 2×2 windows with stride 2, reducing dimensions by half.
 **Average Pooling:** Take average value: $$h_{ij}^{(\ell)} = \frac{1}{|\mathcal{N}_{ij}|}\sum_{(a,b) \in \mathcal{N}_{ij}}
 h_{ab}^{(\ell-1)}$$
 
+:::
+
+::::
+
 **Why Pooling Works:** 1. **Translation invariance:** Small shifts in input don't change output 2. **Dimensionality reduction:**
 Reduces computation and parameters 3. **Larger receptive fields:** Each pooling doubles receptive field 4. **Robustness:** Reduces
 sensitivity to exact feature locations
 
 **Modern Alternatives:** Strided convolutions can replace pooling, learning the downsampling operation.
 
-#### Typical CNN Architecture
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A $4 \times 4$ feature map pooled with $2 \times 2$ windows and stride 2 shows both rules side by side. The example
+gives both outputs.
+
+::: {#exm-sup-pooling-four-by-four}
+#### Pooling a small map
+
+For the map with rows $(1, 3, 2, 0)$, $(4, 2, 1, 1)$, $(0, 1, 5, 6)$, $(2, 2, 7, 8)$, max pooling gives
+$\begin{pmatrix} 4 & 2 \\ 2 & 8 \end{pmatrix}$ and average pooling gives $\begin{pmatrix} 2.5 & 1 \\ 1.25 & 6.5
+\end{pmatrix}$. Both halve each spatial dimension.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Max pooling is insensitive to small shifts of a feature inside a window. The exercise checks this on the map of the
+example.
+
+::: {#exr-sup-pooling-shift}
+#### Shifting a feature
+
+In @exm-sup-pooling-four-by-four, move the entry $8$ one position up, swapping it with the $6$. How do the max-pooled and
+average-pooled outputs change?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The bottom-right window now contains $5, 8, 7, 6$, the same four numbers. Both its maximum, $8$, and its average,
+$6.5$, are unchanged, and the other windows are untouched. A shift that crossed a window boundary would change the
+output.
+:::
+::::
+
+### Typical CNN Architecture
 
 **Classic Pattern:** ``` Input → [Conv → ReLU → Conv → ReLU → Pool] × N → Flatten → FC → Softmax ```
 
@@ -1623,7 +3209,7 @@ More filters in deeper layers 3. **Hierarchical features:** Low-level (edges) �
 Pool2: 56×56×128 - Conv3: 56×56×256 - Pool3: 28×28×256 - Conv4: 28×28×512 - Pool4: 14×14×512 - Conv5: 14×14×512 - Pool5: 7×7×512 -
 FC: 4096 → 4096 → 1000
 
-#### Modern CNN Architectures
+### Modern CNN Architectures
 
 **AlexNet (2012):** First deep CNN to win ImageNet - 8 layers (5 conv, 3 FC) - ReLU activation - Dropout regularization - Data
 augmentation - GPU training
@@ -1633,10 +3219,21 @@ architecture
 
 **ResNet (2015):** Residual connections enable very deep networks
 
+The skip connection of ResNet is the most influential idea in this list. It is defined as a block that adds its input
+to the output of a few convolutional layers.
+
+:::: {.statement-box}
+::: {#def-sup-residual-block}
+#### Residual block
+
 **Residual Block:** $$\mathbf{h}^{(\ell+1)} = \mathbf{h}^{(\ell)} + \mathcal{F}(\mathbf{h}^{(\ell)})$$
 
 where $\mathcal{F}$ is a stack of conv layers. The skip connection allows gradients to flow directly, solving vanishing gradient
 problem.
+
+:::
+
+::::
 
 **Why ResNets Work:** - Identity mapping is easy to learn - Gradients flow through skip connections - Enables networks with 50-152
 layers - Better optimization landscape
@@ -1651,7 +3248,37 @@ multiple scales simultaneously.
 **EfficientNet (2019):** Compound scaling - Jointly scale depth, width, and resolution - Achieves better accuracy-efficiency
 tradeoff - Neural architecture search
 
-#### Practical Considerations
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A scalar toy model shows how the identity path keeps gradients alive in deep stacks. The example compares ten plain
+layers with ten residual ones.
+
+::: {#exm-sup-residual-gradient}
+#### Gradients through ten layers
+
+A plain layer $h \mapsto 0.5h$ repeated ten times has derivative $0.5^{10} \approx 0.001$. A residual layer $h \mapsto h
++ F(h)$ with $F(h) = -0.1h$ has derivative $1 - 0.1 = 0.9$, and ten of them give $0.9^{10} \approx 0.349$. The Jacobian
+$\mathbf{I} + \partial\mathcal{F}/\partial\mathbf{h}$ stays close to the identity when $\mathcal{F}$ is small.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Expanding a product of residual blocks shows that a residual network sums many paths of different lengths. The
+exercise expands two scalar blocks.
+
+::: {#exr-sup-residual-paths}
+#### Paths through two blocks
+
+With scalar blocks $F_i(h) = a_i h$, compute the output of two residual blocks applied to $h_0$ and expand it as a sum
+over paths.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$h_1 = (1 + a_1)h_0$ and $h_2 = (1 + a_2)(1 + a_1)h_0 = (1 + a_1 + a_2 + a_1a_2)h_0$. The four terms are the four paths:
+skip both blocks, go through block 1 only, block 2 only, or both. With $L$ blocks there are $2^L$ paths.
+:::
+::::
+
+### Practical Considerations
 
 **Computational Cost:** For a conv layer with input $H \times W \times C_{in}$, kernel $K \times K$, and $C_{out}$ filters:
 $$\text{FLOPs} = H_{out} \times W_{out} \times K^2 \times C_{in} \times C_{out}$$
@@ -1686,7 +3313,7 @@ CNNs demonstrate the power of incorporating domain knowledge (spatial structure)
 CNNs has inspired other specialized architectures like RNNs for sequences and Transformers for attention-based processing
 [@bishop2024deeplearning; @theodoridis2025ml].
 
-### Recurrent Neural Networks (RNNs)
+## Recurrent Neural Networks (RNNs) {#sec-sup-recurrent-networks}
 
 Recurrent Neural Networks are designed for sequential data where the order of inputs matters. Unlike feedforward networks that
 process inputs independently, RNNs maintain a hidden state that captures information about previous inputs, enabling them to model
@@ -1699,7 +3326,14 @@ dependencies - **Speech:** Audio signals are inherently sequential - **Time seri
 Feedforward networks cannot handle variable-length sequences or capture temporal patterns. RNNs address this through recurrent
 connections that create memory.
 
-#### Vanilla RNN Architecture
+### Vanilla RNN Architecture
+
+The recurrence below is the whole model: a hidden state updated from the previous state and the current input, and an
+output read from the state. The same weights are used at every step.
+
+:::: {.statement-box}
+::: {#def-sup-recurrent-network}
+#### Vanilla recurrent neural network
 
 **Recurrence Relation:** For input sequence $\mathbf{x}_1, \ldots, \mathbf{x}_T$ where $\mathbf{x}_t \in \mathbb{R}^d$:
 
@@ -1710,6 +3344,10 @@ where: - $\mathbf{h}_t \in \mathbb{R}^h$ is the hidden state at time $t$
 - $\mathbf{W}_{hh} \in \mathbb{R}^{h \times h}$ are
 recurrent weights - $\mathbf{W}_{xh} \in \mathbb{R}^{h \times d}$ are input weights - $\mathbf{W}_{hy} \in \mathbb{R}^{o \times
 h}$ are output weights - $\sigma$ is typically $\tanh$ or ReLU - $\mathbf{h}_0$ is initialized (often to zeros)
+
+:::
+
+::::
 
 **Key Insight:** Same weights $\mathbf{W}_{hh}, \mathbf{W}_{xh}, \mathbf{W}_{hy}$ applied at every time step. This parameter
 sharing enables processing variable-length sequences.
@@ -1728,7 +3366,35 @@ This unrolled view enables backpropagation through time (BPTT).
 **Many-to-One:** Sentiment analysis (sequence of words → sentiment) 4. **Many-to-Many (synced):** Video classification (frame
 sequence → label sequence) 5. **Many-to-Many (encoder-decoder):** Machine translation (source sequence → target sequence)
 
-#### Training RNNs: Backpropagation Through Time (BPTT)
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A scalar RNN fed a single pulse shows how the hidden state remembers and forgets. The example runs three steps.
+
+::: {#exm-sup-rnn-pulse}
+#### Memory of a pulse
+
+Take $h_t = \tanh(0.5h_{t-1} + x_t)$ with $h_0 = 0$ and inputs $x = (1, 0, 0)$. Then $h_1 = \tanh(1) \approx 0.762$,
+$h_2 = \tanh(0.381) \approx 0.363$ and $h_3 = \tanh(0.182) \approx 0.180$: the pulse fades roughly by the recurrent
+weight $0.5$ at each step.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The parameter count of an RNN does not depend on the sequence length. The exercise evaluates the formula of the LSTM
+comparison below for a vanilla RNN.
+
+::: {#exr-sup-rnn-parameters}
+#### Parameters of an RNN
+
+Count the weights $h^2 + hd + ho$ of a vanilla RNN with $h = 128$, $d = 50$, $o = 10$, and add the biases.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$128^2 + 128 \cdot 50 + 128 \cdot 10 = 16{,}384 + 6{,}400 + 1{,}280 = 24{,}064$ weights, plus $h + o = 138$ biases,
+$24{,}202$ in total, whether the sequences have length $10$ or $10{,}000$.
+:::
+::::
+
+### Training RNNs: Backpropagation Through Time (BPTT)
 
 **Forward Pass:** Compute hidden states and outputs for all time steps.
 
@@ -1751,8 +3417,19 @@ $$\frac{\partial \mathbf{h}_t}{\partial \mathbf{h}_k} = \prod_{i=k+1}^t \frac{\p
 
 **Vanishing Gradient Problem:** When $t - k$ is large, this product can vanish exponentially:
 
+:::: {.statement-box}
+::: {#prp-sup-rnn-gradient-bound}
+#### Bound on the RNN Jacobian
+
 $$\left\|\frac{\partial \mathbf{h}_t}{\partial \mathbf{h}_k}\right\| \leq \|\mathbf{W}_{hh}\|^{t-k} \prod_{i=k+1}^t
 \|\text{diag}(\sigma'(\mathbf{z}_i))\|$$
+
+:::
+
+::::
+
+*Proof.* Take norms in the product formula above and use $\|\mathbf{A}\mathbf{B}\| \leq \|\mathbf{A}\|\|\mathbf{B}\|$
+for the operator norm, together with $\|\mathbf{W}_{hh}^T\| = \|\mathbf{W}_{hh}\|$.
 
 If $\|\mathbf{W}_{hh}\| < 1$ and $\sigma$ is $\tanh$ (with $|\sigma'| \leq 1$), gradients decay exponentially with sequence
 length. This makes learning long-term dependencies extremely difficult.
@@ -1764,13 +3441,46 @@ initialization:** Initialize $\mathbf{W}_{hh}$ to identity or orthogonal matrix 
 
 **Truncated BPTT:** For very long sequences, backpropagate only $k$ steps back to reduce computation and memory.
 
-#### Long Short-Term Memory (LSTM)
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With a contractive recurrent matrix and $\tanh$ units the bound decays fast with the distance in time. The example
+evaluates it over fifty steps.
+
+::: {#exm-sup-rnn-vanishing}
+#### Fifty steps back
+
+If $\|\mathbf{W}_{hh}\| = 0.9$ and $|\sigma'| \leq 1$, then $\|\partial\mathbf{h}_t/\partial\mathbf{h}_{t-50}\| \leq
+0.9^{50} \approx 0.005$: an input fifty steps back affects the gradient two hundred times less than the current one.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The same product can also grow. The exercise looks at a ReLU RNN in its linear regime, where the bound is attained.
+
+::: {#exr-sup-rnn-exploding}
+#### Exploding gradients
+
+For a scalar ReLU RNN $h_t = \text{ReLU}(1.1h_{t-1} + x_t)$ with all pre-activations positive, compute $\partial
+h_t/\partial h_{t-50}$. What does gradient clipping with threshold $\theta = 1$ do to a gradient of that size?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+In the linear regime $\partial h_i/\partial h_{i-1} = 1.1$, so $\partial h_t/\partial h_{t-50} = 1.1^{50} \approx
+117$. Clipping rescales any gradient of norm $\|\mathbf{g}\| > 1$ to $\mathbf{g}/\|\mathbf{g}\|$, keeping its direction
+but cutting its length by a factor of about $117$.
+:::
+::::
+
+### Long Short-Term Memory (LSTM)
 
 LSTMs address the vanishing gradient problem through a sophisticated gating mechanism that allows gradients to flow unchanged
 through many time steps.
 
 **Architecture:** LSTM introduces a cell state $\mathbf{c}_t$ that runs parallel to the hidden state $\mathbf{h}_t$, controlled by
 three gates:
+
+:::: {.statement-box}
+::: {#def-sup-lstm}
+#### Long short-term memory cell
 
 **1. Forget Gate:** Decides what information to discard from cell state: $$\mathbf{f}_t = \sigma(\mathbf{W}_f[\mathbf{h}_{t-1},
 \mathbf{x}_t] + \mathbf{b}_f)$$
@@ -1792,6 +3502,10 @@ where $\odot$ is element-wise multiplication.
 
 **5. Hidden State:** Filtered version of cell state: $$\mathbf{h}_t = \mathbf{o}_t \odot \tanh(\mathbf{c}_t)$$
 
+:::
+
+::::
+
 **Why LSTMs Work:**
 
 1. **Constant Error Carousel:** The cell state update $\mathbf{c}_t = \mathbf{f}_t \odot \mathbf{c}_{t-1} + \ldots$ allows
@@ -1809,9 +3523,45 @@ vanilla RNNs.
 **Parameter Count:** LSTM has 4× parameters of vanilla RNN: - Vanilla RNN: $h^2 + hd + ho$ parameters - LSTM: $4(h^2 + hd) + 4h$
 parameters (4 gates)
 
-#### Gated Recurrent Unit (GRU)
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Fixing the gates shows the two extreme behaviours of the cell, perfect memory and gradual overwrite. The example
+iterates the cell state for constant gates.
+
+::: {#exm-sup-lstm-constant-gates}
+#### Constant gates
+
+With $\mathbf{f}_t = 1$ and $\mathbf{i}_t = 0$, $\mathbf{c}_t = \mathbf{c}_{t-1}$: the cell keeps its content
+indefinitely. With $f_t = i_t = 0.5$, $\tilde{c}_t = 1$ and $c_0 = 0$, the cell state is $0.5$, $0.75$, $0.875$, ...,
+approaching $1$ geometrically.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The parameter count quoted above makes an LSTM about four times as large as a vanilla RNN. The exercise evaluates it.
+
+::: {#exr-sup-lstm-parameters}
+#### Parameters of an LSTM
+
+Evaluate $4(h^2 + hd) + 4h$ for $h = 128$, $d = 50$ and compare with the recurrent and input weights of
+@exr-sup-rnn-parameters.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$4(16{,}384 + 6{,}400) + 512 = 91{,}136 + 512 = 91{,}648$. The vanilla RNN has $h^2 + hd = 22{,}784$ such weights, so the
+ratio is about $4$, one block of weights per gate and one for the candidate.
+:::
+::::
+
+### Gated Recurrent Unit (GRU)
 
 GRU is a simpler alternative to LSTM with fewer parameters:
+
+The GRU merges the forget and input gates into one update gate and drops the separate cell state. Its four equations
+are the definition.
+
+:::: {.statement-box}
+::: {#def-sup-gru}
+#### Gated recurrent unit
 
 **1. Reset Gate:** Controls how much past information to forget: $$\mathbf{r}_t = \sigma(\mathbf{W}_r[\mathbf{h}_{t-1},
 \mathbf{x}_t] + \mathbf{b}_r)$$
@@ -1824,10 +3574,41 @@ GRU is a simpler alternative to LSTM with fewer parameters:
 
 **4. Hidden State Update:** $$\mathbf{h}_t = (1 - \mathbf{z}_t) \odot \mathbf{h}_{t-1} + \mathbf{z}_t \odot \tilde{\mathbf{h}}_t$$
 
+:::
+
+::::
+
 **GRU vs LSTM:** - GRU has fewer parameters (3 gates vs 4, no separate cell state) - GRU often trains faster - LSTM sometimes
 performs better on complex tasks - No clear winner; try both
 
-#### Bidirectional RNNs
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The update gate interpolates between the old state and the candidate state. The example evaluates one update and the
+limiting case of a closed gate.
+
+::: {#exm-sup-gru-interpolation}
+#### One GRU update
+
+With $h_{t-1} = 0.8$, $\tilde{h}_t = -0.2$ and $z_t = 0.25$, $h_t = 0.75 \cdot 0.8 + 0.25 \cdot (-0.2) = 0.55$. With
+$z_t = 0$ the state would be copied unchanged, the GRU analogue of an open forget gate.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+With three weight blocks instead of four, a GRU should have three quarters of the parameters of an LSTM. The exercise
+checks the count.
+
+::: {#exr-sup-gru-parameters}
+#### Parameters of a GRU
+
+Count the parameters $3(h^2 + hd) + 3h$ of a GRU with $h = 128$, $d = 50$, and compare with @exr-sup-lstm-parameters.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$3 \cdot 22{,}784 + 384 = 68{,}736$, exactly three quarters of the LSTM's $91{,}648$.
+:::
+::::
+
+### Bidirectional RNNs
 
 Process sequence in both directions to capture future context:
 
@@ -1837,7 +3618,7 @@ $$\overleftarrow{\mathbf{h}}_t = \text{RNN}_{\text{backward}}(\mathbf{x}_t, \ove
 
 Useful when entire sequence is available (e.g., sentence classification), not for online prediction.
 
-#### Encoder-Decoder Architecture
+### Encoder-Decoder Architecture
 
 For sequence-to-sequence tasks (translation, summarization):
 
@@ -1851,7 +3632,7 @@ For sequence-to-sequence tasks (translation, summarization):
 **Limitation:** Fixed-size context vector is a bottleneck for long sequences. Attention mechanisms address this (see Transformers
 below).
 
-#### Practical Considerations
+### Practical Considerations
 
 **Computational Cost:** RNNs are inherently sequential—cannot parallelize across time steps. Training time scales linearly with
 sequence length.
@@ -1880,7 +3661,7 @@ recognition:** Audio to text - **Video analysis:** Frame sequences to labels - *
 RNNs were the dominant architecture for sequential data until the advent of Transformers, which address many of RNN limitations
 through attention mechanisms [@bishop2024deeplearning; @theodoridis2025ml].
 
-### Transformers and Foundation Models
+## Transformers and Foundation Models {#sec-sup-transformers}
 
 Transformers revolutionized not just sequence modeling, but the entire paradigm of machine learning. Introduced in "Attention is
 All You Need" (Vaswani et al., 2017), Transformers replaced recurrence with attention mechanisms, enabling parallel computation
@@ -1911,17 +3692,25 @@ hidden state.
 Transformers address all these issues through self-attention, which directly models relationships between all positions in
 parallel, with computation that scales with sequence length squared rather than being sequential.
 
-#### Attention Mechanism
+### Attention Mechanism
 
 **Core Idea:** Attention allows the model to dynamically focus on relevant parts of the input when producing each output. Instead
 of compressing the entire sequence into a fixed-size vector (as RNNs do), attention computes a weighted combination of all inputs,
 where the weights are learned based on relevance.
+
+:::: {.statement-box}
+::: {#def-sup-scaled-dot-product-attention}
+#### Scaled dot-product attention
 
 **Scaled Dot-Product Attention:** The fundamental building block. Given queries $\mathbf{Q} \in \mathbb{R}^{n \times d_k}$, keys
 $\mathbf{K} \in \mathbb{R}^{m \times d_k}$, and values $\mathbf{V} \in \mathbb{R}^{m \times d_v}$:
 
 $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) =
 \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}$$
+
+:::
+
+::::
 
 **Step-by-step computation:**
 
@@ -1938,11 +3727,48 @@ gradients
 
 4. **Weighted sum:** Output is weighted combination of values: $$\mathbf{o}_i = \sum_{j=1}^m \alpha_{ij} \mathbf{v}_j$$
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first example is qualitative and shows what queries, keys and values stand for in translation. The second puts
+numbers into the formula of @def-sup-scaled-dot-product-attention.
+
+::: {#exm-sup-attention-translation}
+#### Attention in translation
+
 **Intuition with Example:** Consider translating "The cat sat on the mat" to French. When generating "chat" (cat), the model
 should attend strongly to "cat" but also somewhat to "The" (for gender agreement in French). The attention mechanism learns these
 relationships: - **Queries:** "What am I trying to generate?" (current decoder state) - **Keys:** "What information is available?"
 (encoder representations) - **Values:** "What is that information?" (encoder representations) - **Attention weights:**
 $\alpha_{ij}$ indicates how much the $i$-th output position attends to the $j$-th input position
+:::
+
+A single query and two keys in two dimensions are enough to follow the four steps. The scaling and the softmax can be
+checked by hand.
+
+::: {#exm-sup-attention-numbers}
+#### One query, two keys
+
+Let $\mathbf{q} = (1, 0)$, $\mathbf{k}_1 = (1, 0)$, $\mathbf{k}_2 = (0, 1)$, $d_k = 2$, and scalar values $v_1 = 10$,
+$v_2 = 0$. The scores are $1$ and $0$, scaled to $0.707$ and $0$; the softmax gives weights $0.670$ and $0.330$, and the
+output is $6.70$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The scaling by $\sqrt{d_k}$ is justified above by a variance computation for random queries and keys. The exercise asks
+for that computation.
+
+::: {#exr-sup-attention-scaling}
+#### Variance of a dot product
+
+Let $\mathbf{q}, \mathbf{k} \in \mathbb{R}^{d_k}$ have independent components with mean $0$ and variance $1$. Show that
+$\text{Var}(\mathbf{q}^T\mathbf{k}) = d_k$, so that $\mathbf{q}^T\mathbf{k}/\sqrt{d_k}$ has variance $1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Each product $q_ik_i$ has mean $0$ and variance $\mathbb{E}[q_i^2]\mathbb{E}[k_i^2] = 1$, and the $d_k$ products are
+independent, so the variance of their sum is $d_k$. Dividing by $\sqrt{d_k}$ divides the variance by $d_k$.
+:::
+::::
 
 **Why Scaling by $\sqrt{d_k}$?** For large $d_k$, dot products $\mathbf{q}^T\mathbf{k}$ have variance $d_k$ (assuming unit
 variance inputs). Without scaling, softmax receives inputs with large magnitudes, pushing it into regions where gradients are
@@ -1967,10 +3793,17 @@ $\mathbf{QK}^T$: $O(n^2 d)$
 
 The quadratic complexity in sequence length is the main limitation of Transformers, motivating efficient variants discussed later.
 
-#### Multi-Head Attention
+### Multi-Head Attention
+
+One attention function computes one weighting of the values; several in parallel can capture several kinds of
+relationship at once.
 
 Instead of performing a single attention function, multi-head attention projects queries, keys, and values $h$ times with
 different learned projections, performs attention in parallel, then concatenates:
+
+:::: {.statement-box}
+::: {#def-sup-multi-head-attention}
+#### Multi-head attention
 
 $$\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\mathbf{W}_O$$
 
@@ -1980,6 +3813,10 @@ $$\text{head}_i = \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \mathbf{K}\mathbf{W
 
 with projection matrices $\mathbf{W}_i^Q, \mathbf{W}_i^K, \mathbf{W}_i^V \in \mathbb{R}^{d \times d_k}$ where typically $d_k =
 d/h$, and output projection $\mathbf{W}_O \in \mathbb{R}^{hd_v \times d}$.
+
+:::
+
+::::
 
 **Why Multiple Heads?** Different heads can specialize in different types of relationships: - **Head 1:** Might learn syntactic
 dependencies (subject-verb agreement) - **Head 2:** Might learn semantic relationships (co-reference resolution) - **Head 3:**
@@ -1994,7 +3831,36 @@ d = 4d^2$$
 The total parameter count is the same as a single large attention head, but splitting across multiple subspaces provides better
 representational capacity. Typical configuration: $h=8$ or $h=16$ heads with $d_k = d_v = 64$.
 
-#### Positional Encoding
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The parameter count $4d^2$ is independent of the number of heads. The example evaluates it for the configuration of the
+original Transformer.
+
+::: {#exm-sup-multi-head-size}
+#### The original configuration
+
+With $d = 512$ and $h = 8$ heads, each head has $d_k = d_v = 64$, and the projections hold $4 \cdot 512^2 =
+1{,}048{,}576$ weights, the same as one head of dimension $512$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Splitting into heads also leaves the cost of the score matrices unchanged. The exercise counts the multiplications needed
+for $\mathbf{Q}\mathbf{K}^T$ in both cases.
+
+::: {#exr-sup-multi-head-cost}
+#### Cost of the scores
+
+Show that computing $\mathbf{Q}\mathbf{K}^T$ for all $h$ heads with $d_k = d/h$ costs the same number of multiplications
+as for a single head of dimension $d$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+One head costs $n^2 d_k$ multiplications for an $n \times d_k$ by $d_k \times n$ product, so $h$ heads cost $h n^2 d/h =
+n^2 d$, the cost of one head with $d_k = d$.
+:::
+::::
+
+### Positional Encoding
 
 A critical challenge: attention is permutation-invariant! The operation $\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V})$
 produces the same output regardless of the order of rows in $\mathbf{K}$ and $\mathbf{V}$. But order matters in sequences: "dog
@@ -2002,12 +3868,20 @@ bites man" ≠ "man bites dog".
 
 **Solution:** Inject positional information into the input embeddings.
 
+:::: {.statement-box}
+::: {#def-sup-sinusoidal-positional-encoding}
+#### Sinusoidal positional encoding
+
 **Sinusoidal Positional Encoding:** Add position-dependent signals to embeddings:
 
 $$\text{PE}_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right)$$ $$\text{PE}_{(pos, 2i+1)} =
 \cos\left(\frac{pos}{10000^{2i/d}}\right)$$
 
 where $pos \in \{0, 1, \ldots, n-1\}$ is the position and $i \in \{0, 1, \ldots, d/2-1\}$ is the dimension index.
+
+:::
+
+::::
 
 **Properties:** - Each dimension has a different frequency: dimension 0 oscillates every $2\pi$ positions, dimension $d-1$
 oscillates every $2\pi \cdot 10000$ positions - For any fixed offset $k$, $\text{PE}_{pos+k}$ can be represented as a linear
@@ -2021,7 +3895,37 @@ beyond $n_{\max}$.
 **Rotary Position Embeddings (RoPE):** Used in modern LLMs (LLaMA, PaLM), RoPE applies rotation matrices to queries and keys based
 on position, providing better extrapolation to longer sequences than seen during training.
 
-#### Transformer Architecture
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For a tiny model dimension the encoding of one position can be written out in full. The example does it for $d = 4$.
+
+::: {#exm-sup-positional-encoding-small}
+#### Encoding position 1 with $d = 4$
+
+The two frequencies are $1$ and $1/10000^{2/4} = 0.01$, so $\text{PE}_1 = (\sin 1, \cos 1, \sin 0.01, \cos 0.01) \approx
+(0.841, 0.540, 0.010, 1.000)$. The first pair turns fast with position, the second slowly.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The claim that $\text{PE}_{pos+k}$ is a linear function of $\text{PE}_{pos}$ follows from the addition formulas. The
+exercise proves it for one frequency.
+
+::: {#exr-sup-positional-encoding-shift}
+#### Shifts are rotations
+
+For one frequency $\omega$, show that $(\sin\omega(p + k), \cos\omega(p + k))$ is obtained from $(\sin\omega p,
+\cos\omega p)$ by a matrix that depends on $k$ only.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+By the addition formulas,
+$$\begin{pmatrix} \sin\omega(p + k) \\ \cos\omega(p + k) \end{pmatrix} = \begin{pmatrix} \cos\omega k & \sin\omega k \\
+-\sin\omega k & \cos\omega k \end{pmatrix}\begin{pmatrix} \sin\omega p \\ \cos\omega p \end{pmatrix},$$
+a rotation by $\omega k$, independent of $p$. Stacking these blocks over all frequencies gives the linear map.
+:::
+::::
+
+### Transformer Architecture
 
 **Encoder Block:** Repeated $N$ times (typically $N=6$):
 
@@ -2059,7 +3963,7 @@ on position, providing better extrapolation to longer sequences than seen during
 **Full Architecture:** ``` Input Embedding + Positional Encoding ↓ Encoder Stack (N layers) ↓ Decoder Stack (N layers) ↓ Linear +
 Softmax ↓ Output Probabilities ```
 
-#### Training Details
+### Training Details
 
 **Layer Normalization:** Applied before each sub-layer (Pre-LN) or after (Post-LN):
 
@@ -2082,7 +3986,7 @@ Prevents overconfident predictions.
 
 Increase learning rate linearly for warmup steps, then decay.
 
-#### Modern Transformer Variants
+### Modern Transformer Variants
 
 **BERT (Bidirectional Encoder Representations from Transformers):** - Encoder-only architecture - Pre-trained on masked language
 modeling and next sentence prediction - Fine-tuned for downstream tasks - Revolutionized NLP transfer learning
@@ -2097,19 +4001,19 @@ on large datasets - Shows Transformers are not limited to sequences
 **Performer:** Kernel-based attention approximation - **Longformer:** Sparse attention patterns - **BigBird:** Combination of
 global, local, and random attention
 
-#### Advantages of Transformers
+### Advantages of Transformers
 
 1. **Parallelization:** All positions processed simultaneously 2. **Long-range dependencies:** Direct connections between all
 positions 3. **Interpretability:** Attention weights show what model focuses on 4. **Transfer learning:** Pre-trained models work
 across tasks 5. **Scalability:** Performance improves with scale (data, parameters, compute)
 
-#### Limitations
+### Limitations
 
 1. **Quadratic complexity:** $O(n^2)$ memory and computation in sequence length 2. **Data hungry:** Requires large datasets for
 training from scratch 3. **Positional encoding:** Not as natural as RNN's inherent sequentiality 4. **Interpretability:** Despite
 attention weights, still largely black box 5. **Computational cost:** Large models require significant resources
 
-#### Practical Considerations
+### Practical Considerations
 
 **Memory Requirements:** For sequence length $n$, batch size $b$, dimension $d$: - Attention scores: $O(bhn^2)$ where $h$ is
 number of heads - Activations: $O(bnd)$
@@ -2128,14 +4032,21 @@ Transformers represent a paradigm shift in deep learning, demonstrating that att
 Their success has led to the "foundation model" era, where large pre-trained Transformers serve as starting points for diverse
 downstream tasks [@bishop2024deeplearning; @theodoridis2025ml].
 
-### Large Language Models (LLMs)
+## Large Language Models (LLMs) {#sec-sup-large-language-models}
 
 Large Language Models represent the scaling of Transformer architectures to unprecedented sizes, with billions or even trillions
 of parameters. Models like GPT-4, PaLM, and LLaMA have demonstrated remarkable capabilities including few-shot learning,
 reasoning, and even emergent abilities that appear only at scale. Training these models requires sophisticated techniques that go
 far beyond standard supervised learning.
 
-#### Pre-training: Next Token Prediction
+### Pre-training: Next Token Prediction
+
+The pre-training objective is ordinary maximum likelihood for a model of sequences, factorized token by token. It is
+stated first because everything else in this section modifies it.
+
+:::: {.statement-box}
+::: {#def-sup-language-modeling-objective}
+#### Next-token prediction objective
 
 **Objective:** LLMs are trained on the simple but powerful task of predicting the next token in a sequence. Given a sequence of
 tokens $x_1, x_2, \ldots, x_t$, predict $x_{t+1}$:
@@ -2144,6 +4055,10 @@ $$\mathcal{L}_{\text{LM}} = -\sum_{t=1}^{T-1} \log P(x_{t+1} | x_1, \ldots, x_t;
 
 This is the negative log-likelihood, equivalent to cross-entropy loss. The model learns to assign high probability to the actual
 next token.
+
+:::
+
+::::
 
 **Why This Works:** Next token prediction is a form of self-supervised learning—we create supervision from the data itself without
 manual labeling. By training on trillions of tokens from the internet, books, and code, the model learns: - Grammar and syntax (to
@@ -2191,7 +4106,36 @@ during backward pass as needed - Enables training larger models with limited mem
 **5. ZeRO (Zero Redundancy Optimizer):** Partition optimizer states, gradients, and parameters across devices, reducing memory per
 device while maintaining mathematical equivalence to single-device training.
 
-#### Instruction Tuning and Alignment
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A three-token sequence shows the loss and its usual summary, the perplexity. The example uses made-up conditional
+probabilities that are easy to take logarithms of.
+
+::: {#exm-sup-language-model-loss}
+#### Loss of a short sequence
+
+If a model gives $P(x_2|x_1) = 0.5$ and $P(x_3|x_1, x_2) = 0.25$, the loss is $-\log 0.5 - \log 0.25 \approx 2.079$, or
+$1.040$ per token. The perplexity $e^{1.040} \approx 2.83 = \sqrt{8}$ is the inverse geometric mean of the two
+probabilities.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+A model that knows nothing should be as confused as a uniform guess over the vocabulary. The exercise computes the loss
+and perplexity of that baseline.
+
+::: {#exr-sup-language-model-uniform}
+#### The uniform baseline
+
+Compute the per-token loss and perplexity of a model that predicts uniformly over a vocabulary of $50{,}000$ tokens.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Every token gets probability $1/50{,}000$, so the per-token loss is $\log 50{,}000 \approx 10.82$ and the perplexity is
+$e^{10.82} = 50{,}000$. Perplexity measures the effective number of equally likely choices per token.
+:::
+::::
+
+### Instruction Tuning and Alignment
 
 Pre-trained LLMs predict next tokens but don't follow instructions well. Instruction tuning adapts them to be helpful assistants.
 
@@ -2207,7 +4151,7 @@ where $x$ is an instruction ("Explain quantum computing") and $y$ is a desired r
 **Training:** Fine-tune pre-trained model with low learning rate ($10^{-5}$ to $10^{-6}$) for 1-3 epochs. Too much fine-tuning
 causes catastrophic forgetting of pre-training knowledge.
 
-#### Reinforcement Learning from Human Feedback (RLHF)
+### Reinforcement Learning from Human Feedback (RLHF)
 
 RLHF aligns LLMs with human preferences, making them helpful, harmless, and honest. This connects supervised learning with
 reinforcement learning (@sec-reinforcement-learning), using RL to optimize for human preferences.
@@ -2222,11 +4166,19 @@ initialization for RL.
 1. **Data Collection:** For each prompt, generate multiple responses from the SFT model. Human annotators rank responses: $y_1
 \succ y_2 \succ y_3 \succ y_4$.
 
+:::: {.statement-box}
+::: {#def-sup-reward-model}
+#### Bradley-Terry reward model
+
 2. **Reward Model:** Train a model $r_\phi(x, y)$ to predict which response is better: $$\mathcal{L}_{\text{RM}} =
    -\mathbb{E}_{(x, y_w, y_l) \sim \mathcal{D}}\left[\log \sigma(r_\phi(x, y_w) - r_\phi(x, y_l))\right]$$
    
    where $y_w$ is the preferred (winner) response and $y_l$ is the less preferred (loser) response. This is the Bradley-Terry
    model for pairwise preferences.
+
+:::
+
+::::
 
 3. **Architecture:** Typically use the same architecture as the LLM, with a scalar output head. Initialize from the SFT model.
 
@@ -2257,19 +4209,71 @@ coefficient:** $\beta = 0.01$ to $0.1$
 - **Training time:** Days to weeks on large clusters - **Reward model quality:**
 Critical—poor reward model leads to poor policy
 
-**Example:** For prompt "Explain photosynthesis": - **SFT model:** Generates technically correct but dry explanation - **After
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The first example describes in words what the reward model learns from human rankings. The second, further below,
+evaluates the loss of @def-sup-reward-model for one preference pair.
+
+::: {#exm-sup-rlhf-photosynthesis}
+#### Explaining photosynthesis
+
+For prompt "Explain photosynthesis": - **SFT model:** Generates technically correct but dry explanation - **After
 RLHF:** Generates engaging, well-structured explanation that humans prefer - **Reward model:** Learned that humans prefer clear
 structure, examples, and appropriate detail level
+:::
 
-#### Direct Preference Optimization (DPO)
+A reward model that already ranks the pair correctly still incurs a loss, which shrinks as the reward gap grows. The
+numbers below show the size of that loss for a moderate gap.
+
+::: {#exm-sup-reward-model-loss}
+#### Loss of one pair
+
+If $r_\phi(x, y_w) = 2$ and $r_\phi(x, y_l) = 0.5$, the modelled probability that $y_w$ is preferred is $\sigma(1.5)
+\approx 0.818$, and the loss of this pair is $-\log 0.818 \approx 0.201$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The Bradley-Terry loss sees only differences of rewards between two responses. The exercise derives the consequence of
+this and the gradient of the loss.
+
+::: {#exr-sup-reward-model-shift}
+#### Only differences matter
+
+Show that the loss is unchanged if $r_\phi(x, y)$ is replaced by $r_\phi(x, y) + c(x)$, and compute the derivative of
+$-\log\sigma(r_w - r_l)$ with respect to $r_w$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The shift cancels in $r_\phi(x, y_w) - r_\phi(x, y_l)$, so the loss is unchanged; rewards are only defined up to a
+prompt-dependent constant. With $\Delta = r_w - r_l$, $\frac{d}{dr_w}[-\log\sigma(\Delta)] = -(1 - \sigma(\Delta))$, which
+pushes $r_w$ up until the pair is ranked confidently.
+:::
+::::
+
+### Direct Preference Optimization (DPO)
 
 DPO simplifies RLHF by eliminating the separate reward model and RL training, directly optimizing the policy on preference data.
 
 **Key Insight:** The optimal policy under the RLHF objective has a closed form:
 
-$$\pi^*(y|x) = \frac{1}{Z(x)} \pi_{\text{SFT}}(y|x) \exp\left(\frac{r(x,y)}{\beta}\right)$$
+:::: {.statement-box}
+::: {#prp-sup-dpo-optimal-policy}
+#### Optimal policy of the KL-regularized objective
 
-where $Z(x)$ is a partition function. Rearranging:
+For a fixed reward $r$ and $\beta > 0$, the policy maximizing $\mathbb{E}_{y \sim \pi(\cdot|x)}[r(x, y)] - \beta\,
+\text{KL}(\pi(\cdot|x) \,\|\, \pi_{\text{SFT}}(\cdot|x))$ is
+$$\pi^*(y|x) = \frac{1}{Z(x)} \pi_{\text{SFT}}(y|x) \exp\left(\frac{r(x,y)}{\beta}\right)$$
+with $Z(x) = \sum_y \pi_{\text{SFT}}(y|x)\exp(r(x, y)/\beta)$.
+:::
+
+::::
+
+*Proof.* Substituting $r(x, y) = \beta\log\frac{\pi^*(y|x)Z(x)}{\pi_{\text{SFT}}(y|x)}$, the objective becomes
+$\mathbb{E}_\pi[\beta\log\frac{\pi^*}{\pi_{\text{SFT}}} - \beta\log\frac{\pi}{\pi_{\text{SFT}}}] + \beta\log Z(x) =
+-\beta\,\text{KL}(\pi \,\|\, \pi^*) + \beta\log Z(x)$. The KL divergence is non-negative and vanishes only at $\pi =
+\pi^*$, so $\pi^*$ is the maximizer.
+
+Here $Z(x)$ is a partition function. Rearranging:
 
 $$r(x,y) = \beta \log \frac{\pi^*(y|x)}{\pi_{\text{SFT}}(y|x)} + \beta \log Z(x)$$
 
@@ -2288,7 +4292,38 @@ preference data than RLHF
 
 DPO has become increasingly popular for aligning open-source models due to its simplicity and effectiveness.
 
-#### Constitutional AI (CAI)
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Two responses and a reward that prefers the first make the closed form explicit. The example shows how $\beta$ controls
+the departure from the SFT policy.
+
+::: {#exm-sup-dpo-two-responses}
+#### Two responses
+
+With $\pi_{\text{SFT}} = (0.5, 0.5)$ and $r = (1, 0)$, $\beta = 1$ gives $\pi^* \propto (0.5e, 0.5)$, that is $(0.731,
+0.269)$. With $\beta = 0.1$, $\pi^* \propto (e^{10}, 1)$, that is about $(0.99995, 0.00005)$: a weak KL penalty lets the
+policy concentrate on the higher reward.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The partition function $Z(x)$ is intractable, and DPO works because it cancels from the preference model. The exercise
+checks the cancellation.
+
+::: {#exr-sup-dpo-partition-cancels}
+#### The partition function cancels
+
+Substitute the rearranged reward of the text into $r(x, y_w) - r(x, y_l)$ and show that $Z(x)$ drops out, giving the
+argument of $\sigma$ in $\mathcal{L}_{\text{DPO}}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$r(x, y_w) - r(x, y_l) = \beta\log\frac{\pi^*(y_w|x)}{\pi_{\text{SFT}}(y_w|x)} + \beta\log Z(x) - \beta\log\frac{\pi^*(y_l|x)}{\pi_{\text{SFT}}(y_l|x)}
+- \beta\log Z(x)$, and the two $\log Z(x)$ terms cancel because both responses share the prompt $x$. Replacing $\pi^*$
+by the trainable $\pi_\theta$ gives the argument of $\sigma$ in $\mathcal{L}_{\text{DPO}}$.
+:::
+::::
+
+### Constitutional AI (CAI)
 
 Constitutional AI uses AI feedback instead of human feedback, making alignment more scalable.
 
@@ -2309,22 +4344,33 @@ based on principles - Train reward model on AI preferences - Apply PPO as in RLH
 **Challenges:** - **Circular:** Using AI to train AI - **Principle design:** Requires careful specification - **Capability
 limits:** AI feedback limited by AI capabilities
 
-### Vision-Language Models (VLMs)
+## Vision-Language Models (VLMs) {#sec-sup-vision-language-models}
 
 Vision-Language Models extend Transformers to understand both images and text, enabling tasks like image captioning, visual
 question answering, and text-to-image generation.
 
-#### Architecture Approaches
+### Architecture Approaches
 
 **1. Dual-Encoder Models (CLIP):**
 
 Separate encoders for images and text, trained with contrastive learning:
+
+The loss below is symmetric in the two modalities: each image must pick out its caption among all captions of the
+batch, and each caption its image.
+
+:::: {.statement-box}
+::: {#def-sup-clip-loss}
+#### Contrastive image-text loss
 
 $$\mathcal{L}_{\text{CLIP}} = -\sum_{i=1}^N \left[\log \frac{\exp(\text{sim}(I_i, T_i)/\tau)}{\sum_{j=1}^N \exp(\text{sim}(I_i,
 T_j)/\tau)} + \log \frac{\exp(\text{sim}(I_i, T_i)/\tau)}{\sum_{j=1}^N \exp(\text{sim}(I_j, T_i)/\tau)}\right]$$
 
 where $\text{sim}(I, T) = \frac{\mathbf{f}_I(I)^T \mathbf{f}_T(T)}{\|\mathbf{f}_I(I)\| \|\mathbf{f}_T(T)\|}$ is cosine similarity
 and $\tau$ is temperature.
+
+:::
+
+::::
 
 **Training:** Given $N$ (image, text) pairs in a batch, maximize similarity of correct pairs while minimizing similarity of
 incorrect pairs. With batch size 32K, each image is contrasted with 32K text descriptions.
@@ -2364,7 +4410,38 @@ $\boldsymbol{\epsilon}$ is the noise to remove.
 
 **Inference:** Start with random noise, iteratively denoise guided by text embedding.
 
-#### Training Techniques for Large Models
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A batch of two pairs with temperature $\tau = 1$ gives a loss that can be checked by hand. The example evaluates the four
+softmax terms.
+
+::: {#exm-sup-clip-two-pairs}
+#### A batch of two pairs
+
+Let $\text{sim}(I_1, T_1) = 0.9$, $\text{sim}(I_2, T_2) = 0.8$, $\text{sim}(I_1, T_2) = 0.1$ and $\text{sim}(I_2, T_1) =
+0.2$, with $\tau = 1$. The terms of pair 1 are $-\log\frac{e^{0.9}}{e^{0.9} + e^{0.1}} - \log\frac{e^{0.9}}{e^{0.9} +
+e^{0.2}} \approx 0.774$, those of pair 2 are $\approx 0.841$, and $\mathcal{L}_{\text{CLIP}} \approx 1.615$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The temperature sharpens the softmax, and in the limit the loss only checks the ranking of similarities. The exercise
+makes this precise.
+
+::: {#exr-sup-clip-temperature}
+#### Small temperature
+
+Show that $\mathcal{L}_{\text{CLIP}} \geq 0$, and that as $\tau \to 0$ it tends to $0$ if every correct pair has strictly
+larger similarity than every other entry in its row and column.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Each term is $-\log$ of a softmax probability in $(0, 1]$, hence non-negative. A term reads $\log(1 + \sum_{j \neq i}
+\exp((s_{ij} - s_{ii})/\tau))$; if all $s_{ij} - s_{ii} < 0$, each exponential tends to $0$ as $\tau \to 0$, and so does
+the term.
+:::
+::::
+
+### Training Techniques for Large Models
 
 **1. Efficient Attention Mechanisms:**
 
@@ -2394,12 +4471,23 @@ complexity: Requires careful engineering
 
 **3. Low-Rank Adaptation (LoRA):**
 
+Instead of updating a full weight matrix, LoRA adds a trainable update of low rank to a frozen one. The definition fixes
+the shapes.
+
+:::: {.statement-box}
+::: {#def-sup-lora}
+#### Low-rank adaptation
+
 Fine-tune large models efficiently by training low-rank updates:
 
 $$\mathbf{W} = \mathbf{W}_0 + \mathbf{B}\mathbf{A}$$
 
 where $\mathbf{W}_0$ is frozen pre-trained weight, $\mathbf{B} \in \mathbb{R}^{d \times r}$ and $\mathbf{A} \in \mathbb{R}^{r
 \times k}$ are trainable with $r \ll \min(d,k)$.
+
+:::
+
+::::
 
 **Benefits:** - Train only $r(d+k)$ parameters instead of $dk$ (e.g., 0.1% of parameters) - Multiple LoRA adapters can share base
 model - No inference latency (merge $\mathbf{BA}$ into $\mathbf{W}_0$ after training)
@@ -2432,7 +4520,37 @@ Adapter: $\mathbf{h} \leftarrow \mathbf{h} + \text{MLP}_{\text{down-up}}(\mathbf
 
 Train only adapters (1-5% of parameters).
 
-#### Scaling and Emergent Abilities
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For a square projection of a large model the saving is dramatic. The example counts the trainable parameters of one
+adapted matrix.
+
+::: {#exm-sup-lora-count}
+#### Trainable parameters of LoRA
+
+For $d = k = 4096$ and $r = 8$, LoRA trains $r(d + k) = 65{,}536$ parameters instead of $dk = 16{,}777{,}216$, about
+$0.39\%$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The update $\mathbf{B}\mathbf{A}$ is low rank by construction, and the usual initialization starts training from the
+pre-trained model. The exercise checks both facts.
+
+::: {#exr-sup-lora-rank}
+#### Rank and initialization
+
+Show that $\text{rank}(\mathbf{B}\mathbf{A}) \leq r$, and that if $\mathbf{B}$ is initialized to zero the adapted model
+initially equals the pre-trained one.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The image of $\mathbf{B}\mathbf{A}$ is contained in that of $\mathbf{B} \in \mathbb{R}^{d \times r}$, which has dimension
+at most $r$. With $\mathbf{B} = 0$, $\mathbf{W} = \mathbf{W}_0 + 0 = \mathbf{W}_0$, so training starts exactly at the
+pre-trained weights and moves away only through the low-rank update.
+:::
+::::
+
+### Scaling and Emergent Abilities
 
 **Emergent Abilities:** Capabilities that appear only at sufficient scale: - **Few-shot learning:** GPT-3 can learn from examples
 in the prompt - **Chain-of-thought reasoning:** Models can solve multi-step problems by generating intermediate steps -
@@ -2447,7 +4565,7 @@ C^{0.5}$$
 where $N$ is model size, $D$ is dataset size, $C$ is compute budget. This suggests models should be trained on ~20 tokens per
 parameter (e.g., 70B model on 1.4T tokens).
 
-#### Inference Optimization
+### Inference Optimization
 
 **1. KV Caching:** Store key-value pairs from previous tokens: - Without caching: Recompute all previous tokens' KV pairs - With
 caching: Store and reuse, $O(n)$ → $O(1)$ per new token - Memory: $O(n \cdot d \cdot L \cdot 2)$ for $L$ layers
@@ -2548,15 +4666,26 @@ For more on this topic, see @bishop2024deeplearning [Chs. 11, 17].
 Multiclass classification extends binary classification to $K > 2$ classes. While conceptually straightforward, the choice of
 approach affects both computational efficiency and predictive performance.
 
-#### Reduction to Binary Classification
+### Reduction to Binary Classification
+
+The simplest way to handle $K$ classes is to reuse a binary classifier $K$ times. One-vs-rest does exactly that, with
+one classifier per class against all the others.
 
 **One-vs-Rest (OvR) / One-vs-All (OvA):**
+
+:::: {.statement-box}
+::: {#def-sup-one-vs-rest}
+#### One-vs-rest reduction
 
 Train $K$ binary classifiers, where classifier $k$ distinguishes class $k$ from all others:
 
 $$f_k(\mathbf{x}) = \mathbf{w}_k^T\mathbf{x} + w_{k0}$$
 
 **Prediction:** Assign to class with highest score: $$\hat{y} = \arg\max_{k \in \{1,\ldots,K\}} f_k(\mathbf{x})$$
+
+:::
+
+::::
 
 **Advantages:** - Simple to implement - Trains $K$ classifiers (linear in $K$) - Can use any binary classifier - Parallelizable
 
@@ -2581,9 +4710,46 @@ in voting
 
 **Comparison:** OvR preferred for large $K$ (efficiency), OvO often more accurate for moderate $K$.
 
-#### Direct Multiclass Methods
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The prediction of one-vs-rest is an $\arg\max$ over $K$ scores. The example evaluates it and compares the number of
+classifiers with one-vs-one.
+
+::: {#exm-sup-one-vs-rest-scores}
+#### Three scores
+
+With $K = 3$ and scores $f(\mathbf{x}) = (0.2, 1.3, -0.4)$, one-vs-rest predicts class 2, even though classifier 1 also
+gives a positive score, one of the ambiguous regions listed above. For $K = 10$, one-vs-rest trains $10$ classifiers and
+one-vs-one $45$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+One-vs-one replaces the $\arg\max$ by a vote among pairwise classifiers. The exercise runs a vote and compares the cost
+of both schemes for many classes.
+
+::: {#exr-sup-one-vs-one-vote}
+#### A vote among three classes
+
+With $K = 3$, the pairwise classifiers predict $1$ for the pair $(1, 2)$, $3$ for $(1, 3)$ and $3$ for $(2, 3)$. Which
+class does one-vs-one predict? How many classifiers do both schemes need for $K = 100$?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Class 1 gets one vote, class 2 none and class 3 two, so one-vs-one predicts class 3. For $K = 100$, one-vs-rest needs
+$100$ classifiers and one-vs-one $\binom{100}{2} = 4{,}950$.
+:::
+::::
+
+### Direct Multiclass Methods
+
+Instead of combining binary classifiers, one can model all $K$ class probabilities at once. Softmax regression does
+this with one weight vector per class and a normalization over classes.
 
 **Multinomial Logistic Regression (Softmax Regression):**
+
+:::: {.statement-box}
+::: {#def-sup-softmax-regression}
+#### Softmax regression
 
 Directly model class probabilities using softmax function:
 
@@ -2591,6 +4757,10 @@ $$P(y=k|\mathbf{x}) = \frac{\exp(\mathbf{w}_k^T\mathbf{x})}{\sum_{j=1}^K \exp(\m
 \frac{\exp(\mathbf{w}_k^T\mathbf{x})}{Z(\mathbf{x})}$$
 
 where $Z(\mathbf{x}) = \sum_{j=1}^K \exp(\mathbf{w}_j^T\mathbf{x})$ is the partition function.
+
+:::
+
+::::
 
 **Properties:** - Probabilities sum to 1: $\sum_{k=1}^K P(y=k|\mathbf{x}) = 1$
 - Invariant to adding constant to all
@@ -2616,6 +4786,38 @@ Intuition: Increase weight for true class, decrease for predicted classes.
 **Multiclass SVMs:** Extend SVMs to multiclass (see @sec-margin-methods): - Crammer-Singer formulation: Single optimization
 problem - Weston-Watkins formulation: Alternative multiclass hinge loss - OvR and OvO with binary SVMs
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Three logits show how the softmax turns arbitrary real scores into probabilities. The example evaluates them and notes
+the invariance under a common shift.
+
+::: {#exm-sup-softmax-three-logits}
+#### Three logits
+
+For $\mathbf{w}_k^T\mathbf{x} = (2, 1, 0)$, the exponentials are $(7.389, 2.718, 1)$ with sum $11.107$, so the
+probabilities are $(0.665, 0.245, 0.090)$. Adding the same constant to all three logits leaves them unchanged.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+For two classes softmax regression should be logistic regression, as the properties above state. The exercise proves
+it and derives the gradient.
+
+::: {#exr-sup-softmax-two-classes}
+#### Two classes and the gradient
+
+Show that for $K = 2$, $P(y = 1|\mathbf{x}) = \sigma((\mathbf{w}_1 - \mathbf{w}_2)^T\mathbf{x})$. Then derive the
+gradient of $-\log P(y = y_i|\mathbf{x}_i)$ with respect to $\mathbf{w}_k$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Dividing numerator and denominator by $\exp(\mathbf{w}_1^T\mathbf{x})$ gives $1/(1 + \exp(-(\mathbf{w}_1 -
+\mathbf{w}_2)^T\mathbf{x}))$, which is @def-sup-logistic-regression with weight $\mathbf{w}_1 - \mathbf{w}_2$. For the
+gradient, $-\log P(y = y_i|\mathbf{x}_i) = -\mathbf{w}_{y_i}^T\mathbf{x}_i + \log Z(\mathbf{x}_i)$, and
+$\nabla_{\mathbf{w}_k}\log Z(\mathbf{x}_i) = P(y = k|\mathbf{x}_i)\mathbf{x}_i$, so the gradient is $(P(y =
+k|\mathbf{x}_i) - \mathbb{1}_{[y_i = k]})\mathbf{x}_i$, one term of the formula in the text.
+:::
+::::
+
 ### Multilabel Classification
 
 In multilabel classification, each instance can belong to multiple classes simultaneously. Predict a subset of labels $\mathcal{Y}
@@ -2629,15 +4831,26 @@ Image can contain multiple objects (person, car, tree) - **Gene function predict
 Fraction of exactly correct label sets - **F1 score:** Harmonic mean of precision and recall (micro/macro/sample averaged) -
 **Jaccard index:** $|\mathcal{Y} \cap \hat{\mathcal{Y}}| / |\mathcal{Y} \cup \hat{\mathcal{Y}}|$
 
-#### Problem Transformation Methods
+### Problem Transformation Methods
+
+The simplest transformation ignores the dependencies between labels and treats each label as its own binary problem.
+It is the baseline against which the other methods are measured.
 
 **Binary Relevance (BR):**
+
+:::: {.statement-box}
+::: {#def-sup-binary-relevance}
+#### Binary relevance
 
 Train $K$ independent binary classifiers, one per label:
 
 $$h_k(\mathbf{x}) \in \{0,1\} \text{ predicts presence of label } k$$
 
 **Prediction:** $\hat{\mathcal{Y}} = \{k : h_k(\mathbf{x}) = 1\}$
+
+:::
+
+::::
 
 **Advantages:** - Simple and efficient - Parallelizable - Scales to large $K$
 - Can use any binary classifier
@@ -2669,7 +4882,38 @@ examples - Cannot predict unseen label combinations
 
 **Pruned Problem Transformation (PPT):** Use only frequent label combinations, treat rare ones as separate classes.
 
-#### Algorithm Adaptation Methods
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The evaluation metrics of multilabel classification can disagree sharply on the same prediction. The example computes
+three of them for one instance.
+
+::: {#exm-sup-multilabel-metrics}
+#### Three metrics for one prediction
+
+With $K = 4$ labels, true set $\mathcal{Y} = \{1, 3\}$ and prediction $\hat{\mathcal{Y}} = \{1, 2\}$, labels 2 and 3
+are wrong, so the Hamming loss is $2/4 = 0.5$. The subset accuracy is $0$, and the Jaccard index is $|\{1\}|/|\{1, 2,
+3\}| = 1/3$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Binary relevance and label powerset sit at the two extremes of how many models are trained and how many classes each
+sees. The exercise compares them for ten labels.
+
+::: {#exr-sup-binary-relevance-label-powerset}
+#### Ten labels
+
+For $K = 10$ labels, how many binary classifiers does binary relevance train, and how many classes can label powerset
+face? Which of the two can predict a label combination never seen in training?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Binary relevance trains $10$ classifiers. Label powerset faces up to $2^{10} = 1{,}024$ classes. Only binary relevance
+can output an unseen combination, since its labels are decided separately; label powerset predicts one of the observed
+combinations.
+:::
+::::
+
+### Algorithm Adaptation Methods
 
 **ML-kNN (Multi-Label k-Nearest Neighbors):**
 
@@ -2707,9 +4951,16 @@ with phonemes - **Protein secondary structure prediction:** Label amino acids wi
 
 **Challenge:** Labels are not independent—adjacent labels have dependencies (e.g., adjective typically precedes noun).
 
-#### Hidden Markov Models (HMMs)
+### Hidden Markov Models (HMMs)
 
 HMMs are generative models for sequences with hidden states.
+
+The model is a joint distribution built from three ingredients, an initial distribution, transitions between hidden
+labels and emissions of observations. The definition lists them.
+
+:::: {.statement-box}
+::: {#def-sup-hidden-markov-model}
+#### Hidden Markov model
 
 **Model:** Joint distribution over observations and labels:
 
@@ -2720,6 +4971,10 @@ $P(\mathbf{x}_t|y_t)$: Emission probabilities
 
 **Parameters:** - $\boldsymbol{\pi} = [P(y_1=k)]_{k=1}^K$: Initial probabilities - $\mathbf{A} = [P(y_t=j|y_{t-1}=i)]_{i,j=1}^K$:
 Transition matrix - $\mathbf{B}$: Emission parameters (depends on observation type)
+
+:::
+
+::::
 
 **Training:** Maximum likelihood via EM algorithm (Baum-Welch).
 
@@ -2740,9 +4995,48 @@ Dynamic programming:
 **Limitations:** - Generative model: Models $P(\mathbf{x}|y)$ which may be complex - Strong independence assumptions - Difficult
 to incorporate rich features
 
-#### Conditional Random Fields (CRFs)
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+A two-state HMM with two observations is small enough to run the Viterbi recursion by hand. The example computes both
+steps and the backtrack.
+
+::: {#exm-sup-viterbi-two-steps}
+#### Viterbi by hand
+
+Let $\boldsymbol{\pi} = (0.6, 0.4)$, $\mathbf{A} = \begin{pmatrix} 0.7 & 0.3 \\ 0.4 & 0.6 \end{pmatrix}$ and emission
+probabilities $P(\mathbf{x}_1|1) = 0.5$, $P(\mathbf{x}_1|2) = 0.1$, $P(\mathbf{x}_2|1) = 0.1$, $P(\mathbf{x}_2|2) =
+0.6$. Then $\delta_1 = (0.3, 0.04)$, $\delta_2(1) = 0.1\max(0.21, 0.016) = 0.021$ and $\delta_2(2) = 0.6\max(0.09,
+0.024) = 0.054$. The best final state is 2, reached from state 1, so $\mathbf{y}^* = (1, 2)$ with joint probability
+$0.054$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The Viterbi algorithm avoids enumerating all label sequences. The exercise computes one term of that enumeration and
+compares the costs.
+
+::: {#exr-sup-hmm-joint-probability}
+#### One path and all paths
+
+In @exm-sup-viterbi-two-steps, compute $P(\mathbf{y} = (1, 1), \mathbf{x})$. How many label sequences would brute force
+compare for $T = 20$, $K = 10$, and how many operations does Viterbi need?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$P = 0.6 \cdot 0.5 \cdot 0.7 \cdot 0.1 = 0.021$, smaller than the optimum $0.054$. Brute force compares $K^T = 10^{20}$
+sequences, while Viterbi needs on the order of $TK^2 = 2{,}000$ operations.
+:::
+::::
+
+### Conditional Random Fields (CRFs)
 
 CRFs are discriminative models that directly model $P(\mathbf{y}|\mathbf{x})$.
+
+The linear-chain CRF scores a whole label sequence by weighted feature functions of adjacent labels and the input, and
+normalizes over all sequences. The definition gives that normalization explicitly.
+
+:::: {.statement-box}
+::: {#def-sup-linear-chain-crf}
+#### Linear-chain CRF
 
 **Linear-Chain CRF:** For sequence labeling:
 
@@ -2751,6 +5045,10 @@ t)\right)$$
 
 where: - $f_k$ are feature functions - $\lambda_k$ are learned weights - $Z(\mathbf{x}) = \sum_{\mathbf{y}} \exp(\sum_t \sum_k
 \lambda_k f_k(y_t, y_{t-1}, \mathbf{x}, t))$ is partition function
+
+:::
+
+::::
 
 **Feature Functions:** Can be arbitrary functions of labels and observations: - **Transition features:** $f(y_t, y_{t-1},
 \mathbf{x}, t) = \mathbb{1}_{[y_{t-1}=i, y_t=j]}$
@@ -2779,6 +5077,38 @@ Expectation computed via forward-backward algorithm. Optimize with L-BFGS or SGD
 **Modern Approaches:** Neural CRFs combine RNNs/Transformers with CRF output layer: - RNN/Transformer computes features for each
 position - CRF layer models label dependencies - End-to-end training with backpropagation
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+With two positions and two labels the partition function has four terms. The example computes it and two sequence
+probabilities.
+
+::: {#exm-sup-crf-four-sequences}
+#### A CRF with four sequences
+
+Let the score of $(y_1, y_2)$ be $\mathbb{1}_{[y_1 = y_2]} + e_1(y_1) + e_2(y_2)$ with $e_1 = (1, 0)$ and $e_2 = (0,
+1)$. The scores of $(1,1), (1,2), (2,1), (2,2)$ are $2, 2, 0, 2$, so $Z(\mathbf{x}) = 3e^2 + 1 \approx 23.17$,
+$P(1, 1|\mathbf{x}) = e^2/Z \approx 0.319$ and $P(2, 1|\mathbf{x}) = 1/Z \approx 0.043$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The CRF is the discriminative counterpart of the HMM. The exercise shows that every HMM defines a linear-chain CRF, with
+log-probabilities as weights.
+
+::: {#exr-sup-hmm-as-crf}
+#### An HMM is a CRF
+
+Show that the conditional distribution $P(\mathbf{y}|\mathbf{x})$ of an HMM has the form of @def-sup-linear-chain-crf.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\log P(\mathbf{y}, \mathbf{x}) = \log P(y_1) + \sum_{t \geq 2}\log P(y_t|y_{t-1}) + \sum_t \log P(\mathbf{x}_t|y_t)$ is
+a sum of indicator features $\mathbb{1}_{[y_{t-1} = i, y_t = j]}$, $\mathbb{1}_{[y_t = k, \mathbf{x}_t = v]}$ (and
+$\mathbb{1}_{[t = 1, y_1 = k]}$) with weights the corresponding log-probabilities. Dividing $\exp$ of this sum by its
+sum over $\mathbf{y}$, which is $P(\mathbf{x})$, gives $P(\mathbf{y}|\mathbf{x})$ in the CRF form with $Z(\mathbf{x}) =
+P(\mathbf{x})$.
+:::
+::::
+
 ### Ranking
 
 Ranking problems involve ordering items by relevance rather than assigning absolute labels. Given query $q$ and items
@@ -2790,7 +5120,7 @@ user preference - **Web search:** Rank web pages - **Computational biology:** Ra
 **Evaluation Metrics:** - **Mean Average Precision (MAP):** Average precision across queries - **Normalized Discounted Cumulative
 Gain (NDCG):** Weighted by position - **Mean Reciprocal Rank (MRR):** Reciprocal of rank of first relevant item
 
-#### Learning to Rank Approaches
+### Learning to Rank Approaches
 
 **Pointwise Approach:**
 
@@ -2812,6 +5142,10 @@ $$\min_{f} \sum_{(i,j) \in \mathcal{P}} \ell(f(\mathbf{x}_i) - f(\mathbf{x}_j))$
 
 where $\mathcal{P} = \{(i,j): y_i > y_j\}$ contains preference pairs.
 
+:::: {.statement-box}
+::: {#def-sup-ranknet}
+#### RankNet loss
+
 **RankNet:** Use cross-entropy loss with sigmoid:
 
 $$L = -\sum_{(i,j) \in \mathcal{P}} \log \sigma(s_i - s_j)$$
@@ -2820,7 +5154,11 @@ where $s_i = f(\mathbf{x}_i)$ is the score and $\sigma(z) = 1/(1+e^{-z})$.
 
 **Interpretation:** $\sigma(s_i - s_j)$ is probability that item $i$ ranks higher than $j$.
 
-**Gradient:** $$\frac{\partial L}{\partial s_i} = \sum_{j:(i,j) \in \mathcal{P}} (\sigma(s_j - s_i) - 1) + \sum_{j:(j,i) \in
+:::
+
+::::
+
+**Gradient:** $$\frac{\partial L}{\partial s_i} = \sum_{j:(i,j) \in \mathcal{P}} (\sigma(s_i - s_j) - 1) + \sum_{j:(j,i) \in
 \mathcal{P}} \sigma(s_i - s_j)$$
 
 **RankSVM:** Use hinge loss:
@@ -2855,6 +5193,37 @@ where $\lambda_{ij}$ is RankNet gradient and $|\Delta \text{NDCG}_{ij}|$ is chan
 
 **Disadvantages:** - More complex - Ranking metrics often non-differentiable (need approximations) - Computationally expensive
 
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Three items with given scores and relevances show how the loss adds up over preference pairs. The example evaluates the
+three terms.
+
+::: {#exm-sup-ranknet-three-items}
+#### Three items
+
+Let the scores be $s = (2, 1, 0.5)$ and the relevances $y = (1, 2, 0)$, so $\mathcal{P} = \{(2, 1), (2, 3), (1, 3)\}$.
+The loss is $-\log\sigma(-1) - \log\sigma(0.5) - \log\sigma(1.5) \approx 1.313 + 0.474 + 0.201 = 1.989$; the misordered
+pair $(2, 1)$ contributes most.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The gradient formula above follows from the derivative of $\log\sigma$. The exercise derives it pair by pair and
+explains the sign of each sum.
+
+::: {#exr-sup-ranknet-gradient}
+#### The RankNet gradient
+
+Using $\frac{d}{dz}\log\sigma(z) = 1 - \sigma(z) = \sigma(-z)$, derive $\partial L/\partial s_i$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A pair $(i, j) \in \mathcal{P}$ contributes $-\log\sigma(s_i - s_j)$, with derivative $-\sigma(s_j - s_i) = \sigma(s_i -
+s_j) - 1$ with respect to $s_i$. A pair $(j, i) \in \mathcal{P}$ contributes $-\log\sigma(s_j - s_i)$, with derivative
+$+\sigma(s_i - s_j)$. Summing gives the formula. The first sum is negative and pushes $s_i$ up, the second positive and
+pushes it down.
+:::
+::::
+
 ### Structured Prediction
 
 Structured prediction is the general problem of predicting outputs with complex internal structure: $\mathbf{y} \in \mathcal{Y}$
@@ -2865,7 +5234,14 @@ where $\mathcal{Y}$ has combinatorial structure (sequences, trees, graphs, etc.)
 **Examples:** - **Sequences:** $\mathcal{Y} = \{1,\ldots,K\}^T$ (size $K^T$) - **Trees:** Parse trees, dependency trees -
 **Matchings:** Bipartite matching, assignment problems - **Segmentations:** Partition image into regions
 
-#### Structured Prediction Framework
+### Structured Prediction Framework
+
+All structured predictors in this section share one scoring rule: a linear function of a joint feature map of input and
+output, maximized over the output space. The framework is stated as a definition.
+
+:::: {.statement-box}
+::: {#def-sup-structured-scoring}
+#### Structured prediction by joint scoring
 
 **Scoring Function:** Define score for input-output pair:
 
@@ -2879,17 +5255,62 @@ $$\hat{\mathbf{y}} = \arg\max_{\mathbf{y} \in \mathcal{Y}} \mathbf{w}^T\phi(\mat
 
 This is the **inference problem**—must be solvable efficiently for the specific structure.
 
+:::
+
+::::
+
 **Training:** Learn weights $\mathbf{w}$ such that correct output scores highest.
 
-#### Structured SVM
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Tagging a two-word sentence turns structured prediction into a choice among four label sequences. The example scores
+them with a handful of features.
+
+::: {#exm-sup-structured-tagging}
+#### Tagging "the dog"
+
+For $\mathbf{x} = (\text{the}, \text{dog})$ and tags $\{D, N\}$, let $\phi$ count the features (the, D), (dog, N) and
+the transition D $\to$ N, with weights $2, 2, 1$ and all other weights $0$. The scores are $DN: 5$, $DD: 2$, $NN: 2$,
+$ND: 0$, so $\hat{\mathbf{y}} = DN$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The output space grows exponentially with the length of the input, which is why the inference problem must exploit
+structure. The exercise puts numbers on that growth.
+
+::: {#exr-sup-structured-output-space}
+#### Size of the output space
+
+For part-of-speech tagging with $K = 45$ tags and a sentence of $T = 20$ words, compute $|\mathcal{Y}|$ and the cost of
+Viterbi inference.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$|\mathcal{Y}| = 45^{20} \approx 1.16 \times 10^{33}$, far beyond enumeration, while Viterbi needs about $TK^2 =
+20 \cdot 2{,}025 = 40{,}500$ operations, because the score decomposes over adjacent tags.
+:::
+::::
+
+### Structured SVM
 
 Extend max-margin principle (see @sec-margin-methods) to structured outputs:
+
+The training problem asks the correct output to beat every other output by a margin that grows with the task loss. It
+is the structured analogue of @def-sup-soft-margin-svm.
+
+:::: {.statement-box}
+::: {#def-sup-structured-svm}
+#### Structured SVM
 
 $$\min_{\mathbf{w}, \boldsymbol{\xi}} \frac{1}{2}\|\mathbf{w}\|^2 + C\sum_{i=1}^n \xi_i$$ $$\text{s.t.} \quad
 \mathbf{w}^T\phi(\mathbf{x}_i, \mathbf{y}_i) \geq \mathbf{w}^T\phi(\mathbf{x}_i, \mathbf{y}) + \Delta(\mathbf{y}_i, \mathbf{y}) -
 \xi_i, \quad \forall \mathbf{y} \in \mathcal{Y}, \forall i$$
 
 where $\Delta(\mathbf{y}, \mathbf{y}')$ is task-specific loss (e.g., Hamming distance for sequences).
+
+:::
+
+::::
 
 **Interpretation:** Correct output should score higher than any incorrect output by margin proportional to loss.
 
@@ -2910,7 +5331,39 @@ This is structured hinge loss.
 
 **Key Requirement:** Both standard inference and loss-augmented inference must be tractable.
 
-#### Inference Algorithms
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+Loss-augmented inference on the tagging example shows whether the margin constraints are met. The example uses the
+Hamming loss as the task loss $\Delta$.
+
+::: {#exm-sup-structured-svm-tagging}
+#### Loss-augmented tagging
+
+In @exm-sup-structured-tagging with true output $DN$ and Hamming loss, the augmented scores are $DN: 5 + 0$, $DD: 2 +
+1$, $NN: 2 + 1$, $ND: 0 + 2$. The maximum is attained at $DN$, so no constraint is violated and the structured hinge loss
+is $5 - 5 = 0$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The structured hinge loss is useful because it bounds the task loss of the prediction from above. The exercise proves
+the bound.
+
+::: {#exr-sup-structured-hinge-bound}
+#### The hinge bounds the task loss
+
+Let $\hat{\mathbf{y}} = \arg\max_{\mathbf{y}}\mathbf{w}^T\phi(\mathbf{x}_i, \mathbf{y})$. Show that the structured
+hinge loss of example $i$ is at least $\Delta(\mathbf{y}_i, \hat{\mathbf{y}})$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The maximum over $\mathbf{y}$ is at least its value at $\mathbf{y} = \hat{\mathbf{y}}$, namely $\Delta(\mathbf{y}_i,
+\hat{\mathbf{y}}) + \mathbf{w}^T\phi(\mathbf{x}_i, \hat{\mathbf{y}}) - \mathbf{w}^T\phi(\mathbf{x}_i, \mathbf{y}_i)$. The
+score difference is non-negative because $\hat{\mathbf{y}}$ maximizes the score, so the hinge is at least
+$\Delta(\mathbf{y}_i, \hat{\mathbf{y}})$.
+:::
+::::
+
+### Inference Algorithms
 
 Depend on output structure:
 
@@ -2923,7 +5376,7 @@ programming:** General but potentially slow
 
 **Approximate Inference:** When exact inference intractable: - Beam search - Greedy search - Sampling methods
 
-#### Structured Perceptron
+### Structured Perceptron
 
 Simpler alternative to structured SVM:
 
@@ -2934,7 +5387,7 @@ y_i: w ← w + φ(x_i, y_i) - φ(x_i, ŷ) ```
 
 **Disadvantages:** - No margin - Can overfit - Sensitive to order
 
-#### Conditional Random Fields (General)
+### Conditional Random Fields (General)
 
 Probabilistic structured prediction:
 
@@ -2950,7 +5403,7 @@ where $Z(\mathbf{x}) = \sum_{\mathbf{y} \in \mathcal{Y}} \exp(\mathbf{w}^T\phi(\
 
 **Disadvantages:** - Computing partition function expensive - Training slower than structured SVM
 
-#### Applications
+### Applications
 
 **Natural Language Processing:** - **Parsing:** Predict syntactic tree structure - **Named entity recognition:** Sequence labeling
 - **Machine translation:** Sequence-to-sequence - **Semantic role labeling:** Identify predicate-argument structure
@@ -2969,3 +5422,89 @@ structured prediction:** Combine neural networks with structured output layers (
 
 Structured prediction unifies many supervised learning problems under a common framework, emphasizing the importance of exploiting
 output structure for improved predictions [@shalev2014ml; @theodoridis2025ml].
+
+## Exercises {#sec-supervised-learning-exercises}
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The integrative exercises below combine several sections of the chapter. The first one fits a single small data set
+with a linear model, a support vector machine and a decision stump, and compares what each method sees.
+
+::: {#exr-sup-supervised-learning-int-1}
+#### One data set, three classifiers
+
+Take the points $x = (-2, -1, 1, 2)$ with labels $y = (-1, -1, +1, +1)$.
+
+(a) Fit $y$ on $x$ by least squares with an intercept (@def-ols-solution) and check that the sign of the fit
+classifies all points correctly.
+
+(b) Find the hard-margin SVM (@def-sup-hard-margin-svm) and its margin.
+
+(c) Find the decision stump that minimizes the Gini index (@def-sup-node-impurity) and its impurity reduction.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $\bar{x} = \bar{y} = 0$, $\sum_i x_i^2 = 10$ and $\sum_i x_iy_i = 6$, so $\hat{w}_0 = 0$ and $\hat{w}_1 = 0.6$. The
+sign of $0.6x$ is the label at all four points.
+
+(b) The closest points of the two classes are $\pm 1$, so the boundary is $x = 0$. The canonical constraints $y_iwx_i
+\geq 1$ are tight at $x = \pm 1$ for $w = 1$, $w_0 = 0$, and the margin is $2/|w| = 2$. The points $\pm 2$ are not support
+vectors.
+
+(c) The root has two classes in equal numbers, $G = 0.5$. Splitting at $x < 0$ gives two pure children with $G = 0$,
+so $\Delta I = 0.5$, the largest possible reduction. All three methods agree on the boundary $x = 0$, from three
+different criteria.
+:::
+
+The second exercise follows one function, the logistic sigmoid, through three sections. It appears as a posterior of a
+generative model, as a two-class softmax, and as an attention weight.
+
+::: {#exr-sup-supervised-learning-int-2}
+#### Three faces of the sigmoid
+
+Consider the one-dimensional classes $\mathcal{N}(1, 1)$ (class 1) and $\mathcal{N}(-1, 1)$ (class 2) with equal
+priors.
+
+(a) Use @prp-sup-lda-logistic-posterior to write $P(y = 1|x)$ as a logistic function.
+
+(b) Show that softmax regression (@def-sup-softmax-regression) with logits $(2x, 0)$ gives the same probability.
+
+(c) A single query $q = x$ attends (@def-sup-scaled-dot-product-attention, with $d_k = 1$) to the keys $k_1 = 1$ and
+$k_2 = -1$. Show that the attention weight on $k_1$ is $\sigma(2x)$ and evaluate it at $x = 0.5$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $w = (\mu_1 - \mu_2)/\sigma^2 = 2$ and $w_0 = -\frac{1}{2} + \frac{1}{2} + 0 = 0$, so $P(y = 1|x) = \sigma(2x)$.
+
+(b) $e^{2x}/(e^{2x} + e^0) = 1/(1 + e^{-2x}) = \sigma(2x)$, by @exr-sup-softmax-two-classes.
+
+(c) The scores are $qk_1 = x$ and $qk_2 = -x$, so the weight on $k_1$ is $e^x/(e^x + e^{-x}) = \sigma(2x)$. At $x = 0.5$
+it is $\sigma(1) \approx 0.731$, the LDA posterior of class 1 at that point.
+:::
+
+The third exercise is about long products of factors close to one. Such products govern the training error of boosting,
+the gradients of recurrent networks, and the memory of an LSTM cell.
+
+::: {#exr-sup-supervised-learning-int-3}
+#### Products over many steps
+
+(a) AdaBoost runs $M = 100$ rounds with edge $\gamma_m = 0.05$. Bound its training error with
+@thm-sup-adaboost-training-error.
+
+(b) A vanilla RNN has $\|\mathbf{W}_{hh}\| = 0.95$ and $\tanh$ units. Bound $\|\partial\mathbf{h}_t/\partial\mathbf{h}_{t-20}\|$
+with @prp-sup-rnn-gradient-bound.
+
+(c) In an LSTM (@def-sup-lstm) with forget gates equal to $0.99$, compute $\partial\mathbf{c}_t/\partial\mathbf{c}_{t-20}$
+along the cell path, and compare with (b).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) Each factor is $\sqrt{1 - 4 \cdot 0.0025} = \sqrt{0.99}$, so the bound is $0.99^{50} \approx 0.605$: a weak edge
+needs many more rounds.
+
+(b) $\|\partial\mathbf{h}_t/\partial\mathbf{h}_{t-20}\| \leq 0.95^{20} \approx 0.358$.
+
+(c) Along the cell path $\partial\mathbf{c}_i/\partial\mathbf{c}_{i-1} = \mathbf{f}_i$, so the product is $0.99^{20}
+\approx 0.818$. The additive cell update keeps more than twice as much gradient as the vanilla RNN over the same twenty
+steps, which is the constant error carousel of the text.
+:::
+::::

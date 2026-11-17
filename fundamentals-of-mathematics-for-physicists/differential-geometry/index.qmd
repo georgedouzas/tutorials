@@ -2920,151 +2920,6 @@ has half the volume, $\pi^2$. The independent check of $2\pi^2$ through a stereo
 :::
 ::::
 
-### Exercises {#sec-charts-manifolds-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the sections of this chapter: the volume of the three-sphere computed in two atlases,
-the Mercator chart of the sphere with its transition map and Gram matrix, and the length of a closed curve on the
-torus.
-
-The first integrative exercise returns to the stereographic atlas of $S^3$ built in @exr-manifold-s3-charts and
-computes its Gram matrix, which turns out to be conformal like that of $S^2$. Integrating the area factor over
-$\mathbb{R}^3$ must reproduce the volume $2\pi^2$ found with the Euler angles, a check that two unrelated charts
-of the same manifold agree on a global quantity.
-
-::: {#exr-cm-s3-volume}
-#### The volume of $S^3$ in two charts
-
-Compute the Gram matrix of the north stereographic parametrisation of $S^3$, $(u, v, w) \mapsto (2u, 2v, 2w,
-\rho^2 - 1)/(1 + \rho^2)$, show that it is $4/(1 + \rho^2)^2$ times the identity, and integrate $\sqrt{\det G}$
-over $\mathbb{R}^3$. Compare with the volume computed from the Euler-angle Gram matrix @eq-su2-gram.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-The three coordinate velocities are orthogonal with common length $2/(1 + \rho^2)$, as in
-@exr-velocity-stereographic one dimension up, so $G = 4/(1 + \rho^2)^2\, 1_3$ and $\sqrt{\det G} = 8/(1 +
-\rho^2)^3$. Integrating over spherical shells of $\mathbb{R}^3$, the volume is $\int_0^\infty 4\pi\rho^2 \cdot 8/(1 +
-\rho^2)^3\, d\rho = 32\pi \cdot \pi/16 = 2\pi^2$, and the Euler-angle chart gives $\int \sin\theta/8 = 2\pi^2$ as
-well (@exm-su2-gram-volume). The chart of @exr-manifold-s3-charts misses one point and the Euler chart misses two
-circles, both of volume zero:
-
-```python
-th, ph, ps = var("th ph ps", domain="real")
-G_euler = matrix(SR, [[1, 0, 0], [0, 1, cos(th)], [0, cos(th), 1]])/4
-dens = sin(th)/8
-print("sqrt(det G_euler) = sin(theta)/8 on 0 < theta < pi:", bool((dens**2 - G_euler.det()).simplify_full() == 0))
-vol_euler = integrate(integrate(integrate(dens, th, 0, pi), ph, 0, 2*pi), ps, 0, 4*pi)
-print("volume from the Euler angles:", vol_euler)
-u, v, w = var("u v w", domain="real")
-rho2 = u**2 + v**2 + w**2
-E = vector([2*u/(1 + rho2), 2*v/(1 + rho2), 2*w/(1 + rho2), (rho2 - 1)/(1 + rho2)])
-J = jacobian(E, (u, v, w))
-G = (J.transpose()*J).simplify_full()
-print("Gram matrix of the stereographic chart of S^3 is 4/(1 + rho^2)^2 times the identity:", bool((G - 4/(1 + rho2)**2*identity_matrix(SR, 3)).simplify_full() == 0))
-print("det G =", G.det().simplify_full().factor())
-rho = var("rho", domain="real"); assume(rho > 0)
-dens3 = 8/(1 + rho**2)**3                                  # sqrt(det G) as a function of rho = sqrt(u^2 + v^2 + w^2)
-print("sqrt(det G) = 8/(1 + rho^2)^3:", bool((dens3**2 - G.det().subs(u=rho, v=0, w=0)).simplify_full() == 0))
-vol_ste = integrate(4*pi*rho**2*dens3, rho, 0, oo)         # shells of radius rho in R^3
-print("volume from the stereographic chart:", vol_ste)
-print("the two charts agree, vol(S^3) = 2 pi^2:", bool(vol_euler == vol_ste) and bool(vol_euler == 2*pi**2))
-```
-
-*Output:*
-
-```text
-sqrt(det G_euler) = sin(theta)/8 on 0 < theta < pi: True
-volume from the Euler angles: 2*pi^2
-Gram matrix of the stereographic chart of S^3 is 4/(1 + rho^2)^2 times the identity: True
-det G = 64/(u^2 + v^2 + w^2 + 1)^6
-sqrt(det G) = 8/(1 + rho^2)^3: True
-volume from the stereographic chart: 2*pi^2
-the two charts agree, vol(S^3) = 2 pi^2: True
-```
-:::
-
-The second integrative exercise introduces a fourth chart on the sphere, the Mercator chart of navigators, and
-runs it through the whole chapter: domain, transition map to spherical coordinates with its Jacobian, Gram matrix,
-and finally its relation to the stereographic chart, which is a complex logarithm. Everything can be done by hand.
-
-::: {#exr-cm-mercator}
-#### The Mercator chart
-
-The Mercator parametrisation of the sphere is $(\lambda, y) \mapsto (\cos\lambda/\cosh y,\ \sin\lambda/\cosh y,\
-\tanh y)$ with $\lambda \in (0, 2\pi)$, $y \in \mathbb{R}$. Show that it lands on the sphere and find its image;
-compute the transition map from spherical coordinates and its Jacobian determinant; compute the Gram matrix and
-show that the chart is conformal; and show that the stereographic coordinate $w = u + iv$ of the same point is
-$e^{y + i\lambda}$.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$X^2 + Y^2 + Z^2 = 1/\cosh^2 y + \tanh^2 y = (1 + \sinh^2 y)/\cosh^2 y = 1$. As $y \to \pm\infty$, $Z \to \pm 1$,
-so the image is the sphere minus the poles and the half-meridian $\lambda = 0$: the same domain as the spherical
-chart. Comparing with @eq-sphere-embedding, $\lambda = \varphi$ and $\tanh y = \cos\theta$, that is $y =
-\operatorname{artanh}(\cos\theta) = \ln\cot(\theta/2)$, and $1/\cosh y = \sin\theta$; the Jacobian of $(\theta,
-\varphi) \mapsto (\lambda, y)$ is $\begin{pmatrix} 0 & 1 \\ -1/\sin\theta & 0 \end{pmatrix}$ with determinant
-$1/\sin\theta \neq 0$, so the Mercator chart is compatible with the spherical atlas. The velocities
-$\partial_\lambda E = (-\sin\lambda, \cos\lambda, 0)/\cosh y$ and $\partial_y E = (-\cos\lambda\sinh y, -
-\sin\lambda\sinh y, 1)/\cosh^2 y$ are orthogonal with equal length $1/\cosh y$, so $G = \cosh^{-2} y\, 1$:
-conformal, which is why Mercator maps preserve compass bearings. Finally $u + iv = (X + iY)/(1 - Z) = e^{i\lambda}
-/(\cosh y - \sinh y) = e^{y + i\lambda}$, so $y + i\lambda = \log w$: the Mercator chart is the complex logarithm of
-the stereographic one, and its conformality follows from that of the stereographic chart and the holomorphy of the
-logarithm (@exr-stereographic-complex).
-:::
-
-The third integrative exercise measures the closed curve $(t, 2t)$ of @exm-torus-curve with the Gram matrix of the
-torus, combining the product chart, the curve and the metric. The speed is a trigonometric expression whose
-integral is not elementary, so Sage evaluates it numerically and checks it against the speed computed directly in
-$\mathbb{R}^3$.
-
-::: {#exr-cm-torus-curve-length}
-#### The length of a curve on the torus
-
-For the torus with $R = 2$, $r = 1$, use the Gram matrix $G = \operatorname{diag}(r^2, (R + r\cos a)^2)$ to find
-the lengths of a tube circle and of the axis circles at $a = 0$ and $a = \pi$, then compute the speed
-$\sqrt{G_{ij}\dot x^i \dot x^j}$ of the curve $\gamma(t) = (t, 2t)$, check it against $|dE/dt|$ in
-$\mathbb{R}^3$, and evaluate the length of the closed curve numerically with bounds.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-A tube circle has length $\int_0^{2\pi} r\, da = 2\pi$; the axis circles have lengths $2\pi(R + r) = 6\pi$ at $a =
-0$ and $2\pi(R - r) = 2\pi$ at $a = \pi$. For $\gamma(t) = (t, 2t)$, $\dot x = (1, 2)$ and the speed squared is
-$G_{aa} + 4G_{bb} = 1 + 4(2 + \cos t)^2$, which agrees with $|dE/dt|^2$ computed from the embedding; since $2 +
-\cos t$ ranges over $[1, 3]$ the speed lies between $\sqrt5$ and $\sqrt{37}$, so the length lies between $2\pi\sqrt5
-\approx 14.05$ and $2\pi\sqrt{37} \approx 38.22$. Numerically it is $26.01$:
-
-```python
-R, r = 2, 1
-a, b, t = var("a b t", domain="real")
-E = vector([(R + r*cos(a))*cos(b), (R + r*cos(a))*sin(b), r*sin(a)])
-J = jacobian(E, (a, b)); G = (J.transpose()*J).simplify_full()
-print("Gram matrix:", G.list())
-print("length of a tube circle, integral of sqrt(G_aa) over a in (0, 2 pi):", integrate(sqrt(G[0, 0]), a, 0, 2*pi))
-print("axis circles at a = 0 (outer equator) and a = pi (inner equator):", integrate(sqrt(G[1, 1].subs(a=0)), b, 0, 2*pi), integrate(sqrt(G[1, 1].subs(a=pi)), b, 0, 2*pi))
-# gamma(t) = (t, 2t): speed^2 = G_aa adot^2 + 2 G_ab adot bdot + G_bb bdot^2 with (adot, bdot) = (1, 2)
-speed2 = (G[0, 0] + 4*G[0, 1] + 4*G[1, 1]).subs(a=t, b=2*t).simplify_full()
-print("speed squared along (t, 2t):", speed2.factor())
-Edot = diff(E.subs(a=t, b=2*t), t)
-print("agrees with |dE/dt|^2 computed in R^3:", bool((Edot*Edot - speed2).simplify_full() == 0))
-L = numerical_integral(sqrt(speed2), 0, 2*pi)
-print("length of the closed curve (t, 2t):", L[0], " (error estimate", L[1], ")")
-print("bounds 2 pi sqrt(1 + 4 (R - r)^2) <= L <= 2 pi sqrt(1 + 4 (R + r)^2):", N(2*pi*sqrt(1 + 4*(R - r)**2)), "<=", L[0], "<=", N(2*pi*sqrt(1 + 4*(R + r)**2)))
-```
-
-*Output:*
-
-```text
-Gram matrix: [1, 0, 0, cos(a)^2 + 4*cos(a) + 4]
-length of a tube circle, integral of sqrt(G_aa) over a in (0, 2 pi): 2*pi
-axis circles at a = 0 (outer equator) and a = pi (inner equator): 6*pi 2*pi
-speed squared along (t, 2t): 4*cos(t)^2 + 16*cos(t) + 17
-agrees with |dE/dt|^2 computed in R^3: True
-length of the closed curve (t, 2t): 26.01350893229216  (error estimate 2.888079656792293e-13 )
-bounds 2 pi sqrt(1 + 4 (R - r)^2) <= L <= 2 pi sqrt(1 + 4 (R + r)^2): 14.0496294620815 <= 26.01350893229216 <= 38.2191241574323
-```
-:::
-::::
-
 ## Vector fields, forms and tensors {#sec-vector-fields-forms-tensors}
 
 Tangent vectors are the velocities of curves, vector fields assign one to every point, one-forms are their duals, tensor fields combine them, and differential forms are the antisymmetric tensors that can be integrated and differentiated. Five sections.
@@ -7083,121 +6938,6 @@ choices regular at one of the poles.
 :::
 ::::
 
-### Exercises {#sec-vector-fields-forms-tensors-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the sections of this chapter: two vector fields on the round sphere followed through
-duality, exterior derivatives and Lie derivatives; Stokes' theorem on a disc, with the two-form moved between charts;
-and a type $(1, 1)$ tensor field of the plane seen in Cartesian and polar coordinates.
-
-The first integrative exercise starts from the two vector fields of @fig-sphere-vector-fields and passes through every
-section: their brackets, their dual one-forms through the round metric, the exterior derivatives of those, and the Lie
-derivatives of @def-lie-derivative, which measure how the metric and the height change along the flows.
-
-::: {#exr-vfft-sphere-full}
-#### Two vector fields on the round sphere
-
-On the sphere with the round metric $g = d\theta \otimes d\theta + \sin^2\theta\,d\varphi \otimes d\varphi$ let $X =
-\partial_\varphi$ and $Y = -\sin\theta\,\partial_\theta$. With SageManifolds, compute the one-forms $X^\flat =
-g(X, \cdot)$ and $Y^\flat$, their exterior derivatives, the bracket $[X, Y]$, the Lie derivatives $\mathcal L_Xg$,
-$\mathcal L_Yg$, $\mathcal L_XZ$, $\mathcal L_YZ$ of the metric and the height, and check Cartan's formula $\mathcal
-L_Y\alpha = \iota_Yd\alpha + d(\alpha(Y))$ for $\alpha = X^\flat$. Interpret the results.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$X^\flat = \sin^2\theta\,d\varphi$ and $Y^\flat = -\sin\theta\,d\theta = dZ$: the gradient field is dual to an exact form,
-so $dY^\flat = 0$, while $dX^\flat = 2\sin\theta\cos\theta\,d\theta \wedge d\varphi = 2\cos\theta$ times the area form,
-so $X^\flat$ is not closed. The fields commute (@prp-brackets-sphere). $\mathcal L_Xg = 0$: the rotations preserve the
-metric and $X$ is a Killing field (@def-killing); $\mathcal L_Yg = -2\cos\theta\,g$, so the flow of $Y$ rescales lengths,
-contracting the northern hemisphere and stretching the southern one. $\mathcal L_XZ = X(Z) = 0$ and $\mathcal L_YZ =
-Y(Z) = \sin^2\theta \ge 0$: the height increases along the gradient flow. Cartan's formula holds, with $\mathcal
-L_YX^\flat = -2\cos\theta\sin^2\theta\,d\varphi$:
-
-```python
-S2 = Manifold(2, "S^2"); A = S2.open_subset("A")
-sph = A.chart(r"th:(0,pi):\theta ph:(0,2*pi):\varphi"); th, ph = sph[:]
-g = A.metric("g"); g[0, 0] = 1; g[1, 1] = sin(th)**2
-X = A.vector_field(0, 1, name="X"); Y = A.vector_field(-sin(th), 0, name="Y")
-Z = A.scalar_field(cos(th), name="Z")
-Xb, Yb = X.down(g), Y.down(g)
-print("X_flat =", Xb.display(), "; Y_flat =", Yb.display(), "; Y_flat = dZ:", Yb == Z.differential())
-print("d(X_flat) =", Xb.exterior_derivative().display(), "; d(Y_flat) =", Yb.exterior_derivative().display())
-print("L_X g = 0 (X is a Killing field):", g.lie_derivative(X) == 0)
-print("L_Y g =", g.lie_derivative(Y).display(), "; equals -2 cos(theta) g:", g.lie_derivative(Y) == -2*cos(th)*g)
-print("L_X Z =", Z.lie_derivative(X).expr(), "; L_Y Z =", Z.lie_derivative(Y).expr())
-print("[X, Y] =", X.bracket(Y).display())
-al = Xb
-cartan = Y.contract(0, al.exterior_derivative(), 0) + al(Y).differential()
-print("L_Y(X_flat) =", al.lie_derivative(Y).display())
-print("Cartan's formula L_Y alpha = i_Y d alpha + d(alpha(Y)) for alpha = X_flat:", al.lie_derivative(Y) == cartan)
-```
-
-*Output:*
-
-```text
-X_flat = sin(th)^2 dph ; Y_flat = -sin(th) dth ; Y_flat = dZ: True
-d(X_flat) = 2*cos(th)*sin(th) dth∧dph ; d(Y_flat) = 0
-L_X g = 0 (X is a Killing field): True
-L_Y g = -2*cos(th) dth⊗dth - 2*cos(th)*sin(th)^2 dph⊗dph ; equals -2 cos(theta) g: True
-L_X Z = 0 ; L_Y Z = sin(th)^2
-[X, Y] = [X,Y] = 0
-L_Y(X_flat) = -2*cos(th)*sin(th)^2 dph
-Cartan's formula L_Y alpha = i_Y d alpha + d(alpha(Y)) for alpha = X_flat: True
-```
-:::
-
-The second integrative exercise checks Stokes' theorem on the unit disc for a two-form that is not constant. It uses
-the exterior derivative of a one-form, the pullback to the boundary circle, and the transformation law of a two-form to
-polar coordinates, where the integral over the disc becomes an iterated integral.
-
-::: {#exr-vfft-stokes-disc}
-#### Stokes' theorem on a disc
-
-Let $\alpha = -x^2y\,dx + xy^2\,dy$ on the plane. Compute $d\alpha$; transform it to polar coordinates with the law for
-the single component of a two-form, $\omega_{r\varphi} = \det\dfrac{\partial(x, y)}{\partial(r, \varphi)}\,\omega_{xy}$;
-compute $\int_Dd\alpha$ over the unit disc and $\oint\alpha$ around its boundary; and decide whether $\alpha$ is closed or
-exact on the plane.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$d\alpha = (\partial_x(xy^2) - \partial_y(-x^2y))\,dx \wedge dy = (x^2 + y^2)\,dx \wedge dy$. By @eq-tensor-transformation
-the component of a two-form picks up $\frac{\partial x}{\partial r}\frac{\partial y}{\partial\varphi} - \frac{\partial y}
-{\partial r}\frac{\partial x}{\partial\varphi} = r$, so $d\alpha = r^3\,dr \wedge d\varphi$ and $\int_Dd\alpha =
-\int_0^{2\pi}\int_0^1r^3\,dr\,d\varphi = \tfrac{\pi}{2}$. On the boundary, $x = \cos t$, $y = \sin t$ pull $\alpha$ back to
-$(\cos^2t\sin^2t + \cos^2t\sin^2t)\,dt = 2\cos^2t\sin^2t\,dt = \tfrac12\sin^2(2t)\,dt$, with integral $\tfrac12 \cdot \pi =
-\tfrac{\pi}{2}$, as Stokes' theorem requires. Since $d\alpha \neq 0$, $\alpha$ is not closed, hence not exact; the
-non-zero integral around a closed curve says the same (@exr-of-height-ftc).
-:::
-
-The third integrative exercise follows a type $(1, 1)$ tensor field of the plane through a change of chart. It combines
-the transformation law, the tensor product, contraction with a vector field, and the invariants of
-@exr-tf-trace-invariant.
-
-::: {#exr-vfft-rotation-tensor}
-#### A $(1, 1)$ tensor field in two charts
-
-Let $J = \partial_y \otimes dx - \partial_x \otimes dy$ on the plane. Find its components $J^i{}_j$ in Cartesian
-coordinates and, by @eq-tensor-transformation, in polar coordinates; compute $J(\partial_r)$, $J(\partial_\varphi)$ and $J$
-applied to the radial field $x\,\partial_x + y\,\partial_y$; and compute $J \circ J$, $\operatorname{tr}J$ and $\det J$ in
-both charts.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-In Cartesian coordinates $J^y{}_x = 1$, $J^x{}_y = -1$: the matrix $\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$, the
-rotation by $90^\circ$. With $\partial_x = \cos\varphi\,\partial_r - r^{-1}\sin\varphi\,\partial_\varphi$, $\partial_y =
-\sin\varphi\,\partial_r + r^{-1}\cos\varphi\,\partial_\varphi$, $dx = \cos\varphi\,dr - r\sin\varphi\,d\varphi$ and $dy =
-\sin\varphi\,dr + r\cos\varphi\,d\varphi$, the products expand to
-$$
-J = r^{-1}\,\partial_\varphi \otimes dr - r\,\partial_r \otimes d\varphi ,
-$$
-with polar matrix $\begin{pmatrix} 0 & -r \\ r^{-1} & 0 \end{pmatrix}$. Hence $J(\partial_r) = r^{-1}\partial_\varphi$, the
-unit vector turned by $90^\circ$, and $J(\partial_\varphi) = -r\,\partial_r$; the radial field $r\,\partial_r$ goes to
-$\partial_\varphi = -y\,\partial_x + x\,\partial_y$, the rotation field. Both matrices square to $-1$, so $J \circ J = -
-\delta$ in every chart, and both have trace $0$ and determinant $1$, as the invariance of trace and determinant under a
-change of chart requires (@exr-tf-trace-invariant).
-:::
-::::
-
 ## Metrics {#sec-metrics}
 
 A metric assigns lengths and angles to tangent vectors, and with it a manifold becomes a geometry: distances, areas
@@ -10298,143 +10038,6 @@ $SU(2)$ is the isometry group itself up to a double cover, and the sphere is its
 \cong SU(2)/U(1)$, the coset space of Part V; the metric @eq-su2-metric restricted to the directions transverse to
 $\psi$ is, up to the factor $\tfrac14$, the round metric (@exm-su2-metric-hopf), the first sign of this quotient
 structure. The torus is the internal space of the toroidal reductions of Part VI.
-
-### Exercises {#sec-metrics-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the sections of this chapter: the torus taken through every operation defined here, the
-five-dimensional product metric with a circle, and the sphere seen entirely through its stereographic chart.
-
-The first integrative exercise starts from the embedding of the torus and ends with its area, passing through the
-signature, the inverse metric, lowering and raising, an angle and a gradient. Everything is computed by SageManifolds
-from the pullback of the Euclidean metric.
-
-::: {#exr-metrics-torus-full}
-#### The torus from embedding to area
-
-For the torus with $R = 2$, $r = \tfrac45$, compute with SageManifolds the induced metric as a pullback, its
-signature at the outer equator, its determinant and inverse, the one-form $(\partial_b)^\flat$, the gradient of the
-height $z = r\sin a$ and its norm, the angle between $\partial_a + \partial_b$ and $\partial_b$ on the outer and
-inner equators, and the area.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-The pullback is $r^2da^2 + (R + r\cos a)^2db^2$, which at $a = 0$ is $\operatorname{diag}(\tfrac{16}{25},
-\tfrac{196}{25})$ with signature $(2, 0, 0)$; $\det g = r^2(R + r\cos a)^2$ and $g^{-1} = \operatorname{diag}(r^{-2},
-(R + r\cos a)^{-2})$. Lowering gives $(\partial_b)^\flat = (R + r\cos a)^2\,db$; the gradient of the height is
-$\nabla z = (\cos a/r)\,\partial_a$, with norm $|\cos a|$, largest on the equators and zero on the top and bottom
-circles. The cosine of the angle is $(R + r\cos a)/\sqrt{r^2 + (R + r\cos a)^2}$: $7/\sqrt{53} \approx 0.962$ on the
-outer equator and $3/\sqrt{13}$ on the inner one, where the axis circle is shorter and the diagonal direction turns
-further away from it. The area is $4\pi^2Rr = 32\pi^2/5$.
-
-```python
-R, r = 2, QQ(4)/5
-E3 = Manifold(3, "R^3", structure="Riemannian"); cart = E3.chart("x y z")
-delta = E3.metric("delta"); delta[0, 0] = 1; delta[1, 1] = 1; delta[2, 2] = 1
-T = Manifold(2, "T^2", structure="Riemannian"); X = T.chart("a:(0,2*pi) b:(0,2*pi)"); a, b = X[:]
-Phi = T.diff_map(E3, {(X, cart): [(R + r*cos(a))*cos(b), (R + r*cos(a))*sin(b), r*sin(a)]})
-g = T.metric("g"); g.set(Phi.pullback(delta))
-print("induced metric:", g.display())
-G0 = matrix(QQ, [[g[i, j].expr().subs(a=0, b=0) for j in range(2)] for i in range(2)])
-print("at the outer equator a = 0 the matrix is", G0.list(), "with signature (p, q, z) =", QuadraticForm(QQ, 2*G0).signature_vector())
-print("determinant:", g.determinant().expr().factor(), "; inverse:", g.inverse().display())
-db = T.vector_field(0, 1, name="db"); print("lowering d_b:", db.down(g).display())
-z = T.scalar_field(r*sin(a), name="z"); grad = z.differential().up(g)
-print("gradient of the height z = r sin a:", grad.display(), "; |grad z| =", sqrt(g(grad, grad).expr()).simplify_full())
-V = T.vector_field(1, 1, name="V")
-c = (g(V, db) / sqrt(g(V, V) * g(db, db))).expr()
-print("cos of the angle between d_a + d_b and d_b at the outer equator:", c.subs(a=0).simplify_full(), "=", c.subs(a=0).n(digits=5), "; on the inner equator:", c.subs(a=pi).simplify_full())
-area = integrate(integrate(r*(R + r*cos(a)), b, 0, 2*pi), a, 0, 2*pi)
-print("sqrt(det g) = r (R + r cos a):", bool((g.determinant().expr() - r**2*(R + r*cos(a))**2).simplify_full() == 0), "; area 4 pi^2 R r =", area)
-```
-
-*Output:*
-
-```text
-induced metric: g = 16/25 da⊗da + (16/25*cos(a)^2 + 16/5*cos(a) + 4) db⊗db
-at the outer equator a = 0 the matrix is [16/25, 0, 0, 196/25] with signature (p, q, z) = (2, 0, 0)
-determinant: 64/625*(2*cos(a) + 5)^2 ; inverse: inv_g = 25/16 ∂/∂a⊗∂/∂a + 25/4/(4*cos(a)^2 + 20*cos(a) + 25) ∂/∂b⊗∂/∂b
-lowering d_b: (16/25*cos(a)^2 + 16/5*cos(a) + 4) db
-gradient of the height z = r sin a: 5/4*cos(a) ∂/∂a ; |grad z| = abs(cos(a))
-cos of the angle between d_a + d_b and d_b at the outer equator: 7/53*sqrt(53) = 0.96152 ; on the inner equator: 3/13*sqrt(13)
-sqrt(det g) = r (R + r cos a): True ; area 4 pi^2 R r = 32/5*pi^2
-```
-:::
-
-The second integrative exercise is the five-dimensional ground state of a circle reduction, worked by hand. Its
-signature, determinant, inverse and volume element come from the first and third sections, and the norm and lowered
-form of the circle direction from the second.
-
-::: {#exr-metrics-kk-circle}
-#### The product metric with a circle
-
-For $ds^2 = \eta_{\mu\nu}dx^\mu dx^\nu - R^2d\varphi^2$ on $M_4 \times S^1$, give the signature, the determinant and
-$\sqrt{|\det g|}$, the inverse metric, the norm of $\partial_\varphi$ and its lowered form $(\partial_\varphi)^\flat$,
-the length of a circle $x^\mu = \text{const}$, and the raised form of $d\varphi$. Which of $\partial_t$,
-$\partial_\varphi$, $\partial_t + R^{-1}\partial_\varphi$ are timelike, null or spacelike?
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-The matrix is $\operatorname{diag}(1, -1, -1, -1, -R^2)$: signature $(1, 4)$, Lorentzian in five dimensions
-(@exr-product-signature), with $\det g = R^2 > 0$ and $\sqrt{|\det g|} = R$ (@exr-product-metric-determinant), and
-inverse $\operatorname{diag}(1, -1, -1, -1, -R^{-2})$. $g(\partial_\varphi, \partial_\varphi) = -R^2$, so
-$\partial_\varphi$ is spacelike with norm $R$, and $(\partial_\varphi)^\flat = -R^2\,d\varphi$; the circle has length
-$\int_0^{2\pi}R\,d\varphi = 2\pi R$, and $(d\varphi)^\sharp = -R^{-2}\partial_\varphi$. $\partial_t$ has norm
-$+1$, timelike; $\partial_\varphi$ is spacelike; $\partial_t + R^{-1}\partial_\varphi$ has $g(X, X) = 1 - R^2/R^2 =
-0$, null: a light ray winding around the circle.
-:::
-
-The third integrative exercise redoes the sphere in the stereographic chart, where the metric is conformally flat
-and regular at the pole. The conformal factor, an angle, the length of the equator and the area are all computed by
-SageManifolds, the last by integrating over the whole chart plane.
-
-::: {#exr-metrics-stereographic}
-#### The sphere through the stereographic chart
-
-With the stereographic embedding of @exr-sphere-metric-stereographic, compute with SageManifolds the conformal
-factor $\Omega^2$, check that the angle between $X = (1, 2)$ and $Y = (3, -1)$ on the sphere equals the Euclidean
-angle in the chart, compute the length of the curve $u^2 + v^2 = 1$, and obtain the area of the sphere by integrating
-the volume element over the chart plane.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$\Omega^2 = 4/(1 + u^2 + v^2)^2$ with $g_{uv} = 0$ and $g_{uu} = g_{vv}$. The cosine of the angle is $\sqrt2/10$
-with either metric, as @exr-angle-conformal predicts. On the unit circle $\Omega = 1$, so the curve has unit speed
-and length $2\pi$: it is the equator of the sphere. The volume element is $\Omega^2\,du\,dv$, and in polar
-coordinates of the chart plane $\int_0^{2\pi}\int_0^\infty 4\rho/(1 + \rho^2)^2\,d\rho\,dt = 4\pi$: the whole
-sphere except the north pole is covered by the chart, and the missing point has no area.
-
-```python
-E3 = Manifold(3, "R^3", structure="Riemannian"); cart = E3.chart("x y z")
-delta = E3.metric("delta"); delta[0, 0] = 1; delta[1, 1] = 1; delta[2, 2] = 1
-S = Manifold(2, "S", structure="Riemannian"); st = S.chart("u v"); u, v = st[:]
-w = 1 + u**2 + v**2
-Phi = S.diff_map(E3, {(st, cart): [2*u/w, 2*v/w, (u**2 + v**2 - 1)/w]})
-g = S.metric("g"); g.set(Phi.pullback(delta))
-Om2 = g[0, 0].expr().simplify_full()
-print("conformal factor Omega^2 = g_uu =", Om2.factor(), "; g_uv =", g[0, 1].expr().simplify_full(), "; g_vv - g_uu =", (g[1, 1].expr() - g[0, 0].expr()).simplify_full())
-X = S.vector_field(1, 2, name="X"); Y = S.vector_field(3, -1, name="Y")
-cos_g = (g(X, Y) / sqrt(g(X, X) * g(Y, Y))).expr().simplify_full(); cos_e = (1*3 + 2*(-1)) / sqrt(5 * 10)
-print("cos of the angle between X = (1, 2) and Y = (3, -1): on the sphere", cos_g, "; in the chart plane", cos_e, "; equal:", bool(cos_g == cos_e))
-t = var("t", domain="real")
-eq = S.curve({st: [cos(t), sin(t)]}, (t, 0, 2*pi)); vel = eq.tangent_vector_field()
-speed = sqrt(g.along(eq)(vel, vel).expr()).simplify_full()
-print("speed along the unit circle u^2 + v^2 = 1 (the equator):", speed, "; length:", integrate(speed, t, 0, 2*pi))
-rho = var("rho", domain="real"); assume(rho > 0)
-dens = Om2.subs(u=rho*cos(t), v=rho*sin(t)).simplify_full() * rho
-print("area element in polar coordinates of the chart plane:", dens, "; area:", integrate(integrate(dens, t, 0, 2*pi), rho, 0, oo))
-```
-
-*Output:*
-
-```text
-conformal factor Omega^2 = g_uu = 4/(u^2 + v^2 + 1)^2 ; g_uv = 0 ; g_vv - g_uu = 0
-cos of the angle between X = (1, 2) and Y = (3, -1): on the sphere 1/10*sqrt(2) ; in the chart plane 1/10*sqrt(2) ; equal: True
-speed along the unit circle u^2 + v^2 = 1 (the equator): 1 ; length: 2*pi
-area element in polar coordinates of the chart plane: 4*rho/(rho^4 + 2*rho^2 + 1) ; area: 4*pi
-```
-:::
-::::
 
 ## Connections and curvature {#sec-connections-curvature}
 
@@ -15960,174 +15563,6 @@ $2\pi$, is invisible to holonomy, which is why Gauss-Bonnet is a theorem about i
 :::
 ::::
 
-### Exercises {#sec-connections-curvature-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the sections of this chapter: the torus taken from its embedding through every curvature
-quantity, holonomy around parallels of the sphere and the torus compared with enclosed curvature, and the cone, whose
-curvature hides at a single point.
-
-The first integrative exercise runs the full pipeline of the chapter on one surface. Starting from the embedding of
-the torus, SageManifolds produces the metric, the Christoffel symbols, the Riemann and Ricci tensors, the scalar
-curvature and finally the total curvature, split into its positive and negative parts.
-
-::: {#exr-cc-surface-pipeline}
-#### The torus from embedding to total curvature
-
-For the torus with $R = 2$, $r = 1$ embedded in $\mathbb{R}^3$, compute with SageManifolds the induced metric, the
-Christoffel symbols, the component $R^a{}_{bab}$, the Ricci tensor, the scalar and Gauss curvatures (with their values on
-the outer equator, the inner equator and the top circle), the area, the total curvature and its outer and inner
-contributions, and the Einstein tensor. Which of the coordinate circles are geodesics?
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-The metric is $da^2 + (2 + \cos a)^2db^2$, with $\Gamma^a_{bb} = (2 + \cos a)\sin a$ and $\Gamma^b_{ab} = -\sin a/(2 + \cos a)$;
-$R^a{}_{bab} = \cos a\,(2 + \cos a)$, $\mathrm{Ric} = Kg$ with $K = \cos a/(2 + \cos a)$, equal to $\tfrac13$, $-1$ and $0$ on
-the three circles, and $R = 2K$. The area is $8\pi^2 = 4\pi^2Rr$; the total curvature is $0$, made of $4\pi$ from the outer
-half and $-4\pi$ from the inner half; the Einstein tensor vanishes, as on every surface. The outer and inner equators
-and the tube circles are geodesics, since $\Gamma^a_{bb}$ vanishes at $a = 0, \pi$ and no symbol has two lower $a$ indices
-(@exr-sphere-geodesics-torus-sage); the top circle $a = \pi/2$ is not.
-
-```python
-from sage.all import *
-E3 = Manifold(3, 'R^3', structure='Riemannian'); C = E3.chart('X Y Z')
-h = E3.metric('h'); h[0, 0] = 1; h[1, 1] = 1; h[2, 2] = 1
-R, r = 2, 1
-T2 = Manifold(2, 'T^2', structure='Riemannian'); ab = T2.chart('a:(0,2*pi) b:(0,2*pi)'); a, b = ab[:]
-emb = T2.diff_map(E3, {(ab, C): [(R + r*cos(a))*cos(b), (R + r*cos(a))*sin(b), r*sin(a)]}, name='E')
-g = T2.metric('g'); g.set(emb.pullback(h))
-print("1. induced metric:", g.display())
-print("2. Christoffel symbols:"); print(g.christoffel_symbols_display())
-Rm = g.riemann()
-print("3. Riemann tensor: R^a_bab =", Rm[0, 1, 0, 1].expr().factor())
-Ric = g.ricci()
-print("4. Ricci tensor:", Ric.display())
-Rs = g.ricci_scalar().expr().simplify_full()
-print("5. scalar curvature R =", Rs.factor(), "; Gauss curvature K = R/2")
-K = Rs/2; dA = g.sqrt_abs_det().expr().simplify_full()
-print("   K on the outer equator:", K.subs(a=0), "; inner equator:", K.subs(a=pi), "; top circle:", K.subs(a=pi/2))
-print("6. area element sqrt(det g) =", dA, "; area =", integrate(integrate(dA, a, 0, 2*pi), b, 0, 2*pi))
-print("   total curvature, integral of K dA =", integrate(integrate((K*dA).simplify_full(), a, 0, 2*pi), b, 0, 2*pi), "= 2 pi chi(T^2) with chi = 0")
-print("   positive part (outer half):", integrate(integrate((K*dA).simplify_full(), a, -pi/2, pi/2), b, 0, 2*pi), "; negative part (inner half):", integrate(integrate((K*dA).simplify_full(), a, pi/2, 3*pi/2), b, 0, 2*pi))
-print("7. Einstein tensor G = Ric - R g / 2 vanishes (two dimensions):", Ric - g.ricci_scalar()*g/2 == 0)
-```
-
-*Output:*
-
-```text
-1. induced metric: g = da⊗da + (cos(a)^2 + 4*cos(a) + 4) db⊗db
-2. Christoffel symbols:
-Gam^a_bb = (cos(a) + 2)*sin(a) 
-Gam^b_ab = -sin(a)/(cos(a) + 2) 
-3. Riemann tensor: R^a_bab = (cos(a) + 2)*cos(a)
-4. Ricci tensor: Ric(g) = cos(a)/(cos(a) + 2) da⊗da + (cos(a)^2 + 2*cos(a)) db⊗db
-5. scalar curvature R = 2*cos(a)/(cos(a) + 2) ; Gauss curvature K = R/2
-   K on the outer equator: 1/3 ; inner equator: -1 ; top circle: 0
-6. area element sqrt(det g) = cos(a) + 2 ; area = 8*pi^2
-   total curvature, integral of K dA = 0 = 2 pi chi(T^2) with chi = 0
-   positive part (outer half): 4*pi ; negative part (inner half): -4*pi
-7. Einstein tensor G = Ric - R g / 2 vanishes (two dimensions): True
-```
-:::
-
-The second integrative exercise compares holonomy with curvature on two surfaces. It uses the Christoffel symbols to
-set up the transport equations along coordinate circles, solves them through their constant coefficient matrix, and
-integrates the Gauss curvature over the region the circle bounds.
-
-::: {#exr-cc-holonomy-area}
-#### Holonomy and enclosed curvature
-
-(a) On the sphere of radius $R_0$, write the transport equations along the parallel $\theta = \theta_0$ as $\dot V = AV$ with a
-constant matrix $A$, find the rotation rate from its eigenvalues, and compare the holonomy angle with $\int K\,dA$ over the
-northern cap. (b) Do the same on the torus along the circle $a = a_0$, $|a_0| < \pi/2$, comparing with the total curvature of
-the band $a_0 < a < \pi/2$ between the circle and the top circle. Use SageManifolds for the symbols and the integrals.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $A = \begin{pmatrix} 0 & \sin\theta_0\cos\theta_0 \\ -\cot\theta_0 & 0 \end{pmatrix}$ has eigenvalues $\pm i\cos\theta_0$: the vector
-turns at rate $\cos\theta_0$ relative to the orthonormal frame $(\partial_\theta, \partial_\varphi/\sin\theta_0)$, and after one turn,
-when the frame is back to itself, the holonomy angle is $2\pi\cos\theta_0 \equiv -2\pi(1 - \cos\theta_0)$ modulo $2\pi$. The cap has
-$K = R_0^{-2}$ and area $2\pi R_0^2(1 - \cos\theta_0)$, so $\int K\,dA = 2\pi(1 - \cos\theta_0)$, independent of $R_0$; up to
-orientation the two agree. (b) On the torus the eigenvalues are $\pm i\sin a_0$ and the holonomy angle is $2\pi(1 - \sin a_0)$
-up to orientation and modulo $2\pi$; the band has $\int K\,dA = 2\pi\int_{a_0}^{\pi/2}\cos a\,da = 2\pi(1 - \sin a_0)$. Its other
-boundary, the top circle, has rotation rate $\sin(\pi/2) = 1$ and trivial holonomy, so the band behaves like a cap, and
-holonomy equals enclosed curvature: the local Gauss-Bonnet theorem. For $a_0 = 0$ the outer equator, a geodesic, bounds a
-band of total curvature $2\pi$, a full turn.
-
-```python
-import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _curvature import *
-t = var('t', domain='real')
-def rotation_rate(g, X, curve_index, fixed):
-    """Along the coordinate circle x^{curve_index} = t (other coordinate fixed), the transport equations are
-    V'^k = -Gamma^k_{c j} V^j; return the constant matrix A with V' = A V."""
-    Gam = g.christoffel_symbols(); c = curve_index
-    return matrix(SR, 2, 2, lambda k, j: (-Gam[k, c, j].expr()).subs(fixed))
-# sphere of radius R0, parallel theta = th0
-R0, th0 = var('R0 th0', domain='real'); assume(R0 > 0, 0 < th0, th0 < pi/2)
-M, X, g = chart_metric('th ph', lambda c: [[R0**2, 0], [0, R0**2*sin(c[0])**2]], ranges='th:(0,pi) ph:(0,2*pi)')
-th, ph = X[:]
-A = rotation_rate(g, X, 1, {th: th0})
-print("sphere: V' = A V with A =", A, "; eigenvalues", [e.simplify_full() for e in A.eigenvalues()])
-print("  the vector turns at the rate cos(th0) relative to the chart frame, so after one turn the holonomy angle is 2 pi (1 - cos th0)")
-K = (g.ricci_scalar().expr()/2).simplify_full(); dA = R0**2*sin(th)
-cap = integrate(integrate(K*dA, ph, 0, 2*pi), th, 0, th0).simplify_full()
-print("  K =", K, "; integral of K dA over the cap =", cap, "; equal to 2 pi (1 - cos th0):", bool((cap - 2*pi*(1 - cos(th0))).simplify_full() == 0))
-print("  independent of R0: the area grows as R0^2 and K falls as 1/R0^2")
-# torus, parallel a = a0 (circle of constant tube angle)
-Rr, r, a0 = var('Rr r a0', domain='real'); assume(Rr > r, r > 0, -pi/2 < a0, a0 < pi/2)
-N, Y, h = chart_metric('a b', lambda c: [[r**2, 0], [0, (Rr + r*cos(c[0]))**2]], ranges='a:(0,2*pi) b:(0,2*pi)')
-a, b = Y[:]
-B = rotation_rate(h, Y, 1, {a: a0})
-print("torus: V' = B V with B =", [[e.simplify_full() for e in row] for row in B.rows()], "; eigenvalues", [e.simplify_full() for e in B.eigenvalues()])
-print("  rotation rate sin(a0) relative to the frame: holonomy angle 2 pi (1 - sin a0) after one turn (mod 2 pi)")
-Kt = (h.ricci_scalar().expr()/2).simplify_full(); dAt = r*(Rr + r*cos(a))
-band = integrate(integrate((Kt*dAt).simplify_full(), b, 0, 2*pi), a, a0, pi/2).simplify_full()
-print("  integral of K dA over the band a0 < a < pi/2 up to the top circle (itself a geodesic, holonomy 0):", band, "; equal to 2 pi (1 - sin a0):", bool((band - 2*pi*(1 - sin(a0))).simplify_full() == 0))
-print("  outer equator a0 = 0 is a geodesic: holonomy angle 2 pi = 0 mod 2 pi, the band a in (0, pi/2) has total curvature", band.subs(a0=0))
-```
-
-*Output:*
-
-```text
-sphere: V' = A V with A = [                 0  cos(th0)*sin(th0)]
-[-cos(th0)/sin(th0)                  0] ; eigenvalues [-I*cos(th0), I*cos(th0)]
-  the vector turns at the rate cos(th0) relative to the chart frame, so after one turn the holonomy angle is 2 pi (1 - cos th0)
-  K = R0^(-2) ; integral of K dA over the cap = 2*pi - 2*pi*cos(th0) ; equal to 2 pi (1 - cos th0): True
-  independent of R0: the area grows as R0^2 and K falls as 1/R0^2
-torus: V' = B V with B = [[0, -(r*cos(a0)*sin(a0) + Rr*sin(a0))/r], [r*sin(a0)/(r*cos(a0) + Rr), 0]] ; eigenvalues [-I*sin(a0), I*sin(a0)]
-  rotation rate sin(a0) relative to the frame: holonomy angle 2 pi (1 - sin a0) after one turn (mod 2 pi)
-  integral of K dA over the band a0 < a < pi/2 up to the top circle (itself a geodesic, holonomy 0): 2*pi - 2*pi*sin(a0) ; equal to 2 pi (1 - sin a0): True
-  outer equator a0 = 0 is a geodesic: holonomy angle 2 pi = 0 mod 2 pi, the band a in (0, pi/2) has total curvature 2*pi
-```
-:::
-
-The third integrative exercise studies a surface that is flat wherever it is smooth and still has holonomy. It
-combines the Christoffel symbols of the cone, its geodesics in the unrolled picture, parallel transport around the apex
-and the total curvature of a smoothed cone.
-
-::: {#exr-cc-cone-holonomy}
-#### Holonomy of a cone
-
-For the cone $d\rho^2 + \rho^2\sin^2\alpha\,d\varphi^2$ of @exr-christoffel-cone: (a) explain why its geodesics are straight lines
-of the plane sector obtained by cutting the cone along a ray and unrolling it, a sector of angle $2\pi\sin\alpha$; (b) solve
-the transport equations along the circle $\rho = \rho_0$ and find the holonomy angle; (c) round off the apex by a spherical
-cap tangent to the cone along a circle, and show that the cap's total curvature equals the holonomy angle, although the
-cone's own curvature vanishes (@exr-riemann-cone).
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) With $\psi = \varphi\sin\alpha$ the metric is the polar metric $d\rho^2 + \rho^2d\psi^2$ on the sector $0 < \psi < 2\pi\sin\alpha$, an
-isometry onto a piece of the plane, so geodesics are straight segments in the sector, continued across the cut by
-identifying its edges. (b) Along $\rho = \rho_0$, $\varphi = t$: $\dot V^\rho = \rho_0\sin^2\alpha\,V^\varphi$, $\dot V^\varphi = -V^\rho/\rho_0$, so
-$\ddot V^\rho = -\sin^2\alpha\,V^\rho$: the vector turns at rate $\sin\alpha$ relative to the orthonormal chart frame, and after one
-turn the holonomy angle is $2\pi(1 - \sin\alpha)$ up to orientation and modulo $2\pi$: the angle deficit of the sector, for every
-$\rho_0$. (c) A sphere of radius $s$ centred on the axis and tangent to the cone touches it where its normal is perpendicular
-to the generators, at polar angle $\theta_0 = \pi/2 - \alpha$ from the axis; the cap on the apex side has $\int K\,dA = 2\pi(1 -
-\cos\theta_0) = 2\pi(1 - \sin\alpha)$, independent of $s$. Shrinking the cap concentrates this curvature at the apex: the cone
-carries a total curvature $2\pi(1 - \sin\alpha)$ at a single point, which is what transport around the apex detects.
-:::
-::::
-
 ## Flows and Killing vectors {#sec-flows-killing}
 
 A vector field generates a flow, the Lie derivative measures how tensors change along it, and Killing vectors are the
@@ -17715,10 +17150,559 @@ plane at every point: constant sectional curvature.
 :::
 ::::
 
-### Exercises {#sec-flows-killing-exercises}
+## Exercises {#sec-differential-geometry-exercises}
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the two sections of this chapter: the flow of a Killing field of the sphere followed
+Three exercises that combine the units of @sec-charts-manifolds: the volume of the three-sphere computed in two atlases,
+the Mercator chart of the sphere with its transition map and Gram matrix, and the length of a closed curve on the
+torus.
+
+The first integrative exercise returns to the stereographic atlas of $S^3$ built in @exr-manifold-s3-charts and
+computes its Gram matrix, which turns out to be conformal like that of $S^2$. Integrating the area factor over
+$\mathbb{R}^3$ must reproduce the volume $2\pi^2$ found with the Euler angles, a check that two unrelated charts
+of the same manifold agree on a global quantity.
+
+::: {#exr-cm-s3-volume}
+#### The volume of $S^3$ in two charts
+
+Compute the Gram matrix of the north stereographic parametrisation of $S^3$, $(u, v, w) \mapsto (2u, 2v, 2w,
+\rho^2 - 1)/(1 + \rho^2)$, show that it is $4/(1 + \rho^2)^2$ times the identity, and integrate $\sqrt{\det G}$
+over $\mathbb{R}^3$. Compare with the volume computed from the Euler-angle Gram matrix @eq-su2-gram.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The three coordinate velocities are orthogonal with common length $2/(1 + \rho^2)$, as in
+@exr-velocity-stereographic one dimension up, so $G = 4/(1 + \rho^2)^2\, 1_3$ and $\sqrt{\det G} = 8/(1 +
+\rho^2)^3$. Integrating over spherical shells of $\mathbb{R}^3$, the volume is $\int_0^\infty 4\pi\rho^2 \cdot 8/(1 +
+\rho^2)^3\, d\rho = 32\pi \cdot \pi/16 = 2\pi^2$, and the Euler-angle chart gives $\int \sin\theta/8 = 2\pi^2$ as
+well (@exm-su2-gram-volume). The chart of @exr-manifold-s3-charts misses one point and the Euler chart misses two
+circles, both of volume zero:
+
+```python
+th, ph, ps = var("th ph ps", domain="real")
+G_euler = matrix(SR, [[1, 0, 0], [0, 1, cos(th)], [0, cos(th), 1]])/4
+dens = sin(th)/8
+print("sqrt(det G_euler) = sin(theta)/8 on 0 < theta < pi:", bool((dens**2 - G_euler.det()).simplify_full() == 0))
+vol_euler = integrate(integrate(integrate(dens, th, 0, pi), ph, 0, 2*pi), ps, 0, 4*pi)
+print("volume from the Euler angles:", vol_euler)
+u, v, w = var("u v w", domain="real")
+rho2 = u**2 + v**2 + w**2
+E = vector([2*u/(1 + rho2), 2*v/(1 + rho2), 2*w/(1 + rho2), (rho2 - 1)/(1 + rho2)])
+J = jacobian(E, (u, v, w))
+G = (J.transpose()*J).simplify_full()
+print("Gram matrix of the stereographic chart of S^3 is 4/(1 + rho^2)^2 times the identity:", bool((G - 4/(1 + rho2)**2*identity_matrix(SR, 3)).simplify_full() == 0))
+print("det G =", G.det().simplify_full().factor())
+rho = var("rho", domain="real"); assume(rho > 0)
+dens3 = 8/(1 + rho**2)**3                                  # sqrt(det G) as a function of rho = sqrt(u^2 + v^2 + w^2)
+print("sqrt(det G) = 8/(1 + rho^2)^3:", bool((dens3**2 - G.det().subs(u=rho, v=0, w=0)).simplify_full() == 0))
+vol_ste = integrate(4*pi*rho**2*dens3, rho, 0, oo)         # shells of radius rho in R^3
+print("volume from the stereographic chart:", vol_ste)
+print("the two charts agree, vol(S^3) = 2 pi^2:", bool(vol_euler == vol_ste) and bool(vol_euler == 2*pi**2))
+```
+
+*Output:*
+
+```text
+sqrt(det G_euler) = sin(theta)/8 on 0 < theta < pi: True
+volume from the Euler angles: 2*pi^2
+Gram matrix of the stereographic chart of S^3 is 4/(1 + rho^2)^2 times the identity: True
+det G = 64/(u^2 + v^2 + w^2 + 1)^6
+sqrt(det G) = 8/(1 + rho^2)^3: True
+volume from the stereographic chart: 2*pi^2
+the two charts agree, vol(S^3) = 2 pi^2: True
+```
+:::
+
+The second integrative exercise introduces a fourth chart on the sphere, the Mercator chart of navigators, and
+runs it through the whole chapter: domain, transition map to spherical coordinates with its Jacobian, Gram matrix,
+and finally its relation to the stereographic chart, which is a complex logarithm. Everything can be done by hand.
+
+::: {#exr-cm-mercator}
+#### The Mercator chart
+
+The Mercator parametrisation of the sphere is $(\lambda, y) \mapsto (\cos\lambda/\cosh y,\ \sin\lambda/\cosh y,\
+\tanh y)$ with $\lambda \in (0, 2\pi)$, $y \in \mathbb{R}$. Show that it lands on the sphere and find its image;
+compute the transition map from spherical coordinates and its Jacobian determinant; compute the Gram matrix and
+show that the chart is conformal; and show that the stereographic coordinate $w = u + iv$ of the same point is
+$e^{y + i\lambda}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$X^2 + Y^2 + Z^2 = 1/\cosh^2 y + \tanh^2 y = (1 + \sinh^2 y)/\cosh^2 y = 1$. As $y \to \pm\infty$, $Z \to \pm 1$,
+so the image is the sphere minus the poles and the half-meridian $\lambda = 0$: the same domain as the spherical
+chart. Comparing with @eq-sphere-embedding, $\lambda = \varphi$ and $\tanh y = \cos\theta$, that is $y =
+\operatorname{artanh}(\cos\theta) = \ln\cot(\theta/2)$, and $1/\cosh y = \sin\theta$; the Jacobian of $(\theta,
+\varphi) \mapsto (\lambda, y)$ is $\begin{pmatrix} 0 & 1 \\ -1/\sin\theta & 0 \end{pmatrix}$ with determinant
+$1/\sin\theta \neq 0$, so the Mercator chart is compatible with the spherical atlas. The velocities
+$\partial_\lambda E = (-\sin\lambda, \cos\lambda, 0)/\cosh y$ and $\partial_y E = (-\cos\lambda\sinh y, -
+\sin\lambda\sinh y, 1)/\cosh^2 y$ are orthogonal with equal length $1/\cosh y$, so $G = \cosh^{-2} y\, 1$:
+conformal, which is why Mercator maps preserve compass bearings. Finally $u + iv = (X + iY)/(1 - Z) = e^{i\lambda}
+/(\cosh y - \sinh y) = e^{y + i\lambda}$, so $y + i\lambda = \log w$: the Mercator chart is the complex logarithm of
+the stereographic one, and its conformality follows from that of the stereographic chart and the holomorphy of the
+logarithm (@exr-stereographic-complex).
+:::
+
+The third integrative exercise measures the closed curve $(t, 2t)$ of @exm-torus-curve with the Gram matrix of the
+torus, combining the product chart, the curve and the metric. The speed is a trigonometric expression whose
+integral is not elementary, so Sage evaluates it numerically and checks it against the speed computed directly in
+$\mathbb{R}^3$.
+
+::: {#exr-cm-torus-curve-length}
+#### The length of a curve on the torus
+
+For the torus with $R = 2$, $r = 1$, use the Gram matrix $G = \operatorname{diag}(r^2, (R + r\cos a)^2)$ to find
+the lengths of a tube circle and of the axis circles at $a = 0$ and $a = \pi$, then compute the speed
+$\sqrt{G_{ij}\dot x^i \dot x^j}$ of the curve $\gamma(t) = (t, 2t)$, check it against $|dE/dt|$ in
+$\mathbb{R}^3$, and evaluate the length of the closed curve numerically with bounds.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+A tube circle has length $\int_0^{2\pi} r\, da = 2\pi$; the axis circles have lengths $2\pi(R + r) = 6\pi$ at $a =
+0$ and $2\pi(R - r) = 2\pi$ at $a = \pi$. For $\gamma(t) = (t, 2t)$, $\dot x = (1, 2)$ and the speed squared is
+$G_{aa} + 4G_{bb} = 1 + 4(2 + \cos t)^2$, which agrees with $|dE/dt|^2$ computed from the embedding; since $2 +
+\cos t$ ranges over $[1, 3]$ the speed lies between $\sqrt5$ and $\sqrt{37}$, so the length lies between $2\pi\sqrt5
+\approx 14.05$ and $2\pi\sqrt{37} \approx 38.22$. Numerically it is $26.01$:
+
+```python
+R, r = 2, 1
+a, b, t = var("a b t", domain="real")
+E = vector([(R + r*cos(a))*cos(b), (R + r*cos(a))*sin(b), r*sin(a)])
+J = jacobian(E, (a, b)); G = (J.transpose()*J).simplify_full()
+print("Gram matrix:", G.list())
+print("length of a tube circle, integral of sqrt(G_aa) over a in (0, 2 pi):", integrate(sqrt(G[0, 0]), a, 0, 2*pi))
+print("axis circles at a = 0 (outer equator) and a = pi (inner equator):", integrate(sqrt(G[1, 1].subs(a=0)), b, 0, 2*pi), integrate(sqrt(G[1, 1].subs(a=pi)), b, 0, 2*pi))
+# gamma(t) = (t, 2t): speed^2 = G_aa adot^2 + 2 G_ab adot bdot + G_bb bdot^2 with (adot, bdot) = (1, 2)
+speed2 = (G[0, 0] + 4*G[0, 1] + 4*G[1, 1]).subs(a=t, b=2*t).simplify_full()
+print("speed squared along (t, 2t):", speed2.factor())
+Edot = diff(E.subs(a=t, b=2*t), t)
+print("agrees with |dE/dt|^2 computed in R^3:", bool((Edot*Edot - speed2).simplify_full() == 0))
+L = numerical_integral(sqrt(speed2), 0, 2*pi)
+print("length of the closed curve (t, 2t):", L[0], " (error estimate", L[1], ")")
+print("bounds 2 pi sqrt(1 + 4 (R - r)^2) <= L <= 2 pi sqrt(1 + 4 (R + r)^2):", N(2*pi*sqrt(1 + 4*(R - r)**2)), "<=", L[0], "<=", N(2*pi*sqrt(1 + 4*(R + r)**2)))
+```
+
+*Output:*
+
+```text
+Gram matrix: [1, 0, 0, cos(a)^2 + 4*cos(a) + 4]
+length of a tube circle, integral of sqrt(G_aa) over a in (0, 2 pi): 2*pi
+axis circles at a = 0 (outer equator) and a = pi (inner equator): 6*pi 2*pi
+speed squared along (t, 2t): 4*cos(t)^2 + 16*cos(t) + 17
+agrees with |dE/dt|^2 computed in R^3: True
+length of the closed curve (t, 2t): 26.01350893229216  (error estimate 2.888079656792293e-13 )
+bounds 2 pi sqrt(1 + 4 (R - r)^2) <= L <= 2 pi sqrt(1 + 4 (R + r)^2): 14.0496294620815 <= 26.01350893229216 <= 38.2191241574323
+```
+:::
+
+Three exercises that combine the units of @sec-vector-fields-forms-tensors: two vector fields on the round sphere followed through
+duality, exterior derivatives and Lie derivatives; Stokes' theorem on a disc, with the two-form moved between charts;
+and a type $(1, 1)$ tensor field of the plane seen in Cartesian and polar coordinates.
+
+The first integrative exercise starts from the two vector fields of @fig-sphere-vector-fields and passes through every
+section: their brackets, their dual one-forms through the round metric, the exterior derivatives of those, and the Lie
+derivatives of @def-lie-derivative, which measure how the metric and the height change along the flows.
+
+::: {#exr-vfft-sphere-full}
+#### Two vector fields on the round sphere
+
+On the sphere with the round metric $g = d\theta \otimes d\theta + \sin^2\theta\,d\varphi \otimes d\varphi$ let $X =
+\partial_\varphi$ and $Y = -\sin\theta\,\partial_\theta$. With SageManifolds, compute the one-forms $X^\flat =
+g(X, \cdot)$ and $Y^\flat$, their exterior derivatives, the bracket $[X, Y]$, the Lie derivatives $\mathcal L_Xg$,
+$\mathcal L_Yg$, $\mathcal L_XZ$, $\mathcal L_YZ$ of the metric and the height, and check Cartan's formula $\mathcal
+L_Y\alpha = \iota_Yd\alpha + d(\alpha(Y))$ for $\alpha = X^\flat$. Interpret the results.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$X^\flat = \sin^2\theta\,d\varphi$ and $Y^\flat = -\sin\theta\,d\theta = dZ$: the gradient field is dual to an exact form,
+so $dY^\flat = 0$, while $dX^\flat = 2\sin\theta\cos\theta\,d\theta \wedge d\varphi = 2\cos\theta$ times the area form,
+so $X^\flat$ is not closed. The fields commute (@prp-brackets-sphere). $\mathcal L_Xg = 0$: the rotations preserve the
+metric and $X$ is a Killing field (@def-killing); $\mathcal L_Yg = -2\cos\theta\,g$, so the flow of $Y$ rescales lengths,
+contracting the northern hemisphere and stretching the southern one. $\mathcal L_XZ = X(Z) = 0$ and $\mathcal L_YZ =
+Y(Z) = \sin^2\theta \ge 0$: the height increases along the gradient flow. Cartan's formula holds, with $\mathcal
+L_YX^\flat = -2\cos\theta\sin^2\theta\,d\varphi$:
+
+```python
+S2 = Manifold(2, "S^2"); A = S2.open_subset("A")
+sph = A.chart(r"th:(0,pi):\theta ph:(0,2*pi):\varphi"); th, ph = sph[:]
+g = A.metric("g"); g[0, 0] = 1; g[1, 1] = sin(th)**2
+X = A.vector_field(0, 1, name="X"); Y = A.vector_field(-sin(th), 0, name="Y")
+Z = A.scalar_field(cos(th), name="Z")
+Xb, Yb = X.down(g), Y.down(g)
+print("X_flat =", Xb.display(), "; Y_flat =", Yb.display(), "; Y_flat = dZ:", Yb == Z.differential())
+print("d(X_flat) =", Xb.exterior_derivative().display(), "; d(Y_flat) =", Yb.exterior_derivative().display())
+print("L_X g = 0 (X is a Killing field):", g.lie_derivative(X) == 0)
+print("L_Y g =", g.lie_derivative(Y).display(), "; equals -2 cos(theta) g:", g.lie_derivative(Y) == -2*cos(th)*g)
+print("L_X Z =", Z.lie_derivative(X).expr(), "; L_Y Z =", Z.lie_derivative(Y).expr())
+print("[X, Y] =", X.bracket(Y).display())
+al = Xb
+cartan = Y.contract(0, al.exterior_derivative(), 0) + al(Y).differential()
+print("L_Y(X_flat) =", al.lie_derivative(Y).display())
+print("Cartan's formula L_Y alpha = i_Y d alpha + d(alpha(Y)) for alpha = X_flat:", al.lie_derivative(Y) == cartan)
+```
+
+*Output:*
+
+```text
+X_flat = sin(th)^2 dph ; Y_flat = -sin(th) dth ; Y_flat = dZ: True
+d(X_flat) = 2*cos(th)*sin(th) dth∧dph ; d(Y_flat) = 0
+L_X g = 0 (X is a Killing field): True
+L_Y g = -2*cos(th) dth⊗dth - 2*cos(th)*sin(th)^2 dph⊗dph ; equals -2 cos(theta) g: True
+L_X Z = 0 ; L_Y Z = sin(th)^2
+[X, Y] = [X,Y] = 0
+L_Y(X_flat) = -2*cos(th)*sin(th)^2 dph
+Cartan's formula L_Y alpha = i_Y d alpha + d(alpha(Y)) for alpha = X_flat: True
+```
+:::
+
+The second integrative exercise checks Stokes' theorem on the unit disc for a two-form that is not constant. It uses
+the exterior derivative of a one-form, the pullback to the boundary circle, and the transformation law of a two-form to
+polar coordinates, where the integral over the disc becomes an iterated integral.
+
+::: {#exr-vfft-stokes-disc}
+#### Stokes' theorem on a disc
+
+Let $\alpha = -x^2y\,dx + xy^2\,dy$ on the plane. Compute $d\alpha$; transform it to polar coordinates with the law for
+the single component of a two-form, $\omega_{r\varphi} = \det\dfrac{\partial(x, y)}{\partial(r, \varphi)}\,\omega_{xy}$;
+compute $\int_Dd\alpha$ over the unit disc and $\oint\alpha$ around its boundary; and decide whether $\alpha$ is closed or
+exact on the plane.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$d\alpha = (\partial_x(xy^2) - \partial_y(-x^2y))\,dx \wedge dy = (x^2 + y^2)\,dx \wedge dy$. By @eq-tensor-transformation
+the component of a two-form picks up $\frac{\partial x}{\partial r}\frac{\partial y}{\partial\varphi} - \frac{\partial y}
+{\partial r}\frac{\partial x}{\partial\varphi} = r$, so $d\alpha = r^3\,dr \wedge d\varphi$ and $\int_Dd\alpha =
+\int_0^{2\pi}\int_0^1r^3\,dr\,d\varphi = \tfrac{\pi}{2}$. On the boundary, $x = \cos t$, $y = \sin t$ pull $\alpha$ back to
+$(\cos^2t\sin^2t + \cos^2t\sin^2t)\,dt = 2\cos^2t\sin^2t\,dt = \tfrac12\sin^2(2t)\,dt$, with integral $\tfrac12 \cdot \pi =
+\tfrac{\pi}{2}$, as Stokes' theorem requires. Since $d\alpha \neq 0$, $\alpha$ is not closed, hence not exact; the
+non-zero integral around a closed curve says the same (@exr-of-height-ftc).
+:::
+
+The third integrative exercise follows a type $(1, 1)$ tensor field of the plane through a change of chart. It combines
+the transformation law, the tensor product, contraction with a vector field, and the invariants of
+@exr-tf-trace-invariant.
+
+::: {#exr-vfft-rotation-tensor}
+#### A $(1, 1)$ tensor field in two charts
+
+Let $J = \partial_y \otimes dx - \partial_x \otimes dy$ on the plane. Find its components $J^i{}_j$ in Cartesian
+coordinates and, by @eq-tensor-transformation, in polar coordinates; compute $J(\partial_r)$, $J(\partial_\varphi)$ and $J$
+applied to the radial field $x\,\partial_x + y\,\partial_y$; and compute $J \circ J$, $\operatorname{tr}J$ and $\det J$ in
+both charts.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+In Cartesian coordinates $J^y{}_x = 1$, $J^x{}_y = -1$: the matrix $\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$, the
+rotation by $90^\circ$. With $\partial_x = \cos\varphi\,\partial_r - r^{-1}\sin\varphi\,\partial_\varphi$, $\partial_y =
+\sin\varphi\,\partial_r + r^{-1}\cos\varphi\,\partial_\varphi$, $dx = \cos\varphi\,dr - r\sin\varphi\,d\varphi$ and $dy =
+\sin\varphi\,dr + r\cos\varphi\,d\varphi$, the products expand to
+$$
+J = r^{-1}\,\partial_\varphi \otimes dr - r\,\partial_r \otimes d\varphi ,
+$$
+with polar matrix $\begin{pmatrix} 0 & -r \\ r^{-1} & 0 \end{pmatrix}$. Hence $J(\partial_r) = r^{-1}\partial_\varphi$, the
+unit vector turned by $90^\circ$, and $J(\partial_\varphi) = -r\,\partial_r$; the radial field $r\,\partial_r$ goes to
+$\partial_\varphi = -y\,\partial_x + x\,\partial_y$, the rotation field. Both matrices square to $-1$, so $J \circ J = -
+\delta$ in every chart, and both have trace $0$ and determinant $1$, as the invariance of trace and determinant under a
+change of chart requires (@exr-tf-trace-invariant).
+:::
+
+Three exercises that combine the units of @sec-metrics: the torus taken through every operation defined here, the
+five-dimensional product metric with a circle, and the sphere seen entirely through its stereographic chart.
+
+The first integrative exercise starts from the embedding of the torus and ends with its area, passing through the
+signature, the inverse metric, lowering and raising, an angle and a gradient. Everything is computed by SageManifolds
+from the pullback of the Euclidean metric.
+
+::: {#exr-metrics-torus-full}
+#### The torus from embedding to area
+
+For the torus with $R = 2$, $r = \tfrac45$, compute with SageManifolds the induced metric as a pullback, its
+signature at the outer equator, its determinant and inverse, the one-form $(\partial_b)^\flat$, the gradient of the
+height $z = r\sin a$ and its norm, the angle between $\partial_a + \partial_b$ and $\partial_b$ on the outer and
+inner equators, and the area.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The pullback is $r^2da^2 + (R + r\cos a)^2db^2$, which at $a = 0$ is $\operatorname{diag}(\tfrac{16}{25},
+\tfrac{196}{25})$ with signature $(2, 0, 0)$; $\det g = r^2(R + r\cos a)^2$ and $g^{-1} = \operatorname{diag}(r^{-2},
+(R + r\cos a)^{-2})$. Lowering gives $(\partial_b)^\flat = (R + r\cos a)^2\,db$; the gradient of the height is
+$\nabla z = (\cos a/r)\,\partial_a$, with norm $|\cos a|$, largest on the equators and zero on the top and bottom
+circles. The cosine of the angle is $(R + r\cos a)/\sqrt{r^2 + (R + r\cos a)^2}$: $7/\sqrt{53} \approx 0.962$ on the
+outer equator and $3/\sqrt{13}$ on the inner one, where the axis circle is shorter and the diagonal direction turns
+further away from it. The area is $4\pi^2Rr = 32\pi^2/5$.
+
+```python
+R, r = 2, QQ(4)/5
+E3 = Manifold(3, "R^3", structure="Riemannian"); cart = E3.chart("x y z")
+delta = E3.metric("delta"); delta[0, 0] = 1; delta[1, 1] = 1; delta[2, 2] = 1
+T = Manifold(2, "T^2", structure="Riemannian"); X = T.chart("a:(0,2*pi) b:(0,2*pi)"); a, b = X[:]
+Phi = T.diff_map(E3, {(X, cart): [(R + r*cos(a))*cos(b), (R + r*cos(a))*sin(b), r*sin(a)]})
+g = T.metric("g"); g.set(Phi.pullback(delta))
+print("induced metric:", g.display())
+G0 = matrix(QQ, [[g[i, j].expr().subs(a=0, b=0) for j in range(2)] for i in range(2)])
+print("at the outer equator a = 0 the matrix is", G0.list(), "with signature (p, q, z) =", QuadraticForm(QQ, 2*G0).signature_vector())
+print("determinant:", g.determinant().expr().factor(), "; inverse:", g.inverse().display())
+db = T.vector_field(0, 1, name="db"); print("lowering d_b:", db.down(g).display())
+z = T.scalar_field(r*sin(a), name="z"); grad = z.differential().up(g)
+print("gradient of the height z = r sin a:", grad.display(), "; |grad z| =", sqrt(g(grad, grad).expr()).simplify_full())
+V = T.vector_field(1, 1, name="V")
+c = (g(V, db) / sqrt(g(V, V) * g(db, db))).expr()
+print("cos of the angle between d_a + d_b and d_b at the outer equator:", c.subs(a=0).simplify_full(), "=", c.subs(a=0).n(digits=5), "; on the inner equator:", c.subs(a=pi).simplify_full())
+area = integrate(integrate(r*(R + r*cos(a)), b, 0, 2*pi), a, 0, 2*pi)
+print("sqrt(det g) = r (R + r cos a):", bool((g.determinant().expr() - r**2*(R + r*cos(a))**2).simplify_full() == 0), "; area 4 pi^2 R r =", area)
+```
+
+*Output:*
+
+```text
+induced metric: g = 16/25 da⊗da + (16/25*cos(a)^2 + 16/5*cos(a) + 4) db⊗db
+at the outer equator a = 0 the matrix is [16/25, 0, 0, 196/25] with signature (p, q, z) = (2, 0, 0)
+determinant: 64/625*(2*cos(a) + 5)^2 ; inverse: inv_g = 25/16 ∂/∂a⊗∂/∂a + 25/4/(4*cos(a)^2 + 20*cos(a) + 25) ∂/∂b⊗∂/∂b
+lowering d_b: (16/25*cos(a)^2 + 16/5*cos(a) + 4) db
+gradient of the height z = r sin a: 5/4*cos(a) ∂/∂a ; |grad z| = abs(cos(a))
+cos of the angle between d_a + d_b and d_b at the outer equator: 7/53*sqrt(53) = 0.96152 ; on the inner equator: 3/13*sqrt(13)
+sqrt(det g) = r (R + r cos a): True ; area 4 pi^2 R r = 32/5*pi^2
+```
+:::
+
+The second integrative exercise is the five-dimensional ground state of a circle reduction, worked by hand. Its
+signature, determinant, inverse and volume element come from the first and third sections, and the norm and lowered
+form of the circle direction from the second.
+
+::: {#exr-metrics-kk-circle}
+#### The product metric with a circle
+
+For $ds^2 = \eta_{\mu\nu}dx^\mu dx^\nu - R^2d\varphi^2$ on $M_4 \times S^1$, give the signature, the determinant and
+$\sqrt{|\det g|}$, the inverse metric, the norm of $\partial_\varphi$ and its lowered form $(\partial_\varphi)^\flat$,
+the length of a circle $x^\mu = \text{const}$, and the raised form of $d\varphi$. Which of $\partial_t$,
+$\partial_\varphi$, $\partial_t + R^{-1}\partial_\varphi$ are timelike, null or spacelike?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The matrix is $\operatorname{diag}(1, -1, -1, -1, -R^2)$: signature $(1, 4)$, Lorentzian in five dimensions
+(@exr-product-signature), with $\det g = R^2 > 0$ and $\sqrt{|\det g|} = R$ (@exr-product-metric-determinant), and
+inverse $\operatorname{diag}(1, -1, -1, -1, -R^{-2})$. $g(\partial_\varphi, \partial_\varphi) = -R^2$, so
+$\partial_\varphi$ is spacelike with norm $R$, and $(\partial_\varphi)^\flat = -R^2\,d\varphi$; the circle has length
+$\int_0^{2\pi}R\,d\varphi = 2\pi R$, and $(d\varphi)^\sharp = -R^{-2}\partial_\varphi$. $\partial_t$ has norm
+$+1$, timelike; $\partial_\varphi$ is spacelike; $\partial_t + R^{-1}\partial_\varphi$ has $g(X, X) = 1 - R^2/R^2 =
+0$, null: a light ray winding around the circle.
+:::
+
+The third integrative exercise redoes the sphere in the stereographic chart, where the metric is conformally flat
+and regular at the pole. The conformal factor, an angle, the length of the equator and the area are all computed by
+SageManifolds, the last by integrating over the whole chart plane.
+
+::: {#exr-metrics-stereographic}
+#### The sphere through the stereographic chart
+
+With the stereographic embedding of @exr-sphere-metric-stereographic, compute with SageManifolds the conformal
+factor $\Omega^2$, check that the angle between $X = (1, 2)$ and $Y = (3, -1)$ on the sphere equals the Euclidean
+angle in the chart, compute the length of the curve $u^2 + v^2 = 1$, and obtain the area of the sphere by integrating
+the volume element over the chart plane.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\Omega^2 = 4/(1 + u^2 + v^2)^2$ with $g_{uv} = 0$ and $g_{uu} = g_{vv}$. The cosine of the angle is $\sqrt2/10$
+with either metric, as @exr-angle-conformal predicts. On the unit circle $\Omega = 1$, so the curve has unit speed
+and length $2\pi$: it is the equator of the sphere. The volume element is $\Omega^2\,du\,dv$, and in polar
+coordinates of the chart plane $\int_0^{2\pi}\int_0^\infty 4\rho/(1 + \rho^2)^2\,d\rho\,dt = 4\pi$: the whole
+sphere except the north pole is covered by the chart, and the missing point has no area.
+
+```python
+E3 = Manifold(3, "R^3", structure="Riemannian"); cart = E3.chart("x y z")
+delta = E3.metric("delta"); delta[0, 0] = 1; delta[1, 1] = 1; delta[2, 2] = 1
+S = Manifold(2, "S", structure="Riemannian"); st = S.chart("u v"); u, v = st[:]
+w = 1 + u**2 + v**2
+Phi = S.diff_map(E3, {(st, cart): [2*u/w, 2*v/w, (u**2 + v**2 - 1)/w]})
+g = S.metric("g"); g.set(Phi.pullback(delta))
+Om2 = g[0, 0].expr().simplify_full()
+print("conformal factor Omega^2 = g_uu =", Om2.factor(), "; g_uv =", g[0, 1].expr().simplify_full(), "; g_vv - g_uu =", (g[1, 1].expr() - g[0, 0].expr()).simplify_full())
+X = S.vector_field(1, 2, name="X"); Y = S.vector_field(3, -1, name="Y")
+cos_g = (g(X, Y) / sqrt(g(X, X) * g(Y, Y))).expr().simplify_full(); cos_e = (1*3 + 2*(-1)) / sqrt(5 * 10)
+print("cos of the angle between X = (1, 2) and Y = (3, -1): on the sphere", cos_g, "; in the chart plane", cos_e, "; equal:", bool(cos_g == cos_e))
+t = var("t", domain="real")
+eq = S.curve({st: [cos(t), sin(t)]}, (t, 0, 2*pi)); vel = eq.tangent_vector_field()
+speed = sqrt(g.along(eq)(vel, vel).expr()).simplify_full()
+print("speed along the unit circle u^2 + v^2 = 1 (the equator):", speed, "; length:", integrate(speed, t, 0, 2*pi))
+rho = var("rho", domain="real"); assume(rho > 0)
+dens = Om2.subs(u=rho*cos(t), v=rho*sin(t)).simplify_full() * rho
+print("area element in polar coordinates of the chart plane:", dens, "; area:", integrate(integrate(dens, t, 0, 2*pi), rho, 0, oo))
+```
+
+*Output:*
+
+```text
+conformal factor Omega^2 = g_uu = 4/(u^2 + v^2 + 1)^2 ; g_uv = 0 ; g_vv - g_uu = 0
+cos of the angle between X = (1, 2) and Y = (3, -1): on the sphere 1/10*sqrt(2) ; in the chart plane 1/10*sqrt(2) ; equal: True
+speed along the unit circle u^2 + v^2 = 1 (the equator): 1 ; length: 2*pi
+area element in polar coordinates of the chart plane: 4*rho/(rho^4 + 2*rho^2 + 1) ; area: 4*pi
+```
+:::
+
+Three exercises that combine the units of @sec-connections-curvature: the torus taken from its embedding through every curvature
+quantity, holonomy around parallels of the sphere and the torus compared with enclosed curvature, and the cone, whose
+curvature hides at a single point.
+
+The first integrative exercise runs the full pipeline of the chapter on one surface. Starting from the embedding of
+the torus, SageManifolds produces the metric, the Christoffel symbols, the Riemann and Ricci tensors, the scalar
+curvature and finally the total curvature, split into its positive and negative parts.
+
+::: {#exr-cc-surface-pipeline}
+#### The torus from embedding to total curvature
+
+For the torus with $R = 2$, $r = 1$ embedded in $\mathbb{R}^3$, compute with SageManifolds the induced metric, the
+Christoffel symbols, the component $R^a{}_{bab}$, the Ricci tensor, the scalar and Gauss curvatures (with their values on
+the outer equator, the inner equator and the top circle), the area, the total curvature and its outer and inner
+contributions, and the Einstein tensor. Which of the coordinate circles are geodesics?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The metric is $da^2 + (2 + \cos a)^2db^2$, with $\Gamma^a_{bb} = (2 + \cos a)\sin a$ and $\Gamma^b_{ab} = -\sin a/(2 + \cos a)$;
+$R^a{}_{bab} = \cos a\,(2 + \cos a)$, $\mathrm{Ric} = Kg$ with $K = \cos a/(2 + \cos a)$, equal to $\tfrac13$, $-1$ and $0$ on
+the three circles, and $R = 2K$. The area is $8\pi^2 = 4\pi^2Rr$; the total curvature is $0$, made of $4\pi$ from the outer
+half and $-4\pi$ from the inner half; the Einstein tensor vanishes, as on every surface. The outer and inner equators
+and the tube circles are geodesics, since $\Gamma^a_{bb}$ vanishes at $a = 0, \pi$ and no symbol has two lower $a$ indices
+(@exr-sphere-geodesics-torus-sage); the top circle $a = \pi/2$ is not.
+
+```python
+from sage.all import *
+E3 = Manifold(3, 'R^3', structure='Riemannian'); C = E3.chart('X Y Z')
+h = E3.metric('h'); h[0, 0] = 1; h[1, 1] = 1; h[2, 2] = 1
+R, r = 2, 1
+T2 = Manifold(2, 'T^2', structure='Riemannian'); ab = T2.chart('a:(0,2*pi) b:(0,2*pi)'); a, b = ab[:]
+emb = T2.diff_map(E3, {(ab, C): [(R + r*cos(a))*cos(b), (R + r*cos(a))*sin(b), r*sin(a)]}, name='E')
+g = T2.metric('g'); g.set(emb.pullback(h))
+print("1. induced metric:", g.display())
+print("2. Christoffel symbols:"); print(g.christoffel_symbols_display())
+Rm = g.riemann()
+print("3. Riemann tensor: R^a_bab =", Rm[0, 1, 0, 1].expr().factor())
+Ric = g.ricci()
+print("4. Ricci tensor:", Ric.display())
+Rs = g.ricci_scalar().expr().simplify_full()
+print("5. scalar curvature R =", Rs.factor(), "; Gauss curvature K = R/2")
+K = Rs/2; dA = g.sqrt_abs_det().expr().simplify_full()
+print("   K on the outer equator:", K.subs(a=0), "; inner equator:", K.subs(a=pi), "; top circle:", K.subs(a=pi/2))
+print("6. area element sqrt(det g) =", dA, "; area =", integrate(integrate(dA, a, 0, 2*pi), b, 0, 2*pi))
+print("   total curvature, integral of K dA =", integrate(integrate((K*dA).simplify_full(), a, 0, 2*pi), b, 0, 2*pi), "= 2 pi chi(T^2) with chi = 0")
+print("   positive part (outer half):", integrate(integrate((K*dA).simplify_full(), a, -pi/2, pi/2), b, 0, 2*pi), "; negative part (inner half):", integrate(integrate((K*dA).simplify_full(), a, pi/2, 3*pi/2), b, 0, 2*pi))
+print("7. Einstein tensor G = Ric - R g / 2 vanishes (two dimensions):", Ric - g.ricci_scalar()*g/2 == 0)
+```
+
+*Output:*
+
+```text
+1. induced metric: g = da⊗da + (cos(a)^2 + 4*cos(a) + 4) db⊗db
+2. Christoffel symbols:
+Gam^a_bb = (cos(a) + 2)*sin(a) 
+Gam^b_ab = -sin(a)/(cos(a) + 2) 
+3. Riemann tensor: R^a_bab = (cos(a) + 2)*cos(a)
+4. Ricci tensor: Ric(g) = cos(a)/(cos(a) + 2) da⊗da + (cos(a)^2 + 2*cos(a)) db⊗db
+5. scalar curvature R = 2*cos(a)/(cos(a) + 2) ; Gauss curvature K = R/2
+   K on the outer equator: 1/3 ; inner equator: -1 ; top circle: 0
+6. area element sqrt(det g) = cos(a) + 2 ; area = 8*pi^2
+   total curvature, integral of K dA = 0 = 2 pi chi(T^2) with chi = 0
+   positive part (outer half): 4*pi ; negative part (inner half): -4*pi
+7. Einstein tensor G = Ric - R g / 2 vanishes (two dimensions): True
+```
+:::
+
+The second integrative exercise compares holonomy with curvature on two surfaces. It uses the Christoffel symbols to
+set up the transport equations along coordinate circles, solves them through their constant coefficient matrix, and
+integrates the Gauss curvature over the region the circle bounds.
+
+::: {#exr-cc-holonomy-area}
+#### Holonomy and enclosed curvature
+
+(a) On the sphere of radius $R_0$, write the transport equations along the parallel $\theta = \theta_0$ as $\dot V = AV$ with a
+constant matrix $A$, find the rotation rate from its eigenvalues, and compare the holonomy angle with $\int K\,dA$ over the
+northern cap. (b) Do the same on the torus along the circle $a = a_0$, $|a_0| < \pi/2$, comparing with the total curvature of
+the band $a_0 < a < \pi/2$ between the circle and the top circle. Use SageManifolds for the symbols and the integrals.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $A = \begin{pmatrix} 0 & \sin\theta_0\cos\theta_0 \\ -\cot\theta_0 & 0 \end{pmatrix}$ has eigenvalues $\pm i\cos\theta_0$: the vector
+turns at rate $\cos\theta_0$ relative to the orthonormal frame $(\partial_\theta, \partial_\varphi/\sin\theta_0)$, and after one turn,
+when the frame is back to itself, the holonomy angle is $2\pi\cos\theta_0 \equiv -2\pi(1 - \cos\theta_0)$ modulo $2\pi$. The cap has
+$K = R_0^{-2}$ and area $2\pi R_0^2(1 - \cos\theta_0)$, so $\int K\,dA = 2\pi(1 - \cos\theta_0)$, independent of $R_0$; up to
+orientation the two agree. (b) On the torus the eigenvalues are $\pm i\sin a_0$ and the holonomy angle is $2\pi(1 - \sin a_0)$
+up to orientation and modulo $2\pi$; the band has $\int K\,dA = 2\pi\int_{a_0}^{\pi/2}\cos a\,da = 2\pi(1 - \sin a_0)$. Its other
+boundary, the top circle, has rotation rate $\sin(\pi/2) = 1$ and trivial holonomy, so the band behaves like a cap, and
+holonomy equals enclosed curvature: the local Gauss-Bonnet theorem. For $a_0 = 0$ the outer equator, a geodesic, bounds a
+band of total curvature $2\pi$, a full turn.
+
+```python
+import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _curvature import *
+t = var('t', domain='real')
+def rotation_rate(g, X, curve_index, fixed):
+    """Along the coordinate circle x^{curve_index} = t (other coordinate fixed), the transport equations are
+    V'^k = -Gamma^k_{c j} V^j; return the constant matrix A with V' = A V."""
+    Gam = g.christoffel_symbols(); c = curve_index
+    return matrix(SR, 2, 2, lambda k, j: (-Gam[k, c, j].expr()).subs(fixed))
+# sphere of radius R0, parallel theta = th0
+R0, th0 = var('R0 th0', domain='real'); assume(R0 > 0, 0 < th0, th0 < pi/2)
+M, X, g = chart_metric('th ph', lambda c: [[R0**2, 0], [0, R0**2*sin(c[0])**2]], ranges='th:(0,pi) ph:(0,2*pi)')
+th, ph = X[:]
+A = rotation_rate(g, X, 1, {th: th0})
+print("sphere: V' = A V with A =", A, "; eigenvalues", [e.simplify_full() for e in A.eigenvalues()])
+print("  the vector turns at the rate cos(th0) relative to the chart frame, so after one turn the holonomy angle is 2 pi (1 - cos th0)")
+K = (g.ricci_scalar().expr()/2).simplify_full(); dA = R0**2*sin(th)
+cap = integrate(integrate(K*dA, ph, 0, 2*pi), th, 0, th0).simplify_full()
+print("  K =", K, "; integral of K dA over the cap =", cap, "; equal to 2 pi (1 - cos th0):", bool((cap - 2*pi*(1 - cos(th0))).simplify_full() == 0))
+print("  independent of R0: the area grows as R0^2 and K falls as 1/R0^2")
+# torus, parallel a = a0 (circle of constant tube angle)
+Rr, r, a0 = var('Rr r a0', domain='real'); assume(Rr > r, r > 0, -pi/2 < a0, a0 < pi/2)
+N, Y, h = chart_metric('a b', lambda c: [[r**2, 0], [0, (Rr + r*cos(c[0]))**2]], ranges='a:(0,2*pi) b:(0,2*pi)')
+a, b = Y[:]
+B = rotation_rate(h, Y, 1, {a: a0})
+print("torus: V' = B V with B =", [[e.simplify_full() for e in row] for row in B.rows()], "; eigenvalues", [e.simplify_full() for e in B.eigenvalues()])
+print("  rotation rate sin(a0) relative to the frame: holonomy angle 2 pi (1 - sin a0) after one turn (mod 2 pi)")
+Kt = (h.ricci_scalar().expr()/2).simplify_full(); dAt = r*(Rr + r*cos(a))
+band = integrate(integrate((Kt*dAt).simplify_full(), b, 0, 2*pi), a, a0, pi/2).simplify_full()
+print("  integral of K dA over the band a0 < a < pi/2 up to the top circle (itself a geodesic, holonomy 0):", band, "; equal to 2 pi (1 - sin a0):", bool((band - 2*pi*(1 - sin(a0))).simplify_full() == 0))
+print("  outer equator a0 = 0 is a geodesic: holonomy angle 2 pi = 0 mod 2 pi, the band a in (0, pi/2) has total curvature", band.subs(a0=0))
+```
+
+*Output:*
+
+```text
+sphere: V' = A V with A = [                 0  cos(th0)*sin(th0)]
+[-cos(th0)/sin(th0)                  0] ; eigenvalues [-I*cos(th0), I*cos(th0)]
+  the vector turns at the rate cos(th0) relative to the chart frame, so after one turn the holonomy angle is 2 pi (1 - cos th0)
+  K = R0^(-2) ; integral of K dA over the cap = 2*pi - 2*pi*cos(th0) ; equal to 2 pi (1 - cos th0): True
+  independent of R0: the area grows as R0^2 and K falls as 1/R0^2
+torus: V' = B V with B = [[0, -(r*cos(a0)*sin(a0) + Rr*sin(a0))/r], [r*sin(a0)/(r*cos(a0) + Rr), 0]] ; eigenvalues [-I*sin(a0), I*sin(a0)]
+  rotation rate sin(a0) relative to the frame: holonomy angle 2 pi (1 - sin a0) after one turn (mod 2 pi)
+  integral of K dA over the band a0 < a < pi/2 up to the top circle (itself a geodesic, holonomy 0): 2*pi - 2*pi*sin(a0) ; equal to 2 pi (1 - sin a0): True
+  outer equator a0 = 0 is a geodesic: holonomy angle 2 pi = 0 mod 2 pi, the band a in (0, pi/2) has total curvature 2*pi
+```
+:::
+
+The third integrative exercise studies a surface that is flat wherever it is smooth and still has holonomy. It
+combines the Christoffel symbols of the cone, its geodesics in the unrolled picture, parallel transport around the apex
+and the total curvature of a smoothed cone.
+
+::: {#exr-cc-cone-holonomy}
+#### Holonomy of a cone
+
+For the cone $d\rho^2 + \rho^2\sin^2\alpha\,d\varphi^2$ of @exr-christoffel-cone: (a) explain why its geodesics are straight lines
+of the plane sector obtained by cutting the cone along a ray and unrolling it, a sector of angle $2\pi\sin\alpha$; (b) solve
+the transport equations along the circle $\rho = \rho_0$ and find the holonomy angle; (c) round off the apex by a spherical
+cap tangent to the cone along a circle, and show that the cap's total curvature equals the holonomy angle, although the
+cone's own curvature vanishes (@exr-riemann-cone).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) With $\psi = \varphi\sin\alpha$ the metric is the polar metric $d\rho^2 + \rho^2d\psi^2$ on the sector $0 < \psi < 2\pi\sin\alpha$, an
+isometry onto a piece of the plane, so geodesics are straight segments in the sector, continued across the cut by
+identifying its edges. (b) Along $\rho = \rho_0$, $\varphi = t$: $\dot V^\rho = \rho_0\sin^2\alpha\,V^\varphi$, $\dot V^\varphi = -V^\rho/\rho_0$, so
+$\ddot V^\rho = -\sin^2\alpha\,V^\rho$: the vector turns at rate $\sin\alpha$ relative to the orthonormal chart frame, and after one
+turn the holonomy angle is $2\pi(1 - \sin\alpha)$ up to orientation and modulo $2\pi$: the angle deficit of the sector, for every
+$\rho_0$. (c) A sphere of radius $s$ centred on the axis and tangent to the cone touches it where its normal is perpendicular
+to the generators, at polar angle $\theta_0 = \pi/2 - \alpha$ from the axis; the cap on the apex side has $\int K\,dA = 2\pi(1 -
+\cos\theta_0) = 2\pi(1 - \sin\alpha)$, independent of $s$. Shrinking the cap concentrates this curvature at the apex: the cone
+carries a total curvature $2\pi(1 - \sin\alpha)$ at a single point, which is what transport around the apex detects.
+:::
+
+Three exercises that combine the two units of @sec-flows-killing: the flow of a Killing field of the sphere followed
 until it is seen to be a group of isometries, the full symmetry analysis of the Minkowski plane, and the conserved
 quantities that Killing fields give along geodesics.
 

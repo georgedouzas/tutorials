@@ -4102,143 +4102,6 @@ about $Re_3$ and leaves the axis in place.
 :::
 ::::
 
-### Exercises {#sec-lie-groups-algebras-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the four sections of this chapter: the double cover $SU(2) \to SO(3)$ followed from the
-group to the Lie algebra and back, the affine group of the line taken through every construction of the chapter, and
-the Heisenberg group, a nilpotent counterpart of both.
-
-The first integrative exercise builds the double cover on the whole group rather than on one subgroup. It uses the
-Euler angles, the adjoint representation, the Killing form and the exponential map together.
-
-::: {#exr-lg-int-su2-so3}
-#### The double cover from end to end
-
-For the Euler-angle element $g(\theta, \varphi, \psi)$ of @eq-euler-matrix compute the matrix of
-$\operatorname{Ad}_g$ in the basis $T_a$. Show that it is the rotation $e^{\varphi L_3}e^{\theta L_1}e^{\psi L_3}$, that
-it is orthogonal of determinant one, that $\operatorname{Ad}_{-g} = \operatorname{Ad}_g$, that its derivative is
-$\operatorname{ad}_{T_a} = L_a$ with Killing form $-2\delta_{ab}$, and that $(\theta, \varphi, \psi) = (0, 0, 2\pi)$
-gives $g = -1$ and $\operatorname{Ad}_g = 1$.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$\operatorname{Ad}$ is a homomorphism, so $\operatorname{Ad}_g = \operatorname{Ad}_{e^{\varphi T_3}}\operatorname{Ad}_{e^{\theta
-T_1}}\operatorname{Ad}_{e^{\psi T_3}}$, and each factor is $\operatorname{Ad}_{e^{tT_a}} = e^{t\operatorname{ad}_{T_a}} =
-e^{tL_a}$ (@exr-lg-ad-exp, @exr-lg-su2-so3-isomorphism). Orthogonality follows from the invariance of the Killing form
-$-2\delta_{ab}$ (@exr-lg-killing-invariance), and the determinant is one because $\operatorname{Ad}_g$ is connected to
-the identity through $\operatorname{Ad}_{g(t\theta, t\varphi, t\psi)}$. Conjugation by $-g$ equals conjugation by $g$,
-and $g(0, 0, 2\pi) = e^{2\pi T_3} = -1$ covers the identity rotation: the kernel $\{\pm 1\}$ of the double cover is the
-centre of @exr-lg-centre-su2. Every rotation is an Euler-angle product, so $\operatorname{Ad}$ is onto $SO(3)$:
-
-```python
-th, ph, ps = var("th ph ps", domain="real")
-s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
-T = [-I / 2 * sa for sa in s]
-L = [matrix(SR, [[0, 0, 0], [0, 0, -1], [0, 1, 0]]), matrix(SR, [[0, 0, 1], [0, 0, 0], [-1, 0, 0]]), matrix(SR, [[0, -1, 0], [1, 0, 0], [0, 0, 0]])]
-def expT(a, u): return cos(u/2) * identity_matrix(SR, 2) - I * sin(u/2) * s[a]
-def rot(a, u): return identity_matrix(SR, 3) + sin(u) * L[a] + (1 - cos(u)) * L[a]^2
-def simp(e): return e.exponentialize().simplify_full().trig_reduce().simplify_full()
-g = expT(2, ph) * expT(0, th) * expT(2, ps); gi = g.conjugate_transpose()
-Ad = matrix(SR, 3, 3, lambda a, b: simp(-2 * (T[a] * g * T[b] * gi).trace()))
-R = rot(2, ph) * rot(0, th) * rot(2, ps)
-print("Ad_g = e^{phi L_3} e^{theta L_1} e^{psi L_3}:", bool((Ad - R).apply_map(lambda e: e.trig_expand().simplify_full()) == 0))
-print("Ad_g^T Ad_g = 1:", bool((Ad.transpose() * Ad).apply_map(lambda e: e.trig_expand().simplify_full()) == 1), "; det Ad_g =", Ad.det().trig_expand().simplify_full())
-Adm = matrix(SR, 3, 3, lambda a, b: simp(-2 * (T[a] * (-g) * T[b] * (-gi)).trace()))
-print("Ad_{-g} = Ad_g:", bool(Adm == Ad))
-ad = [matrix(SR, 3, 3, lambda c, b: -2 * (T[c] * (T[a] * T[b] - T[b] * T[a])).trace()) for a in range(3)]
-print("ad_{T_a} = L_a:", all(ad[a] == L[a] for a in range(3)), "; Killing form:", matrix(SR, 3, 3, lambda a, b: (ad[a] * ad[b]).trace()).list())
-print("at (theta, phi, psi) = (0, 0, 2 pi): g =", g.subs(th=0, ph=0, ps=2 * pi).simplify_full().list(), ", Ad_g =", Ad.subs(th=0, ph=0, ps=2 * pi).list())
-```
-
-*Output:*
-
-```text
-Ad_g = e^{phi L_3} e^{theta L_1} e^{psi L_3}: True
-Ad_g^T Ad_g = 1: True ; det Ad_g = 1
-Ad_{-g} = Ad_g: True
-ad_{T_a} = L_a: True ; Killing form: [-2, 0, 0, 0, -2, 0, 0, 0, -2]
-at (theta, phi, psi) = (0, 0, 2 pi): g = [-1, 0, 0, -1] , Ad_g = [1, 0, 0, 0, 1, 0, 0, 0, 1]
-```
-:::
-
-The second integrative exercise takes the affine group through every construction of the chapter. It is the smallest
-non-abelian example, and its Killing form shows what changes when the group is not semisimple.
-
-::: {#exr-lg-int-affine}
-#### The affine group throughout
-
-For the affine group $\{x \mapsto ax + b,\ a > 0\}$: (a) build its Lie algebra in Sage's `LieAlgebra` module and compute
-its Killing form; (b) compute the exponential map $e^{xX + yY}$ and show that it is a bijection from $\mathfrak{g}$ onto
-the group; (c) compute $g^{-1}dg$, check the Maurer-Cartan equation, and find the left-invariant volume form.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $[X, Y] = Y$, and the Killing form is $\kappa(X, X) = 1$, all other components zero (@exm-killing-abelian): degenerate,
-so the algebra is not semisimple; it is solvable. (b) $e^{xX + yY} = \begin{pmatrix} e^x & y(e^x - 1)/x \\ 0 & 1
-\end{pmatrix}$ (@exr-lg-one-param-affine). Given $a > 0$ and $b$, $x = \log a$ is forced by the diagonal, and then $y =
-bx/(a - 1)$ (or $y = b$ when $a = 1$), since $(e^x - 1)/x > 0$: the exponential map is a bijection, unlike that of
-$SU(2)$ or $SL(2, \mathbb{R})$ (@exm-exponential-su2, @exr-lg-exp-not-surjective). (c) $g^{-1}dg = \sigma^XX + \sigma^YY$
-with $\sigma^X = da/a$, $\sigma^Y = db/a$ (@exm-mc-form-affine), $d\sigma^Y = -\sigma^X \wedge \sigma^Y$ (@exr-lg-mc-affine),
-and the left-invariant volume form is $\sigma^X \wedge \sigma^Y = da \wedge db/a^2$ (@exr-lg-haar-measure):
-
-```python
-aff = LieAlgebra(QQ, {("X", "Y"): {"Y": 1}}, names="X,Y")
-Xg, Yg = aff.gens()
-print("[X, Y] =", Xg.bracket(Yg), "; Killing form:", aff.killing_form_matrix().list(), "; semisimple:", aff.is_semisimple(), "; solvable:", aff.is_solvable())
-x, y = var("x y", domain="real")
-X = matrix(SR, [[1, 0], [0, 0]]); Y = matrix(SR, [[0, 1], [0, 0]])
-E = (x * X + y * Y).exp().simplify_full()
-print("exp(xX + yY) =", E.list())
-a, b = var("a b", domain="real")
-print("inverse of exp: given (a, b) with a > 0, x = log a, y = b log(a)/(a - 1):", bool(E.subs(x=log(a), y=b * log(a) / (a - 1)).simplify_full() == matrix(SR, [[a, b], [0, 1]])))
-A = Manifold(2, "Aff"); C.<a, b> = A.chart("a:(0,+oo) b")
-g = matrix(SR, [[a, b], [0, 1]])
-print("g^-1 dg/da =", (g.inverse() * diff(g, a)).list(), "; g^-1 dg/db =", (g.inverse() * diff(g, b)).list())
-sX = A.one_form(1 / a, 0); sY = A.one_form(0, 1 / a)
-print("d sigma^X =", sX.exterior_derivative().display(), "; d sigma^Y + sigma^X ^ sigma^Y = 0:", sY.exterior_derivative() + sX.wedge(sY) == 0)
-print("volume form sigma^X ^ sigma^Y =", sX.wedge(sY).display())
-```
-
-*Output:*
-
-```text
-[X, Y] = Y ; Killing form: [1, 0, 0, 0] ; semisimple: False ; solvable: True
-exp(xX + yY) = [e^x, y*(e^x - 1)/x, 0, 1]
-inverse of exp: given (a, b) with a > 0, x = log a, y = b log(a)/(a - 1): True
-g^-1 dg/da = [1/a, 0, 0, 0] ; g^-1 dg/db = [0, 1/a, 0, 0]
-d sigma^X = 0 ; d sigma^Y + sigma^X ^ sigma^Y = 0: True
-volume form sigma^X ^ sigma^Y = a^(-2) da∧db
-```
-:::
-
-The third integrative exercise repeats the analysis for the Heisenberg group, whose Lie algebra is nilpotent rather than
-solvable. Every construction of the chapter becomes polynomial.
-
-::: {#exr-lg-int-heisenberg}
-#### The Heisenberg group throughout
-
-For the Heisenberg group of @exr-lg-heisenberg-group: (a) show that its Lie algebra is $\mathfrak{n}_3$, with $[X, Y] = Z$
-central, and that the adjoint representation and the Killing form are as in @exr-lg-ad-heisenberg; (b) compute $e^N$ for
-$N = xE_{12} + yE_{23} + zE_{13}$ and show that the exponential map is a diffeomorphism $\mathfrak{n}_3 \to H$; (c) verify
-that $e^{X}e^{Y} = e^{X + Y + \frac12[X, Y]}$ exactly, and relate the Maurer-Cartan equation $d\sigma^Z = -\sigma^X \wedge
-\sigma^Y$ to the bracket.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) A curve $h(x(t), y(t), z(t))$ through the identity has velocity $\dot x E_{12} + \dot yE_{23} + \dot zE_{13}$, so the Lie
-algebra is $\mathfrak{n}_3$ (@exr-lg-upper-triangular), with $[E_{12}, E_{23}] = E_{13}$ central
-(@exr-lg-heisenberg-structure); every $\operatorname{ad}$ is nilpotent and $\kappa = 0$. (b) $N^2 = xyE_{13}$ and $N^3 = 0$,
-so $e^N = 1 + N + \tfrac12N^2 = h(x, y, z + \tfrac12xy)$; the inverse map $h(x, y, z) \mapsto (x, y, z - \tfrac12xy)$ is
-polynomial, so $\exp$ is a diffeomorphism. (c) $e^{E_{12}}e^{E_{23}} = h(1, 0, 0)h(0, 1, 0) = h(1, 1, 1)$, while $e^{E_{12} +
-E_{23} + \frac12E_{13}} = h(1, 1, \tfrac12 + \tfrac12) = h(1, 1, 1)$: the Baker-Campbell-Hausdorff series of
-@exr-lg-exp-noncommuting stops after the commutator because all higher brackets vanish. The Maurer-Cartan equation
-$d\sigma^Z = -\sigma^X \wedge \sigma^Y$ of @exr-lg-invariant-form-heisenberg is @eq-maurer-cartan for the single structure
-constant $f_{XY}{}^Z = 1$, and $d\sigma^X = d\sigma^Y = 0$ because $X$ and $Y$ never appear as brackets.
-:::
-::::
-
-
 ## Representations of Lie algebras {#sec-lie-representations}
 
 A representation lets a Lie algebra act on a vector space by matrices, and the finite-dimensional representations of
@@ -6936,10 +6799,142 @@ M_{13})$ is mapped to $-\tfrac12(M_{13} - M_{02}) = J_1$; the $K_a$, with the op
 :::
 ::::
 
-### Exercises {#sec-representations-exercises}
+## Exercises {#sec-lie-groups-algebras-exercises}
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the three sections of this chapter: the octet of $\mathfrak{su}(3)$ seen through weights,
+Three exercises that combine the four units of @sec-lie-groups-algebras: the double cover $SU(2) \to SO(3)$ followed from the
+group to the Lie algebra and back, the affine group of the line taken through every construction of the chapter, and
+the Heisenberg group, a nilpotent counterpart of both.
+
+The first integrative exercise builds the double cover on the whole group rather than on one subgroup. It uses the
+Euler angles, the adjoint representation, the Killing form and the exponential map together.
+
+::: {#exr-lg-int-su2-so3}
+#### The double cover from end to end
+
+For the Euler-angle element $g(\theta, \varphi, \psi)$ of @eq-euler-matrix compute the matrix of
+$\operatorname{Ad}_g$ in the basis $T_a$. Show that it is the rotation $e^{\varphi L_3}e^{\theta L_1}e^{\psi L_3}$, that
+it is orthogonal of determinant one, that $\operatorname{Ad}_{-g} = \operatorname{Ad}_g$, that its derivative is
+$\operatorname{ad}_{T_a} = L_a$ with Killing form $-2\delta_{ab}$, and that $(\theta, \varphi, \psi) = (0, 0, 2\pi)$
+gives $g = -1$ and $\operatorname{Ad}_g = 1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\operatorname{Ad}$ is a homomorphism, so $\operatorname{Ad}_g = \operatorname{Ad}_{e^{\varphi T_3}}\operatorname{Ad}_{e^{\theta
+T_1}}\operatorname{Ad}_{e^{\psi T_3}}$, and each factor is $\operatorname{Ad}_{e^{tT_a}} = e^{t\operatorname{ad}_{T_a}} =
+e^{tL_a}$ (@exr-lg-ad-exp, @exr-lg-su2-so3-isomorphism). Orthogonality follows from the invariance of the Killing form
+$-2\delta_{ab}$ (@exr-lg-killing-invariance), and the determinant is one because $\operatorname{Ad}_g$ is connected to
+the identity through $\operatorname{Ad}_{g(t\theta, t\varphi, t\psi)}$. Conjugation by $-g$ equals conjugation by $g$,
+and $g(0, 0, 2\pi) = e^{2\pi T_3} = -1$ covers the identity rotation: the kernel $\{\pm 1\}$ of the double cover is the
+centre of @exr-lg-centre-su2. Every rotation is an Euler-angle product, so $\operatorname{Ad}$ is onto $SO(3)$:
+
+```python
+th, ph, ps = var("th ph ps", domain="real")
+s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
+T = [-I / 2 * sa for sa in s]
+L = [matrix(SR, [[0, 0, 0], [0, 0, -1], [0, 1, 0]]), matrix(SR, [[0, 0, 1], [0, 0, 0], [-1, 0, 0]]), matrix(SR, [[0, -1, 0], [1, 0, 0], [0, 0, 0]])]
+def expT(a, u): return cos(u/2) * identity_matrix(SR, 2) - I * sin(u/2) * s[a]
+def rot(a, u): return identity_matrix(SR, 3) + sin(u) * L[a] + (1 - cos(u)) * L[a]^2
+def simp(e): return e.exponentialize().simplify_full().trig_reduce().simplify_full()
+g = expT(2, ph) * expT(0, th) * expT(2, ps); gi = g.conjugate_transpose()
+Ad = matrix(SR, 3, 3, lambda a, b: simp(-2 * (T[a] * g * T[b] * gi).trace()))
+R = rot(2, ph) * rot(0, th) * rot(2, ps)
+print("Ad_g = e^{phi L_3} e^{theta L_1} e^{psi L_3}:", bool((Ad - R).apply_map(lambda e: e.trig_expand().simplify_full()) == 0))
+print("Ad_g^T Ad_g = 1:", bool((Ad.transpose() * Ad).apply_map(lambda e: e.trig_expand().simplify_full()) == 1), "; det Ad_g =", Ad.det().trig_expand().simplify_full())
+Adm = matrix(SR, 3, 3, lambda a, b: simp(-2 * (T[a] * (-g) * T[b] * (-gi)).trace()))
+print("Ad_{-g} = Ad_g:", bool(Adm == Ad))
+ad = [matrix(SR, 3, 3, lambda c, b: -2 * (T[c] * (T[a] * T[b] - T[b] * T[a])).trace()) for a in range(3)]
+print("ad_{T_a} = L_a:", all(ad[a] == L[a] for a in range(3)), "; Killing form:", matrix(SR, 3, 3, lambda a, b: (ad[a] * ad[b]).trace()).list())
+print("at (theta, phi, psi) = (0, 0, 2 pi): g =", g.subs(th=0, ph=0, ps=2 * pi).simplify_full().list(), ", Ad_g =", Ad.subs(th=0, ph=0, ps=2 * pi).list())
+```
+
+*Output:*
+
+```text
+Ad_g = e^{phi L_3} e^{theta L_1} e^{psi L_3}: True
+Ad_g^T Ad_g = 1: True ; det Ad_g = 1
+Ad_{-g} = Ad_g: True
+ad_{T_a} = L_a: True ; Killing form: [-2, 0, 0, 0, -2, 0, 0, 0, -2]
+at (theta, phi, psi) = (0, 0, 2 pi): g = [-1, 0, 0, -1] , Ad_g = [1, 0, 0, 0, 1, 0, 0, 0, 1]
+```
+:::
+
+The second integrative exercise takes the affine group through every construction of the chapter. It is the smallest
+non-abelian example, and its Killing form shows what changes when the group is not semisimple.
+
+::: {#exr-lg-int-affine}
+#### The affine group throughout
+
+For the affine group $\{x \mapsto ax + b,\ a > 0\}$: (a) build its Lie algebra in Sage's `LieAlgebra` module and compute
+its Killing form; (b) compute the exponential map $e^{xX + yY}$ and show that it is a bijection from $\mathfrak{g}$ onto
+the group; (c) compute $g^{-1}dg$, check the Maurer-Cartan equation, and find the left-invariant volume form.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $[X, Y] = Y$, and the Killing form is $\kappa(X, X) = 1$, all other components zero (@exm-killing-abelian): degenerate,
+so the algebra is not semisimple; it is solvable. (b) $e^{xX + yY} = \begin{pmatrix} e^x & y(e^x - 1)/x \\ 0 & 1
+\end{pmatrix}$ (@exr-lg-one-param-affine). Given $a > 0$ and $b$, $x = \log a$ is forced by the diagonal, and then $y =
+bx/(a - 1)$ (or $y = b$ when $a = 1$), since $(e^x - 1)/x > 0$: the exponential map is a bijection, unlike that of
+$SU(2)$ or $SL(2, \mathbb{R})$ (@exm-exponential-su2, @exr-lg-exp-not-surjective). (c) $g^{-1}dg = \sigma^XX + \sigma^YY$
+with $\sigma^X = da/a$, $\sigma^Y = db/a$ (@exm-mc-form-affine), $d\sigma^Y = -\sigma^X \wedge \sigma^Y$ (@exr-lg-mc-affine),
+and the left-invariant volume form is $\sigma^X \wedge \sigma^Y = da \wedge db/a^2$ (@exr-lg-haar-measure):
+
+```python
+aff = LieAlgebra(QQ, {("X", "Y"): {"Y": 1}}, names="X,Y")
+Xg, Yg = aff.gens()
+print("[X, Y] =", Xg.bracket(Yg), "; Killing form:", aff.killing_form_matrix().list(), "; semisimple:", aff.is_semisimple(), "; solvable:", aff.is_solvable())
+x, y = var("x y", domain="real")
+X = matrix(SR, [[1, 0], [0, 0]]); Y = matrix(SR, [[0, 1], [0, 0]])
+E = (x * X + y * Y).exp().simplify_full()
+print("exp(xX + yY) =", E.list())
+a, b = var("a b", domain="real")
+print("inverse of exp: given (a, b) with a > 0, x = log a, y = b log(a)/(a - 1):", bool(E.subs(x=log(a), y=b * log(a) / (a - 1)).simplify_full() == matrix(SR, [[a, b], [0, 1]])))
+A = Manifold(2, "Aff"); C.<a, b> = A.chart("a:(0,+oo) b")
+g = matrix(SR, [[a, b], [0, 1]])
+print("g^-1 dg/da =", (g.inverse() * diff(g, a)).list(), "; g^-1 dg/db =", (g.inverse() * diff(g, b)).list())
+sX = A.one_form(1 / a, 0); sY = A.one_form(0, 1 / a)
+print("d sigma^X =", sX.exterior_derivative().display(), "; d sigma^Y + sigma^X ^ sigma^Y = 0:", sY.exterior_derivative() + sX.wedge(sY) == 0)
+print("volume form sigma^X ^ sigma^Y =", sX.wedge(sY).display())
+```
+
+*Output:*
+
+```text
+[X, Y] = Y ; Killing form: [1, 0, 0, 0] ; semisimple: False ; solvable: True
+exp(xX + yY) = [e^x, y*(e^x - 1)/x, 0, 1]
+inverse of exp: given (a, b) with a > 0, x = log a, y = b log(a)/(a - 1): True
+g^-1 dg/da = [1/a, 0, 0, 0] ; g^-1 dg/db = [0, 1/a, 0, 0]
+d sigma^X = 0 ; d sigma^Y + sigma^X ^ sigma^Y = 0: True
+volume form sigma^X ^ sigma^Y = a^(-2) da∧db
+```
+:::
+
+The third integrative exercise repeats the analysis for the Heisenberg group, whose Lie algebra is nilpotent rather than
+solvable. Every construction of the chapter becomes polynomial.
+
+::: {#exr-lg-int-heisenberg}
+#### The Heisenberg group throughout
+
+For the Heisenberg group of @exr-lg-heisenberg-group: (a) show that its Lie algebra is $\mathfrak{n}_3$, with $[X, Y] = Z$
+central, and that the adjoint representation and the Killing form are as in @exr-lg-ad-heisenberg; (b) compute $e^N$ for
+$N = xE_{12} + yE_{23} + zE_{13}$ and show that the exponential map is a diffeomorphism $\mathfrak{n}_3 \to H$; (c) verify
+that $e^{X}e^{Y} = e^{X + Y + \frac12[X, Y]}$ exactly, and relate the Maurer-Cartan equation $d\sigma^Z = -\sigma^X \wedge
+\sigma^Y$ to the bracket.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) A curve $h(x(t), y(t), z(t))$ through the identity has velocity $\dot x E_{12} + \dot yE_{23} + \dot zE_{13}$, so the Lie
+algebra is $\mathfrak{n}_3$ (@exr-lg-upper-triangular), with $[E_{12}, E_{23}] = E_{13}$ central
+(@exr-lg-heisenberg-structure); every $\operatorname{ad}$ is nilpotent and $\kappa = 0$. (b) $N^2 = xyE_{13}$ and $N^3 = 0$,
+so $e^N = 1 + N + \tfrac12N^2 = h(x, y, z + \tfrac12xy)$; the inverse map $h(x, y, z) \mapsto (x, y, z - \tfrac12xy)$ is
+polynomial, so $\exp$ is a diffeomorphism. (c) $e^{E_{12}}e^{E_{23}} = h(1, 0, 0)h(0, 1, 0) = h(1, 1, 1)$, while $e^{E_{12} +
+E_{23} + \frac12E_{13}} = h(1, 1, \tfrac12 + \tfrac12) = h(1, 1, 1)$: the Baker-Campbell-Hausdorff series of
+@exr-lg-exp-noncommuting stops after the commutator because all higher brackets vanish. The Maurer-Cartan equation
+$d\sigma^Z = -\sigma^X \wedge \sigma^Y$ of @exr-lg-invariant-form-heisenberg is @eq-maurer-cartan for the single structure
+constant $f_{XY}{}^Z = 1$, and $d\sigma^X = d\sigma^Y = 0$ because $X$ and $Y$ never appear as brackets.
+:::
+
+Three exercises that combine the three units of @sec-lie-representations: the octet of $\mathfrak{su}(3)$ seen through weights,
 roots and branching at once, the full root-system analysis of $\mathfrak{so}(4)$, and the decuplet with its weights,
 highest weight and branching.
 

@@ -19,7 +19,7 @@ quantum field theory chapter did only for the photon. The renormalisation chapte
 identities of quantum electrodynamics rest on gauge invariance, and asymptotic freedom on the Yang-Mills theory built
 here.
 
-Every statement is followed by examples of increasing complexity and exercises of increasing difficulty with folded solutions, and some parts end with integrative exercises that combine their sections. The conventions are those of the rest of the book: the signature is $(+, -, -, -)$, so that Maxwell's Lagrangian is $-\tfrac14F_{\mu\nu}F^{\mu\nu} = \tfrac12(\vec E^2 - \vec B^2)$ and a vector mass term is $+\tfrac12m^2A_\mu A^\mu$; a field of charge $q$ has the covariant derivative $D_\mu = \partial_\mu + iqA_\mu$; Lie algebra generators are anti-Hermitian, $T_a = -\tfrac{i}{2}\sigma_a$ for $SU(2)$, with $\operatorname{Tr}(T_aT_b) = -\tfrac12\delta_{ab}$; and the masses of scalar fluctuations are read from the second derivatives of the potential.
+Every statement is followed by examples of increasing complexity and exercises of increasing difficulty with folded solutions, and the chapter ends with integrative exercises, each group combining the units of one part. The conventions are those of the rest of the book: the signature is $(+, -, -, -)$, so that Maxwell's Lagrangian is $-\tfrac14F_{\mu\nu}F^{\mu\nu} = \tfrac12(\vec E^2 - \vec B^2)$ and a vector mass term is $+\tfrac12m^2A_\mu A^\mu$; a field of charge $q$ has the covariant derivative $D_\mu = \partial_\mu + iqA_\mu$; Lie algebra generators are anti-Hermitian, $T_a = -\tfrac{i}{2}\sigma_a$ for $SU(2)$, with $\operatorname{Tr}(T_aT_b) = -\tfrac12\delta_{ab}$; and the masses of scalar fluctuations are read from the second derivatives of the potential.
 
 ## Gauge theories {#sec-gauge-theories}
 
@@ -1904,132 +1904,6 @@ were absent. Why does no lepton enter?
 The total is $2d(\mathbf3) + 2d(\mathbf{\bar3}) = 2 - 2 = 0$ by @prp-gth-anomaly-conjugate [@nath2017supersymmetry, Sec. 6.10]. Without $\bar u$ it
 would be $2 - 1 = 1$ in units of $d(\mathbf3)$, and the theory would be inconsistent: in this sense quantum consistency requires
 both chiralities of each quark colour. Leptons are $SU(3)$ singlets, with $d = 0$, and do not contribute.
-:::
-::::
-
-### Exercises {#sec-gauge-theories-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the two sections of this part: a charged plane wave in a constant potential, which
-uses the covariant derivative and the gauge freedom of the abelian theory; a non-abelian potential along a fixed
-generator, where Yang-Mills theory reduces to electromagnetism; and the transport around a small square in a
-constant non-abelian potential, which connects the commutator in the field strength to the group commutator.
-
-The first integrative exercise shows that a constant abelian potential is invisible to a single charged field,
-because it is pure gauge, although it shifts the momentum. It uses the covariant derivative of the first section
-and the gauge transformation of the potential.
-
-::: {#exr-gth-int-plane-wave}
-#### A charged plane wave in a constant potential
-
-In scalar electrodynamics with a constant potential $A_\mu = a_\mu$ and $F = 0$, show that $\phi = e^{-ik\cdot x}$ solves
-$(D_\mu D^\mu + m^2)\phi = 0$ if and only if $(k - qa)^2 = m^2$. Find the gauge transformation that removes $a_\mu$ and
-show that it maps the solution to a free plane wave with momentum $k - qa$. Why can this not be done for a constant
-non-abelian potential with $[a_\mu, a_\nu] \neq 0$?
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$D_\mu e^{-ik\cdot x} = -i(k_\mu - qa_\mu)e^{-ik\cdot x}$, so $D_\mu D^\mu\phi = -(k - qa)^2\phi$ and the equation holds iff $(k -
-qa)^2 = m^2$. The potential $a_\mu = \partial_\mu(a\cdot x)$ is pure gauge: with $\alpha = a\cdot x$, $A_\mu - \partial_\mu\alpha = 0$
-and $\phi \mapsto e^{iq\alpha}\phi = e^{-i(k - qa)\cdot x}$, a free plane wave of momentum $p = k - qa$ satisfying $p^2 = m^2$:
-the canonical momentum $k$ and the kinetic momentum $p$ differ by $qa$, and only the latter is gauge invariant. A
-constant non-abelian potential has $F_{\mu\nu} = [a_\mu, a_\nu] \neq 0$, and @exr-gth-F-not-invariant shows that no gauge
-transformation removes it.
-:::
-
-The second integrative exercise embeds electromagnetism into $SU(2)$. It uses the non-abelian field strength and
-Yang-Mills equations of the second section and the abelian Maxwell equations and charges of the first.
-
-::: {#exr-gth-int-embedded-coulomb}
-#### Electromagnetism inside $SU(2)$
-
-Let $A_\mu = a_\mu T_3$ with an abelian potential $a_\mu$. Show that $F_{\mu\nu} = (\partial_\mu a_\nu - \partial_\nu a_\mu)T_3$, that
-the Yang-Mills equations reduce to Maxwell's equations for $a_\mu$, and that the components of a doublet couple to
-$a_\mu$ with charges $\mp\tfrac12$. Check with Sage that the Coulomb potential $a_0 = Q/r$, $\vec a = 0$, solves the
-Yang-Mills equations away from the origin.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$[a_\mu T_3, a_\nu T_3] = 0$, so $F = da\,T_3$, and $D_\mu F^{\mu\nu} = \partial_\mu F^{\mu\nu} + [A_\mu, F^{\mu\nu}] =
-(\partial_\mu f^{\mu\nu})T_3$ with $f = da$: Maxwell's equations. On a doublet, $a_\mu T_3 = -\tfrac{i}{2}a_\mu\sigma_3 =
-\operatorname{diag}(-\tfrac i2, \tfrac i2)a_\mu$, which is $iqa_\mu$ with $q = -\tfrac12$ for the upper and $q = +\tfrac12$ for the
-lower component. The Coulomb potential gives the radial field $\vec E = Q\vec x/r^3$ along $T_3$, and $\nabla^2(1/r) = 0$
-away from the origin.
-
-```python
-t, x, y, z, Q = var("t x y z Q", domain="real"); X = [t, x, y, z]
-s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
-T = [-I / 2 * sa for sa in s]
-r = sqrt(x^2 + y^2 + z^2)
-a = [Q / r, 0, 0, 0]
-A = [a[m] * T[2] for m in range(4)]
-eta = [1, -1, -1, -1]
-F = [[diff(A[n], X[m]) - diff(A[m], X[n]) + A[m] * A[n] - A[n] * A[m] for n in range(4)] for m in range(4)]
-print("[PASS] the commutator terms vanish: F = (d_mu a_nu - d_nu a_mu) T_3:", all((F[m][n] - (diff(a[n], X[m]) - diff(a[m], X[n])) * T[2]).is_zero() for m in range(4) for n in range(4)))
-Fup = [[eta[m] * eta[n] * F[m][n] for n in range(4)] for m in range(4)]
-YM = [sum((diff(Fup[m][n], X[m]) + A[m] * Fup[m][n] - Fup[m][n] * A[m] for m in range(4)), zero_matrix(SR, 2)).apply_map(lambda e: e.simplify_full()) for n in range(4)]
-print("[PASS] D_mu F^{mu nu} = 0 for r != 0 (Laplace's equation for Q/r):", all(Y.is_zero() for Y in YM))
-print("the electric field E^i = F^{i0} along T_3:", [(-2 * (T[2] * Fup[i][0]).trace()).simplify_full() for i in range(1, 4)])
-print("D_mu on a doublet: d_mu + a_mu T_3 = d_mu + i q a_mu with q =", [(-I / 2 * s[2])[k, k] / I for k in range(2)])
-```
-
-*Output:*
-
-```text
-[PASS] the commutator terms vanish: F = (d_mu a_nu - d_nu a_mu) T_3: True
-[PASS] D_mu F^{mu nu} = 0 for r != 0 (Laplace's equation for Q/r): True
-the electric field E^i = F^{i0} along T_3: [Q*x/(x^2 + y^2 + z^2)^(3/2), Q*y/(x^2 + y^2 + z^2)^(3/2), Q*z/(x^2 + y^2 + z^2)^(3/2)]
-D_mu on a doublet: d_mu + a_mu T_3 = d_mu + i q a_mu with q = [-1/2, 1/2]
-```
-:::
-
-The third integrative exercise interprets the commutator term of the field strength as the failure of transports
-along two directions to commute. It uses the gauge group elements of the second section, the constant
-configuration of @exm-su2-constant and the abelian holonomy of @exr-gth-pure-gauge-abelian.
-
-::: {#exr-gth-int-group-commutator}
-#### Transport around a small square
-
-For the constant potential $A_1 = c_1T_1$, $A_2 = c_2T_2$, the transport along a side of length $\epsilon$ in the
-direction $i$ is $g_i = e^{\epsilon A_i}$. Show with Sage that $g_1g_2g_1^{-1}g_2^{-1} = 1 + \epsilon^2F_{12} +
-O(\epsilon^3)$ with $F_{12} = [A_1, A_2] = c_1c_2T_3$, and that for two potentials along $T_3$ the product is exactly $1$.
-Interpret the result.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-With $X = \epsilon A_1$, $Y = \epsilon A_2$, $e^Xe^Ye^{-X}e^{-Y} = 1 + [X, Y] + O(\epsilon^3)$, so the product is $1 +
-\epsilon^2c_1c_2T_3 + O(\epsilon^3)$. When both potentials lie along $T_3$ the exponentials commute and the product is
-$1$. The product of transports around the boundary of a small square is $1$ plus the field strength times the area:
-the field strength is the holonomy per unit area, and for a constant non-abelian potential it is non-zero because
-transports in different directions do not commute, while for a constant abelian potential it vanishes, as in
-@exr-gth-pure-gauge-abelian where only a non-contractible loop sees a flat potential.
-
-```python
-eps, c1, c2 = var("eps c1 c2", domain="real")
-s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
-T = [-I / 2 * sa for sa in s]
-expT = lambda th, k: cos(th / 2) * identity_matrix(SR, 2) - I * sin(th / 2) * s[k]
-g1, g1i, g2, g2i = expT(eps * c1, 0), expT(-eps * c1, 0), expT(eps * c2, 1), expT(-eps * c2, 1)
-C = g1 * g2 * g1i * g2i
-C2 = C.apply_map(lambda e: e.series(eps, 3).truncate())
-F12 = c1 * T[0] * c2 * T[1] - c2 * T[1] * c1 * T[0]
-print("C to second order in eps:"); print(C2.apply_map(lambda e: e.simplify_full()))
-print("[PASS] F_12 = [A_1, A_2] = c1 c2 T_3:", (F12 - c1 * c2 * T[2]).is_zero())
-print("[PASS] C = 1 + eps^2 F_12 + O(eps^3):", (C2 - identity_matrix(2) - eps^2 * F12).apply_map(lambda e: e.simplify_full()).is_zero())
-h1, h2 = expT(eps * c1, 2), expT(eps * c2, 2)
-print("[PASS] for two potentials along T_3 the transports commute, C = 1 exactly:", (h1 * h2 * expT(-eps * c1, 2) * expT(-eps * c2, 2)).apply_map(lambda e: e.simplify_full()) == identity_matrix(2))
-```
-
-*Output:*
-
-```text
-C to second order in eps:
-[-1/2*I*c1*c2*eps^2 + 1                      0]
-[                     0  1/2*I*c1*c2*eps^2 + 1]
-[PASS] F_12 = [A_1, A_2] = c1 c2 T_3: True
-[PASS] C = 1 + eps^2 F_12 + O(eps^3): True
-[PASS] for two potentials along T_3 the transports commute, C = 1 exactly: True
-```
 :::
 ::::
 
@@ -7153,130 +7027,6 @@ massless combination (A^3, B) direction: [
 [PASS] the photon is proportional to g' A^3 + g B, i.e. sin(theta_W) A^3 + cos(theta_W) B with tan(theta_W) = g'/g: True
 [PASS] in Hermitian form the charge Q = sigma_3/2 + 1/2 (T_3 plus hypercharge 1/2) annihilates the vacuum: True
 m_Z / m_W = sqrt(g^2 + g'^2)/g = 1/cos(theta_W)
-```
-:::
-::::
-
-### Exercises {#sec-symmetry-breaking-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the two sections of this part: the abelian Higgs model worked from its Lagrangian to
-its complete spectrum and couplings, the Georgi-Glashow model of an $SO(3)$ gauge theory with a triplet, and an
-$SU(3)$ adjoint Higgs whose vacua form a complex projective plane.
-
-The first integrative exercise collects everything about the abelian Higgs model. It uses the vacuum and the
-expansion of the potential from the first section and the unitary gauge and the mass term from the second.
-
-::: {#exr-gth-int-abelian-higgs-full}
-#### The abelian Higgs model from start to finish
-
-For $\mathcal{L} = -\tfrac14F^2 + |D_\mu\phi|^2 - \tfrac\lambda4(|\phi|^2 - \mu^2)^2$ with $D_\mu = \partial_\mu + ieA_\mu$: find the vacua and
-the unbroken subgroup, pass to unitary gauge, and read off with Sage the masses $m_\sigma$, $m_A$, the couplings
-$\sigma AA$ and $\sigma\sigma AA$, and the scalar self-couplings. Express the gauge couplings of $\sigma$ through $m_A$ and
-$\mu$, and count the degrees of freedom.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-The vacua are the circle $|\phi| = \mu$ with trivial stabiliser (@exm-unbroken-trivial); the phase is the Goldstone
-field, removed by the unitary gauge $\phi = \mu + \sigma/\sqrt2$ (@exr-gth-unitary-abelian). Then $m_\sigma^2 = \lambda\mu^2$ and
-$m_A^2 = 2e^2\mu^2$; the couplings are $\sqrt2e^2\mu\,\sigma A_\mu A^\mu = \tfrac{m_A^2}{\sqrt2\mu}\sigma A_\mu A^\mu$ and $\tfrac12e^2\sigma^2A_\mu
-A^\mu = \tfrac{m_A^2}{4\mu^2}\sigma^2A_\mu A^\mu$: the Higgs boson couples to the vector in proportion to its mass squared;
-the self-couplings are those of @exr-gth-higgs-min-cubic-quartic. Degrees of freedom: $2 + 2 = 1 + 3$.
-
-```python
-sig, mu, lam, e, AA = var("sig mu lam e AA", domain="positive")      # AA stands for A_mu A^mu
-kin = (e^2 * (mu + sig / sqrt(2))^2 * AA).expand()                   # the A-dependent part of |D phi|^2 in unitary gauge
-V = (lam / 4 * ((mu + sig / sqrt(2))^2 - mu^2)^2).expand()
-mA2 = 2 * kin.coefficient(sig, 0).coefficient(AA); ms2 = 2 * V.coefficient(sig, 2)
-print("m_A^2 =", mA2, "; m_sigma^2 =", ms2)
-g3 = kin.coefficient(sig, 1).coefficient(AA); g4 = kin.coefficient(sig, 2).coefficient(AA)
-print("sigma A A coupling:", g3, "; sigma sigma A A coupling:", g4)
-print("[PASS] m_A^2 = 2 e^2 mu^2 and m_sigma^2 = lam mu^2:", bool(mA2 == 2 * e^2 * mu^2) and bool(ms2 == lam * mu^2))
-print("[PASS] the sigma A A coupling is m_A^2/(sqrt2 mu) and the sigma sigma A A coupling m_A^2/(4 mu^2):", bool((g3 - mA2 / (sqrt(2) * mu)).simplify_full() == 0) and bool((g4 - mA2 / (4 * mu^2)).simplify_full() == 0))
-print("[PASS] m_sigma/m_A = sqrt(lam/2)/e:", bool((sqrt(ms2) / sqrt(mA2) - sqrt(lam / 2) / e).simplify_full() == 0))
-print("scalar self-couplings: sigma^3:", V.coefficient(sig, 3), "; sigma^4:", V.coefficient(sig, 4))
-print("degrees of freedom: 2 + 2 =", 2 + 2, "before; 1 + 3 =", 1 + 3, "after")
-```
-
-*Output:*
-
-```text
-m_A^2 = 2*e^2*mu^2 ; m_sigma^2 = lam*mu^2
-sigma A A coupling: sqrt(2)*e^2*mu ; sigma sigma A A coupling: 1/2*e^2
-[PASS] m_A^2 = 2 e^2 mu^2 and m_sigma^2 = lam mu^2: True
-[PASS] the sigma A A coupling is m_A^2/(sqrt2 mu) and the sigma sigma A A coupling m_A^2/(4 mu^2): True
-[PASS] m_sigma/m_A = sqrt(lam/2)/e: True
-scalar self-couplings: sigma^3: 1/4*sqrt(2)*lam*mu ; sigma^4: 1/16*lam
-degrees of freedom: 2 + 2 = 4 before; 1 + 3 = 4 after
-```
-:::
-
-The second integrative exercise is the Georgi-Glashow model, the gauged version of the vector model. It uses
-the orbit and the Goldstone bosons of the first section and the partial breaking of the second.
-
-::: {#exr-gth-int-georgi-glashow}
-#### The Georgi-Glashow model
-
-An $SO(3)$ gauge theory with a real triplet $\vec\varphi$, kinetic term $\tfrac12(D_\mu\vec\varphi)^2$ and $V = \tfrac\lambda4(\vec\varphi^2 -
-a^2)^2$. Describe the space of vacua and the unbroken subgroup, count the Goldstone bosons, give the mass spectrum
-in unitary gauge, and check the count of degrees of freedom. Which particle plays the role of the photon, and what
-is the charge of the massive vectors under it?
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-The vacua form the sphere $|\vec\varphi| = a$, the orbit $SO(3)/SO(2)$ (@exr-gth-orbit-sphere), with $H = SO(2)$ the
-rotations about $\vec\varphi_0$. There are $3 - 1 = 2$ Goldstone bosons, which the unitary gauge $\vec\varphi = (0, 0, a +
-h)$ removes. The spectrum is one Higgs boson with $m_h^2 = 2\lambda a^2$, two vectors $W^\pm = (A^1 \mp iA^2)/\sqrt2$ of mass
-$ga$ (@exr-gth-so3-partial-masses), and the massless gauge boson $A^3$ of the unbroken $SO(2)$, the photon. Degrees of
-freedom: $3 + 3 \times 2 = 9$ before, $1 + 2 \times 3 + 2 = 9$ after. Under the unbroken $L_3$ the combinations $A^1 \mp iA^2$
-have charges $\pm g$: the massive vectors are charged, as $W^\pm$ are in the electroweak theory. The model also has
-'t Hooft-Polyakov monopoles, since the sphere of vacua cannot be continuously shrunk at infinity.
-:::
-
-The third integrative exercise breaks $SU(3)$ with an adjoint scalar to $SU(2) \times U(1)$. It uses the stabiliser
-of an adjoint vacuum from the first section and the mass matrix of the second, and it computes the masses with
-Sage.
-
-::: {#exr-gth-int-su3-adjoint}
-#### An $SU(3)$ adjoint Higgs
-
-An adjoint scalar $\Phi = \Phi^AT_A$ of $SU(3)$ has $\mathcal{L} = -\operatorname{Tr}(D_\mu\Phi D^\mu\Phi)$ with $D_\mu\Phi = \partial_\mu\Phi +
-g[A_\mu, \Phi]$. For the vacuum $\Phi_0 = vT_8$, show that the kinetic term is canonical, that the mass matrix is
-$(M^2)_{AB} = -2g^2\operatorname{Tr}([T_A, \Phi_0][T_B, \Phi_0])$, and compute it with Sage. Identify the unbroken subgroup,
-the space of vacua and the number of eaten Goldstone bosons.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-With $\operatorname{Tr}(T_AT_B) = -\tfrac12\delta_{AB}$, $-\operatorname{Tr}(\partial\Phi\,\partial\Phi) = \tfrac12\partial\Phi^A\partial\Phi^A$, canonical. On the
-vacuum $D_\mu\Phi = gA^A_\mu[T_A, \Phi_0]$ and $-\operatorname{Tr}(D\Phi D\Phi) = -g^2\operatorname{Tr}([T_A, \Phi_0][T_B, \Phi_0])A^AA^B =
-\tfrac12(M^2)_{AB}A^AA^B$. The matrix is diagonal with zeros for $T_1, T_2, T_3, T_8$ and $\tfrac34g^2v^2$ for $T_4, \dots, T_7$:
-$SU(3) \to SU(2) \times U(1)$ (@exr-gth-stabiliser-adjoint), four massive vectors which have eaten the four Goldstone
-bosons tangent to the orbit $SU(3)/(SU(2) \times U(1)) = \mathbb{CP}^2$, and four massless gauge bosons.
-
-```python
-g, v = var("g v", domain="positive")
-gm = [matrix(SR, 3, 3, d) for d in [
-    [0, 1, 0, 1, 0, 0, 0, 0, 0], [0, -I, 0, I, 0, 0, 0, 0, 0], [1, 0, 0, 0, -1, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 0, -I, 0, 0, 0, I, 0, 0], [0, 0, 0, 0, 0, 1, 0, 1, 0],
-    [0, 0, 0, 0, 0, -I, 0, I, 0]]] + [matrix(SR, 3, 3, [1, 0, 0, 0, 1, 0, 0, 0, -2]) / sqrt(3)]
-T = [-I / 2 * mm for mm in gm]
-Phi = v * T[7]
-com = [T[A] * Phi - Phi * T[A] for A in range(8)]
-M2 = matrix(SR, 8, 8, lambda A, B: (-2 * g^2 * (com[A] * com[B]).trace()).simplify_full())
-print("mass matrix (diagonal):", M2.diagonal()); print("[PASS] the mass matrix is diagonal:", M2 == diagonal_matrix(M2.diagonal()))
-print("[PASS] four massless (T_1, T_2, T_3, T_8) and four of mass^2 3 g^2 v^2/4 (T_4..T_7):", [bool(d == 0) for d in M2.diagonal()] == [True] * 3 + [False] * 4 + [True] and all(bool(M2[A, A] == 3 * g^2 * v^2 / 4) for A in range(3, 7)))
-print("[PASS] the kinetic normalisation: -Tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since Tr(T_A T_B) = -delta/2:", all(bool((T[A] * T[B]).trace() == (-1 / 2 if A == B else 0)) for A in range(8) for B in range(8)))
-print("broken generators:", 8 - 4, "= dim_R SU(3)/(SU(2) x U(1)) = dim_R CP^2 = 4")
-```
-
-*Output:*
-
-```text
-mass matrix (diagonal): [0, 0, 0, 3/4*g^2*v^2, 3/4*g^2*v^2, 3/4*g^2*v^2, 3/4*g^2*v^2, 0]
-[PASS] the mass matrix is diagonal: True
-[PASS] four massless (T_1, T_2, T_3, T_8) and four of mass^2 3 g^2 v^2/4 (T_4..T_7): True
-[PASS] the kinetic normalisation: -Tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since Tr(T_A T_B) = -delta/2: True
-broken generators: 4 = dim_R SU(3)/(SU(2) x U(1)) = dim_R CP^2 = 4
 ```
 :::
 ::::
@@ -13760,177 +13510,6 @@ There are $4 \cdot 16^4 = 262\,144$ links. A staple sum has $6$ staples of $2$ q
 :::
 ::::
 
-### Exercises {#sec-lattice-gauge-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises combine the sections of this part, one for each of the groups. The first follows two-dimensional compact $U(1)$ from the definition to its continuum limit, the second locates the transition of the three-dimensional $\mathbb{Z}_2$ theory by its Wilson loops, and the third assembles the evidence that four-dimensional $SU(2)$ confines.
-
-The first integrative exercise uses the exact solution of the second section, the area law of the third and the heat bath of the fifth. Its Monte Carlo is a check of the whole chain of definitions on a case where the answer is known.
-
-::: {#exr-lgt-int-2d-u1}
-#### Two-dimensional compact $U(1)$ from start to finish
-
-For compact $U(1)$ on a two-dimensional lattice: (a) show that the Wilson loops obey $W(C) = (I_1(\beta)/I_0(\beta))^A$; (b) with $\beta = 1/(e^2a^2)$, find the continuum string tension and compare with Gauss's law; (c) simulate the theory with Sage on a $12 \times 12$ torus at $\beta = 2$ with the von Mises heat bath, and compare $W(1, 1)$, $W(2, 2)$, $W(2, 3)$ with $u^A$.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) By @prp-lgt-two-dim and the lattice Stokes theorem (@exr-lgt-2d-abelian-loop). (b) $\hat\sigma = \log(I_0/I_1) = \frac{1}{2\beta} + O(\beta^{-2})$, so $\sigma = \hat\sigma/a^2 \to \frac{e^2}{2}$, the field energy per unit length of @exr-lgt-al-gauss-2d. (c) The measured loops agree with $u^A$, $u = I_1(2)/I_0(2) = 0.698$, within one or two standard deviations, the finite-size effects of the torus being of order $u^{144}$:
-
-```python
-import numpy as np
-rng = np.random.default_rng(int(101)); L, beta = int(12), 2.0
-par = np.indices((L, L)).sum(axis=0) % 2
-sh = lambda a, mu, k=1: np.roll(a, -k, axis=mu)
-th = np.zeros((2, L, L))
-def staple(th, mu):
-    nu = 1 - mu
-    return np.exp(1j * (sh(th[nu], mu) - sh(th[mu], nu) - th[nu])) + np.exp(1j * (-sh(sh(th[nu], mu), nu, -1) - sh(th[mu], nu, -1) + sh(th[nu], nu, -1)))
-W = {(1, 1): [], (2, 2): [], (2, 3): []}
-for k in range(4100):
-    for mu in (0, 1):
-        for p in (0, 1):
-            st = staple(th, mu)
-            new = rng.vonmises(0.0, beta * np.abs(st)) - np.angle(st)
-            th[mu] = np.where(par == p, new, th[mu])
-    if k >= 100:
-        P = th[0] + sh(th[1], 0) - sh(th[0], 1) - th[1]
-        for (R, T) in W:
-            W[(R, T)].append(np.cos(sum(sh(sh(P, 0, i), 1, j) for i in range(R) for j in range(T))).mean())
-u = bessel_I(1, beta) / bessel_I(0, beta)
-for (R, T), v in W.items():
-    v = np.array(v); err = v.reshape(20, -1).mean(1).std(ddof=1) / np.sqrt(20)
-    print('W(%d,%d) = %.4f +- %.4f; u^%d = %.4f' % (R, T, v.mean(), err, R * T, u**(R * T)))
-print('string tension in lattice units -log u = %.4f; in units of e^2 (beta = 1/(e^2 a^2)): beta * (-log u) = %.4f -> 1/2' % (-log(u), -beta * log(u)))
-```
-
-*Output:*
-
-```text
-W(1,1) = 0.6987 +- 0.0007; u^1 = 0.6978
-W(2,2) = 0.2382 +- 0.0017; u^4 = 0.2371
-W(2,3) = 0.1171 +- 0.0014; u^6 = 0.1154
-string tension in lattice units -log u = 0.3599; in units of e^2 (beta = 1/(e^2 a^2)): beta * (-log u) = 0.7197 -> 1/2
-```
-:::
-
-The second integrative exercise uses the strong-coupling expansion, the duality of the $\mathbb{Z}_2$ section and the Monte Carlo of the last section. It shows the area and the perimeter laws on the two sides of a transition.
-
-::: {#exr-lgt-int-z2-3d}
-#### The two phases of the three-dimensional $\mathbb{Z}_2$ theory
-
-For the three-dimensional $\mathbb{Z}_2$ theory: (a) give the strong-coupling string tension and the weak-coupling perimeter coefficient; (b) locate the transition by duality; (c) measure $W(1, 1)$, $W(1, 2)$, $W(2, 2)$ with Sage on an $8^3$ lattice at $\beta = 0.25$ and $\beta = 1$, compute the Creutz ratio $\chi(2, 2)$, and decide in each case whether $-\log W$ scales with the area or with the perimeter.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $\hat\sigma = -\log\tanh\beta - 2\tanh^4\beta + \dots$ (@exm-lgt-sc-bump), and $\hat\mu \approx 2e^{-8\beta}$ per unit length (@exr-lgt-al-z2-perimeter). (b) $\beta_c = \operatorname{arctanh}e^{-2K_c} = 0.7614$ (@exr-lgt-z2-dual-3d). (c) At $\beta = 0.25$, $-\log W/A \approx 1.40$ for the three loops and $\chi(2, 2) = 1.42$, close to $-\log\tanh0.25 = 1.41$: an area law. At $\beta = 1$, $-\log W/P \approx 0.0009$ for the three loops and $\chi(2, 2) \approx 0$: a perimeter law. The two phases are separated by $\beta_c$:
-
-```python
-import numpy as np
-rng = np.random.default_rng(int(102)); L, D = int(8), int(3)
-par = np.indices((L,) * D).sum(axis=0) % 2
-sh = lambda a, mu, k=1: np.roll(a, -k, axis=mu)
-def sweep(s, beta):
-    for mu in range(D):
-        for p in (0, 1):
-            st = sum(sh(s[nu], mu) * sh(s[mu], nu) * s[nu] + sh(sh(s[nu], mu), nu, -1) * sh(s[mu], nu, -1) * sh(s[nu], nu, -1) for nu in range(D) if nu != mu)
-            s[mu] = np.where(par == p, np.where(rng.random(st.shape) < 1 / (1 + np.exp(-2 * beta * st)), 1, -1), s[mu])
-def loop(s, R, T):
-    w = np.ones(s.shape[1:])
-    for mu, nu in ((0, 1), (1, 2), (2, 0)):
-        x = np.ones(s.shape[1:])
-        for i in range(R):
-            x = x * sh(s[mu], mu, i) * sh(sh(s[mu], mu, i), nu, T)
-        for j in range(T):
-            x = x * sh(s[nu], nu, j) * sh(sh(s[nu], nu, j), mu, R)
-        w = w + x
-    return (w - 1).mean() / 3
-for beta in (0.25, 1.0):
-    s = np.ones((D,) + (L,) * D); acc = {}
-    for k in range(1300):
-        sweep(s, beta)
-        if k >= 100:
-            for RT in ((1, 1), (1, 2), (2, 2)):
-                acc.setdefault(RT, []).append(loop(s, *RT))
-    W = {RT: np.mean(v) for RT, v in acc.items()}
-    print('beta = %.2f:' % beta, '  '.join('W%d%d = %.5f' % (R, T, W[(R, T)]) for (R, T) in W))
-    chi = -np.log(W[(2, 2)] * W[(1, 1)] / W[(1, 2)]**2)
-    print('   Creutz ratio chi(2,2) = %.4f; strong coupling -log tanh(beta) = %.4f' % (chi, -np.log(np.tanh(beta))))
-    print('   -log W / perimeter: %s; dilute flipped links give 2 exp(-8 beta) = %.5f' % (' '.join('%.4f' % (-np.log(W[RT]) / (2 * sum(RT))) for RT in W), 2 * np.exp(-8 * beta)))
-    print('   -log W / area:      %s' % ' '.join('%.4f' % (-np.log(W[RT]) / (RT[0] * RT[1])) for RT in W))
-```
-
-*Output:*
-
-```text
-beta = 0.25: W11 = 0.24594  W12 = 0.06165  W22 = 0.00374
-   Creutz ratio chi(2,2) = 1.4184; strong coupling -log tanh(beta) = 1.4068
-   -log W / perimeter: 0.3507 0.4644 0.6985; dilute flipped links give 2 exp(-8 beta) = 0.27067
-   -log W / area:      1.4027 1.3931 1.3971
-beta = 1.00: W11 = 0.99666  W12 = 0.99480  W22 = 0.99276
-   Creutz ratio chi(2,2) = 0.0002; strong coupling -log tanh(beta) = 0.2723
-   -log W / perimeter: 0.0008 0.0009 0.0009; dilute flipped links give 2 exp(-8 beta) = 0.00067
-   -log W / area:      0.0033 0.0026 0.0018
-```
-:::
-
-The third integrative exercise combines the continuum limit of the first section, the $SU(2)$ theory of the second, the strong-coupling expansion and the heat bath. It reconstructs the argument by which lattice simulations established confinement in a non-abelian gauge theory.
-
-::: {#exr-lgt-int-su2}
-#### Confinement in four-dimensional $SU(2)$
-
-For four-dimensional $SU(2)$: (a) simulate the theory with Sage on a $4^4$ lattice with the Kennedy-Pendleton heat bath at $\beta = 0.5$ and $\beta = 4$, and compare the average plaquette with $\frac\beta4$ and $1 - \frac{3}{4\beta}$; (b) give the strong-coupling string tension with its first correction; (c) explain why the scaling form $\hat\sigma \propto e^{-6\pi^2\beta/11}$ follows from asymptotic freedom, and find the lattice spacing at $\beta = 2.5$ from $\sigma = 0.18$ GeV$^2$ with the normalisation of @fig-lgt-strong-coupling; (d) explain why (b) and (c) together are evidence that the continuum theory confines, while the same reasoning fails for compact $U(1)$.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) The plaquette is $0.1235$ at $\beta = 0.5$, against $\frac\beta4 = 0.125$, and $0.80$ at $\beta = 4$, against $1 - \frac{3}{16} = 0.8125$, the difference being the next order in $1/\beta$. (b) $\hat\sigma = -\log u - 4u^4 + \dots$ with $u = I_2(\beta)/I_1(\beta) \approx \frac\beta4$ (@exm-lgt-sc-bump). (c) At fixed physical $\sigma$, $\hat\sigma = \sigma a^2$, and asymptotic freedom gives $a \propto e^{-3\pi^2\beta/11}$ (@exm-lgt-cl-asymptotic-freedom), so $\hat\sigma \propto e^{-6\pi^2\beta/11}$; at $\beta = 2.5$, $\hat\sigma = 0.068$ and $a = 0.12$ fm. (d) The strong-coupling area law holds for every compact group, but only if no phase transition intervenes does it reach the continuum limit at $\beta \to \infty$; for $SU(2)$ the two forms join smoothly near $\beta \approx 2.1$ (@exm-lgt-sc-crossover, @exm-lgt-su2-scaling), while compact $U(1)$ has a transition at $\beta_c \approx 1.01$ beyond which the area law is lost (@exm-lgt-sc-u1-paradox):
-
-```python
-import numpy as np
-rng = np.random.default_rng(int(103)); L, D = int(4), int(4)
-par = np.indices((L,) * D).sum(axis=0) % 2
-def qmul(a, b):
-    c = np.empty(np.broadcast(a, b).shape)
-    c[..., 0] = a[..., 0] * b[..., 0] - (a[..., 1:] * b[..., 1:]).sum(-1)
-    c[..., 1:] = a[..., :1] * b[..., 1:] + b[..., :1] * a[..., 1:] - np.cross(a[..., 1:], b[..., 1:])
-    return c
-qinv = lambda a: a * np.array([1.0, -1, -1, -1])
-sh = lambda a, mu, k=1: np.roll(a, -k, axis=mu)
-def staple(U, mu):
-    return sum(qmul(qmul(sh(U[nu], mu), qinv(sh(U[mu], nu))), qinv(U[nu]))
-               + qmul(qmul(qinv(sh(sh(U[nu], mu), nu, -1)), qinv(sh(U[mu], nu, -1))), sh(U[nu], nu, -1)) for nu in range(D) if nu != mu)
-def heatbath(st, beta):                         # Kennedy-Pendleton for W = U V, then U = W V^-1
-    k = np.linalg.norm(st, axis=-1); V = st / k[..., None]; x = beta * k
-    a0 = np.empty(k.shape); todo = np.ones(k.shape, bool)
-    while todo.any():
-        e = rng.random((4, todo.sum())); Dd = -(np.log(e[0]) + np.log(e[1]) * np.cos(2 * np.pi * e[2])**2) / x[todo]
-        ok = e[3]**2 <= 1 - Dd / 2; idx = np.flatnonzero(todo)[ok]; a0.flat[idx] = 1 - Dd[ok]; todo.flat[idx] = False
-    v = rng.normal(size=k.shape + (3,)); v /= np.linalg.norm(v, axis=-1)[..., None]
-    W = np.concatenate([a0[..., None], np.sqrt(1 - a0**2)[..., None] * v], axis=-1)
-    return qmul(W, qinv(V))
-plaq = lambda U: np.mean([qmul(qmul(qmul(U[m], sh(U[n], m)), qinv(sh(U[m], n))), qinv(U[n]))[..., 0].mean() for m in range(D) for n in range(m + 1, D)])
-for beta in (0.5, 4.0):
-    U = np.zeros((D,) + (L,) * D + (4,)); U[..., 0] = 1; h = []
-    for k in range(250):
-        for mu in range(D):
-            for p in (0, 1):
-                U[mu] = np.where((par == p)[..., None], heatbath(staple(U, mu), beta), U[mu])
-        if k >= 50: h.append(plaq(U))
-    print('beta = %.1f: <(1/2) Tr U_P> = %.4f; strong coupling beta/4 = %.4f; weak coupling 1 - 3/(4 beta) = %.4f' % (beta, np.mean(h), beta / 4, 1 - 3 / (4 * beta)))
-hbarc = 0.1973269804
-sig_hat = float(exp(12 * pi^2 / 11 - 6 * pi^2 * 2.5 / 11))
-print('beta = 2.5: one-loop scaling sigma a^2 = %.4f, a = %.3f fm with sigma = 0.18 GeV^2' % (sig_hat, hbarc * np.sqrt(sig_hat / 0.18)))
-```
-
-*Output:*
-
-```text
-beta = 0.5: <(1/2) Tr U_P> = 0.1235; strong coupling beta/4 = 0.1250; weak coupling 1 - 3/(4 beta) = -0.5000
-beta = 4.0: <(1/2) Tr U_P> = 0.8005; strong coupling beta/4 = 1.0000; weak coupling 1 - 3/(4 beta) = 0.8125
-beta = 2.5: one-loop scaling sigma a^2 = 0.0678, a = 0.121 fm with sigma = 0.18 GeV^2
-```
-:::
-::::
-
 ## The Standard Model {#sec-standard-model}
 
 The first three parts built the general machinery: gauge fields for any compact group (@sec-yang-mills), the anomaly condition that chiral fermions must satisfy (@def-gth-anomaly-coefficient), spontaneous symmetry breaking (@sec-ssb) and the Higgs mechanism (@sec-higgs), and, on the lattice, confinement. The Standard Model of particle physics is one particular choice inside this machinery: the gauge group $SU(3) \times SU(2) \times U(1)$, three copies of a set of fifteen chiral fermions with fixed hypercharges, and one scalar doublet whose vacuum breaks $SU(2) \times U(1)$ to electromagnetism. Nothing in this part is new as mathematics. What is new is that each choice is forced, or nearly so, by consistency and by experiment, and that the resulting formulas can be compared with measured masses, widths and couplings.
@@ -15970,10 +15549,419 @@ The rotations act as $h^u \mapsto U_Q^\dagger h^uU_u$ and $h^d \mapsto U_Q^\dagg
 :::
 ::::
 
-### Exercises {#sec-standard-model-exercises}
+## Exercises {#sec-gauge-theories-exercises}
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises combine the sections of this part. The first follows one generation from the anomaly conditions to a measured ratio of $Z$ widths, the second extracts all electroweak parameters from three measurements, and the third counts the parameters of the whole Standard Model.
+Three exercises that combine the two units of @sec-gauge-theories: a charged plane wave in a constant potential, which
+uses the covariant derivative and the gauge freedom of the abelian theory; a non-abelian potential along a fixed
+generator, where Yang-Mills theory reduces to electromagnetism; and the transport around a small square in a
+constant non-abelian potential, which connects the commutator in the field strength to the group commutator.
+
+The first integrative exercise shows that a constant abelian potential is invisible to a single charged field,
+because it is pure gauge, although it shifts the momentum. It uses the covariant derivative of the first section
+and the gauge transformation of the potential.
+
+::: {#exr-gth-int-plane-wave}
+#### A charged plane wave in a constant potential
+
+In scalar electrodynamics with a constant potential $A_\mu = a_\mu$ and $F = 0$, show that $\phi = e^{-ik\cdot x}$ solves
+$(D_\mu D^\mu + m^2)\phi = 0$ if and only if $(k - qa)^2 = m^2$. Find the gauge transformation that removes $a_\mu$ and
+show that it maps the solution to a free plane wave with momentum $k - qa$. Why can this not be done for a constant
+non-abelian potential with $[a_\mu, a_\nu] \neq 0$?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$D_\mu e^{-ik\cdot x} = -i(k_\mu - qa_\mu)e^{-ik\cdot x}$, so $D_\mu D^\mu\phi = -(k - qa)^2\phi$ and the equation holds iff $(k -
+qa)^2 = m^2$. The potential $a_\mu = \partial_\mu(a\cdot x)$ is pure gauge: with $\alpha = a\cdot x$, $A_\mu - \partial_\mu\alpha = 0$
+and $\phi \mapsto e^{iq\alpha}\phi = e^{-i(k - qa)\cdot x}$, a free plane wave of momentum $p = k - qa$ satisfying $p^2 = m^2$:
+the canonical momentum $k$ and the kinetic momentum $p$ differ by $qa$, and only the latter is gauge invariant. A
+constant non-abelian potential has $F_{\mu\nu} = [a_\mu, a_\nu] \neq 0$, and @exr-gth-F-not-invariant shows that no gauge
+transformation removes it.
+:::
+
+The second integrative exercise embeds electromagnetism into $SU(2)$. It uses the non-abelian field strength and
+Yang-Mills equations of the second section and the abelian Maxwell equations and charges of the first.
+
+::: {#exr-gth-int-embedded-coulomb}
+#### Electromagnetism inside $SU(2)$
+
+Let $A_\mu = a_\mu T_3$ with an abelian potential $a_\mu$. Show that $F_{\mu\nu} = (\partial_\mu a_\nu - \partial_\nu a_\mu)T_3$, that
+the Yang-Mills equations reduce to Maxwell's equations for $a_\mu$, and that the components of a doublet couple to
+$a_\mu$ with charges $\mp\tfrac12$. Check with Sage that the Coulomb potential $a_0 = Q/r$, $\vec a = 0$, solves the
+Yang-Mills equations away from the origin.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$[a_\mu T_3, a_\nu T_3] = 0$, so $F = da\,T_3$, and $D_\mu F^{\mu\nu} = \partial_\mu F^{\mu\nu} + [A_\mu, F^{\mu\nu}] =
+(\partial_\mu f^{\mu\nu})T_3$ with $f = da$: Maxwell's equations. On a doublet, $a_\mu T_3 = -\tfrac{i}{2}a_\mu\sigma_3 =
+\operatorname{diag}(-\tfrac i2, \tfrac i2)a_\mu$, which is $iqa_\mu$ with $q = -\tfrac12$ for the upper and $q = +\tfrac12$ for the
+lower component. The Coulomb potential gives the radial field $\vec E = Q\vec x/r^3$ along $T_3$, and $\nabla^2(1/r) = 0$
+away from the origin.
+
+```python
+t, x, y, z, Q = var("t x y z Q", domain="real"); X = [t, x, y, z]
+s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
+T = [-I / 2 * sa for sa in s]
+r = sqrt(x^2 + y^2 + z^2)
+a = [Q / r, 0, 0, 0]
+A = [a[m] * T[2] for m in range(4)]
+eta = [1, -1, -1, -1]
+F = [[diff(A[n], X[m]) - diff(A[m], X[n]) + A[m] * A[n] - A[n] * A[m] for n in range(4)] for m in range(4)]
+print("[PASS] the commutator terms vanish: F = (d_mu a_nu - d_nu a_mu) T_3:", all((F[m][n] - (diff(a[n], X[m]) - diff(a[m], X[n])) * T[2]).is_zero() for m in range(4) for n in range(4)))
+Fup = [[eta[m] * eta[n] * F[m][n] for n in range(4)] for m in range(4)]
+YM = [sum((diff(Fup[m][n], X[m]) + A[m] * Fup[m][n] - Fup[m][n] * A[m] for m in range(4)), zero_matrix(SR, 2)).apply_map(lambda e: e.simplify_full()) for n in range(4)]
+print("[PASS] D_mu F^{mu nu} = 0 for r != 0 (Laplace's equation for Q/r):", all(Y.is_zero() for Y in YM))
+print("the electric field E^i = F^{i0} along T_3:", [(-2 * (T[2] * Fup[i][0]).trace()).simplify_full() for i in range(1, 4)])
+print("D_mu on a doublet: d_mu + a_mu T_3 = d_mu + i q a_mu with q =", [(-I / 2 * s[2])[k, k] / I for k in range(2)])
+```
+
+*Output:*
+
+```text
+[PASS] the commutator terms vanish: F = (d_mu a_nu - d_nu a_mu) T_3: True
+[PASS] D_mu F^{mu nu} = 0 for r != 0 (Laplace's equation for Q/r): True
+the electric field E^i = F^{i0} along T_3: [Q*x/(x^2 + y^2 + z^2)^(3/2), Q*y/(x^2 + y^2 + z^2)^(3/2), Q*z/(x^2 + y^2 + z^2)^(3/2)]
+D_mu on a doublet: d_mu + a_mu T_3 = d_mu + i q a_mu with q = [-1/2, 1/2]
+```
+:::
+
+The third integrative exercise interprets the commutator term of the field strength as the failure of transports
+along two directions to commute. It uses the gauge group elements of the second section, the constant
+configuration of @exm-su2-constant and the abelian holonomy of @exr-gth-pure-gauge-abelian.
+
+::: {#exr-gth-int-group-commutator}
+#### Transport around a small square
+
+For the constant potential $A_1 = c_1T_1$, $A_2 = c_2T_2$, the transport along a side of length $\epsilon$ in the
+direction $i$ is $g_i = e^{\epsilon A_i}$. Show with Sage that $g_1g_2g_1^{-1}g_2^{-1} = 1 + \epsilon^2F_{12} +
+O(\epsilon^3)$ with $F_{12} = [A_1, A_2] = c_1c_2T_3$, and that for two potentials along $T_3$ the product is exactly $1$.
+Interpret the result.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $X = \epsilon A_1$, $Y = \epsilon A_2$, $e^Xe^Ye^{-X}e^{-Y} = 1 + [X, Y] + O(\epsilon^3)$, so the product is $1 +
+\epsilon^2c_1c_2T_3 + O(\epsilon^3)$. When both potentials lie along $T_3$ the exponentials commute and the product is
+$1$. The product of transports around the boundary of a small square is $1$ plus the field strength times the area:
+the field strength is the holonomy per unit area, and for a constant non-abelian potential it is non-zero because
+transports in different directions do not commute, while for a constant abelian potential it vanishes, as in
+@exr-gth-pure-gauge-abelian where only a non-contractible loop sees a flat potential.
+
+```python
+eps, c1, c2 = var("eps c1 c2", domain="real")
+s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
+T = [-I / 2 * sa for sa in s]
+expT = lambda th, k: cos(th / 2) * identity_matrix(SR, 2) - I * sin(th / 2) * s[k]
+g1, g1i, g2, g2i = expT(eps * c1, 0), expT(-eps * c1, 0), expT(eps * c2, 1), expT(-eps * c2, 1)
+C = g1 * g2 * g1i * g2i
+C2 = C.apply_map(lambda e: e.series(eps, 3).truncate())
+F12 = c1 * T[0] * c2 * T[1] - c2 * T[1] * c1 * T[0]
+print("C to second order in eps:"); print(C2.apply_map(lambda e: e.simplify_full()))
+print("[PASS] F_12 = [A_1, A_2] = c1 c2 T_3:", (F12 - c1 * c2 * T[2]).is_zero())
+print("[PASS] C = 1 + eps^2 F_12 + O(eps^3):", (C2 - identity_matrix(2) - eps^2 * F12).apply_map(lambda e: e.simplify_full()).is_zero())
+h1, h2 = expT(eps * c1, 2), expT(eps * c2, 2)
+print("[PASS] for two potentials along T_3 the transports commute, C = 1 exactly:", (h1 * h2 * expT(-eps * c1, 2) * expT(-eps * c2, 2)).apply_map(lambda e: e.simplify_full()) == identity_matrix(2))
+```
+
+*Output:*
+
+```text
+C to second order in eps:
+[-1/2*I*c1*c2*eps^2 + 1                      0]
+[                     0  1/2*I*c1*c2*eps^2 + 1]
+[PASS] F_12 = [A_1, A_2] = c1 c2 T_3: True
+[PASS] C = 1 + eps^2 F_12 + O(eps^3): True
+[PASS] for two potentials along T_3 the transports commute, C = 1 exactly: True
+```
+:::
+
+Three exercises that combine the two units of @sec-symmetry-breaking: the abelian Higgs model worked from its Lagrangian to
+its complete spectrum and couplings, the Georgi-Glashow model of an $SO(3)$ gauge theory with a triplet, and an
+$SU(3)$ adjoint Higgs whose vacua form a complex projective plane.
+
+The first integrative exercise collects everything about the abelian Higgs model. It uses the vacuum and the
+expansion of the potential from the first section and the unitary gauge and the mass term from the second.
+
+::: {#exr-gth-int-abelian-higgs-full}
+#### The abelian Higgs model from start to finish
+
+For $\mathcal{L} = -\tfrac14F^2 + |D_\mu\phi|^2 - \tfrac\lambda4(|\phi|^2 - \mu^2)^2$ with $D_\mu = \partial_\mu + ieA_\mu$: find the vacua and
+the unbroken subgroup, pass to unitary gauge, and read off with Sage the masses $m_\sigma$, $m_A$, the couplings
+$\sigma AA$ and $\sigma\sigma AA$, and the scalar self-couplings. Express the gauge couplings of $\sigma$ through $m_A$ and
+$\mu$, and count the degrees of freedom.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The vacua are the circle $|\phi| = \mu$ with trivial stabiliser (@exm-unbroken-trivial); the phase is the Goldstone
+field, removed by the unitary gauge $\phi = \mu + \sigma/\sqrt2$ (@exr-gth-unitary-abelian). Then $m_\sigma^2 = \lambda\mu^2$ and
+$m_A^2 = 2e^2\mu^2$; the couplings are $\sqrt2e^2\mu\,\sigma A_\mu A^\mu = \tfrac{m_A^2}{\sqrt2\mu}\sigma A_\mu A^\mu$ and $\tfrac12e^2\sigma^2A_\mu
+A^\mu = \tfrac{m_A^2}{4\mu^2}\sigma^2A_\mu A^\mu$: the Higgs boson couples to the vector in proportion to its mass squared;
+the self-couplings are those of @exr-gth-higgs-min-cubic-quartic. Degrees of freedom: $2 + 2 = 1 + 3$.
+
+```python
+sig, mu, lam, e, AA = var("sig mu lam e AA", domain="positive")      # AA stands for A_mu A^mu
+kin = (e^2 * (mu + sig / sqrt(2))^2 * AA).expand()                   # the A-dependent part of |D phi|^2 in unitary gauge
+V = (lam / 4 * ((mu + sig / sqrt(2))^2 - mu^2)^2).expand()
+mA2 = 2 * kin.coefficient(sig, 0).coefficient(AA); ms2 = 2 * V.coefficient(sig, 2)
+print("m_A^2 =", mA2, "; m_sigma^2 =", ms2)
+g3 = kin.coefficient(sig, 1).coefficient(AA); g4 = kin.coefficient(sig, 2).coefficient(AA)
+print("sigma A A coupling:", g3, "; sigma sigma A A coupling:", g4)
+print("[PASS] m_A^2 = 2 e^2 mu^2 and m_sigma^2 = lam mu^2:", bool(mA2 == 2 * e^2 * mu^2) and bool(ms2 == lam * mu^2))
+print("[PASS] the sigma A A coupling is m_A^2/(sqrt2 mu) and the sigma sigma A A coupling m_A^2/(4 mu^2):", bool((g3 - mA2 / (sqrt(2) * mu)).simplify_full() == 0) and bool((g4 - mA2 / (4 * mu^2)).simplify_full() == 0))
+print("[PASS] m_sigma/m_A = sqrt(lam/2)/e:", bool((sqrt(ms2) / sqrt(mA2) - sqrt(lam / 2) / e).simplify_full() == 0))
+print("scalar self-couplings: sigma^3:", V.coefficient(sig, 3), "; sigma^4:", V.coefficient(sig, 4))
+print("degrees of freedom: 2 + 2 =", 2 + 2, "before; 1 + 3 =", 1 + 3, "after")
+```
+
+*Output:*
+
+```text
+m_A^2 = 2*e^2*mu^2 ; m_sigma^2 = lam*mu^2
+sigma A A coupling: sqrt(2)*e^2*mu ; sigma sigma A A coupling: 1/2*e^2
+[PASS] m_A^2 = 2 e^2 mu^2 and m_sigma^2 = lam mu^2: True
+[PASS] the sigma A A coupling is m_A^2/(sqrt2 mu) and the sigma sigma A A coupling m_A^2/(4 mu^2): True
+[PASS] m_sigma/m_A = sqrt(lam/2)/e: True
+scalar self-couplings: sigma^3: 1/4*sqrt(2)*lam*mu ; sigma^4: 1/16*lam
+degrees of freedom: 2 + 2 = 4 before; 1 + 3 = 4 after
+```
+:::
+
+The second integrative exercise is the Georgi-Glashow model, the gauged version of the vector model. It uses
+the orbit and the Goldstone bosons of the first section and the partial breaking of the second.
+
+::: {#exr-gth-int-georgi-glashow}
+#### The Georgi-Glashow model
+
+An $SO(3)$ gauge theory with a real triplet $\vec\varphi$, kinetic term $\tfrac12(D_\mu\vec\varphi)^2$ and $V = \tfrac\lambda4(\vec\varphi^2 -
+a^2)^2$. Describe the space of vacua and the unbroken subgroup, count the Goldstone bosons, give the mass spectrum
+in unitary gauge, and check the count of degrees of freedom. Which particle plays the role of the photon, and what
+is the charge of the massive vectors under it?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The vacua form the sphere $|\vec\varphi| = a$, the orbit $SO(3)/SO(2)$ (@exr-gth-orbit-sphere), with $H = SO(2)$ the
+rotations about $\vec\varphi_0$. There are $3 - 1 = 2$ Goldstone bosons, which the unitary gauge $\vec\varphi = (0, 0, a +
+h)$ removes. The spectrum is one Higgs boson with $m_h^2 = 2\lambda a^2$, two vectors $W^\pm = (A^1 \mp iA^2)/\sqrt2$ of mass
+$ga$ (@exr-gth-so3-partial-masses), and the massless gauge boson $A^3$ of the unbroken $SO(2)$, the photon. Degrees of
+freedom: $3 + 3 \times 2 = 9$ before, $1 + 2 \times 3 + 2 = 9$ after. Under the unbroken $L_3$ the combinations $A^1 \mp iA^2$
+have charges $\pm g$: the massive vectors are charged, as $W^\pm$ are in the electroweak theory. The model also has
+'t Hooft-Polyakov monopoles, since the sphere of vacua cannot be continuously shrunk at infinity.
+:::
+
+The third integrative exercise breaks $SU(3)$ with an adjoint scalar to $SU(2) \times U(1)$. It uses the stabiliser
+of an adjoint vacuum from the first section and the mass matrix of the second, and it computes the masses with
+Sage.
+
+::: {#exr-gth-int-su3-adjoint}
+#### An $SU(3)$ adjoint Higgs
+
+An adjoint scalar $\Phi = \Phi^AT_A$ of $SU(3)$ has $\mathcal{L} = -\operatorname{Tr}(D_\mu\Phi D^\mu\Phi)$ with $D_\mu\Phi = \partial_\mu\Phi +
+g[A_\mu, \Phi]$. For the vacuum $\Phi_0 = vT_8$, show that the kinetic term is canonical, that the mass matrix is
+$(M^2)_{AB} = -2g^2\operatorname{Tr}([T_A, \Phi_0][T_B, \Phi_0])$, and compute it with Sage. Identify the unbroken subgroup,
+the space of vacua and the number of eaten Goldstone bosons.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+With $\operatorname{Tr}(T_AT_B) = -\tfrac12\delta_{AB}$, $-\operatorname{Tr}(\partial\Phi\,\partial\Phi) = \tfrac12\partial\Phi^A\partial\Phi^A$, canonical. On the
+vacuum $D_\mu\Phi = gA^A_\mu[T_A, \Phi_0]$ and $-\operatorname{Tr}(D\Phi D\Phi) = -g^2\operatorname{Tr}([T_A, \Phi_0][T_B, \Phi_0])A^AA^B =
+\tfrac12(M^2)_{AB}A^AA^B$. The matrix is diagonal with zeros for $T_1, T_2, T_3, T_8$ and $\tfrac34g^2v^2$ for $T_4, \dots, T_7$:
+$SU(3) \to SU(2) \times U(1)$ (@exr-gth-stabiliser-adjoint), four massive vectors which have eaten the four Goldstone
+bosons tangent to the orbit $SU(3)/(SU(2) \times U(1)) = \mathbb{CP}^2$, and four massless gauge bosons.
+
+```python
+g, v = var("g v", domain="positive")
+gm = [matrix(SR, 3, 3, d) for d in [
+    [0, 1, 0, 1, 0, 0, 0, 0, 0], [0, -I, 0, I, 0, 0, 0, 0, 0], [1, 0, 0, 0, -1, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 0, -I, 0, 0, 0, I, 0, 0], [0, 0, 0, 0, 0, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0, -I, 0, I, 0]]] + [matrix(SR, 3, 3, [1, 0, 0, 0, 1, 0, 0, 0, -2]) / sqrt(3)]
+T = [-I / 2 * mm for mm in gm]
+Phi = v * T[7]
+com = [T[A] * Phi - Phi * T[A] for A in range(8)]
+M2 = matrix(SR, 8, 8, lambda A, B: (-2 * g^2 * (com[A] * com[B]).trace()).simplify_full())
+print("mass matrix (diagonal):", M2.diagonal()); print("[PASS] the mass matrix is diagonal:", M2 == diagonal_matrix(M2.diagonal()))
+print("[PASS] four massless (T_1, T_2, T_3, T_8) and four of mass^2 3 g^2 v^2/4 (T_4..T_7):", [bool(d == 0) for d in M2.diagonal()] == [True] * 3 + [False] * 4 + [True] and all(bool(M2[A, A] == 3 * g^2 * v^2 / 4) for A in range(3, 7)))
+print("[PASS] the kinetic normalisation: -Tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since Tr(T_A T_B) = -delta/2:", all(bool((T[A] * T[B]).trace() == (-1 / 2 if A == B else 0)) for A in range(8) for B in range(8)))
+print("broken generators:", 8 - 4, "= dim_R SU(3)/(SU(2) x U(1)) = dim_R CP^2 = 4")
+```
+
+*Output:*
+
+```text
+mass matrix (diagonal): [0, 0, 0, 3/4*g^2*v^2, 3/4*g^2*v^2, 3/4*g^2*v^2, 3/4*g^2*v^2, 0]
+[PASS] the mass matrix is diagonal: True
+[PASS] four massless (T_1, T_2, T_3, T_8) and four of mass^2 3 g^2 v^2/4 (T_4..T_7): True
+[PASS] the kinetic normalisation: -Tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since Tr(T_A T_B) = -delta/2: True
+broken generators: 4 = dim_R SU(3)/(SU(2) x U(1)) = dim_R CP^2 = 4
+```
+:::
+
+Three exercises combine the units of @sec-lattice-gauge, one for each of the groups. The first follows two-dimensional compact $U(1)$ from the definition to its continuum limit, the second locates the transition of the three-dimensional $\mathbb{Z}_2$ theory by its Wilson loops, and the third assembles the evidence that four-dimensional $SU(2)$ confines.
+
+The first integrative exercise uses the exact solution of the second section, the area law of the third and the heat bath of the fifth. Its Monte Carlo is a check of the whole chain of definitions on a case where the answer is known.
+
+::: {#exr-lgt-int-2d-u1}
+#### Two-dimensional compact $U(1)$ from start to finish
+
+For compact $U(1)$ on a two-dimensional lattice: (a) show that the Wilson loops obey $W(C) = (I_1(\beta)/I_0(\beta))^A$; (b) with $\beta = 1/(e^2a^2)$, find the continuum string tension and compare with Gauss's law; (c) simulate the theory with Sage on a $12 \times 12$ torus at $\beta = 2$ with the von Mises heat bath, and compare $W(1, 1)$, $W(2, 2)$, $W(2, 3)$ with $u^A$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) By @prp-lgt-two-dim and the lattice Stokes theorem (@exr-lgt-2d-abelian-loop). (b) $\hat\sigma = \log(I_0/I_1) = \frac{1}{2\beta} + O(\beta^{-2})$, so $\sigma = \hat\sigma/a^2 \to \frac{e^2}{2}$, the field energy per unit length of @exr-lgt-al-gauss-2d. (c) The measured loops agree with $u^A$, $u = I_1(2)/I_0(2) = 0.698$, within one or two standard deviations, the finite-size effects of the torus being of order $u^{144}$:
+
+```python
+import numpy as np
+rng = np.random.default_rng(int(101)); L, beta = int(12), 2.0
+par = np.indices((L, L)).sum(axis=0) % 2
+sh = lambda a, mu, k=1: np.roll(a, -k, axis=mu)
+th = np.zeros((2, L, L))
+def staple(th, mu):
+    nu = 1 - mu
+    return np.exp(1j * (sh(th[nu], mu) - sh(th[mu], nu) - th[nu])) + np.exp(1j * (-sh(sh(th[nu], mu), nu, -1) - sh(th[mu], nu, -1) + sh(th[nu], nu, -1)))
+W = {(1, 1): [], (2, 2): [], (2, 3): []}
+for k in range(4100):
+    for mu in (0, 1):
+        for p in (0, 1):
+            st = staple(th, mu)
+            new = rng.vonmises(0.0, beta * np.abs(st)) - np.angle(st)
+            th[mu] = np.where(par == p, new, th[mu])
+    if k >= 100:
+        P = th[0] + sh(th[1], 0) - sh(th[0], 1) - th[1]
+        for (R, T) in W:
+            W[(R, T)].append(np.cos(sum(sh(sh(P, 0, i), 1, j) for i in range(R) for j in range(T))).mean())
+u = bessel_I(1, beta) / bessel_I(0, beta)
+for (R, T), v in W.items():
+    v = np.array(v); err = v.reshape(20, -1).mean(1).std(ddof=1) / np.sqrt(20)
+    print('W(%d,%d) = %.4f +- %.4f; u^%d = %.4f' % (R, T, v.mean(), err, R * T, u**(R * T)))
+print('string tension in lattice units -log u = %.4f; in units of e^2 (beta = 1/(e^2 a^2)): beta * (-log u) = %.4f -> 1/2' % (-log(u), -beta * log(u)))
+```
+
+*Output:*
+
+```text
+W(1,1) = 0.6987 +- 0.0007; u^1 = 0.6978
+W(2,2) = 0.2382 +- 0.0017; u^4 = 0.2371
+W(2,3) = 0.1171 +- 0.0014; u^6 = 0.1154
+string tension in lattice units -log u = 0.3599; in units of e^2 (beta = 1/(e^2 a^2)): beta * (-log u) = 0.7197 -> 1/2
+```
+:::
+
+The second integrative exercise uses the strong-coupling expansion, the duality of the $\mathbb{Z}_2$ section and the Monte Carlo of the last section. It shows the area and the perimeter laws on the two sides of a transition.
+
+::: {#exr-lgt-int-z2-3d}
+#### The two phases of the three-dimensional $\mathbb{Z}_2$ theory
+
+For the three-dimensional $\mathbb{Z}_2$ theory: (a) give the strong-coupling string tension and the weak-coupling perimeter coefficient; (b) locate the transition by duality; (c) measure $W(1, 1)$, $W(1, 2)$, $W(2, 2)$ with Sage on an $8^3$ lattice at $\beta = 0.25$ and $\beta = 1$, compute the Creutz ratio $\chi(2, 2)$, and decide in each case whether $-\log W$ scales with the area or with the perimeter.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $\hat\sigma = -\log\tanh\beta - 2\tanh^4\beta + \dots$ (@exm-lgt-sc-bump), and $\hat\mu \approx 2e^{-8\beta}$ per unit length (@exr-lgt-al-z2-perimeter). (b) $\beta_c = \operatorname{arctanh}e^{-2K_c} = 0.7614$ (@exr-lgt-z2-dual-3d). (c) At $\beta = 0.25$, $-\log W/A \approx 1.40$ for the three loops and $\chi(2, 2) = 1.42$, close to $-\log\tanh0.25 = 1.41$: an area law. At $\beta = 1$, $-\log W/P \approx 0.0009$ for the three loops and $\chi(2, 2) \approx 0$: a perimeter law. The two phases are separated by $\beta_c$:
+
+```python
+import numpy as np
+rng = np.random.default_rng(int(102)); L, D = int(8), int(3)
+par = np.indices((L,) * D).sum(axis=0) % 2
+sh = lambda a, mu, k=1: np.roll(a, -k, axis=mu)
+def sweep(s, beta):
+    for mu in range(D):
+        for p in (0, 1):
+            st = sum(sh(s[nu], mu) * sh(s[mu], nu) * s[nu] + sh(sh(s[nu], mu), nu, -1) * sh(s[mu], nu, -1) * sh(s[nu], nu, -1) for nu in range(D) if nu != mu)
+            s[mu] = np.where(par == p, np.where(rng.random(st.shape) < 1 / (1 + np.exp(-2 * beta * st)), 1, -1), s[mu])
+def loop(s, R, T):
+    w = np.ones(s.shape[1:])
+    for mu, nu in ((0, 1), (1, 2), (2, 0)):
+        x = np.ones(s.shape[1:])
+        for i in range(R):
+            x = x * sh(s[mu], mu, i) * sh(sh(s[mu], mu, i), nu, T)
+        for j in range(T):
+            x = x * sh(s[nu], nu, j) * sh(sh(s[nu], nu, j), mu, R)
+        w = w + x
+    return (w - 1).mean() / 3
+for beta in (0.25, 1.0):
+    s = np.ones((D,) + (L,) * D); acc = {}
+    for k in range(1300):
+        sweep(s, beta)
+        if k >= 100:
+            for RT in ((1, 1), (1, 2), (2, 2)):
+                acc.setdefault(RT, []).append(loop(s, *RT))
+    W = {RT: np.mean(v) for RT, v in acc.items()}
+    print('beta = %.2f:' % beta, '  '.join('W%d%d = %.5f' % (R, T, W[(R, T)]) for (R, T) in W))
+    chi = -np.log(W[(2, 2)] * W[(1, 1)] / W[(1, 2)]**2)
+    print('   Creutz ratio chi(2,2) = %.4f; strong coupling -log tanh(beta) = %.4f' % (chi, -np.log(np.tanh(beta))))
+    print('   -log W / perimeter: %s; dilute flipped links give 2 exp(-8 beta) = %.5f' % (' '.join('%.4f' % (-np.log(W[RT]) / (2 * sum(RT))) for RT in W), 2 * np.exp(-8 * beta)))
+    print('   -log W / area:      %s' % ' '.join('%.4f' % (-np.log(W[RT]) / (RT[0] * RT[1])) for RT in W))
+```
+
+*Output:*
+
+```text
+beta = 0.25: W11 = 0.24594  W12 = 0.06165  W22 = 0.00374
+   Creutz ratio chi(2,2) = 1.4184; strong coupling -log tanh(beta) = 1.4068
+   -log W / perimeter: 0.3507 0.4644 0.6985; dilute flipped links give 2 exp(-8 beta) = 0.27067
+   -log W / area:      1.4027 1.3931 1.3971
+beta = 1.00: W11 = 0.99666  W12 = 0.99480  W22 = 0.99276
+   Creutz ratio chi(2,2) = 0.0002; strong coupling -log tanh(beta) = 0.2723
+   -log W / perimeter: 0.0008 0.0009 0.0009; dilute flipped links give 2 exp(-8 beta) = 0.00067
+   -log W / area:      0.0033 0.0026 0.0018
+```
+:::
+
+The third integrative exercise combines the continuum limit of the first section, the $SU(2)$ theory of the second, the strong-coupling expansion and the heat bath. It reconstructs the argument by which lattice simulations established confinement in a non-abelian gauge theory.
+
+::: {#exr-lgt-int-su2}
+#### Confinement in four-dimensional $SU(2)$
+
+For four-dimensional $SU(2)$: (a) simulate the theory with Sage on a $4^4$ lattice with the Kennedy-Pendleton heat bath at $\beta = 0.5$ and $\beta = 4$, and compare the average plaquette with $\frac\beta4$ and $1 - \frac{3}{4\beta}$; (b) give the strong-coupling string tension with its first correction; (c) explain why the scaling form $\hat\sigma \propto e^{-6\pi^2\beta/11}$ follows from asymptotic freedom, and find the lattice spacing at $\beta = 2.5$ from $\sigma = 0.18$ GeV$^2$ with the normalisation of @fig-lgt-strong-coupling; (d) explain why (b) and (c) together are evidence that the continuum theory confines, while the same reasoning fails for compact $U(1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) The plaquette is $0.1235$ at $\beta = 0.5$, against $\frac\beta4 = 0.125$, and $0.80$ at $\beta = 4$, against $1 - \frac{3}{16} = 0.8125$, the difference being the next order in $1/\beta$. (b) $\hat\sigma = -\log u - 4u^4 + \dots$ with $u = I_2(\beta)/I_1(\beta) \approx \frac\beta4$ (@exm-lgt-sc-bump). (c) At fixed physical $\sigma$, $\hat\sigma = \sigma a^2$, and asymptotic freedom gives $a \propto e^{-3\pi^2\beta/11}$ (@exm-lgt-cl-asymptotic-freedom), so $\hat\sigma \propto e^{-6\pi^2\beta/11}$; at $\beta = 2.5$, $\hat\sigma = 0.068$ and $a = 0.12$ fm. (d) The strong-coupling area law holds for every compact group, but only if no phase transition intervenes does it reach the continuum limit at $\beta \to \infty$; for $SU(2)$ the two forms join smoothly near $\beta \approx 2.1$ (@exm-lgt-sc-crossover, @exm-lgt-su2-scaling), while compact $U(1)$ has a transition at $\beta_c \approx 1.01$ beyond which the area law is lost (@exm-lgt-sc-u1-paradox):
+
+```python
+import numpy as np
+rng = np.random.default_rng(int(103)); L, D = int(4), int(4)
+par = np.indices((L,) * D).sum(axis=0) % 2
+def qmul(a, b):
+    c = np.empty(np.broadcast(a, b).shape)
+    c[..., 0] = a[..., 0] * b[..., 0] - (a[..., 1:] * b[..., 1:]).sum(-1)
+    c[..., 1:] = a[..., :1] * b[..., 1:] + b[..., :1] * a[..., 1:] - np.cross(a[..., 1:], b[..., 1:])
+    return c
+qinv = lambda a: a * np.array([1.0, -1, -1, -1])
+sh = lambda a, mu, k=1: np.roll(a, -k, axis=mu)
+def staple(U, mu):
+    return sum(qmul(qmul(sh(U[nu], mu), qinv(sh(U[mu], nu))), qinv(U[nu]))
+               + qmul(qmul(qinv(sh(sh(U[nu], mu), nu, -1)), qinv(sh(U[mu], nu, -1))), sh(U[nu], nu, -1)) for nu in range(D) if nu != mu)
+def heatbath(st, beta):                         # Kennedy-Pendleton for W = U V, then U = W V^-1
+    k = np.linalg.norm(st, axis=-1); V = st / k[..., None]; x = beta * k
+    a0 = np.empty(k.shape); todo = np.ones(k.shape, bool)
+    while todo.any():
+        e = rng.random((4, todo.sum())); Dd = -(np.log(e[0]) + np.log(e[1]) * np.cos(2 * np.pi * e[2])**2) / x[todo]
+        ok = e[3]**2 <= 1 - Dd / 2; idx = np.flatnonzero(todo)[ok]; a0.flat[idx] = 1 - Dd[ok]; todo.flat[idx] = False
+    v = rng.normal(size=k.shape + (3,)); v /= np.linalg.norm(v, axis=-1)[..., None]
+    W = np.concatenate([a0[..., None], np.sqrt(1 - a0**2)[..., None] * v], axis=-1)
+    return qmul(W, qinv(V))
+plaq = lambda U: np.mean([qmul(qmul(qmul(U[m], sh(U[n], m)), qinv(sh(U[m], n))), qinv(U[n]))[..., 0].mean() for m in range(D) for n in range(m + 1, D)])
+for beta in (0.5, 4.0):
+    U = np.zeros((D,) + (L,) * D + (4,)); U[..., 0] = 1; h = []
+    for k in range(250):
+        for mu in range(D):
+            for p in (0, 1):
+                U[mu] = np.where((par == p)[..., None], heatbath(staple(U, mu), beta), U[mu])
+        if k >= 50: h.append(plaq(U))
+    print('beta = %.1f: <(1/2) Tr U_P> = %.4f; strong coupling beta/4 = %.4f; weak coupling 1 - 3/(4 beta) = %.4f' % (beta, np.mean(h), beta / 4, 1 - 3 / (4 * beta)))
+hbarc = 0.1973269804
+sig_hat = float(exp(12 * pi^2 / 11 - 6 * pi^2 * 2.5 / 11))
+print('beta = 2.5: one-loop scaling sigma a^2 = %.4f, a = %.3f fm with sigma = 0.18 GeV^2' % (sig_hat, hbarc * np.sqrt(sig_hat / 0.18)))
+```
+
+*Output:*
+
+```text
+beta = 0.5: <(1/2) Tr U_P> = 0.1235; strong coupling beta/4 = 0.1250; weak coupling 1 - 3/(4 beta) = -0.5000
+beta = 4.0: <(1/2) Tr U_P> = 0.8005; strong coupling beta/4 = 1.0000; weak coupling 1 - 3/(4 beta) = 0.8125
+beta = 2.5: one-loop scaling sigma a^2 = 0.0678, a = 0.121 fm with sigma = 0.18 GeV^2
+```
+:::
+
+Three exercises combine the units of @sec-standard-model. The first follows one generation from the anomaly conditions to a measured ratio of $Z$ widths, the second extracts all electroweak parameters from three measurements, and the third counts the parameters of the whole Standard Model.
 
 The first integrative exercise uses the hypercharges of the second section and the couplings and widths of the third. It shows that a ratio measured at the $Z$ resonance follows from anomaly cancellation, the weak angle and the three colours.
 

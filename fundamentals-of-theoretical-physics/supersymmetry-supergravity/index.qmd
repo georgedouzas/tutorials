@@ -4397,146 +4397,6 @@ stable.
 :::
 ::::
 
-### Exercises {#sec-supersymmetry-exercises}
-
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the sections of this part: a model with two supersymmetric vacua analysed completely,
-the massive chiral multiplet followed from the algebra to the Lagrangian, and supersymmetric QED with a
-Fayet-Iliopoulos term, where gauge symmetry and supersymmetry are broken in turn.
-
-The first integrative exercise takes a single superpotential through every step of the part. The vacua, the
-spectrum, the supertrace, the Witten index and the domain wall are all computed in Sage.
-
-::: {#exr-ssg-susy-two-vacua}
-#### A model with two vacua
-
-For $W = \lambda(\tfrac13\Phi^3 - \mu^2\Phi)$, find the supersymmetric vacua, the scalar and fermion masses in each, the supertrace, the
-Witten index (counting the vacua, each a massive multiplet with one bosonic ground state), and the BPS wall between the
-vacua with its tension.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-$W' = \lambda(\phi^2 - \mu^2)$ vanishes at $\phi = \pm\mu$; $W'' = 2\lambda\phi$ gives the mass $2\lambda\mu$ to both real scalars and to the Weyl
-fermion in each vacuum, and the supertrace $2(4\lambda^2\mu^2) - 2(4\lambda^2\mu^2) = 0$. Each vacuum contributes $1$ to the Witten index
-(@exr-ssg-witten-index), which is $2$, a number that no continuous deformation of the parameters can change. The wall
-$\phi(x) = -\mu\tanh(\lambda\mu x)$ solves $\phi' = W'(\phi)$ and has tension $2|W(\mu) - W(-\mu)| = \tfrac83\lambda\mu^3$ (@exm-ssg-fterm-bps):
-
-```python
-lam, mu = var("lam mu", domain="positive"); p, c = var("p c")          # phi and phi^* as independent symbols
-W = lam * (p^3 / 3 - mu^2 * p); Wp = diff(W, p); Wpp = diff(W, p, 2)
-V = Wp * Wp.subs(p=c)
-vac = [s.rhs() for s in solve(Wp == 0, p)]
-print("W' =", Wp.factor(), "; vacua:", vac)
-print("[PASS] two supersymmetric vacua phi = -mu, +mu with V = 0:", set(vac) == {-mu, mu} and all(bool(V.subs(p=v, c=v) == 0) for v in vac))
-x, w = var("x w", domain="real")
-Vr = V.subs(p=(x + I * w) / sqrt(2), c=(x - I * w) / sqrt(2)).expand()
-for v in vac:
-    H = matrix(SR, 2, 2, lambda i, j: diff(Vr, (x, w)[i], (x, w)[j])).subs(x=sqrt(2) * v, w=0).simplify_full()
-    mf2 = (Wpp.subs(p=v))^2
-    print("vacuum", v, ": scalar mass^2 eigenvalues", H.eigenvalues(), "; fermion mass^2", mf2)
-    print("[PASS] at phi = %s both real scalars and the Weyl fermion have mass^2 4 lambda^2 mu^2; supertrace 2*4l^2mu^2 - 2*4l^2mu^2 = 0:" % v,
-          H == 4 * lam^2 * mu^2 * identity_matrix(2) and bool(mf2 == 4 * lam^2 * mu^2))
-print("[PASS] Witten index = number of massive supersymmetric vacua = 2 (each contributes one bosonic ground state):", len(vac) == 2)
-T = 2 * abs(W.subs(p=mu) - W.subs(p=-mu))
-print("BPS wall tension 2|Delta W| =", T.simplify_full())
-print("[PASS] the tension is 8 lambda mu^3 / 3:", bool((T - 8 * lam * mu^3 / 3).simplify_full() == 0))
-xx = var("xx"); kink = -mu * tanh(lam * mu * xx)                       # solves phi' = W'(phi): -lam mu^2 sech^2 = lam(mu^2 tanh^2 - mu^2)
-print("[PASS] phi(x) = -mu tanh(lambda mu x) solves phi' = W'(phi) and runs from mu to -mu:",
-      bool((diff(kink, xx) - Wp.subs(p=kink)).simplify_full() == 0) and bool(limit(kink, xx=-oo) == mu) and bool(limit(kink, xx=oo) == -mu))
-```
-
-*Output:*
-
-```text
-W' = -lam*(mu + p)*(mu - p) ; vacua: [-mu, mu]
-[PASS] two supersymmetric vacua phi = -mu, +mu with V = 0: True
-vacuum -mu : scalar mass^2 eigenvalues [4*lam^2*mu^2, 4*lam^2*mu^2] ; fermion mass^2 4*lam^2*mu^2
-[PASS] at phi = -mu both real scalars and the Weyl fermion have mass^2 4 lambda^2 mu^2; supertrace 2*4l^2mu^2 - 2*4l^2mu^2 = 0: True
-vacuum mu : scalar mass^2 eigenvalues [4*lam^2*mu^2, 4*lam^2*mu^2] ; fermion mass^2 4*lam^2*mu^2
-[PASS] at phi = mu both real scalars and the Weyl fermion have mass^2 4 lambda^2 mu^2; supertrace 2*4l^2mu^2 - 2*4l^2mu^2 = 0: True
-[PASS] Witten index = number of massive supersymmetric vacua = 2 (each contributes one bosonic ground state): True
-BPS wall tension 2|Delta W| = 8/3*lam*mu^3
-[PASS] the tension is 8 lambda mu^3 / 3: True
-[PASS] phi(x) = -mu tanh(lambda mu x) solves phi' = W'(phi) and runs from mu to -mu: True
-```
-:::
-
-The second integrative exercise follows the simplest massive multiplet from the algebra to the Lagrangian. It uses
-the representation theory of the first section and the field theory of the second and third, and is worked by hand.
-
-::: {#exr-ssg-susy-massive-chiral}
-#### The massive chiral multiplet from end to end
-
-For $W = \tfrac12m\phi^2$: (a) count the states of the massive multiplet from the Clifford algebra at rest and compare with the
-fields $\phi$, $\psi$; (b) derive the field equations after eliminating $F$ and show that $\phi$ and $\psi$ both satisfy the
-Klein-Gordon equation with mass $|m|$; (c) explain why the algebra now closes only on-shell; (d) find the vacuum and
-its energy.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) At rest, $\{Q_\alpha, Q^\dagger_{\dot\beta}\} = 2m\delta_{\alpha\dot\beta}$ gives two fermionic oscillators; from a spin-$0$ Clifford vacuum the
-multiplet has two spin-$0$ states and one spin-$\tfrac12$ doublet, $2 + 2$ (@exr-ssg-massive-multiplet), matching the complex
-scalar and the two helicities of the massive Majorana fermion built from $\psi$. (b) With $F = -m^*\phi^*$, $\mathcal{L} =
-\partial^\mu\phi^*\partial_\mu\phi + i\psi^\dagger\bar\sigma^\mu\partial_\mu\psi - |m|^2|\phi|^2 - \tfrac12(m\psi\psi + m^*\psi^\dagger\psi^\dagger)$; the scalar
-satisfies $(\Box + |m|^2)\phi = 0$, the fermion $i\bar\sigma^\mu\partial_\mu\psi = m^*\psi^\dagger$, and applying $i\sigma^\nu\partial_\nu$ to the
-conjugate equation and using $(p\cdot\sigma)(p\cdot\bar\sigma) = p^2$ (@exm-ssg-sigma-mass-shell) gives $(\Box + |m|^2)\psi = 0$. (c) After
-the elimination $\delta F$ is replaced by $\delta(-m^*\phi^*)$, which agrees with the closing rule only on the fermion field
-equation (@exr-ssg-closure-eliminated). (d) $V = |m|^2|\phi|^2$ has its unique zero at $\phi = 0$: one supersymmetric vacuum,
-with zero energy, and Witten index $1$.
-:::
-
-The third integrative exercise combines the D-term potential, the Higgs mechanism and supersymmetry breaking. Without
-a superpotential, the Fayet-Iliopoulos term breaks the gauge symmetry and keeps supersymmetry; with one, it breaks
-supersymmetry.
-
-::: {#exr-ssg-susy-sqed-fi}
-#### Supersymmetric QED with a Fayet-Iliopoulos term
-
-For $U(1)$ with fields $\Phi_\pm$ of charges $\pm1$, coupling $g$ and FI term $-\kappa D$, $\kappa > 0$: (a) without superpotential find the
-vacua and show they are supersymmetric but break the gauge symmetry; (b) at $\phi_- = 0$ compute the photon mass and the
-mass of the radial scalar, and count the states of the resulting massive multiplet; (c) add $W = m\Phi_+\Phi_-$ and show that
-supersymmetry is broken.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $V = \tfrac12(\kappa - g(|\phi_+|^2 - |\phi_-|^2))^2$ vanishes on $|\phi_+|^2 - |\phi_-|^2 = \kappa/g$, where $D = 0$ and all F-terms vanish:
-supersymmetric vacua, with charged fields condensed, so the $U(1)$ is broken. (b) With $|\phi_+|^2 = v^2 = \kappa/g$ the photon gets
-$m_A^2 = 2g^2v^2 = 2g\kappa$, and the radial scalar the same mass squared $2g\kappa$; the phase is eaten. Vector ($3$) plus scalar
-($1$) are $4$ bosonic states, and the gaugino and $\psi_+$ pair into a massive Dirac fermion ($4$): the massive vector
-multiplet of @exr-ssg-massive-multiplet. (c) With $W$, $V = m^2(|\phi_+|^2 + |\phi_-|^2) + \tfrac12(\kappa - g(|\phi_+|^2 - |\phi_-|^2))^2$ cannot
-vanish, since the first term needs $\phi_\pm = 0$ and the second then equals $\tfrac12\kappa^2$: supersymmetry is broken
-(@exr-ssg-fi-spectrum).
-
-```python
-g, k = var("g kappa", domain="positive"); m = var("m", domain="positive")
-r, s = var("r s", domain="positive")
-V0 = (k - g * (r - s))^2 / 2
-print("[PASS] without W the vacua are the D-flat surface r - s = kappa/g, with V = 0:", bool(V0.subs(r=s + k / g) == 0))
-h = var("h", domain="positive")                                         # phi_+ = v + h/sqrt(2), real radial fluctuation
-v = sqrt(k / g)
-Vh = V0.subs(r=(v + h / sqrt(2))^2, s=0).expand()
-mh2 = diff(Vh, h, 2).subs(h=0)
-mA2 = 2 * g^2 * v^2                       # from |D_mu phi|^2 = ... + g^2 A^2 |phi|^2 with |phi|^2 = v^2: m_A^2 = 2 g^2 v^2
-print("radial scalar mass^2 =", mh2.simplify_full(), "; vector mass^2 2 g^2 |phi_+|^2 =", mA2)
-print("[PASS] the radial scalar and the photon have the same mass^2 2 g kappa: a massive vector multiplet:", bool(mh2.simplify_full() == 2 * g * k) and bool(mA2 == 2 * g * k))
-print("[PASS] states: vector 3 + radial scalar 1 = 4 bosons, two Weyl fermions (gaugino, psi_+) married into a Dirac pair = 4 fermions:", 3 + 1 == 2 * 2)
-V = m^2 * (r + s) + V0
-print("[PASS] with W = m Phi_+ Phi_- V > 0 everywhere: at V = 0 both m^2(r + s) = 0 and r - s = kappa/g would be needed:",
-      bool(V.subs(r=0, s=0) == k^2 / 2) and bool(V0.subs(r=0, s=0) > 0))
-```
-
-*Output:*
-
-```text
-[PASS] without W the vacua are the D-flat surface r - s = kappa/g, with V = 0: True
-radial scalar mass^2 = 2*g*kappa ; vector mass^2 2 g^2 |phi_+|^2 = 2*g*kappa
-[PASS] the radial scalar and the photon have the same mass^2 2 g kappa: a massive vector multiplet: True
-[PASS] states: vector 3 + radial scalar 1 = 4 bosons, two Weyl fermions (gaugino, psi_+) married into a Dirac pair = 4 fermions: True
-[PASS] with W = m Phi_+ Phi_- V > 0 everywhere: at V = 0 both m^2(r + s) = 0 and r - s = kappa/g would be needed: True
-```
-:::
-::::
-
 ## Supergravity {#sec-supergravity}
 
 Making supersymmetry local forces gravity in: the gravitino is the gauge field of local supersymmetry, and
@@ -7390,10 +7250,146 @@ supersymmetry only for internal spaces, such as the squashed sphere, whose Killi
 :::
 ::::
 
-### Exercises {#sec-supergravity-exercises}
+## Exercises {#sec-supersymmetry-supergravity-exercises}
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Three exercises that combine the sections of this part: eleven-dimensional supergravity reduced on a torus and
+Three exercises that combine the units of @sec-supersymmetry: a model with two supersymmetric vacua analysed completely,
+the massive chiral multiplet followed from the algebra to the Lagrangian, and supersymmetric QED with a
+Fayet-Iliopoulos term, where gauge symmetry and supersymmetry are broken in turn.
+
+The first integrative exercise takes a single superpotential through every step of the part. The vacua, the
+spectrum, the supertrace, the Witten index and the domain wall are all computed in Sage.
+
+::: {#exr-ssg-susy-two-vacua}
+#### A model with two vacua
+
+For $W = \lambda(\tfrac13\Phi^3 - \mu^2\Phi)$, find the supersymmetric vacua, the scalar and fermion masses in each, the supertrace, the
+Witten index (counting the vacua, each a massive multiplet with one bosonic ground state), and the BPS wall between the
+vacua with its tension.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$W' = \lambda(\phi^2 - \mu^2)$ vanishes at $\phi = \pm\mu$; $W'' = 2\lambda\phi$ gives the mass $2\lambda\mu$ to both real scalars and to the Weyl
+fermion in each vacuum, and the supertrace $2(4\lambda^2\mu^2) - 2(4\lambda^2\mu^2) = 0$. Each vacuum contributes $1$ to the Witten index
+(@exr-ssg-witten-index), which is $2$, a number that no continuous deformation of the parameters can change. The wall
+$\phi(x) = -\mu\tanh(\lambda\mu x)$ solves $\phi' = W'(\phi)$ and has tension $2|W(\mu) - W(-\mu)| = \tfrac83\lambda\mu^3$ (@exm-ssg-fterm-bps):
+
+```python
+lam, mu = var("lam mu", domain="positive"); p, c = var("p c")          # phi and phi^* as independent symbols
+W = lam * (p^3 / 3 - mu^2 * p); Wp = diff(W, p); Wpp = diff(W, p, 2)
+V = Wp * Wp.subs(p=c)
+vac = [s.rhs() for s in solve(Wp == 0, p)]
+print("W' =", Wp.factor(), "; vacua:", vac)
+print("[PASS] two supersymmetric vacua phi = -mu, +mu with V = 0:", set(vac) == {-mu, mu} and all(bool(V.subs(p=v, c=v) == 0) for v in vac))
+x, w = var("x w", domain="real")
+Vr = V.subs(p=(x + I * w) / sqrt(2), c=(x - I * w) / sqrt(2)).expand()
+for v in vac:
+    H = matrix(SR, 2, 2, lambda i, j: diff(Vr, (x, w)[i], (x, w)[j])).subs(x=sqrt(2) * v, w=0).simplify_full()
+    mf2 = (Wpp.subs(p=v))^2
+    print("vacuum", v, ": scalar mass^2 eigenvalues", H.eigenvalues(), "; fermion mass^2", mf2)
+    print("[PASS] at phi = %s both real scalars and the Weyl fermion have mass^2 4 lambda^2 mu^2; supertrace 2*4l^2mu^2 - 2*4l^2mu^2 = 0:" % v,
+          H == 4 * lam^2 * mu^2 * identity_matrix(2) and bool(mf2 == 4 * lam^2 * mu^2))
+print("[PASS] Witten index = number of massive supersymmetric vacua = 2 (each contributes one bosonic ground state):", len(vac) == 2)
+T = 2 * abs(W.subs(p=mu) - W.subs(p=-mu))
+print("BPS wall tension 2|Delta W| =", T.simplify_full())
+print("[PASS] the tension is 8 lambda mu^3 / 3:", bool((T - 8 * lam * mu^3 / 3).simplify_full() == 0))
+xx = var("xx"); kink = -mu * tanh(lam * mu * xx)                       # solves phi' = W'(phi): -lam mu^2 sech^2 = lam(mu^2 tanh^2 - mu^2)
+print("[PASS] phi(x) = -mu tanh(lambda mu x) solves phi' = W'(phi) and runs from mu to -mu:",
+      bool((diff(kink, xx) - Wp.subs(p=kink)).simplify_full() == 0) and bool(limit(kink, xx=-oo) == mu) and bool(limit(kink, xx=oo) == -mu))
+```
+
+*Output:*
+
+```text
+W' = -lam*(mu + p)*(mu - p) ; vacua: [-mu, mu]
+[PASS] two supersymmetric vacua phi = -mu, +mu with V = 0: True
+vacuum -mu : scalar mass^2 eigenvalues [4*lam^2*mu^2, 4*lam^2*mu^2] ; fermion mass^2 4*lam^2*mu^2
+[PASS] at phi = -mu both real scalars and the Weyl fermion have mass^2 4 lambda^2 mu^2; supertrace 2*4l^2mu^2 - 2*4l^2mu^2 = 0: True
+vacuum mu : scalar mass^2 eigenvalues [4*lam^2*mu^2, 4*lam^2*mu^2] ; fermion mass^2 4*lam^2*mu^2
+[PASS] at phi = mu both real scalars and the Weyl fermion have mass^2 4 lambda^2 mu^2; supertrace 2*4l^2mu^2 - 2*4l^2mu^2 = 0: True
+[PASS] Witten index = number of massive supersymmetric vacua = 2 (each contributes one bosonic ground state): True
+BPS wall tension 2|Delta W| = 8/3*lam*mu^3
+[PASS] the tension is 8 lambda mu^3 / 3: True
+[PASS] phi(x) = -mu tanh(lambda mu x) solves phi' = W'(phi) and runs from mu to -mu: True
+```
+:::
+
+The second integrative exercise follows the simplest massive multiplet from the algebra to the Lagrangian. It uses
+the representation theory of the first section and the field theory of the second and third, and is worked by hand.
+
+::: {#exr-ssg-susy-massive-chiral}
+#### The massive chiral multiplet from end to end
+
+For $W = \tfrac12m\phi^2$: (a) count the states of the massive multiplet from the Clifford algebra at rest and compare with the
+fields $\phi$, $\psi$; (b) derive the field equations after eliminating $F$ and show that $\phi$ and $\psi$ both satisfy the
+Klein-Gordon equation with mass $|m|$; (c) explain why the algebra now closes only on-shell; (d) find the vacuum and
+its energy.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) At rest, $\{Q_\alpha, Q^\dagger_{\dot\beta}\} = 2m\delta_{\alpha\dot\beta}$ gives two fermionic oscillators; from a spin-$0$ Clifford vacuum the
+multiplet has two spin-$0$ states and one spin-$\tfrac12$ doublet, $2 + 2$ (@exr-ssg-massive-multiplet), matching the complex
+scalar and the two helicities of the massive Majorana fermion built from $\psi$. (b) With $F = -m^*\phi^*$, $\mathcal{L} =
+\partial^\mu\phi^*\partial_\mu\phi + i\psi^\dagger\bar\sigma^\mu\partial_\mu\psi - |m|^2|\phi|^2 - \tfrac12(m\psi\psi + m^*\psi^\dagger\psi^\dagger)$; the scalar
+satisfies $(\Box + |m|^2)\phi = 0$, the fermion $i\bar\sigma^\mu\partial_\mu\psi = m^*\psi^\dagger$, and applying $i\sigma^\nu\partial_\nu$ to the
+conjugate equation and using $(p\cdot\sigma)(p\cdot\bar\sigma) = p^2$ (@exm-ssg-sigma-mass-shell) gives $(\Box + |m|^2)\psi = 0$. (c) After
+the elimination $\delta F$ is replaced by $\delta(-m^*\phi^*)$, which agrees with the closing rule only on the fermion field
+equation (@exr-ssg-closure-eliminated). (d) $V = |m|^2|\phi|^2$ has its unique zero at $\phi = 0$: one supersymmetric vacuum,
+with zero energy, and Witten index $1$.
+:::
+
+The third integrative exercise combines the D-term potential, the Higgs mechanism and supersymmetry breaking. Without
+a superpotential, the Fayet-Iliopoulos term breaks the gauge symmetry and keeps supersymmetry; with one, it breaks
+supersymmetry.
+
+::: {#exr-ssg-susy-sqed-fi}
+#### Supersymmetric QED with a Fayet-Iliopoulos term
+
+For $U(1)$ with fields $\Phi_\pm$ of charges $\pm1$, coupling $g$ and FI term $-\kappa D$, $\kappa > 0$: (a) without superpotential find the
+vacua and show they are supersymmetric but break the gauge symmetry; (b) at $\phi_- = 0$ compute the photon mass and the
+mass of the radial scalar, and count the states of the resulting massive multiplet; (c) add $W = m\Phi_+\Phi_-$ and show that
+supersymmetry is broken.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+(a) $V = \tfrac12(\kappa - g(|\phi_+|^2 - |\phi_-|^2))^2$ vanishes on $|\phi_+|^2 - |\phi_-|^2 = \kappa/g$, where $D = 0$ and all F-terms vanish:
+supersymmetric vacua, with charged fields condensed, so the $U(1)$ is broken. (b) With $|\phi_+|^2 = v^2 = \kappa/g$ the photon gets
+$m_A^2 = 2g^2v^2 = 2g\kappa$, and the radial scalar the same mass squared $2g\kappa$; the phase is eaten. Vector ($3$) plus scalar
+($1$) are $4$ bosonic states, and the gaugino and $\psi_+$ pair into a massive Dirac fermion ($4$): the massive vector
+multiplet of @exr-ssg-massive-multiplet. (c) With $W$, $V = m^2(|\phi_+|^2 + |\phi_-|^2) + \tfrac12(\kappa - g(|\phi_+|^2 - |\phi_-|^2))^2$ cannot
+vanish, since the first term needs $\phi_\pm = 0$ and the second then equals $\tfrac12\kappa^2$: supersymmetry is broken
+(@exr-ssg-fi-spectrum).
+
+```python
+g, k = var("g kappa", domain="positive"); m = var("m", domain="positive")
+r, s = var("r s", domain="positive")
+V0 = (k - g * (r - s))^2 / 2
+print("[PASS] without W the vacua are the D-flat surface r - s = kappa/g, with V = 0:", bool(V0.subs(r=s + k / g) == 0))
+h = var("h", domain="positive")                                         # phi_+ = v + h/sqrt(2), real radial fluctuation
+v = sqrt(k / g)
+Vh = V0.subs(r=(v + h / sqrt(2))^2, s=0).expand()
+mh2 = diff(Vh, h, 2).subs(h=0)
+mA2 = 2 * g^2 * v^2                       # from |D_mu phi|^2 = ... + g^2 A^2 |phi|^2 with |phi|^2 = v^2: m_A^2 = 2 g^2 v^2
+print("radial scalar mass^2 =", mh2.simplify_full(), "; vector mass^2 2 g^2 |phi_+|^2 =", mA2)
+print("[PASS] the radial scalar and the photon have the same mass^2 2 g kappa: a massive vector multiplet:", bool(mh2.simplify_full() == 2 * g * k) and bool(mA2 == 2 * g * k))
+print("[PASS] states: vector 3 + radial scalar 1 = 4 bosons, two Weyl fermions (gaugino, psi_+) married into a Dirac pair = 4 fermions:", 3 + 1 == 2 * 2)
+V = m^2 * (r + s) + V0
+print("[PASS] with W = m Phi_+ Phi_- V > 0 everywhere: at V = 0 both m^2(r + s) = 0 and r - s = kappa/g would be needed:",
+      bool(V.subs(r=0, s=0) == k^2 / 2) and bool(V0.subs(r=0, s=0) > 0))
+```
+
+*Output:*
+
+```text
+[PASS] without W the vacua are the D-flat surface r - s = kappa/g, with V = 0: True
+radial scalar mass^2 = 2*g*kappa ; vector mass^2 2 g^2 |phi_+|^2 = 2*g*kappa
+[PASS] the radial scalar and the photon have the same mass^2 2 g kappa: a massive vector multiplet: True
+[PASS] states: vector 3 + radial scalar 1 = 4 bosons, two Weyl fermions (gaugino, psi_+) married into a Dirac pair = 4 fermions: True
+[PASS] with W = m Phi_+ Phi_- V > 0 everywhere: at V = 0 both m^2(r + s) = 0 and r - s = kappa/g would be needed: True
+```
+:::
+
+Three exercises that combine the units of @sec-supergravity: eleven-dimensional supergravity reduced on a torus and
 compared with the helicity ladder of $N = 8$, the Freund-Rubin vacuum $AdS_4 \times S^7$ from the flux to the supersymmetry it
 preserves, and the super-Higgs mechanism in the O'Raifeartaigh model coupled to supergravity.
 
