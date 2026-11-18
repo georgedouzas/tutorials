@@ -1,21 +1,72 @@
 /*-- scss:defaults --*/
 
+// Light mode. theme-dark.scss sets the dark values; every value here is !default so that it can.
+// The colours are emitted as --site-* CSS variables below, and every rule uses those.
+$site-dark: false !default;
+$site-bg: #ffffff !default;
+$site-text: #1f2328 !default;
+$site-muted: #5b6470 !default;
+$site-border: #e2e5e9 !default;
+$site-surface: #f6f7f9 !default;
+// One accent (links, navigation) and three block colours: statements, examples, exercises.
+// Each has a contrast of at least 4.5:1 on the page and on its tint (openspec/changes/site-design, design D3).
+$site-accent: #1d5b99 !default;
+$site-statement: #a33a2c !default;
+$site-example: #2b7448 !default;
+$site-exercise: #6247a8 !default;
+// Figures are drawn for a light page; in dark mode they sit on this card.
+$site-figure-card: transparent !default;
+
 // Use the reader's own fonts, and stop the base themes loading web fonts.
 $web-font-path: false;
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$site-font-serif: "Iowan Old Style", "Charter", "Source Serif Pro", "Source Serif 4", ui-serif, Georgia, serif;
+$site-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-sans-serif: $site-font-sans;
+$font-family-base: $site-font-serif;
 $font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 $font-size-root: 17px;
+$line-height-base: 1.65;
+$headings-font-family: $site-font-serif;
 $headings-font-weight: 600;
+$headings-line-height: 1.25;
+
+$body-bg: $site-bg !default;
+$body-color: $site-text !default;
+$link-color: $site-accent !default;
+$primary: $site-accent !default;
+$border-color: $site-border !default;
+$navbar-bg: $site-bg !default;
+$navbar-fg: $site-muted !default;
+$navbar-hl: $site-text !default;
+$sidebar-bg: $site-bg !default;
+$footer-bg: $site-bg !default;
+$code-color: $site-text !default;
+$code-block-bg: $site-surface !default;
+$code-bg: $site-surface !default;
 
 /*-- scss:rules --*/
 
+:root {
+  --site-bg: #{$site-bg};
+  --site-text: #{$site-text};
+  --site-muted: #{$site-muted};
+  --site-border: #{$site-border};
+  --site-surface: #{$site-surface};
+  --site-accent: #{$site-accent};
+  --site-statement: #{$site-statement};
+  --site-example: #{$site-example};
+  --site-exercise: #{$site-exercise};
+  --site-figure-card: #{$site-figure-card};
+  // Written out, since interpolating the Sass lists would drop the quotes that "Source Serif 4" needs.
+  --site-font-serif: "Iowan Old Style", "Charter", "Source Serif Pro", "Source Serif 4", ui-serif, Georgia, serif;
+  --site-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  // Block tints: a few percent of the block colour over the page.
+  --site-statement-tint: color-mix(in srgb, var(--site-statement) 7%, var(--site-bg));
+  --site-example-tint: color-mix(in srgb, var(--site-example) 6%, var(--site-bg));
+  --site-exercise-tint: color-mix(in srgb, var(--site-exercise) 6%, var(--site-bg));
+}
+
 body {
-  --site-bg: #ffffff;
-  --site-text: #1f2328;
-  --site-muted: #59636e;
-  --site-border: #e3e6ea;
-  --site-surface: #f5f6f8;
-  --site-accent: #0b63ce;
   --bs-body-bg: var(--site-bg);
   --bs-body-color: var(--site-text);
   --bs-emphasis-color: var(--site-text);
@@ -26,40 +77,188 @@ body {
   --bs-link-hover-color: var(--site-accent);
   background-color: var(--site-bg);
   color: var(--site-text);
+  font-family: var(--site-font-serif);
+  font-kerning: normal;
+  font-variant-numeric: lining-nums proportional-nums;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
   color: var(--site-accent);
   text-decoration: none;
+
   &:hover {
     color: var(--site-accent);
     text-decoration: underline;
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
   }
+}
+
+::selection {
+  background: color-mix(in srgb, var(--site-accent) 22%, transparent);
+}
+
+/* ------------------------------------------------------------------ Long-form text */
+
+// Body text: 18px serif, about 70 characters to the line.
+#quarto-document-content {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+main p,
+main li {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+main p {
+  margin-bottom: 1rem;
+}
+
+strong, b {
+  font-weight: 650;
 }
 
 h1, h2, h3, h4, h5, h6, .title {
   color: var(--site-text);
-  letter-spacing: -0.015em;
+  font-family: var(--site-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-align: left;
+  hyphens: none;
 }
 
-// Navigation
+#quarto-document-content {
+  h1, .title {
+    font-size: 2.35rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 0.25rem 0 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.65rem;
+    margin-top: 3.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--site-border);
+  }
+
+  h3 {
+    font-size: 1.32rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  h5, h6 {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+}
+
+// KaTeX's Computer Modern at its default 1.21em looks large beside a serif with a big x-height.
+.katex {
+  font-size: 1.1em;
+}
+
+.katex-display {
+  margin: 1.1em 0;
+}
+
+.cell-output-display,
+.table-responsive,
+.math.display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.math.display {
+  display: block;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+blockquote {
+  margin: 1.25rem 0;
+  padding: 0.1rem 1rem;
+  border-left: 3px solid var(--site-border);
+  color: var(--site-muted);
+}
+
+hr {
+  border-color: var(--site-border);
+  opacity: 1;
+}
+
+// Keep link targets clear of the fixed navbar.
+main [id] {
+  scroll-margin-top: 80px;
+}
+
+// Wide tables scroll inside their own block on narrow screens.
+main table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table,
+table {
+  color: var(--site-text);
+  --bs-table-color: var(--site-text);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--site-border);
+  font-size: 0.95em;
+}
+
+/* ------------------------------------------------------------------ Navigation (sans) */
+
+.navbar,
+#quarto-sidebar,
+#quarto-margin-sidebar,
+.page-navigation,
+.nav-footer,
+.quarto-title-meta,
+.quarto-categories,
+.listing-categories,
+#quarto-search-results,
+.aa-Panel,
+.dropdown-menu {
+  font-family: var(--site-font-sans);
+}
+
 .navbar {
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
+  background: var(--site-bg) !important;
+  border-bottom: 1px solid var(--site-border);
+  box-shadow: none;
+
   a,
   a:hover,
   a:focus {
     text-decoration: none !important;
   }
 
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-  background: var(--site-bg) !important;
-  border-bottom: 1px solid var(--site-border);
-  box-shadow: none;
-
   .navbar-brand,
   .navbar-title {
     color: var(--site-text) !important;
-    font-weight: 600;
+    font-weight: 650;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
   }
 
   .nav-link,
@@ -69,41 +268,47 @@ h1, h2, h3, h4, h5, h6, .title {
     color: var(--site-muted) !important;
   }
 
-  // Pill-shaped section buttons.
+  // Plain links: colour on hover, an accent underline for the current section.
   .navbar-nav .nav-link {
-    margin: 0 0.15rem;
-    padding: 0.4rem 0.95rem;
-    border: 1px solid var(--site-border);
-    border-radius: 999px;
-    background: var(--site-surface);
-    font-weight: 600;
-    transition: transform 0.15s ease, color 0.15s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    margin: 0 0.1rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: color 0.15s ease;
 
     &:hover,
-    &:focus-visible {
-      border-color: var(--site-accent);
-      background: var(--site-surface);
-      box-shadow: 0 4px 16px rgba(90, 120, 255, 0.28);
+    &:focus-visible,
+    &.show {
       color: var(--site-text) !important;
-      transform: translateY(-1px);
     }
 
     &.active {
-      border-color: transparent;
-      background: linear-gradient(100deg, #8ab4ff, #b49cff);
-      box-shadow: 0 4px 18px rgba(120, 140, 255, 0.4);
-      color: #0a1020 !important;
+      color: var(--site-accent) !important;
+      box-shadow: inset 0 -2px 0 var(--site-accent);
+      border-radius: 0;
     }
   }
 
-  // Icon links stay plain.
-  .navbar-nav .nav-link:has(> .bi) {
-    margin: 0;
-    padding: 0.4rem 0.45rem;
-    box-shadow: none;
-    background: transparent;
-    border-color: transparent;
+  .quarto-color-scheme-toggle,
+  .quarto-navigation-tool {
+    &:hover {
+      color: var(--site-text) !important;
+    }
   }
+}
+
+.dropdown-menu {
+  --bs-dropdown-bg: var(--site-bg);
+  --bs-dropdown-border-color: var(--site-border);
+  --bs-dropdown-link-color: var(--site-text);
+  --bs-dropdown-link-hover-color: var(--site-text);
+  --bs-dropdown-link-hover-bg: var(--site-surface);
+  --bs-dropdown-link-active-color: var(--site-accent);
+  --bs-dropdown-link-active-bg: var(--site-surface);
+  font-size: 0.9rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .aa-DetachedSearchButtonIcon,
@@ -111,647 +316,169 @@ h1, h2, h3, h4, h5, h6, .title {
   color: var(--site-muted);
 }
 
-/*!
- * Landing page masthead adapted from Start Bootstrap Grayscale.
- * Copyright 2013-2023 Start Bootstrap LLC. MIT licence, see assets/grayscale.LICENSE.md.
- */
-// The hero and section cards share one screen, so the homepage needs no scrolling.
-.home-stage {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100svh - 62px);
-  // Overrides Quarto's first-child rule, which leaves a strip above the hero.
-  padding-top: 0 !important;
-}
-
-header.masthead {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  flex: 1 0 auto;
-  // Important overrides Quarto's first-child rule on the top padding.
-  padding: clamp(0.75rem, 3vh, 2.5rem) 1.25rem clamp(2rem, 6vh, 3.5rem) !important;
-  text-align: center;
-  background: linear-gradient(to bottom, #070a11, #111829);
-
-  // Blends the hero into the page background.
-  &::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0;
-    height: clamp(1.25rem, 4vh, 2.5rem);
-    background: linear-gradient(to bottom, transparent, var(--site-bg));
-    pointer-events: none;
-  }
-
-  h1 {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: clamp(2rem, min(6.5vw, 9vh), 4.75rem);
-    font-weight: 800;
-    // Gradient text paints only inside its box, so leave room for descenders.
-    line-height: 1.25;
-    letter-spacing: 0.02em;
-    background: linear-gradient(100deg, #ffffff 15%, #a9c8ff 40%, #d2b8ff 60%, #ffffff 85%);
-    background-size: 220% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: hero-shimmer 9s linear infinite;
-  }
-}
-
-// Moving colour glows behind the particles.
-.aurora {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-
-  span {
-    position: absolute;
-    width: 38rem;
-    height: 38rem;
-    border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.32;
-    animation: aurora-drift 20s ease-in-out infinite alternate;
-  }
-
-  span:nth-child(1) {
-    top: -20rem;
-    left: 2%;
-    background: #2f62d8;
-  }
-
-  span:nth-child(2) {
-    top: -16rem;
-    right: 2%;
-    background: #6a3fc8;
-    animation-duration: 26s;
-    animation-delay: -6s;
-  }
-
-  span:nth-child(3) {
-    bottom: -28rem;
-    left: 35%;
-    background: #0f8a9c;
-    animation-duration: 31s;
-    animation-delay: -12s;
-  }
-}
-
-#hero-particles {
-  position: absolute;
-  inset: 0;
-}
-
-.masthead-content {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 56rem;
-  // Lets the pointer reach the particles between the text and links.
-  pointer-events: none;
-
-  a {
-    pointer-events: auto;
-  }
-
-  > * {
-    animation: hero-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-
-  > :nth-child(2) { animation-delay: 0.08s; }
-  > :nth-child(3) { animation-delay: 0.16s; }
-  > :nth-child(4) { animation-delay: 0.24s; }
-  > :nth-child(5) { animation-delay: 0.32s; }
-}
-
-.masthead-roles {
-  margin: clamp(0.35rem, 1.2vh, 0.9rem) 0 clamp(0.35rem, 1.4vh, 1rem);
-  color: #b9d2ff;
-  font-size: clamp(0.9rem, min(2vw, 2.4vh), 1.2rem);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-
-  span {
-    margin: 0 0.35rem;
-    color: #8ea3c4;
-  }
-}
-
-.masthead-summary {
-  margin: 0 auto;
-  max-width: 47rem;
-  color: #d3dbe6;
-  font-size: clamp(0.84rem, min(1.5vw, 2.1vh), 1.05rem);
-  line-height: 1.55;
-
-  a {
-    color: #b9d2ff;
-    text-decoration: underline;
-    text-decoration-color: rgba(185, 210, 255, 0.45);
-    text-underline-offset: 0.2em;
-    white-space: nowrap;
-
-    &:hover {
-      color: #ffffff;
-    }
-  }
-}
-
-// Cards advertising the three sections, on the page background below the hero.
-.quick-section {
-  width: 100%;
-  max-width: 68rem;
-  margin: 0 auto;
-  padding: clamp(0.5rem, 1.5vh, 1rem) 1.25rem clamp(0.75rem, 2.5vh, 1.75rem);
-}
-
-.quick-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.5rem, 1.5vh, 1rem);
-  text-align: left;
-  animation: hero-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.24s both;
-
-  // The listing wrapper must not add a grid level around the Posts card.
-  #listing-posts {
-    display: contents;
-  }
-
-  .listing-no-matching {
-    display: none;
-  }
-
-  @media (max-width: 767px) {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-.quick-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid var(--site-border);
-  border-radius: 0.9rem;
-  background: var(--site-surface);
-  color: var(--site-text);
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-
-  // A soft highlight that follows the pointer.
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(16rem circle at var(--pointer-x, 50%) var(--pointer-y, 0%), rgba(108, 140, 255, 0.18), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-  }
-
-  &:hover,
-  &:focus-visible {
-    transform: translateY(-4px);
-    border-color: var(--site-accent);
-    box-shadow: 0 14px 40px rgba(50, 90, 200, 0.22);
-    color: var(--site-text);
-    text-decoration: none;
-
-    &::before {
-      opacity: 1;
-    }
-  }
-
-  h2 {
-    margin: 0 0 0.2rem;
-    padding: 0;
-    border: 0;
-    color: var(--site-text);
-    font-size: clamp(0.98rem, min(1.6vw, 2.3vh), 1.2rem);
-    font-weight: 700;
-    line-height: 1.25;
-    overflow-wrap: anywhere;
-  }
-}
-
-// Makes a whole card clickable while its tags stay separate links.
-.quick-link {
-  color: var(--site-text);
-  font-weight: 700;
-
-  &:hover {
-    color: var(--site-text);
-    text-decoration: none;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-  }
-}
-
-.quick-thumb {
-  height: clamp(4rem, 15vh, 10rem);
-  overflow: hidden;
-  background: #101a2e;
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0;
-  }
-}
-
-.quick-body {
-  padding: clamp(0.45rem, 1.4vh, 0.9rem) 0.9rem;
-}
-
-.quick-label {
-  margin: 0 0 0.15rem;
-  color: var(--site-accent);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.quick-text {
-  margin: 0;
-  color: var(--site-muted);
-  font-size: clamp(0.76rem, min(1.2vw, 1.8vh), 0.88rem);
-  line-height: 1.4;
-}
-
-// Phones: compact rows with a small thumbnail, to fit one screen.
-@media (max-width: 767px) {
-  .quick-card {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .quick-thumb {
-    flex: 0 0 4.75rem;
-    height: auto;
-  }
-
-  .quick-body {
-    padding: 0.45rem 0.7rem;
-  }
-}
-
-// Short phones, including tall ones with browser bars: cards keep only their titles.
-@media (max-width: 767px) and (max-height: 860px) {
-  .quick-text,
-  .quick-tags {
-    display: none !important;
-  }
-
-  .masthead-roles {
-    font-size: 0.8rem;
-  }
-
-  .masthead-summary {
-    font-size: 0.8rem;
-    line-height: 1.45;
-  }
-
-  .quick-body {
-    padding: 0.35rem 0.7rem;
-  }
-}
-
-// Short screens: drop the thumbnails first.
-@media (max-height: 560px) {
-  .quick-thumb {
-    display: none;
-  }
-}
-
-@keyframes hero-shimmer {
-  to { background-position: -220% 0; }
-}
-
-@keyframes aurora-drift {
-  to { transform: translate3d(9rem, 5rem, 0) scale(1.2); }
-}
-
-@keyframes hero-rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-}
-
-// Animated header shared by the section pages.
-.page-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 3.25rem 1.5rem 4rem;
-  // Quarto's first-child rule would otherwise shrink the top padding.
-  padding-top: 3.25rem !important;
-  text-align: center;
-  background: linear-gradient(to bottom, #070a11, #111829);
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0;
-    height: 2.5rem;
-    background: linear-gradient(to bottom, transparent, var(--site-bg));
-    pointer-events: none;
-  }
-
-  h1 {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: clamp(2.25rem, 6vw, 4rem);
-    font-weight: 800;
-    // Gradient text paints only inside its box, so leave room for descenders.
-    line-height: 1.25;
-    letter-spacing: 0.02em;
-    background: linear-gradient(100deg, #ffffff 15%, #a9c8ff 40%, #d2b8ff 60%, #ffffff 85%);
-    background-size: 220% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: hero-shimmer 9s linear infinite;
-  }
-}
-
-.page-hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 44rem;
-  margin: 0 auto;
-  // Lets the pointer reach the particles between the text and links.
-  pointer-events: none;
-
-  a {
-    color: #b9d2ff;
-    text-decoration: underline;
-    text-decoration-color: rgba(185, 210, 255, 0.45);
-    text-underline-offset: 0.2em;
-    pointer-events: auto;
-
-    &:hover {
-      color: #ffffff;
-    }
-  }
-
-  > * {
-    animation: hero-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  }
-
-  > :nth-child(2) { animation-delay: 0.08s; }
-  > :nth-child(3) { animation-delay: 0.16s; }
-}
-
-.page-hero-eyebrow {
-  margin: 0 0 0.5rem;
-  color: #b9d2ff;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.page-hero-lead {
-  margin: 0.85rem 0 0;
-  color: #d3dbe6;
-  font-size: clamp(0.98rem, 1.6vw, 1.1rem);
-  line-height: 1.6;
-}
-
-// Sections animate in only once the script has confirmed it is running.
-.reveal-ready .reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
-
-  &.is-visible {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  header.masthead h1,
-  .page-hero h1,
-  .aurora span,
-  .masthead-content > *,
-  .quick-grid,
-  .page-hero-content > * {
-    animation: none;
-  }
-
-  .navbar .navbar-nav .nav-link,
-  .quick-card {
-    transition: none;
-
-    &:hover {
-      transform: none;
-    }
-  }
-}
-
-// Posts on the landing page
-.landing-section {
-  max-width: 68rem;
-  margin: 0 auto;
-  padding: 1.5rem 1.5rem 3rem;
-  scroll-margin-top: 4.5rem;
-}
-
-// Open-source projects
-.section-title {
-  margin: 0 0 1.5rem;
-  padding: 0;
-  border: 0;
-  font-size: clamp(1.6rem, 3vw, 2.1rem);
-  font-weight: 700;
-}
-
-// Posts page list
-.post-row {
-  display: grid;
-  grid-template-columns: 6rem minmax(0, 1fr);
-  gap: 1rem;
-  align-items: center;
-  padding: 0.85rem 0;
-  border-top: 1px solid var(--site-border);
-  color: var(--site-text);
-
-  &:first-child {
-    border-top: 0;
-  }
-
-  &:hover {
-    color: var(--site-text);
-    text-decoration: none;
-  }
-
-  @media (max-width: 575px) {
-    grid-template-columns: 4.5rem minmax(0, 1fr);
-    gap: 0.75rem;
-    align-items: start;
-  }
-
-  h3 {
-    margin: 0 0 0.2rem;
-    padding: 0;
-    border: 0;
-    color: var(--site-accent);
-    font-size: 1.05rem;
-    font-weight: 600;
-    overflow-wrap: anywhere;
-  }
-
-  h3 a {
-    font-weight: inherit !important;
-  }
-
-  .post-row-date {
-    margin-bottom: 0.1rem;
-    font-size: 0.8rem;
-  }
-
-  .post-row-stars {
-    margin-left: 0.35rem;
-    color: var(--site-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-
-  p {
-    margin: 0;
-    color: var(--site-muted);
-    font-size: 0.95rem;
-    line-height: 1.45;
-  }
-
-  .listing-categories {
-    margin-top: 0.4rem;
-  }
-}
-
-.post-row-thumb img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 2 / 1;
-  object-fit: cover;
-  border-radius: 0.4rem;
-}
-
-.listing-date,
-.listing-description {
-  margin-bottom: 0.6rem;
-  color: var(--site-muted);
-}
-
-.listing-date {
-  font-size: 0.9rem;
-}
-
-// Markdown wraps the category tags in a paragraph.
-.listing-categories,
-.listing-categories p {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin: 0;
-}
-
-// Clickable tags.
-.tag-chip {
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
-
-  &:hover,
-  &:focus-visible {
-    border-color: var(--site-accent) !important;
-    color: var(--site-accent) !important;
-    text-decoration: none;
-  }
-
-  &.is-active {
-    border-color: transparent !important;
-    background: linear-gradient(100deg, #8ab4ff, #b49cff) !important;
-    color: #0a1020 !important;
-  }
-}
-
-.quarto-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.tag-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.75rem;
-}
-
-.tag-empty {
-  color: var(--site-muted);
-}
-
-.quick-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-top: 0.45rem;
-}
-
-// Justified text, hyphenated so narrow columns avoid wide gaps.
-p,
-li {
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-}
-
-.masthead-summary,
-.page-hero-lead {
-  text-align-last: center;
-
-  // Wide enough to justify without splitting words.
-  @media (min-width: 768px) {
+// Left sidebar: the tutorial's name, then its pages.
+#quarto-sidebar {
+  background-color: var(--site-bg);
+  border-right: 1px solid var(--site-border);
+
+  li,
+  p,
+  * {
+    text-align: left;
     hyphens: none;
     -webkit-hyphens: none;
   }
+
+  .sidebar-title {
+    color: var(--site-text);
+    font-size: 0.98rem;
+    font-weight: 650;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+
+  // The tutorial's name heads its sidebar and links to its overview.
+  .sidebar-menu-container > ul > li.sidebar-item-section > .sidebar-item-container {
+    margin-bottom: 0.4rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--site-border);
+
+    .sidebar-link,
+    .sidebar-item-text {
+      color: var(--site-text);
+      font-size: 0.95rem;
+      font-weight: 650;
+      line-height: 1.3;
+    }
+
+    .sidebar-link.active,
+    .sidebar-link.active .sidebar-item-text {
+      color: var(--site-accent);
+    }
+
+    .sidebar-item-toggle {
+      display: none;
+    }
+  }
+
+  .sidebar-section {
+    padding-left: 0 !important;
+  }
+
+  .sidebar-item-text,
+  .sidebar-link {
+    color: var(--site-muted);
+    font-size: 0.875rem;
+    line-height: 1.35;
+  }
+
+  .sidebar-link {
+    display: block;
+    padding: 0.28rem 0.6rem;
+    margin-left: -0.6rem;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: var(--site-surface);
+      color: var(--site-text);
+      text-decoration: none;
+
+      .sidebar-item-text {
+        color: var(--site-text);
+      }
+    }
+
+    &.active,
+    &.active .sidebar-item-text {
+      color: var(--site-accent);
+      font-weight: 600;
+    }
+
+    &.active {
+      background: color-mix(in srgb, var(--site-accent) 8%, var(--site-bg));
+    }
+  }
 }
 
-.masthead-roles,
-.page-hero-eyebrow {
-  text-align: center;
-  hyphens: none;
-  -webkit-hyphens: none;
+// Right margin: "On this page".
+#quarto-margin-sidebar {
+  * {
+    text-align: left !important;
+    hyphens: none;
+  }
+
+  #toc-title {
+    color: var(--site-text);
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
 }
 
-.navbar li {
-  text-align: start;
-  hyphens: none;
-  -webkit-hyphens: none;
+nav[role="doc-toc"] {
+  font-size: 0.82rem;
+  line-height: 1.4;
+
+  ul {
+    padding-left: 0;
+  }
+
+  ul ul {
+    padding-left: 0.75rem;
+  }
+
+  a.nav-link {
+    color: var(--site-muted);
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    border-left: 2px solid transparent;
+
+    &:hover {
+      color: var(--site-text);
+      text-decoration: none;
+    }
+
+    &.active {
+      color: var(--site-accent);
+      border-left-color: var(--site-accent);
+      font-weight: 500;
+    }
+  }
+
+  > ul {
+    border-left: 1px solid var(--site-border);
+  }
+}
+
+// Previous and next chapter.
+.page-navigation {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--site-border);
+  font-size: 0.92rem;
+
+  a {
+    color: var(--site-accent);
+  }
+}
+
+.quarto-title-meta-heading,
+.quarto-title-meta-contents {
+  color: var(--site-muted);
+  opacity: 1 !important;
+}
+
+.quarto-title .description,
+#title-block-header .description {
+  color: var(--site-muted);
+  font-size: 1.12rem;
+  line-height: 1.5;
 }
 
 .listing-category,
-.tag-chip,
 .quarto-category {
   border: 1px solid var(--site-border);
   padding: 0.1rem 0.45rem;
@@ -764,216 +491,445 @@ li {
   opacity: 1 !important;
 }
 
-// Publications timeline
-.pub-timeline {
-  max-width: 50rem;
-  padding-top: 2rem;
+.quarto-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
 }
 
-.pub-timeline section.level2 {
-  position: relative;
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr);
-  column-gap: 1.75rem;
-  padding-bottom: 0.75rem;
+/* ------------------------------------------------------------------ Blocks */
+/* One visual system (openspec/changes/site-design, design D4): statements, examples and exercises each have a thin
+   left border, a faint tint and a small-caps label in their own colour. A statement is a .statement-box around a
+   Quarto theorem div; its examples and exercises sit in the collapsed .examples-fold and .exercises-fold callouts;
+   each exercise's .solution callout is plain and subordinate. Quarto gives every cross-reference block the class
+   `theorem` plus its kind, so the kind class selects the colour. */
 
-  // The vertical line and year marker.
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0.5rem;
-    bottom: -0.5rem;
-    left: 5.35rem;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--site-accent), var(--site-border));
+@mixin site-block($colour, $tint) {
+  margin: 1.6rem 0 0.6rem;
+  border: 0;
+  border-left: 3px solid var(#{$colour});
+  border-radius: 0 6px 6px 0;
+  background: var(#{$tint});
+  box-shadow: none;
+}
+
+@mixin site-label {
+  font-family: var(--site-font-sans);
+  font-size: 0.9em;
+  font-weight: 650;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  text-align: left;
+  hyphens: none;
+
+  // Mathematics in a block's name stays in ordinary capitals.
+  .katex {
+    font-variant-caps: normal;
+    letter-spacing: 0;
   }
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0.45rem;
-    left: 5.05rem;
-    width: 0.8rem;
-    height: 0.8rem;
-    border: 2px solid var(--site-bg);
-    border-radius: 50%;
-    background: var(--site-accent);
+div.statement-box {
+  @include site-block(--site-statement, --site-statement-tint);
+  padding: 0.85rem 1.15rem 0.15rem;
+
+  > div.theorem:not(:first-child) {
+    margin-top: 1rem;
   }
+}
 
-  > h2 {
-    position: sticky;
-    top: 4.5rem;
-    align-self: start;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    color: var(--site-text);
-    font-size: 1.3rem;
-    font-weight: 700;
-    line-height: 1.4;
-  }
+div.theorem {
+  margin: 1.25rem 0;
 
-  > ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  > ul > li {
-    margin: 0 0 1.25rem;
-    color: var(--site-muted);
-    font-size: 0.95rem;
-
-    > a:first-child,
-    > p > a:first-child {
-      font-size: 1.05rem;
-      font-weight: 600;
-    }
+  .theorem-title {
+    @include site-label;
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--site-statement);
 
     strong {
-      color: var(--site-text);
+      font-weight: inherit;
     }
   }
 
-  @media (max-width: 575px) {
-    grid-template-columns: minmax(0, 1fr);
+  &.example .theorem-title {
+    color: var(--site-example);
+  }
 
-    &::before,
-    &::after {
+  &.exercise .theorem-title {
+    color: var(--site-exercise);
+  }
+}
+
+.statement-box > div.theorem {
+  margin: 0 0 0.6rem;
+}
+
+// Folded content is main text: the same size as the paragraphs around it.
+div.callout.examples-fold,
+div.callout.exercises-fold,
+div.callout.solution {
+  font-size: inherit;
+
+  .callout-body-container,
+  .callout-body {
+    font-size: inherit;
+  }
+}
+
+// The Examples and Exercises folds.
+div.callout.examples-fold,
+div.callout.exercises-fold {
+  margin: 0.6rem 0 1.4rem;
+  border: 0 !important;
+  border-radius: 0 6px 6px 0;
+  box-shadow: none;
+
+  > .callout-header {
+    padding: 0.45rem 1rem 0.45rem 1.15rem;
+    border: 0;
+    background: transparent !important;
+    cursor: pointer;
+
+    .callout-icon-container {
       display: none;
     }
 
-    > h2 {
-      position: static;
-      margin-bottom: 0.6rem;
+    .callout-title-container {
+      @include site-label;
+      font-size: 0.95rem;
+      opacity: 1;
+    }
+
+    .callout-btn-toggle {
+      opacity: 0.7;
+    }
+  }
+
+  > .callout-collapse > .callout-body-container {
+    padding: 0 1.15rem 0.4rem;
+    background: transparent;
+
+    > :first-child {
+      margin-top: 0.1rem !important;
     }
   }
 }
 
-// Technical content
-div.sourceCode,
-pre:not(.sourceCode) {
-  background-color: var(--site-surface);
-  border: 1px solid var(--site-border);
-  border-radius: 6px;
+div.callout.examples-fold {
+  border-left: 3px solid var(--site-example) !important;
+  background: var(--site-example-tint) !important;
+
+  > .callout-header {
+    color: var(--site-example);
+    .callout-title-container { color: var(--site-example); }
+  }
 }
 
-pre.sourceCode {
-  background-color: transparent;
-  border: 0;
+div.callout.exercises-fold {
+  border-left: 3px solid var(--site-exercise) !important;
+  background: var(--site-exercise-tint) !important;
+
+  > .callout-header {
+    color: var(--site-exercise);
+    .callout-title-container { color: var(--site-exercise); }
+  }
+}
+
+// Inside a fold the numbered blocks are separated by a hairline, not by boxes.
+.examples-fold div.theorem.example,
+.exercises-fold div.theorem.exercise {
+  margin-top: 1.1rem;
+}
+
+// Solutions: subordinate to the exercise they answer.
+div.callout.solution {
+  margin: 0.2rem 0 1.25rem;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none;
+
+  > .callout-header {
+    display: inline-flex !important;
+    padding: 0.1rem 0;
+    border: 0;
+    background: transparent !important;
+    cursor: pointer;
+
+    .callout-icon-container {
+      display: none;
+    }
+
+    .callout-title-container {
+      color: var(--site-muted);
+      font-family: var(--site-font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 1;
+    }
+
+    .callout-btn-toggle {
+      margin-left: 0.35rem;
+      color: var(--site-muted);
+      opacity: 0.8;
+    }
+  }
+
+  > .callout-collapse > .callout-body-container {
+    margin: 0.35rem 0 0 0.15rem;
+    padding: 0.1rem 0 0.1rem 1rem;
+    border-left: 2px solid color-mix(in srgb, var(--site-muted) 55%, transparent);
+    background: transparent;
+  }
+}
+
+// Any other note or tip callout: plain, as before.
+div.callout.callout-note:not(.examples-fold):not(.exercises-fold):not(.solution),
+div.callout.callout-tip {
+  border: none;
+  background: transparent;
+
+  .callout-header {
+    background: transparent;
+    padding-left: 0;
+  }
+
+  .callout-body-container {
+    padding-left: 1.25em;
+  }
+}
+
+.callout .callout-toggle::before {
+  transition: transform 0.15s ease;
+}
+
+/* ------------------------------------------------------------------ Figures and code */
+
+.quarto-figure {
+  margin: 1.75rem auto;
+}
+
+.quarto-figure-center > figure {
+  text-align: center;
+}
+
+figure.figure,
+.quarto-float figure {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+figcaption,
+.figure-caption,
+.quarto-float-caption,
+.table-caption {
+  margin-top: 0.6rem;
+  color: var(--site-muted);
+  font-family: var(--site-font-sans);
+  font-size: 0.85rem !important;
+  line-height: 1.5;
+  text-align: left !important;
+  hyphens: none;
+}
+
+.interactive-figure {
+  margin: 1rem 0 1.5rem;
+
+  iframe {
+    border: 1px solid var(--site-border) !important;
+    border-radius: 6px !important;
+    background: #ffffff;
+  }
+
+  .interactive-note {
+    margin-top: 0.3rem;
+    color: var(--site-muted);
+    font-family: var(--site-font-sans);
+    font-size: 0.8rem;
+    text-align: left;
+  }
+}
+
+@if $site-dark {
+  // Figures are drawn on white: give them a light card.
+  figure img,
+  .quarto-figure img,
+  .cell-output-display img {
+    padding: 0.5rem;
+    border-radius: 6px;
+    background: var(--site-figure-card);
+  }
 }
 
 code {
   color: inherit;
+  font-size: 0.875em;
 }
 
-.table,
-table {
+:not(pre) > code:not(.sourceCode) {
+  padding: 0.08em 0.3em;
+  border-radius: 4px;
+  background: var(--site-surface);
   color: var(--site-text);
-  --bs-table-color: var(--site-text);
-  --bs-table-bg: transparent;
-  --bs-table-border-color: var(--site-border);
 }
 
-.cell-output-display,
-.table-responsive,
-.math.display,
-mjx-container[display="true"] {
-  max-width: 100%;
-  overflow-x: auto;
+div.sourceCode,
+pre:not(.sourceCode) {
+  margin: 1rem 0;
+  border: 1px solid var(--site-border);
+  border-radius: 6px;
+  background-color: var(--site-surface) !important;
 }
 
-.math.display {
-  display: block;
+pre:not(.sourceCode),
+pre:not(.sourceCode) code {
+  color: var(--site-text);
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+pre.sourceCode,
+div.sourceCode pre {
+  background-color: transparent !important;
+  border: 0;
 }
 
-.quarto-title-meta-heading,
-.quarto-title-meta-contents {
+pre code {
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.code-copy-button {
+  opacity: 0.6;
+}
+
+.cell-output pre {
+  font-size: 0.85rem;
+}
+
+/* ------------------------------------------------------------------ Landing pages */
+
+// A tutorial's chapter list: one card per chapter (the Markdown list is inside ::: {.chapter-list}).
+.chapter-list > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  gap: 0.6rem;
+  margin: 1rem 0 2rem;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0.75rem 0.95rem;
+    border: 1px solid var(--site-border);
+    border-radius: 8px;
+    background: var(--site-bg);
+    line-height: 1.3;
+    text-align: left;
+    hyphens: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      border-color: var(--site-accent);
+      background: var(--site-surface);
+    }
+
+    > a {
+      color: var(--site-text);
+      font-weight: 500;
+
+      // The whole card is the link.
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+      }
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &:has(.chapter-badge) > a {
+      color: var(--site-muted);
+    }
+  }
+}
+
+.chapter-badge {
+  flex: none;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--site-border);
+  border-radius: 999px;
+  background: var(--site-surface);
   color: var(--site-muted);
-  opacity: 1 !important;
+  font-family: var(--site-font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-// The sidebar is navigation, not prose: left-aligned and unhyphenated.
-#quarto-sidebar li,
-#quarto-sidebar p {
-  text-align: left;
-  hyphens: none;
-  -webkit-hyphens: none;
-}
+// The home page's tutorial cards: one shape for every cover.
+.quarto-listing .quarto-grid-item.card {
+  overflow: hidden;
+  border: 1px solid var(--site-border);
+  border-radius: 10px;
+  background: var(--site-bg);
+  transition: border-color 0.15s ease;
 
-// Sidebar navigation (the tutorials tree, in the left sidebar or moved into the right margin by
-// _includes/tutorials-nav.html): text colour, not the link blue. The current page is marked by weight instead.
-#quarto-sidebar,
-#quarto-margin-sidebar {
-  .sidebar-link,
-  .sidebar-item-text,
-  .sidebar-item-toggle,
-  .sidebar-item-section > .sidebar-item-container a {
-    color: var(--site-text);
+  &:hover {
+    border-color: var(--site-accent);
   }
 
-  .sidebar-link:hover,
-  .sidebar-link:hover .sidebar-item-text {
-    color: var(--site-text);
-    text-decoration: underline;
+  .card-img-top,
+  .card-img-top img,
+  .thumbnail-image {
+    width: 100%;
+    height: auto !important;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    border-radius: 0;
   }
 
-  .sidebar-link.active,
-  .sidebar-link.active .sidebar-item-text {
-    color: var(--site-text);
+  .card-title {
+    font-family: var(--site-font-serif);
+    font-size: 1.2rem;
     font-weight: 600;
+    color: var(--site-text);
+  }
+
+  p.card-img-top {
+    margin: 0;
+  }
+
+  .card-body {
+    padding: 0.9rem 1.1rem 1.1rem;
+  }
+
+  .card-text,
+  .card-text p {
+    margin: 0;
+    color: var(--site-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: left;
+    hyphens: none;
   }
 }
 
-/* Blocks of the tutorials (formerly each tutorial's styles.css) */
-/* Block marking (design D20, final): three colours on the TITLES only, no vertical bars, no backgrounds.
-   - statements (definitions, theorems, lemmas, propositions, corollaries): red title;
-   - examples: green title;
-   - exercises: blue title.
-   Quarto gives every cross-reference block the class `theorem` plus its kind, so the kind class is required in each
-   selector; a plain theorem block has only `theorem`. Solution callouts (the only note callouts in the book) are
-   plain: no bar, no fill, no tinted header. */
-:root {
-  --kk-statement: #c0392b;   /* red:   rgb(192, 57, 43)  */
-  --kk-example:   #1e8449;   /* green: rgb(30, 132, 73)  */
-  --kk-exercise:  #1f5fbf;   /* blue:  rgb(31, 95, 191)  */
+// The heading rules of the page would push the card titles away from their covers.
+#quarto-document-content .quarto-grid-item .card-title {
+  margin: 0 0 0.35rem;
+  padding: 0;
+  border: 0;
 }
-/* Layout of every block: the title (e.g. "Definition 3.1 (Vector space)") stands on its own line, and the body is
-   indented beneath it by the same amount as the body of a solution callout. */
-div.theorem { border-left: none; padding-left: 1.25em; margin: 1.2em 0; }
-div.theorem .theorem-title { display: block; margin-left: -1.25em; margin-bottom: 0.3em; }
-div.theorem:not(.example):not(.exercise) .theorem-title { color: var(--kk-statement); }
-div.theorem.example .theorem-title  { color: var(--kk-example); }
-div.theorem.exercise .theorem-title { color: var(--kk-exercise); }
-div.callout.callout-note { border: none; background: transparent; }
-div.callout.callout-note .callout-header { background: transparent; padding-left: 0; }
-div.callout.callout-note .callout-body-container { padding-left: 1.25em; }
-/* tip callouts: plain like the solutions; no bar, no fill */
-div.callout.callout-tip { border: none; background: transparent; }
-div.callout.callout-tip .callout-header { background: transparent; padding-left: 0; }
-div.callout.callout-tip .callout-body-container { padding-left: 1.25em; }
-
-/* Change physics-tutorials-presentation: each statement in a light red box;
-   each statement's examples and exercises folded into collapsed Examples and Exercises boxes */
-:root { --kk-statement-tint: #fbeceb; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --kk-statement-tint: #3a2321; } }
-:root[data-theme="dark"] { --kk-statement-tint: #3a2321; }
-div.statement-box { background: var(--kk-statement-tint); border-radius: 6px; padding: 0.6em 1em 0.2em 1em; margin: 1.2em 0; }
-div.callout.examples-fold .callout-title-container { color: var(--kk-example); font-weight: 600; }
-div.callout.exercises-fold .callout-title-container { color: var(--kk-exercise); font-weight: 600; }
-div.callout.examples-fold, div.callout.exercises-fold { margin: 0.6em 0 1.2em 0; }
-
-
-/* Keep link targets clear of the fixed navbar */
-main [id] { scroll-margin-top: 80px; }
-
-/* Justified text leaves large gaps in narrow navigation columns */
-#quarto-sidebar *, #quarto-margin-sidebar * { text-align: left !important; }
-
-/* Wide tables scroll inside their own block on narrow screens */
-main table { display: block; max-width: 100%; overflow-x: auto; }

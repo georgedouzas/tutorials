@@ -1235,7 +1235,7 @@ Sage computes the three norms and the norm of the inverse:
 
 ```python
 A = matrix(QQ, [[1, 2], [0, 1]])
-print("eigenvalues of A^T A:", (A.transpose() * A).charpoly().roots(QQbar, multiplicities=False))
+print("eigenvalues of A^⊤ A:", (A.transpose() * A).charpoly().roots(QQbar, multiplicities=False))
 n2 = sqrt(max((A.transpose() * A).eigenvalues()))
 print("|A|_2 =", n2.radical_expression() if hasattr(n2, 'radical_expression') else n2, "=", n2.n(digits=6))
 print("|A|_1 (max column sum) =", max(sum(abs(A[i, j]) for i in range(2)) for j in range(2)), " |A|_inf (max row sum) =", max(sum(abs(A[i, j]) for j in range(2)) for i in range(2)))
@@ -1247,7 +1247,7 @@ print("|A|_2^2 <= |A|_1 |A|_inf:", n2^2 <= 9, "(", (n2^2).n(digits=5), "<= 9 )")
 *Output:*
 
 ```text
-eigenvalues of A^T A: [0.1715728752538099?, 5.828427124746190?]
+eigenvalues of A^⊤ A: [0.1715728752538099?, 5.828427124746190?]
 |A|_2 = sqrt(2) + 1 = 2.41421
 |A|_1 (max column sum) = 3  |A|_inf (max row sum) = 3
 |A^-1|_2 = 2.41421  1 + sqrt(2) = 2.41421
@@ -3309,7 +3309,7 @@ W, mu = V.gram_schmidt()
 print("orthogonal vectors w_k (rows):"); print(W)
 E = matrix(SR, [w / w.norm() for w in W.rows()])
 print("orthonormal frame e_k (rows):"); print(E)
-print("Gram matrix E E^T = 1:", bool((E * E.transpose()).simplify_full() == identity_matrix(3)))
+print("Gram matrix E E^⊤ = 1:", bool((E * E.transpose()).simplify_full() == identity_matrix(3)))
 print("same span as the v_k:", V.row_space() == W.row_space())
 ```
 
@@ -3324,7 +3324,7 @@ orthonormal frame e_k (rows):
 [   1/2*sqrt(2)    1/2*sqrt(2)              0]
 [ 1/3*sqrt(3/2) -1/3*sqrt(3/2)  2/3*sqrt(3/2)]
 [    -sqrt(1/3)      sqrt(1/3)      sqrt(1/3)]
-Gram matrix E E^T = 1: True
+Gram matrix E E^⊤ = 1: True
 same span as the v_k: True
 ```
 :::
@@ -4224,7 +4224,7 @@ with $\varphi$ the golden ratio, so $\|B\| = \varphi \approx 1.618$; for $A$, $\
 ```python
 for A in [matrix(QQbar, [[1, 2], [3, 4]]), matrix(QQbar, [[1, 1], [0, 1]])]:
     ev = sorted((A.transpose() * A).eigenvalues(), reverse=True)
-    print("A =", A.rows(), ": eigenvalues of A^T A:", ev, "; sqrt of the largest:", sqrt(ev[0]), "=", sqrt(ev[0]).n(digits=8), "; norm(2):", A.norm(2))
+    print("A =", A.rows(), ": eigenvalues of A^⊤ A:", ev, "; sqrt of the largest:", sqrt(ev[0]), "=", sqrt(ev[0]).n(digits=8), "; norm(2):", A.norm(2))
 B = matrix(QQbar, [[1, 1], [0, 1]])
 print("||B|| = (1 + sqrt 5)/2:", B.norm(2) == QQbar((1 + sqrt(5)) / 2), "; ||A|| for the first matrix = sqrt((30 + sqrt 884)/2):", matrix(QQbar, [[1, 2], [3, 4]]).norm(2) == QQbar(sqrt((30 + sqrt(884)) / 2)))
 ```
@@ -4232,8 +4232,8 @@ print("||B|| = (1 + sqrt 5)/2:", B.norm(2) == QQbar((1 + sqrt(5)) / 2), "; ||A||
 *Output:*
 
 ```text
-A = [(1, 2), (3, 4)] : eigenvalues of A^T A: [29.86606874731851?, 0.1339312526814945?] ; sqrt of the largest: 5.464985704219043? = 5.4649857 ; norm(2): 5.464985704219043
-A = [(1, 1), (0, 1)] : eigenvalues of A^T A: [2.618033988749895?, 0.3819660112501051?] ; sqrt of the largest: 1.618033988749895? = 1.6180340 ; norm(2): 1.618033988749895
+A = [(1, 2), (3, 4)] : eigenvalues of A^⊤ A: [29.86606874731851?, 0.1339312526814945?] ; sqrt of the largest: 5.464985704219043? = 5.4649857 ; norm(2): 5.464985704219043
+A = [(1, 1), (0, 1)] : eigenvalues of A^⊤ A: [2.618033988749895?, 0.3819660112501051?] ; sqrt of the largest: 1.618033988749895? = 1.6180340 ; norm(2): 1.618033988749895
 ||B|| = (1 + sqrt 5)/2: True ; ||A|| for the first matrix = sqrt((30 + sqrt 884)/2): True
 ```
 :::
@@ -4381,7 +4381,7 @@ u = vector(SR, var("u1 u2 u3")); v = vector(SR, var("v1 v2 v3"))
 ip = lambda a, b: sum(conjugate(x) * y for x, y in zip(a, b))
 print("A^dagger ="); print(A.conjugate_transpose())
 print("<A u, v> - <u, A^dagger v> =", (ip(A * u, v) - ip(u, A.conjugate_transpose() * v)).simplify_full())
-print("<A u, v> - <u, A^T v> =", (ip(A * u, v) - ip(u, A.transpose() * v)).simplify_full())
+print("<A u, v> - <u, A^⊤ v> =", (ip(A * u, v) - ip(u, A.transpose() * v)).simplify_full())
 B = A ** 2 + I * A
 print("(AB)^dagger = B^dagger A^dagger:", bool((A * B).conjugate_transpose() == B.conjugate_transpose() * A.conjugate_transpose()))
 ```
@@ -4394,7 +4394,7 @@ A^dagger =
 [   -I     0  -3*I]
 [    0 I + 1     1]
 <A u, v> - <u, A^dagger v> = 0
-<A u, v> - <u, A^T v> = -2*I*u2*v1 + 2*I*u3*v2 - 6*I*u2*v3
+<A u, v> - <u, A^⊤ v> = -2*I*u2*v1 + 2*I*u3*v2 - 6*I*u2*v3
 (AB)^dagger = B^dagger A^dagger: True
 ```
 :::
@@ -5588,8 +5588,8 @@ A = matrix(SR, [[2, 1, 0], [1, 2, 1], [0, 1, 2]])
 D, V = A.eigenmatrix_right()
 U = matrix(SR, [c / c.norm() for c in V.columns()]).transpose().simplify_full()
 print("D = diag", D.diagonal()); print("U ="); print(U)
-print("U^T U = 1:", bool((U.transpose() * U).simplify_full() == identity_matrix(3)))
-print("A = U D U^T:", bool((U * D * U.transpose()).simplify_full() == A))
+print("U^⊤ U = 1:", bool((U.transpose() * U).simplify_full() == identity_matrix(3)))
+print("A = U D U^⊤:", bool((U * D * U.transpose()).simplify_full() == A))
 Ps = [(U.column(k).column() * U.column(k).column().transpose()).simplify_full() for k in range(3)]
 print("A = sum lambda_k P_k:", bool((sum(D[k, k] * Ps[k] for k in range(3))).simplify_full() == A), "; sum P_k = 1:", bool(sum(Ps).simplify_full() == identity_matrix(3)))
 print("P_k P_l = delta_kl P_k:", all(bool((Ps[k] * Ps[l]).simplify_full() == (Ps[k] if k == l else 0)) for k in range(3) for l in range(3)))
@@ -5603,8 +5603,8 @@ U =
 [         1/2          1/2  1/2*sqrt(2)]
 [-1/2*sqrt(2)  1/2*sqrt(2)            0]
 [         1/2          1/2 -1/2*sqrt(2)]
-U^T U = 1: True
-A = U D U^T: True
+U^⊤ U = 1: True
+A = U D U^⊤: True
 A = sum lambda_k P_k: True ; sum P_k = 1: True
 P_k P_l = delta_kl P_k: True
 ```
@@ -6037,7 +6037,7 @@ D, V = A.eigenmatrix_right()
 U = matrix(SR, [c / c.norm() for c in V.columns()]).transpose()
 E1 = (U * diagonal_matrix([exp(I * d) for d in D.diagonal()]) * U.transpose()).apply_map(lambda e: e.rectform().simplify_full())
 E2 = (I * A).exp().apply_map(lambda e: e.rectform().simplify_full())
-print("e^{iA} from U diag(e^{i lambda}) U^T ="); print(E1)
+print("e^{iA} from U diag(e^{i lambda}) U^⊤ ="); print(E1)
 print("agrees with the matrix exponential:", bool((E1 - E2).simplify_full() == 0))
 print("unitary:", bool((E1 * E1.conjugate_transpose()).simplify_full() == identity_matrix(2)), "; det(e^{iA} - e^{3i}) and det(e^{iA} - e^{i}) vanish:", [abs((E1 - exp(I * lam) * identity_matrix(2)).det().n(100)) < 1e-25 for lam in [3, 1]])
 t = var("t", domain="real")
@@ -6052,7 +6052,7 @@ print("(sqrt A)^2 = A:", bool((sq * sq).simplify_full() == A), "; sqrt A positiv
 *Output:*
 
 ```text
-e^{iA} from U diag(e^{i lambda}) U^T =
+e^{iA} from U diag(e^{i lambda}) U^⊤ =
 [1/2*cos(3) + 1/2*cos(1) + 1/2*I*sin(3) + 1/2*I*sin(1) 1/2*cos(3) - 1/2*cos(1) + 1/2*I*sin(3) - 1/2*I*sin(1)]
 [1/2*cos(3) - 1/2*cos(1) + 1/2*I*sin(3) - 1/2*I*sin(1) 1/2*cos(3) + 1/2*cos(1) + 1/2*I*sin(3) + 1/2*I*sin(1)]
 agrees with the matrix exponential: True
@@ -10755,7 +10755,7 @@ a = {0: 1, 1: 1, 2: -1}
 ac = {}
 for m, am in a.items():
     for mm, amm in a.items():
-        ac[mm - m] = ac.get(mm - m, 0) + am * amm          # (a* a)_n = sum_m conj(a_{m-n}) a_m
+        ac[mm - m] = ac.get(mm - m, 0) + am * amm          # (a* a)_n = sum_m a_{m-n}^* a_m
 print("a* a =", dict(sorted(ac.items())), "; l^1 norm:", sum(abs(v) for v in ac.values()))
 th = var('th')
 ahat = sum(v * exp(I * k * th) for k, v in a.items())

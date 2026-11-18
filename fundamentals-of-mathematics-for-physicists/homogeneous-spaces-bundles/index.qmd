@@ -582,9 +582,9 @@ $\mathfrak{so}(3)$ the solution is again $g = a\,1$, one radius for $S^3 = SO(4)
 a, b, c, t = var("a b c t", domain="real")
 X = matrix(SR, [[0, -1], [1, 0]]); g = matrix(SR, [[a, b], [b, c]])
 eqs = [e == 0 for e in (X.transpose() * g + g * X).list()]
-print("solutions of X^T g + g X = 0:", solve(eqs, a, b, c))
+print("solutions of X^⊤ g + g X = 0:", solve(eqs, a, b, c))
 R = matrix(SR, [[cos(t), -sin(t)], [sin(t), cos(t)]])
-print("R(t)^T (a 1) R(t) = a 1:", bool((R.transpose() * a * identity_matrix(2) * R).simplify_full() == a * identity_matrix(2)))
+print("R(t)^⊤ (a 1) R(t) = a 1:", bool((R.transpose() * a * identity_matrix(2) * R).simplify_full() == a * identity_matrix(2)))
 gs = var("g11 g12 g13 g22 g23 g33", domain="real")
 G = matrix(SR, [[gs[0], gs[1], gs[2]], [gs[1], gs[3], gs[4]], [gs[2], gs[4], gs[5]]])
 L = [matrix(SR, [[0,0,0],[0,0,-1],[0,1,0]]), matrix(SR, [[0,0,1],[0,0,0],[-1,0,0]]), matrix(SR, [[0,-1,0],[1,0,0],[0,0,0]])]
@@ -595,10 +595,10 @@ print("solutions for the vector representation of so(3):", solve(eqs3, *gs))
 *Output:*
 
 ```text
-solutions of X^T g + g X = 0: [
+solutions of X^⊤ g + g X = 0: [
 [a == r1, b == 0, c == r1]
 ]
-R(t)^T (a 1) R(t) = a 1: True
+R(t)^⊤ (a 1) R(t) = a 1: True
 solutions for the vector representation of so(3): [
 [g11 == r2, g12 == 0, g13 == 0, g22 == r2, g23 == 0, g33 == r2]
 ]
@@ -3020,7 +3020,7 @@ the sphere, up to sign.
 ```python
 x, y = var("x y", domain="real")
 r2 = x ** 2 + y ** 2
-u, v = x / r2, -y / r2                                       # w = 1/z = conj(z)/|z|^2
+u, v = x / r2, -y / r2                                       # w = 1/z = z^*/|z|^2
 J = matrix([[diff(u, x), diff(u, y)], [diff(v, x), diff(v, y)]]).simplify_full()
 print("Jacobian of z -> 1/z:"); print(J)
 print("determinant:", J.det().simplify_full(), "(positive: the charts have the same orientation)")
@@ -4378,10 +4378,10 @@ X, Y, Z = 2 * ab.real(), 2 * ab.imag(), a1 ** 2 + a2 ** 2 - b1 ** 2 - b2 ** 2
 on_sphere = {b2: sqrt(1 - a1 ** 2 - a2 ** 2 - b1 ** 2)}
 lhs = ((X + I * Y) / (1 + Z)).subs(on_sphere)
 rhs = (b.conjugate() / a.conjugate()).subs(on_sphere)
-print("(X + iY)/(1 + Z) = conj(b)/conj(a) on S^3:", bool((lhs - rhs).simplify_full() == 0))
+print("(X + iY)/(1 + Z) = b^*/a^* on S^3:", bool((lhs - rhs).simplify_full() == 0))
 print("X^2 + Y^2 + Z^2 = (|a|^2 + |b|^2)^2:", bool((X ** 2 + Y ** 2 + Z ** 2 - (a1**2 + a2**2 + b1**2 + b2**2) ** 2).expand() == 0))
 ra, rb = (a * exp(I * t)), (b * exp(I * t))
-print("the ratio conj(b)/conj(a) is unchanged by (a, b) -> e^{it}(a, b):",
+print("the ratio b^*/a^* is unchanged by (a, b) -> e^{it}(a, b):",
       bool((rb.conjugate() / ra.conjugate() - b.conjugate() / a.conjugate()).simplify_full() == 0))
 print("the north pole Z = 1 is b = 0 (ratio 0); the south pole Z = -1 is a = 0 (ratio infinite)")
 ```
@@ -4389,9 +4389,9 @@ print("the north pole Z = 1 is b = 0 (ratio 0); the south pole Z = -1 is a = 0 (
 *Output:*
 
 ```text
-(X + iY)/(1 + Z) = conj(b)/conj(a) on S^3: True
+(X + iY)/(1 + Z) = b^*/a^* on S^3: True
 X^2 + Y^2 + Z^2 = (|a|^2 + |b|^2)^2: True
-the ratio conj(b)/conj(a) is unchanged by (a, b) -> e^{it}(a, b): True
+the ratio b^*/a^* is unchanged by (a, b) -> e^{it}(a, b): True
 the north pole Z = 1 is b = 0 (ratio 0); the south pole Z = -1 is a = 0 (ratio infinite)
 ```
 :::
@@ -5132,7 +5132,7 @@ L = simp(R(0, 1, ph) * R(1, 2, th) * R(2, 3, ch))
 o = vector(SR, [0, 0, 0, 1])
 print("L . o =", (L * o).apply_map(lambda x: x.simplify_full()).list())
 coords = [ch, th, ph]
-MC = [simp(L.transpose() * diff(L, x)) for x in coords]            # L^{-1} = L^T for a rotation
+MC = [simp(L.transpose() * diff(L, x)) for x in coords]            # L^{-1} = L^⊤ for a rotation
 kk = [(0, 3), (1, 3), (2, 3)]; rr = [(0, 1), (0, 2), (1, 2)]
 e = [[MC[m][p] for m in range(3)] for p in kk]                    # coefficient of M_ij is the (i, j) entry
 w = [[MC[m][p] for m in range(3)] for p in rr]

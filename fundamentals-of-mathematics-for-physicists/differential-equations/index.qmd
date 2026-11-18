@@ -1636,11 +1636,11 @@ N^\top$ the identity fails:
 ```python
 N = matrix(QQ, [[0, 1], [0, 0]])
 Nt = N.transpose()
-print("N N^T - N^T N =", (N * Nt - Nt * N).list(), "(non-zero: they do not commute)")
+print("N N^⊤ - N^⊤ N =", (N * Nt - Nt * N).list(), "(non-zero: they do not commute)")
 lhs = (N + Nt).exp().apply_map(lambda e: e.simplify_full())
 rhs = (N.exp() * Nt.exp()).apply_map(lambda e: e.simplify_full())
-print("exp(N + N^T) =", lhs.list())
-print("exp(N) exp(N^T) =", rhs.list())
+print("exp(N + N^⊤) =", lhs.list())
+print("exp(N) exp(N^⊤) =", rhs.list())
 print("equal:", bool((lhs - rhs).apply_map(lambda e: e.simplify_full()) == 0))
 D1 = matrix(QQ, [[1, 0], [0, 2]]); D2 = matrix(QQ, [[3, 0], [0, -1]])
 print("for the commuting diagonal matrices diag(1, 2), diag(3, -1) the identity holds:", bool((D1 + D2).exp() == D1.exp() * D2.exp()))
@@ -1649,9 +1649,9 @@ print("for the commuting diagonal matrices diag(1, 2), diag(3, -1) the identity 
 *Output:*
 
 ```text
-N N^T - N^T N = [1, 0, 0, -1] (non-zero: they do not commute)
-exp(N + N^T) = [1/2*(e^2 + 1)*e^(-1), 1/2*(e^2 - 1)*e^(-1), 1/2*(e^2 - 1)*e^(-1), 1/2*(e^2 + 1)*e^(-1)]
-exp(N) exp(N^T) = [2, 1, 1, 1]
+N N^⊤ - N^⊤ N = [1, 0, 0, -1] (non-zero: they do not commute)
+exp(N + N^⊤) = [1/2*(e^2 + 1)*e^(-1), 1/2*(e^2 - 1)*e^(-1), 1/2*(e^2 - 1)*e^(-1), 1/2*(e^2 + 1)*e^(-1)]
+exp(N) exp(N^⊤) = [2, 1, 1, 1]
 equal: False
 for the commuting diagonal matrices diag(1, 2), diag(3, -1) the identity holds: True
 ```

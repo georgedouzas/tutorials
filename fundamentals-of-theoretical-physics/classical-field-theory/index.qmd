@@ -1263,7 +1263,7 @@ c = vector([R * cos(s), R * sin(s), 0])
 lineint = integrate((A.subs(x=c[0], y=c[1]) * diff(c, s)).simplify_full(), s, 0, 2 * pi)
 print("line integral of A around a circle of radius R:", lineint)
 lam = P * atan2(y, x) / (2 * pi)
-print("locally A = grad(Phi phi/(2 pi)):", (vector([diff(lam, x), diff(lam, y), 0]) - A).simplify_full())
+print("locally A = grad(Phi_B phi/(2 pi)):", (vector([diff(lam, x), diff(lam, y), 0]) - A).simplify_full())
 ```
 
 *Output:*
@@ -1271,7 +1271,7 @@ print("locally A = grad(Phi phi/(2 pi)):", (vector([diff(lam, x), diff(lam, y), 
 ```text
 B = curl A for r > 0: (0, 0, 0)
 line integral of A around a circle of radius R: P
-locally A = grad(Phi phi/(2 pi)): (0, 0, 0)
+locally A = grad(Phi_B phi/(2 pi)): (0, 0, 0)
 ```
 :::
 
@@ -1902,7 +1902,7 @@ gD = [block_matrix([[one, Z], [Z, -one]], subdivide=False)] + [block_matrix([[Z,
 eta = diagonal_matrix(SR, [1, -1, -1, -1]); E4 = identity_matrix(SR, 4)
 print("Dirac matrices satisfy {gamma^mu, gamma^nu} = 2 eta^{mu nu}:", all(gD[a] * gD[b] + gD[b] * gD[a] == 2 * eta[a, b] * E4 for a in range(4) for b in range(4)))
 U = block_matrix([[one, one], [-one, one]], subdivide=False) / sqrt(2)
-print("U is orthogonal:", U * U.transpose() == E4, "; U gamma_W^mu U^T = gamma_D^mu:", all((U * gW[a] * U.transpose()).simplify_full() == gD[a] for a in range(4)))
+print("U is orthogonal:", U * U.transpose() == E4, "; U gamma_W^mu U^⊤ = gamma_D^mu:", all((U * gW[a] * U.transpose()).simplify_full() == gD[a] for a in range(4)))
 g5D = (I * gD[0] * gD[1] * gD[2] * gD[3])
 print("gamma_5 in the Dirac representation:", g5D.list(), "(off-diagonal: chirality is not diagonal there)")
 ```
@@ -1911,7 +1911,7 @@ print("gamma_5 in the Dirac representation:", g5D.list(), "(off-diagonal: chiral
 
 ```text
 Dirac matrices satisfy {gamma^mu, gamma^nu} = 2 eta^{mu nu}: True
-U is orthogonal: True ; U gamma_W^mu U^T = gamma_D^mu: True
+U is orthogonal: True ; U gamma_W^mu U^⊤ = gamma_D^mu: True
 gamma_5 in the Dirac representation: [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0] (off-diagonal: chirality is not diagonal there)
 ```
 :::

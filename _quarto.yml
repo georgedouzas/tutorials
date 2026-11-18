@@ -6,114 +6,159 @@ project:
 
 website:
   title: "Tutorials"
-  search: false
+  search:
+    location: navbar
+    type: overlay
   navbar:
+    left:
+      - text: "Tutorials"
+        menu:
+          - fundamentals-of-mathematics-for-physicists/index.qmd
+          - fundamentals-of-theoretical-physics/index.qmd
+          - kaluza-klein-theories/index.qmd
+          - fundamentals-of-mathematics-for-machine-learning/index.qmd
+          - fundamentals-of-machine-learning/index.qmd
     right:
       - icon: github
         href: https://github.com/georgedouzas/tutorials
+        aria-label: GitHub
+  # One sidebar per tutorial (id = its folder), selected by the folder's _metadata.yml; the home page uses "tutorials".
+  # _filters/harvest.py reads every page listed here.
   sidebar:
     - id: tutorials
+      title: "Tutorials"
       style: docked
-      collapse-level: 2
       contents:
-        - section: Tutorials
+        - fundamentals-of-mathematics-for-physicists/index.qmd
+        - fundamentals-of-theoretical-physics/index.qmd
+        - kaluza-klein-theories/index.qmd
+        - fundamentals-of-mathematics-for-machine-learning/index.qmd
+        - fundamentals-of-machine-learning/index.qmd
+    - id: fundamentals-of-mathematics-for-physicists
+      title: "Fundamentals of Mathematics for Physicists"
+      style: docked
+      contents:
+        - section: "Fundamentals of Mathematics for Physicists"
+          href: fundamentals-of-mathematics-for-physicists/index.qmd
           contents:
-            - section: "Fundamentals of Mathematics for Physicists"
-              href: fundamentals-of-mathematics-for-physicists/index.qmd
-              contents:
-                - fundamentals-of-mathematics-for-physicists/notation/index.qmd
-                - fundamentals-of-mathematics-for-physicists/sets-relations-topology/index.qmd
-                - fundamentals-of-mathematics-for-physicists/linear-algebra/index.qmd
-                - fundamentals-of-mathematics-for-physicists/real-analysis/index.qmd
-                - fundamentals-of-mathematics-for-physicists/complex-analysis/index.qmd
-                - fundamentals-of-mathematics-for-physicists/differential-equations/index.qmd
-                - fundamentals-of-mathematics-for-physicists/calculus-of-variations/index.qmd
-                - fundamentals-of-mathematics-for-physicists/fourier-analysis/index.qmd
-                - fundamentals-of-mathematics-for-physicists/hilbert-spaces-operators/index.qmd
-                - fundamentals-of-mathematics-for-physicists/probability/index.qmd
-                - fundamentals-of-mathematics-for-physicists/differential-geometry/index.qmd
-                - fundamentals-of-mathematics-for-physicists/group-theory/index.qmd
-                - fundamentals-of-mathematics-for-physicists/lie-groups-algebras/index.qmd
-                - fundamentals-of-mathematics-for-physicists/homogeneous-spaces-bundles/index.qmd
-                - fundamentals-of-mathematics-for-physicists/homotopy-cohomology/index.qmd
-                - fundamentals-of-mathematics-for-physicists/spinors-dirac-operator/index.qmd
-                - fundamentals-of-mathematics-for-physicists/glossary/index.qmd
-            - section: "Fundamentals of Theoretical Physics"
-              href: fundamentals-of-theoretical-physics/index.qmd
-              contents:
-                - fundamentals-of-theoretical-physics/notation/index.qmd
-                - fundamentals-of-theoretical-physics/classical-mechanics/index.qmd
-                - fundamentals-of-theoretical-physics/electromagnetism/index.qmd
-                - fundamentals-of-theoretical-physics/special-relativity/index.qmd
-                - fundamentals-of-theoretical-physics/thermodynamics-statistical-mechanics/index.qmd
-                - fundamentals-of-theoretical-physics/nonequilibrium-statistical-mechanics/index.qmd
-                - fundamentals-of-theoretical-physics/quantum-mechanics/index.qmd
-                - fundamentals-of-theoretical-physics/classical-field-theory/index.qmd
-                - fundamentals-of-theoretical-physics/dirac-equation/index.qmd
-                - fundamentals-of-theoretical-physics/quantum-field-theory/index.qmd
-                - fundamentals-of-theoretical-physics/gauge-theories/index.qmd
-                - fundamentals-of-theoretical-physics/renormalisation/index.qmd
-                - fundamentals-of-theoretical-physics/particle-physics/index.qmd
-                - fundamentals-of-theoretical-physics/general-relativity/index.qmd
-                - fundamentals-of-theoretical-physics/cosmology/index.qmd
-                - fundamentals-of-theoretical-physics/supersymmetry-supergravity/index.qmd
-                - fundamentals-of-theoretical-physics/glossary/index.qmd
-            - section: "Kaluza-Klein Theories"
-              href: kaluza-klein-theories/index.qmd
-              contents:
-                - kaluza-klein-theories/preface/index.qmd
-                - kaluza-klein-theories/conventions/index.qmd
-                - kaluza-klein-theories/kaluza-klein-reduction/index.qmd
-                - kaluza-klein-theories/gauge-tower/index.qmd
-                - kaluza-klein-theories/isometries-gauge-fields/index.qmd
-                - kaluza-klein-theories/reduced-theory/index.qmd
-                - kaluza-klein-theories/symmetric-fields/index.qmd
-                - kaluza-klein-theories/four-dimensional-theory/index.qmd
-                - kaluza-klein-theories/consistent-reductions/index.qmd
-                - kaluza-klein-theories/compactifications/index.qmd
-                - kaluza-klein-theories/gauge-higgs-unification/index.qmd
-                - kaluza-klein-theories/glossary/index.qmd
-            - section: "Fundamentals of Mathematics for Machine Learning"
-              href: fundamentals-of-mathematics-for-machine-learning/index.qmd
-              contents:
-                - fundamentals-of-mathematics-for-machine-learning/notation/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/mathematical-and-statistical-foundations/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/matrix-factorizations-and-linear-systems/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/vector-calculus-and-automatic-differentiation/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/continuous-random-variables-and-exponential-families/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/statistical-inference-and-limit-theorems/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/gradient-based-optimization-methods/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/constrained-optimization-and-duality/index.qmd
-                - fundamentals-of-mathematics-for-machine-learning/appendices-and-technical-background/index.qmd
-            - section: "Fundamentals of Machine Learning"
-              href: fundamentals-of-machine-learning/index.qmd
-              contents:
-                - fundamentals-of-machine-learning/notation/index.qmd
-                - fundamentals-of-machine-learning/foundations-of-learning-theory/index.qmd
-                - fundamentals-of-machine-learning/supervised-learning/index.qmd
-                - fundamentals-of-machine-learning/unsupervised-learning/index.qmd
-                - fundamentals-of-machine-learning/reinforcement-learning/index.qmd
+            - fundamentals-of-mathematics-for-physicists/notation/index.qmd
+            - fundamentals-of-mathematics-for-physicists/sets-relations-topology/index.qmd
+            - fundamentals-of-mathematics-for-physicists/linear-algebra/index.qmd
+            - fundamentals-of-mathematics-for-physicists/real-analysis/index.qmd
+            - fundamentals-of-mathematics-for-physicists/complex-analysis/index.qmd
+            - fundamentals-of-mathematics-for-physicists/differential-equations/index.qmd
+            - fundamentals-of-mathematics-for-physicists/calculus-of-variations/index.qmd
+            - fundamentals-of-mathematics-for-physicists/fourier-analysis/index.qmd
+            - fundamentals-of-mathematics-for-physicists/hilbert-spaces-operators/index.qmd
+            - fundamentals-of-mathematics-for-physicists/probability/index.qmd
+            - fundamentals-of-mathematics-for-physicists/differential-geometry/index.qmd
+            - fundamentals-of-mathematics-for-physicists/group-theory/index.qmd
+            - fundamentals-of-mathematics-for-physicists/lie-groups-algebras/index.qmd
+            - fundamentals-of-mathematics-for-physicists/homogeneous-spaces-bundles/index.qmd
+            - fundamentals-of-mathematics-for-physicists/homotopy-cohomology/index.qmd
+            - fundamentals-of-mathematics-for-physicists/spinors-dirac-operator/index.qmd
+            - fundamentals-of-mathematics-for-physicists/glossary/index.qmd
+    - id: fundamentals-of-theoretical-physics
+      title: "Fundamentals of Theoretical Physics"
+      style: docked
+      contents:
+        - section: "Fundamentals of Theoretical Physics"
+          href: fundamentals-of-theoretical-physics/index.qmd
+          contents:
+            - fundamentals-of-theoretical-physics/notation/index.qmd
+            - fundamentals-of-theoretical-physics/classical-mechanics/index.qmd
+            - fundamentals-of-theoretical-physics/electromagnetism/index.qmd
+            - fundamentals-of-theoretical-physics/special-relativity/index.qmd
+            - fundamentals-of-theoretical-physics/thermodynamics-statistical-mechanics/index.qmd
+            - fundamentals-of-theoretical-physics/nonequilibrium-statistical-mechanics/index.qmd
+            - fundamentals-of-theoretical-physics/quantum-mechanics/index.qmd
+            - fundamentals-of-theoretical-physics/classical-field-theory/index.qmd
+            - fundamentals-of-theoretical-physics/dirac-equation/index.qmd
+            - fundamentals-of-theoretical-physics/quantum-field-theory/index.qmd
+            - fundamentals-of-theoretical-physics/gauge-theories/index.qmd
+            - fundamentals-of-theoretical-physics/renormalisation/index.qmd
+            - fundamentals-of-theoretical-physics/particle-physics/index.qmd
+            - fundamentals-of-theoretical-physics/general-relativity/index.qmd
+            - fundamentals-of-theoretical-physics/cosmology/index.qmd
+            - fundamentals-of-theoretical-physics/supersymmetry-supergravity/index.qmd
+            - fundamentals-of-theoretical-physics/glossary/index.qmd
+    - id: kaluza-klein-theories
+      title: "Kaluza-Klein Theories"
+      style: docked
+      contents:
+        - section: "Kaluza-Klein Theories"
+          href: kaluza-klein-theories/index.qmd
+          contents:
+            - kaluza-klein-theories/preface/index.qmd
+            - kaluza-klein-theories/conventions/index.qmd
+            - kaluza-klein-theories/kaluza-klein-reduction/index.qmd
+            - kaluza-klein-theories/gauge-tower/index.qmd
+            - kaluza-klein-theories/isometries-gauge-fields/index.qmd
+            - kaluza-klein-theories/reduced-theory/index.qmd
+            - kaluza-klein-theories/symmetric-fields/index.qmd
+            - kaluza-klein-theories/four-dimensional-theory/index.qmd
+            - kaluza-klein-theories/consistent-reductions/index.qmd
+            - kaluza-klein-theories/compactifications/index.qmd
+            - kaluza-klein-theories/gauge-higgs-unification/index.qmd
+            - kaluza-klein-theories/glossary/index.qmd
+    - id: fundamentals-of-mathematics-for-machine-learning
+      title: "Fundamentals of Mathematics for Machine Learning"
+      style: docked
+      contents:
+        - section: "Fundamentals of Mathematics for Machine Learning"
+          href: fundamentals-of-mathematics-for-machine-learning/index.qmd
+          contents:
+            - fundamentals-of-mathematics-for-machine-learning/notation/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/mathematical-and-statistical-foundations/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/matrix-factorizations-and-linear-systems/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/vector-calculus-and-automatic-differentiation/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/continuous-random-variables-and-exponential-families/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/statistical-inference-and-limit-theorems/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/gradient-based-optimization-methods/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/constrained-optimization-and-duality/index.qmd
+            - fundamentals-of-mathematics-for-machine-learning/appendices-and-technical-background/index.qmd
+    - id: fundamentals-of-machine-learning
+      title: "Fundamentals of Machine Learning"
+      style: docked
+      contents:
+        - section: "Fundamentals of Machine Learning"
+          href: fundamentals-of-machine-learning/index.qmd
+          contents:
+            - fundamentals-of-machine-learning/notation/index.qmd
+            - fundamentals-of-machine-learning/foundations-of-learning-theory/index.qmd
+            - fundamentals-of-machine-learning/supervised-learning/index.qmd
+            - fundamentals-of-machine-learning/unsupervised-learning/index.qmd
+            - fundamentals-of-machine-learning/reinforcement-learning/index.qmd
 
 format:
   html:
-    theme: [cosmo, theme.scss]
+    theme:
+      light: [cosmo, theme.scss]
+      dark: [cosmo, theme.scss, theme-dark.scss]
+    respect-user-color-scheme: true
     grid:
-      sidebar-width: 320px
-      body-width: 760px
-    toc: false
+      sidebar-width: 270px
+      body-width: 490px
+      margin-width: 230px
+      gutter-width: 2rem
+    toc: true
+    toc-depth: 3
+    toc-title: "On this page"
+    toc-location: right
     number-sections: false
     code-copy: true
+    syntax-highlighting:
+      light: github-light
+      dark: github-dark
     html-math-method:
       method: katex
       url: https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/
     include-after-body:
       - _includes/topics.html
-      - _includes/tutorials-nav.html
 
 # Shared by every tutorial; the helpers live in _filters/
 bibliography: references/references.bib
 citeproc: false
-sidebar: tutorials
 page-navigation: true
 shortcodes:
   - _filters/interactive.lua

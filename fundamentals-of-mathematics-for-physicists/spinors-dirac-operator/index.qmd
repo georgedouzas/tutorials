@@ -920,7 +920,7 @@ def euclid(d):
     return G
 def solve(G, etaC):
     N = G[0].shape[0]; I = np.eye(N)
-    # vec(A X B) = (B^T kron A) vec(X) with column-major vec
+    # vec(A X B) = (B^⊤ kron A) vec(X) with column-major vec
     M = np.vstack([np.kron(I, g.T) + etaC * np.kron(g.T, I) for g in G])
     u, sv, vh = np.linalg.svd(M)
     null = [vh[k].conj() for k in range(len(sv)) if sv[k] < 1e-9] + [vh[k].conj() for k in range(len(sv), N * N)]

@@ -1181,7 +1181,7 @@ g = [blk(Z, one, one, Z)] + [blk(Z, sk, -sk, Z) for sk in s]   # Weyl representa
 g5 = I * g[0] * g[1] * g[2] * g[3]; I4 = identity_matrix(SR, 4)
 U = blk(one, one, -one, one) / sqrt(2)
 gD = [U * x * U.transpose() for x in g]
-print("U gamma^0 U^T = diag(1, 1, -1, -1):", gD[0] == diagonal_matrix(SR, [1, 1, -1, -1]), "; U gamma^k U^T = gamma^k:", all(gD[k] == g[k] for k in (1, 2, 3)))
+print("U gamma^0 U^⊤ = diag(1, 1, -1, -1):", gD[0] == diagonal_matrix(SR, [1, 1, -1, -1]), "; U gamma^k U^⊤ = gamma^k:", all(gD[k] == g[k] for k in (1, 2, 3)))
 w = var("w", domain="real"); m = var("m", domain="positive")
 E = m * (exp(w) + exp(-w)) / 2; p = m * (exp(w) - exp(-w)) / 2
 uW = sqrt(m) * vector(SR, [exp(-w / 2), 0, exp(w / 2), 0])
@@ -1194,7 +1194,7 @@ print("upper^2 = E + m:", z(uD[0]^2 - (E + m)), "; lower^2 = p^2/(E + m):", z(uD
 *Output:*
 
 ```text
-U gamma^0 U^T = diag(1, 1, -1, -1): True ; U gamma^k U^T = gamma^k: True
+U gamma^0 U^⊤ = diag(1, 1, -1, -1): True ; U gamma^k U^⊤ = gamma^k: True
 U u = [1/2*(sqrt(2)*e^w + sqrt(2))*sqrt(m)*e^(-1/2*w), 0, 1/2*(sqrt(2)*e^w - sqrt(2))*sqrt(m)*e^(-1/2*w), 0]
 upper^2 = E + m: True ; lower^2 = p^2/(E + m): True ; signs positive for w > 0: True
 ```
@@ -3939,11 +3939,11 @@ blk = lambda a, b, c, d: block_matrix([[a, b], [c, d]], subdivide=False)
 g = [blk(Z, one, one, Z)] + [blk(Z, sk, -sk, Z) for sk in s]   # Weyl representation
 g5 = I * g[0] * g[1] * g[2] * g[3]; I4 = identity_matrix(SR, 4)
 C = I * g[2] * g[0]
-print("C gamma^mu C^-1 = -(gamma^mu)^T:", all(C * g[k] * C.inverse() == -g[k].transpose() for k in range(4)), "; C^T = -C:", C.transpose() == -C, "; C^dag = C^-1:", C.conjugate_transpose() == C.inverse())
+print("C gamma^mu C^-1 = -(gamma^mu)^⊤:", all(C * g[k] * C.inverse() == -g[k].transpose() for k in range(4)), "; C^⊤ = -C:", C.transpose() == -C, "; C^dag = C^-1:", C.conjugate_transpose() == C.inverse())
 a = var("a0 a1 a2 a3", domain="real"); b = var("b0 b1 b2 b3", domain="real")
 psi = vector(SR, [a[i] + I * b[i] for i in range(4)])
 cc = lambda f: I * g[2] * f.conjugate()
-print("psi^c = C bar(psi)^T:", (cc(psi) - C * (psi.conjugate() * g[0])).simplify_full() == 0)
+print("psi^c = C bar(psi)^⊤:", (cc(psi) - C * (psi.conjugate() * g[0])).simplify_full() == 0)
 print("(psi^c)^c = psi:", (cc(cc(psi)) - psi).simplify_full() == 0)
 bar = lambda f, M: (f.conjugate() * g[0] * M * f).expand()
 print("bar(psi^c) psi^c = -bar(psi) psi:", bool((bar(cc(psi), I4) + bar(psi, I4)).simplify_full() == 0))
@@ -3953,8 +3953,8 @@ print("bar(psi^c) gamma^mu psi^c = bar(psi) gamma^mu psi:", all(bool((bar(cc(psi
 *Output:*
 
 ```text
-C gamma^mu C^-1 = -(gamma^mu)^T: True ; C^T = -C: True ; C^dag = C^-1: True
-psi^c = C bar(psi)^T: True
+C gamma^mu C^-1 = -(gamma^mu)^⊤: True ; C^⊤ = -C: True ; C^dag = C^-1: True
+psi^c = C bar(psi)^⊤: True
 (psi^c)^c = psi: True
 bar(psi^c) psi^c = -bar(psi) psi: True
 bar(psi^c) gamma^mu psi^c = bar(psi) gamma^mu psi: True

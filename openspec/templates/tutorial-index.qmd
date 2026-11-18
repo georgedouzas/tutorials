@@ -12,11 +12,13 @@ Landing page template for a tutorial (openspec/templates/tutorial-index.qmd), la
 fundamentals-of-mathematics-for-physicists/index.qmd. Copy it to <tutorial>/index.qmd and replace every <placeholder>.
 
 - Chapters are listed flat, one link per chapter folder (<chapter-slug>/index.qmd), in reading order; no parts or nested lists. Each chapter starts
-  from openspec/templates/chapter.qmd.
+  from openspec/templates/chapter.qmd. The list stays inside the `::: {.chapter-list}` block, which shows it as cards; a
+  planned chapter (a placeholder page) is followed by `[In preparation]{.chapter-badge}`.
+- Add the tutorial's own sidebar (id = its folder) to _quarto.yml, and a _metadata.yml in the folder with `sidebar: <folder>`.
 - Anything that is not a chapter goes in its own "##" section after the chapter list, e.g. "Software for symbolic
   computation". Add one section per such topic, and none if there is nothing to add.
 - The categories become the topic chips; keep them in sync with the data-topics list in _includes/topics.html.
-- Add the same chapters, in the same order, to the tutorial's section of the sidebar in _quarto.yml.
+- Add the same chapters, in the same order, to the tutorial's sidebar in _quarto.yml.
 - The notation page (notation/index.qmd) comes first: it includes the shared tables from _notation/ that the
   tutorial uses and ends with "## Conventions specific to this tutorial".
 -->
@@ -28,10 +30,12 @@ the tutorial connects to the others, with links such as [<Other tutorial>](../<o
 
 ## Chapters
 
+::: {.chapter-list}
 - [Notation](notation/index.qmd)
 - [<Chapter 1 title>](<chapter-1-slug>/index.qmd)
 - [<Chapter 2 title>](<chapter-2-slug>/index.qmd)
-- [<Chapter 3 title>](<chapter-3-slug>/index.qmd)
+- [<Chapter 3 title>](<chapter-3-slug>/index.qmd) [In preparation]{.chapter-badge}
+:::
 
 ## Software for symbolic computation
 

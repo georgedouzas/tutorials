@@ -327,16 +327,16 @@ sig = [identity_matrix(QQbar, 2)] + pauli; sigb = [identity_matrix(QQbar, 2)] + 
 eps_up = matrix(QQbar, [[0, 1], [-1, 0]])            # eps^{12} = 1
 print("[PASS] sigma^mu is Hermitian for every mu:", all(s.conjugate_transpose() == s for s in sig))
 raised = [matrix(QQbar, 2, 2, lambda ad, a: sum(eps_up[ad, bd] * eps_up[a, b] * sig[m][b, bd] for b in range(2) for bd in range(2))) for m in range(4)]
-print("[PASS] eps eps sigma^mu = sigmabar^mu, i.e. eps sigma^T eps^T = sigmabar:", all(raised[m] == sigb[m] for m in range(4)))
-print("[PASS] for the spatial matrices this is sigma_2 sigma_i^T sigma_2 = -sigma_i:", all(pauli[1] * p.transpose() * pauli[1] == -p for p in pauli))
+print("[PASS] eps eps sigma^mu = sigmabar^mu, i.e. eps sigma^⊤ eps^⊤ = sigmabar:", all(raised[m] == sigb[m] for m in range(4)))
+print("[PASS] for the spatial matrices this is sigma_2 sigma_i^⊤ sigma_2 = -sigma_i:", all(pauli[1] * p.transpose() * pauli[1] == -p for p in pauli))
 ```
 
 *Output:*
 
 ```text
 [PASS] sigma^mu is Hermitian for every mu: True
-[PASS] eps eps sigma^mu = sigmabar^mu, i.e. eps sigma^T eps^T = sigmabar: True
-[PASS] for the spatial matrices this is sigma_2 sigma_i^T sigma_2 = -sigma_i: True
+[PASS] eps eps sigma^mu = sigmabar^mu, i.e. eps sigma^⊤ eps^⊤ = sigmabar: True
+[PASS] for the spatial matrices this is sigma_2 sigma_i^⊤ sigma_2 = -sigma_i: True
 ```
 :::
 
@@ -362,7 +362,7 @@ along $z$:
 ```python
 a, b, c, d = var("a b c d")
 M = matrix(SR, [[a, b], [c, d]]); eps = matrix(SR, [[0, 1], [-1, 0]])
-print("[PASS] M^T eps M = det(M) eps for a general 2x2 matrix, so the product is invariant iff det M = 1:",
+print("[PASS] M^⊤ eps M = det(M) eps for a general 2x2 matrix, so the product is invariant iff det M = 1:",
       bool(((M.transpose() * eps * M) - M.det() * eps).expand() == 0))
 r = var("r", domain="real")
 pauli = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
@@ -385,7 +385,7 @@ print("[PASS] the transformation is the boost t' = cosh(r) t + sinh(r) z, z' = s
 *Output:*
 
 ```text
-[PASS] M^T eps M = det(M) eps for a general 2x2 matrix, so the product is invariant iff det M = 1: True
+[PASS] M^⊤ eps M = det(M) eps for a general 2x2 matrix, so the product is invariant iff det M = 1: True
 [PASS] the boost matrix has unit determinant: True
 det X = x0^2 - x1^2 - x2^2 - x3^2 (the Minkowski norm)
 [PASS] det X = x0^2 - x1^2 - x2^2 - x3^2 is preserved: True
@@ -833,8 +833,8 @@ unpaired top fermion leaves a correction $-e^{-\beta N\omega}$:
 beta, w = var("beta omega", domain="positive"); n = var("n"); q = exp(-beta * w)
 ZB = sum(q^n, n, 0, oo); ZF = sum(q^(n + 1), n, 0, oo)
 print("Z_bosons =", ZB.simplify_full(), "  Z_fermions =", ZF.simplify_full())
-print("[PASS] Tr (-1)^F e^{-beta H} = Z_B - Z_F = 1, independent of beta:", bool((ZB - ZF).simplify_full() == 1))
-print("[PASS] Tr e^{-beta H} = (1 + q)/(1 - q):", bool((ZB + ZF - (1 + q) / (1 - q)).simplify_full() == 0))
+print("[PASS] tr (-1)^F e^{-beta H} = Z_B - Z_F = 1, independent of beta:", bool((ZB - ZF).simplify_full() == 1))
+print("[PASS] tr e^{-beta H} = (1 + q)/(1 - q):", bool((ZB + ZF - (1 + q) / (1 - q)).simplify_full() == 0))
 # a truncated check with explicit matrices at beta*omega = 1
 Nt = 40
 ev = [(k, 0) for k in range(Nt)] + [(k + 1, 1) for k in range(Nt)]
@@ -847,8 +847,8 @@ print("[PASS] the truncated index equals 1 - e^{-40}, the unpaired top fermion o
 
 ```text
 Z_bosons = e^(beta*omega)/(e^(beta*omega) - 1)   Z_fermions = 1/(e^(beta*omega) - 1)
-[PASS] Tr (-1)^F e^{-beta H} = Z_B - Z_F = 1, independent of beta: True
-[PASS] Tr e^{-beta H} = (1 + q)/(1 - q): True
+[PASS] tr (-1)^F e^{-beta H} = Z_B - Z_F = 1, independent of beta: True
+[PASS] tr e^{-beta H} = (1 + q)/(1 - q): True
 truncated index at beta omega = 1: 0.99999999999999999575165
 [PASS] the truncated index equals 1 - e^{-40}, the unpaired top fermion of the cut-off: True
 ```
@@ -3187,7 +3187,7 @@ m = var("m"); mb = var("mb")                                   # m and its conju
 p1, p2, c1, c2 = var("p1 p2 c1 c2")                            # phi_i and phi_i^*
 W = m * p1 * p2; Wb = mb * c1 * c2
 Wi = [diff(W, p) for p in (p1, p2)]; Wbi = [diff(Wb, c) for c in (c1, c2)]
-print("W^i =", Wi, "; F_i = -conj(W^i) =", [-w for w in Wbi])
+print("W^i =", Wi, "; F_i = -(W^i)^* =", [-w for w in Wbi])
 V = sum(Wi[i] * Wbi[i] for i in range(2))
 print("[PASS] V = |m|^2 (|phi_1|^2 + |phi_2|^2):", bool((V - m * mb * (p1 * c1 + p2 * c2)).expand() == 0))
 M = matrix(SR, 2, 2, lambda i, j: diff(W, (p1, p2)[i], (p1, p2)[j]))
@@ -3202,7 +3202,7 @@ print("[PASS] the scalar mass matrix d^2V/dphi^*_i dphi_j = |m|^2 * identity equ
 *Output:*
 
 ```text
-W^i = [m*p2, m*p1] ; F_i = -conj(W^i) = [-c2*mb, -c1*mb]
+W^i = [m*p2, m*p1] ; F_i = -(W^i)^* = [-c2*mb, -c1*mb]
 [PASS] V = |m|^2 (|phi_1|^2 + |phi_2|^2): True
 fermion mass matrix W^{ij} = [0, m, m, 0]
 [PASS] M^dag M = |m|^2 * identity: both Weyl fermions have mass |m|, the scalar mass too: True
@@ -3343,7 +3343,7 @@ print("[PASS] every point phi_0 = 0, phi_1 = t, phi_2 = mu^2/t (t != 0) is a sup
 print("[PASS] phi_0 != 0 is never a vacuum (W^1 = phi_0 phi_2 and W^2 = phi_0 phi_1 force phi_1 = phi_2 = 0, then W^0 = -mu^2):",
       bool(Wi[0].subs(p1=0, p2=0) == -mu^2))
 M = matrix(SR, 3, 3, lambda i, j: diff(W, (p0, p1, p2)[i], (p0, p1, p2)[j])).subs(p0=0, p1=mu, p2=mu)
-print("W^{ij} at (0, mu, mu):", M.list(), " rank", M.rank(), " eigenvalues of M^T M:", (M.transpose() * M).eigenvalues())
+print("W^{ij} at (0, mu, mu):", M.list(), " rank", M.rank(), " eigenvalues of M^⊤ M:", (M.transpose() * M).eigenvalues())
 print("[PASS] rank 2: masses squared 2 mu^2, 2 mu^2 and one massless multiplet, the modulus:", M.rank() == 2 and sorted((M.transpose() * M).eigenvalues(), key=str) == sorted([0, 2 * mu^2, 2 * mu^2], key=str))
 # the massless direction is tangent to the vacuum curve: (0, 1, -1) at phi_1 = phi_2 = mu
 print("[PASS] the null vector of W^{ij} is (0, 1, -1), the tangent to phi_1 phi_2 = mu^2 at (mu, mu):", (M * vector([0, 1, -1])).is_zero())
@@ -3356,7 +3356,7 @@ W^i = [-mu^2 + p1*p2, p0*p2, p0*p1]
 solutions of W^i = 0: [{p0: 0, p1: mu^2/r1, p2: r1}]
 [PASS] every point phi_0 = 0, phi_1 = t, phi_2 = mu^2/t (t != 0) is a supersymmetric vacuum: True
 [PASS] phi_0 != 0 is never a vacuum (W^1 = phi_0 phi_2 and W^2 = phi_0 phi_1 force phi_1 = phi_2 = 0, then W^0 = -mu^2): True
-W^{ij} at (0, mu, mu): [0, mu, mu, mu, 0, 0, mu, 0, 0]  rank 2  eigenvalues of M^T M: [2*mu^2, 2*mu^2, 0]
+W^{ij} at (0, mu, mu): [0, mu, mu, mu, 0, 0, mu, 0, 0]  rank 2  eigenvalues of M^⊤ M: [2*mu^2, 2*mu^2, 0]
 [PASS] rank 2: masses squared 2 mu^2, 2 mu^2 and one massless multiplet, the modulus: True
 [PASS] the null vector of W^{ij} is (0, 1, -1), the tangent to phi_1 phi_2 = mu^2 at (mu, mu): True
 ```
@@ -3694,7 +3694,7 @@ M2, mu, MW, b = var("M2 mu MW beta", domain="real")
 MC = matrix(SR, [[M2, sqrt(2) * MW * sin(b)], [sqrt(2) * MW * cos(b), mu]])
 S = MC * MC.transpose()
 tr = S.trace().simplify_full(); dt = S.det().simplify_full()
-print("tr(M M^T) =", tr, "   det(M M^T) =", dt.factor())
+print("tr(M M^⊤) =", tr, "   det(M M^⊤) =", dt.factor())
 print("[PASS] tr = M2^2 + mu^2 + 2 MW^2:", bool((tr - (M2^2 + mu^2 + 2 * MW^2)).simplify_full() == 0))
 print("[PASS] det = (M2 mu - MW^2 sin 2beta)^2:", bool((dt - (M2 * mu - MW^2 * sin(2 * b))^2).simplify_full() == 0))
 pm = lambda e: (tr + e * sqrt(tr^2 - 4 * (M2 * mu - MW^2 * sin(2 * b))^2)) / 2
@@ -3712,7 +3712,7 @@ print("[PASS] the singular values agree with the closed form:", all(abs(sv[i] - 
 *Output:*
 
 ```text
-tr(M M^T) = M2^2 + 2*MW^2 + mu^2    det(M M^T) = (2*MW^2*cos(beta)*sin(beta) - M2*mu)^2
+tr(M M^⊤) = M2^2 + 2*MW^2 + mu^2    det(M M^⊤) = (2*MW^2*cos(beta)*sin(beta) - M2*mu)^2
 [PASS] tr = M2^2 + mu^2 + 2 MW^2: True
 [PASS] det = (M2 mu - MW^2 sin 2beta)^2: True
 [PASS] m^2 = 1/2[(M2^2 + mu^2 + 2MW^2) -+ sqrt((M2^2 + mu^2 + 2MW^2)^2 - 4(M2 mu - MW^2 sin 2beta)^2)] are the roots of the characteristic polynomial: True
@@ -4593,8 +4593,8 @@ eta = diagonal_matrix(QQbar, [1, -1, -1, -1])
 print("[PASS] {gamma^mu, gamma^nu} = 2 eta^{mu nu} with eta = diag(1, -1, -1, -1):", all(gam[m] * gam[n] + gam[n] * gam[m] == 2 * eta[m, n] * identity_matrix(QQbar, 4) for m in range(4) for n in range(4)))
 C = gam[0] * gam[2]
 print("C = gamma^0 gamma^2 ="); print(C)
-print("[PASS] C gamma^mu C^{-1} = -(gamma^mu)^T for mu = 0, 1, 2, 3:", all(C * gam[m] * C.inverse() == -gam[m].transpose() for m in range(4)))
-print("[PASS] C^T = -C:", C.transpose() == -C)
+print("[PASS] C gamma^mu C^{-1} = -(gamma^mu)^⊤ for mu = 0, 1, 2, 3:", all(C * gam[m] * C.inverse() == -gam[m].transpose() for m in range(4)))
+print("[PASS] C^⊤ = -C:", C.transpose() == -C)
 from itertools import permutations
 def gamma3(m, n, r):
     return sum(Permutation([p.index(i) + 1 for i in (m, n, r)]).sign() * gam[p[0]] * gam[p[1]] * gam[p[2]] for p in permutations((m, n, r))) / 6 if len({m, n, r}) == 3 else zero_matrix(QQbar, 4)
@@ -4616,8 +4616,8 @@ C = gamma^0 gamma^2 =
 [-I  0  0  0]
 [ 0  0  0 -I]
 [ 0  0  I  0]
-[PASS] C gamma^mu C^{-1} = -(gamma^mu)^T for mu = 0, 1, 2, 3: True
-[PASS] C^T = -C: True
+[PASS] C gamma^mu C^{-1} = -(gamma^mu)^⊤ for mu = 0, 1, 2, 3: True
+[PASS] C^⊤ = -C: True
 [PASS] gamma^{mu nu rho} is totally antisymmetric and gamma^{012} = gamma^0 gamma^1 gamma^2: True
 [PASS] gamma^{mu nu rho} d_nu d_rho eps = 0 for every mu (gauge invariance of the Rarita-Schwinger operator): True
 ```
@@ -4655,8 +4655,8 @@ print("[PASS] C, C gamma_5, C gamma^mu gamma_5 are antisymmetric; C gamma^mu and
       res == {"1": {"antisymmetric"}, "gamma_5": {"antisymmetric"}, "gamma^mu gamma_5": {"antisymmetric"}, "gamma^mu": {"symmetric"}, "gamma^{mu nu}": {"symmetric"}})
 print("[PASS] counting: 6 antisymmetric (1 + 1 + 4) and 10 symmetric (4 + 6) of the 16 = 6 + 10 matrices C Gamma:",
       sum(len(v) for k, v in sets.items() if res[k] == {"antisymmetric"}) == 6 and sum(len(v) for k, v in sets.items() if res[k] == {"symmetric"}) == 10)
-# flip rule: for Majorana psi = C psibar^T, psibar = psi^T C^{-1}... with C^{-1} = -C^T... the bilinear psibar_1 Gamma psi_2 = psi_1^T K Gamma psi_2
-# with K = (C^T)^{-1} up to sign; anticommuting components give psi_1^T M psi_2 = -psi_2^T M^T psi_1
+# flip rule: for Majorana psi = C psibar^⊤, psibar = psi^⊤ C^{-1}... with C^{-1} = -C^⊤... the bilinear psibar_1 Gamma psi_2 = psi_1^⊤ K Gamma psi_2
+# with K = (C^⊤)^{-1} up to sign; anticommuting components give psi_1^⊤ M psi_2 = -psi_2^⊤ M^⊤ psi_1
 K = (C.transpose()).inverse()
 flip = {k: set("+" if (K * G).transpose() == -(K * G) else "-" if (K * G).transpose() == (K * G) else "?" for G in v) for k, v in sets.items()}
 print("flip signs psibar_1 Gamma psi_2 = (sign) psibar_2 Gamma psi_1:", flip)
@@ -4738,21 +4738,21 @@ for nu in range(1, 6):
         for idx in list(combinations(range(2 * nu), k))[:6]:        # a few index sets for each k
             M = E * prod([g[j] for j in idx], identity_matrix(K, N))
             ok55 &= M.transpose() == (-1)^((nu * (nu + 1) + k * (k + 1)) // 2) * M
-    print("2nu = %2d: gamma^T = -E gamma E^-1: %s; E is %s; symmetry rule (1.55) for k = 0..%d: %s"
+    print("2nu = %2d: gamma^⊤ = -E gamma E^-1: %s; E is %s; symmetry rule (1.55) for k = 0..%d: %s"
           % (2 * nu, ok_def, "symmetric" if sE == 1 else "antisymmetric", 2 * nu, ok55))
     allok &= ok_def and ok53 and ok55
-print("[PASS] E exists, E^T = (-1)^{nu(nu+1)/2} E and (E gamma_{i1..ik})^T = (-1)^{[nu(nu+1)+k(k+1)]/2} E gamma_{i1..ik} for 2nu = 2, ..., 10:", allok)
+print("[PASS] E exists, E^⊤ = (-1)^{nu(nu+1)/2} E and (E gamma_{i1..ik})^⊤ = (-1)^{[nu(nu+1)+k(k+1)]/2} E gamma_{i1..ik} for 2nu = 2, ..., 10:", allok)
 ```
 
 *Output:*
 
 ```text
-2nu =  2: gamma^T = -E gamma E^-1: True; E is antisymmetric; symmetry rule (1.55) for k = 0..2: True
-2nu =  4: gamma^T = -E gamma E^-1: True; E is antisymmetric; symmetry rule (1.55) for k = 0..4: True
-2nu =  6: gamma^T = -E gamma E^-1: True; E is symmetric; symmetry rule (1.55) for k = 0..6: True
-2nu =  8: gamma^T = -E gamma E^-1: True; E is symmetric; symmetry rule (1.55) for k = 0..8: True
-2nu = 10: gamma^T = -E gamma E^-1: True; E is antisymmetric; symmetry rule (1.55) for k = 0..10: True
-[PASS] E exists, E^T = (-1)^{nu(nu+1)/2} E and (E gamma_{i1..ik})^T = (-1)^{[nu(nu+1)+k(k+1)]/2} E gamma_{i1..ik} for 2nu = 2, ..., 10: True
+2nu =  2: gamma^⊤ = -E gamma E^-1: True; E is antisymmetric; symmetry rule (1.55) for k = 0..2: True
+2nu =  4: gamma^⊤ = -E gamma E^-1: True; E is antisymmetric; symmetry rule (1.55) for k = 0..4: True
+2nu =  6: gamma^⊤ = -E gamma E^-1: True; E is symmetric; symmetry rule (1.55) for k = 0..6: True
+2nu =  8: gamma^⊤ = -E gamma E^-1: True; E is symmetric; symmetry rule (1.55) for k = 0..8: True
+2nu = 10: gamma^⊤ = -E gamma E^-1: True; E is antisymmetric; symmetry rule (1.55) for k = 0..10: True
+[PASS] E exists, E^⊤ = (-1)^{nu(nu+1)/2} E and (E gamma_{i1..ik})^⊤ = (-1)^{[nu(nu+1)+k(k+1)]/2} E gamma_{i1..ik} for 2nu = 2, ..., 10: True
 ```
 :::
 ::::
@@ -5589,7 +5589,7 @@ for sF in (1e5, 1e11):
     print("sqrt(F) = %.0e GeV: m_3/2 = %.3e GeV" % (sF, m32))
 print("[PASS] sqrt(F) = 100 TeV gives m_3/2 of a few eV (2.37 eV), gauge mediation:", abs(1e10 / (sqrt(3.0) * MP) * 1e9 - 2.371) < 0.01)
 print("[PASS] sqrt(F) = 1e11 GeV gives m_3/2 of a few TeV (2.37 TeV), gravity mediation:", abs(1e22 / (sqrt(3.0) * MP) / 1e3 - 2.371) < 0.01)
-k = var("k", domain="positive"); MPs = var("M_P", domain="positive")
+k = var("k", domain="positive"); MPs = var("M_Pl", domain="positive")
 print("[PASS] in the O'Raifeartaigh model F = k, V = k^2 = 3 m_3/2^2 M_Pl^2 (the vacuum energy that supergravity can cancel with -3|W|^2/M_Pl^2):",
       bool((k^2 - 3 * (k / (sqrt(3) * MPs))^2 * MPs^2).simplify_full() == 0))
 ```

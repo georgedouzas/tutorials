@@ -10,9 +10,12 @@ Long-form tutorials, published as one Quarto website:
 
 A tutorial folder holds only its pages (`.qmd`), its cover and its figures. Everything shared is at the root:
 
-- `_quarto.yml`: the site, the sidebar and the settings of every page.
-- `theme.scss`: the styles, including the coloured statement, example and exercise blocks.
-- `_includes/`: the topic chips and the tutorials tree.
+- `_quarto.yml`: the site, the sidebars (one per tutorial, plus the home page's) and the settings of every page.
+  Each tutorial folder has a `_metadata.yml` that selects its own sidebar.
+- `theme.scss`: the styles: serif text, the colour tokens (`--site-*` CSS variables), and the statement, example and
+  exercise blocks. `theme-dark.scss` sets the dark-mode colours; Quarto builds a light and a dark stylesheet from the two
+  and adds a toggle to the navbar.
+- `_includes/topics.html`: the topic chips that filter the tutorials on the home page.
 - `references/references.bib`: the bibliography. Each entry's `zotero` field (and `zoteropdf` when it has a PDF) links
   it to the Zotero library.
 - `_filters/`:

@@ -857,27 +857,27 @@ The only positive solution is $r_1 = r_2 = r_3 = r$, where $\mathcal W_1 = -2i/r
 nearly-Kähler:
 
 ```python
-R1, R2, R3, Rr = var("R1 R2 R3 R", domain="positive")
-c = [R1**2 * (2 * R1**2 - R2**2 - R3**2), R2**2 * (2 * R2**2 - R1**2 - R3**2), R3**2 * (2 * R3**2 - R1**2 - R2**2)]
-sol = solve([x == 0 for x in c], R2, R3)
+r1, r2, r3, r = var("r1 r2 r3 r", domain="positive")
+c = [r1**2 * (2 * r1**2 - r2**2 - r3**2), r2**2 * (2 * r2**2 - r1**2 - r3**2), r3**2 * (2 * r3**2 - r1**2 - r2**2)]
+sol = solve([x == 0 for x in c], r2, r3)
 print("SU(3)/U(1)^2: solutions of W_2 = 0 with positive radii:", [s for s in sol if all(bool(e.rhs() > 0) for e in s)] if sol else sol)
-W1 = -2 * I / 3 * (R1**2 + R2**2 + R3**2) / (R1 * R2 * R3)
-print("W_1 at R1 = R2 = R3 = R:", W1.subs(R1=Rr, R2=Rr, R3=Rr).simplify_full())
-print("W_2 coefficients at R1 = R2 = R3:", [x.subs(R2=R1, R3=R1) for x in c])
-print("W_2 at R1 = 1, R2 = 1, R3 = 2 (not nearly-Kahler):", [x.subs(R1=1, R2=1, R3=2) for x in c])
-csp = [R1**2 * (R1**2 - R2**2), -2 * R2**2 * (R2**2 - R1**2)]
-print("Sp(4)/(SU(2) x U(1)): W_2 coefficients", csp, "vanish iff R1 = R2:", bool(all(x.subs(R2=R1) == 0 for x in csp)), "; W_1 at R1 = R2 = R:",
-      (-2 * I / 3 * (2 * R1**2 + R2**2) / (R1**2 * R2)).subs(R1=Rr, R2=Rr).simplify_full())
+W1 = -2 * I / 3 * (r1**2 + r2**2 + r3**2) / (r1 * r2 * r3)
+print("W_1 at r1 = r2 = r3 = r:", W1.subs(r1=r, r2=r, r3=r).simplify_full())
+print("W_2 coefficients at r1 = r2 = r3:", [x.subs(r2=r1, r3=r1) for x in c])
+print("W_2 at r1 = 1, r2 = 1, r3 = 2 (not nearly-Kahler):", [x.subs(r1=1, r2=1, r3=2) for x in c])
+csp = [r1**2 * (r1**2 - r2**2), -2 * r2**2 * (r2**2 - r1**2)]
+print("Sp(4)/(SU(2) x U(1)): W_2 coefficients", csp, "vanish iff r1 = r2:", bool(all(x.subs(r2=r1) == 0 for x in csp)), "; W_1 at r1 = r2 = r:",
+      (-2 * I / 3 * (2 * r1**2 + r2**2) / (r1**2 * r2)).subs(r1=r, r2=r).simplify_full())
 ```
 
 *Output:*
 
 ```text
-SU(3)/U(1)^2: solutions of W_2 = 0 with positive radii: [[R2 == R1, R3 == R1]]
-W_1 at R1 = R2 = R3 = R: -2*I/R
-W_2 coefficients at R1 = R2 = R3: [0, 0, 0]
-W_2 at R1 = 1, R2 = 1, R3 = 2 (not nearly-Kahler): [-3, -3, 24]
-Sp(4)/(SU(2) x U(1)): W_2 coefficients [(R1^2 - R2^2)*R1^2, 2*(R1^2 - R2^2)*R2^2] vanish iff R1 = R2: True ; W_1 at R1 = R2 = R: -2*I/R
+SU(3)/U(1)^2: solutions of W_2 = 0 with positive radii: [[r2 == r1, r3 == r1]]
+W_1 at r1 = r2 = r3 = r: -2*I/r
+W_2 coefficients at r1 = r2 = r3: [0, 0, 0]
+W_2 at r1 = 1, r2 = 1, r3 = 2 (not nearly-Kahler): [-3, -3, 24]
+Sp(4)/(SU(2) x U(1)): W_2 coefficients [(r1^2 - r2^2)*r1^2, 2*(r1^2 - r2^2)*r2^2] vanish iff r1 = r2: True ; W_1 at r1 = r2 = r: -2*I/r
 ```
 :::
 
@@ -1556,12 +1556,12 @@ $F_{mn}F^{mn} = N^2/(2q^2r^4)$, constant on the sphere, and the energy is $\pi N
 quanta:
 
 ```python
-th, ph, N, q, R = var("theta phi N q R", domain="positive")
-Fthph = N / (2 * q * R**2) * R**2 * sin(th)          # component F_{theta phi}
-ginv = diagonal_matrix([1 / R**2, 1 / (R**2 * sin(th)**2)])
+th, ph, N, q, r = var("theta phi N q r", domain="positive")
+Fthph = N / (2 * q * r**2) * r**2 * sin(th)          # component F_{theta phi}
+ginv = diagonal_matrix([1 / r**2, 1 / (r**2 * sin(th)**2)])
 F2 = 2 * Fthph**2 * ginv[0, 0] * ginv[1, 1]         # F_{mn} F^{mn}
 print("F_{mn} F^{mn} =", F2.simplify_full())
-E = integrate(integrate(F2 / 4 * R**2 * sin(th), th, 0, pi), ph, 0, 2 * pi)
+E = integrate(integrate(F2 / 4 * r**2 * sin(th), th, 0, pi), ph, 0, 2 * pi)
 print("(1/4) int F_{mn} F^{mn} vol =", E.simplify_full())
 print("flux int F =", integrate(integrate(Fthph, th, 0, pi), ph, 0, 2 * pi))
 ```
@@ -1569,8 +1569,8 @@ print("flux int F =", integrate(integrate(Fthph, th, 0, pi), ph, 0, 2 * pi))
 *Output:*
 
 ```text
-F_{mn} F^{mn} = 1/2*N^2/(R^4*q^2)
-(1/4) int F_{mn} F^{mn} vol = 1/2*pi*N^2/(R^2*q^2)
+F_{mn} F^{mn} = 1/2*N^2/(q^2*r^4)
+(1/4) int F_{mn} F^{mn} vol = 1/2*pi*N^2/(q^2*r^2)
 flux int F = 2*pi*N/q
 ```
 :::
@@ -1845,19 +1845,19 @@ $r_m^{p-q} = paN^2/(qb)$. At this point $paN^2r_m^{-p} = qbr_m^{-q}$, which give
 @eq-vcp-flux-minimum:
 
 ```python
-R, a, b, N, p, q = var("R a b N p q", domain="positive")
+r, a, b, N, p, q = var("r a b N p q", domain="positive")
 assume(p > q)
-V = a * N**2 / R**p - b / R**q
-Rm = (p * a * N**2 / (q * b))**(1 / (p - q))
-print("V'(r_m) =", diff(V, R).subs(R=Rm).canonicalize_radical().simplify_full())
-V2 = diff(V, R, 2)
+V = a * N**2 / r**p - b / r**q
+rm = (p * a * N**2 / (q * b))**(1 / (p - q))
+print("V'(r_m) =", diff(V, r).subs(r=rm).canonicalize_radical().simplify_full())
+V2 = diff(V, r, 2)
 for (pp, qq) in [(6, 4), (4, 2), (3, 1), (5, 2)]:
-    Rmn = Rm.subs(p=pp, q=qq)
-    print("p, q =", (pp, qq), ": V''(r_m) = q b (p - q) r_m^{-q-2} > 0:", bool((V2.subs(p=pp, q=qq).subs(R=Rmn) - qq * b * (pp - qq) * Rmn**(-qq - 2)).canonicalize_radical().simplify_full() == 0))
-Vm = V.subs(R=Rm)
-print("V(r_m) = -b (1 - q/p) r_m^{-q}:", bool((Vm + b * (1 - q / p) * Rm**(-q)).canonicalize_radical().simplify_full() == 0))
+    rmn = rm.subs(p=pp, q=qq)
+    print("p, q =", (pp, qq), ": V''(r_m) = q b (p - q) r_m^{-q-2} > 0:", bool((V2.subs(p=pp, q=qq).subs(r=rmn) - qq * b * (pp - qq) * rmn**(-qq - 2)).canonicalize_radical().simplify_full() == 0))
+Vm = V.subs(r=rm)
+print("V(r_m) = -b (1 - q/p) r_m^{-q}:", bool((Vm + b * (1 - q / p) * rm**(-q)).canonicalize_radical().simplify_full() == 0))
 for (pp, qq) in [(6, 4), (4, 2), (3, 1)]:
-    print("p, q =", (pp, qq), ": r_m =", Rm.subs(p=pp, q=qq).canonicalize_radical(), "; V(r_m) =", Vm.subs(p=pp, q=qq).canonicalize_radical().simplify_full())
+    print("p, q =", (pp, qq), ": r_m =", rm.subs(p=pp, q=qq).canonicalize_radical(), "; V(r_m) =", Vm.subs(p=pp, q=qq).canonicalize_radical().simplify_full())
 ```
 
 *Output:*
@@ -2850,8 +2850,8 @@ MeV range; for $n = 2$, $1/L \approx 10^{-4}$ eV, so the tower is practically co
 ```python
 MPl, M, hbarc = 1.22e19, 1e3, 1.97327e-16
 for n in range(1, 8):
-    R = (MPl**2 / M**(n + 2))**(1.0 / n)          # GeV^-1
-    print("n = %d: L = %.2e m, 1/L = %.2e eV, torus radius r_t = L/(2 pi) = %.2e m" % (n, R * hbarc, 1e9 / R, R * hbarc / (2 * pi.n())))
+    L = (MPl**2 / M**(n + 2))**(1.0 / n)          # GeV^-1
+    print("n = %d: L = %.2e m, 1/L = %.2e eV, torus radius r_t = L/(2 pi) = %.2e m" % (n, L * hbarc, 1e9 / L, L * hbarc / (2 * pi.n())))
 ```
 
 *Output:*
@@ -2884,10 +2884,10 @@ the constant $\Omega_n$:
 ```python
 from itertools import product
 for n in [1, 2, 3]:
-    for ER in [5, 10, 20]:
-        cnt = sum(1 for v in product(range(-ER, ER + 1), repeat=n) if sum(x * x for x in v) <= ER * ER)
-        vol = (pi**(n / 2) / gamma(n / 2 + 1) * ER**n).n()
-        print("n = %d, E r_t = %d: %d modes, Omega_n (E r_t)^n = %.1f, ratio %.3f" % (n, ER, cnt, vol, cnt / vol))
+    for Ert in [5, 10, 20]:
+        cnt = sum(1 for v in product(range(-Ert, Ert + 1), repeat=n) if sum(x * x for x in v) <= Ert * Ert)
+        vol = (pi**(n / 2) / gamma(n / 2 + 1) * Ert**n).n()
+        print("n = %d, E r_t = %d: %d modes, Omega_n (E r_t)^n = %.1f, ratio %.3f" % (n, Ert, cnt, vol, cnt / vol))
 ```
 
 *Output:*
@@ -2995,8 +2995,8 @@ The identity holds for all $n$; the branching ratios range from $10^{-19}$ ($n =
 supernova to order one at $E = M$:
 
 ```python
-E, R, M, n = var("E R M n", domain="positive")
-print("(E L)^n/(M^{n+2} L^n) - E^n/M^{n+2} =", ((E * R)**n / (M**(n + 2) * R**n) - E**n / M**(n + 2)).canonicalize_radical())
+E, L, M, n = var("E L M n", domain="positive")
+print("(E L)^n/(M^{n+2} L^n) - E^n/M^{n+2} =", ((E * L)**n / (M**(n + 2) * L**n) - E**n / M**(n + 2)).canonicalize_radical())
 for nn in [2, 3, 6]:
     for EE, lab in [(0.02, "supernova, 20 MeV"), (100.0, "100 GeV"), (1000.0, "1 TeV")]:
         print("n = %d, M = 1 TeV, E = %s: branching ratio (E/M)^(n+2) = %.1e" % (nn, lab, (EE / 1000.0)**(nn + 2)))

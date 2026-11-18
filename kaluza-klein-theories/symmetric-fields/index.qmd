@@ -147,13 +147,13 @@ potential itself: $A$ is a potential of a monopole field, and no potential of a 
 th, ph = var("th ph")
 A = [0, cos(th)]                                   # components (A_th, A_ph)
 F = diff(A[1], th) - diff(A[0], ph)                # dA = F dth ^ dph
-xis = {"K_1": [-sin(ph), -cot(th) * cos(ph)], "K_2": [cos(ph), -cot(th) * sin(ph)], "K_3": [0, 1]}
-def lie(xi):
-    iA = xi[0] * A[0] + xi[1] * A[1]
-    iF = [-xi[1] * F, xi[0] * F]                   # i_xi (F dth ^ dph) = F (xi^th dph - xi^ph dth)
+Ks = {"K_1": [-sin(ph), -cot(th) * cos(ph)], "K_2": [cos(ph), -cot(th) * sin(ph)], "K_3": [0, 1]}
+def lie(K):
+    iA = K[0] * A[0] + K[1] * A[1]
+    iF = [-K[1] * F, K[0] * F]                   # i_K (F dth ^ dph) = F (K^th dph - K^ph dth)
     return [(diff(iA, v) + iF[k]).simplify_full() for k, v in enumerate((th, ph))]
-for name, xi in xis.items():
-    L = lie(xi)
+for name, K in Ks.items():
+    L = lie(K)
     W = integrate(L[1], ph).simplify_full()        # candidate potential from the ph component
     W = (W + integrate((L[0] - diff(W, th)).simplify_full(), th)).simplify_full()
     print(name, ": L_K A =", L, ", W =", W)
@@ -838,18 +838,18 @@ classes are those of @prp-csd-sphere-matching:
 
 ```python
 from collections import defaultdict
-T3 = [QQ(1)/2, QQ(-1)/2, 0]; Yn = [1 / (2 * sqrt(3)), 1 / (2 * sqrt(3)), -1 / sqrt(3)]
+t3 = [QQ(1)/2, QQ(-1)/2, 0]; Yn = [1 / (2 * sqrt(3)), 1 / (2 * sqrt(3)), -1 / sqrt(3)]
 classes = defaultdict(list)
 for i in range(3):
     for j in range(3):
         if i != j:
-            w = (T3[i] - T3[j], Yn[i] - Yn[j]); c = (2 * w[1] / sqrt(3)).simplify_full()
+            w = (t3[i] - t3[j], Yn[i] - Yn[j]); c = (2 * w[1] / sqrt(3)).simplify_full()
             classes[c].append(w[0]); print("E_%d%d: weight (t_3, Y_n) =" % (i + 1, j + 1), w, ", tau-charge", c)
 classes[0] += [0, 0]
 print({k: sorted(v) for k, v in classes.items()})
 print("[PASS] the roots have length 1 and the charges are 0 (t_3 = -1, 0, 0, 1: a triplet and a singlet), +1 (t_3 = +-1/2) and -1 (t_3 = +-1/2):",
       sorted(classes[0]) == [-1, 0, 0, 1] and sorted(classes[1]) == [-QQ(1)/2, QQ(1)/2] and sorted(classes[-1]) == [-QQ(1)/2, QQ(1)/2]
-      and all(bool((T3[i] - T3[j])^2 + (Yn[i] - Yn[j])^2 == 1) for i in range(3) for j in range(3) if i != j))
+      and all(bool((t3[i] - t3[j])^2 + (Yn[i] - Yn[j])^2 == 1) for i in range(3) for j in range(3) if i != j))
 ```
 
 *Output:*

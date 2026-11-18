@@ -783,10 +783,10 @@ Parseval's identity $\frac{1}{2\pi r}\int_0^{2\pi r}|\Phi|^2dy = \sum_n|\Phi_n|^
 $\Phi_n = \frac{1}{2\pi r}\int_0^{2\pi r}\Phi e^{-iny/r}dy = \frac{2}{i\pi n}$ for odd $n$ and $0$ for even $n$:
 
 ```python
-y, R = var("y R"); assume(R > 0)
-def phin(n):
-    return (integrate(exp(-I * n * y / R), y, 0, pi * R) - integrate(exp(-I * n * y / R), y, pi * R, 2 * pi * R)) / (2 * pi * R)
-co = {n: phin(n).simplify_full() for n in range(-5, 6)}
+y, r = var("y r"); assume(r > 0)
+def Phin(n):
+    return (integrate(exp(-I * n * y / r), y, 0, pi * r) - integrate(exp(-I * n * y / r), y, pi * r, 2 * pi * r)) / (2 * pi * r)
+co = {n: Phin(n).simplify_full() for n in range(-5, 6)}
 print("Phi_n for n = -5..5:", [co[n] for n in range(-5, 6)])
 print("[PASS] Phi_n = 2/(i pi n) for odd n and 0 for even n (no zero mode):", all(bool(co[n] == (2 / (I * pi * n) if n % 2 else 0)) for n in range(-5, 6)))
 k = var("k")
@@ -908,24 +908,24 @@ SageManifolds gives $\Box_5\Phi\,e^{-iny/r} = \phi(f'' + \frac{n^2}{r^2\phi^3}f)
 
 ```python
 M = Manifold(5, "M", structure="Lorentzian"); X = M.chart("t x v z y"); t, x, v, z, y = X[:]
-phi, R, n = var("phi R n"); assume(phi > 0); assume(R > 0)
+phi, r, n = var("phi r n"); assume(phi > 0); assume(r > 0)
 G = M.metric("G"); G[0, 0] = 1 / phi
 for i in (1, 2, 3): G[i, i] = -1 / phi
 G[4, 4] = -phi^2
 f = function("f")(t)
-P = M.scalar_field(f * exp(I * n * y / R))
+P = M.scalar_field(f * exp(I * n * y / r))
 nab = G.connection()
 box = nab(nab(P).up(G)).trace().expr()
-red = (box / exp(I * n * y / R)).simplify_full()
+red = (box / exp(I * n * y / r)).simplify_full()
 print("(Box_5 Phi) e^{-i n y/r} =", red)
-print("[PASS] Box_5 Phi = 0 is phi (f'' + n^2/(r^2 phi^3) f) = 0: Einstein-frame mass |n|/(r phi^{3/2}):", bool((red - phi * (diff(f, t, 2) + n^2 / (R^2 * phi^3) * f)).simplify_full() == 0))
-print("[PASS] in the Jordan frame g = phi^{-1} eta (proper time t_J = t/sqrt(phi)) m^2 = phi m_E^2 = n^2/(r phi)^2, the mass is |n|/(r phi):", bool((n^2 / (R^2 * phi^3) * phi - n^2 / (R^2 * phi^2)).simplify_full() == 0))
+print("[PASS] Box_5 Phi = 0 is phi (f'' + n^2/(r^2 phi^3) f) = 0: Einstein-frame mass |n|/(r phi^{3/2}):", bool((red - phi * (diff(f, t, 2) + n^2 / (r^2 * phi^3) * f)).simplify_full() == 0))
+print("[PASS] in the Jordan frame g = phi^{-1} eta (proper time t_J = t/sqrt(phi)) m^2 = phi m_E^2 = n^2/(r phi)^2, the mass is |n|/(r phi):", bool((n^2 / (r^2 * phi^3) * phi - n^2 / (r^2 * phi^2)).simplify_full() == 0))
 ```
 
 *Output:*
 
 ```text
-(Box_5 Phi) e^{-i n y/r} = (R^2*phi^3*diff(f(t), t, t) + n^2*f(t))/(R^2*phi^2)
+(Box_5 Phi) e^{-i n y/r} = (phi^3*r^2*diff(f(t), t, t) + n^2*f(t))/(phi^2*r^2)
 [PASS] Box_5 Phi = 0 is phi (f'' + n^2/(r^2 phi^3) f) = 0: Einstein-frame mass |n|/(r phi^{3/2}): True
 [PASS] in the Jordan frame g = phi^{-1} eta (proper time t_J = t/sqrt(phi)) m^2 = phi m_E^2 = n^2/(r phi)^2, the mass is |n|/(r phi): True
 ```
@@ -1013,7 +1013,7 @@ g^{\mu\nu}D_\mu f\,(D_\nu f)^* - \phi^{-2}(n/r)^2|f|^2$ with $D_\mu = \partial_\
 ::: {.callout-note .solution collapse="true" title="Solution"}
 ```python
 gi = matrix(SR, 4, 4, lambda i, j: var("gi%d%d" % (min(i, j), max(i, j))))
-A = vector(SR, var("A0 A1 A2 A3")); phi, n, R = var("phi n R")
+A = vector(SR, var("A0 A1 A2 A3")); phi, n, r = var("phi n r")
 f, fc = var("f fc"); df = vector(SR, var("df0 df1 df2 df3")); dfc = vector(SR, var("dfc0 dfc1 dfc2 dfc3"))
 Au = gi * A
 Gi = matrix(SR, 5, 5)
@@ -1021,11 +1021,11 @@ for i in range(4):
     for j in range(4): Gi[i, j] = gi[i, j]
     Gi[i, 4] = Gi[4, i] = -Au[i]
 Gi[4, 4] = -phi^(-2) + A * Au
-dP = vector(SR, list(df) + [I * n / R * f])          # d_A Phi with the factor e^{iny/R} stripped
-dPc = vector(SR, list(dfc) + [-I * n / R * fc])     # d_A Phi^* with e^{-iny/R} stripped
+dP = vector(SR, list(df) + [I * n / r * f])          # d_A Phi with the factor e^{iny/r} stripped
+dPc = vector(SR, list(dfc) + [-I * n / r * fc])     # d_A Phi^* with e^{-iny/r} stripped
 lhs = (dP * Gi * dPc).expand()
-D = df - I * n / R * f * A; Dc = dfc + I * n / R * fc * A
-rhs = (D * gi * Dc - phi^(-2) * (n / R)^2 * f * fc).expand()
+D = df - I * n / r * f * A; Dc = dfc + I * n / r * fc * A
+rhs = (D * gi * Dc - phi^(-2) * (n / r)^2 * f * fc).expand()
 print("[PASS] G^{MN} d_M Phi d_N Phi^* = |(d - i n A/r) f|^2 - phi^{-2} (n/r)^2 |f|^2:", bool((lhs - rhs).expand() == 0))
 ```
 
@@ -1138,14 +1138,14 @@ Inserting @eq-fourier-modes, $\int dy\,\Phi^3 = \sum_{n_1, n_2, n_3}\Phi_{n_1}\P
 integral is $2\pi r\,\delta_{n_1 + n_2 + n_3, 0}$:
 
 ```python
-y, R = var("y R"); assume(R > 0)
+y, r = var("y r"); assume(r > 0)
 def overlap(a, b, c):
-    return integrate(exp(I * (a + b + c) * y / R), y, 0, 2 * pi * R)
+    return integrate(exp(I * (a + b + c) * y / r), y, 0, 2 * pi * r)
 vals = {(a, b, c): overlap(a, b, c) for a in range(-2, 3) for b in range(-2, 3) for c in range(-2, 3)}
 print("[PASS] the cubic overlap is 2 pi r if n1 + n2 + n3 = 0 and 0 otherwise (n_i in -2..2):",
-      all(bool(v == (2 * pi * R if sum(k) == 0 else 0)) for k, v in vals.items()))
+      all(bool(v == (2 * pi * r if sum(k) == 0 else 0)) for k, v in vals.items()))
 print("[PASS] (0, 0, n) couples only to n = 0, while (1, -1, 0) couples massive modes to the zero mode:",
-      all(bool(vals[(0, 0, c)] == 0) for c in (-2, -1, 1, 2)) and bool(vals[(1, -1, 0)] == 2 * pi * R))
+      all(bool(vals[(0, 0, c)] == 0) for c in (-2, -1, 1, 2)) and bool(vals[(1, -1, 0)] == 2 * pi * r))
 ```
 
 *Output:*
@@ -1275,11 +1275,11 @@ does this imply for models with TeV-size extra dimensions?
 $\alpha = 4G_N/r^2$ with $r/\sqrt{G_N} = 1.22 \times 10^{16}$:
 
 ```python
-MP = 1.22e19; m1 = 1.0e3
-kappa = sqrt(8 * pi.n()) / MP; R = 1 / m1
-e = sqrt(2) * kappa / R; alpha = e^2 / (4 * pi.n())
-print("r = %.3e GeV^-1 = %.3e m, e = %.3e, alpha = %.3e" % (R, R * 1.9733e-16, e, alpha))
-print("[PASS] alpha = 4 G_N/r^2 for m_1 = 1 TeV, about 2.7e-32:", bool(abs(alpha - 4 / (MP * R)^2) < 1e-40) and bool(2e-32 < alpha < 3e-32))
+MPl = 1.22e19; m1 = 1.0e3
+kappa = sqrt(8 * pi.n()) / MPl; r = 1 / m1
+e = sqrt(2) * kappa / r; alpha = e^2 / (4 * pi.n())
+print("r = %.3e GeV^-1 = %.3e m, e = %.3e, alpha = %.3e" % (r, r * 1.9733e-16, e, alpha))
+print("[PASS] alpha = 4 G_N/r^2 for m_1 = 1 TeV, about 2.7e-32:", bool(abs(alpha - 4 / (MPl * r)^2) < 1e-40) and bool(2e-32 < alpha < 3e-32))
 ```
 
 *Output:*
@@ -1371,17 +1371,17 @@ periodicity with Sage.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 ```python
-y, R, n, m = var("y R n m"); assume(R > 0)
-t, xx = var("t xx"); phin = function("phin")(t, xx)
-Phi = phin * exp(I * n * y / R)
+y, r, n, m = var("y r n m"); assume(r > 0)
+t, xx = var("t xx"); Phin = function("Phin")(t, xx)
+Phi = Phin * exp(I * n * y / r)
 box5 = diff(Phi, t, 2) - diff(Phi, xx, 2) - diff(Phi, y, 2)          # (1+1)-dimensional part, Box_4 = d_t^2 - d_x^2, minus d_y^2
-reduced = (box5 / exp(I * n * y / R)).simplify_full()
+reduced = (box5 / exp(I * n * y / r)).simplify_full()
 print("(Box_5 Phi) e^{-i n y/r} =", reduced)
-print("[PASS] the mode obeys the 4D Klein-Gordon equation (Box_4 + (n/r)^2) Phi_n = 0 with mass squared (n/r)^2:", bool((reduced - (diff(phin, t, 2) - diff(phin, xx, 2) + (n / R)^2 * phin)).simplify_full() == 0))
+print("[PASS] the mode obeys the 4D Klein-Gordon equation (Box_4 + (n/r)^2) Phi_n = 0 with mass squared (n/r)^2:", bool((reduced - (diff(Phin, t, 2) - diff(Phin, xx, 2) + (n / r)^2 * Phin)).simplify_full() == 0))
 assume(n, "integer"); assume(m, "integer")
-inner = integrate(exp(I * n * y / R) * exp(-I * m * y / R), y, 0, 2 * pi * R)
+inner = integrate(exp(I * n * y / r) * exp(-I * m * y / r), y, 0, 2 * pi * r)
 print("[PASS] orthogonality: int_0^{2 pi r} e^{i(n-m)y/r} dy = 2 pi r delta_{nm} (n = m case and n != m case):",
-      bool(integrate(1, y, 0, 2 * pi * R) == 2 * pi * R) and bool(inner.subs(n=3, m=1).simplify_full() == 0))
+      bool(integrate(1, y, 0, 2 * pi * r) == 2 * pi * r) and bool(inner.subs(n=3, m=1).simplify_full() == 0))
 print("masses |n|/r for n = -2..2 and r = 1:", [abs(k) for k in range(-2, 3)])
 print("[PASS] periodicity e^{i n 2 pi} = 1 holds for integer n and fails for n = 1/2:", bool(exp(2 * pi * I * 5) == 1) and bool(exp(2 * pi * I / 2) == -1))
 ```
@@ -1389,7 +1389,7 @@ print("[PASS] periodicity e^{i n 2 pi} = 1 holds for integer n and fails for n =
 *Output:*
 
 ```text
-(Box_5 Phi) e^{-i n y/r} = (n^2*phin(t, xx) + R^2*diff(phin(t, xx), t, t) - R^2*diff(phin(t, xx), xx, xx))/R^2
+(Box_5 Phi) e^{-i n y/r} = (n^2*Phin(t, xx) + r^2*diff(Phin(t, xx), t, t) - r^2*diff(Phin(t, xx), xx, xx))/r^2
 [PASS] the mode obeys the 4D Klein-Gordon equation (Box_4 + (n/r)^2) Phi_n = 0 with mass squared (n/r)^2: True
 [PASS] orthogonality: int_0^{2 pi r} e^{i(n-m)y/r} dy = 2 pi r delta_{nm} (n = m case and n != m case): True
 masses |n|/r for n = -2..2 and r = 1: [2, 1, 0, 1, 2]
@@ -1412,14 +1412,14 @@ $\partial_y\Phi = 0$ at both ends. Compare the spectra with that of the circle.
 Dirichlet: $\sin(ny/r)$, $n \geq 1$; Neumann: $\cos(ny/r)$, $n \geq 0$; eigenvalues $(n/r)^2$ in both cases:
 
 ```python
-y, R = var("y R"); assume(R > 0); n = var("n"); assume(n, "integer")
-s = sin(n * y / R); c = cos(n * y / R)
+y, r = var("y r"); assume(r > 0); n = var("n"); assume(n, "integer")
+s = sin(n * y / r); c = cos(n * y / r)
 print("[PASS] -d^2 sin(n y/r) = (n/r)^2 sin(n y/r) and sin vanishes at y = 0, pi r:",
-      bool((-diff(s, y, 2) - (n / R)^2 * s).simplify_full() == 0) and bool(s.subs(y=0) == 0) and bool(s.subs(y=pi * R) == 0))
+      bool((-diff(s, y, 2) - (n / r)^2 * s).simplify_full() == 0) and bool(s.subs(y=0) == 0) and bool(s.subs(y=pi * r) == 0))
 print("[PASS] -d^2 cos(n y/r) = (n/r)^2 cos(n y/r) and its derivative vanishes at y = 0, pi r:",
-      bool((-diff(c, y, 2) - (n / R)^2 * c).simplify_full() == 0) and bool(diff(c, y).subs(y=0) == 0) and bool(diff(c, y).subs(y=pi * R) == 0))
+      bool((-diff(c, y, 2) - (n / r)^2 * c).simplify_full() == 0) and bool(diff(c, y).subs(y=0) == 0) and bool(diff(c, y).subs(y=pi * r) == 0))
 print("[PASS] orthogonality int_0^{pi r} sin(2y/r) sin(3y/r) dy = 0 and int sin^2(2y/r) = pi r/2:",
-      bool(integrate(sin(2 * y / R) * sin(3 * y / R), y, 0, pi * R) == 0) and bool(integrate(sin(2 * y / R)^2, y, 0, pi * R) == pi * R / 2))
+      bool(integrate(sin(2 * y / r) * sin(3 * y / r), y, 0, pi * r) == 0) and bool(integrate(sin(2 * y / r)^2, y, 0, pi * r) == pi * r / 2))
 ```
 
 *Output:*
@@ -1622,12 +1622,12 @@ Solve $e = \sqrt2\kappa/r$ for $r$ with Sage, substitute $\kappa^2 = 8\pi G_N$ a
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 ```python
-e, kappa, R, alpha, MP = var("e kappa R alpha MP"); assume(R > 0, kappa > 0, e > 0, alpha > 0, MP > 0)
-sol = solve(e == sqrt(2) * kappa / R, R)[0].rhs()
+e, kappa, r, alpha, MPl = var("e kappa r alpha MPl"); assume(r > 0, kappa > 0, e > 0, alpha > 0, MPl > 0)
+sol = solve(e == sqrt(2) * kappa / r, r)[0].rhs()
 print("r =", sol)
-Rexpr = sol.subs(kappa=sqrt(8 * pi) / MP, e=sqrt(4 * pi * alpha)).simplify_full()
-print("[PASS] r = sqrt(2) kappa/e = 2 sqrt(G_N/alpha):", bool(sol == sqrt(2) * kappa / e) and bool((Rexpr^2 - 4 / (alpha * MP^2)).simplify_full() == 0))
-val = Rexpr.subs(alpha=1/137.036, MP=1)
+rexpr = sol.subs(kappa=sqrt(8 * pi) / MPl, e=sqrt(4 * pi * alpha)).simplify_full()
+print("[PASS] r = sqrt(2) kappa/e = 2 sqrt(G_N/alpha):", bool(sol == sqrt(2) * kappa / e) and bool((rexpr^2 - 4 / (alpha * MPl^2)).simplify_full() == 0))
+val = rexpr.subs(alpha=1/137.036, MPl=1)
 print("r/sqrt(G_N) = %.3f for alpha = 1/137.036" % val.n())
 print("[PASS] r is about 23.4 Planck lengths:", 23.3 < val.n() < 23.5)
 ```
@@ -2407,9 +2407,9 @@ modes $|n| \leq N$ for several $\alpha$ and $N$, and explain the result with @de
 Every charge appears with its opposite, so both sums vanish identically, for every truncation and every twist:
 
 ```python
-alpha, R = var("alpha R")
+alpha, r = var("alpha r")
 for N in (1, 3, 10):
-    qs = [(n + alpha) / R for n in range(-N, N + 1)]
+    qs = [(n + alpha) / r for n in range(-N, N + 1)]
     left = qs + [-q for q in qs]
     print("N = %d: sum q = %s, sum q^3 = %s" % (N, sum(left).simplify_full(), sum(q ** 3 for q in left).simplify_full()))
 ```
@@ -2517,13 +2517,13 @@ $\int_0^{\pi r}e^{-2My}dy = \tfrac{1 - e^{-2\pi Mr}}{2M}$, so the prefactor squa
 @eq-kkf-orbifold-zero-mode. The fraction within $r/10$ is $\tfrac{1 - e^{-Mr/5}}{1 - e^{-2\pi Mr}}$:
 
 ```python
-y, M, R = var("y M R"); assume(M > 0, R > 0)
-f0 = sqrt(2 * M / (1 - exp(-2 * pi * M * R))) * exp(-M * y)
-print("int_0^{pi r} f_0^2 dy =", integrate(f0 ** 2, y, 0, pi * R).simplify_full())
-frac = (integrate(f0 ** 2, y, 0, R / 10) / integrate(f0 ** 2, y, 0, pi * R)).simplify_full()
+y, M, r = var("y M r"); assume(M > 0, r > 0)
+f0 = sqrt(2 * M / (1 - exp(-2 * pi * M * r))) * exp(-M * y)
+print("int_0^{pi r} f_0^2 dy =", integrate(f0 ** 2, y, 0, pi * r).simplify_full())
+frac = (integrate(f0 ** 2, y, 0, r / 10) / integrate(f0 ** 2, y, 0, pi * r)).simplify_full()
 print("fraction within r/10 =", frac)
-for MR in (1, 10, 100):
-    print("  M r = %d: %.6f" % (MR, frac.subs(M=MR / R).simplify_full().n()))
+for Mr in (1, 10, 100):
+    print("  M r = %d: %.6f" % (Mr, frac.subs(M=Mr / r).simplify_full().n()))
 print("limit M -> 0 of f_0^2 =", limit(f0 ** 2, M=0), "= 1/(pi r)")
 ```
 
@@ -2531,11 +2531,11 @@ print("limit M -> 0 of f_0^2 =", limit(f0 ** 2, M=0), "= 1/(pi r)")
 
 ```text
 int_0^{pi r} f_0^2 dy = 1
-fraction within r/10 = (e^(1/5*M*R) - 1)*e^(2*pi*M*R)/(e^(2*pi*M*R + 1/5*M*R) - e^(1/5*M*R))
+fraction within r/10 = (e^(1/5*M*r) - 1)*e^(2*pi*M*r)/(e^(2*pi*M*r + 1/5*M*r) - e^(1/5*M*r))
   M r = 1: 0.181608
   M r = 10: 0.864665
   M r = 100: 1.000000
-limit M -> 0 of f_0^2 = 1/(pi*R) = 1/(pi r)
+limit M -> 0 of f_0^2 = 1/(pi*r) = 1/(pi r)
 ```
 
 For $Mr = 100$ almost all of the mode lies within a tenth of the radius of the fixed point; as $M \to 0$ the profile tends to the constant
@@ -2578,20 +2578,20 @@ With $f_1 = \sqrt{\tfrac{2M}{1 - e^{-2\pi Mr}}}e^{-My}$ and $f_2 = \sqrt{\tfrac{
 Mr}}\pi re^{-\pi Mr}$:
 
 ```python
-y, M, R = var("y M R"); assume(M > 0, R > 0)
-Nf = sqrt(2 * M / (1 - exp(-2 * pi * M * R)))
-ov = integrate(Nf * exp(-M * y) * Nf * exp(M * (y - pi * R)), y, 0, pi * R).simplify_full()
+y, M, r = var("y M r"); assume(M > 0, r > 0)
+Nf = sqrt(2 * M / (1 - exp(-2 * pi * M * r)))
+ov = integrate(Nf * exp(-M * y) * Nf * exp(M * (y - pi * r)), y, 0, pi * r).simplify_full()
 print("overlap =", ov)
-print("closed form 2 M pi r exp(-pi M r)/(1 - exp(-2 pi M r)):", bool(ov == 2 * M * pi * R * exp(-pi * M * R) / (1 - exp(-2 * pi * M * R))))
-for MR in (1, 5, 10):
-    v = ov.subs(M=MR / R).n()
-    print("  M r = %2d: overlap %.3e, ratio to 2 pi M r exp(-pi M r) = %.6f" % (MR, v, v / (2 * pi * MR * exp(-pi * MR)).n()))
+print("closed form 2 M pi r exp(-pi M r)/(1 - exp(-2 pi M r)):", bool(ov == 2 * M * pi * r * exp(-pi * M * r) / (1 - exp(-2 * pi * M * r))))
+for Mr in (1, 5, 10):
+    v = ov.subs(M=Mr / r).n()
+    print("  M r = %2d: overlap %.3e, ratio to 2 pi M r exp(-pi M r) = %.6f" % (Mr, v, v / (2 * pi * Mr * exp(-pi * Mr)).n()))
 ```
 
 *Output:*
 
 ```text
-overlap = 2*pi*M*R*e^(pi*M*R)/(e^(2*pi*M*R) - 1)
+overlap = 2*pi*M*r*e^(pi*M*r)/(e^(2*pi*M*r) - 1)
 closed form 2 M pi r exp(-pi M r)/(1 - exp(-2 pi M r)): True
   M r =  1: overlap 2.720e-01, ratio to 2 pi M r exp(-pi M r) = 1.001871
   M r =  5: overlap 4.734e-06, ratio to 2 pi M r exp(-pi M r) = 1.000000
@@ -2724,12 +2724,12 @@ By @prp-kkf-torus-tower the levels are $|k|^2 = (m_1 + \alpha_1)^2 + 4(m_2 + \al
 
 ```python
 half = QQ(1) / 2
-R = (1, half)
+r = (1, half)
 for al, name in [((0, 0), "(P, P)"), ((half, 0), "(A, P)"), ((0, half), "(P, A)"), ((half, half), "(A, A)")]:
     lev = {}
     for m1 in range(-10, 11):
         for m2 in range(-10, 11):
-            s = ((m1 + al[0]) / R[0]) ** 2 + ((m2 + al[1]) / R[1]) ** 2
+            s = ((m1 + al[0]) / r[0]) ** 2 + ((m2 + al[1]) / r[1]) ** 2
             lev[s] = lev.get(s, 0) + 1
     low = sorted(lev)[:5]
     print(name, "  mass^2:", low, "  Dirac fermions:", [2 * lev[s] for s in low])
@@ -2926,22 +2926,22 @@ and $f' = e^{-in\epsilon/r}f$:
 
 ```python
 M = Manifold(5, "M", structure="Lorentzian"); X = M.chart("t x v z y"); t, x, v, z, y = X[:]
-a0, a1, n, R = var("a0 a1 n R"); assume(R > 0); eta = [1, -1, -1, -1]; A = [a0, a1, 0, 0]
+a0, a1, n, r = var("a0 a1 n r"); assume(r > 0); eta = [1, -1, -1, -1]; A = [a0, a1, 0, 0]
 G = M.metric("G")
 for i in range(4):
     for j in range(i, 4): G[i, j] = (eta[i] if i == j else 0) - A[i] * A[j]
     G[i, 4] = -A[i]
 G[4, 4] = -1
 f = function("f")(t, x)
-P = M.scalar_field(f * exp(I * n * y / R))
+P = M.scalar_field(f * exp(I * n * y / r))
 nab = G.connection()
-red = (nab(nab(P).up(G)).trace().expr() / exp(I * n * y / R)).simplify_full()
-D = lambda h, mu: diff(h, X[mu]) - I * n * A[mu] / R * h
+red = (nab(nab(P).up(G)).trace().expr() / exp(I * n * y / r)).simplify_full()
+D = lambda h, mu: diff(h, X[mu]) - I * n * A[mu] / r * h
 DD = sum(eta[mu] * D(D(f, mu), mu) for mu in range(2))
-print("[PASS] Box_5 Phi e^{-iny/r} = (D_mu D^mu + (n/r)^2) f with D = d - i n A/r:", bool((red - (DD + (n / R)^2 * f)).simplify_full() == 0))
-fp = f * exp(-I * n * (a0 * t + a1 * x) / R)                # the gauge-transformed field, A' = A - d eps = 0
-lhs = (diff(fp, t, 2) - diff(fp, x, 2) + (n / R)^2 * fp) / exp(-I * n * (a0 * t + a1 * x) / R)
-print("[PASS] with eps = a_mu x^mu: (Box + (n/r)^2) (e^{-i n eps/r} f) = e^{-i n eps/r} (D D + (n/r)^2) f:", bool((lhs - (DD + (n / R)^2 * f)).simplify_full() == 0))
+print("[PASS] Box_5 Phi e^{-iny/r} = (D_mu D^mu + (n/r)^2) f with D = d - i n A/r:", bool((red - (DD + (n / r)^2 * f)).simplify_full() == 0))
+fp = f * exp(-I * n * (a0 * t + a1 * x) / r)                # the gauge-transformed field, A' = A - d eps = 0
+lhs = (diff(fp, t, 2) - diff(fp, x, 2) + (n / r)^2 * fp) / exp(-I * n * (a0 * t + a1 * x) / r)
+print("[PASS] with eps = a_mu x^mu: (Box + (n/r)^2) (e^{-i n eps/r} f) = e^{-i n eps/r} (D D + (n/r)^2) f:", bool((lhs - (DD + (n / r)^2 * f)).simplify_full() == 0))
 ```
 
 *Output:*

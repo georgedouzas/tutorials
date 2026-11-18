@@ -1134,7 +1134,7 @@ Ag = [gi * A[mu] * g + gi * diff(g, X[mu]) for mu in range(2)]
 F, Fg = Ftx(A), Ftx(Ag)
 print("[PASS] F'_{tx} = g^{-1} F_{tx} g:", simp(Fg - gi * F * g).is_zero())
 print("[PASS] F itself changes (it is not gauge invariant):", not simp(Fg - F).is_zero())
-print("[PASS] Tr(F_{tx} F_{tx}) is gauge invariant:", bool(((Fg * Fg).trace() - (F * F).trace()).simplify_full() == 0))
+print("[PASS] tr(F_{tx} F_{tx}) is gauge invariant:", bool(((Fg * Fg).trace() - (F * F).trace()).simplify_full() == 0))
 ```
 
 *Output:*
@@ -1142,7 +1142,7 @@ print("[PASS] Tr(F_{tx} F_{tx}) is gauge invariant:", bool(((Fg * Fg).trace() - 
 ```text
 [PASS] F'_{tx} = g^{-1} F_{tx} g: True
 [PASS] F itself changes (it is not gauge invariant): True
-[PASS] Tr(F_{tx} F_{tx}) is gauge invariant: True
+[PASS] tr(F_{tx} F_{tx}) is gauge invariant: True
 ```
 :::
 
@@ -1409,8 +1409,8 @@ eps = {p: Permutation([j + 1 for j in p]).signature() for p in permutations(rang
 lhs = sum(s * (F[p[0]][p[1]] * F[p[2]][p[3]]).trace() for p, s in eps.items())
 Kc = [4 * sum(s * (A[p[1]] * d(A[p[3]], p[2]) + 2 / 3 * A[p[1]] * A[p[2]] * A[p[3]]).trace() for p, s in eps.items() if p[0] == mu) for mu in range(4)]
 rhs = sum(Kc[mu].derivative(X[mu]) for mu in range(4))
-print("degree of eps Tr(F F) for these potentials:", lhs.degree())
-print("[PASS] eps^{mu nu rho sigma} Tr(F_{mu nu} F_{rho sigma}) = d_mu K^mu with K^mu = 4 eps Tr(A dA + 2/3 A A A):", lhs == rhs)
+print("degree of eps tr(F F) for these potentials:", lhs.degree())
+print("[PASS] eps^{mu nu rho sigma} tr(F_{mu nu} F_{rho sigma}) = d_mu K^mu with K^mu = 4 eps tr(A dA + 2/3 A A A):", lhs == rhs)
 # the cubic term of K is needed: without it the identity fails for non-abelian potentials
 rhs2 = sum((4 * sum(s * (A[p[1]] * d(A[p[3]], p[2])).trace() for p, s in eps.items() if p[0] == mu)).derivative(X[mu]) for mu in range(4))
 print("[PASS] dropping the 2/3 A^3 term breaks the identity (it is needed when [A, A] != 0):", lhs != rhs2)
@@ -1419,8 +1419,8 @@ print("[PASS] dropping the 2/3 A^3 term breaks the identity (it is needed when [
 *Output:*
 
 ```text
-degree of eps Tr(F F) for these potentials: 5
-[PASS] eps^{mu nu rho sigma} Tr(F_{mu nu} F_{rho sigma}) = d_mu K^mu with K^mu = 4 eps Tr(A dA + 2/3 A A A): True
+degree of eps tr(F F) for these potentials: 5
+[PASS] eps^{mu nu rho sigma} tr(F_{mu nu} F_{rho sigma}) = d_mu K^mu with K^mu = 4 eps tr(A dA + 2/3 A A A): True
 [PASS] dropping the 2/3 A^3 term breaks the identity (it is needed when [A, A] != 0): True
 ```
 :::
@@ -1653,14 +1653,14 @@ lam = [matrix(L, 3, 3, l) for l in [
     [0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 0, -i, 0, 0, 0, i, 0, 0], [0, 0, 0, 0, 0, 1, 0, 1, 0],
     [0, 0, 0, 0, 0, -i, 0, i, 0], [1 / s3, 0, 0, 0, 1 / s3, 0, 0, 0, -2 / s3]]]
 t = [l / 2 for l in lam]
-print("[PASS] Tr(t_a t_b) = delta_ab / 2:", all((t[a] * t[b]).trace() == (1 / 2 if a == b else 0) for a in range(8) for b in range(8)))
+print("[PASS] tr(t_a t_b) = delta_ab / 2:", all((t[a] * t[b]).trace() == (1 / 2 if a == b else 0) for a in range(8) for b in range(8)))
 def d(ts, a, b, c): return (ts[a] * (ts[b] * ts[c] + ts[c] * ts[b])).trace()
 nz = {(a + 1, b + 1, c + 1): d(t, a, b, c) for a, b, c in cwr(range(8), 3) if d(t, a, b, c) != 0}
 for k, v in nz.items(): print("d_%d%d%d(3) = %s" % (k + (v * 4 * s3 if 8 in k else v * 4,)) + ("/(4 sqrt3)" if 8 in k else "/4"))
 print("[PASS] d_118 = d_228 = d_338 = 1/(2 sqrt3) and d_888 = -1/(2 sqrt3) for the 3:",
       all(nz[(j, j, 8)] == 1 / (2 * s3) for j in (1, 2, 3)) and nz[(8, 8, 8)] == -1 / (2 * s3))
 tbar = [-x.transpose() for x in t]
-print("[PASS] the conjugate 3bar (generators -t^T) has d_abc(3bar) = -d_abc(3) for all a, b, c:",
+print("[PASS] the conjugate 3bar (generators -t^⊤) has d_abc(3bar) = -d_abc(3) for all a, b, c:",
       all(d(tbar, a, b, c) == -d(t, a, b, c) for a, b, c in cwr(range(8), 3)))
 f = [[[-2 * i * ((t[a] * t[b] - t[b] * t[a]) * t[c]).trace() for c in range(8)] for b in range(8)] for a in range(8)]   # [t_a, t_b] = i f_abc t_c
 ad = [matrix(L, 8, 8, lambda b, c: -i * f[a][b][c]) for a in range(8)]
@@ -1672,7 +1672,7 @@ print("[PASS] the adjoint 8 is real and all its anomaly coefficients vanish:", a
 *Output:*
 
 ```text
-[PASS] Tr(t_a t_b) = delta_ab / 2: True
+[PASS] tr(t_a t_b) = delta_ab / 2: True
 d_118(3) = 2/(4 sqrt3)
 d_146(3) = 1/4
 d_157(3) = 1/4
@@ -1690,7 +1690,7 @@ d_668(3) = -1/(4 sqrt3)
 d_778(3) = -1/(4 sqrt3)
 d_888(3) = -2/(4 sqrt3)
 [PASS] d_118 = d_228 = d_338 = 1/(2 sqrt3) and d_888 = -1/(2 sqrt3) for the 3: True
-[PASS] the conjugate 3bar (generators -t^T) has d_abc(3bar) = -d_abc(3) for all a, b, c: True
+[PASS] the conjugate 3bar (generators -t^⊤) has d_abc(3bar) = -d_abc(3) for all a, b, c: True
 [PASS] the adjoint matrices (t_a)_{bc} = -i f_abc satisfy [t_a, t_b] = i f_abc t_c: True
 [PASS] the adjoint 8 is real and all its anomaly coefficients vanish: True
 ```
@@ -3096,21 +3096,21 @@ for n in (1, 2, -1):
     p = lambda t, n=n: ((2 + np.cos(3 * t)) * np.cos(n * t), (2 + np.cos(3 * t)) * np.sin(n * t))
     dp = lambda t, n=n: np.array([-3 * np.sin(3 * t) * np.cos(n * t) - n * (2 + np.cos(3 * t)) * np.sin(n * t),
                                   -3 * np.sin(3 * t) * np.sin(n * t) + n * (2 + np.cos(3 * t)) * np.cos(n * t)])
-    res[n] = circ(p, dp); print("n = %2d: circulation / Phi = %.8f" % (n, res[n] / Phi))
+    res[n] = circ(p, dp); print("n = %2d: circulation / Phi_B = %.8f" % (n, res[n] / Phi))
 c0 = circ(lambda t: (5 + np.cos(t), np.sin(t)), lambda t: np.array([-np.sin(t), np.cos(t)]))
 print("circle about (5, 0): circulation = %.1e" % c0)
-print("[PASS] circulations are n Phi:", all(abs(res[n] - n * Phi) < 1e-8 for n in res))
+print("[PASS] circulations are n Phi_B:", all(abs(res[n] - n * Phi) < 1e-8 for n in res))
 print("[PASS] the loop that does not wind gives 0:", abs(c0) < 1e-10)
 ```
 
 *Output:*
 
 ```text
-n =  1: circulation / Phi = 1.00000000
-n =  2: circulation / Phi = 2.00000000
-n = -1: circulation / Phi = -1.00000000
+n =  1: circulation / Phi_B = 1.00000000
+n =  2: circulation / Phi_B = 2.00000000
+n = -1: circulation / Phi_B = -1.00000000
 circle about (5, 0): circulation = -3.6e-18
-[PASS] circulations are n Phi: True
+[PASS] circulations are n Phi_B: True
 [PASS] the loop that does not wind gives 0: True
 ```
 :::
@@ -3261,28 +3261,28 @@ A particle of charge $q$ and mass $M$ on a ring of radius $R$ around a flux $\Ph
 $\Phi_B \mapsto \Phi_B + 2\pi/q$ maps $E_m$ to $E_{m - 1}$, a relabelling of the same set. So the spectrum is a function of $e^{iq\Phi_B}$, the holonomy of @prp-abm-holonomy, and not of $\Phi_B$. At $q\Phi_B/2\pi = \frac12$, $E_m = E_{1 - m}$, so the levels pair up. The ground-state energy $\min_m(m - q\Phi_B/2\pi)^2/(2MR^2)$ is periodic with period $2\pi/q$ and maximal at half a flux quantum; its derivative with respect to $\Phi_B$ is the persistent current of the ring.
 
 ```python
-def levels(f, mmax=6):                 # f = q Phi / 2 pi, in units 1/(2 M R^2) = 1
+def levels(f, mmax=6):                 # f = q Phi_B / 2 pi, in units 1/(2 M R^2) = 1
     return sorted((m - f)^2 for m in range(-mmax - 3, mmax + 4))[:8]
 for f in (0, 0.3, 1.3, 0.5):
-    print("q Phi/2pi = %.1f: lowest levels" % f, [round(float(e), 4) for e in levels(f)])
-print("[PASS] the spectra at q Phi/2pi = 0.3 and 1.3 coincide:", all(abs(a - b) < 1e-12 for a, b in zip(levels(0.3), levels(1.3))))
-print("[PASS] at q Phi/2pi = 0.5 every level is doubly degenerate:", all(abs(a - b) < 1e-12 for a, b in zip(levels(0.5)[0::2], levels(0.5)[1::2])))
+    print("q Phi_B/2pi = %.1f: lowest levels" % f, [round(float(e), 4) for e in levels(f)])
+print("[PASS] the spectra at q Phi_B/2pi = 0.3 and 1.3 coincide:", all(abs(a - b) < 1e-12 for a, b in zip(levels(0.3), levels(1.3))))
+print("[PASS] at q Phi_B/2pi = 0.5 every level is doubly degenerate:", all(abs(a - b) < 1e-12 for a, b in zip(levels(0.5)[0::2], levels(0.5)[1::2])))
 f = var("f")
 E0 = lambda fv: min((m - fv)^2 for m in range(-5, 6))
-print("[PASS] the ground-state energy is periodic with period 1 in q Phi/2pi and maximal (1/4) at 1/2:",
+print("[PASS] the ground-state energy is periodic with period 1 in q Phi_B/2pi and maximal (1/4) at 1/2:",
       all(abs(E0(v) - E0(v + 1)) < 1e-12 for v in (0.1, 0.37, 0.8)), abs(E0(0.5) - 0.25) < 1e-12)
 ```
 
 *Output:*
 
 ```text
-q Phi/2pi = 0.0: lowest levels [0.0, 1.0, 1.0, 4.0, 4.0, 9.0, 9.0, 16.0]
-q Phi/2pi = 0.3: lowest levels [0.09, 0.49, 1.69, 2.89, 5.29, 7.29, 10.89, 13.69]
-q Phi/2pi = 1.3: lowest levels [0.09, 0.49, 1.69, 2.89, 5.29, 7.29, 10.89, 13.69]
-q Phi/2pi = 0.5: lowest levels [0.25, 0.25, 2.25, 2.25, 6.25, 6.25, 12.25, 12.25]
-[PASS] the spectra at q Phi/2pi = 0.3 and 1.3 coincide: True
-[PASS] at q Phi/2pi = 0.5 every level is doubly degenerate: True
-[PASS] the ground-state energy is periodic with period 1 in q Phi/2pi and maximal (1/4) at 1/2: True True
+q Phi_B/2pi = 0.0: lowest levels [0.0, 1.0, 1.0, 4.0, 4.0, 9.0, 9.0, 16.0]
+q Phi_B/2pi = 0.3: lowest levels [0.09, 0.49, 1.69, 2.89, 5.29, 7.29, 10.89, 13.69]
+q Phi_B/2pi = 1.3: lowest levels [0.09, 0.49, 1.69, 2.89, 5.29, 7.29, 10.89, 13.69]
+q Phi_B/2pi = 0.5: lowest levels [0.25, 0.25, 2.25, 2.25, 6.25, 6.25, 12.25, 12.25]
+[PASS] the spectra at q Phi_B/2pi = 0.3 and 1.3 coincide: True
+[PASS] at q Phi_B/2pi = 0.5 every level is doubly degenerate: True
+[PASS] the ground-state energy is periodic with period 1 in q Phi_B/2pi and maximal (1/4) at 1/2: True True
 ```
 :::
 ::::
@@ -4096,10 +4096,10 @@ for name, (p, dp, expect) in cases.items():
 def wind_arg(phi, R=10.0, N=20000):
     t = np.linspace(0, 2 * np.pi, N + 1); arg = np.unwrap(np.angle(phi(R * np.exp(1j * t))))
     return (arg[-1] - arg[0]) / (2 * np.pi)
-for name, p, expect in [("conj(z)", lambda z: np.conj(z), -1),
-                        ("z^2 conj(z - 1)", lambda z: z**2 * np.conj(z - 1), 1),
-                        ("z conj(z) (= |z|^2)", lambda z: z * np.conj(z), 0),
-                        ("(z - 1) conj(z + 1)^3", lambda z: (z - 1) * np.conj(z + 1)**3, -2)]:
+for name, p, expect in [("z^*", lambda z: np.conj(z), -1),
+                        ("z^2 (z - 1)^*", lambda z: z**2 * np.conj(z - 1), 1),
+                        ("z z^* (= |z|^2)", lambda z: z * np.conj(z), 0),
+                        ("(z - 1) ((z + 1)^*)^3", lambda z: (z - 1) * np.conj(z + 1)**3, -2)]:
     w = wind_arg(p)
     print("[PASS] winding of %-22s = %+.6f, expected %d:" % (name, w, expect), abs(w - expect) < 1e-9)
 ```
@@ -4109,10 +4109,10 @@ for name, p, expect in [("conj(z)", lambda z: np.conj(z), -1),
 ```text
 [PASS] winding of z^2                  = +2.000000-0.000000i, expected 2: True
 [PASS] winding of z (z - 1) (z + 2i)   = +3.000000-0.000000i, expected 3: True
-[PASS] winding of conj(z)                = -1.000000, expected -1: True
-[PASS] winding of z^2 conj(z - 1)        = +1.000000, expected 1: True
-[PASS] winding of z conj(z) (= |z|^2)    = -0.000000, expected 0: True
-[PASS] winding of (z - 1) conj(z + 1)^3  = -2.000000, expected -2: True
+[PASS] winding of z^*                    = -1.000000, expected -1: True
+[PASS] winding of z^2 (z - 1)^*          = +1.000000, expected 1: True
+[PASS] winding of z z^* (= |z|^2)        = -0.000000, expected 0: True
+[PASS] winding of (z - 1) ((z + 1)^*)^3  = -2.000000, expected -2: True
 ```
 :::
 
@@ -4134,20 +4134,20 @@ def rp(): return SR(R.random_element(degree=3, terms=8))
 set_random_seed(5)
 u, w, A1, A2 = rp(), rp(), rp(), rp()          # phi = u + i w
 phi = u + I * w; phib = u - I * w
-D = lambda f, k, s: diff(f, [x, y][k]) - s * I * e * [A1, A2][k] * f   # s = +1 for phi, -1 for conj(phi)
+D = lambda f, k, s: diff(f, [x, y][k]) - s * I * e * [A1, A2][k] * f   # s = +1 for phi, -1 for phi^*
 D1, D2 = D(phi, 0, 1), D(phi, 1, 1)
 D1b, D2b = D(phib, 0, -1), D(phib, 1, -1)
 B = diff(A2, x) - diff(A1, y)
 V = e^2 / 2 * (phi * phib - v^2)^2
 lhs = D1 * D1b + D2 * D2b + B^2 / 2 + V
-J = [phib * D1, phib * D2]                       # conj(phi) D_j phi
+J = [phib * D1, phib * D2]                       # phi^* D_j phi
 epsdJ = diff(J[1], x) - diff(J[0], y)            # eps_ij d_i J_j
 for s in (1, -1):
     Dpm, Dpmb = D1 + s * I * D2, D1b - s * I * D2b
     rhs = Dpm * Dpmb + (B + s * e * (phi * phib - v^2))^2 / 2 + s * e * v^2 * B - s * I * epsdJ
     print("[PASS] the identity with the sign %+d holds:" % s, bool((lhs - rhs).expand() == 0))
 bd = -I * epsdJ
-print("[PASS] the boundary density -i eps_ij d_i(conj(phi) D_j phi) is real:", bool((bd - bd.conjugate()).expand() == 0))
+print("[PASS] the boundary density -i eps_ij d_i(phi^* D_j phi) is real:", bool((bd - bd.conjugate()).expand() == 0))
 ```
 
 *Output:*
@@ -4155,7 +4155,7 @@ print("[PASS] the boundary density -i eps_ij d_i(conj(phi) D_j phi) is real:", b
 ```text
 [PASS] the identity with the sign +1 holds: True
 [PASS] the identity with the sign -1 holds: True
-[PASS] the boundary density -i eps_ij d_i(conj(phi) D_j phi) is real: True
+[PASS] the boundary density -i eps_ij d_i(phi^* D_j phi) is real: True
 ```
 :::
 
@@ -4274,7 +4274,7 @@ for n in (1, 2, 3):
     E = [2 * np.pi * quad(lambda r: parts(r)[k], 1e-3, R, limit=500)[0] for k in range(4)]
     flux = 2 * np.pi * n * s.sol(R)[1]
     print("n = %d: c = %.6f" % (n, c))
-    print("  [PASS] e Phi = %.6f = 2 pi n = %.6f:" % (flux, 2 * np.pi * n), abs(flux - 2 * np.pi * n) < 1e-4)
+    print("  [PASS] e Phi_B = %.6f = 2 pi n = %.6f:" % (flux, 2 * np.pi * n), abs(flux - 2 * np.pi * n) < 1e-4)
     print("  [PASS] E/v^2 = %.6f = 2 pi n = %.6f:" % (sum(E), 2 * np.pi * n), abs(sum(E) - 2 * np.pi * n) < 1e-4)
     print("  [PASS] magnetic energy %.6f = potential energy %.6f:" % (E[2], E[3]), abs(E[2] - E[3]) < 1e-6)
     print("  gradient energy %.6f, magnetic %.6f, potential %.6f" % (E[0] + E[1], E[2], E[3]))
@@ -4285,19 +4285,19 @@ for n in (1, 2, 3):
 
 ```text
 n = 1: c = 0.853178
-  [PASS] e Phi = 6.283176 = 2 pi n = 6.283185: True
+  [PASS] e Phi_B = 6.283176 = 2 pi n = 6.283185: True
   [PASS] E/v^2 = 6.283178 = 2 pi n = 6.283185: True
   [PASS] magnetic energy 1.304869 = potential energy 1.304869: True
   gradient energy 3.673439, magnetic 1.304869, potential 1.304869
   B at the centre in units e v^2: (n/rho) a'(0) -> 0.999999
 n = 2: c = 0.472292
-  [PASS] e Phi = 12.566341 = 2 pi n = 12.566371: True
+  [PASS] e Phi_B = 12.566341 = 2 pi n = 12.566371: True
   [PASS] E/v^2 = 12.566367 = 2 pi n = 12.566371: True
   [PASS] magnetic energy 3.408880 = potential energy 3.408880: True
   gradient energy 5.748608, magnetic 3.408880, potential 3.408880
   B at the centre in units e v^2: (n/rho) a'(0) -> 1.000000
 n = 3: c = 0.206826
-  [PASS] e Phi = 18.849490 = 2 pi n = 18.849556: True
+  [PASS] e Phi_B = 18.849490 = 2 pi n = 18.849556: True
   [PASS] E/v^2 = 18.849553 = 2 pi n = 18.849556: True
   [PASS] magnetic energy 5.755524 = potential energy 5.755524: True
   gradient energy 7.338505, magnetic 5.755524, potential 5.755524
@@ -5834,7 +5834,7 @@ gm = [matrix(QQbar, 3, 3, d) for d in [
     [0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 0, -I, 0, 0, 0, I, 0, 0], [0, 0, 0, 0, 0, 1, 0, 1, 0],
     [0, 0, 0, 0, 0, -I, 0, I, 0]]] + [matrix(QQbar, 3, 3, [1, 0, 0, 0, 1, 0, 0, 0, -2]) / sqrt(QQbar(3))]
 T3 = [-I / 2 * m for m in gm]
-print("[PASS] the Gell-Mann generators are normalised, Tr(T_A T_B) = -delta_AB/2:", all((T3[A] * T3[B]).trace() == (-QQbar(1) / 2 if A == B else 0) for A in range(8) for B in range(8)))
+print("[PASS] the Gell-Mann generators are normalised, tr(T_A T_B) = -delta_AB/2:", all((T3[A] * T3[B]).trace() == (-QQbar(1) / 2 if A == B else 0) for A in range(8) for B in range(8)))
 k1 = kernel_dim(T2, T2[2]); k2 = kernel_dim(T3, T3[7]); k3 = kernel_dim(T3, I * diagonal_matrix(QQbar, [1, 2, -3]))
 print("SU(2), Phi = T_3: dim H =", k1, "; broken generators:", 3 - k1)
 print("SU(3), Phi = T_8: dim H =", k2, "; broken generators:", 8 - k2)
@@ -5846,7 +5846,7 @@ print("[PASS] for Phi = T_8 the unbroken generators are T_1, T_2, T_3, T_8:", [A
 *Output:*
 
 ```text
-[PASS] the Gell-Mann generators are normalised, Tr(T_A T_B) = -delta_AB/2: True
+[PASS] the Gell-Mann generators are normalised, tr(T_A T_B) = -delta_AB/2: True
 SU(2), Phi = T_3: dim H = 1 ; broken generators: 2
 SU(3), Phi = T_8: dim H = 4 ; broken generators: 4
 SU(3), Phi = i diag(1, 2, -3): dim H = 2 ; broken generators: 6
@@ -6012,7 +6012,7 @@ vac = dict(zip(p, a * n))
 grad = vector(SR, [diff(V, pi) for pi in p]).subs(vac)
 H = matrix(SR, 5, 5, lambda i, j: diff(V, p[i], p[j])).subs(vac).simplify_full()
 print("[PASS] a n is a critical point with V = 0:", grad.is_zero() and bool(V.subs(vac) == 0))
-print("[PASS] the Hessian is 2 lam a^2 n n^T:", (H - 2 * lam * a^2 * n.column() * n.row()).simplify_full().is_zero())
+print("[PASS] the Hessian is 2 lam a^2 n n^⊤:", (H - 2 * lam * a^2 * n.column() * n.row()).simplify_full().is_zero())
 ev = H.eigenvalues()
 print("eigenvalues:", ev)
 print("[PASS] four zero eigenvalues (Goldstone bosons) and one 2 lam a^2:", sorted([bool(e == 0) for e in ev]).count(True) == 4 and any(bool(e == 2 * lam * a^2) for e in ev))
@@ -6023,7 +6023,7 @@ print("dim O(5) - dim O(4) =", 5 * 4 // 2 - 4 * 3 // 2)
 
 ```text
 [PASS] a n is a critical point with V = 0: True
-[PASS] the Hessian is 2 lam a^2 n n^T: True
+[PASS] the Hessian is 2 lam a^2 n n^⊤: True
 eigenvalues: [2*a^2*lam, 0, 0, 0, 0]
 [PASS] four zero eigenvalues (Goldstone bosons) and one 2 lam a^2: True
 dim O(5) - dim O(4) = 4
@@ -8227,7 +8227,7 @@ eta = diagonal_matrix(QQ, [1, -1, -1, -1])
 def su2_f():
     return {(a, b, c): QQ((a - b) * (b - c) * (c - a) / 2) for a in range(3) for b in range(3) for c in range(3)}
 def su3_f():
-    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 Tr([T_a, T_b] T_c)."""
+    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 tr([T_a, T_b] T_c)."""
     l = [matrix(QQbar, [[0,1,0],[1,0,0],[0,0,0]]), matrix(QQbar, [[0,-I,0],[I,0,0],[0,0,0]]), matrix(QQbar, [[1,0,0],[0,-1,0],[0,0,0]]),
          matrix(QQbar, [[0,0,1],[0,0,0],[1,0,0]]), matrix(QQbar, [[0,0,-I],[0,0,0],[I,0,0]]), matrix(QQbar, [[0,0,0],[0,0,1],[0,1,0]]),
          matrix(QQbar, [[0,0,0],[0,0,-I],[0,I,0]]), matrix(QQbar, [[1,0,0],[0,1,0],[0,0,-2]]) / sqrt(QQbar(3))]
@@ -8274,7 +8274,7 @@ eta = diagonal_matrix(QQ, [1, -1, -1, -1])
 def su2_f():
     return {(a, b, c): QQ((a - b) * (b - c) * (c - a) / 2) for a in range(3) for b in range(3) for c in range(3)}
 def su3_f():
-    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 Tr([T_a, T_b] T_c)."""
+    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 tr([T_a, T_b] T_c)."""
     l = [matrix(QQbar, [[0,1,0],[1,0,0],[0,0,0]]), matrix(QQbar, [[0,-I,0],[I,0,0],[0,0,0]]), matrix(QQbar, [[1,0,0],[0,-1,0],[0,0,0]]),
          matrix(QQbar, [[0,0,1],[0,0,0],[1,0,0]]), matrix(QQbar, [[0,0,-I],[0,0,0],[I,0,0]]), matrix(QQbar, [[0,0,0],[0,0,1],[0,1,0]]),
          matrix(QQbar, [[0,0,0],[0,0,-I],[0,I,0]]), matrix(QQbar, [[1,0,0],[0,1,0],[0,0,-2]]) / sqrt(QQbar(3))]
@@ -8379,7 +8379,7 @@ $[T_a, T_b] = f^{abd}T_d$ and $\operatorname{tr}(T_dT_c) = -\frac12\delta_{dc}$ 
 def su2_f():
     return {(a, b, c): QQ((a - b) * (b - c) * (c - a) / 2) for a in range(3) for b in range(3) for c in range(3)}
 def su3_f():
-    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 Tr([T_a, T_b] T_c)."""
+    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 tr([T_a, T_b] T_c)."""
     l = [matrix(QQbar, [[0,1,0],[1,0,0],[0,0,0]]), matrix(QQbar, [[0,-I,0],[I,0,0],[0,0,0]]), matrix(QQbar, [[1,0,0],[0,-1,0],[0,0,0]]),
          matrix(QQbar, [[0,0,1],[0,0,0],[1,0,0]]), matrix(QQbar, [[0,0,-I],[0,0,0],[I,0,0]]), matrix(QQbar, [[0,0,0],[0,0,1],[0,1,0]]),
          matrix(QQbar, [[0,0,0],[0,0,-I],[0,I,0]]), matrix(QQbar, [[1,0,0],[0,1,0],[0,0,-2]]) / sqrt(QQbar(3))]
@@ -8425,7 +8425,7 @@ import itertools
 def su2_f():
     return {(a, b, c): QQ((a - b) * (b - c) * (c - a) / 2) for a in range(3) for b in range(3) for c in range(3)}
 def su3_f():
-    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 Tr([T_a, T_b] T_c)."""
+    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 tr([T_a, T_b] T_c)."""
     l = [matrix(QQbar, [[0,1,0],[1,0,0],[0,0,0]]), matrix(QQbar, [[0,-I,0],[I,0,0],[0,0,0]]), matrix(QQbar, [[1,0,0],[0,-1,0],[0,0,0]]),
          matrix(QQbar, [[0,0,1],[0,0,0],[1,0,0]]), matrix(QQbar, [[0,0,-I],[0,0,0],[I,0,0]]), matrix(QQbar, [[0,0,0],[0,0,1],[0,1,0]]),
          matrix(QQbar, [[0,0,0],[0,0,-I],[0,I,0]]), matrix(QQbar, [[1,0,0],[0,1,0],[0,0,-2]]) / sqrt(QQbar(3))]
@@ -8485,7 +8485,7 @@ Let the ghost of colour $d$ and momentum $\ell$ enter the vertex of the gluon $(
 def su2_f():
     return {(a, b, c): QQ((a - b) * (b - c) * (c - a) / 2) for a in range(3) for b in range(3) for c in range(3)}
 def su3_f():
-    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 Tr([T_a, T_b] T_c)."""
+    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 tr([T_a, T_b] T_c)."""
     l = [matrix(QQbar, [[0,1,0],[1,0,0],[0,0,0]]), matrix(QQbar, [[0,-I,0],[I,0,0],[0,0,0]]), matrix(QQbar, [[1,0,0],[0,-1,0],[0,0,0]]),
          matrix(QQbar, [[0,0,1],[0,0,0],[1,0,0]]), matrix(QQbar, [[0,0,-I],[0,0,0],[I,0,0]]), matrix(QQbar, [[0,0,0],[0,0,1],[0,1,0]]),
          matrix(QQbar, [[0,0,0],[0,0,-I],[0,I,0]]), matrix(QQbar, [[1,0,0],[0,1,0],[0,0,-2]]) / sqrt(QQbar(3))]
@@ -8635,7 +8635,7 @@ For $SU(2)$, $sc^1 = -c^2c^3$, $sc^2 = c^1c^3$, $sc^3 = -c^1c^2$, and $s(c^2c^3)
 def su2_f():
     return {(a, b, c): QQ((a - b) * (b - c) * (c - a) / 2) for a in range(3) for b in range(3) for c in range(3)}
 def su3_f():
-    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 Tr([T_a, T_b] T_c)."""
+    """f_abc from [T_a, T_b] = f_abc T_c with T_a = -i lambda_a/2, so that f_abc = -2 tr([T_a, T_b] T_c)."""
     l = [matrix(QQbar, [[0,1,0],[1,0,0],[0,0,0]]), matrix(QQbar, [[0,-I,0],[I,0,0],[0,0,0]]), matrix(QQbar, [[1,0,0],[0,-1,0],[0,0,0]]),
          matrix(QQbar, [[0,0,1],[0,0,0],[1,0,0]]), matrix(QQbar, [[0,0,-I],[0,0,0],[I,0,0]]), matrix(QQbar, [[0,0,0],[0,0,1],[0,1,0]]),
          matrix(QQbar, [[0,0,0],[0,0,-I],[0,I,0]]), matrix(QQbar, [[1,0,0],[0,1,0],[0,0,-2]]) / sqrt(QQbar(3))]
@@ -8946,7 +8946,7 @@ G[4, 5] = G[5, 4] = 1          # <c|cbar> = 1, <c|c> = <cbar|cbar> = 0
 Q = matrix(QQ, 6, 6, 0)        # columns are images of basis vectors
 Q[4, 2] = 1                    # Q S = c
 Q[3, 5] = 1                    # Q cbar = L
-print("Q^2 = 0:", Q^2 == 0, "; self-adjoint, G Q = Q^T G:", G * Q == Q.transpose() * G)
+print("Q^2 = 0:", Q^2 == 0, "; self-adjoint, G Q = Q^⊤ G:", G * Q == Q.transpose() * G)
 print("signature of G (positive, negative):", (sum(1 for e in G.eigenvalues() if e > 0), sum(1 for e in G.eigenvalues() if e < 0)))
 ker = Q.right_kernel(); im = Q.column_space()
 print("dim ker Q =", ker.dimension(), ", dim im Q =", im.dimension(), ", dim cohomology =", ker.dimension() - im.dimension())
@@ -8960,7 +8960,7 @@ print("null directions of the metric on ker Q = im Q:", (rad.basis_matrix() * B)
 *Output:*
 
 ```text
-Q^2 = 0: True ; self-adjoint, G Q = Q^T G: True
+Q^2 = 0: True ; self-adjoint, G Q = Q^⊤ G: True
 signature of G (positive, negative): (4, 2)
 dim ker Q = 4 , dim im Q = 2 , dim cohomology = 2
 metric on ker Q in the basis [[1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0]] :
@@ -9316,7 +9316,7 @@ def qmul(a, b):
     return c
 qinv = lambda a: a * np.array([1.0, -1, -1, -1])
 sh = lambda a, mu: np.roll(a, -1, axis=mu)   # a(x + mu-hat), periodic
-def traces(U):                               # (1/2) Tr U_{01}(x) = a0 of the plaquette
+def traces(U):                               # (1/2) tr U_{01}(x) = a0 of the plaquette
     return qmul(qmul(qmul(U[0], sh(U[1], 0)), qinv(sh(U[0], 1))), qinv(U[1]))[..., 0]
 U = rsu2(2, L, L); g = rsu2(L, L)
 V = np.stack([qmul(qmul(qinv(g), U[mu]), sh(g, mu)) for mu in (0, 1)])   # U_mu(x) -> g(x)^{-1} U_mu(x) g(x + mu)
@@ -9704,17 +9704,17 @@ def haar_unitary(n):                         # QR of a complex Gaussian matrix, 
     return Z / Z.det()^(1/n)
 for n in (2, 3):
     U = haar_unitary(n)
-    print('SU(%d): det = %s, Tr U = %s, Tr U^{-1} = %s' % (n, U.det().n(digits=6), U.trace().n(digits=6), U.inverse().trace().n(digits=6)))
+    print('SU(%d): det = %s, tr U = %s, tr U^{-1} = %s' % (n, U.det().n(digits=6), U.trace().n(digits=6), U.inverse().trace().n(digits=6)))
 U = haar_unitary(3)
-print('SU(3): Tr U^{-1} = conjugate of Tr U:', abs(U.inverse().trace() - U.trace().conjugate()) < 1e-12)
+print('SU(3): tr U^{-1} = conjugate of tr U:', abs(U.inverse().trace() - U.trace().conjugate()) < 1e-12)
 ```
 
 *Output:*
 
 ```text
-SU(2): det = 1.00000 - 1.56789e-16*I, Tr U = 0.523172 + 6.93889e-17*I, Tr U^{-1} = 0.523172 + 1.45717e-16*I
-SU(3): det = 1.00000 + 5.59615e-18*I, Tr U = -0.911866 - 1.13682*I, Tr U^{-1} = -0.911866 + 1.13682*I
-SU(3): Tr U^{-1} = conjugate of Tr U: True
+SU(2): det = 1.00000 - 1.56789e-16*I, tr U = 0.523172 + 6.93889e-17*I, tr U^{-1} = 0.523172 + 1.45717e-16*I
+SU(3): det = 1.00000 + 5.59615e-18*I, tr U = -0.911866 - 1.13682*I, tr U^{-1} = -0.911866 + 1.13682*I
+SU(3): tr U^{-1} = conjugate of tr U: True
 ```
 :::
 
@@ -9885,7 +9885,7 @@ zZ2 = (exp(b) + exp(-b)) / 2
 zU1 = lambda bb: numerical_integral(exp(bb * cos(th)), 0, 2*pi)[0] / (2*pi)
 print('Z2:   z =', zZ2.simplify_full(), '= cosh(beta)')
 for bb in (0.5, 1, 3): print('U(1), beta = %.1f: z = %.10f, I_0(beta) = %.10f' % (bb, zU1(bb), bessel_I(0, bb)))
-for bb in (0.5, 1, 3):                       # SU(2): Weyl measure (2/pi) sin^2 psi d psi, (1/2) Tr U = cos psi
+for bb in (0.5, 1, 3):                       # SU(2): Weyl measure (2/pi) sin^2 psi d psi, (1/2) tr U = cos psi
     zS = numerical_integral(2/pi * sin(psi)^2 * exp(bb * cos(psi)), 0, pi)[0]
     print('SU(2), beta = %.1f: z = %.10f, 2 I_1(beta)/beta = %.10f' % (bb, zS, 2 * bessel_I(1, bb) / bb))
 ```
@@ -9977,7 +9977,7 @@ print('<a0^2> =', integrate(w * cos(psi)^2, psi, 0, pi), ' <a0^4> =', integrate(
 rng = np.random.default_rng(int(11))
 v = rng.normal(size=(int(400000), int(4))); v /= np.linalg.norm(v, axis=1)[:, None]   # uniform on S^3
 print('sampled <a0> = %.4f, <a0^2> = %.4f, <a0^4> = %.4f' % (v[:, 0].mean(), (v[:, 0]**2).mean(), (v[:, 0]**4).mean()))
-print('sampled <(1/2 Tr U)^2> = <a0^2> = 1/4 means <|Tr U|^2> = 1 (Schur orthogonality)')
+print('sampled <(1/2 tr U)^2> = <a0^2> = 1/4 means <|tr U|^2> = 1 (Schur orthogonality)')
 ```
 
 *Output:*
@@ -9986,7 +9986,7 @@ print('sampled <(1/2 Tr U)^2> = <a0^2> = 1/4 means <|Tr U|^2> = 1 (Schur orthogo
 normalisation: 1
 <a0^2> = 1/4  <a0^4> = 1/8
 sampled <a0> = -0.0010, <a0^2> = 0.2506, <a0^4> = 0.1255
-sampled <(1/2 Tr U)^2> = <a0^2> = 1/4 means <|Tr U|^2> = 1 (Schur orthogonality)
+sampled <(1/2 tr U)^2> = <a0^2> = 1/4 means <|tr U|^2> = 1 (Schur orthogonality)
 ```
 :::
 
@@ -10195,16 +10195,16 @@ P = ex(a*c1*T1) * ex(a*c2*T2) * ex(-a*c1*T1) * ex(-a*c2*T2)
 s = taylor(1 - P.trace() / 2, a, 0, 6)
 F = c1*T1*c2*T2 - c2*T2*c1*T1
 cont = taylor(-(a^4 / 4) * (F * F).trace(), a, 0, 6)
-print('1 - (1/2) Tr U_P =', s.simplify_full())
-print('-(a^4/4) Tr F^2 =', cont.simplify_full())
+print('1 - (1/2) tr U_P =', s.simplify_full())
+print('-(a^4/4) tr F^2 =', cont.simplify_full())
 print('difference starts at order a^6:', (s - cont).simplify_full())
 ```
 
 *Output:*
 
 ```text
-1 - (1/2) Tr U_P = -1/96*a^6*c1^2*c2^4 - 1/96*(a^6*c1^4 - 12*a^4*c1^2)*c2^2
--(a^4/4) Tr F^2 = 1/8*a^4*c1^2*c2^2
+1 - (1/2) tr U_P = -1/96*a^6*c1^2*c2^4 - 1/96*(a^6*c1^4 - 12*a^4*c1^2)*c2^2
+-(a^4/4) tr F^2 = 1/8*a^4*c1^2*c2^2
 difference starts at order a^6: -1/96*a^6*c1^4*c2^2 - 1/96*a^6*c1^2*c2^4
 ```
 :::
@@ -10233,16 +10233,16 @@ for N in (2, 3):
         rows.append(abs(lhs - quad) / quad)
     print('SU(%d): relative error of the quadratic term at t = 0.1, 0.05, 0.025:' % N, ['%.2e' % r for r in rows],
           '; ratios %.2f %.2f (4 means O(t^2))' % (rows[0] / rows[1], rows[1] / rows[2]))
-    print('   Re Tr M^3 = %.1e (zero: anti-Hermitian)' % np.trace(M @ M @ M).real)
+    print('   Re tr M^3 = %.1e (zero: anti-Hermitian)' % np.trace(M @ M @ M).real)
 ```
 
 *Output:*
 
 ```text
 SU(2): relative error of the quadratic term at t = 0.1, 0.05, 0.025: ['5.80e-03', '1.45e-03', '3.63e-04'] ; ratios 3.99 4.00 (4 means O(t^2))
-   Re Tr M^3 = -9.4e-17 (zero: anti-Hermitian)
+   Re tr M^3 = -9.4e-17 (zero: anti-Hermitian)
 SU(3): relative error of the quadratic term at t = 0.1, 0.05, 0.025: ['1.82e-02', '4.56e-03', '1.14e-03'] ; ratios 3.98 3.99 (4 means O(t^2))
-   Re Tr M^3 = -2.8e-16 (zero: anti-Hermitian)
+   Re tr M^3 = -2.8e-16 (zero: anti-Hermitian)
 ```
 :::
 
@@ -12356,7 +12356,7 @@ for bb in (0.01, 0.1, 1.0):
     w = vdm * np.exp(bb * retr)
     u = (w * retr).sum() / w.sum()
     print('SU(3), beta = %.2f: u = %.6f, u/beta = %.5f (1/18 = %.5f)' % (bb, u, u / bb, 1 / 18))
-print('Haar check for SU(3): <|Tr U|^2> = %.6f, <(Tr U)^2> = %.1e' % ((vdm * abs(3 * retr + 1j * (z[0] + z[1] + z[2]).imag)**2).sum() / vdm.sum(), abs((vdm * (z[0] + z[1] + z[2])**2).sum() / vdm.sum())))
+print('Haar check for SU(3): <|tr U|^2> = %.6f, <(tr U)^2> = %.1e' % ((vdm * abs(3 * retr + 1j * (z[0] + z[1] + z[2]).imag)**2).sum() / vdm.sum(), abs((vdm * (z[0] + z[1] + z[2])**2).sum() / vdm.sum())))
 ```
 
 *Output:*
@@ -12368,7 +12368,7 @@ SU(2) : u = -1/96*b^3 + 1/4*b
 SU(3), beta = 0.01: u = 0.000556, u/beta = 0.05560 (1/18 = 0.05556)
 SU(3), beta = 0.10: u = 0.005602, u/beta = 0.05602 (1/18 = 0.05556)
 SU(3), beta = 1.00: u = 0.060127, u/beta = 0.06013 (1/18 = 0.05556)
-Haar check for SU(3): <|Tr U|^2> = 1.000000, <(Tr U)^2> = 6.4e-17
+Haar check for SU(3): <|tr U|^2> = 1.000000, <(tr U)^2> = 6.4e-17
 ```
 :::
 
@@ -12777,7 +12777,7 @@ for n in (100, 10000, 1000000):
     m = qmul(qmul(qinv(gx), U), gy).mean(0)
     print('n = %7d: |average of g(x)^-1 U g(y)| = %.5f, 1/sqrt(n) = %.5f' % (n, np.linalg.norm(m), 1 / np.sqrt(n)))
 P = rsu2(1); g = rsu2(1000)
-print('(1/2) Tr of g^-1 U_P g for 1000 random g: spread %.1e' % np.ptp(qmul(qmul(qinv(g), P), g)[:, 0]))
+print('(1/2) tr of g^-1 U_P g for 1000 random g: spread %.1e' % np.ptp(qmul(qmul(qinv(g), P), g)[:, 0]))
 ```
 
 *Output:*
@@ -12786,7 +12786,7 @@ print('(1/2) Tr of g^-1 U_P g for 1000 random g: spread %.1e' % np.ptp(qmul(qmul
 n =     100: |average of g(x)^-1 U g(y)| = 0.05145, 1/sqrt(n) = 0.10000
 n =   10000: |average of g(x)^-1 U g(y)| = 0.01323, 1/sqrt(n) = 0.01000
 n = 1000000: |average of g(x)^-1 U g(y)| = 0.00069, 1/sqrt(n) = 0.00100
-(1/2) Tr of g^-1 U_P g for 1000 random g: spread 3.3e-16
+(1/2) tr of g^-1 U_P g for 1000 random g: spread 3.3e-16
 ```
 :::
 
@@ -13035,7 +13035,7 @@ k = np.sqrt(np.linalg.det(Sig).real); V = Sig / k
 print('det Sigma = %.6f (real, positive); k = %.6f = |sum of the quaternions| = %.6f' % (np.linalg.det(Sig).real, k, np.linalg.norm(q.sum(0))))
 print('V unitary: %s, det V = %.6f' % (np.allclose(V @ V.conj().T, np.eye(2)), np.linalg.det(V).real))
 U = mat(q[0])
-print('(1/2) Tr(U Sigma) = %.6f = k a0(U V) = %.6f' % (np.trace(U @ Sig).real / 2, k * np.trace(U @ V).real / 2))
+print('(1/2) tr(U Sigma) = %.6f = k a0(U V) = %.6f' % (np.trace(U @ Sig).real / 2, k * np.trace(U @ V).real / 2))
 ```
 
 *Output:*
@@ -13043,7 +13043,7 @@ print('(1/2) Tr(U Sigma) = %.6f = k a0(U V) = %.6f' % (np.trace(U @ Sig).real / 
 ```text
 det Sigma = 2.199080 (real, positive); k = 1.482929 = |sum of the quaternions| = 1.482929
 V unitary: True, det V = 1.000000
-(1/2) Tr(U Sigma) = -0.469136 = k a0(U V) = -0.469136
+(1/2) tr(U Sigma) = -0.469136 = k a0(U V) = -0.469136
 ```
 :::
 
@@ -13184,25 +13184,25 @@ def staple(U, mu):
     return qmul(qmul(sh(U[nu], mu), qinv(sh(U[mu], nu))), qinv(U[nu])) + qmul(qmul(qinv(sh(sh(U[nu], mu), nu, -1)), qinv(sh(U[mu], nu, -1))), sh(U[nu], nu, -1))
 plaq = lambda U: qmul(qmul(qmul(U[0], sh(U[1], 0)), qinv(sh(U[0], 1))), qinv(U[1]))[..., 0].mean()
 U = rng.normal(size=(2, L, L, 4)); U /= np.linalg.norm(U, axis=-1)[..., None]
-print('step 0: average (1/2) Tr U_P = %+.4f' % plaq(U))
+print('step 0: average (1/2) tr U_P = %+.4f' % plaq(U))
 for k in range(1, 9):
     V = np.stack([U[mu] + 0.3 * qinv(staple(U, mu)) for mu in (0, 1)])      # Sigma^dagger is the quaternion conjugate
     U = V / np.linalg.norm(V, axis=-1)[..., None]                             # projection back to SU(2)
-    print('step %d: average (1/2) Tr U_P = %+.4f' % (k, plaq(U)))
+    print('step %d: average (1/2) tr U_P = %+.4f' % (k, plaq(U)))
 ```
 
 *Output:*
 
 ```text
-step 0: average (1/2) Tr U_P = -0.0204
-step 1: average (1/2) Tr U_P = +0.6955
-step 2: average (1/2) Tr U_P = +0.8749
-step 3: average (1/2) Tr U_P = +0.9391
-step 4: average (1/2) Tr U_P = +0.9655
-step 5: average (1/2) Tr U_P = +0.9777
-step 6: average (1/2) Tr U_P = +0.9842
-step 7: average (1/2) Tr U_P = +0.9880
-step 8: average (1/2) Tr U_P = +0.9904
+step 0: average (1/2) tr U_P = -0.0204
+step 1: average (1/2) tr U_P = +0.6955
+step 2: average (1/2) tr U_P = +0.8749
+step 3: average (1/2) tr U_P = +0.9391
+step 4: average (1/2) tr U_P = +0.9655
+step 5: average (1/2) tr U_P = +0.9777
+step 6: average (1/2) tr U_P = +0.9842
+step 7: average (1/2) tr U_P = +0.9880
+step 8: average (1/2) tr U_P = +0.9904
 ```
 :::
 ::::
@@ -13768,11 +13768,11 @@ err = max(abs(sum(eps(i, j, k) * U[i, l] * U[j, m] * U[k, n] for i in range(3) f
           for l in range(3) for m in range(3) for n in range(3))
 print("[PASS] epsilon_ijk U_il U_jm U_kn = epsilon_lmn (baryon singlet):", err < 1e-12)
 q, p = vector(CDF, [1, 2 - I, 0.5 * I]), vector(CDF, [0.3, -1, 2])
-print("[PASS] conj(q).p is invariant (meson singlet):", abs((U * q).conjugate() * (U * p) - q.conjugate() * p) < 1e-12)
+print("[PASS] q^*.p is invariant (meson singlet):", abs((U * q).conjugate() * (U * p) - q.conjugate() * p) < 1e-12)
 # the antisymmetric invariant cannot be built from two triplets: epsilon_ijk q_j p_k transforms as an antitriplet
 v = vector(CDF, [sum(eps(i, j, k) * q[j] * p[k] for j in range(3) for k in range(3)) for i in range(3)])
 w = vector(CDF, [sum(eps(i, j, k) * (U * q)[j] * (U * p)[k] for j in range(3) for k in range(3)) for i in range(3)])
-print("[PASS] epsilon q p of two quarks is an antitriplet, w = conj(U) v:", (w - U.conjugate() * v).norm() < 1e-12)
+print("[PASS] epsilon q p of two quarks is an antitriplet, w = U^* v:", (w - U.conjugate() * v).norm() < 1e-12)
 ```
 
 *Output:*
@@ -13780,8 +13780,8 @@ print("[PASS] epsilon q p of two quarks is an antitriplet, w = conj(U) v:", (w -
 ```text
 U unitary: True  det U = 1.0000000000000007 - 5.351989130504935e-16*I
 [PASS] epsilon_ijk U_il U_jm U_kn = epsilon_lmn (baryon singlet): True
-[PASS] conj(q).p is invariant (meson singlet): True
-[PASS] epsilon q p of two quarks is an antitriplet, w = conj(U) v: True
+[PASS] q^*.p is invariant (meson singlet): True
+[PASS] epsilon q p of two quarks is an antitriplet, w = U^* v: True
 ```
 :::
 
@@ -14044,20 +14044,20 @@ fields = [(3, [1/2, -1/2], 1/6), (3, [0], -2/3), (3, [0], 1/3), (1, [1/2, -1/2],
 tr = lambda f: sum(nc * f(T3, y) for nc, T3s, y in fields for T3 in T3s)
 TrQ, Try, TrT3y = tr(lambda T, y: T + y), tr(lambda T, y: y), tr(lambda T, y: T * y)
 TrT2, Try2, TrQ2 = tr(lambda T, y: T^2), tr(lambda T, y: y^2), tr(lambda T, y: (T + y)^2)
-print("Tr Q =", TrQ, " Tr y =", Try, " Tr T3 y =", TrT3y, " Tr T3^2 =", TrT2, " Tr y^2 =", Try2, " Tr Q^2 =", TrQ2)
-print("[PASS] Tr Q = Tr y = Tr T3 y = 0 and Tr Q^2 = Tr T3^2 + Tr y^2 = 2 + 10/3 = 16/3:", (TrQ, Try, TrT3y) == (0, 0, 0) and TrQ2 == TrT2 + Try2 == 16/3)
+print("tr Q =", TrQ, " tr y =", Try, " tr T3 y =", TrT3y, " tr T3^2 =", TrT2, " tr y^2 =", Try2, " tr Q^2 =", TrQ2)
+print("[PASS] tr Q = tr y = tr T3 y = 0 and tr Q^2 = tr T3^2 + tr y^2 = 2 + 10/3 = 16/3:", (TrQ, Try, TrT3y) == (0, 0, 0) and TrQ2 == TrT2 + Try2 == 16/3)
 c2 = TrT2 / Try2
-print("[PASS] normalisation: y_1 = sqrt(3/5) y has Tr y_1^2 = Tr T3^2, since Tr T3^2 / Tr y^2 =", c2, ":", c2 == 3/5)
-print("[PASS] sin^2(theta_W) = g'^2/(g^2 + g'^2) = (3/5)/(1 + 3/5) = Tr T3^2 / Tr Q^2 =", TrT2 / TrQ2, ":", TrT2 / TrQ2 == 3/8 == c2 / (1 + c2))
+print("[PASS] normalisation: y_1 = sqrt(3/5) y has tr y_1^2 = tr T3^2, since tr T3^2 / tr y^2 =", c2, ":", c2 == 3/5)
+print("[PASS] sin^2(theta_W) = g'^2/(g^2 + g'^2) = (3/5)/(1 + 3/5) = tr T3^2 / tr Q^2 =", TrT2 / TrQ2, ":", TrT2 / TrQ2 == 3/8 == c2 / (1 + c2))
 ```
 
 *Output:*
 
 ```text
-Tr Q = 0  Tr y = 0  Tr T3 y = 0  Tr T3^2 = 2  Tr y^2 = 10/3  Tr Q^2 = 16/3
-[PASS] Tr Q = Tr y = Tr T3 y = 0 and Tr Q^2 = Tr T3^2 + Tr y^2 = 2 + 10/3 = 16/3: True
-[PASS] normalisation: y_1 = sqrt(3/5) y has Tr y_1^2 = Tr T3^2, since Tr T3^2 / Tr y^2 = 3/5 : True
-[PASS] sin^2(theta_W) = g'^2/(g^2 + g'^2) = (3/5)/(1 + 3/5) = Tr T3^2 / Tr Q^2 = 3/8 : True
+tr Q = 0  tr y = 0  tr T3 y = 0  tr T3^2 = 2  tr y^2 = 10/3  tr Q^2 = 16/3
+[PASS] tr Q = tr y = tr T3 y = 0 and tr Q^2 = tr T3^2 + tr y^2 = 2 + 10/3 = 16/3: True
+[PASS] normalisation: y_1 = sqrt(3/5) y has tr y_1^2 = tr T3^2, since tr T3^2 / tr y^2 = 3/5 : True
+[PASS] sin^2(theta_W) = g'^2/(g^2 + g'^2) = (3/5)/(1 + 3/5) = tr T3^2 / tr Q^2 = 3/8 : True
 ```
 :::
 
@@ -14123,24 +14123,24 @@ $\operatorname{tr}BT_3^2 = \operatorname{tr}LT_3^2 = \tfrac12$ and $\operatornam
 ```python
 fields = [(3, [1/2, -1/2], 1/6, 1/3, 0), (3, [0], -2/3, -1/3, 0), (3, [0], 1/3, -1/3, 0), (1, [1/2, -1/2], -1/2, 0, 1), (1, [0], 1, 0, -1)]
 tr = lambda f: sum(nc * f(T3, y, B, L) for nc, T3s, y, B, L in fields for T3 in T3s)
-res = {"Tr B T3^2": tr(lambda T, y, B, L: B * T^2), "Tr L T3^2": tr(lambda T, y, B, L: L * T^2),
-       "Tr B y^2": tr(lambda T, y, B, L: B * y^2), "Tr L y^2": tr(lambda T, y, B, L: L * y^2)}
+res = {"tr B T3^2": tr(lambda T, y, B, L: B * T^2), "tr L T3^2": tr(lambda T, y, B, L: L * T^2),
+       "tr B y^2": tr(lambda T, y, B, L: B * y^2), "tr L y^2": tr(lambda T, y, B, L: L * y^2)}
 for k, v in res.items(): print(k, "=", v)
-print("[PASS] Tr B T3^2 = Tr L T3^2 = 1/2 (Pal eqs. 18.147-18.148):", res["Tr B T3^2"] == res["Tr L T3^2"] == 1/2)
-print("[PASS] Tr B y^2 = Tr L y^2 = -1/2, so B - L has no anomaly with two gauge currents:", res["Tr B y^2"] == res["Tr L y^2"] == -1/2)
-print("[PASS] B + L is anomalous: Tr (B + L) T3^2 = 1:", res["Tr B T3^2"] + res["Tr L T3^2"] == 1)
+print("[PASS] tr B T3^2 = tr L T3^2 = 1/2 (Pal eqs. 18.147-18.148):", res["tr B T3^2"] == res["tr L T3^2"] == 1/2)
+print("[PASS] tr B y^2 = tr L y^2 = -1/2, so B - L has no anomaly with two gauge currents:", res["tr B y^2"] == res["tr L y^2"] == -1/2)
+print("[PASS] B + L is anomalous: tr (B + L) T3^2 = 1:", res["tr B T3^2"] + res["tr L T3^2"] == 1)
 ```
 
 *Output:*
 
 ```text
-Tr B T3^2 = 1/2
-Tr L T3^2 = 1/2
-Tr B y^2 = -1/2
-Tr L y^2 = -1/2
-[PASS] Tr B T3^2 = Tr L T3^2 = 1/2 (Pal eqs. 18.147-18.148): True
-[PASS] Tr B y^2 = Tr L y^2 = -1/2, so B - L has no anomaly with two gauge currents: True
-[PASS] B + L is anomalous: Tr (B + L) T3^2 = 1: True
+tr B T3^2 = 1/2
+tr L T3^2 = 1/2
+tr B y^2 = -1/2
+tr L y^2 = -1/2
+[PASS] tr B T3^2 = tr L T3^2 = 1/2 (Pal eqs. 18.147-18.148): True
+[PASS] tr B y^2 = tr L y^2 = -1/2, so B - L has no anomaly with two gauge currents: True
+[PASS] B + L is anomalous: tr (B + L) T3^2 = 1: True
 ```
 :::
 
@@ -14940,7 +14940,7 @@ c, sn = g / sqrt(g^2 + gp^2), gp / sqrt(g^2 + gp^2)
 R = matrix(SR, [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, c, -sn], [0, 0, sn, c]])   # rows: W1, W2, Z, A in terms of W1, W2, W3, B
 D = (R * M2 * R.transpose()).simplify_full()
 print(D)
-print("[PASS] R M^2 R^T = diag(g^2 v^2/2, g^2 v^2/2, (g^2 + g'^2) v^2/2, 0):", bool((D - diagonal_matrix([g^2 * v^2 / 2, g^2 * v^2 / 2, (g^2 + gp^2) * v^2 / 2, 0])).simplify_full() == 0))
+print("[PASS] R M^2 R^⊤ = diag(g^2 v^2/2, g^2 v^2/2, (g^2 + g'^2) v^2/2, 0):", bool((D - diagonal_matrix([g^2 * v^2 / 2, g^2 * v^2 / 2, (g^2 + gp^2) * v^2 / 2, 0])).simplify_full() == 0))
 print("[PASS] rho = m_W^2/(m_Z^2 cos^2) = 1:", bool((D[0, 0] / (D[2, 2] * c^2)).simplify_full() == 1))
 ```
 
@@ -14951,7 +14951,7 @@ print("[PASS] rho = m_W^2/(m_Z^2 cos^2) = 1:", bool((D[0, 0] / (D[2, 2] * c^2)).
 [                   0          1/2*g^2*v^2                    0                    0]
 [                   0                    0 1/2*(g^2 + gp^2)*v^2                    0]
 [                   0                    0                    0                    0]
-[PASS] R M^2 R^T = diag(g^2 v^2/2, g^2 v^2/2, (g^2 + g'^2) v^2/2, 0): True
+[PASS] R M^2 R^⊤ = diag(g^2 v^2/2, g^2 v^2/2, (g^2 + g'^2) v^2/2, 0): True
 [PASS] rho = m_W^2/(m_Z^2 cos^2) = 1: True
 ```
 :::
@@ -15779,7 +15779,7 @@ com = [T[A] * Phi - Phi * T[A] for A in range(8)]
 M2 = matrix(SR, 8, 8, lambda A, B: (-2 * g^2 * (com[A] * com[B]).trace()).simplify_full())
 print("mass matrix (diagonal):", M2.diagonal()); print("[PASS] the mass matrix is diagonal:", M2 == diagonal_matrix(M2.diagonal()))
 print("[PASS] four massless (T_1, T_2, T_3, T_8) and four of mass^2 3 g^2 v^2/4 (T_4..T_7):", [bool(d == 0) for d in M2.diagonal()] == [True] * 3 + [False] * 4 + [True] and all(bool(M2[A, A] == 3 * g^2 * v^2 / 4) for A in range(3, 7)))
-print("[PASS] the kinetic normalisation: -Tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since Tr(T_A T_B) = -delta/2:", all(bool((T[A] * T[B]).trace() == (-1 / 2 if A == B else 0)) for A in range(8) for B in range(8)))
+print("[PASS] the kinetic normalisation: -tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since tr(T_A T_B) = -delta/2:", all(bool((T[A] * T[B]).trace() == (-1 / 2 if A == B else 0)) for A in range(8) for B in range(8)))
 print("broken generators:", 8 - 4, "= dim_R SU(3)/(SU(2) x U(1)) = dim_R CP^2 = 4")
 ```
 
@@ -15789,7 +15789,7 @@ print("broken generators:", 8 - 4, "= dim_R SU(3)/(SU(2) x U(1)) = dim_R CP^2 = 
 mass matrix (diagonal): [0, 0, 0, 3/4*g^2*v^2, 3/4*g^2*v^2, 3/4*g^2*v^2, 3/4*g^2*v^2, 0]
 [PASS] the mass matrix is diagonal: True
 [PASS] four massless (T_1, T_2, T_3, T_8) and four of mass^2 3 g^2 v^2/4 (T_4..T_7): True
-[PASS] the kinetic normalisation: -Tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since Tr(T_A T_B) = -delta/2: True
+[PASS] the kinetic normalisation: -tr(D Phi D Phi) = (1/2) (d Phi^a)^2 since tr(T_A T_B) = -delta/2: True
 broken generators: 4 = dim_R SU(3)/(SU(2) x U(1)) = dim_R CP^2 = 4
 ```
 :::
@@ -15946,7 +15946,7 @@ for beta in (0.5, 4.0):
             for p in (0, 1):
                 U[mu] = np.where((par == p)[..., None], heatbath(staple(U, mu), beta), U[mu])
         if k >= 50: h.append(plaq(U))
-    print('beta = %.1f: <(1/2) Tr U_P> = %.4f; strong coupling beta/4 = %.4f; weak coupling 1 - 3/(4 beta) = %.4f' % (beta, np.mean(h), beta / 4, 1 - 3 / (4 * beta)))
+    print('beta = %.1f: <(1/2) tr U_P> = %.4f; strong coupling beta/4 = %.4f; weak coupling 1 - 3/(4 beta) = %.4f' % (beta, np.mean(h), beta / 4, 1 - 3 / (4 * beta)))
 hbarc = 0.1973269804
 sig_hat = float(exp(12 * pi^2 / 11 - 6 * pi^2 * 2.5 / 11))
 print('beta = 2.5: one-loop scaling sigma a^2 = %.4f, a = %.3f fm with sigma = 0.18 GeV^2' % (sig_hat, hbarc * np.sqrt(sig_hat / 0.18)))
@@ -15955,8 +15955,8 @@ print('beta = 2.5: one-loop scaling sigma a^2 = %.4f, a = %.3f fm with sigma = 0
 *Output:*
 
 ```text
-beta = 0.5: <(1/2) Tr U_P> = 0.1235; strong coupling beta/4 = 0.1250; weak coupling 1 - 3/(4 beta) = -0.5000
-beta = 4.0: <(1/2) Tr U_P> = 0.8005; strong coupling beta/4 = 1.0000; weak coupling 1 - 3/(4 beta) = 0.8125
+beta = 0.5: <(1/2) tr U_P> = 0.1235; strong coupling beta/4 = 0.1250; weak coupling 1 - 3/(4 beta) = -0.5000
+beta = 4.0: <(1/2) tr U_P> = 0.8005; strong coupling beta/4 = 1.0000; weak coupling 1 - 3/(4 beta) = 0.8125
 beta = 2.5: one-loop scaling sigma a^2 = 0.0678, a = 0.121 fm with sigma = 0.18 GeV^2
 ```
 :::

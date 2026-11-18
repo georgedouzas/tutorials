@@ -131,7 +131,7 @@ S = M.span(sym) if hasattr(M, "span") else None
 sym_space = span([vector(QQ, (m + m.transpose()).list()) for m in basis], QQ)
 print("dimension of the symmetric 3 x 3 matrices:", sym_space.dimension(), "= 3 * 4 / 2")
 R1 = matrix(QQ, [[0, -1, 0], [1, 0, 0], [0, 0, 1]]); R2 = matrix(QQ, [[1, 0, 0], [0, 0, -1], [0, 1, 0]])
-print("R1, R2 rotations (R^T R = 1, det 1):", R1.transpose() * R1 == 1 and R1.det() == 1, R2.transpose() * R2 == 1 and R2.det() == 1)
+print("R1, R2 rotations (R^⊤ R = 1, det 1):", R1.transpose() * R1 == 1 and R1.det() == 1, R2.transpose() * R2 == 1 and R2.det() == 1)
 print("R1 + R2 is a rotation:", (R1 + R2).transpose() * (R1 + R2) == 1, " (so SO(3) is not a subspace)")
 ```
 
@@ -140,7 +140,7 @@ print("R1 + R2 is a rotation:", (R1 + R2).transpose() * (R1 + R2) == 1, " (so SO
 ```text
 A, B symmetric: True True ; A + B and 3A symmetric: True True
 dimension of the symmetric 3 x 3 matrices: 6 = 3 * 4 / 2
-R1, R2 rotations (R^T R = 1, det 1): True True
+R1, R2 rotations (R^⊤ R = 1, det 1): True True
 R1 + R2 is a rotation: False  (so SO(3) is not a subspace)
 ```
 :::
@@ -1953,7 +1953,7 @@ $B_{ij}$ is the coefficient of $v^i w^j$: $B = \begin{pmatrix} 1 & 2 \\ -1 & 0 \
 B = matrix(QQ, [[1, 2], [-1, 0]])
 v, w = vector(QQ, [1, 3]), vector(QQ, [2, -1])
 print("B =", B.rows())
-print("B(v, w) = v^T B w =", v * B * w, "; by the formula v1 w1 + 2 v1 w2 - v2 w1 =", v[0] * w[0] + 2 * v[0] * w[1] - v[1] * w[0])
+print("B(v, w) = v^⊤ B w =", v * B * w, "; by the formula v1 w1 + 2 v1 w2 - v2 w1 =", v[0] * w[0] + 2 * v[0] * w[1] - v[1] * w[0])
 print("B(w, v) =", w * B * v, "; symmetric:", B.is_symmetric())
 print("components: B(e1, e1), B(e1, e2), B(e2, e1), B(e2, e2) =", [e_i * B * e_j for e_i in identity_matrix(QQ, 2).rows() for e_j in identity_matrix(QQ, 2).rows()])
 ```
@@ -1962,7 +1962,7 @@ print("components: B(e1, e1), B(e1, e2), B(e2, e1), B(e2, e2) =", [e_i * B * e_j
 
 ```text
 B = [(1, 2), (-1, 0)]
-B(v, w) = v^T B w = -6 ; by the formula v1 w1 + 2 v1 w2 - v2 w1 = -6
+B(v, w) = v^⊤ B w = -6 ; by the formula v1 w1 + 2 v1 w2 - v2 w1 = -6
 B(w, v) = 15 ; symmetric: False
 components: B(e1, e1), B(e1, e2), B(e2, e1), B(e2, e2) = [1, 2, -1, 0]
 ```
@@ -1989,7 +1989,7 @@ $f$-coordinates $(2, 1)$:
 A = matrix(QQ, [[2, 1], [1, 2]]).transpose()      # columns f1, f2
 B = identity_matrix(QQ, 2)                         # the dot product
 Bp = A.transpose() * B * A
-print("B' = A^T B A =", Bp.rows(), "= Gram matrix of f: f1.f1, f1.f2, f2.f2 =", A.column(0) * A.column(0), A.column(0) * A.column(1), A.column(1) * A.column(1))
+print("B' = A^⊤ B A =", Bp.rows(), "= Gram matrix of f: f1.f1, f1.f2, f2.f2 =", A.column(0) * A.column(0), A.column(0) * A.column(1), A.column(1) * A.column(1))
 v = vector(QQ, [5, 4]); c = A.inverse() * v       # f-coordinates (2, 1)
 print("|v|^2 in the standard basis:", v * B * v, "; with the f-coordinates", c, "and B':", c * Bp * c)
 ```
@@ -1997,7 +1997,7 @@ print("|v|^2 in the standard basis:", v * B * v, "; with the f-coordinates", c, 
 *Output:*
 
 ```text
-B' = A^T B A = [(5, 4), (4, 5)] = Gram matrix of f: f1.f1, f1.f2, f2.f2 = 5 4 5
+B' = A^⊤ B A = [(5, 4), (4, 5)] = Gram matrix of f: f1.f1, f1.f2, f2.f2 = 5 4 5
 |v|^2 in the standard basis: 41 ; with the f-coordinates (2, 1) and B': 41
 ```
 :::
@@ -2496,7 +2496,7 @@ vector is preserved:
 u = var("u")
 L = matrix(SR, [[cosh(u), sinh(u), 0, 0], [sinh(u), cosh(u), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 eta = diagonal_matrix(SR, [1, -1, -1, -1])
-print("Lambda^T eta Lambda - eta =", (L.transpose() * eta * L - eta).simplify_full().list() == [0] * 16, "(all 16 entries vanish by cosh^2 - sinh^2 = 1)")
+print("Lambda^⊤ eta Lambda - eta =", (L.transpose() * eta * L - eta).simplify_full().list() == [0] * 16, "(all 16 entries vanish by cosh^2 - sinh^2 = 1)")
 for v in [vector(SR, [1, 0, 0, 0]), vector(SR, [1, 1, 0, 0]), vector(SR, [2, 1, 0, 3])]:
     print("v =", v, ": eta(v, v) =", v * eta * v, "; eta(Lambda v, Lambda v) =", ((L * v) * eta * (L * v)).simplify_full())
 ```
@@ -2504,7 +2504,7 @@ for v in [vector(SR, [1, 0, 0, 0]), vector(SR, [1, 1, 0, 0]), vector(SR, [2, 1, 
 *Output:*
 
 ```text
-Lambda^T eta Lambda - eta = True (all 16 entries vanish by cosh^2 - sinh^2 = 1)
+Lambda^⊤ eta Lambda - eta = True (all 16 entries vanish by cosh^2 - sinh^2 = 1)
 v = (1, 0, 0, 0) : eta(v, v) = 1 ; eta(Lambda v, Lambda v) = 1
 v = (1, 1, 0, 0) : eta(v, v) = 0 ; eta(Lambda v, Lambda v) = 0
 v = (2, 1, 0, 3) : eta(v, v) = -6 ; eta(Lambda v, Lambda v) = -6

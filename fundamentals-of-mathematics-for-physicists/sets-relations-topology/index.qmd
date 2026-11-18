@@ -819,7 +819,7 @@ $\cos$ is even and $\sin$ odd. In Sage, symbolically:
 a = var("a")
 R = lambda t: matrix(SR, [[cos(t), -sin(t), 0], [sin(t), cos(t), 0], [0, 0, 1]])
 print("R(a) R(-a) =", (R(a) * R(-a)).simplify_full())
-print("[PASS] R(a)^{-1} = R(-a) = R(a)^T:", (R(a) * R(-a)).simplify_full() == identity_matrix(3) and R(-a) == R(a).transpose())
+print("[PASS] R(a)^{-1} = R(-a) = R(a)^⊤:", (R(a) * R(-a)).simplify_full() == identity_matrix(3) and R(-a) == R(a).transpose())
 ```
 
 *Output:*
@@ -828,7 +828,7 @@ print("[PASS] R(a)^{-1} = R(-a) = R(a)^T:", (R(a) * R(-a)).simplify_full() == id
 R(a) R(-a) = [1 0 0]
 [0 1 0]
 [0 0 1]
-[PASS] R(a)^{-1} = R(-a) = R(a)^T: True
+[PASS] R(a)^{-1} = R(-a) = R(a)^⊤: True
 ```
 :::
 ::::

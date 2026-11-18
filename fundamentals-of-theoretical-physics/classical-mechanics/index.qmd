@@ -689,7 +689,7 @@ ph, th, ps = var("phi theta psi", domain="real")
 def Rz(a): return matrix([[cos(a), -sin(a), 0], [sin(a), cos(a), 0], [0, 0, 1]])
 def Rx(a): return matrix([[1, 0, 0], [0, cos(a), -sin(a)], [0, sin(a), cos(a)]])
 R = Rz(ph) * Rx(th) * Rz(ps)
-print("R^T R = 1:", bool((R.transpose() * R).simplify_full() == identity_matrix(3)), "; det R = 1:", bool(R.det().simplify_full() == 1))
+print("R^⊤ R = 1:", bool((R.transpose() * R).simplify_full() == identity_matrix(3)), "; det R = 1:", bool(R.det().simplify_full() == 1))
 print("R at theta = 0 equals R_z(phi + psi):", bool((R.subs(theta=0) - Rz(ph + ps)).simplify_full() == 0))
 print("R at theta = 0, psi = -phi is the identity:", bool(R.subs(theta=0, psi=-ph).simplify_full() == identity_matrix(3)))
 ```
@@ -697,7 +697,7 @@ print("R at theta = 0, psi = -phi is the identity:", bool(R.subs(theta=0, psi=-p
 *Output:*
 
 ```text
-R^T R = 1: True ; det R = 1: True
+R^⊤ R = 1: True ; det R = 1: True
 R at theta = 0 equals R_z(phi + psi): True
 R at theta = 0, psi = -phi is the identity: True
 ```
@@ -2005,14 +2005,14 @@ mom = [diff(L, c) for c in v]
 print("p = m v + q A:", all(bool(mom[i] == m * v[i] + q * A[i]) for i in range(3)))
 sol = solve([P[i] == mom[i] for i in range(3)], [vx, vy, vz], solution_dict=True)[0]
 H = (P * v - L).subs(sol)
-print("H - (|p - qA|^2/(2m) + q phi) =", (H - ((P - q * A) * (P - q * A) / (2 * m) + q * phi)).simplify_full())
+print("H - (|p - qA|^2/(2m) + q Phi) =", (H - ((P - q * A) * (P - q * A) / (2 * m) + q * phi)).simplify_full())
 ```
 
 *Output:*
 
 ```text
 p = m v + q A: True
-H - (|p - qA|^2/(2m) + q phi) = 0
+H - (|p - qA|^2/(2m) + q Phi) = 0
 ```
 :::
 ::::
@@ -2902,21 +2902,21 @@ rotating the coordinates alone gives $\{Q^i, P_j\} = R_{ij} \neq \delta_{ij}$:
 t, a = var("t a", domain="real")
 O2 = matrix([[0, 1], [-1, 0]])
 J = matrix([[cos(t), sin(t)], [-sin(t), cos(t)]])
-print("oscillator flow: J Omega J^T == Omega:", bool((J * O2 * J.transpose()).simplify_full() == O2))
+print("oscillator flow: J Omega J^⊤ == Omega:", bool((J * O2 * J.transpose()).simplify_full() == O2))
 Z, E2 = zero_matrix(2), identity_matrix(2)
 O4 = block_matrix([[Z, E2], [-E2, Z]])
 R = matrix([[cos(a), -sin(a)], [sin(a), cos(a)]])
 both = block_matrix([[R, Z], [Z, R]]); qonly = block_matrix([[R, Z], [Z, E2]])
 print("rotate q and p together: canonical:", bool((both * O4 * both.transpose()).simplify_full() == O4))
-print("rotate q only: J Omega J^T ="); print((qonly * O4 * qonly.transpose()).simplify_full())
+print("rotate q only: J Omega J^⊤ ="); print((qonly * O4 * qonly.transpose()).simplify_full())
 ```
 
 *Output:*
 
 ```text
-oscillator flow: J Omega J^T == Omega: True
+oscillator flow: J Omega J^⊤ == Omega: True
 rotate q and p together: canonical: True
-rotate q only: J Omega J^T =
+rotate q only: J Omega J^⊤ =
 [      0       0  cos(a) -sin(a)]
 [      0       0  sin(a)  cos(a)]
 [-cos(a) -sin(a)       0       0]
@@ -5696,7 +5696,7 @@ I1, I2, I3 = var('I1 I2 I3')
 # body angular velocity in Euler angles (Euler's kinematic equations), omega = E(q) qdot
 w = vector([td*cos(ps) + pd*sin(th)*sin(ps), -td*sin(ps) + pd*sin(th)*cos(ps), sd + pd*cos(th)])
 E = matrix([[diff(wi, v) for v in (td, pd, sd)] for wi in w])
-Pi = (E.transpose().inverse()*vector([pth, pph, pps])).simplify_full()   # p = E^T Pi
+Pi = (E.transpose().inverse()*vector([pth, pph, pps])).simplify_full()   # p = E^⊤ Pi
 q, p = [th, ph, ps], [pth, pph, pps]
 def pb(f, g):
     return sum(diff(f, q[i])*diff(g, p[i]) - diff(f, p[i])*diff(g, q[i]) for i in range(3)).simplify_full()
@@ -6285,7 +6285,7 @@ To first order $I_1\dot\omega_1 = (I_1 - I_3)\omega_3\omega_2 + Mgl\gamma_2$, $I
 
 ```python
 I1, I3, w3, Mgl, s = var('I1 I3 w3 Mgl s'); assume(I1 > 0, I3 > 0, Mgl > 0)
-# state (omega1, omega2, gamma1, gamma2) about omega = (0, 0, w3), gamma = R^T z = (0, 0, 1)
+# state (omega1, omega2, gamma1, gamma2) about omega = (0, 0, w3), gamma = R^⊤ z = (0, 0, 1)
 # I1 omega1' = (I1 - I3) w3 omega2 + Mgl gamma2, I1 omega2' = (I3 - I1) w3 omega1 - Mgl gamma1,
 # gamma1' = gamma2 w3 - omega2, gamma2' = omega1 - gamma1 w3
 A = matrix(SR, [[0, (I1 - I3)*w3/I1, 0, Mgl/I1], [(I3 - I1)*w3/I1, 0, -Mgl/I1, 0], [0, -1, 0, w3], [1, 0, -w3, 0]])

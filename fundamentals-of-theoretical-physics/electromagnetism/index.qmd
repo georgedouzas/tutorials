@@ -1037,18 +1037,18 @@ $\Phi(0, 0, z) = \int_0^a\frac{2\pi\sigma a'\,da'}{4\pi\sqrt{z^2 + a'^2}} = \fra
 ```python
 sigma, a, z, t = var('sigma a z t', domain='positive')
 phi = (integrate(2 * pi * sigma * t / (4 * pi * sqrt(z^2 + t^2)), t, 0, a)).simplify_full()
-print("phi(z) =", phi)
-print("phi at the centre:", limit(phi, z=0))
+print("Phi(z) =", phi)
+print("Phi at the centre:", limit(phi, z=0))
 Ez = -diff(phi, z)
-print("-dphi/dz equals sigma/2 (1 - z/sqrt(z^2+a^2)):", bool((Ez - sigma / 2 * (1 - z / sqrt(z^2 + a^2))).simplify_full() == 0))
+print("-dPhi/dz equals sigma/2 (1 - z/sqrt(z^2+a^2)):", bool((Ez - sigma / 2 * (1 - z / sqrt(z^2 + a^2))).simplify_full() == 0))
 ```
 
 *Output:*
 
 ```text
-phi(z) = -1/2*sigma*z + 1/2*sqrt(a^2 + z^2)*sigma
-phi at the centre: 1/2*a*sigma
--dphi/dz equals sigma/2 (1 - z/sqrt(z^2+a^2)): True
+Phi(z) = -1/2*sigma*z + 1/2*sqrt(a^2 + z^2)*sigma
+Phi at the centre: 1/2*a*sigma
+-dPhi/dz equals sigma/2 (1 - z/sqrt(z^2+a^2)): True
 ```
 :::
 
@@ -1111,18 +1111,18 @@ $-\frac{q}{\ell^2}\int_0^\infty re^{-r/\ell}dr = -q$:
 q, l, r = var('q l r', domain='positive')
 phi = q * exp(-r / l) / (4 * pi * r)
 lap = (diff(r^2 * diff(phi, r), r) / r^2).simplify_full()
-print("Laplacian of phi for r > 0 equals phi/l^2:", bool((lap - phi / l^2).simplify_full() == 0))
+print("Laplacian of Phi for r > 0 equals Phi/l^2:", bool((lap - phi / l^2).simplify_full() == 0))
 rho_smooth = -phi / l^2
 print("charge of the smooth part:", integrate(4 * pi * r^2 * rho_smooth, r, 0, oo))
-print("flux of -grad phi through a small sphere (point charge):", limit(-4 * pi * r^2 * diff(phi, r), r=0))
+print("flux of -grad Phi through a small sphere (point charge):", limit(-4 * pi * r^2 * diff(phi, r), r=0))
 ```
 
 *Output:*
 
 ```text
-Laplacian of phi for r > 0 equals phi/l^2: True
+Laplacian of Phi for r > 0 equals Phi/l^2: True
 charge of the smooth part: -q
-flux of -grad phi through a small sphere (point charge): q
+flux of -grad Phi through a small sphere (point charge): q
 ```
 :::
 
@@ -1150,7 +1150,7 @@ p1 = -integrate(E.subs(x=t * x, y=t * y, z=t * z).dot_product(vector([x, y, z]))
 p2 = -(integrate(E[0].subs(x=t, y=0, z=0), t, 0, x) + integrate(E[1].subs(x=x, y=t, z=0), t, 0, y) + integrate(E[2].subs(x=x, y=y, z=t), t, 0, z))
 print("path 1:", p1.simplify_full(), "; path 2:", p2.simplify_full())
 phi = p1.simplify_full()
-print("Laplacian of phi:", sum(diff(phi, v, 2) for v in [x, y, z]), "-> rho = 0")
+print("Laplacian of Phi:", sum(diff(phi, v, 2) for v in [x, y, z]), "-> rho = 0")
 ```
 
 *Output:*
@@ -1158,7 +1158,7 @@ print("Laplacian of phi:", sum(diff(phi, v, 2) for v in [x, y, z]), "-> rho = 0"
 ```text
 curl E = (0, 0, 0)
 path 1: -x*y*z ; path 2: -x*y*z
-Laplacian of phi: 0 -> rho = 0
+Laplacian of Phi: 0 -> rho = 0
 ```
 :::
 
@@ -1240,7 +1240,7 @@ print("expansion of 2 (cosh ky - cos kx) at small x, y:", (2 * (cosh(k * y) - co
 # matching -2 C log s = -(lam/2 pi) log s gives C = lam/(4 pi); far field: |E_y| = C k
 Cval = lam / (4 * pi); kval = 2 * pi / a
 print("C k with C = lam/(4 pi), k = 2 pi/a:", (Cval * kval).simplify_full(), "= sigma/2 with sigma = lam/a")
-print("large-y slope of phi:", limit(diff(phi, y).subs(C=Cval, k=kval), y=oo))
+print("large-y slope of Phi:", limit(diff(phi, y).subs(C=Cval, k=kval), y=oo))
 ```
 
 *Output:*
@@ -1249,7 +1249,7 @@ print("large-y slope of phi:", limit(diff(phi, y).subs(C=Cval, k=kval), y=oo))
 two-dimensional Laplacian: 0
 expansion of 2 (cosh ky - cos kx) at small x, y: k^2*x^2 + k^2*y^2
 C k with C = lam/(4 pi), k = 2 pi/a: 1/2*lam/a = sigma/2 with sigma = lam/a
-large-y slope of phi: -1/2*lam/a
+large-y slope of Phi: -1/2*lam/a
 ```
 :::
 
@@ -1500,17 +1500,17 @@ def phi_centre(N, V0=1.0, a=1.0):
             tot += 16 * V0 / (pi.n()^2 * m * n) * sin(m * pi.n() / 2) * sin(n * pi.n() / 2) * sinh(g * a / 2) / sinh(g * a)
     return tot
 for N in [1, 5, 21, 81]:
-    print("terms up to %d: phi(centre) = %.8f" % (N, phi_centre(N)))
+    print("terms up to %d: Phi(centre) = %.8f" % (N, phi_centre(N)))
 print("1/6 = %.8f" % (1 / 6))
 ```
 
 *Output:*
 
 ```text
-terms up to 1: phi(centre) = 0.17377292
-terms up to 5: phi(centre) = 0.16667255
-terms up to 21: phi(centre) = 0.16666667
-terms up to 81: phi(centre) = 0.16666667
+terms up to 1: Phi(centre) = 0.17377292
+terms up to 5: Phi(centre) = 0.16667255
+terms up to 21: Phi(centre) = 0.16666667
+terms up to 81: Phi(centre) = 0.16666667
 1/6 = 0.16666667
 ```
 :::
@@ -1653,17 +1653,17 @@ $\sum_{n\text{ odd}}\frac{4}{n\pi}\sin\frac{n\pi x}a = 1$ on $(0, a)$. The four 
 def phi(xv, yv, N, V0=1.0, a=1.0):
     return sum(4 * V0 / (n * pi.n()) * sin(n * pi.n() * xv / a) * sinh(n * pi.n() * yv / a) / sinh(n * pi.n()) for n in range(1, N + 1, 2))
 for N in [1, 3, 9, 41]:
-    print("terms up to %d: phi(centre) = %.10f" % (N, phi(0.5, 0.5, N)))
+    print("terms up to %d: Phi(centre) = %.10f" % (N, phi(0.5, 0.5, N)))
 print("boundary value at (0.5, 1) with 401 terms: %.4f" % phi(0.5, 1.0, 401))
 ```
 
 *Output:*
 
 ```text
-terms up to 1: phi(centre) = 0.2537164167
-terms up to 3: phi(centre) = 0.2499040972
-terms up to 9: phi(centre) = 0.2500000035
-terms up to 41: phi(centre) = 0.2500000000
+terms up to 1: Phi(centre) = 0.2537164167
+terms up to 3: Phi(centre) = 0.2499040972
+terms up to 9: Phi(centre) = 0.2500000035
+terms up to 41: Phi(centre) = 0.2500000000
 boundary value at (0.5, 1) with 401 terms: 1.0016
 ```
 :::
@@ -3648,8 +3648,8 @@ The curl vanishes, the circulation is $\Phi_B$ around the axis and $0$ otherwise
 \arctan\frac yx)$ where the angle is defined, but no single-valued angle exists around the axis:
 
 ```python
-x, y, z, Phi, R, t = var('x y z Phi R t'); assume(R > 0)
-A = Phi / (2 * pi) * vector([-y, x, 0]) / (x^2 + y^2)
+x, y, z, Phi_B, R, t = var('x y z Phi_B R t'); assume(R > 0)
+A = Phi_B / (2 * pi) * vector([-y, x, 0]) / (x^2 + y^2)
 curl = vector([diff(A[2], y) - diff(A[1], z), diff(A[0], z) - diff(A[2], x), diff(A[1], x) - diff(A[0], y)]).simplify_full()
 print("curl A for s > 0:", curl)
 def circ(cx, cy, rad):
@@ -3657,17 +3657,17 @@ def circ(cx, cy, rad):
     return integrate((A[0].subs(x=px, y=py) * diff(px, t) + A[1].subs(x=px, y=py) * diff(py, t)).simplify_full(), t, 0, 2 * pi)
 print("circulation around the axis:", circ(0, 0, R))
 print("circulation on a circle not enclosing the axis (centre (3,0), radius 1):", circ(3, 0, 1).simplify_full())
-g = vector([diff(Phi / (2 * pi) * arctan(y / x), v) for v in [x, y, z]])
-print("A - grad(Phi arctan(y/x)/(2 pi)) =", (A - g).simplify_full())
+g = vector([diff(Phi_B / (2 * pi) * arctan(y / x), v) for v in [x, y, z]])
+print("A - grad(Phi_B arctan(y/x)/(2 pi)) =", (A - g).simplify_full())
 ```
 
 *Output:*
 
 ```text
 curl A for s > 0: (0, 0, 0)
-circulation around the axis: Phi
+circulation around the axis: Phi_B
 circulation on a circle not enclosing the axis (centre (3,0), radius 1): 0
-A - grad(Phi arctan(y/x)/(2 pi)) = (0, 0, 0)
+A - grad(Phi_B arctan(y/x)/(2 pi)) = (0, 0, 0)
 ```
 :::
 
@@ -6670,7 +6670,7 @@ E = -grad(phi) - diff(A, t); B = curl(A)
 print('E =', E, '; B =', B)
 print('vacuum Maxwell:', div(E), div(B), (curl(E) + diff(B, t)).simplify_full(), (curl(B) - diff(E, t)).simplify_full())
 box = lambda f: diff(f, t, 2) - sum(diff(f, v, 2) for v in X)
-print('potential equations: -lap phi - d_t div A =', -sum(diff(phi, v, 2) for v in X) - diff(div(A), t), '; box A + grad(div A + d_t phi) =', (vector([box(Ai) for Ai in A]) + grad(div(A) + diff(phi, t))).simplify_full())
+print('potential equations: -lap Phi - d_t div A =', -sum(diff(phi, v, 2) for v in X) - diff(div(A), t), '; box A + grad(div A + d_t Phi) =', (vector([box(Ai) for Ai in A]) + grad(div(A) + diff(phi, t))).simplify_full())
 ```
 
 *Output:*
@@ -6678,7 +6678,7 @@ print('potential equations: -lap phi - d_t div A =', -sum(diff(phi, v, 2) for v 
 ```text
 E = (E0*cos(-t + z), 0, 0) ; B = (0, E0*cos(t)*cos(z) + E0*sin(t)*sin(z), 0)
 vacuum Maxwell: 0 0 (0, 0, 0) (0, 0, 0)
-potential equations: -lap phi - d_t div A = 0 ; box A + grad(div A + d_t phi) = (0, 0, 0)
+potential equations: -lap Phi - d_t div A = 0 ; box A + grad(div A + d_t Phi) = (0, 0, 0)
 ```
 :::
 
@@ -6706,17 +6706,17 @@ phi = function('phi')(t, x, y, z); A = vector([function('A%d' % i)(t, x, y, z) f
 E = -grad(phi) - diff(A, t); B = curl(A)
 box = lambda f: diff(f, t, 2) - sum(diff(f, v, 2) for v in X)
 lap = lambda f: sum(diff(f, v, 2) for v in X)
-print('div E - (-lap phi - d_t div A) =', (div(E) - (-lap(phi) - diff(div(A), t))).simplify_full())
+print('div E - (-lap Phi - d_t div A) =', (div(E) - (-lap(phi) - diff(div(A), t))).simplify_full())
 lhs2 = vector([box(A[i]) for i in range(3)]) + grad(div(A) + diff(phi, t))
-print('curl B - dE/dt - (box A + grad(div A + d_t phi)) =', (curl(B) - diff(E, t) - lhs2).simplify_full())
+print('curl B - dE/dt - (box A + grad(div A + d_t Phi)) =', (curl(B) - diff(E, t) - lhs2).simplify_full())
 print('homogeneous equations: div B =', div(B), '; curl E + dB/dt =', (curl(E) + diff(B, t)).simplify_full())
 ```
 
 *Output:*
 
 ```text
-div E - (-lap phi - d_t div A) = 0
-curl B - dE/dt - (box A + grad(div A + d_t phi)) = (0, 0, 0)
+div E - (-lap Phi - d_t div A) = 0
+curl B - dE/dt - (box A + grad(div A + d_t Phi)) = (0, 0, 0)
 homogeneous equations: div B = 0 ; curl E + dB/dt = (0, 0, 0)
 ```
 :::
@@ -6759,14 +6759,14 @@ Aout = n * I0 * sin(w * t) * a^2 / (2 * (x^2 + y^2)) * vector([-y, x, 0])
 E = -diff(Aout, t)
 print('E =', E.simplify_full(), '; curl E =', curl(E), '; B = curl A =', curl(Aout))
 circ = integrate((E[0].subs(x=s*cos(ph), y=s*sin(ph)) * (-s*sin(ph)) + E[1].subs(x=s*cos(ph), y=s*sin(ph)) * s*cos(ph)).simplify_full(), ph, 0, 2*pi)
-print('circulation:', circ.simplify_full(), '; -dPhi/dt =', -diff(pi * a^2 * n * I0 * sin(w * t), t))
+print('circulation:', circ.simplify_full(), '; -dPhi_B/dt =', -diff(pi * a^2 * n * I0 * sin(w * t), t))
 ```
 
 *Output:*
 
 ```text
 E = (1/2*I0*a^2*n*w*y*cos(t*w)/(x^2 + y^2), -1/2*I0*a^2*n*w*x*cos(t*w)/(x^2 + y^2), 0) ; curl E = (0, 0, 0) ; B = curl A = (0, 0, 0)
-circulation: -pi*I0*a^2*n*w*cos(t*w) ; -dPhi/dt = -pi*I0*a^2*n*w*cos(t*w)
+circulation: -pi*I0*a^2*n*w*cos(t*w) ; -dPhi_B/dt = -pi*I0*a^2*n*w*cos(t*w)
 ```
 :::
 
@@ -7429,7 +7429,7 @@ phi = 0; A = vector([0, x^2, z * t])
 lam = -t * (x^2 + y^2 + z^2) / 6
 print('div A =', div(A), '; lap lambda =', lap(lam))
 phi2 = phi - diff(lam, t); A2 = A + grad(lam)
-print('phi_new =', phi2, '; A_new =', A2, '; div A_new =', div(A2))
+print('Phi_new =', phi2, '; A_new =', A2, '; div A_new =', div(A2))
 print('fields unchanged:', (-grad(phi2) - diff(A2, t) + diff(A, t)).simplify_full(), (curl(A2) - curl(A)).simplify_full())
 ```
 
@@ -7437,7 +7437,7 @@ print('fields unchanged:', (-grad(phi2) - diff(A2, t) + diff(A, t)).simplify_ful
 
 ```text
 div A = t ; lap lambda = -t
-phi_new = 1/6*x^2 + 1/6*y^2 + 1/6*z^2 ; A_new = (-1/3*t*x, x^2 - 1/3*t*y, 2/3*t*z) ; div A_new = 0
+Phi_new = 1/6*x^2 + 1/6*y^2 + 1/6*z^2 ; A_new = (-1/3*t*x, x^2 - 1/3*t*y, 2/3*t*z) ; div A_new = 0
 fields unchanged: (0, 0, 0) (0, 0, 0)
 ```
 :::
@@ -7465,16 +7465,16 @@ box = lambda f: diff(f, t, 2) - sum(diff(f, v, 2) for v in X)
 lap = lambda f: sum(diff(f, v, 2) for v in X)
 phi = 0; A = vector([t * x, 0, 0])
 lam = t^3 / 6
-print('d_t phi + div A =', diff(phi, t) + div(A), '; box lambda =', box(lam))
+print('d_t Phi + div A =', diff(phi, t) + div(A), '; box lambda =', box(lam))
 phi2 = phi - diff(lam, t); A2 = A + grad(lam)
-print('phi_new =', phi2, '; A_new =', A2, '; Lorenz condition:', diff(phi2, t) + div(A2))
+print('Phi_new =', phi2, '; A_new =', A2, '; Lorenz condition:', diff(phi2, t) + div(A2))
 ```
 
 *Output:*
 
 ```text
-d_t phi + div A = t ; box lambda = t
-phi_new = -1/2*t^2 ; A_new = (t*x, 0, 0) ; Lorenz condition: 0
+d_t Phi + div A = t ; box lambda = t
+Phi_new = -1/2*t^2 ; A_new = (t*x, 0, 0) ; Lorenz condition: 0
 ```
 :::
 
@@ -7581,13 +7581,13 @@ box = lambda f: diff(f, t, 2) - sum(diff(f, v, 2) for v in X)
 lap = lambda f: sum(diff(f, v, 2) for v in X)
 phi = function('phi')(t, x, y, z); A = vector([function('A%d' % i)(t, x, y, z) for i in range(3)])
 rho = box(phi); J = vector([box(Ai) for Ai in A])
-print('d_t rho + div J - box(d_t phi + div A) =', (diff(rho, t) + div(J) - box(diff(phi, t) + div(A))).simplify_full())
+print('d_t rho + div J - box(d_t Phi + div A) =', (diff(rho, t) + div(J) - box(diff(phi, t) + div(A))).simplify_full())
 ```
 
 *Output:*
 
 ```text
-d_t rho + div J - box(d_t phi + div A) = 0
+d_t rho + div J - box(d_t Phi + div A) = 0
 ```
 :::
 
@@ -8221,7 +8221,7 @@ q\mathbf A$ gives the Lorentz force:
 ```python
 var('m q t')
 X0, X1, X2, P0, P1, P2 = var('X0 X1 X2 P0 P1 P2'); Xv = [X0, X1, X2]; Pv = [P0, P1, P2]
-phi = function('phi')(t, X0, X1, X2); A = [function('A%d' % i)(t, X0, X1, X2) for i in range(3)]
+phi = function('Phi')(t, X0, X1, X2); A = [function('A%d' % i)(t, X0, X1, X2) for i in range(3)]
 H = sum((Pv[i] - q * A[i])^2 for i in range(3)) / (2 * m) + q * phi
 xdot = [diff(H, Pv[i]) for i in range(3)]; pdot = [-diff(H, Xv[i]) for i in range(3)]
 print('x-dot = (p - qA)/m:', all(bool((xdot[i] - (Pv[i] - q * A[i]) / m).simplify_full() == 0) for i in range(3)))
@@ -8239,7 +8239,7 @@ print('m x-double-dot minus the Lorentz force:', [(mxdd[i] - F[i]).simplify_full
 
 ```text
 x-dot = (p - qA)/m: True
-p-dot_i = -(m*q*diff(phi(t, X0, X1, X2), X0) + (q^2*A0(t, X0, X1, X2) - P0*q)*diff(A0(t, X0, X1, X2), X0) + (q^2*A1(t, X0, X1, X2) - P1*q)*diff(A1(t, X0, X1, X2), X0) + (q^2*A2(t, X0, X1, X2) - P2*q)*diff(A2(t, X0, X1, X2), X0))/m (i = 0)
+p-dot_i = -(m*q*diff(Phi(t, X0, X1, X2), X0) + (q^2*A0(t, X0, X1, X2) - P0*q)*diff(A0(t, X0, X1, X2), X0) + (q^2*A1(t, X0, X1, X2) - P1*q)*diff(A1(t, X0, X1, X2), X0) + (q^2*A2(t, X0, X1, X2) - P2*q)*diff(A2(t, X0, X1, X2), X0))/m (i = 0)
 m x-double-dot minus the Lorentz force: [0, 0, 0]
 ```
 :::
@@ -9139,13 +9139,13 @@ a1, a2, b1, b2 = var('a1 a2 b1 b2', domain='real')
 al = a1 + I * a2; be = b1 + I * b2
 f = (al * exp(-I * w * t)).real_part() * (be * exp(-I * w * t)).real_part()
 avg = (w / (2 * pi) * integrate(f.simplify_full(), t, 0, 2 * pi / w)).simplify_full()
-print('average:', avg, '; Re(alpha conj(beta))/2 =', ((al * be.conjugate()).real_part() / 2).simplify_full())
+print('average:', avg, '; Re(alpha beta^*)/2 =', ((al * be.conjugate()).real_part() / 2).simplify_full())
 ```
 
 *Output:*
 
 ```text
-average: 1/2*a1*b1 + 1/2*a2*b2 ; Re(alpha conj(beta))/2 = 1/2*a1*b1 + 1/2*a2*b2
+average: 1/2*a1*b1 + 1/2*a2*b2 ; Re(alpha beta^*)/2 = 1/2*a1*b1 + 1/2*a2*b2
 ```
 :::
 
@@ -10106,13 +10106,13 @@ box = lambda f: (diff(f, t, 2) - sum(diff(f, v, 2) for v in X)).simplify_full()
 q, v = var('q v'); assume(v > 0, v < 1)
 phi = q / (4 * pi * sqrt((x - v * t)^2 + (1 - v^2) * (y^2 + z^2)))
 A = vector([v * phi, 0, 0])
-print('box phi =', box(phi), '; Lorenz condition d_t phi + div A =', (diff(phi, t) + div(A)).simplify_full())
+print('box Phi =', box(phi), '; Lorenz condition d_t Phi + div A =', (diff(phi, t) + div(A)).simplify_full())
 ```
 
 *Output:*
 
 ```text
-box phi = 0 ; Lorenz condition d_t phi + div A = 0
+box Phi = 0 ; Lorenz condition d_t Phi + div A = 0
 ```
 :::
 
@@ -11956,7 +11956,7 @@ print('Laplacian inside :', lap(phi_in))
 print('Laplacian outside:', lap(phi_out))
 print('continuity at r = a:', bool((phi_in - phi_out).subs(r=a) == 0))
 jump = (-diff(phi_out, r) + diff(phi_in, r)).subs(r=a).simplify_full()
-print('jump of -d_r phi:', jump, '; equals P cos(theta):', bool(jump == P * cos(th)))
+print('jump of -d_r Phi:', jump, '; equals P cos(theta):', bool(jump == P * cos(th)))
 print('E inside, z component: -d_z(P z/3) =', -P / 3)
 ```
 
@@ -11966,7 +11966,7 @@ print('E inside, z component: -d_z(P z/3) =', -P / 3)
 Laplacian inside : 0
 Laplacian outside: 0
 continuity at r = a: True
-jump of -d_r phi: P*cos(theta) ; equals P cos(theta): True
+jump of -d_r Phi: P*cos(theta) ; equals P cos(theta): True
 E inside, z component: -d_z(P z/3) = -1/3*P
 ```
 :::
@@ -12629,16 +12629,16 @@ pout = -E0 * r * cos(th) + (eps - 1) / (eps + 2) * E0 * a^3 * cos(th) / r^2
 def lap(f):
     return (diff(r^2 * diff(f, r), r) / r^2 + diff(sin(th) * diff(f, th), th) / (r^2 * sin(th))).simplify_full()
 print('harmonic:', lap(pin), lap(pout))
-print('phi continuous:', bool((pin - pout).subs(r=a).simplify_full() == 0))
-print('eps d_r phi(in) = d_r phi(out):', bool((eps * diff(pin, r) - diff(pout, r)).subs(r=a).simplify_full() == 0))
+print('Phi continuous:', bool((pin - pout).subs(r=a).simplify_full() == 0))
+print('eps d_r Phi(in) = d_r Phi(out):', bool((eps * diff(pin, r) - diff(pout, r)).subs(r=a).simplify_full() == 0))
 ```
 
 *Output:*
 
 ```text
 harmonic: 0 0
-phi continuous: True
-eps d_r phi(in) = d_r phi(out): True
+Phi continuous: True
+eps d_r Phi(in) = d_r Phi(out): True
 ```
 :::
 
@@ -12661,7 +12661,7 @@ qi = -(eps - 1) / (eps + 1) * q
 qt = 2 / (eps + 1) * q
 up = q / (4 * pi * sqrt(x^2 + y^2 + (z - d)^2)) + qi / (4 * pi * sqrt(x^2 + y^2 + (z + d)^2))
 down = qt / (4 * pi * sqrt(x^2 + y^2 + (z - d)^2))
-print('phi continuous on z = 0:', bool((up - down).subs(z=0).simplify_full() == 0))
+print('Phi continuous on z = 0:', bool((up - down).subs(z=0).simplify_full() == 0))
 print('D_z continuous on z = 0:', bool((diff(up, z) - eps * diff(down, z)).subs(z=0).simplify_full() == 0))
 F = q * qi / (4 * pi * (2 * d)^2)
 print('force on q (z component):', F.factor())
@@ -12670,7 +12670,7 @@ print('force on q (z component):', F.factor())
 *Output:*
 
 ```text
-phi continuous on z = 0: True
+Phi continuous on z = 0: True
 D_z continuous on z = 0: True
 force on q (z component): -1/16*(epsilon - 1)*q^2/(pi*d^2*(epsilon + 1))
 ```

@@ -1,6 +1,6 @@
 <!--
-Topic chips at the top of the left sidebar. Selecting chips filters the tutorial cards on the home page; a card shows when it has any selected topic. The selection lives in the URL hash (#topics=A,B), so it
-survives reloads and can be linked. On other pages a click opens the home page filtered to that topic.
+Topic chips at the top of the home page's sidebar. Selecting chips filters the tutorial cards; a card shows when it has any selected topic. The selection lives in the URL hash (#topics=A,B), so it
+survives reloads and can be linked. Other pages show their own tutorial's sidebar without the chips.
 The topics in the title block of a tutorial's first page (its `categories`) become the same chips, as links.
 Chips appear in the data-topics order below; keep it in sync with the `categories` of each tutorial's index.qmd.
 -->
@@ -18,15 +18,16 @@ Chips appear in the data-topics order below; keep it in sync with the `categorie
   .topic-chips-list,
   .quarto-title .quarto-categories { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .topic-chip {
+    font-family: var(--site-font-sans, inherit);
     font-size: 0.8rem; line-height: 1.2; padding: 0.25rem 0.65rem; border-radius: 999px; cursor: pointer;
     border: 1px solid var(--site-border, #dee2e6); background: transparent; color: var(--site-text, inherit);
     text-decoration: none; transition: background-color 0.15s, border-color 0.15s, color 0.15s;
   }
-  .topic-chip:hover { border-color: var(--site-text, #1f2328); color: var(--site-text, inherit); }
+  .topic-chip:hover { border-color: var(--site-accent, #1d5b99); color: var(--site-accent, inherit); text-decoration: none; }
   .topic-chip[aria-pressed="true"] {
-    background: var(--site-text, #1f2328); border-color: var(--site-text, #1f2328); color: var(--site-bg, #fff);
+    background: var(--site-accent, #1d5b99); border-color: var(--site-accent, #1d5b99); color: var(--site-bg, #fff);
   }
-  .topic-chip:focus-visible { outline: 2px solid var(--site-text, #1f2328); outline-offset: 2px; }
+  .topic-chip:focus-visible { outline: 2px solid var(--site-accent, #1d5b99); outline-offset: 2px; }
   .quarto-title .quarto-categories { margin-top: 0.75rem; }
   .topic-chips-clear {
     font-size: 0.75rem; border: 0; background: none; padding: 0.25rem 0.3rem; color: inherit; opacity: 0.7;
@@ -40,13 +41,14 @@ Chips appear in the data-topics order below; keep it in sync with the `categorie
   const sidebar = document.getElementById("quarto-sidebar");
   if (!box || !sidebar) return;
 
-  sidebar.prepend(box);
-  box.hidden = false;
-
   const decode = (b64) => { try { return decodeURIComponent(atob(b64)); } catch { return ""; } };
   const cards = [...document.querySelectorAll(".quarto-listing [data-categories]")];
   const cardTopics = cards.map((c) => decode(c.getAttribute("data-categories")).split(",").filter(Boolean));
   const isHome = cards.length > 0;
+  if (isHome) {
+    sidebar.prepend(box);
+    box.hidden = false;
+  }
 
   // fixed order from data-topics, plus any topic a card has that is missing there
   const topics = [...new Set([...box.dataset.topics.split(","), ...cardTopics.flat()])];

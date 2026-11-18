@@ -1378,9 +1378,9 @@ for i in range(3):
 sR = [vector([cos(ph), 0, sin(th) * sin(ph)]), vector([-sin(ph), 0, sin(th) * cos(ph)]), vector([0, 1, cos(th)])]
 S = matrix(SR, [v.list() for v in s]); SRm = matrix(SR, [v.list() for v in sR])
 E = (S.inverse()).apply_map(lambda e: e.simplify_full()); XI = (SRm.inverse()).apply_map(lambda e: e.simplify_full())
-e = [M.vector_field(*E.column(k).list()) for k in range(3)]; xi = [M.vector_field(*XI.column(k).list()) for k in range(3)]
+e = [M.vector_field(*E.column(k).list()) for k in range(3)]; K = [M.vector_field(*XI.column(k).list()) for k in range(3)]
 iszero = lambda T: all(bool(T[i, j].expr().simplify_full() == 0) for i in range(3) for j in range(3))
-print("[PASS] the right-invariant fields K_a are Killing for every a, b:", all(iszero(g.lie_derivative(v)) for v in xi))
+print("[PASS] the right-invariant fields K_a are Killing for every a, b:", all(iszero(g.lie_derivative(v)) for v in K))
 print("[PASS] e_3 = d_ps is Killing, e_1 is not for a != b:", iszero(g.lie_derivative(e[2])) and not iszero(g.lie_derivative(e[0])))
 GI = matrix(SR, 3, 3, lambda i, j: (XI.column(i) * G * XI.column(j)).simplify_full())
 print("K_1 . K_1 =", GI[0, 0].factor())

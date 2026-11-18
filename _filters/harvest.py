@@ -4,7 +4,7 @@ Run it from the project root after adding, removing or renaming a label:
 
     .venv/bin/python _filters/harvest.py
 
-It reads the pages listed in the sidebar of _quarto.yml, numbers each kind of block per page in order (as Quarto does,
+It reads the pages listed in the sidebars of _quarto.yml, numbers each kind of block per page in order (as Quarto does,
 with number-sections off), and writes one label group per set of tutorials that link to each other. It reports labels
 defined on two pages of a group and references that resolve nowhere, and exits non-zero if there are any.
 """
@@ -30,7 +30,9 @@ USE = re.compile(r"(?<![\w.])@((?:" + PREFIXES + r")-[\w-]*\w)")
 
 
 def pages():
-    """Every page of the sidebar, as paths relative to the project root."""
+    """Every page of the sidebars, once each, as paths relative to the project root.
+
+    Each tutorial has its own sidebar, and the home page's sidebar lists the tutorials' overviews again."""
     config = yaml.safe_load((ROOT / "_quarto.yml").read_text())
 
     def walk(items):
@@ -42,8 +44,12 @@ def pages():
                     yield item["href"]
                 yield from walk(item.get("contents", []))
 
+    seen = set()
     for sidebar in config["website"]["sidebar"]:
-        yield from walk(sidebar["contents"])
+        for page in walk(sidebar["contents"]):
+            if page not in seen:
+                seen.add(page)
+                yield page
 
 
 def plain(markdown):

@@ -277,18 +277,19 @@ six definitions; section identifiers SHALL remain number-free slugs.
 
 ### Requirement: Block kinds are colour coded
 
-Statements (definitions, theorems, lemmas, propositions, corollaries) SHALL have a red title and SHALL be shown, with
-their Verification box, in a light red box (dark red in dark mode) whose Verification title is also red; examples SHALL
-have a green title; exercises SHALL have a blue title; examples, exercises and solution callouts SHALL have no
-vertical bar and no background highlight. The conventions chapter SHALL contain a legend of the three colours and of
-the statement box.
+Statements (definitions, theorems, lemmas, propositions, corollaries) SHALL be shown in a box with a thin red left
+border, a faint red tint and a red small-caps title; examples SHALL have a green small-caps title and exercises a
+violet one, and the Examples and Exercises boxes that hold them SHALL have a thin left border and faint tint in green
+and violet; solution callouts SHALL have a muted title and no colour, border tint or background of their own. The
+colours SHALL keep their roles in dark mode. The conventions chapter SHALL contain a legend of the three colours and
+of the statement box.
 
 #### Scenario: a rendered chapter
 
 - **WHEN** a chapter with a definition, a proposition, an example and an exercise is rendered to HTML
-- **THEN** the definition and the proposition have red titles and sit in light red boxes together with their
-  Verification boxes, whose titles are red, while the example has a green title, the exercise a blue title, and
-  neither of them, nor the solution callout, has a vertical bar or a coloured background
+- **THEN** the definition and the proposition sit in boxes with a red left border and tint and have red titles, while
+  the example has a green title inside a green-bordered Examples box, the exercise a violet title inside a
+  violet-bordered Exercises box, and the solution callout has a muted title and no coloured border or background
 
 ### Requirement: Every definition, theorem and proposition has graded examples and exercises
 
@@ -317,11 +318,20 @@ solutions.
 - **THEN** it finds a section of three `exr-` blocks with solutions after the last definition section
 
 ### Requirement: The foundation parts are organised before they are written
-The table of contents of the two foundation parts (design D24: group chapters and their sections, with the notions
-each section defines and the computations it verifies) SHALL be fixed and scaffolded before any new section is
-written: every group file SHALL exist with its introduction placeholder, its `##` section headings with their
-identifiers and a one-line scope statement each, and the registry SHALL list the planned verified computations
-with their recipes. New content SHALL be written group by group in the order of the table of contents.
+The table of contents of the two foundation parts (design D24) SHALL be fixed and scaffolded before any new section
+is written, and new content SHALL be written group by group in the order of the table of contents.
+
+#### Scenario: The fixed table of contents
+- **WHEN** the table of contents of the two foundation parts is fixed
+- **THEN** it lists the group chapters and their sections, with the notions each section defines and the computations it verifies (design D24)
+
+#### Scenario: What the scaffold contains
+- **WHEN** the foundation parts are scaffolded
+- **THEN** every group file exists with its introduction placeholder, its `##` section headings with their identifiers and a one-line scope statement each, and the registry lists the planned verified computations with their recipes
+
+#### Scenario: Writing order
+- **WHEN** new foundation content is written
+- **THEN** it is written group by group in the order of the table of contents
 
 #### Scenario: Scaffold precedes content
 - **WHEN** a new foundation section is written
@@ -332,16 +342,33 @@ with their recipes. New content SHALL be written group by group in the order of 
 - **THEN** every group chapter and every section of design D24 appears in the table of contents, the unwritten ones marked "To be written" with their scope statement
 
 ### Requirement: Analysis, probability and operator theory are taught in the mathematics part
-The mathematics part SHALL contain group chapters on real analysis (limits, series, continuity and
-differentiability, the Riemann integral, calculus on `ℝⁿ`, multiple integrals and convergence of functions),
-complex analysis (complex functions, holomorphy, contour integration, series and residues, analytic continuation and
-the Gamma function), differential equations (ordinary differential equations, linear systems and the matrix
-exponential, Sturm-Liouville problems, partial differential equations, Green's functions), Fourier analysis (Fourier
-series, the Fourier transform, distributions, harmonic analysis on the sphere and on compact groups), Hilbert spaces
-and operator theory (inner product and Hilbert spaces, bounded operators, spectral theory, unbounded operators and
-the Laplacian, traces and heat kernels) and probability and statistics (probability spaces, random variables and
-distributions, limit theorems, statistics and estimation), each in the format of the other groups and each with
-its verified computations.
+The mathematics part SHALL contain group chapters on real analysis, complex analysis, differential equations,
+Fourier analysis, Hilbert spaces and operator theory, and probability and statistics, each covering the topics listed
+in the scenarios below, each in the format of the other groups and each with its verified computations.
+
+#### Scenario: Real analysis group
+- **WHEN** the real analysis group chapter is written
+- **THEN** it covers limits, series, continuity and differentiability, the Riemann integral, calculus on `ℝⁿ`, multiple integrals and convergence of functions
+
+#### Scenario: Complex analysis group
+- **WHEN** the complex analysis group chapter is written
+- **THEN** it covers complex functions, holomorphy, contour integration, series and residues, analytic continuation and the Gamma function
+
+#### Scenario: Differential equations group
+- **WHEN** the differential equations group chapter is written
+- **THEN** it covers ordinary differential equations, linear systems and the matrix exponential, Sturm-Liouville problems, partial differential equations and Green's functions
+
+#### Scenario: Fourier analysis group
+- **WHEN** the Fourier analysis group chapter is written
+- **THEN** it covers Fourier series, the Fourier transform, distributions, and harmonic analysis on the sphere and on compact groups
+
+#### Scenario: Hilbert spaces and operator theory group
+- **WHEN** the Hilbert spaces and operator theory group chapter is written
+- **THEN** it covers inner product and Hilbert spaces, bounded operators, spectral theory, unbounded operators and the Laplacian, and traces and heat kernels
+
+#### Scenario: Probability and statistics group
+- **WHEN** the probability and statistics group chapter is written
+- **THEN** it covers probability spaces, random variables and distributions, limit theorems, and statistics and estimation
 
 #### Scenario: A later chapter needs an analytic tool
 - **WHEN** a physics chapter uses a Fourier mode expansion, a Gaussian integral, a residue, a spectral decomposition, an operator commutator or a probability distribution
@@ -352,15 +379,25 @@ its verified computations.
 - **THEN** it cites the Laplacian spectra `n²/R²` and `l(l+1)/R²` verified in the operator-theory group and the Fourier-series and spherical-harmonics sections
 
 ### Requirement: Classical mechanics, thermodynamics, quantum mechanics and quantum field theory are taught in the physics part
-The physics part SHALL contain group chapters on classical mechanics (Newtonian, Lagrangian and Hamiltonian
-mechanics, Poisson brackets and canonical transformations, Noether's theorem, small oscillations), thermodynamics
-and statistical mechanics (the laws and potentials, ensembles and partition functions, simple systems, quantum
-statistics, phase transitions and Landau theory, finite temperature as a compact Euclidean time), quantum mechanics
-(states and observables, measurement and the Schrödinger equation, the harmonic oscillator, angular momentum and
-spin, symmetries, perturbation theory and the path integral) and quantum field theory (canonical quantisation of the
-free scalar, propagators and Green's functions, the path integral and Euclidean field theory, perturbation theory
-and Feynman diagrams, renormalisation, effective actions and anomalies in outline), each with its verified
-computations and with the outline-level material labelled `text` with citations.
+The physics part SHALL contain group chapters on classical mechanics, thermodynamics and statistical mechanics,
+quantum mechanics and quantum field theory, each covering the topics listed in the scenarios below, each with its
+verified computations and with the outline-level material labelled `text` with citations.
+
+#### Scenario: Classical mechanics group
+- **WHEN** the classical mechanics group chapter is written
+- **THEN** it covers Newtonian, Lagrangian and Hamiltonian mechanics, Poisson brackets and canonical transformations, Noether's theorem and small oscillations
+
+#### Scenario: Thermodynamics and statistical mechanics group
+- **WHEN** the thermodynamics and statistical mechanics group chapter is written
+- **THEN** it covers the laws and potentials, ensembles and partition functions, simple systems, quantum statistics, phase transitions and Landau theory, and finite temperature as a compact Euclidean time
+
+#### Scenario: Quantum mechanics group
+- **WHEN** the quantum mechanics group chapter is written
+- **THEN** it covers states and observables, measurement and the Schrödinger equation, the harmonic oscillator, angular momentum and spin, symmetries, perturbation theory and the path integral
+
+#### Scenario: Quantum field theory group
+- **WHEN** the quantum field theory group chapter is written
+- **THEN** it covers canonical quantisation of the free scalar, propagators and Green's functions, the path integral and Euclidean field theory, perturbation theory and Feynman diagrams, renormalisation, and effective actions and anomalies in outline
 
 #### Scenario: Quantum mechanics builds on the operator-theory group
 - **WHEN** the quantum mechanics chapter defines observables, spectra or the harmonic-oscillator ladder operators
@@ -399,15 +436,23 @@ index, and Banach and C*-algebras in outline, before and around the Hilbert-spac
 - **THEN** an example shows the conclusion failing when completeness is dropped
 
 ### Requirement: The Dirac operator is analysed and solved
-The book SHALL teach the Dirac operator in three places: a Part I chapter on spinors and the Dirac operator (Clifford
-algebras, spin groups, spinor representations in every dimension and signature, spin structures, the spin
-connection, the Dirac operator and its spectrum on tori and spheres, the Lichnerowicz formula, zero modes and the
-index), a Part II chapter on the Dirac equation (free solutions, non-relativistic limit, the Dirac hydrogen atom
-solved exactly, Foldy-Wouthuysen, charge conjugation, Weyl and Majorana fermions), and the higher-dimensional Dirac
-operator on compact spaces: its splitting on `M^4 × K`, its spectrum and zero modes on tori, spheres in every
-dimension, group manifolds, coset spaces `G/H`, Kähler and Calabi-Yau spaces and orbifolds, twisted by gauge
-backgrounds, with higher-dimensional index theorems and the chirality problem (Witten's no-go and its evasion in
-CSDR) (design D31).
+The book SHALL teach the Dirac operator in three places: a Part I chapter on spinors and the Dirac operator, a Part II
+chapter on the Dirac equation, and the higher-dimensional Dirac operator on compact spaces, each covering the topics
+listed in the scenarios below (design D31).
+
+#### Scenario: Part I chapter on spinors and the Dirac operator
+- **WHEN** the Part I chapter on spinors and the Dirac operator is written
+- **THEN** it covers Clifford algebras, spin groups, spinor representations in every dimension and signature, spin structures, the spin connection, the Dirac operator and its spectrum on tori and spheres, the Lichnerowicz formula, zero modes and the index
+
+#### Scenario: Part II chapter on the Dirac equation
+- **WHEN** the Part II chapter on the Dirac equation is written
+- **THEN** it covers free solutions, the non-relativistic limit, the Dirac hydrogen atom solved exactly, Foldy-Wouthuysen, charge conjugation, and Weyl and Majorana fermions
+
+#### Scenario: The higher-dimensional Dirac operator on compact spaces
+- **WHEN** the higher-dimensional Dirac operator on compact spaces is taught
+- **THEN** the book covers its splitting on `M^4 × K`, its spectrum and zero modes on tori, spheres in every dimension,
+  group manifolds, coset spaces `G/H`, Kähler and Calabi-Yau spaces and orbifolds, twisted by gauge backgrounds, with
+  higher-dimensional index theorems and the chirality problem (Witten's no-go and its evasion in CSDR)
 
 #### Scenario: The spectrum on the sphere
 - **WHEN** the reader studies the Dirac operator on `S^2`
@@ -428,12 +473,24 @@ CSDR) (design D31).
 - **THEN** the number of four-dimensional chiral zero modes is derived and equals the index computed in Part I
 
 ### Requirement: Renormalisation is taught extensively
-The book SHALL have a Part II chapter on renormalisation covering regularisation schemes compared on the same
-integrals, power counting, counterterms and renormalised perturbation theory at one and two loops, renormalisation
-schemes, BPHZ with worked forests, Ward identities and QED at one loop, the renormalisation-group equations, beta
-functions with asymptotic freedom, Dyson-Schwinger equations, the Wilsonian renormalisation group with the `ε`
-expansion and critical exponents, effective field theories and decoupling, and renormalisation in higher dimensions
-(Kaluza-Klein towers in loops, power-law running, threshold corrections, the Casimir energy) (design D31).
+The book SHALL have a Part II chapter on renormalisation covering every topic listed in the scenarios below
+(design D31).
+
+#### Scenario: Perturbative renormalisation
+- **WHEN** the renormalisation chapter is written
+- **THEN** it covers regularisation schemes compared on the same integrals, power counting, counterterms and renormalised perturbation theory at one and two loops, renormalisation schemes, BPHZ with worked forests, and Ward identities and QED at one loop
+
+#### Scenario: Renormalisation group and Dyson-Schwinger equations
+- **WHEN** the renormalisation chapter is written
+- **THEN** it covers the renormalisation-group equations, beta functions with asymptotic freedom, Dyson-Schwinger equations, and the Wilsonian renormalisation group with the `ε` expansion and critical exponents
+
+#### Scenario: Effective field theories
+- **WHEN** the renormalisation chapter is written
+- **THEN** it covers effective field theories and decoupling
+
+#### Scenario: Renormalisation in higher dimensions
+- **WHEN** the renormalisation chapter is written
+- **THEN** it covers renormalisation in higher dimensions: Kaluza-Klein towers in loops, power-law running, threshold corrections and the Casimir energy
 
 #### Scenario: A beta function
 - **WHEN** the chapter derives the one-loop beta function of `φ⁴` theory
@@ -460,20 +517,19 @@ textbook with its problem number (design D32).
 
 ### Requirement: Special relativity has its own chapter before general relativity
 The physics part SHALL contain a chapter on special relativity placed immediately after the classical
-electromagnetism chapter, covering the postulates and the Lorentz transformation, Minkowski spacetime and its causal
-structure, the Lorentz and Poincaré groups treated in detail and formally, progressively from one-dimensional boosts
-to Wigner's classification, relativistic kinematics and optics, relativistic dynamics with accelerated observers, and
-electrodynamics in covariant form; later chapters that use special relativity SHALL cross-reference it, and no block
-of the chapter SHALL use a notion defined in a later chapter (design D33, S1-S5).
+electromagnetism chapter, covering the topics listed in the scenarios below (design D33, S1-S5).
+
+#### Scenario: Topics of the special-relativity chapter
+- **WHEN** the special-relativity chapter is written
+- **THEN** it covers the postulates and the Lorentz transformation, Minkowski spacetime and its causal structure, the
+  Lorentz and Poincaré groups treated in detail and formally, progressively from one-dimensional boosts to Wigner's
+  classification, relativistic kinematics and optics, relativistic dynamics with accelerated observers, and
+  electrodynamics in covariant form
 
 #### Scenario: Reading order
 - **WHEN** the reader finishes the classical electromagnetism chapter
 - **THEN** the special-relativity chapter follows it in the sidebar, before thermodynamics and statistical mechanics,
   and the general-relativity chapter cites it for Minkowski spacetime and the Rindler frame
-
-#### Scenario: No forward use
-- **WHEN** the labels cited by the special-relativity chapter are listed with the chapter that defines each
-- **THEN** none is defined in a later chapter, except in a prose pointer that names where the notion is developed
 
 #### Scenario: Progressive formal treatment of the groups
 - **WHEN** the reader works through the Lorentz and Poincaré groups
@@ -485,16 +541,30 @@ of the chapter SHALL use a notion defined in a later chapter (design D33, S1-S5)
 - **WHEN** an exercise of the chapter is adapted from Blennow and Ohlsson
 - **THEN** it cites the book and problem number, and the reading note lists the problem
 
+### Requirement: Later chapters cross-reference the special-relativity chapter
+Later chapters that use special relativity SHALL cross-reference the special-relativity chapter (design D33, S1-S5).
+
+#### Scenario: A later chapter uses special relativity
+- **WHEN** a chapter after the special-relativity chapter uses a notion of special relativity
+- **THEN** it cross-references the special-relativity chapter
+
+### Requirement: The special-relativity chapter makes no forward use
+No block of the special-relativity chapter SHALL use a notion defined in a later chapter (design D33, S1-S5).
+
+#### Scenario: No forward use
+- **WHEN** the labels cited by the special-relativity chapter are listed with the chapter that defines each
+- **THEN** none is defined in a later chapter, except in a prose pointer that names where the notion is developed
+
 ### Requirement: Examples and exercises are folded under their statement
-After each statement, its examples SHALL be grouped, with their connecting prose and Verification boxes, in one
-collapsed box titled **Examples** (green title), and its exercises, with their prose, solutions and Verification
-boxes, in one collapsed box titled **Exercises** (blue title); the integrative exercises of each part and chapter
-SHALL be folded the same way; in the PDF these boxes are printed expanded (design P1-P4).
+After each statement, its examples SHALL be grouped, with their connecting prose, in one collapsed box titled
+**Examples** (green), and its exercises, with their prose and solutions, in one collapsed box titled **Exercises**
+(violet); the integrative exercises of each part and chapter SHALL be folded the same way; in the PDF these boxes are
+printed expanded (design P1-P4).
 
 #### Scenario: Reading the line of argument
 - **WHEN** a reader opens a chapter page
-- **THEN** the definitions and theorems are visible in their red boxes, and each is followed by a collapsed Examples
-  box and a collapsed Exercises box
+- **THEN** the definitions and theorems are visible in their red-bordered boxes, and each is followed by a collapsed
+  Examples box and a collapsed Exercises box
 
 #### Scenario: A cross-reference into a folded box
 - **WHEN** the text cites an example or exercise that is folded
@@ -511,18 +581,14 @@ recorded in the note with the reason (design T1-T3).
   or records why a mapped section was not used
 
 ### Requirement: Classical electromagnetism has its own chapter after classical mechanics
-The physics part SHALL contain a chapter on classical electromagnetism, placed immediately after classical mechanics.
-It SHALL cover, in vector form and with the book's units:
-- electrostatics and magnetostatics;
-- Maxwell's equations;
-- the potentials and gauge invariance;
-- energy, momentum and the conservation laws;
-- electromagnetic waves;
-- the fields of moving charges and radiation;
-- fields in material media.
+The physics part SHALL contain a chapter on classical electromagnetism, placed immediately after classical mechanics,
+covering in vector form and with the book's units the topics listed in the scenarios below (design E3).
 
-The covariant formulation SHALL remain in the classical field theory and special relativity chapters, which SHALL
-cite this chapter for the vector-form results they rewrite (design E3).
+#### Scenario: Topics of the electromagnetism chapter
+- **WHEN** the classical electromagnetism chapter is written
+- **THEN** it covers, in vector form and with the book's units, electrostatics and magnetostatics; Maxwell's equations;
+  the potentials and gauge invariance; energy, momentum and the conservation laws; electromagnetic waves; the fields of
+  moving charges and radiation; and fields in material media
 
 #### Scenario: Reading order
 - **WHEN** the reader finishes classical mechanics
@@ -536,19 +602,29 @@ cite this chapter for the vector-form results they rewrite (design E3).
 - **WHEN** a block of the chapter is adapted from Maggiore's *A Modern Introduction to Classical Electrodynamics*
 - **THEN** it cites the section or problem, is rewritten in the book's signature, units and notation, and the reading note lists it with the block that uses it
 
+### Requirement: The covariant formulation of electromagnetism stays in the later chapters
+The covariant formulation of electromagnetism SHALL remain in the classical field theory and special relativity
+chapters, which SHALL cite the classical electromagnetism chapter for the vector-form results they rewrite (design E3).
+
+#### Scenario: A vector-form result rewritten covariantly
+- **WHEN** the classical field theory or special relativity chapter rewrites a vector-form result of the classical electromagnetism chapter in covariant form
+- **THEN** the covariant formulation is given there, not in the electromagnetism chapter, and it cites the electromagnetism chapter for the vector-form result
+
 ### Requirement: The gauge-theory chapter teaches gauge fields in depth
 The gauge-theory chapter SHALL cover, in addition to abelian gauge invariance, Yang-Mills theory, spontaneous symmetry
-breaking and the Higgs mechanism, the following topics:
-- gauge fields as connections on principal bundles, with holonomy and Wilson loops;
-- the Aharonov-Bohm effect, the Dirac monopole and charge quantisation;
-- topological solutions: vortices, the 't Hooft-Polyakov monopole, instantons and the θ vacuum;
-- the quantisation of gauge fields: gauge fixing, Faddeev-Popov ghosts and BRST symmetry;
-- lattice gauge theory: the Wilson action, the strong-coupling expansion and confinement;
-- the Standard Model: its gauge group, its fermion representations with their hypercharges, electroweak symmetry
-  breaking, and the masses of the W and Z bosons.
+breaking and the Higgs mechanism, the topics listed in the scenarios below. Each topic SHALL have its statements with
+at least ten examples and ten exercises, and SHALL be connected by prose to the chapter's line of argument.
 
-Each topic SHALL have its statements with at least ten examples and ten exercises, and SHALL be connected by
-prose to the chapter's line of argument.
+#### Scenario: Topics of the gauge-theory chapter
+- **WHEN** the gauge-theory chapter is written
+- **THEN** besides abelian gauge invariance, Yang-Mills theory, spontaneous symmetry breaking and the Higgs mechanism, it covers:
+  gauge fields as connections on principal bundles, with holonomy and Wilson loops;
+  the Aharonov-Bohm effect, the Dirac monopole and charge quantisation;
+  topological solutions: vortices, the 't Hooft-Polyakov monopole, instantons and the θ vacuum;
+  the quantisation of gauge fields: gauge fixing, Faddeev-Popov ghosts and BRST symmetry;
+  lattice gauge theory: the Wilson action, the strong-coupling expansion and confinement;
+  and the Standard Model: its gauge group, its fermion representations with their hypercharges, electroweak symmetry
+  breaking, and the masses of the W and Z bosons
 
 #### Scenario: Connections from the mathematics part
 - **WHEN** the chapter defines a gauge field as a connection
@@ -563,25 +639,25 @@ prose to the chapter's line of argument.
 - **THEN** it is not written until the author has supplied a source (design E5)
 
 ### Requirement: The physics foundations cover the topics the later parts rely on
-The physics part SHALL include the following foundation topics:
+The physics part SHALL include the foundation topics in general relativity, quantum mechanics, classical mechanics
+and quantum field theory listed in the scenarios below. Each topic SHALL follow the chapter rules: definitions first,
+at least ten examples and ten exercises per statement, and connective prose.
 
-- **General relativity:**
-  - geodesics and the classical tests;
-  - Killing vectors and conserved quantities;
-  - the Einstein-Maxwell equations and the Reissner-Nordström solution;
-  - the weak-field approximation and gravitational waves.
-- **Quantum mechanics:**
-  - scattering theory in one and three dimensions;
-  - a charged particle in an electromagnetic field: minimal coupling, Landau levels and the Aharonov-Bohm phase.
-- **Classical mechanics:**
-  - the rigid body;
-  - constrained Hamiltonian systems.
-- **Quantum field theory:**
-  - the quantisation of the Dirac and Maxwell fields;
-  - the S-matrix and cross sections.
+#### Scenario: General relativity foundation topics
+- **WHEN** the general relativity foundations are written
+- **THEN** they include geodesics and the classical tests; Killing vectors and conserved quantities; the Einstein-Maxwell equations and the Reissner-Nordström solution; and the weak-field approximation and gravitational waves
 
-Each topic SHALL follow the chapter rules: definitions first, at least ten examples and ten exercises per
-statement, and connective prose.
+#### Scenario: Quantum mechanics foundation topics
+- **WHEN** the quantum mechanics foundations are written
+- **THEN** they include scattering theory in one and three dimensions, and a charged particle in an electromagnetic field: minimal coupling, Landau levels and the Aharonov-Bohm phase
+
+#### Scenario: Classical mechanics foundation topics
+- **WHEN** the classical mechanics foundations are written
+- **THEN** they include the rigid body and constrained Hamiltonian systems
+
+#### Scenario: Quantum field theory foundation topics
+- **WHEN** the quantum field theory foundations are written
+- **THEN** they include the quantisation of the Dirac and Maxwell fields, and the S-matrix and cross sections
 
 #### Scenario: General relativity prepares Kaluza-Klein theory
 - **WHEN** the reader reaches the abelian Kaluza-Klein part
