@@ -38,14 +38,15 @@ compute critical exponents to second order in $\epsilon$.
 
 The chapter builds on @sec-renormalisation, whose outline of regularisation, running couplings and effective theories
 serves as its introduction, and on the Feynman rules of @sec-feynman-diagrams. Its sources are the textbooks of
-@balduf2024dyson (Chapters 1 to 4) for graphs, the Hopf algebra, kinematic renormalisation and Dyson-Schwinger
-equations, @bauerschmidt2019renormalisation (Chapters 1, 2 and 6) for the critical $\phi^4$ model and the rigorous
-renormalisation group, @bricmont2022statistical (Section 9.9) for critical exponents, @boudreau2018applied (Chapters
-8, 20 and 24) for coarse graining and lattice fields, and @nath2017supersymmetry (Chapters 7 and 9) for effective
-Lagrangians and the running of gauge couplings; and the lecture notes and papers of @grozin2005lectures for quantum
-electrodynamics at one loop and the schemes, @manohar2018introduction for effective field theories and decoupling,
-@vassilevich2003heat for the heat kernel, @kompaniets2017minimally for the $\epsilon$ expansion, @dienes1998grand for
-power-law running and @ponton2001casimir for the vacuum energy of a circle. Units are $\hbar = c = 1$, the signature
+@balduf2024dyson [Ch. 1-4] for graphs, the Hopf algebra, kinematic renormalisation and Dyson-Schwinger equations,
+@bauerschmidt2019renormalisation [Ch. 1, 2 and 6] for the critical $\phi^4$ model and the rigorous renormalisation
+group, @bricmont2022statistical [Sec. 9.9] for critical exponents, @boudreau2018applied [Ch. 8, 20 and 24] for coarse
+graining and lattice fields, and @nath2017supersymmetry [Ch. 7 and 9] for effective Lagrangians and the running of
+gauge couplings; and the lecture notes and papers of @grozin2005lectures [Secs. 2-7] for quantum electrodynamics at
+one loop and the schemes, @manohar2018introduction [Secs. 3-5 and 7] for effective field theories and decoupling,
+@vassilevich2003heat [Secs. 1-2 and 4] for the heat kernel, @kompaniets2017minimally [Secs. IV-VII] for the $\epsilon$
+expansion, @dienes1998grand [Sec. 3 and Appendix A] for power-law running and @ponton2001casimir [Secs. 2.2-2.4] for
+the vacuum energy of a circle. Units are $\hbar = c = 1$, the signature
 is $(+, -, -, -)$, loop integrals are evaluated after the Wick rotation of @exm-prg-wick-quadrants in Euclidean
 momenta $\ell_E$, and dimensional regularisation works in $d = 4 - \epsilon$ dimensions, so that a logarithmic
 divergence appears as $2/\epsilon$; sources that write $d = 4 - 2\epsilon$ are converted.
@@ -66,6 +67,8 @@ parts depend on the regulator, and the dependence of $B$ on the external momentu
 of the non-analytic term $m^2\log m^2$ in $T$.
 
 ### Cutoffs and Pauli-Villars
+
+For more on this topic, see @buchbinder2021introduction [Secs. 9.2.1-9.2.2].
 
 The simplest regulator restricts the loop momentum to a ball, $|\ell_E| < \Lambda$. With $d^4\ell_E = 2\pi^2\ell^3d\ell$
 it gives
@@ -485,7 +488,7 @@ proportional to $d - 4$ multiply poles $1/\epsilon$ and produce finite parts.
 At one loop a free field in a background contributes $\tfrac12\log\det D$ to the Euclidean effective action, where $D$
 is the operator of its quadratic action, for a scalar $D = -\Delta + m^2$. The determinant is the product of the
 eigenvalues, which diverges, and the heat kernel of @def-heat-kernel turns it into an integral over a proper time $t$
-whose small-$t$ end carries the divergences [@vassilevich2003heat, Sec. 1]. The heat trace of the sphere, drawn in the
+whose small-$t$ end carries the divergences [@vassilevich2003heat, Sec. 1; @buchbinder2021introduction, Sec. 13.4]. The heat trace of the sphere, drawn in the
 figure, shows the expansion in powers of $t$ that controls them.
 
 ![Heat traces. Left: $t\,K(t)$ for the Laplacian on the unit sphere $S^2$, $K(t) = \sum_l(2l + 1)e^{-tl(l + 1)}$, against
@@ -520,8 +523,8 @@ finds the three divergences of the vacuum energy.
 ::: {#exm-ren-pt-flat}
 #### The vacuum energy in flat space
 
-For $D = -\Delta + m^2$ on a large box of volume $V$ in four dimensions, $K(t) = V\frac{e^{-tm^2}}{(4\pi t)^2}$ [@vassilevich2003heat,
-eq. 1.12], so
+For $D = -\Delta + m^2$ on a large box of volume $V$ in four dimensions, $K(t) = V\frac{e^{-tm^2}}{(4\pi t)^2}$
+[@vassilevich2003heat, eq. 1.12], so
 $$
 \frac{W_\Lambda}{V} = -\frac{1}{32\pi^2}\int_{\Lambda^{-2}}^\infty\frac{dt}{t^3}e^{-tm^2} = -\frac{1}{32\pi^2}\Bigl(\frac{\Lambda^4}{2} - m^2\Lambda^2
 + \frac{m^4}{2}\Bigl(\log\frac{\Lambda^2}{m^2} - \gamma_E + \frac32\Bigr)\Bigr) + O(\Lambda^{-2})
@@ -815,8 +818,8 @@ S = a^d\sum_x\Bigl(\frac12\sum_{\mu = 1}^d(\nabla_\mu\phi)_x^2 + \frac12m_0^2\ph
 $$ {#eq-ren-lattice-action}
 Its free propagator is $\bigl(\hat k^2 + m_0^2\bigr)^{-1}$ with $\hat k^2 = \frac{4}{a^2}\sum_\mu\sin^2\frac{k_\mu a}{2}$ for $k$ in the Brillouin zone
 $[-\pi/a, \pi/a]^d$, so that loop integrals $\int_{-\pi/a}^{\pi/a}\frac{d^dk}{(2\pi)^d}$ are finite; the continuum limit is
-$a \to 0$ with the bare parameters $m_0(a)$, $\lambda_0(a)$ tuned to keep physical quantities fixed [@boudreau2018applied,
-eqs. 24.5-24.7; @bauerschmidt2019renormalisation, eq. 1.5.25].
+$a \to 0$ with the bare parameters $m_0(a)$, $\lambda_0(a)$ tuned to keep physical quantities fixed
+[@boudreau2018applied, eqs. 24.5-24.7; @bauerschmidt2019renormalisation, eq. 1.5.25].
 :::
 ::::
 
@@ -866,8 +869,8 @@ cure.
 The naive lattice Dirac operator replaces $\partial_\mu$ by the symmetric difference, whose symbol is $\frac ia\sin k_\mu a$. It
 vanishes at $k_\mu = 0$ and at $k_\mu = \pi/a$, so in $d$ dimensions there are $2^d$ massless fermions instead of one, $16$ in
 four dimensions. Wilson adds $\frac{r}{a}\sum_\mu(1 - \cos k_\mu a)$ to the mass, which vanishes at $k = 0$ and gives each doubler a mass of
-order $2r/a$, so that they decouple as $a \to 0$ (@fig-ren-lattice). The Wilson term breaks chiral symmetry, a price
-that a theorem of Nielsen and Ninomiya says some regulator must pay [@boudreau2018applied, Sec. 24.6].
+order $2r/a$, so that they decouple as $a \to 0$ (@fig-ren-lattice). The Wilson term breaks chiral symmetry [@boudreau2018applied, Sec. 24.6],
+a price that a theorem of Nielsen and Ninomiya says some regulator must pay.
 :::
 ::::
 
@@ -1091,8 +1094,8 @@ Whether a theory can be renormalised with finitely many counterterms is decided 
 counting powers of momenta. Each loop brings $d$ powers in the measure, each propagator removes two (one for a
 fermion), and the balance tells how a graph behaves when all its loop momenta grow together. This part turns the
 count into a formula, states when it is enough, and sorts theories into renormalisable, super-renormalisable and
-non-renormalisable ones by the mass dimensions of their couplings [@balduf2024dyson, Secs. 2.3.1 and 2.3.4;
-@manohar2018introduction, Sec. 4.2].
+non-renormalisable ones by the mass dimensions of their couplings
+[@balduf2024dyson, Secs. 2.3.1 and 2.3.4; @manohar2018introduction, Sec. 4.2].
 
 For more on this topic, see @buchbinder2021introduction [Ch. 9] and @talagrand2022what [Ch. 15-19].
 
@@ -1161,7 +1164,7 @@ formula.
 
 For $\frac g{3!}\phi^3$, $3V = 2I + E$ and $L = I - V + 1$ give $\omega = d - \frac{d - 2}{2}E + \frac{d - 6}{2}V$. In $d = 6$, $\omega = 6 - 2E$: the
 one-point function ($\omega = 4$), the self-energy ($\omega = 2$) and the vertex ($\omega = 0$) diverge, the coupling $g$ is dimensionless,
-and the theory is the standard toy model of renormalisation, used by @balduf2024dyson throughout (his Example 70).
+and the theory is the standard toy model of renormalisation, used throughout by @balduf2024dyson [Example 70].
 It is also asymptotically free, which makes it a model of the strong interaction as well.
 :::
 
@@ -1413,12 +1416,12 @@ fails. The third exercise estimates it.
 #### Where a five-dimensional gauge theory becomes strong
 
 At energy $E$ the dimensionless strength of a five-dimensional gauge interaction at one loop is of order $\frac{g_5^2E}{\ell_5}$,
-with the loop factor $\ell_5 = (4\pi)^{5/2}\Gamma(5/2) = 24\pi^3$. With $g_5^2 = 2\pi Rg_4^2$ and $g_4^2 = 4\pi/30$, find the energy
+with the loop factor $\ell_5 = (4\pi)^{5/2}\Gamma(5/2) = 24\pi^3$. With $g_5^2 = 2\pi rg_4^2$ and $g_4^2 = 4\pi/30$, find the energy
 $\Lambda$ at which it reaches one, in units of $1/r$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\frac{g_5^2\Lambda}{24\pi^3} = 1$ gives $\Lambda = \frac{24\pi^3}{2\pi Rg_4^2} = \frac{12\pi^2}{g_4^2r}$. With $g_4^2 = 4\pi/30 = 0.419$ this is $\Lambda r \approx 283$: the
+$\frac{g_5^2\Lambda}{24\pi^3} = 1$ gives $\Lambda = \frac{24\pi^3}{2\pi rg_4^2} = \frac{12\pi^2}{g_4^2r}$. With $g_4^2 = 4\pi/30 = 0.419$ this is $\Lambda r \approx 283$: the
 five-dimensional theory is weakly coupled for about two decades above the compactification scale, and must be
 replaced by something else above that. The estimate is the naive dimensional analysis of
 @sec-renormalisation-higher-dimensions; the precise number depends on the loop factor and is only an order of
@@ -2083,7 +2086,7 @@ $$
 *Proof.* The first statement is the computation of @exm-ren-2l-chain and @exm-ren-2l-eye, in which the integrals are
 products of the massless one-loop function $G(a, b) = \frac{\Gamma(a + b - d/2)\Gamma(d/2 - a)\Gamma(d/2 - b)}{(4\pi)^{d/2}\Gamma(a)\Gamma(b)\Gamma(d - a - b)}$
 [@grozin2005lectures, Sec. 2.2] and the expansion is done in @exr-ren-2l-chain and @exr-ren-2l-eye. The renormalisation
-group functions are quoted from the six-loop computation of @kompaniets2017minimally, whose expansion in their
+group functions are quoted from the six-loop computation of @kompaniets2017minimally [Table IV], whose expansion in their
 $\epsilon = (4 - d)/2$ and normalisation $g = \lambda/16\pi^2$ gives these coefficients at $n = 1$; their beta function $-2\epsilon g + 3g^2 -
 5.667g^3$ becomes $-\epsilon u + 3u^2 - \frac{17}{3}u^3$ in $d = 4 - \epsilon$. $\square$
 
@@ -2261,8 +2264,8 @@ The counterterms of @sec-renormalised-perturbation were fixed by removing poles 
 could have been added to them, and each choice defines different renormalised parameters. A **renormalisation
 scheme** is such a choice. Physical predictions do not depend on it, but the numerical values of couplings and masses
 do, and so do the coefficients of the renormalisation group functions beyond the first ones. This part defines the
-schemes in common use, converts between them, and identifies what is invariant [@grozin2005lectures, Secs. 3 and 6;
-@balduf2024dyson, Secs. 2.2.4 and 4.1].
+schemes in common use, converts between them, and identifies what is invariant
+[@grozin2005lectures, Secs. 3 and 6; @balduf2024dyson, Secs. 2.2.4 and 4.1].
 
 ### Schemes
 
@@ -2289,8 +2292,8 @@ A **renormalisation scheme** is a rule that fixes the finite parts of the counte
 requires the propagator to have its pole at the physical mass with residue one and the coupling to equal a measured
 amplitude at a physical point (for quantum electrodynamics, electron scattering in a static field, $q \to 0$). The
 **momentum-subtraction** (MOM, or kinematic) scheme requires the one-particle-irreducible functions to take their tree
-values at a Euclidean point set by a scale $\mu$, for the quartic theory $\Gamma^{(4)} = \lambda$ at $s = t = u = -\mu^2$ [@balduf2024dyson,
-Def. 93]. The **minimal subtraction** (MS) scheme takes the counterterms to be pure poles in $\epsilon$, and the **modified
+values at a Euclidean point set by a scale $\mu$, for the quartic theory $\Gamma^{(4)} = \lambda$ at $s = t = u = -\mu^2$
+[@balduf2024dyson, Def. 93]. The **minimal subtraction** (MS) scheme takes the counterterms to be pure poles in $\epsilon$, and the **modified
 minimal subtraction** ($\overline{\mathrm{MS}}$) scheme removes the poles together with $-\gamma_E + \log4\pi$, which is MS with $\mu^2$ replaced
 by $\bar\mu^2 = 4\pi e^{-\gamma_E}\mu^2$ [@grozin2005lectures, eqs. 3.8-3.9].
 :::
@@ -2717,6 +2720,8 @@ Zimmermann solved the recursion in closed form as a sum over **forests**, sets o
 Connes and Kreimer later recognised the combinatorics as that of a Hopf algebra, in which the counterterm of a graph is
 a twisted antipode [@balduf2024dyson, Secs. 2.2 and 2.3.4].
 
+For more on this topic, see @talagrand2022what [Ch. 16 and 19].
+
 ### Forests
 
 The subtraction operator $T_\gamma$ acting on a subgraph replaces its integrand by the part that produces its divergence: in
@@ -2910,8 +2915,8 @@ In a theory renormalisable by power counting, for every one-particle-irreducible
 @eq-ren-forest-formula with momentum subtraction produces an absolutely convergent integral, and with dimensional
 regularisation and minimal subtraction a finite limit as $\epsilon \to 0$. The terms with $\Gamma \in F$ are local, polynomials in the
 external momenta of degree $\omega(\Gamma)$, and the sum of the terms with $\Gamma \notin F$ is the sum of $\Gamma$ and its counterterm graphs; so
-the forest formula is the same as adding local counterterms to the Lagrangian order by order [@balduf2024dyson, Thm.
-34 and the remarks after it].
+the forest formula is the same as adding local counterterms to the Lagrangian order by order
+[@balduf2024dyson, Thm. 34 and the remarks after it].
 :::
 ::::
 
@@ -3065,8 +3070,8 @@ expression of @exm-ren-forest-eye.
 
 $\Delta(\Gamma) = \Gamma \otimes 1 + 1 \otimes \Gamma + \gamma \otimes \Gamma/\gamma$, where $\gamma$ is the inner bubble and $\Gamma/\gamma$ the outer bubble with a vertex in its place.
 The counterterm is $S_R(\Gamma) = -R[F(\Gamma) + S_R(\gamma)F(\Gamma/\gamma)] = -R[F(\Gamma) - R F(\gamma)F(\Gamma/\gamma)]$, and $F_R(\Gamma) = (1 - R)[F(\Gamma) - RF(\gamma)F(\Gamma/\gamma)]$: the
-forest formula of the eye graph, with nested subtractions written as an iterated $R$. This is @balduf2024dyson [Example
-81] for the analogous graph of the cubic theory, the dunce's cap.
+forest formula of the eye graph, with nested subtractions written as an iterated $R$. This is
+@balduf2024dyson [Example 81] for the analogous graph of the cubic theory, the dunce's cap.
 :::
 
 For the chain the coproduct contains the same term twice and nothing with both bubbles. The third example shows why,
@@ -3295,15 +3300,15 @@ In a gauge theory the counterterms are not independent. Gauge invariance relates
 legs to those without, and these relations, the Ward identities, survive renormalisation if the regulator respects
 the symmetry. In quantum electrodynamics they make the photon massless to all orders and make the renormalisation of
 the charge depend only on the photon self-energy, so that every particle's charge is renormalised by the same factor.
-This part states the identities and renormalises quantum electrodynamics at one loop, following @grozin2005lectures
-[Sec. 3] with $d = 4 - \epsilon$ in place of his $d = 4 - 2\epsilon$, so that his $\frac1\epsilon$ is our $\frac2\epsilon$.
+This part states the identities and renormalises quantum electrodynamics at one loop, following
+@grozin2005lectures [Sec. 3] with $d = 4 - \epsilon$ in place of his $d = 4 - 2\epsilon$, so that his $\frac1\epsilon$ is our $\frac2\epsilon$.
 
-For more on this topic, see @gelis2021problems.
+For more on this topic, see @gelis2021problems [Ch. 1, Problems 8-9] and @aitchison2024gauge [Ch. 11].
 
 ### Ward identities
 
 The Lagrangian of quantum electrodynamics is $\bar\psi_0(i{D}\!\!\!/ - m_0)\psi_0 - \frac14F_{0\mu\nu}F_0^{\mu\nu} - \frac{1}{2a_0}(\partial_\mu A_0^\mu)^2$ with $D_\mu = \partial_\mu + ie_0A_{0\mu}$
-(the sign of the charge is a convention; @grozin2005lectures writes $-ie_0$) and a gauge-fixing parameter $a_0$. Its
+(the sign of the charge is a convention; @grozin2005lectures [eq. 3.2] writes $-ie_0$) and a gauge-fixing parameter $a_0$. Its
 renormalised fields and parameters are $\psi_0 = Z_\psi^{1/2}\psi$, $A_0 = Z_A^{1/2}A$, $a_0 = Z_Aa$, $m_0 = Z_mm$ and $e_0 = Z_\alpha^{1/2}\mu^{\epsilon/2}e$
 [@grozin2005lectures, eq. 3.7]. The theorem below is the statement that gauge invariance survives quantisation.
 
@@ -3529,7 +3534,8 @@ evaluates it for hydrogen, where it is part of the Lamb shift that the Dirac equ
 #### The Uehling term and the Lamb shift
 
 For $|q^2| \ll m^2$, $\hat\Pi(q^2) = -\frac{\alpha}{15\pi}\frac{q^2}{m^2} + O(q^4)$. For a static potential $q^2 = -\mathbf q^{\,2}$, and $-\frac{4\pi\alpha}{\mathbf q^{\,2}}(1 +
-\hat\Pi) = -\frac{4\pi\alpha}{\mathbf q^{\,2}} - \frac{4\alpha^2}{15m^2}$, so $V(\mathbf r) = -\frac\alpha r - \frac{4\alpha^2}{15m^2}\delta^3(\mathbf r)$. In first-order perturbation theory, with
+\hat\Pi) = -\frac{4\pi\alpha}{\mathbf q^{\,2}} - \frac{4\alpha^2}{15m^2}$, so $V(\mathbf r) = -\frac\alpha r - \frac{4\alpha^2}{15m^2}\delta^3(\mathbf r)$
+[@aitchison2024gauge, Sec. 11.5.1]. In first-order perturbation theory, with
 $|\psi_{n00}(0)|^2 = \frac{(m\alpha)^3}{\pi n^3}$, the $nS$ levels of hydrogen shift by $\Delta E = -\frac{4\alpha^5m}{15\pi n^3}$, which for $2S$ is $-1.12 \times 10^{-7}\,\mathrm{eV}$ or
 $-27.1\,\mathrm{MHz}$ (@exr-ren-vp-lamb), about $-2.6\%$ of the measured Lamb shift of $1057.8\,\mathrm{MHz}$, whose bulk comes from the
 electron self-energy.
@@ -3883,7 +3889,7 @@ composition, the **renormalisation group**, and its generators are the beta func
 equations they satisfy turn logarithms of fixed-order perturbation theory into running couplings, and they decide
 what a theory does at very high and very low energies [@balduf2024dyson, Sec. 3.2; @grozin2005lectures, Secs. 3.5-3.7].
 
-For more on this topic, see @buchbinder2021introduction [Ch. 13-15], @kivelson2024statistical [Ch. 10] and @shankar2017quantum [Ch. 11-14].
+For more on this topic, see @buchbinder2021introduction [Sec. 9.9 and Ch. 13-15], @kivelson2024statistical [Ch. 10] and @shankar2017quantum [Ch. 11-14].
 
 ### The renormalisation-group equations
 
@@ -4175,8 +4181,8 @@ representations $F$ and complex scalars in representations $S$,
 $$
 \beta_g = \frac{g^3}{16\pi^2}\Bigl(-\frac{11}{3}C_2(G) + \frac23\sum_FT(F) + \frac13\sum_ST(S)\Bigr)
 $$
-with $\operatorname{tr}(t_at_b) = T(R)\delta_{ab}$ for the Hermitian generators $t_a = iT_a$ of the representation $R$, $T = \frac12$ for the fundamental and $T = C_2(G) = N$ for the adjoint of $SU(N)$ [@nath2017supersymmetry, eqs.
-9.35-9.37; @grozin2005lectures, eq. 4.45]. In the momentum-subtraction scheme the contribution of a particle of mass $m$
+with $\operatorname{tr}(t_at_b) = T(R)\delta_{ab}$ for the Hermitian generators $t_a = iT_a$ of the representation $R$, $T = \frac12$ for the fundamental and $T = C_2(G) = N$ for the adjoint of $SU(N)$
+[@nath2017supersymmetry, eqs. 9.35-9.37; @grozin2005lectures, eq. 4.45]. In the momentum-subtraction scheme the contribution of a particle of mass $m$
 is multiplied by a function of $\mu/m$ that tends to $1$ for $\mu \gg m$ and vanishes like $\mu^2/m^2$ for $\mu \ll m$; for the electron loop
 it is $6\int_0^1dx\frac{x^2(1 - x)^2\mu^2}{m^2 + x(1 - x)\mu^2}$ [@manohar2018introduction, eqs. 7.3-7.5].
 :::
@@ -4221,8 +4227,8 @@ them with the normalisation that grand unification uses.
 
 With $\alpha_i = g_i^2/4\pi$, $\mu\frac{d\alpha_i}{d\mu} = \frac{b_i}{2\pi}\alpha_i^2$, and $\alpha_1 = \frac53\alpha_Y$, the coefficients are $b_i = (0, -\frac{22}{3}, -11) + N_G(\frac43, \frac43, \frac43) +
 N_H(\frac1{10}, \frac16, 0)$; with three generations and one Higgs doublet, $(b_1, b_2, b_3) = (\frac{41}{10}, -\frac{19}{6}, -7)$. In the minimal supersymmetric
-extension, with the superpartners and two Higgs doublets, $(b_1, b_2, b_3) = (\frac{33}{5}, 1, -3)$ [@nath2017supersymmetry, eqs. 9.39-9.40
-and 9.87-9.89]. Only the weak and strong couplings are asymptotically free.
+extension, with the superpartners and two Higgs doublets, $(b_1, b_2, b_3) = (\frac{33}{5}, 1, -3)$
+[@nath2017supersymmetry, eqs. 9.39-9.40 and 9.87-9.89]. Only the weak and strong couplings are asymptotically free.
 :::
 
 In a mass-dependent scheme a heavy particle stops contributing below its mass. The fourth example evaluates the
@@ -4523,7 +4529,7 @@ print("1/alpha_s(m_tau) = %.3f, alpha_s(m_tau) = %.4f" % (inv_tau.n(), (1 / inv_
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The beta functions of a full gauge theory have many terms, and at two loops they are computed by programs rather than
-by hand. PyR@TE [@sartore2021pyrate] takes a model file listing the gauge groups, the fields and the Lagrangian, and
+by hand. PyR@TE [@sartore2021pyrate, Secs. 3.2-3.4] takes a model file listing the gauge groups, the fields and the Lagrangian, and
 returns the renormalisation-group equations of all couplings at up to three loops, together with a Python solver.
 
 ::: {#exm-pyrate-sm}
@@ -5068,8 +5074,8 @@ renormalisation demands $G_R(\alpha, 0) = 1$. If the equation is linear in $G_R$
 (@exr-ren-x-grouplike) and the Green function is a pure power of the scale; the exponent, an anomalous dimension, is
 then found from the kernel alone. The figure shows two such exact anomalous dimensions.
 
-![Exact anomalous dimensions of linear Dyson-Schwinger equations in kinematic renormalisation [@balduf2024dyson,
-Examples 103 and 105]. Solid: the toy model, $\gamma(\alpha) = -\frac1\pi\arcsin(\pi\alpha)$, defined up to $\alpha = 1/\pi$; dashed: the one-loop multiedge
+![Exact anomalous dimensions of linear Dyson-Schwinger equations in kinematic renormalisation
+[@balduf2024dyson, Examples 103 and 105]. Solid: the toy model, $\gamma(\alpha) = -\frac1\pi\arcsin(\pi\alpha)$, defined up to $\alpha = 1/\pi$; dashed: the one-loop multiedge
 in four dimensions, $\gamma(\alpha) = \frac{\sqrt{1 + 4\alpha} - 1}{2}$; dotted: the truncations of their series at first and third order. Generated by
 `figures/ren-dse-anomalous.sage`.](figures/ren-dse-anomalous.svg){#fig-ren-dse-anomalous width=70%}
 
@@ -5336,10 +5342,10 @@ A system with a short-distance cutoff is described at a coarser scale by integra
 the two scales, which produces a new Hamiltonian of the same kind with changed couplings. Repeating the step defines a
 flow in the space of couplings; a critical point is a fixed point of the flow, and the critical exponents are read off
 from the linearised flow near it. The same picture explains why microscopically different systems share their
-exponents, and why the quartic theory in four dimensions is renormalisable but trivial [@boudreau2018applied, Sec.
-8.4; @bauerschmidt2019renormalisation, Sec. 1.1; @bricmont2022statistical, Sec. 9.9].
+exponents, and why the quartic theory in four dimensions is renormalisable but trivial
+[@boudreau2018applied, Sec. 8.4; @bauerschmidt2019renormalisation, Sec. 1.1; @bricmont2022statistical, Sec. 9.9].
 
-For more on this topic, see @kivelson2024statistical [Ch. 8].
+For more on this topic, see @kivelson2024statistical [Ch. 8 and 10].
 
 ### Block spins and the flow
 
@@ -5560,8 +5566,8 @@ A **fixed point** of a renormalisation group transformation is a set of coupling
 $K' - K^* = T(K - K^*) + O((K - K^*)^2)$ with $T_{ij} = \partial M_i/\partial K_j|_{K^*}$, and the eigenvalues of $T$ have the form $b^{y_i}$ by the semigroup
 property. A perturbation along an eigenvector is **relevant** if $y_i > 0$, **irrelevant** if $y_i < 0$ and **marginal** if $y_i = 0$. The
 **critical surface** is the set of couplings that flow into $K^*$; if the only relevant direction besides the field is
-the temperature, with $y_t > 0$, the correlation length diverges as $\xi \propto |T - T_c|^{-\nu}$ with $\nu = 1/y_t$ [@boudreau2018applied,
-eqs. 8.56-8.59].
+the temperature, with $y_t > 0$, the correlation length diverges as $\xi \propto |T - T_c|^{-\nu}$ with $\nu = 1/y_t$
+[@boudreau2018applied, eqs. 8.56-8.59].
 :::
 ::::
 
@@ -5576,7 +5582,7 @@ At $r = g = 0$ the flow of @exm-ren-bs-shell is linear: $y_r = 2$ and $y_g = \ep
 irrelevant and the Gaussian fixed point controls the critical behaviour, with $\nu = \frac12$ and the mean-field exponents of
 @prp-landau-mean-field; in $d < 4$ it is relevant and the Gaussian fixed point is unstable. In general an operator of
 dimension $\Delta$ has $y = d - \Delta$ at the Gaussian point: $\phi^6$, with $\Delta = 3(d - 2)$, has $y = 6 - 2d$, irrelevant near four
-dimensions [@bauerschmidt2019renormalisation, Sec. 1.6.2].
+dimensions [@bauerschmidt2019renormalisation, Sec. 1.6.2 and Def. 5.2.1].
 :::
 
 The percolation map of @exm-ren-bs-percolation has a single coupling, and its linearisation is a number. The second
@@ -5695,8 +5701,8 @@ The sign of $\epsilon$ decides which fixed point is stable. The second example l
 #### Above and at four dimensions
 
 For $d > 4$, $\epsilon < 0$ and the Wilson-Fisher fixed point has $g^* < 0$, outside the physical region; the Gaussian fixed point is
-stable and the exponents are those of mean-field theory, as is proved for $d > 4$ [@bauerschmidt2019renormalisation,
-eqs. 1.6.10-1.6.11]. At $d = 4$ the two fixed points merge, the coupling is marginally irrelevant, $\frac{dg}{dl} = -\frac{n + 8}{3}g^2$, and
+stable and the exponents are those of mean-field theory, as is proved for $d > 4$
+[@bauerschmidt2019renormalisation, eqs. 1.6.10-1.6.11]. At $d = 4$ the two fixed points merge, the coupling is marginally irrelevant, $\frac{dg}{dl} = -\frac{n + 8}{3}g^2$, and
 it decays like $\frac{3}{(n + 8)l}$: the corrections to mean-field behaviour are powers of logarithms (@exm-ren-pi-theorem).
 The same flow, read towards the ultraviolet, is the Landau pole of the four-dimensional quartic theory.
 :::
@@ -5816,8 +5822,8 @@ $\beta = \frac\nu2(d - 2 + \eta)$ and $\delta = \frac{d + 2 - \eta}{d - 2 + \eta
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 *Proof.* With $u = \lambda/16\pi^2$, the two-loop functions are $\beta = -\epsilon u + \frac{n + 8}{3}u^2 - \frac{3n + 14}{3}u^3$, $\gamma_\phi = \frac{n + 2}{36}u^2$ and $\gamma_{m^2} =
-\frac{n + 2}{3}u - \frac{5(n + 2)}{18}u^2$ [@kompaniets2017minimally, eqs. 16, 18 and Table IV, converted to $d = 4 - \epsilon$ and to our sign of
-$\gamma_{m^2}$]. The zero is $u^* = \frac{3\epsilon}{n + 8} + \frac{9(3n + 14)}{(n + 8)^3}\epsilon^2$, and substituting into $\eta$, $\nu$ and $\omega = \beta'(u^*)$ and expanding gives the
+\frac{n + 2}{3}u - \frac{5(n + 2)}{18}u^2$
+[@kompaniets2017minimally, eqs. 16, 18 and Table IV, converted to $d = 4 - \epsilon$ and to our sign of $\gamma_{m^2}$]. The zero is $u^* = \frac{3\epsilon}{n + 8} + \frac{9(3n + 14)}{(n + 8)^3}\epsilon^2$, and substituting into $\eta$, $\nu$ and $\omega = \beta'(u^*)$ and expanding gives the
 formulas (@exr-ren-ce-derive). At $\epsilon = 1$ the first-order part of $\nu$ is that of @prp-ren-wilson-fisher, as it must be,
 since the two computations differ by a scheme. $\square$
 
@@ -5829,7 +5835,7 @@ In three dimensions the second order brings $\nu$ close to the accurate value. T
 At $n = 1$, $\epsilon = 1$: $\eta = \frac{1}{54} = 0.019$ and $\nu = \frac12 + \frac1{12} + \frac{7}{162} = 0.627$, and the scaling relations give $\gamma = 1.241$, $\alpha = 0.120$,
 $\beta = 0.319$, $\delta = 4.89$. The three-dimensional values are $\nu = 0.630$, $\eta = 0.036$, $\gamma = 1.237$, $\alpha = 0.110$, $\beta = 0.326$, $\delta = 4.79$
 (@exm-lan-onsager; @kompaniets2017minimally [eqs. 40-41]). With six loops and resummation the expansion gives
-$\nu = 0.6292(5)$ and $\eta = 0.0362(6)$ [@kompaniets2017minimally, Sec. VII]: the series is asymptotic, but resummed it is
+$\nu = 0.6292(5)$ and $\eta = 0.0362(6)$ [@kompaniets2017minimally, Sec. VI.B, eq. 42]: the series is asymptotic, but resummed it is
 among the most precise predictions of statistical physics.
 :::
 
@@ -5982,7 +5988,7 @@ prefactor (8 sqrt 2)^(1/8) = 1.3543, m / (K - K_c)^(1/8) at 1e-6: 1.3543
 ### Rigorous renormalisation group
 
 The perturbative flow equations of this part leave the remainder of every step uncontrolled. A rigorous renormalisation
-group must bound it, and the method of @bauerschmidt2019renormalisation does so for the four-dimensional $|\phi|^4$ model
+group must bound it, and the method of @bauerschmidt2019renormalisation [Ch. 2, 5 and 6] does so for the four-dimensional $|\phi|^4$ model
 by integrating the Gaussian measure one scale at a time. Its first step is a decomposition of the covariance, and its
 output, for the hierarchical model, a flow of coupling constants whose perturbative part is the one of
 @exm-ren-wf-four. The figure shows that flow.
@@ -5990,8 +5996,8 @@ output, for the hierarchical model, a flow of coupling constants whose perturbat
 ![The perturbative flow of the coupling in the four-dimensional hierarchical model, $\bar g_{j + 1} = \bar g_j - \beta\bar g_j^2$ with $\beta = (n +
 8)(1 - L^{-4})$, $L = 2$, $n = 1$ [@bauerschmidt2019renormalisation, eq. 6.1.1], from $\bar g_0 = 0.05$ (solid), the same flow with a
 cubic remainder $+0.5\bar g_j^3$ (dashed), and the asymptote $\frac{1}{\beta j}$ (dotted). Both flows approach the asymptote: the coupling is
-marginally irrelevant and the remainder does not change the leading behaviour [@bauerschmidt2019renormalisation, Prop.
-6.1.3]. Generated by `figures/ren-flow-g.sage`.](figures/ren-flow-g.svg){#fig-ren-flow-g width=70%}
+marginally irrelevant and the remainder does not change the leading behaviour
+[@bauerschmidt2019renormalisation, Prop. 6.1.3]. Generated by `figures/ren-flow-g.sage`.](figures/ren-flow-g.svg){#fig-ren-flow-g width=70%}
 
 The definition states the structure on which the rigorous method rests. It uses the fact that a Gaussian measure with
 a sum of covariances is a convolution of Gaussian measures.
@@ -6007,8 +6013,8 @@ $$
 Z_{j + 1} = E_{C_{j + 1}}\theta Z_j, \qquad j = 0, \dots, N - 1 ,
 $$
 each step integrating the fluctuations of one scale. Writing $Z_j = e^{-u_j}(e^{-V_j} + K_j)$ with a local polynomial $V_j$ (couplings $g_j$,
-$\nu_j$) and a remainder $K_j$, the map $(V_j, K_j) \to (V_{j + 1}, K_{j + 1})$ is the **renormalisation group map** [@bauerschmidt2019renormalisation,
-Cor. 2.1.11, eq. 2.1.21 and Sec. 5.1].
+$\nu_j$) and a remainder $K_j$, the map $(V_j, K_j) \to (V_{j + 1}, K_{j + 1})$ is the **renormalisation group map**
+[@bauerschmidt2019renormalisation, Cor. 2.1.11, eq. 2.1.21 and Sec. 5.1].
 :::
 ::::
 
@@ -6293,8 +6299,8 @@ second example gives both, following @manohar2018introduction [eqs. 7.10-7.12].
 In $\overline{\mathrm{MS}}$, the loop of a lepton of mass $m$ expanded for $p^2 \ll m^2$ is $\Pi(p^2) = \frac{e^2}{2\pi^2}\bigl(\frac16\log\frac{m^2}{\mu^2} - \frac{p^2}{30m^2} + \dots\bigr)$ in the convention of @def-ren-vacuum-polarisation
 (@manohar2018introduction [eq. 7.10] defines $\Pi$ with the opposite sign). The first term multiplies the photon kinetic
 term by $1 - \Pi(0)$, and rescaling the field to restore $-\frac14F^2$ changes the coupling: $\frac{1}{e_L^2(\mu)} = \frac{1}{e_H^2(\mu)} - \frac{1}{12\pi^2}\log\frac{m^2}{\mu^2}$, a threshold
-correction that vanishes at $\mu = m$. The second is a dimension-six operator of coefficient $\frac{e^2}{240\pi^2m^2}$ [@manohar2018introduction,
-eq. 7.12]; with the conventions of this book it reads $-\frac{e^2}{240\pi^2m^2}\partial_\alpha F_{\mu\nu}\partial^\alpha F^{\mu\nu}$ (@exr-ren-match-dim6), and at low momenta it is the
+correction that vanishes at $\mu = m$. The second is a dimension-six operator of coefficient $\frac{e^2}{240\pi^2m^2}$
+[@manohar2018introduction, eq. 7.12]; with the conventions of this book it reads $-\frac{e^2}{240\pi^2m^2}\partial_\alpha F_{\mu\nu}\partial^\alpha F^{\mu\nu}$ (@exr-ren-match-dim6), and at low momenta it is the
 Uehling contact term of @exm-ren-vp-uehling (@exr-ren-x-uehling-eft).
 :::
 
@@ -6770,8 +6776,8 @@ When the extra dimensions are compact, each field is a tower of four-dimensional
 inverse radius, and in loops the whole tower contributes, which changes logarithmic running into a power law. And the
 vacuum energy depends on the size of the compact space, a finite, regulator-independent effect that acts as a
 potential for the radius. This part treats the three in turn, with the threshold corrections that connect the
-four-dimensional description to the higher-dimensional one [@dienes1998grand, Secs. 2-3 and Appendix A;
-@ponton2001casimir, Secs. 2.2-2.4].
+four-dimensional description to the higher-dimensional one
+[@dienes1998grand, Secs. 2-3 and Appendix A; @ponton2001casimir, Secs. 2.2-2.4].
 
 ### Non-renormalisability above four dimensions
 
@@ -6810,7 +6816,7 @@ language of the definition.
 ::: {#exm-ren-sc-five}
 #### One extra dimension
 
-For $\delta = 1$, $\ell_5 = (4\pi)^{5/2}\Gamma(\frac52) = 24\pi^3$, and $\Lambda_s = \frac{24\pi^3}{g_5^2} = \frac{24\pi^3}{2\pi Rg_4^2} = \frac{12\pi^2}{g_4^2r}$. With $\alpha_4 = \frac{1}{30}$, $g_4^2 = 0.419$ and
+For $\delta = 1$, $\ell_5 = (4\pi)^{5/2}\Gamma(\frac52) = 24\pi^3$, and $\Lambda_s = \frac{24\pi^3}{g_5^2} = \frac{24\pi^3}{2\pi rg_4^2} = \frac{12\pi^2}{g_4^2r}$. With $\alpha_4 = \frac{1}{30}$, $g_4^2 = 0.419$ and
 $\Lambda_s r = 283$: about $280$ Kaluza-Klein levels can be treated perturbatively before the five-dimensional theory becomes
 strong. At that scale the effective strength summed over the levels below it is of order one, the same statement seen
 from four dimensions (@exm-rn-tower-strength).
@@ -6916,7 +6922,7 @@ matched to its completion (@prp-ren-power-law-running).
 ### The Kaluza-Klein tower in loops
 
 On a circle of radius $r$ a five-dimensional field is a tower of four-dimensional fields of masses $|n|/r$. At an energy $E$ the
-number of light levels grows like $ER$, and every level contributes to a loop like an ordinary particle of its mass. The
+number of light levels grows like $Er$, and every level contributes to a loop like an ordinary particle of its mass. The
 figure shows the result for the gauge couplings of the supersymmetric Standard Model with the gauge and Higgs fields in
 one extra dimension.
 
@@ -6927,7 +6933,7 @@ within $5\%$ there. Generated by `figures/ren-power-law.sage`.](figures/ren-powe
 
 {{< interactive ren-power-law 460 >}}
 
-The proposition gives the one-loop gauge couplings with the whole tower. It is phrased, as by @dienes1998grand, as a
+The proposition gives the one-loop gauge couplings with the whole tower. It is phrased, as by @dienes1998grand [Sec. 2.2], as a
 dependence on the cutoff $\Lambda$ of the higher-dimensional theory rather than as a running.
 
 :::: {.statement-box}
@@ -6942,8 +6948,8 @@ $$
 $$
 where $X_\delta$ is the volume of the unit ball in $\delta$ dimensions and the number of levels with mass below $\mu$ is $X_\delta(\mu r)^\delta$ for $\mu r \gg 1$. The
 formula follows from the proper-time representation of the vacuum polarisation with the sum over levels,
-$\sum_ne^{-tn^2/r^2} = \vartheta_3(\frac{it}{\pi r^2})^\delta$, and the Poisson formula $\vartheta_3(\frac{it}{\pi r^2}) = r\sqrt{\pi/t}\,(1 + O(e^{-\pi^2r^2/t}))$ [@dienes1998grand, eqs.
-3.8-3.13 and A.9-A.15].
+$\sum_ne^{-tn^2/r^2} = \vartheta_3(\frac{it}{\pi r^2})^\delta$, and the Poisson formula $\vartheta_3(\frac{it}{\pi r^2}) = r\sqrt{\pi/t}\,(1 + O(e^{-\pi^2r^2/t}))$
+[@dienes1998grand, eqs. 3.8-3.13 and A.9-A.15].
 :::
 ::::
 
@@ -7049,12 +7055,12 @@ exercise compares it with the exact sum over levels for $\delta = 1$.
 ::: {#exr-ren-kk-exact}
 #### The exact sum over levels
 
-With unit radius, compare $\int_{r\Lambda^{-2}}^{r}\frac{dt}{t}\sum_ne^{-tn^2}$ with $r = \pi X_1^{-2} = \frac\pi4$ [@dienes1998grand, eqs. A.13-A.15] against the approximate form $2X_1(\Lambda - 1)$
+With unit radius, compare $\int_{\varrho\Lambda^{-2}}^{\varrho}\frac{dt}{t}\sum_ne^{-tn^2}$ with $\varrho = \pi X_1^{-2} = \frac\pi4$ [@dienes1998grand, eqs. A.13-A.15] against the approximate form $2X_1(\Lambda - 1)$
 obtained from $\vartheta_3 \approx \sqrt{\pi/t}$ for $t < r$, for $\Lambda = 10, 100$, with Sage.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For small $t$ the integrand is $\sqrt{\pi}\,t^{-3/2}$, whose integral from $r\Lambda^{-2}$ to $r$ gives $2\sqrt{\pi/r}\,(\Lambda - 1) = 2X_1(\Lambda - 1) = 4(\Lambda - 1)$ with $r = \pi/X_1^2$:
+For small $t$ the integrand is $\sqrt{\pi}\,t^{-3/2}$, whose integral from $\varrho\Lambda^{-2}$ to $\varrho$ gives $2\sqrt{\pi/\varrho}\,(\Lambda - 1) = 2X_1(\Lambda - 1) = 4(\Lambda - 1)$ with $\varrho = \pi/X_1^2$:
 this is how the normalisation $X_\delta$ fixes the coefficient of the power. Numerically the exact integral exceeds $4(\Lambda - 1)$ by
 $1.07 \times 10^{-6}$ for $\Lambda = 10$ and for $\Lambda = 100$: on the whole interval $t \leq r = \frac\pi4$ the corrections to the Poisson formula are of order
 $e^{-\pi^2/r} = e^{-4\pi}$, so with this choice of $r$ the approximate formula is exact up to a constant of order $10^{-6}$:
@@ -7146,8 +7152,8 @@ can be comparable to the effects one wants to measure. The figure shows how the 
 meeting point of the gauge couplings.
 
 ![Threshold dependence of unification. The inverse couplings run with the Standard Model coefficients up to a common
-superpartner mass $M_S$ and with the supersymmetric ones above, in the step approximation of @nath2017supersymmetry
-[eqs. 9.87-9.91]; solid for $M_S = 1\,\mathrm{TeV}$, dashed for $M_S = 100\,\mathrm{TeV}$. The meeting region moves to lower scales and larger $\alpha^{-1}$ as $M_S$
+superpartner mass $M_S$ and with the supersymmetric ones above, in the step approximation of
+@nath2017supersymmetry [eqs. 9.87-9.91]; solid for $M_S = 1\,\mathrm{TeV}$, dashed for $M_S = 100\,\mathrm{TeV}$. The meeting region moves to lower scales and larger $\alpha^{-1}$ as $M_S$
 grows. Generated by `figures/ren-thresholds.sage`.](figures/ren-thresholds.svg){#fig-ren-thresholds width=75%}
 
 The definition makes the step approximation and the correction to it precise. The correction is the price of
@@ -7202,7 +7208,7 @@ example identifies the threshold term in @prp-ren-power-law-running.
 
 In @prp-ren-power-law-running the term $-\frac{b_i - \tilde b_i}{2\pi}\log\frac\Lambda{\mu_0}$ corrects the power-law term for the zero modes, which run with $b_i$, not $\tilde b_i$:
 it is the threshold of a tower whose lowest level differs from the others. The remaining freedom is in how the cutoffs
-at $\mu_0$ and $\Lambda$ are imposed on the proper-time integral; @dienes1998grand [Appendix A] fixes it with the factor $r = \pi X_\delta^{-2/\delta}$,
+at $\mu_0$ and $\Lambda$ are imposed on the proper-time integral; @dienes1998grand [Appendix A] fixes it with the factor $\varrho = \pi X_\delta^{-2/\delta}$,
 for which the approximation of four flat dimensions below $\mu_0$ and $4 + \delta$ above reproduces the sum over levels
 (@exr-ren-kk-exact). A different completion of the theory at $\Lambda$ would change the constants by amounts of order $\frac{\tilde b_i}{2\pi}$,
 the threshold corrections proper, which the effective theory cannot compute.
@@ -7541,6 +7547,9 @@ Four exercises that combine the parts of this chapter. The first computes a fini
 a compact dimension with dimensional regularisation and Poisson resummation; the second relates the Casimir energy
 of a spatial circle to the thermal free energy; the third shows that critical exponents do not depend on the scheme in
 which they are computed; and the fourth follows a coupling through a threshold with three different tools.
+They draw on @ponton2001casimir [eqs. 9-11] for the vacuum energy of a circle, @gelis2021problems [Ch. 5, pp. 277-279]
+for the thermal circle, @balduf2024dyson [Thm. 58] for scheme independence, and @grozin2005lectures [eq. 6.40] and
+@manohar2018introduction [Secs. 7.1-7.2] for the running charge across thresholds.
 
 The first integrative exercise is a one-loop computation in five dimensions in which every divergence is removed by a
 local counterterm of the five-dimensional theory and a finite, radius-dependent mass remains.

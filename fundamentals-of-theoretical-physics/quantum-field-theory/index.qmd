@@ -74,7 +74,9 @@ algebra of the charges into a Lie algebra of operators.
 
 A conserved Noether charge becomes an operator that generates its symmetry, $\delta\hat\phi = \tfrac{i}{\hbar}[\hat Q,
 \hat\phi]$ [@alvarezgaume2005, eq. 6.8]: the angular momentum operators of @exm-poisson-angular generate rotations
-and obey the $\mathfrak{so}(3)$ commutation relations, and the Hamiltonian generates time translation.
+and obey the $\mathfrak{so}(3)$ commutation relations, and the Hamiltonian generates time translation. The source writes
+the opposite ordering, $\delta\phi = i[\phi, Q]$; the sign depends on the convention for $Q$, and the one used here is
+the one consistent with Heisenberg's equation, $\dot{\hat\phi} = \tfrac{i}{\hbar}[\hat H, \hat\phi]$.
 :::
 
 Not every classical field is a set of independent coordinates and momenta. Gauge fields carry redundant components,
@@ -467,7 +469,7 @@ parameters, in outline; @sec-renormalisation returns to it with computations.
 
 Loop corrections make the couplings of a quantum field theory depend on the energy scale; a theory is
 **renormalisable** if finitely many parameters absorb all divergences, which in four dimensions holds exactly
-when the Lagrangian contains only operators of mass dimension at most four [@alvarezgaume2005, Sec. 8.1].
+when the Lagrangian contains only operators of mass dimension at most four [@alvarezgaume2005, Secs. 8.1 and 8.3; @buchbinder2021introduction, Sec. 9.5; @manohar2018introduction, Sec. 4.2].
 Non-renormalisable theories are **effective theories**, valid below a cutoff scale.
 :::
 ::::
@@ -492,7 +494,7 @@ The second example draws the consequence for the higher-dimensional theories of 
 The Einstein-Hilbert action has the coupling $G_N$ of mass dimension $-2$, so quantum gravity is not
 renormalisable, and neither is any field theory in more than four dimensions (the Yang-Mills coupling in $d$
 dimensions has dimension $(4 - d)/2$): the higher-dimensional theories we reduce are to be read as classical or
-effective theories, with the reduction scale as cutoff.
+effective theories, with the reduction scale as cutoff [@manohar2018introduction, Ch. 4, eq. 4.8; @buchbinder2021introduction, Sec. 18.7.1].
 :::
 
 The criterion is a counting of mass dimensions. The third example carries it out for the fields that appear in the
@@ -842,7 +844,7 @@ operator obeying canonical commutation relations, its plane-wave modes become in
 states they generate from the vacuum form the Fock space, whose vectors are states of finitely many particles. On a
 circle of length $L$ every step reduces to finite sums, and the commutators can be computed there exactly.
 
-For more on this topic, see @aitchison2024gauge [Ch. 5-7], @buchbinder2021introduction [Ch. 5], @derezinski2022mathematics [Ch. 3], @gelis2021problems and @talagrand2022what [Ch. 5-7, Ch. 10].
+For more on this topic, see @aitchison2024gauge [Ch. 5-7], @buchbinder2021introduction [Ch. 5], @derezinski2022mathematics [Ch. 3], @gelis2021problems [Ch. 1, eqs. 1.1-1.7], @nastase2023quantum [Sec. 56.4], @tornetta2022mathematical [Secs. 4.3 and 4.5] and @talagrand2022what [Ch. 5-7, Ch. 10].
 
 ### Field operators
 
@@ -1405,7 +1407,7 @@ yields the Feynman propagator, and the Euclidean correlator obtained by rotating
 of the propagator, their residues and the rotation itself are computed with the tools of @sec-residues and
 @def-wick-rotation.
 
-For more on this topic, see @buchbinder2021introduction [Ch. 6, Ch. 7] and @paganini2023fundamentals [Ch. 5].
+For more on this topic, see @buchbinder2021introduction [Ch. 6, Ch. 7] and @paganini2023fundamentals [Ch. 5; Sec. 6.3.2 and Supplement 6.2].
 
 ### Vacuum correlators
 
@@ -2105,7 +2107,7 @@ does not, and the ninth example states what this means for the operators.
 
 For a Majorana field, $\psi = \psi^c$, and the mode expansion has $\hat d^s_{\mathbf p} = \hat b^s_{\mathbf p}$ (with the phases and spin labels of the
 spinors chosen so that each $v^s$ is the charge conjugate of a $u^r$): the particle is its own antiparticle, and each momentum carries two fermionic modes instead of four.
-There is no conserved charge, as in @exm-dq-majorana-no-charge [@williams2023introduction, Sec. 6.3.7].
+There is no conserved charge, as in @exm-dq-majorana-no-charge [@williams2023introduction, Secs. 4.6.5 and 6.3.7].
 :::
 
 In a box the momenta are discrete and the Fock space can be counted. The tenth example does it for one momentum, which
@@ -2941,8 +2943,8 @@ Show that $(i\partial\!\!\!/_x - m)\langle 0|T\hat\psi(x)\hat{\bar\psi}(y)|0\ran
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The Dirac operator annihilates $\hat\psi(x)$, so only the derivative of the step functions contributes: $i\gamma^0\delta(x^0 - y^0)\langle 0|
 \hat\psi(x)\hat{\bar\psi}(y) + \hat{\bar\psi}(y)\hat\psi(x)|0\rangle = i\gamma^0\delta(x^0 - y^0)\{\hat\psi(x), \hat\psi^\dagger(y)\}\gamma^0 = i\gamma^0\gamma^0\delta^4(x - y) = i\delta^4(x - y)$.
-The minus sign of the time ordering is what turns the two terms into an anticommutator [@williams2023introduction, eq.
-(6.3.223)].
+The minus sign of the time ordering is what turns the two terms into an anticommutator
+[@williams2023introduction, eq. (6.3.223)].
 :::
 
 The behaviour under $\gamma_5$ of @exm-qdm-dp-massless can be checked on matrices. The fourth exercise does so with Sage. Only the anticommutation of $\gamma_5$ is needed.
@@ -3159,8 +3161,8 @@ $$ {#eq-qdm-photon-modes}
 with **polarisation vectors** satisfying $\mathbf k\cdot\boldsymbol\epsilon(\mathbf k, \lambda) = 0$ and $\boldsymbol\epsilon(\mathbf k, \lambda)^*\cdot\boldsymbol\epsilon(\mathbf k, \lambda') = \delta_{\lambda\lambda'}$, and
 @eq-qdm-photon-etcr is equivalent to $[\hat a^\lambda_{\mathbf k}, \hat a^{\lambda'\dagger}_{\mathbf q}] = (2\pi)^3\delta^{\lambda\lambda'}\delta^3(\mathbf k - \mathbf q)$, $[\hat a, \hat a] = 0$. The
 normal-ordered energy is $\hat H = \frac12\int d^3x:\hat{\mathbf E}^2 + \hat{\mathbf B}^2: = \int\frac{d^3k}{(2\pi)^3}\sum_\lambda\omega_k\hat a^{\lambda\dagger}_{\mathbf k}\hat a^\lambda_{\mathbf k}$, and the
-quanta $\hat a^{\lambda\dagger}_{\mathbf k}|0\rangle$ are **photons** [@williams2023introduction, Secs. 6.4.1-6.4.2, eqs. (6.4.1)-(6.4.2), (6.4.11),
-(6.4.14), (6.4.19) and (6.4.26)].
+quanta $\hat a^{\lambda\dagger}_{\mathbf k}|0\rangle$ are **photons**
+[@williams2023introduction, Secs. 6.4.1-6.4.2, eqs. (6.4.1)-(6.4.2), (6.4.11), (6.4.14), (6.4.19) and (6.4.26)].
 :::
 ::::
 
@@ -3209,7 +3211,7 @@ writes the circular basis, whose quanta have definite helicity.
 The vectors $\boldsymbol\epsilon(\mathbf k, \pm) = (\boldsymbol\epsilon(\mathbf k, 1) \pm i\boldsymbol\epsilon(\mathbf k, 2))/\sqrt2$ are orthonormal and transverse, and $\sum_\lambda\boldsymbol\epsilon(\mathbf k, \lambda)\hat a^\lambda_{\mathbf k}
 = \sum_{h = \pm}\boldsymbol\epsilon(\mathbf k, h)\hat a^h_{\mathbf k}$ with $\hat a^\pm_{\mathbf k} = (\hat a^1_{\mathbf k} \mp i\hat a^2_{\mathbf k})/\sqrt2$, which obey the same commutators. The photon
 $\hat a^{\pm\dagger}_{\mathbf k}|0\rangle$ has helicity $\pm1$: a massless particle of spin one has only the two helicities $\pm1$, not the three states
-of a massive one [@williams2023introduction, eqs. (6.4.32)-(6.4.35)].
+of a massive one [@williams2023introduction, Sec. 6.4.2, eqs. (6.4.32)-(6.4.35)].
 :::
 
 The electric and magnetic fields are derived operators. The fifth example writes their expansions, which show that the
@@ -3244,8 +3246,8 @@ computes it; it is what an external photon contributes to a Feynman diagram.
 
 With $|\mathbf k, \lambda\rangle = \sqrt{2\omega_k}\,\hat a^{\lambda\dagger}_{\mathbf k}|0\rangle$, @eq-qdm-photon-modes gives $\langle 0|\hat{\mathbf A}(x)|\mathbf k, \lambda\rangle = \boldsymbol\epsilon(\mathbf k, \lambda)e^{-ik\cdot x}$: the
 classical plane wave with polarisation $\boldsymbol\epsilon$. In a Feynman diagram an incoming photon contributes $\epsilon^\mu(\mathbf k, \lambda)$ and an
-outgoing one $\epsilon^\mu(\mathbf k, \lambda)^*$, with $\epsilon^\mu = (0, \boldsymbol\epsilon)$ in this gauge [@williams2023introduction, eqs. (6.4.36)-(6.4.37) and
-(7.6.3)].
+outgoing one $\epsilon^\mu(\mathbf k, \lambda)^*$, with $\epsilon^\mu = (0, \boldsymbol\epsilon)$ in this gauge
+[@williams2023introduction, eqs. (6.4.36)-(6.4.37) and (7.6.3)].
 :::
 
 Photons of definite helicity carry spin along their momentum. The eighth example writes the spin operator, which counts
@@ -3537,8 +3539,8 @@ $$
 D_F^{\mu\nu}(x - y) = \langle 0|T\hat A^\mu(x)\hat A^\nu(y)|0\rangle = -\eta^{\mu\nu}D_F(x - y)\big|_{m = 0} = \int\frac{d^4k}{(2\pi)^4}\frac{-i\eta^{\mu\nu}}{k^2 + i\epsilon}e^{-ik\cdot(x - y)} .
 $$ {#eq-qdm-photon-propagator}
 In the Coulomb gauge the same expectation value is $D^{ij}_C(k) = \frac{i}{k^2 + i\epsilon}\bigl(\delta^{ij} - \frac{k^ik^j}{|\mathbf k|^2}\bigr)$, $D^{0\mu}_C = 0$; the two
-differ by terms proportional to $k^\mu$ or $k^\nu$ and by an instantaneous Coulomb term [@williams2023introduction, Secs. 6.4.2 and
-6.4.5, eqs. (6.4.51), (6.4.57)-(6.4.58), (6.4.110)-(6.4.132), (6.4.145) and (6.4.154)].
+differ by terms proportional to $k^\mu$ or $k^\nu$ and by an instantaneous Coulomb term
+[@williams2023introduction, Secs. 6.4.2 and 6.4.5, eqs. (6.4.51), (6.4.57)-(6.4.58), (6.4.110)-(6.4.132), (6.4.145) and (6.4.154)].
 :::
 ::::
 
@@ -3551,8 +3553,8 @@ example shows what it does to the field equations and to the action.
 
 $-\frac14F^2 - \frac12(\partial\cdot A)^2 = -\frac12\partial_\mu A_\nu\partial^\mu A^\nu + \frac12\partial_\mu\bigl(A^\nu\partial_\nu A^\mu - A^\mu\partial_\nu A^\nu\bigr)$, so up to a divergence the
 Lagrangian is $-\frac12\partial_\mu A_\nu\partial^\mu A^\nu$, four massless Klein-Gordon fields of which $A^0$ has the wrong sign. Its equations are
-$\Box A^\mu = 0$, Maxwell's equations in the Lorenz gauge of @eq-emm-lorenz-equations [@williams2023introduction, eqs.
-(6.4.112)-(6.4.114)].
+$\Box A^\mu = 0$, Maxwell's equations in the Lorenz gauge of @eq-emm-lorenz-equations
+[@williams2023introduction, eqs. (6.4.112)-(6.4.114)].
 :::
 
 The wrong sign of $A^0$ shows up in the commutator of its ladder operators. The second example finds the states of
@@ -3598,8 +3600,8 @@ it produces.
 
 With $-\frac{1}{2\xi}(\partial_\mu A^\mu)^2$ the propagator is $D^{\mu\nu}_\xi(k) = \frac{-i}{k^2 + i\epsilon}\bigl(\eta^{\mu\nu} - (1 - \xi)\frac{k^\mu k^\nu}{k^2}\bigr)$, which is
 @eq-qdm-photon-propagator for $\xi = 1$ and transverse, $k_\mu D^{\mu\nu}_0 = 0$, for $\xi = 0$ (the Landau gauge). The kinetic operator
-without the gauge-fixing term has $k^\mu$ in its kernel and no inverse (@exr-qdm-pp-no-inverse) [@williams2023introduction, eq.
-(6.4.154)].
+without the gauge-fixing term has $k^\mu$ in its kernel and no inverse (@exr-qdm-pp-no-inverse)
+[@williams2023introduction, Sec. 6.4.4, eqs. (6.4.91)-(6.4.97); eq. (6.4.154)].
 :::
 
 The propagators of different gauges must give the same physics. The sixth example shows how this happens in amplitudes:
@@ -3611,7 +3613,7 @@ the photon couples to a conserved current.
 A photon exchanged between conserved currents enters as $J_\mu(k)D^{\mu\nu}(k)J'_\nu(-k)$ with $k_\mu J^\mu = 0$. The terms proportional to
 $k^\mu$ or $k^\nu$, which are all that distinguish the propagators of the covariant gauges and the Coulomb gauge apart from the
 Coulomb term, then drop out, as the right panel of @fig-qdm-photon-propagator shows for $\xi = 0, 1, 3$
-[@williams2023introduction, Sec. 6.4.2].
+[@williams2023introduction, Sec. 6.4.2, discussion after eq. (6.4.58); Sec. 6.4.4].
 :::
 
 The Coulomb-gauge propagator has only transverse components, but the Coulomb gauge also has an instantaneous Coulomb
@@ -3636,7 +3638,7 @@ the propagator.
 For static charges only $J^0$ is nonzero and $k^0 = 0$, so $-\eta^{00}/k^2 = 1/|\mathbf k|^2$. The potential between charges $q_1$ and $q_2$ is
 the Fourier transform $q_1q_2\int\frac{d^3k}{(2\pi)^3}\frac{e^{i\mathbf k\cdot\mathbf r}}{|\mathbf k|^2} = \frac{q_1q_2}{4\pi r}$, Coulomb's law in Heaviside-Lorentz units
 (@def-ems-electrostatic-potential): like charges repel. The sign comes from $-\eta^{00} = -1$ together with $k^2 = -|\mathbf k|^2 < 0$
-[@williams2023introduction, Sec. 7.6.3].
+[@williams2023introduction, Sec. 7.6.3, eqs. (7.6.49)-(7.6.50)].
 :::
 
 A massive vector boson has no gauge freedom and a third polarisation. The ninth example gives its propagator, for
@@ -3863,8 +3865,8 @@ a transverse state $|\Phi_T\rangle$, and that it has zero norm and zero overlap 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $[\hat L, \hat L^\dagger] = [\hat a^0, \hat a^{0\dagger}] + [\hat a^3, \hat a^{3\dagger}] = (-1 + 1)(2\pi)^3\delta^3 = 0$, so $\hat L_{\mathbf k}\hat L^\dagger_{\mathbf q}|\Phi_T\rangle = \hat L^\dagger_{\mathbf q}\hat L_{\mathbf k}|\Phi_T\rangle = 0$.
 Its overlap with a physical state is $\langle\Psi|\hat L^\dagger|\Phi_T\rangle = (\hat L|\Psi\rangle)^\dagger|\Phi_T\rangle = 0$, its own norm included. Adding such states
-changes no amplitude: they are the quantum form of a gauge transformation [@williams2023introduction, eqs.
-(6.4.138)-(6.4.140)].
+changes no amplitude: they are the quantum form of a gauge transformation
+[@williams2023introduction, eqs. (6.4.138)-(6.4.140)].
 :::
 
 The covariant polarisation sum of @exm-qdm-pp-polarisation-sum contains terms that vanish only against conserved
@@ -3894,7 +3896,7 @@ theorem from it, and returns to the thermal circle of @sec-thermal-circle, where
 with the path integral on a lattice: exactly for a free field, through the spectral decomposition of Euclidean
 correlators, and by Metropolis sampling when the integral is not Gaussian.
 
-For more on this topic, see @derezinski2022mathematics [Ch. 20-21], @gelis2021problems [problems 18-25], @nastase2023quantum [Ch. 56], @shankar2017quantum [Ch. 3-6], @strocchi2021symmetry and @tornetta2022mathematical [Ch. 4].
+For more on this topic, see @derezinski2022mathematics [Ch. 20-21], @gelis2021problems [problems 18-25], @nastase2023quantum [Chs. 10 and 28], @shankar2017quantum [Ch. 3-6], @strocchi2021symmetry [Ch. 20, eqs. 20.2-20.3; Sec. 22.1] and @tornetta2022mathematical [Sec. 4.10.6].
 
 ### The generating functional
 
@@ -4770,8 +4772,8 @@ agreement with Wick's theorem, $2G(\tau)^2$ (@def-wick-contraction), and with th
 :::
 
 For a field the states are particles, and an operator reaches the states whose quantum numbers it carries. The second
-example compares an operator that creates one particle with one that creates two [@boudreau2018applied, eqs.
-24.34-24.35].
+example compares an operator that creates one particle with one that creates two
+[@boudreau2018applied, eqs. 24.34-24.35].
 
 ::: {#exm-fpi-spectral-two-particle}
 #### One- and two-particle operators
@@ -4959,8 +4961,8 @@ a\hat\mu} + (1 - 2g)\hat\phi_x^2 + g\hat\phi_x^4\bigr)$ (@exr-fpi-mc-hopping-qua
 \delta$ alters only the terms that contain $\hat\phi_x$:
 $\delta S = -\kappa N_x\delta + (1 - 2g)(2\hat\phi_x\delta + \delta^2) + g\bigl((\hat\phi_x + \delta)^4 - \hat\phi_x^4\bigr)$
 with $N_x = \sum_\mu(\hat\phi_{x + a\hat\mu} + \hat\phi_{x - a\hat\mu})$, the sum over the $2d$ neighbours. An update costs
-a fixed number of operations, and a sweep a number proportional to the number of sites [@boudreau2018applied, eq.
-24.20].
+a fixed number of operations, and a sweep a number proportional to the number of sites
+[@boudreau2018applied, eq. 24.20].
 :::
 
 In one dimension the lattice field is a path, and Metropolis sampling becomes a numerical method for the path integral
@@ -5717,7 +5719,7 @@ without it, as nested integrals.
 $\frac{(-i)^2}{2}\int dt_1dt_2\,T[\hat H_I(t_1)\hat H_I(t_2)] = (-i)^2\int dt_1\int_{-\infty}^{t_1}dt_2\,\hat H_I(t_1)\hat H_I(t_2)$: the two orderings in the square of
 times give the same integral, which cancels the $\frac12$. Iterating $\hat U_I = 1 - i\int\hat H_I\hat U_I$ produces exactly these nested
 integrals, with later times to the left; the time-ordered products are then evaluated by Wick's theorem
-(@def-wick-contraction), which turns them into Feynman diagrams [@williams2023introduction, eq. (7.4.1)].
+(@def-wick-contraction), which turns them into Feynman diagrams [@williams2023introduction, Sec. 4.1.11, eqs. (4.1.190)-(4.1.192); eq. (7.4.1)].
 :::
 
 The same expansion works in ordinary quantum mechanics, where it gives the first-order transition amplitude. The third
@@ -5751,8 +5753,8 @@ The S-matrix is unitary because the evolution is. The fifth example draws the co
 
 $\hat S^\dagger\hat S = 1$ with $\hat S = 1 + i\hat T$ gives $-i(\hat T - \hat T^\dagger) = \hat T^\dagger\hat T$. Taking the expectation value in $|i\rangle$ and inserting a complete
 set of final states, $2\operatorname{Im}\mathcal M_{ii} = \sum_f\int d\Pi_f\,|\mathcal M_{fi}|^2$, with the phase space $d\Pi_f$ of @def-qdm-cross-section: the imaginary
-part of the forward amplitude is fixed by the total rate into all final states. In particular $\mathcal M$ is real at tree level
-only below the thresholds of the intermediate states [@williams2023introduction, Sec. 7.3.5, eqs. (7.3.96)-(7.3.102)].
+part of the forward amplitude is fixed by the total rate into all final states. In particular tree-level amplitudes are real away from their poles, and
+$\operatorname{Im}\mathcal M$ first appears at one loop, above the thresholds of the intermediate states [@williams2023introduction, Sec. 7.3.5, eqs. (7.3.96)-(7.3.102)].
 :::
 
 The Dirac field enters the Dyson series through its bilinears. The sixth example computes the simplest process with
@@ -5764,7 +5766,7 @@ fermions, the decay of a scalar into a fermion pair.
 With $\mathscr H_{\mathrm{int}} = g\hat\phi\hat{\bar\psi}\hat\psi$, the first-order amplitude for $\phi(k) \to f(p_1)\bar f(p_2)$ needs $\hat\phi$ to annihilate the scalar,
 $\hat{\bar\psi}$ to create the fermion (the $\hat b^\dagger\bar u$ term of @exr-qdm-df-bar) and $\hat\psi$ to create the antifermion (the $\hat d^\dagger v$ term of
 @eq-qdm-dirac-modes). The result is $i\mathcal M = -ig\,\bar u^{s_1}(p_1)v^{s_2}(p_2)$, a number for each pair of spins
-[@williams2023introduction, Secs. 7.6.2-7.6.3].
+[@williams2023introduction, Secs. 7.6.1-7.6.2, eqs. (7.6.3) and (7.6.15)].
 :::
 
 Quantum electrodynamics couples the Dirac field to the photon by minimal coupling. The seventh example reads off its
@@ -5776,8 +5778,8 @@ interaction and the vertex.
 With $D_\mu = \partial_\mu + iqA_\mu$ (@def-dq-minimal-coupling), $\bar\psi(i\gamma^\mu D_\mu - m)\psi = \bar\psi(i\gamma^\mu\partial_\mu - m)\psi - qA_\mu\bar\psi\gamma^\mu\psi$, so $\mathscr H_{\mathrm{int}} =
 q\hat A_\mu\hat{\bar\psi}\gamma^\mu\hat\psi$, the coupling of the photon to the conserved current of @thm-qdm-spin-statistics. Each vertex contributes
 $-iq\gamma^\mu$, which for the electron, $q = -e$, is $ie\gamma^\mu$. A single vertex with all three particles on shell has no physical
-process: a free electron cannot emit a real photon (@exr-qdm-sm-emission) [@williams2023introduction, eqs.
-(7.6.17)-(7.6.19)].
+process: a free electron cannot emit a real photon (@exr-qdm-sm-emission)
+[@williams2023introduction, eqs. (7.6.17)-(7.6.22)].
 :::
 
 The Feynman rules of @def-feynman-rule extend to fermions and photons. The eighth example collects them for quantum
@@ -5804,7 +5806,7 @@ In an interacting theory the one-particle states are not those of the free theor
 amplitude $\sqrt Z$, $\langle\mathbf p|\hat\phi(0)|\Omega\rangle = \sqrt Z$. The reduction formula of Lehmann, Symanzik and Zimmermann expresses $S_{fi}$ through
 the time-ordered correlation functions: Fourier transform, multiply each external leg by $(p^2 - m^2)/(i\sqrt Z)$ and put it on the
 mass shell. The poles of the external propagators are removed, which is why diagrams are amputated, and at tree level
-$Z = 1$ [@williams2023introduction, Sec. 7.5.1, eqs. (7.5.19)-(7.5.25)].
+$Z = 1$ [@williams2023introduction, Sec. 7.5.1, eqs. (7.5.3), (7.5.19)-(7.5.35) and (7.5.44)].
 :::
 
 The normalisation of the states fixes the dimension of $\mathcal M$. The tenth example states it, which is a check on every amplitude.
@@ -5833,7 +5835,7 @@ equation to obtain @eq-qdm-dyson.
 $i\partial_t\hat U_I = e^{i\hat H_0t}(-\hat H_0 + \hat H)e^{-i\hat H(t - t')}e^{-i\hat H_0t'} = e^{i\hat H_0t}\hat H_{\mathrm{int}}e^{-i\hat H_0t}\hat U_I = \hat H_I(t)\hat U_I$. Integrating, $\hat U_I(t, t') = 1 -
 i\int_{t'}^tdt_1\hat H_I(t_1)\hat U_I(t_1, t')$, and substituting repeatedly gives $\sum_n(-i)^n\int_{t'}^tdt_1\int_{t'}^{t_1}dt_2\cdots\hat H_I(t_1)\cdots\hat H_I(t_n)$ with $t_1 \geq
 \cdots \geq t_n$. The $n!$ orderings of the times give equal contributions to $\int\cdots\int T[\ldots]$, which produces the $1/n!$
-[@williams2023introduction, eq. (7.4.1)].
+[@williams2023introduction, Sec. 4.1.11, eqs. (4.1.190)-(4.1.192); eq. (7.4.1)].
 :::
 
 The step from nested integrals to the time-ordered exponential is a symmetry argument. The second exercise carries it
@@ -5962,8 +5964,8 @@ the quartic theory at order $\lambda^2$, for $s > 4m^2$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The only two-particle final state has $|\mathcal M|^2 = \lambda^2$ and phase space $\int d\Pi_2 = \frac{p_f}{4\pi\sqrt s} = \frac{\beta}{8\pi}$ with $\beta = \sqrt{1 - 4m^2/s}$
 (@exm-qdm-cs-phase-space), times $\frac12$ for identical particles. Then $2\operatorname{Im}\mathcal M = \frac12\cdot\frac{\beta}{8\pi}\lambda^2$, so $\operatorname{Im}\mathcal M = \frac{\lambda^2\beta}{32\pi}$, which is
-the imaginary part of the $s$-channel bubble above the threshold; below it the bubble is real [@williams2023introduction, eq.
-(7.3.102)].
+the imaginary part of the $s$-channel bubble above the threshold; below it the bubble is real
+[@williams2023introduction, eq. (7.3.102)].
 :::
 
 The dimension of $\mathcal M$ stated in @exm-qdm-sm-dimension follows from counting. The eighth exercise does the count. Only the normalisation of the states enters.
@@ -6006,8 +6008,8 @@ Show that $[\bar u(p')\gamma^\mu v(k')]^* = \bar v(k')\gamma^\mu u(p')$, using $
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$[\bar u\gamma^\mu v]^* = [u^\dagger\gamma^0\gamma^\mu v]^\dagger = v^\dagger\gamma^{\mu\dagger}\gamma^0u = v^\dagger\gamma^0(\gamma^0\gamma^{\mu\dagger}\gamma^0)u = \bar v\gamma^\mu u$ [@williams2023introduction, eq.
-(7.6.60)]:
+$[\bar u\gamma^\mu v]^* = [u^\dagger\gamma^0\gamma^\mu v]^\dagger = v^\dagger\gamma^{\mu\dagger}\gamma^0u = v^\dagger\gamma^0(\gamma^0\gamma^{\mu\dagger}\gamma^0)u = \bar v\gamma^\mu u$
+[@williams2023introduction, eq. (7.6.60)]:
 
 ```python
 s0 = identity_matrix(QQbar, 2); sx = matrix(QQbar, [[0, 1], [1, 0]]); sy = matrix(QQbar, [[0, -I], [I, 0]]); sz = matrix(QQbar, [[1, 0], [0, -1]])
@@ -6070,7 +6072,7 @@ The simplest amplitude is a constant. The first example integrates it over the t
 
 With $\mathcal M = -\lambda$ (@exm-qdm-sm-phi4) and equal masses, the centre-of-momentum formula of @exm-qdm-cs-cm gives $\frac{d\sigma}{d\Omega} = \frac{\lambda^2}{64\pi^2s}$,
 the result quoted in @exm-fyd-tree. The total cross section, with $\frac12$ for the two identical particles, is $\sigma = \frac12\cdot4\pi\cdot
-\frac{\lambda^2}{64\pi^2s} = \frac{\lambda^2}{32\pi s}$ [@williams2023introduction, eq. (7.3.83)].
+\frac{\lambda^2}{64\pi^2s} = \frac{\lambda^2}{32\pi s}$ [@williams2023introduction, eqs. (7.3.83) and (7.5.46)-(7.5.47)].
 :::
 
 The flux factor takes a simple form in the two frames used in experiments. The second example evaluates it in the
@@ -6091,7 +6093,7 @@ there.
 
 With $p_B = (m_B, \mathbf 0)$, $p_A\cdot p_B = E_Am_B$ and $F = m_B\sqrt{E_A^2 - m_A^2} = m_B|\mathbf p_A|$. The total energy is $\sqrt s$ with $s = m_A^2 + m_B^2 +
 2E_Am_B$, which grows only like $\sqrt{E_A}$: colliding beams make far better use of the beam energy
-[@williams2023introduction, Sec. 7.3.4].
+[@williams2023introduction, Sec. 7.3.4, eq. (7.3.95)].
 :::
 
 For two final particles the phase space has only two free variables, the angles. The fourth example integrates out the
@@ -6135,7 +6137,7 @@ luminosity.
 The event rate is $R = \mathcal L\sigma$, where the **luminosity** $\mathcal L$ is the number of collision opportunities per unit area and time,
 for colliding bunches the product of the particle numbers and the collision frequency divided by the beam area. A
 luminosity of $10^{34}\,\mathrm{cm}^{-2}\mathrm{s}^{-1}$, typical of the Large Hadron Collider, and a cross section of $1$ nb $= 10^{-33}\,\mathrm{cm}^2$
-give $10$ events per second [@williams2023introduction, eqs. (7.3.18)-(7.3.19)].
+give $10$ events per second [@williams2023introduction, eqs. (7.3.18)-(7.3.24)].
 :::
 
 Identical particles in the final state must not be counted twice. The eighth example explains the factor $1/k!$. The rule is easily forgotten.
@@ -6438,7 +6440,7 @@ and finds a different threshold behaviour.
 
 From $i\mathcal M = -ig\bar u(p_1)v(p_2)$, $\sum_{s_1, s_2}|\mathcal M|^2 = g^2\operatorname{tr}[(p\!\!\!/_1 + m)(p\!\!\!/_2 - m)] = 4g^2(p_1\cdot p_2 - m^2) = 2g^2(M^2 - 4m^2) = 2g^2M^2\beta^2$
 (@exr-qdm-dr-yukawa-trace). Then $\Gamma = \frac{M\beta/2}{8\pi M^2}2g^2M^2\beta^2 = \frac{g^2M\beta^3}{8\pi}$: the pair is produced in a $p$-wave, and the rate vanishes
-like $\beta^3$ at threshold [@williams2023introduction, Sec. 7.6.3].
+like $\beta^3$ at threshold [@williams2023introduction, eqs. (7.3.74), (7.3.79), (7.6.15) and (7.6.61)].
 :::
 
 A rate in natural units is an energy. The fourth example converts it to a time and introduces the half-life.
@@ -6480,8 +6482,8 @@ relation, which explains why the width appears in the propagator.
 
 Applied to a one-particle state, the optical theorem of @exm-qdm-sm-optical gives $2\operatorname{Im}\mathcal M_{pp} = \sum_X\int d\Pi_X|\mathcal M_{p \to X}|^2$, so $\Gamma =
 \operatorname{Im}\mathcal M_{pp}/m$ at rest. The forward amplitude is minus the self-energy at the pole, so a particle is unstable exactly when its
-self-energy has an imaginary part on the mass shell, which shifts the pole to $p^2 = m^2 - im\Gamma$ [@williams2023introduction, eqs.
-(7.6.107)-(7.6.109)].
+self-energy has an imaginary part on the mass shell, which shifts the pole to $p^2 = m^2 - im\Gamma$
+[@williams2023introduction, eqs. (7.6.107)-(7.6.109)].
 :::
 
 Most particles have several decay channels. The eighth example states how their rates combine. Each channel is computed with @eq-qdm-decay-rate.
@@ -6491,7 +6493,7 @@ Most particles have several decay channels. The eighth example states how their 
 
 If $A$ can decay into channels $X_1, X_2, \dots$, the total rate is the sum of the partial rates, $\Gamma = \sum_k\Gamma(A \to X_k)$, since the
 final states are orthogonal and the probabilities add. The **branching ratio** $\Gamma(A \to X_k)/\Gamma$ is the fraction of decays into $X_k$,
-and the lifetime $1/\Gamma$ is common to all channels [@williams2023introduction, Problem 7.7(d)].
+and the lifetime $1/\Gamma$ is common to all channels [@williams2023introduction, Sec. 7.3.1; Problem 7.7(d)].
 :::
 
 Whether a particle decays at all is decided by kinematics and conservation laws. The ninth example applies this to the
@@ -6759,8 +6761,8 @@ spin sums (@eq-dq-spin-sums) and @exr-qdm-sm-conjugation turn $\sum|\mathcal M|^
 \operatorname{tr}[\gamma_\mu(p\!\!\!/ + m_e)\gamma_\nu(k\!\!\!/ - m_e)]$; the traces (@exm-qdm-ee-traces) and their contraction (@exr-qdm-ee-contraction) give
 $32\frac{e^4}{s^2}[p\cdot p'\,k\cdot k' + p\cdot k'\,k\cdot p' + m_\mu^2p\cdot k + m_e^2p'\cdot k' + 2m_e^2m_\mu^2]$; divided by $4$ for the average over
 the initial spins, and written with the Mandelstam variables (@exr-qdm-ee-mandelstam), this is @eq-qdm-ee-mumu-squared. For $m_e = 0$, $t = m_\mu^2 - \frac s2(1 - \beta\cos\theta)$ and $u = m_\mu^2 - \frac s2(1 + \beta\cos\theta)$, and
-@exm-qdm-cs-cm with $p_f/p_i = \beta$ gives the angular distribution, whose integral is $\sigma$ [@williams2023introduction, Sec. 7.6.5, eqs.
-(7.6.61)-(7.6.73)].
+@exm-qdm-cs-cm with $p_f/p_i = \beta$ gives the angular distribution, whose integral is $\sigma$
+[@williams2023introduction, Sec. 7.6.5, eqs. (7.6.61)-(7.6.73)].
 :::
 ::::
 
@@ -6774,7 +6776,7 @@ checks the factors of $i$.
 Two vertices $ie\gamma$ (for charge $-e$) and the propagator $-i\eta_{\mu\nu}/s$ give $(ie)^2(-i)/s = ie^2/s$, so $\mathcal M = \frac{e^2}{s}J_\mu^{(\mu)}J^{(e)\mu}$ with the
 transition currents $J^{(e)\mu} = \bar v(k)\gamma^\mu u(p)$ and $J^{(\mu)}_\mu = \bar u(p')\gamma_\mu v(k')$. The electron current is conserved, $(p + k)_\mu\bar v(k)
 \gamma^\mu u(p) = \bar v(k)(p\!\!\!/ + k\!\!\!/)u(p) = \bar v(k)(m_e - m_e)u(p) = 0$, so the gauge terms of @exm-qdm-pp-xi do not contribute
-[@williams2023introduction, eq. (7.6.63)].
+[@williams2023introduction, eqs. (7.6.44) and (7.6.63)].
 :::
 
 For two different species only the annihilation channel exists. The second example compares with the processes in
@@ -7147,7 +7149,7 @@ reduces formally to the original integrals as the parameter is removed: a **mome
 **lattice** of spacing $a = 1/\Lambda_{\mathrm{UV}}$ (@exm-fpi-lattice), or **dimensional regularisation**, in which the integrals are
 evaluated in $d$ dimensions by the Gamma-function formula of @prp-one-loop-gamma and continued analytically to $d = 4 -
 \epsilon$. The divergences then appear as powers and logarithms of $\Lambda_{\mathrm{UV}}$, or as poles in $\epsilon$, multiplying local
-polynomials in the external momenta.
+polynomials in the external momenta [@buchbinder2021introduction, Sec. 9.2; @manohar2018introduction, Sec. 5.1].
 :::
 ::::
 
@@ -7276,7 +7278,7 @@ The **renormalised coupling** $\lambda(\mu)$ is defined by the value of a chosen
 quartic theory, $\mathcal M = -\lambda(\mu)$ at $s = t = u$ of order $-\mu^2$, or the $\overline{\mathrm{MS}}$ subtraction at scale $\mu$). Its
 dependence on $\mu$ is the **running**, governed by the **beta function** $\beta(\lambda) = \mu\frac{d\lambda}{d\mu}$; at one loop the
 quartic theory has $\beta(\lambda) = \frac{3\lambda^2}{16\pi^2}$ (three bubble channels, @exm-fyd-bubble), whose solution is $\lambda(\mu) =
-\frac{\lambda_0}{1 - \frac{3\lambda_0}{16\pi^2}\log(\mu/\mu_0)}$.
+\frac{\lambda_0}{1 - \frac{3\lambda_0}{16\pi^2}\log(\mu/\mu_0)}$ [@buchbinder2021introduction, Sec. 9.9 and Exercise 9.5; @gelis2021problems, Problem 16].
 :::
 ::::
 
@@ -7301,7 +7303,7 @@ quotes it.
 
 In quantum electrodynamics with one charged fermion, $\mu\frac{de}{d\mu} = \frac{e^3}{12\pi^2}$, that is $\mu\frac{d\alpha}{d\mu} =
 \frac{2\alpha^2}{3\pi}$ (quoted): the electric charge is screened by virtual pairs and grows at short distances. With all
-charged particles, $\alpha \approx 1/137$ at low energies becomes $\alpha \approx 1/128$ at the $Z$ mass (@exr-rn-qed-running).
+charged particles, $\alpha \approx 1/137$ at low energies becomes $\alpha \approx 1/128$ at the $Z$ mass (@exr-rn-qed-running) [@alvarezgaume2005, eqs. 8.15-8.17; @grozin2005lectures, Sec. 3.7, eqs. 3.89-3.91].
 :::
 
 Non-abelian gauge theories have a negative beta function, the opposite of the two previous examples. The third example
@@ -7312,7 +7314,7 @@ quotes the result that underlies the strong interaction.
 
 For pure $SU(N)$ Yang-Mills theory, $\mu\frac{dg}{d\mu} = -\frac{11N}{3}\frac{g^3}{16\pi^2}$ (quoted): the coupling decreases at high
 energies, **asymptotic freedom**, and grows at low energies, where quarks are confined. The sign comes from the
-self-interaction of the gauge field (@sec-yang-mills), which antiscreens the charge.
+self-interaction of the gauge field (@sec-yang-mills), which antiscreens the charge [@grozin2005lectures, Sec. 4.6, eq. 4.45; @alvarezgaume2005, Sec. 8.2].
 :::
 ::::
 
@@ -7399,7 +7401,7 @@ An **effective field theory** valid below a scale $\Lambda_{\mathrm{UV}}$ is des
 the light fields allowed by the symmetries, $\mathcal L_{\mathrm{eff}} = \sum_ic_i\mathcal O_i/\Lambda_{\mathrm{UV}}^{\Delta_i - 4}$ with $\Delta_i$ the
 mass dimension of $\mathcal O_i$ and dimensionless $c_i$; at energy $E \ll \Lambda_{\mathrm{UV}}$ an operator of dimension $\Delta_i > 4$ contributes
 corrections of order $(E/\Lambda_{\mathrm{UV}})^{\Delta_i - 4}$, so finitely many operators suffice to any given accuracy. The coefficients are
-obtained by **integrating out** the heavy fields of a more complete theory, or measured.
+obtained by **integrating out** the heavy fields of a more complete theory, or measured [@manohar2018introduction, Sec. 4.1, eq. 4.13; @alvarezgaume2005, Sec. 8.3].
 :::
 ::::
 
@@ -7412,7 +7414,7 @@ coupling from the exchange of a $W$ boson.
 
 At momentum transfer $q^2 \ll m_W^2$ the $W$ propagator $\frac{-i\eta_{\mu\nu}}{q^2 - m_W^2}$ becomes $\frac{i\eta_{\mu\nu}}{m_W^2}$, a contact
 interaction: the exchange between two currents with coupling $g/(2\sqrt2)$ each produces the operator of
-@exr-qz-fermi-scale with $\frac{G_F}{\sqrt2} = \frac{g^2}{8m_W^2}$, a dimension-six operator suppressed by $1/m_W^2$.
+@exr-qz-fermi-scale with $\frac{G_F}{\sqrt2} = \frac{g^2}{8m_W^2}$, a dimension-six operator suppressed by $1/m_W^2$ [@manohar2018introduction, Sec. 4.8, eq. 4.47; @grozin2005lectures, Sec. 8, pp. 92-95].
 :::
 
 Integrating out a heavy scalar at tree level is a short calculation. The second example states the result, which the
@@ -7496,7 +7498,7 @@ gravitational scattering at $E = 1\,\mathrm{TeV}$, and the energy at which the e
 Each power of $G_N$ comes with $E^2$ by dimensional analysis, so loop corrections are of relative order $G_NE^2 =
 E^2/(8\pi M_{\mathrm{Pl}}^2) \approx (10^3)^2/(8\pi(2.44 \times 10^{18})^2) \approx 7 \times 10^{-33}$ at a TeV, utterly negligible; the description fails at $E \sim G_N^{-1/2} = \sqrt{8\pi}M_{\mathrm{Pl}}$.
 Below that scale the quantum theory of gravity is a predictive effective theory with the Einstein-Hilbert term
-followed by curvature-squared terms suppressed by $1/M_{\mathrm{Pl}}^2$ (@exm-nonrenormalisable-gravity).
+followed by curvature-squared terms suppressed by $1/M_{\mathrm{Pl}}^2$ (@exm-nonrenormalisable-gravity) [@buchbinder2021introduction, Sec. 18.7.1].
 :::
 
 An effective Lagrangian contains every operator allowed by symmetry, ordered by dimension. The third exercise lists
@@ -7513,7 +7515,7 @@ six, up to total derivatives and the use of the field equation, and say which ar
 Dimension two: $\phi^2$; four: $(\partial\phi)^2$, $\phi^4$; six: $\phi^6$, $\phi^2(\partial\phi)^2$, $(\Box\phi)^2$. Integration by parts relates
 $\phi\Box\phi$ to $-(\partial\phi)^2$ and $\phi^3\Box\phi$ to $-3\phi^2(\partial\phi)^2$, and the free field equation turns $(\Box\phi)^2$ into a
 combination of the others, leaving $\phi^6$ and $\phi^2(\partial\phi)^2$ at dimension six. The operators of dimension at most four
-are renormalisable; those of dimension six come with $1/\Lambda_{\mathrm{UV}}^2$.
+are renormalisable; those of dimension six come with $1/\Lambda_{\mathrm{UV}}^2$ [@manohar2018introduction, Sec. 4, eq. 4.10, and Sec. 6.3].
 :::
 ::::
 
@@ -7529,7 +7531,7 @@ For a massless Dirac fermion of charge $e$ coupled to an electromagnetic field, 
 $$\partial_\mu j_5^\mu = \pm\frac{e^2}{16\pi^2}\epsilon^{\mu\nu\rho\sigma}F_{\mu\nu}F_{\rho\sigma} = \pm\frac{e^2}{2\pi^2}\mathbf E\cdot\mathbf B$$
 (with $\epsilon_{0123} = +1$, so $\epsilon^{0123} = -1$; the overall sign depends on the conventions for $\gamma_5$ and $\epsilon$): the **chiral (Adler-Bell-Jackiw)
 anomaly**. It arises from the one-loop triangle diagram, cannot be removed by any regularisation that preserves the
-vector current, and is exact at one loop [@alvarezgaume2005] (quoted, outline).
+vector current, and is exact at one loop [@alvarezgaume2005, Sec. 7.1, eqs. 7.25-7.28, and p. 80; @bilal2008, Secs. 3.5 and 5.1, eq. 3.30] (quoted, outline).
 :::
 ::::
 
@@ -7542,7 +7544,7 @@ dependence on the number of colours.
 
 The neutral pion couples to the axial current of the light quarks, and the anomaly fixes its decay rate to two photons,
 $\Gamma = \frac{\alpha^2m_\pi^3}{64\pi^3f_\pi^2}$ for three colours (quoted), about $7.8\,\mathrm{eV}$, in agreement with experiment
-(@exr-rn-pion-rate); without colours the prediction would be nine times smaller.
+(@exr-rn-pion-rate); without colours the prediction would be nine times smaller [@alvarezgaume2005, Sec. 7.2, eqs. 7.45-7.48].
 :::
 
 The integrated anomaly is a topological quantity. The second example states its relation to zero modes of the Dirac
@@ -7554,7 +7556,7 @@ operator, in outline.
 In Euclidean signature the integral $\frac{e^2}{16\pi^2}\int\epsilon^{\mu\nu\rho\sigma}F_{\mu\nu}F_{\rho\sigma}$ over a compact four-manifold is (up to
 normalisation) an integer, and it equals the index of the Dirac operator, the difference between the numbers of
 zero modes of positive and negative chirality: the Atiyah-Singer index theorem, quoted. The anomaly is therefore
-insensitive to small deformations of the fields.
+insensitive to small deformations of the fields [@bilal2008, Sec. 3.7].
 :::
 
 For gauge currents the anomaly is fatal, which returns to @def-anomaly. The third example states the condition for
@@ -7566,7 +7568,7 @@ chiral gauge theories.
 If the current of the triangle is a gauge current, as in a chiral gauge theory where left- and right-handed fermions
 carry different charges, the anomaly breaks gauge invariance and the theory is inconsistent; the triangle is
 proportional to $\sum_{\mathrm{L}}q^3 - \sum_{\mathrm{R}}q^3$, which must vanish (@exr-qz-hypercharge-anomalies,
-@exr-qz-vectorlike).
+@exr-qz-vectorlike) [@alvarezgaume2005, Sec. 7.2, eqs. 7.49-7.54; @bilal2008, Secs. 7.2-7.3].
 :::
 ::::
 
@@ -7653,7 +7655,7 @@ The third exercise does this counting.
 
 Massless fermions in $1 + 1$ dimensions on a line of length $L$ split into right movers ($E = p$) and left movers ($E = -p$).
 In a constant electric field $E$, $\dot p = eE$. Starting from the filled Dirac sea, show that the numbers of right and
-left movers change at the rates $\pm\frac{eEL}{2\pi}$, so that $\partial_\mu j_5^\mu = \frac{e}{\pi}E$ per unit length.
+left movers change at the rates $\pm\frac{eEL}{2\pi}$, so that $\partial_\mu j_5^\mu = \frac{e}{\pi}E$ per unit length [@alvarezgaume2005, Sec. 7.1, eqs. 7.11-7.27].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7781,7 +7783,7 @@ computes it for a massless scalar on a circle by zeta regularisation.
 #### The Casimir energy of a circle
 
 For a massless scalar in $1 + 1$ dimensions on a circle of radius $R$, the frequencies are $|n|/R$. Compute the
-zeta-regularised zero-point energy $E_0 = \tfrac12\sum_{n \in \mathbb Z}|n|/R$ and the force $-dE_0/d(2\pi R)$.
+zeta-regularised zero-point energy $E_0 = \tfrac12\sum_{n \in \mathbb Z}|n|/R$ and the force $-dE_0/d(2\pi R)$ [@gelis2021problems, Problems 23-24; @talagrand2022what, Sec. 7.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7808,7 +7810,7 @@ same correlator as a trace over the Fock states of one mode and as the periodic 
 
 For one mode with $\hat H = \omega(\hat a^\dagger\hat a + \tfrac12)$ and Euclidean Heisenberg operator $\hat q(\tau) = e^{\hat H\tau}\hat
 qe^{-\hat H\tau}$, show that $\frac{1}{Z}\operatorname{tr}\bigl(e^{-\beta\hat H}\hat q(\tau)\hat q(0)\bigr) = \frac{(1 + n_B)e^{-\omega\tau} + n_Be^{\omega\tau}}{2\omega}$
-for $0 \leq \tau \leq \beta$, that this equals $G_\beta(\tau)$, and check it numerically with Sage on a truncated Fock space.
+for $0 \leq \tau \leq \beta$, that this equals $G_\beta(\tau)$, and check it numerically with Sage on a truncated Fock space [@gelis2021problems, Ch. 5, pp. 276-279; @nastase2023quantum, Sec. 28.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7858,7 +7860,7 @@ For $\langle\phi^2\rangle = \int\phi^2e^{-\phi^2/2 - \lambda\phi^4/24}d\phi/\int
 using Gaussian moments; (b) reproduce the coefficient of $\lambda$ from the self-energy diagram and the coefficient of $\lambda^2$
 from the three connected two-loop diagrams (two tadpoles in a row, a tadpole on a tadpole, the sunset), each of value
 $1$ times its inverse symmetry factor; (c) check the Schwinger-Dyson relation $\langle\phi^2\rangle + \tfrac{\lambda}{6}\langle\phi^4\rangle = 1$ of
-@exr-fpi-schwinger-dyson to this order.
+@exr-fpi-schwinger-dyson to this order [@gelis2021problems, Problem 51, p. 214].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7900,7 +7902,7 @@ For a massless scalar in $1 + 1$ dimensions: (a) on a spatial circle of length $
 energy is $E_0(L) = -\frac{\pi}{6L}$ (@exr-rn-circle-casimir); (b) on an infinite line at temperature $1/\beta$, the free energy per
 unit length is $f(\beta) = \frac1\beta\int\frac{dk}{2\pi}\log(1 - e^{-\beta|k|})$, to be evaluated with Sage; (c) on the Euclidean torus
 $\beta \times L$, $\log Z \approx -\beta E_0(L)$ for $\beta \gg L$ and $\log Z \approx -\beta Lf(\beta)$ for $L \gg \beta$. Show that the two limits are
-exchanged by $\beta \leftrightarrow L$.
+exchanged by $\beta \leftrightarrow L$ [@gelis2021problems, Problem 24 and Ch. 5, pp. 276-279; @nastase2023quantum, Sec. 28.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}

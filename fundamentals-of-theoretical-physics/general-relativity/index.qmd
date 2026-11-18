@@ -1,6 +1,4 @@
 ---
-nocite: |
-  @krasnov2020formulations
 pagetitle: "General relativity"
 ---
 
@@ -32,7 +30,7 @@ Kaluza-Klein theory is general relativity in more than four dimensions, so its i
 relativity, and Part III consists of evaluating that action on a five-dimensional metric. This section defines
 spacetime, states the equivalence principle, shows how the geodesic equation of Part I reproduces Newton's law,
 and introduces the Einstein-Hilbert action together with the two variational formulas its variation needs. Our
-source is @carroll1997, who uses the signature $(-, +, +, +)$; we convert to our $(+, -, -, -)$ with the rule of
+source is @carroll1997 [Ch. 4], who uses the signature $(-, +, +, +)$; we convert to our $(+, -, -, -)$ with the rule of
 @sec-conventions-indices, which flips the signs of $R$ and of the gravitational Lagrangian but not those of
 $\Gamma$, $R^\rho{}_{\sigma\mu\nu}$ and $R_{\mu\nu}$, and we note his different normalisation of the action where it
 matters.
@@ -222,7 +220,7 @@ and $d^4x$ by $\sqrt{-g}\,d^4x$ (@def-volume-element). For a scalar, $S = \int d
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The equivalence principle fixes the metric and its first derivatives at a point, and the following counting argument
-shows that exactly the curvature is left over. It is the standard argument of @carroll1997 [section 2.9].
+shows that exactly the curvature is left over. It is the standard argument of @carroll1997 [Ch. 2, pp. 50-51].
 
 ::: {#exr-gr-normal-coordinates}
 #### Counting the curvature
@@ -339,8 +337,8 @@ The **Newtonian limit** of a metric is the regime of a weak static field, $g_{\m
 with $|h| \ll 1$ and $\partial_th = 0$, and slowly moving particles, $|\dot x^i| \ll 1$. In it the geodesic equation
 @eq-geodesic reduces to $\ddot x^i = -\Gamma^i_{tt}$, and with $h_{tt} = 2\Phi$ the Christoffel symbol is
 $\Gamma^i_{tt} = \tfrac12 g^{ii}(-\partial_i g_{tt}) = \partial_i\Phi$ to first order, so $\ddot x^i = -\partial_i\Phi$:
-Newton's law with $\Phi$ the gravitational potential [@carroll1997, eqs. 4.19-4.21, where $h_{tt} = -2\Phi$ in his
-signature] (@prp-newtonian-limit, @fig-newtonian-limit).
+Newton's law with $\Phi$ the gravitational potential [@carroll1997, eqs. 4.19-4.21, where $h_{tt} = -2\Phi$ in his signature]
+(@prp-newtonian-limit, @fig-newtonian-limit).
 :::
 ::::
 
@@ -659,10 +657,10 @@ S_{\mathrm{EH}}[g] = -\frac{1}{2\kappa^2}\int d^4x\,\sqrt{-g}\,R, \qquad \kappa^
 $$ {#eq-einstein-hilbert}
 with $R$ the scalar curvature (@def-scalar-curvature) and $\sqrt{-g}\,d^4x$ the volume element
 (@def-volume-element); the overall sign is the one that makes the kinetic energy of the graviton positive in our
-signature $(+, -, -, -)$, in which $R$ has the opposite sign to the mostly-plus $R$ of @carroll1997
+signature $(+, -, -, -)$, in which $R$ has the opposite sign to the mostly-plus $R$ of @carroll1997 [eq. 4.55]
 (@sec-conventions-indices). It is the only action built from the metric alone with at most two derivatives, up to
 the addition of a constant, the cosmological term $-\tfrac{1}{\kappa^2}\int\sqrt{-g}\,\Lambda$, whose sign is the
-same in both signatures [@carroll1997, eqs. 4.54-4.55 and 4.73]. @carroll1997 writes $S = \tfrac{1}{8\pi G_N}S_H +
+same in both signatures [@carroll1997, eqs. 4.54-4.55 and 4.73]. @carroll1997 [p. 116] writes $S = \tfrac{1}{8\pi G_N}S_H +
 S_M$ with $S_H = \int\sqrt{-g}R$ [eq. 4.68] in his signature; after conversion this is a factor $2$ different from
 @eq-einstein-hilbert, compensated in his definition of the stress tensor.
 :::
@@ -715,6 +713,7 @@ dimensions and the mass scale they define.
 In units $\hbar = c = 1$, find the mass dimension of $G_N$ from the requirement that @eq-einstein-hilbert be
 dimensionless, define the reduced Planck mass $M_{\mathrm{Pl}} = (8\pi G_N)^{-1/2} = \kappa^{-1}$ and evaluate it in GeV using $G_N = 6.71 \times
 10^{-39}\,\mathrm{GeV^{-2}}$. What is the dimension of $G_N$ in $n$ spacetime dimensions?
+[@buchbinder2021introduction, Sec. 11.8, eq. 11.90, which gives the unreduced $M_P = G_N^{-1/2} \approx 10^{19}\,\mathrm{GeV}$]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -796,8 +795,8 @@ $$
 \qquad
 \delta R_{\mu\nu} = \nabla_\rho(\delta\Gamma^\rho_{\nu\mu}) - \nabla_\nu(\delta\Gamma^\rho_{\rho\mu}),
 $$ {#eq-palatini}
-which holds because $\delta\Gamma$, the difference of two connections, is a tensor [@carroll1997, eqs. 4.59-4.60;
-@exr-palatini].
+which holds because $\delta\Gamma$, the difference of two connections, is a tensor
+[@carroll1997, eqs. 4.59-4.60; @exr-palatini].
 :::
 ::::
 
@@ -948,7 +947,7 @@ the Einstein tensor vanishes identically, and de Sitter space, the simplest curv
 three dimensions and, in an exercise, in four. Both return in Part VI, where internal spheres and de Sitter or anti-de
 Sitter spacetimes are the vacua of supergravity compactifications.
 
-For more on this topic, see @nastase2019classical [Ch. 40].
+For more on this topic, see @nastase2019classical [Ch. 39-40].
 
 ### The variation of the action
 
@@ -965,8 +964,8 @@ T_{\mu\nu} = \frac{2}{\sqrt{-g}}\frac{\delta S_M}{\delta g^{\mu\nu}},
 $$ {#eq-stress-tensor}
 a symmetric tensor field conserved on the matter equations of motion, $\nabla^\mu T_{\mu\nu} = 0$; on flat space
 it agrees with the Noether current of translations (@prp-energy-momentum) up to terms that do not change the
-conserved charges [@carroll1997, eq. 4.70, with his normalisation and the opposite overall sign, which comes with
-his signature]. The sign is fixed by requiring $T_{tt} \geq 0$ for a scalar field (@exm-stress-scalar).
+conserved charges
+[@carroll1997, eq. 4.70, with his normalisation and the opposite overall sign, which comes with his signature]. The sign is fixed by requiring $T_{tt} \geq 0$ for a scalar field (@exm-stress-scalar).
 :::
 ::::
 
@@ -1223,8 +1222,8 @@ $T_{tt} = \rho$, show that Poisson's equation $\nabla^2\Phi = 4\pi G_N\rho$ requ
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For static dust, $T = g^{tt}T_{tt} = \rho$ and $T_{tt} - \tfrac12Tg_{tt} \approx \tfrac12\rho$, so $R_{tt} = \tfrac12\kappa^2\rho$.
 With $h_{tt} = 2\Phi$, $R_{tt} \approx \partial_i\Gamma^i_{tt} = \tfrac12\nabla^2h_{tt} = \nabla^2\Phi$, hence $\nabla^2\Phi =
-\tfrac12\kappa^2\rho$, and comparison with Poisson's equation gives $\kappa^2 = 8\pi G_N$ [@carroll1997, eqs. 4.46-4.52,
-in his signature].
+\tfrac12\kappa^2\rho$, and comparison with Poisson's equation gives $\kappa^2 = 8\pi G_N$
+[@carroll1997, eqs. 4.46-4.52, in his signature].
 :::
 
 The approximation $R_{tt} \approx \nabla^2\Phi$ used above deserves a direct test. The third exercise computes the
@@ -1435,8 +1434,8 @@ an energy density of empty space, and it is the simplest explanation of the acce
 The **cosmological constant** $\Lambda$ is the coefficient of the volume term in the action, $S = -\tfrac{1}{2\kappa^2}
 \int\sqrt{-g}\,(R + 2\Lambda)$; it enters the equations as $G_{\mu\nu} - \Lambda g_{\mu\nu} = \kappa^2T_{\mu\nu}$, that
 is as a stress tensor $T_{\mu\nu} = \tfrac{\Lambda}{\kappa^2}g_{\mu\nu}$ of constant energy density $T_{tt} =
-\Lambda/\kappa^2$ and negative pressure [@carroll1997, eq. 8.29 and p. 125, in the signature $(-, +, +, +)$, where the
-same $\Lambda$ appears as $G_{\mu\nu} + \Lambda g_{\mu\nu}$].
+\Lambda/\kappa^2$ and negative pressure
+[@carroll1997, eq. 8.29 and p. 118, in the signature $(-, +, +, +)$, where the same $\Lambda$ appears as $G_{\mu\nu} + \Lambda g_{\mu\nu}$; @krasnov2020formulations, Sec. 2.1, eqs. 2.10-2.13, also in the signature $(-, +, +, +)$].
 :::
 ::::
 
@@ -1559,7 +1558,7 @@ A **vacuum solution** of the Einstein equations has $T_{\mu\nu} = 0$: $G_{\mu\nu
 $R_{\mu\nu} = -\tfrac{2\Lambda}{n - 2}g_{\mu\nu}$ in $n$ dimensions (the sign is that of our signature, in which
 $g_{tt} > 0$), so that a vacuum solution is an Einstein metric
 (@def-einstein-metric). The maximally symmetric vacuum solutions are Minkowski space ($\Lambda = 0$), de Sitter
-space ($\Lambda > 0$) and anti-de Sitter space ($\Lambda < 0$) [@carroll1997, p. 235].
+space ($\Lambda > 0$) and anti-de Sitter space ($\Lambda < 0$) [@carroll1997, p. 228].
 :::
 ::::
 
@@ -2107,7 +2106,7 @@ equations, the four-dimensional theory that Kaluza-Klein reduction produces. A h
 described by the FLRW metric, whose single function $a(t)$ obeys the Friedmann equations. In this section we keep $G_N$ explicit in the definitions and set $G_N = c
 = 1$ in computations, writing $m = G_NM$ for the mass in units of length.
 
-For more on this topic, see @boskoff2024journey [Ch. 9-10], @buchbinder2021introduction [Ch. 12] and @godinho2014introduction [Ch. 6].
+For more on this topic, see @boskoff2024journey [Ch. 10], @buchbinder2021introduction [Sec. 11.7] and @godinho2014introduction [Ch. 6].
 
 ### The Schwarzschild solution
 
@@ -2125,8 +2124,8 @@ ds^2 = \Bigl(1 - \frac{2G_NM}{r}\Bigr)dt^2 - \Bigl(1 - \frac{2G_NM}{r}\Bigr)^{-1
 $$ {#eq-gr-schwarzschild}
 on $r > 2G_NM$, where $r$ is defined by the area $4\pi r^2$ of the spheres of constant $t$ and $r$. It is a vacuum solution,
 $R_{\mu\nu} = 0$ (@prp-gr-schwarzschild), and by **Birkhoff's theorem** it is the only spherically symmetric one: the
-gravitational field outside any spherical body is @eq-gr-schwarzschild [@carroll1997, ch. 7, with the overall sign of
-our signature]. The radius $r_s = 2G_NM$ is the **Schwarzschild radius**.
+gravitational field outside any spherical body is @eq-gr-schwarzschild
+[@carroll1997, ch. 7, with the overall sign of our signature]. The radius $r_s = 2G_NM$ is the **Schwarzschild radius**.
 :::
 ::::
 
@@ -3868,7 +3867,7 @@ The definition is written in Heaviside-Lorentz units with $c = 1$, while the sou
 ::: {#exm-grf-em-units}
 #### The charge length
 
-In @eq-grf-einstein-maxwell a charge $Q$ enters the metric through the length $r_Q = \sqrt{G_NQ^2/4\pi}$, the analogue of the mass length $G_NM$. In SI units $r_Q^2 = G_NQ^2/(4\pi\epsilon_0c^4)$, and in Gaussian units with $G_N = 1$, as in @plebanski2024introduction, it is simply $e^2$. For an electron $r_Q = 1.38 \times 10^{-36}\,$m while $G_NM/c^2 = 6.8 \times 10^{-58}\,$m: the ratio of charge to mass, in gravitational units, is $2 \times 10^{21}$ [@emam2021covariant, eq. 8.163].
+In @eq-grf-einstein-maxwell a charge $Q$ enters the metric through the length $r_Q = \sqrt{G_NQ^2/4\pi}$, the analogue of the mass length $G_NM$. In SI units $r_Q^2 = G_NQ^2/(4\pi\epsilon_0c^4)$, and in Gaussian units with $G_N = 1$, as in @plebanski2024introduction [eq. 14.41], it is simply $e^2$. For an electron $r_Q = 1.38 \times 10^{-36}\,$m while $G_NM/c^2 = 6.8 \times 10^{-58}\,$m: the ratio of charge to mass, in gravitational units, is $2 \times 10^{21}$ [@emam2021covariant, eq. 8.163].
 :::
 
 The Einstein half of the equations can be checked against the variation of the Maxwell action. The definition takes the stress tensor from @eq-stress-tensor, and the example confirms the sign.
@@ -4927,8 +4926,8 @@ exercise proves it from the geodesic equations.
 #### Radial rays stay radial
 
 Write the $\theta$ and $\varphi$ components of the geodesic equation of @eq-gr-flrw and show that a geodesic with $\dot\theta = \dot\varphi = 0$ at one point
-has constant $\theta$ and $\varphi$. Why does this not depend on where the origin $r = 0$ is put? [@plebanski2024introduction, Sec. 17.17,
-Exercise 2]
+has constant $\theta$ and $\varphi$. Why does this not depend on where the origin $r = 0$ is put?
+[@plebanski2024introduction, Sec. 17.17, Exercise 2]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5811,11 +5810,11 @@ The second exercise checks the coefficient of @eq-grf-quadrupole from the retard
 ::: {#exr-grf-q-coefficient}
 #### The coefficient and the sign
 
-Starting from the retarded solution of @def-grf-linearised with $\kappa^2 = 8\pi G_N$, derive @eq-grf-quadrupole, and explain why the sign is the opposite of @blennow2022relativity [eq. 2.138] and of @gray2019student, who write $+\frac2r\ddot I_{ij}$.
+Starting from the retarded solution of @def-grf-linearised with $\kappa^2 = 8\pi G_N$, derive @eq-grf-quadrupole, and explain why the sign is the opposite of @blennow2022relativity [eq. 2.138] and of @carroll1997 [eq. 6.85, p. 158], who write $+\frac2r\ddot I_{ij}$ (his $q_{ij} = 3I_{ij}$).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$-\frac{\kappa^2}{2\pi} = -4G_N$, so $\bar h_{ij} = -\frac{4G_N}{r}\int T_{ij} = -\frac{4G_N}{r}\cdot\frac12\ddot I_{ij}$. In our signature the spatial metric is $-\delta_{ij} + h_{ij}$, so a positive $h_{xx}$ shortens distances along $x$; in the signature $(-, +, +, +)$ of @carroll1997 it is $\delta_{ij} + h_{ij}$, and the same physical wave has the opposite sign of $h_{ij}$. Blennow and Ohlsson use $(+, -, -, -)$ but write the wave operator with the opposite sign, $\Box\bar h = 16\pi T$, and a coefficient $+4$ in the retarded solution; the physics is the same.
+$-\frac{\kappa^2}{2\pi} = -4G_N$, so $\bar h_{ij} = -\frac{4G_N}{r}\int T_{ij} = -\frac{4G_N}{r}\cdot\frac12\ddot I_{ij}$. In our signature the spatial metric is $-\delta_{ij} + h_{ij}$, so a positive $h_{xx}$ shortens distances along $x$; in the signature $(-, +, +, +)$ of @carroll1997 [eqs. 6.83-6.85] it is $\delta_{ij} + h_{ij}$, and the same physical wave has the opposite sign of $h_{ij}$. Blennow and Ohlsson use $(+, -, -, -)$ but write the wave operator with the opposite sign, $\Box\bar h = 16\pi T$, and a coefficient $+4$ in the retarded solution; the physics is the same.
 :::
 
 The third exercise computes the waveform of a binary with Sage. It checks the amplitude and the chirp-mass form of the proposition.
@@ -6043,6 +6042,7 @@ g(\partial_t, u)$ and $L = -g(\partial_\varphi, u)$ are conserved along geodesic
 @eq-gr-schwarzschild-potential. (c) Write $\tfrac12(V - 1)$ as the Newtonian effective potential of
 @eq-effective-potential (per unit mass, $k = m$) plus a correction, and explain which term produces the perihelion advance
 of @exr-gr-perihelion-perturbative.
+[@carroll1997, eqs. 7.40-7.48, in the signature $(-, +, +, +)$, where $V$ is the effective potential of the radial equation]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -6083,6 +6083,7 @@ symmetric vacuum, as a cosmology and as a static spacetime with a horizon.
 (@exr-de-sitter-4d). (b) Derive the same relation from the Friedmann equation with the density $\rho_\Lambda$ of
 @exr-gr-lambda-pressure. (c) Show that the static metric $(1 - H^2r^2)dt^2 - (1 - H^2r^2)^{-1}dr^2 - r^2d\Omega^2$ also has $R_{\mu\nu} = -
 3H^2g_{\mu\nu}$, and compare its horizon at $r = 1/H$ with that of @exm-gr-ds-horizon and with the Schwarzschild horizon.
+[@blennow2022relativity, Problems 2.83-2.84; @carroll1997, p. 228]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -6119,6 +6120,7 @@ Let $\phi(t)$ be a homogeneous scalar in flat FLRW. (a) From @exm-stress-scalar,
 \tfrac12\dot\phi^2 + V$ and $p = \tfrac12\dot\phi^2 - V$. (b) Show that $\Box\phi = \ddot\phi + 3H\dot\phi$ and that the continuity equation
 of @def-gr-friedmann-equations is $\dot\phi$ times the field equation $\ddot\phi + 3H\dot\phi + V'(\phi) = 0$. (c) If $\dot\phi^2 \ll
 V$, what is $w$, and how does $a(t)$ behave?
+[@blennow2022relativity, Problem 2.150]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}

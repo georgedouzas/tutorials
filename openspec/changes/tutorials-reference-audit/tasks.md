@@ -17,7 +17,7 @@ warnings and no unresolved citation.
 - [x] 1.1 Write `audit/check.py` (A2) and run it on the whole site. Verify that it reproduces the measured baseline:
   151 entries, 3 cited nowhere, and the per-chapter key counts of design Context. Its findings seed the five
   `audit/<tutorial>.md` records (A9).
-- [ ] 1.2 Resolve the entry-level findings: missing `zotero` fields, citation keys that differ, items without a PDF
+- [x] 1.2 Resolve the entry-level findings: missing `zotero` fields, citation keys that differ, items without a PDF
   or reading note, and arXiv identifiers that do not resolve (A5, A7). Verify that `check.py` reports no entry-level
   finding except PDFs with a recorded reason.
 
@@ -69,23 +69,23 @@ warnings and no unresolved citation.
 
 ## 6. Fundamentals of Theoretical Physics
 
-- [ ] 6.1 Audit Classical mechanics.
-- [ ] 6.2 Audit Classical electromagnetism.
-- [ ] 6.3 Audit Special relativity.
-- [ ] 6.4 Audit Thermodynamics and statistical mechanics.
-- [ ] 6.5 Audit Quantum mechanics.
-- [ ] 6.6 Audit Classical field theory.
-- [ ] 6.7 Audit The Dirac equation.
-- [ ] 6.8 Audit Quantum field theory.
-- [ ] 6.9 Audit Gauge theories.
-- [ ] 6.10 Audit Renormalisation.
-- [ ] 6.11 Audit General relativity.
-- [ ] 6.12 Audit Supersymmetry and supergravity.
-- [ ] 6.13 Get the owner's decisions and apply them. Verify that the record has no open item.
+- [x] 6.1 Audit Classical mechanics.
+- [x] 6.2 Audit Classical electromagnetism.
+- [x] 6.3 Audit Special relativity.
+- [x] 6.4 Audit Thermodynamics and statistical mechanics.
+- [x] 6.5 Audit Quantum mechanics.
+- [x] 6.6 Audit Classical field theory.
+- [x] 6.7 Audit The Dirac equation.
+- [x] 6.8 Audit Quantum field theory.
+- [x] 6.9 Audit Gauge theories.
+- [x] 6.10 Audit Renormalisation.
+- [x] 6.11 Audit General relativity.
+- [x] 6.12 Audit Supersymmetry and supergravity.
+- [x] 6.13 Get the owner's decisions and apply them. Verify that the record has no open item.
 
 ## 7. Whole site
 
-- [ ] 7.1 Run `audit/check.py` on the whole site and render the site with `quarto render`.
+- [x] 7.1 Run `audit/check.py` on the whole site and render the site with `quarto render`.
   - Verify that `check.py` reports no finding except recorded PDF reasons.
   - Verify that every bib entry is cited.
   - Verify that the render has no warning and no unresolved citation.

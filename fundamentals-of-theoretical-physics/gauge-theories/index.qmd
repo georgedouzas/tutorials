@@ -25,7 +25,7 @@ Every statement is followed by examples of increasing complexity and exercises o
 
 A gauge theory makes a global symmetry local by introducing a connection, the gauge field, whose curvature is the field strength; electromagnetism is the abelian case and Yang-Mills theory the non-abelian one. This part has two sections. Abelian gauge invariance starts from the phase symmetry of a complex scalar, defines local symmetries, the gauge field, the covariant derivative and the field strength, and ends with Maxwell's action. Yang-Mills theory repeats the construction for a non-abelian group, where the field strength acquires a commutator, the equations become nonlinear and a constant potential can carry a field strength; the Bianchi identity is the structural identity that every such field satisfies.
 
-For more on this topic, see @aitchison2024gauge [Secs. 2.4-2.6], @hamilton2017mathematical [Ch. 5, Ch. 7], @nastase2019classical [Ch. 27], @paganini2023fundamentals [Ch. 12], @pal2015introductory [Ch. 11] and @strocchi2021symmetry [Ch. 29].
+For more on this topic, see @aitchison2024gauge [Secs. 2.4-2.6], @hamilton2017mathematical [Ch. 5, Ch. 7], @nastase2019classical [Sec. 17.3, Ch. 26], @paganini2023fundamentals [Sec. 8.2], @pal2015introductory [Ch. 11] and @strocchi2021symmetry [App. D].
 
 ### Abelian gauge invariance {#sec-abelian-gauge}
 
@@ -190,8 +190,9 @@ The extra term $i\partial_\mu\alpha\,\phi$ can be cancelled only by something th
 
 An **abelian gauge field** is a vector field $A_\mu$ (@def-vector-field-spacetime) with the **gauge
 transformation** $A_\mu \mapsto A_\mu - \partial_\mu\alpha$ whenever the charged fields are rotated by $e^{i\alpha(x)}$
-(the sign is a convention; @alvarezgaume2005 [eq. 4.70] writes $A_\mu \to A_\mu + \tfrac1e\partial_\mu\alpha$ with
-the opposite sign of the charge). It is the gauge potential of a connection on a principal $U(1)$-bundle
+(the sign is a convention; @alvarezgaume2005 [eq. 4.71] writes $\psi \to e^{-ie\epsilon}\psi$, $A_\mu \to A_\mu +
+\partial_\mu\epsilon$ with $D_\mu = \partial_\mu + ieA_\mu$, which with $\epsilon = -\alpha$ is this convention for a field of
+charge $e$, rotated by $e^{ie\alpha}$). It is the gauge potential of a connection on a principal $U(1)$-bundle
 (@def-gauge-potential), and @eq-gauge-transformation for $G = U(1)$ is this transformation.
 :::
 ::::
@@ -309,7 +310,7 @@ Otherwise the flat potential is physical: it is the Aharonov-Bohm phase.
 :::
 ::::
 
-With the gauge field in hand the derivative can be repaired. The covariant derivative adds to $\partial_\mu$ a multiple of the gauge field chosen so that the two shifts cancel, and the definition records the result.
+With the gauge field in hand the derivative can be repaired. The covariant derivative adds to $\partial_\mu$ a multiple of the gauge field chosen so that the two shifts cancel, and the definition records the result [@alvarezgaume2005, eqs. 4.68-4.69].
 
 :::: {.statement-box}
 ::: {#def-covariant-derivative-u1}
@@ -541,7 +542,7 @@ single-valued: Dirac's quantisation condition.
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The statement that the field strength is the curvature of the covariant derivative is the computational heart of the definition. The first exercise derives it by expanding the commutator.
+The statement that the field strength is the curvature of the covariant derivative is the computational heart of the definition. The first exercise derives it by expanding the commutator [@nath2017supersymmetry, eq. 3.11].
 
 ::: {#exr-commutator-covariant}
 #### The commutator of covariant derivatives
@@ -598,7 +599,7 @@ print("[PASS] F_{12} = -B^3 and its cyclic partners:", bool((F[1, 2] + B[2]).exp
 ```
 :::
 
-The quantisation of charge in the presence of a monopole is the most striking consequence of a gauge field that exists only chart by chart. The third exercise derives Dirac's condition.
+The quantisation of charge in the presence of a monopole is the most striking consequence of a gauge field that exists only chart by chart. The third exercise derives Dirac's condition [@alvarezgaume2005, eq. 4.61; @nastase2019classical, eqs. (27.52)-(27.54)].
 
 ::: {#exr-dirac-quantisation}
 #### Dirac quantisation
@@ -611,7 +612,8 @@ $q$ is well defined on the overlap of the two charts only if $2qg \in \mathbb{Z}
 The regular potentials on the two charts are $A_\pm = g(\cos\theta \mp 1)\,d\varphi$, differing by $2g\,d\varphi =
 d(2g\varphi)$, so the transition function is $e^{2iqg\varphi}$ (@exm-hopf-connection-monopole); it must return to
 itself after $\varphi \to \varphi + 2\pi$, which requires $2qg \in \mathbb{Z}$. The Chern number of @def-chern-number
-is $2g$ in these units, an integer, and the charges are quantised in units of $1/2g$.
+of the bundle of a field of charge $q$, whose real potential is $qA$, is $-\frac{1}{2\pi}\int q\,dA = 2qg$, an
+integer, and the charges are quantised in units of $1/2g$.
 :::
 
 Maxwell's equations have a source, and the source enters the action through a coupling to the potential, which is
@@ -946,8 +948,8 @@ transport, the geometric picture behind the name connection, following @nath2017
 
 To compare $\phi$ at $x$ and $x + dx$ one first transports $\phi(x)$ to $x + dx$ with the connection, $\tilde\phi(x + dx) = \phi(x) -
 \rho(A_\mu)\phi(x)\,dx^\mu$, and then subtracts: both $\phi(x + dx)$ and $\tilde\phi(x + dx)$ transform with $\rho(g(x + dx))^{-1}$, so
-their difference does too, and dividing by $dx^\mu$ gives $\partial_\mu\phi + \rho(A_\mu)\phi = D_\mu\phi$ [@nath2017supersymmetry, eqs. 3.1-3.3,
-with Hermitian generators and the coupling $g$ written explicitly]. Transport around a small closed loop then measures
+their difference does too, and dividing by $dx^\mu$ gives $\partial_\mu\phi + \rho(A_\mu)\phi = D_\mu\phi$ [@nath2017supersymmetry, eqs. 3.1-3.3, with Hermitian generators and the coupling $g$ written explicitly].
+Transport around a small closed loop then measures
 $\rho(F_{\mu\nu})$, as in @exr-gth-int-group-commutator.
 :::
 ::::
@@ -1326,8 +1328,8 @@ on A^1_1 = c1, A^2_2 = c2 the Lagrangian is -1/2*c1^2*c2^2*g^2 = -(g^2/2) (F^3_1
 :::
 
 The Yang-Mills Lagrangian determines an energy density, and in the temporal gauge it takes the familiar form of the
-energy of electric and magnetic fields. The fourth exercise derives it from the Lagrangian, as @nath2017supersymmetry
-[Problem 3.6] does for the coupled Yang-Mills-Dirac system.
+energy of electric and magnetic fields. The fourth exercise derives it from the Lagrangian, as
+@nath2017supersymmetry [Problem 3.6] does for the coupled Yang-Mills-Dirac system.
 
 ::: {#exr-gth-ym-energy}
 #### The Yang-Mills energy density
@@ -1569,8 +1571,8 @@ $\sum_{\rm cyc}[A_\rho, [A_\mu, A_\nu]] = 0$, the Jacobi identity. For $SU(2)$ t
 A gauge theory with chiral fermions, left- and right-handed Weyl spinors in different representations, is
 consistent as a quantum theory only if a cubic invariant of its fermion representations vanishes. The quantum origin
 of the condition, the anomaly, was outlined in quantum field theory (@def-chiral-anomaly); the invariant itself is pure group theory,
-and this subsection defines it and computes it for the groups used so far [@nath2017supersymmetry, Secs. 6.1 and
-6.9].
+and this subsection defines it and computes it for the groups used so far
+[@nath2017supersymmetry, Secs. 6.1 and 6.9].
 
 :::: {.statement-box}
 ::: {#def-gth-anomaly-coefficient}
@@ -1754,8 +1756,8 @@ and that for $SU(2)$ doublets it vanishes exactly when the hypercharges of the d
 ::: {.callout-note .solution collapse="true" title="Solution"}
 On $\rho_k \otimes \mathbb{C}$ the $U(1)$ generator is $q_k\,1$, which commutes with the $t_a$, so $\operatorname{tr}(q_k\{t_a, t_b\}) =
 2q_k\operatorname{tr}(t_at_b) = 2q_kT(\rho_k)\delta_{ab}$, and the total is the sum over $k$. All doublets have the same $T = \tfrac12$, so
-the condition is $\sum_{\text{doublets}}q_k = 0$, weighted by the number of colours, the condition of @nath2017supersymmetry
-[eq. 6.137] and of @exm-anomaly-standard-model.
+the condition is $\sum_{\text{doublets}}q_k = 0$, weighted by the number of colours, the condition of
+@nath2017supersymmetry [eq. 6.137] and of @exm-anomaly-standard-model.
 :::
 ::::
 
@@ -2319,7 +2321,7 @@ Paths can be joined and reversed, and the transporter respects both operations. 
 Let $C$ be a loop through $x$ and $y$, with $\gamma$ the part from $x$ to $y$ and $\gamma'$ the part from $y$ back to $x$. Then $\operatorname{Hol}_x(C) = U_{\gamma'}U_\gamma$ and $\operatorname{Hol}_y(C) = U_\gamma U_{\gamma'} = U_\gamma\operatorname{Hol}_x(C)U_\gamma^{-1}$ [@hamilton2017mathematical, Lemma 5.11.3]. Holonomies at different base points are conjugate, so their eigenvalues and traces agree.
 :::
 
-The holonomy of a small loop is close to the identity, and the deviation is the field strength times the area. The sixth example states this, which is the precise sense in which the field strength is a curvature.
+The holonomy of a small loop is close to the identity, and the deviation is the field strength times the area. The sixth example states this, which is the precise sense in which the field strength is a curvature [@nath2017supersymmetry, Problem 3.1, eqs. 3.147-3.149].
 
 ::: {#exm-gcn-hol-small-loop}
 #### Small loops measure the field strength
@@ -3625,9 +3627,9 @@ qg = 2\pi n, \qquad n \in \mathbb{Z} ,
 $$ {#eq-abm-dirac-condition}
 in Heaviside-Lorentz units with $\hbar = c = 1$. Equivalently, the Dirac string is invisible: its holonomy for charge $q$ is $e^{iqg} = 1$. When the condition holds, the fields of charge $q$ are sections of the line bundle over each sphere around the origin with transition function $e^{in\varphi}$, the potentials @eq-abm-monopole-potentials define a connection on it whose real form in the convention of @def-chern-number is $-q\mathbf A\cdot d\mathbf x$, and its first Chern number is
 $$
-c_1 = \frac{1}{2\pi}\int_{S^2}d\bigl(-q\mathbf A\cdot d\mathbf x\bigr) = -\frac{qg}{2\pi} = -n .
+c_1 = -\frac{1}{2\pi}\int_{S^2}d\bigl(-q\mathbf A\cdot d\mathbf x\bigr) = \frac{qg}{2\pi} = n .
 $$ {#eq-abm-chern}
-For $n = 1$ the bundle and connection are the Hopf bundle with the Hopf connection normalised to the $2\pi$-periodic fibre angle (@def-hopf-connection, @prp-hopf-chern). If a single monopole of charge $g$ exists, every electric charge is an integer multiple of $2\pi/g$. *Proof.* On the overlap $\psi_N = e^{iqg\varphi/2\pi}\psi_S$, and both fields are single valued, so $e^{iqg\varphi/2\pi}$ must be single valued on the equator: $e^{iqg} = 1$. By @exm-abm-dm-string the string carries the flux $g$, with holonomy $e^{iqg}$. The real potentials are $-q\mathbf A_N\cdot d\mathbf x = -\frac n2(1 - \cos\theta)\,d\varphi$ and $-q\mathbf A_S\cdot d\mathbf x = \frac n2(1 + \cos\theta)\,d\varphi$, both with curvature $-\frac n2\sin\theta\,d\theta \wedge d\varphi$, whose integral over the sphere is $-2\pi n$. For $n = 1$ they are $\frac12(\cos\theta \mp 1)\,d\varphi$, one half of the potentials $A_\pm$ of @exm-hopf-connection-monopole, which is the normalisation of @prp-hopf-chern with $c_1 = -1$ [@nastase2019classical, Sec. 27.3, eqs. (27.44)-(27.54) and Sec. 27.4, eqs. (27.60)-(27.61); @hamilton2017mathematical, Prop. 5.6.8, Remark 5.6.9 and Example 4.7.16].
+For $n = -1$ the bundle and connection are the Hopf bundle with the Hopf connection normalised to the phase of its $U(1)$ action (@def-hopf-connection, @prp-hopf-chern), and $n = 1$ is the same circle bundle with the $U(1)$ action reversed. If a single monopole of charge $g$ exists, every electric charge is an integer multiple of $2\pi/g$. *Proof.* On the overlap $\psi_N = e^{iqg\varphi/2\pi}\psi_S$, and both fields are single valued, so $e^{iqg\varphi/2\pi}$ must be single valued on the equator: $e^{iqg} = 1$. By @exm-abm-dm-string the string carries the flux $g$, with holonomy $e^{iqg}$. The real potentials are $-q\mathbf A_N\cdot d\mathbf x = -\frac n2(1 - \cos\theta)\,d\varphi$ and $-q\mathbf A_S\cdot d\mathbf x = \frac n2(1 + \cos\theta)\,d\varphi$, both with curvature $-\frac n2\sin\theta\,d\theta \wedge d\varphi$, whose integral over the sphere is $-2\pi n$, so $c_1 = n$. For $n = -1$ they are $\frac12(\pm 1 - \cos\theta)\,d\varphi$, minus one half of the potentials $A_\pm$ of @exm-hopf-connection-monopole, which is the normalisation $-\frac12\sigma^3$ of @prp-hopf-chern with $c_1 = -1$ [@nastase2019classical, Sec. 27.3, eqs. (27.44)-(27.54) and Sec. 27.4, eqs. (27.60)-(27.61); @hamilton2017mathematical, Prop. 5.6.8, Remark 5.6.9 and Example 4.7.16].
 :::
 ::::
 
@@ -3640,12 +3642,12 @@ The first consequence is quantitative: the minimal magnetic charge is large. The
 With the electron charge $e = \sqrt{4\pi\alpha} = 0.303$, the smallest magnetic charge is $g_D = 2\pi/e = 20.7$, so $g_D/e = 1/(2\alpha) = 68.5$ and the magnetic analogue of the fine-structure constant is $g_D^2/4\pi = 1/(4\alpha) = 34.3$ (@exr-abm-dq-numbers). Magnetic charges interact strongly, and perturbation theory in $g$ is useless.
 :::
 
-The Hopf bundle has appeared in the mathematics part as the coset fibration $SU(2) \to S^2$. The second example identifies it with the minimal monopole.
+The Hopf bundle has appeared in the mathematics part as the coset fibration $SU(2) \to S^2$. The second example identifies its conjugate with the minimal monopole.
 
 ::: {#exm-abm-dq-hopf}
-#### The minimal monopole is the Hopf bundle
+#### The minimal monopole is the conjugate Hopf bundle
 
-For $qg = 2\pi$, the potentials $-q\mathbf A_{N,S}\cdot d\mathbf x = \frac12(\cos\theta \mp 1)\,d\varphi$ are one half of the potentials $A_\pm$ of @exm-hopf-connection-monopole and differ by the transition function $e^{i\varphi}$, which winds once around $U(1)$ (@exm-transition-hopf, with the angle $\psi/2$ of period $2\pi$). The total space of the minimal monopole bundle over a sphere is $S^3 \cong SU(2)$, the Hopf fibration (@def-hopf-map), and its Chern number is $-1$ (@exr-abm-dq-hopf).
+For $qg = 2\pi$, the potentials $-q\mathbf A_{N,S}\cdot d\mathbf x = \frac12(\cos\theta \mp 1)\,d\varphi$ are one half of the potentials $A_\pm$ of @exm-hopf-connection-monopole and differ by the transition function $e^{i\varphi}$, which winds once around $U(1)$ (@exm-transition-hopf, with the angle $\psi/2$ of period $2\pi$). The total space of the minimal monopole bundle over a sphere is $S^3 \cong SU(2)$, the Hopf fibration (@def-hopf-map), and its Chern number is $+1$: it is the conjugate Hopf bundle, the Hopf bundle with the $U(1)$ action reversed. The Hopf bundle itself has $c_1 = -1$ and is the monopole of charge $-1$, $qg = -2\pi$ (@prp-hopf-chern, @exr-abm-dq-hopf).
 :::
 
 The quantisation condition refers to the smallest charge that exists as a free particle. If fractional charges were free, the monopole would have to be larger. The third example computes how much.
@@ -3677,7 +3679,7 @@ Charges add, and so do Chern numbers. The sixth example relates the two through 
 ::: {#exm-abm-dq-tensor}
 #### Charges add, Chern numbers add
 
-The field of charge $q_1 + q_2$ is glued by $e^{i(q_1 + q_2)g\varphi/2\pi}$, the product of the two transition functions: its line bundle is the tensor product of those of $q_1$ and $q_2$, and $c_1$ adds, $-(n_1 + n_2)$. The bundle of $n$ units is the $n$-fold tensor power of the Hopf line bundle, as in @hamilton2017mathematical [Example 4.7.16], and the trivial bundle, $n = 0$, belongs to neutral fields.
+The field of charge $q_1 + q_2$ is glued by $e^{i(q_1 + q_2)g\varphi/2\pi}$, the product of the two transition functions: its line bundle is the tensor product of those of $q_1$ and $q_2$, and $c_1$ adds, $n_1 + n_2$. The bundle of $n$ units is the $n$-fold tensor power of the dual of the Hopf line bundle, whose Chern number is $-1$, as in @hamilton2017mathematical [Example 4.7.16], and the trivial bundle, $n = 0$, belongs to neutral fields.
 :::
 
 The condition looks different in different textbooks only because the units differ. Different units give different-looking conditions. The seventh example translates between them and reconciles the condition with @exr-dirac-quantisation.
@@ -3731,33 +3733,33 @@ The Chern number can be computed from the curvature or from the transition funct
 ::: {#exr-abm-dq-chern}
 #### The Chern number of the monopole bundle
 
-For $qg = 2\pi n$, compute with Sage $c_1 = \frac1{2\pi}\int_{S^2}F$ with the real potentials $-q\mathbf A_N\cdot d\mathbf x$ on the northern hemisphere and $-q\mathbf A_S\cdot d\mathbf x$ on the southern one, and compare with the winding $\frac1{2\pi}\oint(P_N - P_S)$ of the transition function around the equator.
+For $qg = 2\pi n$, compute with Sage $c_1 = -\frac1{2\pi}\int_{S^2}F$ with the real potentials $-q\mathbf A_N\cdot d\mathbf x$ on the northern hemisphere and $-q\mathbf A_S\cdot d\mathbf x$ on the southern one, and compare with the winding $\frac1{2\pi}\oint(P_N - P_S)$ of the transition function around the equator.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Both real potentials have curvature $-\frac n2\sin\theta\,d\theta \wedge d\varphi$, and the two hemispheres each contribute $-\pi n$, so $c_1 = -n$. The difference of the potentials is $-n\,d\varphi$, whose integral around the equator is $-2\pi n$: the Chern number is the winding of the transition function, as for the Hopf bundle in @exm-hopf-chern-hemispheres.
+Both real potentials have curvature $-\frac n2\sin\theta\,d\theta \wedge d\varphi$, and the two hemispheres each contribute $-\pi n$ to the flux, so $c_1 = -\frac{1}{2\pi}(-2\pi n) = n$. The difference of the potentials is $-n\,d\varphi$, whose integral around the equator is $-2\pi n$: the Chern number is minus the winding of $P_N - P_S$, as for the monopoles of @exr-fbun-chern-charge-n.
 
 ```python
 th, ph = var("th ph"); n = var("n", domain="integer")
 PN, PS = -(n / 2) * (1 - cos(th)), (n / 2) * (1 + cos(th))          # coefficients of dphi
 dPN, dPS = diff(PN, th), diff(PS, th)                                  # coefficients of dtheta ^ dphi
-c1 = (integrate(integrate(dPN, th, 0, pi / 2), ph, 0, 2 * pi) + integrate(integrate(dPS, th, pi / 2, pi), ph, 0, 2 * pi)) / (2 * pi)
+c1 = -(integrate(integrate(dPN, th, 0, pi / 2), ph, 0, 2 * pi) + integrate(integrate(dPS, th, pi / 2, pi), ph, 0, 2 * pi)) / (2 * pi)
 print("[PASS] the curvatures agree on the overlap:", bool((dPN - dPS).simplify_full() == 0))
 print("c_1 =", c1.simplify_full())
-print("[PASS] c_1 = -n:", bool(c1.simplify_full() == -n))
+print("[PASS] c_1 = n:", bool(c1.simplify_full() == n))
 wind = integrate(PN - PS, ph, 0, 2 * pi) / (2 * pi)
 print("[PASS] winding of the transition function around the equator: (1/2pi) oint (P_N - P_S) =", wind.simplify_full(), bool(wind.simplify_full() == -n))
-print("[PASS] n = 1 gives c_1 = -1, the Chern number of the Hopf bundle:", bool(c1.subs(n=1).simplify_full() == -1))
+print("[PASS] n = -1 gives c_1 = -1, the Chern number of the Hopf bundle:", bool(c1.subs(n=-1).simplify_full() == -1))
 ```
 
 *Output:*
 
 ```text
 [PASS] the curvatures agree on the overlap: True
-c_1 = -n
-[PASS] c_1 = -n: True
+c_1 = n
+[PASS] c_1 = n: True
 [PASS] winding of the transition function around the equator: (1/2pi) oint (P_N - P_S) = -n True
-[PASS] n = 1 gives c_1 = -1, the Chern number of the Hopf bundle: True
+[PASS] n = -1 gives c_1 = -1, the Chern number of the Hopf bundle: True
 ```
 :::
 
@@ -3807,7 +3809,7 @@ Using @exr-abm-dm-string-circulation and @prp-abm-holonomy, show that an interfe
 The string is a thin tube of flux $g$, so a charge $q$ acquires $e^{iqg}$ around it, and the fringes shift unless $qg \in 2\pi\mathbb{Z}$. The string must be undetectable because its position can be changed by a gauge transformation (@exm-abm-dm-moving-string): a physical effect that depends on a gauge choice would contradict gauge invariance [@nastase2019classical, Sec. 27.4, eqs. (27.58)-(27.61)].
 :::
 
-The identification with the Hopf bundle involves a factor of two that is easy to lose. The fifth exercise identifies the minimal monopole with the Hopf bundle in detail.
+The identification with the Hopf bundle involves a factor of two that is easy to lose. The fifth exercise identifies the minimal monopole with the conjugate Hopf bundle in detail, and the charge $-1$ monopole with the Hopf bundle.
 
 ::: {#exr-abm-dq-hopf}
 #### Matching the Hopf connection
@@ -3816,7 +3818,7 @@ For $qg = 2\pi$, show that $-q\mathbf A_N\cdot d\mathbf x = \frac12(\cos\theta -
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$-q\frac{g}{4\pi}(1 - \cos\theta) = -\frac12(1 - \cos\theta)$, and similarly for $\mathbf A_S$. The potentials $A_\pm = (\cos\theta \mp 1)\,d\varphi$ belong to $\sigma^3$, whose fibre angle $\psi$ has period $4\pi$; normalising to the angle $\psi/2$ of period $2\pi$, as a $U(1)$ connection requires, halves them. @prp-hopf-chern then gives $c_1 = -1$, in agreement with @eq-abm-chern for $n = 1$.
+$-q\frac{g}{4\pi}(1 - \cos\theta) = -\frac12(1 - \cos\theta)$, and similarly for $\mathbf A_S$. The potentials $A_\pm = (\cos\theta \mp 1)\,d\varphi$ belong to $\sigma^3$, whose fibre angle $\psi$ has period $4\pi$; normalising to an angle of period $2\pi$, as a $U(1)$ connection requires, halves them. With the angle $\psi/2$ the potentials are $\frac12A_\pm$, the ones found here, with curvature $-\frac12\sin\theta\,d\theta \wedge d\varphi$ and $c_1 = -\frac{1}{2\pi}(-2\pi) = 1$, in agreement with @eq-abm-chern for $n = 1$. @prp-hopf-chern normalises instead to the phase $-\psi/2$ of the $U(1)$ action, with potentials $-\frac12A_\pm$ and $c_1 = -1$, the case $n = -1$: the two bundles differ by the direction of the $U(1)$ action.
 :::
 
 The angular momentum argument extends to pairs of dyons. The sixth exercise derives the condition for dyons from angular momentum, as Năstase asks.
@@ -4059,7 +4061,7 @@ A vortex in the plane becomes a string in three dimensions, uniform along the th
 ::: {#exm-tps-vx-string}
 #### Strings and antivortices
 
-In $3 + 1$ dimensions a field independent of $z$ is a vortex in every plane of constant $z$, a straight string whose energy per unit length, its tension, is $E \geq 2\pi v^2|n|$; such strings are the flux tubes of @exm-tps-vx-superconductor and, in cosmology, cosmic strings. Reflecting $y \mapsto -y$ turns a vortex into an antivortex of winding $-n$, which solves $(D_1 - iD_2)\phi = 0$ and $B = -e(v^2 - |\phi|^2)$, the lower signs of @eq-tps-vortex-bps.
+In $3 + 1$ dimensions a field independent of $z$ is a vortex in every plane of constant $z$, a straight string whose energy per unit length, its tension, is $E \geq 2\pi v^2|n|$; such strings are the flux tubes of @exm-tps-vx-superconductor and, in cosmology, cosmic strings. Reflecting $y \mapsto -y$ turns a vortex into an antivortex of winding $-n$, which solves $(D_1 - iD_2)\phi = 0$ and $B = -e(v^2 - |\phi|^2)$, the lower signs of @eq-tps-vortex-bps. [@nastase2019classical, Sec. 25.4 and eq. (25.24)]
 :::
 ::::
 
@@ -4162,7 +4164,7 @@ The flux quantisation uses only the behaviour at infinity. The third exercise de
 ::: {#exr-tps-vx-flux}
 #### The flux of the ansatz
 
-For $\mathbf A = \frac{n\,a(\rho)}{er}\mathbf e_\theta$ with $a(0) = 0$, $a(\infty) = 1$ and $\rho = evr$, compute $B = \frac1r\frac{d}{dr}(rA_\theta)$ and the flux through the plane, and check that $\mathbf A$ is smooth at the origin when $a = O(\rho^2)$.
+For $\mathbf A = \frac{n\,a(\rho)}{er}\mathbf e_\theta$ with $a(0) = 0$, $a(\infty) = 1$ and $\rho = evr$, compute $B = \frac1r\frac{d}{dr}(rA_\theta)$ and the flux through the plane, and check that $\mathbf A$ is smooth at the origin when $a = O(\rho^2)$. [@nastase2019classical, eqs. (25.22) and (25.31)-(25.32)]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4244,7 +4246,7 @@ The numerical solution confirms the proposition quantitatively. The seventh exer
 ::: {#exr-tps-vx-numerics}
 #### Vortices of higher winding
 
-Solve the radial equations with Sage by shooting for $n = 1, 2, 3$, and check that the flux is $2\pi n/e$, that the energy is $2\pi v^2n$, and that the magnetic and potential energies are equal.
+Solve the radial equations with Sage by shooting for $n = 1, 2, 3$, and check that the flux is $2\pi n/e$, that the energy is $2\pi v^2n$, and that the magnetic and potential energies are equal. [@nastase2019classical, Sec. 25.3 and eq. (25.24)]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4431,7 +4433,7 @@ The magnetic charge of the proposition must be compatible with Dirac's condition
 ::: {#exm-tps-mp-dirac}
 #### Dirac's condition is satisfied
 
-With $g_m = 4\pi\nu/g$, a doublet of charge $q = g/2$ has $qg_m = 2\pi\nu$, which is @eq-abm-dirac-condition with $n = \nu$, and the vector bosons of charge $g$ have $qg_m = 4\pi\nu$. The Chern number of the bundle of the doublet over a large sphere is $c_1 = -qg_m/2\pi = -\nu$ by @eq-abm-chern: the degree of the scalar is the topological charge of the Dirac monopole seen from far away (@prp-abm-quantisation, @exm-abm-dq-thooft-polyakov). The Dirac string of @def-abm-dirac-monopole has no counterpart, since the fields are smooth.
+With $g_m = 4\pi\nu/g$, a doublet of charge $q = g/2$ has $qg_m = 2\pi\nu$, which is @eq-abm-dirac-condition with $n = \nu$, and the vector bosons of charge $g$ have $qg_m = 4\pi\nu$. The Chern number of the bundle of the doublet over a large sphere is $c_1 = qg_m/2\pi = \nu$ by @eq-abm-chern: the degree of the scalar is the topological charge of the Dirac monopole seen from far away (@prp-abm-quantisation, @exm-abm-dq-thooft-polyakov). The Dirac string of @def-abm-dirac-monopole has no counterpart, since the fields are smooth. [@nastase2019classical, eqs. (28.32)-(28.33) and Sec. 28.5]
 :::
 
 Far from the core only the unbroken $U(1)$ remains, and its field is that of a point magnetic charge. The fifth example compares the two monopoles.
@@ -4439,7 +4441,7 @@ Far from the core only the unbroken $U(1)$ remains, and its field is that of a p
 ::: {#exm-tps-mp-far-field}
 #### A Dirac monopole with a core
 
-For the Prasad-Sommerfield solution, $\hat\Phi^aB^a_i = \hat\Phi^aD_i\Phi^a = \partial_i|\Phi|$, and $|\Phi| = v(\coth\xi - 1/\xi) \to v - \frac1{gr}$, so $\mathbf B \to \frac{\hat{\mathbf x}}{gr^2} = \frac{g_m}{4\pi}\frac{\hat{\mathbf x}}{r^2}$, the field of @def-abm-dirac-monopole with $g_m = 4\pi/g$ (@exr-tps-mp-far-field). Inside a radius of order $1/gv$ the field is smooth, and the energy, which diverged for the Dirac monopole (@exm-abm-dm-energy), is finite.
+For the Prasad-Sommerfield solution, $\hat\Phi^aB^a_i = \hat\Phi^aD_i\Phi^a = \partial_i|\Phi|$, and $|\Phi| = v(\coth\xi - 1/\xi) \to v - \frac1{gr}$, so $\mathbf B \to \frac{\hat{\mathbf x}}{gr^2} = \frac{g_m}{4\pi}\frac{\hat{\mathbf x}}{r^2}$, the field of @def-abm-dirac-monopole with $g_m = 4\pi/g$ (@exr-tps-mp-far-field). Inside a radius of order $1/gv$ the field is smooth, and the energy, which diverged for the Dirac monopole (@exm-abm-dm-energy), is finite. [@nastase2019classical, Secs. 28.2-28.3, eqs. (28.24)-(28.32)]
 :::
 
 The Bogomolny equations are first order and can be solved in closed form for $\nu = 1$. The sixth example lists the properties of the solution.
@@ -4455,7 +4457,7 @@ The mass of the monopole is large in units of the mass of the vector bosons. The
 ::: {#exm-tps-mp-mass}
 #### The mass of a monopole
 
-Linearising @eq-tps-georgi-glashow about $\Phi = v\delta^{a3}$, the term $\frac12g^2v^2[(A^1_\mu)^2 + (A^2_\mu)^2]$ gives the charged vectors the mass $m_W = gv$. The Bogomolny bound is then $M \geq 4\pi v/g = m_W/\alpha_g$ with $\alpha_g = g^2/4\pi$: for $m_W = 100$ GeV and $g = 0.65$, an illustrative choice, $M \geq 2.97$ TeV, thirty times $m_W$. A weak coupling makes the soliton heavy, and its mass is not visible in perturbation theory, where it would appear as $1/g^2$.
+Linearising @eq-tps-georgi-glashow about $\Phi = v\delta^{a3}$, the term $\frac12g^2v^2[(A^1_\mu)^2 + (A^2_\mu)^2]$ gives the charged vectors the mass $m_W = gv$. The Bogomolny bound is then $M \geq 4\pi v/g = m_W/\alpha_g$ with $\alpha_g = g^2/4\pi$: for $m_W = 100$ GeV and $g = 0.65$, an illustrative choice, $M \geq 2.97$ TeV, thirty times $m_W$. A weak coupling makes the soliton heavy, and its mass is not visible in perturbation theory, where it would appear as $1/g^2$. [@nastase2019classical, eq. (28.44)]
 :::
 
 The sizes of the different parts of the monopole are set by different masses. The eighth example reads them from the solution.
@@ -4501,7 +4503,7 @@ The degree formula counts how often the target sphere is covered. The second exe
 ::: {#exr-tps-mp-winding}
 #### Degrees of maps of the sphere
 
-In angles $(\theta, \varphi)$ the degree @eq-tps-monopole-degree is $\frac1{4\pi}\int\hat\Phi\cdot(\partial_\theta\hat\Phi \times \partial_\varphi\hat\Phi)\,d\theta\,d\varphi$. Compute it with Sage for $\hat\Phi = (\sin T\cos k\varphi, \sin T\sin k\varphi, \cos T)$ with $T = \theta$ and $k = 1, 2, 3$, with $T = 2\theta$, and for $-\mathbf x/r$.
+In angles $(\theta, \varphi)$ the degree @eq-tps-monopole-degree is $\frac1{4\pi}\int\hat\Phi\cdot(\partial_\theta\hat\Phi \times \partial_\varphi\hat\Phi)\,d\theta\,d\varphi$. Compute it with Sage for $\hat\Phi = (\sin T\cos k\varphi, \sin T\sin k\varphi, \cos T)$ with $T = \theta$ and $k = 1, 2, 3$, with $T = 2\theta$, and for $-\mathbf x/r$. [@nastase2019classical, eq. (28.31)]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4584,7 +4586,7 @@ The far field of the solution is a Coulomb magnetic field. The fourth exercise c
 ::: {#exr-tps-mp-far-field}
 #### The magnetic charge of the hedgehog
 
-For the hedgehog of @exm-tps-mp-hedgehog, with $a_i = 0$, compute $B_k = -\frac12\epsilon_{kij}\hat\Phi^aF^a_{ij}$ from the formula of @exr-tps-mp-thooft-tensor and the flux through a sphere.
+For the hedgehog of @exm-tps-mp-hedgehog, with $a_i = 0$, compute $B_k = -\frac12\epsilon_{kij}\hat\Phi^aF^a_{ij}$ from the formula of @exr-tps-mp-thooft-tensor and the flux through a sphere. [@nastase2019classical, eqs. (28.29)-(28.32)]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4797,7 +4799,7 @@ Replacing $U$ by its inverse reverses the orientation of the map at infinity. Th
 ::: {#exm-tps-in-anti}
 #### The anti-instanton
 
-With $U^{-1} = (x_4 - 2x_iT_i)/|x|$ in place of $U$, the same construction gives an anti-self-dual field with the same action density and $Q = -1$. The reflection $x_4 \mapsto -x_4$ also exchanges the two: it changes the sign of $\epsilon_{\mu\nu\rho\sigma}$ contracted with the field and so of $Q$, while $F^aF^a$ is unchanged.
+With $U^{-1} = (x_4 - 2x_iT_i)/|x|$ in place of $U$, the same construction gives an anti-self-dual field with the same action density and $Q = -1$. The reflection $x_4 \mapsto -x_4$ also exchanges the two: it changes the sign of $\epsilon_{\mu\nu\rho\sigma}$ contracted with the field and so of $Q$, while $F^aF^a$ is unchanged. [@guidry2022symmetry, Sec. 25.3.3; @nastase2019classical, eq. (29.13)]
 :::
 
 The instanton comes in a family of solutions with the same action. The fifth example counts its parameters. None of them changes the instanton number either.
@@ -4837,7 +4839,7 @@ Instantons are the field-theory version of tunnelling in quantum mechanics. The 
 ::: {#exm-tps-in-double-well}
 #### The instanton of the double well
 
-For a particle of unit mass in $V(x) = \frac\lambda4(x^2 - v^2)^2$, the Euclidean equation $\ddot x = V'(x)$ is the static field equation of @exr-acsym-solutions-kink with $\tau$ in place of $x$, and its solution from $-v$ to $+v$ is $x(\tau) = v\tanh(v\sqrt{\lambda/2}\,\tau)$, with Euclidean action $S_0 = \frac{2\sqrt2}3\sqrt\lambda\,v^3$, the energy of the kink (@exr-tps-in-double-well). The tunnelling amplitude between the wells is proportional to $e^{-S_0/\hbar}$ [@nastase2023quantum, Sec. 40.4, eqs. (40.41)-(40.48)].
+For a particle of unit mass in $V(x) = \frac\lambda4(x^2 - v^2)^2$, the Euclidean equation $\ddot x = V'(x)$ is the static field equation of @exr-acsym-solutions-kink with $\tau$ in place of $x$, and its solution from $-v$ to $+v$ is $x(\tau) = v\tanh(v\sqrt{\lambda/2}\,\tau)$, with Euclidean action $S_0 = \frac{2\sqrt2}3\sqrt\lambda\,v^3$, the energy of the kink (@exr-tps-in-double-well). The tunnelling amplitude between the wells is proportional to $e^{-S_0/\hbar}$ [@nastase2023quantum, Sec. 40.4, eqs. (40.41)-(40.48); @gelis2021problems, Problem 48].
 :::
 
 The pure gauge at infinity can be seen in another way, by cutting the Euclidean spacetime into time slices. The tenth example introduces this picture, which the next section uses.
@@ -4845,7 +4847,7 @@ The pure gauge at infinity can be seen in another way, by cutting the Euclidean 
 ::: {#exm-tps-in-slices}
 #### An instanton between two vacua
 
-Deform the sphere at infinity into the two hyperplanes $x_4 = \pm T$ joined by a cylinder at spatial infinity. In the temporal gauge $A_4 = 0$, with the field trivial on the cylinder, $Q$ becomes the difference of an integer computed on the slice $x_4 = +T$ and the same integer on $x_4 = -T$ (@exr-tps-th-temporal). On each slice $A_i$ is a pure gauge, a classical vacuum: the instanton is a path in imaginary time from one vacuum to another, of different winding [@nastase2019classical, Sec. 29.2, Fig. 29.1; @guidry2022symmetry, Sec. 25.3.4, Fig. 25.5].
+Deform the sphere at infinity into the two hyperplanes $x_4 = \pm T$ joined by a cylinder at spatial infinity. In the temporal gauge $A_4 = 0$, with the field trivial on the cylinder, $Q$ becomes the difference of an integer computed on the slice $x_4 = +T$ and the same integer on $x_4 = -T$ (@exr-tps-th-temporal). On each slice $A_i$ is a pure gauge, a classical vacuum: the instanton is a path in imaginary time from one vacuum to another, of different winding [@nastase2019classical, Sec. 29.2, Fig. 29.1; @guidry2022symmetry, Sec. 25.3.4, Fig. 25.5; @gelis2021problems, Problem 49].
 :::
 ::::
 
@@ -4910,7 +4912,7 @@ For a pure gauge $A = U^{-1}dU$ show that $\partial_\rho A_\sigma - \partial_\si
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_\rho(U^{-1}\partial_\sigma U) = -U^{-1}\partial_\rho U\,U^{-1}\partial_\sigma U + U^{-1}\partial_\rho\partial_\sigma U$, and antisymmetrising gives $-[A_\rho, A_\sigma]$. Hence $\epsilon\operatorname{tr}(A_\nu\partial_\rho A_\sigma) = -\epsilon\operatorname{tr}(A_\nu A_\rho A_\sigma)$ and $K_\mu = 4(-1 + \frac23)\epsilon\operatorname{tr}(AAA)$. By @exm-tps-in-bound, $Q = -\frac1{32\pi^2}\oint K_\mu\,dS_\mu = \frac1{24\pi^2}\oint\epsilon_{\mu\nu\rho\sigma}\operatorname{tr}(A_\nu A_\rho A_\sigma)\,dS_\mu$ [@nastase2019classical, eq. (29.26)].
+$\partial_\rho(U^{-1}\partial_\sigma U) = -U^{-1}\partial_\rho U\,U^{-1}\partial_\sigma U + U^{-1}\partial_\rho\partial_\sigma U$, and antisymmetrising gives $-[A_\rho, A_\sigma]$. Hence $\epsilon\operatorname{tr}(A_\nu\partial_\rho A_\sigma) = -\epsilon\operatorname{tr}(A_\nu A_\rho A_\sigma)$ and $K_\mu = 4(-1 + \frac23)\epsilon\operatorname{tr}(AAA)$. By @exm-tps-in-bound, $Q = -\frac1{32\pi^2}\oint K_\mu\,dS_\mu = \frac1{24\pi^2}\oint\epsilon_{\mu\nu\rho\sigma}\operatorname{tr}(A_\nu A_\rho A_\sigma)\,dS_\mu$ [@nastase2019classical, eq. (29.26); @gelis2021problems, Problem 49].
 :::
 
 Self-duality of the BPST field is a statement about matrices that can be checked exactly. The third exercise does it at rational points.
@@ -5090,7 +5092,7 @@ For $S_E = \int d\tau\,[\frac12\dot x^2 + V(x)]$ with $V = \frac\lambda4(x^2 - v
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The Euclidean Lagrangian $\frac12\dot x^2 + V$ gives $\ddot x = V'$, Newton's equation in $-V$, whose conserved energy $\frac12\dot x^2 - V$ is zero for a path that starts at rest at the top $-v$ of $-V$. Hence $\dot x = \sqrt{2V}$ and $S_0 = \int(\frac12\dot x^2 + V)d\tau = \int\dot x^2d\tau = \int_{-v}^v\sqrt{2V}\,dx = \sqrt{\lambda/2}\,\frac43v^3$, as in @exm-tps-vx-kink [@nastase2023quantum, Sec. 40.4, eqs. (40.43)-(40.45)].
+The Euclidean Lagrangian $\frac12\dot x^2 + V$ gives $\ddot x = V'$, Newton's equation in $-V$, whose conserved energy $\frac12\dot x^2 - V$ is zero for a path that starts at rest at the top $-v$ of $-V$. Hence $\dot x = \sqrt{2V}$ and $S_0 = \int(\frac12\dot x^2 + V)d\tau = \int\dot x^2d\tau = \int_{-v}^v\sqrt{2V}\,dx = \sqrt{\lambda/2}\,\frac43v^3$, as in @exm-tps-vx-kink [@nastase2023quantum, Sec. 40.4, eqs. (40.43)-(40.45); @gelis2021problems, Problem 48].
 :::
 
 The bound is the same whether the field is self-dual or not, but only (anti-)self-dual fields reach it. The ninth exercise shows that self-dual fields solve the full Yang-Mills equations.
@@ -5156,7 +5158,7 @@ Gauge transformations come in two kinds, and only one of them acts trivially on 
 ::: {#exm-tps-th-small-large}
 #### Small and large gauge transformations
 
-A gauge transformation $U$ with $n[U] = 0$ can be deformed to the identity, and is generated by Gauss's law, which annihilates physical states. One with $n[U] \neq 0$ cannot: it maps the vacuum of winding $m$ to the one of winding $m + n[U]$, by the additivity of the winding. The states $|n\rangle$ are therefore not invariant under all gauge transformations, and physical states may at most change by a phase under $\mathcal{T}$, which is what @eq-tps-theta-vacuum achieves.
+A gauge transformation $U$ with $n[U] = 0$ can be deformed to the identity, and is generated by Gauss's law, which annihilates physical states. One with $n[U] \neq 0$ cannot: it maps the vacuum of winding $m$ to the one of winding $m + n[U]$, by the additivity of the winding. The states $|n\rangle$ are therefore not invariant under all gauge transformations, and physical states may at most change by a phase under $\mathcal{T}$, which is what @eq-tps-theta-vacuum achieves. [@alvarezgaume2005, Sec. 4.4, eqs. 4.103-4.108 and 4.114-4.116; @gelis2021problems, Problem 50]
 :::
 
 The temporal gauge links the two integers of this part, the instanton number of a history and the windings of its ends. The third example states the link for the BPST instanton.
@@ -5172,7 +5174,7 @@ The construction of $|\theta\rangle$ is Bloch's theorem in disguise. The fourth 
 ::: {#exm-tps-th-bloch}
 #### Bloch waves in a periodic potential
 
-For $H = \frac{p^2}2 + V(x)$ with $V(x + 2\pi) = V(x)$, let $|n\rangle$ be a state localised in the well at $2\pi n$ and $\mathcal{T}$ the translation by $2\pi$, $\mathcal{T}|n\rangle = |n + 1\rangle$. Since $\mathcal{T}$ commutes with $H$, the eigenstates can be chosen as $|\theta\rangle = \sum_ne^{in\theta}|n\rangle$, whose wave functions satisfy $\psi(x + 2\pi) = e^{i\theta}\psi(x)$: $\theta$ is the Bloch angle. Tunnelling between neighbouring wells spreads the lowest level into the band $E(\theta) = \bar E - 2t\cos\theta$ (@exr-tps-th-tight-binding) [@nastase2023quantum, Sec. 40.4].
+For $H = \frac{p^2}2 + V(x)$ with $V(x + 2\pi) = V(x)$, let $|n\rangle$ be a state localised in the well at $2\pi n$ and $\mathcal{T}$ the translation by $2\pi$, $\mathcal{T}|n\rangle = |n + 1\rangle$. Since $\mathcal{T}$ commutes with $H$, the eigenstates can be chosen as $|\theta\rangle = \sum_ne^{in\theta}|n\rangle$, whose wave functions satisfy $\psi(x + 2\pi) = e^{i\theta}\psi(x)$: $\theta$ is the Bloch angle. Tunnelling between neighbouring wells spreads the lowest level into the band $E(\theta) = \bar E - 2t\cos\theta$ (@exr-tps-th-tight-binding) [@nastase2023quantum, Sec. 40.4; @alvarezgaume2005, eqs. 4.109-4.111; @gelis2021problems, Problem 50].
 :::
 
 In the Yang-Mills theory the Hamiltonian is gauge invariant and commutes with $\mathcal{T}$. The fifth example draws the consequence: $\theta$ is a constant of nature, not a dynamical variable.
@@ -5180,7 +5182,7 @@ In the Yang-Mills theory the Hamiltonian is gauge invariant and commutes with $\
 ::: {#exm-tps-th-superselection}
 #### Different $\theta$ do not mix
 
-Since $[H, \mathcal{T}] = 0$, $e^{-HT}$ maps an eigenstate of $\mathcal{T}$ with eigenvalue $e^{-i\theta}$ to another with the same eigenvalue, which is the $\delta(\theta - \theta')$ of @eq-tps-theta-amplitude. No local operator, gauge invariant by construction, changes $\theta$ either: each value of $\theta$ defines its own theory, and which one nature has chosen is a question for experiment [@guidry2022symmetry, Box 25.2].
+Since $[H, \mathcal{T}] = 0$, $e^{-HT}$ maps an eigenstate of $\mathcal{T}$ with eigenvalue $e^{-i\theta}$ to another with the same eigenvalue, which is the $\delta(\theta - \theta')$ of @eq-tps-theta-amplitude. No local operator, gauge invariant by construction, changes $\theta$ either: each value of $\theta$ defines its own theory, and which one nature has chosen is a question for experiment [@guidry2022symmetry, Box 25.2; @gelis2021problems, Problem 50].
 :::
 
 The phase $e^{-iQ\theta}$ in the path integral can be absorbed into the action. The sixth example identifies the term that does it.
@@ -5188,7 +5190,7 @@ The phase $e^{-iQ\theta}$ in the path integral can be absorbed into the action. 
 ::: {#exm-tps-th-term}
 #### The $\theta$ term
 
-By @eq-tps-instanton-number, $e^{-iQ\theta} = \exp\bigl(\frac{i\theta}{16\pi^2}\int d^4x\,\operatorname{tr}(F_{\mu\nu}\tilde F_{\mu\nu})\bigr)$, so @eq-tps-theta-amplitude is the path integral of a single vacuum with the action $S_E + i\theta Q$. Back in Minkowski space this is a term proportional to $\theta\,\epsilon^{\mu\nu\rho\sigma}\operatorname{tr}(F_{\mu\nu}F_{\rho\sigma})$ in the Lagrangian. It is a total divergence (@exr-gth-theta-total-derivative), so it changes no classical field equation, yet it changes the quantum theory through the sectors of different $Q$ [@guidry2022symmetry, Box 25.2].
+By @eq-tps-instanton-number, $e^{-iQ\theta} = \exp\bigl(\frac{i\theta}{16\pi^2}\int d^4x\,\operatorname{tr}(F_{\mu\nu}\tilde F_{\mu\nu})\bigr)$, so @eq-tps-theta-amplitude is the path integral of a single vacuum with the action $S_E + i\theta Q$. Back in Minkowski space this is a term proportional to $\theta\,\epsilon^{\mu\nu\rho\sigma}\operatorname{tr}(F_{\mu\nu}F_{\rho\sigma})$ in the Lagrangian. It is a total divergence (@exr-gth-theta-total-derivative), so it changes no classical field equation, yet it changes the quantum theory through the sectors of different $Q$ [@guidry2022symmetry, Box 25.2; @alvarezgaume2005, eqs. 4.117-4.118].
 :::
 
 Only $\theta$ modulo $2\pi$ matters, since $Q$ is an integer. The seventh example checks this and the corresponding statement for the states.
@@ -5196,7 +5198,7 @@ Only $\theta$ modulo $2\pi$ matters, since $Q$ is an integer. The seventh exampl
 ::: {#exm-tps-th-periodic}
 #### $\theta$ is an angle
 
-$e^{-iQ(\theta + 2\pi)} = e^{-iQ\theta}$ for integer $Q$, so @eq-tps-theta-amplitude is periodic in $\theta$, and $|\theta + 2\pi\rangle = |\theta\rangle$ by @eq-tps-theta-vacuum. A fractional $Q$, such as the $\frac12$ of the discontinuous map in @exr-tps-in-hedgehog-winding, would break the periodicity; the integrality of the instanton number is what makes $\theta$ an angle.
+$e^{-iQ(\theta + 2\pi)} = e^{-iQ\theta}$ for integer $Q$, so @eq-tps-theta-amplitude is periodic in $\theta$, and $|\theta + 2\pi\rangle = |\theta\rangle$ by @eq-tps-theta-vacuum. A fractional $Q$, such as the $\frac12$ of the discontinuous map in @exr-tps-in-hedgehog-winding, would break the periodicity; the integrality of the instanton number is what makes $\theta$ an angle. [@gelis2021problems, Problem 50]
 :::
 
 Under a reflection of space the instanton number changes sign, and with it the $\theta$ term. The eighth example states the consequence for quantum chromodynamics.
@@ -5204,7 +5206,7 @@ Under a reflection of space the instanton number changes sign, and with it the $
 ::: {#exm-tps-th-cp}
 #### The strong CP problem
 
-Under parity $\mathbf x \mapsto -\mathbf x$ the electric part of the field strength is odd and the magnetic part even, so $\operatorname{tr}(F\tilde F)$, proportional to $\operatorname{tr}(\mathbf E\cdot\mathbf B)$, is odd and $Q \mapsto -Q$ (@exr-tps-th-parity). The $\theta$ term is therefore odd under P and, with C even, under CP, unless $\theta = 0$ or $\pi$. In quantum chromodynamics it would give the neutron an electric dipole moment, and the experimental limits require $|\theta| \leq 10^{-9}$; why $\theta$ is so small is the strong CP problem [@guidry2022symmetry, Box 25.2].
+Under parity $\mathbf x \mapsto -\mathbf x$ the electric part of the field strength is odd and the magnetic part even, so $\operatorname{tr}(F\tilde F)$, proportional to $\operatorname{tr}(\mathbf E\cdot\mathbf B)$, is odd and $Q \mapsto -Q$ (@exr-tps-th-parity). The $\theta$ term is therefore odd under P and, with C even, under CP, unless $\theta = 0$ or $\pi$. In quantum chromodynamics it would give the neutron an electric dipole moment, and the experimental limits require $|\theta| \leq 10^{-9}$; why $\theta$ is so small is the strong CP problem [@guidry2022symmetry, Box 25.2; @alvarezgaume2005, eqs. 4.117-4.119].
 :::
 
 When instantons are far apart and rare, their contributions multiply, and the sum over $Q$ can be done. The ninth example computes the vacuum energy as a function of $\theta$.
@@ -5212,7 +5214,7 @@ When instantons are far apart and rare, their contributions multiply, and the su
 ::: {#exm-tps-th-dilute}
 #### The dilute instanton gas
 
-If a configuration of $n$ instantons and $\bar n$ anti-instantons contributes $Z_0(T)\frac{(KVTe^{-S_0})^{n + \bar n}}{n!\,\bar n!}$, with $S_0 = 8\pi^2/g^2$, $V$ the volume and $K$ a factor from the fluctuations, then the weight $e^{-i\theta(n - \bar n)}$ makes the sum $Z_0(T)\exp(2KVTe^{-S_0}\cos\theta)$ (@exr-tps-th-dilute). The vacuum energy density is $E(\theta)/V = E_0/V - 2Ke^{-S_0}\cos\theta$, lowest at $\theta = 0$, the band of @exm-tps-th-bloch with one well per winding.
+If a configuration of $n$ instantons and $\bar n$ anti-instantons contributes $Z_0(T)\frac{(KVTe^{-S_0})^{n + \bar n}}{n!\,\bar n!}$, with $S_0 = 8\pi^2/g^2$, $V$ the volume and $K$ a factor from the fluctuations, then the weight $e^{-i\theta(n - \bar n)}$ makes the sum $Z_0(T)\exp(2KVTe^{-S_0}\cos\theta)$ (@exr-tps-th-dilute). The vacuum energy density is $E(\theta)/V = E_0/V - 2Ke^{-S_0}\cos\theta$, lowest at $\theta = 0$, the band of @exm-tps-th-bloch with one well per winding. [@gelis2021problems, Problem 50]
 :::
 
 The simplest system with a $\theta$ angle is a particle on a ring, where the angle is an Aharonov-Bohm phase. The tenth example connects the two.
@@ -5230,7 +5232,7 @@ The exercises verify the algebra of the $\theta$ vacua, connect the instanton nu
 ::: {#exr-tps-th-eigen}
 #### The eigenvalue of $\mathcal{T}$
 
-Show that $\mathcal{T}|\theta\rangle = e^{-i\theta}|\theta\rangle$, that $\langle\theta'|\theta\rangle = 2\pi\delta(\theta - \theta')$ if $\langle n|m\rangle = \delta_{nm}$, and that $|n\rangle = \frac1{2\pi}\int_{-\pi}^{\pi}e^{-in\theta}|\theta\rangle\,d\theta$.
+Show that $\mathcal{T}|\theta\rangle = e^{-i\theta}|\theta\rangle$, that $\langle\theta'|\theta\rangle = 2\pi\delta(\theta - \theta')$ if $\langle n|m\rangle = \delta_{nm}$, and that $|n\rangle = \frac1{2\pi}\int_{-\pi}^{\pi}e^{-in\theta}|\theta\rangle\,d\theta$. [@gelis2021problems, Problem 50]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5246,7 +5248,7 @@ Assuming that $\langle n'|e^{-HT}|n\rangle$ depends only on $Q = n' - n$, derive
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle\theta'|e^{-HT}|\theta\rangle = \sum_{n, n'}e^{-in'\theta' + in\theta}Z_{n' - n} = \sum_ne^{in(\theta - \theta')}\sum_Qe^{-iQ\theta'}Z_Q$, with $n' = n + Q$. The first sum is $2\pi\delta(\theta - \theta')$, which allows $\theta'$ to be replaced by $\theta$ in the second. The assumption is the invariance of the dynamics under $\mathcal{T}$, which shifts $n$ and $n'$ together [@nastase2019classical, Sec. 29.4].
+$\langle\theta'|e^{-HT}|\theta\rangle = \sum_{n, n'}e^{-in'\theta' + in\theta}Z_{n' - n} = \sum_ne^{in(\theta - \theta')}\sum_Qe^{-iQ\theta'}Z_Q$, with $n' = n + Q$. The first sum is $2\pi\delta(\theta - \theta')$, which allows $\theta'$ to be replaced by $\theta$ in the second. The assumption is the invariance of the dynamics under $\mathcal{T}$, which shifts $n$ and $n'$ together [@nastase2019classical, Sec. 29.4; @gelis2021problems, Problem 50].
 :::
 
 The instanton number of a history is the change of winding between its ends. The third exercise derives this from the Chern-Simons current.
@@ -5258,7 +5260,7 @@ In the temporal gauge $A_4 = 0$, with $U \to 1$ at spatial infinity on every sli
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @exm-tps-in-bound, $Q = -\frac1{32\pi^2}\int\partial_\mu K_\mu\,d^4x$, and with no flux through spatial infinity only the two slices contribute. On a pure gauge $K_\mu = -\frac43\epsilon_{\mu\nu\rho\sigma}\operatorname{tr}(A_\nu A_\rho A_\sigma)$ (@exr-tps-in-chern-simons), and $\epsilon_{4ijk} = -\epsilon_{ijk}$ gives $K_4 = \frac43\epsilon_{ijk}\operatorname{tr}(A_iA_jA_k)$. Then $-\frac1{32\pi^2}\cdot\frac43 = -\frac1{24\pi^2}$, and @eq-tps-vacuum-winding gives $Q = n[U_+] - n[U_-]$ [@nastase2019classical, Sec. 29.2, Fig. 29.1].
+By @exm-tps-in-bound, $Q = -\frac1{32\pi^2}\int\partial_\mu K_\mu\,d^4x$, and with no flux through spatial infinity only the two slices contribute. On a pure gauge $K_\mu = -\frac43\epsilon_{\mu\nu\rho\sigma}\operatorname{tr}(A_\nu A_\rho A_\sigma)$ (@exr-tps-in-chern-simons), and $\epsilon_{4ijk} = -\epsilon_{ijk}$ gives $K_4 = \frac43\epsilon_{ijk}\operatorname{tr}(A_iA_jA_k)$. Then $-\frac1{32\pi^2}\cdot\frac43 = -\frac1{24\pi^2}$, and @eq-tps-vacuum-winding gives $Q = n[U_+] - n[U_-]$ [@nastase2019classical, Sec. 29.2, Fig. 29.1; @gelis2021problems, Problem 49].
 :::
 
 The ring is the simplest model with a $\theta$ angle, and both sides of the path-integral argument can be computed exactly. The fourth exercise compares them.
@@ -5316,7 +5318,7 @@ The dilute-gas sum is an exponential series in two variables. The fifth exercise
 ::: {#exr-tps-th-dilute}
 #### Summing the dilute gas
 
-Show that $\sum_{n, \bar n \geq 0}\frac{x^n}{n!}\frac{x^{\bar n}}{\bar n!}e^{-i\theta(n - \bar n)} = e^{2x\cos\theta}$ and check it with Sage by truncation. Deduce the vacuum energy of @exm-tps-th-dilute.
+Show that $\sum_{n, \bar n \geq 0}\frac{x^n}{n!}\frac{x^{\bar n}}{\bar n!}e^{-i\theta(n - \bar n)} = e^{2x\cos\theta}$ and check it with Sage by truncation. Deduce the vacuum energy of @exm-tps-th-dilute. [@gelis2021problems, Problem 50]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5352,7 +5354,7 @@ The periodic potential is the solvable model behind @exm-tps-th-bloch. The sixth
 ::: {#exr-tps-th-tight-binding}
 #### The lowest band
 
-For $H = \frac{p^2}{2} + V_0(1 - \cos x)$, expand the states with $\psi(x + 2\pi) = e^{i\theta}\psi(x)$ as $\sum_kc_ke^{i(k + \theta/2\pi)x}$, find the lowest eigenvalue $E(\theta)$ with Sage for $V_0 = 2, 5, 10$, and fit it by $c_0 + c_1\cos\theta + c_2\cos2\theta$.
+For $H = \frac{p^2}{2} + V_0(1 - \cos x)$, expand the states with $\psi(x + 2\pi) = e^{i\theta}\psi(x)$ as $\sum_kc_ke^{i(k + \theta/2\pi)x}$, find the lowest eigenvalue $E(\theta)$ with Sage for $V_0 = 2, 5, 10$, and fit it by $c_0 + c_1\cos\theta + c_2\cos2\theta$. [@alvarezgaume2005, eqs. 4.109-4.111]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5392,7 +5394,7 @@ The winding number of the vacua must be additive for the large gauge transformat
 ::: {#exr-tps-th-additive}
 #### Windings add
 
-With $L(U) = U^{-1}dU$, show that $L(UV) = V^{-1}L(U)V + L(V)$, and that the cross terms in $\epsilon_{ijk}\operatorname{tr}(L_iL_jL_k)$ for $UV$ are total derivatives. Conclude that $n[UV] = n[U] + n[V]$ for maps with $U, V \to 1$ at infinity.
+With $L(U) = U^{-1}dU$, show that $L(UV) = V^{-1}L(U)V + L(V)$, and that the cross terms in $\epsilon_{ijk}\operatorname{tr}(L_iL_jL_k)$ for $UV$ are total derivatives. Conclude that $n[UV] = n[U] + n[V]$ for maps with $U, V \to 1$ at infinity. [@alvarezgaume2005, eqs. 4.103 and 4.107]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5404,7 +5406,7 @@ The sign change of the instanton number under reflections is what makes the $\th
 ::: {#exr-tps-th-parity}
 #### $Q$ is odd under reflections
 
-Show that under the reflection $x_4 \mapsto -x_4$ the BPST instanton of @exm-tps-in-bpst becomes a field with $Q = -1$, and in general that $Q \mapsto -Q$ under any orientation-reversing linear map of $\mathbb{R}^4$.
+Show that under the reflection $x_4 \mapsto -x_4$ the BPST instanton of @exm-tps-in-bpst becomes a field with $Q = -1$, and in general that $Q \mapsto -Q$ under any orientation-reversing linear map of $\mathbb{R}^4$. [@williams2023introduction, eq. (2.7.26)]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5416,7 +5418,7 @@ The ninth exercise looks at the $\theta$ term of electromagnetism, where the sam
 ::: {#exr-tps-th-abelian}
 #### The abelian $\theta$ term
 
-Show that $\epsilon^{\mu\nu\rho\sigma}F_{\mu\nu}F_{\rho\sigma}$ for a $U(1)$ field is $8\mathbf E\cdot\mathbf B$ in the signature $(+, -, -, -)$ with $\epsilon_{0123} = 1$, so $\epsilon^{0123} = -1$, and that it is the divergence of $4\epsilon^{\mu\nu\rho\sigma}A_\nu\partial_\rho A_\sigma$. Why does adding it to Maxwell's Lagrangian change nothing for fields that decay at infinity?
+Show that $\epsilon^{\mu\nu\rho\sigma}F_{\mu\nu}F_{\rho\sigma}$ for a $U(1)$ field is $8\mathbf E\cdot\mathbf B$ in the signature $(+, -, -, -)$ with $\epsilon_{0123} = 1$, so $\epsilon^{0123} = -1$, and that it is the divergence of $4\epsilon^{\mu\nu\rho\sigma}A_\nu\partial_\rho A_\sigma$. Why does adding it to Maxwell's Lagrangian change nothing for fields that decay at infinity? [@williams2023introduction, Sec. 2.7, eqs. (2.7.18)-(2.7.26), and Problem 3.6]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5432,7 +5434,7 @@ In the double well, let instantons go from $-v$ to $+v$ and anti-instantons back
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Instantons and anti-instantons must alternate, so a path from $-v$ to $-v$ has an even number $k$ of them and a path to $+v$ an odd number, each with weight $(KTe^{-S_0})^k/k!$ from the integration over their ordered positions. The even and odd sums are $\cosh$ and $\sinh$, so $\langle\pm v|e^{-HT}|-v\rangle \propto e^{-TE_0}\frac12(e^{KTe^{-S_0}} \pm e^{-KTe^{-S_0}})$, whose exponents are the energies $E_0 \mp Ke^{-S_0}$ of $(|{-v}\rangle \pm |{+v}\rangle)/\sqrt2$. With two vacua the "band" has two points, $\theta = 0$ and $\pi$ [@nastase2023quantum, Sec. 40.4].
+Instantons and anti-instantons must alternate, so a path from $-v$ to $-v$ has an even number $k$ of them and a path to $+v$ an odd number, each with weight $(KTe^{-S_0})^k/k!$ from the integration over their ordered positions. The even and odd sums are $\cosh$ and $\sinh$, so $\langle\pm v|e^{-HT}|-v\rangle \propto e^{-TE_0}\frac12(e^{KTe^{-S_0}} \pm e^{-KTe^{-S_0}})$, whose exponents are the energies $E_0 \mp Ke^{-S_0}$ of $(|{-v}\rangle \pm |{+v}\rangle)/\sqrt2$. With two vacua the "band" has two points, $\theta = 0$ and $\pi$ [@nastase2023quantum, Sec. 40.4; @gelis2021problems, Problem 48].
 :::
 ::::
 
@@ -5487,9 +5489,9 @@ V(\phi) = \frac{\lambda}{4}\left(|\phi|^2 - \mu^2\right)^2, \qquad \lambda > 0,
 $$ {#eq-mexican-hat}
 $V \geq 0$ with equality exactly on the circle $|\phi| = \mu$ (@prp-higgs-minimum, @fig-higgs-potential): the vacua
 form a circle, $\phi_0 = \mu e^{i\vartheta_0}$, and $\phi = 0$ is a local maximum. Writing $|\phi|^2 = r^2$,
-$V = \tfrac{\lambda}{4}r^4 - \tfrac{\lambda\mu^2}{2}r^2 + \text{const}$ has a quadratic term of the "wrong" sign; the
-form $V = -m^2|\phi|^2 + \lambda'|\phi|^4$ of @alvarezgaume2005 [eq. 6.43] is this one with $\mu^2 = m^2/2\lambda'$
-(@exr-higgs-minimum).
+$V = \tfrac{\lambda}{4}r^4 - \tfrac{\lambda\mu^2}{2}r^2 + \text{const}$ has a quadratic term of the "wrong" sign. The
+form @eq-mexican-hat is that of @alvarezgaume2005 [eq. 6.43], and the polynomial form $V = -m^2|\phi|^2 + \lambda'|\phi|^4$ is the same
+potential with $\mu^2 = m^2/2\lambda'$ (@exr-higgs-minimum).
 :::
 
 With three real fields and a rotation-invariant potential the minima form a sphere instead of a circle. The third example is this vector model, which will show partial symmetry breaking.
@@ -5748,7 +5750,7 @@ The **unbroken subgroup** of a vacuum $\phi_0$ is its stabiliser $H = \{g \in G 
 (@def-stabiliser). By the orbit-stabiliser bijection of @def-stabiliser the vacua form the coset space
 $G/H$ (@def-coset-space), and the generators of $\mathfrak{g}$ split into the $\dim H$ **unbroken generators**
 spanning $\mathfrak{h}$ and the $\dim G - \dim H$ **broken generators**, which move the vacuum along its orbit
-[@alvarezgaume2005, eq. 6.37].
+[@alvarezgaume2005, eqs. 6.32-6.33].
 :::
 ::::
 
@@ -5916,7 +5918,7 @@ Nature provides approximate Goldstone bosons in the strong interaction, where th
 
 The approximate chiral symmetry $SU(2)_L \times SU(2)_R$ of the strong interaction is spontaneously broken to the
 diagonal $SU(2)$ by the quark condensate; the three broken generators give three light pseudoscalars, the pions,
-whose small masses measure the explicit breaking by the quark masses.
+whose small masses measure the explicit breaking by the quark masses [@alvarezgaume2005, eq. 6.42].
 :::
 ::::
 
@@ -5999,7 +6001,7 @@ $\dim O(5) - \dim O(4)$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\partial_i\partial_jV = \lambda(2\varphi_i\varphi_j + (\boldsymbol\varphi^2 - a^2)\delta_{ij})$, which at the vacuum is $2\lambda a^2\hat n_i\hat
 n_j$: a rank-one matrix with eigenvalue $2\lambda a^2$ along $\hat{\mathbf n}$ and $0$ on the four-dimensional orthogonal complement,
-the tangent space of the sphere $S^4$ of vacua. $\dim O(5) - \dim O(4) = 10 - 6 = 4$ Goldstone bosons.
+the tangent space of the sphere $S^4$ of vacua. $\dim O(5) - \dim O(4) = 10 - 6 = 4$ Goldstone bosons, the case $n = 5$ of the $n - 1$ massless fields of @nath2017supersymmetry [eq. 4.20 and Problem 4.1].
 
 ```python
 lam, a = var("lam a"); assume(lam > 0, a > 0)
@@ -6280,7 +6282,7 @@ A gauge boson cannot have a mass term, and a spontaneously broken continuous sym
 Goldstone bosons; when the broken symmetry is a gauge symmetry the two problems cancel each other. The Goldstone
 bosons are gauge artefacts that can be rotated away, and the gauge bosons of the broken generators become
 massive. This is the Higgs mechanism, defined here for the abelian model and for an $SU(2)$ doublet following
-@alvarezgaume2005 [Sec. 6.2], with the mass terms computed explicitly. Coset space dimensional reduction derives
+@alvarezgaume2005 [Sec. 6.2] and @hamilton2017mathematical [Def. 8.2.1, Prop. 8.2.2 and Sec. 8.3.3], with the mass terms computed explicitly. Coset space dimensional reduction derives
 exactly this structure from a higher-dimensional gauge field in Part V.
 
 #### Gauging a broken symmetry
@@ -6485,8 +6487,8 @@ fourth example gives Weinberg's argument for a real representation of a compact 
 
 For a real representation $\rho$ of a compact group, at each $x$ choose $g(x)$ that maximises $Q(g) = (\phi_0, \rho(g)\phi(x))$; a maximum exists
 because $G$ is compact. At the maximum the derivative along every generator vanishes, $(\phi_0, \rho(T_a)\rho(g)\phi(x)) = 0$, and since $\rho(T_a)$
-is antisymmetric this says $(\rho(T_a)\phi_0, \phi'(x)) = 0$ for the transformed field $\phi' = \rho(g)\phi$ [@nath2017supersymmetry, eqs.
-4.26-4.31]: $\phi'$ has no component along the Goldstone directions of @def-goldstone-boson. The gauge bosons then have the mass matrix of
+is antisymmetric this says $(\rho(T_a)\phi_0, \phi'(x)) = 0$ for the transformed field $\phi' = \rho(g)\phi$
+[@nath2017supersymmetry, eqs. 4.26-4.31]: $\phi'$ has no component along the Goldstone directions of @def-goldstone-boson. The gauge bosons then have the mass matrix of
 @def-higgs-mechanism, which for a real field with kinetic term $\tfrac12(D_\mu\phi, D^\mu\phi)$ is $g^2(\rho(T_a)\phi_0, \rho(T_b)\phi_0)$
 [@nath2017supersymmetry, eq. 4.33]; for perturbative computations other gauges, the
 $R_\xi$ gauges, are preferred, because in the unitary gauge the massive propagators grow at large momentum.
@@ -6603,8 +6605,8 @@ $$
 |D_\mu\phi|^2 = \tfrac12(\partial\sigma)^2 + e^2\left(\mu + \tfrac{\sigma}{\sqrt2}\right)^2A_\mu A^\mu
   = \tfrac12(\partial\sigma)^2 + e^2\mu^2A_\mu A^\mu + \sqrt2e^2\mu\,\sigma A_\mu A^\mu + \tfrac12e^2\sigma^2A_\mu A^\mu ,
 $$ {#eq-abelian-higgs-kinetic}
-and $e^2\mu^2A_\mu A^\mu = \tfrac12m_A^2A_\mu A^\mu$ is a mass term with $m_A^2 = 2e^2\mu^2$ [@alvarezgaume2005, eqs.
-6.47-6.48], while $m_\sigma^2 = \lambda\mu^2$ is the Higgs mass (@prp-abelian-gauge-mass, @exr-higgs-masses).
+and $e^2\mu^2A_\mu A^\mu = \tfrac12m_A^2A_\mu A^\mu$ is a mass term with $m_A^2 = 2e^2\mu^2$
+[@alvarezgaume2005, eqs. 6.47-6.48], while $m_\sigma^2 = \lambda\mu^2$ is the Higgs mass (@prp-abelian-gauge-mass, @exr-higgs-masses).
 :::
 
 For the $SU(2)$ doublet the mass matrix is proportional to the identity, so the three gauge bosons are degenerate. The second example gives the masses and the effect of adding the hypercharge.
@@ -6616,7 +6618,7 @@ For the doublet vacuum $\phi_0 = (0, v)$, $\operatorname{Re}(T_a\phi_0)^\dagger(
 (@prp-su2-higgs-mass), so the mass matrix is $\tfrac12g^2v^2\delta_{ab}$: three vectors of equal mass $m_W^2 =
 \tfrac12g^2v^2$, three Goldstone bosons eaten, and one Higgs boson of mass $m_h^2 = 4\lambda v^2$ left from the four
 real components (@exr-su2-higgs-mass-matrix). Adding the hypercharge $U(1)$ splits the masses into $m_W$ and
-$m_Z = m_W/\cos\theta_W$ and leaves the photon massless (@exr-gth-electroweak-masses).
+$m_Z = m_W/\cos\theta_W$ and leaves the photon massless (@exr-gth-electroweak-masses) [@hamilton2017mathematical, Sec. 8.3.3].
 :::
 
 When the vacuum leaves a subgroup unbroken, the corresponding gauge bosons stay massless. The third example is the vector model with its $SO(3)$ gauged, which keeps one massless gauge boson.
@@ -6765,7 +6767,7 @@ The sign of a vector mass term depends on the signature, and the proposition's f
 The Proca Lagrangian of a massive vector is $-\tfrac14F_{\mu\nu}F^{\mu\nu} + \tfrac12m^2A_\mu A^\mu$ in $(+, -, -, -)$: for a
 spatial constant field $A_\mu = (0, -\mathbf a)$ the mass term is $-\tfrac12m^2\mathbf a^2$, a positive potential energy
 $+\tfrac12m^2\mathbf a^2$, as for a scalar. The proposition gives $+e^2\mu^2A_\mu A^\mu$ with a positive coefficient, which is
-therefore a genuine mass term with $\tfrac12m_A^2 = e^2\mu^2$; in the mostly-plus signature $(-, +, +, +)$, used for example by @nath2017supersymmetry, the same physics appears as
+therefore a genuine mass term with $\tfrac12m_A^2 = e^2\mu^2$; in the mostly-plus signature $(-, +, +, +)$, used for example by @nath2017supersymmetry [eq. 4.18], the same physics appears as
 $-e^2\mu^2A_\mu A^\mu$.
 :::
 
@@ -7039,7 +7041,7 @@ For more on this topic, see @williams2023introduction [Secs. 6.4.4, 9.1.3, 9.2.1
 
 This part has four sections. The first defines the gauge orbits of the path integral and the Faddeev-Popov determinant that removes the overcounting, starting from an ordinary integral over the plane. The second introduces integration over anticommuting variables and uses it to write the determinant as an integral over ghost fields, which gives the gauge-fixed Lagrangian in the $R_\xi$ gauges, with and without a Higgs field. The third reads the Feynman rules of Yang-Mills theory from that Lagrangian: the gluon and ghost propagators and the three-gluon, four-gluon and ghost-gluon vertices. The fourth defines the BRST transformation, shows that it is nilpotent, and identifies the physical states with the cohomology of the BRST charge, which for the free photon reproduces the two transverse polarisations of @sec-qdm-maxwell. The renormalisation chapter that follows uses these rules for the running of the Yang-Mills coupling.
 
-The conventions are those of @sec-yang-mills with the coupling made explicit, $A \to gA$, as in @def-nonabelian-field-strength: $F^a_{\mu\nu} = \partial_\mu A^a_\nu - \partial_\nu A^a_\mu + gf^{abc}A^b_\mu A^c_\nu$, the Lagrangian is $-\frac14F^a_{\mu\nu}F^{a\,\mu\nu}$, and the covariant derivative in the adjoint representation is $(D_\mu X)^a = \partial_\mu X^a + gf^{abc}A^b_\mu X^c$, that is $D^{ab}_\mu = \partial_\mu\delta^{ab} + gf^{acb}A^c_\mu$. A gauge transformation with parameter $\omega^a(x)$ acts infinitesimally by $\delta A^a_\mu = \frac1g(D_\mu\omega)^a$, the transformation of @def-nonabelian-gauge-field with $\alpha = \omega$. The generators are anti-Hermitian; writing $T_a = -it_a$ with Hermitian $t_a$ leaves the structure constants unchanged, so the formulas of @williams2023introduction, whose covariant derivative is $\partial_\mu - igA^a_\mu t_a = \partial_\mu + gA^a_\mu T_a$, can be taken over directly. The signature is $(+, -, -, -)$ and the path integral is written in Minkowski space, as in @def-generating-functional.
+The conventions are those of @sec-yang-mills with the coupling made explicit, $A \to gA$, as in @def-nonabelian-field-strength: $F^a_{\mu\nu} = \partial_\mu A^a_\nu - \partial_\nu A^a_\mu + gf^{abc}A^b_\mu A^c_\nu$, the Lagrangian is $-\frac14F^a_{\mu\nu}F^{a\,\mu\nu}$, and the covariant derivative in the adjoint representation is $(D_\mu X)^a = \partial_\mu X^a + gf^{abc}A^b_\mu X^c$, that is $D^{ab}_\mu = \partial_\mu\delta^{ab} + gf^{acb}A^c_\mu$. A gauge transformation with parameter $\omega^a(x)$ acts infinitesimally by $\delta A^a_\mu = \frac1g(D_\mu\omega)^a$, the transformation of @def-nonabelian-gauge-field with $\alpha = \omega$. The generators are anti-Hermitian; writing $T_a = -it_a$ with Hermitian $t_a$ leaves the structure constants unchanged, so the formulas of @williams2023introduction [Sec. 9.1.1, eqs. (9.1.1), (9.1.6) and (9.1.10)], whose covariant derivative is $\partial_\mu - igA^a_\mu t_a = \partial_\mu + gA^a_\mu T_a$, can be taken over directly. The signature is $(+, -, -, -)$ and the path integral is written in Minkowski space, as in @def-generating-functional.
 
 ![Gauge orbits and the Faddeev-Popov determinant for the rotations of the plane. Left: the orbits of $SO(2)$ are circles; the slice $x_2 = 0$, $x_1 > 0$ meets each orbit once (dots), while the slice $x_2 = 0.8$ meets each orbit of radius $r > 0.8$ twice (squares, Gribov copies) and misses the smaller ones. Right: the weight that the gauge-fixed integral gives to the orbit of radius $r$ when the slice $x_2 = c$ is averaged over a Gaussian of width $\xi$ in $c$. With the Faddeev-Popov factor $|x_1|$ it is $2\operatorname{erf}(r/\sqrt{2\xi})$, which tends to the number of copies, $2$, on every orbit as $\xi \to 0$ (solid); without the factor it tends to $2/r$ and weights the orbits unequally (dotted). Generated by `figures/gqn_gauge_orbits.sage`.](figures/gqn_gauge_orbits.svg){#fig-gqn-gauge-orbits width=95%}
 
@@ -7077,7 +7079,7 @@ In the continuum the group of gauge transformations is enormous. The second exam
 ::: {#exm-gqn-fp-volume}
 #### The volume of the gauge group
 
-The factor $\int\mathcal D\omega$ is a product over all points $x$ of an integral over the parameters $\omega^a(x) \in \mathbb R^{\dim G}$, infinite at every point. On a finite lattice the gauge transformations are a finite product of copies of the compact group $G$, one per site, and the normalised Haar measure gives them volume $1$; this is why the lattice integral over the link variables of @def-lgt-link-variable is taken without fixing a gauge, and why gauge-fixed lattice expectation values such as those of @exm-lgt-el-gauge-fixed are an option rather than a necessity [@williams2023introduction, Sec. 9.2.5, eq. (9.2.56)].
+The factor $\int\mathcal D\omega$ is a product over all points $x$ of an integral over the parameters $\omega^a(x) \in \mathbb R^{\dim G}$, infinite at every point. On a finite lattice the gauge transformations are a finite product of copies of the compact group $G$, one per site, and the normalised Haar measure gives them volume $1$; this is why the lattice integral over the link variables of @def-lgt-link-variable is taken without fixing a gauge, and why gauge-fixed lattice expectation values such as those of @exm-lgt-el-gauge-fixed are an option rather than a necessity [@williams2023introduction, Sec. 9.2.5, eqs. (9.2.55)-(9.2.56)].
 :::
 
 For an abelian field and a condition linear in the potential, the matrix does not depend on the field. The third example computes it for the Lorenz condition, which is the case already met in the quantum field theory chapter.
@@ -7900,7 +7902,7 @@ When the gauge symmetry is broken, the covariant gauge can be adjusted so that t
 ::: {#exm-gqn-gh-higgs}
 #### The $R_\xi$ gauge with a Higgs field
 
-For the gauged scalar model (@def-gauged-scalar-model) $\mathcal L = -\frac14F^2 + |D_\mu\phi|^2 - \frac\lambda4(|\phi|^2 - \mu^2)^2$, $D_\mu = \partial_\mu + ieA_\mu$, write $\phi = \mu + (\sigma + i\chi)/\sqrt2$. The kinetic term contains $\frac12m_A^2A_\mu A^\mu$ with $m_A = \sqrt2e\mu$ and the mixing $m_AA^\mu\partial_\mu\chi$. The condition $F = \partial^\mu A_\mu - \xi m_A\chi$ gives $-\frac{1}{2\xi}F^2 = -\frac{1}{2\xi}(\partial^\mu A_\mu)^2 + m_A\chi\,\partial^\mu A_\mu - \frac12\xi m_A^2\chi^2$, whose middle term cancels the mixing up to a total derivative and whose last term gives the Goldstone boson the mass $\sqrt\xi m_A$. Since $\delta\chi = (m_A + e\sigma)\alpha$ under $\phi \mapsto e^{ie\alpha}\phi$, the ghost term is $-\bar c(\partial^2 + \xi m_A^2 + \xi em_A\sigma)c$: the ghosts have the same mass and couple to the Higgs boson [@strocchi2021symmetry, App. E; @williams2023introduction, Sec. 6.5.5, eqs. (6.5.77)-(6.5.82)].
+For the gauged scalar model (@def-gauged-scalar-model) $\mathcal L = -\frac14F^2 + |D_\mu\phi|^2 - \frac\lambda4(|\phi|^2 - \mu^2)^2$, $D_\mu = \partial_\mu + ieA_\mu$, write $\phi = \mu + (\sigma + i\chi)/\sqrt2$. The kinetic term contains $\frac12m_A^2A_\mu A^\mu$ with $m_A = \sqrt2e\mu$ and the mixing $m_AA^\mu\partial_\mu\chi$. The condition $F = \partial^\mu A_\mu - \xi m_A\chi$ gives $-\frac{1}{2\xi}F^2 = -\frac{1}{2\xi}(\partial^\mu A_\mu)^2 + m_A\chi\,\partial^\mu A_\mu - \frac12\xi m_A^2\chi^2$, whose middle term cancels the mixing up to a total derivative and whose last term gives the Goldstone boson the mass $\sqrt\xi m_A$. Since $\delta\chi = (m_A + e\sigma)\alpha$ under $\phi \mapsto e^{ie\alpha}\phi$, the ghost term is $-\bar c(\partial^2 + \xi m_A^2 + \xi em_A\sigma)c$: the ghosts have the same mass and couple to the Higgs boson [@strocchi2021symmetry, App. E; @williams2023introduction, Sec. 6.5.5, eqs. (6.5.77)-(6.5.82); @pal2015introductory, Sec. 15.4.2, eqs. 15.55-15.62].
 :::
 
 The unitary gauge of @def-unitary-gauge is a limit of this family. The tenth example takes the limit and shows what the $R_\xi$ gauges gain.
@@ -9093,11 +9095,9 @@ $k\cdot\bar n = 2\omega$. For $\mu = \nu \in \{1, 2\}$ the right side is $1$; fo
 
 The quantum field theory chapter put a scalar field on the sites of a Euclidean lattice, evaluated the free theory exactly (@prp-fpi-lattice-correlator) and sampled the interacting one by Metropolis updates (@def-fpi-metropolis). A gauge field cannot be discretised in the same way, because the difference $\phi(x + a\hat\mu) - \phi(x)$ of a charged field compares values at two points and is not gauge covariant. Wilson's solution is to make the parallel transporters along the edges of the lattice, rather than the potential, the basic variables. Gauge invariance is then exact at every lattice spacing, the action is built from the transport around the smallest closed loops, and the theory can be studied away from weak coupling, where perturbation theory fails.
 
-For more on this topic, see @nastase2019classical [Ch. 24, Ch. 28].
-
 This part has five sections and a set of integrative exercises. The first defines link variables, plaquettes and the Wilson action, and shows that the action tends to the Euclidean Yang-Mills action of @def-yang-mills-action. The second treats the three groups used throughout, $\mathbb{Z}_2$, compact $U(1)$ and $SU(2)$, and solves all three exactly in two dimensions. The third introduces Wilson loops, the strong-coupling expansion and the area law that signals confinement. The fourth proves Elitzur's theorem, that a local symmetry cannot break spontaneously, which qualifies the Higgs mechanism of the symmetry-breaking part. The fifth describes the Monte Carlo updates of link variables that produce the numbers quoted in the figures. The sources are @boudreau2018applied [Secs. 24.3-24.5 and Exercises 24.2-24.17], @williams2023introduction [Secs. 9.1.2 and 9.2.5] and @guidry2022symmetry [Sec. 26.5]; the renormalisation chapter uses the same lattice as a regulator of the scalar theory (@def-ren-lattice-regularisation).
 
-The conventions are those of the chapter, continued to Euclidean space by @def-wick-rotation. Generators are anti-Hermitian and $D_\mu = \partial_\mu + A_\mu$ on a field that transforms as $\phi \mapsto \rho(g)^{-1}\phi$; for $U(1)$ with charge $q$ this is $A_\mu \to iqA_\mu$. The lattice coupling $\beta$ multiplies $1 - \frac1N\operatorname{Re}\operatorname{tr}$ of each plaquette, so that for $\mathbb{Z}_2$ and $U(1)$ our $\beta$ is half the $\beta$ of @boudreau2018applied, who weight a plaquette by $e^{\frac\beta2\operatorname{Re}U_P}$, while for $SU(2)$ the two agree.
+The conventions are those of the chapter, continued to Euclidean space by @def-wick-rotation. Generators are anti-Hermitian and $D_\mu = \partial_\mu + A_\mu$ on a field that transforms as $\phi \mapsto \rho(g)^{-1}\phi$; for $U(1)$ with charge $q$ this is $A_\mu \to iqA_\mu$. The lattice coupling $\beta$ multiplies $1 - \frac1N\operatorname{Re}\operatorname{tr}$ of each plaquette, so that for $\mathbb{Z}_2$ and $U(1)$ our $\beta$ is half the $\beta$ of @boudreau2018applied [eqs. 24.38, 24.55 and 24.67-24.68], who weight a plaquette by $e^{\frac\beta2\operatorname{Re}U_P}$, while for $SU(2)$ the two agree.
 
 ### Links, plaquettes and the Wilson action {#sec-lgt-wilson}
 
@@ -9488,7 +9488,7 @@ A uniform magnetic field on a periodic lattice cannot be arbitrary: the total fl
 ::: {#exm-lgt-plaq-uniform-field}
 #### A uniform field on the torus
 
-On the periodic $L \times L$ lattice with $U(1)$ links, the product of all the plaquettes is $1$, since every link appears once with each orientation. A configuration with equal plaquettes $e^{ib}$ therefore needs $e^{iL^2b} = 1$, that is, a total flux $L^2b = 2\pi k$ with $k \in \mathbb{Z}$. The integer $k$ is the first Chern number of the $U(1)$ bundle over the torus, as the Dirac monopole's charge was over the sphere (@exr-dirac-quantisation); @exr-lgt-plaq-flux-torus builds such a configuration.
+On the periodic $L \times L$ lattice with $U(1)$ links, the product of all the plaquettes is $1$, since every link appears once with each orientation. A configuration with equal plaquettes $e^{ib}$ therefore needs $e^{iL^2b} = 1$, that is, a total flux $L^2b = 2\pi k$ with $k \in \mathbb{Z}$. The integer $k$ is, up to sign, the first Chern number of the $U(1)$ bundle over the torus: since $U_\mu = e^{aA_\mu}$ with anti-Hermitian $A_\mu$, the angle $b$ is $a^2$ times the real field strength $f_{12}$, so $c_1 = -k$ in the convention of @def-chern-number, as the Dirac monopole's charge was over the sphere (@exr-dirac-quantisation); @exr-lgt-plaq-flux-torus builds such a configuration.
 :::
 
 A single plaquette measures the field strength at the centre of its square, not at a site. Averaging the four plaquettes that meet at a site gives a symmetric estimate there, used for the topological charge density on the lattice.
@@ -10433,7 +10433,7 @@ At large $\beta$ almost all plaquettes are $+1$, and the excitations are isolate
 ::: {#exm-lgt-z2-weak}
 #### The plaquette at weak coupling
 
-In three dimensions a flipped link reverses the $4$ plaquettes around it at a cost $8\beta$, so it occurs with probability $e^{-8\beta}$; there are as many links as plaquettes, and $\langle\sigma_P\rangle = 1 - 8e^{-8\beta} + \dots$ (@exr-lgt-z2-excitations), eq. 24.41 of @boudreau2018applied, $1 - 8e^{-4\beta'}$ in their normalisation. The next excitations are closed loops of six reversed plaquettes, which cost $12\beta$ but are numerous, and give $1 - 8e^{-8\beta} - 88e^{-12\beta}$; at $\beta = 1$ the second term is a fifth of the first, and it is needed to match the Monte Carlo of @fig-lgt-z2-monte-carlo.
+In three dimensions a flipped link reverses the $4$ plaquettes around it at a cost $8\beta$, so it occurs with probability $e^{-8\beta}$; there are as many links as plaquettes, and $\langle\sigma_P\rangle = 1 - 8e^{-8\beta} + \dots$ (@exr-lgt-z2-excitations), eq. 24.41 of @boudreau2018applied [eq. 24.41], $1 - 8e^{-4\beta'}$ in their normalisation. The next excitations are closed loops of six reversed plaquettes, which cost $12\beta$ but are numerous, and give $1 - 8e^{-8\beta} - 88e^{-12\beta}$; at $\beta = 1$ the second term is a fifth of the first, and it is needed to match the Monte Carlo of @fig-lgt-z2-monte-carlo.
 :::
 
 The group $\mathbb{Z}_2$ is the centre of $SU(2)$, the two elements that commute with everything. This links the $\mathbb{Z}_2$ theory to the confinement mechanism of non-abelian theories.
@@ -11155,7 +11155,7 @@ Show that $\int_{\mathbb{R}^4}\delta(|a|^2 - 1)\,d^4a = \pi^2$, so that $\frac{1
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In polar coordinates $d^4a = r^3\,dr\,d\Omega_3$ with $\int d\Omega_3 = 2\pi^2$, and $\delta(r^2 - 1) = \frac12\delta(r - 1)$ for $r > 0$, so the integral is $\frac12 \cdot 2\pi^2 = \pi^2$. In two dimensions, $\int r\,dr\,d\varphi\,\frac12\delta(r - 1) = \pi$. Hence eq. 24.58 of @boudreau2018applied, with $\frac1\pi$, is normalised, while eq. 24.69, with $\frac{1}{2\pi^2}$, integrates to $\frac12$; expectation values are unaffected, but $Z$ changes by $2^{-n_L}$.
+In polar coordinates $d^4a = r^3\,dr\,d\Omega_3$ with $\int d\Omega_3 = 2\pi^2$, and $\delta(r^2 - 1) = \frac12\delta(r - 1)$ for $r > 0$, so the integral is $\frac12 \cdot 2\pi^2 = \pi^2$. In two dimensions, $\int r\,dr\,d\varphi\,\frac12\delta(r - 1) = \pi$. Hence eq. 24.58 of @boudreau2018applied [eqs. 24.58 and 24.69], with $\frac1\pi$, is normalised, while eq. 24.69, with $\frac{1}{2\pi^2}$, integrates to $\frac12$; expectation values are unaffected, but $Z$ changes by $2^{-n_L}$.
 :::
 
 The one-plaquette average of $SU(2)$ can be computed from the Weyl measure. The third exercise does the integral numerically with Sage and compares with the Bessel ratio.
@@ -11347,7 +11347,7 @@ For $\mathbb{Z}_2$ the proposition reduces two-dimensional gauge theory to indep
 ::: {#exm-lgt-2d-z2}
 #### $\mathbb{Z}_2$ in two dimensions
 
-For $\mathbb{Z}_2$, a loop enclosing $A$ plaquettes has $\langle\sigma(C)\rangle = (\tanh\beta)^A$, an area law with string tension $\hat\sigma = -\log\tanh\beta$ in lattice units, positive for every $\beta$. In the normalisation of @boudreau2018applied this is $-\log\tanh(\beta'/2)$; their Exercise 24.3 states $\log\tanh\beta'$, which has the wrong sign and the wrong argument (@exr-lgt-2d-z2-sign).
+For $\mathbb{Z}_2$, a loop enclosing $A$ plaquettes has $\langle\sigma(C)\rangle = (\tanh\beta)^A$, an area law with string tension $\hat\sigma = -\log\tanh\beta$ in lattice units, positive for every $\beta$. In the normalisation of @boudreau2018applied [eq. 24.38 and Exercise 24.3] this is $-\log\tanh(\beta'/2)$; their Exercise 24.3 states $\log\tanh\beta'$, which has the wrong sign and the wrong argument (@exr-lgt-2d-z2-sign).
 :::
 
 For compact $U(1)$ the proposition gives the result of Gross and Witten quoted in the source. The second example writes it with the string tension.
@@ -12005,7 +12005,7 @@ With dynamical matter in the representation of the static charges, the string ca
 ::: {#exm-lgt-al-string-breaking}
 #### String breaking
 
-In quantum chromodynamics with light quarks, the flux string between a static quark and antiquark breaks when its energy $\sigma R$ exceeds the energy of a quark-antiquark pair created from the vacuum, which then binds to the static charges and forms two mesons. For $\sigma \approx 0.9$ GeV/fm and twice a light-meson mass of order $1.2$ GeV this happens near $R \approx 1.3$ fm; beyond it the Wilson loop obeys a perimeter law (@exr-lgt-al-string-breaking). In the static strong-coupling picture of @guidry2022symmetry [Fig. 26.6] an excited meson costs $2m + \sigma a$ per string bit.
+In quantum chromodynamics with light quarks, the flux string between a static quark and antiquark breaks when its energy $\sigma R$ exceeds the energy of a quark-antiquark pair created from the vacuum, which then binds to the static charges and forms two mesons [@williams2023introduction, Sec. 5.2]. For $\sigma \approx 0.9$ GeV/fm and twice a light-meson mass of order $1.2$ GeV this happens near $R \approx 1.3$ fm; beyond it the Wilson loop obeys a perimeter law (@exr-lgt-al-string-breaking). In the static strong-coupling picture of @guidry2022symmetry [Fig. 26.6] an excited meson costs $2m + \sigma a$ per string bit.
 :::
 
 Static charges in the adjoint representation can be screened by the gauge field itself. Their Wilson loops show an area law at intermediate distances and a perimeter law at large ones.
@@ -12230,7 +12230,7 @@ Let $G$ be $\mathbb{Z}_2$, $U(1)$ or $SU(N)$ with the Wilson action in $d \geq 2
 $$
 W(C) = u(\beta)^A\bigl(1 + O(\beta^4)\bigr), \qquad u(\beta) = \frac{\beta}{N^2}\bigl\langle(\operatorname{Re}\operatorname{tr}U)^2\bigr\rangle_{\text{Haar}} + O(\beta^2),
 $$ {#eq-lgt-strong-coupling}
-with $u$ the one-plaquette average of @eq-lgt-two-dim: $u = \beta$, $\frac\beta2$, $\frac\beta4$ and $\frac{\beta}{2N^2}$ to leading order for $\mathbb{Z}_2$, $U(1)$, $SU(2)$ and $SU(N)$ with $N \geq 3$. Every such theory obeys the area law at strong coupling, with $\hat\sigma = -\log u(\beta) + O(\beta^4)$: at strong coupling all compact lattice gauge theories confine, abelian or not, in every dimension [@boudreau2018applied, eqs. 24.74-24.75; @williams2023introduction, Sec. 9.2.5].
+with $u$ the one-plaquette average of @eq-lgt-two-dim: $u = \beta$, $\frac\beta2$, $\frac\beta4$ and $\frac{\beta}{2N^2}$ to leading order for $\mathbb{Z}_2$, $U(1)$, $SU(2)$ and $SU(N)$ with $N \geq 3$. Every such theory obeys the area law at strong coupling, with $\hat\sigma = -\log u(\beta) + O(\beta^4)$: at strong coupling all compact lattice gauge theories confine, abelian or not, in every dimension [@boudreau2018applied, eqs. 24.74-24.75].
 :::
 ::::
 
@@ -12258,7 +12258,7 @@ For $SU(2)$ the leading term is the formula that Creutz used to check his first 
 ::: {#exm-lgt-sc-su2}
 #### $SU(2)$ at strong coupling
 
-For $SU(2)$, $\langle\frac12\operatorname{tr}U(C)\rangle = (\beta/4)^A$ to leading order, so $\langle\operatorname{tr}U(C)\rangle = 2(\beta/4)^{RT}$ and $\hat\sigma = -\log\frac\beta4$, in agreement with eqs. 24.74-24.75 of @boudreau2018applied, where the normalisations coincide.
+For $SU(2)$, $\langle\frac12\operatorname{tr}U(C)\rangle = (\beta/4)^A$ to leading order, so $\langle\operatorname{tr}U(C)\rangle = 2(\beta/4)^{RT}$ and $\hat\sigma = -\log\frac\beta4$, in agreement with eqs. 24.74-24.75 of @boudreau2018applied [eqs. 24.74-24.75], where the normalisations coincide.
 :::
 
 For $SU(3)$ the one-plaquette average has a smaller slope, because $\langle(\operatorname{tr}U)^2\rangle$ vanishes. The fourth example gives the value used in lattice chromodynamics.
@@ -12648,7 +12648,7 @@ The theorem does not forbid the breaking of global symmetries that act on matter
 ::: {#exm-lgt-el-chiral}
 #### Chiral symmetry breaking is allowed
 
-The chiral symmetry of massless quarks is global, and its order parameter, the condensate $\langle\bar\psi\psi\rangle$, is a colour singlet, hence gauge invariant. Nothing in @thm-lgt-elitzur prevents it from being non-zero, and lattice quantum chromodynamics shows that it is, which makes the pions the pseudo-Goldstone bosons of @exm-goldstone-pions [@williams2023introduction, Sec. 9.2.5].
+The chiral symmetry of massless quarks is global, and its order parameter, the condensate $\langle\bar\psi\psi\rangle$, is a colour singlet, hence gauge invariant. Nothing in @thm-lgt-elitzur prevents it from being non-zero, and lattice quantum chromodynamics shows that it is, which makes the pions the pseudo-Goldstone bosons of @exm-goldstone-pions [@williams2023introduction, Secs. 5.2 and 9.2.5].
 :::
 ::::
 
@@ -13275,7 +13275,7 @@ The three-dimensional $\mathbb{Z}_2$ theory is the first test case of Boudreau a
 ::: {#exm-lgt-hb-z2-3d}
 #### The three-dimensional $\mathbb{Z}_2$ plaquette
 
-In @fig-lgt-z2-monte-carlo the average plaquette follows $t + 2t^5$ up to $\beta \approx 0.6$, rises steeply near $\beta_c = 0.7614$, where the duality formula of @exr-lgt-z2-duality-plaquette gives $0.949$, and follows $1 - 8e^{-8\beta} - 88e^{-12\beta}$ above $\beta \approx 0.9$, as in Fig. 24.7 of @boudreau2018applied. The plaquette is not an order parameter; the transition shows in the Wilson loops (@exr-lgt-int-z2-3d) and in the Polyakov loop.
+In @fig-lgt-z2-monte-carlo the average plaquette follows $t + 2t^5$ up to $\beta \approx 0.6$, rises steeply near $\beta_c = 0.7614$, where the duality formula of @exr-lgt-z2-duality-plaquette gives $0.949$, and follows $1 - 8e^{-8\beta} - 88e^{-12\beta}$ above $\beta \approx 0.9$, as in Fig. 24.7 of @boudreau2018applied [Sec. 24.3.2, Fig. 24.7]. The plaquette is not an order parameter; the transition shows in the Wilson loops (@exr-lgt-int-z2-3d) and in the Polyakov loop.
 :::
 
 Successive configurations of a Markov chain are correlated, and the correlation grows near a critical point. The eighth example quantifies it for the plaquette.
@@ -13518,7 +13518,7 @@ For more on this topic, see @nath2017supersymmetry [Ch. 5], @pal2015introductory
 
 This part has four sections and a set of integrative exercises. The first fixes the gauge group, its three couplings and the representations in which fields transform, and treats the unbroken colour factor, quantum chromodynamics, whose coupling decreases at high energies. The second lists one generation of quarks and leptons with their hypercharges, and proves that the cancellation of gauge anomalies fixes the hypercharges up to normalisation. The third breaks $SU(2) \times U(1)$ with the Higgs doublet of @sec-higgs, defines the weak mixing angle and derives the masses of the $W$ and $Z$ bosons and their relation to the Fermi constant. The fourth gives the quarks their masses through Yukawa couplings and shows that the mismatch between the mass basis and the weak basis is a unitary matrix, the Cabibbo-Kobayashi-Maskawa matrix, with a single phase that violates CP. The sources are @nath2017supersymmetry [Ch. 5 and Sec. 6.10], @pal2015introductory [Chs. 12 and 16-19] and @paganini2023fundamentals [Chs. 8, 9 and 11].
 
-The conventions are those of the chapter. Generators are anti-Hermitian, $T_A = -\tfrac{i}{2}\lambda_A$ for $SU(3)$ with the Gell-Mann matrices of @def-gell-mann and $T_a = -\tfrac{i}{2}\sigma_a$ for $SU(2)$; their Hermitian partners are $t = iT$, and the weak isospin $T_3$ of a component is its eigenvalue of $t_3 = \tfrac12\sigma_3$. The Higgs doublet has the vacuum $\phi_0 = (0, v)$ of @exm-higgs-su2-masses, so that our $v \approx 174$ GeV is $1/\sqrt2$ times the $v \approx 246$ GeV of the three sources, whose formulas are converted accordingly; @nath2017supersymmetry also uses the signature $(-, +, +, +)$, which changes the signs of his kinetic terms. Fermions are chiral fields $\psi_L$, $\psi_R$ (@def-dq-weyl-equation), and a right-handed field in a representation counts for anomalies as a left-handed field in the conjugate representation (@def-gth-anomaly-coefficient).
+The conventions are those of the chapter. Generators are anti-Hermitian, $T_A = -\tfrac{i}{2}\lambda_A$ for $SU(3)$ with the Gell-Mann matrices of @def-gell-mann and $T_a = -\tfrac{i}{2}\sigma_a$ for $SU(2)$; their Hermitian partners are $t = iT$, and the weak isospin $T_3$ of a component is its eigenvalue of $t_3 = \tfrac12\sigma_3$. The Higgs doublet has the vacuum $\phi_0 = (0, v)$ of @exm-higgs-su2-masses, so that our $v \approx 174$ GeV is $1/\sqrt2$ times the $v \approx 246$ GeV of the three sources, whose formulas are converted accordingly; @nath2017supersymmetry [eqs. 5.5 and 5.9] also uses the signature $(-, +, +, +)$, which changes the signs of his kinetic terms. Fermions are chiral fields $\psi_L$, $\psi_R$ (@def-dq-weyl-equation), and a right-handed field in a representation counts for anomalies as a left-handed field in the conjugate representation (@def-gth-anomaly-coefficient).
 
 ### The gauge group and its representations {#sec-smd-group}
 
@@ -13955,7 +13955,7 @@ The hypercharge of a doublet can be read off without knowing the isospin structu
 ::: {#exm-smd-gen-average}
 #### Hypercharge as an average charge
 
-Because $T_3$ is traceless on a multiplet, $y$ is the average charge of its components: $\tfrac12(\tfrac23 - \tfrac13) = \tfrac16$ for $Q_L$ and $\tfrac12(0 - 1) = -\tfrac12$ for $L_L$. Summed over the fifteen left-handed fields, the charges give $3(\tfrac23 - \tfrac13) + 3(-\tfrac23) + 3(\tfrac13) + (0 - 1) + 1 = 0$. A generation can therefore fill representations of a simple group in which $Q$ is a traceless generator, as in $SU(5)$ (@exm-gth-anomaly-su5) [@nath2017supersymmetry, Ch. 1, after eq. 1.7].
+Because $T_3$ is traceless on a multiplet, $y$ is the average charge of its components: $\tfrac12(\tfrac23 - \tfrac13) = \tfrac16$ for $Q_L$ and $\tfrac12(0 - 1) = -\tfrac12$ for $L_L$. Summed over the fifteen left-handed fields, the charges give $3(\tfrac23 - \tfrac13) + 3(-\tfrac23) + 3(\tfrac13) + (0 - 1) + 1 = 0$. A generation can therefore fill representations of a simple group in which $Q$ is a traceless generator, as in $SU(5)$ (@exm-gth-anomaly-su5) [@nath2017supersymmetry, Ch. 1, eqs. 1.40-1.42 and the text after them].
 :::
 
 Two global symmetries are not imposed but follow from the field content. The ninth example identifies them and notes the subtlety that the anomaly introduces.
@@ -14149,7 +14149,7 @@ The traceless charge of @exm-smd-gen-average suggests that a generation fits int
 ::: {#exr-smd-gen-su5}
 #### The generation inside $SU(5)$
 
-Let the hypercharge act on the $\mathbf5$ of $SU(5) \supset SU(3) \times SU(2)$ as $\operatorname{diag}(-\tfrac13, -\tfrac13, -\tfrac13, \tfrac12, \tfrac12)$. Show that $\bar{\mathbf5} = d^c \oplus L_L$ and $\mathbf{10} = \Lambda^2\mathbf5 = Q_L \oplus u^c \oplus e^c$, with the hypercharges of @def-smd-generation [@nath2017supersymmetry, Ch. 1, after eq. 1.51].
+Let the hypercharge act on the $\mathbf5$ of $SU(5) \supset SU(3) \times SU(2)$ as $\operatorname{diag}(-\tfrac13, -\tfrac13, -\tfrac13, \tfrac12, \tfrac12)$. Show that $\bar{\mathbf5} = d^c \oplus L_L$ and $\mathbf{10} = \Lambda^2\mathbf5 = Q_L \oplus u^c \oplus e^c$, with the hypercharges of @def-smd-generation [@nath2017supersymmetry, eqs. 1.40, 1.42 and 9.27].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -14223,7 +14223,7 @@ The proposition makes the electric charges of quarks and leptons commensurate. T
 ::: {#exm-smd-hyp-charge-quantisation}
 #### The proton and the electron
 
-With the anomaly-free hypercharges the proton $uud$ has charge $2(\tfrac12 + y_Q) + (-\tfrac12 + y_Q) = \tfrac12 + 3y_Q$, and the electron $-\tfrac12 + y_L = -\tfrac12 - 3y_Q$: exactly opposite, whatever the normalisation. The hydrogen atom is neutral as a consequence of quantum consistency; grand unification gives the same explanation, since the generation fills $\bar{\mathbf5} \oplus \mathbf{10}$ of $SU(5)$ [@nath2017supersymmetry, Ch. 1, after eq. 1.51].
+With the anomaly-free hypercharges the proton $uud$ has charge $2(\tfrac12 + y_Q) + (-\tfrac12 + y_Q) = \tfrac12 + 3y_Q$, and the electron $-\tfrac12 + y_L = -\tfrac12 - 3y_Q$: exactly opposite, whatever the normalisation. The hydrogen atom is neutral as a consequence of quantum consistency; grand unification gives the same explanation, since the generation fills $\bar{\mathbf5} \oplus \mathbf{10}$ of $SU(5)$ [@nath2017supersymmetry, Ch. 1, after eq. 1.42].
 :::
 
 The conditions are linear in the set of fields, so they hold generation by generation. The sixth example records what this does and does not say about the number of generations.
@@ -14313,7 +14313,7 @@ Using @exr-gth-anomaly-mixed, show that the coefficient with two $SU(3)$ indices
 The coefficient is $2\sum_ky_kT(\rho_k)\delta_{AB}$ over the colour multiplets, with each multiplet counted once for every isospin component. $Q_L$ gives two triplets of hypercharge $y_Q$, and $u^c$, $d^c$ one antitriplet each. The antitriplet has generators $-t_A^\top$, so $\operatorname{tr}(t_A^\top t_B^\top) = \operatorname{tr}(t_At_B)$ and $T(\bar{\mathbf3}) = \tfrac12$. The sum is $2 \cdot \tfrac12(2y_Q + y_u + y_d)$, which vanishes only if $2y_Q + y_u + y_d = 0$ [@nath2017supersymmetry, eq. 6.138].
 :::
 
-@pal2015introductory reaches the same conclusion by a different route, without the gravitational anomaly. The third exercise follows it and finds a remarkable factorisation.
+@pal2015introductory [Sec. 18.4.4, eqs. 18.142-18.146] reaches the same conclusion by a different route, without the gravitational anomaly. The third exercise follows it and finds a remarkable factorisation.
 
 ::: {#exr-smd-hyp-charge-route}
 #### Pal's route through the charges
@@ -14889,7 +14889,7 @@ The Fermi constant is measured most precisely from the lifetime of the muon. The
 Neglecting the electron mass, the four-fermion interaction gives $\tau_\mu = \frac{192\pi^3}{G_F^2m_\mu^5}$ [@paganini2023fundamentals, Problem 9.2, eq. 9.85]. With $m_\mu = 0.10566$ GeV this is $2.187\ \mu$s, against the measured $2.197\ \mu$s; the difference of $0.4\%$ is the radiative correction, which is included when $G_F$ is extracted from $\tau_\mu$ (@exr-smd-m-muon-lifetime).
 :::
 
-The massive bosons decay into fermion pairs, and their widths test the couplings of @def-smd-weak-angle. The ninth example gives the partial widths that @nath2017supersymmetry asks for in his Problem 5.1.
+The massive bosons decay into fermion pairs, and their widths test the couplings of @def-smd-weak-angle. The ninth example gives the partial widths that @nath2017supersymmetry [Problem 5.1] asks for.
 
 ::: {#exm-smd-m-widths}
 #### Decay widths of the $W$ and $Z$
@@ -15687,7 +15687,7 @@ expansion of the potential from the first section and the unitary gauge and the 
 For $\mathcal{L} = -\tfrac14F^2 + |D_\mu\phi|^2 - \tfrac\lambda4(|\phi|^2 - \mu^2)^2$ with $D_\mu = \partial_\mu + ieA_\mu$: find the vacua and
 the unbroken subgroup, pass to unitary gauge, and read off with Sage the masses $m_\sigma$, $m_A$, the couplings
 $\sigma AA$ and $\sigma\sigma AA$, and the scalar self-couplings. Express the gauge couplings of $\sigma$ through $m_A$ and
-$\mu$, and count the degrees of freedom.
+$\mu$, and count the degrees of freedom [@pal2015introductory, Sec. 15.4, eqs. 15.49-15.54 and 15.63-15.64].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -15734,7 +15734,7 @@ the orbit and the Goldstone bosons of the first section and the partial breaking
 An $SO(3)$ gauge theory with a real triplet $\boldsymbol\varphi$, kinetic term $\tfrac12(D_\mu\boldsymbol\varphi)^2$ and $V = \tfrac\lambda4(\boldsymbol\varphi^2 -
 a^2)^2$. Describe the space of vacua and the unbroken subgroup, count the Goldstone bosons, give the mass spectrum
 in unitary gauge, and check the count of degrees of freedom. Which particle plays the role of the photon, and what
-is the charge of the massive vectors under it?
+is the charge of the massive vectors under it? For the setup, see @nastase2019classical [Secs. 28.1-28.2, eqs. (28.1)-(28.5) and (28.13)-(28.16)].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -15968,7 +15968,7 @@ The first integrative exercise uses the hypercharges of the second section and t
 ::: {#exr-smd-int-one-generation}
 #### One generation from the anomaly to the $Z$
 
-(a) Starting from the representations of @eq-smd-generation with unknown hypercharges, use @prp-smd-hypercharges and a neutral Higgs vacuum to fix all hypercharges, and check that each massive fermion has equal charges on its two chiralities. (b) Give the $Z$ couplings $g_V$, $g_A$ of $e$, $u$ and $d$. (c) With Sage, compute $R_e = \Gamma(Z \to \text{hadrons})/\Gamma(Z \to e^+e^-)$ at tree level and with the factor $1 + \alpha_s/\pi$ on the quark widths, and compare with the measured $20.77$.
+(a) Starting from the representations of @eq-smd-generation with unknown hypercharges, use @prp-smd-hypercharges and a neutral Higgs vacuum to fix all hypercharges, and check that each massive fermion has equal charges on its two chiralities. (b) Give the $Z$ couplings $g_V$, $g_A$ of $e$, $u$ and $d$. (c) With Sage, compute $R_e = \Gamma(Z \to \text{hadrons})/\Gamma(Z \to e^+e^-)$ at tree level and with the factor $1 + \alpha_s/\pi$ on the quark widths, and compare with the measured $20.77$ [@pal2015introductory, eqs. 18.143-18.146, 19.32 and 19.38].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -16002,7 +16002,7 @@ The second integrative exercise uses the weak angle and the proposition of the t
 ::: {#exr-smd-int-electroweak-fit}
 #### The electroweak parameters from three measurements
 
-Take as inputs $\alpha(m_Z) = 1/127.95$, $G_F = 1.1663788 \times 10^{-5}$ GeV$^{-2}$ and $m_Z = 91.1876$ GeV. (a) Using @eq-smd-wz-masses and @eq-smd-fermi, show that $\sin^2\theta_W\cos^2\theta_W = \frac{\pi\alpha}{\sqrt2G_Fm_Z^2}$. (b) With Sage, find $\sin^2\theta_W$, $m_W$, $g$, $g'$, $v$ and, with $m_h = 125.25$ GeV, $\lambda$. (c) Compare $m_W$ with the measured $80.38$ GeV and say what the difference measures.
+Take as inputs $\alpha(m_Z) = 1/127.95$, $G_F = 1.1663788 \times 10^{-5}$ GeV$^{-2}$ and $m_Z = 91.1876$ GeV. (a) Using @eq-smd-wz-masses and @eq-smd-fermi, show that $\sin^2\theta_W\cos^2\theta_W = \frac{\pi\alpha}{\sqrt2G_Fm_Z^2}$. (b) With Sage, find $\sin^2\theta_W$, $m_W$, $g$, $g'$, $v$ and, with $m_h = 125.25$ GeV, $\lambda$. (c) Compare $m_W$ with the measured $80.38$ GeV and say what the difference measures [@pal2015introductory, eq. 19.57].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}

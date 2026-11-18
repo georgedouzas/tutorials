@@ -162,7 +162,7 @@ plane is the surface charge density, a fact that Gauss's law will make general.
 A plane $z = 0$ with uniform surface charge $\sigma$ has, by @exm-ems-disc-axis with $a \to \infty$ and by symmetry
 under $z \mapsto -z$, the field $\mathbf E = \frac\sigma2\operatorname{sgn}(z)\,\mathbf e_z$. Two parallel planes
 with $\pm\sigma$ produce $\sigma$ between them and $0$ outside, the field of an ideal parallel-plate arrangement
-[@maggiore2023electrodynamics, Problem 4.1].
+[@maggiore2023electrodynamics, Problems 4.1, 4.3].
 :::
 
 Newton's third law for two charges is part of Coulomb's law, which is antisymmetric under exchange of the two charges.
@@ -201,7 +201,7 @@ For $q$ at $\mathbf d/2$ and $-q$ at $-\mathbf d/2$, expanding @eq-ems-coulomb-f
 gives $\mathbf E = \frac{3(\mathbf p\cdot\hat{\mathbf n})\hat{\mathbf n} - \mathbf p}{4\pi r^3} + O(d^2/r^4)$ with
 $\mathbf p = q\mathbf d$. Letting $d \to 0$ with $\mathbf p$ fixed gives the field of a **point dipole**, the $1/4\pi$
 multiple of the dipole field of @exm-fam-dipole-field; it is the leading term far from any neutral charge
-distribution (@prp-fam-multipole).
+distribution (@prp-fam-multipole) [@pierrus2018solved, Question 2.11; @nastase2019classical, Sec. 15.4, eqs. (15.20)-(15.22)].
 :::
 ::::
 
@@ -501,7 +501,7 @@ $$
 (@exm-exterior-vector-calculus). Its divergence is $-\frac1{4\pi}\int\rho(\mathbf x')\nabla^2\frac{1}{|\mathbf x -
 \mathbf x'|}d^3x' = \int\rho(\mathbf x')\delta^3(\mathbf x - \mathbf x')d^3x' = \rho(\mathbf x)$, because $\nabla^2(-1/4\pi
 r) = \delta^3$ (@prp-greens-laplacian). The integral forms follow from the divergence theorem and from Stokes'
-theorem, the cases $k = 2$ and $k = 1$ of @thm-stokes [@maggiore2023electrodynamics, Secs. 3.1.2 and 4.1].
+theorem, the cases $k = 2$ and $k = 1$ of @thm-stokes [@maggiore2023electrodynamics, Secs. 3.1.2 and 4.1; @nastase2019classical, Sec. 15.1, eqs. (15.3)-(15.5); @ciniElementsClassicalQuantum2018, Sec. 4.1].
 :::
 ::::
 
@@ -538,7 +538,7 @@ spheres of the later examples work.
 For charge $Q$ uniform in the ball $r \leq R$, $\rho = 3Q/4\pi R^3$, the sphere of radius $r < R$ encloses $Qr^3/R^3$,
 so $\mathbf E = \frac{Qr}{4\pi R^3}\hat{\mathbf n} = \frac{\rho}{3}\mathbf x$ inside and $\frac{Q}{4\pi r^2}\hat{\mathbf
 n}$ outside. The field is continuous, largest at the surface, and linear in $\mathbf x$ inside
-[@maggiore2023electrodynamics, Problem 4.2].
+[@maggiore2023electrodynamics, Problem 4.2; @pierrus2018solved, Question 2.6].
 :::
 
 Cylindrical symmetry uses a coaxial cylinder as Gaussian surface. The ends contribute nothing because the field is
@@ -573,7 +573,7 @@ These are the boundary conditions used for every surface charge, and in particul
 Apply the integral forms of @thm-ems-gauss-law to a thin box straddling a surface with charge density $\sigma$ and
 unit normal $\hat{\mathbf n}$ from side 1 to side 2, and to a thin rectangle crossing it. As the thickness tends to
 zero, $\hat{\mathbf n}\cdot(\mathbf E_2 - \mathbf E_1) = \sigma$ and $\hat{\mathbf n}\times(\mathbf E_2 - \mathbf E_1)
-= 0$ [@maggiore2023electrodynamics, Sec. 4.1.6]. The shell of @exm-ems-gauss-shell and the plane of
+= 0$ [@maggiore2023electrodynamics, Secs. 4.1.6 and 13.5]. The shell of @exm-ems-gauss-shell and the plane of
 @exm-ems-plane satisfy both.
 :::
 
@@ -839,8 +839,7 @@ particles keep their order, and energy conservation then gives the final velocit
 
 A ball of radius $R$ is filled uniformly with $N$ particles of charge $q$ and mass $m$, total charge $Q = Nq$, at rest
 at $t = 0$. Assuming that particles do not overtake each other, write the equation of motion of a particle starting
-at $r_0$, find its final kinetic energy, and the distribution of the final energies [@macchi2023problems, Problem
-1.6].
+at $r_0$, find its final kinetic energy, and the distribution of the final energies [@macchi2023problems, Problem 1.6].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -900,8 +899,7 @@ equation, @def-laplace-equation, where $\rho = 0$), with $\Phi \to 0$ at infinit
 $\mathbf x_2$, so the electric force $q_0\mathbf E$ on a test charge is conservative with potential energy $q_0\Phi$
 (@def-clm-conservative-force), and $q_0(\Phi(\mathbf x_2) - \Phi(\mathbf x_1))$ is the work done against the field in
 moving the charge. Any other potential of $\mathbf E$ differs from $\Phi$ by a constant. In SI units the factor is
-$1/4\pi\varepsilon_0$ and $\Phi$ is measured in volts [@maggiore2023electrodynamics, Sec. 4.1.3, eqs. (4.16),
-(4.30)-(4.33)].
+$1/4\pi\varepsilon_0$ and $\Phi$ is measured in volts [@maggiore2023electrodynamics, Secs. 4.1.2-4.1.3, eqs. (4.16), (4.30)-(4.33); @emam2021covariant, Sec. 4.8, eqs. (4.178)-(4.180)].
 :::
 ::::
 
@@ -926,7 +924,7 @@ Fourier chapter gives it directly.
 
 By @prp-fam-multipole, a charge distribution with $Q = 0$ and dipole moment $\mathbf p =
 \int\rho\,\mathbf x\,d^3x$ has $\Phi = \frac{\mathbf p\cdot\hat{\mathbf n}}{4\pi r^2} + O(r^{-3})$. Its gradient is the
-field of @exm-ems-dipole-limit, and its equipotentials $r^2 \propto \cos\theta$ are drawn in @exr-ems-dipole-lines.
+field of @exm-ems-dipole-limit, and its equipotentials $r^2 \propto \cos\theta$ are drawn in @exr-ems-dipole-lines [@pierrus2018solved, Question 2.11; @nastase2019classical, Sec. 15.4, eq. (15.20)].
 :::
 
 On the axis of a ring every charge element is at the same distance from the field point. The potential is then a
@@ -947,7 +945,7 @@ result is a parabola.
 
 Integrating the field of @exm-ems-gauss-ball inwards from $\Phi(R) = Q/4\pi R$ gives $\Phi = \frac{Q}{4\pi R} +
 \int_r^R\frac{Qr'}{4\pi R^3}dr' = \frac{Q(3R^2 - r^2)}{8\pi R^3}$ for $r \leq R$. At the centre $\Phi = \frac32\frac{Q}{4\pi
-R}$; the left panel of @fig-ems-potential plots both functions.
+R}$; the left panel of @fig-ems-potential plots both functions [@pierrus2018solved, Question 2.6].
 :::
 
 A charge distribution that extends to infinity can have a divergent potential integral. The infinite line is the
@@ -958,7 +956,7 @@ standard case, and the potential is then defined only up to a constant fixed at 
 
 For the line of @exm-ems-line-charge, @eq-ems-potential diverges logarithmically, but the field $\lambda/2\pi s$ has
 the potential $\Phi = -\frac{\lambda}{2\pi}\log\frac{s}{s_0}$, zero at an arbitrary radius $s_0$. A potential difference,
-$\Phi(s_1) - \Phi(s_2) = \frac\lambda{2\pi}\log\frac{s_2}{s_1}$, does not depend on $s_0$.
+$\Phi(s_1) - \Phi(s_2) = \frac\lambda{2\pi}\log\frac{s_2}{s_1}$, does not depend on $s_0$ [@pierrus2018solved, Question 2.8].
 :::
 
 Two opposite line charges have equipotentials that are circles. This geometric fact is the basis of the image method
@@ -1171,7 +1169,7 @@ uses this for the hemisphere of @exr-ems-hemisphere.
 #### The potential at the centre of a hemisphere
 
 Find the potential at the centre of the charged hemisphere of @exr-ems-hemisphere, and explain why the potential does
-not give the field there by itself [@macchi2023problems, Problem 1.11].
+not give the field there by itself [@macchi2023problems, Problem 1.11; @pierrus2018solved, Question 2.5].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1441,8 +1439,7 @@ in magnetostatics.
 
 If $\mathbf V_1$ and $\mathbf V_2$ on $\mathbb{R}^3$ have the same divergence and curl and decay at infinity, $\mathbf
 w = \mathbf V_1 - \mathbf V_2$ is curl free, so $\mathbf w = \nabla\psi$ (@def-clm-conservative-force), and divergence
-free, so $\nabla^2\psi = 0$; uniqueness with $\nabla\psi \to 0$ gives $\mathbf w = 0$ [@maggiore2023electrodynamics,
-Sec. 4.1.5, eqs. (4.45)-(4.47)].
+free, so $\nabla^2\psi = 0$; uniqueness with $\nabla\psi \to 0$ gives $\mathbf w = 0$ [@maggiore2023electrodynamics, Sec. 4.1.5, eqs. (4.45)-(4.47)].
 :::
 ::::
 
@@ -1645,7 +1642,7 @@ series with Sage. The value at the centre is again fixed by symmetry.
 
 In the square $0 < x, y < a$, $\Phi$ is harmonic, equal to $V_0$ on $y = a$ and to $0$ on the other sides. Show that
 $\Phi = \sum_{n\text{ odd}}\frac{4V_0}{n\pi}\sin\frac{n\pi x}a\frac{\sinh(n\pi y/a)}{\sinh n\pi}$, and with Sage check
-that $\Phi = V_0/4$ at the centre, as symmetry requires.
+that $\Phi = V_0/4$ at the centre, as symmetry requires [@landau2018computational, Secs. 5.2.2-5.2.3].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1727,7 +1724,7 @@ potential is that of a point charge at the centre.
 
 An isolated conducting sphere of radius $R$ with charge $Q$ has $\sigma = Q/4\pi R^2$, the field $Q\hat{\mathbf n}/4\pi
 r^2$ outside and $0$ inside, and the potential $\Phi_C = Q/4\pi R$; the field just outside is $\sigma$, as
-@def-ems-conductor requires (@exm-ems-gauss-shell).
+@def-ems-conductor requires (@exm-ems-gauss-shell) [@pierrus2018solved, Question 2.4].
 :::
 
 A charge inside a hollow conductor induces an opposite charge on the inner wall. The outer surface then carries the
@@ -1751,8 +1748,7 @@ the field across the plane, and its total is $-q$.
 
 For $q$ at height $a$ above the grounded plane $z = 0$, the potential in $z > 0$ is that of $q$ and an image $-q$ at
 $-a$, and $\Phi = 0$ in $z < 0$. The field on the plane is $E_z = -\frac{2qa}{4\pi(s^2 + a^2)^{3/2}}$, so $\sigma =
--\frac{qa}{2\pi(s^2 + a^2)^{3/2}}$, whose integral over the plane is $-q$ (@fig-ems-image-charge) [@macchi2023problems,
-Problems 2.3, 2.16].
+-\frac{qa}{2\pi(s^2 + a^2)^{3/2}}$, whose integral over the plane is $-q$ (@fig-ems-image-charge) [@macchi2023problems, Problems 2.3, 2.16; @nastase2019classical, Sec. 15.3; @landau2018computational, Sec. 5.5.4].
 :::
 
 The charge is attracted by the plane. The force equals that of the image, because the field near the charge is that
@@ -2109,7 +2105,7 @@ the charges, $\Phi_a = \sum_bP_{ab}Q_b$, with **coefficients of potential** $P_{
 the inverse matrix gives $Q_a = \sum_bC_{ab}\Phi_b$, the **capacitance coefficients**. The **capacitance** of a single
 conductor is $C = Q/\Phi$, and that of a **capacitor**, two conductors with charges $\pm Q$, is $C = Q/(\Phi_1 - \Phi_2)$.
 In Heaviside-Lorentz units a capacitance is a length; in SI units it is multiplied by $\varepsilon_0$ and measured in
-farads [@maggiore2023electrodynamics, Problems 4.3, 4.4; @pierrus2018solved, Questions 3.11-3.12].
+farads [@maggiore2023electrodynamics, Problems 4.3, 4.4; @pierrus2018solved, Questions 3.10-3.12].
 :::
 ::::
 
@@ -2187,8 +2183,7 @@ charges at the centre.
 
 For thin shells of radii $r_1 < r_2$, the potential of shell $a$ is $\frac1{4\pi}\sum_b\frac{Q_b}{\max(r_a, r_b)}$, so
 $P_{11} = 1/4\pi r_1$, $P_{12} = P_{21} = P_{22} = 1/4\pi r_2$. The capacitor with $Q_1 = -Q_2 = Q$ has $\Phi_1 - \Phi_2 =
-(P_{11} - P_{21})Q$, which is the spherical capacitor of @exm-ems-capacitance-spherical [@pierrus2018solved, Question
-3.12].
+(P_{11} - P_{21})Q$, which is the spherical capacitor of @exm-ems-capacitance-spherical [@pierrus2018solved, Question 3.12].
 :::
 
 The matrices $P$ and $C$ are symmetric, a fact that is not obvious from the geometry. It follows from Green's
@@ -2503,7 +2498,7 @@ or $\frac{I}{4\pi}\oint d\boldsymbol\ell'\times\frac{\mathbf x - \mathbf x'}{|\m
 loop. A charge $q$ moving with velocity $\mathbf v$ in the fields $\mathbf E$ and $\mathbf B$ feels the **Lorentz
 force** $\mathbf F = q(\mathbf E + \mathbf v\times\mathbf B)$, and a current distribution feels $\int\mathbf J\times
 \mathbf B\,d^3x$ ($I\oint d\boldsymbol\ell\times\mathbf B$ for a wire). In SI units the factor $1/4\pi$ is $\mu_0/4\pi$
-and $\mathbf B$ is measured in tesla [@maggiore2023electrodynamics, Secs. 4.2.2-4.2.4].
+and $\mathbf B$ is measured in tesla [@maggiore2023electrodynamics, Secs. 4.2.2-4.2.4; @nastase2019classical, Sec. 15.2, eq. (15.16)].
 :::
 ::::
 
@@ -2529,8 +2524,7 @@ distance, and the transverse parts cancel.
 
 For a loop of radius $a$ in the plane $z = 0$ with current $I$, each element contributes $\frac{I\,d\ell}{4\pi(a^2 + z^2)}$
 at right angles to the line joining it to the point, and the axial part of that is a fraction $a/\sqrt{a^2 + z^2}$. So
-$B_z = \frac{Ia^2}{2(a^2 + z^2)^{3/2}}$, with $I/2a$ at the centre and $Ia^2/2|z|^3$ far away [@pierrus2018solved, Question
-4.8].
+$B_z = \frac{Ia^2}{2(a^2 + z^2)^{3/2}}$, with $I/2a$ at the centre and $Ia^2/2|z|^3$ far away [@pierrus2018solved, Question 4.8].
 :::
 
 A finite straight segment is the building block of polygonal circuits. Its field depends on the angles under which
@@ -2623,8 +2617,7 @@ of charge and mass.
 For uniform $\mathbf E \perp \mathbf B$ with $|\mathbf E| < |\mathbf B|$, the velocity $\mathbf v_d = \mathbf E\times
 \mathbf B/B^2$ gives $\mathbf E + \mathbf v_d\times\mathbf B = 0$, so a charge moving with $\mathbf v_d$ feels no
 force. Writing $\mathbf v = \mathbf v_d + \mathbf u$, the remainder obeys $m\dot{\mathbf u} = q\mathbf u\times\mathbf B$
-and circles as in @exm-ems-cyclotron: the motion is a circle carried along at $\mathbf v_d$ [@macchi2023problems,
-Problem 5.6].
+and circles as in @exm-ems-cyclotron: the motion is a circle carried along at $\mathbf v_d$ [@macchi2023problems, Problem 5.6].
 :::
 ::::
 
@@ -2723,8 +2716,7 @@ analyses this arrangement with Sage.
 #### Opposite currents
 
 The loops of @exr-ems-helmholtz carry opposite currents. With Sage, compute $\partial_zB_z$ at the centre, and find
-the $b$ for which $\partial_z^3B_z = 0$, so that the gradient is as uniform as possible [@pierrus2018solved,
-Question 4.17].
+the $b$ for which $\partial_z^3B_z = 0$, so that the gradient is as uniform as possible [@pierrus2018solved, Question 4.17].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2951,7 +2943,7 @@ value.
 For an infinite solenoid with $n$ turns per unit length, symmetry gives $\mathbf B = B(s)\mathbf e_z$; a rectangle with
 both long sides outside shows $B$ is constant outside, hence $0$ (its value at infinity), and a rectangle with one side
 inside gives $B\ell = nI\ell$. So $B = nI$ inside, in SI units $\mu_0nI$: $1.26\,$mT for $1000$ turns per metre and
-$1\,$A, the limit of @exm-ems-solenoid-axis.
+$1\,$A, the limit of @exm-ems-solenoid-axis [@maggiore2023electrodynamics, Problem 4.6].
 :::
 
 A toroidal coil confines the field completely. Its strength varies as the inverse distance from the axis. The field lines are circles inside the winding.
@@ -2961,7 +2953,7 @@ A toroidal coil confines the field completely. Its strength varies as the invers
 
 $N$ turns wound on a torus around the $z$ axis produce $\mathbf B = B(s)\hat{\boldsymbol\varphi}$, and a circle of radius $s$
 inside the torus links the current $NI$: $B = \frac{NI}{2\pi s}$ inside and $0$ outside, where the circle links no net
-current.
+current [@pierrus2018solved, Question 4.9].
 :::
 
 A surface current makes the tangential component of the field jump. The jump conditions are the magnetic counterpart
@@ -3296,7 +3288,7 @@ $\nabla^2\mathbf A = -\mathbf J$ (proof of @thm-ems-ampere-law). If $\mathbf A$ 
 \nabla\lambda$ for every function $\lambda$, since the curl of a gradient vanishes; this freedom is studied in
 @sec-em-maxwell. By Stokes' theorem the flux of $\mathbf B$ through a surface $\Sigma$ bounded by $C$ is $\int_\Sigma\mathbf
 B\cdot d\mathbf S = \oint_C\mathbf A\cdot d\boldsymbol\ell$. In SI units the factor is $\mu_0/4\pi$
-[@maggiore2023electrodynamics, Sec. 4.2.2; @pierrus2018solved, Questions 4.5-4.6].
+[@maggiore2023electrodynamics, Sec. 4.2.2; @pierrus2018solved, Questions 4.5-4.6; @nastase2019classical, Sec. 15.4, eqs. (15.29)-(15.31)].
 :::
 ::::
 
@@ -3380,8 +3372,7 @@ step used in the proof of @thm-ems-ampere-law.
 $\nabla_{\mathbf x}\frac{1}{|\mathbf x - \mathbf x'|} = -\nabla_{\mathbf x'}\frac{1}{|\mathbf x - \mathbf x'|}$, so $\nabla
 \cdot\mathbf A = -\frac1{4\pi}\int\mathbf J\cdot\nabla'\frac1{|\mathbf x - \mathbf x'|}d^3x'$, and integrating by parts,
 with no boundary term for a localised $\mathbf J$, gives $\frac1{4\pi}\int\frac{\nabla'\cdot\mathbf J}{|\mathbf x - \mathbf
-x'|}d^3x' = 0$. For a current that is not steady the same steps give $\nabla\cdot\mathbf A \neq 0$ [@pierrus2018solved,
-Question 4.6].
+x'|}d^3x' = 0$. For a current that is not steady the same steps give $\nabla\cdot\mathbf A \neq 0$ [@pierrus2018solved, Question 4.6].
 :::
 
 A potential with zero curl can still have a circulation, when the region has a hole. The thin solenoid is the example.
@@ -3715,7 +3706,7 @@ $$
 $$ {#eq-ems-magnetic-dipole}
 the field of a **point magnetic dipole**, of the same form as the electric dipole field of @exm-ems-dipole-limit with
 $\mathbf p$ replaced by $\mathbf m$. In SI units $\mathbf m$ is in A m$^2$ and the fields carry $\mu_0$
-[@maggiore2023electrodynamics, Secs. 6.2-6.3].
+[@maggiore2023electrodynamics, Secs. 6.2-6.3; @nastase2019classical, Sec. 15.4, eqs. (15.33)-(15.36)].
 :::
 ::::
 
@@ -3758,7 +3749,7 @@ A rotating charged shell is a dipole outside, exactly. The moment follows from t
 
 The ring of the shell of @exm-ems-A-rotating-shell between $\theta$ and $\theta + d\theta$ carries the current $\sigma\omega a^2
 \sin\theta\,d\theta$ around a circle of radius $a\sin\theta$, so $m = \int_0^\pi\sigma\omega a^2\sin\theta\cdot\pi a^2\sin^2
-\theta\,d\theta = \frac{4\pi}3\sigma\omega a^4$, the moment of the outside potential there.
+\theta\,d\theta = \frac{4\pi}3\sigma\omega a^4$, the moment of the outside potential there [@macchi2023problems, Problem 5.12].
 :::
 
 A charge on a closed orbit is a current loop. Its magnetic moment is proportional to its angular momentum, with a
@@ -3983,7 +3974,7 @@ general plane.
 
 For a closed curve $C$ in a plane with unit normal $\hat{\mathbf n}$, show that $\frac12\oint_C\mathbf x\times d\boldsymbol
 \ell = S\hat{\mathbf n}$, with $S$ the enclosed area. Hint: apply Stokes' theorem to $\mathbf c\cdot(\mathbf x\times d\boldsymbol
-\ell) = (\mathbf c\times\mathbf x)\cdot d\boldsymbol\ell$ for a constant vector $\mathbf c$ [@pierrus2018solved, Question 4.25].
+\ell) = (\mathbf c\times\mathbf x)\cdot d\boldsymbol\ell$ for a constant vector $\mathbf c$ [@pierrus2018solved, Questions 1.22, 4.25].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4055,7 +4046,7 @@ Rowland's rotating disc of @exr-ems-rowland is a dipole when seen from far away.
 #### The rotating disc as a dipole
 
 Find the magnetic moment of a disc of radius $a$ with surface charge $\sigma$ rotating with angular velocity $\omega$, and
-its field on the axis at $z \gg a$ [@macchi2023problems, Problem 5.1].
+its field on the axis at $z \gg a$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4097,8 +4088,7 @@ costs $d\lambda\int\lambda\Phi\rho$, and integrating gives $\frac12\int\rho\Phi$
 sphere of radius $R$ tends to $0$. For conductors $\Phi$ is constant on each surface charge. (b) With $\mathbf J = \nabla
 \times\mathbf B$, $\mathbf J\cdot\mathbf A = \nabla\cdot(\mathbf B\times\mathbf A) + |\mathbf B|^2$, and $\mathbf B\times\mathbf A =
 O(r^{-5})$. For circuits, $\int\mathbf J\cdot\mathbf A = \sum_aI_a\oint_a\mathbf A\cdot d\boldsymbol\ell_a$, and inserting
-@eq-ems-vector-potential for the field of circuit $b$ gives Neumann's formula [@maggiore2023electrodynamics, Secs.
-5.1-5.4].
+@eq-ems-vector-potential for the field of circuit $b$ gives Neumann's formula [@maggiore2023electrodynamics, Secs. 5.1-5.4].
 :::
 ::::
 
@@ -4146,8 +4136,7 @@ energy would equal its rest energy.
 For a shell of radius $R$ and charge $e$ the energy $e^2/8\pi R$ diverges as $R \to 0$: the field energy of a point charge
 is infinite, which is why @prp-ems-field-energy uses interaction energies for point charges. Equating $e^2/4\pi R$ with
 the rest energy $m_ec^2$ defines the **classical electron radius** $r_e = \frac{e^2}{4\pi\varepsilon_0m_ec^2} = 2.82\times
-10^{-15}\,$m, below which classical electrodynamics cannot describe the electron [@maggiore2023electrodynamics, Sec.
-5.2.2].
+10^{-15}\,$m, below which classical electrodynamics cannot describe the electron [@maggiore2023electrodynamics, Sec. 5.2.2].
 :::
 
 The energy of a capacitor sits in the field between its plates. The field energy density times the volume reproduces
@@ -4157,8 +4146,7 @@ $Q^2/2C$.
 #### Energy of a capacitor
 
 For the plates of @exm-ems-capacitance-plates, $E = Q/A$ fills the volume $Ad$, so $\frac12E^2Ad = \frac{Q^2d}{2A} =
-\frac{Q^2}{2C}$. In SI units, a $10\,\mu$F capacitor at $100\,$V stores $\frac12CV^2 = 0.05\,$J [@maggiore2023electrodynamics,
-Problem 5.1].
+\frac{Q^2}{2C}$. In SI units, a $10\,\mu$F capacitor at $100\,$V stores $\frac12CV^2 = 0.05\,$J [@maggiore2023electrodynamics, Problem 5.1].
 :::
 
 The binding energy of an ionic crystal is a lattice sum of Coulomb energies. The sum converges only conditionally,
@@ -4778,8 +4766,7 @@ Sage for two equal charges, integrating over the plane between them.
 
 For charges $q$ at $(0, 0, \pm d)$, the force on the upper one is $\oint\bigl((\mathbf E\cdot\hat{\mathbf n})\mathbf E -
 \frac12|\mathbf E|^2\hat{\mathbf n}\bigr)dS$ over any closed surface around it. Taking the plane $z = 0$ (with $\hat{\mathbf n} =
--\mathbf e_z$) closed at infinity, compute it with Sage and compare with Coulomb's law [@maggiore2023electrodynamics,
-Sec. 4.1.7].
+-\mathbf e_z$) closed at infinity, compute it with Sage and compare with Coulomb's law [@maggiore2023electrodynamics, Sec. 4.1.7].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4972,11 +4959,11 @@ With these two terms the static equations of @sec-em-statics become Maxwell's eq
 of charge, of energy and of momentum, with the field itself carrying energy and momentum. Two potentials, $\Phi$ and
 $\mathbf A$, solve the homogeneous equations identically; they are fixed only up to a gauge transformation, and they
 are the variables through which a charged particle enters Lagrangian and Hamiltonian mechanics, by the rule $\mathbf
-p \to \mathbf p - q\mathbf A$ [@maggiore2023electrodynamics, Ch. 3]. The units are those of @sec-em-statics:
+p \to \mathbf p - q\mathbf A$ [@maggiore2023electrodynamics, Ch. 3 and Sec. 8.6.2]. The units are those of @sec-em-statics:
 Heaviside-Lorentz with $c = 1$, SI where numbers are given. In SI units a time derivative of $\mathbf E$ next to $\nabla
 \times\mathbf B$ carries $1/c^2$, and $\partial_t\mathbf B$ next to $\nabla\times\mathbf E$ carries no factor.
 
-For more on this topic, see @nastase2019classical.
+For more on this topic, see [@nastase2019classical, Ch. 5 and Secs. 13.1, 15.8].
 
 ### Induction
 
@@ -5137,7 +5124,7 @@ condition for a fixed radius links the field at the orbit to the average field i
 An electron on a circle of radius $R$ is accelerated by $E_\varphi = -\frac{1}{2\pi R}\frac{d\Phi_B}{dt}$, so $\dot p = \frac{e}{2\pi
 R}\dot\Phi_B$, while circular motion needs $p = eRB(R)$ (@exm-ems-cyclotron, also valid relativistically for the
 momentum). Both hold at all times if $\dot\Phi_B = 2\pi R^2\dot B(R)$, that is, if the average field inside the orbit is
-twice the field at the orbit (@exr-emm-betatron) [@pierrus2018solved, Question 5.13].
+twice the field at the orbit (@exr-emm-betatron).
 :::
 ::::
 
@@ -5202,8 +5189,7 @@ motion with Sage and checks the energy balance.
 
 A horizontal bar of mass $m$ and length $\ell$ falls from rest between two vertical rails joined at the top through a
 resistance $R$, in a horizontal field $B$ normal to the plane of the rails. With Sage, solve for $v(t)$, find the terminal
-speed, and check that at that speed the power of gravity equals the Joule power [@macchi2023problems, Problem 6.3;
-@pierrus2018solved, Question 5.6].
+speed, and check that at that speed the power of gravity equals the Joule power [@macchi2023problems, Problem 6.3; @pierrus2018solved, Question 5.6].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5275,8 +5261,7 @@ needed to keep it turning.
 #### Driving the Faraday disc
 
 The disc of @exm-emm-faraday-disc is connected through a resistance $R$. Find the current, the torque of the magnetic
-force on the radial current, and check that the mechanical power equals the Joule power [@macchi2023problems, Problem
-6.11].
+force on the radial current, and check that the mechanical power equals the Joule power [@macchi2023problems, Problem 6.11].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5428,7 +5413,7 @@ B)$ of @def-ems-magnetic-field. The term $\partial_t\mathbf E$, the **displaceme
 equations consistent only if the sources satisfy the **continuity equation** $\partial_t\rho + \nabla\cdot\mathbf J = 0$.
 In SI units the equations read $\nabla\cdot\mathbf E = \rho/\varepsilon_0$, $\nabla\times\mathbf B - \frac1{c^2}\partial_t\mathbf
 E = \mu_0\mathbf J$, $\nabla\cdot\mathbf B = 0$, $\nabla\times\mathbf E + \partial_t\mathbf B = 0$, with $c^2 = 1/\varepsilon_0
-\mu_0$ [@maggiore2023electrodynamics, Secs. 3.1-3.2.1].
+\mu_0$ [@maggiore2023electrodynamics, Secs. 3.1-3.2.1; @emam2021covariant, Sec. 4.8, eqs. (4.168)-(4.173); @rahamanSpecialTheoryRelativity2022, Secs. 13.3-13.5].
 :::
 ::::
 
@@ -5466,7 +5451,7 @@ function. Point charges are the sources of every microscopic field.
 For charges $q_a$ on trajectories $\mathbf x_a(t)$, $\rho = \sum_aq_a\delta^3(\mathbf x - \mathbf x_a(t))$ and $\mathbf J =
 \sum_aq_a\dot{\mathbf x}_a\delta^3(\mathbf x - \mathbf x_a(t))$ (@def-dirac-delta). By the chain rule $\partial_t\delta^3(\mathbf x -
 \mathbf x_a(t)) = -\dot{\mathbf x}_a\cdot\nabla\delta^3(\mathbf x - \mathbf x_a(t))$, which is $-\nabla\cdot\mathbf J$ term by term
-[@maggiore2023electrodynamics, eqs. (3.25)-(3.30)].
+[@maggiore2023electrodynamics, Sec. 3.2.1, eqs. (3.25)-(3.30)].
 :::
 
 When nothing depends on time, the equations split into the electrostatics and magnetostatics of the previous section.
@@ -5512,7 +5497,7 @@ constraints, preserved by the other two.
 
 The curl equations give $\partial_t\mathbf B$ and $\partial_t\mathbf E$ and so evolve the fields. The divergence equations
 contain no time derivative: they constrain the initial data and then hold at all times, since $\partial_t(\nabla\cdot\mathbf
-B) = -\nabla\cdot\nabla\times\mathbf E = 0$ and $\partial_t(\nabla\cdot\mathbf E - \rho) = \nabla\cdot(\nabla\times\mathbf B - \mathbf J) - \partial_t\rho = 0$ by continuity (@exr-emm-constraints-proof) [@maggiore2023electrodynamics, Sec. 3.3].
+B) = -\nabla\cdot\nabla\times\mathbf E = 0$ and $\partial_t(\nabla\cdot\mathbf E - \rho) = \nabla\cdot(\nabla\times\mathbf B - \mathbf J) - \partial_t\rho = 0$ by continuity (@exr-emm-constraints-proof).
 :::
 
 The displacement current is negligible in ordinary circuits. The example estimates when, which defines the quasi-static
@@ -5548,7 +5533,7 @@ relates the SI form to the form used here.
 With $\mathbf E_{\text{HL}} = \sqrt{\varepsilon_0}\mathbf E_{\text{SI}}$, $\mathbf B_{\text{HL}} = \mathbf B_{\text{SI}}/\sqrt{\mu_0}$,
 $\rho_{\text{HL}} = \rho_{\text{SI}}/\sqrt{\varepsilon_0}$, $\mathbf J_{\text{HL}} = \mathbf J_{\text{SI}}/c\sqrt{\varepsilon_0}$ and
 time measured as $ct$, the SI equations become @eq-emm-maxwell. The energy density $\frac12(\varepsilon_0E^2 + B^2/\mu_0)$ becomes
-$\frac12(E^2 + B^2)$ [@maggiore2023electrodynamics, Ch. 2 and Sec. 3.1.1].
+$\frac12(E^2 + B^2)$ [@maggiore2023electrodynamics, Sec. 2.2, eqs. (2.39)-(2.46), and Sec. 3.2.2, eq. (3.43)].
 :::
 ::::
 
@@ -5753,7 +5738,7 @@ consistency condition. The modified equations are symmetric between electric and
 Replace $\nabla\cdot\mathbf B = 0$ by $\nabla\cdot\mathbf B = \rho_m$ and $\nabla\times\mathbf E + \partial_t\mathbf B = 0$ by
 $-\mathbf J_m$. Show that consistency requires $\partial_t\rho_m + \nabla\cdot\mathbf J_m = 0$, and find the force on a magnetic
 charge $g$ that makes the equations symmetric under $\mathbf E \to \mathbf B$, $\mathbf B \to -\mathbf E$, $(\rho, \mathbf J) \to
-(\rho_m, \mathbf J_m)$, $(\rho_m, \mathbf J_m) \to (-\rho, -\mathbf J)$ [@macchi2023problems, Problem 8.9].
+(\rho_m, \mathbf J_m)$, $(\rho_m, \mathbf J_m) \to (-\rho, -\mathbf J)$ [@macchi2023problems, Problem 8.9; @nastase2019classical, Sec. 27.1, eqs. (27.7)-(27.17)].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5803,7 +5788,7 @@ and the Ampère-Maxwell law with $\mathbf E$ and subtract: $\mathbf B\cdot\parti
 -\mathbf B\cdot\nabla\times\mathbf E + \mathbf E\cdot\nabla\times\mathbf B - \mathbf E\cdot\mathbf J$, and $\mathbf B\cdot\nabla\times\mathbf
 E - \mathbf E\cdot\nabla\times\mathbf B = \nabla\cdot(\mathbf E\times\mathbf B)$. For charges $q_a$, $\int\mathbf E\cdot\mathbf J =
 \sum_aq_a\dot{\mathbf x}_a\cdot(\mathbf E + \dot{\mathbf x}_a\times\mathbf B) = \frac{d}{dt}\sum_a\frac12m_a|\dot{\mathbf x}_a|^2$ by
-the Lorentz force law [@maggiore2023electrodynamics, Sec. 3.2.2, eqs. (3.31)-(3.47)].
+the Lorentz force law [@maggiore2023electrodynamics, Sec. 3.2.2, eqs. (3.31)-(3.47); @nastase2019classical, Sec. 14.6, eqs. (14.47)-(14.50); @rahamanSpecialTheoryRelativity2022, Sec. 14.5].
 :::
 ::::
 
@@ -5957,7 +5942,7 @@ including the region outside the rim.
 #### Energy balance of a charging capacitor
 
 With Sage, for $E(t) = It/\pi a^2$ between circular plates of radius $a$ at distance $d$, compute $\mathbf B$ and $\mathbf S$ for $s < a$,
-check @eq-emm-poynting pointwise there, and integrate the flux through the cylinder of radius $s$.
+check @eq-emm-poynting pointwise there, and integrate the flux through the cylinder of radius $s$ [@macchi2023problems, Problem 8.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -6073,7 +6058,7 @@ not depend on the wire's radius.
 #### Any surface around the wire
 
 Show that the flux of $\mathbf S$ into a coaxial cylinder of radius $s > a$ around the wire of @exm-emm-poynting-wire is also $VI$,
-assuming $E = V/\ell$ along the wire just outside it.
+assuming $E = V/\ell$ along the wire just outside it [@macchi2023problems, Problem 8.1].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -6183,7 +6168,7 @@ density $\mathbf x\times\mathbf g$ satisfies a law of the same form. In SI units
 and $T_{ij}$ carries $\varepsilon_0$ and $1/\mu_0$. *Proof.* $\partial_t(\mathbf E\times\mathbf B) = (\nabla\times\mathbf B - \mathbf J)\times\mathbf B -
 \mathbf E\times\nabla\times\mathbf E$, and $(\mathbf E\times\nabla\times\mathbf E)_i = \partial_i\frac{E^2}2 - E_j\partial_jE_i = \partial_j(\frac12E^2
 \delta_{ij} - E_iE_j) + E_i\nabla\cdot\mathbf E$, with $\nabla\cdot\mathbf E = \rho$; likewise for $\mathbf B$ with $\nabla\cdot\mathbf B = 0$
-[@maggiore2023electrodynamics, Sec. 3.2.2, eqs. (3.56)-(3.79)].
+[@maggiore2023electrodynamics, Sec. 3.2.2, eqs. (3.56)-(3.79); @nastase2019classical, Sec. 14.6, eq. (14.51)].
 :::
 ::::
 
@@ -6273,8 +6258,7 @@ the stress plus the loss of field momentum.
 
 Writing the conservation law as $(\rho\mathbf E + \mathbf J\times\mathbf B)_i = -\partial_jT_{ij} - \partial_tg_i$, the Lorentz force on a
 volume element is the net momentum flux into it minus the momentum the field keeps. The second term is of order
-$1/c^2$ compared with the first in SI units, and is negligible for slowly varying fields [@maggiore2023electrodynamics,
-eqs. (3.70)-(3.72)].
+$1/c^2$ compared with the first in SI units, and is negligible for slowly varying fields [@maggiore2023electrodynamics, eqs. (3.70)-(3.72)].
 :::
 
 The stress tensor of a single field has simple eigenvalues. The last example states them, and what they mean. Their signs distinguish tension from pressure.
@@ -6295,8 +6279,7 @@ as for photons of spin one.
 
 A circularly polarised beam of power $P$ and angular frequency $\omega$, absorbed by a disc, exerts the torque $P/\omega$ about its
 axis besides the force $P$ ($P/c$ in SI units): the angular momentum density $\mathbf x\times\mathbf g$ of a beam of finite width
-integrates to $\pm\mathcal E/\omega$ per energy $\mathcal E$, which for a photon of energy $\hbar\omega$ is $\pm\hbar$ [@macchi2023problems,
-Problem 8.7].
+integrates to $\pm\mathcal E/\omega$ per energy $\mathcal E$, which for a photon of energy $\hbar\omega$ is $\pm\hbar$ [@macchi2023problems, Problem 8.7].
 :::
 ::::
 
@@ -6441,7 +6424,7 @@ The field of a rotating charged shell carries angular momentum. The seventh exer
 #### Angular momentum of a rotating shell's field
 
 For the shell of @exr-emm-rotating-shell-flux, compute with Sage the angular momentum $\int_{r > a}\mathbf x\times(\mathbf E\times
-\mathbf B)\,d^3x$ of the field outside, and express it through $Q$, $\omega$ and $a$.
+\mathbf B)\,d^3x$ of the field outside, and express it through $Q$, $\omega$ and $a$ [@macchi2023problems, Problem 8.13].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -6546,7 +6529,7 @@ $$
 J .
 $$ {#eq-emm-potential-equations}
 In SI units the same definitions hold, and the equations carry $1/\varepsilon_0$, $\mu_0$ and $\Box = c^{-2}\partial_t^2 - \nabla^2$
-[@maggiore2023electrodynamics, Sec. 3.3, eqs. (3.80)-(3.85); @pierrus2018solved, Questions 8.1-8.2].
+[@maggiore2023electrodynamics, Sec. 3.3, eqs. (3.80)-(3.85); @pierrus2018solved, Questions 8.1-8.2; @ciniElementsClassicalQuantum2018, Sec. 4.1; @emam2021covariant, Sec. 4.8, eqs. (4.176)-(4.177)].
 :::
 ::::
 
@@ -6601,7 +6584,7 @@ The potentials replace six field components by four functions. The counting of e
 
 @eq-emm-potential-equations are four equations for four unknowns, while @eq-emm-maxwell were eight for six. The two
 homogeneous Maxwell equations (four component equations) are solved by @eq-emm-potentials; the remaining four are
-@eq-emm-potential-equations [@maggiore2023electrodynamics, Sec. 3.3].
+@eq-emm-potential-equations [@maggiore2023electrodynamics, Sec. 3.3; @rahamanSpecialTheoryRelativity2022, Sec. 13.10.3].
 :::
 
 When the current in a solenoid changes, the electric field outside comes entirely from the time derivative of the vector
@@ -7117,7 +7100,7 @@ Sage.
 ::: {#exr-emm-gauge-landau}
 #### Three gauges for a uniform field
 
-For $\mathbf B = B\mathbf e_z$, find with Sage the gauge functions relating $\frac B2(-y, x, 0)$, $(0, Bx, 0)$ and $(-By, 0, 0)$.
+For $\mathbf B = B\mathbf e_z$, find with Sage the gauge functions relating $\frac B2(-y, x, 0)$, $(0, Bx, 0)$ and $(-By, 0, 0)$ [@pierrus2018solved, Question 8.4].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7307,7 +7290,7 @@ The remaining freedom is $\nabla^2\lambda = 0$ in the Coulomb gauge and $\Box\la
 -\nabla\cdot\mathbf A$ reaches the Coulomb gauge; and $\partial_t\Phi + \nabla\cdot\mathbf A \mapsto \partial_t\Phi + \nabla\cdot\mathbf A - \Box\lambda$,
 so solving the wave equation $\Box\lambda = \partial_t\Phi + \nabla\cdot\mathbf A$ (with the retarded Green's function of
 @def-retarded-greens-function) reaches the Lorenz gauge. Substituting the conditions into @eq-emm-potential-equations gives
-the equations [@maggiore2023electrodynamics, Sec. 3.3, eqs. (3.87)-(3.94); @pierrus2018solved, Questions 8.6-8.7].
+the equations [@maggiore2023electrodynamics, Sec. 3.3, eqs. (3.87)-(3.94); @pierrus2018solved, Questions 8.6-8.7; @rahamanSpecialTheoryRelativity2022, Sec. 14.11; @ciniElementsClassicalQuantum2018, Sec. 4.1].
 :::
 ::::
 
@@ -7320,7 +7303,7 @@ once when the charges move, yet no signal travels faster than light.
 
 In the Coulomb gauge, $\Phi(t, \mathbf x) = \frac1{4\pi}\int\frac{\rho(t, \mathbf x')}{|\mathbf x - \mathbf x'|}d^3x'$ at the same time $t$. The
 fields are nevertheless causal: the instantaneous part of $-\nabla\Phi$ is cancelled by part of $-\partial_t\mathbf A$, whose source
-$\mathbf J - \nabla\partial_t\Phi$ is itself spread over space [@maggiore2023electrodynamics, Sec. 3.3].
+$\mathbf J - \nabla\partial_t\Phi$ is itself spread over space [@maggiore2023electrodynamics, Secs. 3.3, 11.1.2; @pierrus2018solved, Question 8.2].
 :::
 
 In the Lorenz gauge every component obeys a wave equation with a source. The solutions are retarded potentials, the
@@ -7689,7 +7672,7 @@ sources, the **duality** $\mathbf E \mapsto \mathbf B$, $\mathbf B \mapsto -\mat
 \mathbf B\sin\alpha$, $-\mathbf E\sin\alpha + \mathbf B\cos\alpha$. In each case the potentials transform like the fields they produce:
 $\Phi$ like $\rho$ and $\mathbf A$ like $\mathbf J$. *Proof.* By substitution: $\nabla$ changes sign under parity and $\partial_t$ under
 time reversal, and the stated signs make each equation map to itself; for duality the two curl equations exchange and
-the two divergence equations exchange [@maggiore2023electrodynamics, Sec. 3.4, eqs. (3.95)-(3.99)].
+the two divergence equations exchange [@maggiore2023electrodynamics, Sec. 3.4, eqs. (3.95)-(3.99); @nastase2019classical, Sec. 15.8, eqs. (15.68)-(15.73)].
 :::
 ::::
 
@@ -7961,7 +7944,7 @@ Duality can be extended to sources if magnetic charges exist. The seventh exerci
 #### Duality with magnetic charges
 
 With the equations of @exr-emm-monopoles, show that $\mathbf E \mapsto \mathbf B$, $\mathbf B \mapsto -\mathbf E$ is a symmetry if $(\rho, \mathbf
-J) \mapsto (\rho_m, \mathbf J_m)$ and $(\rho_m, \mathbf J_m) \mapsto (-\rho, -\mathbf J)$ [@macchi2023problems, Problem 8.9].
+J) \mapsto (\rho_m, \mathbf J_m)$ and $(\rho_m, \mathbf J_m) \mapsto (-\rho, -\mathbf J)$ [@macchi2023problems, Problem 8.9; @nastase2019classical, Sec. 27.1, eqs. (27.7)-(27.17)].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -8070,7 +8053,7 @@ $$ {#eq-emm-charged-hamiltonian}
 replace the momentum $\mathbf p$ by the **kinetic momentum** $\boldsymbol\pi = \mathbf p - q\mathbf A = m\dot{\mathbf x}$ and the energy $H$ by $H -
 q\Phi$. The relativistic Hamiltonian $\sqrt{m^2 + |\mathbf p - q\mathbf A|^2} + q\Phi$ and the quantum rule $\mathbf p = -i\nabla$ follow the
 same rule; the Dirac and gauge-theory chapters write it as the covariant derivative $\partial_\mu + iqA_\mu$
-[@maggiore2023electrodynamics, Sec. 8.6; @pierrus2018solved, Questions 8.16-8.17].
+[@maggiore2023electrodynamics, Sec. 8.6; @pierrus2018solved, Questions 8.16-8.17; @ciniElementsClassicalQuantum2018, Sec. 2.5.4; @rahamanSpecialTheoryRelativity2022, Sec. 13.17].
 :::
 ::::
 
@@ -8438,7 +8421,7 @@ is that $\psi \mapsto e^{iq\lambda}\psi$ maps solutions of the Schrödinger equa
 transformed potentials. *Proof.* $-q(-\partial_t\lambda) + q\dot{\mathbf x}\cdot\nabla\lambda = q(\partial_t\lambda + \dot{\mathbf x}\cdot\nabla\lambda) = q\dot\lambda$
 along the path. Then $\mathbf p' = \partial L'/\partial\dot{\mathbf x} = \mathbf p + q\nabla\lambda$, and with @eq-generating-function, $\mathbf p = \mathbf P -
 q\nabla\lambda$ and $K = H + \partial_tF_2 = H - q\partial_t\lambda$, which equals $\frac{|\mathbf P - q\mathbf A'|^2}{2m} + q\Phi'$
-[@maggiore2023electrodynamics, Sec. 8.6.2; @pierrus2018solved, Question 8.16].
+[@maggiore2023electrodynamics, Sec. 8.6.2; @pierrus2018solved, Questions 8.16, 8.19].
 :::
 ::::
 
@@ -8503,7 +8486,7 @@ to its consequences.
 
 With $H = \frac{1}{2m}(-i\nabla - q\mathbf A)^2 + q\Phi$ (@exm-emm-mc-quantum), $(-i\nabla - q\mathbf A - q\nabla\lambda)(e^{iq\lambda}\psi) = e^{iq\lambda}(-i\nabla -
 q\mathbf A)\psi$ and $(i\partial_t - q\Phi + q\partial_t\lambda)(e^{iq\lambda}\psi) = e^{iq\lambda}(i\partial_t - q\Phi)\psi$, so $e^{iq\lambda}\psi$ solves
-the Schrödinger equation with the new potentials. Probabilities $|\psi|^2$ do not change (@exr-emm-gi-schrodinger).
+the Schrödinger equation with the new potentials. Probabilities $|\psi|^2$ do not change (@exr-emm-gi-schrodinger) [@pierrus2018solved, Question 8.19].
 :::
 
 The Aharonov-Bohm effect shows that the potentials matter in quantum mechanics even where the fields vanish. Classically
@@ -8536,7 +8519,7 @@ field theory.
 No Lagrangian of the form $L(\mathbf x, \dot{\mathbf x}, \mathbf E, \mathbf B)$, local in the fields at the particle's position, gives the
 Lorentz force for all fields: the term linear in $\dot{\mathbf x}$ must be $q\dot{\mathbf x}\cdot\mathbf A$ up to a total derivative, because
 its Euler-Lagrange contribution must be $q\dot{\mathbf x}\times\nabla\times\mathbf A$. Gauge invariance is the price of this
-locality [@maggiore2023electrodynamics, Sec. 3.3].
+locality.
 :::
 
 Noether's theorem with a Lagrangian that changes by a total derivative gives a modified conserved quantity. In the
@@ -8696,7 +8679,7 @@ The gauge transformation of the wave function is a short computation with Sage. 
 #### The Schrödinger equation is gauge covariant
 
 With Sage, in one space dimension, check that $(-i\partial_x - qA - q\partial_x\lambda)(e^{iq\lambda}\psi) = e^{iq\lambda}(-i\partial_x - qA)\psi$
-and $(i\partial_t - q\Phi + q\partial_t\lambda)(e^{iq\lambda}\psi) = e^{iq\lambda}(i\partial_t - q\Phi)\psi$ for arbitrary functions.
+and $(i\partial_t - q\Phi + q\partial_t\lambda)(e^{iq\lambda}\psi) = e^{iq\lambda}(i\partial_t - q\Phi)\psi$ for arbitrary functions [@pierrus2018solved, Question 8.19].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -8898,8 +8881,7 @@ $$ {#eq-emw-plane-wave}
 with a constant complex **amplitude** $\mathbf E_0$; its **wavelength** is $\lambda = 2\pi/|\mathbf k|$. More generally, $\mathbf E =
 \mathbf f(\hat{\mathbf k}\cdot\mathbf x - t)$ with $\hat{\mathbf k}\cdot\mathbf f = 0$ and $\mathbf B = \hat{\mathbf k}\times\mathbf E$ is a plane wave of
 arbitrary profile. The fields are transverse, $|\mathbf E| = |\mathbf B|$, and $u = |\mathbf E|^2$, $\mathbf S = u\hat{\mathbf k}$. In SI units
-$\omega = c|\mathbf k|$ and $\mathbf B = \hat{\mathbf k}\times\mathbf E/c$ [@maggiore2023electrodynamics, Secs. 9.1-9.4;
-@pierrus2018solved, Questions 7.4-7.5].
+$\omega = c|\mathbf k|$ and $\mathbf B = \hat{\mathbf k}\times\mathbf E/c$ [@maggiore2023electrodynamics, Secs. 9.1-9.4; @pierrus2018solved, Questions 7.4-7.5; @nastase2019classical, Sec. 15.5, eqs. (15.39)-(15.49)].
 :::
 ::::
 
@@ -8922,7 +8904,7 @@ Gauss's law forces the field to be transverse. A longitudinal plane wave would n
 
 For $\mathbf E = \operatorname{Re}(\mathbf E_0e^{i(\mathbf k\cdot\mathbf x - \omega t)})$, $\nabla\cdot\mathbf E = \operatorname{Re}(i\mathbf k\cdot\mathbf E_0e^{i(\dots)})$,
 which vanishes for all $\mathbf x$ and $t$ only if $\mathbf k\cdot\mathbf E_0 = 0$. Faraday's law then gives $\omega\mathbf B_0 = \mathbf k\times
-\mathbf E_0$, and the Ampère-Maxwell law $\omega^2 = |\mathbf k|^2$ [@pierrus2018solved, Question 7.5].
+\mathbf E_0$, and the Ampère-Maxwell law $\omega^2 = |\mathbf k|^2$ [@pierrus2018solved, Questions 7.4-7.5].
 :::
 
 The energy of a plane wave moves with it. The time-averaged flux is the intensity. It is a direct consequence of the definition.
@@ -8953,7 +8935,7 @@ Every vacuum solution is a superposition of plane waves. The Fourier transform i
 Writing $\mathbf E(t, \mathbf x) = \int\hat{\mathbf E}(t, \mathbf k)e^{i\mathbf k\cdot\mathbf x}\frac{d^3k}{(2\pi)^3}$ (@def-fourier-transform), the wave
 equation gives $\partial_t^2\hat{\mathbf E} = -|\mathbf k|^2\hat{\mathbf E}$, so $\hat{\mathbf E} = \mathbf a(\mathbf k)e^{-i|\mathbf k|t} + \mathbf b(\mathbf
 k)e^{i|\mathbf k|t}$ with $\mathbf k\cdot\mathbf a = \mathbf k\cdot\mathbf b = 0$: each mode is a plane wave, two polarisations per $\mathbf k$
-[@maggiore2023electrodynamics, Sec. 9.4].
+[@maggiore2023electrodynamics, Secs. 9.3-9.4].
 :::
 
 Two plane waves travelling in opposite directions form a standing wave. Its nodes do not move and no energy flows on
@@ -8975,7 +8957,7 @@ speed, so the pulse does not spread.
 
 $E_x = E_0e^{-(z - t)^2/2\sigma^2}\cos(k_0(z - t))$, $B_y = E_x$ is a plane wave of the general form, a packet of length $\sigma$
 around the wavelength $2\pi/k_0$; its spectrum has width $1/\sigma$. In a dispersive medium the components would separate,
-as studied in @sec-em-matter [@macchi2023problems, Problem 7.11].
+as studied in @sec-em-matter [@macchi2023problems, Problems 7.11-7.12].
 :::
 
 The wavelengths of electromagnetic waves span many orders of magnitude. The example gives the frequencies of a few
@@ -9252,7 +9234,7 @@ and the pressure on the mirror.
 #### Reflection from a perfect conductor
 
 A wave $E_0\cos(z - t)\mathbf e_x$ falls on a perfect conductor filling $z > 0$. Using that the tangential $\mathbf E$ vanishes on its
-surface, find the reflected wave, the surface current and the pressure on the mirror.
+surface, find the reflected wave, the surface current and the pressure on the mirror [@macchi2023problems, Problem 8.5].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -9273,7 +9255,7 @@ For a monochromatic plane wave travelling along $\mathbf e_z$, write $\mathbf E_
 \geq 0$. At a fixed point the tip of $\mathbf E$ describes an ellipse, the **polarisation** of the wave: **linear** if $\delta \in
 \{0, \pi\}$, **circular** if $E_x = E_y$ and $\delta = \pm\pi/2$, **elliptical** otherwise. The **Stokes parameters** $s_0 = |E_x|^2 + |E_y|^2$, $s_1 = |E_x|^2 - |E_y|^2$, $s_2 = 2\operatorname{Re}(E_{0x}^*E_{0y})$, $s_3 = 2\operatorname{Im}(E_{0x}^*E_{0y})$ satisfy $s_0^2 =
 s_1^2 + s_2^2 + s_3^2$ and describe the polarisation by a point on a sphere; for light that is a mixture of waves they are
-averages, with $s_0^2 \geq s_1^2 + s_2^2 + s_3^2$ [@maggiore2023electrodynamics, Sec. 9.5].
+averages, with $s_0^2 \geq s_1^2 + s_2^2 + s_3^2$ [@maggiore2023electrodynamics, Sec. 9.5; @pierrus2018solved, Question 7.9].
 :::
 ::::
 
@@ -9294,9 +9276,8 @@ helicity.
 #### Circular polarisation
 
 For $\mathbf E_0 = \frac{E}{\sqrt2}(\mathbf e_x + i\mathbf e_y)$, $\mathbf E = \frac{E}{\sqrt2}\bigl(\cos(kz - \omega t), -\sin(kz - \omega t), 0\bigr)$: at $z = 0$ it
-turns counterclockwise seen from the side toward which the wave travels, positive **helicity** (called left circular in optics);
-$\mathbf e_x - i\mathbf e_y$ gives negative helicity. Then $s_3 = \pm s_0$, the poles of the sphere [@maggiore2023electrodynamics, Sec.
-9.5].
+turns counterclockwise seen from the side toward which the wave travels, positive **helicity** (called left circular in optics [@pierrus2018solved, Question 7.9]; Maggiore calls the same vector right circular [@maggiore2023electrodynamics, p. 228], since the naming conventions differ);
+$\mathbf e_x - i\mathbf e_y$ gives negative helicity. Then $s_3 = \pm s_0$, the poles of the sphere [@maggiore2023electrodynamics, Sec. 9.5; @pierrus2018solved, Question 7.9].
 :::
 
 In general the tip of the field describes an ellipse. Its axes depend on the amplitudes and on the phase difference.
@@ -9347,7 +9328,7 @@ polarisation into circular.
 #### Changing the phase difference
 
 A device that delays $E_y$ by a quarter period changes $\delta$ by $\pi/2$: linear light at $45^\circ$ ($\delta = 0$, $E_x = E_y$) becomes
-circular. In terms of Stokes parameters, the change of $\delta$ rotates $(s_2, s_3)$ about the $s_1$ axis of the sphere.
+circular. In terms of Stokes parameters, the change of $\delta$ rotates $(s_2, s_3)$ about the $s_1$ axis of the sphere [@macchi2023problems, Problem 11.6; @landau2018computational, Sec. 5.3.4].
 :::
 
 Circularly polarised light carries angular momentum. Its sign is that of the helicity. Polarisation is a property of the amplitude alone.
@@ -9378,7 +9359,7 @@ The Stokes parameters can be measured with polarisers alone, plus one retarder. 
 
 With $I(\theta)$ the intensity behind a linear polariser at angle $\theta$ from $\mathbf e_x$, $s_1 = I(0^\circ) - I(90^\circ)$ and $s_2 = I(45^\circ) -
 I(135^\circ)$; with $I_\pm$ behind filters passing only positive or negative helicity, $s_3 = I_+ - I_-$, and $s_0$ is the total intensity
-(@exm-emw-pol-malus, @exm-emw-pol-retarder) [@maggiore2023electrodynamics, Sec. 9.5].
+(@exm-emw-pol-malus, @exm-emw-pol-retarder). Pierrus notes that the four parameters can be measured [@pierrus2018solved, Question 7.9, Comment (v)].
 :::
 ::::
 
@@ -9467,7 +9448,7 @@ The decomposition of @exm-emw-pol-decomposition works in reverse. The fourth exe
 ::: {#exr-emw-pol-build}
 #### Building circular light
 
-Show that $E_0\cos(z - t)\mathbf e_x + E_0\sin(z - t)\mathbf e_y$ is circularly polarised, find its helicity, and its $\mathbf B$.
+Show that $E_0\cos(z - t)\mathbf e_x + E_0\sin(z - t)\mathbf e_y$ is circularly polarised, find its helicity, and its $\mathbf B$ [@pierrus2018solved, Question 7.10].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -9602,7 +9583,7 @@ until $t_0$. *Proof.* Each integral is $\int G_{\text{ret}}(t - t', \mathbf x - 
 \delta(t - r)/4\pi r$, which solves $\Box u = f$ (@def-retarded-greens-function). For the Lorenz condition, write $R = |\mathbf x - \mathbf
 x'|$; then $\nabla\cdot\frac{\mathbf J(t - R, \mathbf x')}{R} = -\nabla'\cdot\frac{\mathbf J(t - R, \mathbf x')}{R} + \frac{(\nabla'\cdot\mathbf J)(t - R, \mathbf x')}{R}$,
 where $\nabla'$ in the last term acts on the second argument only; the first term integrates to zero, and the last cancels
-$\partial_t\Phi$ by continuity [@maggiore2023electrodynamics, Secs. 10.1 and 9.2; @pierrus2018solved, Questions 8.8-8.9].
+$\partial_t\Phi$ by continuity [@maggiore2023electrodynamics, Secs. 10.1 and 9.2; @pierrus2018solved, Questions 8.2, 8.8-8.9].
 :::
 ::::
 
@@ -9668,7 +9649,7 @@ The advanced potentials, with $t + R$ in place of $t - R$, also solve the equati
 
 The advanced Green's function $\delta(t + r)/4\pi r$ gives potentials that depend on the sources in the future. Their difference
 from the retarded potentials solves the homogeneous equation; requiring no incoming radiation before the sources act selects the
-retarded solution [@maggiore2023electrodynamics, Sec. 10.1].
+retarded solution [@maggiore2023electrodynamics, Sec. 10.1; @ciniElementsClassicalQuantum2018, Sec. 4.2; @nastase2019classical, Sec. 15.6, eqs. (15.50)-(15.56)].
 :::
 
 The retarded potentials give the fields directly by differentiation. The result expresses $\mathbf E$ and $\mathbf B$ as integrals over
@@ -9689,7 +9670,7 @@ When the sources change slowly, the retardation can be expanded. The leading ter
 
 For sources varying on time scales much longer than their light-crossing time, $\rho(t - R) = \rho(t) - R\dot\rho(t) + \frac12R^2\ddot\rho(t) -
 \dots$, so $\Phi = \frac1{4\pi}\int\frac{\rho}{R} - \frac1{4\pi}\frac{d}{dt}\int\rho + \frac1{8\pi}\frac{d^2}{dt^2}\int\rho R - \dots$. The second term vanishes by
-charge conservation; the third is the first correction to the Coulomb potential [@maggiore2023electrodynamics, Sec. 12.1].
+charge conservation; the third is the first correction to the Coulomb potential [@maggiore2023electrodynamics, Secs. 12.1-12.2].
 :::
 
 Far from a localised source the retardation simplifies. The potentials become functions of $t - r$ and of the direction.
@@ -9790,7 +9771,7 @@ of the proof.
 #### The Lorenz condition
 
 Complete the proof of @prp-emw-retarded-potentials: show that $\partial_t\Phi + \nabla\cdot\mathbf A = \frac1{4\pi}\int\frac{[\partial_t\rho + \nabla'\cdot\mathbf
-J]}{R}d^3x'$, which vanishes.
+J]}{R}d^3x'$, which vanishes [@pierrus2018solved, Question 8.8].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -9990,8 +9971,7 @@ the sum of a **velocity field**, falling as $1/R^2$, and an **acceleration field
 *Proof.* Uniqueness: $f(t_r) = t - t_r - |\mathbf x - \mathbf r(t_r)|$ decreases strictly since $|\dot{\mathbf r}| < 1$. In @eq-emw-retarded with $\rho
 = q\delta^3(\mathbf x' - \mathbf r(t'))$, write $\rho(t_r)$ as $\int\delta(t' - t + |\mathbf x - \mathbf x'|)\rho(t', \mathbf x')dt'$; integrating over $\mathbf x'$
 and then over $t'$ gives the Jacobian $1/\kappa$ of $t' \mapsto t' - t + |\mathbf x - \mathbf r(t')|$. The fields follow by differentiating with
-$\partial t_r/\partial t = 1/\kappa$ and $\nabla t_r = -\hat{\mathbf n}/\kappa$ [@maggiore2023electrodynamics, Secs. 10.2-10.4;
-@pierrus2018solved, Questions 8.12-8.14].
+$\partial t_r/\partial t = 1/\kappa$ and $\nabla t_r = -\hat{\mathbf n}/\kappa$ [@maggiore2023electrodynamics, Secs. 10.2-10.4; @pierrus2018solved, Questions 8.12-8.14; @ciniElementsClassicalQuantum2018, Sec. 4.3, eqs. (4.8)-(4.9); @nastase2019classical, Sec. 15.6].
 :::
 ::::
 
@@ -10088,7 +10068,7 @@ rest by a Lorentz transformation, as the special relativity chapter shows.
 #### The potential of a uniformly moving charge
 
 With $\kappa R$ from @exm-emw-lw-uniform, $\Phi = \frac{q}{4\pi\sqrt{(x - vt)^2 + (1 - v^2)(y^2 + z^2)}} = \frac{q\gamma}{4\pi\sqrt{\gamma^2(x - vt)^2 + y^2 +
-z^2}}$ for $\mathbf v = v\mathbf e_x$, and $\mathbf A = \mathbf v\Phi$, with $\gamma = (1 - v^2)^{-1/2}$ [@pierrus2018solved, Question 8.15].
+z^2}}$ for $\mathbf v = v\mathbf e_x$, and $\mathbf A = \mathbf v\Phi$, with $\gamma = (1 - v^2)^{-1/2}$ [@pierrus2018solved, Questions 8.13, 8.15; @nastase2019classical, Sec. 15.2, eqs. (15.6)-(15.16); @rahamanSpecialTheoryRelativity2022, Sec. 13.16].
 :::
 
 A charge moving slowly on a circle is a rotating dipole seen from far away. Its radiation field follows from the acceleration term.
@@ -10141,7 +10121,7 @@ The retarded time of a uniformly moving charge solves a quadratic equation. The 
 ::: {#exr-emw-lw-retarded-time}
 #### The retarded time of uniform motion
 
-For $\mathbf r(t) = vt\,\mathbf e_x$, solve $t - t_r = |\mathbf x - vt_r\mathbf e_x|$ for $t_r$ with Sage, choose the root with $t_r < t$, and evaluate $\kappa R$.
+For $\mathbf r(t) = vt\,\mathbf e_x$, solve $t - t_r = |\mathbf x - vt_r\mathbf e_x|$ for $t_r$ with Sage, choose the root with $t_r < t$, and evaluate $\kappa R$ [@pierrus2018solved, Question 8.15].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -10176,7 +10156,7 @@ The field of uniform motion can be computed from the potentials at the present t
 #### The field of uniform motion from the potentials
 
 With Sage, compute $\mathbf E = -\nabla\Phi - \partial_t\mathbf A$ and $\mathbf B = \nabla\times\mathbf A$ from @exm-emw-lw-uniform-potential, and compare with the
-formula of @exm-emw-lw-uniform.
+formula of @exm-emw-lw-uniform [@pierrus2018solved, Question 8.13].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -10227,7 +10207,7 @@ this against the uniform-motion formula.
 #### $\hat{\mathbf n}\times\mathbf E$ and $\mathbf v\times\mathbf E$ for uniform motion
 
 For uniform motion the magnetic field is $\hat{\mathbf n}\times\mathbf E$ by @prp-emw-lienard-wiechert, with $\hat{\mathbf n}$ from the retarded position,
-and $\mathbf v\times\mathbf E$ by @exm-emw-lw-uniform. Show that the two agree.
+and $\mathbf v\times\mathbf E$ by @exm-emw-lw-uniform. Show that the two agree [@pierrus2018solved, Question 8.15].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -10711,7 +10691,7 @@ from $\ddot{\mathbf p}$; for $\mathbf p = \operatorname{Re}(\mathbf p_0e^{-i\ome
 both smaller by $(d/T)^2$. *Proof.* By @exm-emw-ret-far, $\mathbf A \approx \frac1{4\pi r}\int\mathbf J(t - r, \mathbf x')d^3x' = \frac{\dot{\mathbf p}(t -
 r)}{4\pi r}$, since $\int\mathbf J = \dot{\mathbf p}$ by continuity. In the far zone $\nabla$ acting on $t - r$ gives $-\hat{\mathbf n}\partial_t$, so $\mathbf B
 = \nabla\times\mathbf A = -\hat{\mathbf n}\times\partial_t\mathbf A = \frac{\ddot{\mathbf p}\times\hat{\mathbf n}}{4\pi r}$, and $\mathbf E = \mathbf B\times\hat{\mathbf n}$ for the
-outgoing wave (@exm-emw-pw-spherical); the power follows as in @prp-emw-larmor [@maggiore2023electrodynamics, Secs. 11.2-11.2.2].
+outgoing wave (@exm-emw-pw-spherical); the power follows as in @prp-emw-larmor [@maggiore2023electrodynamics, Secs. 11.2-11.2.2; @nastase2019classical, Sec. 15.7, eqs. (15.62)-(15.66)].
 :::
 ::::
 
@@ -10743,7 +10723,7 @@ A short antenna is an oscillating dipole driven by a current. Its radiated power
 
 A wire of length $\ell \ll \lambda$ with uniform current $I_0\cos\omega t$ has $\dot p = I\ell$, so $\langle P\rangle = \frac{\omega^2I_0^2\ell^2}{12\pi\varepsilon_0c^3}$
 in SI units, which equals $\frac12R_{\text{rad}}I_0^2$ with $R_{\text{rad}} = \frac{2\pi}3Z_0\bigl(\frac\ell\lambda\bigr)^2 \approx 789\,\Omega\bigl(\frac\ell\lambda\bigr)^2$,
-$Z_0 = 1/\varepsilon_0c = 377\,\Omega$ [@pierrus2018solved, Question 11.13].
+$Z_0 = 1/\varepsilon_0c = 377\,\Omega$. This model differs from Pierrus's, whose triangular current gives one quarter of this, $\approx 197\,\Omega\bigl(\frac\ell\lambda\bigr)^2$; the method is the same [@pierrus2018solved, Question 11.13].
 :::
 
 A small current loop radiates through its magnetic dipole moment. Its fields are those of the electric dipole with the roles
@@ -10754,7 +10734,7 @@ of $\mathbf E$ and $\mathbf B$ exchanged.
 
 A loop of radius $b$ with current $I_0\cos\omega t$ has $m = \pi b^2I_0\cos\omega t$ and radiates $\langle P\rangle = \frac{\omega^4\pi^2b^4I_0^2}{12\pi}$; the
 far field is $\mathbf B = \frac{\hat{\mathbf n}\times(\hat{\mathbf n}\times\ddot{\mathbf m})}{4\pi r}$, $\mathbf E = -\hat{\mathbf n}\times\mathbf B$. Compared with an electric dipole of
-the same current and size it is weaker by $(\omega b)^2$ [@pierrus2018solved, Question 11.12].
+the same current and size it is weaker by $(\omega b)^2$ [@pierrus2018solved, Questions 11.12-11.13].
 :::
 
 A rotating neutron star with a magnetic dipole tilted from its axis radiates at its rotation frequency. The radiated power
@@ -10775,7 +10755,7 @@ The $\omega^4$ law explains the colour of the sky. Molecules scatter blue light 
 
 A molecule in a light wave acquires a dipole $\mathbf p = \alpha\mathbf E$ (with polarisability $\alpha$ independent of frequency far from
 resonances), and radiates $\propto\omega^4|\mathbf E|^2$: blue light at $450\,$nm is scattered $(700/450)^4 = 5.9$ times more than red at
-$700\,$nm, and the scattered light at $90^\circ$ is polarised (@exr-emw-larmor-scattered-polarisation).
+$700\,$nm, and the scattered light at $90^\circ$ is polarised (@exr-emw-larmor-scattered-polarisation) [@stenzelLightMatterInteraction2022, Sec. 12.5.3].
 :::
 
 A system of charges with the same charge-to-mass ratio has no dipole radiation. Its dipole moment is tied to its centre of
@@ -10786,7 +10766,7 @@ mass.
 
 If every charge has $q_a/m_a = \kappa$, then $\mathbf p = \kappa\sum m_a\mathbf x_a = \kappa M\mathbf X$, and for an isolated system $\ddot{\mathbf X} = 0$, so
 $\ddot{\mathbf p} = 0$: two electrons colliding radiate only through their quadrupole moment, much more weakly than an electron and a
-proton (@exr-emw-dip-same-ratio).
+proton (@exr-emw-dip-same-ratio) [@pierrus2018solved, Question 11.7].
 :::
 
 Quadrupole radiation appears when the dipole moment is constant. Its angular pattern has four lobes. The dipole approximation makes the computation short.
@@ -10796,7 +10776,7 @@ Quadrupole radiation appears when the dipole moment is constant. Its angular pat
 
 For the linear quadrupole $Q_{zz} = Q_0\cos\omega t$, $Q_{xx} = Q_{yy} = -\frac12Q_0\cos\omega t$ (charges $\pm$ on the $z$ axis), $\sum\dddot Q_{ij}^2$
 averages to $\frac34\omega^6Q_0^2$ and $\langle P\rangle = \frac{\omega^6Q_0^2}{960\pi}$, with the pattern $\sin^2\theta\cos^2\theta$: no radiation along the axis
-or in the equatorial plane [@maggiore2023electrodynamics, Sec. 11.2.2].
+or in the equatorial plane [@maggiore2023electrodynamics, Sec. 11.2.2; @pierrus2018solved, Question 11.9].
 :::
 
 Two dipoles at a distance comparable with the wavelength interfere. The pattern of an array can be steered by the phases.
@@ -10806,7 +10786,7 @@ Two dipoles at a distance comparable with the wavelength interfere. The pattern 
 
 Two parallel dipoles along $\mathbf e_z$ at $x = \pm\frac d2$, in phase, have far fields with path difference $d\sin\theta\cos\varphi$; the
 power pattern is $\sin^2\theta\cos^2\bigl(\frac{kd}2\sin\theta\cos\varphi\bigr)$ times that of one. For $d = \lambda/2$ the radiation along
-$\pm\mathbf e_x$ cancels and that along $\pm\mathbf e_y$ doubles in amplitude [@macchi2023problems, Problem 10.10].
+$\pm\mathbf e_x$ cancels and that along $\pm\mathbf e_y$ doubles in amplitude [@macchi2023problems, Problems 10.10-10.11].
 :::
 
 The polarisation of the dipole field is fixed by the geometry. The example gives its direction. The dipole approximation makes the computation short.
@@ -10956,7 +10936,7 @@ The absence of dipole radiation for like particles follows from momentum conserv
 ::: {#exr-emw-dip-same-ratio}
 #### Equal charge-to-mass ratios
 
-Prove the statement of @exm-emw-dip-same-ratio, and show that the magnetic dipole radiation vanishes too.
+Prove the statement of @exm-emw-dip-same-ratio, and show that the magnetic dipole radiation vanishes too [@pierrus2018solved, Question 11.7].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -10970,7 +10950,7 @@ The four-lobed pattern of the quadrupole follows from its tensor. The seventh ex
 #### The quadrupole pattern
 
 With Sage, for $Q = Q_0\operatorname{diag}(-\frac12, -\frac12, 1)$ and $\mathbf q(\hat{\mathbf n}) = Q\hat{\mathbf n}$, compute $|\mathbf q|^2 - (\hat{\mathbf n}\cdot\mathbf q)^2$
-and its integral over the sphere, and compare with $\frac{4\pi}5\sum Q_{ij}^2$.
+and its integral over the sphere, and compare with $\frac{4\pi}5\sum Q_{ij}^2$ [@pierrus2018solved, Question 11.9].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -11000,7 +10980,7 @@ An array of two antennas has a pattern with nulls. The eighth exercise computes 
 #### The two-antenna pattern
 
 With Sage, plot (or tabulate) $\cos^2(\frac{kd}2\cos\varphi)$ in the plane $\theta = \frac\pi2$ for $d = \lambda/2$ and $d = \lambda$, and locate the
-directions of zero and maximal power [@macchi2023problems, Problem 10.10].
+directions of zero and maximal power [@macchi2023problems, Problems 10.10-10.11].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -11068,7 +11048,7 @@ $$
 n}\cdot\mathbf p_0) - \mathbf p_0\bigr)\Bigl(\frac1{r^3} - \frac{ik}{r^2}\Bigr)\Bigr], \qquad \mathbf B = \frac{k^2e^{i(kr - \omega t)}}{4\pi}(\hat{\mathbf
 n}\times\mathbf p_0)\frac1r\Bigl(1 - \frac1{ikr}\Bigr) ;
 $$ {#eq-emw-dipole-full}
-the terms in $r^{-3}$ dominate in the near zone, the terms in $r^{-1}$ in the far zone [@maggiore2023electrodynamics, Sec. 11.3].
+the terms in $r^{-3}$ dominate in the near zone, the terms in $r^{-1}$ in the far zone [@maggiore2023electrodynamics, Sec. 11.3; @pierrus2018solved, Questions 11.2-11.3].
 :::
 ::::
 
@@ -11079,7 +11059,7 @@ In the near zone the electric field is the static dipole field. It follows the d
 #### The near zone: a static dipole
 
 For $kr \ll 1$, $e^{ikr} \approx 1$ and the $r^{-3}$ term dominates: $\mathbf E \approx \frac{3\hat{\mathbf n}(\hat{\mathbf n}\cdot\mathbf p(t)) - \mathbf p(t)}{4\pi r^3}$,
-the field of @exm-ems-dipole-limit with the instantaneous moment, as the quasi-static approximation of @exm-emm-quasistatic predicts.
+the field of @exm-ems-dipole-limit with the instantaneous moment, as the quasi-static approximation of @exm-emm-quasistatic predicts [@pierrus2018solved, Question 11.5].
 :::
 
 The magnetic field in the near zone is that of the current that changes the dipole. It is weaker than the electric field
@@ -11089,7 +11069,7 @@ by the factor $kr$.
 #### The near zone: a current element
 
 For $kr \ll 1$, $\mathbf B \approx \frac{ik}{4\pi r^2}\hat{\mathbf n}\times\mathbf p_0e^{-i\omega t} = \frac{\dot{\mathbf p}\times\hat{\mathbf n}}{4\pi r^2}$, the Biot-Savart field of the
-current element $\int\mathbf J = \dot{\mathbf p}$ (@eq-ems-biot-savart); $|\mathbf B|/|\mathbf E| \sim kr \ll 1$.
+current element $\int\mathbf J = \dot{\mathbf p}$ (@eq-ems-biot-savart); $|\mathbf B|/|\mathbf E| \sim kr \ll 1$ [@pierrus2018solved, Question 11.5].
 :::
 
 In the far zone only the $1/r$ terms remain. They are the transverse fields of @prp-emw-dipole-radiation. Each zone has its own approximation.
@@ -11098,7 +11078,7 @@ In the far zone only the $1/r$ terms remain. They are the transverse fields of @
 #### The far zone
 
 For $kr \gg 1$, $\mathbf E \approx \frac{k^2}{4\pi r}(\hat{\mathbf n}\times\mathbf p_0)\times\hat{\mathbf n}e^{i(kr - \omega t)}$ and $\mathbf B = \hat{\mathbf n}\times\mathbf E$: with
-$\ddot{\mathbf p} = -\omega^2\mathbf p$ these are @eq-emw-dipole-field, transverse, in phase and of equal magnitude.
+$\ddot{\mathbf p} = -\omega^2\mathbf p$ these are @eq-emw-dipole-field, transverse, in phase and of equal magnitude [@pierrus2018solved, Question 11.6].
 :::
 
 In the induction zone all terms are comparable. The field there is neither static nor a free wave. Each zone has its own approximation.
@@ -11439,7 +11419,7 @@ The energy identity of the proposition is an integration by parts. The boundary 
 
 Over one period of a periodic motion $[\mathbf a\cdot\mathbf v]$ vanishes and $\int\mathbf F_{\text{rad}}\cdot\mathbf v\,dt = -\int P\,dt$: on average the reaction
 force removes exactly the radiated energy. The term $m\tau\mathbf a\cdot\mathbf v$, the **Schott energy**, is energy exchanged with the field
-near the charge [@maggiore2023electrodynamics, Sec. 12.3.3].
+near the charge [@maggiore2023electrodynamics, Secs. 12.3.3-12.3.4].
 :::
 
 Without external force the equation still has accelerating solutions. They are the runaway solutions, which no free particle
@@ -11511,8 +11491,8 @@ orthogonal to the four-velocity.
 #### The Abraham-Lorentz-Dirac equation
 
 For relativistic motion the reaction force becomes the Abraham-Lorentz-Dirac force, $\frac{q^2}{6\pi}\bigl(\dddot x^\mu + \ddot x^\nu\ddot x_\nu\dot
-x^\mu\bigr)$ in terms of proper time, whose spatial part reduces to @eq-emw-abraham-lorentz for $v \ll 1$; it has the same runaway and
-preacceleration problems [@maggiore2023electrodynamics, Secs. 12.3.4-12.3.5].
+x^\mu\bigr)$ in terms of proper time, whose spatial part reduces to @eq-emw-abraham-lorentz for $v \ll 1$; it has the same runaway [@maggiore2023electrodynamics, Sec. 12.3.4] and
+preacceleration problems.
 :::
 
 The reaction force matters only when the external force changes on time scales near $\tau$. The example compares the two forces
@@ -11830,8 +11810,7 @@ $$
 $$ {#eq-emx-bound-charge}
 and a time-dependent polarisation carries the **polarisation current** $\mathbf J_P = \partial_t\mathbf P$, which satisfies $\partial_t\rho_b +
 \nabla\cdot\mathbf J_P = 0$. A material is a **dielectric** when its charges are bound to atoms or molecules, so that its only
-response to a static field is a polarisation. In SI units $\mathbf P$ is in C/m$^2$ [@maggiore2023electrodynamics, Sec. 13.2;
-@pierrus2018solved, Questions 9.2, 10.1-10.2].
+response to a static field is a polarisation. In SI units $\mathbf P$ is in C/m$^2$ [@maggiore2023electrodynamics, Secs. 13.2, 13.4; @stenzelLightMatterInteraction2022, Sec. 12.3.3; @pierrus2018solved, Questions 9.2, 10.1-10.2].
 :::
 ::::
 
@@ -12113,7 +12092,7 @@ Clausius-Mossotti relation from the local field.
 #### The Clausius-Mossotti relation
 
 Assume that a molecule in a dielectric feels the local field $\mathbf E + \frac{\mathbf P}3$ (the field in a spherical cavity, by
-@exm-emx-pol-sphere). With $\mathbf P = n\alpha(\mathbf E + \frac{\mathbf P}3)$, show that $\chi_e = \frac{n\alpha}{1 - n\alpha/3}$ and $\frac{\varepsilon - 1}{\varepsilon + 2} = \frac{n\alpha}3$.
+@exm-emx-pol-sphere). With $\mathbf P = n\alpha(\mathbf E + \frac{\mathbf P}3)$, show that $\chi_e = \frac{n\alpha}{1 - n\alpha/3}$ and $\frac{\varepsilon - 1}{\varepsilon + 2} = \frac{n\alpha}3$ [@stenzelLightMatterInteraction2022, Sec. 12.3.4].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12185,7 +12164,7 @@ $$
 $$ {#eq-emx-bound-current}
 which have zero divergence and so carry no charge. A material is **paramagnetic** if $\mathbf M$ is along an applied field,
 **diamagnetic** if opposite, and **ferromagnetic** if it keeps a magnetisation without a field. In SI units $\mathbf M$ is in A/m
-[@maggiore2023electrodynamics, Sec. 13.3; @pierrus2018solved, Question 9.13].
+[@maggiore2023electrodynamics, Secs. 13.3-13.4, 13.6.3; @pierrus2018solved, Question 9.13].
 :::
 ::::
 
@@ -12422,7 +12401,7 @@ The equivalence between the magnetised sphere and the rotating shell is exact. T
 #### Rotating charge and magnetisation
 
 Show that a surface charge $\sigma(\theta)$ on a sphere rotating with $\boldsymbol\omega$ has the same surface current as a magnetisation, and find
-the magnetisation for uniform $\sigma$.
+the magnetisation for uniform $\sigma$ [@macchi2023problems, Problem 5.12].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12518,8 +12497,7 @@ $\hat{\mathbf n}\cdot(\mathbf D_2 - \mathbf D_1) = \sigma_f$, $\hat{\mathbf n}\t
 and $\hat{\mathbf n}\times(\mathbf H_2 - \mathbf H_1) = \mathbf K_f$. In SI units $\mathbf D = \varepsilon_0\mathbf E + \mathbf P$ and $\mathbf H = \mathbf B/\mu_0 - \mathbf M$.
 *Proof.* Insert the sources into @eq-emm-maxwell: $\nabla\cdot\mathbf E = \rho_f - \nabla\cdot\mathbf P$ and $\nabla\times\mathbf B - \partial_t\mathbf E = \mathbf J_f +
 \partial_t\mathbf P + \nabla\times\mathbf M$, and move the bound terms to the left. The jump conditions follow from the integral forms on thin boxes and
-rectangles, as in @exm-ems-gauss-jump and @exm-ems-ampere-sheet [@maggiore2023electrodynamics, Secs. 13.4-13.5;
-@pierrus2018solved, Question 10.6].
+rectangles, as in @exm-ems-gauss-jump and @exm-ems-ampere-sheet [@maggiore2023electrodynamics, Secs. 13.4-13.5; @pierrus2018solved, Question 10.6; @rahamanSpecialTheoryRelativity2022, Sec. 14.6].
 :::
 ::::
 
@@ -12554,8 +12532,7 @@ continuous.
 #### Refraction of field lines
 
 With $E_{1t} = E_{2t}$ and $\varepsilon_1E_{1n} = \varepsilon_2E_{2n}$, the angles from the normal satisfy $\frac{\tan\theta_2}{\tan\theta_1} = \frac{\varepsilon_2}{\varepsilon_1}$: field
-lines entering a medium of larger permittivity bend away from the normal, and the field magnitude drops [@macchi2023problems, Problem 3.5;
-@pierrus2018solved, Question 9.9].
+lines entering a medium of larger permittivity bend away from the normal, and the field magnitude drops [@macchi2023problems, Problem 3.5; @pierrus2018solved, Question 9.9].
 :::
 
 A charge near a dielectric half-space is attracted by its own image, as near a conductor but more weakly. The image charge is
@@ -12608,7 +12585,7 @@ Inside a permanent magnet $\mathbf H$ points against $\mathbf M$. The two auxili
 
 For the magnetised sphere of @exm-emx-mag-sphere, $\mathbf H = \mathbf B - \mathbf M = -\frac13\mathbf M$ inside: $\nabla\cdot\mathbf H = -\nabla\cdot\mathbf M$ acts as a
 magnetic charge on the surface, and $\mathbf H$ runs from the north to the south face inside, against $\mathbf B$
-[@pierrus2018solved, Question 9.20].
+[@pierrus2018solved, Questions 9.19-9.20].
 :::
 
 The free charge on a conductor embedded in a dielectric produces a weaker field. The field just outside is $\sigma_f/\varepsilon$.
@@ -12639,7 +12616,7 @@ The exercises start with the dielectric sphere. The first one checks its solutio
 #### The dielectric sphere, checked
 
 With Sage, write $\Phi = -\frac{3E_0}{\varepsilon + 2}r\cos\theta$ inside and $-E_0r\cos\theta + \frac{\varepsilon - 1}{\varepsilon + 2}\frac{E_0a^3\cos\theta}{r^2}$
-outside, and check the continuity of $\Phi$ and of $\varepsilon\partial_r\Phi$ at $r = a$.
+outside, and check the continuity of $\Phi$ and of $\varepsilon\partial_r\Phi$ at $r = a$ [@macchi2023problems, Problem 3.4; @pierrus2018solved, Question 9.6].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12671,7 +12648,7 @@ The image of @exm-emx-mm-image can be checked at the boundary. The second exerci
 #### The dielectric image, checked
 
 With Sage, check that the potentials of @exm-emx-mm-image satisfy the continuity of $\Phi$ and of $\varepsilon\partial_z\Phi$ on $z = 0$, and find the force on
-$q$.
+$q$ [@macchi2023problems, Problem 3.2; @pierrus2018solved, Question 9.10].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12706,7 +12683,7 @@ compares the two ways of filling it.
 #### A half-filled capacitor
 
 A parallel-plate capacitor with gap $d$ is half filled with a dielectric $\varepsilon$, once as a layer of thickness $d/2$ parallel to the plates,
-once as a slab filling half of the area. Find the capacitance relative to the empty one in each case.
+once as a slab filling half of the area. Find the capacitance relative to the empty one in each case [@pierrus2018solved, Question 9.8].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12719,7 +12696,7 @@ The refraction law of field lines can be derived from the boundary conditions. T
 ::: {#exr-emx-mm-refraction}
 #### The refraction law
 
-Derive $\frac{\tan\theta_2}{\tan\theta_1} = \frac{\varepsilon_2}{\varepsilon_1}$ and find the bound surface charge on the boundary in terms of $E_{1n}$.
+Derive $\frac{\tan\theta_2}{\tan\theta_1} = \frac{\varepsilon_2}{\varepsilon_1}$ and find the bound surface charge on the boundary in terms of $E_{1n}$ [@macchi2023problems, Problem 3.5; @pierrus2018solved, Question 9.9].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12778,7 +12755,7 @@ checks the boundary conditions with Sage.
 #### The magnetisable sphere, checked
 
 With Sage, use the magnetic scalar potential $\psi$ with $\mathbf H = -\nabla\psi$ (no free currents), $\psi = -\frac{3B_0}{\mu + 2}r\cos\theta$ inside and
-$-B_0r\cos\theta + \frac{\mu - 1}{\mu + 2}\frac{B_0a^3\cos\theta}{r^2}$ outside, and check the continuity of $H_\theta$ and $B_r$.
+$-B_0r\cos\theta + \frac{\mu - 1}{\mu + 2}\frac{B_0a^3\cos\theta}{r^2}$ outside, and check the continuity of $H_\theta$ and $B_r$ [@macchi2023problems, Problem 5.10].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12809,7 +12786,7 @@ The jump conditions must be consistent with each other. The eighth exercise deri
 #### The jump conditions
 
 Derive the four jump conditions of @prp-emx-macroscopic-maxwell from @eq-emx-macroscopic, and explain why $\partial_t\mathbf D$ and $\partial_t\mathbf B$ do not
-contribute.
+contribute [@pierrus2018solved, Questions 10.6-10.7].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12972,8 +12949,8 @@ Magnetic media are linear too, except for the ferromagnets of @exm-emx-lin-hyste
 ::: {#exm-emx-lin-permeabilities}
 #### Some permeabilities
 
-The magnetic susceptibilities $\chi_m = \mu - 1$ of ordinary materials are tiny: about $2	imes10^{-5}$ for aluminium and $4	imes10^{-7}$ for air
-(paramagnets), about $-10^{-5}$ for copper and $-9	imes10^{-6}$ for water (diamagnets). Only ferromagnets such as soft iron reach effective values
+The magnetic susceptibilities $\chi_m = \mu - 1$ of ordinary materials are tiny: about $2\times10^{-5}$ for aluminium and $4\times10^{-7}$ for air
+(paramagnets), about $-10^{-5}$ for copper and $-9\times10^{-6}$ for water (diamagnets). Only ferromagnets such as soft iron reach effective values
 $\mu$ of thousands, and for them $\mu$ is the slope of a curve, not a constant [@maggiore2023electrodynamics, Sec. 13.6.3].
 :::
 ::::
@@ -13198,8 +13175,7 @@ u = \tfrac12(\mathbf E\cdot\mathbf D + \mathbf B\cdot\mathbf H), \qquad \partial
 $$ {#eq-emx-energy}
 and the electrostatic energy of free charges is $\frac12\int\rho_f\Phi\,d^3x = \frac12\int\mathbf E\cdot\mathbf D\,d^3x$. *Proof.* Dot Faraday's law with $\mathbf
 H$ and the Ampère-Maxwell law with $\mathbf E$ and subtract, as in @prp-emm-poynting; for linear media $\mathbf E\cdot\partial_t(\varepsilon\mathbf E) =
-\partial_t\frac12\varepsilon E^2$. The static form follows from $\rho_f = \nabla\cdot\mathbf D$ as in @prp-ems-field-energy [@maggiore2023electrodynamics, Sec.
-13.7; @pierrus2018solved, Questions 9.11-9.12].
+\partial_t\frac12\varepsilon E^2$. The static form follows from $\rho_f = \nabla\cdot\mathbf D$ as in @prp-ems-field-energy [@maggiore2023electrodynamics, Sec. 13.7; @pierrus2018solved, Questions 9.11-9.12].
 :::
 ::::
 
@@ -13307,7 +13283,7 @@ The exercises start with the energy of a capacitor with two layers. The first on
 #### Energy of a layered capacitor
 
 A capacitor of area $A$ has two layers, thicknesses $d_1$, $d_2$ and permittivities $\varepsilon_1$, $\varepsilon_2$. With charge $Q$, compute
-$\frac12\int\mathbf E\cdot\mathbf D$ and compare with $\frac{Q^2}{2C}$.
+$\frac12\int\mathbf E\cdot\mathbf D$ and compare with $\frac{Q^2}{2C}$ [@pierrus2018solved, Question 9.8].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -13419,7 +13395,7 @@ fixed-voltage result.
 #### The slab at fixed charge
 
 For the slab of @exr-emx-mm-slab-force with the capacitor isolated at charge $Q$, find the force with rule (a) of
-@prp-ems-mechanical-potentials, and check that it agrees with the fixed-voltage result at the same instant.
+@prp-ems-mechanical-potentials, and check that it agrees with the fixed-voltage result at the same instant [@macchi2023problems, Problem 3.12].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -13476,7 +13452,7 @@ The static energy in a medium can be written with the free charges only. The nin
 #### Energy from the free charges
 
 Show that $\frac12\int\mathbf E\cdot\mathbf D\,d^3x = \frac12\int\rho_f\Phi\,d^3x$ for localised free charges in a linear medium, and that this is the work
-done in assembling the free charges.
+done in assembling the free charges [@pierrus2018solved, Question 9.12].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -13530,7 +13506,7 @@ $\operatorname{Im}\varepsilon$ has an extra $\sigma_0/\omega$ at low frequency, 
 $\operatorname{Im}\omega > 0$ the factor $e^{i\omega\tau}$ decays, so the integral converges and is holomorphic. Cauchy's theorem
 (@thm-cauchy) for $\hat\chi(\omega')/(\omega' - \omega)$ on the real line, closed by a large half-circle where $\hat\chi \to 0$ and indented by a small
 half-circle around $\omega$, gives $\hat\chi(\omega) = \frac1{\pi i}\mathrm P\int_{-\infty}^\infty\frac{\hat\chi(\omega')}{\omega' - \omega}d\omega'$; taking real and
-imaginary parts and using the symmetry under $\omega \to -\omega$ gives @eq-emx-kramers-kronig [@maggiore2023electrodynamics, Secs. 14.1-14.2].
+imaginary parts and using the symmetry under $\omega \to -\omega$ gives @eq-emx-kramers-kronig [@maggiore2023electrodynamics, Secs. 14.1-14.2; @stenzelLightMatterInteraction2022, Secs. 13.3.1, 15.3].
 :::
 ::::
 
@@ -13542,7 +13518,7 @@ The simplest causal response is an exponential relaxation. Its susceptibility is
 
 For $\chi(\tau) = \frac{\Delta\varepsilon}{\tau_0}e^{-\tau/\tau_0}$, $\hat\chi(\omega) = \frac{\Delta\varepsilon}{1 - i\omega\tau_0}$, with a pole at $\omega = -i/\tau_0$ in the lower half
 plane, as causality requires. It describes the orientational polarisation of polar liquids: water has $\tau_0 \approx 8\,$ps and $\Delta\varepsilon \approx 75$,
-which is why microwave ovens at $2.45\,$GHz heat water (@exr-emx-kk-debye).
+which is why microwave ovens at $2.45\,$GHz heat water (@exr-emx-kk-debye) [@stenzelLightMatterInteraction2022, Sec. 13.6.1].
 :::
 
 A static permittivity larger than one requires absorption at some frequency. The first relation at $\omega = 0$ makes it a
@@ -13563,7 +13539,7 @@ on the absorption.
 
 For $\omega$ above every resonance, $\varepsilon(\omega) \approx 1 - \frac{\omega_p^2}{\omega^2}$ (@def-emx-drude-lorentz), and comparing with the first relation for
 large $\omega$ gives $\int_0^\infty\omega'\operatorname{Im}\varepsilon(\omega')\,d\omega' = \frac\pi2\omega_p^2$, with $\omega_p^2 = ne^2/m$ for all the electrons:
-the total absorption measures the electron density [@maggiore2023electrodynamics, Sec. 14.2].
+the total absorption measures the electron density [@maggiore2023electrodynamics, Secs. 14.2-14.3].
 :::
 
 The reality of the response in time gives a symmetry in frequency. It is what allows the integrals over negative frequencies
@@ -13593,7 +13569,7 @@ A conductor responds to a static field with a current, not a polarisation. Its p
 
 With $\mathbf J_f = \sigma(\omega)\mathbf E$, the current can be counted as a polarisation current $-i\omega\mathbf P$, so the effective permittivity is $\varepsilon(\omega) +
 \frac{i\sigma(\omega)}\omega$, which behaves as $\frac{i\sigma_0}\omega$ near $\omega = 0$; the pole sits on the real axis and must be treated separately in the
-Kramers-Kronig relations [@maggiore2023electrodynamics, Sec. 14.1].
+Kramers-Kronig relations [@maggiore2023electrodynamics, Secs. 14.1-14.2, 14.5; @stenzelLightMatterInteraction2022, Sec. 15.3].
 :::
 
 Causality in time and analyticity in frequency are two forms of the same statement. The example shows the response to a
@@ -13625,7 +13601,7 @@ line.
 
 A narrow absorption line $\operatorname{Im}\varepsilon \approx A\pi\delta(\omega - \omega_0)$ gives $\operatorname{Re}\varepsilon - 1 \approx \frac{2A\omega_0}{\omega_0^2 - \omega^2}$: the
 index rises toward the line from below (normal dispersion) and drops above it, the shape of @fig-emx-dispersion away from the
-resonance [@maggiore2023electrodynamics, Sec. 14.3].
+resonance [@maggiore2023electrodynamics, Sec. 14.3; @stenzelLightMatterInteraction2022, Sec. 14.3.3].
 :::
 
 A response that started before its cause would violate the analyticity. The last example shows how. The susceptibility then has poles in the upper half of the complex plane.
@@ -13909,7 +13885,7 @@ static conductivity.
 #### Drude parameters of copper
 
 With $n = 8.5\times10^{28}\,$m$^{-3}$, $\omega_p = \sqrt{ne^2/\varepsilon_0m} = 1.6\times10^{16}\,$s$^{-1}$ ($\hbar\omega_p = 11\,$eV), and $\sigma_0 = 6\times10^7\,$S/m
-gives $\gamma = \frac{ne^2}{m\sigma_0} = 4\times10^{13}\,$s$^{-1}$, a collision time of $25\,$fs [@pierrus2018solved, Question 10.8].
+gives $\gamma = \frac{ne^2}{m\sigma_0} = 4\times10^{13}\,$s$^{-1}$, a collision time of $25\,$fs [@pierrus2018solved, Question 10.8; @maggiore2023electrodynamics, Sec. 15.3.1].
 :::
 
 The ionosphere is a dilute plasma. Its plasma frequency separates the radio waves it reflects from those it lets through.
@@ -13928,7 +13904,7 @@ The Drude model gives the static conductivity and its frequency dependence. At l
 
 From $m\dot{\mathbf v} = -e\mathbf E - m\gamma\mathbf v$ with $\mathbf J = -ne\mathbf v$, $\sigma(\omega) = \frac{ne^2}{m(\gamma - i\omega)}$: real and constant, $\sigma_0 =
 \frac{ne^2}{m\gamma}$, for $\omega \ll \gamma$, and imaginary (inductive) for $\omega \gg \gamma$, where the electrons respond by their inertia
-[@maggiore2023electrodynamics, Sec. 14.4].
+[@maggiore2023electrodynamics, Sec. 14.4; @stenzelLightMatterInteraction2022, Sec. 14.3.1].
 :::
 
 Above its plasma frequency a metal becomes transparent. The alkali metals let ultraviolet light through. The threshold is set by the density of the conduction electrons.
@@ -13938,7 +13914,7 @@ Above its plasma frequency a metal becomes transparent. The alkali metals let ul
 
 For $\omega \gg \gamma$, $\varepsilon \approx 1 - \frac{\omega_p^2}{\omega^2}$, negative below $\omega_p$ and positive above. Sodium, with one free electron per atom ($n =
 2.65\times10^{28}\,$m$^{-3}$), has $\lambda_p = 2\pi c/\omega_p = 205\,$nm, and indeed becomes transparent below about $210\,$nm
-[@maggiore2023electrodynamics, Sec. 14.5].
+[@maggiore2023electrodynamics, Secs. 14.5, 15.3.1].
 :::
 
 At very high frequency all electrons behave as free. The permittivity tends to one from below. This is why the refractive index of matter for X-rays is slightly below one.
@@ -14030,8 +14006,7 @@ The plasma frequency of the ionosphere varies with height and with the time of d
 ::: {#exr-emx-dl-ionosphere}
 #### Plasma frequencies
 
-With Sage, compute $f_p$ for electron densities $10^{10}$, $10^{12}$ and $10^{29}\,$m$^{-3}$, and the corresponding wavelengths [@macchi2023problems,
-Problem 11.14].
+With Sage, compute $f_p$ for electron densities $10^{10}$, $10^{12}$ and $10^{29}\,$m$^{-3}$, and the corresponding wavelengths [@macchi2023problems, Problem 11.14].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -14203,8 +14178,7 @@ In a good conductor ($\sigma \gg \omega$) $k \approx \frac{1 + i}\delta$ with th
 \omega_p^2/\omega^2$) waves propagate only for $\omega > \omega_p$. *Proof.* Insert into Faraday's law, $\omega\mathbf B_0 = k\mathbf e_z\times\mathbf E_0$, and into the
 Ampère-Maxwell law with $\mathbf D = \varepsilon\mathbf E$, $\mathbf H = \mathbf B/\mu$: $k\mathbf e_z\times\mathbf B_0/\mu = -\omega\varepsilon\mathbf E_0$, which with the first gives
 $k^2 = \varepsilon\mu\omega^2$. A packet $\int a(k)e^{i(kz - \omega(k)t)}dk$ peaked at $k_0$ moves with $d\omega/dk$ by stationary phase. For $\varepsilon \approx
-i\sigma/\omega$, $k^2 = i\mu\sigma\omega$ and $\sqrt i = \frac{1 + i}{\sqrt2}$ [@maggiore2023electrodynamics, Secs. 15.1-15.3; @pierrus2018solved, Questions
-10.10-10.11].
+i\sigma/\omega$, $k^2 = i\mu\sigma\omega$ and $\sqrt i = \frac{1 + i}{\sqrt2}$ [@maggiore2023electrodynamics, Secs. 15.1-15.3; @pierrus2018solved, Questions 10.10-10.11; @stenzelLightMatterInteraction2022, Sec. 13.3.2; @rahamanSpecialTheoryRelativity2022, Secs. 14.7-14.8].
 :::
 ::::
 
@@ -14225,7 +14199,7 @@ micrometres. This is why thin metal sheets can screen microwaves completely.
 #### The skin depth of copper
 
 In SI units $\delta = \sqrt{2/\mu_0\sigma\omega}$: for copper $9.2\,$mm at $50\,$Hz, $66\,\mu$m at $1\,$MHz and $2.1\,\mu$m at $1\,$GHz, which is why high-frequency
-currents flow in a thin surface layer and cables are silver-plated [@pierrus2018solved, Question 10.11].
+currents flow in a thin surface layer and cables are silver-plated [@pierrus2018solved, Question 10.11; @rahamanSpecialTheoryRelativity2022, Sec. 14.9].
 :::
 
 The fraction of light reflected at a boundary depends on the indices on the two sides. At normal incidence the formula is
@@ -14235,7 +14209,7 @@ simple.
 #### Reflection at normal incidence
 
 Matching tangential $\mathbf E$ and $\mathbf H$ at the surface of a medium with index $n$ ($\mu = 1$) gives the reflected amplitude $r = \frac{1 - n}{1 + n}$
-(@exr-emx-wv-fresnel): $R = |r|^2 = 4\%$ for glass, $2\%$ for water, and $R \to 1$ for a metal with $|n| \gg 1$.
+(@exr-emx-wv-fresnel): $R = |r|^2 = 4\%$ for glass, $2\%$ for water, and $R \to 1$ for a metal with $|n| \gg 1$ [@stenzelLightMatterInteraction2022, Sec. 13.5.2].
 :::
 
 A metal is a mirror for light below its plasma frequency. The permittivity is negative there and the wave cannot enter.
@@ -14245,7 +14219,7 @@ A metal is a mirror for light below its plasma frequency. The permittivity is ne
 
 For $\gamma \ll \omega < \omega_p$, $\varepsilon \approx 1 - \frac{\omega_p^2}{\omega^2} < 0$, so $n \approx i\sqrt{\omega_p^2/\omega^2 - 1}$ is imaginary and $R = |\frac{1 - n}{1 + n}|^2 = 1$:
 total reflection, with the field decaying within $\frac{1}{\sqrt{\omega_p^2 - \omega^2}}$, about $20\,$nm for silver (@fig-emx-waves)
-[@maggiore2023electrodynamics, Sec. 15.3.1].
+[@maggiore2023electrodynamics, Sec. 15.3.1] [@stenzelLightMatterInteraction2022, Sec. 14.3.1].
 :::
 
 In a plasma the phase velocity exceeds that of light. The group velocity, which carries the signal, does not. The product of the two velocities is one in natural units.
@@ -14255,7 +14229,7 @@ In a plasma the phase velocity exceeds that of light. The group velocity, which 
 
 From $\omega^2 = \omega_p^2 + k^2$, $v_p = \frac\omega k = \frac{1}{\sqrt{1 - \omega_p^2/\omega^2}} > 1$ and $v_g = \frac{k}\omega = \sqrt{1 - \omega_p^2/\omega^2} < 1$, with $v_pv_g =
 1$: radio pulses through the interstellar plasma arrive later at lower frequency, which measures the electron column density to pulsars
-(@fig-emx-waves) [@maggiore2023electrodynamics, Sec. 15.2].
+(@fig-emx-waves) [@maggiore2023electrodynamics, Secs. 15.2, 15.3.1].
 :::
 
 In a dispersive transparent medium the group velocity is set by the group index. For glass it exceeds the ordinary index.
@@ -14496,7 +14470,7 @@ A good conductor has $\mathbf B$ larger than $\mathbf E$ and out of phase. The e
 ::: {#exr-emx-wv-conductor-fields}
 #### Fields in a good conductor
 
-For $k = \frac{1 + i}\delta$, find $|\mathbf B|/|\mathbf E|$ and the phase between them, and show that the magnetic energy dominates [@macchi2023problems, Problem 11.13].
+For $k = \frac{1 + i}\delta$, find $|\mathbf B|/|\mathbf E|$ and the phase between them, and show that the magnetic energy dominates [@macchi2023problems, Problem 11.13; @pierrus2018solved, Question 10.11].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -14547,7 +14521,7 @@ velocity $\omega/k_z > 1$. A hollow guide has no TEM mode. For a rectangle $0 < 
 zero for TE and $m, n \geq 1$ for TM; the lowest mode is $\mathrm{TE}_{10}$ with $\omega_c = \pi/a$ ($\pi c/a$ in SI units). *Proof.* The transverse fields follow from
 $E_z$, $B_z$ by the curl equations, the boundary conditions $\hat{\mathbf n}\times\mathbf E = 0$, $\hat{\mathbf n}\cdot\mathbf B = 0$ on the walls become the stated conditions on $\psi$,
 and the wave equation gives $\nabla_\perp^2\psi = (k_z^2 - \omega^2)\psi$. A TEM mode would have $\mathbf E_\perp = -\nabla_\perp\Phi$ with $\Phi$ harmonic in $\Sigma$ and constant
-on the single boundary, hence zero [@maggiore2023electrodynamics, Sec. 15.4; @pierrus2018solved, Questions 7.12-7.13].
+on the single boundary, hence zero [@maggiore2023electrodynamics, Sec. 15.4; @pierrus2018solved, Questions 7.12-7.13; @rahamanSpecialTheoryRelativity2022, Sec. 14.10].
 :::
 ::::
 
@@ -14626,13 +14600,13 @@ With conducting walls also at $z = 0$ and $z = d$, $k_z = p\pi/d$ and $\omega_{m
 many modes near $2.45\,$GHz, and a rotating plate averages over their hot spots.
 :::
 
-The space between the Earth and the ionosphere is a spherical cavity. Its lowest resonances are at a few hertz.
+The space between the Earth and the ionosphere is a spherical cavity [@macchi2023problems, Problem 12.8]. Its lowest resonances are at a few hertz.
 
 ::: {#exm-emx-wg-schumann}
 #### Schumann resonances
 
 For a thin spherical shell of radius $R$ the lowest modes have $\omega_l \approx \frac{\sqrt{l(l + 1)}}R$ ($c/R$ in SI units), so $f_1 = \frac{\sqrt2c}{2\pi R} = 10.6\,$Hz;
-lightning excites them, and the observed $7.8\,$Hz is lower because the ionosphere is a lossy conductor [@macchi2023problems, Problem 12.8].
+lightning excites them, and the observed $7.8\,$Hz is lower because the ionosphere is a lossy conductor.
 :::
 
 Filling a guide with a dielectric lowers its cut-off. The waves inside are slower. The cut-off frequency is divided by the refractive index of the filling.
@@ -14732,7 +14706,7 @@ The power carried by a mode is the flux of the Poynting vector. The third exerci
 #### Power in the $\mathrm{TE}_{10}$ mode
 
 With Sage, compute the time-averaged Poynting flux of the mode of @exr-emx-wg-check through the cross-section, and its ratio to the energy per unit length, which should be
-the group velocity.
+the group velocity [@pierrus2018solved, Question 7.13].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -15140,7 +15114,7 @@ The polarisation of the scattered light depends on the angle. The seventh exerci
 #### Degree of polarisation of scattered light
 
 With Sage, compute the degree of polarisation $\frac{1 - \cos^2\theta}{1 + \cos^2\theta}$ of light scattered at angle $\theta$ from unpolarised light, and evaluate it at $30^\circ$, $60^\circ$
-and $90^\circ$.
+and $90^\circ$ [@macchi2023problems, Problem 10.8].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -15365,7 +15339,7 @@ A magnetised plasma rotates the polarisation of a wave. The seventh exercise com
 
 In a plasma in a magnetic field $B$ along the direction of propagation, the electrons move under $m\dot{\mathbf v} = -e(\mathbf E + \mathbf v\times\mathbf B)$. Show that the two circular
 polarisations of @exm-emw-pol-circular see $\varepsilon_\pm = 1 - \frac{\omega_p^2}{\omega(\omega \mp \omega_c)}$, $\omega_c = eB/m$, and that a linear polarisation rotates by
-$\frac{\omega_p^2\omega_c}{2\omega^2}$ per unit length for $\omega \gg \omega_p, \omega_c$ [@macchi2023problems, Problem 11.7].
+$\frac{\omega_p^2\omega_c}{2\omega^2}$ per unit length for $\omega \gg \omega_p, \omega_c$ [@macchi2023problems, Problems 11.7-11.8].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -15381,7 +15355,7 @@ reflection.
 #### A transmission line
 
 A line has inductance $L$ and capacitance $C$ per unit length. From $\partial_zV = -L\partial_tI$ and $\partial_zI = -C\partial_tV$, derive waves of speed $1/\sqrt{LC}$ and impedance $Z_0 = \sqrt{L/C}$,
-and show that a load $Z_L$ at the end reflects the amplitude $\frac{Z_L - Z_0}{Z_L + Z_0}$ [@macchi2023problems, Problems 7.6, 12.1].
+and show that a load $Z_L$ at the end reflects the amplitude $\frac{Z_L - Z_0}{Z_L + Z_0}$ [@macchi2023problems, Problems 7.6, 12.1; @landau2018computational, Sec. 5.3.5].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -15429,7 +15403,7 @@ The ionosphere decides which radio waves travel beyond the horizon. The tenth ex
 #### Radio waves and the ionosphere
 
 A layer of maximal plasma frequency $f_p = 9\,$MHz reflects waves at oblique incidence up to $f = f_p/\cos\theta_i$ (only the normal component of $\mathbf k$ feels the plasma). Explain why
-AM and short-wave broadcasts reach beyond the horizon at night while FM at $100\,$MHz does not, and find the largest frequency reflected at $\theta_i = 80^\circ$.
+AM and short-wave broadcasts reach beyond the horizon at night while FM at $100\,$MHz does not, and find the largest frequency reflected at $\theta_i = 80^\circ$ [@macchi2023problems, Problem 11.14].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}

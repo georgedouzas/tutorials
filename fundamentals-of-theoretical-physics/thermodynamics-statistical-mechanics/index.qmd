@@ -1,6 +1,4 @@
 ---
-nocite: |
-  @cufaropetroni2020probability, @knauf2018mathematical
 pagetitle: "Thermodynamics and statistical mechanics"
 ---
 
@@ -36,7 +34,7 @@ conservation with heat included) and the second law (through entropy), introduce
 Legendre transforms of the energy, and derives the Maxwell relations from the symmetry of mixed second derivatives;
 the ideal gas, the van der Waals gas and the Carnot cycle serve as worked examples throughout.
 
-For more on this topic, see @shankar2017quantum [Ch. 1].
+For more on this topic, see @shankar2017quantum [Ch. 1], @bricmont2022statistical [Ch. 5] and @skacej2019solved [Ch. 1-4].
 
 ### State variables and equilibrium
 
@@ -438,7 +436,8 @@ An ideal gas expands from $V$ into an evacuated container of total volume $2V$. 
 so $\Delta U = 0$ and $T$ is unchanged. The entropy change is computed along the reversible isotherm with the same
 end states: $\Delta S = \int\delta Q_{\text{rev}}/T = N\log 2 > 0$, although $Q = 0$ in the actual process. The
 reverse process, all molecules returning to one half, would decrease $S$ and never happens; in @sec-ensembles the
-reason becomes a count, $2^N$ times more microstates.
+reason becomes a count, $2^N$ times more microstates. For the recurrence of this return and its time scale, see
+[@knauf2018mathematical, Examples 9.40].
 :::
 
 Heat conduction between two bodies is the prototype of an irreversible process. The third example computes the
@@ -943,14 +942,14 @@ isolated system, the canonical ensemble of a system at fixed temperature with it
 distribution, and the grand-canonical ensemble of a system that also exchanges particles, together with the identities that relate
 their partition functions to the thermodynamic variables.
 
-For more on this topic, see @gelis2021problems, @kivelson2024statistical [Ch. 2, Ch. 3], @shankar2017quantum [Ch. 2] and @skacej2019solved [Ch. 8-10, Ch. 11-12].
+For more on this topic, see @gelis2021problems [Ch. 5, pp. 277-279], @kivelson2024statistical [Ch. 2, Ch. 3], @shankar2017quantum [Secs. 1.5-1.8, Ch. 2], @skacej2019solved [Ch. 8-10, Ch. 11-12], @bricmont2022statistical [Ch. 6] and @pathria2022statistical [Ch. 2-4].
 
 ### Microstates and the microcanonical ensemble
 
 A microstate is a complete microscopic description, the quantum state of every particle or a point in phase space,
 and a macrostate fixes only the energy, volume and particle number. The fundamental postulate assigns equal
 probability to all microstates of an isolated system with the given energy, and the logarithm of their number is the
-entropy.
+entropy. For the classical microcanonical measure on an energy surface, see [@knauf2018mathematical, Example 9.4 and Remark 9.9].
 
 :::: {.statement-box}
 ::: {#def-microcanonical-ensemble}
@@ -1050,7 +1049,7 @@ half the spins are up. The second exercise computes its temperature and finds ne
 
 For the spins of @exm-ens-spins with $S = N H(n/N)$, compute $1/T = \partial S/\partial E$ and show $n/N =
 1/(e^{\epsilon/T} + 1)$. What is $T$ when $n > N/2$? Explain why a system at negative temperature, put in contact
-with any system at positive temperature, gives energy to it.
+with any system at positive temperature, gives energy to it [@skacej2019solved, Problem 10.10; @pathria2022statistical, Sec. 3.10].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1208,7 +1207,8 @@ the barometric formula, a canonical distribution in a continuous variable.
 A molecule of mass $m$ at height $h$ has potential energy $mgh$. In an isothermal atmosphere the probability density
 of its height is $p(h) = \frac{mg}{T}e^{-mgh/T}$ on $h \geq 0$, an exponential distribution with mean $T/(mg)$, the
 **scale height**: for nitrogen at $T = 288$ K, $T/(mg) = \frac{1.38\times10^{-23}\cdot 288}{4.65\times10^{-26}\cdot 9.
-81} \approx 8.7$ km, and the density and pressure fall by $e$ every $8.7$ km.
+81} \approx 8.7$ km, and the density and pressure fall by $e$ every $8.7$ km
+[@cufaropetroni2020probability, Sec. 9.5, Prop. 9.8 and Example 9.10].
 :::
 
 The canonical distribution is the target of Monte Carlo simulations, which sample it with a Markov chain. The next
@@ -1462,7 +1462,7 @@ value.
 
 For $E_l = l(l + 1)/(2I)$ with degeneracy $2l + 1$, compute $Z_{\text{rot}} = \sum_l(2l + 1)e^{-\beta E_l}$ in Sage
 at $2IT = 0.2, 1, 10, 100$. Compare with $1 + 3e^{-1/(IT)}$ at low $T$ and with $2IT + \frac13$ at high $T$, and
-explain the leading term $2IT$ by replacing the sum by an integral.
+explain the leading term $2IT$ by replacing the sum by an integral [@skacej2019solved, Problem 11.5].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1583,7 +1583,7 @@ E - \mu N = -\frac\varepsilon4\sum_{\langle ij\rangle}s_is_j - \Bigl(\frac{z\var
 $$
 the Ising model with $J = \varepsilon/4$ and $h = z\varepsilon/4 + \mu/2$. The grand partition function of the gas is the canonical partition function of
 the magnet, the density is $(1 + m)/2$, and the liquid-gas transition is the ferromagnetic transition at $h = 0$
-[@bricmont2022statistical, Exercise 9.10].
+[@bricmont2022statistical, Sec. 9.7.1 and Exercise 9.10; @skacej2019solved, Problem 12.31].
 :::
 ::::
 
@@ -1617,7 +1617,7 @@ reservoir is the gas. The second exercise derives the Langmuir adsorption isothe
 A surface has $M$ independent sites, each empty or holding one molecule with binding energy $-\epsilon_0 < 0$. The
 surface is in equilibrium with an ideal gas whose chemical potential is $\mu = T\log(n\lambda^3)$, $n = p/T$, with
 $\lambda$ the thermal wavelength of @exm-pfn-ideal-gas. Show that the fraction of occupied sites is $\theta =
-p/(p + p_0(T))$ and find $p_0(T)$.
+p/(p + p_0(T))$ and find $p_0(T)$ [@skacej2019solved, Problem 12.24].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1891,6 +1891,8 @@ section computes each of them, derives their heat capacities, and proves the equ
 classical values and fails, instructively, for quantum systems at low temperature. @fig-schottky-peak compares the
 three heat capacities.
 
+For more on this topic, see @pathria2022statistical [Secs. 3.5-3.9] and @skacej2019solved [Ch. 8, Ch. 11].
+
 ![Heat capacity per system against temperature (in units of the level spacing $\epsilon$, or of $\hbar\omega$ for
 the oscillator). The two-level system (blue) has the Schottky peak $C_{\max} = 0.4392$ at $T = 0.4168\,\epsilon$ (dot)
 and decays as $T^{-2}$; the quantum oscillator (red) rises to the classical equipartition value $C = 1$ (dashed).
@@ -2056,7 +2058,8 @@ Z = \sum_{n = 0}^\infty e^{-\beta\omega(n + \frac12)} = \frac{e^{-\beta\omega/2}
 \frac{1}{2\sinh(\beta\omega/2)}, \qquad F = T\log\left(2\sinh\frac{\omega}{2T}\right).
 $$
 The mean energy is $U = \frac\omega2\coth\frac{\beta\omega}{2} = \frac\omega2 + \frac{\omega}{e^{\beta\omega} - 1}$
-and the heat capacity is the **Einstein function** $C = x^2e^x/(e^x - 1)^2$ with $x = \omega/T$.
+and the heat capacity is the **Einstein function** $C = x^2e^x/(e^x - 1)^2$ with $x = \omega/T$
+[@skacej2019solved, Problem 11.1].
 :::
 ::::
 
@@ -2379,7 +2382,8 @@ Let a classical system have Hamiltonian $H = a\,\xi^2 + H'(\eta)$, where $\xi$ i
 ranging over $\mathbb R$, $a > 0$ is independent of $\xi$, and $H'$ does not depend on $\xi$. Then in the canonical
 ensemble $\langle a\xi^2\rangle = T/2$. Consequently, if $H$ is a sum of $f$ such quadratic terms (plus terms of other
 variables), each contributes $T/2$ to $U$ and $\frac12$ to $C$. More generally $\langle\xi\,\partial H/\partial
-\xi\rangle = T$ whenever $e^{-\beta H}$ vanishes at the ends of the range of $\xi$.
+\xi\rangle = T$ whenever $e^{-\beta H}$ vanishes at the ends of the range of $\xi$
+[@pathria2022statistical, Sec. 3.7, eqs. 3.7.1-3.7.9].
 
 *Proof.* The $\eta$-integrals cancel between numerator and denominator: $\langle a\xi^2\rangle = \int a\xi^2e^{-\beta
 a\xi^2}d\xi\big/\int e^{-\beta a\xi^2}d\xi = -\partial_\beta\log\int e^{-\beta a\xi^2}d\xi = -\partial_\beta\log
@@ -2647,7 +2651,7 @@ orbitals independent. This section derives the Bose-Einstein and Fermi-Dirac dis
 blackbody radiation and to Bose-Einstein condensation and the second to the electron gas, and checks the integrals
 that appear, beginning with $\int_0^\infty x^3/(e^x - 1)\,dx = \pi^4/15$.
 
-For more on this topic, see @strocchi2021symmetry [Ch. 23].
+For more on this topic, see @strocchi2021symmetry [Ch. 23], @pathria2022statistical [Ch. 7-8] and @skacej2019solved [Ch. 12].
 
 ![Left: mean occupation numbers against $x = (\epsilon - \mu)/T$: Bose-Einstein $1/(e^x - 1)$ (red), Maxwell-Boltzmann
 $e^{-x}$ (dashed) and Fermi-Dirac $1/(e^x + 1)$ (blue); the three agree for $x \gg 1$, the Bose occupation diverges as
@@ -2954,7 +2958,7 @@ $$
 u(\omega) = \frac{1}{\pi^2}\frac{\omega^3}{e^{\omega/T} - 1} \qquad (\hbar = c = k_B = 1),
 $$
 and the total energy density is $u = \int_0^\infty u(\omega)d\omega = \frac{\pi^2}{15}T^4$ (the zero-point energies
-are dropped, being independent of $T$).
+are dropped, being independent of $T$) [@pathria2022statistical, Sec. 7.3, eqs. 7.3.1-7.3.3; @skacej2019solved, Problem 12.7].
 :::
 ::::
 
@@ -2968,7 +2972,7 @@ how the quantum occupation removes the ultraviolet catastrophe of @exm-pfn-equip
 For $\omega \ll T$, $e^{\omega/T} - 1 \approx \omega/T$ and $u(\omega) \approx T\omega^2/\pi^2$, the
 **Rayleigh-Jeans law**: each mode carries the classical energy $T$, and $\int u\,d\omega$ diverges. For $\omega \gg T$,
 $u(\omega) \approx \omega^3e^{-\omega/T}/\pi^2$, **Wien's law**: high-frequency modes are frozen. The peak is at
-$\omega = 2.8214\,T$, the dots of @fig-occupation-numbers.
+$\omega = 2.8214\,T$, the dots of @fig-occupation-numbers [@pathria2022statistical, Sec. 7.3, eqs. 7.3.8-7.3.11].
 :::
 
 The total energy density follows from one integral, and with it the energy flux through a hole in the cavity wall.
@@ -2980,7 +2984,7 @@ The second example derives the Stefan-Boltzmann law and its constant.
 $u = \frac{T^4}{\pi^2}\int_0^\infty\frac{x^3dx}{e^x - 1} = \frac{T^4}{\pi^2}\cdot\frac{\pi^4}{15} = \frac{\pi^2T^4}{15}$.
 Radiation leaving a small hole has flux $\frac c4u = \sigma T^4$ with $\sigma = \frac{\pi^2k_B^4}{60\hbar^3c^2} = 5.670
 \times10^{-8}$ W m$^{-2}$ K$^{-4}$ in SI units. The Sun's surface at $5772$ K radiates $\sigma T^4 = 6.3\times10^7$
-W/m$^2$.
+W/m$^2$ [@pathria2022statistical, Sec. 7.3, eqs. 7.3.12-7.3.14].
 :::
 
 The cosmic microwave background is the most precise blackbody known. The third example computes its photon density
@@ -3006,7 +3010,7 @@ $d\lambda$ and $d\omega$ differ by a factor $\lambda^2$. The first exercise comp
 Show that $u(\omega)$ is maximal at $x = \hbar\omega/T$ with $x = 3(1 - e^{-x})$ and that the spectrum per unit
 wavelength $u_\lambda \propto \lambda^{-5}/(e^{hc/(\lambda T)} - 1)$ is maximal at $x = hc/(\lambda T)$ with $x = 5(1 -
 e^{-x})$. Solve both in Sage, compute the Wien constant $b = \lambda_{\max}T$, and evaluate the peaks for the Sun,
-the CMB and the human body.
+the CMB and the human body [@skacej2019solved, Problem 12.8].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3090,7 +3094,8 @@ $$
 T_c = \frac{2\pi}{m}\left(\frac{n}{\zeta(3/2)}\right)^{2/3},
 $$
 the remaining $N_0 = N - N_{\text{ex}}$ particles occupy the single-particle ground state, a finite fraction $N_0/N = 1 -
-(T/T_c)^{3/2}$; this macroscopically occupied state is the **Bose-Einstein condensate**.
+(T/T_c)^{3/2}$; this macroscopically occupied state is the **Bose-Einstein condensate**
+[@pathria2022statistical, Sec. 7.1, eqs. 7.1.17-7.1.22; @skacej2019solved, Problem 12.22].
 :::
 ::::
 
@@ -3129,7 +3134,7 @@ critical temperature of the right size, which was London's argument that superfl
 With mass density $145$ kg/m$^3$ and $m = 6.65\times10^{-27}$ kg, $n = 2.18\times10^{28}$ m$^{-3}$ and $T_c =
 \frac{2\pi\hbar^2}{mk_B}\left(\frac{n}{2.612}\right)^{2/3} = 3.13$ K (@exr-qst-bec), compared with the lambda point
 $2.17$ K. The discrepancy is due to the strong interactions in the liquid; dilute alkali gases, condensed in 1995 at
-about $10^{-7}$ K, agree with the ideal-gas formula to a few percent.
+about $10^{-7}$ K, agree with the ideal-gas formula to a few percent [@pathria2022statistical, Sec. 7.1, p. 204].
 :::
 ::::
 
@@ -3142,7 +3147,8 @@ vanishes at low energy. The first exercise shows that in two dimensions it does 
 
 In two dimensions the density of states per unit area is constant, $m/(2\pi)$. Show that $N_{\text{ex}}/A =
 \frac{m}{2\pi}\int_0^\infty\frac{d\epsilon}{e^{\beta(\epsilon - \mu)} - 1} = -\frac{mT}{2\pi}\log(1 - e^{\beta\mu})$,
-which diverges as $\mu \to 0^-$. Conclude that every density can be accommodated in the excited states at any $T > 0$.
+which diverges as $\mu \to 0^-$. Conclude that every density can be accommodated in the excited states at any $T > 0$
+[@skacej2019solved, Problem 12.23].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3197,7 +3203,7 @@ The last exercise computes the low-temperature side and the value at the cusp.
 
 Using $\int_0^\infty\frac{x^{3/2}dx}{e^x - 1} = \Gamma(5/2)\zeta(5/2)$, show that for $T \leq T_c$, $E =
 \frac32T\frac{V}{\lambda^3}\zeta(5/2)$, $C = \frac{15}{4}\frac{V}{\lambda^3}\zeta(5/2)$, and that $C/N$ at $T_c$ equals
-$\frac{15\zeta(5/2)}{4\zeta(3/2)} = 1.93$, above the classical $\frac32$.
+$\frac{15\zeta(5/2)}{4\zeta(3/2)} = 1.93$, above the classical $\frac32$ [@pathria2022statistical, Sec. 7.1, eq. 7.1.32; @skacej2019solved, Problem 12.22].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3350,7 +3356,7 @@ Curie-Weiss model, in which every spin interacts with every other and mean field
 field, whose correlations are sums over random walks; between them the correlation length adds the exponents $\nu$
 and $\eta$.
 
-For more on this topic, see @kivelson2024statistical [Ch. 4, Ch. 5, Ch. 6, Ch. 7], @shankar2017quantum [Ch. 7-8], @skacej2019solved [Ch. 1-5] and @strocchi2021symmetry [Ch. 21].
+For more on this topic, see @kivelson2024statistical [Ch. 4, Ch. 5, Ch. 6, Ch. 7], @shankar2017quantum [Ch. 7-8], @skacej2019solved [Ch. 5] and @strocchi2021symmetry [Ch. 21].
 
 ![Left: the Landau free energy $f(m) - f_0 = (T - T_c)m^2 + m^4$ ($a = b = T_c = 1$) at $T = 1.3\,T_c$ (one minimum at
 $m = 0$), at $T_c$ (a flat quartic minimum) and at $T = 0.7\,T_c$ (two minima at $m = \pm\sqrt{0.15}$, dots, and a
@@ -4250,8 +4256,8 @@ $\gamma = 1$ in one dimension.
 Mean field theory (@def-mean-field-theory) is an approximation, justified by the remark that it becomes exact when
 every spin has many neighbours. The Curie-Weiss model makes the remark precise: every spin interacts equally with
 every other, the energy depends on the configuration only through the mean spin, and the partition function reduces
-to an integral over a single variable whose integrand is the mean-field free energy [@bauerschmidt2019renormalisation,
-Sec. 1.4].
+to an integral over a single variable whose integrand is the mean-field free energy
+[@bauerschmidt2019renormalisation, Sec. 1.4].
 
 :::: {.statement-box}
 ::: {#prp-curie-weiss-potential}
@@ -4902,8 +4908,8 @@ instead the Gaussian single-spin weight $e^{-m^2\varphi_x^2/2}$, and the quartic
 the single-spin weight $e^{-m_0^2\varphi_x^2/2 - \lambda_0\varphi_x^4/4!}$ and a negative $m_0^2$, a double well between the two
 (this is the lattice theory of @def-ren-lattice-regularisation, treated later). The critical exponents are
 expected to depend on $d$ and the symmetry, not on the single-spin distribution, so the quartic theory is in the Ising
-class; the free field, with no double well, has no ordered phase and its own exponents [@bauerschmidt2019renormalisation,
-Sec. 1.3 and eqs. 1.6.3-1.6.4].
+class; the free field, with no double well, has no ordered phase and its own exponents
+[@bauerschmidt2019renormalisation, Sec. 1.3 and eqs. 1.6.3-1.6.4].
 :::
 ::::
 
@@ -4981,8 +4987,8 @@ also gives.
 :::
 
 The comparison of @exm-gff-single-spin rests on writing the Ising energy as a gradient energy. The last exercise does
-this on the lattice $\mathbb Z^d$ with the difference operators of @bauerschmidt2019renormalisation [eqs.
-1.2.1-1.2.2].
+this on the lattice $\mathbb Z^d$ with the difference operators of
+@bauerschmidt2019renormalisation [eqs. 1.2.1-1.2.2].
 
 ::: {#exr-gff-ising-gradient}
 #### The Ising energy as a gradient energy
@@ -5005,8 +5011,8 @@ T$ this is $H_0/T$.
 
 The covariance of the free field has a second meaning: it counts random walks. The proposition expands
 $(-\Delta + m^2)^{-1}$ in walks of the symmetric random walk of @def-random-walk, extended to $\mathbb Z^d$, and
-derives the critical exponents of the free field from properties of the walk [@bauerschmidt2019renormalisation, Sec.
-1.5.2].
+derives the critical exponents of the free field from properties of the walk
+[@bauerschmidt2019renormalisation, Sec. 1.5.2].
 
 :::: {.statement-box}
 ::: {#prp-gff-random-walk}
@@ -5321,6 +5327,8 @@ the circle in Fourier modes with the Matsubara frequencies (@sec-fourier-series)
 a field on a spatial circle: a discrete tower of modes, the mechanism that compact extra dimensions use in the
 Kaluza-Klein theories of this book. Throughout $\hbar = 1$.
 
+For more on this topic, see @shankar2017quantum [Sec. 3.2, Sec. 5.3, Sec. 6.10], @gelis2021problems [Ch. 5, pp. 277-279] and @strocchi2021symmetry [Ch. 22].
+
 ![Left: the Matsubara frequencies on the imaginary frequency axis, in units of $\pi/\beta$: bosonic $\omega_n =
 2\pi n/\beta$ (circles, even multiples, including $0$) and fermionic $\omega_n = (2n + 1)\pi/\beta$ (diamonds, odd
 multiples, no zero mode). Right: two turns of the thermal circle ($\beta = 1$): a bosonic mode $\cos(2\pi\tau/\beta)$
@@ -5345,7 +5353,7 @@ Z = \operatorname{tr}e^{-\beta H} = \sum_ne^{-\beta E_n},
 $$
 the Euclidean evolution over the interval $[0, \beta]$, traced. Thermal expectation values are $\langle A\rangle_\beta
 = \operatorname{tr}(\rho A)$, and the **thermal (Euclidean) correlators** are $G_{AB}(\tau) = \langle A(\tau)B(0)
-\rangle_\beta$ for $0 \leq \tau \leq \beta$.
+\rangle_\beta$ for $0 \leq \tau \leq \beta$ [@shankar2017quantum, Sec. 3.2, eqs. 3.19-3.30].
 :::
 ::::
 
@@ -5458,7 +5466,7 @@ Split $e^{-\beta H} = (e^{-\epsilon H})^M$ with $\epsilon = \beta/M$, insert pos
 and use $\langle q'|e^{-\epsilon H}|q\rangle \approx \sqrt{\frac{m}{2\pi\epsilon}}e^{-\epsilon[\frac m2(\frac{q' -
 q}{\epsilon})^2 + V(q)]}$ for $H = p^2/2m + V$. Show that $Z = \int\prod dq_k\,\dots$ becomes, as $M \to \infty$, a
 sum over paths $q(\tau)$ with $q(\beta) = q(0)$, weighted by $e^{-S_E[q]}$ with $S_E = \int_0^\beta(\frac m2\dot q^2 +
-V(q))d\tau$.
+V(q))d\tau$ [@shankar2017quantum, Sec. 5.3, eqs. 5.38-5.42].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5490,7 +5498,7 @@ $$
 the **Kubo-Martin-Schwinger (KMS) condition**, with $+$ for bosons and $-$ for fermions. Equivalently, the Euclidean
 path integral of a field theory at temperature $T$ is taken over fields on $S^1_\beta \times \mathbb R^d$, bosonic
 fields periodic, $\phi(\tau + \beta, \mathbf x) = \phi(\tau, \mathbf x)$, and fermionic fields antiperiodic,
-$\psi(\tau + \beta, \mathbf x) = -\psi(\tau, \mathbf x)$.
+$\psi(\tau + \beta, \mathbf x) = -\psi(\tau, \mathbf x)$ [@strocchi2021symmetry, Sec. 22.1, Thm. 22.1; @gelis2021problems, Ch. 5, pp. 278-279].
 :::
 ::::
 
@@ -5519,7 +5527,8 @@ For $H = \epsilon c^\dagger c$ with $\{c, c^\dagger\} = 1$: $Z = 1 + e^{-\beta\e
 and the time-ordered correlator $G(\tau) = \langle T c(\tau)c^\dagger(0)\rangle$, with $T$ inserting a minus sign
 when it reorders fermions, is $(1 - n_F)e^{-\epsilon\tau}$ for $0 < \tau < \beta$ and $-n_Fe^{-\epsilon\tau}$ for
 $-\beta < \tau < 0$, $n_F = 1/(e^{\beta\epsilon} + 1)$. Then $G(\tau - \beta) = -n_Fe^{-\epsilon\tau}e^{\beta\epsilon}
-= -(1 - n_F)e^{-\epsilon\tau} = -G(\tau)$, since $n_Fe^{\beta\epsilon} = 1 - n_F$: antiperiodic.
+= -(1 - n_F)e^{-\epsilon\tau} = -G(\tau)$, since $n_Fe^{\beta\epsilon} = 1 - n_F$: antiperiodic
+[@shankar2017quantum, Secs. 6.10.1-6.10.2, eqs. 6.123-6.141].
 :::
 
 The circumference of the thermal circle is the inverse temperature, so the geometry changes with $T$. The third
@@ -5586,7 +5595,8 @@ exercise outlines Hawking's result from the requirement that the Euclidean geome
 The Schwarzschild metric continued to Euclidean time is $ds^2 = (1 - \frac{2GM}{r})d\tau^2 + (1 -
 \frac{2GM}{r})^{-1}dr^2 + r^2d\Omega^2$. Setting $r = 2GM + \frac{\rho^2}{8GM}$, show that near $\rho = 0$ the
 $(\tau, \rho)$ part is $\frac{\rho^2}{16G^2M^2}d\tau^2 + d\rho^2$, and that it is a smooth plane in polar coordinates
-only if $\tau$ is periodic with period $8\pi GM$. Deduce the Hawking temperature $T_H = 1/(8\pi GM)$.
+only if $\tau$ is periodic with period $8\pi GM$. Deduce the Hawking temperature $T_H = 1/(8\pi GM)$. For the same temperature
+from the Bogoliubov spectrum of the Kruskal vacuum, see [@gelis2021problems, Problem 81].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5636,7 +5646,7 @@ the Fourier series of @sec-fourier-series rescaled from period $2\pi$ to period 
 **bosonic Matsubara frequencies**. An antiperiodic function $\psi(\tau + \beta) = -\psi(\tau)$ has the same expansion
 with the **fermionic Matsubara frequencies** $\omega_n = \frac{(2n + 1)\pi}{\beta}$. In both cases the modes
 $e^{-i\omega_n\tau}/\sqrt\beta$ are orthonormal in $L^2(0, \beta)$ and are eigenfunctions of $-\partial_\tau^2$ with
-eigenvalues $\omega_n^2$.
+eigenvalues $\omega_n^2$ [@shankar2017quantum, Sec. 6.10.1, eqs. 6.129-6.135; @gelis2021problems, Ch. 5, pp. 278-279].
 :::
 ::::
 
@@ -5917,7 +5927,8 @@ $\log Z = \pi L/(6\beta)$.
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 Three exercises that combine the sections of this chapter: a Carnot engine whose working substance is blackbody
 radiation, the exact solution of the one-dimensional Ising model compared with mean field theory, and the free energy
-of a scalar field computed mode by mode on the thermal circle.
+of a scalar field computed mode by mode on the thermal circle. For more on these topics, see @pathria2022statistical [Sec. 7.3],
+@kivelson2024statistical [Sec. 3.4] and @skacej2019solved [Problem 12.7].
 
 The Carnot efficiency holds for any working substance, and radiation is a substance whose isotherms are isobars. The
 first exercise runs the cycle with the photon gas of @prp-quantum-statistics-values and checks the efficiency against
@@ -5929,7 +5940,7 @@ first exercise runs the cycle with the photon gas of @prp-quantum-statistics-val
 Blackbody radiation in a cylinder has $u = \sigma'T^4$ ($\sigma' = \pi^2/15$), $p = u/3$ and $S = \frac43\sigma'T^3V$.
 Run a Carnot cycle between $T_h$ and $T_c$: isothermal expansion $V_1 \to V_2$ at $T_h$, adiabatic expansion to $T_c$,
 isothermal compression, adiabatic compression. Find the volumes, the heats $Q_h, Q_c$, the work as $\oint p\,dV$, and
-show $\eta = 1 - T_c/T_h$, with Sage.
+show $\eta = 1 - T_c/T_h$, with Sage [@bricmont2022statistical, Exercise 5.5; @pathria2022statistical, Sec. 7.3].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5979,7 +5990,7 @@ For $H = -J\sum_is_is_{i+1} - h\sum_is_i$ on a ring of $N$ spins, show that $Z =
 e^{\beta(Jss' + h(s + s')/2)}$, so $Z = \lambda_+^N + \lambda_-^N$ with $\lambda_\pm = e^{\beta J}\cosh\beta h \pm
 \sqrt{e^{2\beta J}\sinh^2\beta h + e^{-2\beta J}}$. Check $Z$ against a brute-force sum for $N = 6$ in Sage. Deduce
 $m = T\partial_h\log\lambda_+$ as $N \to \infty$, show $m(h = 0) = 0$ at every $T > 0$, and find the zero-field
-susceptibility $\chi = \beta e^{2\beta J}$. Compare with mean field ($T_c = 2J$).
+susceptibility $\chi = \beta e^{2\beta J}$. Compare with mean field ($T_c = 2J$) [@kivelson2024statistical, Sec. 3.4.2, eqs. 3.21-3.29].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -6033,7 +6044,8 @@ A free massless real scalar in $3 + 1$ dimensions at temperature $T$: (a) argue 
 momentum mode contributes the oscillator free energy $\frac{\omega_k}{2} + T\log(1 - e^{-\omega_k/T})$; (b) show with Sage
 that the thermal part integrates to $f = -\frac{\pi^2T^4}{90}$, using $\int_0^\infty x^2\log(1 - e^{-x})dx = -\frac13
 \int_0^\infty\frac{x^3dx}{e^x - 1}$; (c) derive $s$, $u$ and $p = u/3$; (d) list the masses $2\pi|n|T$ of the
-three-dimensional fields in the Matsubara tower at $T = 1$ and $T = 10$, and the lowest fermionic value $\pi T$.
+three-dimensional fields in the Matsubara tower at $T = 1$ and $T = 10$, and the lowest fermionic value $\pi T$
+[@skacej2019solved, Problem 12.7; @gelis2021problems, Ch. 5, pp. 278-279].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}

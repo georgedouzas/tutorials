@@ -24,12 +24,12 @@ the spin sums of scattering amplitudes, and the transmission of an electron thro
 
 The algebra of the gamma matrices and of spinors in any dimension is developed in @sec-spinors-dirac-operator and the
 equation is first written down in @sec-spinors; this chapter uses both and adds the physics. The sources are the
-textbook of @zhelnorovich2019spinors (Chapters 3 and 5) for the covariance and the bilinears, @cini2023quantum
-(Chapters 11 and 13) for the non-relativistic hydrogen atom and potential steps, @svanberg2022spectroscopy (Chapters 2
-and 9) for fine structure and the measured lines, the review of @eides2001hydrogen for the Dirac spectrum and its
-corrections, @costella1995foldy for the Foldy-Wouthuysen transformation, @pal2011majorana for Weyl and Majorana
-fermions, @calogeracos1999klein for the Klein paradox, and the measurements of @parthey2011hydrogen and
-@fan2023electron. Units are $\hbar = c = 1$ and the signature is $(+, -, -, -)$; the gamma matrices are the Weyl
+textbook of @zhelnorovich2019spinors [Chs. 3, 5] for the covariance and the bilinears, @das2023quantum [Chs. 11, 13]
+for the non-relativistic hydrogen atom and potential steps, @svanberg2022spectroscopy [Chs. 2, 9] for fine structure
+and the measured lines, the review of @eides2001hydrogen [Secs. II, IV-VII, XXXIX] for the Dirac spectrum and its
+corrections, @costella1995foldy [Secs. II-V] for the Foldy-Wouthuysen transformation, @pal2011majorana [Secs. 3-7]
+for Weyl and Majorana fermions, @calogeracos1999klein [Secs. I-II] for the Klein paradox, and the measurements of
+@parthey2011hydrogen [p. 1] and @fan2023electron [eqs. (3), (6)-(7)]. Units are $\hbar = c = 1$ and the signature is $(+, -, -, -)$; the gamma matrices are the Weyl
 matrices of @exm-gamma-weyl unless another representation is named.
 
 ## The equation and its covariance {#sec-dirac-covariance}
@@ -200,7 +200,7 @@ eigenvalues of H: [-25, -25, 25, 25]
 :::
 
 Other authors write the equation with other signatures and signs. The fourth exercise translates the form used by
-@zhelnorovich2019spinors into ours, a useful exercise in reading the literature.
+@zhelnorovich2019spinors [Sec. 5.2, eq. (5.19)] into ours, a useful exercise in reading the literature.
 
 ::: {#exr-dq-zhelnorovich-form}
 #### Another signature
@@ -230,7 +230,7 @@ that four is the smallest possible size, so the Dirac wave function has four com
 Hermitian matrices $\alpha_1, \alpha_2, \alpha_3, \beta$ satisfying @eq-dq-alpha-beta are traceless with eigenvalues
 $\pm1$, so their size $N$ is even, and $N = 2$ is impossible; the smallest size is $N = 4$, realised by
 @exm-dq-weyl-alpha, and every solution of size four is equivalent to it, while solutions of larger size are direct
-sums of size-four ones @zhelnorovich2019spinors [Sec. 5.1, eqs. (5.12)-(5.13)].
+sums of size-four ones @zhelnorovich2019spinors [Sec. 1.1, Sec. 5.1, eqs. (5.12)-(5.13)].
 
 *Proof.* Each matrix squares to $1$, so its eigenvalues are $\pm1$. For $\beta$, $\operatorname{tr}\beta =
 \operatorname{tr}(\alpha_1^2\beta) = \operatorname{tr}(\alpha_1\beta\alpha_1) = -\operatorname{tr}(\alpha_1\alpha_1\beta) =
@@ -457,7 +457,7 @@ m)\psi' = S(i\gamma^\nu\partial_\nu - m)\psi = 0$.
 :::
 
 The infinitesimal form of @eq-dq-covariance is a commutator identity of gamma matrices. The second exercise derives it,
-reproducing the condition (5.11) of @zhelnorovich2019spinors in our signature.
+reproducing the condition (5.11) of @zhelnorovich2019spinors [Sec. 5.1] in our signature.
 
 ::: {#exr-dq-infinitesimal}
 #### The infinitesimal condition
@@ -543,7 +543,7 @@ over $\Lambda = 1$. The group of the $S$ is the double cover $\mathrm{Spin}(1, 3
 ::::
 
 Products $\bar\psi\Gamma\psi$ of two spinors transform as tensors when $\Gamma$ is chosen well. The definition below
-lists the sixteen independent ones, the tensors of @zhelnorovich2019spinors [Sec. 3.2.1].
+lists the sixteen independent ones, the tensors of @zhelnorovich2019spinors [Sec. 3.2.2].
 
 :::: {.statement-box}
 ::: {#def-dq-bilinear-covariant}
@@ -556,7 +556,7 @@ $$
 $$ {#eq-dq-bilinears}
 with $\bar\psi = \psi^\dagger\gamma^0$: a scalar, a vector, an antisymmetric tensor, an axial vector and a pseudoscalar,
 $1 + 4 + 6 + 4 + 1 = 16$ in all, one for each basis element $\Gamma_A$ of the Clifford algebra (@prp-clifford-basis)
-@zhelnorovich2019spinors [Sec. 3.2.1, eqs. (3.57)-(3.59)].
+@zhelnorovich2019spinors [Sec. 3.2.2, eqs. (3.57)-(3.59)].
 :::
 ::::
 
@@ -580,7 +580,7 @@ example states the algebraic identities that connect them.
 
 For every $\psi$, $j_\mu j^\mu = \Omega^2 + N^2$, $j_\mu a^\mu = 0$, and $a_\mu a^\mu = -j_\mu j^\mu$, together with
 $j^0 = \psi^\dagger\psi \geq 0$. So $j$ is timelike or null and future pointing, and $a$ is spacelike and orthogonal to it.
-These are @zhelnorovich2019spinors [Sec. 3.2.1, eqs. (3.60)] converted to our signature (his $g = \operatorname{diag}(1, 1,
+These are @zhelnorovich2019spinors [Sec. 3.2.2, eqs. (3.60)] converted to our signature (his $g = \operatorname{diag}(1, 1,
 1, -1)$ reverses the sign of every contraction).
 :::
 
@@ -836,7 +836,7 @@ probability density. The proposition below states them together with the causal 
 If $\psi$ solves the Dirac equation, free or coupled to an electromagnetic potential as in @def-dq-minimal-coupling,
 then $\partial_\mu j^\mu = 0$, so $Q = \int\psi^\dagger\psi\,d^3x$ is constant for solutions that decay at infinity.
 Moreover $\rho = \psi^\dagger\psi \geq 0$ and $|\mathbf j| \leq \rho$, so $j^\mu$ is a future-directed timelike or null vector
-@zhelnorovich2019spinors [Sec. 3.2.1].
+@zhelnorovich2019spinors [Sec. 3.2.2].
 
 *Proof.* The conjugate of $(i\gamma^\mu D_\mu - m)\psi = 0$, multiplied by $\gamma^0$ on the right, is $\bar\psi(i\gamma^\mu
 \overleftarrow{\partial_\mu} + q\gamma^\mu A_\mu + m) = 0$. Multiplying the equation by $\bar\psi$ on the left, the conjugate by
@@ -1973,7 +1973,7 @@ H/E)$, and check $u^\dagger(p)v(p) = 0$. Compare with the normalisations of @cal
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $u(p) = (E + m, p)/\sqrt{2E(E + m)}$ and $v(p) = (-p, E + m)/\sqrt{2E(E + m)}$ are orthonormal: $u^\dagger v = (-(E + m)p + p(E +
 m))/2E(E + m) = 0$. The projectors are $\tfrac12(1 \pm (\sigma_1p + \sigma_3m)/E)$, and $u u^\dagger = \tfrac12(1 + H/E)$, as a direct
-computation of the entries $(E + m)^2$, $(E + m)p$, $p^2$ over $2E(E + m)$ shows. @calogeracos1999klein use $\gamma^0 = \sigma_3$,
+computation of the entries $(E + m)^2$, $(E + m)p$, $p^2$ over $2E(E + m)$ shows. @calogeracos1999klein [Sec. I.B] use $\gamma^0 = \sigma_3$,
 $\gamma^1 = i\sigma_1$ and the spinors $(ik, E - m)$, which are ours up to the change of basis $e^{i\pi\sigma_3/4}$ and the
 normalisation over a box of length $2L$.
 :::
@@ -1985,8 +1985,8 @@ An electron in an atom moves at about $Z\alpha$ times the speed of light, so its
 Schrödinger equation with small corrections. This part couples the equation to an electromagnetic field, finds the
 Pauli equation as the leading term with the gyromagnetic ratio $g = 2$ predicted rather than assumed, and then
 organises the corrections systematically with the Foldy-Wouthuysen transformation, which produces the relativistic
-kinetic energy, the spin-orbit coupling and the Darwin term, following @costella1995foldy and @eides2001hydrogen [Sec.
-VII]. The Dirac representation of @exm-dq-dirac-alpha is used throughout, since in it the rest energy separates the
+kinetic energy, the spin-orbit coupling and the Darwin term, following @costella1995foldy [Secs. III-V] and
+@eides2001hydrogen [Sec. VII]. The Dirac representation of @exm-dq-dirac-alpha is used throughout, since in it the rest energy separates the
 large from the small components.
 
 ### The Pauli equation
@@ -2156,7 +2156,7 @@ compares the two, which is the principle of the most precise measurement of $g$.
 
 From @eq-dq-pauli, $\dot{\mathbf S} = i[H, \mathbf S] = \boldsymbol\mu \times \mathbf B$, a precession with angular frequency $\omega_s =
 g|q|B/2m$; the orbit has $\omega_c = |q|B/m$. For $g = 2$ the two coincide and the spin keeps its angle to the velocity. The
-difference $\omega_a = \omega_s - \omega_c = (g/2 - 1)\omega_c$ is what @fan2023electron measure in a single-electron cyclotron:
+difference $\omega_a = \omega_s - \omega_c = (g/2 - 1)\omega_c$ is what @fan2023electron [eqs. (3), (6)] measure in a single-electron cyclotron:
 $g/2 = 1.001\,159\,652\,180\,59(13)$, with the Dirac value $1$ as the first term of the prediction.
 :::
 ::::
@@ -2187,7 +2187,7 @@ combine. The second exercise computes the Landé factors of the lowest hydrogen 
 
 The magnetic moment of a level $|l, s, j\rangle$ projected on $\mathbf J$ has $g_J = g_l\frac{j(j + 1) - s(s + 1) + l(l + 1)}{2j(j +
 1)} + g_s\frac{j(j + 1) + s(s + 1) - l(l + 1)}{2j(j + 1)}$. With Sage, evaluate it for $S_{1/2}$, $P_{1/2}$, $P_{3/2}$,
-$D_{3/2}$, $D_{5/2}$ with $g_s = 2$, and again with the measured $g_s$ of @fan2023electron.
+$D_{3/2}$, $D_{5/2}$ with $g_s = 2$, and again with the measured $g_s$ of @fan2023electron [eq. (6)].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2219,7 +2219,7 @@ for a realistic field. The numbers show why the anomaly, though tiny, is measure
 ::: {#exr-dq-anomaly-frequency}
 #### Cyclotron and anomaly frequencies
 
-For an electron in $B = 5$ T, compute $\nu_c = eB/2\pi m$ and $\nu_a = (g/2 - 1)\nu_c$ with the value of @fan2023electron.
+For an electron in $B = 5$ T, compute $\nu_c = eB/2\pi m$ and $\nu_a = (g/2 - 1)\nu_c$ with the value of @fan2023electron [eqs. (3), (6)].
 Compare $g/2 - 1$ with $\alpha/2\pi$, the first quantum correction.
 :::
 
@@ -2737,12 +2737,12 @@ For $V = V(r)$ show that $\nabla V \times \mathbf p = \frac1r\frac{dV}{dr}\mathb
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\nabla V = V'(r)\mathbf x/r$, so $\nabla V \times \mathbf p = (V'/r)\mathbf x \times \mathbf p = (V'/r)\mathbf L$, the factor $V'/r$ commuting with
 $\mathbf L$. With $\mathbf S = \boldsymbol\sigma/2$ the coefficient becomes $1/(2m^2)$. For $V = -Z\alpha/r$, $V'/r = Z\alpha/r^3$ and the term is
-$\frac{Z\alpha}{4m^2r^3}\mathbf L\cdot\boldsymbol\sigma$, which is the last term of eq. (35) of @eides2001hydrogen at $M \to \infty$ (with $[\mathbf r
+$\frac{Z\alpha}{4m^2r^3}\mathbf L\cdot\boldsymbol\sigma$, which is the last term of eq. (35) of @eides2001hydrogen [Sec. VII] at $M \to \infty$ (with $[\mathbf r
 \times \mathbf p]\cdot\boldsymbol\sigma = \mathbf L\cdot\boldsymbol\sigma$).
 :::
 
 The Darwin term needs the value of the wave function at the origin. The second exercise computes it for the $s$
-states, using the Laguerre form of the radial functions of @cini2023quantum [Sec. 11.2].
+states, using the Laguerre form of the radial functions of @das2023quantum [Sec. 11.2].
 
 ::: {#exr-dq-darwin-expectation}
 #### The Darwin shift
@@ -2754,7 +2754,7 @@ for the $1S$ and $2S$ levels of hydrogen in MHz.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\frac{\pi Z\alpha}{2m^2}\cdot\frac{(mZ\alpha)^3}{\pi n^3} = \frac{m(Z\alpha)^4}{2n^3}$. With $m\alpha^4 = 1.449 \times 10^{-3}$ eV, i.e. $350.4$ GHz,
 the shift is $175.2$ GHz for $1S$ and $21.9$ GHz for $2S$. The value at the origin follows from $R_{n0}(0) = 2(mZ\alpha/n)^{3/2}$ and
-$Y_{00} = 1/\sqrt{4\pi}$, since $L^1_n(0) \neq 0$ in the radial function of @cini2023quantum [eq. (11.17)].
+$Y_{00} = 1/\sqrt{4\pi}$, since $L^1_n(0) \neq 0$ in the radial function of @das2023quantum [eq. (11.17)].
 :::
 
 The cancellation of @exm-dq-fine-structure-first-order is a computation with three expectation values. The third
@@ -2766,7 +2766,7 @@ exercise performs it with Sage for all levels with $n \leq 4$.
 Using $\langle1/r\rangle = mZ\alpha/n^2$, $\langle1/r^2\rangle = (mZ\alpha)^2/n^3(l + \frac12)$, $\langle1/r^3\rangle = (mZ\alpha)^3/n^3l(l +
 \frac12)(l + 1)$ for $l \geq 1$, $\langle\mathbf p^{\,4}\rangle = 4m^2\langle(E_n - V)^2\rangle$ and $\mathbf S\cdot\mathbf L = \tfrac12[j(j + 1) - l(l + 1) -
 \tfrac34]$, compute with Sage the sum of the three shifts for every $(n, l, j)$ with $n \leq 4$ and compare with
-@eq-dq-fine-structure-first-order. ( $\langle1/r\rangle$ is @cini2023quantum [Sec. 11.3, Problem 3].)
+@eq-dq-fine-structure-first-order. ( $\langle1/r\rangle$ is @das2023quantum [Sec. 11.3, Problem 3].)
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2892,7 +2892,7 @@ third-order term = +(2 N b)^3/(16 m^5), the next term of the series of sqrt(p^2 
 :::
 
 The spin-orbit constant of a level is what spectroscopists measure in alkali atoms. The third exercise computes it for
-hydrogen from the Foldy-Wouthuysen Hamiltonian and compares with the splitting formula of @svanberg2022spectroscopy.
+hydrogen from the Foldy-Wouthuysen Hamiltonian and compares with the splitting formula of @svanberg2022spectroscopy [Sec. 2.3.2, eq. (2.16)].
 
 ::: {#exr-dq-svanberg-zeta}
 #### The spin-orbit constant
@@ -2917,7 +2917,7 @@ The Coulomb problem is one of the few in which the Dirac equation can be solved 
 benchmark against which the most precise measurements of atomic physics are compared. This part separates the equation
 in spherical coordinates with the operator $K$ and the spinor spherical harmonics, reduces it to two coupled radial
 equations, solves them, and compares the resulting spectrum with the measured fine structure and with the Lamb shift
-that lies beyond it. The non-relativistic solution of @cini2023quantum [Chap. 11] is the model for the method, and the
+that lies beyond it. The non-relativistic solution of @das2023quantum [Chap. 11] is the model for the method, and the
 spectrum and its corrections are those reviewed by @eides2001hydrogen [Secs. II and VII].
 
 ### Separation in spherical coordinates
@@ -3197,7 +3197,8 @@ and the energy equation $H\psi = E\psi$ is equivalent to
 $$
 G' - \frac{\kappa}{r}G = -(E - V + m)F, \qquad F' + \frac{\kappa}{r}F = (E - V - m)G ,
 $$ {#eq-dq-radial}
-with normalisation $\int_0^\infty(G^2 + F^2)\,dr = 1$ @zhelnorovich2019spinors [Sec. 5.11.2].
+with normalisation $\int_0^\infty(G^2 + F^2)\,dr = 1$ @zhelnorovich2019spinors [Sec. 5.11.2]. The same pair is in
+@silbar2011radial [Sec. I, eqs. (3), (5), (7)-(8), (12)], with $k = -\kappa$ and lower component $f = -F$.
 
 *Proof.* The rows of $H\psi = E\psi$ are $(E - V - m)\varphi = \boldsymbol\sigma\cdot\mathbf p\chi$ and $(E - V + m)\chi = \boldsymbol\sigma\cdot\mathbf p\varphi$. Use
 $\boldsymbol\sigma\cdot\mathbf p = \sigma_r(-i\partial_r + \frac ir\boldsymbol\sigma\cdot\mathbf L)$ (@exr-dq-sigma-r): on $\varphi = \frac Gr\Omega$, $\boldsymbol\sigma\cdot\mathbf L =
@@ -3226,13 +3227,13 @@ state, whose density is drawn in @fig-dq-radial.
 #### The ground state of hydrogen
 
 For $V = -Z\alpha/r$ and $\kappa = 1$, $G = Ar^\gamma e^{-\lambda r}$, $F = \frac{1 - \gamma}{Z\alpha}G$ with $\gamma = \sqrt{1 - (Z\alpha)^2}$ and $\lambda =
-mZ\alpha$ solve @eq-dq-radial with $E = m\gamma$ (@exr-dq-ground-state-check). For $Z = 1$, $\gamma = 1 - 2.7 \times 10^{-5}$ and $F/G =
+mZ\alpha$ solve @eq-dq-radial with $E = m\gamma$ (@exr-dq-ground-state-check) [@silbar2011radial, Sec. III.E, eq. (45)]. For $Z = 1$, $\gamma = 1 - 2.7 \times 10^{-5}$ and $F/G =
 (1 - \gamma)/\alpha \approx \alpha/2$: the small component is small. The wave function behaves as $r^{\gamma - 1}$ at the origin, mildly
 singular, but square integrable.
 :::
 
 The two radial equations can be combined into one second-order equation. The third example writes it for $G$ and
-shows where the Schrödinger radial equation of @cini2023quantum [eq. (11.6)] sits inside it.
+shows where the Schrödinger radial equation of @das2023quantum [eq. (11.6)] sits inside it.
 
 ::: {#exm-dq-second-order}
 #### The second-order form
@@ -3303,7 +3304,7 @@ A^2 = (2 lambda)^(2 gamma + 1)/((1 + f^2) Gamma(2 gamma + 1)), with 1 + f^2 = 2/
 :::
 
 The relativistic ground state is closer to the nucleus than the Schrödinger one. The third exercise quantifies this with
-the mean radius, the Dirac version of @cini2023quantum [Sec. 11.3, Problem 2].
+the mean radius, the Dirac version of @das2023quantum [Sec. 11.3, Problem 2].
 
 ::: {#exr-dq-cini-mean-r}
 #### The mean radius
@@ -3391,7 +3392,7 @@ which depends on $n$ and $j$ only @eides2001hydrogen [eqs. (4)-(5)].
 
 *Proof sketch.* At large $r$, $G, F \sim e^{-\lambda r}$ with $\lambda = \sqrt{m^2 - E^2}$, and at the origin $G, F \sim r^{\gamma_\kappa}$
 (@exr-dq-origin). Writing $G, F = r^{\gamma_\kappa}e^{-\lambda r}$ times power series and substituting into @eq-dq-radial gives a
-two-term recursion, as in the Schrödinger case of @cini2023quantum [Sec. 11.2, eqs. (11.10)-(11.13)]; unless the series
+two-term recursion, as in the Schrödinger case of @das2023quantum [Sec. 11.2, eqs. (11.10)-(11.13)]; unless the series
 terminate they grow like $e^{2\lambda r}$. They terminate after $n_r$ terms exactly when $\frac{Z\alpha E}{\lambda} = n_r + \gamma_\kappa$, and
 solving for $E$ gives @eq-dq-dirac-levels. For $n_r = 0$ the two equations at the top order are compatible only if $\kappa >
 \gamma_\kappa > 0$ (@exr-dq-nr-zero).
@@ -3418,7 +3419,7 @@ The energies depend on $|\kappa|$ and $n_r$ only, not on the sign of $\kappa$. T
 
 For $n = 2$: $\kappa = 1$, $n_r = 1$ is $2S_{1/2}$; $\kappa = -1$, $n_r = 1$ is $2P_{1/2}$; $\kappa = 2$, $n_r = 0$ is $2P_{3/2}$. The first two
 have $\gamma_{\pm1}$ equal and the same $n_r$, so they are exactly degenerate, although they have opposite parity and different
-radial functions. In general all levels with the same $n$ and $j$ coincide, the remnant of the $SO(4)$ symmetry of the
+radial functions [@silbar2011radial, Sec. III.D]. In general all levels with the same $n$ and $j$ coincide, the remnant of the $SO(4)$ symmetry of the
 Schrödinger problem (@prp-qm-hydrogen-so4).
 :::
 
@@ -3428,7 +3429,7 @@ happens there. It is the point where the one-particle picture begins to fail.
 ::: {#exm-dq-high-z}
 #### The limit $Z\alpha \to 1$
 
-As $Z \to 1/\alpha \approx 137$, $E_{1S} = m\gamma_1 \to 0$, with an infinite slope (right panel of @fig-dq-hydrogen), and for $Z\alpha > 1$
+As $Z \to 1/\alpha \approx 137$, $E_{1S} = m\gamma_1 \to 0$ [@silbar2011radial, Sec. III.E, eq. (45)], with an infinite slope (right panel of @fig-dq-hydrogen), and for $Z\alpha > 1$
 the point-nucleus problem has no ground state (@exr-dq-origin). For a nucleus of finite size the $1S$ level continues to
 fall and reaches the negative continuum $E = -m$ at a larger, supercritical charge, where the bound state merges with the
 Dirac sea and positrons can be emitted spontaneously @calogeracos1999klein [Secs. I.A and II.B].
@@ -3588,8 +3589,8 @@ example gives the measured splitting and the order of magnitude of its quantum-e
 ::: {#exm-dq-lamb-shift}
 #### The Lamb shift
 
-The $2S_{1/2}$ level lies above $2P_{1/2}$ by $1\,057\,845(3)$ kHz, the classic Lamb shift measured since 1947 (@eides2001hydrogen
-[Sec. XXXIX.D, Table XX]). The Dirac equation predicts zero. The electron's coupling to virtual photons smears its charge
+The $2S_{1/2}$ level lies above $2P_{1/2}$ by $1\,057\,845(3)$ kHz, the classic Lamb shift measured since 1947
+(@eides2001hydrogen [Sec. XXXIX.D, Table XX]). The Dirac equation predicts zero. The electron's coupling to virtual photons smears its charge
 over a radius $\langle r^2\rangle \approx \frac{2}{m^2\pi}\alpha\log(Z\alpha)^{-2}$, raising the $S$ levels by about $\frac{4m(Z\alpha)^4\alpha}{3\pi n^3}\log(Z\alpha)^{-2}
 \approx 1330$ MHz at $n = 2$, and vacuum polarisation lowers them by about $30$ MHz @eides2001hydrogen [Sec. V, eqs. (28)-(32)].
 :::
@@ -3600,7 +3601,7 @@ prediction, the difference being the Lamb shifts of the two levels.
 ::: {#exm-dq-1s2s}
 #### The $1S$-$2S$ interval
 
-@parthey2011hydrogen measured $f_{1S\text{-}2S} = 2\,466\,061\,413\,187\,035(10)$ Hz. The Dirac formula with the reduced mass gives
+@parthey2011hydrogen [p. 1] measured $f_{1S\text{-}2S} = 2\,466\,061\,413\,187\,035(10)$ Hz. The Dirac formula with the reduced mass gives
 $2\,466\,068.52$ GHz, larger by $7.11$ GHz. The $1S$ Lamb shift is $8\,172.876(29)$ MHz @svanberg2022spectroscopy [Sec. 9.7.4] and
 the $2S$ one is close to the classic shift of @exm-dq-lamb-shift, since the $P$ levels shift much less than the $S$ levels. The
 QED shifts, $8.17 - 1.05 \approx 7.1$ GHz, thus account for the difference; the remaining tens of MHz lie in the recoil and
@@ -3753,7 +3754,7 @@ charge-radius estimate 1335 MHz, vacuum polarisation -27.1 MHz, sum 1308 MHz, me
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 These exercises combine the separation of variables with the exact spectrum. The first is the relativistic virial
-theorem for the ground state, a Dirac version of @cini2023quantum [Sec. 11.3, Problem 3].
+theorem for the ground state, a Dirac version of @das2023quantum [Sec. 11.3, Problem 3].
 
 ::: {#exr-dq-virial}
 #### A relativistic virial theorem
@@ -3765,7 +3766,7 @@ $E = m\langle\beta\rangle$ and $\langle V\rangle = -mZ\alpha\cdot Z\alpha/\gamma
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\langle\beta\rangle = \frac{1 - f^2}{1 + f^2}$ with $f = \frac{1 - \gamma}{Z\alpha}$, which simplifies to $\gamma = E/m$; and $\langle1/r\rangle = \frac{2\lambda}{2\gamma}
 = \frac{mZ\alpha}{\gamma}$. For small $Z\alpha$, $\langle V\rangle \to -m(Z\alpha)^2 = 2E_{\mathrm{Bohr}}$, the non-relativistic virial theorem of
-@cini2023quantum [Sec. 11.3, Problem 3]:
+@das2023quantum [Sec. 11.3, Problem 3]:
 
 ```python
 a = var("a", domain="positive"); assume(a < 1)
@@ -3790,7 +3791,7 @@ print("<V> =", V, "; to order (Z alpha)^4:", taylor(V, a, 0, 4))
 :::
 
 The fine structure grows like $Z^4$, so hydrogen-like helium tests it at a larger scale. The second exercise compares
-the Dirac value with the theoretical value quoted by @eides2001hydrogen.
+the Dirac value with the theoretical value quoted by @eides2001hydrogen [Sec. XXXIX.G].
 
 ::: {#exr-dq-helium-ion}
 #### The $2P$ interval of $\mathrm{He}^+$
@@ -3831,7 +3832,8 @@ component of a four-vector and contrasts it with a scalar potential, which enter
 
 Replace $m$ by $m + S(r)$ in the Dirac Hamiltonian (a scalar potential) and write the radial equations. Show that for $S = -V$
 the combination $E - V - m - S$ in the second equation becomes $E - m$, and explain why a scalar potential binds particles and
-antiparticles alike while a vector potential binds only one of them.
+antiparticles alike while a vector potential binds only one of them. The radial equations with both potentials are
+eqs. (7)-(8) of @silbar2011radial [Sec. I], with $V_s = S$, $V_v = V$, $k = -\kappa$ and $f = -F$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3848,7 +3850,7 @@ The Dirac equation has three discrete symmetries beyond the continuous Lorentz g
 particles and antiparticles, space reflection and time reversal. This part builds the three operations on spinors, shows
 what each does to charge, momentum, spin and helicity, and then uses charge conjugation and chirality to define the two
 kinds of reduced fermion, the Weyl fermion of one chirality and the Majorana fermion equal to its own conjugate, following
-@pal2011majorana and @zhelnorovich2019spinors [Sec. 5.7]. The algebra of the charge-conjugation matrix in every dimension is in
+@pal2011majorana [Secs. 3-5, 7] and @zhelnorovich2019spinors [Sec. 5.7]. The algebra of the charge-conjugation matrix in every dimension is in
 @sec-clifford-algebras; here the dimension is four and the physics is the subject.
 
 For more on this topic, see @pal2015introductory [Ch. 6, Ch. 7] and @shankar2017quantum [Ch. 9].
@@ -4040,7 +4042,7 @@ problem; they matter when $Z$ is large enough for the electron $1S$ level to app
 :::
 
 The positronium atom and antihydrogen are the testing grounds of charge conjugation. The third example states the
-prediction for antihydrogen, which @parthey2011hydrogen mention as a test of $CPT$.
+prediction for antihydrogen, which @parthey2011hydrogen [p. 1] mention as a test of $CPT$.
 
 ::: {#exm-dq-c-antihydrogen}
 #### Antihydrogen
@@ -4048,7 +4050,7 @@ prediction for antihydrogen, which @parthey2011hydrogen mention as a test of $CP
 Replacing every particle by its antiparticle reverses every charge, so antihydrogen (a positron bound to an antiproton) has
 the potential $q\Phi = -\alpha/r$ for the positron, the same as hydrogen's for the electron. Its Dirac spectrum is therefore
 identical, and in particular its $1S$-$2S$ frequency must equal that of hydrogen if the combined symmetry $CPT$ holds, a
-comparison proposed as a stringent test @parthey2011hydrogen.
+comparison proposed as a stringent test @parthey2011hydrogen [p. 1].
 :::
 ::::
 
@@ -4554,8 +4556,8 @@ condition reads $\psi_R = -i\sigma_2\psi_L^*$, so every Majorana spinor has the 
 $$
 \psi_M = \begin{pmatrix} \chi \\ -i\sigma_2\chi^*\end{pmatrix}
 $$ {#eq-dq-majorana}
-for a two-component $\chi$, and a **Majorana fermion** is a solution of the Dirac equation of this form @pal2011majorana [eqs. (3.17),
-(5.25)].
+for a two-component $\chi$, and a **Majorana fermion** is a solution of the Dirac equation of this form
+@pal2011majorana [eqs. (3.17), (5.25)].
 :::
 ::::
 
@@ -4896,8 +4898,8 @@ positive ones, and a strong enough potential turns one into the other. This part
 an electron hitting a high potential step, where the one-particle theory predicts transmission through an infinitely high
 wall, and then Dirac's reinterpretation of the negative-energy states as a filled sea whose holes are antiparticles,
 together with the trembling motion that the interference of the two energy signs produces. Both point to the quantised
-field. The sources are @calogeracos1999klein for the paradox and its history, @cini2023quantum [Chap. 13] for the
-non-relativistic step, and @costella1995foldy for the trembling motion and its disappearance in the Foldy-Wouthuysen
+field. The sources are @calogeracos1999klein [Secs. I-II] for the paradox and its history, @das2023quantum [Chap. 13]
+for the non-relativistic step, and @costella1995foldy [Secs. II-III] for the trembling motion and its disappearance in the Foldy-Wouthuysen
 representation.
 
 For more on this topic, see @aitchison2024gauge [Ch. 3].
@@ -4959,7 +4961,7 @@ direction of the current is choosing the group velocity.
 :::
 
 The non-relativistic step gives the comparison. The third example recalls its coefficients, which are the content of
-@cini2023quantum [Sec. 13.4, Problem 1].
+@das2023quantum [Sec. 13.4, Problem 1].
 
 ::: {#exm-dq-klein-nonrel}
 #### The Schrödinger step
@@ -4978,7 +4980,7 @@ be continuous.
 #### Matching at the step
 
 Integrate $(\sigma_1p + \sigma_3m + V(x) - E)\psi = 0$ over $(-\varepsilon, \varepsilon)$ and let $\varepsilon \to 0$ to show that $\psi$ is continuous at $x = 0$. Why is no condition
-on $\psi'$ imposed, unlike @cini2023quantum [Sec. 13.2]?
+on $\psi'$ imposed, unlike @das2023quantum [Sec. 13.2]?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4988,7 +4990,7 @@ continuity conditions, and these already determine $B$ and $F$. The Schrödinger
 $\psi$ and $\psi'$ continuous; for the Dirac equation $\psi'$ jumps where $V$ does.
 :::
 
-The second exercise solves the non-relativistic step, the problem of @cini2023quantum [Sec. 13.4, Problem 1]. It is the
+The second exercise solves the non-relativistic step, the problem of @das2023quantum [Sec. 13.4, Problem 1]. It is the
 benchmark for the Dirac result.
 
 ::: {#exr-dq-cini-step}
@@ -5056,8 +5058,8 @@ R = \Big(\frac{1 - \kappa}{1 + \kappa}\Big)^2, \qquad T = \frac{4\kappa}{(1 + \k
 $$ {#eq-dq-klein}
 whenever $q$ is real. (i) For $V < E - m$, $q > 0$ and $0 < T \leq 1$. (ii) For $E - m < V < E + m$, $q$ is imaginary, $|B| = 1$, $R = 1$
 and $T = 0$. (iii) For $V > E + m$ the transmitted wave has $q = -\sqrt{(V - E)^2 - m^2}$, $\kappa > 0$, and $0 < T \leq 1$; as $V \to \infty$, $T \to
-\frac{4\kappa_\infty}{(1 + \kappa_\infty)^2}$ with $\kappa_\infty = \sqrt{\frac{E + m}{E - m}}$ @calogeracos1999klein [Sec. I.A, eqs. (1)-(6) and Sec. I.C,
-eqs. (13)-(16)].
+\frac{4\kappa_\infty}{(1 + \kappa_\infty)^2}$ with $\kappa_\infty = \sqrt{\frac{E + m}{E - m}}$
+@calogeracos1999klein [Sec. I.A, eqs. (1)-(6) and Sec. I.C, eqs. (13)-(16)].
 
 *Proof.* Continuity of the two components at $x = 0$ gives $1 + B = F$ and $\frac{k}{E + m}(1 - B) = \frac{q}{E - V + m}F$, so $\frac{1 - B}{1 + B} =
 \kappa$, which yields $B$ and $F$. With the currents of @exm-dq-klein-current, $R = |B|^2$ and $T = |F|^2\kappa$ for real $\kappa$, and $(1 - \kappa)^2 +
@@ -5566,7 +5568,8 @@ E_c = 1.323e+18 V/m; a_0 = 5.2918e-11 m; field at a_0 = 5.142e+11 V/m; ratio = 2
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercises below use several parts of the chapter together. The first combines the Pauli limit with the fine structure: a
-magnetic field splits the $2P$ levels by an amount that soon rivals the fine-structure interval.
+magnetic field splits the $2P$ levels by an amount that soon rivals the fine-structure interval. For more on this topic, see
+@svanberg2022spectroscopy [Sec. 2.5.1, eqs. (2.26), (2.29)-(2.30)].
 
 ::: {#exr-dq-final-zeeman}
 #### Zeeman splitting of the $2P$ levels
@@ -5600,7 +5603,7 @@ B = 1.0 T: 2P_1/2 shifts [-4.665, 4.665] GHz; 2P_3/2 shifts [-27.992, -9.331, 9.
 :::
 
 The second exercise follows the ground state through the periodic table. It combines the exact spectrum with the radial
-density and the small component.
+density and the small component. For more on this topic, see @eides2001hydrogen [Sec. II, eqs. (4)-(5)].
 
 ::: {#exr-dq-final-heavy}
 #### Hydrogen-like ions
@@ -5635,25 +5638,25 @@ for Z in (1, 20, 40, 60, 80, 92):
 :::
 
 The third exercise combines charge conjugation with the hydrogen spectrum and the measured $1S$-$2S$ frequency. It is the
-theoretical basis of the antihydrogen experiments.
+theoretical basis of the antihydrogen experiments. For more on this topic, see @svanberg2022spectroscopy [Sec. 9.7.2].
 
 ::: {#exr-dq-final-antihydrogen}
 #### Antihydrogen and $CPT$
 
 Show from @prp-dq-charge-conjugation and @thm-dq-dirac-levels that the Dirac spectrum of antihydrogen equals that of hydrogen, that the intrinsic parities of
 its states are reversed relative to hydrogen's for the positron but the parity selection rules are unchanged, and state what a difference between the
-two $1S$-$2S$ frequencies at the level of the uncertainty of @parthey2011hydrogen would imply.
+two $1S$-$2S$ frequencies at the level of the uncertainty of @parthey2011hydrogen [p. 1] would imply.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The positron in the antiproton's field has $q\Phi = (+e)(-e)/(4\pi r) = -\alpha/r$, the same Hamiltonian as the electron in hydrogen, so the spectra coincide,
 including the reduced mass. The positron's intrinsic parity is opposite to the electron's (@exm-dq-parity-rest), an overall factor that cancels in transition
 matrix elements, so the selection rules are the same. A difference at the $10^{-14}$ level would violate $CPT$ (@exm-dq-cpt), since $CPT$ maps hydrogen to
-antihydrogen and preserves energies; the comparison is the test proposed by @parthey2011hydrogen.
+antihydrogen and preserves energies; the comparison is the test proposed by @parthey2011hydrogen [p. 1].
 :::
 
 The last exercise draws up the balance of the chapter. It asks which observations the Dirac equation explains and which require
-the quantised electromagnetic field.
+the quantised electromagnetic field. For more on this topic, see @eides2001hydrogen [Secs. IV-V] and @fan2023electron [eq. (7)].
 
 ::: {#exr-dq-final-ledger}
 #### What the Dirac equation explains
