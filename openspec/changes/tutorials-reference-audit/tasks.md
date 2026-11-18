@@ -35,7 +35,7 @@ warnings and no unresolved citation.
 - [x] 3.2 Audit Supervised Learning, including the five corrections made during the conversion (A6).
 - [x] 3.3 Audit Unsupervised Learning.
 - [x] 3.4 Audit Reinforcement Learning, including the grid-world Bellman equations (A6).
-- [ ] 3.5 Get the owner's decisions and apply them. Verify that the record has no open item.
+- [x] 3.5 Get the owner's decisions and apply them. Verify that the record has no open item.
 
 ## 4. Kaluza-Klein Theories
 

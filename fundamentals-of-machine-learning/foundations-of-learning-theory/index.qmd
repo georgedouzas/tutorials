@@ -3639,8 +3639,15 @@ the $1/\sqrt{t}$ schedule of @thm-flt-ogd-regret with $D/G$ replaced by $\alpha/
 :::
 ::::
 
-Online Newton Step: Uses second-order information: $$\mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{H}_t^{-1} \nabla f_t(\mathbf{w}_t)$$ where $\mathbf{H}_t = \sum_{s=1}^t
-\nabla^2 f_s(\mathbf{w}_s)$ is the cumulative Hessian.
+Online Newton Step: Uses curvature information built from the gradients alone [@hazan2022oco, Sec. 4.4, Algorithm 12, p. 62]. With
+$\mathbf{A}_0 = \varepsilon\mathbf{I}$ and $\mathbf{g}_t = \nabla f_t(\mathbf{w}_t)$, each round makes a rank-one update and a
+Newton-like step, projected back onto $\mathcal{W}$ in the norm defined by $\mathbf{A}_t$:
+$$\mathbf{A}_t = \mathbf{A}_{t-1} + \mathbf{g}_t\mathbf{g}_t^\top, \qquad
+\mathbf{w}_{t+1} = \arg\min_{\mathbf{w} \in \mathcal{W}} \Big\lVert \mathbf{w}_t - \tfrac{1}{\gamma}\mathbf{A}_t^{-1}\mathbf{g}_t - \mathbf{w} \Big\rVert_{\mathbf{A}_t}^2,$$
+where $\lVert\mathbf{v}\rVert_{\mathbf{A}}^2 = \mathbf{v}^\top\mathbf{A}\mathbf{v}$ and $\gamma, \varepsilon > 0$ are parameters. The matrix
+$\mathbf{A}_t$ stands in for the cumulative Hessian; for $\alpha$-exp-concave losses with gradients bounded by $G$ on a set of
+diameter $D$, suitable $\gamma$ and $\varepsilon$ give $\mathrm{Regret}_T \le 2(1/\alpha + GD)\, d \log T$
+[@hazan2022oco, Thm. 4.5, p. 63], logarithmic rather than $\sqrt{T}$.
 
 ### Bandit Learning
 
