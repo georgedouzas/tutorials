@@ -277,12 +277,25 @@ six definitions; section identifiers SHALL remain number-free slugs.
 
 ### Requirement: Block kinds are colour coded
 
-Statements (definitions, theorems, lemmas, propositions, corollaries) SHALL be shown in a box with a thin red left
-border, a faint red tint and a red small-caps title; examples SHALL have a green small-caps title and exercises a
-violet one, and the Examples and Exercises boxes that hold them SHALL have a thin left border and faint tint in green
-and violet; solution callouts SHALL have a muted title and no colour, border tint or background of their own. The
-colours SHALL keep their roles in dark mode. The conventions chapter SHALL contain a legend of the three colours and
-of the statement box.
+Each block kind SHALL have its own colour: statements red, examples green, exercises violet, and solutions no colour of
+their own. The colours SHALL keep their roles in dark mode, and the conventions chapter SHALL contain a legend of the
+three colours and of the statement box.
+
+#### Scenario: Statement boxes
+
+- **WHEN** a statement (definition, theorem, lemma, proposition, corollary) is rendered
+- **THEN** it is shown in a box with a thin red left border, a faint red tint and a red small-caps title
+
+#### Scenario: Examples and exercises
+
+- **WHEN** examples and exercises are rendered
+- **THEN** examples have a green small-caps title and exercises a violet one, and the Examples and Exercises boxes that
+  hold them have a thin left border and faint tint in green and violet
+
+#### Scenario: Solutions
+
+- **WHEN** a solution callout is rendered
+- **THEN** it has a muted title and no colour, border tint or background of its own
 
 #### Scenario: a rendered chapter
 
