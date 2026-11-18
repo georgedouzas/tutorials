@@ -20,7 +20,7 @@ modern deep reinforcement learning methods. The connections to optimization (@se
 (@sec-probability-statistics, which also reviews probability spaces, random variables and expectations with worked examples)
 will be essential throughout.
 
-The chapter follows @zhao2025rl and @theodoridis2025ml, with @bishop2024deeplearning for the deep-learning methods. Foundations
+The chapter follows @zhao2025rl [Chs. 1--10]. Foundations
 of RL defines Markov decision processes, policies and returns. Value functions and Bellman equations defines state and action
 values and proves the recursive equations they satisfy. Dynamic programming, Monte Carlo methods and temporal-difference learning
 are the three classical families of tabular algorithms. Advanced RL scales them up with function approximation and deep
@@ -39,11 +39,9 @@ behaviors through trial and error, balancing **exploration** (trying new actions
 
 Reinforcement learning can be described as an agent-environment interaction process. The agent is a decision-maker that can sense
 its state, maintain policies, and execute actions. Everything outside of the agent is regarded as the environment
-[@zhao2025rl].
+[@zhao2025rl, Sec. 1.7, p. 12].
 
-For more on this topic, see @bishop2024deeplearning [Ch. 19].
-
-This exploration-exploitation dilemma is central to RL and has no simple solution. Explore too much, and the agent wastes time on
+This exploration-exploitation dilemma is central to RL and has no simple solution [@suttonReinforcementLearningIntroduction2018, Sec. 1.1, p. 3]. Explore too much, and the agent wastes time on
 suboptimal actions; exploit too much, and the agent may never discover better strategies. This trade-off, absent in supervised
 learning, makes RL both challenging and fascinating.
 
@@ -53,6 +51,9 @@ The Markov Decision Process (MDP) provides the mathematical foundation for model
 Introduced in @sec-probability-statistics, MDPs formalize the interaction between an agent and its environment, capturing the
 essential elements needed to reason about optimal behavior. The framework is remarkably general, encompassing problems from robot
 control to game playing to resource allocation.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 3.1, pp. 47--50] and
+@aggarwalNeuralNetworksDeep2023 [Sec. 11.3, pp. 393--394].
 
 A Markov Decision Process describes decision-making in situations where outcomes are partly random and partly controlled by an
 agent. At each time step, the agent:
@@ -100,7 +101,7 @@ than distant ones, either due to uncertainty about the future or opportunity cos
 
 ::::
 
-The same elements can be written with the reward and the policy as probability distributions [@zhao2025rl]:
+The same elements can be written with the reward and the policy as probability distributions [@zhao2025rl, Sec. 1.7, p. 11]:
 
 - Sets
     - State space: $\mathcal{S}=\left\{s_1, s_2, \ldots \right\}$
@@ -166,7 +167,7 @@ genuinely probabilistic, since patients respond differently to the same treatmen
   based on treatment and health conditions.
 :::
 
-The last example is small enough to be solved completely by hand. This small example follows @zhao2025rl and runs through the rest
+The last example is small enough to be solved completely by hand. This small example follows @zhao2025rl [Secs. 2.5, 2.8.1, pp. 23--32] and runs through the rest
 of the foundations, where its values, Bellman equations and matrices are computed.
 
 ::: {#exm-rl-mdp-four-state-grid}
@@ -278,6 +279,8 @@ so conditioning on it is the same as conditioning on the past of $X$.
 An MDP describes the environment; the agent enters through its policy, the rule by which it chooses actions. In the
 distributional notation above the policy is a conditional distribution, and this is the form used throughout the chapter.
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 3.3, 3.5, pp. 54--58] and @zhao2025rl [Secs. 1.4, 1.6, pp. 4--10].
+
 :::: {.statement-box}
 ::: {#def-rl-policy}
 #### Policy
@@ -299,7 +302,7 @@ probabilities out fixes the policy that all the later value computations use.
 ::: {#exm-rl-policy-four-state}
 #### The policy of the four-state grid world
 
-In the grid world of @exm-rl-mdp-four-state-grid the policy is $\pi(\rightarrow \mid s_1) = \pi(\downarrow \mid s_1) = 0.5$,
+In the grid world of @exm-rl-mdp-four-state-grid [@zhao2025rl, Sec. 2.5, Fig. 2.5, p. 24] the policy is $\pi(\rightarrow \mid s_1) = \pi(\downarrow \mid s_1) = 0.5$,
 $\pi(\downarrow \mid s_2) = 1$, $\pi(\rightarrow \mid s_3) = 1$ and $\pi(\bigcirc \mid s_4) = 1$. It is stochastic in $s_1$ and
 deterministic elsewhere; the matrix `Pi` in the NumPy computation below stores exactly these numbers, one column per state.
 :::
@@ -398,6 +401,8 @@ an algorithm for solving these equations exactly or approximately.
 Value functions are central to reinforcement learning, providing a way to evaluate the quality of states and actions. They enable
 the agent to compare different courses of action and select those that lead to higher cumulative rewards.
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 3.5, pp. 58--59] and @zhao2025rl [Secs. 2.3, 2.8, pp. 19--20, 30--31].
+
 **State-Value Function:** The state-value function $v_\pi(s)$ represents the expected return when starting from state $s$ and
 following policy $\pi$ thereafter:
 
@@ -421,7 +426,7 @@ trajectories. Three states lead straight to the target, and the first one averag
 ::: {#exm-rl-state-values-four-state}
 #### State values in the four-state grid world
 
-State values:
+State values [@zhao2025rl, Sec. 2.5, p. 25]:
 
 - $v_\pi(s_1) = -0.5 + \frac{\gamma}{1-\gamma}$
 - $v_\pi(s_2) = \frac{1}{1-\gamma}$
@@ -477,7 +482,7 @@ of $\gamma$, including the actions the policy never takes.
 ::: {#exm-rl-action-values-four-state}
 #### Action values in the four-state grid world
 
-Action values:
+Action values [@zhao2025rl, Sec. 2.8.1, pp. 31--32]:
 
 - $q_\pi(s_1, \rightarrow) = -1 + \gamma \frac{1}{1-\gamma}$
 - $q_\pi(s_1, \downarrow) = \gamma \frac{1}{1-\gamma}$
@@ -492,7 +497,7 @@ Action values:
 - $q_\pi(s_3, \rightarrow) = 1 + \gamma \frac{1}{1-\gamma}$
 - $q_\pi(s_3, \downarrow) = -1 + \gamma \frac{1}{1-\gamma}$
 - $q_\pi(s_3, \leftarrow) = -1 + \gamma \frac{1}{1-\gamma}$
-- $q_\pi(s_3, \uparrow) = 1 + \gamma (-0.5 + \frac{\gamma}{1-\gamma})$
+- $q_\pi(s_3, \uparrow) = \gamma (-0.5 + \frac{\gamma}{1-\gamma})$
 - $q_\pi(s_3, \bigcirc) = \gamma \frac{1}{1-\gamma}$
 - $q_\pi(s_4, \rightarrow) = -1 + \gamma \frac{1}{1-\gamma}$
 - $q_\pi(s_4, \downarrow) = -1 + \gamma \frac{1}{1-\gamma}$
@@ -523,7 +528,7 @@ $v_\pi(s_1) = -0.5 + \frac{0.9}{0.1} = 8.5$. Indeed $0.5 \cdot 9 + 0.5 \cdot 8 =
 ::::
 
 **Relationship Between Value Functions:** The state-value and action-value functions are intimately related. The two relations
-below express each in terms of the other.
+below express each in terms of the other [@zhao2025rl, Sec. 2.8, eqs. 2.13--2.14, pp. 30--31].
 
 :::: {.statement-box}
 ::: {#prp-rl-value-relations}
@@ -563,7 +568,7 @@ $s_1$ to its state value, and from the state value of $s_2$ to an action value o
 ::: {#exm-rl-value-relations-four-state}
 #### Converting values in the four-state grid world
 
-From action value to state value: $v_\pi(s_1) = 0.5\, q_\pi(s_1, \rightarrow) + 0.5\, q_\pi(s_1, \downarrow) = 0.5 \left(-1 + \frac{\gamma}{1-\gamma}\right) + 0.5 \frac{\gamma}{1-\gamma} = -0.5 + \frac{\gamma}{1-\gamma}$
+From action value to state value [@zhao2025rl, Sec. 2.8.1, p. 32]: $v_\pi(s_1) = 0.5\, q_\pi(s_1, \rightarrow) + 0.5\, q_\pi(s_1, \downarrow) = 0.5 \left(-1 + \frac{\gamma}{1-\gamma}\right) + 0.5 \frac{\gamma}{1-\gamma} = -0.5 + \frac{\gamma}{1-\gamma}$
 
 From state value to action value: $q_\pi(s_1, \rightarrow) = 1(-1) + \gamma v_\pi(s_2) = -1 + \gamma \frac{1}{1-\gamma}$
 :::
@@ -594,6 +599,9 @@ second formula.
 The values of a fixed policy rank states; to rank policies one compares their values state by state. The optimal value
 functions are the pointwise best values over all policies.
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 3.6, pp. 62--63], @zhao2025rl [Sec. 3.2, p. 37]
+and, for the advantage function, @zhao2025rl [Sec. 10.2, pp. 216--220].
+
 **Optimal Value Functions:** The goal of reinforcement learning is often to find an optimal policy that maximizes the expected
 return.
 
@@ -623,7 +631,7 @@ values, and others that fall short.
 ::: {#exm-rl-optimal-good-bad-policies}
 #### Good and bad policies
 
-**Policies and state values:** Different policies can have the same state values. The following "good" policies are different but
+**Policies and state values:** Different policies can have the same state values [@zhao2025rl, Sec. 2.7.3, Fig. 2.7, pp. 28--30]. The following "good" policies are different but
 they have the same state values:
 
 ![](figures/good_policies.png){width="400"}
@@ -714,7 +722,7 @@ the values of successor states. These equations form the basis for most reinforc
 characterization of optimal policies and a computational framework for finding them.
 
 **Bellman Expectation Equation:** For a given policy $\pi$, the Bellman expectation equation expresses the value function
-recursively, and likewise for the action-value function.
+recursively, and likewise for the action-value function [@suttonReinforcementLearningIntroduction2018, Sec. 3.5, eq. 3.14, p. 59; @zhao2025rl, Secs. 2.4, 2.8.2, pp. 21, 32].
 
 :::: {.statement-box}
 ::: {#thm-rl-bellman-expectation-equation}
@@ -749,7 +757,7 @@ The second equation expresses the Q-value as the expected immediate reward plus 
 state-action pair. It follows by substituting the first relation of @prp-rl-value-relations for $v_\pi(s')$ in the second.
 
 **Forms with reward distributions:** With the reward written as a distribution $p(r \mid s, a)$, the Bellman equation of the
-state values is [@zhao2025rl]
+state values is [@zhao2025rl, Sec. 2.4, eq. 2.7, pp. 21--22]
 
 $$v_\pi(s) = \sum_{a \in \mathcal{A}} \pi(a \mid s)\left[\sum_{r \in \mathcal{R}} p(r \mid s, a) r+\gamma \sum_{s^{\prime}
 \in \mathcal{S}} p\left(s^{\prime} \mid s, a\right) v_\pi\left(s^{\prime}\right)\right]$$
@@ -780,7 +788,7 @@ action values. Each equation links a state to the states its policy actions lead
 ::: {#exm-rl-bellman-four-state}
 #### Bellman equations in the four-state grid world
 
-State values:
+State values [@zhao2025rl, Sec. 2.5, p. 24]:
 
 - $v_\pi(s_1) = -0.5 + 0.5 \gamma (v_\pi(s_2) + v_\pi(s_3))$
 - $v_\pi(s_2) = 1 + \gamma v_\pi(s_4)$
@@ -791,18 +799,18 @@ Action values:
 
 - $q_\pi(s_1, \rightarrow) = -1 + \gamma q_\pi(s_2, \downarrow)$
 - $q_\pi(s_1, \downarrow) = \gamma q_\pi(s_3, \rightarrow)$
-- $q_\pi(s_1, \leftarrow) = -1 + \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
-- $q_\pi(s_1, \uparrow) = -1 + \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
-- $q_\pi(s_1, \bigcirc) = \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
+- $q_\pi(s_1, \leftarrow) = -1 + 0.5 \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
+- $q_\pi(s_1, \uparrow) = -1 + 0.5 \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
+- $q_\pi(s_1, \bigcirc) = 0.5 \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
 - $q_\pi(s_2, \rightarrow) = -1 + \gamma q_\pi(s_2, \downarrow)$
 - $q_\pi(s_2, \downarrow) = 1 + \gamma q_\pi(s_4, \bigcirc)$
-- $q_\pi(s_2, \leftarrow) = \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_4, \downarrow))$
+- $q_\pi(s_2, \leftarrow) = 0.5 \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
 - $q_\pi(s_2, \uparrow) = -1 + \gamma q_\pi(s_2, \downarrow)$
 - $q_\pi(s_2, \bigcirc) = -1 + \gamma q_\pi(s_2, \downarrow)$
 - $q_\pi(s_3, \rightarrow) = 1 + \gamma q_\pi(s_4, \bigcirc)$
 - $q_\pi(s_3, \downarrow) = -1 + \gamma q_\pi(s_3, \rightarrow)$
 - $q_\pi(s_3, \leftarrow) = -1 + \gamma q_\pi(s_3, \rightarrow)$
-- $q_\pi(s_3, \uparrow) = 1 + \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
+- $q_\pi(s_3, \uparrow) = 0.5 \gamma (q_\pi(s_1, \rightarrow) + q_\pi(s_1, \downarrow))$
 - $q_\pi(s_3, \bigcirc) = \gamma q_\pi(s_3, \rightarrow)$
 - $q_\pi(s_4, \rightarrow) = -1 + \gamma q_\pi(s_4, \bigcirc)$
 - $q_\pi(s_4, \downarrow) = -1 + \gamma q_\pi(s_4, \bigcirc)$
@@ -835,7 +843,8 @@ The last equation gives $(1 - \gamma) v_\pi(s_4) = 1$, so $v_\pi(s_4) = \frac{1}
 For a finite state space the Bellman expectation equation is a linear system, and writing it with vectors and matrices makes its
 solution explicit. The proposition below states the matrix form and its unique solution.
 
-**Matrix-Vector Form:** For finite state spaces, the Bellman expectation equation can be written in matrix-vector form.
+**Matrix-Vector Form:** For finite state spaces, the Bellman expectation equation can be written in matrix-vector form
+[@zhao2025rl, Secs. 2.6--2.7, eqs. 2.10--2.12, pp. 25--28].
 
 :::: {.statement-box}
 ::: {#prp-rl-bellman-matrix-form}
@@ -901,7 +910,7 @@ twenty state-action pairs and four states.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The four-state grid world gives concrete instances of every vector and matrix just defined. The row of $\mathbf{r}_\pi$ for $s_1$
-averages the two actions of the stochastic policy, and the rows of $\mathbf{P}_\pi$ are probability vectors.
+[@zhao2025rl, Sec. 2.6, p. 26] averages the two actions of the stochastic policy, and the rows of $\mathbf{P}_\pi$ are probability vectors.
 
 ::: {#exm-rl-matrix-form-four-state}
 #### Matrix-vector form in the four-state grid world
@@ -943,7 +952,7 @@ The closed-form and iterative solutions of @prp-rl-bellman-matrix-form are a few
 matrices of the four-state grid world and computes its state values both ways.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The computation follows @zhao2025rl and stores the model with one row per state-action pair. It ends with the two solutions,
+The computation follows @zhao2025rl [Secs. 2.6--2.8, pp. 25--33] and stores the model with one row per state-action pair. It ends with the two solutions,
 which agree with the hand computation of @exr-rl-matrix-form-solve.
 
 ::: {#exm-rl-software-four-state-values}
@@ -1090,6 +1099,8 @@ v_is
 
 The Bellman expectation equation evaluates a given policy. Replacing the average over the policy's actions by a maximum gives the
 equation satisfied by the optimal values, whose solution yields an optimal policy.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 3.6, eqs. 3.19--3.20, pp. 63--64] and @zhao2025rl [Secs. 3.3--3.4, Thms. 3.1--3.5, pp. 38--48].
 
 **Bellman Optimality Equation:** The Bellman optimality equation characterizes the optimal value functions:
 
@@ -1277,6 +1288,8 @@ action spaces. Despite these limitations, DP provides the foundation for underst
 
 ### Policy evaluation
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 4.1, pp. 74--76] and @zhao2025rl [Sec. 2.7.2, Box 2.1, p. 28].
+
 **Policy Evaluation (Prediction):** Given a policy $\pi$, policy evaluation computes the state-value function $v_\pi$ by
 iteratively applying the Bellman expectation operator:
 
@@ -1344,6 +1357,9 @@ It suffices that $10 \cdot 0.9^k \leq 0.01$, i.e. $0.9^k \leq 10^{-3}$, i.e. $k 
 
 Evaluating a policy is only half the job: the values must also be used to find a better policy. Acting greedily with respect to
 the current values does that, and the policy improvement theorem guarantees that the result is never worse.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 4.2--4.3, eqs. 4.7--4.8, pp. 76--81] and
+@zhao2025rl [Sec. 4.2, Lemma 4.1, Thm. 4.1, pp. 62--64].
 
 **Policy Improvement:** Given the value function $v_\pi$ for a policy $\pi$, we can construct an improved policy $\pi'$ by acting
 greedily with respect to $v_\pi$:
@@ -1466,6 +1482,8 @@ number of rounds is at most the number of deterministic policies, $5^4 = 625$ (@
 Policy iteration runs a full evaluation before each improvement. Value iteration does the opposite extreme and improves after a
 single sweep, which turns it into repeated application of the Bellman optimality operator.
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 4.4, pp. 82--84] and @zhao2025rl [Sec. 4.1, pp. 58--62].
+
 **Value Iteration:** Value iteration combines policy evaluation and improvement into a single update:
 
 $$v_{k+1}(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma v_k(s')]$$
@@ -1546,7 +1564,7 @@ continue to be updated.
 policy iteration (GPI)**, where policy evaluation and policy improvement processes interact. Almost all RL methods can be viewed
 as GPI: maintaining approximate value functions and policies, and iteratively improving each based on the other. The evaluation
 and improvement processes can be interleaved at various granularities, from single-state updates to complete convergence
-[@zhao2025rl; @theodoridis2025ml].
+[@zhao2025rl, Sec. 4.4, p. 74; @suttonReinforcementLearningIntroduction2018, Sec. 4.6, p. 86].
 
 ## Monte Carlo Methods {#sec-rl-monte-carlo}
 
@@ -1558,6 +1576,8 @@ are particularly useful for episodic tasks where episodes naturally terminate.
 
 **Key Principle:** MC methods estimate value functions by averaging sample returns. The law of large numbers guarantees that these
 averages converge to the expected values as the number of samples increases.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 5.1, pp. 92--94] and @zhao2025rl [Secs. 5.2--5.3, pp. 80--88].
 
 **Monte Carlo Policy Evaluation:** To evaluate a policy $\pi$, we generate episodes following $\pi$ and average the returns
 observed from each state:
@@ -1631,6 +1651,8 @@ the second, and $V(B) \leftarrow 2 + \frac{1}{2}(4 - 2) = 3$.
 ::::
 
 ### Exploration in Monte Carlo control
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 5.3--5.4, pp. 97--101] and @zhao2025rl [Sec. 5.4, pp. 89--91].
 
 **Monte Carlo Estimation of Action Values:** For control (finding optimal policies), we need to estimate action values
 $q_\pi(s,a)$ rather than state values. The process is similar:
@@ -1717,7 +1739,8 @@ Repeat forever: Generate episode following π G ← 0 For each step t = T-1, T-2
     policy derived from Q ```
 
 A fixed $\varepsilon$ explores forever but never becomes greedy, so the policy it learns is only the best $\varepsilon$-soft one. The
-GLIE conditions say how $\varepsilon$ must decay for convergence to an optimal policy.
+GLIE conditions say how $\varepsilon$ must decay for convergence to an optimal policy
+[@suttonReinforcementLearningIntroduction2018, Sec. 6.4, p. 129].
 
 :::: {.statement-box}
 ::: {#def-rl-glie}
@@ -1769,6 +1792,8 @@ of them the policy is greedy, and pairs it never selects stop being visited, so 
 ::::
 
 ### Off-policy Monte Carlo
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 5.5, eqs. 5.3--5.6, pp. 103--105].
 
 **Off-Policy Monte Carlo:** Off-policy methods use importance sampling to estimate the value of the target policy $\pi$ from
 episodes generated by a behavior policy $b$:
@@ -1844,7 +1869,7 @@ terminate 3. **Delayed learning:** Must wait until episode ends to update 4. **S
 states in that episode
 
 Monte Carlo methods provide a foundation for understanding reinforcement learning and are particularly useful when episodes are
-short or when a model is unavailable [@zhao2025rl; @theodoridis2025ml].
+short or when a model is unavailable [@zhao2025rl, Ch. 5, pp. 77--100; @suttonReinforcementLearningIntroduction2018, Ch. 5, pp. 91--117].
 
 ## Temporal-Difference Learning {#sec-rl-temporal-difference}
 
@@ -1856,6 +1881,8 @@ update estimates based on other estimates, making them highly practical and effi
 
 **The TD Prediction Problem:** Given a policy $\pi$, estimate the value function $v_\pi$ from experience. Unlike Monte Carlo
 methods that wait until the end of an episode, TD methods update value estimates immediately after each transition.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 6.1, eqs. 6.2, 6.5, pp. 119--121] and @zhao2025rl [Sec. 7.1, Thm. 7.1, pp. 126--130].
 
 **TD(0) Algorithm:** The simplest TD method, TD(0), updates the value estimate for state $S_t$ using the observed reward and the
 current estimate of the next state's value. The quantity that drives the update has its own name.
@@ -1934,6 +1961,8 @@ V(S_{t+1}))$. Iterating down to $G_T - V(S_T) = 0$ gives the sum.
 ::::
 
 ### SARSA and Q-learning
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 6.4--6.5, 6.7, pp. 129--135; Sec. 2.5, eq. 2.7, p. 33] and @zhao2025rl [Secs. 7.2, 7.4, pp. 132--144; Thm. 6.1, p. 106].
 
 **SARSA: On-Policy TD Control:** SARSA (State-Action-Reward-State-Action) extends TD(0) to action values for control:
 
@@ -2083,6 +2112,8 @@ Expected SARSA becomes Q-learning.
 TD(0) looks one step ahead and Monte Carlo looks to the end of the episode. Multi-step methods interpolate, and the n-step return
 below is the basic object.
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 7.1, eq. 7.1, pp. 142--143; Secs. 12.1--12.2, pp. 288--293].
+
 **n-Step TD Methods:** Generalize TD(0) by looking $n$ steps into the future:
 
 :::: {.statement-box}
@@ -2218,7 +2249,7 @@ decreasing schedules - **Exploration:** $\varepsilon$-greedy with $\varepsilon =
 methods don't scale; need function approximation for large state spaces
 
 Temporal-difference learning represents a fundamental advance in reinforcement learning, providing practical algorithms that
-combine the best aspects of Monte Carlo and dynamic programming methods [@zhao2025rl; @theodoridis2025ml].
+combine the best aspects of Monte Carlo and dynamic programming methods [@zhao2025rl, Ch. 7, pp. 125--150; @suttonReinforcementLearningIntroduction2018, Ch. 6, p. 119].
 
 ## Advanced RL {#sec-advanced-rl}
 
@@ -2226,13 +2257,14 @@ The tabular methods of the previous sections store one number per state or state
 spaces of games, robots and language. This section replaces the tables by parameterized functions, first linear ones and then the
 deep networks of DQN, and records what survives of the convergence theory.
 
-For more on this topic, see @bishop2024deeplearning [Ch. 19].
-
 ### Function Approximation
 
 Tabular methods that maintain separate values for each state or state-action pair become impractical for large or continuous state
 spaces. Function approximation addresses this by representing value functions with parameterized functions, enabling
 generalization across similar states.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 9.2--9.4, eqs. 9.1, 9.14, pp. 199--207] and
+@zhao2025rl [Secs. 8.1--8.2, pp. 151--177].
 
 **The Function Approximation Problem:** Instead of maintaining a table $V(s)$ for each state, we approximate the value function
 with a parameterized function:
@@ -2459,7 +2491,7 @@ Repeat
 **Initialization:** Can significantly affect learning
 
 Function approximation is essential for scaling reinforcement learning to real-world problems, but requires careful attention to
-stability and convergence [@zhao2025rl; @theodoridis2025ml].
+stability and convergence [@zhao2025rl, Ch. 8, pp. 151--190; @suttonReinforcementLearningIntroduction2018, Secs. 9.1--9.4, 11.3].
 
 ### Deep Q-Networks (DQN)
 
@@ -2467,6 +2499,8 @@ Deep Q-Networks (DQN) represent a watershed moment in reinforcement learning. In
 algorithm could learn to play dozens of Atari games directly from pixels, achieving human-level or superhuman performance without
 game-specific engineering. This breakthrough showed that the combination of deep learning (@sec-neural-networks) and reinforcement
 learning could tackle problems previously thought intractable.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 16.5, pp. 436--441], @zhao2025rl [Sec. 8.4, pp. 181--186], @aggarwalNeuralNetworksDeep2023 [Sec. 11.5.2, pp. 400--402] and @zai2020deeprl [Secs. 3.3--3.4, pp. 75--86].
 
 The key insight was not just using neural networks for function approximation—researchers had tried this before with limited
 success. Rather, DQN introduced two critical innovations (experience replay and target networks) that stabilized training,
@@ -2706,7 +2740,7 @@ gradients to prevent exploding gradients 5. **Huber loss:** More robust to outli
 replay buffer before training
 
 DQN demonstrated that deep reinforcement learning could achieve human-level performance on complex tasks, opening the door to
-modern deep RL [@zhao2025rl; @theodoridis2025ml].
+modern deep RL [@zhao2025rl, Sec. 8.4, pp. 181--186; @suttonReinforcementLearningIntroduction2018, Sec. 16.5, pp. 436--441].
 
 ## Policy Gradient Methods {#sec-rl-policy-gradient}
 
@@ -2715,6 +2749,8 @@ approach has several advantages: it can handle continuous action spaces, learn s
 guarantees. Policy gradient methods form the foundation of modern deep reinforcement learning algorithms.
 
 ### The policy gradient theorem
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 13.2--13.3, eq. 13.5, pp. 324--328], @zhao2025rl [Sec. 9.3, Thm. 9.1, p. 198], @aggarwalNeuralNetworksDeep2023 [Sec. 11.6.2, eq. 11.25, p. 409] and @zai2020deeprl [Ch. 4, pp. 90--108].
 
 **Policy Parameterization:** Represent the policy as a parameterized function:
 
@@ -2838,6 +2874,9 @@ that led to low returns. The magnitude of the update is proportional to the retu
 **Variance Problem:** REINFORCE has high variance because: 1. Returns $G_t$ can vary significantly across episodes 2. The gradient
 estimate is noisy 3. Slow convergence and instability
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 13.4, pp. 329--330],
+@aggarwalNeuralNetworksDeep2023 [Sec. 11.6.2, p. 410] and @zhao2025rl [Sec. 10.2.1, pp. 217--220].
+
 **Baseline Reduction:** Subtract a baseline $b(s)$ from the return to reduce variance without introducing bias. The proposition
 below states that the gradient is unchanged.
 
@@ -2916,8 +2955,11 @@ For each episode: Generate episode following π(·|·;θ) For each step t: G ←
 The plain gradient depends on how the policy is parameterized, it needs the true action values, and it is defined only for
 stochastic policies. The three statements of this unit address each of these points in turn.
 
+For the deterministic policy gradient, see @zhao2025rl [Sec. 10.4, Thm. 10.2, p. 228].
+
 **Natural Policy Gradient:** Standard gradient descent can be inefficient in the policy parameter space because the
-parameterization affects the geometry. The natural gradient accounts for the curvature of the policy space:
+parameterization affects the geometry. The natural gradient accounts for the curvature of the policy space
+[@kakade2001npg, Sec. 2, eqs. 2--4, p. 2]:
 
 :::: {.statement-box}
 ::: {#def-rl-natural-policy-gradient}
@@ -2934,7 +2976,8 @@ $$F(\boldsymbol{\theta}) = \mathbb{E}_{s \sim \mu_\pi, a \sim \pi}[\nabla_{\bold
 
 ::::
 
-The natural gradient is invariant to reparameterization and often converges faster. Both effects are visible in the
+The natural gradient is invariant to reparameterization and often converges faster
+[@kakade2001npg, Sec. 2, p. 2; Sec. 5, pp. 5--7]. Both effects are visible in the
 two-armed bandit, where the Fisher information is a single number.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -2973,7 +3016,7 @@ which depends on $c$.
 ::::
 
 **Compatible Function Approximation:** In practice $q_{\pi}$ is replaced by a learned approximation $\hat{q}$. The theorem below
-gives conditions under which this substitution is exact.
+gives conditions under which this substitution is exact [@sutton2000policygradient, Sec. 2, Thm. 2, eqs. 3--5, p. 1060].
 
 :::: {.statement-box}
 ::: {#thm-rl-compatible-function-approximation}
@@ -2994,7 +3037,7 @@ example shows what it means for the softmax policy.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Condition 1 fixes the form of the approximator up to a function of the state. For the softmax policy it gives linear features of a
-specific kind.
+specific kind [@sutton2000policygradient, Sec. 3, pp. 1060--1061].
 
 ::: {#exm-rl-compatible-softmax}
 #### Compatible features for the softmax policy
@@ -3004,7 +3047,8 @@ s) \boldsymbol{\phi}(s, a')\right)$, a linear function of the centered features.
 :::
 ::::
 
-The compatible approximator has a structural property that explains why it is really an approximation of the advantage. The
+The compatible approximator has a structural property that explains why it is really an approximation of the advantage
+[@sutton2000policygradient, Sec. 3, p. 1061]. The
 exercise proves it.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
@@ -3089,7 +3133,7 @@ Add entropy bonus to encourage exploration 3. **Gradient clipping:** Clip gradie
 scheduling:** Decay learning rate over time 5. **Multiple epochs:** Reuse data for multiple gradient steps (with care)
 
 Policy gradient methods provide a principled approach to policy optimization and form the basis for state-of-the-art algorithms
-like PPO and SAC [@zhao2025rl; @theodoridis2025ml].
+like PPO and SAC [@zhao2025rl, Ch. 9, pp. 191--214].
 
 ## Actor-Critic Methods {#sec-rl-actor-critic}
 
@@ -3103,6 +3147,8 @@ Actor-critic methods combine the strengths of policy gradient methods (which dir
 (which learn value functions). The "actor" updates the policy parameters, while the "critic" evaluates the policy by estimating
 the value function. This architecture reduces variance compared to pure policy gradient methods while maintaining the ability to
 handle continuous actions.
+
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 13.5, pp. 331--332], @zhao2025rl [Secs. 10.1--10.2, pp. 215--221], @aggarwalNeuralNetworksDeep2023 [Sec. 11.6.3, pp. 411--412] and @zai2020deeprl [Ch. 5, pp. 111--136].
 
 **Architecture Components:**
 
@@ -3157,10 +3203,11 @@ $$\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) \approx \mathbb{E}[\nabla_
 1. **One-step TD:** $\hat{A}_t = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)$
 2. **n-step:** $\hat{A}_t = G_t^{(n)} - V(S_t)$
 3. **GAE
-(Generalized Advantage Estimation):** Exponentially weighted average of n-step advantages, defined below.
+(Generalized Advantage Estimation):** Exponentially weighted average of n-step advantages, defined below
+[@schulman2016gae, Sec. 3, eqs. 14, 16, pp. 4--5].
 
-The third estimator plays the same role for advantages that the $\lambda$-return of @def-rl-eligibility-trace plays for values.
-It is the estimator used by most modern policy-gradient implementations.
+The third estimator plays the same role for advantages that the $\lambda$-return of @def-rl-eligibility-trace plays for values
+[@schulman2016gae, Sec. 3, p. 5]. It is the estimator used by most modern policy-gradient implementations.
 
 :::: {.statement-box}
 ::: {#def-rl-generalized-advantage-estimation}
@@ -3175,9 +3222,10 @@ where $\delta_t = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)$.
 
 The parameter $\lambda \in [0,1]$ controls the bias-variance tradeoff: -
 $\lambda = 0$: High bias, low variance (one-step TD) - $\lambda = 1$: Low bias, high variance (Monte Carlo) - $\lambda \in (0,1)$:
-Intermediate tradeoff
+Intermediate tradeoff [@schulman2016gae, Sec. 3, eqs. 17--18, p. 5]
 
-GAE is widely used in modern algorithms like PPO and TRPO. The examples check the two ends of the $\lambda$ range.
+GAE is widely used in modern algorithms like PPO and TRPO
+[@schulman2017ppo, Sec. 5, eqs. 11--12, p. 5; @schulman2016gae, Sec. 6.1, p. 8]. The examples check the two ends of the $\lambda$ range.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The two ends of the $\lambda$ range recover estimators already met. The example checks both, using the telescoping identity of
@@ -3285,7 +3333,7 @@ A3C-style parallelism
 **Instability:** Can diverge if not careful 4. **Sample inefficiency:** Still requires many samples
 
 Actor-critic methods form the foundation for many state-of-the-art algorithms including PPO, SAC, and TD3, combining the benefits
-of policy optimization and value-based learning [@zhao2025rl; @theodoridis2025ml].
+of policy optimization and value-based learning [@zhao2025rl, Ch. 10, pp. 215--235].
 
 ### Trust Region and Proximal Methods
 
@@ -3294,14 +3342,15 @@ apply. Trust-region methods limit the size of the change, either by a hard const
 
 **Trust Region Policy Optimization (TRPO):**
 
-Maximize expected return subject to KL constraint:
+Maximize expected return subject to KL constraint
+[@schulman2015trpo, Secs. 4--5, eqs. 12--14, p. 4; @schulman2017ppo, Sec. 2.2, eqs. 3--4, p. 2]:
 
 $$\max_{\boldsymbol{\theta}} \mathbb{E}[\frac{\pi_{\boldsymbol{\theta}}(a \mid s)}{\pi_{\boldsymbol{\theta}_{\text{old}}}(a \mid s)}
 a_{\pi_{\boldsymbol{\theta}_{\text{old}}}}(s,a)]$$ $$\text{s.t.} \quad
 \mathbb{E}[D_{\mathrm{KL}}(\pi_{\boldsymbol{\theta}_{\text{old}}}(\cdot \mid s) \,\Vert\, \pi_{\boldsymbol{\theta}}(\cdot \mid s))] \leq \delta$$
 
-The constrained problem requires second-order machinery to solve. PPO replaces the constraint by a clipped objective, defined
-below.
+The constrained problem requires second-order machinery to solve [@schulman2015trpo, Sec. 6, p. 5]. PPO replaces the constraint
+by a clipped objective, defined below [@schulman2017ppo, Sec. 3, eq. 7, p. 3].
 
 :::: {.statement-box}
 ::: {#def-rl-ppo-clipped-objective}
@@ -3318,7 +3367,8 @@ where $\rho_t(\boldsymbol{\theta}) = \frac{\pi_{\boldsymbol{\theta}}(A_t \mid S_
 ::::
 
 PPO is simpler than TRPO and often performs better in practice. The minimum makes the objective pessimistic: the clipped term
-removes any incentive to move the ratio beyond $1 \pm \varepsilon$ in the direction the advantage favors.
+removes any incentive to move the ratio beyond $1 \pm \varepsilon$ in the direction the advantage favors
+[@schulman2017ppo, Sec. 3, Fig. 1, p. 3; Sec. 6.2, pp. 6--7].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 For a positive advantage, the objective grows with the ratio only up to $1 + \varepsilon$. The example evaluates it on both sides of
@@ -3355,9 +3405,12 @@ the unclipped term, so the gradient pushes the ratio back down.
 
 ### Deterministic Policy Gradient
 
+For more on this topic, see @zhao2025rl [Sec. 10.4, pp. 226--235].
+
 **Deep Deterministic Policy Gradient (DDPG):**
 
-For continuous action spaces, use deterministic policy $\pi_{\boldsymbol{\theta}}(s)$:
+For continuous action spaces, use deterministic policy $\pi_{\boldsymbol{\theta}}(s)$
+[@lillicrap2016ddpg, Sec. 3, eqs. 6--7, pp. 3--5]:
 
 $$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}[\nabla_a \hat{q}(s,a,\mathbf{w})\big|_{a=\pi_{\boldsymbol{\theta}}(s)}
 \nabla_{\boldsymbol{\theta}} \pi_{\boldsymbol{\theta}}(s)]$$
@@ -3374,6 +3427,9 @@ Policy Updates:** Update policy less frequently than critic 3. **Target Policy S
 
 Entropy regularization appeared above as a bonus added to the policy-gradient objective. Soft actor-critic makes it part of the
 objective itself, which changes the Bellman equations as well.
+
+For the maximum entropy objective and the soft Bellman equation, see
+@haarnoja2018sac [Sec. 3.2, eq. 1, p. 3; Sec. 4.1, eqs. 2--3, p. 4]. For the entropy regularization term of SAC, see @prudencioSurveyOfflineReinforcement2024 [Sec. IV-C, eq. 25, p. 11].
 
 :::: {.statement-box}
 ::: {#def-rl-maximum-entropy-objective}
@@ -3392,7 +3448,7 @@ $$Q(s,a) = r(s,a) + \gamma \mathbb{E}_{s'}[V(s')]$$ $$V(s) = \mathbb{E}_{a \sim 
 
 ::::
 
-**Benefits:** - Improved exploration - Robustness to hyperparameters - Better sample efficiency
+**Benefits** [@haarnoja2018sac, Secs. 1, 3.2, 5.2, pp. 1--3, 7--8]: - Improved exploration - Robustness to hyperparameters - Better sample efficiency
 
 The temperature $\alpha$ sets the exchange rate between reward and entropy. The example computes the largest possible entropy
 bonus, and the exercise finds the policy that the objective prefers in a single state.
@@ -3414,7 +3470,7 @@ The exercise derives the resulting softmax policy.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 In a single state the objective of @def-rl-maximum-entropy-objective reduces to maximizing $\sum_a \pi(a) Q(a) + \alpha
-H(\pi)$. The reader finds the maximizer, which is the policy SAC moves toward.
+H(\pi)$. The reader finds the maximizer, which is the policy SAC moves toward [@haarnoja2018sac, Sec. 4.1, eq. 4, p. 4].
 
 ::: {#exr-rl-soft-greedy-policy}
 #### The soft-greedy policy
@@ -3440,6 +3496,8 @@ learning agents.
 
 Learn model of environment dynamics and use for planning.
 
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 8.1--8.2, pp. 159--164].
+
 **Dyna Architecture:** 1. **Direct RL:** Learn from real experience 2. **Model Learning:** Learn model $\hat{P}(s' \mid s,a)$ and
 $\hat{R}(s,a)$
 3. **Planning:** Generate simulated experience using model
@@ -3457,23 +3515,27 @@ $$a_1^*, \ldots, a_H^* = \arg\max_{a_1, \ldots, a_H} \sum_{t=1}^H r(s_t, a_t)$$
 
 **Independent Q-Learning:** Each agent learns independently.
 
-**Centralized Training, Decentralized Execution (CTDE):** - Training: Access to global information - Execution: Each agent uses
+For independent Q-learning, see @zai2020deeprl [Sec. 9.1, pp. 244--245].
+
+**Centralized Training, Decentralized Execution (CTDE)** [@lowe2017maddpg, Sec. 4.1, p. 4]: - Training: Access to global information - Execution: Each agent uses
 only local observations
 
-**Multi-Agent DDPG (MADDPG):** - Centralized critic: $\hat{q}_i(\mathbf{s}, a_1, \ldots, a_N, \mathbf{w}_i)$
+**Multi-Agent DDPG (MADDPG)** [@lowe2017maddpg, Sec. 4.1, eqs. 4--6, pp. 4--5]: - Centralized critic: $\hat{q}_i(\mathbf{s}, a_1, \ldots, a_N, \mathbf{w}_i)$
 - Decentralized actor:
 $\pi_{\boldsymbol{\theta}_i}(s_i)$
 
-**Communication:** Agents learn to communicate via differentiable communication channels.
+**Communication:** Agents learn to communicate via differentiable communication channels [@lowe2017maddpg, Sec. 2, p. 3].
 
 ## Offline Reinforcement Learning {#sec-rl-offline}
 
 Offline reinforcement learning (also called batch RL) represents a paradigm shift in how we think about RL. Traditional RL
 algorithms like DQN (@sec-advanced-rl) and policy gradients require continuous interaction with the environment—millions of steps
 for Atari games, potentially dangerous or expensive in real-world applications. Offline RL asks: can we learn optimal policies
-from fixed datasets collected by previous policies, without any additional environment interaction?
+from fixed datasets collected by previous policies, without any additional environment interaction [@prudencioSurveyOfflineReinforcement2024, Secs. I, II-C, pp. 1--4]?
 
 ### The offline problem
+
+For applications of offline RL and for distributional shift, see @prudencioSurveyOfflineReinforcement2024 [Sec. II-C, p. 4].
 
 **Why Offline RL Matters:** Consider these scenarios:
 
@@ -3489,7 +3551,8 @@ policy without risking damage to the robot or environment.
 4. **Recommendation Systems:** We have logs of user interactions (states: user history, actions: recommendations, rewards:
 clicks/purchases). We want to improve recommendations without A/B testing every policy.
 
-In all these cases, we have data but cannot easily collect more. This is the offline RL setting.
+In all these cases, we have data but cannot easily collect more. This is the offline RL setting
+[@hongUniformSamplingOffline2023, Sec. 2, eq. 1].
 
 :::: {.statement-box}
 ::: {#def-rl-offline-rl-problem}
@@ -3509,7 +3572,7 @@ without any additional environment interaction during training.
 
 The core difficulty in offline RL is distributional shift. The learned policy $\pi$ may visit states or take actions not
 well-represented in $\mathcal{D}$. When we query the Q-function at these out-of-distribution (OOD) state-action pairs, we get
-unreliable estimates.
+unreliable estimates [@hongUniformSamplingOffline2023, Sec. 2, p. 3].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A dataset of cautious drivers is the running example of this section. It shows how a Q-function trained on the data has nothing
@@ -3572,6 +3635,8 @@ OOD regions 4. **Hybrid Methods:** Combine multiple strategies
 
 BCQ, one of the first successful offline RL algorithms, takes a direct approach: only select actions that are likely under the
 behavior policy.
+
+For more on this topic, see @prudencioSurveyOfflineReinforcement2024 [Secs. III-A, IV-A, eq. 16, pp. 5, 8--9].
 
 **Core Idea:** If an action $a$ has low probability under $b(a \mid s)$, it's probably not in our dataset. Don't select it!
 
@@ -3644,6 +3709,8 @@ well be an extrapolation error.
 
 CQL takes a different approach: instead of constraining the policy, learn a conservative Q-function that underestimates values for
 OOD actions.
+
+For more on this topic, see @prudencioSurveyOfflineReinforcement2024 [Sec. IV-C, eqs. 27--28, p. 11].
 
 **Core Idea:** If we're uncertain about an action's value, assume it's bad. This pessimism prevents the policy from exploiting
 overestimated OOD actions.
@@ -3718,6 +3785,8 @@ OOD action, and the push vanishes once the OOD value is far below the data value
 ### Implicit Q-Learning (IQL)
 
 IQL offers an elegant solution: avoid querying Q-values at OOD actions entirely during training.
+
+For more on this topic, see @prudencioSurveyOfflineReinforcement2024 [Sec. IV-F, eqs. 41--42, p. 13].
 
 **Core Idea:** Standard Q-learning requires $\max_a Q(s,a)$, which queries all actions including OOD ones. IQL learns the value
 function $V(s)$ directly using expectile regression, avoiding the problematic max operator.
@@ -3810,7 +3879,10 @@ language, a large language model can supply knowledge the agent lacks. This sect
 
 **Inverse RL:** Infer reward function from expert demonstrations.
 
-**Maximum Entropy IRL:**
+For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Sec. 17.4, pp. 470--471],
+@aggarwalNeuralNetworksDeep2023 [Sec. 11.6.2, pp. 410--411] and @prudencioSurveyOfflineReinforcement2024 [Sec. III-G, pp. 7--8].
+
+**Maximum Entropy IRL** [@ziebart2008maxent, eq. 2, p. 1434; p. 1435]:
 
 $$\max_R \sum_{\tau \in \mathcal{D}} \log p(\tau \mid R) - \lambda \|R\|$$
 
@@ -3828,7 +3900,8 @@ $$\min_{\boldsymbol{\theta}} \sum_{(s,a) \in \mathcal{D}} \|\pi_{\boldsymbol{\th
 ::::
 
 Behavioral cloning inherits the distributional-shift problem of offline RL: small errors take the agent to states the expert never
-visited. GAIL, below, avoids this by matching distributions of state-action pairs rather than individual actions.
+visited. GAIL, below, avoids this by matching distributions of state-action pairs rather than individual actions
+[@ho2016gail, Sec. 1, p. 1; Sec. 4, eq. 8, p. 4].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 With a linear policy, behavioral cloning is ordinary least squares. The example fits a one-parameter policy to two demonstrations.
@@ -3862,11 +3935,11 @@ The derivative is $2 \sum_i s_i(\theta s_i - a_i)$, which vanishes at the stated
 
 **Generative Adversarial Imitation Learning (GAIL):**
 
-Match state-action distribution of expert:
+Match state-action distribution of expert [@ho2016gail, Sec. 5, eq. 16, p. 6]:
 
 $$\min_{\pi} \max_D \mathbb{E}_{\pi}[\log D(s,a)] + \mathbb{E}_{\pi_E}[\log(1-D(s,a))] - \lambda H(\pi)$$
 
-where $\pi_E$ is the expert policy and $D$ is a discriminator [@zhao2025rl; @theodoridis2025ml].
+where $\pi_E$ is the expert policy and $D$ is a discriminator.
 
 ### LLM-enhanced Reinforcement Learning {#sec-llm-enhanced-rl}
 
@@ -3878,7 +3951,7 @@ where $\pi_E$ is the expert policy and $D$ is a discriminator [@zhao2025rl; @the
 - Traditional RL methods struggle with high-dimensional state spaces and complex environments
 - Integration of deep learning techniques with RL has led to significant breakthroughs
 
-**Large language models:**
+**Large language models** [@bishop2024deeplearning, Sec. 12.3.5, pp. 390--394; @kamathLargeLanguageModels2024, Secs. 1.4.3, 3.5.2, 4.2, 4.5.4--4.5.6]:
 
 - LLMs typically refer to the Transformer-based language models containing hundreds of billions of parameters
 - They tend to exhibit emergent abilities that are not present in small models
@@ -3894,7 +3967,8 @@ where $\pi_E$ is the expert policy and $D$ is a discriminator [@zhao2025rl; @the
 **LLM-enhanced reinforcement learning:**
 
 - Methods that utilize the high-level cognitive capabilities of pre-trained LLM models to assist the RL paradigm
-- Taxonomy
+  [@wangLLMEmpoweredStateRepresentation2024, Sec. 2; @cao2024llmrl, Sec. III.A, p. 4]
+- Taxonomy [@cao2024llmrl, Sec. III.D, p. 5, and Secs. IV--VII, pp. 6--14]
     - Information processor
         - Feature representations extraction
         - Information translation to DSL
@@ -3912,6 +3986,8 @@ where $\pi_E$ is the expert policy and $D$ is a discriminator [@zhao2025rl; @the
 
 The integrative exercises below combine several sections of the chapter. The first one follows a small MDP from its definition
 through policy evaluation to policy iteration, using the foundations, the Bellman equations and dynamic programming.
+
+For further exercises on these topics, see @suttonReinforcementLearningIntroduction2018 [Chs. 3--6, 13].
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The first exercise uses the stay-or-go problem of @exm-rl-optimality-two-state as a complete case study. Its three parts draw on

@@ -14,7 +14,7 @@ warnings and no unresolved citation.
 
 ## 1. Mechanical check
 
-- [ ] 1.1 Write `audit/check.py` (A2) and run it on the whole site. Verify that it reproduces the measured baseline:
+- [x] 1.1 Write `audit/check.py` (A2) and run it on the whole site. Verify that it reproduces the measured baseline:
   151 entries, 3 cited nowhere, and the per-chapter key counts of design Context. Its findings seed the five
   `audit/<tutorial>.md` records (A9).
 - [ ] 1.2 Resolve the entry-level findings: missing `zotero` fields, citation keys that differ, items without a PDF
@@ -23,18 +23,18 @@ warnings and no unresolved citation.
 
 ## 2. Fundamentals of Mathematics for Machine Learning
 
-- [ ] 2.1 Audit Mathematical and Statistical Foundations, choose its textbooks (A4), and resolve its findings.
-- [ ] 2.2 Audit Appendices and Technical Background, and resolve its findings.
-- [ ] 2.3 Get the owner's decisions on this tutorial's proposed references and disagreements (A5, A6), and apply
+- [x] 2.1 Audit Mathematical and Statistical Foundations, choose its textbooks (A4), and resolve its findings.
+- [x] 2.2 Audit Appendices and Technical Background, and resolve its findings.
+- [x] 2.3 Get the owner's decisions on this tutorial's proposed references and disagreements (A5, A6), and apply
   them. Verify that `audit/fundamentals-of-mathematics-for-machine-learning.md` has no open item.
 
 ## 3. Fundamentals of Machine Learning
 
-- [ ] 3.1 Audit Foundations of Learning Theory, including the four corrections made during the template conversion
+- [x] 3.1 Audit Foundations of Learning Theory, including the four corrections made during the template conversion
   (A6).
-- [ ] 3.2 Audit Supervised Learning, including the five corrections made during the conversion (A6).
-- [ ] 3.3 Audit Unsupervised Learning.
-- [ ] 3.4 Audit Reinforcement Learning, including the grid-world Bellman equations (A6).
+- [x] 3.2 Audit Supervised Learning, including the five corrections made during the conversion (A6).
+- [x] 3.3 Audit Unsupervised Learning.
+- [x] 3.4 Audit Reinforcement Learning, including the grid-world Bellman equations (A6).
 - [ ] 3.5 Get the owner's decisions and apply them. Verify that the record has no open item.
 
 ## 4. Kaluza-Klein Theories

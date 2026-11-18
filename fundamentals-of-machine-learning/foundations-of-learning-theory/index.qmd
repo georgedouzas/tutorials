@@ -26,7 +26,7 @@ and make predictions on new observations. This section covers the core concepts 
 fundamental model, the prediction-inference tradeoff, parametric versus non-parametric methods, and the critical bias-variance
 decomposition.
 
-For more on this topic, see @bishop2024deeplearning [Ch. 4], @james2023statistical [Ch. 2], @shalev2014ml [Chs. 2, 3, 4, 5, 6, 7, 8] and @theodoridis2025ml [Ch. 12].
+For more on this topic, see @bishop2024deeplearning [Ch. 4], @james2023statistical [Ch. 2], @shalev2014ml [Chs. 2, 3, 4, 5, 6, 7, 8] and @theodoridis2025ml [Ch. 3].
 
 ### The Statistical Learning Framework
 
@@ -50,7 +50,7 @@ where:
 
 ::::
 
-The error term captures unmeasured variables, unmeasurable variation, and measurement error. The examples below separate the two
+The error term captures unmeasured variables, unmeasurable variation, and measurement error [@james2023statistical, Sec. 2.1]. The examples below separate the two
 parts of the model in the simplest setting, so that the roles of $f$ and $\varepsilon$ can be seen one at a time.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -71,7 +71,7 @@ $(\mathbf{x}, Y)$. The exercise below makes this precise.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercise asks the reader to identify $f$ with the conditional mean of $Y$. It is a direct check of the two assumptions in
-@def-flt-statistical-model.
+@def-flt-statistical-model [@bishop2024deeplearning, Sec. 4.2].
 
 ::: {#exr-flt-conditional-mean}
 #### $f$ is the regression function
@@ -116,7 +116,7 @@ constant. Squaring and taking the expectation gives $[f(\mathbf{x}) - \hat{f}(\m
 and $\mathbb{E}[\varepsilon^2] = \operatorname{Var}(\varepsilon)$ for the same reason.
 
 The first term is reducible error (can be improved with better methods), and the second is irreducible error (cannot be reduced).
-The irreducible error provides a lower bound on prediction accuracy. The example below puts numbers on the two terms.
+The irreducible error provides a lower bound on prediction accuracy [@james2023statistical, eq. 2.3]. The example below puts numbers on the two terms.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A single point is enough to see the decomposition of @prp-flt-reducible-irreducible at work. The estimate below is wrong by a
@@ -174,7 +174,8 @@ close to data points without being too rough.
 
 For parametric methods, advantages include simplicity and interpretability; disadvantages include potential model
 misspecification and overfitting with flexible models. For non-parametric methods, advantages include avoiding functional form
-assumptions and fitting wider range of shapes; disadvantages include requiring very large datasets and potential overfitting.
+assumptions and fitting wider range of shapes; disadvantages include requiring very large datasets and potential overfitting
+[@james2023statistical, Sec. 2.1.2; @theodoridis2025ml, Sec. 3.15].
 The example below places two familiar methods in the two families.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -214,7 +215,7 @@ whole training set, and no fixed finite list of numbers describes the fit for al
 Methods vary in flexibility (range of shapes they can generate). Less flexible methods (linear regression, logistic regression)
 are more interpretable. More flexible methods (GAMs, trees, neural networks, boosting) are less interpretable. As flexibility
 increases, interpretability generally decreases. Surprisingly, more flexible methods don't always predict better due to
-overfitting.
+overfitting [@james2023statistical, Sec. 2.1.3].
 
 ### Supervised vs Unsupervised Learning
 
@@ -237,7 +238,7 @@ relationships between variables or observations.
 Examples of supervised learning include linear regression (see [Linear Models](../supervised-learning/index.qmd#sec-linear-models)), logistic regression, SVMs (see [Margin Methods](../supervised-learning/index.qmd#sec-margin-methods)),
 and neural networks (see [Neural Networks](../supervised-learning/index.qmd#sec-neural-networks)). Examples of unsupervised
 learning include clustering (see [Clustering](../unsupervised-learning/index.qmd#sec-clustering)) and PCA (see [Dimensionality Reduction](../unsupervised-learning/index.qmd#sec-dimensionality-reduction)).
-The example below shows the same kind of data used in both ways.
+For the distinction, see [@james2023statistical, Sec. 2.1.4]. The example below shows the same kind of data used in both ways.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Whether a problem is supervised in the sense of @def-flt-supervised-learning depends on the data, not on the domain. The example
@@ -292,7 +293,7 @@ test error rate.
 
 ::::
 
-We want to choose the method that gives the lowest test error, not training error. The example computes an MSE by hand.
+We want to choose the method that gives the lowest test error, not training error [@james2023statistical, Sec. 2.2.1]. The example computes an MSE by hand.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A three-point computation shows how @def-flt-mean-squared-error weights errors. Large errors dominate because they are squared.
@@ -342,7 +343,7 @@ possible. This computational perspective complements the statistical view presen
 Before delving into the models of learnability, it is crucial to understand a fundamental limitation of machine learning,
 articulated by the No-Free-Lunch (NFL) theorem. The NFL theorem states that for any learning algorithm, there is no single best
 model that works for all possible data distributions. For any learner, there exists a data distribution for which it will perform
-no better than random guessing.
+no better than random guessing [@shalev2014ml, Thm. 5.1; @bishop2024deeplearning, Sec. 9.1.2].
 
 :::: {.statement-box}
 ::: {#thm-no-free-lunch}
@@ -359,7 +360,7 @@ there exists a distribution $\mathcal{D}$ over $\mathcal{X} \times \{0,1\}$ such
 
 This theorem implies that there is no universally superior learning algorithm. The success of a machine learning algorithm depends
 on the assumptions it makes about the data, a concept known as inductive bias. Without such assumptions, we cannot hope to
-generalize from a finite training set [@shalev2014ml]. The example below checks the bound on the smallest possible domain.
+generalize from a finite training set [@shalev2014ml, Sec. 5.1]. The example below checks the bound on the smallest possible domain.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The smallest case of @thm-no-free-lunch has two points and a single training example. Averaging over the possible target
@@ -380,7 +381,7 @@ The averaging argument of the example works for every $n$, and it is in fact the
 reader to carry it out.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise generalises the two-point example to a domain of size $2n$. Its solution is a complete proof of @thm-no-free-lunch.
+The exercise generalises the two-point example to a domain of size $2n$. Its solution is a complete proof of @thm-no-free-lunch, along the lines of [@shalev2014ml, Sec. 5.1, eq. 5.1].
 
 ::: {#exr-flt-nfl-proof}
 #### Proving the No-Free-Lunch bound
@@ -402,7 +403,7 @@ least $\frac12 \cdot \frac12 = \frac14$. An average is at most a maximum, so som
 ### The PAC Setup
 
 The PAC (Probably Approximately Correct) model formalizes the learning problem computationally. The basic setup consists of the
-following components [@shalev2014ml]:
+following components [@shalev2014ml, Sec. 2.1]:
 
 :::: {.statement-box}
 ::: {#def-pac-learning}
@@ -455,7 +456,7 @@ by $1$ and the rest by $0$, with $k = 11$ giving the all-zero function. These $1
 ::::
 
 The learner's output is a hypothesis $h \in \mathcal{H}$. The goal is to find a hypothesis with low true error (or risk), defined
-for the 0-1 loss as:
+for the 0-1 loss as [@shalev2014ml, eq. 3.1]:
 
 :::: {.statement-box}
 ::: {#def-true-error}
@@ -503,7 +504,7 @@ agrees on a set of mass $0.9$, where it errs when the label is flipped (probabil
 :::
 ::::
 
-Since $\mathcal{D}$ is unknown, the learner uses the empirical error on the training set $S$ as a proxy:
+Since $\mathcal{D}$ is unknown, the learner uses the empirical error on the training set $S$ as a proxy [@shalev2014ml, eq. 2.2]:
 
 :::: {.statement-box}
 ::: {#def-empirical-error}
@@ -556,7 +557,7 @@ practical machine learning.
 
 The PAC model formalizes learning under the realizability assumption: there exists at least one hypothesis $h^* \in \mathcal{H}$
 with zero true error, $L_{\mathcal{D}}(h^*) = 0$. This means our hypothesis class contains the "true" function generating the
-data—an idealized but useful starting point.
+data—an idealized but useful starting point [@shalev2014ml, Def. 3.1].
 
 :::: {.statement-box}
 ::: {#def-pac-learnable}
@@ -611,7 +612,7 @@ replacing $m_{\mathcal{H}}(\varepsilon', \delta')$ by $\min\{m_{\mathcal{H}}(\va
 ::::
 
 For a finite hypothesis class $\mathcal{H}$, the Empirical Risk Minimization (ERM) algorithm is a successful PAC learner. The
-theorem below gives its sample complexity.
+theorem below gives its sample complexity [@shalev2014ml, Cor. 2.3].
 
 :::: {.statement-box}
 ::: {#thm-flt-finite-class}
@@ -667,7 +668,7 @@ $\log(2^{20}/0.01) = 20 \log 2 + \log 100 \approx 13.863 + 4.605 = 18.468$, and 
 
 The realizability assumption is often unrealistic—real data contains noise, and our hypothesis class may not contain the true
 function. The agnostic PAC model addresses this by dropping the realizability assumption. Instead of seeking zero error, we aim to
-compete with the best hypothesis in our class.
+compete with the best hypothesis in our class [@shalev2014ml, Def. 3.3].
 
 :::: {.statement-box}
 ::: {#def-agnostic-pac}
@@ -734,7 +735,7 @@ $$ m_{\mathcal{H}}(\varepsilon, \delta) = O\left( \frac{\operatorname{VCdim}(\ma
 Note the crucial difference: sample complexity now scales as $1/\varepsilon^2$ rather than $1/\varepsilon$. This quadratic dependence
 means that achieving high accuracy in the agnostic setting is significantly more expensive. To halve the error, we need four times
 as many examples. This fundamental result connects the generalization ability of a learner to the complexity of its hypothesis
-class [@shalev2014ml; @theodoridis2025ml]. The example compares the two regimes side by side.
+class [@shalev2014ml, Thm. 6.8; @theodoridis2025ml, Sec. 3.14]. The example compares the two regimes side by side.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example contrasts @thm-flt-agnostic-sample-complexity with @thm-flt-finite-class as $\varepsilon$ shrinks. Only the scaling is
@@ -771,7 +772,7 @@ grows by $10$.
 
 The VC-dimension is a combinatorial measure that captures the expressiveness of a hypothesis class. Unlike simply counting
 hypotheses, it measures the ability to realize different labelings of data points. It rests on the notion of shattering, defined
-first.
+first [@shalev2014ml, Def. 6.3; @fernandesdemelloMachineLearningPractical2018, Sec. 2.6].
 
 :::: {.statement-box}
 ::: {#def-shattering}
@@ -819,7 +820,7 @@ All $2^2 = 4$ labelings occur, so the set is shattered.
 :::
 ::::
 
-The largest shattered set measures the class. This is the VC-dimension.
+The largest shattered set measures the class. This is the VC-dimension [@shalev2014ml, Def. 6.5; @hastie2009elements, Sec. 7.9].
 
 :::: {.statement-box}
 ::: {#def-vc-dimension}
@@ -833,7 +834,7 @@ $$ \operatorname{VCdim}(\mathcal{H}) = \max\{ |C| : C \text{ is shattered by } \
 ::::
 
 In words, the VC-dimension is the size of the largest set that can be shattered by $\mathcal{H}$. To compute it one shows that
-some set of size $d$ is shattered and that no set of size $d + 1$ is. The examples below give geometric intuition.
+some set of size $d$ is shattered and that no set of size $d + 1$ is. The examples below give geometric intuition [@shalev2014ml, Secs. 6.3, 9.1.3; @hastie2009elements, Sec. 7.9].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The first case of @def-vc-dimension is the threshold class, whose VC-dimension is the smallest non-trivial one. One point can be
@@ -870,7 +871,7 @@ Both halves of a VC-dimension computation, a shattered set and an obstruction, a
 rectangles in the plane.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise computes @def-vc-dimension for a class with four parameters. The upper bound uses an extremal-point argument.
+The exercise computes @def-vc-dimension for a class with four parameters. The upper bound uses an extremal-point argument [@shalev2014ml, Sec. 6.3.3].
 
 ::: {#exr-flt-vc-rectangles}
 #### Axis-aligned rectangles
@@ -887,7 +888,7 @@ contains their bounding box. Hence $\operatorname{VCdim} = 4$.
 :::
 ::::
 
-The VC-dimension is exactly the quantity that decides learnability, as the next theorem states.
+The VC-dimension is exactly the quantity that decides learnability, as the next theorem states [@shalev2014ml, Thm. 6.7].
 
 :::: {.statement-box}
 ::: {#thm-flt-fundamental-theorem}
@@ -934,7 +935,7 @@ $C$), which lies in $\mathcal{H}$. Since $\mathcal{X}$ contains finite sets of e
 
 ### Sauer's Lemma and Growth Functions
 
-Sauer's Lemma provides a crucial bound on the effective size of a hypothesis class when restricted to a finite sample.
+Sauer's Lemma provides a crucial bound on the effective size of a hypothesis class when restricted to a finite sample [@shalev2014ml, Lemma 6.10; @heFoundationsDeepLearning2025, Sec. 3.2].
 
 :::: {.statement-box}
 ::: {#lem-flt-sauer}
@@ -946,7 +947,7 @@ $\mathcal{H}$ is at most $\sum_{i=0}^d \binom{n}{i}$.
 
 ::::
 
-For $n > d$, this bound is approximately $(em/d)^d$, showing that the effective size of $\mathcal{H}$ grows polynomially rather
+For $n > d + 1$, this bound is at most $(en/d)^d$ [@shalev2014ml, Lemma 6.10], showing that the effective size of $\mathcal{H}$ grows polynomially rather
 than exponentially with the sample size. This polynomial growth is what makes learning possible—if the effective size grew
 exponentially, we would need exponentially many examples to learn. The technical details of this bound are provided in
 [Technical Lemmas](../../fundamentals-of-mathematics-for-machine-learning/appendices-and-technical-background/index.qmd#sec-tech-lemmas).
@@ -1025,7 +1026,7 @@ exercise gives the extreme case.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercise builds a hypothesis from the sample whose gap under @def-generalization-gap is as large as possible. The learner simply
-memorises the sample.
+memorises the sample, as in [@shalev2014ml, eq. 2.3].
 
 ::: {#exr-flt-memorizer}
 #### The memoriser
@@ -1041,7 +1042,7 @@ $x$ is continuous, $h_S$ predicts $0$ while $y = 1$, so $L_{\mathcal{D}}(h_S) = 
 ::::
 
 A key goal of learning theory is to bound this gap. A powerful tool for this is the concept of uniform convergence, which aims to
-bound the generalization gap for all hypotheses in a class simultaneously.
+bound the generalization gap for all hypotheses in a class simultaneously [@shalev2014ml, Def. 4.3].
 
 :::: {.statement-box}
 ::: {#def-flt-uniform-convergence}
@@ -1060,7 +1061,7 @@ true error. The example gives the rate for a finite class.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 For a finite class, Hoeffding's inequality and a union bound give @def-flt-uniform-convergence directly. The rate depends on the
-class only through $\log|\mathcal{H}|$.
+class only through $\log|\mathcal{H}|$ [@shalev2014ml, Sec. 4.2].
 
 ::: {#exm-flt-uniform-convergence-finite}
 #### Finite classes
@@ -1074,7 +1075,7 @@ $\varepsilon(n, \mathcal{H}, \delta) = \sqrt{\log(2|\mathcal{H}|/\delta)/(2n)}$.
 The claim that uniform convergence makes ERM good deserves a proof. The exercise asks for it with the exact constant.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise turns @def-flt-uniform-convergence into a guarantee for ERM. The factor two comes from using the bound twice.
+The exercise turns @def-flt-uniform-convergence into a guarantee for ERM. The factor two comes from using the bound twice [@shalev2014ml, Lemma 4.2].
 
 ::: {#exr-flt-erm-uniform}
 #### ERM under uniform convergence
@@ -1098,7 +1099,7 @@ insight into the nature of prediction errors.
 
 For regression problems with squared loss, consider predicting a target $y = f(x) + \varepsilon$, where $f(x)$ is the true function
 and $\varepsilon$ is irreducible noise with $\mathbb{E}[\varepsilon] = 0$ and $\operatorname{Var}(\varepsilon) = \sigma^2$. When we train a model
-$\hat{f}(x)$ on a random training set, the expected squared error at a point $x$ decomposes as follows.
+$\hat{f}(x)$ on a random training set, the expected squared error at a point $x$ decomposes as follows [@hastie2009elements, eq. 7.9; @james2023statistical, eq. 2.7; @bishop2024deeplearning, Sec. 4.3].
 
 :::: {.statement-box}
 ::: {#prp-flt-bias-variance}
@@ -1184,10 +1185,10 @@ The optimal model complexity minimizes the sum of bias and variance. This is why
 
 **Classification Error Rate.** For classification problems, the decomposition is more subtle but the intuition remains: simple
 models make systematic errors (bias) but are stable, while complex models are flexible but unstable. The mathematical details
-differ, but the fundamental trade-off persists [@james2023statistical; @bishop2024deeplearning].
+differ, but the fundamental trade-off persists [@james2023statistical, Sec. 2.2.3; @bishop2024deeplearning, Sec. 4.3; @hastie2009elements, Sec. 7.3.1].
 
 Increasing model complexity typically decreases bias but increases variance. The goal is to find a sweet spot that minimizes the
-total error [@james2023statistical; @bishop2024deeplearning].
+total error [@james2023statistical, Sec. 2.2.2; @bishop2024deeplearning, Sec. 4.3].
 
 ### Measures of Complexity
 
@@ -1205,7 +1206,7 @@ Example: The VC-dimension of intervals on the real line is 2 (@exm-flt-vc-interv
 VC-dimension 1. The VC-dimension of linear classifiers in $\mathbb{R}^d$ is $d+1$.
 
 The Fundamental Theorem of Statistical Learning states that a hypothesis class $\mathcal{H}$ is agnostically PAC learnable if
-and only if it has a finite VC-dimension (compare @thm-flt-fundamental-theorem). The generalization bound is given by:
+and only if it has a finite VC-dimension (compare @thm-flt-fundamental-theorem). The generalization bound is given by [@shalev2014ml, Thm. 6.8; @hastie2009elements, eq. 7.46]:
 
 :::: {.statement-box}
 ::: {#thm-flt-vc-generalization-bound}
@@ -1251,7 +1252,7 @@ We need $\sqrt{13/n} \le 0.01$, i.e. $13/n \le 10^{-4}$, so $n \ge 130\,000$.
 ::::
 
 Rademacher complexity is a data-dependent measure of complexity that measures the ability of a hypothesis class to fit random
-noise. The definition below makes this precise for a fixed sample.
+noise. The definition below makes this precise for a fixed sample [@shalev2014ml, eq. 26.4; @heFoundationsDeepLearning2025, Def. 3.1].
 
 :::: {.statement-box}
 ::: {#def-rademacher-complexity}
@@ -1302,7 +1303,7 @@ $\hat{\mathfrak{R}}_S = \frac12 \cdot 1 = \frac12$.
 ::::
 
 The Rademacher complexity enters a generalization bound in place of the VC-dimension. The theorem below states it for losses with
-values in $[0, 1]$.
+values in $[0, 1]$ [@heFoundationsDeepLearning2025, Thm. 3.1; @shalev2014ml, Thm. 26.5].
 
 :::: {.statement-box}
 ::: {#thm-flt-rademacher-bound}
@@ -1310,14 +1311,16 @@ values in $[0, 1]$.
 
 With probability at least $1-\delta$, for all $h \in \mathcal{H}$:
 
-$$ L_{\mathcal{D}}(h) \le L_S(h) + 2\mathfrak{R}_n(\mathcal{H}) + \sqrt{\frac{\log(1/\delta)}{2n}} $$
+$$ L_{\mathcal{D}}(h) \le L_S(h) + 2\mathfrak{R}_n(\ell \circ \mathcal{H}) + \sqrt{\frac{2\log(2/\delta)}{n}} $$
 
-where $\mathfrak{R}_n(\mathcal{H})$ is the average empirical Rademacher complexity.
+where $\ell \circ \mathcal{H} = \{(x, y) \mapsto \ell(h(x), y) : h \in \mathcal{H}\}$ is the loss class and
+$\mathfrak{R}_n(\ell \circ \mathcal{H}) = \mathbb{E}_{S \sim \mathcal{D}^n}[\hat{\mathfrak{R}}_S(\ell \circ \mathcal{H})]$ is its average
+empirical Rademacher complexity (@def-rademacher-complexity with $h(x_i)$ replaced by $\ell(h(x_i), y_i)$).
 :::
 
 ::::
 
-This bound is often tighter than the VC-dimension bound because it adapts to the specific data distribution [@shalev2014ml]. The
+This bound is often tighter than the VC-dimension bound because it adapts to the specific data distribution [@shalev2014ml, Sec. 26.1]. The
 example evaluates it.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -1326,8 +1329,8 @@ The example inserts numbers into @thm-flt-rademacher-bound. The confidence term 
 ::: {#exm-flt-rademacher-numbers}
 #### A numerical bound
 
-With $L_S(h) = 0.1$, $\mathfrak{R}_n(\mathcal{H}) = 0.05$, $n = 1000$ and $\delta = 0.05$, the confidence term is $\sqrt{\log 20 /
-2000} \approx 0.039$, so $L_{\mathcal{D}}(h) \le 0.1 + 0.1 + 0.039 = 0.239$.
+With $L_S(h) = 0.1$, $\mathfrak{R}_n(\ell \circ \mathcal{H}) = 0.05$, $n = 1000$ and $\delta = 0.05$, the confidence term is
+$\sqrt{2\log 40 / 1000} \approx 0.086$, so $L_{\mathcal{D}}(h) \le 0.1 + 0.1 + 0.086 = 0.286$.
 :::
 ::::
 
@@ -1339,11 +1342,11 @@ The exercise isolates the last term of @thm-flt-rademacher-bound. It is independ
 ::: {#exr-flt-rademacher-confidence}
 #### The confidence term
 
-How large must $n$ be for $\sqrt{\log(1/\delta)/(2n)} \le 0.01$ when $\delta = 0.01$?
+How large must $n$ be for $\sqrt{2\log(2/\delta)/n} \le 0.01$ when $\delta = 0.01$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-We need $\log(100)/(2n) \le 10^{-4}$, i.e. $n \ge \log(100)/(2 \cdot 10^{-4}) \approx 4.605 \times 5000 \approx 23\,026$.
+We need $2\log(200)/n \le 10^{-4}$, i.e. $n \ge 2\log(200) \cdot 10^{4} \approx 105\,966.3$, so $n \ge 105\,967$.
 :::
 ::::
 
@@ -1351,7 +1354,7 @@ We need $\log(100)/(2n) \le 10^{-4}$, i.e. $n \ge \log(100)/(2 \cdot 10^{-4}) \a
 
 Stability is a property of a learning algorithm, rather than a hypothesis class. It measures how sensitive the algorithm's output
 is to small changes in the training data. An algorithm is stable if replacing a single example in the training set does not
-significantly change the resulting hypothesis.
+significantly change the resulting hypothesis [@heFoundationsDeepLearning2025, Def. 4.4].
 
 :::: {.statement-box}
 ::: {#def-flt-uniform-stability}
@@ -1398,7 +1401,7 @@ attained.
 :::
 ::::
 
-It can be shown that if an algorithm has uniform stability $\beta$, then the generalization gap is bounded, as the theorem states.
+It can be shown that if an algorithm has uniform stability $\beta$, then the generalization gap is bounded, as the theorem states [@shalev2014ml, Thm. 13.2; @heFoundationsDeepLearning2025, Thm. 4.3].
 
 :::: {.statement-box}
 ::: {#thm-flt-stability-generalization}
@@ -1412,7 +1415,7 @@ $$ |\mathbb{E}_S[L_{\mathcal{D}}(A(S)) - L_S(A(S))]| \le \beta $$
 ::::
 
 Regularization is a common technique for improving the stability of an algorithm. For example, Tikhonov regularization for SVMs
-can be shown to lead to a stable algorithm, which in turn guarantees good generalization [@shalev2014ml; @theodoridis2025ml]. The
+can be shown to lead to a stable algorithm, which in turn guarantees good generalization [@shalev2014ml, Cor. 13.6; @theodoridis2025ml, Sec. 3.14]. The
 example applies the theorem to the sample mean.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -1452,7 +1455,7 @@ Model selection is the process of selecting the best model from a set of candida
 algorithm, the right hyperparameters, and the right set of features. Validation is the process of evaluating a trained model's
 performance on unseen data.
 
-For more on this topic, see @bishop2024deeplearning [Ch. 12], @james2023statistical [Ch. 5] and @theodoridis2025ml [Chs. 12, 13].
+For more on this topic, see @bishop2024deeplearning [Sec. 1.2.6], @james2023statistical [Ch. 5] and @theodoridis2025ml [Secs. 3.13, 12.3].
 
 ### The Validation Set Approach
 
@@ -1470,7 +1473,7 @@ hyperparameters. The model with the best performance on the validation set is th
 ::::
 
 While simple, this approach has the disadvantage that the performance estimate can be highly variable, depending on which
-observations are included in the training and validation sets. The example runs the procedure on three candidate models.
+observations are included in the training and validation sets [@james2023statistical, Sec. 5.1.1; @bishop2024deeplearning, Sec. 1.2.6]. The example runs the procedure on three candidate models.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example applies @def-flt-validation-set to choosing a polynomial degree. Only the validation errors enter the choice.
@@ -1507,7 +1510,7 @@ used for the choice.
 ### Cross-Validation
 
 Cross-validation is a more robust method for model selection and performance estimation. It involves partitioning the data into
-multiple subsets, or folds, and then training and evaluating the model multiple times.
+multiple subsets, or folds, and then training and evaluating the model multiple times [@james2023statistical, Sec. 5.1.3; @shalev2014ml, Sec. 11.2.4; @hastie2009elements, Sec. 7.10].
 
 :::: {.statement-box}
 ::: {#def-flt-k-fold-cv}
@@ -1563,7 +1566,7 @@ observation.
 ::::
 
 LOOCV provides an almost unbiased estimate of the test error but can be computationally expensive
-[@james2023statistical; @shalev2014ml]. The example computes it by hand for the simplest model.
+[@james2023statistical, Sec. 5.1.2; @shalev2014ml, Sec. 11.2.4; @theodoridis2025ml, Sec. 3.13]. The example computes it by hand for the simplest model.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example evaluates @def-flt-loocv when the model predicts the mean of the training responses. Each of the three fits leaves out
@@ -1581,7 +1584,7 @@ For the mean, the $n$ fits need not be carried out separately. The exercise deri
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercise expresses the residuals of @def-flt-loocv for the mean through the full-data residuals. Similar shortcuts exist for
-least squares.
+least squares [@james2023statistical, eq. 5.2].
 
 ::: {#exr-flt-loocv-shortcut}
 #### A shortcut for the mean
@@ -1609,7 +1612,7 @@ describes the method.
 The **bootstrap** is a resampling method that can be used to estimate the uncertainty of a statistical estimate, such as a model
 parameter or a performance metric. It involves repeatedly drawing random samples with replacement from the original dataset and
 re-computing the estimate for each sample. The distribution of these bootstrap estimates can then be used to approximate the
-sampling distribution of the original estimate [@james2023statistical].
+sampling distribution of the original estimate [@james2023statistical, Sec. 5.2].
 :::
 
 ::::
@@ -1619,7 +1622,7 @@ many are omitted.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example computes the chance that an observation is missing from a bootstrap sample of @def-flt-bootstrap. The omitted
-observations are the basis of out-of-bag error estimates.
+observations are the basis of out-of-bag error estimates [@hastie2009elements, eq. 7.55; @james2023statistical, Sec. 5.4, Problem 2].
 
 ::: {#exm-flt-bootstrap-omitted}
 #### About a third is left out
@@ -1652,7 +1655,7 @@ variance is $14/9$, and the standard error is $\sqrt{14}/3 \approx 1.25$.
 ### Information Criteria
 
 Information criteria are methods for model selection that provide a trade-off between the goodness of fit of a model and its
-complexity. The first one penalises each parameter by a fixed amount.
+complexity. The first one penalises each parameter by a fixed amount [@hastie2009elements, Sec. 7.5; @james2023statistical, Sec. 6.1.3].
 
 :::: {.statement-box}
 ::: {#def-flt-aic}
@@ -1713,7 +1716,7 @@ where $n$ is the number of observations.
 
 ::::
 
-The BIC tends to favor simpler models than the AIC [@james2023statistical]. The example revisits the tie of @exm-flt-aic-tie.
+The BIC tends to favor simpler models than the AIC [@james2023statistical, Sec. 6.1.3; @hastie2009elements, Sec. 7.7; @theodoridis2025ml, Sec. 12.3]. The example revisits the tie of @exm-flt-aic-tie.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example applies @def-flt-bic to the two models of @exm-flt-aic-tie. The heavier penalty breaks the tie in favour of the smaller
@@ -1730,7 +1733,8 @@ With $n = 100$, $\log n \approx 4.605$. The first model has $\text{BIC} \approx 
 Whether BIC is stricter than AIC depends on the sample size. The exercise finds the threshold.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise compares the penalties of @def-flt-bic and @def-flt-aic. The answer is a small sample size.
+The exercise compares the penalties of @def-flt-bic and @def-flt-aic. The answer is a small sample size
+[@james2023statistical, Sec. 6.1.3; @hastie2009elements, Sec. 7.7].
 
 ::: {#exr-flt-bic-vs-aic}
 #### When is BIC stricter?
@@ -1749,7 +1753,7 @@ $n \ge 8$.
 The principle of Structural Risk Minimization (SRM) provides a formal framework for model selection based on the VC-dimension. It
 involves defining a nested sequence of hypothesis classes $\mathcal{H}_1 \subset \mathcal{H}_2 \subset \dots$ with increasing
 VC-dimension. For each class, a bound on the generalization error is calculated. The SRM principle then chooses the hypothesis
-class that minimizes this bound, providing a balance between the empirical error and the complexity of the model [@shalev2014ml].
+class that minimizes this bound, providing a balance between the empirical error and the complexity of the model [@shalev2014ml, Secs. 7.2, 11.1; @hastie2009elements, Sec. 7.9].
 It is stated precisely in @def-flt-srm.
 
 ## Computational Complexity of Learning {#sec-computational-complexity}
@@ -1761,8 +1765,8 @@ including the complexity of implementing the ERM rule and the hardness of learni
 ### Efficient Learning and the ERM Rule
 
 A learning algorithm is considered efficient if its running time is polynomial in the relevant parameters: the sample size $n$,
-the dimension of the input space, $1/\varepsilon$, and $1/\delta$. The question arises: when can the ERM rule be implemented
-efficiently?
+the dimension of the input space, $1/\varepsilon$, and $1/\delta$ [@shalev2014ml, Sec. 8.1]. The question arises: when can the ERM rule be implemented
+efficiently [@shalev2014ml, Sec. 8.2]?
 
 :::: {.statement-box}
 ::: {#def-flt-efficient-erm}
@@ -1801,7 +1805,7 @@ Intervals have two endpoints instead of one. The exercise asks for a polynomial 
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercise extends @exm-flt-erm-thresholds to intervals. It shows that a class with VC-dimension $2$ still has an efficient ERM
-implementation.
+implementation [@shalev2014ml, Problem 8.1].
 
 ::: {#exr-flt-erm-intervals}
 #### ERM for intervals
@@ -1812,18 +1816,18 @@ Give an algorithm that implements ERM for intervals on $\mathbb{R}$ in time poly
 ::: {.callout-note .solution collapse="true" title="Solution"}
 After sorting, an interval labels by $1$ a block $x_{(i)}, \dots, x_{(j)}$ of consecutive points or no point at all, so there are
 $1 + n(n+1)/2$ candidate labelings (@exr-flt-sauer-intervals). With prefix sums of the numbers of $0$- and $1$-labels, the
-empirical risk of each block is found in $O(1)$, so ERM takes $O(m^2)$ time after the sort.
+empirical risk of each block is found in $O(1)$, so ERM takes $O(n^2)$ time after the sort.
 :::
 ::::
 
-However, for many natural hypothesis classes, implementing ERM is computationally intractable:
+However, for many natural hypothesis classes, implementing ERM is computationally intractable [@shalev2014ml, Problem 8.3]:
 
 :::: {.statement-box}
 ::: {#thm-flt-hardness-halfspaces}
 #### Hardness of ERM for intersections of halfspaces
 
 Let $\mathcal{H}$ be the class of intersections of $k$ halfspaces in $\mathbb{R}^d$. Then, implementing ERM for $\mathcal{H}$ is
-NP-hard for $k \geq 2$.
+NP-hard for $k \geq 3$.
 :::
 
 ::::
@@ -1832,7 +1836,7 @@ The statement is about computation, not about data. The example contrasts it wit
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example sets @thm-flt-hardness-halfspaces against the case $k = 1$ on realizable data. A single halfspace consistent with the
-sample can be found by linear programming.
+sample can be found by linear programming [@shalev2014ml, Sec. 9.1.1].
 
 ::: {#exm-flt-one-halfspace-lp}
 #### One halfspace is easy
@@ -1866,7 +1870,7 @@ not statistical.
 
 Some concept classes are not only hard to learn information-theoretically but also computationally hard under cryptographic
 assumptions. The connection between learning and cryptography has led to important insights about the limits of efficient
-learning.
+learning [@shalev2014ml, Sec. 8.4].
 
 :::: {.statement-box}
 ::: {#def-flt-crypto-hard}
@@ -1958,7 +1962,7 @@ output lies outside the threshold class; the learner is improper even if its err
 :::
 ::::
 
-Allowing improper outputs can make learning computationally easier, as the theorem below states.
+Allowing improper outputs can make learning computationally easier, as the theorem below states [@shalev2014ml, Sec. 8.3].
 
 :::: {.statement-box}
 ::: {#thm-flt-proper-improper}
@@ -1975,7 +1979,7 @@ The example gives the classical instance.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The classical instance of @thm-flt-proper-improper is the class of 3-term DNF formulas. The hardness of proper learning there
-rests on the assumption $\text{RP} \neq \text{NP}$.
+rests on the assumption $\text{RP} \neq \text{NP}$ [@shalev2014ml, Secs. 8.2.4, 8.3].
 
 ::: {#exm-flt-three-term-dnf}
 #### 3-term DNF
@@ -2013,7 +2017,7 @@ Several natural learning problems have been shown to be computationally hard:
 1. Learning DNF formulas: Learning disjunctive normal form (DNF) formulas is believed to be hard, though they can be learned
 improperly using polynomial-time algorithms.
 
-2. Learning neural networks: Training neural networks with even a single hidden layer is NP-hard in the worst case.
+2. Learning neural networks: Training neural networks with even a single hidden layer is NP-hard in the worst case [@shalev2014ml, Thm. 20.7].
 
 3. Learning Gaussian mixture models: Efficiently learning the parameters of Gaussian mixture models is computationally
 challenging, even with mild separation assumptions.
@@ -2022,7 +2026,7 @@ challenging, even with mild separation assumptions.
 
 Despite these hardness results, many important concept classes can be learned efficiently:
 
-1. Linear separators: The Perceptron algorithm efficiently learns linearly separable concepts.
+1. Linear separators: The Perceptron algorithm efficiently learns linearly separable concepts [@shalev2014ml, Sec. 9.1.2].
 
 2. Decision lists: These can be learned efficiently using a greedy algorithm.
 
@@ -2035,7 +2039,7 @@ more flexibility. This section explores nonuniform learning and the Structural R
 
 ### Nonuniform Learnability
 
-The first relaxation lets the number of examples depend on the hypothesis we compete with. The definition below states it.
+The first relaxation lets the number of examples depend on the hypothesis we compete with. The definition below states it [@shalev2014ml, Def. 7.1].
 
 :::: {.statement-box}
 ::: {#def-flt-nonuniform-learnability}
@@ -2087,7 +2091,7 @@ and not conversely.
 :::
 ::::
 
-The theorem below says exactly which classes are nonuniformly learnable.
+The theorem below says exactly which classes are nonuniformly learnable [@shalev2014ml, Thm. 7.2].
 
 :::: {.statement-box}
 ::: {#thm-flt-nonuniform-characterization}
@@ -2104,7 +2108,7 @@ The example gives such a union.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Polynomial classifiers of all degrees are the standard instance of @thm-flt-nonuniform-characterization. Each degree has finite
-VC-dimension, the union does not.
+VC-dimension, the union does not [@shalev2014ml, Example 7.1].
 
 ::: {#exm-flt-polynomial-union}
 #### Polynomial classifiers of all degrees
@@ -2135,7 +2139,7 @@ $\mathcal{H} = \bigcup_k \{h_k\}$, and each singleton has VC-dimension $0$ (it r
 ### Structural Risk Minimization
 
 The SRM principle provides a systematic approach to model selection by balancing empirical risk and model complexity. The
-definition below states the rule.
+definition below states the rule [@shalev2014ml, Sec. 7.2; @hastie2009elements, Sec. 7.9].
 
 :::: {.statement-box}
 ::: {#def-flt-srm}
@@ -2176,7 +2180,7 @@ To make the bounds hold for all $k$ at once, the confidence $\delta$ is split am
 split.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise verifies a weighting that makes the bounds of @def-flt-srm hold simultaneously. It is a union-bound computation.
+The exercise verifies a weighting that makes the bounds of @def-flt-srm hold simultaneously. It is a union-bound computation [@shalev2014ml, Thm. 7.5].
 
 ::: {#exr-flt-srm-weights}
 #### Splitting the confidence
@@ -2194,7 +2198,7 @@ the union bound gives probability at most $\sum_k\delta_k = \delta$ that some bo
 ### Minimum Description Length (MDL)
 
 The MDL principle formalizes Occam's razor: among hypotheses that fit the data equally well, prefer the simplest one. In MDL,
-simplicity is measured by description length.
+simplicity is measured by description length [@shalev2014ml, Sec. 7.3; @hastie2009elements, Sec. 7.8; @grunwald2004mdl, Sec. 2.4, p. 34].
 
 :::: {.statement-box}
 ::: {#def-flt-mdl}
@@ -2210,7 +2214,7 @@ MDL selects: $\hat{h} = \arg\min_h \{L(h) + L(S|h)\}$
 
 ::::
 
-With a probabilistic model, the data description length is the code length $-\log_2 p(S|h)$. The example compares two coin models
+With a probabilistic model, the data description length is the code length $-\log_2 p(S|h)$ [@grunwald2004mdl, Sec. 2.4.1, p. 35]. The example compares two coin models
 this way.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -2242,7 +2246,8 @@ MDL selects the fair coin $h_1$.
 :::
 ::::
 
-A refined version of MDL replaces the two-part code by a single normalised distribution. The definition below gives it.
+A refined version of MDL replaces the two-part code by a single normalised distribution. The definition below gives it
+[@grunwald2004mdl, Sec. 2.5.3, eq. 2.18, p. 43].
 
 :::: {.statement-box}
 ::: {#def-flt-nml}
@@ -2254,7 +2259,7 @@ A refined version of MDL replaces the two-part code by a single normalised distr
 
 ::::
 
-The MDL principle is closely related to Bayesian model selection and provides strong theoretical guarantees for model selection.
+The MDL principle is closely related to Bayesian model selection [@theodoridis2025ml, Sec. 12.3] and provides strong theoretical guarantees for model selection.
 The example computes the NML distribution for two coin flips.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -2289,7 +2294,7 @@ p(1|\theta) = 1$, the normaliser is $2$, and $p_{\mathrm{NML}}(0) = p_{\mathrm{N
 
 ### Consistency and Universal Learning
 
-The weakest requirement on a learner is that it eventually succeeds. The definition below states it for realizable distributions.
+The weakest requirement on a learner is that it eventually succeeds. The definition below states it for realizable distributions [@shalev2014ml, Sec. 7.4].
 
 :::: {.statement-box}
 ::: {#def-flt-consistency}
@@ -2346,7 +2351,7 @@ For more on this topic, see @james2023statistical [Ch. 13].
 ### The Multiple Testing Problem
 
 When performing $m$ hypothesis tests simultaneously, each at level $\alpha$, the probability of making at least one Type I error
-(false positive) can be much larger than $\alpha$. The proposition below computes it for independent tests.
+(false positive) can be much larger than $\alpha$. The proposition below computes it for independent tests [@james2023statistical, Sec. 13.3.1].
 
 :::: {.statement-box}
 ::: {#prp-flt-at-least-one-false-positive}
@@ -2393,7 +2398,7 @@ $1 - 0.95^{20} \approx 1 - 0.358 = 0.642$, while $m\alpha = 1$: the approximatio
 
 ### Family-Wise Error Rate (FWER)
 
-The first error criterion asks that no false positive be made at all, with high probability. The definition below names it.
+The first error criterion asks that no false positive be made at all, with high probability. The definition below names it [@james2023statistical, Sec. 13.3.1; @hastie2009elements, Sec. 18.7].
 
 :::: {.statement-box}
 ::: {#def-flt-fwer}
@@ -2434,7 +2439,7 @@ $1 - 0.98^5 \approx 1 - 0.904 = 0.096$, close to $m\alpha = 0.1$.
 :::
 ::::
 
-The simplest way to control the FWER is to make each test stricter. The proposition below states the Bonferroni correction.
+The simplest way to control the FWER is to make each test stricter. The proposition below states the Bonferroni correction [@james2023statistical, Sec. 13.3.2].
 
 :::: {.statement-box}
 ::: {#prp-flt-bonferroni}
@@ -2477,7 +2482,7 @@ $0.05/m < 10^{-4}$ exactly when $m > 500$.
 ::::
 
 A step-down refinement of Bonferroni rejects at least as much while keeping the same guarantee. The definition below states
-Holm's method.
+Holm's method [@james2023statistical, Sec. 13.3.2, Algorithm 13.1].
 
 :::: {.statement-box}
 ::: {#def-flt-holm}
@@ -2527,7 +2532,7 @@ Suppose Bonferroni rejects $H_{(j)}$, so $p_{(j)} \le \alpha/m$. For every $k \l
 ### False Discovery Rate (FDR)
 
 When many hypotheses are tested, demanding no false positive at all may be too strict. The second criterion controls the expected
-fraction of false positives among the rejections.
+fraction of false positives among the rejections [@james2023statistical, Sec. 13.4.1; @hastie2009elements, eq. 18.43].
 
 :::: {.statement-box}
 ::: {#def-flt-fdr}
@@ -2570,7 +2575,7 @@ equals $\mathbb{1}[V \ge 1]$, so the two coincide.
 :::
 ::::
 
-The procedure that controls the FDR uses thresholds that grow linearly in the rank. The definition below states it.
+The procedure that controls the FDR uses thresholds that grow linearly in the rank. The definition below states it [@james2023statistical, Algorithm 13.2; @hastie2009elements, Algorithm 18.2].
 
 :::: {.statement-box}
 ::: {#def-flt-bh}
@@ -2664,7 +2669,8 @@ $\text{FWER} \le q$.
 
 ### Adaptive FDR Control
 
-When the proportion of true null hypotheses $\pi_0$ is unknown, adaptive procedures can be more powerful:
+When the proportion of true null hypotheses $\pi_0$ is unknown, adaptive procedures can be more powerful
+[@storey2003significance, Sec. Proposed Method and Results]:
 
 :::: {.statement-box}
 ::: {#def-flt-storey}
@@ -2712,7 +2718,7 @@ $m(1-\lambda)$ gives $1$.
 
 ### Local FDR and Empirical Bayes
 
-The FDR is an average over all rejections. The local FDR asks the same question for one test statistic.
+The FDR is an average over all rejections. The local FDR asks the same question for one test statistic [@hastie2009elements, Sec. 18.7.3].
 
 :::: {.statement-box}
 ::: {#def-flt-local-fdr}
@@ -2770,7 +2776,7 @@ Multiple testing corrections are crucial in:
 4. A/B Testing: When running multiple experiments simultaneously
 
 The genomics example of feature selection is worked out in @exm-flt-feature-selection-genomics. The choice between FWER and FDR
-control depends on the cost of false positives versus false negatives in the specific application [@james2023statistical].
+control depends on the cost of false positives versus false negatives in the specific application [@james2023statistical, Sec. 13.4].
 
 ## Representation as Inductive Bias {#sec-representation}
 
@@ -2782,7 +2788,7 @@ efficiently.
 
 The representation hypothesis states that the success of machine learning algorithms depends critically on the choice of data
 representation. Different representations can make the same learning problem trivial or intractable. The definition below fixes
-the notion of inductive bias that representation is an instance of.
+the notion of inductive bias that representation is an instance of [@shalev2014ml, Sec. 2.3; @bishop2024deeplearning, Sec. 9.1].
 
 :::: {.statement-box}
 ::: {#def-flt-inductive-bias}
@@ -2842,7 +2848,7 @@ Common Feature Engineering Techniques:
 5. Text features: TF-IDF, n-grams, word embeddings
 
 Feature Selection involves selecting a subset of the most informative features, imposing a bias that the selected features are
-sufficient for the learning task.
+sufficient for the learning task [@shalev2014ml, Sec. 25.1].
 
 Feature Selection Methods:
 
@@ -2900,7 +2906,7 @@ $2^{30} = 1\,073\,741\,824$, over a billion, each requiring a model fit.
 Representation learning aims to automatically discover good features from data, reducing the need for manual feature engineering.
 
 **Unsupervised Representation Learning.** The oldest unsupervised representation is the projection on the direction of largest
-variance. The definition below states it.
+variance. The definition below states it [@bishop2024deeplearning, Sec. 16.1.1; @shalev2014ml, Sec. 23.1].
 
 :::: {.statement-box}
 ::: {#def-flt-first-principal-component}
@@ -2949,7 +2955,7 @@ $\mathbf{w}^\top\Sigma\mathbf{w} = \sum_j \lambda_j c_j^2 \le \lambda_1\sum_j c_
 ::::
 
 **Autoencoders.** A nonlinear alternative learns the projection and its inverse together. The definition below states the
-objective.
+objective [@bishop2024deeplearning, Sec. 19.1; @theodoridis2025ml, Sec. 19.2.4].
 
 :::: {.statement-box}
 ::: {#def-flt-autoencoder}
@@ -2984,7 +2990,7 @@ With a one-dimensional linear code, the autoencoder recovers PCA. The exercise a
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercise relates @def-flt-autoencoder to @def-flt-first-principal-component. The reconstruction error and the projected
-variance add up to a constant.
+variance add up to a constant [@bishop2024deeplearning, Sec. 19.1.1; @shalev2014ml, Sec. 23.1].
 
 ::: {#exr-flt-linear-autoencoder}
 #### A linear autoencoder is PCA
@@ -3003,10 +3009,11 @@ $\mathbf{w}\mathbf{w}^\top$ is an orthogonal projection. Taking expectations, th
 
 Variational Autoencoders (VAEs): Learn probabilistic latent representations by maximising $$J =
 \mathbb{E}_{q(\mathbf{z}|\mathbf{x})}[\log p(\mathbf{x}|\mathbf{z})] - D_{\mathrm{KL}}(q(\mathbf{z}|\mathbf{x}) \,\Vert\, p(\mathbf{z}))$$
+[@bishop2024deeplearning, Sec. 19.2].
 
 ### Self-Supervised Learning
 
-Contrastive Learning: Learn representations by contrasting positive and negative pairs: $$\ell = -\log
+Contrastive Learning: Learn representations by contrasting positive and negative pairs [@bishop2024deeplearning, Sec. 6.3.5; @theodoridis2025ml, Sec. 19.6.5]: $$\ell = -\log
 \frac{\exp(\text{sim}(\mathbf{z}_i, \mathbf{z}_j)/\tau)}{\sum_{k=1}^{2N} \mathbb{1}[k \neq i] \exp(\text{sim}(\mathbf{z}_i,
 \mathbf{z}_k)/\tau)}$$
 
@@ -3017,7 +3024,7 @@ Rotation Prediction: Predict image rotations as pretext task
 ### Deep Learning and Hierarchical Representations
 
 Deep neural networks learn hierarchical feature representations through multiple layers of nonlinear transformations. The theorem
-below says that a single hidden layer already suffices to approximate any continuous function.
+below says that a single hidden layer already suffices to approximate any continuous function [@bishop2024deeplearning, Sec. 6.2.2; @theodoridis2025ml, Thm. 18.1].
 
 :::: {.statement-box}
 ::: {#thm-flt-universal-approximation}
@@ -3063,7 +3070,7 @@ the slopes $1 - 2 + 1$ cancel.
 :::
 ::::
 
-Depth vs. Width: Deep networks can represent certain functions exponentially more efficiently than shallow networks:
+Depth vs. Width: Deep networks can represent certain functions exponentially more efficiently than shallow networks [@bishop2024deeplearning, Sec. 6.3]:
 
 - Compositional functions: $f(x) = f_L \circ f_{L-1} \circ \cdots \circ f_1(x)$
 - Hierarchical features: Low-level → Mid-level → High-level features
@@ -3077,7 +3084,7 @@ Examples of Learned Hierarchies:
 ### The Manifold Hypothesis
 
 The manifold hypothesis posits that high-dimensional data often lies on or near a low-dimensional manifold embedded in the
-high-dimensional space. The definition below gives its formal statement.
+high-dimensional space. The definition below gives its formal statement [@bishop2024deeplearning, Sec. 6.1.3; @theodoridis2025ml, Sec. 20.9].
 
 :::: {.statement-box}
 ::: {#def-flt-manifold-hypothesis}
@@ -3193,7 +3200,7 @@ Disentanglement Metrics:
 - Disentanglement, Completeness, Informativeness (DCI)
 
 The choice of representation fundamentally determines what can be learned efficiently, making it one of the most important design
-decisions in machine learning [@shalev2014ml; @theodoridis2025ml].
+decisions in machine learning [@shalev2014ml, Sec. 25.3; @theodoridis2025ml, Sec. 19.6].
 
 ## Online & Sequential Learning {#sec-online-learning}
 
@@ -3204,7 +3211,7 @@ rounds.
 
 ### The Online Learning Model
 
-The protocol is a repeated game between the learner and the environment. The definition below lists one round.
+The protocol is a repeated game between the learner and the environment. The definition below lists one round [@shalev2014ml, Sec. 21.1].
 
 :::: {.statement-box}
 ::: {#def-flt-online-learning}
@@ -3246,7 +3253,7 @@ learning measures performance relative to a comparison class.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercise plays the adversary in @def-flt-online-learning against a deterministic learner. The result motivates the notion of
-regret that follows.
+regret that follows [@shalev2014ml, Sec. 21.1].
 
 ::: {#exr-flt-adversary}
 #### An adversary
@@ -3263,7 +3270,7 @@ The learner's prediction $\hat{y}_t$ is a deterministic function of the past, wh
 ### Regret Analysis
 
 The performance of an online learning algorithm is measured by its regret, which compares the cumulative loss of the algorithm
-to that of the best fixed hypothesis in hindsight:
+to that of the best fixed hypothesis in hindsight [@shalev2014ml, eq. 21.5; @theodoridis2025ml, eq. 8.77]:
 
 :::: {.statement-box}
 ::: {#def-flt-regret}
@@ -3310,7 +3317,7 @@ $\mathrm{Regret}_T/T \le c/\sqrt{T} \to 0$. (The average regret is bounded below
 ### Online Convex Optimization
 
 Many online learning problems can be formulated as online convex optimization (OCO) problems. The definition below states the
-protocol.
+protocol [@shalev2014ml, Sec. 21.3; @hazan2022oco, Sec. 1.1, eq. 1.1].
 
 :::: {.statement-box}
 ::: {#def-flt-oco}
@@ -3366,7 +3373,7 @@ One of the most fundamental online learning algorithms is Online Gradient Descen
 $$\mathbf{w}_{t+1} = \Pi_{\mathcal{W}}(\mathbf{w}_t - \eta_t \nabla f_t(\mathbf{w}_t))$$
 
 where $\Pi_{\mathcal{W}}$ is the projection onto the constraint set $\mathcal{W}$ and $\eta_t$ is the learning rate. The theorem
-below bounds its regret.
+below bounds its regret [@theodoridis2025ml, Prop. 8.4, eq. 8.89; @shalev2014ml, Thm. 21.15; @hazan2022oco, Thm. 3.1].
 
 :::: {.statement-box}
 ::: {#thm-flt-ogd-regret}
@@ -3397,7 +3404,7 @@ With $D = 2$, $G = 1$ and $T = 10\,000$, the bound is $\frac32 \cdot 2 \cdot 100
 If $T$ is known in advance, a constant step does slightly better. The exercise asks for the computation.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise reruns the proof of @thm-flt-ogd-regret with a constant learning rate. The constant improves from $3/2$ to $1$.
+The exercise reruns the proof of @thm-flt-ogd-regret with a constant learning rate. The constant improves from $3/2$ to $1$ [@shalev2014ml, Thm. 21.15].
 
 ::: {#exr-flt-ogd-constant-step}
 #### A constant step
@@ -3428,7 +3435,7 @@ Algorithm (Perceptron):
   - If $\hat{y}_t \neq y_t$: $\mathbf{w}_{t+1} = \mathbf{w}_t + y_t\mathbf{x}_t$
   - Else: $\mathbf{w}_{t+1} = \mathbf{w}_t$
 
-On separable data the number of updates is bounded independently of $T$, as the theorem states.
+On separable data the number of updates is bounded independently of $T$, as the theorem states [@shalev2014ml, Thm. 21.16].
 
 :::: {.statement-box}
 ::: {#thm-flt-perceptron-mistake-bound}
@@ -3490,13 +3497,13 @@ Algorithm (Hedge):
   - Receive losses $\ell_t^{(1)}, \ldots, \ell_t^{(N)}$
   - Update weights: $w_{t+1}^{(i)} = w_t^{(i)} \exp(-\eta \ell_t^{(i)})$
 
-The theorem below bounds its expected regret for losses in $[0, 1]$.
+The theorem below bounds its expected regret for losses in $[0, 1]$ [@shalev2014ml, Thm. 21.11].
 
 :::: {.statement-box}
 ::: {#thm-flt-hedge-regret}
 #### Hedge regret bound
 
-With losses in $[0, 1]$ and learning rate $\eta = \sqrt{\frac{\log N}{T}}$, the Hedge algorithm achieves (expected) regret:
+With losses in $[0, 1]$ and learning rate $\eta = \sqrt{\frac{2\log N}{T}}$, the Hedge algorithm achieves (expected) regret:
 $$\mathrm{Regret}_T \leq \sqrt{2T \log N}$$
 :::
 
@@ -3535,7 +3542,8 @@ $\mathbf{w}_2 = (e^{-\log 2}, 1) = (1/2, 1)$, so $\mathbf{p}_2 = (1/3, 2/3)$.
 
 ### Follow the Regularized Leader
 
-The Follow the Regularized Leader (FTRL) framework generalizes many online learning algorithms:
+The Follow the Regularized Leader (FTRL) framework generalizes many online learning algorithms
+[@orabona2019online, Sec. 7.1, Algorithm 7.1]:
 
 :::: {.statement-box}
 ::: {#def-flt-ftrl}
@@ -3550,7 +3558,7 @@ where $R(\mathbf{w})$ is a regularization function.
 
 ::::
 
-Different choices of $R(\mathbf{w})$ lead to different algorithms:
+Different choices of $R(\mathbf{w})$ lead to different algorithms [@hazan2022oco, Secs. 5.4.1, 5.4.2]:
 
 - $R(\mathbf{w}) = \frac{1}{2\eta}\|\mathbf{w}\|^2$ gives Online Gradient Descent (for linear losses)
 - $R(\mathbf{w}) = \frac{1}{\eta}\sum_i w_i \log w_i$ gives Hedge (in the simplex)
@@ -3589,7 +3597,7 @@ $\mathbf{w}_2 = -0.5(1, 0) = (-0.5, 0)$ and $\mathbf{w}_3 = -0.5(1, 2) = (-0.5, 
 ### Adaptive Learning Rates
 
 Modern online learning algorithms often use adaptive learning rates that adjust based on the observed gradients. The definition
-below states the most common one.
+below states the most common one [@bishop2024deeplearning, Sec. 7.3.3; @orabona2019online, Sec. 4.2.4, Algorithm 4.1].
 
 :::: {.statement-box}
 ::: {#def-flt-adagrad}
@@ -3639,12 +3647,12 @@ Online Newton Step: Uses second-order information: $$\mathbf{w}_{t+1} = \mathbf{
 In the multi-armed bandit setting, the learner only observes the loss of the chosen action, not the losses of all possible
 actions. This partial feedback makes the problem significantly more challenging.
 
-Algorithm (UCB1 for Stochastic Bandits):
+Algorithm (UCB1 for Stochastic Bandits) [@suttonReinforcementLearningIntroduction2018, Sec. 2.7]:
 
 - For each arm $i$, maintain empirical mean $\hat{\mu}_i$ and number of pulls $n_i$
 - At time $t$, choose arm: $$i_t = \arg\max_i \left\{ \hat{\mu}_i + \sqrt{\frac{2\log t}{n_i}} \right\}$$
 
-The theorem below bounds its expected regret in terms of the gaps between the arms.
+The theorem below bounds its expected regret in terms of the gaps between the arms [@lattimore2020bandit, Thm. 7.1, Sec. 7.3].
 
 :::: {.statement-box}
 ::: {#thm-flt-ucb1-regret}
@@ -3691,7 +3699,8 @@ $\log 12 \approx 2.485$. Arm 1: $0.6 + \sqrt{4.97/10} \approx 0.6 + 0.705 = 1.30
 
 ### Contextual Bandits
 
-In contextual bandits, the learner observes a context $x_t$ before choosing an action. This setting bridges the gap between
+In contextual bandits, the learner observes a context $x_t$ before choosing an action
+[@li2010linucb, Sec. 3.1, eq. 5; @lattimore2020bandit, Sec. 19.2, eq. 19.13]. This setting bridges the gap between
 supervised learning and reinforcement learning.
 
 :::: {.statement-box}
@@ -3708,7 +3717,7 @@ supervised learning and reinforcement learning.
 ::::
 
 Here $\mathbf{A}_t = \lambda \mathbf{I} + \sum_{s < t} \mathbf{x}_{s,a_s}\mathbf{x}_{s,a_s}^\top$ collects the features already played, so the bonus is large in
-directions that have rarely been explored. The example computes the rule with one feature.
+directions that have rarely been explored [@lattimore2020bandit, eq. 19.6]. The example computes the rule with one feature.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example evaluates @def-flt-linucb with scalar features. The bonus favours the action whose feature is larger.
@@ -3741,7 +3750,8 @@ $\mathbf{u}^\top \mathbf{A}_t^{-1}\mathbf{u} = 1/(\lambda + n)$. The bonus is $\
 
 ### Online-to-Batch Conversion
 
-Online learning algorithms can be converted to batch learning algorithms with strong generalization guarantees:
+Online learning algorithms can be converted to batch learning algorithms with strong generalization guarantees
+[@orabona2019online, Thm. 3.1]:
 
 :::: {.statement-box}
 ::: {#thm-flt-online-to-batch}
@@ -3760,7 +3770,7 @@ $\mathbf{w}$, $\mathbb{E}[f_t(\mathbf{w})] = L_{\mathcal{D}}(\mathbf{w})$. Takin
 $L_{\mathcal{D}}(\bar{\mathbf{w}})$ by the average.
 
 This connection shows that online learnability implies batch learnability, providing another perspective on the fundamental limits
-of learning [@shalev2014ml]. The example converts the OGD bound.
+of learning [@shalev2014ml, Problem 21.5]. The example converts the OGD bound.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example combines @thm-flt-online-to-batch with @thm-flt-ogd-regret. A $\sqrt{T}$ regret becomes a $1/\sqrt{T}$ excess risk.
@@ -3793,7 +3803,7 @@ $\sqrt{T}/T = 1/\sqrt{T} \le 0.01$ exactly when $T \ge 10^4$.
 ## Exercises {#sec-foundations-of-learning-theory-exercises}
 
 The three exercises below combine several sections of the chapter, and each part draws on a different one. Their solutions cite
-the statements they use.
+the statements they use; the sources are those of the statements [@shalev2014ml, Cor. 2.3, Sec. 4.2, Thm. 21.11; @james2023statistical, Secs. 6.1.3, 13.3, 13.4].
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The first integrative exercise follows a single finite class of thresholds through three settings. It uses the realizable PAC
@@ -3878,6 +3888,6 @@ largest feature vector is $(1,1,1,1)$, so $R = 2$, and the Perceptron makes at m
 
 (c) A consistent separator is a solution of the linear inequalities $y_i\langle\mathbf{w}, \tilde{\mathbf{x}}_i\rangle \ge 1$, found by
 linear programming in polynomial time (@exm-flt-one-halfspace-lp). A single halfspace is the case $k = 1$; the hardness of
-@thm-flt-hardness-halfspaces starts at intersections of two.
+@thm-flt-hardness-halfspaces starts at intersections of three.
 :::
 ::::

@@ -23,7 +23,7 @@ hidden solutions, and the chapter ends with three integrative exercises.
 Linear models form the foundation of supervised learning, providing interpretable and often effective solutions for both
 regression and classification tasks.
 
-For more on this topic, see @deisenroth2020mml [Ch. 8], @james2023statistical [Chs. 3, 4], @shalev2014ml [Ch. 9] and @theodoridis2025ml [Chs. 9, 11, 12].
+For more on this topic, see @deisenroth2020mml [Chs. 8, 9], @james2023statistical [Chs. 3, 4], @shalev2014ml [Ch. 9] and @theodoridis2025ml [Chs. 6, 9, 11, 12].
 
 ### Linear Regression
 
@@ -526,7 +526,7 @@ Most stable, $O(nd^2)$ (see @sec-linear-algebra) - **Gradient descent:** $O(nd)$
 **Weighted least squares:** Different error variances - **Generalized least squares:** Correlated errors
 
 Linear regression provides the foundation for understanding more complex supervised learning methods, with connections to neural
-networks (single-layer network), SVMs (linear kernel), and Gaussian processes [@james2023statistical; @bishop2024deeplearning].
+networks (single-layer network), SVMs (linear kernel), and Gaussian processes [@james2023statistical, Sec. 9.3.2; @bishop2024deeplearning, Chs. 4, 5; @theodoridis2025ml, Sec. 13.12].
 
 ### Logistic Regression
 
@@ -614,7 +614,7 @@ distribution
 - **Poisson regression:** Log link, Poisson distribution - **Multinomial logistic:** Softmax link, Multinomial distribution
 
 **Estimation:** Parameters are estimated via iteratively reweighted least squares (IRLS) or gradient-based methods
-[@james2023statistical; @bishop2024deeplearning].
+[@james2023statistical, Sec. 4.6.3; @bishop2024deeplearning, Secs. 5.4.3, 5.4.6].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Poisson regression is the GLM for counts, and its log link makes the coefficients multiplicative. The example evaluates
@@ -653,7 +653,7 @@ modeling the decision boundary or conditional distribution $p(y \mid \mathbf{x})
 $p(\mathbf{x}, y)$ by modeling both the class-conditional distributions $p(\mathbf{x} \mid y)$ and the class priors $p(y)$.
 Classification is then performed using Bayes' rule.
 
-For more on this topic, see @james2023statistical [Ch. 4] and @theodoridis2025ml [Ch. 10].
+For more on this topic, see @james2023statistical [Ch. 4], @shalev2014ml [Secs. 24.2, 24.3] and @theodoridis2025ml [Secs. 7.2–7.4].
 
 ### The Generative Approach
 
@@ -1105,7 +1105,7 @@ Generative models provide a principled probabilistic framework and can be partic
 Interpretability is important
 
 However, discriminative methods like logistic regression (see @sec-linear-models) and SVMs (see @sec-margin-methods) often achieve
-better classification performance, especially with large datasets [@james2023statistical; @shalev2014ml; @bishop2024deeplearning].
+better classification performance, especially with large datasets [@james2023statistical, Sec. 4.5.1; @shalev2014ml, Ch. 24; @bishop2024deeplearning, Sec. 5.4.3].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The one-dimensional LDA of @exm-sup-lda-one-dimension can be rewritten as a logistic model. The example computes its
@@ -1145,7 +1145,7 @@ Margin-based methods represent a paradigm shift in classification: instead of me
 classes, we seek the boundary that maximizes the separation. This geometric intuition leads to classifiers with strong
 generalization guarantees, as established by the theory in @sec-learning-theory.
 
-For more on this topic, see @bishop2024deeplearning [Ch. 6] and @james2023statistical [Ch. 9].
+For more on this topic, see @bishop2024deeplearning [Sec. 6.1.4], @deisenroth2020mml [Ch. 12], @james2023statistical [Ch. 9] and @shalev2014ml [Chs. 15, 16].
 
 ### Support Vector Machines
 
@@ -1641,7 +1641,7 @@ Regression):** Regression with $\varepsilon$-insensitive loss - **Structured SVM
 @sec-structured-outputs)
 
 SVMs remain one of the most powerful and theoretically well-founded classification methods, particularly effective for
-medium-sized datasets with complex decision boundaries [@shalev2014ml; @theodoridis2025ml].
+medium-sized datasets with complex decision boundaries [@shalev2014ml, Ch. 15; @theodoridis2025ml, Sec. 11.10.3].
 
 ### Kernel Methods
 
@@ -1659,7 +1659,7 @@ where $k(\mathbf{x}, \mathbf{x}') = \boldsymbol{\phi}(\mathbf{x})^\top\boldsymbo
 - **Sigmoid:** $k(\mathbf{x}, \mathbf{x}') = \tanh(\kappa\mathbf{x}^\top\mathbf{x}' + c)$
 
 **Kernel Trick:** Compute inner products in high-dimensional space without explicit mapping, enabling efficient non-linear
-learning [@shalev2014ml; @theodoridis2025ml].
+learning [@shalev2014ml, Sec. 16.2; @theodoridis2025ml, Sec. 11.5].
 
 ## Tree-Based and Ensemble Methods {#sec-tree-methods}
 
@@ -1667,7 +1667,7 @@ Tree-based methods partition the feature space into rectangular regions and make
 region. While individual trees are simple and interpretable, ensemble methods combine multiple trees to achieve state-of-the-art
 performance on many tasks.
 
-For more on this topic, see @james2023statistical [Ch. 8].
+For more on this topic, see @james2023statistical [Ch. 8], @hastie2009elements [Ch. 10] and @theodoridis2025ml [Secs. 7.8, 7.10, 7.11].
 
 ### Decision Trees
 
@@ -2117,7 +2117,7 @@ sequential.
 AdaBoost for binary classification with $y \in \{-1, +1\}$.
 
 AdaBoost reweights the observations after every round and weights each classifier by its accuracy. The full algorithm
-is the definition.
+is the definition [@hastie2009elements, Alg. 10.1; @theodoridis2025ml, Alg. 7.1].
 
 :::: {.statement-box}
 ::: {#def-sup-adaboost}
@@ -2154,7 +2154,8 @@ observations get increased weight (focus on hard examples) - Correctly classifie
 
 $$\ell(f(\mathbf{x}), y) = \exp(-y f(\mathbf{x}))$$
 
-where $f(\mathbf{x}) = \sum_{m=1}^M \alpha_m G_m(\mathbf{x})$.
+where $f(\mathbf{x}) = \sum_{m=1}^M \beta_m G_m(\mathbf{x})$ with $\beta_m = \alpha_m/2$, which has the same sign as
+$\sum_{m=1}^M \alpha_m G_m(\mathbf{x})$ [@hastie2009elements, Sec. 10.4].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 One round of AdaBoost with ten observations shows how the weight update rebalances the data. The example follows the
@@ -2188,7 +2189,7 @@ The weighted error of $G_m$ is therefore $(1 - \text{err}_m)/(2(1 - \text{err}_m
 ::::
 
 The exponential loss explains why AdaBoost drives the training error down so fast. The next theorem bounds the training
-error by a product over rounds.
+error by a product over rounds [@shalev2014ml, Thm. 10.2; @hastie2009elements, Sec. 10.4].
 
 **Training Error Bound:**
 
@@ -2335,7 +2336,7 @@ Boosting slower than bagging 7. **Interpretability:** Use feature importance, pa
 
 Tree-based ensemble methods are among the most powerful techniques for tabular data, achieving state-of-the-art performance on
 many real-world problems. They combine the interpretability of trees with the predictive power of ensembles, making them a go-to
-choice for practitioners [@james2023statistical; @shalev2014ml; @theodoridis2025ml].
+choice for practitioners [@james2023statistical, Sec. 8.2; @shalev2014ml, Ch. 18; @theodoridis2025ml, Sec. 7.11].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 With squared error the pseudo-residuals are ordinary residuals, so gradient boosting fits trees to what is left over. The
@@ -2375,7 +2376,7 @@ representations of data. While the basic concept dates back to the 1940s, modern
 layers—has only become practical in the last two decades due to advances in computing power, optimization algorithms, and
 architectural innovations.
 
-For more on this topic, see @james2023statistical [Ch. 10] and @shalev2014ml [Ch. 20].
+For more on this topic, see @james2023statistical [Ch. 10], @shalev2014ml [Ch. 20] and @theodoridis2025ml [Ch. 18].
 
 The power of neural networks lies in their ability to automatically learn useful features from raw data. Unlike traditional
 machine learning methods that require careful feature engineering, neural networks can discover complex patterns directly from
@@ -2508,7 +2509,7 @@ hierarchical representations more efficiently. For example, in image recognition
 Layer 2: Combines edges into shapes and textures - Layer 3: Combines shapes into object parts - Layer 4: Combines parts into
 complete objects
 
-This hierarchical feature learning is a key advantage of deep networks [@bishop2024deeplearning; @theodoridis2025ml].
+This hierarchical feature learning is a key advantage of deep networks [@bishop2024deeplearning, Sec. 6.3.1; @theodoridis2025ml, Sec. 18.11.1].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 In one dimension, three ReLU units build a hat function, and sums of hats interpolate any continuous function. The
@@ -2642,7 +2643,7 @@ A neural network is just a long composition: $L = f_D(f_{D-1}(\cdots f_1(x)))$. 
 f_{l+1}}{\partial f_l} \cdot \frac{\partial f_l}{\partial \mathbf{W}^{(l)}}$$
 
 Backpropagation computes this efficiently by reusing the products $\frac{\partial L}{\partial f_D} \cdot \frac{\partial
-f_D}{\partial f_{D-1}} \cdots$ as we move backward through the network [@bishop2024deeplearning; @theodoridis2025ml].
+f_D}{\partial f_{D-1}} \cdots$ as we move backward through the network [@bishop2024deeplearning, Sec. 8.1; @theodoridis2025ml, Sec. 18.4].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A network with one hidden unit is small enough to run both passes by hand. The example does so and takes one gradient
@@ -2710,7 +2711,8 @@ layer $l$
 **Total per sample:** $O(2\sum_{l=1}^D d_{l-1}d_{l})$
 
 For a network with layers of size [784, 256, 128, 10] (e.g., MNIST), this is $O(2(784 \cdot 256 + 256 \cdot 128 + 128 \cdot 10))
-\approx 469,000$ operations per sample—remarkably efficient given we're computing gradients for over 200,000 parameters!
+\approx 469,000$ operations per sample—remarkably efficient given we're computing gradients for 235,146 parameters! For the $O(W)$ cost of a forward and a backward pass, see
+@bishop2024deeplearning [Sec. 8.1.4].
 
 ### Optimization Algorithms
 
@@ -2933,7 +2935,7 @@ jittering - **Text:** Synonym replacement, back-translation - **Audio:** Time st
 5. **Underfitting:** Model too simple - **Solutions:** Larger network, more training, reduce regularization
 
 Training neural networks is as much art as science, requiring careful tuning of hyperparameters and monitoring of training
-dynamics [@bishop2024deeplearning; @theodoridis2025ml].
+dynamics [@bishop2024deeplearning, Chs. 7, 9; @theodoridis2025ml, Sec. 18.4.2].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A single activation passed through dropout shows the role of the factor $1/(1 - p)$. The example lists both outcomes and
@@ -2971,6 +2973,8 @@ images. Introduced by Yann LeCun in the 1980s and refined over decades, CNNs hav
 image classification, object detection, and facial recognition. The 2012 AlexNet victory in the ImageNet competition marked the
 beginning of the deep learning revolution, demonstrating that CNNs could dramatically outperform traditional computer vision
 methods.
+
+For more on this topic, see @bishop2024deeplearning [Ch. 10], @theodoridis2025ml [Sec. 18.12] and @aggarwalNeuralNetworksDeep2023 [Ch. 9].
 
 **The Problem with Fully Connected Networks for Images:** Consider applying a standard feedforward network to images:
 
@@ -3311,13 +3315,15 @@ classification - **Time series:** Temporal convolutions - **Graphs:** Graph conv
 
 CNNs demonstrate the power of incorporating domain knowledge (spatial structure) into neural network architecture. The success of
 CNNs has inspired other specialized architectures like RNNs for sequences and Transformers for attention-based processing
-[@bishop2024deeplearning; @theodoridis2025ml].
+[@bishop2024deeplearning, Ch. 10; @theodoridis2025ml, Sec. 18.12].
 
 ## Recurrent Neural Networks (RNNs) {#sec-sup-recurrent-networks}
 
 Recurrent Neural Networks are designed for sequential data where the order of inputs matters. Unlike feedforward networks that
 process inputs independently, RNNs maintain a hidden state that captures information about previous inputs, enabling them to model
 temporal dependencies.
+
+For more on this topic, see @bishop2024deeplearning [Secs. 12.2.5, 12.2.6], @theodoridis2025ml [Sec. 18.13] and @aggarwalNeuralNetworksDeep2023 [Ch. 8].
 
 **Motivation:** Many real-world problems involve sequential data: - **Natural language:** Words in sentences have temporal
 dependencies - **Speech:** Audio signals are inherently sequential - **Time series:** Stock prices, weather, sensor data -
@@ -3659,15 +3665,17 @@ recognition:** Audio to text - **Video analysis:** Frame sequences to labels - *
 - **Music generation:** Generate note sequences
 
 RNNs were the dominant architecture for sequential data until the advent of Transformers, which address many of RNN limitations
-through attention mechanisms [@bishop2024deeplearning; @theodoridis2025ml].
+through attention mechanisms [@bishop2024deeplearning, Sec. 12.1; @theodoridis2025ml, Sec. 19.3.2].
 
 ## Transformers and Foundation Models {#sec-sup-transformers}
 
 Transformers revolutionized not just sequence modeling, but the entire paradigm of machine learning. Introduced in "Attention is
-All You Need" (Vaswani et al., 2017), Transformers replaced recurrence with attention mechanisms, enabling parallel computation
+All You Need" [@vaswani2017attention, Secs. 1, 4], Transformers replaced recurrence with attention mechanisms, enabling parallel computation
 and better modeling of long-range dependencies. This architectural innovation has led to the era of foundation models—large-scale
 pre-trained models that serve as starting points for diverse downstream tasks, from natural language processing to computer vision
 and beyond.
+
+For more on this topic, see @bishop2024deeplearning [Secs. 12.1, 12.3], @theodoridis2025ml [Sec. 19.3] and @aggarwalNeuralNetworksDeep2023 [Sec. 12.2.5].
 
 The impact cannot be overstated: Transformers power modern language models like GPT-4 and Claude, vision models like CLIP and
 Stable Diffusion, and multimodal systems that understand both text and images. They have achieved human-level or superhuman
@@ -4030,7 +4038,7 @@ answering - **Protein folding:** AlphaFold uses Transformer-based architecture -
 
 Transformers represent a paradigm shift in deep learning, demonstrating that attention mechanisms can replace recurrence entirely.
 Their success has led to the "foundation model" era, where large pre-trained Transformers serve as starting points for diverse
-downstream tasks [@bishop2024deeplearning; @theodoridis2025ml].
+downstream tasks [@bishop2024deeplearning, Sec. 12.3.5; @theodoridis2025ml, Secs. 19.4, 19.5].
 
 ## Large Language Models (LLMs) {#sec-sup-large-language-models}
 
@@ -4038,6 +4046,8 @@ Large Language Models represent the scaling of Transformer architectures to unpr
 of parameters. Models like GPT-4, PaLM, and LLaMA have demonstrated remarkable capabilities including few-shot learning,
 reasoning, and even emergent abilities that appear only at scale. Training these models requires sophisticated techniques that go
 far beyond standard supervised learning.
+
+For more on this topic, see @bishop2024deeplearning [Sec. 12.3.5] and @theodoridis2025ml [Sec. 19.4].
 
 ### Pre-training: Next Token Prediction
 
@@ -4161,7 +4171,7 @@ reinforcement learning (@sec-reinforcement-learning), using RL to optimize for h
 **Stage 1: Supervised Fine-Tuning (SFT)** Train on high-quality demonstrations as described above. This provides a good
 initialization for RL.
 
-**Stage 2: Reward Model Training** Learn a reward model that predicts human preferences.
+**Stage 2: Reward Model Training** Learn a reward model that predicts human preferences [@kamathLargeLanguageModels2024, Sec. 5.4.4.1, eq. 5.3].
 
 1. **Data Collection:** For each prompt, generate multiple responses from the SFT model. Human annotators rank responses: $y_1
 \succ y_2 \succ y_3 \succ y_4$.
@@ -4185,7 +4195,7 @@ initialization for RL.
 **Stage 3: Reinforcement Learning Optimization** Use the reward model to fine-tune the policy via RL, specifically Proximal Policy
 Optimization (PPO).
 
-**Objective:** Maximize expected reward while staying close to the SFT model:
+**Objective:** Maximize expected reward while staying close to the SFT model [@kamathLargeLanguageModels2024, eq. 5.4]:
 
 $$J_{\text{RLHF}} = \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi_{\boldsymbol{\theta}}}\left[r_\phi(x, y) - \beta \log
 \frac{\pi_{\boldsymbol{\theta}}(y \mid x)}{\pi_{\text{SFT}}(y \mid x)}\right]$$
@@ -4252,7 +4262,8 @@ pushes $r_w$ up until the pair is ranked confidently.
 
 ### Direct Preference Optimization (DPO)
 
-DPO simplifies RLHF by eliminating the separate reward model and RL training, directly optimizing the policy on preference data.
+DPO simplifies RLHF by eliminating the separate reward model and RL training, directly optimizing the policy on preference data
+[@kamathLargeLanguageModels2024, Sec. 5.5.2, eqs. 5.5-5.12].
 
 **Key Insight:** The optimal policy under the RLHF objective has a closed form:
 
@@ -4325,7 +4336,7 @@ by the trainable $\pi_{\boldsymbol{\theta}}$ gives the argument of $\sigma$ in $
 
 ### Constitutional AI (CAI)
 
-Constitutional AI uses AI feedback instead of human feedback, making alignment more scalable.
+Constitutional AI uses AI feedback instead of human feedback, making alignment more scalable [@kamathLargeLanguageModels2024, Sec. 5.5.1].
 
 **Process:**
 
@@ -4348,6 +4359,8 @@ limits:** AI feedback limited by AI capabilities
 
 Vision-Language Models extend Transformers to understand both images and text, enabling tasks like image captioning, visual
 question answering, and text-to-image generation.
+
+For more on this topic, see @bishop2024deeplearning [Secs. 6.3.5, 12.4.5], @theodoridis2025ml [Sec. 19.6.5] and @mallDeepLearningScale2024 [Chs. 12, 13].
 
 ### Architecture Approaches
 
@@ -4455,6 +4468,8 @@ MQA: Single $\mathbf{K}, \mathbf{V}$ shared by all heads - Reduces KV cache size
 **Grouped-Query Attention (GQA):** Compromise between multi-head and multi-query: - Group heads, share $\mathbf{K}, \mathbf{V}$
 within groups - Used in LLaMA-2
 
+For more on these attention variants, see @kamathLargeLanguageModels2024 [Sec. 2.3.10.5].
+
 **2. Mixture of Experts (MoE):**
 
 Instead of using all parameters for every token, route each token to a subset of experts:
@@ -4472,7 +4487,7 @@ complexity: Requires careful engineering
 **3. Low-Rank Adaptation (LoRA):**
 
 Instead of updating a full weight matrix, LoRA adds a trainable update of low rank to a frozen one. The definition fixes
-the shapes.
+the shapes [@mallDeepLearningScale2024, Ch. 12; @bishop2024deeplearning, Sec. 12.3.5].
 
 :::: {.statement-box}
 ::: {#def-sup-lora}
@@ -4563,7 +4578,7 @@ in the prompt - **Chain-of-thought reasoning:** Models can solve multi-step prob
 C^{0.5}$$
 
 where $N$ is model size, $D$ is dataset size, $C$ is compute budget. This suggests models should be trained on ~20 tokens per
-parameter (e.g., 70B model on 1.4T tokens).
+parameter (e.g., 70B model on 1.4T tokens) [@kamathLargeLanguageModels2024, Secs. 2.4.3, 2.6.3.5].
 
 ### Inference Optimization
 
@@ -4651,7 +4666,7 @@ training - Connects to stochastic approximation theory from @sec-optimization
 
 The success of Transformers demonstrates that with sufficient scale, simple objectives (next token prediction) can lead to
 sophisticated capabilities. This has profound implications for how we think about intelligence and learning
-[@bishop2024deeplearning; @theodoridis2025ml].
+[@bishop2024deeplearning, Sec. 12.3.5; @theodoridis2025ml, Sec. 19.4].
 
 ## Structured Outputs and Complex Prediction {#sec-structured-outputs}
 
@@ -4659,7 +4674,7 @@ Many real-world problems require predicting structured objects—outputs with in
 structure—rather than simple scalar labels. Examples include sequences (text, speech), trees (parse trees), graphs (molecular
 structures), and images (segmentation masks). This section covers methods for handling such complex prediction tasks.
 
-For more on this topic, see @bishop2024deeplearning [Chs. 11, 17].
+For more on this topic, see @bishop2024deeplearning [Secs. 5.4.4, 11.3], @shalev2014ml [Ch. 17] and @theodoridis2025ml [Secs. 15.4.3, 16.5].
 
 ### Multiclass Classification
 
@@ -5140,7 +5155,7 @@ Learn preference function from pairwise comparisons. For pairs where item $i$ sh
 
 $$\min_{f} \sum_{(i,j) \in \mathcal{P}} \ell(f(\mathbf{x}_i) - f(\mathbf{x}_j))$$
 
-where $\mathcal{P} = \{(i,j): y_i > y_j\}$ contains preference pairs.
+where $\mathcal{P} = \{(i,j): y_i > y_j\}$ contains preference pairs [@burges2010ranknet, Secs. 2, 2.1].
 
 :::: {.statement-box}
 ::: {#def-sup-ranknet}
@@ -5159,7 +5174,7 @@ where $s_i = f(\mathbf{x}_i)$ is the score and $\sigma(z) = 1/(1+e^{-z})$.
 ::::
 
 **Gradient:** $$\frac{\partial L}{\partial s_i} = \sum_{j:(i,j) \in \mathcal{P}} (\sigma(s_i - s_j) - 1) + \sum_{j:(j,i) \in
-\mathcal{P}} \sigma(s_i - s_j)$$
+\mathcal{P}} \sigma(s_i - s_j)$$ [@burges2010ranknet, Sec. 2.1, eqs. 3, 4]
 
 **RankSVM:** Use hinge loss:
 
@@ -5185,9 +5200,11 @@ where $\operatorname{rank}$ produces ordering and $\ell$ measures ranking qualit
 
 $$\frac{\partial L}{\partial s_i} = \sum_{j} \lambda_{ij} |\Delta \text{NDCG}_{ij}|$$
 
-where $\lambda_{ij}$ is RankNet gradient and $|\Delta \text{NDCG}_{ij}|$ is change in NDCG from swapping items $i$ and $j$.
+where $\lambda_{ij}$ is RankNet gradient and $|\Delta \text{NDCG}_{ij}|$ is change in NDCG from swapping items $i$ and $j$
+[@burges2010ranknet, Sec. 4.1, eq. 6].
 
-**LambdaMART:** Combine LambdaRank with gradient boosted trees (see @sec-tree-methods). State-of-the-art for many ranking tasks.
+**LambdaMART:** Combine LambdaRank with gradient boosted trees (see @sec-tree-methods). State-of-the-art for many ranking tasks
+[@burges2010ranknet, Secs. 1, 7].
 
 **Advantages:** - Directly optimizes target metric - Considers entire list - Weights top positions more
 
@@ -5421,9 +5438,11 @@ be efficient for the specific structure 3. **Approximate inference:** Often nece
 structured prediction:** Combine neural networks with structured output layers (e.g., CRF on top of RNN)
 
 Structured prediction unifies many supervised learning problems under a common framework, emphasizing the importance of exploiting
-output structure for improved predictions [@shalev2014ml; @theodoridis2025ml].
+output structure for improved predictions [@shalev2014ml, Sec. 17.3; @theodoridis2025ml, Sec. 15.4.3].
 
 ## Exercises {#sec-supervised-learning-exercises}
+
+For the methods combined in these exercises, see @james2023statistical [Chs. 3, 8, 9].
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The integrative exercises below combine several sections of the chapter. The first one fits a single small data set

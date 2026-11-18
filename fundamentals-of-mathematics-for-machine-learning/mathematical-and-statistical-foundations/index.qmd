@@ -28,7 +28,7 @@ Linear algebra is the mathematical language of data. In machine learning, we rep
 matrices. Linear algebra provides a powerful set of tools for manipulating these objects and understanding their properties. This
 section reviews the fundamental concepts of linear algebra that are essential for understanding machine learning algorithms.
 
-For more on this topic, see @theodoridis2025ml [Chs. 3, 11].
+For more on this topic, see @aggarwalLinearAlgebraOptimization2020 [Secs. 2.3-2.6, pp. 51-71].
 
 ### Systems of Linear Equations
 
@@ -111,7 +111,7 @@ Geometrically, each linear equation in the system represents a hyperplane in an 
 two-dimensional space ($n=2$), each equation represents a line. In a three-dimensional space ($n=3$), each equation represents a
 plane. The solution to the system of equations is the set of points that lie at the intersection of all these hyperplanes. For a
 system of two equations with two variables, the solution is the intersection of two lines, which can be a single point (unique
-solution), a line (infinitely many solutions), or an empty set (no solution) if the lines are parallel [@deisenroth2020mml]. This
+solution), a line (infinitely many solutions), or an empty set (no solution) if the lines are parallel [@deisenroth2020mml, Sec. 2.1, p. 21]. This
 geometric interpretation extends to higher dimensions, where the solution set is the intersection of $m$ hyperplanes in
 $\mathbb{R}^n$.
 
@@ -184,7 +184,7 @@ satisfy the following axioms for all vectors $\mathbf{u}, \mathbf{v}, \mathbf{w}
 
 The most common vector space in machine learning is $\mathbb{R}^d$, the space of $d$-dimensional vectors of real numbers. However,
 other sets, such as the set of all $m \times n$ matrices or the set of all polynomials, can also form vector spaces. The abstract
-nature of vector spaces allows us to apply the same linear algebra tools to a wide variety of objects [@deisenroth2020mml].
+nature of vector spaces allows us to apply the same linear algebra tools to a wide variety of objects [@deisenroth2020mml, Sec. 2.4.2, Example 2.11; @aggarwalLinearAlgebraOptimization2020, Sec. 2.3, p. 52].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example below checks that polynomials, which do not look like columns of numbers, still form a vector space. This is the
@@ -221,7 +221,7 @@ addition also fails: $(0, 1)$ and $(1, 3)$ lie on the line, but their sum $(1, 4
 
 ### Linear Independence and Span
 
-These concepts [@deisenroth2020mml] are central to understanding the structure of vector spaces. A vector $\mathbf{v}$ is a linear
+These concepts [@deisenroth2020mml, Secs. 2.5-2.6, pp. 40-47] are central to understanding the structure of vector spaces. A vector $\mathbf{v}$ is a linear
 combination of a set of vectors $\{\mathbf{x}_1, \dots, \mathbf{x}_k\}$ if it can be expressed as a sum of scalar multiples of these
 vectors: $\mathbf{v} = \sum_{i=1}^k \lambda_i \mathbf{x}_i$, where $\lambda_i$ are scalars.
 
@@ -427,7 +427,7 @@ norms, and uses it to define orthogonality and projections, which least squares 
 
 ### Inner Products and Norms
 
-Inner products and norms introduce geometric concepts like length, distance, and angle into vector spaces.
+Inner products and norms introduce geometric concepts like length, distance, and angle into vector spaces. For more on this topic, see @deisenroth2020mml [Secs. 3.1-3.4, pp. 71-77] and @aggarwalLinearAlgebraOptimization2020 [Secs. 1.2.1, 2.10, pp. 5-6, 86-87].
 
 :::: {.statement-box}
 ::: {#def-inner-product}
@@ -638,7 +638,7 @@ Important special cases include:
 - $p=\infty$: The $\ell_\infty$ norm, or max norm, defined as $\|\mathbf{x}\|_\infty = \max_i |x_i|$.
 
 The geometric shape of the unit ball (the set of all vectors with norm 1) depends on the value of $p$. For $p=2$, it is a sphere;
-for $p=1$, it is a diamond; and for $p=\infty$, it is a square [@deisenroth2020mml].
+for $p=1$, it is a diamond; and for $p=\infty$, it is a square [@deisenroth2020mml, Sec. 3.1, Fig. 3.3; @aggarwalLinearAlgebraOptimization2020, Sec. 1.2.1, p. 5].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The three special cases give three different sizes for the same vector. The example evaluates them on one vector in the plane.
@@ -744,7 +744,7 @@ $$ \operatorname{proj}_{\mathcal{U}}(\mathbf{y}) = \sum_{i=1}^n \langle \mathbf{
 ::::
 
 Projections are fundamental to many machine learning algorithms, including least squares regression, where the goal is to find the
-vector in the column space of a matrix that is closest to a target vector [@deisenroth2020mml].
+vector in the column space of a matrix that is closest to a target vector [@deisenroth2020mml, Sec. 3.8.2, p. 88].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example projects onto a coordinate plane and onto a line. In both cases the formula keeps the components along the
@@ -783,7 +783,7 @@ $(-1, 0, 1)$ has inner product $-1 + 0 + 1 = 0$ with $(1, 1, 1)$.
 ## Matrix Decompositions {#sec-msf-matrix-decompositions}
 
 Matrix decompositions are factorizations of a matrix into a product of matrices with specific properties. They are essential for
-understanding the properties of linear transformations and for solving systems of linear equations.
+understanding the properties of linear transformations and for solving systems of linear equations. For more on this topic, see @deisenroth2020mml [Secs. 4.2, 4.4, 4.5, pp. 105-121] and @aggarwalLinearAlgebraOptimization2020 [Sec. 3.3, p. 104].
 
 ### Eigenvalues and Eigenvectors
 
@@ -856,7 +856,7 @@ where $\mathbf{P}$ is an orthogonal matrix whose columns are the eigenvectors of
 ::::
 
 This decomposition is fundamental to Principal Component Analysis
-(PCA), a widely used dimensionality reduction technique [@deisenroth2020mml].
+(PCA), a widely used dimensionality reduction technique [@deisenroth2020mml, Secs. 4.4, 10.2, pp. 116-117, 323-324].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The symmetric matrix of @exm-msf-eigen-diagonal-symmetric has orthogonal eigenvectors $(1, 1)$ and $(1, -1)$. Normalising
@@ -911,7 +911,7 @@ where $\mathbf{U}$ is an $m \times m$ orthogonal matrix, $\boldsymbol{\Sigma}$ i
 singular values, and $\mathbf{V}$ is an $n \times n$ orthogonal matrix. The columns of $\mathbf{U}$ are the left-singular vectors,
 and the columns of $\mathbf{V}$ are the right-singular vectors. The SVD provides a complete geometric characterization of a linear
 transformation: it decomposes the transformation into a rotation ($\mathbf{V}^\top$), a scaling along the axes ($\boldsymbol{\Sigma}$),
-and another rotation ($\mathbf{U}$) [@deisenroth2020mml].
+and another rotation ($\mathbf{U}$) [@deisenroth2020mml, Sec. 4.5.1, pp. 120-121].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A single column is the smallest rectangular matrix. Its SVD has one singular value, the length of the column.
@@ -968,11 +968,12 @@ This can be written as a system of linear equations, one for each state. In matr
 $$ \mathbf{v}_\pi = \mathbf{r}_\pi + \gamma \mathbf{P}_\pi \mathbf{v}_\pi $$
 
 where $\mathbf{v}_\pi$ is the vector of state values, $\mathbf{r}_\pi$ is the vector of expected immediate rewards, and $\mathbf{P}_\pi$ is
-the state transition probability matrix. The solution is given by:
+the state transition probability matrix. For $\gamma \in [0, 1)$ the matrix $\mathbf{I} - \gamma \mathbf{P}_\pi$ is invertible,
+and the solution is given by:
 
 $$ \mathbf{v}_\pi = (\mathbf{I} - \gamma \mathbf{P}_\pi)^{-1} \mathbf{r}_\pi $$
 
-This demonstrates how linear algebra is used to solve for the value function in reinforcement learning [@zhao2025rl].
+This demonstrates how linear algebra is used to solve for the value function in reinforcement learning [@zhao2025rl, Secs. 2.6-2.7.1, pp. 25-27].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example solves the matrix form for two states that alternate deterministically. Inverting a $2 \times 2$ matrix gives the
@@ -1015,11 +1016,11 @@ Probability theory provides the framework for quantifying uncertainty, which is 
 predictions made by machine learning models. Statistics provides the tools for analyzing and interpreting data, and for drawing
 inferences about the underlying processes that generate the data.
 
-For more on this topic, see @james2023statistical [Ch. 2] and @theodoridis2025ml [Chs. 4, 5].
+For more on this topic, see @aggarwalProbabilityStatisticsMachine2024 [Secs. 3.2-3.6, pp. 66-81] and @theodoridis2025ml [Sec. 2.2, pp. 21-24].
 
 ### Probability Spaces and Random Variables
 
-The following definitions use one running example, a roll of a fair die [@zhao2025rl].
+The following definitions use one running example, a roll of a fair die [@zhao2025rl, App. B, pp. 243-245].
 
 A random experiment is a process that produces an unpredictable outcome, such as rolling a fair die. A probability space
 collects the possible outcomes, the events to which a probability is assigned, and the probabilities themselves.
@@ -1267,7 +1268,7 @@ In this formula:
 normalization constant.
 
 Bayes' theorem is central to Bayesian inference, where we treat model parameters as random variables and update their
-distributions as we observe more data [@deisenroth2020mml; @bishop2024deeplearning].
+distributions as we observe more data [@deisenroth2020mml, Sec. 6.3, pp. 185-186; @bishop2024deeplearning, Sec. 2.6.1, pp. 55-56].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A diagnostic test is the standard illustration of how a small prior keeps the posterior small. The evidence is computed with
@@ -1305,7 +1306,7 @@ $\mathbb{P}(\text{word}) = 0.6 \cdot 0.3 + 0.1 \cdot 0.7 = 0.25$, so $\mathbb{P}
 
 For a random variable with finitely or countably many values, every probability statement reduces to a table of numbers. This
 section defines these tables (PMFs) and states the rules that connect joint, marginal and conditional tables, all on the die of
-@exm-msf-die-random-variables.
+@exm-msf-die-random-variables. For more on this topic, see @zhao2025rl [App. A, pp. 237-239] and @aggarwalProbabilityStatisticsMachine2024 [Secs. 3.5, 3.8, pp. 77-80, 92-95].
 
 ### Probability Mass Functions
 
@@ -1642,7 +1643,7 @@ For $x = 4$: $\frac{1}{2} \cdot \frac{2}{3} + 0 \cdot \frac{1}{3} = \frac{1}{3}$
 Probability distributions are mathematical functions that describe the likelihood of different outcomes in a random experiment. In
 machine learning, we use these distributions to model uncertainty in data, represent prior beliefs about parameters, and
 characterize the behavior of learning algorithms. Understanding these distributions is essential for both theoretical analysis and
-practical implementation of machine learning methods.
+practical implementation of machine learning methods. For more on this topic, see @bishop2024deeplearning [Secs. 3.1-3.2, pp. 66-70] and @aggarwalProbabilityStatisticsMachine2024 [Secs. 4.3, 4.6, 4.7, 4.10].
 
 ### Bernoulli and Binomial Distributions
 
@@ -1813,7 +1814,7 @@ $$ \mathcal{N}(\mathbf{x} | \boldsymbol{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d 
 
 The covariance matrix must be positive
 semidefinite (see [Linear Algebra Recap](../appendices-and-technical-background/index.qmd#sec-linear-algebra-recap)). The Gaussian distribution is central to linear regression ([Linear Models](../../fundamentals-of-machine-learning/supervised-learning/index.qmd#sec-linear-models)),
-Gaussian processes, and many other machine learning models [@deisenroth2020mml; @bishop2024deeplearning].
+Gaussian processes, and many other machine learning models [@deisenroth2020mml, Sec. 6.5, p. 197; @bishop2024deeplearning, Sec. 3.2, p. 70].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 With zero mean and identity covariance the formula becomes a product of univariate standard normals. The example writes this
@@ -1904,7 +1905,7 @@ p_1)^{n - x_1} = \operatorname{Bin}(x_1 | n, p_1)$.
 ## Stochastic Processes and Markov Decision Processes {#sec-msf-stochastic-processes}
 
 Sequential decision problems need random variables that evolve in time. This section defines stochastic processes, the Markov
-property that makes them tractable, and the Markov decision processes on which reinforcement learning is built.
+property that makes them tractable, and the Markov decision processes on which reinforcement learning is built. For more on this topic, see @zhao2025rl [Sec. 1.7, p. 11; App. A, p. 237] and @aggarwalProbabilityStatisticsMachine2024 [Sec. 10.2].
 
 ### Stochastic Processes
 
@@ -2056,7 +2057,7 @@ maximizes the expected cumulative discounted reward:
 $$ \mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^t R(S_t, A_t, S_{t+1})\right] $$
 
 This framework provides the mathematical foundation for reinforcement learning algorithms discussed in [Reinforcement Learning](../../fundamentals-of-machine-learning/reinforcement-learning/index.qmd#sec-reinforcement-learning)
-[@zhao2025rl].
+[@zhao2025rl, Secs. 1.6-1.7, pp. 9-11].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The smallest useful MDP has two states and two actions. The example computes the discounted return of one policy by summing a
@@ -2094,7 +2095,7 @@ $\gamma = 0$, where the myopic agent sees only the immediate step cost.
 ## Statistical Concepts {#sec-msf-statistical-concepts}
 
 Statistical concepts provide the tools for summarizing, analyzing, and making inferences from data. These concepts are essential
-for understanding how machine learning algorithms learn from finite samples and generalize to new data.
+for understanding how machine learning algorithms learn from finite samples and generalize to new data. For more on this topic, see @zhao2025rl [App. A, pp. 239-241] and @aggarwalProbabilityStatisticsMachine2024 [Sec. 3.9, pp. 97-104].
 
 ### Expected Value
 
@@ -2445,12 +2446,12 @@ expectations are $3.5$ and $7$ (@exm-msf-linearity-two-dice), so the expected to
 
 ### Bias-Variance Decomposition
 
-Bias-Variance Decomposition. One of the most important concepts in machine learning is the bias-variance decomposition, which
+One of the most important concepts in machine learning is the bias-variance decomposition, which
 explains why models fail to generalize. Consider a regression problem where we want to predict $y = f(x) + \varepsilon$, where $f(x)$
 is the true function and $\varepsilon$ is irreducible noise with $\mathbb{E}[\varepsilon] = 0$ and $\operatorname{Var}(\varepsilon) = \sigma^2$.
 
 Suppose we train a model $\hat{f}(x)$ on a training set. If we could repeat this process with many different training sets drawn
-from the same distribution, the expected squared error at a point $x$ decomposes as:
+from the same distribution, the expected squared error at a point $x$ decomposes as [@james2023statistical, Sec. 2.2.2, eq. 2.7; @aggarwalProbabilityStatisticsMachine2024, Sec. 6.7, pp. 284-287]:
 
 :::: {.statement-box}
 ::: {#thm-msf-bias-variance}
@@ -2518,14 +2519,14 @@ and @exr-msf-variance-affine; the expected error at a new point is $\sigma^2/n +
 Now consider fitting a high-degree polynomial. This flexible model can fit $f(x) = x^2$ well (low bias), but it's sensitive to the
 specific training data and might fit the noise (high variance). The bias-variance trade-off is fundamental: simple models have
 high bias but low variance, while complex models have low bias but high variance. The goal is to find the sweet spot that
-minimizes total error, as discussed in [Foundations of Learning Theory](../../fundamentals-of-machine-learning/foundations-of-learning-theory/index.qmd#sec-learning-theory) [@james2023statistical].
+minimizes total error, as discussed in [Foundations of Learning Theory](../../fundamentals-of-machine-learning/foundations-of-learning-theory/index.qmd#sec-learning-theory) [@james2023statistical, Sec. 2.2.2, pp. 31-33].
 
 ## Optimization Foundations {#sec-optimization}
 
 Optimization is the engine that powers machine learning. Nearly every learning algorithm can be framed as an optimization problem:
 find the parameters $\mathbf{w}$ that minimize a loss function $L(\mathbf{w})$. For example, in linear regression we minimize the
 squared error, in logistic regression we minimize the cross-entropy loss, and in neural networks we minimize task-specific
-objectives. Understanding optimization is therefore essential for both implementing and analyzing machine learning algorithms.
+objectives. Understanding optimization is therefore essential for both implementing and analyzing machine learning algorithms. For more on this topic, see @deisenroth2020mml [Sec. 7.1, pp. 227-232], @bishop2024deeplearning [Secs. 7.2.2-7.2.4, pp. 214-216] and @zhao2025rl [Sec. 6.4.4, pp. 119-120].
 
 ### Gradient Descent
 
@@ -2702,7 +2703,7 @@ larger learning rates (to make progress). Adam (Adaptive Moment Estimation) comb
 become the default optimizer for many deep learning applications.
 
 These advanced optimizers are essential for training deep neural networks ([Neural Networks](../../fundamentals-of-machine-learning/supervised-learning/index.qmd#sec-neural-networks)), where the loss landscape can be
-highly non-convex with many saddle points and plateaus [@deisenroth2020mml; @bishop2024deeplearning; @shalev2014ml].
+highly non-convex with many saddle points and plateaus [@deisenroth2020mml, Sec. 7.1.2, pp. 230-231; @bishop2024deeplearning, Secs. 7.1, 7.3, pp. 210-224; @shalev2014ml, Sec. 20.5, p. 236; @aggarwalLinearAlgebraOptimization2020, Sec. 5.3, pp. 212-216].
 
 ### Stochastic Approximation
 
@@ -2733,7 +2734,7 @@ gradient estimates eventually cancels out.
 
 Stochastic Gradient Descent (SGD) can be viewed as a special case of stochastic approximation. In reinforcement learning,
 stochastic approximation is used in algorithms like Temporal-Difference (TD) learning to update value function estimates based on
-noisy returns from the environment [@zhao2025rl; @theodoridis2025ml].
+noisy returns from the environment [@zhao2025rl, Secs. 6.2, 6.4, 7.1, pp. 103-106, 114-115, 126-127; @theodoridis2025ml, Sec. 5.4, pp. 192-194].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The step sizes $\eta_k = 1/k$ are the standard choice that satisfies both conditions. With them, stochastic approximation
@@ -2775,7 +2776,7 @@ convex problems for which stationary points are global minima, and the Lagrangia
 
 Convex optimization is a subfield of optimization that deals with minimizing convex functions over convex sets. A key property of
 convex optimization problems is that any local minimum is also a global minimum, which makes them particularly well-suited for
-efficient optimization algorithms.
+efficient optimization algorithms. For more on this topic, see @deisenroth2020mml [Sec. 7.3, pp. 236-238], @shalev2014ml [Sec. 12.1.1, pp. 124-126] and @aggarwalLinearAlgebraOptimization2020 [Sec. 4.3, pp. 155-156].
 
 :::: {.statement-box}
 ::: {#def-convex-set}
@@ -2916,7 +2917,7 @@ $\nabla f = (2(w_1 - 1), 2(w_2 + 2)) = \mathbf{0}$ at $(1, -2)$, a local minimum
 
 Many machine learning problems can be formulated as convex optimization problems. For example, training a Support Vector Machine
 (SVM) involves minimizing a convex loss function. The efficiency and guarantees of convex optimization make it a powerful tool in
-the machine learning practitioner's toolbox [@shalev2014ml; @deisenroth2020mml].
+the machine learning practitioner's toolbox [@shalev2014ml, Sec. 12.1, pp. 124-126; @deisenroth2020mml, Secs. 7.3, 12.3, pp. 236-238, 383].
 
 ### Lagrange Multipliers
 
@@ -2948,7 +2949,7 @@ involves solving the system of equations:
 $$ \nabla_{\mathbf{x}, \lambda} \mathcal{L}(\mathbf{x}, \lambda) = 0 $$
 
 This method can be extended to handle inequality constraints as well, using the Karush-Kuhn-Tucker (KKT) conditions. Constrained
-optimization is used in many machine learning algorithms, such as Support Vector Machines (SVMs) [@deisenroth2020mml].
+optimization is used in many machine learning algorithms, such as Support Vector Machines (SVMs) [@deisenroth2020mml, Secs. 7.2, 12.3.1, pp. 233-236, 383].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The point of a line closest to the origin is the simplest constrained problem. The stationarity equations of the Lagrangian solve
@@ -2991,7 +2992,7 @@ quantities into training objectives.
 ### Entropy
 
 Entropy is a key concept in information theory that measures the uncertainty of a random variable. It quantifies the average
-amount of information needed to specify the state of a random variable.
+amount of information needed to specify the state of a random variable. For more on this topic, see @chambert-loirInformationTheory2022 [Secs. 1.1-1.3, pp. 23-35] and @theodoridis2025ml [Sec. 2.5, pp. 54-61].
 
 :::: {.statement-box}
 ::: {#def-msf-entropy}
@@ -3058,7 +3059,7 @@ $$ H(X) = -\int p(x) \log p(x) dx $$
 ::::
 
 Unlike Shannon entropy, differential entropy can be negative. The Gaussian distribution has the maximum differential entropy among
-all distributions with the same variance [@theodoridis2025ml; @bishop2024deeplearning].
+all distributions with the same variance [@theodoridis2025ml, Sec. 12.8.1, pp. 620-621; @bishop2024deeplearning, Sec. 2.5.4, pp. 50-51].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The uniform density on an interval has a constant integrand, so the integral is immediate. It also shows how the entropy becomes
@@ -3114,7 +3115,7 @@ $$ D_{\mathrm{KL}}(p \,\Vert\, q) = \int_{-\infty}^{\infty} p(x) \log\left(\frac
 The KL divergence is always non-negative ($D_{\mathrm{KL}}(p \,\Vert\, q) \ge 0$) and is zero if and only if $p$ and $q$ are the same
 distribution. However, it is not a true distance metric because it is not symmetric, i.e., $D_{\mathrm{KL}}(p \,\Vert\, q) \neq D_{\mathrm{KL}}(q \,\Vert\, p)$.
 In machine learning, the KL divergence is often used as a loss function to measure the dissimilarity between a model's predicted
-distribution and the true data distribution [@bishop2024deeplearning].
+distribution and the true data distribution [@bishop2024deeplearning, Sec. 2.5.5, pp. 51-53; @chambert-loirInformationTheory2022, Sec. 1.3, pp. 32-34].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Two Bernoulli distributions are enough to see the asymmetry. The example computes the divergence in both directions, in nats.
@@ -3170,7 +3171,7 @@ $$ I(X; Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) $$
 
 where $H(X|Y)$ is the conditional entropy of $X$ given $Y$. This shows that the mutual information is the reduction in uncertainty
 about one variable given knowledge of the other. Mutual information is always non-negative and is zero if and only if the two
-variables are independent [@theodoridis2025ml; @bishop2024deeplearning].
+variables are independent [@theodoridis2025ml, Sec. 2.5, pp. 56-61; @bishop2024deeplearning, Sec. 2.5.7, p. 54; @chambert-loirInformationTheory2022, Sec. 1.3, p. 35].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 When one variable determines the other, all the uncertainty of the second is removed. On the die, the face determines the parity.
@@ -3227,8 +3228,7 @@ $$ \hat{\theta}_{\mathrm{MLE}} = \arg\max_{\theta} \log p(S | \theta) = \arg\max
 
 ::::
 
-MLE is a cornerstone of statistical inference and is widely used to train machine learning models [@shalev2014ml;
-@bishop2024deeplearning].
+MLE is a cornerstone of statistical inference and is widely used to train machine learning models [@shalev2014ml, Sec. 24.1, pp. 295-296; @bishop2024deeplearning, Sec. 2.3.2, pp. 37-38; @aggarwalProbabilityStatisticsMachine2024, Sec. 6.2, p. 246].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 For coin tosses the maximum likelihood estimate is the observed frequency of heads. The example derives this from the
@@ -3286,7 +3286,7 @@ $$ \hat{\theta}_{\mathrm{MAP}} = \arg\max_{\theta} [\log p(S | \theta) + \log p(
 The MAP estimate reduces to the MLE when the prior $p(\theta)$ is uniform (i.e., when we have no prior preference for any
 particular parameter value). The prior allows us to incorporate domain knowledge or regularization into the estimation process.
 For example, a Gaussian prior on the parameters corresponds to $\ell_2$ regularization, while a Laplace prior corresponds to
-$\ell_1$ regularization [@bishop2024deeplearning; @deisenroth2020mml].
+$\ell_1$ regularization [@bishop2024deeplearning, Sec. 2.6.2, pp. 56-57; @deisenroth2020mml, Secs. 8.3.2, 9.5, pp. 269, 316; @aggarwalProbabilityStatisticsMachine2024, Sec. 7.7, pp. 331-332].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A Beta prior on a coin's bias acts like a few imaginary tosses added to the data. The example compares the MAP estimate with the
@@ -3417,7 +3417,7 @@ $\mathbb{E}[(x - \mu_2)^2] = \sigma^2 + (\mu_1 - \mu_2)^2$. So $H(p, q) = \frac{
 ::::
 
 The two exercises above both found the entropy of $p$ plus an excess equal to the KL divergence. The cross-entropy can be
-decomposed as:
+decomposed as [@bishop2024deeplearning, Sec. 2.5.5, eq. 2.100]:
 
 :::: {.statement-box}
 ::: {#prp-msf-cross-entropy-decomposition}
@@ -3474,8 +3474,7 @@ For multi-class classification with $K$ classes, the categorical cross-entropy i
 $$ \ell(\hat{\mathbf{y}}, \mathbf{y}) = -\sum_{k=1}^K y_k \log \hat{y}_k $$
 
 where $y_k$ is 1 if the true class is $k$ and 0 otherwise (one-hot encoding), and $\hat{y}_k$ is the predicted probability for
-class $k$. Cross-entropy loss encourages the model to assign high probability to the correct class [@bishop2024deeplearning;
-@theodoridis2025ml].
+class $k$. Cross-entropy loss encourages the model to assign high probability to the correct class [@bishop2024deeplearning, Secs. 6.4.2-6.4.3, pp. 196-197; @theodoridis2025ml, Sec. 18.5, pp. 918-920].
 
 ### Information Theory in Reinforcement Learning
 
@@ -3529,7 +3528,7 @@ for the uniform policy.
 ::::
 
 A policy that maximises reward alone tends to become deterministic early and stop exploring. Entropy regularization adds an entropy
-bonus to the objective function, encouraging the agent to explore more:
+bonus to the objective function, encouraging the agent to explore more [@haarnoja2018sac, Sec. 3.2, eq. 1, p. 3]:
 
 :::: {.statement-box}
 ::: {#def-entropy-regularization}
@@ -3543,7 +3542,7 @@ where $\alpha$ is a temperature parameter that controls the strength of the entr
 ::::
 
 This approach is used in modern reinforcement learning algorithms such as Soft Actor-Critic (SAC) and has been shown to improve
-exploration and robustness [@zhao2025rl].
+exploration and robustness [@haarnoja2018sac, Secs. 1, 3.2, pp. 2--3; @prudencioSurveyOfflineReinforcement2024, Sec. IV-C, eq. 25].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A single decision with two actions shows what the regularised optimum looks like. The best policy is no longer deterministic.
@@ -3581,6 +3580,8 @@ the concave entropy), so this stationary point is the maximum. As $\alpha \to 0$
 ::::
 
 ## Exercises {#sec-mathematical-and-statistical-foundations-exercises}
+
+For more on these topics, see @bishop2024deeplearning [Sec. 2.3.2, eq. 2.57], @chambert-loirInformationTheory2022 [Secs. 1.2-1.3, pp. 28-35] and @deisenroth2020mml [Sec. 10.2, pp. 323-324].
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The integrative exercises below combine several sections of the chapter. The first one fits a Gaussian mean by maximum

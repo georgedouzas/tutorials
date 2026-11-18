@@ -28,7 +28,7 @@ complexity bounds. The first one says how large $x$ must be before the linear fu
 ::: {#lem-app-log-versus-linear}
 #### Logarithm versus linear growth
 
-Let $a > 0$ [@shalev2014ml]. Then: $x \geq 2a\log(a) \Rightarrow x \geq a\log(x)$. It follows that a necessary
+Let $a > 0$ [@shalev2014ml, Lemma A.1, p. 369]. Then: $x \geq 2a\log(a) \Rightarrow x \geq a\log(x)$. It follows that a necessary
 condition for the inequality $x < a\log(x)$ to hold is that $x < 2a\log(a)$.
 :::
 
@@ -82,7 +82,7 @@ appear. Its proof reduces it to @lem-app-log-versus-linear by splitting $x$ into
 ::: {#lem-app-log-versus-linear-offset}
 #### Logarithm plus offset versus linear growth
 
-Let $a \geq 1$ and $b > 0$ [@shalev2014ml]. Then: $x \geq 4a\log(2a) + 2b \Rightarrow x \geq a\log(x) + b$.
+Let $a \geq 1$ and $b > 0$ [@shalev2014ml, Lemma A.2, p. 369]. Then: $x \geq 4a\log(2a) + 2b \Rightarrow x \geq a\log(x) + b$.
 :::
 
 ::::
@@ -132,7 +132,7 @@ turns a sub-Gaussian tail with constant $2$ into a bound on the mean absolute de
 #### Expectation from a sub-Gaussian tail
 
 Let $X$ be a random variable and $x' \in \mathbb{R}$ be a scalar and assume that there exists $a >
-0$ such that for all $t \geq 0$ we have $\mathbb{P}(|X - x'| > t) \leq 2e^{-t^2/a^2}$ [@shalev2014ml]. Then,
+0$ such that for all $t \geq 0$ we have $\mathbb{P}(|X - x'| > t) \leq 2e^{-t^2/a^2}$ [@shalev2014ml, Lemma A.3, p. 369]. Then,
 $\mathbb{E}[|X - x'|] \leq 4a$.
 :::
 
@@ -185,7 +185,7 @@ The next lemma handles a prefactor $2b$ and pays for it with an additive $\sqrt{
 #### Expectation from a sub-Gaussian tail with a prefactor
 
 Let $X$ be a random variable and $x' \in \mathbb{R}$ be a scalar and assume that there exists $a >
-0$ and $b \geq e$ such that for all $t \geq 0$ we have $\mathbb{P}(|X - x'| > t) \leq 2be^{-t^2/a^2}$ [@shalev2014ml]. Then,
+0$ and $b \geq e$ such that for all $t \geq 0$ we have $\mathbb{P}(|X - x'| > t) \leq 2be^{-t^2/a^2}$ [@shalev2014ml, Lemma A.4, p. 370]. Then,
 $\mathbb{E}[|X - x'|] \leq a(2 + \sqrt{\log(b)})$.
 :::
 
@@ -246,33 +246,33 @@ must be compared with a polynomial in $n$. The next lemma gives the comparison i
 ::: {#lem-app-binomial-partial-sum}
 #### Partial sums of binomial coefficients
 
-Let $n, d$ be two positive integers such that $d \leq n - 2$ [@shalev2014ml]. Then,
+Let $n, d$ be two positive integers such that $d \leq n - 2$ [@shalev2014ml, Lemma A.5, pp. 370-371]. Then,
 
-$$ \sum_{k=0}^{d} \binom{n}{k} \leq \left(\frac{em}{d}\right)^d $$
+$$ \sum_{k=0}^{d} \binom{n}{k} \leq \left(\frac{en}{d}\right)^d $$
 :::
 
 ::::
 
-*Proof.* We prove the claim by induction. For $d = 1$ the left-hand side equals $1 + n$ while the right-hand side equals $em$;
+*Proof.* We prove the claim by induction. For $d = 1$ the left-hand side equals $1 + n$ while the right-hand side equals $en$;
 hence the claim is true. Assume that the claim holds for $d$ and let us prove it for $d + 1$. By the induction assumption we have
 
-$$ \begin{aligned} \sum_{k=0}^{d+1} \binom{n}{k} &\leq \left(\frac{em}{d}\right)^d + \binom{n}{d+1} \\ &=
-\left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{em}\right)^d \frac{n(n-1)(n-2)\cdots(n-d)}{(d+1)d!}\right) \\ &\leq
-\left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(n-d)}{(d+1)d!}\right) \end{aligned} $$
+$$ \begin{aligned} \sum_{k=0}^{d+1} \binom{n}{k} &\leq \left(\frac{en}{d}\right)^d + \binom{n}{d+1} \\ &=
+\left(\frac{en}{d}\right)^d \left(1 + \left(\frac{d}{en}\right)^d \frac{n(n-1)(n-2)\cdots(n-d)}{(d+1)d!}\right) \\ &\leq
+\left(\frac{en}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(n-d)}{(d+1)d!}\right) \end{aligned} $$
 
 Using Stirling's approximation we further have that
 
-$$ \begin{aligned} &\leq \left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(n-d)}{(d+1)\sqrt{2\pi
-d}(d/e)^d}\right) \\ &= \left(\frac{em}{d}\right)^d \left(1 + \frac{n-d}{\sqrt{2\pi d}(d+1)}\right) \\ &=
-\left(\frac{em}{d}\right)^d \cdot \frac{d+1+(n-d)/\sqrt{2\pi d}}{d+1} \\ &\leq \left(\frac{em}{d}\right)^d \cdot
-\frac{d+1+(n-d)/2}{d+1} \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{d/2+1+n/2}{d+1} \\ &\leq \left(\frac{em}{d}\right)^d \cdot
+$$ \begin{aligned} &\leq \left(\frac{en}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(n-d)}{(d+1)\sqrt{2\pi
+d}(d/e)^d}\right) \\ &= \left(\frac{en}{d}\right)^d \left(1 + \frac{n-d}{\sqrt{2\pi d}(d+1)}\right) \\ &=
+\left(\frac{en}{d}\right)^d \cdot \frac{d+1+(n-d)/\sqrt{2\pi d}}{d+1} \\ &\leq \left(\frac{en}{d}\right)^d \cdot
+\frac{d+1+(n-d)/2}{d+1} \\ &= \left(\frac{en}{d}\right)^d \cdot \frac{d/2+1+n/2}{d+1} \\ &\leq \left(\frac{en}{d}\right)^d \cdot
 \frac{n}{d+1} \end{aligned} $$
 
 where in the last inequality we used the assumption that $d \leq n - 2$. On the other hand,
 
-$$ \begin{aligned} \left(\frac{em}{d+1}\right)^{d+1} &= \left(\frac{em}{d}\right)^d \cdot \frac{em}{d+1} \cdot
-\left(\frac{d}{d+1}\right)^d \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{em}{d+1} \cdot \frac{1}{(1+1/d)^d} \\ &\geq
-\left(\frac{em}{d}\right)^d \cdot \frac{em}{d+1} \cdot \frac{1}{e} \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{n}{d+1}
+$$ \begin{aligned} \left(\frac{en}{d+1}\right)^{d+1} &= \left(\frac{en}{d}\right)^d \cdot \frac{en}{d+1} \cdot
+\left(\frac{d}{d+1}\right)^d \\ &= \left(\frac{en}{d}\right)^d \cdot \frac{en}{d+1} \cdot \frac{1}{(1+1/d)^d} \\ &\geq
+\left(\frac{en}{d}\right)^d \cdot \frac{en}{d+1} \cdot \frac{1}{e} \\ &= \left(\frac{en}{d}\right)^d \cdot \frac{n}{d+1}
 \end{aligned} $$
 
 which proves our inductive argument. $\square$
@@ -318,7 +318,7 @@ down to comparing the hyperbolic cosine with a Gaussian. The next lemma is that 
 ::: {#lem-app-cosh-gaussian-bound}
 #### Hyperbolic cosine bound
 
-For all $a \in \mathbb{R}$ we have [@shalev2014ml]
+For all $a \in \mathbb{R}$ we have [@shalev2014ml, Lemma A.6, p. 371]
 
 $$ \frac{e^a + e^{-a}}{2} \leq e^{a^2/2} $$
 :::
@@ -381,7 +381,7 @@ theorems, and decompositions. These results complement the linear algebra introd
 technical details needed for understanding matrix decompositions, optimization algorithms, and dimensionality reduction techniques
 discussed in @sec-supervised-learning and @sec-unsupervised-learning.
 
-For more on this topic, see @zhao2025rl [Appendix].
+The definitions and results of this section follow [@shalev2014ml, App. C, pp. 380-383]; for fuller treatments, see [@deisenroth2020mml, Ch. 4, pp. 98-138], [@axler2024linear, Ch. 7, pp. 227-296] and [@bishop2024deeplearning, App. A, pp. 609-615].
 
 ### Basic Definitions and Notation
 
@@ -393,7 +393,7 @@ vectors unless otherwise specified. The first definition fixes how lengths and a
 #### Inner products and norms
 
 Given two $d$-dimensional vectors $\mathbf{u}, \mathbf{v} \in \mathbb{R}^d$, their inner product is
-defined as
+defined as [@shalev2014ml, App. C.1, p. 380]
 
 $$ \langle \mathbf{u}, \mathbf{v} \rangle = \sum_{i=1}^{d} u_i v_i $$
 
@@ -442,7 +442,7 @@ ranges, null spaces and eigenspaces met later in this section.
 #### Subspaces and span
 
 A subspace of $\mathbb{R}^d$ is a subset of $\mathbb{R}^d$ that is closed under addition and scalar
-multiplication. The span of a set of vectors $\mathbf{u}_1, \ldots, \mathbf{u}_k$ is the subspace containing all vectors of the
+multiplication [@shalev2014ml, App. C.1, p. 380]. The span of a set of vectors $\mathbf{u}_1, \ldots, \mathbf{u}_k$ is the subspace containing all vectors of the
 form
 
 $$ \sum_{i=1}^{k} \alpha_i \mathbf{u}_i $$
@@ -493,7 +493,7 @@ A set of vectors $U = \{\mathbf{u}_1, \ldots, \mathbf{u}_k\}$ is independent if 
 $\mathbf{u}_i$ is not in the span of $\mathbf{u}_1, \ldots, \mathbf{u}_{i-1}, \mathbf{u}_{i+1}, \ldots, \mathbf{u}_k$. We say that
 $U$ spans a subspace $V$ if $V$ is the span of the vectors in $U$. We say that $U$ is a basis of $V$ if it is both independent and
 spans $V$. The dimension of $V$ is the size of a basis of $V$, and it can be verified that all bases of $V$ have the same size
-[@shalev2014ml].
+[@shalev2014ml, App. C.1, p. 380].
 :::
 
 ::::
@@ -537,7 +537,8 @@ products. The next definition names them.
 #### Orthogonality
 
 We say that $U$ is an orthogonal set if for all $i \neq j$, $\langle \mathbf{u}_i, \mathbf{u}_j \rangle = 0$.
-We say that $U$ is an orthonormal set if it is orthogonal and if for every $i$, $\|\mathbf{u}_i\| = 1$.
+We say that $U$ is an orthonormal set if it is orthogonal and if for every $i$, $\|\mathbf{u}_i\| = 1$
+[@shalev2014ml, App. C.1, p. 380].
 :::
 
 ::::
@@ -583,7 +584,7 @@ space of $\mathbf{A}$ is the subspace of all vectors that satisfy $\mathbf{A}\ma
 range.
 
 The transpose of a matrix $\mathbf{A}$, denoted $\mathbf{A}^{\top}$, is the matrix whose $(i,j)$ entry equals the $(j,i)$ entry of $\mathbf{A}$. We say that
-$\mathbf{A}$ is symmetric if $\mathbf{A} = \mathbf{A}^{\top}$.
+$\mathbf{A}$ is symmetric if $\mathbf{A} = \mathbf{A}^{\top}$ [@shalev2014ml, App. C.1, p. 380].
 :::
 
 ::::
@@ -628,7 +629,7 @@ and spectral clustering. An eigenvector is a direction that a square matrix only
 #### Eigenvalue and eigenvector
 
 Let $\mathbf{A} \in \mathbb{R}^{d \times d}$ be a matrix. A nonzero vector $\mathbf{u}$ is an eigenvector of $\mathbf{A}$ with a
-corresponding eigenvalue $\lambda$ if
+corresponding eigenvalue $\lambda$ [@shalev2014ml, App. C.2, p. 381; @deisenroth2020mml, Def. 4.6, p. 105] if
 
 $$ \mathbf{A}\mathbf{u} = \lambda\mathbf{u} $$
 :::
@@ -671,7 +672,7 @@ decomposition states this and reads off the rank, range and null space from it.
 ::: {#thm-app-spectral-decomposition}
 #### Spectral decomposition
 
-If $\mathbf{A} \in \mathbb{R}^{d \times d}$ is a symmetric matrix of rank $k$ [@shalev2014ml], then
+If $\mathbf{A} \in \mathbb{R}^{d \times d}$ is a symmetric matrix of rank $k$ [@shalev2014ml, Thm. C.1, p. 381], then
 there exists an orthonormal basis of $\mathbb{R}^d$, $\mathbf{u}_1, \ldots, \mathbf{u}_d$, such that each $\mathbf{u}_i$ is an
 eigenvector of $\mathbf{A}$. Furthermore, $\mathbf{A}$ can be written as
 
@@ -687,6 +688,7 @@ to zero eigenvalues span the null space of $\mathbf{A}$.
 ::::
 
 This decomposition is central to understanding the geometry of quadratic forms and optimization landscapes in machine learning.
+For more on this topic, see [@axler2024linear, 7.29, p. 245] and [@bishop2024deeplearning, App. A.4, eqs. A.43-A.45, pp. 614-615].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The matrix of the previous example can now be reassembled from its eigenvectors. The example verifies the sum formula of
@@ -733,7 +735,7 @@ eigenvalues provided by the spectral decomposition.
 #### Positive definite and semidefinite matrices
 
 A symmetric matrix $\mathbf{A} \in \mathbb{R}^{d \times d}$ is positive definite if all its eigenvalues are positive. $\mathbf{A}$
-is positive semidefinite if all its eigenvalues are nonnegative.
+is positive semidefinite if all its eigenvalues are nonnegative [@shalev2014ml, App. C.3, p. 381].
 :::
 
 ::::
@@ -775,7 +777,7 @@ The next theorem gives two more.
 ::: {#thm-app-psd-characterizations}
 #### Characterizations of positive semidefiniteness
 
-Let $\mathbf{A} \in \mathbb{R}^{d \times d}$ be a symmetric matrix [@shalev2014ml]. Then, the following are equivalent
+Let $\mathbf{A} \in \mathbb{R}^{d \times d}$ be a symmetric matrix [@shalev2014ml, Thm. C.2, p. 381]. Then, the following are equivalent
 definitions of positive semidefiniteness of $\mathbf{A}$:
 
 1. All the eigenvalues of $\mathbf{A}$ are nonnegative.
@@ -787,7 +789,8 @@ definitions of positive semidefiniteness of $\mathbf{A}$:
 
 The second characterization is particularly useful in optimization, as it ensures that quadratic forms are convex. The third
 characterization connects positive semidefiniteness to the existence of matrix factorizations, which is fundamental in kernel
-methods and Gaussian processes.
+methods and Gaussian processes. For more on this topic, see [@axler2024linear, 7.38, p. 252] and
+[@bishop2024deeplearning, App. A.4, p. 615].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 For a rank-one matrix all three conditions of @thm-app-psd-characterizations can be checked at a glance. The example does so for
@@ -830,7 +833,7 @@ a pair of equations linking a vector in each space.
 #### Singular values and vectors
 
 Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ be a matrix of rank $r$. Unit vectors $\mathbf{v} \in \mathbb{R}^n$ and
-$\mathbf{u} \in \mathbb{R}^m$ are called right and left singular vectors of $\mathbf{A}$ with corresponding singular value $\sigma > 0$ if
+$\mathbf{u} \in \mathbb{R}^m$ are called right and left singular vectors of $\mathbf{A}$ with corresponding singular value $\sigma > 0$ [@shalev2014ml, App. C.4, p. 381] if
 
 $$ \mathbf{A}\mathbf{v} = \sigma\mathbf{u} \quad \text{and} \quad \mathbf{A}^{\top}\mathbf{u} = \sigma\mathbf{v} $$
 :::
@@ -872,7 +875,7 @@ Once enough singular triples are known, the matrix can be rebuilt from them. The
 ::: {#lem-app-svd-expansion}
 #### Expansion in singular vectors
 
-Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ be a matrix of rank $r$ [@shalev2014ml]. Assume that $\mathbf{v}_1, \ldots,
+Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ be a matrix of rank $r$ [@shalev2014ml, Lemma C.3, pp. 381-382]. Assume that $\mathbf{v}_1, \ldots,
 \mathbf{v}_r$ is an orthonormal set of right singular vectors of $\mathbf{A}$, $\mathbf{u}_1, \ldots, \mathbf{u}_r$ is an orthonormal set
 of corresponding left singular vectors of $\mathbf{A}$, and $\sigma_1, \ldots, \sigma_r$ are the corresponding singular values. Then,
 
@@ -923,7 +926,7 @@ $\mathbf{A}\mathbf{A}^{\top}$. The next lemma makes the relation precise, and it
 
 $\mathbf{v}, \mathbf{u}$ are right and left singular vectors of $\mathbf{A}$ with singular value $\sigma$ if and
 only if $\mathbf{v}$ is an eigenvector of $\mathbf{A}^{\top}\mathbf{A}$ with corresponding eigenvalue $\sigma^2$ and $\mathbf{u} =
-\sigma^{-1}\mathbf{A}\mathbf{v}$ is an eigenvector of $\mathbf{A}\mathbf{A}^{\top}$ with corresponding eigenvalue $\sigma^2$ [@shalev2014ml].
+\sigma^{-1}\mathbf{A}\mathbf{v}$ is an eigenvector of $\mathbf{A}\mathbf{A}^{\top}$ with corresponding eigenvalue $\sigma^2$ [@shalev2014ml, Lemma C.4, p. 382].
 :::
 
 ::::
@@ -967,7 +970,7 @@ vector maximises the stretch $\|\mathbf{A}\mathbf{v}\|$ among unit vectors ortho
 ::: {#lem-app-singular-vectors-variational}
 #### Variational construction of singular vectors
 
-Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml]. Define the following vectors:
+Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml, Lemma C.5, p. 383]. Define the following vectors:
 
 $$ \begin{aligned} \mathbf{v}_1 &= \arg\max_{\mathbf{v} \in \mathbb{R}^n: \|\mathbf{v}\| = 1} \|\mathbf{A}\mathbf{v}\| \\ \mathbf{v}_2 &=
 \arg\max_{\substack{\mathbf{v} \in \mathbb{R}^n: \|\mathbf{v}\| = 1 \\ \langle \mathbf{v}, \mathbf{v}_1 \rangle = 0}}
@@ -1020,7 +1023,7 @@ how the factors relate to the eigen-decompositions of $\mathbf{A}^{\top}\mathbf{
 ::: {#thm-app-svd}
 #### SVD theorem
 
-Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml]. Then $\mathbf{A} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{\top}$ where $\boldsymbol{\Sigma}$ is
+Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml, Cor. C.6, p. 383]. Then $\mathbf{A} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{\top}$ where $\boldsymbol{\Sigma}$ is
 an $r \times r$ matrix with nonzero singular values of $\mathbf{A}$ and the columns of $\mathbf{U}, \mathbf{V}$ are orthonormal left and right singular
 vectors of $\mathbf{A}$. Furthermore, for all $i$, $\Sigma_{i,i}^2$ is an eigenvalue of $\mathbf{A}^{\top}\mathbf{A}$, the $i$-th column of $\mathbf{V}$ is the
 corresponding eigenvector of $\mathbf{A}^{\top}\mathbf{A}$, and the $i$-th column of $\mathbf{U}$ is the corresponding eigenvector of $\mathbf{A}\mathbf{A}^{\top}$.
@@ -1036,7 +1039,8 @@ The SVD is fundamental to many machine learning techniques including:
 - Recommender systems based on collaborative filtering
 - Image compression and denoising
 
-The optimality properties of SVD make it a cornerstone of modern data analysis and machine learning.
+The optimality properties of SVD make it a cornerstone of modern data analysis and machine learning. For more on this topic, see
+[@axler2024linear, 7.70, p. 273] and [@deisenroth2020mml, Sec. 4.6, eq. 4.91, p. 130].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The singular triples of the $3 \times 2$ matrix found in the exercises above can now be assembled into its full decomposition. The
@@ -1088,7 +1092,7 @@ The operator norm (or spectral norm) is defined as
 
 $$ \|\mathbf{A}\|_2 = \max_{\|\mathbf{x}\|=1} \|\mathbf{A}\mathbf{x}\| $$
 
-which equals the largest singular value of $\mathbf{A}$ [@deisenroth2020mml].
+which equals the largest singular value of $\mathbf{A}$ [@deisenroth2020mml, Def. 4.23 and Thm. 4.24, p. 131; @axler2024linear, Sec. 7F, pp. 280-281].
 :::
 
 ::::
@@ -1123,11 +1127,11 @@ claim.
 ::::
 
 Two numbers attached to a square matrix, the trace and the determinant, are sums and products of its eigenvalues. The definition
-below fixes both.
+below fixes the trace; the determinant is described after it.
 
 :::: {.statement-box}
 ::: {#def-app-trace-determinant}
-#### Trace and determinant
+#### Trace
 
 The trace of a square matrix $\mathbf{A} \in \mathbb{R}^{n \times n}$ is the sum of its diagonal elements:
 
@@ -1137,7 +1141,8 @@ $$ \operatorname{tr}(\mathbf{A}) = \sum_{i=1}^{n} a_{ii} $$
 ::::
 
 The trace has the cyclic property: $\operatorname{tr}(\mathbf{A}\mathbf{B}\mathbf{C}) = \operatorname{tr}(\mathbf{C}\mathbf{A}\mathbf{B}) = \operatorname{tr}(\mathbf{B}\mathbf{C}\mathbf{A})$. The determinant of $\mathbf{A}$ is the product of
-its eigenvalues and provides information about the volume scaling induced by the linear transformation.
+its eigenvalues and provides information about the volume scaling induced by the linear transformation
+[@deisenroth2020mml, Def. 4.4, eq. 4.19, Thms. 4.16-4.17, pp. 103-104, 112-113; @bishop2024deeplearning, App. A.2 and A.4, eqs. A.9, A.47-A.48, pp. 610, 615].
 
 These linear algebra concepts form the mathematical foundation for understanding optimization algorithms, dimensionality reduction
 techniques, and the geometry of high-dimensional spaces in machine learning.
@@ -1174,12 +1179,12 @@ The $(j, j)$ entry of $\mathbf{A}^{\top}\mathbf{A}$ is $\sum_i a_{ij}^2$, so $\o
 
 Measure concentration inequalities quantify the deviation of empirical averages from their expectations when the sample size is
 finite. These inequalities are fundamental to statistical learning theory and provide the basis for generalization bounds in
-machine learning [@shalev2014ml; @zhao2025rl]. The results in this section are used extensively in @sec-learning-theory to derive
+machine learning [@shalev2014ml, App. B, p. 372]. The results in this section are used extensively in @sec-learning-theory to derive
 PAC learning bounds and in @sec-supervised-learning to analyze the convergence of learning algorithms.
 
 Let $Z_1, \ldots, Z_n$ be an i.i.d. sequence of random variables and let $\mu$ be their mean. The strong law of large numbers
 states that when $n$ tends to infinity, the empirical average, $\frac{1}{n}\sum_{i=1}^{n} Z_i$, converges to the expected value
-$\mu$, with probability 1. Measure concentration inequalities quantify this deviation for finite $n$.
+$\mu$, with probability 1 [@shalev2014ml, App. B, p. 372; @baldi2023probability, Sec. 3.3, Thm. 3.11, pp. 124-125; @capinski2001probability, Thm. 12.4, p. 236]. Measure concentration inequalities quantify this deviation for finite $n$.
 
 ### Markov's Inequality
 
@@ -1190,7 +1195,8 @@ every later inequality of this section is obtained by applying it to a suitable 
 ::: {#lem-app-markov}
 #### Markov's inequality
 
-Let $Z$ be a nonnegative random variable. Then for every $a > 0$, $\mathbb{P}(Z \geq a) \leq \mathbb{E}[Z]/a$.
+Let $Z$ be a nonnegative random variable. Then for every $a > 0$, $\mathbb{P}(Z \geq a) \leq \mathbb{E}[Z]/a$
+[@shalev2014ml, App. B.1, eqs. B.1-B.3, p. 372; @baldi2023probability, eq. 2.28, p. 64; @capinski2001probability, Problem 12.3, p. 234].
 :::
 
 ::::
@@ -1207,7 +1213,7 @@ a\mathbb{P}(Z \geq a) $$
 
 Rearranging the inequality yields Markov's inequality:
 
-$$ \forall a \geq 0, \quad \mathbb{P}(Z \geq a) \leq \frac{\mathbb{E}[Z]}{a} $$
+$$ \forall a > 0, \quad \mathbb{P}(Z \geq a) \leq \frac{\mathbb{E}[Z]}{a} $$
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 An exponential variable has an explicit tail, which lets one see how far @lem-app-markov is from the truth. The comparison
@@ -1243,14 +1249,14 @@ large. This is the form used to show that a learner with small expected error ha
 ::: {#lem-app-markov-bounded}
 #### Markov's inequality for bounded variables
 
-Let $Z$ be a random variable that takes values in $[0,1]$ [@shalev2014ml].
+Let $Z$ be a random variable that takes values in $[0,1]$ [@shalev2014ml, Lemma B.1, pp. 372-373].
 Assume that $\mathbb{E}[Z] = \mu$. Then, for any $a \in (0,1)$,
 
 $$ \mathbb{P}(Z > 1-a) \geq \frac{\mu - (1-a)}{a} $$
 
 This also implies that for every $a \in (0,1)$,
 
-$$ \mathbb{P}(Z > a) \geq \frac{\mu - a}{1-a} \geq \mu - a $$
+$$ \mathbb{P}(Z > a) \geq \max\left\{\frac{\mu - a}{1-a}, 0\right\} \geq \mu - a $$
 :::
 
 ::::
@@ -1280,8 +1286,8 @@ Prove @lem-app-markov-bounded by applying @lem-app-markov to $1 - Z$.
 $Y = 1 - Z$ is nonnegative with $\mathbb{E}[Y] = 1 - \mu$, so $\mathbb{P}(Z \leq 1 - a) = \mathbb{P}(Y \geq a) \leq (1 - \mu)/a$
 and $\mathbb{P}(Z > 1 - a) \geq 1 - (1 - \mu)/a = (\mu - (1 - a))/a$. Replacing $a$ by $1 - a$ gives $\mathbb{P}(Z > a) \geq (\mu -
 a)/(1 - a)$. If $\mu \geq a$, dividing the nonnegative number $\mu - a$ by $1 - a \in (0, 1)$ can only increase it, so this is at
-least $\mu - a$. If $\mu < a$, then $\mathbb{P}(Z > a) \geq 0 > \mu - a$ trivially, so $\mathbb{P}(Z > a) \geq \mu - a$ holds in
-all cases.
+least $\mu - a$. If $\mu < a$, then $\mathbb{P}(Z > a) \geq 0 > \mu - a$ trivially. Since also $\mathbb{P}(Z > a) \geq 0$, this gives
+$\mathbb{P}(Z > a) \geq \max\{(\mu - a)/(1 - a), 0\} \geq \mu - a$ in all cases.
 :::
 ::::
 
@@ -1295,7 +1301,7 @@ decreases like the inverse square of the deviation.
 #### Chebyshev's inequality
 
 Let $Z$ be a random variable with finite variance. Then for every $a > 0$, $\mathbb{P}(|Z - \mathbb{E}[Z]| \geq a) \leq
-\operatorname{Var}(Z)/a^2$.
+\operatorname{Var}(Z)/a^2$ [@shalev2014ml, App. B.2, eq. B.4, p. 373; @baldi2023probability, eq. 2.29, p. 65; @capinski2001probability, Thm. 12.1, p. 234].
 :::
 
 ::::
@@ -1340,6 +1346,8 @@ Consider the random variable $\frac{1}{n}\sum_{i=1}^{n} Z_i$. Since $Z_1, \ldots
 
 $$ \operatorname{Var}\left(\frac{1}{n}\sum_{i=1}^{n} Z_i\right) = \frac{\operatorname{Var}(Z_1)}{n} $$
 
+[@shalev2014ml, App. B.2, p. 373; @zhao2025rl, Box 5.1, p. 80]
+
 Applied to the empirical average, Chebyshev's inequality therefore gives a confidence interval whose width shrinks like
 $1/\sqrt{n}$. The next lemma states it with confidence parameter $\delta$.
 
@@ -1348,7 +1356,7 @@ $1/\sqrt{n}$. The next lemma states it with confidence parameter $\delta$.
 #### Chebyshev's bound for empirical averages
 
 Let $Z_1, \ldots, Z_n$ be a sequence of i.i.d. random variables and assume that $\mathbb{E}[Z_1] = \mu$
-and $\operatorname{Var}(Z_1) \leq 1$ [@shalev2014ml]. Then, for any $\delta \in (0,1)$, with probability of at least $1-\delta$ we have
+and $\operatorname{Var}(Z_1) \leq 1$ [@shalev2014ml, Lemma B.2, p. 373]. Then, for any $\delta \in (0,1)$, with probability of at least $1-\delta$ we have
 
 $$ \left|\frac{1}{n}\sum_{i=1}^{n} Z_i - \mu\right| \leq \sqrt{\frac{1}{\delta n}} $$
 :::
@@ -1356,7 +1364,8 @@ $$ \left|\frac{1}{n}\sum_{i=1}^{n} Z_i - \mu\right| \leq \sqrt{\frac{1}{\delta n
 ::::
 
 The deviation between the empirical average and the mean given by Chebyshev's inequality decreases polynomially with $n$. It is
-possible to obtain significantly faster, exponential decrease using Chernoff's bounds and Hoeffding's inequality.
+possible to obtain significantly faster, exponential decrease using Chernoff's bounds and Hoeffding's inequality. For the weak law
+of large numbers obtained in the same way, see [@capinski2001probability, Thm. 12.2, p. 235].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Inverting @lem-app-chebyshev-average gives a sample size for a prescribed accuracy and confidence. The example shows how large it
@@ -1397,7 +1406,7 @@ bounds the probability that the sum exceeds its mean by a factor $1 + \varepsilo
 #### Chernoff bound, upper tail
 
 Let $Z_1, \ldots, Z_n$ be independent Bernoulli variables where for every
-$i$, $\mathbb{P}(Z_i = 1) = p_i$ and $\mathbb{P}(Z_i = 0) = 1 - p_i$ [@shalev2014ml]. Let $\mu = \sum_{i=1}^{n} p_i$ and let $Z =
+$i$, $\mathbb{P}(Z_i = 1) = p_i$ and $\mathbb{P}(Z_i = 0) = 1 - p_i$ [@shalev2014ml, Lemma B.3, p. 374]. Let $\mu = \sum_{i=1}^{n} p_i$ and let $Z =
 \sum_{i=1}^{n} Z_i$. Then, for any $\varepsilon > 0$,
 
 $$ \mathbb{P}(Z > (1+\varepsilon)\mu) \leq e^{-\psi(\varepsilon)\mu} $$
@@ -1409,7 +1418,7 @@ $$ \psi(\varepsilon) = (1+\varepsilon)\log(1+\varepsilon) - \varepsilon $$
 
 ::::
 
-Using the inequality $\psi(a) \geq a^2/(2 + 2a/3)$ we obtain the simplified bound:
+Using the inequality $\psi(a) \geq a^2/(2 + 2a/3)$ we obtain the simplified bound [@shalev2014ml, Lemma B.4, p. 374; @shiryaevProblemsProbability2012, Problem 4.5.16, p. 256]:
 
 $$ \mathbb{P}(Z > (1+\varepsilon)\mu) \leq e^{-\mu\frac{\varepsilon^2}{2+2\varepsilon/3}} $$
 
@@ -1450,7 +1459,7 @@ tail is at least as small as the upper one.
 ::: {#lem-app-chernoff-lower}
 #### Chernoff bound, lower tail
 
-Using the notation above, we also have [@shalev2014ml]
+Using the notation above, we also have [@shalev2014ml, Lemma B.5, p. 375]
 
 $$ \mathbb{P}(Z < (1-\varepsilon)\mu) \leq e^{-\mu\psi(-\varepsilon)} \leq e^{-\mu\psi(\varepsilon)} \leq e^{-\mu\frac{\varepsilon^2}{2+2\varepsilon/3}} $$
 :::
@@ -1501,7 +1510,7 @@ inequality behind most finite-class generalization bounds.
 #### Hoeffding's inequality
 
 Let $Z_1, \ldots, Z_n$ be a sequence of i.i.d. random variables and let
-$\bar{Z} = \frac{1}{n}\sum_{i=1}^{n} Z_i$ [@shalev2014ml]. Assume that $\mathbb{E}[\bar{Z}] = \mu$ and $\mathbb{P}(a \leq Z_i \leq
+$\bar{Z} = \frac{1}{n}\sum_{i=1}^{n} Z_i$ [@shalev2014ml, Lemma B.6, pp. 375-376]. Assume that $\mathbb{E}[\bar{Z}] = \mu$ and $\mathbb{P}(a \leq Z_i \leq
 b) = 1$ for every $i$. Then, for any $\varepsilon > 0$
 
 $$ \mathbb{P}\left(\left|\frac{1}{n}\sum_{i=1}^{n} Z_i - \mu\right| > \varepsilon\right) \leq
@@ -1512,7 +1521,8 @@ $$ \mathbb{P}\left(\left|\frac{1}{n}\sum_{i=1}^{n} Z_i - \mu\right| > \varepsilo
 
 This inequality is one of the most important tools in statistical learning theory. It provides a uniform bound that holds for all
 $\varepsilon > 0$ and shows that the probability of deviation decreases exponentially with both the sample size $n$ and the square of
-the deviation $\varepsilon^2$.
+the deviation $\varepsilon^2$. For Hoeffding's inequality as a problem with hints, see
+[@shiryaevProblemsProbability2012, Problem 4.5.15, p. 256].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example compares @lem-app-hoeffding-inequality with Chebyshev's inequality for the same average of variables in $[0, 1]$. It
@@ -1551,7 +1561,7 @@ Hoeffding's inequality is proved by bounding the moment generating function of e
 #### Hoeffding's lemma
 
 Let $X$ be a random variable that takes values in the interval $[a,b]$ and such
-that $\mathbb{E}[X] = 0$ [@shalev2014ml]. Then, for every $\lambda > 0$,
+that $\mathbb{E}[X] = 0$ [@shalev2014ml, Lemma B.7, p. 376; @shiryaevProblemsProbability2012, Problem 4.5.11, p. 255]. Then, for every $\lambda > 0$,
 
 $$ \mathbb{E}[e^{\lambda X}] \leq e^{\frac{\lambda^2(b-a)^2}{8}} $$
 :::
@@ -1596,7 +1606,7 @@ a)^2$. Applying the same argument to $-Z_i$ and adding gives the factor $2$ of t
 
 ### Applications to Learning Theory
 
-These concentration inequalities have direct applications in learning theory:
+These concentration inequalities have direct applications in learning theory [@shalev2014ml, Sec. 4.2, Cor. 4.6, pp. 33-34]:
 
 - **Uniform Convergence**: Hoeffding's inequality combined with union bounds provides uniform convergence guarantees for finite
 hypothesis classes.
@@ -1643,6 +1653,9 @@ linear algebra and with the logarithm lemma that makes an implicit sample size e
 
 ::: {#exr-app-int-finite-class-sample-size}
 #### Sample size for a finite class
+
+Part (a) is adapted from [@shalev2014ml, Sec. 4.2, Cor. 4.6, pp. 33-34].
+
 
 Let $\mathcal{H}$ be a finite set of $N$ hypotheses, and let $L_S(h)$ be the average loss of $h$ on $n$ i.i.d. examples and $L_{\mathcal{D}}(h)$
 its expectation.

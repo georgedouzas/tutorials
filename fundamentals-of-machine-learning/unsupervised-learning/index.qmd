@@ -22,7 +22,7 @@ Clustering is the task of partitioning data into groups (clusters) such that poi
 other than to points in other clusters. This is one of the most fundamental problems in unsupervised learning, with applications
 ranging from customer segmentation in marketing to gene expression analysis in biology.
 
-For more on this topic, see @james2023statistical [Ch. 12] and @theodoridis2025ml [Ch. 12].
+For more on this topic, see @james2023statistical [Ch. 12] and @theodoridis2025ml [Sec. 12.6.1].
 
 The challenge is that "similarity" is subjective and problem-dependent. Different clustering algorithms make different assumptions
 about cluster structure, leading to different solutions. Understanding these assumptions is crucial for choosing the right
@@ -54,6 +54,8 @@ where $C_k = \{i : c_i = k\}$ is the set of indices of points assigned to cluste
 :::
 
 ::::
+
+The objective and Lloyd's algorithm follow @james2023statistical [Sec. 12.4.1], @shalev2014ml [Sec. 22.2] and @hastie2009elements [Sec. 14.3.6].
 
 This objective measures cluster compactness: we want points close to their cluster centers.
 
@@ -194,6 +196,8 @@ reaches is in general only a local minimum.
 
 ::::
 
+For the monotone decrease and the convergence to a local optimum, see @shalev2014ml [Lemma 22.1] and @james2023statistical [Sec. 12.4.1].
+
 **Convergence Properties:**
 
 1. **Monotonic Decrease:** Each iteration decreases (or maintains) the objective $J^{(t+1)} \leq J^{(t)}$ because:
@@ -251,7 +255,7 @@ $J = 4 \cdot 0.25 = 1$, so the fixed point is a local but not a global minimum.
 
 3. **Random Partition:** Randomly partition data, compute centers
 
-4. **K-Means++ (Recommended):** Probabilistic initialization that spreads out initial centers:
+4. **K-Means++ (Recommended):** Probabilistic initialization that spreads out initial centers [@arthur2007kmeanspp, Sec. 2.2]:
 
    a. Choose first center $\boldsymbol{\mu}_1$ uniformly at random from data
 
@@ -261,7 +265,7 @@ $J = 4 \cdot 0.25 = 1$, so the fixed point is a local but not a global minimum.
       - Choose next center $\boldsymbol{\mu}_k$ with probability proportional to this squared distance $D(\mathbf{x}_i)$
 
 The reason K-means++ is recommended is a guarantee on the quality of its starting point, before any Lloyd iteration is run. The
-theorem below states it; its proof is a probabilistic argument beyond the scope of this chapter.
+theorem below states it; its proof is a probabilistic argument beyond the scope of this chapter [@arthur2007kmeanspp, Thm. 3.1].
 
 :::: {.statement-box}
 ::: {#thm-uns-kmeans-plus-plus}
@@ -320,7 +324,7 @@ probability $0$ (as long as some point has $D > 0$).
 
 3. **Gap Statistic:** Compare WCSS to expected WCSS under null reference distribution: $$\text{Gap}(K) =
    \mathbb{E}[\log(\text{WCSS}_0(K))] - \log(\text{WCSS}(K))$$ Choose smallest $K$ such that $\text{Gap}(K) \geq \text{Gap}(K+1) -
-   s_{K+1}$ where $s_{K+1}$ is the standard error.
+   s_{K+1}$ where $s_{K+1}$ is the standard error [@hastie2009elements, Sec. 14.3.11].
 
 4. **Cross-Validation:** Use clustering quality metrics on held-out data.
 
@@ -429,7 +433,7 @@ reduction first.
 learning (as preprocessing), vector quantization.
 
 K-means remains one of the most practical and widely used clustering algorithms despite its limitations, particularly when
-combined with good initialization and appropriate preprocessing [@james2023statistical; @shalev2014ml].
+combined with good initialization and appropriate preprocessing [@james2023statistical, Sec. 12.4.1; @shalev2014ml, Sec. 22.2].
 
 ### Hierarchical Clustering
 
@@ -479,6 +483,8 @@ The linkage criterion $L(C_i, C_j)$ defines the distance between clusters:
 :::
 
 ::::
+
+The four criteria are those of @james2023statistical [Table 12.3]; single, complete and average linkage also appear in @hastie2009elements [eqs. 14.41–14.43].
 
 **Linkage Criteria:** The criteria behave very differently in practice.
 
@@ -547,7 +553,7 @@ its maximum.
 
 Ward's method chooses the merge that increases the total within-cluster variance the least, which links hierarchical clustering
 to the K-means objective of @def-kmeans-objective. The definition gives the merge cost in closed form and as a difference of
-sums of squares.
+sums of squares [@murtagh2011hierarchical, Sec. 4, p. 8, Table 1].
 
 :::: {.statement-box}
 ::: {#def-uns-ward-linkage}
@@ -623,7 +629,8 @@ $\Delta = \frac{n_i n_j^2 + n_j n_i^2}{N^2}\|\boldsymbol{\mu}_i - \boldsymbol{\m
 - **Space:** $O(n^2)$ to store distance matrix
 
 Recomputing every cluster distance from the points after each merge is what makes the naive implementation slow. The proposition
-below shows that the classical linkages can instead be updated from the distances already in the matrix.
+below shows that the classical linkages can instead be updated from the distances already in the matrix
+[@murtagh2011hierarchical, Sec. 4, Table 1, pp. 5-6].
 
 :::: {.statement-box}
 ::: {#prp-uns-lance-williams}
@@ -741,7 +748,7 @@ $d(\{9\}, \{0,1,4\}) = 0.5 \cdot 9 + 0.5 \cdot 5 + 0.5 \cdot 4 = 9$, the last me
 image segmentation.
 
 Hierarchical clustering provides a rich representation of data structure at multiple scales, complementing partition-based methods
-like K-means [@james2023statistical; @shalev2014ml].
+like K-means [@james2023statistical, Sec. 12.4.2; @shalev2014ml, Sec. 22.1].
 
 ### Density-Based Clustering
 
@@ -756,7 +763,7 @@ points in low-density regions as outliers.
 
 **Key Definitions:** DBSCAN first sorts every point into one of three kinds according to how many neighbours it has within a
 radius $\varepsilon$. The definition below fixes these kinds, with the two parameters $\varepsilon$ and MinPts that the whole algorithm
-depends on.
+depends on [@ester1996dbscan, Sec. 3, Defs. 1, 2, 6].
 
 :::: {.statement-box}
 ::: {#def-uns-dbscan-points}
@@ -808,7 +815,7 @@ $|N_\varepsilon(\mathbf{x})| \geq \text{MinPts}$ implies $|N_{\varepsilon'}(\mat
 ::::
 
 Clusters are then built by chaining core points together. The next definition makes the chaining precise through three relations
-of increasing reach; only the last one is symmetric.
+of increasing reach; only the last one is symmetric [@ester1996dbscan, Defs. 2-4].
 
 :::: {.statement-box}
 ::: {#def-uns-density-reachable}
@@ -864,7 +871,7 @@ density-reachable from some $\mathbf{o}$") does not distinguish the two points.
 ::::
 
 **Cluster Definition:** With these relations a cluster can be defined as a set closed under reachability and held together by
-connectedness. The definition is the one DBSCAN computes.
+connectedness. The definition is the one DBSCAN computes [@ester1996dbscan, Def. 5].
 
 :::: {.statement-box}
 ::: {#def-uns-dbscan-cluster}
@@ -1058,7 +1065,7 @@ This perspective connects to spectral clustering (see @sec-clustering) and graph
 with outlier detection, astronomical data analysis, trajectory clustering.
 
 DBSCAN provides a powerful alternative to centroid-based methods when clusters have complex shapes or when outlier detection is
-important [@james2023statistical; @shalev2014ml].
+important [@ester1996dbscan, Secs. 1, 5].
 
 ### Gaussian Mixture Models (GMMs)
 
@@ -1086,6 +1093,8 @@ where:
 :::
 
 ::::
+
+For the model and its latent-variable reading, see @bishop2024deeplearning [Sec. 15.2], @deisenroth2020mml [Sec. 11.1] and @theodoridis2025ml [Sec. 12.6].
 
 **Latent Variable Interpretation:** Introduce latent variable $z_i \in \{1, \ldots, K\}$ indicating which component generated
 $\mathbf{x}_i$:
@@ -1166,6 +1175,8 @@ $$\gamma_{ik} = p(z_i = k \mid \mathbf{x}_i, \boldsymbol{\theta}^{(t)}) = \frac{
 :::
 
 ::::
+
+These updates appear in @bishop2024deeplearning [eqs. 15.16–15.21] and @deisenroth2020mml [Theorems 11.1–11.3].
 
 The E-step follows from Bayes' theorem (see @sec-probability-statistics):
 
@@ -1259,6 +1270,8 @@ proof that follows explains why the log-likelihood cannot go down.
 
 ::::
 
+For the lower-bound view of EM used in the proof below, see @bishop2024deeplearning [Sec. 15.4.1] and @theodoridis2025ml [Sec. 12.7].
+
 For any distributions $q_i$ over $z_i$, write
 $F(q, \boldsymbol{\theta}) = \sum_i \sum_k q_i(k) \log \frac{p(\mathbf{x}_i, z_i = k \mid \boldsymbol{\theta})}{q_i(k)}$. Then
 $\log p(S \mid \boldsymbol{\theta}) = F(q, \boldsymbol{\theta}) + \sum_i D_{\mathrm{KL}}(q_i \,\Vert\, p(z_i \mid \mathbf{x}_i, \boldsymbol{\theta}))$,
@@ -1337,6 +1350,8 @@ where $k$ is the number of free parameters. Choose $K$ that minimizes the criter
 :::
 
 ::::
+
+Both criteria appear in @hastie2009elements [eqs. 7.29 and 7.35].
 
 For a GMM, $k$ is:
 
@@ -1432,7 +1447,7 @@ in video, bioinformatics (gene expression clustering).
 - **Variational Autoencoders:** Can use GMM prior (see @sec-generative-latent)
 
 GMMs provide a flexible, probabilistic framework for clustering and density estimation, bridging the gap between simple methods
-like K-means and more complex generative models [@bishop2024deeplearning; @deisenroth2020mml].
+like K-means and more complex generative models [@bishop2024deeplearning, Secs. 15.2–15.3; @deisenroth2020mml, Ch. 11].
 
 ### Spectral Clustering
 
@@ -1450,6 +1465,8 @@ Laplacian** is $\mathbf{L} = \mathbf{D} - \mathbf{W}$ and the **normalized Lapla
 
 ::::
 
+For the Laplacian and the spectral clustering algorithm, see @shalev2014ml [Sec. 22.3], @hastie2009elements [Sec. 14.5.3] and @aggarwalLinearAlgebraOptimization2020 [Sec. 10.5.2].
+
 **Algorithm:**
 
 1. Construct similarity graph with weights $w_{ij} = \exp(-\|\mathbf{x}_i - \mathbf{x}_j\|^2/(2\sigma^2))$
@@ -1460,7 +1477,7 @@ Laplacian** is $\mathbf{L} = \mathbf{D} - \mathbf{W}$ and the **normalized Lapla
 **Normalized Spectral Clustering:** Use normalized Laplacian $\mathbf{L}_{\text{norm}} =
 \mathbf{D}^{-1/2}\mathbf{L}\mathbf{D}^{-1/2}$.
 
-**Advantages:** Can find non-convex clusters by working in spectral space [@james2023statistical; @shalev2014ml].
+**Advantages:** Can find non-convex clusters by working in spectral space [@shalev2014ml, Sec. 22.3; @hastie2009elements, Sec. 14.5.3].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example writes out @def-uns-graph-laplacian for a path of three nodes with unit weights. It also checks that the constant
@@ -1526,6 +1543,8 @@ $\mathbf{z}_i = \mathbf{W}_k^\top(\mathbf{x}_i - \bar{\mathbf{x}})$ with $\mathb
 
 ::::
 
+The sample covariance with the factor $1/n$ appears in @bishop2024deeplearning [eq. 16.3], @deisenroth2020mml [eq. 10.1] and @aggarwalLinearAlgebraOptimization2020 [Sec. 7.3.4].
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example computes @def-uns-principal-components for four centered points in the plane. The same data serve as the running example
 for the rest of the PCA unit.
@@ -1580,6 +1599,8 @@ The solution is the eigenvector corresponding to the $j$-th largest eigenvalue.
 :::
 
 ::::
+
+For the maximum-variance derivation, see @bishop2024deeplearning [Sec. 16.1.1], @deisenroth2020mml [Sec. 10.2] and @james2023statistical [Sec. 12.2.1].
 
 Here $\mathbf{S} = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^\top$ is the sample
 covariance matrix and $\bar{\mathbf{x}} = \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i$ is the sample mean.
@@ -1652,6 +1673,8 @@ $\frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \sum_{j=k+1
 
 ::::
 
+For the minimum-error formulation, see @bishop2024deeplearning [Sec. 16.1.2], @deisenroth2020mml [Sec. 10.3] and @james2023statistical [eq. 12.11].
+
 **Equivalence:** These two formulations are equivalent. Maximizing variance in the projection is equivalent to minimizing
 reconstruction error. Indeed, for fixed orthonormal $\mathbf{W}_k$ the best $\mathbf{z}_i$ is the orthogonal projection
 $\mathbf{W}_k^\top(\mathbf{x}_i - \bar{\mathbf{x}})$, and by Pythagoras
@@ -1721,6 +1744,8 @@ $\mathbf{W}_k = \mathbf{V}_{:,1:k}$.
 :::
 
 ::::
+
+For PCA through the singular value decomposition, see @deisenroth2020mml [Sec. 10.4] and @aggarwalLinearAlgebraOptimization2020 [Sec. 7.3.4].
 
 The proof is one line: $\mathbf{S} = \frac1n \tilde{\mathbf{X}}^\top\tilde{\mathbf{X}} = \mathbf{V}\left(\frac1n
 \boldsymbol{\Sigma}^\top\boldsymbol{\Sigma}\right)\mathbf{V}^\top$, which is an eigendecomposition with eigenvectors the columns of
@@ -1795,6 +1820,8 @@ components keep. The definition below names this fraction; the other rules liste
 :::
 
 ::::
+
+For the proportion of variance explained, see @james2023statistical [Sec. 12.2.3].
 
 2. **Scree Plot:** Plot eigenvalues vs. component number and look for an "elbow"
 
@@ -1892,6 +1919,8 @@ where $\mathbf{1}_n = \frac{1}{n}\mathbf{1}\mathbf{1}^\top$.
 
 ::::
 
+For kernel PCA and the double centering of the kernel matrix, see @hastie2009elements [Sec. 14.5.4], @theodoridis2025ml [Sec. 20.9.1] and @aggarwalLinearAlgebraOptimization2020 [Sec. 9.4.3].
+
 **Common Kernels:**
 
 - **RBF:** $k(\mathbf{x}, \mathbf{x}') = \exp(-\gamma\|\mathbf{x} - \mathbf{x}'\|^2)$
@@ -1958,7 +1987,7 @@ the centering formula.
 6. **Consider alternatives:** t-SNE, UMAP for visualization; autoencoders for nonlinear reduction
 
 PCA remains one of the most fundamental and widely used techniques in machine learning, providing a principled approach to
-dimensionality reduction with strong theoretical foundations [@james2023statistical; @deisenroth2020mml].
+dimensionality reduction with strong theoretical foundations [@james2023statistical, Sec. 12.2; @deisenroth2020mml, Ch. 10].
 
 ### Multidimensional Scaling (MDS)
 
@@ -1979,6 +2008,8 @@ $$\text{Stress} = \sqrt{\sum_{i<j}(\delta_{ij} - \|\mathbf{z}_i - \mathbf{z}_j\|
 :::
 
 ::::
+
+For the stress criterion and classical scaling, see @hastie2009elements [Sec. 14.8].
 
 **Metric MDS:** Preserve distances exactly (when possible).
 
@@ -2015,7 +2046,7 @@ $\text{Stress} = \sqrt{0 + 0 + 1} = 1$.
 ### Manifold Learning
 
 Manifold learning assumes that the data lie near a low-dimensional curved surface and tries to preserve its local geometry rather
-than global distances.
+than global distances. For Isomap and LLE, see @hastie2009elements [Sec. 14.9] and @theodoridis2025ml [Sec. 20.9.2].
 
 **Isomap (Isometric Mapping):**
 
@@ -2032,7 +2063,8 @@ than global distances.
 **t-SNE (t-Distributed Stochastic Neighbor Embedding):**
 
 t-SNE compares two probability distributions over pairs of points, one built from the data and one from the embedding, and moves
-the embedded points until the two agree. The definition below gives both distributions and the objective.
+the embedded points until the two agree. The definition below gives both distributions and the objective
+[@vandermaaten2008tsne, Secs. 2, 3.1, 3.3, eqs. 1, 4].
 
 :::: {.statement-box}
 ::: {#def-uns-tsne}
@@ -2104,9 +2136,11 @@ $$(1-\varepsilon)\|\mathbf{x}_i - \mathbf{x}_j\|^2 \leq \|f(\mathbf{x}_i) - f(\m
 
 ::::
 
+For the lemma and its proof with a Gaussian random matrix, see @shalev2014ml [Lemma 23.4].
+
 **Random Projection Matrix:** Sample entries from $\mathcal{N}(0, 1/k)$ or $\{-1/\sqrt{k}, +1/\sqrt{k}\}$.
 
-**Applications:** Fast approximate nearest neighbor search, compressed sensing [@james2023statistical; @shalev2014ml].
+**Applications:** Fast approximate nearest neighbor search, compressed sensing [@shalev2014ml, Secs. 23.2–23.3].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example puts numbers into @lem-uns-johnson-lindenstrauss using one explicit form of the constant. The striking feature is that
@@ -2143,7 +2177,7 @@ rows gives $\|\mathbf{x}\|^2$.
 
 Generative models learn the data distribution $p(\mathbf{x})$ and can generate new samples.
 
-For more on this topic, see @deisenroth2020mml [Ch. 11], @james2023statistical [Ch. 4] and @shalev2014ml [Ch. 24].
+For more on this topic, see @deisenroth2020mml [Ch. 11], @james2023statistical [Sec. 4.4] and @shalev2014ml [Ch. 24].
 
 ### Latent Variable Models
 
@@ -2160,6 +2194,8 @@ $$p(\mathbf{x}) = \int p(\mathbf{x} \mid \mathbf{z})p(\mathbf{z})d\mathbf{z}$$
 :::
 
 ::::
+
+For latent variable models, see @deisenroth2020mml [Sec. 11.4] and @theodoridis2025ml [Sec. 12.4].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example identifies the Gaussian mixture as a latent variable model of @def-uns-latent-variable-model. When $\mathbf{z}$ is
@@ -2209,6 +2245,8 @@ where $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and $\boldsymbol{\va
 
 ::::
 
+For factor analysis, see @bishop2024deeplearning [Sec. 16.2.4], @hastie2009elements [Sec. 14.7.1] and @theodoridis2025ml [Sec. 20.8.1].
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example reads @def-uns-factor-analysis as a model of test scores driven by one hidden ability. It shows what each parameter
 means in such an application.
@@ -2252,6 +2290,8 @@ $$p(\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}, \mathbf{W}\mathbf{W}^\top + \bol
 :::
 
 ::::
+
+The marginal covariance appears in @bishop2024deeplearning [eq. 16.54] and @theodoridis2025ml [eq. 20.80].
 
 The vector $(\mathbf{z}, \boldsymbol{\varepsilon})$ is jointly Gaussian, and $\mathbf{x}$ is an affine function of it, so $\mathbf{x}$
 is Gaussian. Its mean is $\mathbf{W}\mathbb{E}[\mathbf{z}] + \boldsymbol{\mu} + \mathbb{E}[\boldsymbol{\varepsilon}] = \boldsymbol{\mu}$,
@@ -2311,6 +2351,8 @@ $$L = \sum_{i=1}^n \|\mathbf{x}_i - f_{\text{dec}}(f_{\text{enc}}(\mathbf{x}_i))
 :::
 
 ::::
+
+For autoencoders and their relation to PCA, see @bishop2024deeplearning [Sec. 19.1], @theodoridis2025ml [Sec. 19.2.4] and @fosterGenerativeDeepLearning2023 [Ch. 3].
 
 **Variants:**
 
@@ -2376,6 +2418,8 @@ p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z})] - D_{\mathrm{KL}}(q_{\bolds
 
 ::::
 
+For the evidence lower bound and the variational autoencoder, see @bishop2024deeplearning [Sec. 19.2], @theodoridis2025ml [Sec. 19.2.6] and @fosterGenerativeDeepLearning2023 [Ch. 3].
+
 Write $\log p(\mathbf{x}) = \log \mathbb{E}_{q}\left[\frac{p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z})p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x})}\right]$
 and apply Jensen's inequality to the concave logarithm:
 $\log p(\mathbf{x}) \geq \mathbb{E}_q[\log p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z})] + \mathbb{E}_q\left[\log \frac{p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x})}\right]$,
@@ -2436,6 +2480,8 @@ p(\mathbf{z})}[\log(1 - D(G(\mathbf{z})))]$$
 :::
 
 ::::
+
+For the adversarial game and its optimal discriminator, see @bishop2024deeplearning [Sec. 17.1], @theodoridis2025ml [Sec. 19.2.5] and @fosterGenerativeDeepLearning2023 [Ch. 4].
 
 **Training:**
 
@@ -2499,6 +2545,8 @@ $$p_{\mathbf{x}}(\mathbf{x}) = p_{\mathbf{z}}(f^{-1}(\mathbf{x}))\left|\det\frac
 
 ::::
 
+The formula appears in @bishop2024deeplearning [eq. 18.1] and @fosterGenerativeDeepLearning2023 [eq. 6-1].
+
 **Composition:** Chain multiple transformations:
 
 $$\mathbf{x} = f_K \circ f_{K-1} \circ \cdots \circ f_1(\mathbf{z})$$
@@ -2514,7 +2562,7 @@ $$\mathbf{x} = f_K \circ f_{K-1} \circ \cdots \circ f_1(\mathbf{z})$$
 - **Glow:** Invertible 1×1 convolutions
 - **Neural Spline Flows:** Monotonic spline transformations
 
-**Advantages:** Exact likelihood computation, stable training [@bishop2024deeplearning; @theodoridis2025ml].
+**Advantages:** Exact likelihood computation, stable training [@bishop2024deeplearning, Ch. 18; @theodoridis2025ml, Sec. 19.2.6; @fosterGenerativeDeepLearning2023, Ch. 6].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The simplest flow is an affine map in one dimension. Applying @prp-uns-change-of-variables to it recovers the familiar fact that an
@@ -2548,6 +2596,9 @@ and the determinant of a product is the product of the determinants, whose logar
 ::::
 
 ## Exercises {#sec-unsupervised-learning-exercises}
+
+For the material these exercises combine, see @james2023statistical [Secs. 12.2 and 12.4.1]
+and @bishop2024deeplearning [Secs. 15.3–15.4].
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The integrative exercises below combine the three sections of the chapter. The first one clusters four points in the plane with
