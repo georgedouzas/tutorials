@@ -445,18 +445,18 @@ expansion and critical exponents, effective field theories and decoupling, and r
 - **THEN** it compares them with the exact two-dimensional Ising values of the statistical-mechanics chapter
 
 ### Requirement: Textbooks supply content, examples and exercises
-Every textbook in `references/textbooks/` SHALL be read and mapped to the chapters it serves, with a reading note
-naming the sections and problems used; content following a textbook SHALL be rewritten in the book's voice,
-notation and conventions, and an adapted example or exercise SHALL cite the textbook with its problem number
-(design D32).
+Every textbook in the Zotero library's Textbooks collection that a tutorial's subject needs SHALL be read and mapped
+to the chapters it serves, with a reading note naming the sections and problems used; content following a textbook
+SHALL be rewritten in the book's voice, notation and conventions, and an adapted example or exercise SHALL cite the
+textbook with its problem number (design D32).
 
 #### Scenario: An adapted exercise
 - **WHEN** an exercise is adapted from a textbook problem
 - **THEN** it cites the textbook as `[@key, Problem n]` and the reading note lists that problem
 
 #### Scenario: An unused textbook
-- **WHEN** a textbook in the folder serves no chapter
-- **THEN** `references/notes/README.md` records it with the reason
+- **WHEN** a textbook considered for a tutorial serves no chapter
+- **THEN** the Zotero note "Tutorials: reference search log" records it with the reason
 
 ### Requirement: Special relativity has its own chapter before general relativity
 The physics part SHALL contain a chapter on special relativity placed immediately after the classical

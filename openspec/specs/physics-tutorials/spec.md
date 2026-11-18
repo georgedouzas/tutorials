@@ -35,11 +35,13 @@ Each tutorial SHALL have a landing page that says what it covers and lists its c
 - **THEN** its landing page lists all of its chapters and each link opens the right chapter
 
 ### Requirement: Complete chapters
-The three tutorials SHALL together publish every chapter of the book: 13 in mathematics, 12 in physics, and 8 plus the preface and conventions in Kaluza-Klein.
+Each of the three tutorials SHALL publish every chapter its landing page lists: the written chapters (13 in mathematics,
+12 in physics, and 8 plus the preface and conventions in Kaluza-Klein) and the approved chapters of its coverage
+record, written or as placeholders.
 
 #### Scenario: Counting chapters
-- **WHEN** the published chapters are compared with the book's chapter list
-- **THEN** every chapter appears exactly once in its tutorial
+- **WHEN** the published chapters are compared with the landing page's chapter list
+- **THEN** every listed chapter appears exactly once in its tutorial, written or as a placeholder
 
 ### Requirement: Nothing omitted from chapters
 Published chapters SHALL keep their full text, equations, figures, interactive figures, exercises, solutions and citations.

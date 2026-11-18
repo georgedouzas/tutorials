@@ -17,22 +17,22 @@ The Posts page SHALL list Fundamentals of Machine Learning and Fundamentals of M
 - **THEN** both machine learning tutorials are shown alongside the other tutorials
 
 ### Requirement: Chapters of Fundamentals of Machine Learning
-Fundamentals of Machine Learning SHALL contain these chapters: Foundations of Learning Theory, Supervised Learning, Unsupervised Learning, and Reinforcement Learning. The Reinforcement Learning chapter SHALL include the material of the former Reinforcement Learning and LLM-based Agents and Mathematical Foundations of Reinforcement Learning drafts.
+Fundamentals of Machine Learning SHALL contain these chapters: Foundations of Learning Theory, Supervised Learning, Unsupervised Learning, and Reinforcement Learning, together with the approved chapters of its coverage record, written or as placeholders. The Reinforcement Learning chapter SHALL include the material of the former Reinforcement Learning and LLM-based Agents and Mathematical Foundations of Reinforcement Learning drafts.
 
 #### Scenario: Reader opens the tutorial
 - **WHEN** a reader opens the tutorial's landing page
-- **THEN** it lists those four chapters, and each link opens the right chapter
+- **THEN** it lists those four chapters and the approved chapters in reading order, and each link opens the right chapter
 
 #### Scenario: Reader looks for LLM-enhanced reinforcement learning
 - **WHEN** a reader opens the Reinforcement Learning chapter
 - **THEN** it covers LLM-enhanced reinforcement learning, the Bellman equation in matrix-vector form with its closed-form and iterative solutions and their code output, and action values
 
 ### Requirement: Chapters of Fundamentals of Mathematics for Machine Learning
-Fundamentals of Mathematics for Machine Learning SHALL contain two chapters: Mathematical and Statistical Foundations, and Appendices and Technical Background.
+Fundamentals of Mathematics for Machine Learning SHALL contain the chapters Mathematical and Statistical Foundations, and Appendices and Technical Background, together with the approved chapters of its coverage record, written or as placeholders.
 
 #### Scenario: Reader opens the tutorial
 - **WHEN** a reader opens the tutorial's landing page
-- **THEN** it lists those two chapters, and each link opens the right chapter
+- **THEN** it lists those two chapters and the approved chapters in reading order, and each link opens the right chapter
 
 ### Requirement: Nothing omitted from chapters
 Published chapters SHALL keep their full text, equations, definitions, figures, code and code output. The only wording changes SHALL be replacing references to a "thesis", adding citations, what is needed to make links work, and, where a draft is merged into a chapter that already covers its topic, the connecting sentences and the removal of statements the chapter already makes.
