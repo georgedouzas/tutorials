@@ -1,0 +1,31 @@
+Part A. Maurer-Cartan frame theta^a = e[c][a] dc: {theta: [0, 1, 0], phi: [-sin(theta), 0, cos(theta)]}
+  theta^1 ^ theta^2 = sin(theta) dtheta ^ dphi  (unit-sphere area form, up to orientation)
+  [PASS] eq-csd-doublet solves [tau, phi_1] = phi_2, [tau, phi_2] = -phi_1
+  L4 (constant Phi) = -(3*p1**4 + 6*p1**2*p2**2 + 6*p1**2*q1**2 + 6*p1**2*q2**2 - 6*p1**2 + 3*p2**4 + 6*p2**2*q1**2 + 6*p2**2*q2**2 - 6*p2**2 + 3*q1**4 + 6*q1**2*q2**2 - 6*q1**2 + 3*q2**4 - 6*q2**2 + 4)/(6*g4**2*r**4)
+  [PASS] L4 = -V/(g^2 r^4) with V = |Phi|^4/2 - |Phi|^2 + 2/3: True
+  gauge kinetic matrix K (L = K w'w'/2): Matrix([[g4**(-2), 0, 0, 0], [0, g4**(-2), 0, 0], [0, 0, g4**(-2), 0], [0, 0, 0, g4**(-2)]])
+  rho kinetic coefficient A (L = A rho'^2): 1/(g4**2*r**2)    rho mass coefficient B (L = -B rho^2): 2/(g4**2*r**4)
+  vector masses^2 (eigenvalues of K^-1 M): [0, 1/(2*r**2), 1/(2*r**2), 2/r**2]
+  m_H^2 = B/A = 2/r**2 ;  m_H^2 / M_W^2 = 4 ; M_Z^2/M_W^2 = 4
+  [PASS] chapter: m_H^2 = 2/r^2, M_W^2 = 1/(2 r^2), M_Z^2 = 2/r^2  =>  m_H = 2 M_W = M_Z
+  [PASS] SM form: lambda = g^2/2, mu = 1/r, v^2 = 2/(g^2 r^2): m_H^2 = 2 mu^2, M_W^2 = g^2 v^2/4; m_H^2/M_W^2 = 8 lambda/g^2 = 4
+
+Part B. Dolan ansatz, constant phi: L4 = -pi*(32*p1**4 + 64*p1**2*p2**2 + 64*p1**2*q1**2 + 64*p1**2*q2**2 - 16*p1**2 + 32*p2**4 + 64*p2**2*q1**2 + 64*p2**2*q2**2 - 16*p2**2 + 32*q1**4 + 64*q1**2*q2**2 - 16*q1**2 + 32*q2**4 - 16*q2**2 + 3)/(R**2*gtilde**2)
+  explicit potential / Dolan (3.3) potential = 8
+  gauge kinetic K: Matrix([[4*pi*R**2/gtilde**2, 0, 0, 0], [0, 4*pi*R**2/gtilde**2, 0, 0], [0, 0, 4*pi*R**2/gtilde**2, 0], [0, 0, 0, 4*pi*R**2/gtilde**2]]) ; rho: A = 4*pi/gtilde**2 , B = 8*pi/(R**2*gtilde**2)
+  vector masses^2: [0, 1/(2*R**2), 1/(2*R**2), 2/R**2] ;  m_H^2 = 2/R**2
+  m_H^2 / M_W^2 = 4 ; M_Z^2/M_W^2 = 4
+  explicit scalar kinetic / Dolan (3.3) scalar kinetic = 4
+  explicit gauge kinetic / Dolan (3.3) gauge kinetic = 2
+  [PASS] Dolan's own ansatz, reduced explicitly: m_H = 2 M_W = M_Z, same as the chapter
+  (the explicit 6D normalisation here is (1/2g^2) tr F F = 2 x |Dolan's (3.1)|, so the three ratios above
+   become 1 (gauge), 2 (scalar kinetic), 4 (potential) in Dolan's own normalisation: his (3.2) halves the
+   mixed term, since F_MN F^MN has 2 g^{y ybar} = (1+y ybar)^2/R^2, and quarters the internal term)
+
+Part C. Dolan (4.16)-(4.17) mass matrix M^2 = Matrix([[1/(8*R**2), 0, 0, 0], [0, 1/(8*R**2), 0, 0], [0, 0, 1/(8*R**2), -sqrt(3)/(8*R**2)], [0, 0, -sqrt(3)/(8*R**2), 3/(8*R**2)]])  (eigenvalues [1/(8*R**2), 1/(8*R**2), 0, 1/(2*R**2)] )
+  Higgs: m_h^2 = B/A = R**(-2) (Dolan: mu_h = 1/R)
+  reading M^2 as masses (Dolan): mu_W^2 = 1/(8*R**2) , m_h^2/mu_W^2 = 8
+  with the actual gauge kinetic coefficient K = 1/2: M_W^2 = 1/(4*R**2) , m_h^2/M_W^2 = 4
+  [PASS] Dolan's printed 4D Lagrangian, with W normalised canonically, also gives m_H = 2 M_W; the factor 2 in
+         m_H^2/M_W^2 comes from reading (4.16) as masses although (1/4) tr F^dag F = (1/8) F^a F^a for A0 = (i/2) W^a sigma_a
+sage -python -u k6_reduction.py  6.70s user 0.20s system 91% cpu 7.509 total

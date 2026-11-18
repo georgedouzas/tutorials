@@ -51,6 +51,7 @@ unit sphere) and $F^c$ the Yang-Mills field strength
 opposite of those of the Killing brackets $[K_a, K_b] = c_{ab}{}^cK_c$ (for the sphere, $f_{ab}{}^c = +\epsilon_{abc}$ and
 $c_{ab}{}^c = -\epsilon_{abc}$; @prp-nonabelian-curvature); for the circle,
 $K = 1$, $h = -\phi^2$ and $f = 0$, this is @eq-kk-scalar without the scalar terms.
+In the signature $(-,+,\dots,+)$ and with the opposite sign of $A$ in the ansatz, the formula is [@hoxha2000, eq. 2.8].
 :::
 ::::
 
@@ -80,15 +81,19 @@ transformation @eq-nonabelian-kk-gauge.
 :::
 
 A flat internal space has no curvature and constant Killing inner products. Its reduction is a set of Maxwell fields
-with a constant coupling matrix, and none of the difficulties of the sphere arise.
+with a constant coupling matrix, and the $y$-dependence that troubles the sphere does not arise.
 
 ::: {#exm-reduced-scalar-flat}
 #### Flat internal space
 
 For $T^k$, $R_h = 0$, $K^m_a = \delta^m_a$ and $\gamma_{mn}K^m_aK^n_b = \mathcal G_{ab}$ constant: $\hat R = R + \tfrac14\mathcal G_{ab}F^aF^b$,
 $k$ Maxwell fields with the internal metric as coupling matrix (the sign of the Einstein-Hilbert action makes it
-$-\tfrac14\mathcal G_{ab}F^aF^b$ in the Lagrangian, @eq-yang-mills-from-gravity), and the ansatz solves the vacuum equations
-exactly when $g$ and $A$ do [@duff1994, Sec. 4].
+$-\tfrac14\mathcal G_{ab}F^aF^b$ in the Lagrangian, @eq-yang-mills-from-gravity). The frozen internal metric is not a
+consistent truncation, however. The internal components of the vacuum equations read
+$\hat R_{mn} = \tfrac14K_{am}K_{bn}F^a_{\mu\nu}F^{b\,\mu\nu} = 0$ with $K_{am} = \gamma_{mp}K^p_a$, as $\hat R_{yy}$ does on the circle
+(@exm-ricci-yy), and add the constraints $F^a_{\mu\nu}F^{b\,\mu\nu} = 0$ [@hoxha2000, eq. 2.6; @plebanski2024introduction, pp. 160-161].
+The gauge fields source the singlet scalars $\gamma_{mn}(x)$, and the reduction is consistent only when these $k(k+1)/2$
+moduli are kept [@duff1994, p. 11; @duff2025, p. 14 fn. 6].
 :::
 ::::
 
@@ -366,7 +371,7 @@ Set $k = 1$, $\gamma = \phi^2$ constant, $K = \partial_y$ and $f = 0$ in @eq-non
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $R_\gamma = 0$ for a circle, $\gamma_{mn}K^mK^n = \phi^2$ and $F = dA$, so $\hat R = R + \tfrac14\phi^2F_{\mu\nu}F^{\mu\nu}$, which is
-@eq-kk-scalar with $\Box\phi = 0$. The term $-\tfrac2\phi\Box\phi$ is absent because the internal metric is frozen; it would
+@eq-kk-scalar with $\Box\phi = 0$ [@plebanski2024introduction, eq. 13.24]. The term $-\tfrac2\phi\Box\phi$ is absent because the internal metric is frozen; it would
 return with an $x$-dependent internal metric, the scalars of Part V.
 :::
 ::::
@@ -419,8 +424,9 @@ products, and with them the difficulty of the sphere disappears.
 #### Group manifolds
 
 On a group manifold with bi-invariant metric the left-invariant Killing vectors have constant inner products,
-$\gamma_{mn}K^m_aK^n_b = \delta_{ab}$: there the coefficient of $F^2$ is constant, the ansatz is consistent, and the
-reduction is the DeWitt reduction of Part VI.
+$\gamma_{mn}K^m_aK^n_b = \delta_{ab}$: there the coefficient of $F^2$ is constant and the $y$-dependence of the sphere
+disappears. As on the torus (@exm-reduced-scalar-flat), $F^2$ still sources the singlet scalars, the $x$-dependent
+left-invariant metrics; the ansatz that keeps them is consistent, the DeWitt reduction of Part VI [@duff2025, p. 15].
 :::
 ::::
 
@@ -648,7 +654,7 @@ tested against the full higher-dimensional field equations, and the definition s
 #### Consistency problem
 
 A reduction ansatz is **consistent** if every solution of the reduced field equations lifts to a solution of the
-higher-dimensional ones. The circle ansatz is consistent (@exm-truncation-consistency); the non-abelian ansatz
+higher-dimensional ones [@duff2025, p. 14; @cecotti2023introduction, p. 489]. The circle ansatz is consistent (@exm-truncation-consistency); the non-abelian ansatz
 @eq-nonabelian-ansatz with a curved internal space is not: the higher-dimensional Einstein equations contain
 terms, like $K_a\cdot K_b$ in @eq-nonabelian-reduced-scalar, that depend on the internal point and cannot be
 matched by the $y$-independent reduced fields [@overduin1998, Sec. 4.4; @duff1994, p. 14]. Moreover $M_4 \times
@@ -690,6 +696,7 @@ Coset space dimensional reduction gives up the demand that the fields be $y$-ind
 they be *symmetric*, invariant under the isometries up to a gauge transformation: then the $y$-dependence of the
 inner products is absorbed, the reduced theory is a Yang-Mills-Higgs theory, and the reduction is consistent by
 construction for the fields it keeps.
+A symmetric ansatz gives a consistent truncation [@nastase2019classical, Sec. 30.4; @cecotti2023introduction, p. 489].
 :::
 ::::
 
@@ -756,16 +763,21 @@ the sphere lacks.
 ::: {#exr-nak-consistency-torus}
 #### Why the torus is consistent
 
-For $T^k$ with constant metric and $K_a = \partial_a$, show that every component of $\hat R_{MN}$ in the coordinates $(x, y)$ is
-independent of $y$, and conclude that the ansatz of @exm-reduced-scalar-flat is consistent.
+For $T^k$ with $K_a = \partial_a$ and the internal metric $\gamma_{mn}(x)$ kept as fields, show that every component of
+$\hat R_{MN}$ in the coordinates $(x, y)$ is independent of $y$, and conclude that this ansatz is consistent. Why does
+freezing $\gamma_{mn}$ to a constant, as in @exm-reduced-scalar-flat, spoil the consistency?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-On the torus the metric components $\hat g_{MN}$ of the ansatz depend on $x$ only: $\gamma_{mn}$ is constant and
+On the torus the metric components $\hat g_{MN}$ of the ansatz depend on $x$ only: $\gamma_{mn}$ depends on $x$ alone and
 $K^m_a = \delta^m_a$. Christoffel symbols and curvature are built from $\hat g$, its inverse and $x$-derivatives, so they are
 $y$-independent as well. The vacuum equations $\hat R_{MN} = 0$ are then equations on $M_4$ alone, the reduced field
-equations, and every solution of the latter lifts. The sphere fails exactly because $K^m_a$ and $\gamma_{mn}$ depend on $y$
-in a way that does not cancel in $K_a\cdot K_b$.
+equations of $g$, $A^a$ and $\gamma_{mn}$, and every solution of the latter lifts: the kept fields are all the $U(1)^k$
+singlets [@duff1994, p. 11; @duff2025, p. 14]. Freezing $\gamma_{mn}$ removes its field equations, the components
+$\hat R_{mn}$, from the reduced theory but not from the higher-dimensional one. With $\gamma$ constant they become
+$F^a_{\mu\nu}F^{b\,\mu\nu} = 0$ (@exm-reduced-scalar-flat), which the Maxwell equations do not imply, so solutions with
+$F^2 \neq 0$ do not lift [@duff2025, p. 14 fn. 6; @krasnov2020formulations, Sec. 3.6.3, eq. 3.92]. The sphere fails for
+a further reason: $K^m_a$ and $\gamma_{mn}$ depend on $y$ in a way that does not cancel in $K_a\cdot K_b$.
 :::
 ::::
 
@@ -779,6 +791,7 @@ solutions at once, and its symptom is the explicit dependence of $\hat R$ on the
 The non-abelian ansatz on a curved internal space is not a consistent truncation of pure gravity. The argument
 below follows @overduin1998 [Sec. 4.4] and @duff1994 [Sec. 5], with the explicit $y$-dependence of $\hat R$ in
 @prp-nonabelian-curvature as the symptom.
+For the general sphere reduction of pure gravity, see [@cvetic2000, p. 3; @hoxha2000, Sec. 2; @duff2025, p. 15].
 :::
 ::::
 
@@ -802,9 +815,12 @@ have constant inner products, which is exactly the property the torus had.
 #### Group manifolds
 
 On $S^3 = SU(2)$ the ansatz with gauge fields along the three left-invariant fields $e_a$ only has constant
-$e_a\cdot e_b$, and as on the torus all components of $\hat g$ are $y$-independent in the left-invariant frame: the
-reduction keeping $SU(2)$ is consistent (@exm-inner-products-group-manifold). The price is the loss of the other
+$e_a\cdot e_b$, and as on the torus all components of $\hat g$ are $y$-independent in the left-invariant frame, so no
+massive harmonic is sourced. Here too the singlet scalars must be kept: with the internal metric
+$\gamma_{mn} = S_{ab}(x)e^a_me^b_n$, six scalars that $F^2$ sources [@hoxha2000, eq. 2.6], the reduction keeping $SU(2)$ is
+consistent (@exm-inner-products-group-manifold). The price is the loss of the other
 $SU(2)$, and with it of the gauge fields that make the group manifold attractive (@exr-nak-s3-ansatz).
+These are the DeWitt reductions [@duff2025, p. 15].
 :::
 
 Spheres in supergravity are the celebrated exceptions. There the ansatz is enlarged by the other fields of the theory,
@@ -814,7 +830,7 @@ and their non-linear contributions cancel the harmonic sources.
 #### Consistent sphere reductions
 
 The reduction of eleven-dimensional supergravity on $S^7$ (@sec-sugra11), and a few others such as $S^4$, are consistent
-once the ansatz includes the scalar fields and the flux, with a non-linear dependence on them [@cvetic2000]: the
+once the ansatz includes the scalar fields and the flux, with a non-linear dependence on them [@cvetic2000, pp. 1-4; @duff2025, p. 16; @hoxha2000, eqs. 2.11-2.12]: the
 $\ell = 2$ terms produced by the metric are cancelled by those of the matter fields. Pure gravity on $S^2$ has no such
 partners, which is why @prp-consistency-text holds.
 :::
@@ -867,6 +883,7 @@ Suppose the higher-dimensional equations for an $\ell = 2$ mode $\phi_{ab}$ (tra
 $(\Box + m^2)\phi_{ab} = \lambda\,(F^a_{\mu\nu}F^{b\,\mu\nu} - \tfrac13\delta_{ab}F^c_{\mu\nu}F^{c\,\mu\nu})$ with some $\lambda \neq 0$, as the
 structure of $\hat R$ suggests. What must the gauge fields satisfy for $\phi_{ab} = 0$ to be consistent? Is the
 condition implied by the Yang-Mills equations?
+For the source of the massive spin-$2$ fields, see [@hoxha2000, eqs. 2.10-2.14].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -915,6 +932,7 @@ Einstein gravity with the sign of @eq-einstein-hilbert, a cosmological term $R_\
 and the Yang-Mills action $-\tfrac14\mathcal G_{ab}F^aF^b$ of the isometry group with coupling matrix $\mathcal G_{ab}$ (the
 average of the Killing inner products): the gauge theory of @sec-yang-mills, derived from geometry, up to the
 consistency caveat of @def-consistency-problem.
+The gauge group is the isometry group of the internal space [@overduin1998, Sec. 4.3; @duff2025, p. 3].
 :::
 ::::
 
@@ -930,6 +948,7 @@ $1/g^2 \propto 4\pi r^2\cdot\tfrac23r^2/2\hat\kappa^2$, so the gauge coupling is
 large sphere in Planck units, and a cosmological constant $\Lambda = -R_\gamma/2 = -1/r^2$ in the convention of
 @def-cosmological-constant, negative and of Planckian size for a Planck-size sphere, that must be cancelled
 (@exr-nonabelian-coupling, @exr-nak-cosmological-term).
+The scalings $g^2 \sim \kappa^2/r^2$ and $\Lambda \sim -1/r^2$ are those of [@duff2025, Sec. 2, eqs. 1-2].
 :::
 
 The Standard Model needs a specific gauge group. Asking which internal spaces have it as isometry group gives a lower
@@ -940,7 +959,7 @@ bound on their dimension and a famous coincidence with supergravity.
 
 The isometry group $SU(3) \times SU(2) \times U(1)$ requires an internal space of at least seven dimensions, the
 cosets $M^{pqr}$ of Witten, so $D = 11$: the dimension of supergravity, a coincidence that drove the
-Kaluza-Klein supergravity programme [@duff1994, Sec. 6]. Chirality then fails, which is where coset reduction with
+Kaluza-Klein supergravity programme [@duff1994, Sec. 6; @overduin1998, Sec. 4.4; @hoxha2000, p. 4]. Chirality then fails, which is where coset reduction with
 gauge fields (Part V) and strings (Part VI) enter.
 :::
 
@@ -1038,6 +1057,7 @@ left-invariant fields $e_a$ (@def-left-invariant-field), with $[e_a, K_b] = 0$; 
 manifold is spanned by the $e_a$ and the $K_a$, two copies of $\mathfrak{g}$ that share the centre $\mathfrak{z}$, on which the two
 actions agree, and has dimension $2\dim G - \dim\mathfrak{z}$. For semisimple $G$ the non-abelian ansatz yields $2\dim G$ gauge bosons of
 $G \times G$.
+For bi-invariant metrics, see [@godinho2014introduction, p. 115]; for the gauge group $G \times G$, see [@duff1994, p. 15; @duff2025, p. 15].
 :::
 ::::
 
@@ -1051,7 +1071,7 @@ rotations of $\mathbb{R}^4$, reorganised into left and right actions.
 The round $S^3$ has the six rotation fields of $\mathbb{R}^4$ as Killing vectors; the self-dual and anti-self-dual
 combinations form two commuting copies of $\mathfrak{su}(2)$, the left and right actions of $SU(2)$, so that
 $\mathfrak{so}(4) = \mathfrak{su}(2) \oplus \mathfrak{su}(2)$ (@exm-coset-s3, @exr-nak-s3-killing). The non-abelian ansatz gives six gauge
-bosons on a three-dimensional internal space.
+bosons on a three-dimensional internal space [@duff1994, p. 15].
 :::
 
 For an abelian group the left and right translations coincide. The circle therefore gives one gauge boson, not two,
@@ -1178,6 +1198,7 @@ The **number of gauge bosons** of the non-abelian Kaluza-Klein ansatz on $M_4 \t
 isometry group of $(X, \gamma)$, one massless gauge field per independent Killing vector. It is at most $k(k+1)/2$,
 with equality exactly for the maximally symmetric spaces (@def-maximally-symmetric), and it is independent of $k$
 otherwise: it can be smaller than $k$ (a generic metric has no Killing vectors) or larger (@fig-nak-isometry-count).
+For the count, see [@duff2025, p. 6]; for the bound, see [@plebanski2024introduction, Sec. 8.12, Theorem 8.4].
 :::
 ::::
 
@@ -1202,7 +1223,7 @@ strong interaction on four internal dimensions.
 $\mathbb{CP}^2 = SU(3)/U(2)$ has dimension $8 - 4 = 4$ and, with the Fubini-Study metric, isometry group $SU(3)$ (up to its
 centre): $8$ gauge bosons, fewer than the $10$ of $S^4$ because its curvature is not constant. Together with $S^2$ for
 $SU(2)$ and $S^1$ for $U(1)$, the product $\mathbb{CP}^2 \times S^2 \times S^1$ has dimension $7$ and isometry group $SU(3) \times
-SU(2) \times U(1)$, the count of @exm-ym-gravity-witten.
+SU(2) \times U(1)$, the count of @exm-ym-gravity-witten. For the Killing vectors of $\mathbb{CP}^n$, see [@hoxha2000, Sec. 4.1].
 :::
 
 Deforming a metric can only remove Killing vectors. Squashed spheres show how a smaller isometry group, and so fewer
@@ -1213,7 +1234,7 @@ massless gauge bosons, arises from a less symmetric shape.
 
 Stretching the Hopf fibres of $S^3$ gives the Berger spheres, with isometry group $SU(2) \times U(1)$ of dimension $4$
 instead of $6$ (@prp-nak-isometry-dimensions); the squashed $S^7$, a solution of eleven-dimensional supergravity, has
-isometry group $Sp(2) \times Sp(1)$, of dimension $10 + 3 = 13$ instead of $28$ [@duff1994, Sec. 6]. The broken
+isometry group $Sp(2) \times Sp(1)$, of dimension $10 + 3 = 13$ instead of $28$ [@duff1994, Sec. 6; @duff2025, p. 3; @overduin1998, Sec. 4.4]. The broken
 generators no longer give massless gauge bosons.
 :::
 ::::
@@ -1244,7 +1265,7 @@ second exercise derives it.
 
 Using the identity $\nabla_m\nabla_nK_p = R_{pnm}{}^qK_q$ for Killing vectors (the sign depending on the convention for
 the Riemann tensor), show that a Killing vector on a connected manifold is determined by $K_p$ and $\nabla_mK_p$ at one
-point, and deduce the bound $k(k+1)/2$.
+point, and deduce the bound $k(k+1)/2$. The argument is that of [@plebanski2024introduction, Sec. 8.4, eq. 8.22].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1268,7 +1289,7 @@ $SU(3) \times SU(2) \times U(1)$ needs $7$ dimensions, and check that $7$ suffic
 ::: {.callout-note .solution collapse="true" title="Solution"}
 A product $M_a \times M_b \times M_c$ with the three factors carrying the three groups needs $4 + 2 + 1 = 7$ dimensions;
 $\mathbb{CP}^2 \times S^2 \times S^1$ realises this with isometry group $SU(3) \times SU(2) \times U(1)$, and Witten's $M^{pqr}$ do the
-same as non-product spaces of the same dimension [@duff1994, Sec. 6]. Seven internal plus four spacetime dimensions
+same as non-product spaces of the same dimension [@duff1994, Sec. 6; @hoxha2000, p. 4]. Seven internal plus four spacetime dimensions
 give $D = 11$, the maximal dimension of supergravity.
 :::
 ::::
@@ -1311,7 +1332,7 @@ to the circle that preserves the fibres. The gauge group shrinks accordingly.
 For $a \neq b$ the isometry algebra is $\mathfrak{su}(2) \oplus \mathfrak{u}(1)$: the $K_a$ survive, and of the $e_a$ only $e_3$, which
 rotates $(\sigma^1, \sigma^2)$ into each other and so preserves $a^2((\sigma^1)^2 + (\sigma^2)^2)$. The two gauge bosons along $e_1$,
 $e_2$ are no longer massless; varying $b/a$ continuously from $1$ is a geometric analogue of the Higgs mechanism of
-@sec-higgs.
+@sec-higgs, as for the squashed $S^7$ [@duff2025, Sec. 5, p. 8].
 :::
 
 The round three-sphere decomposes its six Killing vectors into two commuting triples. In terms of the rotations of
@@ -1341,7 +1362,8 @@ $e_3\cdot e_3$, and average $K_a\cdot K_b$ over $S^3$ (the measure $\sin\theta\,
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $K_a = \operatorname{Ad}(g^{-1})_{ca}e_c$, so $K_a\cdot K_b = a^2\delta_{ab} + (b^2 - a^2)\operatorname{Ad}(g^{-1})_{3a}\operatorname{Ad}(g^{-1})_{3b}$, which
 varies over $S^3$ unless $a = b$, with average $\tfrac{2a^2 + b^2}{3}\delta_{ab}$; $e_3\cdot e_3 = b^2$ is constant. The $U(1)$ of
-$e_3$ reduces consistently, the $SU(2)$ of the $K_a$ has the sphere's problem:
+$e_3$ passes the test (it reduces consistently once the singlet scalars are kept, @exr-nak-reduced-synthesis), the
+$SU(2)$ of the $K_a$ has the sphere's problem:
 
 ```python
 a, b = var("a b"); assume(a > 0, b > 0)
@@ -1428,7 +1450,7 @@ reduced scalar, the inner products and the reduced action into the gauge couplin
 
 For $\gamma = r^2(d\theta^2 + \sin^2\theta\,d\varphi^2)$ and $A^1_x = ct$, compute $\hat R$ with SageManifolds, identify each term of
 @eq-nonabelian-reduced-scalar, average over the sphere and read off the coupling $g$ and the cosmological
-constant.
+constant. For the curvature scalar, see [@hoxha2000, eq. 2.8]; for the scalings of $g$ and $\Lambda$, see [@duff2025, Sec. 2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1473,7 +1495,7 @@ bosons and their coupling all change, and the general sphere formula emerges.
 
 For $S^3$ of radius $r$ give $\operatorname{Vol}(S^3)$, $R_\gamma$, the number of gauge bosons, the coupling matrix $\mathcal G_{ab}$ for the rotation
 fields $K_{ij}$ (@exr-nak-inner-sn) and the gauge coupling in terms of $\kappa$ and $r$. Generalise to $S^n$ and compare
-with $S^1$ and $S^2$.
+with $S^1$ and $S^2$. The $S^n$ reductions of pure gravity are discussed in [@cvetic2000, p. 3].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1492,17 +1514,21 @@ summarises which ansätze can be trusted and what Part V changes.
 #### Which reductions are consistent?
 
 For the circle, the flat torus, the round $S^2$, $S^3 = SU(2)$ with all six or only three gauge fields, and the
-Berger sphere with its $U(1)$ gauge field, decide whether the non-abelian ansatz (without scalars) is a consistent
-truncation of pure gravity, using the Killing inner products. What does coset space dimensional reduction change?
+Berger sphere with its $U(1)$ gauge field, decide whether the non-abelian ansatz is a consistent truncation of pure
+gravity, first without scalars and then with the singlet scalars of the internal metric, using the Killing inner products. What does coset space dimensional reduction change?
+For circle, torus, group-manifold and sphere reductions, see [@duff2025, pp. 14-15].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The criterion is whether the Killing inner products of the kept gauge fields are constant on the internal space (and,
-for the vacuum, whether the internal space is flat or supported by matter). Circle and torus: constant, consistent.
-$S^2$: $\delta_{ab} - n_an_b$ varies, inconsistent (@prp-consistency-text). $S^3$ with six fields: the mixed products
-$e_a\cdot K_b$ vary (@exr-nak-s3-ansatz), inconsistent; with only the left-invariant $e_a$: constant, consistent, the
-group-manifold reduction of Part VI. Berger sphere with $e_3$: $e_3\cdot e_3 = b^2$ constant, consistent for that $U(1)$
-(@exr-nak-berger-killing). In all curved cases $R_\gamma \neq 0$ and the internal space needs matter for a vacuum.
+Without scalars none is consistent: $F^2$ sources the singlet scalars of the internal metric, and freezing them
+imposes $F^a_{\mu\nu}F^{b\,\mu\nu} = 0$ (@exm-reduced-scalar-flat) [@duff2025, p. 14 fn. 6]. With the singlet scalars kept, the
+criterion is whether the Killing inner products of the kept gauge fields are constant on the internal space (and, for
+the vacuum, whether the internal space is flat or supported by matter). Circle and torus: constant, consistent with the
+$k(k+1)/2$ moduli [@duff1994, p. 11]. $S^2$: $\delta_{ab} - n_an_b$ varies, inconsistent (@prp-consistency-text). $S^3$ with six
+fields: the mixed products $e_a\cdot K_b$ vary (@exr-nak-s3-ansatz), inconsistent; with only the left-invariant $e_a$:
+constant, consistent with the six scalars of the left-invariant metrics, the group-manifold reduction of Part VI
+[@duff2025, p. 15]. Berger sphere with $e_3$: $e_3\cdot e_3 = b^2$ constant, consistent for that $U(1)$ with the singlet scalars
+kept (@exr-nak-berger-killing). In all curved cases $R_\gamma \neq 0$ and the internal space needs matter for a vacuum.
 Coset space dimensional reduction (@sec-csdr-constraints) keeps the full isometry group as a symmetry but replaces
 the gauge fields of this chapter by higher-dimensional gauge fields constrained to be symmetric, which is consistent
 by construction.

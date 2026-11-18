@@ -4,7 +4,7 @@ pagetitle: "The Kaluza-Klein reduction"
 
 # The Kaluza-Klein reduction {#sec-kk-reduction-group}
 
-In 1921 Kaluza [@kaluza1921] observed that general relativity in five dimensions already contains electromagnetism. If the fifth
+In 1921 Kaluza [@kaluza1921, pp. 967-969] observed that general relativity in five dimensions already contains electromagnetism. If the fifth
 dimension is a circle and nothing depends on the position around it, the fifteen components of the
 five-dimensional metric split into a four-dimensional metric, a vector field and a scalar, and the
 five-dimensional Einstein-Hilbert action becomes four-dimensional gravity coupled to Maxwell's theory and to a
@@ -51,7 +51,7 @@ assumption has a geometric meaning, a symmetry of the metric, and a physical one
 
 A five-dimensional metric $\hat g_{MN}(x, y)$ on $M_4 \times S^1$ satisfies the **cylinder condition** if none of its
 components depends on the circle coordinate, $\partial_y\hat g_{MN} = 0$. The vector field $\partial_y$ is then a Killing
-vector (@def-killing), and the metric is determined by its components at a single value of $y$.
+vector (@def-killing), and the metric is determined by its components at a single value of $y$ [@plebanski2024introduction, Sec. 13.6, p. 159].
 :::
 ::::
 
@@ -62,7 +62,7 @@ assumption into an approximation that becomes exact for small radii.
 ::: {#exm-cylinder-kaluza}
 #### Kaluza's assumption
 
-Kaluza imposed the condition by fiat, "for no good reason" as @duff1994 [p. 3] puts it; Klein explained it: on a
+Kaluza imposed the condition by fiat, "for no very good reason" as @duff1994 [p. 3] puts it; Klein explained it: on a
 circle of radius $r$ every field is a Fourier series $\sum_nf_n(x)e^{iny/r}$, the mode $n$ has mass $|n|/r$
 (@sec-kk-tower), and for small $r$ only the $y$-independent mode $n = 0$ is light.
 :::
@@ -222,8 +222,8 @@ $$
 \hat g_{\mu\nu} = g_{\mu\nu} - \phi^2A_\mu A_\nu, \qquad \hat g_{\mu y} = -\phi^2A_\mu, \qquad \hat g_{yy} = -\phi^2 ,
 $$ {#eq-kk-components}
 all independent of $y$. It is the most general metric satisfying the cylinder condition, written so that its
-fifteen components are a symmetric tensor $g_{\mu\nu}$, a vector $A_\mu$ and a scalar $\phi > 0$ on $M_4$ [@overduin1998,
-eq. 5, with $\kappa = 1$]. The minus sign makes the circle direction spacelike, so that $\hat g$ has signature
+fifteen components are a symmetric tensor $g_{\mu\nu}$, a vector $A_\mu$ and a scalar $\phi > 0$ on $M_4$
+[@overduin1998, eq. 5, with $\kappa = 1$; @cecotti2023introduction, Sec. 6.1, eq. 6.3]. The minus sign makes the circle direction spacelike, so that $\hat g$ has signature
 $(+, -, -, -, -)$ when $g$ has signature $(+, -, -, -)$; with $y \sim y + 2\pi r$ the circumference of the circle over $x$ is $2\pi r\phi(x)$, so $\phi$ is dimensionless.
 The gauge coupling is restored in @sec-kk-tower.
 :::
@@ -248,8 +248,8 @@ non-trivial case and already contains the scalar sector of the theory.
 #### $A_\mu = 0$
 
 $d\hat s^2 = g_{\mu\nu}dx^\mu dx^\nu - \phi^2dy^2$, a warped product with the circle radius $r\phi(x)$ varying over
-spacetime; its reduction is the Brans-Dicke theory with $\omega_{\mathrm{BD}} = 0$ of @exm-jordan-brans-dicke [@overduin1998, Sec.
-3.5].
+spacetime; its reduction is the Brans-Dicke theory with $\omega_{\mathrm{BD}} = 0$ of @exm-jordan-brans-dicke
+[@overduin1998, Sec. 3.5].
 :::
 
 Switching off all variation gives the vacuum of the theory. Every later perturbative statement, such as the masses of
@@ -391,7 +391,8 @@ the remaining one, which is the subject of the next chapter.
 #### The remaining coordinate freedom
 
 A coordinate change with $\xi^y = \epsilon(x)$ keeps the form @eq-kk-ansatz but shifts $A_\mu$ by $-\partial_\mu\epsilon$:
-this is the gauge transformation of @sec-kk-gauge, the reason $A_\mu$ is a gauge field and not just a covector.
+this is the gauge transformation of @sec-kk-gauge, the reason $A_\mu$ is a gauge field and not just a covector
+[@cecotti2023introduction, eqs. 6.4-6.5].
 :::
 ::::
 
@@ -493,7 +494,7 @@ The inverse of @eq-kk-components is
 $$
 \hat g^{\mu\nu} = g^{\mu\nu}, \qquad \hat g^{\mu y} = -A^\mu, \qquad \hat g^{yy} = -\phi^{-2} + A_\mu A^\mu ,
 $$ {#eq-kk-inverse}
-with $A^\mu = g^{\mu\nu}A_\nu$ (@prp-kk-inverse): the inverse of the four-dimensional metric sits in the spacetime
+with $A^\mu = g^{\mu\nu}A_\nu$ (@prp-kk-inverse) [@plebanski2024introduction, eq. 13.21, with $\phi_{\text{PK}} = -\phi^2$]: the inverse of the four-dimensional metric sits in the spacetime
 block, and the $A$-dependence moves to the mixed and corner entries.
 :::
 ::::
@@ -645,7 +646,7 @@ element is
 $$
 \sqrt{|\hat g|}\,d^5x = \phi\sqrt{-g}\,d^4x\,dy ,
 $$ {#eq-kk-volume}
-the four-dimensional volume element times the circumference factor $\phi$ (@prp-kk-volume-factor).
+the four-dimensional volume element times the circumference factor $\phi$ (@prp-kk-volume-factor) [@plebanski2024introduction, eq. 13.20].
 :::
 ::::
 
@@ -1169,8 +1170,8 @@ $$
 \hat\Gamma^y_{yy} &= -A_\lambda\hat\Gamma^\lambda_{yy},
 \end{aligned}
 $$ {#eq-kk-christoffel}
-(@prp-kk-christoffel). Each is a polynomial identity in the jets and $\phi^{-1}$. Every term depends on $\phi$ only
-through $\phi^2$, so these are the formulas of the mostly-plus literature (for example @duff1994, whose signature is $(-, +, +, +, +)$) with $\phi^2 \to -\phi^2$; the three
+(@prp-kk-christoffel) [@plebanski2024introduction, eq. 13.22, with $\phi_{\text{PK}} = -\phi^2$]. Each is a polynomial identity in the jets and $\phi^{-1}$. Every term depends on $\phi$ only
+through $\phi^2$, so these are the formulas of the mostly-plus literature (for example @duff1994 [p. 2], whose signature is $(-, +, +, +, +)$) with $\phi^2 \to -\phi^2$; the three
 symbols with an upper $y$ keep their form, written through the $\hat\Gamma^\lambda$, under the switch.
 :::
 ::::
@@ -1330,7 +1331,7 @@ $$
   + A_\mu\hat R_{\nu y} + A_\nu\hat R_{\mu y} - A_\mu A_\nu\hat R_{yy},
 \end{aligned}
 $$ {#eq-kk-ricci}
-(@prp-kk-ricci). The combinations $\hat R_{\mu y} - A_\mu\hat R_{yy}$ and $\hat R_{\mu\nu} - A_\mu\hat R_{\nu y} - A_\nu\hat R_{\mu y} +
+(@prp-kk-ricci) [@plebanski2024introduction, eq. 13.23, with $\phi_{\text{PK}} = -\phi^2$]. The combinations $\hat R_{\mu y} - A_\mu\hat R_{yy}$ and $\hat R_{\mu\nu} - A_\mu\hat R_{\nu y} - A_\nu\hat R_{\mu y} +
 A_\mu A_\nu\hat R_{yy}$ are the components in the frame $(dx^\mu, dy + A)$, free of $A$.
 :::
 ::::
@@ -1344,7 +1345,7 @@ consequence for Kaluza's original choice $\phi = 1$.
 
 Only the scalar and the Maxwell invariant appear: the vacuum equation $\hat R_{yy} = 0$ is $\Box\phi = -\tfrac14\phi^3F^2$,
 so a constant $\phi$ is consistent only when $F_{\mu\nu}F^{\mu\nu} = 0$, Jordan and Thiry's observation that Kaluza's
-$\phi = 1$ is inconsistent [@overduin1998, Sec. 3.4].
+$\phi = 1$ is inconsistent [@overduin1998, Sec. 3.4; @plebanski2024introduction, pp. 160-161; @krasnov2020formulations, Sec. 3.6.3].
 :::
 
 The mixed component contains the divergence of the field strength. The second example identifies its vacuum
@@ -1463,7 +1464,7 @@ central formula of the theory.
 $$
 \hat R = R + \tfrac14\phi^2F_{\mu\nu}F^{\mu\nu} - \tfrac{2}{\phi}\Box\phi
 $$ {#eq-kk-scalar}
-(@prp-kk-scalar): the four-dimensional scalar, the Maxwell invariant with the coefficient $\tfrac14\phi^2$ (it becomes
+(@prp-kk-scalar) [@plebanski2024introduction, eq. 13.24, with $\phi_{\text{PK}} = -\phi^2$]: the four-dimensional scalar, the Maxwell invariant with the coefficient $\tfrac14\phi^2$ (it becomes
 the Maxwell Lagrangian $-\tfrac14F^2$ once the sign of the Einstein-Hilbert action in this signature is included,
 @def-reduced-action), and a total derivative in disguise. It follows from @eq-kk-ricci by $\hat R = \hat g^{MN}\hat R_{MN}$ with @eq-kk-inverse, all
 $A$-dependent terms cancelling.
@@ -1579,7 +1580,7 @@ R5 = 1/2*B^2 ; F^2 = 2*B^2
 In general $F^2 = 2(B^2 - E^2)$, so electric and magnetic fields curve the five-dimensional space with opposite signs.
 :::
 
-Much of the literature, for example @duff1994 and @martin1997, uses the signature $(-, +, +, +, +)$. The third exercise translates @eq-kk-scalar, which is a
+Much of the literature, for example @duff1994 [p. 2] and @martin1997 [eq. 2.3], uses the signature $(-, +, +, +, +)$. The third exercise translates @eq-kk-scalar, which is a
 useful check of every sign in it.
 
 ::: {#exr-kkr-scalar-mostly-plus}
@@ -1595,7 +1596,7 @@ The Christoffel symbols and the Ricci tensor are unchanged by $\hat g \to -\hat 
 $\hat R \to -\hat R$, $R \to -R$, $\Box \to -\Box$, and $F_{\mu\nu}F^{\mu\nu}$, with two inverse metrics, is unchanged. The
 mostly-plus metric $g_+ + \phi^2(dy + A)^2$ is $-(g - \phi^2(dy + A)^2)$ with $g = -g_+$, so $-\hat R_+ = -R_+ + \tfrac14\phi^2F^2 +
 \tfrac{2}{\phi}\Box_+\phi$, that is $\hat R_+ = R_+ - \tfrac14\phi^2F^2 - \tfrac{2}{\phi}\Box_+\phi$, the form usually quoted in the
-mostly-plus literature (@duff1994).
+mostly-plus literature.
 :::
 ::::
 
@@ -1614,7 +1615,7 @@ $$
 $$ {#eq-kk-reduced-action}
 the overall sign being that of the Einstein-Hilbert action in the signature $(+, -, -, -)$ (@eq-einstein-hilbert)
 and the term $-2\sqrt{-g}\,\Box\phi = -2\partial_\mu(\sqrt{-g}\,g^{\mu\nu}\partial_\nu\phi)$ being a total derivative
-(@exr-kk-total-derivative). This is the **Jordan-frame** action [@overduin1998, eq. 9], with the Newton constant
+(@exr-kk-total-derivative). This is the **Jordan-frame** action [@overduin1998, eq. 9; @plebanski2024introduction, eq. 13.26], with the Newton constant
 $\kappa^2 = \hat\kappa^2/2\pi r$ when $\phi = 1$ and the Maxwell term $-\tfrac14\phi^3F_{\mu\nu}F^{\mu\nu}$ carrying the
 factor $\phi^3$ and the standard sign.
 :::
@@ -2278,7 +2279,7 @@ $$
 \tilde R = \Omega^{-2}\left(R - 6\,\Omega^{-1}\Box\Omega\right)
   = \Omega^{-2}\left(R - 6\,\Box\log\Omega - 6\,g^{\mu\nu}\partial_\mu\log\Omega\,\partial_\nu\log\Omega\right),
 $$ {#eq-weyl-curvature}
-with $\Box = g^{\mu\nu}\nabla_\mu\partial_\nu$ the d'Alembertian of $g$ [@overduin1998, eq. 15], a formula valid in every
+with $\Box = g^{\mu\nu}\nabla_\mu\partial_\nu$ the d'Alembertian of $g$ [@overduin1998, eq. 15; @cecotti2023introduction, BOX 1.12, p. 56; @buchbinder2021introduction, eq. 11.31], a formula valid in every
 signature since $R$ and $\Box$ change sign together under $g \to -g$; in $n$ dimensions the coefficients are $2(n - 1)$ and
 $(n - 1)(n - 2)$ (@prp-weyl-curvature).
 :::
@@ -2440,8 +2441,10 @@ The frames differ in which metric measures lengths. The second example asks whic
 
 A five-dimensional geodesic projects to a four-dimensional curve that is a geodesic of neither frame in general;
 for the charged Kaluza-Klein black hole @duff1994 [p. 10] argues that the Weyl-rescaled metric
-$e^{\sqrt3\phi}g_{\mu\nu}$ is the one coupling to a charged particle's worldline. The choice of frame is a matter of
-which quantities are held fixed, not of physics [@overduin1998, Sec. 3.7].
+$e^{\sqrt3\phi}g_{\mu\nu}$ is the one coupling to a charged particle's worldline. Early work held that the two frames
+differ only at the quantum level, but once matter couples to one of them the choice has physical consequences, such as
+"fifth force" violations of the weak equivalence principle, and stability and the graviton interpretation single out
+the Einstein frame [@overduin1998, Sec. 3.7].
 :::
 
 The scalar has no kinetic term in the Jordan frame. The third example notes this, which is what the Einstein frame
@@ -2531,7 +2534,7 @@ $$
 \hat S = \frac{1}{2\kappa^2}\int d^4x\sqrt{-g^E}\left(-R^E + \tfrac32\,g_E^{\mu\nu}\partial_\mu\log\phi\,\partial_\nu\log\phi
   - \tfrac14\phi^3F_{\mu\nu}F^{\mu\nu}_E\right)
 $$ {#eq-einstein-frame-action}
-[@overduin1998, eq. 17]: canonical gravity ($-R$, the sign of @eq-einstein-hilbert), a scalar with a positive
+[@overduin1998, eq. 17; @krasnov2020formulations, Sec. 3.6.2]: canonical gravity ($-R$, the sign of @eq-einstein-hilbert), a scalar with a positive
 kinetic term, and Maxwell's term $-\tfrac14F^2$ with a $\phi$-dependent coupling (@prp-einstein-frame).
 :::
 ::::
@@ -2585,7 +2588,7 @@ four-dimensional $\kappa$ in terms of $\hat\kappa$ and $r$.
 With $\phi = 1$ (the circle has circumference $2\pi r$ for $0 \leq y < 2\pi r$ in @eq-kk-ansatz) the $y$
 integral gives $2\pi r$: $\hat S = -\frac{2\pi r}{2\hat\kappa^2}\int\sqrt{-g}\,R + \dots$, so
 $\kappa^2 = \hat\kappa^2/2\pi r$, that is $G_N = \hat G/(2\pi r)$: gravity is weaker in four dimensions by the volume of
-the internal space, the mechanism of @arkanihamed1998 for large extra dimensions (Part VI). In Duff's
+the internal space, the mechanism of @arkanihamed1998 [eq. 3] for large extra dimensions (Part VI). In Duff's
 normalisation with $0 \leq my \leq 2\pi$ this is $2\pi\kappa^2 = m\hat\kappa^2$ [@duff1994, p. 5].
 :::
 
@@ -2636,8 +2639,8 @@ The **dilaton** is the canonically normalised scalar $\sigma = \sqrt3\log\phi$, 
 $$
 \hat S = \frac{1}{2\kappa^2}\int d^4x\sqrt{-g^E}\left(-R^E + \tfrac12(\partial\sigma)^2 - \tfrac14e^{\sqrt3\sigma}F^2\right),
 $$ {#eq-dilaton-action}
-a massless scalar without potential coupled to the Maxwell term through $e^{\sqrt3\sigma}$ [@duff1994, eq. 8, with
-$\sigma = -\phi_{\text{Duff}}$].
+a massless scalar without potential coupled to the Maxwell term through $e^{\sqrt3\sigma}$
+[@duff1994, eq. 8, with $\sigma = -\phi_{\text{Duff}}$; @krasnov2020formulations, eq. 3.91].
 :::
 ::::
 
@@ -2697,7 +2700,7 @@ Derive @eq-dilaton-action from @eq-einstein-frame-action.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $\phi = e^{c\sigma}$, $\log\phi = c\sigma$ and $\tfrac32(\partial\log\phi)^2 = \tfrac32c^2(\partial\sigma)^2$, which equals
 $\tfrac12(\partial\sigma)^2$ for $c = 1/\sqrt3$; then $\phi^3 = e^{3c\sigma} = e^{\sqrt3\sigma}$. The sign of $\sigma$ is a
-convention: @duff1994 writes $e^{-\sqrt3\phi}$ with his $\phi = -\sigma$.
+convention: @duff1994 [eq. 8] writes $e^{-\sqrt3\phi}$ with his $\phi = -\sigma$.
 :::
 
 The shift symmetry of @exm-dilaton-flat-direction is stated without proof. The second exercise verifies it and
@@ -2775,8 +2778,10 @@ The formula is the same in every signature. The third example checks the claim m
 #### Independence of the signature
 
 Under $g \to -g$ (with $\Omega$ fixed), $\tilde g \to -\tilde g$, $R \to -R$, $\tilde R \to -\tilde R$ and $\Box \to -\Box$, so both sides of
-$\tilde R = \Omega^{-2}R - 6\Omega^{-3}\Box\Omega$ change sign: the formula of a mostly-plus reference is the same formula,
-which is why @eq-weyl-curvature could be quoted from @overduin1998 unchanged.
+$\tilde R = \Omega^{-2}R - 6\Omega^{-3}\Box\Omega$ change sign: the formula is the same in either signature, so a reference
+in the other convention can be compared with @eq-weyl-curvature directly, and @cecotti2023introduction [BOX 1.12, p. 56] and
+@buchbinder2021introduction [eq. 11.31] give the same $-6$. @overduin1998 [eq. 15] uses the signature $(+, -, -, -)$ of
+this tutorial but prints $+6$, a sign slip in the source.
 :::
 ::::
 
@@ -3000,7 +3005,8 @@ t^{1/4}$.
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The three exercises below combine the three sections of the chapter. The first two follow an exact five-dimensional
 vacuum solution through the whole reduction, from the ansatz to the Einstein frame; the third repeats the reduction in
-an arbitrary number of dimensions.
+an arbitrary number of dimensions. For more on this topic, see @duff1994 [Sec. 3, eq. 17] for the Kaluza-Klein black hole
+and @cecotti2023introduction [BOX 1.12] for the Weyl formula in $d$ dimensions.
 
 ::: {#exr-kkr-int-black-string}
 #### The Kaluza-Klein black hole

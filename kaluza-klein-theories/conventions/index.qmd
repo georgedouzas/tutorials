@@ -58,11 +58,13 @@ The chapters cite the two defining formulas by number. The Christoffel symbols o
 $$
 \Gamma^k_{ij} = \tfrac12 g^{kl} \left( \partial_i g_{lj} + \partial_j g_{li} - \partial_l g_{ij} \right),
 $$ {#eq-christoffel-def}
+[@plebanski2024introduction, eq. 7.12; @carroll1997, eq. 3.21]
 and the Riemann tensor is
 $$
 R^\rho{}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma}
   + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda} \Gamma^\lambda_{\mu\sigma}.
 $$ {#eq-riemann-def}
+[@plebanski2024introduction, eq. 6.4; @carroll1997, eq. 3.67].
 
 ## Lie groups and Lie algebras {#sec-conventions-lie}
 
@@ -85,18 +87,19 @@ $\hat g_{MN}$ has signature $(+, -, \dots, -)$: the Kaluza-Klein ansatz reads $d
 $g_{\mu\nu}dx^\mu dx^\nu - r^2(d\theta^2 + \sin^2\theta\,d\varphi^2)$ on a sphere of radius $r$. We write
 $h_{mn} = -\gamma_{mn}$ for the internal block, with $\gamma_{mn}$ the positive-definite metric used when the internal
 geometry is discussed on its own (Riemannian metrics are positive definite). Under the circle ansatz the
-higher-dimensional curvature scalar is $\hat R = R + \tfrac14\phi^2 F_{\mu\nu}F^{\mu\nu} - 2\phi^{-1}\Box\phi$.
+higher-dimensional curvature scalar is $\hat R = R + \tfrac14\phi^2 F_{\mu\nu}F^{\mu\nu} - 2\phi^{-1}\Box\phi$
+[@plebanski2024introduction, eq. 13.24].
 
-The Kaluza-Klein literature is split on the signature: @overduin1998 [Sec. 3], @tanii1998 and the CSDR reviews
-[@manolakos2016, eq. 9; @manousselis2000] use $(+,-,-,-)$ as we do, while @duff1994 [p. 2], @duff2025 and
-@martin1997 use $(-,+,+,+)$. Where we quote a formula from a source with the other signature, we say so and convert
+The Kaluza-Klein literature is split on the signature: @overduin1998 [Sec. 3], @tanii1998 [Sec. 2] and the CSDR reviews
+[@manolakos2016, eq. 9; @manousselis2000, Sec. 2] use $(+,-,-,-)$ as we do, while @duff1994 [p. 2], @duff2025 [p. 3]
+and @martin1997 [eq. 2.3] use $(-,+,+,+)$. Where we quote a formula from a source with the other signature, we say so and convert
 with the rule of the geometry table above.
 
-The anti-Hermitian generators are the convention of the CSDR literature [@kubyshin2003, Sec. 1;
-@chatzistavrakidis2007consistency, eq. 2.4], in which the generators of a coset $S/R$ are split into $Q_i$ spanning
-$\mathfrak r$ and $Q_a$ spanning its complement $\mathfrak k$. @manolakos2016 and @manousselis2000 write
+The anti-Hermitian generators are the convention of the CSDR literature
+[@kubyshin2003, p. 10; @chatzistavrakidis2007consistency, eq. 2.4], in which the generators of a coset $S/R$ are split into $Q_i$ spanning
+$\mathfrak r$ and $Q_a$ spanning its complement $\mathfrak k$. @manolakos2016 [eq. 1] and @manousselis2000 [eqs. 4, 6] write
 $F_{MN} = \partial_M A_N - \partial_N A_M - [A_M, A_N]$ with $D_M = \partial_M - A_M$, which is the same convention after
-$A \to -A$; @kubyshin2003 prints the commutator with a minus sign in his eq. (9) but uses $F = dA + A\wedge A$ in his
+$A \to -A$; @kubyshin2003 [eqs. 9, 36] prints the commutator with a minus sign in his eq. (9) but uses $F = dA + A\wedge A$ in his
 example (see the reading note). We never need a gauge coupling inside the internal space, since CSDR fixes the
 internal components of $A$ in units of the coset radius.
 
@@ -150,4 +153,4 @@ internal components of $A$ in units of the coset radius.
 - **Hermitian generators** appear only where the Standard Model or the fuzzy sphere is compared, and are then written
   $t_a = iT_a$.
 - **Charges of the modes:** with the ansatz $dy + A_\mu dx^\mu$ and $D_\mu = \partial_\mu + iqA_\mu$, the mode
-  $e^{iny/r}$ has charge $q_n = -n/r$, that is $q_n = -ne$ with $e = \sqrt2\kappa/r$.
+  $e^{iny/r}$ has charge $q_n = -n/r$ [@cecotti2023introduction, eq. (6.19)], that is $q_n = -ne$ with $e = \sqrt2\kappa/r$ [@duff1994, eq. 16].

@@ -209,10 +209,10 @@ $$
 $$ {#eq-vcp-parallel-spinor}
 and the unbroken supersymmetries are counted by the parallel spinors $\xi$ of $X$. A parallel spinor is invariant under
 the holonomy group acting in the spinor representation, so it exists only if $\operatorname{Hol}(X)$ is a proper
-subgroup of $SO(n)$; a manifold with a parallel spinor is Ricci-flat, so $M_d \times X$ with $M_d$ flat solves the
+subgroup of $SO(n)$; a manifold with a parallel spinor is Ricci-flat [@cecotti2023introduction, Sec. 11.1.1, Theorem 11.6], so $M_d \times X$ with $M_d$ flat solves the
 vacuum Einstein equations. The fraction of the supercharges preserved is $1$ for the torus, $\tfrac14$ for holonomy
-$SU(3)$ ($n = 6$), $\tfrac18$ for $G_2$ ($n = 7$) and $\tfrac1{16}$ for $Spin(7)$ ($n = 8$) [@acharya2004, Sec. 2.2,
-eq. 2.10 and Table 2]. Quoted, with the spinor counting for $SU(3)$ checked in @exr-vcp-spinor-count.
+$SU(3)$ ($n = 6$), $\tfrac18$ for $G_2$ ($n = 7$) and $\tfrac1{16}$ for $Spin(7)$ ($n = 8$)
+[@acharya2004, Sec. 2.2, eq. 2.10 and Table 2]. Quoted, with the spinor counting for $SU(3)$ checked in @exr-vcp-spinor-count.
 :::
 ::::
 
@@ -371,8 +371,8 @@ holonomy are called Calabi-Yau, and Yau's theorem makes them easy to recognise f
 A **Calabi-Yau manifold** of complex dimension $m$ is a compact, complex Kähler manifold whose holonomy is $SU(m)$
 [@greene1997, Sec. 2.11]. Its metric is Ricci-flat, and it carries a nowhere-vanishing holomorphic $(m, 0)$-form $\Omega$,
 parallel like the spinor of @prp-vcp-parallel-spinors. Conversely, by **Yau's theorem** a compact Kähler manifold with
-vanishing first Chern class $c_1$ admits a unique Ricci-flat Kähler metric in each Kähler class [@greene1997, Sec. 2.11,
-Theorem 2], so being Calabi-Yau is decided by the topological condition $c_1 = 0$. No Ricci-flat metric on a compact
+vanishing first Chern class $c_1$ admits a unique Ricci-flat Kähler metric in each Kähler class
+[@greene1997, Sec. 2.11, Theorem 2], so being Calabi-Yau is decided by the topological condition $c_1 = 0$. No Ricci-flat metric on a compact
 Calabi-Yau threefold is known explicitly [@greene1997, Sec. 2.11].
 :::
 ::::
@@ -650,7 +650,7 @@ manifold** is a seven-manifold with a three-form $\Phi$ that has this form at ev
 $$
 d\Phi = 0, \qquad d{\star\Phi} = 0 ;
 $$ {#eq-vcp-g2-torsion-free}
-then $\Phi$ determines a metric whose holonomy lies in $G_2$ [@acharya2004, eqs. 2.14, 2.17]. The metric is Ricci-flat
+then $\Phi$ determines a metric whose holonomy lies in $G_2$ [@acharya2004, eqs. 2.14, 2.17; @krasnov2020formulations, Sec. 9.5]. The metric is Ricci-flat
 and has a parallel spinor.
 :::
 ::::
@@ -664,7 +664,7 @@ the $G_2$ form.
 
 On $\mathbb{R}^7$ the constant form $\Phi$ is closed and coclosed, with holonomy trivial. Its orbit under $GL(7)$ has
 dimension $49 - 14 = 35 = \dim\Lambda^3\mathbb{R}^7$, so the orbit is open: a generic three-form is of $G_2$ type
-(@exr-vcp-g2-stabiliser), which is why a $G_2$ structure is defined by a single form.
+[@krasnov2020formulations, Sec. 9.5.1] (@exr-vcp-g2-stabiliser), which is why a $G_2$ structure is defined by a single form.
 :::
 
 A Calabi-Yau threefold times a circle is a $G_2$ manifold with smaller holonomy. The three-form is built from the
@@ -790,7 +790,7 @@ A six-manifold with an $SU(3)$-structure, a real two-form $J$ and a complex thre
 nowhere-vanishing spinor, has $dJ$ and $d\Omega$ decomposed into five **torsion classes** $\mathcal W_1, \dots,
 \mathcal W_5$ [@chatzistavrakidis2009nk, eq. 2.4]:
 $$
-dJ = \tfrac32 i\left(\mathcal W_1\Omega^* - \mathcal W_1^*\Omega\right) + \mathcal W_4 \wedge J + \mathcal W_3, \qquad
+dJ = \tfrac34 i\left(\mathcal W_1\Omega^* - \mathcal W_1^*\Omega\right) + \mathcal W_4 \wedge J + \mathcal W_3, \qquad
 d\Omega = \mathcal W_1 J \wedge J + \mathcal W_2 \wedge J + \mathcal W_5^* \wedge \Omega .
 $$ {#eq-vcp-torsion-classes}
 A Calabi-Yau manifold has all five zero. A **nearly-Kähler manifold** has only $\mathcal W_1 \ne 0$: it is neither
@@ -1657,11 +1657,11 @@ which decides what is stabilised.
 ::: {#exm-vcp-fluxpot-gvw}
 #### The flux superpotential
 
-Type IIB fluxes give the superpotential $W = \int_X G_3 \wedge \Omega$, $G_3 = F_3 - \tau H_3$ [@grana2005, eq. 5.43;
-@douglas2006, eq. 59], which depends on the complex-structure moduli through $\Omega$ and on the axio-dilaton $\tau$, but
+Type IIB fluxes give the superpotential $W = \int_X G_3 \wedge \Omega$, $G_3 = F_3 - \tau H_3$
+[@grana2005, eq. 5.43; @douglas2006, eq. 59], which depends on the complex-structure moduli through $\Omega$ and on the axio-dilaton $\tau$, but
 not on the Kähler moduli. The resulting potential is positive semi-definite and vanishes at its minima, fixing the
-complex structure and $\tau$ while the overall volume stays a flat direction [@grana2005, eq. 5.46; @douglas2006,
-eqs. 62-63].
+complex structure and $\tau$ while the overall volume stays a flat direction
+[@grana2005, eq. 5.46; @douglas2006, eqs. 62-63].
 :::
 
 The volume needs an effect beyond fluxes. Non-perturbative effects add an exponential to the superpotential, the KKLT
@@ -1672,8 +1672,8 @@ construction. The result is the simplest model in which every modulus is fixed.
 
 With one Kähler modulus $T$, Kähler potential $K = -3\log(T + \bar T)$ and superpotential $W = W_0 + Be^{-2\pi T}$ ($W_0$
 the flux superpotential at its minimum), the condition $D_TW = 0$ at real $T = \sigma$ gives $W_0 = -Be^{-2\pi\sigma}(1 +
-\tfrac{4\pi}{3}\sigma)$ and an anti-de Sitter minimum $V = -\frac{2\pi^2B^2e^{-4\pi\sigma}}{3\sigma}$ [@grana2005, eqs. 7.
-7-7.9], at large volume when $|W_0|$ is small (@exr-vcp-fluxpot-kklt). Anti-D3 branes add $D/\sigma^3$ and can lift the
+\tfrac{4\pi}{3}\sigma)$ and an anti-de Sitter minimum $V = -\frac{2\pi^2B^2e^{-4\pi\sigma}}{3\sigma}$
+[@grana2005, eqs. 7.7-7.9], at large volume when $|W_0|$ is small (@exr-vcp-fluxpot-kklt). Anti-D3 branes add $D/\sigma^3$ and can lift the
 minimum to a metastable de Sitter vacuum [@grana2005, eqs. 7.10-7.11].
 :::
 ::::
@@ -2082,7 +2082,7 @@ Dimopoulos and Dvali the extra dimensions are large, up to a millimetre, and the
 volume is. This section solves the five-dimensional Einstein equations for the warped metric, finds the graviton
 that is localised near the brane, and computes the sizes required of large extra dimensions.
 
-For more on this topic, see @hosotani2025introduction [Ch. 6-7] and @krasnov2020formulations [Ch. 9].
+For more on this topic, see @hosotani2025introduction [Ch. 6-7].
 
 ### The Randall-Sundrum metric
 
@@ -2495,14 +2495,14 @@ In the bulk the equations force $A'^2 = -\Lambda/6$ and $A'' = 0$, solved by $A 
 $$
 \Lambda = -6k^2 ;
 $$ {#eq-vcp-rs-lambda}
-the kinks $A'' = 2k\delta(y) - 2k\delta(y - \pi r_c)$ require the tensions $V_0 = -V_\pi = 6k/\kappa_5^2$. In the normalisation of
-@randall1999a, $\frac{1}{2\kappa_5^2} = 2M^3$ and $\Lambda_{\rm RS} = \Lambda/\kappa_5^2$, these read $k^2 = -\Lambda_{\rm RS}/(24M^3)$ and
+the kinks $A'' = 2k\delta(y) - 2k\delta(y - \pi r_c)$ require the tensions $V_0 = -V_\pi = 6k/\kappa_5^2$ [@hosotani2025introduction, Sec. 6.2, eqs. 6.19-6.22]. In the normalisation of
+@randall1999a [eq. 4], $\frac{1}{2\kappa_5^2} = 2M^3$ and $\Lambda_{\rm RS} = \Lambda/\kappa_5^2$, these read $k^2 = -\Lambda_{\rm RS}/(24M^3)$ and
 $V_0 = -V_\pi = 24M^3k$ [@randall1999a, eqs. 7-11]. The four-dimensional Planck mass is
 $$
 M_{\mathrm{Pl}}^2 = \frac{r_c}{\kappa_5^2}\int_{-\pi}^{\pi}e^{-2kr_c|\theta|}d\theta = \frac{1}{\kappa_5^2k}\left(1 - e^{-2kr_c\pi}\right) = \frac{4M^3}{k}\left(1 - e^{-2kr_c\pi}\right)
 $$ {#eq-vcp-rs-planck}
 [@randall1999a, eq. 16], finite as $r_c \to \infty$, with $\theta = y/r_c$. Here $M_{\mathrm{Pl}}$ is the reduced Planck mass of
-this book, which normalises the four-dimensional action as $-\tfrac12M_{\mathrm{Pl}}^2\int\sqrt{|g|}R$; @randall1999a normalise it
+this book, which normalises the four-dimensional action as $-\tfrac12M_{\mathrm{Pl}}^2\int\sqrt{|g|}R$; @randall1999a [eqs. 15-16] normalise it
 as $2M_{\mathrm{Pl}}^2\int\sqrt{|g|}R$, in their signature, and so write $M^3/k$ in place of $4M^3/k$ (@exr-vcp-rssol-normalisation).
 :::
 ::::
@@ -2524,7 +2524,7 @@ produces the electroweak scale from the Planck scale.
 A Higgs field on the brane at $y = \pi r_c$ with vacuum value $v_0$ in the brane action has, after the field is rescaled
 to a canonical kinetic term, the vacuum value $v = e^{-kr_c\pi}v_0$, and every mass parameter is reduced by the same
 factor, $m = e^{-kr_c\pi}m_0$ [@randall1999a, eqs. 17-21]. A factor $10^{-15}$ needs only
-$kr_c = 15\log 10/\pi \approx 11$ (the arXiv text of @randall1999a prints $kr_c \approx 50$ here, which would give
+$kr_c = 15\log 10/\pi \approx 11$ (the arXiv text of @randall1999a [Sec. 4, p. 6] prints $kr_c \approx 50$ here, which would give
 $e^{-50\pi} \approx 10^{-68}$): an exponential hierarchy from a radius only ten times the curvature length.
 :::
 
@@ -2534,8 +2534,8 @@ therefore be removed without changing four-dimensional gravity.
 ::: {#exm-vcp-rssol-planck}
 #### Gravity with an infinite dimension
 
-As $r_c \to \infty$, $M_{\mathrm{Pl}}^2 \to 4M^3/k$ ($M^3/k$ in the normalisation of @randall1999a): "there is a well-defined value for $M_{\mathrm{Pl}}$, even in the $r_c \to \infty$
-limit", in contrast to the product-space expectation $M_{\mathrm{Pl}}^2 \propto M^3r_c$ ($M^3r_c\pi$ in the normalisation of @randall1999b [eq. 7]). The four-dimensional
+As $r_c \to \infty$, $M_{\mathrm{Pl}}^2 \to 4M^3/k$ ($M^3/k$ in the normalisation of @randall1999a [eq. 16]): "there is a well-defined value for $M_{\mathrm{Pl}}$, even in the $r_c \to \infty$
+limit" [@randall1999b, p. 3], in contrast to the product-space expectation $M_{\mathrm{Pl}}^2 \propto M^3r_c$ ($M^3r_c\pi$ in the normalisation of @randall1999b [eq. 7]). The four-dimensional
 Planck mass is fixed by the curvature $k$ of the bulk, not by its size.
 :::
 
@@ -2610,9 +2610,9 @@ normalised. The third exercise tracks the factors.
 ::: {#exr-vcp-rssol-normalisation}
 #### Normalisation of the Planck mass
 
-With the five-dimensional action $-2M^3\int\sqrt{|g|}R$ (the normalisation $\frac{1}{2\kappa_5^2} = 2M^3$ of @randall1999a, with the sign of this book) and $ds^2 = e^{-2k|y|}\bar g_{\mu\nu}dx^\mu dx^\nu - dy^2$, the
+With the five-dimensional action $-2M^3\int\sqrt{|g|}R$ (the normalisation $\frac{1}{2\kappa_5^2} = 2M^3$ of @randall1999a [eq. 4], with the sign of this book) and $ds^2 = e^{-2k|y|}\bar g_{\mu\nu}dx^\mu dx^\nu - dy^2$, the
 four-dimensional curvature term is $-2M^3\int dy\,e^{-2k|y|}\int\sqrt{|\bar g|}\bar R$. Find $M_{\mathrm{Pl}}^2$ if the
-four-dimensional action is written $-2M_{\mathrm{Pl}}^2\int\sqrt{|\bar g|}\bar R$, as by @randall1999a, and if it is written $-\tfrac12M_{\mathrm{Pl}}^2\int
+four-dimensional action is written $-2M_{\mathrm{Pl}}^2\int\sqrt{|\bar g|}\bar R$, as by @randall1999a [eqs. 15-16], and if it is written $-\tfrac12M_{\mathrm{Pl}}^2\int
 \sqrt{|\bar g|}\bar R$, as in this book.
 :::
 
@@ -2659,7 +2659,7 @@ integral.
 
 $\int|\hat\psi_0|^2dz = 2\int_0^\infty k(kz + 1)^{-3}dz = 1$, and the fraction within $|z| < n/k$ is $1 - (n + 1)^{-2}$: $\tfrac34$ within
 one curvature length, $99\%$ within $|z| < 9/k$ (@exr-vcp-zero-norm, @fig-warp-factor). Although space is infinite in
-extent, "the graviton is confined to a small region within this space" [@randall1999b, p. 2].
+extent, "the graviton is confined to a small region within this space" [@randall1999b, p. 1].
 :::
 
 The continuum of massive modes modifies Newton's law at short distances. The correction is suppressed by the
@@ -2669,8 +2669,8 @@ curvature length. It is computed in @exr-vcp-zero-newton.
 #### Newton's law on the brane
 
 Exchange of the zero mode gives $G_Nm_1m_2/r$; the continuum of massive gravitons, each giving a Yukawa potential with
-coupling suppressed by $m/k$, adds a correction, and $V(r) = \frac{G_Nm_1m_2}{r}\left(1 + \frac{1}{r^2k^2}\right)$ [@randall1999b,
-eqs. 15-16] (@exr-vcp-zero-newton). For $k$ of order the Planck scale the correction is unobservable at any distance
+coupling suppressed by $m/k$, adds a correction, and $V(r) = \frac{G_Nm_1m_2}{r}\left(1 + \frac{1}{r^2k^2}\right)$
+[@randall1999b, eqs. 15-16] (@exr-vcp-zero-newton). For $k$ of order the Planck scale the correction is unobservable at any distance
 tested.
 :::
 
@@ -2683,7 +2683,7 @@ $1/r_c$.
 With the second brane at $y = \pi r_c$ the continuum becomes a discrete tower with spacing of order $ke^{-kr_c\pi}$, the TeV
 scale for $kr_c \approx 11$: "there are no light Kaluza-Klein modes", and each excitation couples to matter on the visible
 brane with TeV-scale strength [@randall1999a, Sec. 1], $10^{15}$ times more strongly than the massless graviton
-[@randall1999b, p. 6].
+[@randall1999b, p. 5].
 :::
 ::::
 
@@ -2735,7 +2735,7 @@ $1/k$ equal to the Planck length and to $0.1$ mm, at $r = 1$ mm.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The integral is $G_N/(k^2r^3)$, giving @randall1999b's correction. For $1/k = 1.6 \times 10^{-35}$ m it is $10^{-64}$ at a
+The integral is $G_N/(k^2r^3)$, giving the correction of @randall1999b [eqs. 15-16]. For $1/k = 1.6 \times 10^{-35}$ m it is $10^{-64}$ at a
 millimetre; for $1/k = 0.1$ mm it would be $1\%$, so tests of Newton's law below a millimetre bound the curvature
 length:
 
@@ -2792,7 +2792,7 @@ $$
 M_{\mathrm{Pl}}^2 \sim G_N^{-1} \sim M^{n+2}L^n
 $$ {#eq-vcp-add-planck}
 [@arkanihamed1998, eqs. 1-3]. In four-dimensional language the bulk graviton is a tower of Kaluza-Klein gravitons
-spaced by $1/L$ in mass ("recurring once every $1/R$" in the notation of @arkanihamed1998), each coupled with strength $1/M_{\mathrm{Pl}}$ [@arkanihamed1998, Sec. 2].
+spaced by $1/L$ in mass ("recurring once every $1/R$" in the notation of @arkanihamed1998 [Sec. 2]), each coupled with strength $1/M_{\mathrm{Pl}}$ [@arkanihamed1998, Sec. 2].
 :::
 ::::
 
@@ -2829,7 +2829,7 @@ confined, which is the role of the brane.
 "The SM particles cannot freely propagate in the extra $n$ dimension, but must be localized to a 4 dimensional
 submanifold" because gauge forces are measured accurately at weak-scale distances [@arkanihamed1998, Sec. 1]. Gravity is
 measured only down to about a millimetre, so it alone can feel the large dimensions. D-branes in string theory provide
-such submanifolds naturally [@arkanihamed1998, Sec. 1].
+such submanifolds naturally [@arkanihamed1998, Secs. 1 and 3].
 :::
 ::::
 
@@ -2916,7 +2916,7 @@ the Newtonian force at $r = L/10$, assuming the two expressions of @def-vcp-larg
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$V \propto 1/r^3$ gives $F \propto 1/r^4$ instead of $1/r^2$ [@arkanihamed1998, Sec. 2]. Matching at $r = L$, $F(r)/F_{\rm
+$V \propto 1/r^3$ gives $F \propto 1/r^4$ instead of $1/r^2$ [@arkanihamed1998, Sec. 1]. Matching at $r = L$, $F(r)/F_{\rm
 Newton}(r) = (L/r)^2$, which is $100$ at $r = L/10$: a millimetre-sized $L$ would show up as a strong enhancement of
 gravity in sub-millimetre torsion-balance experiments.
 :::
@@ -3065,8 +3065,8 @@ $\mathbf{27}$ are the families. On the nearly-Kähler cosets the background is f
 matching of representations of the isotropy group; on Calabi-Yau spaces it is the spin connection itself and the count is a
 pair of Hodge numbers; on the orbifold $T^6/\mathbb{Z}_3$ it is a projection, completed by the string at the fixed points. The
 analysis of the Dirac operators, the index and the Euler number is in @sec-dirac-compact-spaces and @sec-dirac-index; here
-the physics follows @manousselis2000 [Secs. 2-4] and @chatzistavrakidis2009nk [Sec. 4] for the cosets, @braun2009 [Secs. 1
-and 3] for Calabi-Yau spaces, and @ramossanchez2008 [Sec. 2.2 and App. D] for the orbifold. The Einstein-Dirac system of
+the physics follows @manousselis2000 [Secs. 2-4] and @chatzistavrakidis2009nk [Sec. 4] for the cosets,
+@braun2009 [Secs. 1 and 3] for Calabi-Yau spaces, and @ramossanchez2008 [Secs. 2.2-2.3 and App. D] for the orbifold. The Einstein-Dirac system of
 @zhelnorovich2019spinors [Ch. 6] shows what a classical spinor would do to the geometry.
 
 ### Coset spaces
@@ -3075,8 +3075,8 @@ On a coset $S/R$ the fermions that survive CSDR are those whose $R$-representati
 tangent space. The figure shows the matching for the flag manifold, where $R$ is a torus and representations are points in a
 plane.
 
-![The charges under the isotropy torus $U(1) \times U(1)$ of $SU(3)/(U(1) \times U(1))$, in the basis of @chatzistavrakidis2009nk [eqs.
-(4.30)-(4.31)]. Squares: the tangent space, weights $\pm\beta_i$ with $\beta_1 = (1, 1)$, $\beta_2 = (-1, 1)$, $\beta_3 = (0, -2)$. Yellow: the Weyl spinor of
+![The charges under the isotropy torus $U(1) \times U(1)$ of $SU(3)/(U(1) \times U(1))$, in the basis of
+@chatzistavrakidis2009nk [eqs. (4.30)-(4.31)]. Squares: the tangent space, weights $\pm\beta_i$ with $\beta_1 = (1, 1)$, $\beta_2 = (-1, 1)$, $\beta_3 = (0, -2)$. Yellow: the Weyl spinor of
 $SO(6)$, weights $0$ and $\beta_1, \beta_2, \beta_3$. Triangles and crosses: the components of the $\mathbf{248}$ of $E_8$ under $U(1)^2 \times E_6$. The
 $\mathbf{78}$ and two singlets sit at $0$ and the three $\mathbf{27}$s at the $\beta_i$, on spinor weights: one vector multiplet and three families
 (@prp-cff-nk-fermions). Generated by `figures/cff-flag-weights.sage`.](figures/cff-flag-weights.svg){#fig-cff-flag-weights width=62%}
@@ -3139,8 +3139,8 @@ fermion content changes completely.
 
 With $R = SO(6)$ embedded by $E_8 \supset SO(6) \times SO(10)$, $\mathbf{248} = (\mathbf{15}, \mathbf 1) + (\mathbf 1, \mathbf{45}) + (\mathbf 6, \mathbf{10}) + (\mathbf 4, \mathbf{16}) +
 (\bar{\mathbf 4}, \overline{\mathbf{16}})$, the spinor $\mathbf 4$ matches $(\mathbf 4, \mathbf{16})$ and the vector $\mathbf 6$ matches $(\mathbf 6, \mathbf{10})$: $H = SO(10)$ with
-one left-handed fermion in the $\mathbf{16}$ and one scalar in the $\mathbf{10}$, and no gaugino, so no supersymmetry survives [@manousselis2000, Sec. 3,
-eq. (26)]. The family is there, but the $SO(10)$ gauginos are not: the isotropy group decides which multiplets are complete.
+one left-handed fermion in the $\mathbf{16}$ and one scalar in the $\mathbf{10}$, and no gaugino, so no supersymmetry survives
+[@manousselis2000, Sec. 3, eq. (26)]. The family is there, but the $SO(10)$ gauginos are not: the isotropy group decides which multiplets are complete.
 :::
 ::::
 
@@ -3385,7 +3385,7 @@ $\mathbf{248} = (\mathbf 8, \mathbf 1) + (\mathbf 1, \mathbf{78}) + (\mathbf 3, 
 gaugino are: one $E_6$ gaugino, from the parallel spinors (@prp-calabi-yau-spinors); $h^{2,1}(X)$ fermions in the $\mathbf{27}$ and $h^{1,1}(X)$ in the
 $\overline{\mathbf{27}}$, the zero modes of the Dirac operator twisted by the tangent bundle, $H^{0,1}(T) \cong H^{2,1}$ and $H^{0,2}(T) \cong H^{1,1}$; and $E_6$
 singlets from $(\mathbf 8, \mathbf 1)$, the deformations of the gauge bundle. The net number of families is $|h^{1,1} - h^{2,1}| = \tfrac12|\chi(X)|$; the gauge group is
-$E_6$ (times the second $E_8$), with $\mathcal N = 1$ supersymmetry [@braun2009, Secs. 1 and 3; @chatzistavrakidis2009nk, Sec. 4.1].
+$E_6$ (times the second $E_8$), with $\mathcal N = 1$ supersymmetry [@braun2009, Secs. 1 and 3; @chatzistavrakidis2009nk, Sec. 4.1; @cecotti2023introduction, Sec. 11.5, eq. 11.204].
 :::
 ::::
 
@@ -3507,7 +3507,7 @@ Let $\mathbb{Z}_3$ act on $T^6$ by the rotation $2\pi(\tfrac13, \tfrac13, -\tfra
 $\omega\mathbb 1$ on the $\mathbf 3$ (the standard embedding). The invariant constant modes of the ten-dimensional gaugino are the gauginos of $SU(3)
 \times E_6$ and three copies of $(\mathbf 3, \mathbf{27})$: nine fermions in the $\mathbf{27}$ (the untwisted sector). The string adds one $(\mathbf{27}, \mathbf 1)$ at each
 of the $27$ fixed points (the twisted sector). The total, $9 + 27 = 36$ families, is $h^{1,1} = 9 + 27$ of the resolution and $\tfrac12\chi = 36$
-(@prp-vcp-generations) [@ramossanchez2008, Sec. 2.2 and App. D, Table D.4].
+(@prp-vcp-generations) [@ramossanchez2008, Secs. 2.2-2.3 and App. D, Table D.4].
 :::
 ::::
 
@@ -3532,8 +3532,8 @@ describes it and the role of Wilson lines.
 
 Strings closed only up to the $\mathbb{Z}_3$ rotation are stuck at the fixed points, $27$ of them (@exm-vcp-orbifold-t6z3). With the standard embedding each
 carries one $(\mathbf{27}, \mathbf 1, \mathbf 1)$ of $E_6 \times SU(3) \times E_8$ and three $SU(3)$ triplets [@ramossanchez2008, Table D.4]. Wilson lines, the
-embeddings of the six lattice translations of $T^6$ into the gauge group, restricted to order three on this orbifold [@ramossanchez2008, Sec.
-2.2], act differently at different fixed points and lift the degeneracy of the $27$ twisted families; this is how orbifold models with few
+embeddings of the six lattice translations of $T^6$ into the gauge group, restricted to order three on this orbifold
+[@ramossanchez2008, Sec. 2.2], act differently at different fixed points and lift the degeneracy of the $27$ twisted families; this is how orbifold models with few
 families are built.
 :::
 
@@ -3605,7 +3605,7 @@ same fixed points. Why does the twisted sector give $27$ families and not $54$?
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\det(1 - M) = 3$ for the rotation matrix $M$ of @exm-vcp-orbifold-t2z3, so there are three fixed points in each plane and $3^3 = 27$ in $T^6$. Since
 $\omega^2 = \omega^{-1}$, a point fixed by one element is fixed by the other. The sector twisted by $\omega^2$ contains the antiparticles of the sector twisted
-by $\omega$ [@ramossanchez2008, Sec. 2.2], so the two together give one $(\mathbf{27}, \mathbf 1)$ multiplet per fixed point, its fermion and its conjugate: $27$
+by $\omega$ [@ramossanchez2008, Sec. 2.3.3], so the two together give one $(\mathbf{27}, \mathbf 1)$ multiplet per fixed point, its fermion and its conjugate: $27$
 families.
 :::
 

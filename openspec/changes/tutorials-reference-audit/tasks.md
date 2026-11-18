@@ -39,16 +39,16 @@ warnings and no unresolved citation.
 
 ## 4. Kaluza-Klein Theories
 
-- [ ] 4.1 Audit the preface and the conventions.
-- [ ] 4.2 Audit The Kaluza-Klein reduction.
-- [ ] 4.3 Audit Gauge symmetry and the Kaluza-Klein tower.
-- [ ] 4.4 Audit Isometries and gauge fields.
-- [ ] 4.5 Audit The reduced theory.
-- [ ] 4.6 Audit Symmetric fields and their constraints.
-- [ ] 4.7 Audit The four-dimensional theory.
-- [ ] 4.8 Audit Consistent reductions.
-- [ ] 4.9 Audit Compactifications.
-- [ ] 4.10 Get the owner's decisions and apply them. Verify that the record has no open item.
+- [x] 4.1 Audit the preface and the conventions.
+- [x] 4.2 Audit The Kaluza-Klein reduction.
+- [x] 4.3 Audit Gauge symmetry and the Kaluza-Klein tower.
+- [x] 4.4 Audit Isometries and gauge fields.
+- [x] 4.5 Audit The reduced theory.
+- [x] 4.6 Audit Symmetric fields and their constraints.
+- [x] 4.7 Audit The four-dimensional theory.
+- [x] 4.8 Audit Consistent reductions.
+- [x] 4.9 Audit Compactifications.
+- [x] 4.10 Get the owner's decisions and apply them. Verify that the record has no open item.
 
 ## 5. Fundamentals of Mathematics for Physicists
 
