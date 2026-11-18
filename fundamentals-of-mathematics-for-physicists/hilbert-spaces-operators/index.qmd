@@ -30,7 +30,7 @@ functions $C(K)$, and then studies the linear maps between normed spaces and the
 functionals. The line of argument follows the lecture notes of @arcozzi2025 [Ch. 1 and 3], with the Hilbert-space
 special cases of @picard2020primer [App. B] as examples.
 
-For more on this topic, see @cheung2024metric [Sec. 4.2].
+For more on this topic, see @cheung2024metric [Sec. 2.2].
 
 ### Norms and normed spaces
 
@@ -189,7 +189,7 @@ sup norm, first pair: -2
 :::
 
 A norm gives a translation-invariant, homogeneous distance, and the third exercise shows the converse, following an
-exercise of @arcozzi2025. It explains why normed spaces are exactly the metric vector spaces whose metric respects
+exercise of @arcozzi2025 [Exercise 1.1]. It explains why normed spaces are exactly the metric vector spaces whose metric respects
 the linear structure.
 
 ::: {#exr-fan-metric-from-norm}
@@ -368,14 +368,14 @@ classes of Cauchy sequences of $X$ that are at distance zero from each other @ar
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Every finite-dimensional normed space is a Banach space, and the argument is the coordinate argument of
-@cini2023quantum [Sec. 2.8]. The first example records it.
+@das2023quantum [Sec. 2.8]. The first example records it.
 
 ::: {#exm-fan-finite-dim-complete}
 #### Finite dimensions
 
 In $\mathbb{C}^n$ with $\|\cdot\|_2$, a Cauchy sequence $x^{(m)}$ has $|x^{(m)}_k - x^{(l)}_k| \leq \|x^{(m)} -
 x^{(l)}\|_2$, so each coordinate is a Cauchy sequence of complex numbers with a limit $x_k$, and $\|x^{(m)} - x\|_2^2
-= \sum_k|x^{(m)}_k - x_k|^2 \to 0$ as a finite sum of null sequences @cini2023quantum [Sec. 2.8]. By
+= \sum_k|x^{(m)}_k - x_k|^2 \to 0$ as a finite sum of null sequences @das2023quantum [Sec. 2.8]. By
 @thm-norm-equivalence the same holds for any norm on a finite-dimensional space.
 :::
 
@@ -412,7 +412,7 @@ them. A complete set of vectors spans the space, while a complete space contains
 ::: {#exr-fan-two-completes}
 #### Two meanings of "complete"
 
-@cini2023quantum [Sec. 2.2.3] calls a set of vectors complete if every vector is a linear combination of them, and a
+@das2023quantum [Sec. 2.2.3] calls a set of vectors complete if every vector is a linear combination of them, and a
 space complete if Cauchy sequences converge [Sec. 2.8]. Show that the vectors $\delta^{(n)}$ (a one in place $n$)
 span $c_{00}$, which is not complete in $\|\cdot\|_2$, and that they do not span the complete space $\ell^2$ in the
 algebraic sense, although every $a \in \ell^2$ is the norm limit of $\sum_{n \leq N}a_n\delta^{(n)}$.
@@ -1018,7 +1018,7 @@ first. The theorem below states this and its generalisation to compact spaces.
 Every continuous function on $[a, b]$ is a uniform limit of polynomials; explicitly, for $f \in C[0, 1]$ the Bernstein
 polynomials $B_nf$ converge to $f$ uniformly. More generally (**Stone-Weierstrass**), if $K$ is a compact Hausdorff
 space and $\mathcal{A} \subset C(K)$ is a subalgebra that contains the constants, separates the points of $K$ and is
-closed under complex conjugation, then $\mathcal{A}$ is dense in $C(K)$.
+closed under complex conjugation, then $\mathcal{A}$ is dense in $C(K)$ [@landsman1998, Lemma 2.4.2].
 :::
 ::::
 
@@ -1056,7 +1056,7 @@ closed proper subalgebra.
 On $[-1, 1]$ the even polynomials form an algebra with $1$, closed under conjugation, but they do not separate $x$ and
 $-x$; their closure is the even continuous functions, so $x$ is not approximated. On the closed unit disc, the
 polynomials in $z$ separate points but are not closed under conjugation; their uniform limits are holomorphic inside,
-so $z^*$ is not approximated: $\|z^* - p(z)\|_\infty \geq 1$ for every polynomial $p$ @arcozzi2025 [Sec. 1.4].
+so $z^*$ is not approximated: $\|z^* - p(z)\|_\infty \geq 1$ for every polynomial $p$.
 :::
 ::::
 
@@ -1588,8 +1588,8 @@ enough continuous functionals to separate points; the Baire category theorem tur
 about the size of sets; the uniform boundedness principle and the open mapping theorem, both consequences of Baire's,
 turn pointwise information into uniform estimates. This part states each theorem, proves the shorter ones in the
 exercises, and shows by counterexamples why each hypothesis, completeness above all, is needed. The proofs follow
-@arcozzi2025 [Sec. 3.2, 3.5 and 3.6]; closed operators follow @picard2020primer [Sec. B.4] and @waterstraat2016 [Sec.
-1.2].
+@arcozzi2025 [Sec. 3.2, 3.5 and 3.6]; closed operators follow @picard2020primer [Sec. B.4] and
+@waterstraat2016 [Sec. 1.2].
 
 For more on this topic, see @gasinski2014exercises [Ch. 5].
 
@@ -2185,7 +2185,7 @@ operators of @def-unbounded-operator are closed in the cases met in this chapter
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Differentiation is the model closed operator, and it is the operator the figure shows to be unbounded. The first
-example proves that its graph is closed @waterstraat2016 [Ex. 1.2.16].
+example proves that its graph is closed @waterstraat2016 [Ex. 1.2.3].
 
 ::: {#exm-fan-derivative-closed}
 #### Differentiation on $C[0, 1\rbrack$
@@ -2206,7 +2206,7 @@ Let $T : C[0, 1] \subset L^2(0, 1) \to \mathbb{C}$, $Tf = f(0)$. The functions $
 a graph, and $T$ is not closable @picard2020primer [Lemma B.4.2(2)].
 :::
 
-The time derivative of @picard2020primer is closed with a bounded inverse once the right weighted space is chosen. The
+The time derivative of @picard2020primer [Sec. 1.1] is closed with a bounded inverse once the right weighted space is chosen. The
 third example describes it; it is the model of the evolution equations that the book solves by operator methods.
 
 ::: {#exm-fan-time-derivative}
@@ -2281,10 +2281,10 @@ theorem below collects the three; each fails without completeness, as the exampl
 #### Open mapping theorem
 
 Let $X$, $Y$ be Banach spaces and $T \in \mathcal{B}(X, Y)$ surjective. Then $T$ maps open sets to open sets; in
-particular $T(B_X(0, 1)) \supset B_Y(0, \eta)$ for some $\eta > 0$ @arcozzi2025 [Thm. 3.15]; @waterstraat2016 [Thm.
-1.1.3]. **Inverse mapping theorem**: a bounded bijection between Banach spaces has a bounded inverse @arcozzi2025 [Thm.
-3.16]. **Closed graph theorem**: a closed operator $T : X \to Y$ defined on all of $X$ is bounded @arcozzi2025 [Thm.
-3.17].
+particular $T(B_X(0, 1)) \supset B_Y(0, \eta)$ for some $\eta > 0$ @arcozzi2025 [Thm. 3.15];
+@waterstraat2016 [Thm. 1.1.3]. **Inverse mapping theorem**: a bounded bijection between Banach spaces has a bounded inverse
+@arcozzi2025 [Thm. 3.16]. **Closed graph theorem**: a closed operator $T : X \to Y$ defined on all of $X$ is bounded
+@arcozzi2025 [Thm. 3.17].
 :::
 ::::
 
@@ -2445,9 +2445,9 @@ subsequences. Weakening the notion of convergence restores compactness: a sequen
 continuous functional converges along it. This part defines weak and weak-* convergence on the examples of
 oscillating, travelling and concentrating bumps, proves that the dual unit ball is weak-* compact (the Banach-Alaoglu
 theorem), and characterises the reflexive spaces, in which bounded sequences always have weakly convergent
-subsequences. The exposition follows @ramesh2020weak and @arcozzi2025 [Sec. 3.4].
+subsequences. The exposition follows @ramesh2020weak [Secs. 2-5] and @arcozzi2025 [Sec. 3.4].
 
-For more on this topic, see @borodzik2019problems [Ch. 4] and @gasinski2014exercises [Ch. 4].
+For more on this topic, see @borodzik2019problems [Sec. 3.1] and @gasinski2014exercises [Secs. 4.1.9, 5.1.6-5.1.8].
 
 ### Weak and weak-* convergence
 
@@ -3108,7 +3108,7 @@ orthogonal to each other and to the identity.
 ::: {#exm-ip-matrices}
 #### Matrices with the trace form
 
-$\langle A, B\rangle = \operatorname{tr}(A^\dagger B)$, with $A^\dagger = (A^\dagger)^\top$ the conjugate
+$\langle A, B\rangle = \operatorname{tr}(A^\dagger B)$, with $A^\dagger = (A^*)^\top$ the conjugate
 transpose, is an inner product on the $n \times n$ complex matrices: $\langle A, A\rangle = \sum_{jk}|A_{jk}|^2$.
 The identity and the three Pauli matrices $\sigma_1 = \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}$, $\sigma_2 =
 \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix}$, $\sigma_3 = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}$ satisfy
@@ -3139,7 +3139,7 @@ inequality that follows from it.
 #### Cauchy-Schwarz from positivity
 
 Prove $|\langle u, v\rangle| \leq \|u\|\,\|v\|$ by expanding $0 \leq \|u - tv\|^2$ for a suitable complex $t$, and
-deduce the triangle inequality.
+deduce the triangle inequality [@arcozzi2025, Cor. 2.1, Prop. 2.1].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3158,7 +3158,8 @@ that distinguishes norms coming from inner products from all others.
 #### Polarisation and the parallelogram law
 
 Show that $\|u + v\|^2 + \|u - v\|^2 = 2\|u\|^2 + 2\|v\|^2$ (parallelogram law), and that $\langle u, v\rangle =
-\tfrac14\sum_{k=0}^3 i^{-k}\,\|u + i^k v\|^2$ with the antilinear-first-slot convention.
+\tfrac14\sum_{k=0}^3 i^{-k}\,\|u + i^k v\|^2$ with the antilinear-first-slot convention
+[@arcozzi2025, Exercise 2.2, Lemma 2.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3337,7 +3338,7 @@ for both consequences.
 
 For an orthonormal system $e_1, \dots, e_n$ and $Pu = \sum_k\langle e_k, u\rangle e_k$, show that $u - Pu \perp
 e_j$ for every $j$, that $\|u\|^2 = \|Pu\|^2 + \|u - Pu\|^2$, and that $\|u - Pu\| \leq \|u - w\|$ for every $w$ in
-the span of the $e_k$.
+the span of the $e_k$ [@arcozzi2025, Thm. 2.3, Cor. 2.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3404,7 +3405,8 @@ the class of spaces in which infinite expansions in orthonormal systems make sen
 A **Hilbert space** is an inner product space $\mathcal H$ that is **complete**: every Cauchy sequence, $\|u_m - u_n\| \to
 0$ as $m, n \to \infty$, converges to some $u \in \mathcal H$ in the norm, $\|u_n - u\| \to 0$. A subspace that is closed in
 the norm is again a Hilbert space. Every inner product space has a **completion**, a Hilbert space containing it as
-a dense subspace, obtained as for $\mathbb{R}$ from $\mathbb{Q}$ by adjoining limits of Cauchy sequences.
+a dense subspace, obtained as for $\mathbb{R}$ from $\mathbb{Q}$ by adjoining limits of Cauchy sequences
+[@gasinski2014exercises, Def. 5.95]; [@das2023quantum, Sec. 2.9].
 :::
 ::::
 
@@ -3694,7 +3696,7 @@ vector orthogonal to every $e_k$ is $0$. Equivalently, every $u \in \mathcal H$ 
 u\rangle^*\langle e_k, v\rangle$. A Hilbert space with a countable orthonormal basis is **separable**, and the map
 $u \mapsto (\langle e_k, u\rangle)_k$ is then an isomorphism of $\mathcal H$ onto $\ell^2$ preserving inner products. An
 orthonormal basis of an infinite-dimensional space is not a basis in the sense of @def-basis, since infinite sums
-are allowed.
+are allowed [@arcozzi2025, Thms. 2.4 and 2.6]; [@gasinski2014exercises, Thm. 5.105].
 :::
 ::::
 
@@ -3792,7 +3794,7 @@ space used to make the expansion converge.
 
 For an orthonormal system $(e_k)_{k \geq 1}$ in a Hilbert space, prove that the following are equivalent: (a) no
 non-zero vector is orthogonal to all $e_k$; (b) $u = \sum_k\langle e_k, u\rangle e_k$ for all $u$; (c) $\|u\|^2 =
-\sum_k|\langle e_k, u\rangle|^2$ for all $u$.
+\sum_k|\langle e_k, u\rangle|^2$ for all $u$ [@gasinski2014exercises, Thm. 5.105].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3844,7 +3846,7 @@ Let $\mathcal H$ be a Hilbert space and $\varphi : \mathcal H \to \mathbb{C}$ a 
 u\rangle$ for all $u$, and the smallest constant $C$ equals $\|v\|$. Conversely every $u \mapsto \langle v,
 u\rangle$ is bounded by Cauchy-Schwarz. The proof takes $v$ in the orthogonal complement of the kernel of
 $\varphi$, which is a closed subspace of codimension one; the statement is quoted here and the outline is
-@exr-riesz-proof-outline.
+@exr-riesz-proof-outline [@arcozzi2025, Thm. 2.2]; [@gasinski2014exercises, Thm. 5.100].
 :::
 ::::
 
@@ -4154,8 +4156,8 @@ A linear map $A : \mathcal H \to \mathcal H$ on a Hilbert space is a **bounded o
 \sup_{u \neq 0}\|Au\|/\|u\| = \sup_{\|u\| = 1}\|Au\|$ is finite, so that $\|Au\| \leq \|A\|\,\|u\|$ for all $u$;
 a linear map is bounded exactly when it is continuous. The bounded operators form a vector space $\mathcal{B}(\mathcal H)$
 with $\|A + B\| \leq \|A\| + \|B\|$, $\|\alpha A\| = |\alpha|\|A\|$, and the composition satisfies $\|AB\| \leq
-\|A\|\,\|B\|$. In finite dimensions every linear map is bounded and $\|A\|$ is the largest **singular value** of
-$A$, the square root of the largest eigenvalue of $A^\dagger A$, with $A^\dagger = (A^\dagger)^\top$.
+\|A\|\,\|B\|$ [@arcozzi2025, Thm. 3.6, Exercise 3.4]. In finite dimensions every linear map is bounded and $\|A\|$ is the largest **singular value** of
+$A$, the square root of the largest eigenvalue of $A^\dagger A$, with $A^\dagger = (A^*)^\top$.
 :::
 ::::
 
@@ -4288,9 +4290,9 @@ The **adjoint** of a bounded operator $A$ is the unique bounded operator $A^\dag
 \langle v, Au\rangle$ is bounded and so, by @thm-riesz-representation, equals $\langle A^\dagger v, u\rangle$ for a
 unique vector $A^\dagger v$. The adjoint satisfies $(A^\dagger)^\dagger = A$, $(AB)^\dagger = B^\dagger
 A^\dagger$, $(\alpha A + B)^\dagger = \alpha^* A^\dagger + B^\dagger$, $\|A^\dagger\| = \|A\|$ and
-$\|A^\dagger A\| = \|A\|^2$. For a matrix in an orthonormal basis, $A^\dagger = (A^\dagger)^\top$, the
+$\|A^\dagger A\| = \|A\|^2$. For a matrix in an orthonormal basis, $A^\dagger = (A^*)^\top$, the
 **conjugate transpose**. In Dirac's notation the operator $|u\rangle\langle v| : w \mapsto \langle v, w\rangle u$
-has adjoint $|v\rangle\langle u|$.
+has adjoint $|v\rangle\langle u|$ [@arcozzi2025, Thm. 3.20]; [@gasinski2014exercises, Def. 5.108(a)].
 :::
 ::::
 
@@ -4435,7 +4437,8 @@ A bounded operator is **self-adjoint** (or **Hermitian**) if $A^\dagger = A$, th
 \langle u, Au\rangle^*$ is real for every $u$, and on a complex Hilbert space the converse holds
 (@exr-sa-real-expectation). A self-adjoint $A$ is **positive**, $A \geq 0$, if $\langle u, Au\rangle \geq 0$ for
 all $u$. Every bounded operator is uniquely $A = B + iC$ with $B = \tfrac12(A + A^\dagger)$ and $C =
-\tfrac{1}{2i}(A - A^\dagger)$ self-adjoint, the analogue of real and imaginary parts.
+\tfrac{1}{2i}(A - A^\dagger)$ self-adjoint, the analogue of real and imaginary parts
+[@gasinski2014exercises, Def. 5.108(b)].
 :::
 ::::
 
@@ -4583,7 +4586,7 @@ A bounded operator $U$ is **unitary** if $U^\dagger U = UU^\dagger = 1$, that is
 v\rangle$, or surjective and preserves norms, $\|Uu\| = \|u\|$ (@exr-un-norm-one). An operator with $U^\dagger U
 = 1$ alone is an **isometry**; in finite dimensions every isometry is unitary. A unitary has $\|U\| = 1$, maps
 orthonormal bases to orthonormal bases, and the unitaries of $\mathcal H$ form a group under composition, $U(n)$ for $\mathcal H =
-\mathbb{C}^n$.
+\mathbb{C}^n$ [@gasinski2014exercises, Def. 5.108(d)].
 :::
 ::::
 
@@ -4613,7 +4616,8 @@ Multiplication by $e^{i\alpha(x)}$ with real $\alpha$ is unitary on $L^2(X)$, si
 M_{e^{-i\alpha}}$ is its inverse. Translation $(T_af)(x) = f(x - a)$ is unitary on $L^2(\mathbb{R})$, as
 $\int|f(x - a)|^2dx = \int|f|^2dx$ and $T_a^{-1} = T_{-a}$. The unitary Fourier transform $(Uf)(k) = (2\pi)^{-1/2}\hat f(k) =
 (2\pi)^{-1/2}\int f(x)e^{-ikx}dx$ is unitary on $L^2(\mathbb{R})$: $\|Uf\| = \|f\|$ is Plancherel's theorem
-$\|\hat f\|^2 = 2\pi\|f\|^2$ (@sec-fourier-transform), and it turns $T_a$ into multiplication by $e^{-ika}$.
+$\|\hat f\|^2 = 2\pi\|f\|^2$ (@sec-fourier-transform), and it turns $T_a$ into multiplication by $e^{-ika}$
+[@arcozzi2025, Sec. 1.3.1, eqs. 1.3.1-1.3.3].
 :::
 
 The shift is an isometry that is not unitary, since its range misses the first coordinate, while the two-sided
@@ -4735,7 +4739,8 @@ a closed subspace, $Pu$ is the point of $K$ closest to $u$, and $1 - P$ is the p
 complement** $K^\perp = \{v : \langle v, k\rangle = 0 \text{ for all } k \in K\}$, so that $\mathcal H = K \oplus K^\perp$.
 Conversely every closed subspace is the range of exactly one orthogonal projection. If $e_1, e_2, \dots$ is an
 orthonormal basis of $K$ then $P = \sum_k|e_k\rangle\langle e_k|$, where $|e\rangle\langle e| : u \mapsto \langle
-e, u\rangle e$ is the projection onto the line $\mathbb{C}e$ for a unit vector $e$; $\|P\| = 1$ unless $P = 0$.
+e, u\rangle e$ is the projection onto the line $\mathbb{C}e$ for a unit vector $e$; $\|P\| = 1$ unless $P = 0$
+[@arcozzi2025, Thm. 2.1, Prop. 2.3]; [@gasinski2014exercises, Prop. 5.161].
 :::
 ::::
 
@@ -5351,7 +5356,7 @@ has no bounded inverse; its complement is the **resolvent set**, on which the **
 eigenvalue**, a $\lambda$ with unit vectors $u_n$ such that $\|(A - \lambda)u_n\| \to 0$; the rest is the
 **continuous spectrum**. For a self-adjoint operator $\sigma(A) \subset \mathbb{R}$ and every point of the
 spectrum is an approximate eigenvalue; for a unitary operator $\sigma(U)$ lies on the unit circle
-(@exr-sp-unitary-circle).
+(@exr-sp-unitary-circle) [@gasinski2014exercises, Prop. 5.151]; [@arcozzi2025, Thm. 3.21].
 :::
 ::::
 
@@ -5811,7 +5816,8 @@ eigenvectors of $A$; the non-zero eigenvalues are real, each of finite multiplic
 sequence $\lambda_k \to 0$; $\|A\| = \max_k|\lambda_k|$ is attained; and $A = \sum_k\lambda_k|e_k\rangle\langle
 e_k|$ with convergence in operator norm. For an integral operator with Hermitian kernel $k \in L^2(X \times X)$ the
 kernel itself expands as $k(x, y) = \sum_k\lambda_ke_k(x)e_k(y)^*$ in $L^2(X \times X)$ (the
-**Hilbert-Schmidt theorem**). The theorem is quoted; the first eigenvalue is characterised in @exr-stc-min-max.
+**Hilbert-Schmidt theorem**). The theorem is quoted; the first eigenvalue is characterised in @exr-stc-min-max
+[@arcozzi2025, Thm. 4.6]; [@gasinski2014exercises, Thm. 5.160]; [@derezinski2022mathematics, Prop. 2.37].
 :::
 ::::
 
@@ -5959,7 +5965,7 @@ $t$ with $e^{itA}e^{isA} = e^{i(t + s)A}$, and $\sqrt A = \sum\sqrt{\lambda_k}P_
 positive $A$. For a general bounded self-adjoint operator the same calculus exists with the sum replaced by an
 integral over the spectrum (the general spectral theorem, quoted); **Stone's theorem** (quoted) states that every
 strongly continuous family of unitaries with $U(t)U(s) = U(t + s)$ is $U(t) = e^{itA}$ for a unique self-adjoint,
-possibly unbounded, $A$.
+possibly unbounded, $A$ [@derezinski2022mathematics, Sec. 2.3]; [@arcozzi2025, Sec. 7.8].
 :::
 ::::
 
@@ -6275,12 +6281,12 @@ discretisations. Both tend to zero, as for every compact operator. Generated by
 #### Compact operator between Banach spaces
 
 A linear operator $T : X \to Y$ between Banach spaces is **compact** if the image of the unit ball has compact closure in
-$Y$, equivalently if every bounded sequence $(x_n)$ has a subsequence along which $Tx_n$ converges @arcozzi2025 [Sec.
-4.1.2]; @waterstraat2016 [Def. 1.1.4]. Compact operators are bounded; they form a closed subspace $\mathcal{K}(X, Y)$ of
+$Y$, equivalently if every bounded sequence $(x_n)$ has a subsequence along which $Tx_n$ converges
+@arcozzi2025 [Sec. 4.1.2]; @waterstraat2016 [Def. 1.1.4]. Compact operators are bounded; they form a closed subspace $\mathcal{K}(X, Y)$ of
 $\mathcal{B}(X, Y)$, and products of compact and bounded operators are compact @waterstraat2016 [Lemma 1.1.5]. Operators
 of finite rank and their norm limits are compact, and on a Hilbert space every compact operator is such a limit
-@arcozzi2025 [Thm. 4.3]. A compact operator maps weakly convergent sequences to norm convergent ones @arcozzi2025 [Thm.
-4.1]. On a Hilbert space this is @def-compact-operator.
+@arcozzi2025 [Thm. 4.3]. A compact operator maps weakly convergent sequences to norm convergent ones
+@arcozzi2025 [Thm. 4.1]. On a Hilbert space this is @def-compact-operator.
 :::
 ::::
 
@@ -6379,8 +6385,8 @@ j})$, $h = 1/N$, for $N = 200$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle g, Vf\rangle = \int_0^1g^*(x)\int_0^xf = \int_0^1f(t)(\int_t^1g)^*\,dt$ gives $V^\dagger$ @arcozzi2025 [Thm.
-4.10]. With $u = V^\dagger Vf$, $u' = -Vf$ and $u'' = -f$, with $u(1) = 0$ and $u'(0) = -Vf(0) = 0$. So $\mu f = u$ gives $-\mu
+$\langle g, Vf\rangle = \int_0^1g^*(x)\int_0^xf = \int_0^1f(t)(\int_t^1g)^*\,dt$ gives $V^\dagger$
+@arcozzi2025 [Thm. 4.10]. With $u = V^\dagger Vf$, $u' = -Vf$ and $u'' = -f$, with $u(1) = 0$ and $u'(0) = -Vf(0) = 0$. So $\mu f = u$ gives $-\mu
 f'' = f$, $f'(0) = 0 = f(1)$, solved by $f = \cos(\omega x)$ with $\cos\omega = 0$, $\omega = (k - \tfrac12)\pi$, and $\mu
 = \omega^{-2}$:
 
@@ -6745,8 +6751,8 @@ with their winding numbers about $0$: $1, 2, 1, -1, 0$. The Toeplitz operators w
 #### Fredholm operator
 
 A bounded operator $T : X \to Y$ between Banach spaces is a **Fredholm operator** if its kernel $\ker T$ is finite-dimensional
-and its range $\operatorname{ran}T$ has finite codimension; the range is then closed @waterstraat2016 [Lemma 1.1.11, Lemma
-1.2.15]. Its **index** is $\operatorname{ind}T = \dim\ker T - \operatorname{codim}\operatorname{ran}T$. The same definition
+and its range $\operatorname{ran}T$ has finite codimension; the range is then closed
+@waterstraat2016 [Lemma 1.1.11, Lemma 1.2.15]. Its **index** is $\operatorname{ind}T = \dim\ker T - \operatorname{codim}\operatorname{ran}T$. The same definition
 applies to closed operators $T : D(T) \subset X \to Y$ @waterstraat2016 [Def. 1.2.14]. On Hilbert spaces
 $\operatorname{codim}\operatorname{ran}T = \dim\ker T^\dagger$, so $\operatorname{ind}T = \dim\ker T - \dim\ker T^\dagger$.
 :::
@@ -7168,7 +7174,8 @@ v\rangle$ for $u \in D(A)$, $v \in D(A^\dagger)$; $A$ is **self-adjoint** if $A^
 of domains $D(A^\dagger) = D(A)$. A symmetric operator has $D(A) \subseteq D(A^\dagger)$ and is self-adjoint only
 when its domain is large enough. Eigenvectors are required to lie in the domain, and the spectrum is defined as in
 @def-spectrum. For self-adjoint $A$ the spectrum is real, the spectral theorem and the functional calculus extend
-(quoted), and $e^{itA}$ is a unitary group on all of $\mathcal H$.
+(quoted), and $e^{itA}$ is a unitary group on all of $\mathcal H$
+[@gasinski2014exercises, Defs. 5.115 and 5.117]; [@picard2020primer, Def. B.4.11]; [@arcozzi2025, Sec. 7.3].
 :::
 ::::
 
@@ -7320,7 +7327,7 @@ to self-adjoint operators on $L^2(\mathbb{R})$ with spectrum $\mathbb{R}$ and no
 transform $U$ exchanges them, $UpU^{-1}$ is multiplication by $k$. For a unit vector
 $\psi$, $\langle x\rangle = \langle\psi, x\psi\rangle$ is the **expectation value** and $(\Delta x)^2 = \langle (x -
 \langle x\rangle)^2\rangle$ the **variance**, and the relation implies the **uncertainty inequality** $\Delta x\,
-\Delta p \geq \tfrac12$ (@exr-hso-uncertainty).
+\Delta p \geq \tfrac12$ (@exr-hso-uncertainty) [@tornetta2022mathematical, Sec. 3.1]; [@arcozzi2025, eq. 1.3.4].
 :::
 ::::
 
@@ -7506,7 +7513,8 @@ self-adjoint** if its closure is self-adjoint, equivalently if the extension is 
 (quoted): with the **deficiency indices** $n_\pm = \dim\ker(A^\dagger \mp i)$, self-adjoint extensions exist iff
 $n_+ = n_-$, the extension is unique iff $n_+ = n_- = 0$, and for $n_+ = n_- = n > 0$ the extensions are
 parametrised by the unitary group $U(n)$. For a differential operator on an interval the extensions are the
-self-adjoint **boundary conditions**, and different conditions give different spectra.
+self-adjoint **boundary conditions**, and different conditions give different spectra
+[@galitski2013exploring, Problem 1.29]; [@arcozzi2025, Sec. 7.5.2].
 :::
 ::::
 
@@ -7523,7 +7531,7 @@ self-adjoint extensions are indexed by $\alpha \in [0, 2\pi)$, with domain $\{f 
 e^{i\alpha}f(0)\}$; the boundary term $-i[f^*g]_0^{2\pi}$ vanishes on it (@exr-sae-boundary-form). The
 eigenfunctions are $e^{i(n + \alpha/2\pi)x}$ with eigenvalues $n + \alpha/2\pi$, $n \in \mathbb{Z}$
 (@exr-sae-spectrum-twisted): the spectrum is the integers shifted by $\alpha/2\pi$, and $\alpha = 0$ is the periodic
-case.
+case [@arcozzi2025, Sec. 7.5.2.3]; [@galitski2013exploring, Problem 1.29].
 :::
 
 On a half-line the two deficiency indices differ, so the momentum operator has no self-adjoint extension at all,
@@ -7535,7 +7543,7 @@ not every symmetric operator is an observable.
 
 $-i\,d/dx$ on $C_c^\infty(0, \infty) \subset L^2(0, \infty)$ is symmetric, and $\ker(A^\dagger - i)$ is spanned by
 $e^{-x}$ (square-integrable) while $\ker(A^\dagger + i)$ would be spanned by $e^{x}$, which is not: $n_+ = 1$, $n_-
-= 0$, and no self-adjoint extension exists. The position operator on $L^2(0, \infty)$, by contrast, is self-adjoint
+= 0$, and no self-adjoint extension exists [@arcozzi2025, Sec. 7.5.2.5]. The position operator on $L^2(0, \infty)$, by contrast, is self-adjoint
 on its maximal domain exactly as in @exr-ub-symmetric-adjoint; and $-d^2/dx^2$ on the half-line has a
 one-parameter family of extensions, the conditions $f'(0) = \kappa f(0)$.
 :::
@@ -7662,7 +7670,7 @@ width=100%}
 On a Riemannian manifold with metric $g_{ij}$ in coordinates $y^i$ (@sec-metrics), the **Laplace-Beltrami
 operator** on functions is $\Delta f = \frac{1}{\sqrt g}\partial_i\left(\sqrt g\,g^{ij}\partial_jf\right)$, with
 $g = \det(g_{ij})$ and $g^{ij}$ the inverse metric; it is the divergence of the gradient and reduces to
-$\sum_i\partial_i^2$ in flat coordinates. On a compact manifold $M$ without boundary, with $L^2(M)$ defined by the
+$\sum_i\partial_i^2$ in flat coordinates [@vassilevich2003heat, eq. 2.2]. On a compact manifold $M$ without boundary, with $L^2(M)$ defined by the
 volume element $\sqrt g\,d^ny$, **Green's identity** $\langle f, -\Delta h\rangle = \int_Mg^{ij}\,(
 \partial_if)^*\,\partial_jh\,\sqrt g\,d^ny$ shows that $-\Delta$ is symmetric and positive on smooth functions, with
 $\Delta f = 0$ only for constants when $M$ is connected. Scaling the metric by $R^2$ scales $\Delta$ by $R^{-2}$.
@@ -7832,8 +7840,9 @@ multiplicity, with $\lambda_0 = 0$ belonging to the constants. The eigenfunction
 an orthonormal basis of $L^2(M)$, so that every $f \in L^2(M)$ has the **mode expansion** $f = \sum_k\langle
 \varphi_k, f\rangle\varphi_k$, and **Weyl's law** gives the growth: the number $N(\lambda)$ of eigenvalues
 $\leq \lambda$ satisfies $N(\lambda) \sim \frac{\operatorname{Vol}(M)}{(4\pi)^{d/2}\Gamma(d/2 + 1)}\lambda^{d/2}$
-for $d = \dim M$. The theorem is quoted; its proof applies @thm-spectral-theorem-compact to the Green's operator of
-$-\Delta$ on the complement of the constants, which is compact by Rellich's theorem.
+for $d = \dim M$ [@ivrii2016weyl, Sec. 1.1, eq. (1.1.1), pp. 2-4, and Sec. 3.1.1, eqs. (3.1.1), (3.1.3), p. 32]. The theorem is quoted; its proof applies @thm-spectral-theorem-compact to the Green's operator of
+$-\Delta$ on the complement of the constants, which is compact by Rellich's theorem
+[@waterstraat2016, Thm. 1.3.5].
 :::
 ::::
 
@@ -9031,7 +9040,8 @@ $\operatorname{tr}A = \sum_k\langle e_k, Ae_k\rangle$ converges absolutely, is b
 $|\operatorname{tr}A| \leq \|A\|_1$ and $\operatorname{tr}(AB) = \operatorname{tr}(BA)$ for bounded $B$. Trace-class
 operators are Hilbert-Schmidt, hence compact; a compact self-adjoint operator is trace class iff
 $\sum_k|\lambda_k| < \infty$, and then $\operatorname{tr}A = \sum_k\lambda_k$. An integral operator on a compact
-space with a continuous kernel that is trace class has $\operatorname{tr}K = \int k(x, x)\,dx$.
+space with a continuous kernel that is trace class has $\operatorname{tr}K = \int k(x, x)\,dx$
+[@derezinski2022mathematics, Defs. 2.38-2.39]; [@arcozzi2025, Sec. 4.3.3].
 :::
 ::::
 
@@ -9175,7 +9185,8 @@ $\det(1 + A) = \prod_k(1 + \lambda_k)$, absolutely convergent because $\sum|\lam
 iff $1 + A$ is invertible, $\det e^A = e^{\operatorname{tr}A}$, and for $\|A\| < 1$ the expansion $\log\det(1 + zA)
 = \sum_{m \geq 1}\frac{(-1)^{m + 1}}{m}z^m\operatorname{tr}(A^m)$, so that $\operatorname{tr}A$ is the derivative
 of $\det(1 + zA)$ at $z = 0$. For a compact self-adjoint $A$ of trace class, $z \mapsto \det(1 - zA) = \prod_k(1 -
-z\lambda_k)$ is an entire function whose zeros are the reciprocals of the eigenvalues.
+z\lambda_k)$ is an entire function whose zeros are the reciprocals of the eigenvalues
+[@derezinski2022mathematics, Thm. 2.45, Prop. 2.47].
 :::
 ::::
 
@@ -9345,7 +9356,8 @@ $u(0) = f$ (@def-heat-equation). It is the integral operator with the **heat ker
 \sum_ke^{-t\lambda_k}\varphi_k(x)\varphi_k(y)^*$, a smooth function for $t > 0$ with $K_t(x, \cdot) \to
 \delta_x$ as $t \to 0$ and the **semigroup property** $\int_MK_t(x, z)K_s(z, y)\,dz = K_{t + s}(x, y)$. The **heat
 trace** is $Z(t) = \operatorname{tr}e^{t\Delta} = \sum_ke^{-t\lambda_k} = \int_MK_t(x, x)\,dx$, finite for every
-$t > 0$ by Weyl's law, so $e^{t\Delta}$ is trace class.
+$t > 0$ by Weyl's law, so $e^{t\Delta}$ is trace class
+[@vassilevich2003heat, eqs. 1.9-1.11, 2.18-2.20].
 :::
 ::::
 
@@ -9495,7 +9507,8 @@ asymptotic expansion $Z(t) = \operatorname{tr}e^{t\Delta} \sim (4\pi t)^{-d/2}\l
 scalar curvature $R$ (@def-scalar-curvature), and every $a_k$ the integral of a polynomial in the curvature and its
 derivatives (the **Minakshisundaram-Pleijel expansion**, quoted). For flat $M$ all $a_k$ with $k \geq 1$ vanish and
 the corrections are exponentially small. Weyl's law of @thm-laplacian-discrete-spectrum follows from the leading
-term by a Tauberian argument (@exr-hta-weyl-law).
+term by a Tauberian argument (@exr-hta-weyl-law)
+[@vassilevich2003heat, eqs. 2.21, 4.26-4.27].
 :::
 ::::
 
@@ -9535,7 +9548,7 @@ the coefficients and their geometric meaning.
 
 For the unit $S^2$, $d = 2$, $\operatorname{Vol} = 4\pi$ and $R = 2$ (@prp-sphere-curvature), so $a_0 = 4\pi$,
 $a_1 = \frac16\cdot 2\cdot 4\pi = \frac{4\pi}{3}$ and $Z(t) \sim \frac{1}{4\pi t}(4\pi + \tfrac{4\pi}{3}t + \dots)
-= \frac1t + \frac13 + \dots$; the next coefficient gives $t/15$ (@exr-hta-sphere-numeric). For any closed surface
+= \frac1t + \frac13 + \dots$; the next coefficient gives $t/15$ (@exr-hta-sphere-numeric) [@vassilevich2003heat, eq. 4.28]. For any closed surface
 $a_1 = \frac16\int R = \frac13\int K = \frac{2\pi\chi}{3}$ by Gauss-Bonnet (@prp-gauss-bonnet-examples), so the
 constant term of $Z(t)$ is $\chi(M)/6$: $1/3$ for the sphere and $0$ for the torus, as found.
 :::
@@ -9579,7 +9592,7 @@ t = 1/40: Z = 40.3350079866  remainder/t^2 = 0.012779
 
 The leading term of the heat trace determines the growth of the eigenvalue counting function: this is a Tauberian
 theorem, and the heuristic behind it is a Laplace transform. The second exercise asks for the heuristic and its
-verification on the circle and the sphere.
+verification on the circle and the sphere. For Weyl's law and its constant, see [@ivrii2016weyl, Sec. 1.1, eq. (1.1.1), pp. 2-3].
 
 ::: {#exr-hta-weyl-law}
 #### From the heat trace to Weyl's law
@@ -9639,7 +9652,8 @@ A)\,dt$ and the heat trace asymptotics (@exr-zr-heat-kernel-link). The **zeta-re
 is $\sum_k\lambda_k := \zeta_A(-1)$, and the **zeta-regularised determinant** is $\det{}_\zeta A := e^{-\zeta_A'(0)}$,
 formalising $\sum\log\lambda_k = -\zeta_A'(0)$. For $\lambda_k = k$ the spectral zeta function is Riemann's
 $\zeta(s)$ (@def-zeta-function), and $\zeta(-1) = -\tfrac{1}{12}$, $\zeta(0) = -\tfrac12$, $\zeta(-3) =
-\tfrac{1}{120}$, $\zeta'(0) = -\tfrac12\log 2\pi$.
+\tfrac{1}{120}$, $\zeta'(0) = -\tfrac12\log 2\pi$
+[@vassilevich2003heat, eqs. 2.23-2.27, 2.33].
 :::
 ::::
 
@@ -9794,7 +9808,7 @@ $F = -\frac{dE}{dL} = -\frac{\pi}{24L^2}$ between the ends. With a cutoff, $E_\v
 \varepsilon^2} - \frac{\pi}{24L} + O(\varepsilon^2)$: the divergent part is proportional to $L$, a bulk energy
 density independent of the boundaries, and only the finite part gives an $L$-dependent force. For the
 electromagnetic field between parallel conducting plates at separation $a$ the same method gives $E/A = -
-\frac{\pi^2\hbar c}{720a^3}$ and $F/A = -\frac{\pi^2\hbar c}{240a^4}$ (Casimir, quoted; @exr-ce-plates). The
+\frac{\pi^2\hbar c}{720a^3}$ and $F/A = -\frac{\pi^2\hbar c}{240a^4}$ (Casimir, quoted; @exr-ce-plates; [@alvarezgaume2005, Sec. 3.2, eqs. 3.65-3.66]). The
 statement is an outline: the field quantisation that produces $\tfrac12\sum\omega_n$ is the subject of
 @sec-quantum-field-theory.
 :::
@@ -10102,10 +10116,10 @@ Bounded operators can be added, multiplied and normed, and many of their propert
 algebra abstracts them; a C\*-algebra adds the adjoint and the identity $\|a^*a\| = \|a\|^2$ that holds for operators on a Hilbert
 space. This part defines both, proves that every element of a Banach algebra has a non-empty compact spectrum whose radius is
 $\lim\|a^n\|^{1/n}$, and constructs the continuous functional calculus of self-adjoint elements, which is how functions of
-observables are defined in quantum mechanics. The outline follows @arcozzi2025 [Sec. 6.1] and @landsman1998 [Sec. 2.1-2.5 and
-2.8], with numerical examples from @izaac2018computational [Ch. 7].
+observables are defined in quantum mechanics. The outline follows @arcozzi2025 [Sec. 6.1] and
+@landsman1998 [Sec. 2.1-2.5 and 2.8], with numerical examples from @izaac2018computational [Ch. 7].
 
-For more on this topic, see @derezinski2022mathematics [Ch. 4-6] and @tornetta2022mathematical [Ch. 1].
+For more on this topic, see @derezinski2022mathematics [Secs. 6.1-6.2] and @tornetta2022mathematical [Ch. 1].
 
 ### Banach algebras
 
@@ -10224,8 +10238,8 @@ below states this and its consequence that invertibility survives small perturba
 
 In a unital Banach algebra, if $\|a\| < 1$ then $1 - a$ is invertible, $(1 - a)^{-1} = \sum_{n \geq 0}a^n$ (the **Neumann series**),
 and $\|(1 - a)^{-1}\| \leq (1 - \|a\|)^{-1}$. If $a$ is invertible and $\|b - a\| < \|a^{-1}\|^{-1}$, then $b$ is invertible; so the
-invertible elements form an open set, on which $a \mapsto a^{-1}$ is continuous @arcozzi2025 [Thm. 6.2]; @landsman1998 [Lemmas
-2.2.4 and 2.2.5]. The series converges more generally whenever $\|a^n\|^{1/n}$ is eventually less than one.
+invertible elements form an open set, on which $a \mapsto a^{-1}$ is continuous @arcozzi2025 [Thm. 6.2];
+@landsman1998 [Lemmas 2.2.4 and 2.2.5]. The series converges more generally whenever $\|a^n\|^{1/n}$ is eventually less than one.
 :::
 ::::
 
@@ -10677,8 +10691,8 @@ second example checks the identity and describes the states.
 #### Continuous functions
 
 On $C(K)$ with $f^*$ the complex conjugate of $f$, $\|f^*f\|_\infty = \||f|^2\|_\infty = \|f\|_\infty^2$. Every commutative unital C\*-algebra is
-isomorphic to some $C(K)$ @landsman1998 [Thm. 2.4.1], and the states of $C(K)$ are the probability measures on $K$ @landsman1998 [Thm.
-2.8.2]: classical observables and classical statistical states.
+isomorphic to some $C(K)$ @landsman1998 [Thm. 2.4.1], and the states of $C(K)$ are the probability measures on $K$
+@landsman1998 [Thm. 2.8.2]: classical observables and classical statistical states.
 :::
 
 The Wiener algebra has a natural involution but violates the C\*-identity. The third example finds an element that shows it.
@@ -10704,8 +10718,8 @@ states $|\mathbf r| = 1$, and the expectation of the spin observable $\mathbf n\
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The C\*-identity forces the adjoint to be isometric, which the first exercise proves without reference to a Hilbert space @landsman1998
-[eq. 2.17].
+The C\*-identity forces the adjoint to be isometric, which the first exercise proves without reference to a Hilbert space
+@landsman1998 [eq. 2.17].
 
 ::: {#exr-fan-star-isometric}
 #### The involution is isometric
@@ -11040,7 +11054,8 @@ For self-adjoint operators $A, B$ and a unit vector $\psi$ in their domains with
 |\operatorname{Im}\langle A\psi, B\psi\rangle| = \tfrac12|\langle\psi, [A, B]\psi\rangle|$. Deduce $\Delta A\,
 \Delta B \geq \tfrac12|\langle[A, B]\rangle|$ in general (replace $A$ by $A - \langle A\rangle$), hence $\Delta x\,
 \Delta p \geq \tfrac12$ from $[x, p] = i$, and show that equality holds exactly when $B\psi = i\lambda A\psi$ for
-real $\lambda$, which for $x, p$ singles out the Gaussians.
+real $\lambda$, which for $x, p$ singles out the Gaussians
+[@scott2023problems, Problem 4.21]; [@arcozzi2025, Sec. 7.1.4, eq. 7.1.9].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -11065,7 +11080,8 @@ asks Sage to verify each statement.
 
 Let $S$ be the $N \times N$ cyclic shift $(Sa)_j = a_{j - 1 \bmod N}$, $F_{jk} = e^{2\pi ijk/N}/\sqrt N$ and $L = 2 -
 S - S^\dagger$. With Sage for $N = 8$: show that $S$ and $F$ are unitary, that $F^\dagger SF$ is diagonal with the
-$N$-th roots of unity, that $L$ is Hermitian with eigenvalues $4\sin^2(\pi k/N)$, and that $[L, S] = 0$. Then for
+$N$-th roots of unity, that $L$ is Hermitian with eigenvalues $4\sin^2(\pi k/N)$, and that $[L, S] = 0$
+[@steebProblemsSolutionsQuantum2018, Ch. 3, Problem 13]. Then for
 $N = 64$ and $h = 2\pi/N$ compare the lowest eigenvalues of $L/h^2$ with $n^2$ and $\operatorname{tr}e^{-tL/h^2}$
 with $\theta(t)$ at $t = 0.5, 1, 2$.
 :::
@@ -11122,7 +11138,7 @@ On $L^2(S^1)$ with $e_n = e^{inx}/\sqrt{2\pi}$: (a) check orthonormality and Par
 summation at $t = 0.1$; (c) write $\zeta_\Delta(s) = 2\zeta(2s)$ for the non-zero modes and compute
 $\det{}_\zeta(-\Delta') = 4\pi^2$, $\sum_{n \neq 0}n^2 = 2\zeta(-2) = 0$ and $\sum_{n \neq 0}|n| = 2\zeta(-1) = -
 \tfrac16$; (d) deduce that a massless field on a circle of circumference $L$, with $\omega_n = 2\pi|n|/L$, has the
-regularised zero-point energy $E = -\pi/(6L)$.
+regularised zero-point energy $E = -\pi/(6L)$ [@vassilevich2003heat, eq. 4.4].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}

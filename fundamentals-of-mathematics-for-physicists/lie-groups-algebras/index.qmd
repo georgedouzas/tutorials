@@ -19,7 +19,7 @@ subgroups, and Maurer-Cartan forms carry the bracket over the whole group as lef
 obeying the Maurer-Cartan equation. Every statement is followed by three examples and three exercises with hidden
 solutions, and many exercises have Sage solutions.
 
-For more on this topic, see @gadea2013analysis [Ch. 4], @lee2013introduction [Ch. 7, Ch. 8, Ch. 20], @lee2018global [Ch. 1-2], @mukunda2022continuous [Ch. 4, Ch. 7-8], @pal2015introductory [Ch. 3], @rudolph2013differential [Ch. 5], @scott2023problems [Ch. 3] and @torresdelcastillo2020differentiable [Ch. 7].
+For more on this topic, see @gadea2013analysis [Ch. 4], @lee2013introduction [Ch. 7, Ch. 8, Ch. 20], @lee2018global [Ch. 1-2], @mukunda2022continuous [Chs. 4, 8], @pal2015introductory [Ch. 3], @rudolph2013differential [Ch. 5], @scott2023problems [Ch. 3] and @torresdelcastillo2020differentiable [Ch. 7].
 
 ### Lie groups {#sec-lie-groups}
 
@@ -27,6 +27,8 @@ Symmetries of a space form a group, and when the symmetries depend smoothly on p
 angles, the group is itself a manifold: a Lie group. Isometry groups of metrics, and quotients of one Lie group by
 another, are the two ways in which Lie groups enter geometry later in the book. This section defines Lie groups,
 matrix groups, subgroups, actions and covers, and works them out for $U(1)$, $SO(3)$ and $SU(2)$.
+
+For more on this topic, see @lee2013introduction [Ch. 7, pp. 150-173], @rudolph2013differential [Sec. 5.1] and @gadea2013analysis [Sec. 4.1].
 
 #### Lie groups
 
@@ -83,7 +85,7 @@ of dimension $0$.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The first exercise examines a group of upper triangular matrices that is non-abelian but still very close to the
-vector space $\mathbb{R}^3$. It checks the smoothness of the group operations by computing them explicitly.
+vector space $\mathbb{R}^3$. It checks the smoothness of the group operations by computing them explicitly [@gadea2013analysis, Problem 4.42].
 
 ::: {#exr-lg-heisenberg-group}
 #### The Heisenberg group
@@ -289,7 +291,7 @@ a curve in SL(2, R): [t*sin(t) + cos(t), t*cos(t) - sin(t), sin(t), cos(t)] ; de
 :::
 
 Groups preserving a bilinear form other than the inner product are matrix groups in the same way. The third exercise
-treats the antisymmetric form of classical mechanics, whose group is the symplectic group.
+treats the antisymmetric form of classical mechanics, whose group is the symplectic group [@mukunda2022continuous, Secs. 8.1-8.2, eqs. (8.6) and (8.40)].
 
 ::: {#exr-lg-symplectic}
 #### The symplectic group
@@ -907,6 +909,8 @@ fields become linear equations in one. This section defines Lie algebras abstrac
 groups, introduces structure constants, the adjoint representation and the Killing form, and works out
 $\mathfrak{so}(3)$ and $\mathfrak{su}(2)$ in detail.
 
+For more on this topic, see @lee2013introduction [Ch. 8, pp. 185-199], @rudolph2013differential [Secs. 5.2 and 5.4], @torresdelcastillo2020differentiable [Secs. 7.2-7.2.1] and @keskivakkuri2022mathematical [Secs. 6.1-6.2 and 6.4.2-6.4.4].
+
 #### Lie algebras
 
 The abstract definition keeps only the algebraic properties of the commutator of matrices. A bracket that is bilinear,
@@ -961,7 +965,7 @@ with $[iX, iY] = 0$, which is why $U(1)$ gauge theory has no self-interaction of
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The cross product of vectors in space is the oldest example of a non-associative bracket. The first exercise shows
-that it satisfies the axioms of a Lie algebra and identifies its structure constants.
+that it satisfies the axioms of a Lie algebra and identifies its structure constants [@scott2023problems, Problem 3.47].
 
 ::: {#exr-lg-cross-product}
 #### The cross product
@@ -1001,7 +1005,7 @@ associative? (e1 x e1) x e2 = (0, 0, 0) but e1 x (e1 x e2) = (0, -1, 0)
 :::
 
 A subspace of matrices closed under the commutator is a Lie algebra by restriction. The second exercise finds such a
-subspace that is not one of the classical Lie algebras of compact groups.
+subspace that is not one of the classical Lie algebras of compact groups [@scott2023problems, Problem 3.51].
 
 ::: {#exr-lg-upper-triangular}
 #### Upper triangular matrices
@@ -1023,7 +1027,7 @@ E_{13}$ with the single bracket $[E_{12}, E_{23}] = E_{13}$: the Lie algebra of 
 :::
 
 In dimension two there is only one non-abelian Lie algebra up to isomorphism. The third exercise proves this,
-showing that the affine algebra is the general case.
+showing that the affine algebra is the general case [@gadea2013analysis, Problem 4.58].
 
 ::: {#exr-lg-two-dim-algebras}
 #### Two-dimensional Lie algebras
@@ -1138,7 +1142,7 @@ $f_{ZC}{}^E = 0$: all terms vanish. The operators $q$, $p$ and $i\hbar 1$ satisf
 :::
 
 Structure constants depend on the choice of basis, but in a controlled way. The third exercise derives their
-transformation law and applies it to rescalings of the rotation generators.
+transformation law and applies it to rescalings of the rotation generators [@scott2023problems, Problem 3.59].
 
 ::: {#exr-lg-change-of-basis}
 #### Changing the basis
@@ -1276,7 +1280,7 @@ det exp(xH + yE + zF) = exp(tr) = 1 since tr(xH + yE + zF) = 0
 :::
 
 The symplectic group of @exr-lg-symplectic has a Lie algebra described by one linear condition. The second exercise
-finds this condition and counts its solutions.
+finds this condition and counts its solutions [@mukunda2022continuous, Sec. 8.2.3, eqs. (8.63)-(8.64)].
 
 ::: {#exr-lg-sp2-algebra}
 #### The symplectic Lie algebra
@@ -2072,6 +2076,8 @@ rotation matrix, characterised as the solution of a differential equation. This 
 exponential, one-parameter subgroups and the exponential map, works them out for $U(1)$, $SO(3)$ and $SU(2)$, and
 composes two rotations by multiplying their exponentials in $SU(2)$.
 
+For more on this topic, see @lee2013introduction [Ch. 20, pp. 516-522], @rudolph2013differential [Sec. 5.3], @torresdelcastillo2020differentiable [Sec. 7.4] and @lee2018global [Sec. 1.1.5, eq. (1.11)].
+
 #### The matrix exponential
 
 The exponential series makes sense for square matrices because matrix powers are defined and the factorials make the
@@ -2291,7 +2297,7 @@ is $\mathbb{R}^2 \to T^2$, $(x, y) \mapsto (e^{ix}, e^{iy})$, with kernel $2\pi\
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The one-parameter subgroups of the affine group can be computed in closed form. The first exercise does this for one
-generator and checks both characterisations of the definition.
+generator and checks both characterisations of the definition [@torresdelcastillo2020differentiable, Example 7.44].
 
 ::: {#exr-lg-one-param-affine}
 #### A one-parameter subgroup of the affine group
@@ -2913,6 +2919,8 @@ from the group itself: the left-invariant fields and forms. They turn the Lie al
 give the bi-invariant metric of $SU(2)$, and they reappear later in the book as frames on homogeneous spaces. This
 section defines them, packages the forms into the Maurer-Cartan form, verifies the Maurer-Cartan equation on
 $SU(2)$, and reads the forms of $SO(3)$ as the angular velocity of a rotating body.
+
+For more on this topic, see @torresdelcastillo2020differentiable [Secs. 7.3-7.3.2] and @rudolph2013differential [Sec. 5.5, eq. (5.5.4)].
 
 #### Left-invariant fields and forms
 
@@ -3593,7 +3601,7 @@ the coefficients of $T_C$ on both sides gives $d\sigma^C = -\tfrac12f_{AB}{}^C\s
 :::
 
 The affine group is small enough to check the theorem in both forms by hand. The second exercise compares the matrix
-equation with the component equation.
+equation with the component equation [@torresdelcastillo2020differentiable, Sec. 7.3.2, eq. (7.48)].
 
 ::: {#exr-lg-mc-affine}
 #### The Maurer-Cartan equation of the affine group
@@ -3613,7 +3621,7 @@ agreement with @exm-invariant-form-affine.
 :::
 
 Applying the exterior derivative once more gives an identity for the structure constants. The third exercise shows that
-this identity is the Jacobi identity.
+this identity is the Jacobi identity [@torresdelcastillo2020differentiable, Exercise 7.32].
 
 ::: {#exr-lg-mc-jacobi}
 #### $d^2 = 0$ implies Jacobi
@@ -3816,12 +3824,11 @@ sigma^a(xi_b) = delta: True
 The left-invariant forms of $SO(3)$ have a mechanical meaning. If $R(t)$ is the orientation of a rigid body turning
 about a fixed point, the Maurer-Cartan form evaluated on $\dot R$ is the angular velocity seen from the body, and the
 right-invariant form gives the angular velocity seen from space. This unit defines the two angular velocities and
-expresses them in Euler angles, which recovers the kinematic equations of rigid-body dynamics [@sinha2023rigid, Secs.
-1.1.28-1.1.31].
+expresses them in Euler angles, which recovers the kinematic equations of rigid-body dynamics [@sinha2023rigid, Secs. 1.1.28-1.1.31].
 
 A body turning about a fixed point $O$ is described by the rotation $R(t)$ that carries it from its position at time
 $0$ to its position at time $t$: a point of the body that starts at $x_0$ is at $x(t) = R(t)x_0$. The definition
-extracts a vector from the derivative of $R$, in two ways.
+extracts a vector from the derivative of $R$, in two ways [@lee2018global, Sec. 2.7.9, eqs. (2.16)-(2.17)].
 
 :::: {.statement-box}
 ::: {#def-lg-angular-velocity}
@@ -3899,8 +3906,7 @@ opposite angular velocity.
 :::
 
 A line that moves relative to the body sweeps an angle made of its own motion and of the rotation of the body. The
-second exercise computes this angle to first order in time, a classical problem on rotating axes [@sinha2023rigid,
-Sec. 1.1.33].
+second exercise computes this angle to first order in time, a classical problem on rotating axes [@sinha2023rigid, Sec. 1.1.33].
 
 ::: {#exr-lg-angvel-moving-line}
 #### The angle swept by a moving line
@@ -4122,6 +4128,8 @@ The representations of $\mathfrak{su}(2)$ are the spins of quantum mechanics, an
 number because a diagonalisable generator, $J_3$, labels the states and two ladder operators move between them.
 The same mechanism, with a Cartan subalgebra in place of $J_3$ and roots in place of the ladder operators,
 classifies the representations of every compact Lie algebra, and @sec-roots-su3 runs it for $\mathfrak{su}(3)$.
+
+For more on this topic, see @keskivakkuri2022mathematical [Secs. 6.3, 6.4.4 and 6.7] and @mukunda2022continuous [Secs. 3.5.3-3.5.5].
 
 #### Cartan subalgebras and weights
 
@@ -4711,8 +4719,7 @@ this book use $T_1$; most tables of $d^j$ use $e^{-i\theta J_2}$, and since $e^{
 :::
 
 For spin one the rotation matrices must be the rotations of space in disguise, since the spin-one representation is
-the vector representation. The second example finds the basis that removes the disguise [@boudreau2018applied, Sec.
-14.4.1].
+the vector representation. The second example finds the basis that removes the disguise [@boudreau2018applied, Sec. 14.4.1].
 
 ::: {#exm-lrep-dj-spherical-basis}
 #### Spin one and the spherical basis
@@ -4880,7 +4887,7 @@ change $s$; the same identity with $D^j$ in place of $g$ makes $\langle J\rangle
 ::::
 
 Products of representations appear whenever two systems are combined, for instance two particles with spin. The
-definition below states how such a product splits into spins, and the weights explain why.
+definition below states how such a product splits into spins, and the weights explain why [@keskivakkuri2022mathematical, Sec. 6.7, eq. (6.251)].
 
 :::: {.statement-box}
 ::: {#def-clebsch-gordan}
@@ -5183,11 +5190,13 @@ Lie algebra is encoded in a $2 \times 2$ integer matrix. $\mathfrak{su}(3)$ is t
 interaction and the smallest simple Lie algebra of rank two, and this section works its roots, weights and Cartan
 matrix explicitly, with Sage's root-system module alongside.
 
+For more on this topic, see @keskivakkuri2022mathematical [Secs. 6.5-6.6.3] and @mukunda2022continuous [Sec. 5.6].
+
 #### The Gell-Mann basis
 
 Computations in $\mathfrak{su}(3)$ need a basis, and the standard one extends the Pauli matrices to three
 dimensions. The definition fixes the eight matrices and their normalisation, which the rest of the section uses
-throughout.
+throughout [@keskivakkuri2022mathematical, Sec. 6.5.2, eqs. (6.170)-(6.172)].
 
 :::: {.statement-box}
 ::: {#def-gell-mann}
@@ -5287,7 +5296,7 @@ T_A anti-Hermitian: True  tr(T_A T_B) = -1/2 delta_AB: True
 :::
 
 The second exercise makes the two further copies of $\mathfrak{su}(2)$ of @exm-gell-mann-su2 explicit. The diagonal
-matrix that completes each copy explains why $\lambda_8$ appears in the brackets of $\lambda_4$ and $\lambda_5$.
+matrix that completes each copy explains why $\lambda_8$ appears in the brackets of $\lambda_4$ and $\lambda_5$ [@keskivakkuri2022mathematical, Sec. 6.5.2, p. 261].
 
 ::: {#exr-lrep-gm-su2s}
 #### Three copies of $\mathfrak{su}(2)$
@@ -5307,7 +5316,7 @@ $f_{453} = \tfrac12$ and $f_{458} = \tfrac{\sqrt3}{2}$, in agreement with $f_{34
 :::
 
 The third exercise computes all structure constants by machine and sorts them by the Cartan subalgebra. The sorting
-anticipates the root decomposition defined next.
+anticipates the root decomposition defined next [@keskivakkuri2022mathematical, Problem 6.11].
 
 ::: {#exr-su3-structure}
 #### Structure constants of $\mathfrak{su}(3)$
@@ -6097,6 +6106,8 @@ defines restriction and branching, works the branchings of $\mathfrak{su}(3)$ un
 \mathfrak{u}(1)$ and under its maximal torus, and proves the isomorphism $\mathfrak{so}(4) \cong \mathfrak{su}(2)
 \oplus \mathfrak{su}(2)$ behind the isometries of the three-sphere.
 
+For more on this topic, see @keskivakkuri2022mathematical [Sec. 6.11.1], @pal2015introductory [Sec. 10.3.6] and @mukunda2022continuous [Problem P5.2].
+
 #### Restriction and branching
 
 A representation of a group is in particular a representation of each of its subgroups. The definition below names
@@ -6807,7 +6818,7 @@ group to the Lie algebra and back, the affine group of the line taken through ev
 the Heisenberg group, a nilpotent counterpart of both.
 
 The first integrative exercise builds the double cover on the whole group rather than on one subgroup. It uses the
-Euler angles, the adjoint representation, the Killing form and the exponential map together.
+Euler angles, the adjoint representation, the Killing form and the exponential map together [@torresdelcastillo2020differentiable, Sec. 7.2.3].
 
 ::: {#exr-lg-int-su2-so3}
 #### The double cover from end to end
@@ -6860,7 +6871,7 @@ at (theta, phi, psi) = (0, 0, 2 pi): g = [-1, 0, 0, -1] , Ad_g = [1, 0, 0, 0, 1,
 :::
 
 The second integrative exercise takes the affine group through every construction of the chapter. It is the smallest
-non-abelian example, and its Killing form shows what changes when the group is not semisimple.
+non-abelian example, and its Killing form shows what changes when the group is not semisimple [@torresdelcastillo2020differentiable, Sec. 7.3.2 and Example 7.44].
 
 ::: {#exr-lg-int-affine}
 #### The affine group throughout
@@ -6910,7 +6921,7 @@ volume form sigma^X ^ sigma^Y = a^(-2) da∧db
 :::
 
 The third integrative exercise repeats the analysis for the Heisenberg group, whose Lie algebra is nilpotent rather than
-solvable. Every construction of the chapter becomes polynomial.
+solvable. Every construction of the chapter becomes polynomial [@gadea2013analysis, Problems 4.42 and 4.64].
 
 ::: {#exr-lg-int-heisenberg}
 #### The Heisenberg group throughout
@@ -6940,7 +6951,7 @@ highest weight and branching.
 
 The first integrative exercise builds the adjoint of $\mathfrak{su}(3)$ from the fundamental in three independent
 ways. The final check is that restriction commutes with tensor products, so the branching of the octet follows from
-that of the triplet.
+that of the triplet [@pal2015introductory, Sec. 10.3.6, eqs. (10.51)-(10.53)].
 
 ::: {#exr-lrep-int-octet}
 #### The octet three ways
@@ -6996,7 +7007,7 @@ print("    Sage levi branching of 8 + 1:", (A2(1, 1) + A2(0, 0)).branch(A1, rule
 
 The second integrative exercise treats $\mathfrak{so}(4)$ as a rank-two algebra in its own right. Its Cartan subalgebra,
 roots and Cartan matrix are computed from the splitting, and the result is compared with the hexagon of
-$\mathfrak{su}(3)$.
+$\mathfrak{su}(3)$ [@mukunda2022continuous, Problem P5.2].
 
 ::: {#exr-lrep-int-so4}
 #### The root system of $\mathfrak{so}(4)$
@@ -7021,7 +7032,7 @@ simple roots meet at $90°$, the case $A_{12}A_{21} = 0$ of @exr-lrep-cartan-ang
 
 The third integrative exercise studies the decuplet $\mathbf{10}$, which appears in $\mathbf{3} \otimes \mathbf{3} \otimes
 \mathbf{3}$. Its weights form a large triangle, shown in the interactive version of @fig-su3-weights, and its
-branching is a tower of spins.
+branching is a tower of spins [@pal2015introductory, Sec. 10.3.6, eq. (10.55), and Sec. 10.5, eq. (10.60)].
 
 ::: {#exr-lrep-int-decuplet}
 #### The decuplet

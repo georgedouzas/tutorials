@@ -24,7 +24,7 @@ algebraic identities behind the stereographic atlas, the $SU(2)$ determinant and
 as propositions. The reader who knows this material can skim the definitions and try the exercises; the conventions for
 indices are those of @sec-conventions.
 
-For more on this topic, see @gadea2013analysis [Ch. 1], @godinho2014introduction [Ch. 1, Ch. 3], @lee2013introduction [Ch. 1-3], @rudolph2013differential [Ch. 1] and @torresdelcastillo2020differentiable [Ch. 1, Ch. 5-6].
+For more on this topic, see @gadea2013analysis [Ch. 1], @godinho2014introduction [Ch. 1, Ch. 3], @lee2013introduction [Ch. 1-3], @rudolph2013differential [Ch. 1] and @torresdelcastillo2020differentiable [Ch. 1, Ch. 6].
 
 ### Charts and atlases {#sec-charts}
 
@@ -32,7 +32,7 @@ A sphere cannot be covered by a single coordinate system without singular points
 coordinate necessarily jumps somewhere. The way out is to use several coordinate systems, each valid on a piece,
 and to record how they are related on the overlaps. This section defines charts, coordinate curves, atlases,
 transition maps and smooth atlases, with the circle and the sphere as running examples, and ends with the
-proposition that makes the stereographic atlas of the sphere rigorous.
+proposition that makes the stereographic atlas of the sphere rigorous [@torresdelcastillo2020differentiable, Sec. 1.1, pp. 2-4; @lee2013introduction, Ch. 1, pp. 4, 12-13].
 
 #### Charts
 
@@ -860,7 +860,7 @@ and back through the inverse: [3/5, 0]
 The examples of this section rested on three algebraic facts about the stereographic charts that were quoted
 rather than proved: the inverse chart lands on the sphere, the transition map is the inversion, and the inversion
 undoes itself. The following proposition collects them, and each is a polynomial identity in $u$ and $v$ once the
-denominators $1 + u^2 + v^2$ and $u^2 + v^2$ are cleared.
+denominators $1 + u^2 + v^2$ and $u^2 + v^2$ are cleared [@lee2013introduction, Problem 1-7; @torresdelcastillo2020differentiable, Example 1.5; @godinho2014introduction, Sec. 1.2, Exercise 7].
 
 :::: {.statement-box}
 ::: {#prp-stereographic}
@@ -1008,20 +1008,23 @@ recovers @prp-stereographic.
 With charts and atlases in hand, a manifold is simply a space with a smooth atlas, and everything smooth on it is
 defined chart by chart. This section defines smooth manifolds, smooth functions and maps on them, curves, and
 product manifolds, the construction behind cylinders, tori and every space of the form "one space times another".
-The running examples are the circle, the sphere, the torus and the group $SU(2)$, which is the three-sphere.
+The running examples are the circle, the sphere, the torus and the group $SU(2)$, which is the three-sphere [@godinho2014introduction, Sec. 1.2, Def. 2.1; @lee2013introduction, Ch. 1, pp. 3, 13].
 
 #### Smooth manifolds
 
 The definition that the whole chapter has been preparing can now be stated in one sentence: a manifold is a space
-with a smooth atlas. The picture is the sphere with its stereographic charts; the one technical condition added,
-that the space be Hausdorff, rules out pathologies in which two distinct points cannot be separated by open sets.
+with a smooth atlas. The picture is the sphere with its stereographic charts; the two technical conditions added
+are that the space be Hausdorff, which rules out pathologies in which two distinct points cannot be separated by open
+sets, and second countable, which rules out spaces too large to be covered by countably many charts
+[@lee2013introduction, Ch. 1, p. 3; @godinho2014introduction, Sec. 1.2, p. 7].
 
 :::: {.statement-box}
 ::: {#def-manifold}
 #### Smooth manifold
 
-A **smooth manifold of dimension $n$** is a Hausdorff topological space $M$ (@def-hausdorff) with a smooth atlas
-(@def-smooth-atlas) of charts onto open subsets of $\mathbb{R}^n$, whose charts are homeomorphisms onto their
+A **smooth manifold of dimension $n$** is a Hausdorff (@def-hausdorff) and **second-countable** topological space
+$M$, that is, one whose topology has a countable basis (a countable family of open sets of which every open set is a
+union), with a smooth atlas (@def-smooth-atlas) of charts onto open subsets of $\mathbb{R}^n$, whose charts are homeomorphisms onto their
 images. Any notion defined in one chart and invariant under smooth changes of coordinates is a property of the
 manifold itself; that is the point of the definition.
 :::
@@ -1115,7 +1118,8 @@ and that the non-zero complex numbers form a manifold of dimension $2$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Restrict every chart $x : U \to V$ of $M$ to $U \cap W$: since $x$ is a homeomorphism onto $V$, the image $x(U
 \cap W)$ is open in $\mathbb{R}^n$, the restrictions are bijections onto open sets, their transition maps are
-restrictions of the original ones, hence smooth, and the Hausdorff property is inherited; so $W$ has a smooth
+restrictions of the original ones, hence smooth, and the Hausdorff property and second countability are inherited
+(intersect a countable basis of $M$ with $W$); so $W$ has a smooth
 atlas of dimension $n$. The determinant is a polynomial in the entries, hence continuous (@def-continuous-map),
 so $GL(n, \mathbb{R}) = \det^{-1}(\mathbb{R} \setminus \{0\})$ is open in $\mathbb{R}^{n^2}$ and is a manifold of
 dimension $n^2$ with the identity chart. Likewise $\mathbb{C} \setminus \{0\} = \mathbb{R}^2 \setminus \{0\}$ is
@@ -1183,7 +1187,7 @@ the point (u, v, w) = (0, 0, 0) is the south pole (0, 0, 0, -1): [0, 0, 0, -1]
 The description of $SU(2)$ as a three-sphere rests on one identity, that the determinant of the matrix
 @eq-su2-matrix is the squared length of $(a, b) \in \mathbb{C}^2$. The proposition records it; the proof expands
 the $2 \times 2$ determinant and rewrites $|a|^2$ and $|b|^2$ as $a^* a$ and $b^* b$, after which the identity
-is a polynomial one.
+is a polynomial one [@torresdelcastillo2020differentiable, Example 7.7, pp. 207-208].
 
 :::: {.statement-box}
 ::: {#prp-su2-det}
@@ -1859,7 +1863,7 @@ the curve winds once around the tube (a: 0 -> 2pi) and twice around the axis (b:
 
 Two manifolds can be multiplied, and the result has charts made from pairs of charts of the factors. The next
 definition records this construction, whose dimension is the sum of the dimensions; the torus as a product of two
-circles is the picture to keep.
+circles is the picture to keep [@lee2013introduction, Example 1.8; @godinho2014introduction, Sec. 1.2, Exercise 6].
 
 :::: {.statement-box}
 ::: {#def-product-manifold}
@@ -2321,7 +2325,7 @@ cylinder.
 Not every parametrisation produces a decent surface: the map may fold, cross itself or have a cusp. The next
 definition lists the three conditions that exclude these, injectivity, full rank of the Jacobian and continuity
 of the inverse, and names the maps that satisfy them; their images are the surfaces on which the inverse map is a
-chart.
+chart [@lee2013introduction, Ch. 4, pp. 85-86; @godinho2014introduction, Sec. 1.5].
 
 :::: {.statement-box}
 ::: {#def-embedding}
@@ -2471,7 +2475,8 @@ so the inverse E^{-1} is not continuous at (0, 0): points near the origin on the
 
 The lengths of the coordinate velocities and the angles between them are what the eye reads off a coordinate grid
 drawn on a surface, and the next definition packages them into a matrix of inner products. Its determinant
-detects where the columns become dependent, and its square root is the area factor of integration on the surface.
+detects where the columns become dependent, and its square root is the area factor of integration on the surface
+[@boskoff2024journey, Sec. 4.3, p. 73; @godinho2014introduction, Sec. 3.1, Prop. 1.4].
 
 :::: {.statement-box}
 ::: {#def-gram}
@@ -2634,7 +2639,7 @@ line $\theta = 0$ (or $\theta = \pi$) of the parameter plane collapses to a sing
 
 The computation of @exm-sphere-gram is short enough to be checked line by line, and it is also the first metric of
 the book, so it deserves to be stated as a proposition. Each of the four entries is a derivative computation
-followed by the identity $\cos^2 + \sin^2 = 1$, and the determinant follows.
+followed by the identity $\cos^2 + \sin^2 = 1$, and the determinant follows [@torresdelcastillo2020differentiable, Example 6.4, eq. (6.5)].
 
 :::: {.statement-box}
 ::: {#prp-sphere-gram}
@@ -2938,7 +2943,7 @@ components, and the tangent space, and shows how components change when the char
 On a curved surface there are no arrows that can be slid from point to point, but there is still a way to say "in
 which direction and how fast": differentiate functions. The definition below takes this operation, a directional
 derivative at one point, as the tangent vector itself, and the picture to keep is an arrow on the tangent plane that
-acts on functions by measuring their rate of change.
+acts on functions by measuring their rate of change [@lee2013introduction, Ch. 3, pp. 54-55; @torresdelcastillo2020differentiable, Sec. 1.2].
 
 :::: {.statement-box}
 ::: {#def-tangent-vector}
@@ -3359,7 +3364,8 @@ $p$ they form a basis: the dimension is $n$, the number of coordinates, in every
 ::::
 
 Having a basis, each tangent vector becomes a list of numbers, its components. The next definition records how these
-numbers change when the chart changes, the transformation law that every later object of the chapter generalises.
+numbers change when the chart changes, the transformation law that every later object of the chapter generalises
+[@lee2013introduction, Ch. 3, eqs. (3.11)-(3.12); @gray2019student, Sec. 2.2, eq. (2.17)].
 
 :::: {.statement-box}
 ::: {#def-components}
@@ -4066,7 +4072,7 @@ squared radius is constant along the circles that the rotation field follows, so
 
 Two vector fields can be applied one after the other, but the result is a second-order operator. The next definition
 shows that the commutator of the two orders is again a vector field, and this bracket measures how far the two flows
-fail to commute.
+fail to commute [@lee2013introduction, Ch. 8, pp. 185-188, Prop. 8.28].
 
 :::: {.statement-box}
 ::: {#def-lie-bracket}
@@ -4215,7 +4221,8 @@ Jacobi identity [K1,[K2,K3]] + [K2,[K3,K1]] + [K3,[K1,K2]] = 0: True
 #### Integral curves and frames
 
 A vector field prescribes a velocity at every point, so one can ask for the curves that follow it. The definition below
-turns this into a system of ordinary differential equations and names the resulting motion of the whole manifold.
+turns this into a system of ordinary differential equations and names the resulting motion of the whole manifold
+[@lee2013introduction, Ch. 9, pp. 205-207].
 
 :::: {.statement-box}
 ::: {#def-integral-curve}
@@ -4714,7 +4721,7 @@ vanish and $\omega(X) = \omega_aX^a = 0$ for every $X$.
 
 A chart provides a basis of covectors as well as of vectors: the dual basis of the coordinate basis. The next
 definition introduces it and derives the transformation law of covector components, the inverse of the law for
-vectors.
+vectors [@lee2013introduction, Ch. 11, eqs. (11.6)-(11.7); @gray2019student, Sec. 2.2, eq. (2.19)].
 
 :::: {.statement-box}
 ::: {#def-coordinate-differentials}
@@ -5409,7 +5416,7 @@ reduce the independent ones to $20$ (@sec-ricci).
 ::::
 
 The components of a tensor field depend on the chart, and the next definition gives the rule. It combines the
-transformation laws of vectors and covectors, one Jacobian factor per index.
+transformation laws of vectors and covectors, one Jacobian factor per index [@gray2019student, Sec. 2.2, eq. (2.24)].
 
 :::: {.statement-box}
 ::: {#def-tensor-transformation}
@@ -6201,7 +6208,7 @@ antisymmetric part of $3\,d\theta \otimes d\varphi$ has $\omega_{\theta\varphi} 
 ::::
 
 Forms of different degrees can be multiplied to give a form of the sum of the degrees. The next definition makes the
-product antisymmetric by construction, which is why it squares to zero on one-forms.
+product antisymmetric by construction, which is why it squares to zero on one-forms [@lee2013introduction, Ch. 14, eq. (14.3) and Prop. 14.11].
 
 :::: {.statement-box}
 ::: {#def-wedge-product}
@@ -6358,7 +6365,8 @@ iff the rows are dependent. The same expansion shows $\alpha \wedge (\beta \wedg
 #### The exterior derivative
 
 The differential of a function is a one-form; the next definition extends $d$ to forms of every degree. It is built only
-from partial derivatives and antisymmetrisation, and the antisymmetry is what makes it independent of the chart.
+from partial derivatives and antisymmetrisation, and the antisymmetry is what makes it independent of the chart
+[@lee2013introduction, Thm. 14.24].
 
 :::: {.statement-box}
 ::: {#def-exterior-derivative}
@@ -6523,15 +6531,15 @@ the two computations agree: True
 ::::
 
 Exact forms are closed because $d^2 = 0$; the converse is the question of whether a form is a derivative. The next
-definition names the two notions and states when they coincide.
+definition names the two notions and states when they coincide [@lee2013introduction, p. 367 and Thms. 17.13-17.14].
 
 :::: {.statement-box}
 ::: {#def-closed-exact}
 #### Closed form
 
 A form with $d\omega = 0$ is **closed**; a form $\omega = d\eta$ for some $\eta$ is **exact**. Exact forms are
-closed, since $d^2 = 0$; on a contractible region (a ball, a chart domain) every closed form is exact
-(**Poincaré lemma**), while on a manifold with holes closed forms need not be exact, and the failure is measured
+closed, since $d^2 = 0$; on a contractible region (a ball, a star-shaped set) every closed form is exact
+(**Poincaré lemma**) [@lee2013introduction, Thms. 17.13-17.14, pp. 446-447], while on a manifold with holes closed forms need not be exact, and the failure is measured
 by the **de Rham cohomology**.
 :::
 ::::
@@ -6648,7 +6656,8 @@ region between the curves.
 ::::
 
 Integrating a derivative over a region gives the boundary values; for forms this becomes a single theorem in every
-dimension. It is stated next without proof, and the examples and exercises check it in dimensions one, two and three.
+dimension. It is stated next without proof, and the examples and exercises check it in dimensions one, two and three
+[@lee2013introduction, Thm. 16.11; @godinho2014introduction, Sec. 2.5].
 
 :::: {.statement-box}
 ::: {#thm-stokes}
@@ -6954,6 +6963,8 @@ solutions; the propositions are proved from the component matrices and the exerc
 throughout is $(+, -, -, -)$: the Minkowski metric is $\operatorname{diag}(1, -1, -1, -1)$, timelike vectors have
 positive norm, and the internal factor of a product metric enters with a minus sign.
 
+For more on this topic, see @keskivakkuri2022mathematical [Secs. 5.1-5.2, 5.13], @lee2013introduction [Ch. 13], @torresdelcastillo2020differentiable [Sec. 6.1], @godinho2014introduction [Sec. 3.1] and @needham2021visual [Chs. 4-6].
+
 ### The metric {#sec-metric}
 
 Of all tensor fields, the metric is the one that turns a manifold into a geometry: it assigns lengths to tangent
@@ -6967,7 +6978,8 @@ inverses of the three running metrics as propositions.
 A symmetric bilinear form on a single vector space was defined in @sec-linear-algebra; a metric is such a form on
 every tangent space at once, varying smoothly with the point. The one condition added to symmetry is
 non-degeneracy, which is what allows the metric to be inverted and indices to be moved up and down. The picture to
-keep is a field of inner products, one per point, read off from a matrix of component functions.
+keep is a field of inner products, one per point, read off from a matrix of component functions
+[@lee2013introduction, Ch. 13, pp. 327-328, 343; @keskivakkuri2022mathematical, Sec. 5.1, pp. 170-171].
 
 :::: {.statement-box}
 ::: {#def-metric}
@@ -7115,7 +7127,7 @@ $r = 0$ belongs to the chart, not to the metric.
 
 Since a metric is non-degenerate, its eigenvalues at a point are all non-zero, and what remains to classify is how
 many are positive and how many negative. The signature of @sec-linear-algebra records exactly this, and the next
-definition applies it pointwise and names the two cases that physics uses.
+definition applies it pointwise and names the two cases that physics uses [@keskivakkuri2022mathematical, Sec. 5.1, pp. 171-172].
 
 :::: {.statement-box}
 ::: {#def-signature-metric}
@@ -7391,7 +7403,7 @@ differentials, $g_{ij}\,dx^i dx^j = g_{ij}\,\dfrac{\partial x^i}{\partial x'^k}\
 
 Non-degeneracy was built into the definition of a metric for one purpose: to be able to invert it. The inverse
 matrix of the components is itself a tensor, of the opposite type, and it is the tool that converts one-forms back
-into vectors in the next section.
+into vectors in the next section [@torresdelcastillo2020differentiable, Sec. 6.1, eq. (6.6)].
 
 :::: {.statement-box}
 ::: {#def-inverse-metric}
@@ -7525,7 +7537,7 @@ inverse is unique.
 The three propositions that close this section record the component matrices, determinants and inverses of the
 polar, Minkowski and round metrics. They are the facts every later computation on these spaces relies on, and each
 is followed by examples that evaluate the matrices and extend them, and by exercises that redo the computation in
-other charts.
+other charts [@boskoff2024journey, Ex. 4.13.1].
 
 :::: {.statement-box}
 ::: {#prp-polar-metric}
@@ -7667,7 +7679,7 @@ lengths, the volume of the coordinate box.
 
 The Minkowski metric is constant, so its determinant is a single number, but that number carries information: its
 sign records the signature. The proposition fixes it, and the examples that follow explain what the sign means,
-why isometries preserve it, and what changes in five dimensions.
+why isometries preserve it, and what changes in five dimensions [@keskivakkuri2022mathematical, Sec. 5.1, p. 171].
 
 :::: {.statement-box}
 ::: {#prp-minkowski-metric}
@@ -7806,7 +7818,7 @@ This is why $\sqrt{-g}$ is correct in four dimensions and $\sqrt{|g|}$ is needed
 The round metric is the first non-constant metric of the section, and its inverse requires a hypothesis, since the
 component $\sin^2\theta$ vanishes at the poles. The proposition records the three facts, and the examples evaluate
 the matrix at a few latitudes, rescale it and compare it with the stereographic chart, where no hypothesis is
-needed.
+needed [@boskoff2024journey, Ex. 4.3.2; @keskivakkuri2022mathematical, Sec. 5.2, p. 178].
 
 :::: {.statement-box}
 ::: {#prp-sphere-metric}
@@ -8015,7 +8027,7 @@ on lowering and raising indices on the sphere.
 
 A curve has a velocity vector at each instant, and the metric assigns that vector a norm; adding up the norms along
 the curve gives its length. The definition below writes this as an integral and records the two facts that make it
-geometrically meaningful, independence of the chart and of the parametrisation.
+geometrically meaningful, independence of the chart and of the parametrisation [@lee2013introduction, Ch. 13, pp. 337-338; @keskivakkuri2022mathematical, Sec. 5.1.1].
 
 :::: {.statement-box}
 ::: {#def-curve-length}
@@ -8326,7 +8338,7 @@ near the poles.
 
 A metric pairs a vector with every other vector, and fixing the first argument produces a linear functional, that
 is, a one-form. The definition below names this operation and its effect on components, which is to multiply by the
-metric matrix.
+metric matrix [@lee2013introduction, Ch. 13, pp. 341-342; @keskivakkuri2022mathematical, Sec. 5.1.2].
 
 :::: {.statement-box}
 ::: {#def-lowering}
@@ -8452,7 +8464,7 @@ inverse.
 
 The inverse metric undoes the lowering: multiplying the components of a one-form by $g^{ij}$ produces a vector
 field. The definition below names this operation and notes that it is indeed the inverse of the previous one,
-because the two matrices are inverse to each other.
+because the two matrices are inverse to each other [@torresdelcastillo2020differentiable, Sec. 6.1, eqs. (6.6)-(6.9)].
 
 :::: {.statement-box}
 ::: {#def-raising}
@@ -8605,7 +8617,7 @@ $\omega = |\mathbf k|$, the dispersion relation of a massless wave; for a massiv
 
 Integrating a function over a manifold needs a measure, and the metric supplies one through the square root of its
 determinant. The definition below gives the formula, warns that the determinant is not a scalar, and explains why
-the integral is nevertheless chart independent.
+the integral is nevertheless chart independent [@lee2013introduction, Ch. 15, pp. 389-390].
 
 :::: {.statement-box}
 ::: {#def-volume-element}
@@ -8915,7 +8927,7 @@ curvature computation to come.
 
 A curve drawn on an embedded surface is also a curve in the ambient space, and its Euclidean speed can be computed
 from the surface coordinates alone. The definition below packages the result as a metric on the surface, which is
-the Gram matrix of the chart seen in a new light.
+the Gram matrix of the chart seen in a new light [@lee2013introduction, Ch. 13, pp. 333-334; @keskivakkuri2022mathematical, Sec. 5.2].
 
 :::: {.statement-box}
 ::: {#def-induced-metric}
@@ -9105,7 +9117,7 @@ y^2 = -1$, parametrised by $(\sinh\psi, \cosh\psi\cos\varphi, \cosh\psi\sin\varp
 
 Some metrics have non-constant components only because of the chart, and a better chart would make them constant.
 The next definition names this situation and anticipates the curvature criterion that decides it without searching
-for the chart.
+for the chart [@lee2013introduction, Ch. 13, p. 332].
 
 :::: {.statement-box}
 ::: {#def-flat-metric}
@@ -9255,7 +9267,7 @@ scalar curvature: 25/4*cos(a)/(2*cos(a) + 5)  (positive on the outer equator a =
 
 When a manifold is a product, metrics on the two factors combine by addition, and the result has a block-diagonal
 matrix with no cross terms. The definition below makes this precise and records the one property of the
-determinant that makes volumes of products multiply.
+determinant that makes volumes of products multiply [@lee2013introduction, Example 13.2].
 
 :::: {.statement-box}
 ::: {#def-product-metric}
@@ -9399,7 +9411,8 @@ Lorentzian. This is why the internal block carries a minus sign in our conventio
 
 A map of a manifold to itself that preserves all lengths and angles is a symmetry of the metric, and such maps are
 the subject of the last definition. In coordinates the condition compares the components at a point with the
-pulled-back components at its image, and infinitesimally it leads to the Killing vector fields of a later chapter.
+pulled-back components at its image, and infinitesimally it leads to the Killing vector fields of a later chapter
+[@lee2013introduction, Ch. 13, p. 332; @keskivakkuri2022mathematical, Sec. 5.13].
 
 :::: {.statement-box}
 ::: {#def-isometry}
@@ -9536,7 +9549,7 @@ $r_1 = r_2$: the square torus has the extra symmetry.
 The $SU(2)$ metric was the only running example whose Gram matrix has a cross term, and its determinant and inverse
 needed the $3 \times 3$ formulas. The proposition records all three, and the examples
 evaluate the metric on the equator, compute the volume of the three-sphere and isolate the round metric hidden
-inside it.
+inside it [@torresdelcastillo2020differentiable, Example B.7, pp. 328-329].
 
 :::: {.statement-box}
 ::: {#prp-su2-metric}
@@ -10058,6 +10071,7 @@ metrics (circle, plane, sphere, torus, $SU(2)$) are all positive definite, and t
 symbols and the curvature tensors are those of @sec-conventions-curvature.
 
 For more on this topic, see @godinho2014introduction [Ch. 4], @gray2019student [Ch. 3] and @needham2021visual [Acts II-III, Act IV , Act V].
+See also @keskivakkuri2022mathematical [Secs. 5.3-5.10] and @torresdelcastillo2020differentiable [Ch. 5, Secs. 6.2-6.3], whose index conventions for $\Gamma$, $R^\rho{}_{\sigma\mu\nu}$ and $R_{\sigma\nu}$ agree with those of this chapter.
 
 ### The covariant derivative {#sec-covariant-derivative}
 
@@ -10087,7 +10101,8 @@ point to point; the covariant derivative, computed with SageManifolds' connectio
 
 The failure of @eq-noncovariant is a single inhomogeneous term built from second derivatives of the transition
 map. A connection is the extra datum that cancels it: a set of coefficients with exactly the opposite inhomogeneous
-transformation law, so that the sum of a partial derivative and a connection term is a tensor.
+transformation law, so that the sum of a partial derivative and a connection term is a tensor
+[@keskivakkuri2022mathematical, Secs. 5.3-5.4, eq. (5.63)].
 
 :::: {.statement-box}
 ::: {#def-connection}
@@ -10377,7 +10392,7 @@ x'^j}\frac{\partial^2 x'^k}{\partial x^c\partial x^l}X^l$ and cancels the second
 
 A vector field is not the only object that needs differentiating; one-forms, the metric and general tensors do too.
 The next definition extends the covariant derivative to them, fixed by two requirements: it agrees with the partial
-derivative on functions and it obeys the Leibniz rule.
+derivative on functions and it obeys the Leibniz rule [@keskivakkuri2022mathematical, Sec. 5.6, eqs. (5.109)-(5.135)].
 
 :::: {.statement-box}
 ::: {#def-covariant-derivative-tensor}
@@ -10517,7 +10532,8 @@ vector factor (upper index) and one $-\Gamma$ term per one-form factor (lower in
 
 A general connection has $n^3$ coefficients per chart, far more than a metric can determine. Two natural
 conditions cut them down: symmetry in the lower indices, which is the vanishing of the torsion, and compatibility
-with the metric. The first is a tensorial statement because the antisymmetric part of $\Gamma$ is a tensor.
+with the metric. The first is a tensorial statement because the antisymmetric part of $\Gamma$ is a tensor
+[@keskivakkuri2022mathematical, Sec. 5.4, eqs. (5.65)-(5.67)].
 
 :::: {.statement-box}
 ::: {#def-torsion}
@@ -10654,7 +10670,7 @@ $\Gamma^k_{ij} = \Gamma^k_{ji}$.
 
 The second condition ties the connection to the metric: parallel transport should not change lengths and angles.
 Expressed in components, it says that the covariant derivative of the metric vanishes, which by the rule of
-@exm-covariant-metric is a linear equation for the connection coefficients.
+@exm-covariant-metric is a linear equation for the connection coefficients [@keskivakkuri2022mathematical, Sec. 5.7, eqs. (5.148)-(5.152)].
 
 :::: {.statement-box}
 ::: {#def-metric-compatible}
@@ -11037,7 +11053,7 @@ degenerates. Generated by
 
 The torus of revolution has a metric of the same shape as the sphere's, one constant component and one depending on
 the tube angle. The first exercise computes its Christoffel symbols by hand and with SageManifolds; they reappear in
-the geodesics and the curvature of the torus.
+the geodesics and the curvature of the torus [@keskivakkuri2022mathematical, Problem 5.5].
 
 ::: {#exr-torus-christoffel}
 #### Christoffel symbols of the torus
@@ -11159,7 +11175,8 @@ coordinates (u, v) with y = v^2: metric du^2 + 4 v^2 dv^2, symbols {('v', 'v', '
 ::::
 
 The derivation at the start of this section proves both that a torsion-free compatible connection is unique and,
-read backwards, that one exists. This connection is the one every geometric computation in the book uses.
+read backwards, that one exists. This connection is the one every geometric computation in the book uses
+[@godinho2014introduction, Sec. 3.3, Thm. 3.2; @keskivakkuri2022mathematical, Sec. 5.7, eqs. (5.152)-(5.158)].
 
 :::: {.statement-box}
 ::: {#def-levi-civita}
@@ -11301,7 +11318,8 @@ great circle (@exr-sphere-geodesic).
 ::::
 
 Lowering the upper index of the Christoffel symbols removes the inverse metric from the formula. The resulting
-symbols of the first kind are often quicker to compute by hand, and the inverse metric is applied only at the end.
+symbols of the first kind are often quicker to compute by hand, and the inverse metric is applied only at the end
+[@keskivakkuri2022mathematical, Sec. 5.7, eq. (5.162)].
 
 :::: {.statement-box}
 ::: {#def-christoffel-first-kind}
@@ -11673,7 +11691,7 @@ $s = s_0 + ct$, the curve moves at constant speed.
 ::::
 
 The polar metric of the plane is the simplest metric with non-zero Christoffel symbols. The proposition lists all
-six independent symbols, two of which are non-zero.
+six independent symbols, two of which are non-zero [@keskivakkuri2022mathematical, Sec. 5.9, eq. (5.201)].
 
 :::: {.statement-box}
 ::: {#prp-polar-christoffel}
@@ -11820,7 +11838,8 @@ acceleration.
 ::::
 
 The round sphere is the central example of the chapter, and its two non-zero symbols are used in every later
-computation on it. The proposition records all six independent components, two of them non-zero.
+computation on it. The proposition records all six independent components, two of them non-zero
+[@emam2021covariant, eqs. (3.37)-(3.38); @boskoff2024journey, Sec. 4.12].
 
 :::: {.statement-box}
 ::: {#prp-sphere-christoffel}
@@ -12111,7 +12130,7 @@ parallel fields, parallel transport and geodesics, and verifies them on the plan
 
 Along a curve only the derivative in the direction of the velocity is available, so the covariant derivative is
 contracted with $\dot x$. Setting the result to zero gives a linear differential equation for the components of a
-vector carried along the curve, and its solutions are the vectors that do not change.
+vector carried along the curve, and its solutions are the vectors that do not change [@keskivakkuri2022mathematical, Sec. 5.5].
 
 :::: {.statement-box}
 ::: {#def-parallel-field}
@@ -12413,7 +12432,7 @@ equals $1$ at $t = 0$, so it equals $1$ throughout, and the holonomy is a rotati
 
 The velocity of a curve is a vector field along the curve, and applying the definition of a parallel field to it
 gives the notion of a straightest curve. The resulting equation is second order, so a geodesic is fixed by a point
-and an initial velocity.
+and an initial velocity [@keskivakkuri2022mathematical, Secs. 5.5.2 and 5.9, eqs. (5.107)-(5.108)].
 
 :::: {.statement-box}
 ::: {#def-geodesic}
@@ -12558,7 +12577,8 @@ are still straight as sets, but satisfy @eq-geodesic only for affine parameters.
 ::::
 
 Since there is exactly one geodesic in each direction, following it for unit time defines a map from the tangent
-space to the manifold. This map turns tangent vectors into points and gives the most natural chart near a point.
+space to the manifold. This map turns tangent vectors into points and gives the most natural chart near a point
+[@godinho2014introduction, Sec. 3.4].
 
 :::: {.statement-box}
 ::: {#def-geodesic-exponential}
@@ -12606,7 +12626,8 @@ of @sec-exponential: $\exp_e(A) = e^A$.
 :::
 
 The torus provides a fourth example of the earlier ideas, connecting the Christoffel symbols with the geodesics found
-in the figure and exercises of this section. It anticipates the torus computations of the curvature sections.
+in the figure and exercises of this section. It anticipates the torus computations of the curvature sections
+[@keskivakkuri2022mathematical, Problem 5.5].
 
 ::: {#exm-torus-christoffel-preview}
 #### Geodesics of the torus
@@ -12707,7 +12728,7 @@ the geodesics.
 ::::
 
 The equator and the meridians were found to be geodesics by inspection of the Christoffel symbols. The proposition
-makes the check precise for both families of curves.
+makes the check precise for both families of curves [@boskoff2024journey, Sec. 4.12; @gray2019student, Exercise 3.16].
 
 :::: {.statement-box}
 ::: {#prp-sphere-geodesics}
@@ -13058,7 +13079,7 @@ $$ {#eq-riemann}
 
 The coefficient obtained from the commutator is a tensor, since the commutator of two tensorial operations is
 tensorial, and it depends only on the connection. It is the central object of the chapter and receives its name in
-the definition.
+the definition [@keskivakkuri2022mathematical, Sec. 5.10, eqs. (5.208)-(5.217)].
 
 :::: {.statement-box}
 ::: {#def-riemann}
@@ -13222,7 +13243,7 @@ the metric is singular: transport around a loop enclosing the apex rotates a vec
 
 With the first index lowered, the Riemann tensor of a Levi-Civita connection has a remarkable set of symmetries.
 They reduce the number of independent components drastically and are the reason why only a handful of numbers
-describe the curvature of a surface or a three-sphere.
+describe the curvature of a surface or a three-sphere [@godinho2014introduction, Sec. 4.1, Props. 1.3-1.4].
 
 :::: {.statement-box}
 ::: {#def-riemann-lowered}
@@ -13353,7 +13374,8 @@ R_th,ph,th,ph = 1/16 = g_thth g_phph - g_thph^2 (sectional curvature 1): True
 ::::
 
 The full Riemann tensor is a large object, but in each two-dimensional direction it reduces to a single number. That
-number, the sectional curvature, is the Gauss curvature of the surface of geodesics spanned by the plane.
+number, the sectional curvature, is the Gauss curvature of the surface of geodesics spanned by the plane
+[@godinho2014introduction, Sec. 4.1, Def. 1.5].
 
 :::: {.statement-box}
 ::: {#def-sectional-curvature}
@@ -13498,7 +13520,8 @@ parallelogram, which for $\begin{pmatrix} X' \\ Y' \end{pmatrix} = M\begin{pmatr
 ::::
 
 For a surface the sectional curvature is a single function, the Gauss curvature. For a surface in space it has an
-extrinsic description, and Gauss's discovery was that it is nevertheless determined by the metric alone.
+extrinsic description, and Gauss's discovery was that it is nevertheless determined by the metric alone
+[@boskoff2024journey, Secs. 4.7 and 4.10].
 
 :::: {.statement-box}
 ::: {#def-gauss-curvature}
@@ -14175,8 +14198,7 @@ h_bb = (R + r cos a) cos a: True ; h_aa = r: True
 :::
 
 Every surface is locally the graph of a function over its tangent plane, and for graphs the second fundamental form
-has a closed formula. The second exercise derives it and evaluates it on the paraboloid of @blennow2022relativity
-[Problem 2.41].
+has a closed formula. The second exercise derives it and evaluates it on the paraboloid of @blennow2022relativity [Problem 2.41].
 
 ::: {#exr-sff-graph}
 #### Graphs
@@ -14283,8 +14305,7 @@ curvature is normal (@exm-sff-normal-curvature). The product $\cos a/(r(R + r\co
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The pseudosphere of @exm-hyp-pseudosphere is the surface of revolution whose induced metric is a piece of the
-hyperbolic plane. The first exercise computes its principal curvatures with Sage and finds a constant product [@boskoff2024journey,
-Ex. 4.10.4].
+hyperbolic plane. The first exercise computes its principal curvatures with Sage and finds a constant product [@boskoff2024journey, Ex. 4.10.4].
 
 ::: {#exr-sff-pseudosphere}
 #### Principal curvatures of the pseudosphere
@@ -14354,8 +14375,7 @@ $\det S < 0$, giving $-4\pi$, and the total vanishes, as in @exm-gauss-torus.
 :::
 
 A hyperboloid of one sheet in Euclidean space is saddle-shaped, unlike the Minkowski hyperboloids of
-@exm-hyp-hyperboloid. The third exercise computes its principal curvatures, for the surface of @blennow2022relativity
-[Problem 2.20].
+@exm-hyp-hyperboloid. The third exercise computes its principal curvatures, for the surface of @blennow2022relativity [Problem 2.20].
 
 ::: {#exr-sff-hyperboloid}
 #### The hyperboloid of one sheet
@@ -14489,7 +14509,7 @@ intrinsic: K = -f''/f = -c^2/(c^2 + rho^2)^2
 :::
 
 The paraboloid of @exr-sff-graph is curved most at its vertex, and the theorem gives its Riemann tensor without
-Christoffel symbols. The second exercise compares the two routes, as @blennow2022relativity [Problem 2.41] asks.
+Christoffel symbols. The second exercise compares the two routes; the intrinsic one, the Riemann tensor of the paraboloid's induced metric, is @blennow2022relativity [Problem 2.41].
 
 ::: {#exr-sff-paraboloid}
 #### The paraboloid
@@ -14529,8 +14549,8 @@ K = R_1212/det g = 4/(4*r^2 + 1)^2 ; extrinsic det h/det g = 4/(4*rho^2 + 1)^2
 :::
 
 The derivation before the theorem used only the tangential part of the third derivatives of $E$. The third exercise
-extracts the normal part, the Codazzi-Mainardi equations, which together with Gauss's equation are the conditions for
-a pair $(g, h)$ to come from a surface [@boskoff2024journey, Sec. 4.10].
+extracts the normal part, the Codazzi-Mainardi equations [@boskoff2024journey, Sec. 4.10, p. 94], which together with
+Gauss's equation are the conditions for a pair $(g, h)$ to come from a surface.
 
 ::: {#exr-sff-codazzi}
 #### The Codazzi-Mainardi equations
@@ -14566,7 +14586,8 @@ torus and $SU(2)$, and closes with the total curvature of the sphere and the tor
 
 A tensor with one upper and three lower indices can be contracted in three ways, and by the symmetries of
 @def-riemann-lowered only one of them is non-trivial up to sign. Contracting the upper index with the third lower
-one gives a symmetric tensor of the same type as the metric, which can be compared with it.
+one gives a symmetric tensor of the same type as the metric, which can be compared with it
+[@keskivakkuri2022mathematical, Sec. 5.10, eqs. (5.221)-(5.222); @gray2019student, Sec. 4.2.1, eq. (4.16)].
 
 :::: {.statement-box}
 ::: {#def-ricci-tensor}
@@ -14703,7 +14724,7 @@ $R = 2K$, now with $K$ a function rather than a constant.
 ::::
 
 Tracing the Ricci tensor with the inverse metric produces a single function, the simplest scalar measure of
-curvature. It is the integrand of the Einstein-Hilbert action.
+curvature. It is the integrand of the Einstein-Hilbert action [@keskivakkuri2022mathematical, Sec. 5.10, eq. (5.223)].
 
 :::: {.statement-box}
 ::: {#def-scalar-curvature}
@@ -14853,7 +14874,8 @@ $R_0$, $\lambda = R_0^2$: $R = 2/R_0^2$ and $K = 1/R_0^2$, as in @exr-sphere-rad
 #### Einstein metrics and the Einstein tensor
 
 On the sphere the Ricci tensor equals the metric, and on $SU(2)$ twice the metric. Metrics with this property are
-singled out by the Einstein equations, and they are the most symmetric metrics after those of constant curvature.
+singled out by the Einstein equations, and they are the most symmetric metrics after those of constant curvature
+[@torresdelcastillo2020differentiable, App. B, p. 328].
 
 :::: {.statement-box}
 ::: {#def-einstein-metric}
@@ -15001,7 +15023,8 @@ constant and different signatures; the Lorentzian one is the two-dimensional de 
 ::::
 
 The combination of the Ricci tensor and the scalar curvature that appears in the Einstein equations is fixed by the
-requirement that it be conserved. The definition introduces it and states its divergence-free property.
+requirement that it be conserved. The definition introduces it and states its divergence-free property
+[@gray2019student, Sec. 4.2.1, eqs. (4.19)-(4.23)].
 
 :::: {.statement-box}
 ::: {#def-einstein-tensor}
@@ -15268,7 +15291,8 @@ By @exr-sphere-riemann-form, $R_{ij} = \frac{n-1}{R_0^2}g_{ij}$ and $R = \frac{n
 ::::
 
 The three-sphere $SU(2)$ is the three-dimensional counterpart of the round sphere. The proposition records its
-Ricci tensor and scalar curvature in Euler angles, which turn out to be those of a round three-sphere.
+Ricci tensor and scalar curvature in Euler angles, which turn out to be those of a round three-sphere
+[@torresdelcastillo2020differentiable, Example B.7, pp. 328-329].
 
 :::: {.statement-box}
 ::: {#prp-su2-curvature}
@@ -15421,7 +15445,7 @@ $R = 4\cdot\tfrac12 + \frac{4}{\sin^2\theta}\cdot\tfrac12 + \frac{4}{\sin^2\thet
 
 The Gauss curvature of the sphere is constant and that of the torus changes sign, but their integrals are
 topological numbers. The proposition records the two values, obtained by integrating $K\sqrt{\det g}$ over the
-coordinate ranges.
+coordinate ranges [@godinho2014introduction, Sec. 4.3, Thm. 3.3].
 
 :::: {.statement-box}
 ::: {#prp-gauss-bonnet-examples}
@@ -15575,7 +15599,7 @@ solutions form a Lie algebra, $\mathfrak{so}(3)$ for the sphere; it ends with ma
 statement is followed by three examples and three exercises with hidden solutions; the propositions are proved from
 the coordinate formulas and the exercises use SageManifolds.
 
-For more on this topic, see @torresdelcastillo2020differentiable [Ch. 2].
+For more on this topic, see @torresdelcastillo2020differentiable [Ch. 2], @lee2013introduction [Ch. 9 and Ch. 12, pp. 319-322] and @keskivakkuri2022mathematical [Secs. 4.3.6-4.3.8, 5.13-5.14].
 
 ### Flows and the Lie derivative {#sec-flows}
 
@@ -15589,7 +15613,7 @@ the subject of @sec-killing.
 
 An integral curve (@def-integral-curve) follows a vector field from one starting point. Starting from every point at
 once and stopping all the curves after the same time $t$ produces a map of the manifold to itself, and the definition
-below names the family of these maps.
+below names the family of these maps [@lee2013introduction, Ch. 9, Thm. 9.12; @keskivakkuri2022mathematical, Sec. 4.3.7].
 
 :::: {.statement-box}
 ::: {#def-flow}
@@ -15751,7 +15775,7 @@ limit t -> +oo: 0 (north pole);  limit t -> -oo: pi (south pole)
 
 The examples all share an algebraic property: flowing for a time $t$ and then for a time $s$ is the same as flowing
 for $s + t$. The next definition takes this composition law as primary and shows that it characterises flows
-completely.
+completely [@torresdelcastillo2020differentiable, Sec. 2.1].
 
 :::: {.statement-box}
 ::: {#def-one-parameter-group}
@@ -15896,7 +15920,7 @@ and its flow exists for all times.
 
 To compare a tensor field with its image under a map, the tensor at the image point has to be brought back to the
 original point. The pullback does this: it evaluates the tensor at the moved point on the moved vectors, and it is
-the operation through which flows act on tensors.
+the operation through which flows act on tensors [@torresdelcastillo2020differentiable, Sec. 2.3, eq. (2.21); @lee2013introduction, Ch. 12, p. 319].
 
 :::: {.statement-box}
 ::: {#def-pullback}
@@ -16031,7 +16055,7 @@ flow at any time is the pullback of the derivative at time zero.
 
 Differentiating the pullback along a flow at $t = 0$ gives a new tensor field of the same type, which measures how
 far the flow is from preserving the tensor. This is the Lie derivative, and for functions, vector fields and metrics
-it has explicit coordinate formulas.
+it has explicit coordinate formulas [@torresdelcastillo2020differentiable, Secs. 2.2-2.3, eqs. (2.20) and (2.33); @keskivakkuri2022mathematical, Sec. 4.3.8].
 
 :::: {.statement-box}
 ::: {#def-lie-derivative}
@@ -16357,7 +16381,7 @@ the sphere, where they are the three rotation generators.
 
 A flow consists of isometries exactly when the pullback of the metric does not change along it, and by
 @exm-polar-lie-flow this is decided by the Lie derivative at $t = 0$. The definition below turns this observation into
-a linear first-order equation for the components of the field.
+a linear first-order equation for the components of the field [@torresdelcastillo2020differentiable, Sec. 2.3, eq. (2.34); @keskivakkuri2022mathematical, Sec. 5.14, eqs. (5.386)-(5.389)].
 
 :::: {.statement-box}
 ::: {#def-killing}
@@ -16546,7 +16570,7 @@ $$
 \end{aligned}
 $$ {#eq-killing-check}
 using $\partial_\theta(\cot\theta) = -1/\sin^2\theta$ in the second line. $K_2$ is $K_1$ with $\varphi$ shifted by
-$\pi/2$, so the same computation applies.
+$\pi/2$, so the same computation applies [@torresdelcastillo2020differentiable, Sec. 6.1, eq. (6.39); @keskivakkuri2022mathematical, Problem 5.8].
 
 :::: {.statement-box}
 ::: {#prp-sphere-killing}
@@ -16717,7 +16741,8 @@ L_K_a g = 0 for a = 1, 2, 3: [True, True, True]
 #### The isometry algebra
 
 The Killing fields of a metric are not just a vector space: the bracket of two of them is again one. The definition
-below records this and names the resulting Lie algebra, which for the sphere will turn out to be $\mathfrak{so}(3)$.
+below records this and names the resulting Lie algebra, which for the sphere will turn out to be $\mathfrak{so}(3)$
+[@keskivakkuri2022mathematical, Sec. 5.14, p. 227].
 
 :::: {.statement-box}
 ::: {#def-isometry-algebra}
@@ -16858,7 +16883,7 @@ outer equator onto the shorter inner one.
 ::::
 
 The brackets of the sphere's Killing fields are the second result of the section. Each of the three brackets is
-computed component by component on the chart domain.
+computed component by component on the chart domain [@keskivakkuri2022mathematical, Problem 5.8].
 
 :::: {.statement-box}
 ::: {#prp-killing-brackets}
@@ -17015,7 +17040,7 @@ Casimir on 3 cos^2(theta) - 1: True (eigenvalue -6 = -l(l+1), l = 2)
 
 The plane and the sphere both have three Killing fields in two dimensions, and the exercise on $\mathbb{R}^n$ found
 $n(n + 1)/2$. The next definition makes this number an upper bound for every metric and names the metrics that attain
-it.
+it [@keskivakkuri2022mathematical, Sec. 5.14, pp. 227-228].
 
 :::: {.statement-box}
 ::: {#def-maximally-symmetric}
@@ -17160,7 +17185,7 @@ torus.
 The first integrative exercise returns to the stereographic atlas of $S^3$ built in @exr-manifold-s3-charts and
 computes its Gram matrix, which turns out to be conformal like that of $S^2$. Integrating the area factor over
 $\mathbb{R}^3$ must reproduce the volume $2\pi^2$ found with the Euler angles, a check that two unrelated charts
-of the same manifold agree on a global quantity.
+of the same manifold agree on a global quantity [@lee2013introduction, Problem 1-7; @torresdelcastillo2020differentiable, Example B.7].
 
 ::: {#exr-cm-s3-volume}
 #### The volume of $S^3$ in two charts
@@ -17215,7 +17240,8 @@ the two charts agree, vol(S^3) = 2 pi^2: True
 
 The second integrative exercise introduces a fourth chart on the sphere, the Mercator chart of navigators, and
 runs it through the whole chapter: domain, transition map to spherical coordinates with its Jacobian, Gram matrix,
-and finally its relation to the stereographic chart, which is a complex logarithm. Everything can be done by hand.
+and finally its relation to the stereographic chart, which is a complex logarithm. Everything can be done by hand
+[@gray2019student, Exercise 3.16(d)].
 
 ::: {#exr-cm-mercator}
 #### The Mercator chart
@@ -17245,7 +17271,7 @@ logarithm (@exr-stereographic-complex).
 The third integrative exercise measures the closed curve $(t, 2t)$ of @exm-torus-curve with the Gram matrix of the
 torus, combining the product chart, the curve and the metric. The speed is a trigonometric expression whose
 integral is not elementary, so Sage evaluates it numerically and checks it against the speed computed directly in
-$\mathbb{R}^3$.
+$\mathbb{R}^3$ [@lee2013introduction, Example 13.18(a); @keskivakkuri2022mathematical, Problem 5.1].
 
 ::: {#exr-cm-torus-curve-length}
 #### The length of a curve on the torus
@@ -17300,7 +17326,8 @@ and a type $(1, 1)$ tensor field of the plane seen in Cartesian and polar coordi
 
 The first integrative exercise starts from the two vector fields of @fig-sphere-vector-fields and passes through every
 section: their brackets, their dual one-forms through the round metric, the exterior derivatives of those, and the Lie
-derivatives of @def-lie-derivative, which measure how the metric and the height change along the flows.
+derivatives of @def-lie-derivative, which measure how the metric and the height change along the flows
+[@lee2013introduction, Thm. 14.35; @keskivakkuri2022mathematical, Sec. 4.4.3].
 
 ::: {#exr-vfft-sphere-full}
 #### Two vector fields on the round sphere
@@ -17356,7 +17383,7 @@ Cartan's formula L_Y alpha = i_Y d alpha + d(alpha(Y)) for alpha = X_flat: True
 
 The second integrative exercise checks Stokes' theorem on the unit disc for a two-form that is not constant. It uses
 the exterior derivative of a one-form, the pullback to the boundary circle, and the transformation law of a two-form to
-polar coordinates, where the integral over the disc becomes an iterated integral.
+polar coordinates, where the integral over the disc becomes an iterated integral [@lee2013introduction, Thm. 16.11; @godinho2014introduction, Sec. 2.5].
 
 ::: {#exr-vfft-stokes-disc}
 #### Stokes' theorem on a disc
@@ -17379,7 +17406,7 @@ non-zero integral around a closed curve says the same (@exr-of-height-ftc).
 
 The third integrative exercise follows a type $(1, 1)$ tensor field of the plane through a change of chart. It combines
 the transformation law, the tensor product, contraction with a vector field, and the invariants of
-@exr-tf-trace-invariant.
+@exr-tf-trace-invariant [@gray2019student, Sec. 2.2, eq. (2.24)].
 
 ::: {#exr-vfft-rotation-tensor}
 #### A $(1, 1)$ tensor field in two charts
@@ -17410,7 +17437,7 @@ five-dimensional product metric with a circle, and the sphere seen entirely thro
 
 The first integrative exercise starts from the embedding of the torus and ends with its area, passing through the
 signature, the inverse metric, lowering and raising, an angle and a gradient. Everything is computed by SageManifolds
-from the pullback of the Euclidean metric.
+from the pullback of the Euclidean metric [@keskivakkuri2022mathematical, Sec. 5.2 and Problem 5.1].
 
 ::: {#exr-metrics-torus-full}
 #### The torus from embedding to area
@@ -17466,7 +17493,7 @@ sqrt(det g) = r (R + r cos a): True ; area 4 pi^2 R r = 32/5*pi^2
 
 The second integrative exercise is the five-dimensional ground state of a circle reduction, worked by hand. Its
 signature, determinant, inverse and volume element come from the first and third sections, and the norm and lowered
-form of the circle direction from the second.
+form of the circle direction from the second [@lee2013introduction, Example 13.2; @keskivakkuri2022mathematical, Sec. 5.1].
 
 ::: {#exr-metrics-kk-circle}
 #### The product metric with a circle
@@ -17489,7 +17516,7 @@ $+1$, timelike; $\partial_\varphi$ is spacelike; $\partial_t + R^{-1}\partial_\v
 
 The third integrative exercise redoes the sphere in the stereographic chart, where the metric is conformally flat
 and regular at the pole. The conformal factor, an angle, the length of the equator and the area are all computed by
-SageManifolds, the last by integrating over the whole chart plane.
+SageManifolds, the last by integrating over the whole chart plane [@lee2013introduction, Problem 13-4; @keskivakkuri2022mathematical, Problem 5.2].
 
 ::: {#exr-metrics-stereographic}
 #### The sphere through the stereographic chart
@@ -17544,7 +17571,7 @@ curvature hides at a single point.
 
 The first integrative exercise runs the full pipeline of the chapter on one surface. Starting from the embedding of
 the torus, SageManifolds produces the metric, the Christoffel symbols, the Riemann and Ricci tensors, the scalar
-curvature and finally the total curvature, split into its positive and negative parts.
+curvature and finally the total curvature, split into its positive and negative parts [@godinho2014introduction, Sec. 4.3, Thm. 3.3].
 
 ::: {#exr-cc-surface-pipeline}
 #### The torus from embedding to total curvature
@@ -17607,7 +17634,7 @@ Gam^b_ab = -sin(a)/(cos(a) + 2)
 
 The second integrative exercise compares holonomy with curvature on two surfaces. It uses the Christoffel symbols to
 set up the transport equations along coordinate circles, solves them through their constant coefficient matrix, and
-integrates the Gauss curvature over the region the circle bounds.
+integrates the Gauss curvature over the region the circle bounds [@needham2021visual, Ch. 24, eq. (24.2); @keskivakkuri2022mathematical, Sec. 5.5.1].
 
 ::: {#exr-cc-holonomy-area}
 #### Holonomy and enclosed curvature
@@ -17678,7 +17705,7 @@ torus: V' = B V with B = [[0, -(r*cos(a0)*sin(a0) + Rr*sin(a0))/r], [r*sin(a0)/(
 
 The third integrative exercise studies a surface that is flat wherever it is smooth and still has holonomy. It
 combines the Christoffel symbols of the cone, its geodesics in the unrolled picture, parallel transport around the apex
-and the total curvature of a smoothed cone.
+and the total curvature of a smoothed cone [@needham2021visual, Ch. 24].
 
 ::: {#exr-cc-cone-holonomy}
 #### Holonomy of a cone
@@ -17708,7 +17735,7 @@ quantities that Killing fields give along geodesics.
 
 The first integrative exercise integrates a Killing field of the sphere and checks the defining property of an
 isometry on the flow itself, not just at $t = 0$. It contrasts the result with the flow of the conformal field of the
-second section.
+second section [@keskivakkuri2022mathematical, Sec. 5.14 and Problem 5.8].
 
 ::: {#exr-flows-killing-sphere-isometries}
 #### The flow of $K_1$ is a group of isometries
@@ -17760,7 +17787,7 @@ conformal flow: Psi_t^* g == g: False ;  ratio of the theta-theta components: e^
 
 The second integrative exercise collects everything this chapter says about the Minkowski plane: its flows, the
 pullbacks they induce, its Killing fields and their algebra. It is a Lorentzian counterpart of the Euclidean plane
-treated throughout.
+treated throughout [@keskivakkuri2022mathematical, Secs. 5.13-5.14].
 
 ::: {#exr-flows-killing-minkowski}
 #### The Minkowski plane: flows, Killing fields and algebra
@@ -17786,7 +17813,8 @@ has eigenvalues $\pm i$.
 :::
 
 The third integrative exercise uses a Killing field to find a quantity conserved along geodesics of the previous
-chapter. On the sphere the three conserved quantities turn out to be the components of the angular momentum.
+chapter. On the sphere the three conserved quantities turn out to be the components of the angular momentum
+[@keskivakkuri2022mathematical, Sec. 5.14, eq. (5.390)].
 
 ::: {#exr-flows-killing-conserved}
 #### Conserved quantities along geodesics

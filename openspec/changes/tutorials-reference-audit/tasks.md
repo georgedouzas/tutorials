@@ -52,20 +52,20 @@ warnings and no unresolved citation.
 
 ## 5. Fundamentals of Mathematics for Physicists
 
-- [ ] 5.1 Audit Sets, relations and topology.
-- [ ] 5.2 Audit Linear algebra.
-- [ ] 5.3 Audit Real analysis.
-- [ ] 5.4 Audit Complex analysis.
-- [ ] 5.5 Audit Differential equations.
-- [ ] 5.6 Audit Fourier analysis.
-- [ ] 5.7 Audit Functional analysis.
-- [ ] 5.8 Audit Probability and statistics.
-- [ ] 5.9 Audit Differential geometry.
-- [ ] 5.10 Audit Group theory.
-- [ ] 5.11 Audit Lie groups and Lie algebras.
-- [ ] 5.12 Audit Homogeneous spaces and fibre bundles.
-- [ ] 5.13 Audit Spinors and the Dirac operator.
-- [ ] 5.14 Get the owner's decisions and apply them. Verify that the record has no open item.
+- [x] 5.1 Audit Sets, relations and topology.
+- [x] 5.2 Audit Linear algebra.
+- [x] 5.3 Audit Real analysis.
+- [x] 5.4 Audit Complex analysis.
+- [x] 5.5 Audit Differential equations.
+- [x] 5.6 Audit Fourier analysis.
+- [x] 5.7 Audit Functional analysis.
+- [x] 5.8 Audit Probability and statistics.
+- [x] 5.9 Audit Differential geometry.
+- [x] 5.10 Audit Group theory.
+- [x] 5.11 Audit Lie groups and Lie algebras.
+- [x] 5.12 Audit Homogeneous spaces and fibre bundles.
+- [x] 5.13 Audit Spinors and the Dirac operator.
+- [x] 5.14 Get the owner's decisions and apply them. Verify that the record has no open item.
 
 ## 6. Fundamentals of Theoretical Physics
 

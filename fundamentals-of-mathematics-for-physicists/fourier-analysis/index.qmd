@@ -38,7 +38,7 @@ through the Dirichlet kernel, states the convergence theorems of Dirichlet and o
 Parseval's identity, with the square wave and the sawtooth of @fig-fourier-square-wave as running examples whose
 coefficients, partial sums and overshoot are collected in @prp-fourier-series-values.
 
-For more on this topic, see @arrigo2023introduction [Ch. 4].
+For more on this topic, see @arrigo2023introduction [Ch. 4] and @chambert-loirInformationTheory2022 [Secs. 3.2-3.4].
 
 ![Partial Fourier sums $S_1, S_3, S_9, S_{29}$ of the square wave $\operatorname{sgn} x$ (left) and of the sawtooth
 $x$ (right) on $(-\pi, \pi)$. The sums converge to the function away from the jumps, to the midpoint $0$ at the
@@ -502,7 +502,7 @@ for continuous $f$ (Fejér's theorem), with no Gibbs overshoot.
 The question of when the Fourier series equals the function has several answers depending on what one asks of
 $f$ and in what sense the limit is taken. The theorem below collects the three that are used throughout the book,
 the pointwise theorem of Dirichlet, uniform convergence under absolute summability, and the $L^2$ theorem, with
-the proof of the first sketched through the Dirichlet kernel.
+the proof of the first sketched through the Dirichlet kernel [@chambert-loirInformationTheory2022, Thm. 3.4.2 and Lemma 3.4.6].
 
 :::: {.statement-box}
 ::: {#thm-fourier-convergence}
@@ -650,7 +650,7 @@ differentiated series. In the language of @sec-distributions, the derivative of 
 The sum of the squares of the coefficients equals the mean square of the function, which is the Pythagorean
 theorem in infinitely many dimensions. The theorem states this identity in both forms together with the finite
 inequality of Bessel and the best-approximation property that explains why Fourier coefficients are the right
-choice.
+choice [@chambert-loirInformationTheory2022, Sec. 3.3, Thm. 3.3.9].
 
 :::: {.statement-box}
 ::: {#thm-parseval}
@@ -990,7 +990,7 @@ theorem, states Plancherel's theorem and the uncertainty inequality, and ends wi
 the explicit transforms; the figure shows the trade-off between the width of a Gaussian and the width of
 its transform.
 
-For more on this topic, see @aliev2024mathematical [Ch. 8], @arrigo2023introduction [Ch. 6] and @borodzik2019problems [Ch. 2].
+For more on this topic, see @aliev2024mathematical [Ch. 8], @arrigo2023introduction [Ch. 6], @borodzik2019problems [Ch. 2] and @chambert-loirInformationTheory2022 [Secs. 3.5-3.7].
 
 ![Gaussians $e^{-x^2/2\sigma^2}$ of width $\sigma = \tfrac12, 1, 2$ (left) and their Fourier transforms
 $\sigma\sqrt{2\pi}\,e^{-\sigma^2k^2/2}$ (right): the narrower the function, the wider its transform, with
@@ -1513,7 +1513,7 @@ u = (1 + 2 kappa t)^(-1/2) exp(-x^2/(2(1 + 2 kappa t))): True
 Parseval's identity for the line says that the transform preserves the squared integral, up to the factor
 $2\pi$ of the normalisation. The theorem states it with the polarised form, derives it from the convolution
 theorem and inversion, and records the extension that makes the transform a unitary map of the square-integrable
-functions.
+functions [@chambert-loirInformationTheory2022, Thm. 3.5.5].
 
 :::: {.statement-box}
 ::: {#thm-plancherel}
@@ -1631,7 +1631,7 @@ k}{k}\cdot\frac{2}{1 + k^2}dk$, so $\int\frac{\sin k}{k(1 + k^2)}dk = \pi(1 - e^
 
 Sampling a function on the integers relates its Fourier series to its Fourier transform, and the result, the
 Poisson summation formula, is the bridge between the first two sections. The third exercise derives it and
-applies it to the Gaussian, where it becomes the functional equation of a theta function.
+applies it to the Gaussian, where it becomes the functional equation of a theta function [@chambert-loirInformationTheory2022, Thm. 3.6.4].
 
 ::: {#exr-ft-poisson-summation}
 #### Poisson summation
@@ -1671,7 +1671,7 @@ sigma = 5 : sum f(2 pi n) = 1.99472626920231 ; (1/2pi) sum fhat(n) = 1.994726269
 
 A function and its transform cannot both be concentrated: the product of their widths is bounded below, with the
 Gaussian as the unique extremal case. The theorem defines the widths as standard deviations, states the bound,
-and proves it with one integration by parts and the Cauchy-Schwarz inequality.
+and proves it with one integration by parts and the Cauchy-Schwarz inequality [@chambert-loirInformationTheory2022, Prop. 3.7.1].
 
 :::: {.statement-box}
 ::: {#thm-uncertainty}
@@ -1866,8 +1866,8 @@ adds the two coefficients: the samples cannot tell the harmonics apart. This con
 :::
 
 The sum @eq-fad-dft costs $N^2$ multiplications, and the structure of the roots of unity allows far fewer. The third
-example derives the splitting of Cooley and Tukey, which Gauss had found in 1805 [@izaac2018computational, Sec. 8.5.1,
-eqs. (8.45)-(8.49)].
+example derives the splitting of Cooley and Tukey, which Gauss had found in 1805
+[@izaac2018computational, Sec. 8.5.1, eqs. (8.45)-(8.49)].
 
 ::: {#exm-fad-cooley-tukey}
 #### The fast Fourier transform
@@ -1910,8 +1910,8 @@ multiplications.
 
 With Sage, implement the recursion of @exm-fad-cooley-tukey, check it against the direct sum @eq-fad-dft for the
 samples of $e^{\cos x}$ with $N = 8$ and $N = 64$, count the multiplications for $N = 8, 64, 512$, and compare $F_m/N$ for
-$N = 8$ with the Fourier coefficients $c_m = I_m(1)$. Which coefficient is worst, and why? [@izaac2018computational,
-Sec. 8.5.1 and Problem P8.5]
+$N = 8$ with the Fourier coefficients $c_m = I_m(1)$. Which coefficient is worst, and why?
+[@izaac2018computational, Sec. 8.5.1 and Problem P8.5]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1990,8 +1990,8 @@ $m \ll N$. With walls instead of periodicity the same computation gives the grid
 The transform of samples is exact as a map of finite sequences, but as an approximation to Fourier coefficients or to
 the transform it has an error, and @exm-fad-cos-cubed showed its mechanism: wave numbers that differ by a multiple of
 the sampling rate are confused. The proposition makes this precise on the circle and on the line, using the Poisson
-summation formula of @exr-ft-poisson-summation, and deduces the sampling theorem [@izaac2018computational, Secs.
-8.1-8.1.2, 8.4].
+summation formula of @exr-ft-poisson-summation, and deduces the sampling theorem
+[@izaac2018computational, Secs. 8.1-8.1.2, 8.4; @chambert-loirInformationTheory2022, Thm. 3.6.1].
 
 :::: {.statement-box}
 ::: {#prp-fad-sampling}
@@ -2100,8 +2100,8 @@ For $\psi_1(x) = (4/\pi)^{1/4}xe^{-x^2/2}$ show that $\hat\psi_1(k) = -i\sqrt{2\
 Sage, approximate it on the centred grid $x_n = (n - a)\Delta x$, $a = (N - 1)/2$, by the left side of
 @eq-fad-aliasing at $k_m = (m - a)\Delta k$, $\Delta k = 2\pi/N\Delta x$, once as a direct sum and once with the fast
 transform and the phase factors $e^{2\pi ian/N}$, $e^{2\pi i(m - a)a/N}$; compare with the exact transform for $\Delta
-x = 0.05, 0.2, 0.5, 1, 1.5$, and check @eq-fad-aliasing at $k = 1$, $\Delta x = 1.5$ [@izaac2018computational, Secs. 8.1
-and 8.3.4, and Problem P8.1].
+x = 0.05, 0.2, 0.5, 1, 1.5$, and check @eq-fad-aliasing at $k = 1$, $\Delta x = 1.5$
+[@izaac2018computational, Secs. 8.1 and 8.3.4, and Problem P8.1].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2398,7 +2398,8 @@ at $0$. Generated by `figures/delta_sequence.sage`.](figures/delta_sequence.svg)
 
 A distribution is defined by what it does to nice functions, so the first thing to fix is the class of nice
 functions. The definition introduces the two standard classes, the smooth functions of compact support and the
-rapidly decreasing functions of Schwartz, and what it means for a sequence of them to converge.
+rapidly decreasing functions of Schwartz, and what it means for a sequence of them to converge
+[@borodzik2019problems, Sec. 2.2.1, Defs. 2.2.1-2.2.2].
 
 :::: {.statement-box}
 ::: {#def-test-function}
@@ -2552,7 +2553,8 @@ compactly supported kernel in place of the Gaussian.
 
 A distribution is a continuous linear functional on test functions, and every locally integrable function is one
 by integration; the delta is the simplest one that is not. The definition fixes the vocabulary, the notion of
-convergence of distributions, and the fact that the delta is a limit of functions.
+convergence of distributions, and the fact that the delta is a limit of functions
+[@borodzik2019problems, Sec. 2.2.1, Defs. 2.2.3-2.2.4].
 
 :::: {.statement-box}
 ::: {#def-distribution}
@@ -3053,7 +3055,8 @@ $x^2\operatorname{Pf}\frac{1}{x^2} = 1$. For $\varphi = e^{-x^2}$, $2\int_0^\inf
 
 Since the transform is a continuous bijection of the Schwartz space, it can be moved onto the test function, and
 every tempered distribution acquires a transform. The definition does this and lists the transforms of the delta,
-the constant, the plane wave and their derivatives, the dictionary used in every momentum-space computation.
+the constant, the plane wave and their derivatives, the dictionary used in every momentum-space computation
+[@borodzik2019problems, Sec. 2.2.1, Defs. 2.2.5-2.2.6].
 
 :::: {.statement-box}
 ::: {#def-distribution-transform}
@@ -3407,7 +3410,7 @@ states the Peter-Weyl theorem, and describes the mode expansion of a function on
 shows the harmonics for $l \leq 3$, and the eigenvalue equations, the orthonormality and the
 representation-theoretic identities are collected in the proposition at its end.
 
-For more on this topic, see @aliev2024mathematical [Ch. 7].
+For more on this topic, see @aliev2024mathematical [Ch. 7], @arrigo2023introduction [Secs. 7.3.3, 7.4.2] and @mukunda2022continuous [Secs. 3.3.4-3.3.5, 7.2].
 
 ![The real parts of the spherical harmonics $Y_{lm}(\theta, \varphi)$ for $l \leq 3$ and $0 \leq m \leq l$, on the
 rectangle $0 \leq \varphi \leq 2\pi$ (horizontal), $0 \leq \theta \leq \pi$ (vertical): $l - m$ counts the nodal
@@ -3422,7 +3425,7 @@ width=90%}
 A function on the sphere has a Laplacian, the angular part of the Laplacian of $\mathbb{R}^3$, and its
 eigenfunctions are the modes of the sphere. The definition gives the operator in spherical coordinates, its
 relation to the three-dimensional Laplacian, its symmetry, and the angular momentum operators that generate the
-rotations and square to minus the Laplacian.
+rotations and square to minus the Laplacian [@arrigo2023introduction, Sec. 7.3.3, eqs. (7.98)-(7.107)].
 
 :::: {.statement-box}
 ::: {#def-spherical-laplacian}
@@ -3767,8 +3770,8 @@ int |f|^2 dOmega = 56/15*pi ; sum |f_lm|^2 = 56/15*pi ; equal: True
 The addition theorem of @exm-sph-addition-theorem separates the directions of two points in $1/|\mathbf x - \mathbf x'|$,
 and integrating it against a localised density expands the potential of the density far away into spherical harmonics.
 The proposition states this expansion, defines the multipole moments as its coefficients, and relates the first three
-to the charge, the dipole moment and the quadrupole tensor of electrostatics [@maggiore2023electrodynamics, Sec. 6.1,
-eqs. (6.5)-(6.29)].
+to the charge, the dipole moment and the quadrupole tensor of electrostatics
+[@maggiore2023electrodynamics, Sec. 6.1, eqs. (6.5)-(6.29); @boudreau2018applied, Sec. 5.1.5, eqs. (5.30)-(5.32)].
 
 :::: {.statement-box}
 ::: {#prp-fam-multipole}
@@ -3817,8 +3820,8 @@ so $\Phi = \frac{ea^2(3\cos^2\theta - 1)}{4\pi r^3} + O(r^{-5})$, proportional t
 :::
 
 The moments are computed about an origin, and moving the origin changes them, although the potential does not change.
-The second example finds how the dipole moment changes and when it does not [@maggiore2023electrodynamics, Sec. 6.1,
-eqs. (6.21)-(6.25)].
+The second example finds how the dipole moment changes and when it does not
+[@maggiore2023electrodynamics, Sec. 6.1, eqs. (6.21)-(6.25)].
 
 ::: {#exm-fam-origin}
 #### Moving the origin
@@ -3833,8 +3836,8 @@ origin. An origin inside the density keeps $r'/r$, and the error of truncation, 
 :::
 
 The gradient of the dipole term is the field of a dipole, with the characteristic angular pattern of field lines leaving
-one end and entering the other. The third example computes it from @eq-fam-cartesian [@maggiore2023electrodynamics,
-Sec. 6.1, eqs. (6.11)-(6.13)].
+one end and entering the other. The third example computes it from @eq-fam-cartesian
+[@maggiore2023electrodynamics, Sec. 6.1, eqs. (6.11)-(6.13)].
 
 ::: {#exm-fam-dipole-field}
 #### The field of a dipole
@@ -3858,8 +3861,8 @@ The first exercise computes all moments up to $l = 2$ for two such charges, one 
 
 On the sphere of radius $R$ take the surface charge densities $\sigma_0\cos\theta$ and $\sigma_0\sin2\theta\cos\varphi
 = 2\sigma_0xz/R^2$. With Sage, compute $q$, $\mathbf d$, $Q_{ij}$ and all $q_{lm}$ with $l \leq 2$, explain from the
-symmetries which ones vanish, and find $\Phi$ outside the second sphere [@maggiore2023electrodynamics, Sec. 6.1 and
-Fig. 6.3].
+symmetries which ones vanish, and find $\Phi$ outside the second sphere
+[@maggiore2023electrodynamics, Sec. 6.1 and Fig. 6.3].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3906,8 +3909,8 @@ exact for all $r > R$.
 :::
 
 The quadrupole tensor depends on the origin through both the charge and the dipole moment. The second exercise derives
-the transformation law and the condition for the quadrupole to be intrinsic [@maggiore2023electrodynamics, Sec. 6.1,
-eq. (6.24)].
+the transformation law and the condition for the quadrupole to be intrinsic
+[@maggiore2023electrodynamics, Sec. 6.1, eq. (6.24)].
 
 ::: {#exr-fam-quadrupole-shift}
 #### The quadrupole under a shift
@@ -3963,7 +3966,7 @@ by side, and positive in the other two cases.
 On a compact group the role of the harmonics is played by the matrix elements of the irreducible unitary
 representations, and the role of the orthogonality of modes by Schur's orthogonality relations. The definition
 introduces the matrix coefficients, the characters, the invariant integration they are orthogonal for, and the
-Wigner functions of $SU(2)$ in Euler angles.
+Wigner functions of $SU(2)$ in Euler angles [@mukunda2022continuous, Secs. 3.3.4-3.3.5, eqs. (3.48)-(3.54)].
 
 :::: {.statement-box}
 ::: {#def-matrix-coefficient}
@@ -4168,7 +4171,7 @@ chi_{1/2} chi_1 = chi_{1/2} + chi_{3/2} as functions: True
 The matrix coefficients of all irreducible representations together form a complete orthogonal system on the
 group, which is the theorem of Peter and Weyl, the Fourier theory of compact groups. The theorem states it in
 three forms, as a basis, as an expansion, and as a decomposition of the regular representation, and records the
-two instances that this chapter is about.
+two instances that this chapter is about [@mukunda2022continuous, Sec. 7.2.1, eqs. (7.45)-(7.47)].
 
 :::: {.statement-box}
 ::: {#thm-peter-weyl}
@@ -4333,7 +4336,7 @@ the coefficients for integer j are -2(2j + 1)/(j^2 (j + 1)^2): [True, True, True
 A function on a coset space $S/R$ is a function on $S$ that is constant along the cosets, and the Peter-Weyl
 expansion restricted to such functions keeps only the matrix coefficients whose right index is invariant under
 $R$. The definition states this and works out what it says for the sphere, where it reproduces the spherical
-harmonics, and records how the Laplacian acts on each mode.
+harmonics, and records how the Laplacian acts on each mode [@mukunda2022continuous, Secs. 7.2.2 and 7.3.2, eqs. (7.75)-(7.77)].
 
 :::: {.statement-box}
 ::: {#def-coset-mode-expansion}
@@ -4697,7 +4700,8 @@ into a delta sequence.
 
 Solving the heat equation on a circle by separation of variables gives a Fourier series whose coefficients decay
 like $e^{-n^2t}$, and summing the series produces the periodised heat kernel. The first exercise carries this
-out and identifies the two descriptions by Poisson summation, with Sage evaluating both sides numerically.
+out and identifies the two descriptions by Poisson summation, with Sage evaluating both sides numerically
+[@arrigo2023introduction, Ch. 4, pp. 69-72; @chambert-loirInformationTheory2022, Thm. 3.6.4].
 
 ::: {#exr-fa-heat-circle}
 #### The heat equation on the circle
@@ -4744,7 +4748,7 @@ t = 1 x = 3 : Fourier = 0.0487892337662 ; images = 0.0487892337662 ; agree: True
 The Coulomb potential of a point charge expands in Legendre polynomials of the angle between the field point and
 the source, and the addition theorem turns this into a double series in spherical harmonics that separates the
 two directions. The second exercise derives the expansion, verifies its first terms in Sage, and connects it to
-the Fourier transform of $1/r$.
+the Fourier transform of $1/r$ [@boudreau2018applied, Sec. 5.1.5, eq. (5.31)].
 
 ::: {#exr-fa-multipole}
 #### The multipole expansion
@@ -4798,7 +4802,7 @@ generating function: coefficients of t^l are P_l(cos gamma) for l <= 3: True
 A Fourier series on $[-L, L]$ becomes the Fourier transform as $L \to \infty$: the coefficients sample the
 transform, the sum becomes a Riemann sum for the inversion integral, and the Dirichlet kernel becomes the delta
 sequence $\sin(Lx)/\pi x$. The third exercise makes each of these three statements precise and checks the first
-two in Sage for a Gaussian.
+two in Sage for a Gaussian [@chambert-loirInformationTheory2022, Thm. 3.5.5 and its proof].
 
 ::: {#exr-fa-series-to-transform}
 #### From Fourier series to the Fourier transform

@@ -29,10 +29,10 @@ operator to gauge fields, computes the index on the sphere with a monopole by ha
 the $\hat A$ genus. The chirality problem shows why zero modes of one chirality do not appear without gauge fields and
 how gauge backgrounds produce them.
 
-The main sources are the textbook of @zhelnorovich2019spinors (Chapters 1-4 and 6) for the algebra and the spinor
-connection, the lecture notes of @vanproeyen1999 for spinors in arbitrary dimension, @trautman1995 for spin structures
-and the spectrum on spheres, @camporesi1995 for the spectrum on spheres from representation theory, @dolan2003 for
-coset spaces with gauge fields, @bilal2008 for the index theorem, and @aspinwall1996 for $K3$ surfaces. Every statement
+The main sources are the textbook of @zhelnorovich2019spinors [Chs. 1-4 and 6] for the algebra and the spinor
+connection, the lecture notes of @vanproeyen1999 [Sec. 3] for spinors in arbitrary dimension, @trautman1995 [Secs. 4, 6 and 8] for spin structures
+and the spectrum on spheres, @camporesi1995 [Secs. 3 and 5] for the spectrum on spheres from representation theory, @dolan2003 [Secs. 2-3] for
+coset spaces with gauge fields, @bilal2008 [Secs. 3.7, 10 and 11] for the index theorem, and @aspinwall1996 [Sec. 2] for $K3$ surfaces. Every statement
 is followed by at least three examples of increasing complexity and at least three exercises of increasing difficulty
 with hidden solutions; the Pauli matrices, the round sphere $S^2$, the group $SU(2) = S^3$ and the monopole on $S^2$
 are the running examples.
@@ -551,11 +551,13 @@ one. This is the chirality matrix, the matrix that splits spinors into two halve
 
 For gamma matrices of even dimension $d$ and signature $(p, q)$ the **chirality matrix** is
 $$
-\gamma_* = i^{d(d - 1)/2 + q}\,\gamma^1\gamma^2\cdots\gamma^d .
+\gamma_* = i^{d(d + 1)/2 + q}\,\gamma^1\gamma^2\cdots\gamma^d .
 $$ {#eq-spd-chirality}
 It satisfies $\gamma_*^2 = 1$ and $\gamma_*\gamma^a = -\gamma^a\gamma_*$; for Euclidean signature $\gamma_* =
-i^{d/2}\gamma^1\cdots\gamma^d$ @zhelnorovich2019spinors [eq. (1.21)], and for $(1, 3)$ it is $\gamma_5 =
-i\gamma^0\gamma^1\gamma^2\gamma^3$. Its eigenvalues $\pm1$ are the two **chiralities**.
+(-i)^{d/2}\gamma^1\cdots\gamma^d$, the complex volume element, which is $\sigma_3$ in two dimensions
+@vanproeyen1999 [eq. (3.8)], and for $(1, 3)$ it is $\gamma_5 =
+i\gamma^0\gamma^1\gamma^2\gamma^3$. @zhelnorovich2019spinors [eq. (1.21)] normalises the Euclidean case with
+$i^{d/2}$, which has the opposite sign in dimensions $2 \bmod 4$. Its eigenvalues $\pm1$ are the two **chiralities**.
 :::
 ::::
 
@@ -566,11 +568,11 @@ it in two dimensions, where the choice is visible.
 ::: {#exm-spd-chirality-two}
 #### Two dimensions
 
-For $\gamma^1 = \sigma_1$, $\gamma^2 = \sigma_2$, @eq-spd-chirality gives $\gamma_* = i\sigma_1\sigma_2 = i\cdot
-i\sigma_3 = -\sigma_3$. For the Lorentzian pair $\sigma_1, i\sigma_2$ the exponent is $1 + 1 = 2$ and $\gamma_* =
--\sigma_1(i\sigma_2) = +\sigma_3$, while @exr-fld-gamma-2d uses $\gamma^0\gamma^1 = -\sigma_3$: the two conventions
-differ by a sign, which exchanges the names of the two chiralities. @vanproeyen1999 [eq. (3.8)] normalises with
-$(-i)^{d/2 + t}$ and obtains $+\sigma_3$ in the Euclidean case.
+For $\gamma^1 = \sigma_1$, $\gamma^2 = \sigma_2$, @eq-spd-chirality gives $\gamma_* = -i\sigma_1\sigma_2 = -i\cdot
+i\sigma_3 = \sigma_3$. For the Lorentzian pair $\sigma_1, i\sigma_2$ the exponent is $3 + 1 = 4$ and $\gamma_* =
+\sigma_1(i\sigma_2) = -\sigma_3$, which agrees with $\gamma^0\gamma^1 = -\sigma_3$ of @exr-fld-gamma-2d. The opposite
+overall sign, used by some authors, exchanges the names of the two chiralities. @vanproeyen1999 [eq. (3.8)] normalises
+with $(-i)^{d/2 + t}$ and also obtains $+\sigma_3$ in the Euclidean case.
 :::
 
 In four dimensions the chirality matrix is the $\gamma_5$ of particle physics. The second example evaluates it in the
@@ -581,7 +583,7 @@ Weyl representation, where it is diagonal.
 
 For the Weyl matrices of @exm-gamma-weyl, $\gamma_5 = i\gamma^0\gamma^1\gamma^2\gamma^3 = \operatorname{diag}(-1, -1,
 1, 1)$: the upper two components of a Dirac spinor have chirality $-1$ (left-handed) and the lower two chirality $+1$
-(right-handed). The exponent in @eq-spd-chirality is $6 + 3 = 9$, and $i^9 = i$, which is why the factor in front of
+(right-handed). The exponent in @eq-spd-chirality is $10 + 3 = 13$, and $i^{13} = i$, which is why the factor in front of
 the product is $i$.
 :::
 
@@ -593,8 +595,8 @@ it, which is how the construction of @exm-spd-gammas-eleven continues from even 
 
 For the Euclidean matrices @eq-spd-tensor-gammas, $\gamma^{2k - 1}\gamma^{2k} = 1 \otimes \cdots \otimes \sigma_1\sigma_2
 \otimes \cdots = 1 \otimes \cdots \otimes i\sigma_3 \otimes \cdots$ (the $\sigma_3$ factors in front square to $1$), so
-$\gamma^1\cdots\gamma^{2\nu} = (i\sigma_3)^{\otimes\nu}$ and $\gamma_* = i^\nu(i\sigma_3)^{\otimes\nu} =
-(-\sigma_3)^{\otimes\nu}$. Up to sign it is the extra matrix $\sigma_3^{\otimes\nu}$ that makes the construction work
+$\gamma^1\cdots\gamma^{2\nu} = (i\sigma_3)^{\otimes\nu}$ and $\gamma_* = (-i)^\nu(i\sigma_3)^{\otimes\nu} =
+\sigma_3^{\otimes\nu}$. It is the extra matrix $\sigma_3^{\otimes\nu}$ that makes the construction work
 in dimension $2\nu + 1$.
 :::
 ::::
@@ -612,7 +614,7 @@ matrices.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 By @exr-spd-volume-square, $(\gamma^1\cdots\gamma^d)^2 = (-1)^{d(d - 1)/2 + q}$, and $(i^m)^2 = (-1)^m$ with $m =
-d(d - 1)/2 + q$, so $\gamma_*^2 = 1$; anticommutation is the case $d$ even of the same exercise. A unitary $\gamma_*$
+d(d + 1)/2 + q$, which differs from $d(d - 1)/2 + q$ by the even number $d$, so $\gamma_*^2 = 1$; anticommutation is the case $d$ even of the same exercise. A unitary $\gamma_*$
 with $\gamma_*^2 = 1$ satisfies $\gamma_*^\dagger = \gamma_*^{-1} = \gamma_*$. An even product picks up an even number
 of signs when $\gamma_*$ moves through it.
 :::
@@ -842,8 +844,7 @@ $$
 $$ {#eq-spd-charge-conjugation}
 for signs $\eta_C, \epsilon_C \in \{1, -1\}$. In even dimension one exists for each $\eta_C$ (and $C_{-} \propto
 C_{+}\gamma_*$); in odd dimension for one value of $\eta_C$ only. The sign $\epsilon_C$ is determined by $d \bmod 8$ and
-$\eta_C$, and then $C\gamma_A$ is symmetric or antisymmetric according to $|A| \bmod 4$ @vanproeyen1999 [eqs.
-(3.11)-(3.14), Table 1], @zhelnorovich2019spinors [eqs. (1.44)-(1.55)].
+$\eta_C$, and then $C\gamma_A$ is symmetric or antisymmetric according to $|A| \bmod 4$ @vanproeyen1999 [eqs. (3.11)-(3.14), Table 1], @zhelnorovich2019spinors [eqs. (1.44)-(1.55)].
 :::
 ::::
 
@@ -1026,7 +1027,7 @@ three-dimensional ones.
 In signature $(1, 2)$, $\gamma^0 = \sigma_2$, $\gamma^1 = i\sigma_1$, $\gamma^2 = i\sigma_3$ satisfy
 @eq-spd-gamma-relation and are all purely imaginary, so again $B = 1$ and Majorana spinors are real two-component
 vectors. In signature $(1, 1)$ the real matrices $\sigma_1$, $i\sigma_2$ give real Majorana spinors whose two components
-have opposite chirality $\gamma_* = \sigma_3$ (@exm-spd-chirality-two), so each chirality is a single real component: a Majorana-Weyl spinor
+have opposite chirality $\gamma_* = -\sigma_3$ (@exm-spd-chirality-two), so each chirality is a single real component: a Majorana-Weyl spinor
 with one real degree of freedom (@fig-sd-spinor-dimensions at $d = 2$).
 :::
 
@@ -1136,8 +1137,7 @@ the matrices $i\tilde\gamma^\mu$ are real.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The relations hold and every entry is imaginary; $i\tilde\gamma^\mu$ is real and squares to $-\eta^{\mu\mu}$, so it is a
-real representation of $\operatorname{Cl}(3, 1)$, the $M_4(\mathbb{R})$ of @exm-spd-minkowski-cl. @zhelnorovich2019spinors [after eq.
-(1.142)] finds imaginary representations for $\nu - q' \equiv 0, 3 \pmod 4$, where $q'$ counts the directions whose
+real representation of $\operatorname{Cl}(3, 1)$, the $M_4(\mathbb{R})$ of @exm-spd-minkowski-cl. @zhelnorovich2019spinors [after eq. (1.142)] finds imaginary representations for $\nu - q' \equiv 0, 3 \pmod 4$, where $q'$ counts the directions whose
 gamma matrix squares to $-1$: here $\nu = 2$, $q' = 3$, $\nu - q' = -1 \equiv 3$:
 
 ```python
@@ -1162,7 +1162,7 @@ i*gamma real: True ; squares: [-1, 1, 1, 1] = -eta^{mu mu}
 ::::
 
 The computations of this section combine into a classification with period eight in the signature. The theorem states
-it in the form of @vanproeyen1999, which depends only on $p - q$ and so is the same for $(p, q)$ and $(q, p)$.
+it in the form of @vanproeyen1999 [eq. (3.25), Table 2], which depends only on $p - q$ and so is the same for $(p, q)$ and $(q, p)$.
 
 :::: {.statement-box}
 ::: {#thm-majorana-classification}
@@ -1216,7 +1216,7 @@ $\mathbb{C}^2$ of $\operatorname{Spin}(3) = SU(2)$ is pseudoreal).
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The dimension count in the theorem is a short case analysis. The first exercise carries it out and compares with the
-table of @vanproeyen1999.
+table of @vanproeyen1999 [Table 2].
 
 ::: {#exr-spd-real-dimension}
 #### Counting real components
@@ -1247,11 +1247,10 @@ either $s$, since $d$ is even). Deduce that $\psi \mapsto B^{-1}\psi^*$ preserve
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $B\gamma^1\cdots\gamma^dB^{-1} = s^d(\gamma^1\cdots\gamma^d)^* = (\gamma^1\cdots\gamma^d)^*$, while the prefactor $i^m$,
-$m = d(d - 1)/2 + q$, is conjugated to $i^{-m} = (-1)^mi^m$. So $B\gamma_*B^{-1} = (-1)^m\gamma_*^*$, and $m \equiv
-d/2 + q \equiv (p - q)/2 \pmod 2$ since $d(d - 1)/2 \equiv d/2$ for even $d$. If $\gamma_*\psi = \psi$ then
+$m = d(d + 1)/2 + q$, is conjugated to $i^{-m} = (-1)^mi^m$. So $B\gamma_*B^{-1} = (-1)^m\gamma_*^*$, and $m \equiv
+d/2 + q \equiv (p - q)/2 \pmod 2$ since $d(d + 1)/2 \equiv d/2$ for even $d$. If $\gamma_*\psi = \psi$ then
 $\gamma_*(B^{-1}\psi^*) = (-1)^mB^{-1}\psi^*$, so the Majorana condition can be imposed on a Weyl spinor iff $m$ is even,
-$r \equiv 0 \pmod 4$; among $r \in \{0, 2, 6\}$ with Majorana spinors only $r = 0$ remains @vanproeyen1999 [eq.
-(3.28)].
+$r \equiv 0 \pmod 4$; among $r \in \{0, 2, 6\}$ with Majorana spinors only $r = 0$ remains @vanproeyen1999 [eq. (3.28)].
 :::
 
 The real dimension of the minimal spinor bounds how small a supersymmetry algebra can be. The third exercise lists the
@@ -1608,8 +1607,7 @@ $$
 $$ {#eq-spd-sigma-algebra}
 so they represent $\mathfrak{so}(p, q)$. For real antisymmetric $\omega_{ab}$, $S = \exp(\tfrac12\omega_{ab}\Sigma^{ab})
 \in \operatorname{Spin}(p, q)$ and $S^{-1}\gamma^aS = \Lambda^a{}_b\gamma^b$ with $\Lambda = \exp(\omega)$, $\omega$ the matrix
-$(\omega^a{}_b)$; infinitesimally $S = 1 + \tfrac14\delta\omega_{ab}\gamma^a\gamma^b$ @zhelnorovich2019spinors [eqs.
-(1.66)-(1.69), (3.44)].
+$(\omega^a{}_b)$; infinitesimally $S = 1 + \tfrac14\delta\omega_{ab}\gamma^a\gamma^b$ @zhelnorovich2019spinors [eqs. (1.66)-(1.69), (3.44)].
 :::
 ::::
 
@@ -1794,7 +1792,7 @@ $\operatorname{Spin}(4)$ and $\operatorname{Spin}(6)$.
 
 ![The weights $(h_1, \dots, h_\nu)$ of the Dirac spinor of $\operatorname{Spin}(2\nu)$, the eigenvalues of the commuting
 generators $h_k = -i\Sigma^{2k - 1, 2k}$, which are diagonal for the matrices @eq-spd-tensor-gammas. All $2^\nu$
-combinations $(\pm\tfrac12, \dots, \pm\tfrac12)$ occur once; the colour is the chirality $\gamma_* = (-1)^\nu\prod_k2h_k$.
+combinations $(\pm\tfrac12, \dots, \pm\tfrac12)$ occur once; the colour is the chirality $\gamma_* = \prod_k2h_k$.
 Left: $\operatorname{Spin}(4)$, whose two Weyl spinors are the doublets of the two factors $SU(2)$. Right: $\operatorname{Spin}(6)$,
 in an oblique projection of the cube of weights; each chirality has four weights, those of the representations
 $\mathbf{4}$ and $\bar{\mathbf{4}}$ of $SU(4)$. Generated by `figures/sd-weyl-weights.sage`.](figures/sd-weyl-weights.svg){#fig-sd-weyl-weights width=78%}
@@ -1818,10 +1816,10 @@ under $\operatorname{Spin}(2) = U(1)$, which return when spinors are put on the 
 ::: {#exm-spd-weyl-two}
 #### Two dimensions
 
-With $\gamma_* = -\sigma_3$ (@exm-spd-chirality-two) the Weyl spinors are $(0, \psi_2)$ ($\gamma_* = +1$) and $(\psi_1,
-0)$ ($\gamma_* = -1$). The rotation $S(\varphi) = e^{i\varphi\sigma_3/2}$ of @exm-spd-spin-two multiplies them by
-$e^{-i\varphi/2}$ and $e^{i\varphi/2}$: the two Weyl representations of $\operatorname{Spin}(2) = U(1)$ have charges
-$\mp\tfrac12$, and they are complex conjugate to each other.
+With $\gamma_* = \sigma_3$ (@exm-spd-chirality-two) the Weyl spinors are $(\psi_1, 0)$ ($\gamma_* = +1$) and $(0,
+\psi_2)$ ($\gamma_* = -1$). The rotation $S(\varphi) = e^{i\varphi\sigma_3/2}$ of @exm-spd-spin-two multiplies them by
+$e^{i\varphi/2}$ and $e^{-i\varphi/2}$: the two Weyl representations of $\operatorname{Spin}(2) = U(1)$ have charges
+$\pm\tfrac12$, and they are complex conjugate to each other.
 :::
 
 In four Lorentzian dimensions the Weyl spinors are the left- and right-handed two-component spinors of the standard
@@ -1875,14 +1873,14 @@ the rule that relates them to chirality.
 #### Weights and chirality
 
 With Sage, for $\nu = 2, 3, 4, 5$ list the diagonal entries of $h_k = -i\Sigma^{2k - 1, 2k}$ and of $\gamma_*$ in the
-standard Euclidean matrices of dimension $2\nu$, and check that $\gamma_* = (-1)^\nu\prod_k2h_k$. How many weights of
+standard Euclidean matrices of dimension $2\nu$, and check that $\gamma_* = \prod_k2h_k$. How many weights of
 each chirality are there?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$h_k$ is $\tfrac12\sigma_3$ in the $k$th factor (up to the sign of $\sigma_1\sigma_2 = i\sigma_3$), so the weights are
-all sign choices, and $\gamma_* = (-\sigma_3)^{\otimes\nu}$ (@exm-spd-chirality-tensor) gives the product rule; each
-chirality has $2^{\nu - 1}$ weights, those with an even (for $\gamma_* = +1$) or odd number of entries $+\tfrac12$:
+$h_k$ is $\tfrac12\sigma_3$ in the $k$th factor (since $\sigma_1\sigma_2 = i\sigma_3$), so the weights are
+all sign choices, and $\gamma_* = \sigma_3^{\otimes\nu}$ (@exm-spd-chirality-tensor) gives the product rule; each
+chirality has $2^{\nu - 1}$ weights, those with an even (for $\gamma_* = +1$) or odd number of entries $-\tfrac12$:
 
 ```python
 import numpy as np
@@ -1901,10 +1899,10 @@ def gammas(p, q):
 for nu in (2, 3, 4, 5):
     G = gammas(2 * nu, 0); N = 2 ** nu
     H = [-1j * 0.5 * G[2 * k] @ G[2 * k + 1] for k in range(nu)]
-    gst = (1j) ** nu * reduce(np.dot, G, np.eye(N))
+    gst = (-1j) ** nu * reduce(np.dot, G, np.eye(N))
     W = [tuple(float(H[k][i, i].real) for k in range(nu)) for i in range(N)]
     ch = [int(round(gst[i, i].real)) for i in range(N)]
-    rule = all(c == (-1) ** nu * round(np.prod([2 * x for x in w])) for w, c in zip(W, ch))
+    rule = all(c == round(np.prod([2 * x for x in w])) for w, c in zip(W, ch))
     print("nu = %d: diagonal: %s; rule holds: %s; weights with gamma_* = +1: %d, = -1: %d" % (nu,
           all(np.allclose(h, np.diag(np.diag(h))) for h in H + [gst]), rule, ch.count(1), ch.count(-1)))
     if nu == 2: print("   Spin(4) weights and chiralities:", list(zip(W, ch)))
@@ -1952,8 +1950,7 @@ representations.
 Let $d$ be even and $B$ as in @def-majorana-condition. Then $\psi \mapsto B^{-1}\psi^*$ commutes with the action of
 $\operatorname{Spin}(p, q)$ and maps $S_\pm$ to $S_{\pm(-1)^{(p - q)/2}}$. Hence for $p - q \equiv 0 \pmod 4$ each Weyl
 representation is equivalent to its complex conjugate (real for $p - q \equiv 0 \pmod 8$, pseudoreal for $p - q \equiv
-4$), and for $p - q \equiv 2 \pmod 4$ the two Weyl representations are complex conjugates of each other @vanproeyen1999
-[eq. (3.28) and the paragraph before it].
+4$), and for $p - q \equiv 2 \pmod 4$ the two Weyl representations are complex conjugates of each other @vanproeyen1999 [eq. (3.28) and the paragraph before it].
 :::
 ::::
 
@@ -2031,7 +2028,7 @@ for (label, sig) in (("Euclidean", lambda d: (d, 0)), ("Lorentzian", lambda d: (
         p, q = sig(d); G = gammas(p, q); N = G[0].shape[0]
         real = [x for x in G if np.allclose(x.conj(), x)]; imag = [x for x in G if np.allclose(x.conj(), -x)]
         Bs = [B for B in (reduce(np.dot, real, np.eye(N)), reduce(np.dot, imag, np.eye(N))) if any(all(np.allclose(x.conj() @ B, s * B @ x) for x in G) for s in (1, -1))]
-        B = Bs[0]; gst = (1j) ** ((d * (d - 1)) // 2 + q) * reduce(np.dot, G, np.eye(N))
+        B = Bs[0]; gst = (1j) ** ((d * (d + 1)) // 2 + q) * reduce(np.dot, G, np.eye(N))
         sign = 1 if np.allclose(B @ gst @ np.linalg.inv(B), gst.conj()) else (-1 if np.allclose(B @ gst @ np.linalg.inv(B), -gst.conj()) else 0)
         print("%-10s d = %2d (p - q = %3d): B gamma_* B^-1 = %+d gamma_*^*, (-1)^((p-q)/2) = %+d" % (label, d, p - q, sign, (-1) ** ((p - q) // 2)))
 ```
@@ -2103,7 +2100,7 @@ def gammas(p, q):
     if d % 2: G.append(kron([s3] * n))
     return G[:p] + [1j * x for x in G[p:]]
 G = gammas(6, 0); N = 8
-gst = (1j) ** 3 * reduce(np.dot, G, np.eye(N))
+gst = (-1j) ** 3 * reduce(np.dot, G, np.eye(N))
 plus = [i for i in range(N) if gst[i, i].real > 0]; minus = [i for i in range(N) if gst[i, i].real < 0]
 Sig = lambda a, b: 0.25 * (G[a] @ G[b] - G[b] @ G[a])
 gens = [Sig(a, b) for a in range(6) for b in range(a + 1, 6)]
@@ -2159,9 +2156,9 @@ out with the charges of @exm-spd-weyl-two.
 ::: {#exm-spd-branch-six}
 #### Six as four plus two
 
-For $n = 2$, $\Gamma^M$ have size $8$ and $\Gamma_* = \gamma_5 \otimes \gamma_*^K$ with $\gamma_*^K = -\sigma_3$. A Weyl
-spinor of positive chirality in six dimensions is $\psi_R \otimes (0, 1) + \psi_L \otimes (1, 0)$: a right-handed spinor
-with $\operatorname{Spin}(2)$ charge $-\tfrac12$ and a left-handed one with charge $+\tfrac12$. Four complex components, which
+For $n = 2$, $\Gamma^M$ have size $8$ and $\Gamma_* = \gamma_5 \otimes \gamma_*^K$ with $\gamma_*^K = \sigma_3$. A Weyl
+spinor of positive chirality in six dimensions is $\psi_R \otimes (1, 0) + \psi_L \otimes (0, 1)$: a right-handed spinor
+with $\operatorname{Spin}(2)$ charge $+\tfrac12$ and a left-handed one with charge $-\tfrac12$. Four complex components, which
 is the Weyl spinor $\mathbf{4}$ of $SO(1, 5)$.
 :::
 
@@ -2230,8 +2227,8 @@ for n in (2, 4, 6):
     Gam = [np.kron(x, np.eye(NK)) for x in weyl] + [np.kron(1j * g5, k) for k in K]
     D = 4 + n; q = D - 1; eta = [1] + [-1] * q; NN = 4 * NK
     ok = all(np.allclose(Gam[a] @ Gam[b] + Gam[b] @ Gam[a], 2 * (eta[a] if a == b else 0) * np.eye(NN)) for a in range(D) for b in range(D))
-    Gst = (1j) ** ((D * (D - 1)) // 2 + q) * reduce(np.dot, Gam, np.eye(NN))
-    gK = (1j) ** (n // 2) * reduce(np.dot, K, np.eye(NK))
+    Gst = (1j) ** ((D * (D + 1)) // 2 + q) * reduce(np.dot, Gam, np.eye(NN))
+    gK = (-1j) ** (n // 2) * reduce(np.dot, K, np.eye(NK))
     print("n = %d, D = %2d: size %d, Clifford relations: %s, Gamma_* = gamma_5 x gamma_*^K: %s" % (n, D, NN, ok, np.allclose(Gst, np.kron(g5, gK))))
 ```
 
@@ -2382,13 +2379,13 @@ of @fig-sd-weyl-weights to redo the decomposition of @exm-spd-branch-ten.
 #### Branching by weights
 
 The Dirac spinor of $\operatorname{Spin}(10)$ (Euclidean, for simplicity) has weights $(\pm\tfrac12)^5$ and $\gamma_* =
-(-1)^5\prod_k2h_k$. Restricting to $\operatorname{Spin}(4) \times \operatorname{Spin}(6)$ (weights $(h_1, h_2)$ and $(h_3, h_4,
+\prod_k2h_k$. Restricting to $\operatorname{Spin}(4) \times \operatorname{Spin}(6)$ (weights $(h_1, h_2)$ and $(h_3, h_4,
 h_5)$), show that the sixteen weights of chirality $+1$ are the products of the chirality $\pm$ weights of
 $\operatorname{Spin}(4)$ with the chirality $\pm$ weights of $\operatorname{Spin}(6)$, with matching signs, and count them.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(-1)^5\prod_{k \leq 5}2h_k = [(-1)^2\prod_{k \leq 2}2h_k][(-1)^3\prod_{3 \leq k \leq 5}2h_k]$, so the chirality of a
+$\prod_{k \leq 5}2h_k = [\prod_{k \leq 2}2h_k][\prod_{3 \leq k \leq 5}2h_k]$, so the chirality of a
 weight of $\operatorname{Spin}(10)$ is the product of the chiralities of its two parts. Chirality $+1$ arises from $(+, +)$ or
 $(-, -)$: $2 \times 4 + 2 \times 4 = 16$ weights, the decomposition $\mathbf{16} = (\mathbf{2}_+, \mathbf{4}) \oplus
 (\mathbf{2}_-, \bar{\mathbf{4}})$, which becomes that of @exm-spd-branch-ten once the first factor is made Lorentzian.
@@ -2478,7 +2475,7 @@ shows that it exists by restricting the spin structure of the surrounding Euclid
 $S^n \subset \mathbb{R}^{n + 1}$, $n \geq 2$: an oriented frame of $S^n$ together with the outward normal is an oriented
 frame of $\mathbb{R}^{n + 1}$, which embeds $SO(S^n)$ into $S^n \times SO(n + 1)$; the preimage in $S^n \times
 \operatorname{Spin}(n + 1)$ is a spin structure, and the spinor bundle is trivial, $S^n \times \mathbb{C}^{N}$ with the spinors of
-$\mathbb{R}^{n + 1}$ or half of them @trautman1995 [Sec. 6, Prop. 5]. It is the only one since $S^n$ is simply
+$\mathbb{R}^{n + 1}$ or half of them @trautman1995 [Sec. 4.3, eq. (15), Props. 5 and 7]. It is the only one since $S^n$ is simply
 connected.
 :::
 ::::
@@ -2499,8 +2496,7 @@ $e^{\pm i\theta\sigma_3/2}\psi_0$ and conclude that the induced spin structure o
 The rotating frame is $\Lambda(\theta)$ applied to the Cartesian one, and the spinor transformation covering it is
 $S(\theta) = e^{i\theta\sigma_3/2}$ (with one choice of sign convention for components, $e^{-i\theta\sigma_3/2}$ with the
 other). Components of a fixed spinor in the rotated frame are $S(\theta)^{\mp1}\psi_0$, which at $\theta = 2\pi$ are
-$-\psi_0$: the restriction of the spin structure of $\mathbb{R}^2$ is the connected double cover, as @trautman1995 [Sec.
-6.1] states for immersions $z \mapsto z^n$ with $n$ odd.
+$-\psi_0$: the restriction of the spin structure of $\mathbb{R}^2$ is the connected double cover, as @trautman1995 [Sec. 6.1] states for immersions $z \mapsto z^n$ with $n$ odd.
 :::
 
 Two spin structures differ by a sign attached to each closed loop, multiplicatively. The second exercise turns this into
@@ -2555,8 +2551,7 @@ through the Stiefel-Whitney classes.
 An oriented Riemannian manifold $M$ admits a spin structure if and only if its second Stiefel-Whitney class $w_2(M) \in
 H^2(M; \mathbb{Z}_2)$, the class of the $\pm1$-valued cocycle $S_{ij}S_{jk}S_{ki}$ for arbitrary lifts, vanishes. The
 spin structures of a spin manifold are then in bijection with $H^1(M; \mathbb{Z}_2)$. For a complex manifold $w_2$ is
-the reduction modulo $2$ of the first Chern class $c_1$ @trautman1995 [Sec. 4.1 and Sec. 6.1], @dolan2003 [Sec. 2,
-example iii].
+the reduction modulo $2$ of the first Chern class $c_1$ @aspinwall1996 [Sec. 2.3, after eq. (22)], @dolan2003 [Sec. 2, example iii].
 :::
 ::::
 
@@ -2673,8 +2668,7 @@ $$
 \nabla_X\psi = X(\psi) + \tfrac14\omega_{ab}(X)\gamma^a\gamma^b\psi ,
 $$ {#eq-spd-spin-connection}
 in the frame components $\psi$ of the spinor field @zhelnorovich2019spinors [eqs. (2.56), (2.68)]. Under a change of
-frame $e'_a = e_b\Lambda^b{}_a(x)$ with lift $S(x)$, it transforms covariantly @zhelnorovich2019spinors [eqs. (2.61),
-(2.65)].
+frame $e'_a = e_b\Lambda^b{}_a(x)$ with lift $S(x)$, it transforms covariantly @zhelnorovich2019spinors [eqs. (2.61), (2.65)].
 :::
 ::::
 
@@ -2719,8 +2713,7 @@ transformation. The third example works it out in two dimensions, where the spin
 In two dimensions $\omega_{12}$ is a single one-form and $\nabla = d - \tfrac{i}{2}\omega_{12}\sigma_3$ up to the
 identification $\gamma^1\gamma^2 = i\sigma_3$, a $U(1)$ connection acting with charges $\pm\tfrac12$ on the two
 components. Rotating the frame by an angle $\alpha(x)$ changes $\omega_{12}$ to $\omega_{12} - d\alpha$ and the
-components to $e^{\pm i\alpha\sigma_3/2}\psi$, the gauge transformation of charge $\tfrac12$ @zhelnorovich2019spinors [eq.
-(2.61)]. From the Cartesian frame to the polar frame of @exm-spd-polar-plane, $\alpha = \theta$ and $\omega_{12} = 0 -
+components to $e^{\pm i\alpha\sigma_3/2}\psi$, the gauge transformation of charge $\tfrac12$ @zhelnorovich2019spinors [eq. (2.61)]. From the Cartesian frame to the polar frame of @exm-spd-polar-plane, $\alpha = \theta$ and $\omega_{12} = 0 -
 d\theta$.
 :::
 ::::
@@ -2843,7 +2836,7 @@ $$
 \qquad \gamma^c\gamma^d R(e_c, e_d)\psi = -\tfrac12R\,\psi ,
 $$ {#eq-spd-spinor-curvature}
 with $R(e_c, e_d) = \nabla_{e_c}\nabla_{e_d} - \nabla_{e_d}\nabla_{e_c} - \nabla_{[e_c, e_d]}$ and $R$ the scalar
-curvature (positive on spheres) @dolan2003 [eq. (4)], @zhelnorovich2019spinors [Sec. 2.3].
+curvature (positive on spheres) @dolan2003 [eq. (4)].
 :::
 ::::
 
@@ -3004,7 +2997,7 @@ $c_1(N) = m \in \mathbb{Z}$, and $L$ has even degree $2m$: spinors of charge one
 :::
 
 On $\mathbb{CP}^2$ the sign cocycle is non-trivial, so $L$ must have odd degree to cancel it. The second example lists the
-choices and the one of @dolan2003 that has a single zero mode.
+choices and the one of @dolan2003 [eqs. (55)-(56)] that has a single zero mode.
 
 ::: {#exm-spd-spinc-cp2}
 #### Spin-c structures on $\mathbb{CP}^2$
@@ -3030,7 +3023,7 @@ K^{1/2}$.
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The zero-mode counts of @fig-sd-cp2-index were obtained by @dolan2003 from representation theory and compared with the
+The zero-mode counts of @fig-sd-cp2-index were obtained by @dolan2003 [Sec. 2, eqs. (55)-(56)] from representation theory and compared with the
 index. The first exercise reproduces the comparison.
 
 ::: {#exr-spd-cp2-index-table}
@@ -3042,7 +3035,7 @@ index vanishes for $Q = -1, -2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The two columns agree for every $Q$, and the index is $0$ exactly at $Q = -1, -2$, where @dolan2003 finds no zero modes:
+The two columns agree for every $Q$, and the index is $0$ exactly at $Q = -1, -2$, where @dolan2003 [after eq. (56)] finds no zero modes:
 
 ```python
 print("  Q  index  zero modes")
@@ -3225,8 +3218,7 @@ D = i\gamma^a\nabla_{e_a} = i\gamma^ae_a{}^\mu\Big(\partial_\mu + \tfrac14\omega
 $$ {#eq-spd-dirac-operator}
 on spinor fields, independent of the frame. It is formally self-adjoint for $\langle\psi, \chi\rangle = \int_M\psi^\dagger
 \chi\,d\mathrm{vol}$ on a compact manifold without boundary. For even $n$, $D\gamma_* = -\gamma_*D$, so $D$ maps
-$S_\pm$ to $S_\mp$ and $D = \begin{pmatrix} 0 & D^- \\ D^+ & 0 \end{pmatrix}$ with $D^- = (D^+)^\dagger$ @dolan2003 [eq.
-(2)], @camporesi1995 [eq. (3.9)].
+$S_\pm$ to $S_\mp$ and $D = \begin{pmatrix} 0 & D^- \\ D^+ & 0 \end{pmatrix}$ with $D^- = (D^+)^\dagger$ @dolan2003 [eq. (2)], @camporesi1995 [eqs. (3.9)-(3.10)].
 :::
 ::::
 
@@ -3267,7 +3259,7 @@ $$
 D = i\Big[\sigma_1\Big(\partial_\theta + \tfrac12\cot\theta\Big) + \frac{\sigma_2}{\sin\theta}\,\partial_\varphi\Big] ,
 $$ {#eq-spd-dirac-sphere}
 because $\sigma_2(-\tfrac{i}{2}\cos\theta\,\sigma_3) = \tfrac12\cos\theta\,\sigma_1$. The term $\tfrac12\cot\theta$ makes
-$D$ symmetric for the measure $\sin\theta\,d\theta\,d\varphi$, and the chirality $\gamma_* = -\sigma_3$ anticommutes with
+$D$ symmetric for the measure $\sin\theta\,d\theta\,d\varphi$, and the chirality $\gamma_* = \sigma_3$ anticommutes with
 $D$.
 :::
 ::::
@@ -3434,20 +3426,20 @@ field, with a monopole field included for later use.
 #### The formula on $S^2$ by computer algebra
 
 With Sage, take $\psi = (u(\theta, \varphi), v(\theta, \varphi))$, the operators of @exm-spd-lichnerowicz-sphere with the
-extra potential $\tfrac{iM}{2}(1 - \cos\theta)$ added to $\nabla_\varphi$, and compute $D^2\psi - \nabla^*\nabla\psi$.
+extra potential $\tfrac{iM}{2}(\cos\theta - 1)$ (the monopole of charge $M$, @exm-spd-monopole-potential) added to $\nabla_\varphi$, and compute $D^2\psi - \nabla^*\nabla\psi$.
 Compare with $\tfrac14R\psi - \tfrac12F_{ab}\gamma^a\gamma^b\psi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The difference is $\operatorname{diag}(\tfrac12 + \tfrac M2, \tfrac12 - \tfrac M2)\psi$: the curvature term $\tfrac12$
-and the spin-field coupling $\tfrac M2\sigma_3$, with $F_{12} = \tfrac{iM}{2}$, as @exm-spd-lichnerowicz-twisted states. For
+The difference is $\operatorname{diag}(\tfrac12 - \tfrac M2, \tfrac12 + \tfrac M2)\psi$: the curvature term $\tfrac12$
+and the spin-field coupling $-\tfrac M2\sigma_3$, with $F_{12} = -\tfrac{iM}{2}$, as @exm-spd-lichnerowicz-twisted states. For
 $M = 0$ it is the Lichnerowicz formula:
 
 ```python
 th, ph, M = var("th ph M")
 u = function("u")(th, ph); v = function("v")(th, ph)
 s1 = matrix(SR, [[0, 1], [1, 0]]); s2 = matrix(SR, [[0, -I], [I, 0]]); s3 = matrix(SR, [[1, 0], [0, -1]])
-a = M / 2 * (1 - cos(th))
+a = M / 2 * (cos(th) - 1)
 N1 = lambda p: p.apply_map(lambda f: diff(f, th))
 N2 = lambda p: (p.apply_map(lambda f: diff(f, ph)) - I / 2 * cos(th) * s3 * p + I * a * p) / sin(th)
 D = lambda p: I * (s1 * N1(p) + s2 * N2(p))
@@ -3465,8 +3457,8 @@ print("for M = 0, D^2 - nabla^* nabla = 1/2 = R/4:", (diffr.subs(M=0) - psi / 2)
 *Output:*
 
 ```text
-D^2 psi - nabla^* nabla psi = [1/2*(M + 1)*u(th, ph), -1/2*(M - 1)*v(th, ph)]
-F_12 = 1/2*I*M
+D^2 psi - nabla^* nabla psi = [-1/2*(M - 1)*u(th, ph), 1/2*(M + 1)*v(th, ph)]
+F_12 = -1/2*I*M
 agrees with R/4 - (1/2) F_ab gamma^a gamma^b: True
 for M = 0, D^2 - nabla^* nabla = 1/2 = R/4: [0, 0]
 ```
@@ -3779,8 +3771,7 @@ $$ {#eq-spd-sphere-eigenvalues}
 each sign with multiplicity $2^{\lfloor n/2\rfloor}\binom{l + n - 1}{l}$; on the sphere of radius $r$ the eigenvalues are
 divided by $r$. In the trivialisation of the spinor bundle by $\mathbb{R}^{n + 1}$, $D$ is unitarily equivalent to the
 "spin-orbit" operator $K = -\sum_{i < j}\gamma^i\gamma^jL_{ij} + \tfrac n2$, $L_{ij} = x_i\partial_j - x_j\partial_i$, which
-satisfies $(K - \tfrac n2)(K + \tfrac n2 - 1) = -\Delta_{S^n}$ with $\Delta_{S^n}$ the Laplacian of $S^n$, so that $-\Delta_{S^n} \geq 0$ @trautman1995 [Sec.
-8.1, Prop. 8], @camporesi1995 [eqs. (3.44), (5.48)].
+satisfies $(K - \tfrac n2)(K + \tfrac n2 - 1) = -\Delta_{S^n}$ with $\Delta_{S^n}$ the Laplacian of $S^n$, so that $-\Delta_{S^n} \geq 0$ @trautman1995 [Sec. 8.1, Prop. 8], @camporesi1995 [eqs. (3.44), (3.58), (5.48)].
 :::
 ::::
 
@@ -4211,18 +4202,17 @@ integrative exercise finds it on $S^2$ with the operator of @exr-spd-lichnerowic
 ::: {#exr-spd-zero-mode-balance}
 #### When the field cancels the curvature
 
-On the unit $S^2$ with the monopole term of @exr-spd-lichnerowicz-check, $D^2 = \nabla^*\nabla + \tfrac12 + \tfrac
-M2\sigma_3$. Show that for $M \geq 1$ the lower component can have $D^2\psi = 0$ only if $\nabla^*\nabla\psi = \tfrac{M -
+On the unit $S^2$ with the monopole term of @exr-spd-lichnerowicz-check, $D^2 = \nabla^*\nabla + \tfrac12 - \tfrac
+M2\sigma_3$. Show that for $M \geq 1$ the upper component can have $D^2\psi = 0$ only if $\nabla^*\nabla\psi = \tfrac{M -
 1}{2}\psi$, and that for $M = 1$ this means $\nabla\psi = 0$. Find such a $\psi$ explicitly for $M = 1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-On the lower component $\sigma_3 = -1$, so $D^2 = \nabla^*\nabla + \tfrac{1 - M}{2}$, and $D^2\psi = 0$ needs
+On the upper component $\sigma_3 = 1$, so $D^2 = \nabla^*\nabla + \tfrac{1 - M}{2}$, and $D^2\psi = 0$ needs
 $\nabla^*\nabla\psi = \tfrac{M - 1}{2}\psi$; since $\nabla^*\nabla \geq 0$ this is possible for $M \geq 1$, and for $M = 1$
-it means $\|\nabla\psi\|^2 = 0$. On the lower component $\nabla_\varphi = \partial_\varphi + \tfrac{i}{2}\cos\theta +
-\tfrac{i}{2}(1 - \cos\theta) = \partial_\varphi + \tfrac{i}{2}$, and $\psi = (0, e^{-i\varphi/2})$ has $\nabla_\theta\psi =
-\nabla_\varphi\psi = 0$: the gauge field exactly cancels the spin connection, the case $|M| = 1$ of @dolan2003 [after eq.
-(32)], and the zero mode is "constant".
+it means $\|\nabla\psi\|^2 = 0$. On the upper component $\nabla_\varphi = \partial_\varphi - \tfrac{i}{2}\cos\theta +
+\tfrac{i}{2}(\cos\theta - 1) = \partial_\varphi - \tfrac{i}{2}$, and $\psi = (e^{i\varphi/2}, 0)$ has $\nabla_\theta\psi =
+\nabla_\varphi\psi = 0$: the gauge field exactly cancels the spin connection, the case $|M| = 1$ of @dolan2003 [after eq. (32)], and the zero mode is "constant".
 :::
 ::::
 
@@ -4261,8 +4251,7 @@ lifted from $X_a$ the Dirac operator is
 $$
 D = i\gamma^aX_a - \frac{i}{8}f_{abc}\gamma^a\gamma^b\gamma^c ,
 $$ {#eq-spd-group-dirac}
-the **left-invariant Dirac operator**, where $X_a$ acts on the components by differentiation @zhelnorovich2019spinors
-[Sec. 6.1, eq. (6.1)].
+the **left-invariant Dirac operator**, where $X_a$ acts on the components by differentiation @zhelnorovich2019spinors [Sec. 6.1, eq. (6.1)].
 :::
 ::::
 
@@ -4405,7 +4394,7 @@ for off in (0, 3):
     for (a, b, c) in itertools.permutations(range(3)):
         f[off + a, off + b, off + c] = 2 * Permutation([a + 1, b + 1, c + 1]).sign()
 C = -1j / 8 * sum(f[a, b, c] * G[a] @ G[b] @ G[c] for a in range(6) for b in range(6) for c in range(6))
-gst = (1j) ** 3 * reduce(np.dot, G, np.eye(8))
+gst = (-1j) ** 3 * reduce(np.dot, G, np.eye(8))
 print("C Hermitian:", np.allclose(C, C.conj().T), "; C anticommutes with gamma_*:", np.allclose(C @ gst, -gst @ C))
 print("eigenvalues of C:", np.round(np.sort(np.linalg.eigvals(C).real), 6))
 A = -1j / 8 * sum(f[a, b, c] * G[a] @ G[b] @ G[c] for a in range(3) for b in range(3) for c in range(3))
@@ -4437,7 +4426,7 @@ spin $j$. The proposition gives the result, which must agree with @thm-sphere-di
 On the unit $S^3 = SU(2)$ in the left-invariant frame, $D = 2\boldsymbol\sigma\cdot\mathbf J + \tfrac32$. On the summand $\mathbb{C}^2 \otimes
 V_j \otimes V_j^*$ of the spinor fields its eigenvalues are $2j + \tfrac32$ with multiplicity $(2j + 2)(2j + 1)$ and $-(2j +
 \tfrac12)$ (for $j \geq \tfrac12$) with multiplicity $2j(2j + 1)$. Together, the spectrum is $\pm(l + \tfrac32)$, $l \geq 0$,
-with multiplicity $(l + 1)(l + 2)$ for each sign @camporesi1995 [eq. (3.44)], @trautman1995 [Prop. 8].
+with multiplicity $(l + 1)(l + 2)$ for each sign @camporesi1995 [eq. (3.58)], @trautman1995 [Prop. 8].
 :::
 ::::
 
@@ -4753,7 +4742,7 @@ branching rules. The second example uses them to find which representations carr
 
 The representations of $\operatorname{Spin}(n + 1)$ containing the spinor representation of $\operatorname{Spin}(n)$ are those with
 highest weight $(l + \tfrac12, \tfrac12, \dots, \tfrac12)$ (and $(l + \tfrac12, \tfrac12, \dots, -\tfrac12)$ for odd $n$),
-$l \geq 0$, each containing it once @camporesi1995 [Sec. 5, after eq. (5.6)]; their dimensions are the multiplicities of
+$l \geq 0$, each containing it once @camporesi1995 [Sec. 5, eq. (5.34)]; their dimensions are the multiplicities of
 @thm-sphere-dirac-spectrum (@exr-spd-sphere-weyl-dimensions).
 :::
 
@@ -5023,7 +5012,7 @@ $$ {#eq-spd-dolbeault-dirac}
 which maps even forms to odd ones and back, the two chiralities. If $M$ is spin, the Dirac operator of the spin structure is
 @eq-spd-dolbeault-dirac acting on $\Omega^{0, \bullet}(K^{1/2})$. Harmonic spinors of positive and negative chirality are the
 Dolbeault cohomology $H^{0, \mathrm{even}}$ and $H^{0, \mathrm{odd}}$ (of $K^{1/2}$ in the spin case), with dimensions given by
-Hodge numbers @greene1997 [Sec. 2.9], @dolan2003 [Sec. 2, example iii].
+Hodge numbers @greene1997 [Sec. 2.9].
 :::
 ::::
 
@@ -5127,7 +5116,7 @@ the quintic in two ways, as in @fig-sd-hodge-diamonds.
 ::: {#exr-spd-quintic-euler}
 #### The Euler characteristic of the quintic
 
-From the Hodge diamond of a Calabi-Yau threefold @greene1997 [Sec. 2.11, p. 32] show $\chi = 2(h^{1, 1} - h^{2, 1})$, and
+From the Hodge diamond of a Calabi-Yau threefold @greene1997 [Secs. 2.11-2.12, pp. 32-35] show $\chi = 2(h^{1, 1} - h^{2, 1})$, and
 evaluate it for the quintic ($h^{1, 1} = 1$, $h^{2, 1} = 101$). With Sage, compute $\chi = \int c_3$ from $c(T) = (1 + x)^5/(1 +
 5x)$ (the analogue of @aspinwall1996 [eqs. (9)-(12)] for the quintic) and $\int_Xx^3 = 5$.
 :::
@@ -5232,21 +5221,21 @@ chirality (@fig-sd-weyl-weights): one singlet in each Weyl spinor:
 ```python
 import itertools
 for h in itertools.product((1/2, -1/2), repeat=3):
-    chi = (-1) ^ 3 * prod(2 * t for t in h)
+    chi = prod(2 * t for t in h)
     print(h, "chirality %+d" % chi, "<- SU(3) singlet" if h[0] == h[1] == h[2] else "")
 ```
 
 *Output:*
 
 ```text
-(1/2, 1/2, 1/2) chirality -1 <- SU(3) singlet
-(1/2, 1/2, -1/2) chirality +1 
-(1/2, -1/2, 1/2) chirality +1 
-(1/2, -1/2, -1/2) chirality -1 
-(-1/2, 1/2, 1/2) chirality +1 
-(-1/2, 1/2, -1/2) chirality -1 
-(-1/2, -1/2, 1/2) chirality -1 
-(-1/2, -1/2, -1/2) chirality +1 <- SU(3) singlet
+(1/2, 1/2, 1/2) chirality +1 <- SU(3) singlet
+(1/2, 1/2, -1/2) chirality -1 
+(1/2, -1/2, 1/2) chirality -1 
+(1/2, -1/2, -1/2) chirality +1 
+(-1/2, 1/2, 1/2) chirality -1 
+(-1/2, 1/2, -1/2) chirality +1 
+(-1/2, -1/2, 1/2) chirality +1 
+(-1/2, -1/2, -1/2) chirality -1 <- SU(3) singlet
 ```
 :::
 
@@ -5304,7 +5293,7 @@ U_g\,\psi \circ g^{-1}$ with $U_g$ covering the differential of $g$ and $U_gU_h 
 taken in the pin group of @trautman1995 [Sec. 3], and the lifted action commutes with the Dirac operator up to sign). The spinor fields on the
 **orbifold** $K/\Gamma$ are the $\Gamma$-invariant spinor fields on $K$, and the Dirac operator of $K/\Gamma$ is the restriction of
 that of $K$; its zero modes are the $\Gamma$-invariant zero modes of $K$. Points with non-trivial stabiliser are the fixed
-points, where $K/\Gamma$ is locally $\mathbb{R}^n/\Gamma_x$ @aspinwall1996 [Sec. 2.6], @chatzistavrakidis2010orb [Sec. 2].
+points, where $K/\Gamma$ is locally $\mathbb{R}^n/\Gamma_x$ @aspinwall1996 [Sec. 2.6].
 :::
 ::::
 
@@ -5375,15 +5364,15 @@ for v, N in (((1/3, 1/3, -2/3), 3), ((1/4, 1/4, -1/2), 4), ((1/6, 1/3, -1/2), 6)
         print("v =", v, ": no lift to spinors as a Z_%d action" % N); continue
     eps = lifts[0]
     inv = [h for h in W if bool(eps * exp(2 * pi * I * sum(vi * hi for vi, hi in zip(v, h))) == 1)]
-    print("v = %s (sum %s), lift sign %+d: invariant weights %s, chiralities %s" % (v, sum(v), eps, inv, [(-1) ^ 3 * prod(2 * t for t in h) for h in inv]))
+    print("v = %s (sum %s), lift sign %+d: invariant weights %s, chiralities %s" % (v, sum(v), eps, inv, [prod(2 * t for t in h) for h in inv]))
 ```
 
 *Output:*
 
 ```text
-v = (1/3, 1/3, -2/3) (sum 0), lift sign +1: invariant weights [(1/2, 1/2, 1/2), (-1/2, -1/2, -1/2)], chiralities [-1, 1]
-v = (1/4, 1/4, -1/2) (sum 0), lift sign +1: invariant weights [(1/2, 1/2, 1/2), (-1/2, -1/2, -1/2)], chiralities [-1, 1]
-v = (1/6, 1/3, -1/2) (sum 0), lift sign +1: invariant weights [(1/2, 1/2, 1/2), (-1/2, -1/2, -1/2)], chiralities [-1, 1]
+v = (1/3, 1/3, -2/3) (sum 0), lift sign +1: invariant weights [(1/2, 1/2, 1/2), (-1/2, -1/2, -1/2)], chiralities [1, -1]
+v = (1/4, 1/4, -1/2) (sum 0), lift sign +1: invariant weights [(1/2, 1/2, 1/2), (-1/2, -1/2, -1/2)], chiralities [1, -1]
+v = (1/6, 1/3, -1/2) (sum 0), lift sign +1: invariant weights [(1/2, 1/2, 1/2), (-1/2, -1/2, -1/2)], chiralities [1, -1]
 v = (1/3, 0, 0) (sum 1/3), lift sign -1: invariant weights [], chiralities []
 ```
 :::
@@ -5489,7 +5478,7 @@ equal to $2$?
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $|W_{G_2}| = 12$, $|W_{SU(3)}| = 6$: $2$. $|W_{Sp(4)}| = 8$, $|W_{SU(2) \times U(1)}| = 2$: $4$. $|W_{SU(3)}| = 6$, $|W_{U(1)^2}| =
-1$: $6$. These are the values of @chatzistavrakidis2009nk, where half of them counts the generations (@prp-generations-euler).
+1$: $6$. These are the values of @chatzistavrakidis2009nk [Sec. 4], where half of them counts the generations (@prp-generations-euler).
 $G_2/SU(3)$ is the six-sphere, $\chi(S^6) = 1 + 1 = 2$:
 
 ```python
@@ -5532,8 +5521,7 @@ produces $K3$ @aspinwall1996 [Sec. 2.6]; the torus has the same topology as neit
 A gauge field changes the Dirac operator by a potential term and its square by a coupling of the field strength to the
 spin, which can cancel the positive curvature term of the Lichnerowicz formula and create zero modes. Their number,
 counted with chirality, is the index of the operator, a topological invariant given by the Atiyah-Singer index theorem as
-the integral of a characteristic form. This part couples the Dirac operator to gauge fields following @dolan2003 [Sec.
-2] and @bilal2008 [Sec. 3.7, 10 and 11], computes the zero modes on the sphere with a monopole by hand, states the index
+the integral of a characteristic form. This part couples the Dirac operator to gauge fields following @dolan2003 [Sec. 2] and @bilal2008 [Sec. 3.7, 10 and 11], computes the zero modes on the sphere with a monopole by hand, states the index
 theorem with the $\hat A$ genus and the Chern character, and evaluates it on spheres, $K3$ and Calabi-Yau threefolds,
 where it counts generations. The index is the Fredholm index of @def-fredholm-operator, and its invariance under
 deformations is @thm-index-stability; the gauge potentials are those of @def-gauge-potential, anti-Hermitian as in
@@ -5560,8 +5548,7 @@ $$
 D_A = i\gamma^a\big(\nabla_{e_a} \otimes 1 + 1 \otimes A(e_a)\big) ,
 $$ {#eq-spd-twisted-dirac}
 with $\nabla$ the spin connection. It is formally self-adjoint, anticommutes with $\gamma_* \otimes 1$ in even dimension, and
-satisfies $D_A^2 = \nabla^*\nabla + \tfrac14R - \tfrac12F_{ab}\gamma^a\gamma^b$ (@exm-spd-lichnerowicz-twisted) @dolan2003
-[eqs. (2), (5)], @bilal2008 [eq. (11.14)].
+satisfies $D_A^2 = \nabla^*\nabla + \tfrac14R - \tfrac12F_{ab}\gamma^a\gamma^b$ (@exm-spd-lichnerowicz-twisted) @dolan2003 [eqs. (2), (5)], @bilal2008 [eq. (11.14)].
 :::
 ::::
 
@@ -5572,11 +5559,12 @@ The first example writes them down for any charge, generalising the Hopf connect
 ::: {#exm-spd-monopole-potential}
 #### The monopole of charge $M$
 
-On the unit sphere let $A = ia$ with $a_N = \tfrac M2(1 - \cos\theta)\,d\varphi$ on the northern patch and $a_S =
--\tfrac M2(1 + \cos\theta)\,d\varphi$ on the southern one; each is regular on its patch, and $a_N - a_S = M\,d\varphi$, the
-gauge transformation $e^{iM\varphi}$, single-valued iff $M \in \mathbb{Z}$. The field strength is $F = if$ with $f = da = \tfrac M2
-\sin\theta\,d\theta \wedge d\varphi$, so $F_{12} = \tfrac{iM}{2}$ in the frame of @exm-spd-dirac-sphere, and the Chern number
-(@def-chern-number) is $c_1 = \tfrac{1}{2\pi}\int f = M$. The Hopf connection of @prp-hopf-chern has $M = -1$.
+On the unit sphere let $A = ia$ with $a_N = \tfrac M2(\cos\theta - 1)\,d\varphi$ on the northern patch and $a_S =
+\tfrac M2(\cos\theta + 1)\,d\varphi$ on the southern one; each is regular on its patch, and $a_N - a_S = -M\,d\varphi$, the
+gauge transformation $e^{-iM\varphi}$, single-valued iff $M \in \mathbb{Z}$. The field strength is $F = if$ with $f = da = -\tfrac M2
+\sin\theta\,d\theta \wedge d\varphi$, so $F_{12} = -\tfrac{iM}{2}$ in the frame of @exm-spd-dirac-sphere, and the Chern number
+(@def-chern-number) is $c_1 = -\tfrac{1}{2\pi}\int f = M$: these are the potentials of @exr-fbun-chern-charge-n with $n = M$.
+The Hopf connection of @prp-hopf-chern, with $c_1 = -1$, has $M = -1$.
 :::
 
 On $S^4$ the analogue of the monopole is a homogeneous instanton of $SU(2)$. The second example records it, as given by
@@ -5615,29 +5603,29 @@ both with Sage.
 
 With Sage, compute $da_N$ and $da_S$ for the potentials of @exm-spd-monopole-potential, check that they agree, that $a_N$ is
 regular at $\theta = 0$ (its $\varphi$ component vanishes there like $\theta^2$) and $a_S$ at $\theta = \pi$, and compute
-$\tfrac{1}{2\pi}\int_{S^2}da$.
+$c_1 = -\tfrac{1}{2\pi}\int_{S^2}da$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Both give $\tfrac M2\sin\theta\,d\theta \wedge d\varphi$, the components vanish quadratically at the respective poles, and the
-flux is $M$:
+Both give $-\tfrac M2\sin\theta\,d\theta \wedge d\varphi$, the components vanish quadratically at the respective poles, and
+$c_1 = M$:
 
 ```python
 th, ph, M = var("th ph M")
-aN = M / 2 * (1 - cos(th)); aS = -M / 2 * (1 + cos(th))      # phi components of a = a_phi dphi
+aN = M / 2 * (cos(th) - 1); aS = M / 2 * (cos(th) + 1)       # phi components of a = a_phi dphi
 print("da_N = (%s) dtheta ^ dphi, da_S = (%s) dtheta ^ dphi" % (diff(aN, th), diff(aS, th)))
-print("a_N - a_S =", (aN - aS).simplify_full(), "(the gauge transformation exp(i M phi))")
+print("a_N - a_S =", (aN - aS).simplify_full(), "(the gauge transformation exp(-i M phi))")
 print("a_N near theta = 0:", aN.taylor(th, 0, 2), "; a_S near theta = pi:", aS.subs(th=pi - var("u")).taylor(var("u"), 0, 2))
-print("(1/2pi) int da =", (integrate(integrate(diff(aN, th), th, 0, pi), ph, 0, 2 * pi) / (2 * pi)).simplify_full())
+print("c_1 = -(1/2pi) int da =", (-integrate(integrate(diff(aN, th), th, 0, pi), ph, 0, 2 * pi) / (2 * pi)).simplify_full())
 ```
 
 *Output:*
 
 ```text
-da_N = (1/2*M*sin(th)) dtheta ^ dphi, da_S = (1/2*M*sin(th)) dtheta ^ dphi
-a_N - a_S = M (the gauge transformation exp(i M phi))
-a_N near theta = 0: 1/4*M*th^2 ; a_S near theta = pi: -1/4*M*u^2
-(1/2pi) int da = M
+da_N = (-1/2*M*sin(th)) dtheta ^ dphi, da_S = (-1/2*M*sin(th)) dtheta ^ dphi
+a_N - a_S = -M (the gauge transformation exp(-i M phi))
+a_N near theta = 0: -1/4*M*th^2 ; a_S near theta = pi: 1/4*M*u^2
+c_1 = -(1/2pi) int da = M
 ```
 :::
 
@@ -5654,8 +5642,8 @@ patches of the monopole.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $(\nabla + A')(g\psi) = (dg)\psi + g\nabla\psi + gA\psi - (dg)\psi = g(\nabla + A)\psi$, and $\gamma^a$ commutes with $g$ (they
-act on different indices). For the monopole, $A_N - A_S = i(a_N - a_S) = iM\,d\varphi$, which is $-dg\,g^{-1}$ for $g = e^{-iM\varphi}$; so $A_N$ is the
-gauge transform of $A_S$ by $g$, the spinor fields on the two patches are related by $\psi_N = e^{-iM\varphi}\psi_S$ on the overlap,
+act on different indices). For the monopole, $A_N - A_S = i(a_N - a_S) = -iM\,d\varphi$, which is $-dg\,g^{-1}$ for $g = e^{iM\varphi}$; so $A_N$ is the
+gauge transform of $A_S$ by $g$, the spinor fields on the two patches are related by $\psi_N = e^{iM\varphi}\psi_S$ on the overlap,
 and the two local operators are conjugate there. The transformation is single-valued exactly when $M$ is an integer.
 :::
 
@@ -5715,7 +5703,7 @@ On the sphere with a monopole the zero modes can be found by solving a first-ord
 the zero modes for $M = 4$: four functions peaked at different latitudes, which form one multiplet of the rotation group.
 
 ![The densities $|\psi_k|^2 \propto \sin^{2k}\tfrac\theta2\cos^{2(M - 1 - k)}\tfrac\theta2$ of the $M = 4$ zero modes on the
-unit sphere, normalised, for $k = 0, \dots, 3$. They have $U(1)$ charges $m = -\tfrac12 - k$ and span the spin $\tfrac32$
+unit sphere, normalised, for $k = 0, \dots, 3$. They have $U(1)$ charges $m = \tfrac12 + k$ and span the spin $\tfrac32$
 representation of $SU(2)$; the mode $k$ is concentrated at $\theta = 2\arctan\sqrt{k/(M - 1 - k)}$. Generated by
 `figures/sd-monopole-zero-modes.sage`.](figures/sd-monopole-zero-modes.svg){#fig-sd-monopole-zero-modes width=65%}
 
@@ -5728,13 +5716,12 @@ chirality, and so evaluates the index directly. The proof is a separation of var
 #### Zero modes and index of the monopole
 
 On the unit sphere with the monopole of charge $M \neq 0$ of @exm-spd-monopole-potential, the twisted Dirac operator has
-exactly $|M|$ linearly independent zero modes, all of chirality $\operatorname{sgn}(M)$ for $\gamma_* = -\sigma_3$; they form
+exactly $|M|$ linearly independent zero modes, all of chirality $\operatorname{sgn}(M)$ for $\gamma_* = \sigma_3$; they form
 the irreducible representation of spin $\tfrac{|M| - 1}{2}$ of $SU(2)$. Hence
 $$
 \operatorname{ind}D_A^+ = \dim\ker D_A^+ - \dim\ker D_A^- = M = c_1 .
 $$ {#eq-spd-monopole-index}
-The non-zero eigenvalues of $D_A^2$ are $k(k + |M|)$, $k \geq 1$, with multiplicity $2(|M| + 2k)$ @dolan2003 [eqs. (28)-(32)],
-@bilal2008 [App. 14].
+The non-zero eigenvalues of $D_A^2$ are $k(k + |M|)$, $k \geq 1$, with multiplicity $2(|M| + 2k)$ @dolan2003 [eqs. (28)-(32)].
 :::
 ::::
 
@@ -5745,11 +5732,11 @@ zero modes when $M > 0$.
 ::: {#exm-spd-zero-mode-solution}
 #### Solving the zero-mode equation
 
-With @eq-spd-dirac-sphere and $\nabla_\varphi \to \nabla_\varphi + ia_N$, the lower component $v = e^{im\varphi}g(\theta)$ of a zero
-mode satisfies $g' + \tfrac12\cot\theta\,g + \frac{m + a_\varphi}{\sin\theta}g = 0$, with $a_\varphi = \tfrac M2(1 - \cos\theta)$,
-whose solution is $g = \sin^{-m - 1/2}\tfrac\theta2\,\cos^{m + M - 1/2}\tfrac\theta2$. Frame components are antiperiodic, so $m
-\in \mathbb{Z} + \tfrac12$; regularity at the poles requires $-m - \tfrac12 \geq 0$ and $m + M - \tfrac12 \geq 0$, which allows
-$m = -\tfrac12, \dots, -M + \tfrac12$: $M$ solutions for $M > 0$ and none for $M \leq 0$.
+With @eq-spd-dirac-sphere and $\nabla_\varphi \to \nabla_\varphi + ia_N$, the upper component $u = e^{im\varphi}g(\theta)$ of a zero
+mode satisfies $g' + \tfrac12\cot\theta\,g - \frac{m + a_\varphi}{\sin\theta}g = 0$, with $a_\varphi = \tfrac M2(\cos\theta - 1)$,
+whose solution is $g = \sin^{m - 1/2}\tfrac\theta2\,\cos^{M - m - 1/2}\tfrac\theta2$. Frame components are antiperiodic, so $m
+\in \mathbb{Z} + \tfrac12$; regularity at the poles requires $m - \tfrac12 \geq 0$ and $M - m - \tfrac12 \geq 0$, which allows
+$m = \tfrac12, \dots, M - \tfrac12$: $M$ solutions for $M > 0$ and none for $M \leq 0$.
 :::
 
 The zero modes are polynomials in a complex coordinate, as for the Dolbeault operator of @exm-spd-dolbeault-cp1. The second
@@ -5758,10 +5745,10 @@ example rewrites them in the stereographic coordinate.
 ::: {#exm-spd-zero-modes-polynomial}
 #### Zero modes as polynomials
 
-With $m = -\tfrac12 - k$, $k = 0, \dots, M - 1$, the solution is $v_k = e^{-i\varphi/2}\cos^{M - 1}\tfrac\theta2\,\big(\tan
-\tfrac\theta2\,e^{-i\varphi}\big)^k = e^{-i\varphi/2}\cos^{M - 1}\tfrac\theta2\,\bar w^k$ with the stereographic coordinate $w =
-\tan\tfrac\theta2\,e^{i\varphi}$: a common factor times the polynomials of degree at most $M - 1$ in $\bar w$, the sections of a
-line bundle of degree $M - 1$. Their densities are drawn in @fig-sd-monopole-zero-modes.
+With $m = \tfrac12 + k$, $k = 0, \dots, M - 1$, the solution is $u_k = e^{i\varphi/2}\cos^{M - 1}\tfrac\theta2\,\big(\tan
+\tfrac\theta2\,e^{i\varphi}\big)^k = e^{i\varphi/2}\cos^{M - 1}\tfrac\theta2\,w^k$ with the stereographic coordinate $w =
+\tan\tfrac\theta2\,e^{i\varphi}$: a common factor times the polynomials of degree at most $M - 1$ in $w$, the holomorphic
+sections of the line bundle of degree $M - 1$ (@exm-spd-dolbeault-cp1). Their densities are drawn in @fig-sd-monopole-zero-modes.
 :::
 
 The same counting on the flat plane gives the index only after "marginally normalisable" modes are included. The third
@@ -5782,7 +5769,7 @@ connection made by @dolan2003 [Sec. 1].
 ::: {#exm-spd-landau}
 #### The lowest Landau level
 
-$D_A^2 = \nabla^*\nabla + \tfrac12 + \tfrac M2\sigma_3$ (@exr-spd-lichnerowicz-check, with $\sigma_3 = -\gamma_*$) is the
+$D_A^2 = \nabla^*\nabla + \tfrac12 - \tfrac M2\sigma_3$ (@exr-spd-lichnerowicz-check, with $\sigma_3 = \gamma_*$) is the
 Hamiltonian of a non-relativistic spin-$\tfrac12$ particle on the sphere in the monopole field, with a Zeeman term. Its ground
 states have energy $0$ and degeneracy $|M|$, the zero modes, and they are Haldane's lowest Landau level on the sphere; the
 excited levels $k(k + |M|)$ are the higher Landau levels @dolan2003 [Sec. 1 and eqs. (29)-(31)].
@@ -5791,46 +5778,46 @@ excited levels $k(k + |M|)$ are the higher Landau levels @dolan2003 [Sec. 1 and 
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The regularity conditions of the first example decide the count. The first exercise checks them numerically for $M = 3$ by
-integrating $|v|^2$ near the poles.
+integrating $|u|^2$ near the poles.
 
 ::: {#exr-spd-zero-mode-count}
 #### Counting regular zero modes
 
 With Sage, for $M = 3$ and the half-integers $m$ from $-\tfrac92$ to $\tfrac72$, form $g_m(\theta)$ of @exm-spd-zero-mode-solution
-and decide whether $\int_0^\pi|g_m|^2\sin\theta\,d\theta$ converges and whether $g_m$ is bounded. Do the same for the upper
-component, whose solution is $\sin^{m - 1/2}\tfrac\theta2\cos^{-m - M - 1/2}\tfrac\theta2$.
+and decide whether $\int_0^\pi|g_m|^2\sin\theta\,d\theta$ converges and whether $g_m$ is bounded. Do the same for the lower
+component, whose solution is $\sin^{-m - 1/2}\tfrac\theta2\cos^{m - M - 1/2}\tfrac\theta2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Exactly three values, $m = -\tfrac12, -\tfrac32, -\tfrac52$, give bounded (indeed smooth) lower components; no value gives an
-admissible upper component. The index is $3 - 0 = 3 = M$:
+Exactly three values, $m = \tfrac12, \tfrac32, \tfrac52$, give bounded (indeed smooth) upper components; no value gives an
+admissible lower component. The index is $3 - 0 = 3 = M$:
 
 ```python
 M = 3
 ms = [QQ(k) / 2 for k in range(-9, 9, 2)]
 def status(a, b):
     return ("bounded" if a >= 0 and b >= 0 else ("normalisable" if a > -1 and b > -1 else "excluded"))
-lower = {m: status(-m - 1/2, m + M - 1/2) for m in ms}
-upper = {m: status(m - 1/2, -m - M - 1/2) for m in ms}
+upper = {m: status(m - 1/2, M - m - 1/2) for m in ms}
+lower = {m: status(-m - 1/2, m - M - 1/2) for m in ms}
 for m in ms:
-    print("m = %5s: lower component %-12s upper component %s" % (m, lower[m], upper[m]))
-nl = sum(1 for m in ms if lower[m] == "bounded"); nu = sum(1 for m in ms if upper[m] == "bounded")
-print("zero modes: %d of chirality +1 (lower), %d of chirality -1 (upper); index = %d" % (nl, nu, nl - nu))
+    print("m = %5s: upper component %-12s lower component %s" % (m, upper[m], lower[m]))
+nu = sum(1 for m in ms if upper[m] == "bounded"); nl = sum(1 for m in ms if lower[m] == "bounded")
+print("zero modes: %d of chirality +1 (upper), %d of chirality -1 (lower); index = %d" % (nu, nl, nu - nl))
 ```
 
 *Output:*
 
 ```text
-m =  -9/2: lower component excluded     upper component excluded
-m =  -7/2: lower component excluded     upper component excluded
-m =  -5/2: lower component bounded      upper component excluded
-m =  -3/2: lower component bounded      upper component excluded
-m =  -1/2: lower component bounded      upper component excluded
-m =   1/2: lower component excluded     upper component excluded
-m =   3/2: lower component excluded     upper component excluded
-m =   5/2: lower component excluded     upper component excluded
-m =   7/2: lower component excluded     upper component excluded
-zero modes: 3 of chirality +1 (lower), 0 of chirality -1 (upper); index = 3
+m =  -9/2: upper component excluded     lower component excluded
+m =  -7/2: upper component excluded     lower component excluded
+m =  -5/2: upper component excluded     lower component excluded
+m =  -3/2: upper component excluded     lower component excluded
+m =  -1/2: upper component excluded     lower component excluded
+m =   1/2: upper component bounded      lower component excluded
+m =   3/2: upper component bounded      lower component excluded
+m =   5/2: upper component bounded      lower component excluded
+m =   7/2: upper component excluded     lower component excluded
+zero modes: 3 of chirality +1 (upper), 0 of chirality -1 (lower); index = 3
 ```
 :::
 
@@ -5840,22 +5827,22 @@ them as in @dolan2003 [eqs. (27)-(31)].
 ::: {#exr-spd-monopole-casimirs}
 #### The spectrum from Casimirs
 
-On the two components the $U(1)$ charge is $\tfrac{M \pm 1}{2}$, and the Laplacian is $\nabla^*\nabla = j(j + 1) - (\tfrac{M \pm
-1}{2})^2$ on $V_j$. Using $D_A^2 = \nabla^*\nabla + \tfrac12 \pm \tfrac M2$, show that both give $E_j = \tfrac14((2j + 1)^2 -
+On the upper and lower components the $U(1)$ charge is $-\tfrac{M \mp 1}{2}$, and the Laplacian is $\nabla^*\nabla = j(j + 1) - (\tfrac{M \mp
+1}{2})^2$ on $V_j$. Using $D_A^2 = \nabla^*\nabla + \tfrac12 \mp \tfrac M2$, show that both give $E_j = \tfrac14((2j + 1)^2 -
 M^2)$, and with $j = \tfrac{|M| - 1}{2} + k$ that $E = k(k + |M|)$. With Sage, list the multiplicities of the first five levels for
 $M = 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$j(j + 1) - \tfrac14(M \pm 1)^2 + \tfrac12 \pm \tfrac M2 = j^2 + j + \tfrac14 - \tfrac{M^2}{4} = \tfrac14((2j + 1)^2 - M^2)$.
-For $M = 3$ the component of charge $1$ starts at $j = 1$ and that of charge $2$ at $j = 2$, so the level $k = 0$ has
+$j(j + 1) - \tfrac14(M \mp 1)^2 + \tfrac12 \mp \tfrac M2 = j^2 + j + \tfrac14 - \tfrac{M^2}{4} = \tfrac14((2j + 1)^2 - M^2)$.
+For $M = 3$ the component of charge $-1$ starts at $j = 1$ and that of charge $-2$ at $j = 2$, so the level $k = 0$ has
 multiplicity $3$ and the level $k \geq 1$ has $2(3 + 2k)$:
 
 ```python
 from collections import Counter
 M = 3
 levels = Counter()
-for q in ((M - 1) / 2, (M + 1) / 2):
+for q in (-(M - 1) / 2, -(M + 1) / 2):
     for twoj in range(int(2 * abs(q)), 20, 2):
         j = twoj / 2
         levels[((2 * j + 1) ^ 2 - M ^ 2) / 4] += 2 * j + 1
@@ -5876,7 +5863,7 @@ E =  28 = k(k + |M|) with k = 4: multiplicity  22, formula 22
 :::
 
 The sign of the index depends on conventions, while its absolute value does not. The third exercise traces the sign through the
-choices made in this chapter and compares with @dolan2003.
+choices made in this chapter and compares with @dolan2003 [eq. (32)].
 
 ::: {#exr-spd-index-sign}
 #### The sign of the index
@@ -5889,8 +5876,9 @@ $c_1$, so @eq-spd-monopole-index is unchanged. @dolan2003 [eq. (32)] writes $\nu
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Exchanging $e_1$ and $e_2$ multiplies $\gamma^1\gamma^2$ by $-1$, hence $\gamma_*$, and reverses the orientation used to integrate
 $da$, hence $c_1$: both sides change sign together if one keeps the field fixed, and the formula holds in every orientation.
-@dolan2003 counts chirality with $\sigma_3 = -\gamma_*$, which reverses the sign of the index: $\nu = -M$ in his convention is
-$+M$ in ours. Under $M \mapsto -M$ the zero modes move to the other component (@exm-spd-zero-mode-solution) and the index
+@dolan2003 [eqs. (23)-(26), (32)] counts chirality with $\sigma_3 = \gamma_*$, as here, but labels the field oppositely: his
+operator (24) contains $+\tfrac M2\sigma_3$ where ours contains $-\tfrac M2\sigma_3$ (@exr-spd-lichnerowicz-check), so his
+monopole of charge $M$ is ours of charge $-M$, and $\nu = -M$ in his labels is $+M$ in ours. Under $M \mapsto -M$ the zero modes move to the other component (@exm-spd-zero-mode-solution) and the index
 changes sign: the index is odd in the field, as $c_1$ is.
 :::
 ::::
@@ -6035,7 +6023,8 @@ equals (Q+1)(Q+2)/2: True ; values Q = -3..3: [1, 0, 0, 1, 3, 6, 10]
 ::::
 
 The gauge field enters the index through the Chern character of the bundle. The definition fixes its normalisation in the
-conventions of the book, in which the monopole of charge $M$ has first Chern number $M$.
+conventions of the book, in which the monopole of charge $M$ of @exm-spd-monopole-potential has $\int\operatorname{ch}_1 = c_1 =
+M$.
 
 :::: {.statement-box}
 ::: {#def-chern-character}
@@ -6043,12 +6032,13 @@ conventions of the book, in which the monopole of charge $M$ has first Chern num
 
 For a Hermitian vector bundle $E$ with anti-Hermitian curvature $F$, the **Chern character** is the sum of closed forms
 $$
-\operatorname{ch}(E) = \operatorname{tr}\exp\Big(-\frac{iF}{2\pi}\Big) = \operatorname{rank}E - \frac{i}{2\pi}\operatorname{tr}F
-+ \frac12\Big(\frac{-i}{2\pi}\Big)^2\operatorname{tr}(F \wedge F) + \dots ,
+\operatorname{ch}(E) = \operatorname{tr}\exp\Big(\frac{iF}{2\pi}\Big) = \operatorname{rank}E + \frac{i}{2\pi}\operatorname{tr}F
++ \frac12\Big(\frac{i}{2\pi}\Big)^2\operatorname{tr}(F \wedge F) + \dots ,
 $$ {#eq-spd-chern-character}
 whose cohomology class does not depend on the connection. For a line bundle with $A = ia$, $F = if$ and $f = da$, $\operatorname{ch}_1 =
-\tfrac{1}{2\pi}f$ and $\int\operatorname{ch}_1 = c_1$ (@def-chern-number); @bilal2008 [eq. (10.53)] writes the same with the
-opposite sign convention for the potential.
+-\tfrac{1}{2\pi}f$ and $\int\operatorname{ch}_1 = c_1$ (@def-chern-number)
+[@rudolph2017differential, Remark 4.6.10 and eq. (5.8.52)];
+@bilal2008 [eq. (10.53)] writes the same exponential for his Hermitian field strength, a different convention for the potential.
 :::
 ::::
 
@@ -6059,8 +6049,8 @@ monopole.
 ::: {#exm-spd-ch-monopole}
 #### The monopole
 
-For the monopole of charge $M$, $\operatorname{ch} = e^{f/2\pi} = 1 + \tfrac{1}{2\pi}f$ on the surface, and $\int_{S^2}
-\operatorname{ch}_1 = M$. For the bundle $\mathcal{O}(M)^{\oplus r}$, $\operatorname{ch} = r + \tfrac{r}{2\pi}f$ and the integral is
+For the monopole of charge $M$, $\operatorname{ch} = e^{-f/2\pi} = 1 - \tfrac{1}{2\pi}f$ on the surface, and $\int_{S^2}
+\operatorname{ch}_1 = M$. For the direct sum of $r$ copies of this line bundle, $\operatorname{ch} = r - \tfrac{r}{2\pi}f$ and the integral is
 $rM$: the index of the twisted operator is additive over direct sums.
 :::
 
@@ -6102,8 +6092,8 @@ product. Deduce $c_1(L \otimes L') = c_1(L) + c_1(L')$ for line bundles.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For the sum, $\exp$ of a block-diagonal matrix is block diagonal and the trace adds. For the product, $F \otimes 1$ and $1 \otimes
-F'$ commute (they are even forms acting on different factors), so $\exp(-\tfrac{i}{2\pi}(F \otimes 1 + 1 \otimes F')) =
-\exp(-\tfrac{i}{2\pi}F) \otimes \exp(-\tfrac{i}{2\pi}F')$, and the trace of a tensor product is the product of traces. For line
+F'$ commute (they are even forms acting on different factors), so $\exp(\tfrac{i}{2\pi}(F \otimes 1 + 1 \otimes F')) =
+\exp(\tfrac{i}{2\pi}F) \otimes \exp(\tfrac{i}{2\pi}F')$, and the trace of a tensor product is the product of traces. For line
 bundles the degree-two parts give $c_1(L \otimes L') = c_1(L) + c_1(L')$: the monopole charges add.
 :::
 
@@ -6171,7 +6161,7 @@ J = 3: tr J_3^2 = 28, ratio = 56, (2/3) J (J+1)(2J+1) = 56
 ::::
 
 The index theorem states that the analytic index of the twisted Dirac operator, the difference of the numbers of zero modes,
-is the integral of the product of the two characteristic forms just defined. We state it in the form used by @bilal2008, with
+is the integral of the product of the two characteristic forms just defined. We state it in the form used by @bilal2008 [eqs. (3.47), (11.25)], with
 the sign fixed by the computation on the sphere.
 
 :::: {.statement-box}
@@ -6185,9 +6175,10 @@ and
 $$
 \operatorname{ind}D_E^+ = \dim\ker D_E^+ - \dim\ker D_E^- = \int_M\big[\hat A(M)\operatorname{ch}(E)\big]_{2r} ,
 $$ {#eq-spd-atiyah-singer}
-with the orientation for which @eq-spd-monopole-index holds. In two dimensions $\operatorname{ind} = \int\operatorname{ch}_1(E) =
-c_1(E)$; in four, $\operatorname{ind} = \operatorname{rank}(E)\,\hat A[M] + \int\operatorname{ch}_2(E)$ @bilal2008 [eqs. (3.46)-(3.47),
-(11.15), (11.25)].
+with $S^\pm$ the chiralities of @eq-spd-chirality, the complex volume element of the orientation. In two dimensions $\operatorname{ind} = \int\operatorname{ch}_1(E) =
+c_1(E)$ for a line bundle; in four, $\operatorname{ind} = \operatorname{rank}(E)\,\hat A[M] + \int\operatorname{ch}_2(E)$
+[@rudolph2017differential, Thm. 5.8.14 and eq. (5.8.52)].
+@bilal2008 [eqs. (3.46)-(3.47), (11.15), (11.25)] states it with the chirality $i^r\gamma^1\cdots\gamma^{2r}$, which is opposite to ours for odd $r$.
 :::
 ::::
 
@@ -6200,7 +6191,7 @@ zero modes of the previous section.
 
 On $S^2$, $\hat A = 1$ (no 4-form), so $\operatorname{ind}D_A^+ = \int\operatorname{ch}_1 = M$ for the monopole, as
 @thm-monopole-index found by solving the equations. The theorem also gives the answer on every surface: on a surface of genus $g$
-with a line bundle of degree $M$ the index is $M$, independently of $g$ and of the metric.
+with a line bundle of degree $c_1 = M$ the index is $M$, independently of $g$ and of the metric.
 :::
 
 In four dimensions both the manifold and the bundle contribute. The second example evaluates the two contributions on $S^4$ with
@@ -6327,7 +6318,7 @@ The quintic is the simplest Calabi-Yau threefold. The first example evaluates th
 ::: {#exm-spd-generations-quintic}
 #### The quintic
 
-$\chi = 2(h^{1, 1} - h^{2, 1}) = -200$ @greene1997 [Sec. 2.11, p. 32], so the index is $\mp100$. In the Dolbeault picture of
+$\chi = 2(h^{1, 1} - h^{2, 1}) = -200$ @greene1997 [Sec. 2.11, pp. 32-33], so the index is $\mp100$. In the Dolbeault picture of
 @def-dolbeault-dirac the zero modes are $H^{0, q}(T)$, and $T \cong \Lambda^2T^*$ via the holomorphic volume form, so
 $H^{0, 1}(T) \cong H^{2, 1}$ and $H^{0, 2}(T) \cong H^{2, 2} \cong H^{1, 1}$: $h^{1, 1} = 1$ zero modes of one chirality and $h^{2, 1} =
 101$ of the other, $100$ net. A three-family model needs $|\chi| = 6$, which is why
@@ -6386,7 +6377,7 @@ with c1 = 0: ch_3 = c3/2, so int ch_3 = chi/2; the term -(p1/24) ch_1 = -(p1/24)
 ```
 :::
 
-On $SU(3)/(U(1) \times U(1))$ with two monopole charges the index and the zero-mode count were compared by @dolan2003. The second
+On $SU(3)/(U(1) \times U(1))$ with two monopole charges the index and the zero-mode count were compared by @dolan2003 [eqs. (70)-(73)]. The second
 exercise repeats the comparison.
 
 ::: {#exr-spd-flag-index}
@@ -6480,14 +6471,14 @@ the zero modes from the theorem and the Lichnerowicz formula.
 ::: {#exr-spd-torus-flux}
 #### Flux on a torus
 
-On $T^2$ of area $A$ with a $U(1)$ field of constant $F_{12} = \tfrac{2\pi iN}{A}$ ($N \in \mathbb{Z}$, the Chern number), show that $D_A^2 = \nabla^*\nabla + \tfrac{2\pi N}{A}\sigma_3$ (with $\gamma^1 = \sigma_1$, $\gamma^2 = \sigma_2$), so that for $N > 0$
-zero modes can exist only on the lower component; conclude from @thm-atiyah-singer that there are exactly $N$ of them.
+On $T^2$ of area $A$ with a $U(1)$ field of constant $F_{12} = -\tfrac{2\pi iN}{A}$ ($N \in \mathbb{Z}$, the Chern number), show that $D_A^2 = \nabla^*\nabla - \tfrac{2\pi N}{A}\sigma_3$ (with $\gamma^1 = \sigma_1$, $\gamma^2 = \sigma_2$), so that for $N > 0$
+zero modes can exist only on the upper component; conclude from @thm-atiyah-singer that there are exactly $N$ of them.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$R = 0$ and $-\tfrac12F_{ab}\gamma^a\gamma^b = -F_{12}\gamma^1\gamma^2 = -\tfrac{2\pi iN}{A}\cdot i\sigma_3 = \tfrac{2\pi N}{A}\sigma_3$, as in
-@exr-spd-lichnerowicz-check. On the upper component $D_A^2 \geq \tfrac{2\pi N}{A} > 0$, so all zero modes lie on the lower component,
-of chirality $\gamma_* = -\sigma_3 = +1$. The index is $\int\operatorname{ch}_1 = N$,
+$R = 0$ and $-\tfrac12F_{ab}\gamma^a\gamma^b = -F_{12}\gamma^1\gamma^2 = \tfrac{2\pi iN}{A}\cdot i\sigma_3 = -\tfrac{2\pi N}{A}\sigma_3$, as in
+@exr-spd-lichnerowicz-check. On the lower component $D_A^2 \geq \tfrac{2\pi N}{A} > 0$, so all zero modes lie on the upper component,
+of chirality $\gamma_* = \sigma_3 = +1$. The index is $\int\operatorname{ch}_1 = N$,
 so there are exactly $N$ zero modes: the lowest Landau level on the torus, with degeneracy equal to the flux.
 :::
 
@@ -6519,8 +6510,7 @@ is the one on which the gauge connection cancels the spin connection. Why are th
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $J = \tfrac12$, $I = 0$ and $d(0, 0) = 1$: a single $SO(5)$-invariant zero mode, the "constant spinor" of @dolan2003 [after eq.
-(47)], on the chirality whose $SU(2)$ factor of $\operatorname{Spin}(4)$ is the gauged one, where the gauge connection cancels the spin
+For $J = \tfrac12$, $I = 0$ and $d(0, 0) = 1$: a single $SO(5)$-invariant zero mode, the "constant spinor" of @dolan2003 [after eq. (47)], on the chirality whose $SU(2)$ factor of $\operatorname{Spin}(4)$ is the gauged one, where the gauge connection cancels the spin
 connection exactly. For $J = 0$ the operator is the untwisted Dirac operator of $S^4$, which has no zero modes by
 @thm-lichnerowicz-vanishing, and the index $\tfrac23\cdot0 = 0$ agrees.
 :::
@@ -6549,8 +6539,7 @@ Let $K$ be a compact Riemannian spin manifold of even dimension $n$, and conside
 $M^4 \times K$ coupled only to the metric. The massless four-dimensional spinors have net chirality $n_R - n_L =
 \operatorname{ind}D_K^+ = \hat A[K]$. Consequently $n_R = n_L$ (i) whenever $n \equiv 2 \pmod 4$, because $\hat A$ has no part
 of degree $n$, (ii) whenever the scalar curvature of $K$ is non-negative and positive somewhere, because then $D_K$ has no
-zero modes at all, and (iii) whenever $K$ is a product with a factor of dimension $\not\equiv 0 \pmod 4$ @bilal2008 [eqs.
-(11.15)-(11.17)], @dolan2003 [after eq. (26)].
+zero modes at all, and (iii) whenever $K$ is a product with a factor of dimension $\not\equiv 0 \pmod 4$ @bilal2008 [eqs. (11.15)-(11.17)], @dolan2003 [after eq. (26)].
 :::
 ::::
 
@@ -6673,8 +6662,8 @@ other ingredients, as @aspinwall1996 [Sec. 4.1, footnote 14] notes.
 ### Evasion by gauge backgrounds
 
 With a gauge background on $K$ the index becomes the integral of $\hat A\operatorname{ch}(E)$, and the Chern character can be
-non-zero in any even dimension. The proposition states the mechanism in the form found by @dolan2009 for the sphere and by
-@dolan2003 for symmetric cosets.
+non-zero in any even dimension. The proposition states the mechanism in the form found by @dolan2009 [Sec. 2.3, eqs. (2.45)-(2.47)] for the sphere and by
+@dolan2003 [eqs. (16), (67)] for symmetric cosets.
 
 :::: {.statement-box}
 ::: {#prp-chiral-zero-modes-gauge}
@@ -6685,8 +6674,7 @@ With a gauge background on $K$, the net chirality of the massless four-dimension
 monopole of charge $M$, a six-dimensional Weyl spinor of unit charge gives $|M|$ massless four-dimensional Weyl spinors, all of the
 same chirality, forming the representation of dimension $|M|$ of the isometry group $SU(2)$. On a symmetric coset $S/R$ with the
 background equal to the spin connection embedded by a representation $t$ of $R$, zero modes occur exactly in the representations
-$\lambda$ of $S$ with $C_2(\mathfrak{s}, \lambda) - C_2(\mathfrak{r}, t) + \tfrac R8 = 0$ @dolan2009 [Sec. 2.3, eqs. (2.45)-(2.47)], @dolan2003 [eqs. (16),
-(31)-(32), (44)-(47)].
+$\lambda$ of $S$ with $C_2(\mathfrak{s}, \lambda) - C_2(\mathfrak{r}, t) + \tfrac R8 = 0$ @dolan2009 [Sec. 2.3, eqs. (2.45)-(2.47)], @dolan2003 [eqs. (16), (31)-(32), (44)-(47)].
 :::
 ::::
 
@@ -6701,7 +6689,7 @@ A Weyl spinor of positive chirality in six dimensions is $(\psi_R \otimes S_K^+)
 (@prp-spinor-branching). With a monopole of charge $M > 0$ the zero modes on $S^2$ have chirality $+1$ (@thm-monopole-index), so
 they pair with $\psi_R$: $M$ massless right-handed four-dimensional spinors, in the spin $\tfrac{M - 1}{2}$ representation of
 $SU(2)$, and no left-handed ones. For $M < 0$ the roles are exchanged. The massive modes come in Dirac pairs with masses
-$\sqrt{k(k + |M|)}$ @dolan2009 [Sec. 2.3].
+$\sqrt{k(k + |M|)}$ @dolan2009 [Sec. 2.4, eqs. (2.48)-(2.49)].
 :::
 
 The spin connection of a coset is itself a gauge field for the isotropy group. Using it as the background gives the simplest
@@ -6772,23 +6760,24 @@ M = +4: 4 zero modes of internal chirality +1 -> 4 right-handed four-dimensional
 ```
 :::
 
-The spin connection of a surface is a gauge field whose Chern number is the Euler characteristic. The second exercise computes the
+The spin connection of a surface is a gauge field whose Chern number is, up to sign, the Euler characteristic. The second exercise computes the
 zero modes of a fermion charged under it, for several charges.
 
 ::: {#exr-spd-spin-connection-charge}
 #### Charges under the spin connection
 
 On $S^2$ the spin connection $\omega_{12} = -\cos\theta\,d\varphi$ has $\tfrac{1}{2\pi}\int d\omega_{12} = 2$. A field of charge $q$
-under it (with $q = \tfrac12$ for spinor components) behaves like a field of charge $1$ in a monopole of charge $M = 2q$. Find the
+under it (with $q = \tfrac12$ for spinor components) behaves like a field of charge $1$ in a monopole of charge $M = -2q$. Find the
 number of zero modes of a spinor of additional charge $q$ for $q = \tfrac12, 1, \tfrac32$, and explain why $q = \tfrac12$ gives a
 constant spinor.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\tfrac{1}{2\pi}\int\sin\theta\,d\theta\,d\varphi = 2$, the Euler characteristic. With $M = 2q$ the numbers of zero modes are $1$, $2$,
-$3$ (@thm-monopole-index). For $q = \tfrac12$ the extra potential is $\tfrac12\cdot(-\cos\theta\,d\varphi)$ up to a gauge
-transformation, which cancels the spin connection on one component (@exr-spd-zero-mode-balance), so the covariantly constant
-spinor of @exr-spd-zero-mode-balance is the zero mode: the case $|M| = 1$ of @dolan2003 [after eq. (32)].
+$\tfrac{1}{2\pi}\int\sin\theta\,d\theta\,d\varphi = 2$, the Euler characteristic. With $M = -2q$ the numbers of zero modes are $1$, $2$,
+$3$, of chirality $-1$ (@thm-monopole-index). For $q = \tfrac12$ the extra potential is $\tfrac12\cdot(-\cos\theta\,d\varphi)$, the
+monopole $M = -1$ up to a gauge transformation; with its regular potential $a_N = \tfrac12(1 - \cos\theta)\,d\varphi$ the lower
+component has $\nabla_\varphi = \partial_\varphi + \tfrac{i}{2}$, so $\psi = (0, e^{-i\varphi/2})$ is covariantly constant, the mirror
+image of the spinor of @exr-spd-zero-mode-balance, and it is the zero mode: the case $|M| = 1$ of @dolan2003 [after eq. (32)].
 :::
 
 Products of spheres with monopoles give net chirality equal to the product of the charges. The third exercise uses this to obtain
@@ -6988,9 +6977,9 @@ continuous isometry group?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$3$ (@exm-spd-six-on-sphere), $3$ (@exr-spd-three-from-product), $\tfrac12\chi = 3$ (@exm-spd-generations-cosets) and $100$
+$3$ (@exm-spd-six-on-sphere), $3$ (@exr-spd-three-from-product), $\tfrac12\chi = 3$ (@exm-spd-generations-cosets, @chatzistavrakidis2009nk [Sec. 4.3]) and $100$
 (@exm-spd-generations-quintic). On $S^2$ and $S^2 \times S^2$ the three families form a triplet of $SU(2)$; on the coset they are
-related by the $SU(3)$ isometry and its Weyl group (@chatzistavrakidis2009nk [Sec. 4.3]); the quintic has no continuous isometries,
+related by the $SU(3)$ isometry and its Weyl group; the quintic has no continuous isometries,
 and its $100$ families are not related by a symmetry.
 :::
 ::::

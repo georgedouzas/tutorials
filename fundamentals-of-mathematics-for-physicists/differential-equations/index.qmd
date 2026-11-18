@@ -32,7 +32,7 @@ two classes of first-order equations that every physicist meets, separable and l
 portrait, the picture of all solutions of an autonomous system at once. The proposition at the end collects the
 closed-form solutions, each of which satisfies its equation by direct substitution.
 
-For more on this topic, see @arrigo2023introduction [Ch. 5], @borodzik2019problems [Ch. 5], @knauf2018mathematical [Ch. 3] and @magnus2023essential [Ch. 2, Ch. 4 and 6].
+For more on this topic, see @knauf2018mathematical [Ch. 3] and @magnus2023essential [Ch. 2, Ch. 4 and 6].
 
 ### Ordinary differential equations
 
@@ -1052,7 +1052,7 @@ as $t \to \infty$. This section defines linear systems, eigenvalues, the matrix 
 applies them to the damped harmonic oscillator, whose response to a periodic force exhibits resonance. The
 proposition at the end collects the matrix exponentials in closed form, with the resonance formulas.
 
-For more on this topic, see @aliev2024mathematical [Ch. 2-4], @arrigo2023introduction [Ch. 3], @axler2024linear [Ch. 5 and 8], @knauf2018mathematical [Ch. 4-5] and @magnus2023essential [Ch. 1, Ch. 5].
+For more on this topic, see @aliev2024mathematical [Secs. 1.1-1.2], @axler2024linear [Ch. 5 and 8], @knauf2018mathematical [Ch. 4-5] and @magnus2023essential [Ch. 1, Ch. 5].
 
 ### Linear systems
 
@@ -1191,7 +1191,7 @@ the solution space has dimension $n$; any $n$ solutions with independent initial
 The dimension count says that a linear equation of second order has exactly two independent solutions, and in
 practice one needs a test that decides whether two given solutions form a basis. The test is a determinant built
 from the solutions and their derivatives, and it obeys a first-order equation of its own, so that it is known
-once the coefficients of the equation are known [@cini2023quantum, Sec. 7.1.2].
+once the coefficients of the equation are known [@das2023quantum, Sec. 7.1.2].
 
 :::: {.statement-box}
 ::: {#prp-wronskian}
@@ -1241,7 +1241,7 @@ areas decay at the rate $2\gamma$, twice the rate at which amplitudes decay.
 :::
 
 Three solutions of a second-order equation are always dependent, and the Wronskian shows it at once. The third
-example forms the three-by-three determinant for $y'' = y$ [@cini2023quantum, Sec. 7.1.2, Property 3].
+example forms the three-by-three determinant for $y'' = y$ [@das2023quantum, Sec. 7.1.2, Property 3].
 
 ::: {#exm-wr-three-solutions}
 #### Three solutions are dependent
@@ -1257,7 +1257,7 @@ already form a basis.
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The test "zero Wronskian means dependence" uses that the functions solve an equation with continuous coefficients;
 for arbitrary smooth functions it fails. The first exercise gives the standard counterexample and locates the
-point where the hypothesis breaks [@cini2023quantum, Sec. 7.1.2].
+point where the hypothesis breaks [@das2023quantum, Sec. 7.1.2].
 
 ::: {#exr-wr-smooth}
 #### A zero Wronskian without dependence
@@ -2175,8 +2175,7 @@ $\omega^4\tau^2 - 4\omega^2 < 0$, so its level ellipses confine the iterates.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The growth in part (a) is not a matter of choosing $\tau$ small; it only becomes slow. The first example puts in the
-numbers used in the source, $\omega = 3$ over the time interval $[0, 20]$ [@foulaadvand2023computational, Sec. 3.2,
-Fig. 3.2].
+numbers used in the source, $\omega = 3$ over the time interval $[0, 20]$ [@foulaadvand2023computational, Sec. 3.2, Fig. 3.2].
 
 ::: {#exm-ts-euler-growth}
 #### The Euler step spirals outwards
@@ -2189,8 +2188,7 @@ determinant exceeds $1$, which is why the orbit cannot close.
 :::
 
 The Euler-Cromer step conserves a quadratic form close to the energy rather than the energy itself. The second
-example reads off how large the energy error is and why it does not accumulate [@foulaadvand2023computational, Sec.
-3.2, Fig. 3.4].
+example reads off how large the energy error is and why it does not accumulate [@foulaadvand2023computational, Sec. 3.2, Fig. 3.4].
 
 ::: {#exm-ts-energy-error}
 #### The energy error of Euler-Cromer
@@ -2513,7 +2511,7 @@ the eigenfunctions are orthogonal, quotes the Sturm-Liouville theorem, and intro
 Bessel functions, the eigenfunctions that appear when the Laplacian is separated in spherical and cylindrical
 coordinates. The proposition at the end collects the identities of these functions used later.
 
-For more on this topic, see @magnus2023essential [Ch. 7].
+For more on this topic, see @aliev2024mathematical [Sec. 2.2] and @magnus2023essential [Ch. 3, Ch. 7].
 
 ### Boundary value problems
 
@@ -3118,7 +3116,7 @@ N = 5 : ||f - S_N||^2 = 1/22781250*(759375*pi^6 - 730046656)/pi = 0.000115452558
 Legendre's and Bessel's equations, met in @exm-sl-legendre and @exm-sl-bessel, have coefficients that blow up at
 the ends of the interval, and their solutions are found as power series. Whether a series solution exists near a
 point depends on how badly the coefficients blow up there, and the definition sorts the points accordingly
-[@cini2023quantum, Sec. 7.1.1].
+[@das2023quantum, Sec. 7.1.1].
 
 :::: {.statement-box}
 ::: {#def-regular-singular-point}
@@ -3161,7 +3159,7 @@ entire power series about $0$ but behaves like $\cos(x - n\pi/2 - \pi/4)/\sqrt x
 
 Even the oscillator, with constant coefficients, has a singular point once infinity is included. The third example
 shows that it is irregular, which is the general situation for solutions that oscillate or grow exponentially
-[@cini2023quantum, Sec. 7.1.3 and Problem 7.3.2].
+[@das2023quantum, Sec. 7.1.3 and Problem 7.3.2].
 
 ::: {#exm-frob-oscillator-infinity}
 #### The oscillator at infinity
@@ -3176,7 +3174,7 @@ irregular singular point at infinity, where the behaviour $e^{\pm x^2}$ of their
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The hypergeometric equation is the equation with exactly three regular singular points, and many special functions
-are its cases. The first exercise classifies its points, including infinity [@cini2023quantum, Problem 7.3.8].
+are its cases. The first exercise classifies its points, including infinity [@das2023quantum, Problem 7.3.8].
 
 ::: {#exr-frob-hypergeometric}
 #### Three regular singular points
@@ -3198,7 +3196,7 @@ $(1 - s^2)y_{ss} - 2sy_s + l(l + 1)y = 0$.
 
 Separating the Schrödinger equation in spherical coordinates produces a radial equation with a regular singular
 point at the origin. The second exercise classifies it for the Coulomb potential, the case of the hydrogen atom
-[@cini2023quantum, Sec. 7.1.5].
+[@das2023quantum, Sec. 7.1.5 and Sec. 11.2, eq. (11.6)].
 
 ::: {#exr-frob-radial}
 #### The radial equation at the origin
@@ -3217,8 +3215,7 @@ exponentials $e^{\pm\sqrt{-2mE}\,r/\hbar}$ of bound and scattering states.
 :::
 
 Equations with only a regular singular point and nothing else are solved by powers, and they show the typical
-behaviour of all solutions near such a point. The last exercise treats this Euler equation [@cini2023quantum,
-Problem 7.3.6(a)].
+behaviour of all solutions near such a point. The last exercise treats this Euler equation [@das2023quantum, Problem 7.3.6(a)].
 
 ::: {#exr-frob-euler}
 #### The Euler equation
@@ -3239,7 +3236,7 @@ $r^{-l - 1}$. For a double root $(a - 1)^2 = 4b$ and $k = (1 - a)/2$; with $y = 
 
 At a regular singular point the Euler equation is the leading approximation of the equation, and its powers become
 the leading terms of convergent series. The theorem states this method of Frobenius and what can go wrong when the
-two exponents differ by an integer [@cini2023quantum, Sec. 7.1.3].
+two exponents differ by an integer [@das2023quantum, Sec. 7.1.3].
 
 :::: {.statement-box}
 ::: {#thm-frobenius-method}
@@ -3266,7 +3263,7 @@ series. (Stated with this sketch; the convergence estimate and the logarithmic c
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The oscillator equation about an ordinary point is the simplest test of the method. The first example recovers the
-cosine and the sine from the recursion [@cini2023quantum, Sec. 7.1.3, eqs. (7.11)-(7.18)].
+cosine and the sine from the recursion [@das2023quantum, Sec. 7.1.3, eqs. (7.11)-(7.18)].
 
 ::: {#exm-frob-oscillator}
 #### Cosine and sine from the recursion
@@ -3293,7 +3290,7 @@ contains a logarithm (@exr-frob-bessel-log for $n = 0$).
 
 About the ordinary point $0$, Legendre's equation has two power-series solutions, and the recursion decides whether
 they survive at the singular points $\pm1$. The third example shows that a series terminates exactly for integer
-$l$, which is how the eigenvalues $l(l + 1)$ of @exm-sl-legendre arise [@cini2023quantum, Secs. 7.1.3-7.1.4].
+$l$, which is how the eigenvalues $l(l + 1)$ of @exm-sl-legendre arise [@das2023quantum, Secs. 7.1.3-7.1.4].
 
 ::: {#exm-frob-legendre-termination}
 #### Termination of the Legendre series
@@ -3310,7 +3307,7 @@ obtained from a differential equation.
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 Hermite's equation, which describes the quantum oscillator, has the same termination mechanism, with the
 irregular point at infinity in place of the ends $\pm1$. The first exercise computes the series in Sage and shows the
-growth of the non-terminating ones [@cini2023quantum, Sec. 7.2, Hermite equation].
+growth of the non-terminating ones [@das2023quantum, Sec. 7.2, Hermite equation].
 
 ::: {#exr-frob-hermite}
 #### Hermite series
@@ -3920,7 +3917,7 @@ problems of @sec-sturm-liouville, closes the section, and the proposition collec
 which satisfies its equation by substitution. The d'Alembertian is $\Box = \partial_t^2 - \nabla^2$ in the signature $(+, -, -, -)$
 of @sec-conventions.
 
-For more on this topic, see @borodzik2019problems [Ch. 3, Ch. 4].
+For more on this topic, see @arrigo2023introduction [Secs. 3.1-3.3, Ch. 5] and @borodzik2019problems [Ch. 3, Ch. 4, Ch. 5].
 
 ### Partial differential equations
 
@@ -5025,8 +5022,7 @@ is not automatically a better one.
 :::
 
 Taking the difference on the side the wave comes from also gives a stable scheme, at the cost of an artificial
-diffusion. The third example computes it and explains why a transported pulse shrinks [@foulaadvand2023computational,
-Sec. 6.2.1, eq. (6.6), Fig. 6.1].
+diffusion. The third example computes it and explains why a transported pulse shrinks [@foulaadvand2023computational, Sec. 6.2.1, eq. (6.6), Fig. 6.1].
 
 ::: {#exm-fdm-upwind}
 #### The upwind scheme
@@ -5182,8 +5178,7 @@ discrete orthogonality of sines, so they form a basis, and all eigenvalues have 
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The smallest grid with more than one interior point already shows the structure of the linear system. The first
-example writes it out for the source's rectangle with six interior points [@foulaadvand2023computational, Sec. 7.2,
-eq. (7.4)].
+example writes it out for the source's rectangle with six interior points [@foulaadvand2023computational, Sec. 7.2, eq. (7.4)].
 
 ::: {#exm-fdm-six-points}
 #### Six interior points
@@ -5198,8 +5193,7 @@ $\Delta x/\Delta y$; the source's suggestion that a special ratio makes the dete
 :::
 
 The rate $\rho = \cos\frac\pi N$ explains why relaxation needs thousands of sweeps on fine grids. The second example
-estimates the count for the source's grid of $100 \times 200$ squares [@foulaadvand2023computational, Sec. 7.3.1,
-Fig. 7.3].
+estimates the count for the source's grid of $100 \times 200$ squares [@foulaadvand2023computational, Sec. 7.3.1, Fig. 7.3].
 
 ::: {#exm-fdm-jacobi-rate}
 #### Why Jacobi is slow
@@ -5649,7 +5643,7 @@ $L$ acts on $\mathbf x$ and $LG(\mathbf x - \mathbf y) = \delta^n(\mathbf x - \m
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The first example is the Laplacian in three dimensions, whose fundamental solution is the Coulomb potential. The
-sign is fixed by the convention $\nabla^2G = \delta$.
+sign is fixed by the convention $\nabla^2G = \delta$ [@maggiore2023electrodynamics, Sec. 4.1.2, eqs. (4.12)-(4.15)].
 
 ::: {#exm-fund-laplacian-3d}
 #### The Coulomb potential
@@ -5927,7 +5921,8 @@ $L = -d^2/dx^2$ on $[0, 1]$, $u_a = x$, $u_b = 1 - x$, $W = -1$ and $G = x_<(1 -
 ### Retarded Green's functions
 
 The Laplacian has one fundamental solution that vanishes at infinity. The wave operator has several, because
-solutions of the homogeneous wave equation can be added; the physical choice is the one that respects causality.
+solutions of the homogeneous wave equation can be added; the physical choice is the one that respects causality
+[@maggiore2023electrodynamics, Sec. 10.1, eqs. (10.1)-(10.24); @williams2023introduction, Sec. 6.2.6, eq. (6.2.162)].
 
 :::: {.statement-box}
 ::: {#def-retarded-greens-function}
@@ -6086,7 +6081,7 @@ outgoing shell minus an incoming one.
 In momentum space the Green's function of $\Box + m^2$ is $-1/(k^2 - m^2)$ with $k^2 = k_0^2 - |\mathbf k|^2$,
 which has poles where $k_0 = \pm\omega_{\mathbf k}$; the inverse Fourier transform in $k_0$ needs a rule for
 passing the poles, and each rule gives a different Green's function. The definition describes the rule used in
-quantum field theory, in outline.
+quantum field theory, in outline [@williams2023introduction, Sec. 6.2.6, eqs. (6.2.151)-(6.2.162)].
 
 :::: {.statement-box}
 ::: {#def-feynman-propagator}
@@ -6404,7 +6399,8 @@ matrix exponential of its linearisation, the second takes the string from its St
 wave equation to its Green's function, and the third takes the Klein-Gordon equation from plane waves to the
 Yukawa potential. The first exercise asks for the linear approximation of a non-linear system near each
 equilibrium and a quantitative comparison with the exact flow. It uses the Jacobian of @sec-odes, the
-classification of @sec-linear-systems and Sage's matrix exponential.
+classification of @sec-linear-systems and Sage's matrix exponential
+[@foulaadvand2023computational, Sec. 3.8, eq. (3.55); @knauf2018mathematical, Sec. 5.3].
 
 ::: {#exr-de-pendulum-linearised}
 #### The damped pendulum near its equilibria
@@ -6464,7 +6460,7 @@ below 1e-3 (the cubic error of sin theta for theta = 0.1): True
 
 The second exercise follows one physical system, the string with fixed ends, through three sections. Its modes
 are Sturm-Liouville eigenfunctions, its motion is a solution of the wave equation, and its static response is
-given by a Green's function that the modes also express as a series.
+given by a Green's function that the modes also express as a series [@aliev2024mathematical, Secs. 1.3-1.4 and 1.9].
 
 ::: {#exr-de-string-greens}
 #### The string: modes, waves and Green's function
@@ -6516,7 +6512,8 @@ print("(d) energy of the partial sum:", energy, "| constant in t:", bool(diff(en
 
 The third exercise is the Klein-Gordon equation in the book's signature, treated with every tool of the chapter.
 Separation of variables, the Helmholtz equation, Bessel functions and the retarded Green's function all appear,
-and the massless limit recovers the one-dimensional result of @exm-ret-1d.
+and the massless limit recovers the one-dimensional result of @exm-ret-1d
+[@maggiore2023electrodynamics, Sec. 10.1, eqs. (10.14)-(10.22); @williams2023introduction, Secs. 6.2.5-6.2.6, eq. (6.2.149)].
 
 ::: {#exr-de-klein-gordon-modes}
 #### The Klein-Gordon equation from plane waves to the Yukawa potential

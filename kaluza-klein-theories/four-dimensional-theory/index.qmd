@@ -47,7 +47,10 @@ $$
 [\tau, \phi_1] = \phi_2, \qquad [\tau, \phi_2] = -\phi_1, \qquad \phi_3 = \tau ,
 $$ {#eq-csd-equivariance}
 the constraints 2 and 3 of @def-csdr-constraints with $f_{31}{}^2 = 1$, $f_{32}{}^1 = -1$ (@exr-csd-constraint-sphere). In
-terms of $\phi_\pm = \phi_1 \mp i\phi_2$ they read $[\tau, \phi_\pm] = \pm i\phi_\pm$ [@kubyshin2003, eq. 22].
+terms of $\phi_\pm = \phi_1 \mp i\phi_2$ they read $[\tau, \phi_\pm] = \pm i\phi_\pm$ [@kubyshin2003, eq. 22]. They are the
+conditions of Wang's theorem for an $SU(2)$-invariant connection on the coset: $\phi_3 = \tau$ is the image of the isotropy
+algebra $\mathfrak{r}$, and $Q_a \mapsto \phi_a$ is an $R$-equivariant linear map $\mathfrak{k} \to \mathfrak{su}(3)$
+[@rudolph2017differential, Sec. 1.9, Cor. 1.9.13 and Remark 1.9.14 (3)].
 :::
 ::::
 
@@ -1731,7 +1734,7 @@ the spinor. The second example finds the symmetric spinor.
 #### The doublet of $SU(2)$
 
 For $G = SU(2)$, $\tau_1(Q_3) = Q_3 = \sigma_3/2i$ and $\rho_F = \mathbf 2$, the gauge index carries charges $\mp\tfrac12$ on $e_1, e_2$, opposite to
-the charges $\pm\tfrac12$ of the two spinor components: the products $e_2 \otimes S^+$ and $e_1 \otimes S^-$ are invariant. These are the
+the charges $\pm\tfrac12$ of the two spinor components: the products $e_2 \otimes S^-$ and $e_1 \otimes S^+$ are invariant. These are the
 sections of the trivial bundle, constant in a suitable frame: the gauge connection cancels the spin connection, as in
 @exm-spd-spin-connection-background. Two symmetric spinors, one of each internal chirality.
 :::
@@ -1776,14 +1779,14 @@ for the fundamental representation in the running model.
 
 With $\tau = \tfrac i3\operatorname{diag}(1, 1, -2)$, compute $\exp(4\pi\tau)$ and show that $\tau$ defines a homomorphism of the isotropy circle
 $\{e^{\theta Q_3}\}$ into $SU(3)/\mathbb{Z}_3$ but not into $SU(3)$. Conclude that the adjoint fields of the model are well defined but
-fields in the $\mathbf 3$ are not, and relate this to the Dirac quantisation $M = 2q \in \mathbb{Z}$ of @exm-spd-monopole-potential.
+fields in the $\mathbf 3$ are not, and relate this to the Dirac quantisation $M = -2q \in \mathbb{Z}$ of @exm-spd-monopole-potential.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\exp(4\pi\tau) = \operatorname{diag}(e^{4\pi i/3}, e^{4\pi i/3}, e^{-8\pi i/3}) = e^{4\pi i/3}\,1_3$, a non-trivial element of the centre $\mathbb{Z}_3$, while
 $e^{4\pi Q_3} = 1$. So $\theta \mapsto e^{\theta\tau}$ is well defined on the circle only modulo the centre, which acts trivially in the adjoint.
-A field in the $\mathbf 3$ would have components of charge $q = \tfrac13$ and $-\tfrac23$, which see monopoles of charge $2q = \tfrac23$ and
-$-\tfrac43$, not integers: there is no such line bundle, and the fermion in the $\mathbf 3$ cannot be coupled to this background at all
+A field in the $\mathbf 3$ would have components of charge $q = \tfrac13$ and $-\tfrac23$, which see monopoles of charge $-2q = -\tfrac23$ and
+$\tfrac43$, not integers: there is no such line bundle, and the fermion in the $\mathbf 3$ cannot be coupled to this background at all
 (@exr-csd-matching-fermions).
 :::
 
@@ -1840,7 +1843,7 @@ A spinor field on $M_4 \times S^2$ in the representation $\rho_F$ of $G$ is symm
 $$
 \big(\Sigma(Q_3) \otimes 1 + 1 \otimes \tau(Q_3)\big)\psi_0 = 0 ,
 $$ {#eq-csf-fermion-constraint}
-where $\Sigma(Q_3)$ is the spin lift of the isotropy generator, with eigenvalues $is$, $s = \mp\tfrac12$ on $S^\pm$ (with the orientation of
+where $\Sigma(Q_3)$ is the spin lift of the isotropy generator, with eigenvalues $is$, $s = \pm\tfrac12$ on $S^\pm$ (with the orientation of
 @exm-spd-branch-six). Decomposing $\rho_F = \bigoplus_i(q_i, h_i)$ under $U(1)_\tau \times H$, the component $(q_i, h_i)$ survives exactly
 when $q_i = \pm\tfrac12$, in the spinor component of charge $s = -q_i$ [@manousselis2000, eqs. (12)-(13); @dolan2009, eqs. (2.38)-(2.39)].
 :::
@@ -1971,7 +1974,7 @@ spinor component. The proposition collects the result for a six-dimensional Weyl
 ::: {#prp-csf-chiral-content}
 #### Four-dimensional fermions from $S^2$
 
-Let $\psi$ be a six-dimensional Weyl spinor of positive chirality in the representation $\rho_F = \bigoplus_i(q_i, h_i)$ of $G$, reduced over
+Let $\psi$ be a six-dimensional Weyl spinor of negative chirality, $(\psi_L \otimes S^+) \oplus (\psi_R \otimes S^-)$ (@prp-spinor-branching), in the representation $\rho_F = \bigoplus_i(q_i, h_i)$ of $G$, reduced over
 $S^2$ with the embedding $\tau$. Its symmetric part is a set of four-dimensional massless Weyl fermions: a right-handed one in $h_i$ for
 each component with $q_i = \tfrac12$, and a left-handed one in $h_i$ for each component with $q_i = -\tfrac12$. The four-dimensional theory is
 chiral unless the left-handed representations $h_i$ ($q_i = -\tfrac12$) are the conjugates of the right-handed ones ($q_i = \tfrac12$). The Higgs
@@ -2067,8 +2070,8 @@ $\rho_F$, and show that the four-dimensional spectrum is always vector-like.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The Weyl spinor of negative chirality is $(\psi_L \otimes S^+) \oplus (\psi_R \otimes S^-)$ (@prp-spinor-branching). A component with $q_i = \tfrac12$
-pairs with $S^+$ in both, giving $\psi_R$ from the positive and $\psi_L$ from the negative chirality, both in $h_i$: a Dirac fermion. The same holds
+The Weyl spinor of positive chirality is $(\psi_R \otimes S^+) \oplus (\psi_L \otimes S^-)$ (@prp-spinor-branching). A component with $q_i = \tfrac12$
+pairs with $S^-$ in both, giving $\psi_R$ from the negative and $\psi_L$ from the positive chirality, both in $h_i$: a Dirac fermion. The same holds
 for $q_i = -\tfrac12$. Every surviving multiplet is a Dirac fermion, and chirality needs the six-dimensional Weyl condition
 [@manousselis2000, eqs. (14)-(15)], the analogue of @prp-kkf-vectorlike.
 :::
@@ -2097,9 +2100,9 @@ Yukawa coupling of the zero modes comes from the internal components $\phi_a$ in
 The surviving fermions are zero modes of the internal Dirac operator twisted by the monopole background. The figure counts the
 zero modes of a component of charge $q$ and marks the ones that CSDR keeps.
 
-![Zero modes on $S^2$ of a spinor component of isotropy charge $q$, which sees the monopole of charge $M = 2q$: $|2q|$ zero modes (bars;
-red: internal chirality $+1$, pairing with right-handed four-dimensional spinors in a six-dimensional Weyl spinor of positive
-chirality; blue: $-1$), forming the representation of spin $|q| - \tfrac12$ of $SU(2)$. The stars mark the $SU(2)$-invariant zero modes, the
+![Zero modes on $S^2$ of a spinor component of isotropy charge $q$, which sees the monopole of charge $M = -2q$: $|2q|$ zero modes (bars;
+red, $q > 0$: internal chirality $-1$, pairing with right-handed four-dimensional spinors in a six-dimensional Weyl spinor of negative
+chirality; blue: $+1$), forming the representation of spin $|q| - \tfrac12$ of $SU(2)$. The stars mark the $SU(2)$-invariant zero modes, the
 symmetric spinors kept by CSDR, which exist only for $|q| = \tfrac12$ (@prp-csf-index-match). The counts are checked from the regular
 solutions of the zero-mode equation of @exm-spd-zero-mode-solution. Generated by `figures/csf-index.sage`.](figures/csf-index.svg){#fig-csf-index width=70%}
 
@@ -2115,10 +2118,10 @@ Riemann-Roch theorem [@cecotti2023introduction, Sec. 1.6.1, Thm. 1.5 and Box 1.7
 #### CSDR fermions and the index
 
 On the component $(q, h)$ of $\rho_F$, the internal Dirac operator of the CSDR background is the twisted Dirac operator of the monopole of charge
-$M = 2q$ (@def-twisted-dirac-operator, in the conventions of @exr-spd-spin-connection-charge). It has $|2q|$ zero modes, of internal chirality
-$\operatorname{sign}q$, forming the representation of spin $|q| - \tfrac12$ of the isometry group $SU(2)$ (@thm-monopole-index). The symmetric
+$M = -2q$ (@def-twisted-dirac-operator, in the conventions of @exr-spd-spin-connection-charge). It has $|2q|$ zero modes, of internal chirality
+$-\operatorname{sign}q$, forming the representation of spin $|q| - \tfrac12$ of the isometry group $SU(2)$ (@thm-monopole-index). The symmetric
 spinors of @prp-csf-fermion-constraint are exactly the $SU(2)$-invariant zero modes, which exist if and only if $|q| = \tfrac12$. Summed over $\rho_F$,
-the index is $\sum_i 2q_i\dim h_i = 2\operatorname{tr}_{\rho_F}(\tau(Q_3)/i) = 0$ for semisimple $G$, while the net chirality of the CSDR fermions is $\sum_{|q_i| =
+the index is $-\sum_i 2q_i\dim h_i = -2\operatorname{tr}_{\rho_F}(\tau(Q_3)/i) = 0$ for semisimple $G$, while the net chirality $n_R - n_L$ of the CSDR fermions is $\sum_{|q_i| =
 1/2}2q_i\dim h_i$, which need not vanish [@dolan2009, eqs. (2.45)-(2.47)].
 :::
 ::::
@@ -2130,7 +2133,7 @@ representation of spin $\tfrac32$.
 ::: {#exm-csf-index-su2}
 #### Spin $\tfrac32$ of $SU(2)$
 
-With $\tau_1$ and $\rho_F$ of spin $\tfrac32$, the charges are $q = -m = \pm\tfrac12, \pm\tfrac32$. The components $q = \pm\tfrac32$ see $M = \pm3$ and have three zero
+With $\tau_1$ and $\rho_F$ of spin $\tfrac32$, the charges are $q = -m = \pm\tfrac12, \pm\tfrac32$. The components $q = \pm\tfrac32$ see $M = \mp3$ and have three zero
 modes each, a triplet of the isometry $SU(2)$; the components $q = \pm\tfrac12$ have one zero mode each, a singlet. The index is $3 + 1 - 1 - 3 = 0$;
 CSDR keeps the two singlets, one right-handed and one left-handed, with $H$-charges $\tfrac12$ and $-\tfrac12$, that is two left-handed fermions of
 charge $-\tfrac12$, as for the doublet.
@@ -2141,8 +2144,8 @@ In the $T_3$ model the adjoint contains components of charge $\pm1$ as well as $
 ::: {#exm-csf-index-t3}
 #### All zero modes of the $T_3$ adjoint
 
-$E_{12}$ ($q = 1$, $M = 2$) has two zero modes of chirality $+1$, a doublet of $SU(2)$; $E_{21}$ has two of chirality $-1$; the four components with
-$q = \pm\tfrac12$ have one each; the Cartan components have none (@thm-lichnerowicz-vanishing). The index is $2 - 2 + 1 + 1 - 1 - 1 = 0$, and CSDR keeps
+$E_{12}$ ($q = 1$, $M = -2$) has two zero modes of chirality $-1$, a doublet of $SU(2)$; $E_{21}$ has two of chirality $+1$; the four components with
+$q = \pm\tfrac12$ have one each; the Cartan components have none (@thm-lichnerowicz-vanishing). The index is $-2 + 2 - 1 - 1 + 1 + 1 = 0$, and CSDR keeps
 the four singlets of @exm-csf-adjoint, whose net $U(1)_3$-chirality is not zero (@exm-csf-t3-adjoint-content).
 :::
 
@@ -2166,24 +2169,24 @@ charges.
 ::: {#exr-csf-zero-mode-count}
 #### Counting the zero modes
 
-Using the solutions $g = \sin^{-m - 1/2}\tfrac\theta2\cos^{m + M - 1/2}\tfrac\theta2$ of @exm-spd-zero-mode-solution, count with Sage the regular ones for
-$M = 2q$, $q = \tfrac12, 1, \tfrac32, 2$, check that each solves the zero-mode equation, and list their $U(1)$ charges $m$. Which value of $m$ belongs to
+Using the solutions $g = \sin^{-m - 1/2}\tfrac\theta2\cos^{m - M - 1/2}\tfrac\theta2$ of the lower component (@exm-spd-zero-mode-solution, @exr-spd-zero-mode-count), count with Sage the regular ones for
+$M = -2q$, $q = \tfrac12, 1, \tfrac32, 2$, check that each solves the zero-mode equation, and list their $U(1)$ charges $m$. Which value of $m$ belongs to
 the $SU(2)$ singlet when $q = \tfrac12$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Regularity requires $-m - \tfrac12 \geq 0$ and $m + M - \tfrac12 \geq 0$, which leaves $m = -\tfrac12, \dots, \tfrac12 - M$, that is $M = 2q$ values:
+Regularity requires $-m - \tfrac12 \geq 0$ and $m - M - \tfrac12 \geq 0$, which leaves $m = -\tfrac12, \dots, \tfrac12 + M$, that is $|M| = 2q$ values:
 
 ```python
 th = var("th")
 for q in (QQ(1) / 2, 1, QQ(3) / 2, 2):
-    M = 2 * q; sols = []
+    M = -2 * q; sols = []
     for k in range(-12, 12):
         m = k + QQ(1) / 2
-        a, b = -m - QQ(1) / 2, m + M - QQ(1) / 2
+        a, b = -m - QQ(1) / 2, m - M - QQ(1) / 2
         if a >= 0 and b >= 0:
             g = sin(th / 2) ** a * cos(th / 2) ** b
-            res = diff(g, th) + cot(th) / 2 * g + (m + M / 2 * (1 - cos(th))) / sin(th) * g
+            res = diff(g, th) + cot(th) / 2 * g + (m + M / 2 * (cos(th) - 1)) / sin(th) * g
             ok = all(abs(RR((res / g).subs(th=t))) < 1e-12 for t in (0.4, 1.1, 2.5))
             sols.append((m, ok))
     print("q = %s (M = %s): %d regular zero modes, charges m = %s, all solve the equation: %s" % (q, M, len(sols), [s_[0] for s_ in sols], all(s_[1] for s_ in sols)))
@@ -2193,10 +2196,10 @@ print("q = 1/2: the solution with m = -1/2 is g =", sin(th / 2) ** 0 * cos(th / 
 *Output:*
 
 ```text
-q = 1/2 (M = 1): 1 regular zero modes, charges m = [-1/2], all solve the equation: True
-q = 1 (M = 2): 2 regular zero modes, charges m = [-3/2, -1/2], all solve the equation: True
-q = 3/2 (M = 3): 3 regular zero modes, charges m = [-5/2, -3/2, -1/2], all solve the equation: True
-q = 2 (M = 4): 4 regular zero modes, charges m = [-7/2, -5/2, -3/2, -1/2], all solve the equation: True
+q = 1/2 (M = -1): 1 regular zero modes, charges m = [-1/2], all solve the equation: True
+q = 1 (M = -2): 2 regular zero modes, charges m = [-3/2, -1/2], all solve the equation: True
+q = 3/2 (M = -3): 3 regular zero modes, charges m = [-5/2, -3/2, -1/2], all solve the equation: True
+q = 2 (M = -4): 4 regular zero modes, charges m = [-7/2, -5/2, -3/2, -1/2], all solve the equation: True
 q = 1/2: the solution with m = -1/2 is g = 1
 ```
 
@@ -2215,7 +2218,7 @@ index, and the numbers of right- and left-handed CSDR fermions.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Each component of charge $q$ contributes $|2q|$ zero modes of chirality $\operatorname{sign}q$ and one CSDR fermion when $|q| = \tfrac12$:
+Each component of charge $q$ contributes $|2q|$ zero modes of chirality $-\operatorname{sign}q$ and one CSDR fermion when $|q| = \tfrac12$:
 
 ```python
 A2 = WeylCharacterRing("A2", style="coroots")
@@ -2223,8 +2226,8 @@ for hw, name in (((1, 0), "3"), ((2, 0), "6"), ((1, 1), "8"), ((3, 0), "10")):
     zp = zm = R_ = L_ = 0
     for w, mult in A2(hw).weight_multiplicities().items():
         h = [QQ(c) for c in w.to_vector()]; q = (h[0] - h[1]) / 2
-        if q > 0: zp += mult * 2 * q
-        if q < 0: zm += mult * 2 * abs(q)
+        if q < 0: zp += mult * 2 * abs(q)
+        if q > 0: zm += mult * 2 * q
         if q == QQ(1) / 2: R_ += mult
         if q == -QQ(1) / 2: L_ += mult
     print("%-3s: zero modes of chirality +1: %s, of chirality -1: %s, index %s; CSDR fermions: %d right-handed, %d left-handed" % (name, zp, zm, zp - zm, R_, L_))
@@ -2273,7 +2276,7 @@ The $T_3$ model has a scalar and fermions. The first integrative exercise puts t
 ::: {#exr-csf-int-t3-model}
 #### The $T_3$ model with matter
 
-Take six-dimensional $SU(3)$ Yang-Mills theory with a Weyl fermion of positive chirality in the $\mathbf 3$, reduced over $S^2$ with $\tau'$. Give
+Take six-dimensional $SU(3)$ Yang-Mills theory with a Weyl fermion of negative chirality in the $\mathbf 3$ (@prp-csf-chiral-content), reduced over $S^2$ with $\tau'$. Give
 the four-dimensional gauge group, the scalar (@exr-csd-int-t3-model), the fermions with their charges, and decide whether a Yukawa coupling of
 the scalar to the two fermions is allowed by the charges; check the charges with Sage from the matrices.
 :::

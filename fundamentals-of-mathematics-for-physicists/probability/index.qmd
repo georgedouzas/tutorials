@@ -32,7 +32,7 @@ assigned probabilities, and the assignment itself. This section defines the thre
 probability, independence and Bayes' rule, and checks the rational probabilities of the running examples (two dice
 and a diagnostic test) exactly in Sage.
 
-For more on this topic, see @baldi2023probability [Ch. 1] and @capinski2001probability [Ch. 1-7].
+For more on this topic, see @baldi2023probability [Ch. 1, Secs. 2.1-2.2 and 4.1], @capinski2001probability [Ch. 1-7] and @cufaropetroni2020probability [Ch. 1, Defs. 1.1-1.19].
 
 ### Sample spaces and events
 
@@ -217,8 +217,8 @@ measure, the **density** $\rho$ being the continuous counterpart of the table of
 :::
 
 "Choosing at random" on an infinite set means choosing a measure, and different natural choices give different
-answers. The fourth example is Bertrand's chord problem, the classical instance [@bricmont2022statistical, Sec.
-2.2.5].
+answers. The fourth example is Bertrand's chord problem, the classical instance
+[@bricmont2022statistical, Sec. 2.2.5].
 
 ::: {#exm-pbr-bertrand}
 #### Bertrand's chords
@@ -239,7 +239,7 @@ indeed reproduce.
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 Inclusion-exclusion is the tool for "at least one" questions when the events overlap, and its complement form is
 often shorter. The first exercise applies it to the birthday problem, where the probability of a coincidence is
-surprisingly large, and asks Sage for the exact rational value.
+surprisingly large, and asks Sage for the exact rational value [@bricmont2022statistical, Exercise 2.2].
 
 ::: {#exr-prob-birthday}
 #### The birthday problem
@@ -674,7 +674,8 @@ $\binom{m}{k}(\lambda/m)^k(1 - \lambda/m)^{m-k}$; as $m \to \infty$, $\binom{m}{
 Conditional probabilities are usually known in one direction, from cause to effect, such as the probability of a
 positive test given illness, while the question of interest runs the other way. The theorem below inverts the
 conditioning; its proof is two applications of the chain rule, and its content is the correction by the prior
-probabilities that intuition tends to omit.
+probabilities that intuition tends to omit. For Bayesian updating over several hypotheses and the false-positive
+test, see [@bricmont2022statistical, Sec. 2.2.3, eq. (2.2.7)] and [@cufaropetroni2020probability, Prop. 1.17].
 
 :::: {.statement-box}
 ::: {#thm-bayes-rule}
@@ -1298,7 +1299,7 @@ is visibly linear in $X$. For the product, $\mathbb{E}(XY) = \sum_{x, y} xy\,\ma
 
 Waiting times have expectations given by series, and Sage sums them symbolically. The second exercise computes the
 expected wait for the first head and then the St Petersburg game, whose expected payoff is infinite although every
-single payoff is finite.
+single payoff is finite [@bricmont2022statistical, Exercise 2.9].
 
 ::: {#exr-rv-st-petersburg}
 #### Waiting times and the St Petersburg game
@@ -1518,9 +1519,11 @@ $\sigma = 1/\lambda$ the skewness is $2$, positive because the long tail is on t
 ### Characteristic functions
 
 All the moments of a distribution can be packed into one function, the expectation of $e^{itX}$, which is the
-Fourier transform of the density; its derivatives at $0$ are the moments, and it turns sums of independent
+Fourier transform of the density evaluated at $-t$: under the site's convention $\hat f(k) = \int f(x)\, e^{-ikx}\, dx$,
+$\varphi_X(t) = \hat p_X(-t)$. Its derivatives at $0$ are the moments, and it turns sums of independent
 variables into products. The definition records these properties, which make it the main tool for the central
-limit theorem.
+limit theorem. For more on this topic, with the same sign $e^{+itX}$, see [@baldi2023probability, Sec. 2.6, eq. (2.36)]
+and [@cufaropetroni2020probability, Sec. 4.2.1, Def. 4.7, Thms. 4.11-4.12].
 
 :::: {.statement-box}
 ::: {#def-characteristic-function}
@@ -1809,7 +1812,8 @@ P(|Z| <= z) = 0.99 at z = 2.5758
 
 The characteristic function of the Gaussian is computed by completing the square in the exponent, the same trick
 as in @exr-gaussian-moments, after which the shifted contour costs nothing. The last exercise asks for this
-derivation and for its consequence, that the Gaussian is determined by its first two moments.
+derivation and for its consequence, that the Gaussian is determined by its first two moments
+[@bricmont2022statistical, Exercise 2.3].
 
 ::: {#exr-rv-gaussian-cf}
 #### The Gaussian characteristic function
@@ -1917,7 +1921,8 @@ For $N \sim \operatorname{Bin}(6, \tfrac12)$, $\mathbb P(N \geq 4) = \frac{\bino
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The mean and variance of the Poisson distribution are sums of series, and Sage evaluates them symbolically in
 $\lambda$ once it knows that the summation index is an integer. The first exercise derives the two by hand from
-the exponential series and checks them in Sage together with the characteristic function.
+the exponential series and checks them in Sage together with the characteristic function
+[@bricmont2022statistical, Exercise 2.5].
 
 ::: {#exr-rv-poisson-moments}
 #### Poisson mean and variance
@@ -2018,8 +2023,8 @@ lambda = 2: P(N = 0) = e^(-2) = 0.1353 ; P(N >= 5) = (e^2 - 7)*e^(-2) = 0.05265
 :::
 
 With more than two outcomes per trial the binomial becomes the multinomial distribution, which describes the
-occupation numbers of a histogram. The last exercise derives it and its covariances [@bricmont2022statistical,
-Exercise 2.12].
+occupation numbers of a histogram. The last exercise derives it and its covariances
+[@bricmont2022statistical, Exercise 2.12].
 
 ::: {#exr-pbr-multinomial}
 #### The multinomial distribution
@@ -2205,7 +2210,7 @@ Chebyshev's inequality and the weak law of large numbers from it, states the str
 theorem with the characteristic-function argument behind the latter, and derives Wick's theorem for the moments of
 the Gaussian, whose combinatorics of pairings is used throughout field theory.
 
-For more on this topic, see @baldi2023probability [Ch. 3].
+For more on this topic, see @baldi2023probability [Ch. 3] and @cufaropetroni2020probability [Secs. 4.1, 4.3-4.6].
 
 ### Convergence in probability
 
@@ -2369,7 +2374,7 @@ $\mathbb P(T > y)$ for an exponential variable with rate $1$ (@exm-rv-uniform-ex
 The variance controls how far a random variable strays from its mean, and the control is quantitative: the
 probability of a deviation of $k$ standard deviations is at most $1/k^2$, whatever the distribution. The theorem
 below proves this from the still simpler Markov inequality, and both proofs are one line of monotonicity of the
-expectation.
+expectation. For more on this topic, see @aggarwalProbabilityStatisticsMachine2024 [Secs. 11.3-11.4.1, Thms. 11.2-11.6] and @gasinski2014exercises [Thm. 3.107].
 
 :::: {.statement-box}
 ::: {#thm-chebyshev-inequality}
@@ -2685,7 +2690,7 @@ estimate 3.14395, error 0.00235, predicted standard deviation sqrt(Var/N) = 0.00
 
 The weak law is a statement about one $n$ at a time, and the last exercise explains why the stronger almost-sure
 statement needs a summable sequence of tail bounds. It introduces the first Borel-Cantelli lemma, the tool used in
-the strong law below.
+the strong law below [@gasinski2014exercises, Problem 3.14].
 
 ::: {#exr-lt-borel-cantelli}
 #### The Borel-Cantelli lemma
@@ -3055,7 +3060,7 @@ $\mathcal N(0, \tfrac14)$; and $\operatorname{Var}x = \operatorname{Var}N/n = \t
 The moments of a Gaussian variable are all determined by its variance, through a recursion that integration by
 parts produces, and the resulting double factorials count the ways of pairing the factors. The theorem below gives
 the moments and the pairing interpretation, which is the form in which the result is used for Gaussian integrals
-of any number of variables.
+of any number of variables [@bricmont2022statistical, Exercises 2.3-2.4, eqs. (2.8.1)-(2.8.2)].
 
 :::: {.statement-box}
 ::: {#thm-wick-moments}
@@ -3246,8 +3251,8 @@ four vectors $\pm a e_1$, $\pm a e_2$, with probability $\tfrac14$ each in the s
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The position is a sum of independent variables, so its mean and variance add up step by step. The first example
-computes them and identifies the diffusive growth of the spread [@foulaadvand2023computational, Sec. 10.3.1,
-eqs. (10.6)-(10.11)].
+computes them and identifies the diffusive growth of the spread
+[@foulaadvand2023computational, Sec. 10.3.1, eqs. (10.6)-(10.11)].
 
 ::: {#exm-rw-moments}
 #### Mean and spread
@@ -3543,8 +3548,8 @@ L = 100, x0 = 50: simulated mean 2450.7 +- 44.2 (standard error), x0(L - x0) = 2
 :::
 
 The entropy $-\sum P\log P$ of the distribution of the walk measures how far it has spread, and with walls it must
-level off. The last exercise computes it from the master equation of @exm-rw-reflecting [@foulaadvand2023computational,
-Problem 10.12].
+level off. The last exercise computes it from the master equation of @exm-rw-reflecting
+[@foulaadvand2023computational, Problem 10.12].
 
 ::: {#exr-rw-entropy}
 #### Entropy growth between walls
@@ -3744,7 +3749,7 @@ bias, maximum likelihood, confidence intervals from the central limit theorem, t
 hypothesised distribution, and Monte Carlo sampling as estimation of an integral, with the $1/\sqrt N$ error that
 governs every simulation.
 
-For more on this topic, see @gasinski2014exercises [Ch. 3].
+For more on this topic, see @aggarwalProbabilityStatisticsMachine2024 [Chs. 5-6], @baldi2023probability [Secs. 2.9, 3.9 and 6.1] and @boudreau2018applied [Ch. 7].
 
 ### Estimators
 
@@ -3904,7 +3909,8 @@ consistent too. $X_1$ has mean $\mu$ but its distribution does not change with $
 
 When the family of distributions is known up to parameters, the most widely used estimator is the one that makes
 the observed data most probable. The definition below introduces the likelihood function and its maximiser, and
-notes that in regular cases it is consistent and asymptotically Gaussian, which supplies its standard error.
+notes that in regular cases it is consistent and asymptotically Gaussian, which supplies its standard error
+[@aggarwalProbabilityStatisticsMachine2024, Secs. 6.2-6.3, 6.6.1].
 
 :::: {.statement-box}
 ::: {#def-maximum-likelihood}
@@ -4052,7 +4058,7 @@ samples, though it is far more robust to outliers.
 A point estimate without an error is incomplete, and the central limit theorem supplies the error: the estimator
 is approximately Gaussian around the true value, so an interval of a few standard errors around the estimate
 covers the truth with a known probability. The definition makes this precise and records the standard Gaussian
-interval.
+interval [@aggarwalProbabilityStatisticsMachine2024, Secs. 5.3-5.4.2].
 
 :::: {.statement-box}
 ::: {#def-confidence-interval}
@@ -4211,7 +4217,8 @@ variances) add, and the combined interval is narrower than the best single one.
 
 Besides estimating parameters one often needs to decide whether data are compatible with a hypothesised
 distribution at all, and the chi-squared test is the standard tool for counted data. The definition gives the
-statistic, its approximate distribution, and the decision rule, in outline; the distribution theory is quoted.
+statistic, its approximate distribution, and the decision rule, in outline; the distribution theory is quoted
+[@baldi2023probability, Sec. 3.9, Thm. 3.42 and Example 3.43]; [@aggarwalProbabilityStatisticsMachine2024, Sec. 5.6.2].
 
 :::: {.statement-box}
 ::: {#def-chi-squared-statistic}
@@ -4361,7 +4368,8 @@ distribution would.
 Monte Carlo methods compute integrals and expectations by averaging over random samples, and the law of large
 numbers guarantees convergence while the central limit theorem gives the error. The figure shows the method for
 $\pi$; the definition records the estimator, its $1/\sqrt N$ error, and the fact that this rate does not depend on
-the dimension of the integral, the reason the method dominates in high dimensions.
+the dimension of the integral, the reason the method dominates in high dimensions
+[@boudreau2018applied, Secs. 7.2.7-7.2.9 and 7.4-7.4.1, eq. (7.7)]; [@baldi2023probability, Sec. 6.1, Examples 6.2-6.4].
 
 ![Monte Carlo estimation of $\pi$. Left: $2000$ seeded uniform points in the unit square, those inside the quarter
 disc in blue; the fraction inside estimates $\pi/4$. Right: the error $|\pi_N - \pi|$ of the estimate from $N$
@@ -4690,7 +4698,9 @@ of magnitude at $p = 10^{-6}$.
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 Three exercises that combine the sections of this chapter: the gambler's ruin, which uses conditional probability,
 random variables and limits; the Gaussian moment generating function, which ties Wick's theorem to maximum
-likelihood through cumulants; and a complete Monte Carlo experiment with its statistical analysis.
+likelihood through cumulants; and a complete Monte Carlo experiment with its statistical analysis. For cumulants
+see [@cufaropetroni2020probability, App. E], and for the chi-squared test of a fitted continuous distribution on
+binned data see [@aggarwalProbabilityStatisticsMachine2024, Sec. 5.6.2].
 
 Conditioning on the first step turns a probability about an infinite game into a recursion, and the recursion is
 solved exactly; the law of large numbers then explains the answer for an unfair game. The first exercise works
