@@ -193,8 +193,8 @@ The dimension count, entries minus independent equations, is the method used thr
 ::: {#exm-matrix-orthogonal}
 #### Orthogonal and special orthogonal groups
 
-$O(n) = \{R : R^{\mathsf{T}}R = 1\}$, the isometries of $\mathbb{R}^n$ fixing the origin, is closed in $GL(n,
-\mathbb{R})$ and has dimension $n(n-1)/2$ (the $n(n+1)/2$ equations $R^{\mathsf{T}}R = 1$ cut $n^2$ dimensions
+$O(n) = \{R : R^\top R = 1\}$, the isometries of $\mathbb{R}^n$ fixing the origin, is closed in $GL(n,
+\mathbb{R})$ and has dimension $n(n-1)/2$ (the $n(n+1)/2$ equations $R^\top R = 1$ cut $n^2$ dimensions
 down); $SO(n)$ is its component of determinant one (@exm-connected-groups), the rotations. $SO(2)$ has dimension
 $1$ and $SO(3)$ dimension $3$.
 :::
@@ -223,9 +223,9 @@ $R(t)$ about the $Z$-axis in $SO(3)$, of period $2\pi$. The dotted lines show th
 
 {{< interactive double_cover 460 >}}
 
-The interactive version draws the orbits of the vector $v = (0.8, 0, 0.6)$ of the unit sphere under the rotations
-$e^{t\,n \cdot L}$ about three axes $n$. Hovering a marker shows $t$, the rotated vector and one of the two elements
-$\pm e^{t\,n \cdot T}$ of $SU(2)$ that cover the rotation, checked numerically through $\operatorname{Ad}$.
+The interactive version draws the orbits of the vector $\mathbf v = (0.8, 0, 0.6)$ of the unit sphere under the rotations
+$e^{t\,\mathbf n \cdot\mathbf L}$ about three axes $\mathbf n$. Hovering a marker shows $t$, the rotated vector and one of the two elements
+$\pm e^{t\,\mathbf n \cdot\mathbf T}$ of $SU(2)$ that cover the rotation, checked numerically through $\operatorname{Ad}$.
 
 The first exercise on matrix groups counts dimensions by subtracting the number of independent equations from the
 number of real entries. It confirms the values quoted in the examples for small $n$.
@@ -238,7 +238,7 @@ check the values for $n = 2, 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$R^{\mathsf{T}}R = 1$ is a symmetric matrix equation, $n(n+1)/2$ real conditions on $n^2$ entries: $\dim O(n) =
+$R^\top R = 1$ is a symmetric matrix equation, $n(n+1)/2$ real conditions on $n^2$ entries: $\dim O(n) =
 n(n-1)/2$, giving $1$ and $3$. $U^\dagger U = 1$ is Hermitian, $n^2$ real conditions on $2n^2$ real entries:
 $\dim U(n) = n^2$, giving $4$ and $9$; $\det U = 1$ removes one more (the phase), $\dim SU(n) = n^2 - 1$, giving
 $3$ and $8$. The equal dimensions $3$ of $SO(3)$ and $SU(2)$ are explained by the double cover.
@@ -294,18 +294,18 @@ treats the antisymmetric form of classical mechanics, whose group is the symplec
 ::: {#exr-lg-symplectic}
 #### The symplectic group
 
-Let $J = \begin{pmatrix} 0 & 1_n \\ -1_n & 0 \end{pmatrix}$ and $Sp(2n, \mathbb{R}) = \{M : M^{\mathsf{T}}JM = J\}$.
+Let $J = \begin{pmatrix} 0 & 1_n \\ -1_n & 0 \end{pmatrix}$ and $Sp(2n, \mathbb{R}) = \{M : M^\top JM = J\}$.
 Show that it is a matrix Lie group, that $Sp(2, \mathbb{R}) = SL(2, \mathbb{R})$, and that its dimension is $n(2n +
 1)$; check the dimension with Sage for $n = 1, 2, 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-If $M$ and $N$ preserve $J$ then $(MN)^{\mathsf{T}}J(MN) = N^{\mathsf{T}}(M^{\mathsf{T}}JM)N = J$, and taking
-determinants of $M^{\mathsf{T}}JM = J$ gives $(\det M)^2 = 1$, so $M$ is invertible with inverse $J^{-1}M^{\mathsf{T}}J$
+If $M$ and $N$ preserve $J$ then $(MN)^\top J(MN) = N^\top(M^\top JM)N = J$, and taking
+determinants of $M^\top JM = J$ gives $(\det M)^2 = 1$, so $M$ is invertible with inverse $J^{-1}M^\top J$
 in the group; the condition is polynomial, so the subgroup is closed. For $n = 1$ a direct computation gives
-$M^{\mathsf{T}}JM = (\det M)\,J$, so the condition is $\det M = 1$. In general $M^{\mathsf{T}}JM$ is antisymmetric,
+$M^\top JM = (\det M)\,J$, so the condition is $\det M = 1$. In general $M^\top JM$ is antisymmetric,
 so the equation imposes $2n(2n - 1)/2 = n(2n - 1)$ conditions on $4n^2$ entries, leaving $4n^2 - n(2n - 1) = n(2n +
-1)$; Sage confirms this by computing the dimension of the tangent space $\{X^{\mathsf{T}}J + JX = 0\}$:
+1)$; Sage confirms this by computing the dimension of the tangent space $\{X^\top J + JX = 0\}$:
 
 ```python
 a, b, c, d = var("a b c d")
@@ -392,7 +392,7 @@ in $GL(n, \mathbb{R})$; the irrational line $\{(e^{it}, e^{i\sqrt2 t})\} \subset
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$SO(2)$ is closed (defined by the equations $R e_3 = e_3$). The diagonal invertible matrices are closed (the
+$SO(2)$ is closed (defined by the equations $R \mathbf e_3 = \mathbf e_3$). The diagonal invertible matrices are closed (the
 off-diagonal entries vanish), a Lie group of dimension $n$. The irrational line is not closed: it is dense in
 the torus, and its closure is all of $T^2$. $\mathbb{Q}$ is not closed in $\mathbb{R}$ (its closure is
 $\mathbb{R}$) and is not a Lie subgroup at all, being countable but not discrete.
@@ -494,13 +494,13 @@ first exercise does this for the north pole of the sphere and then describes the
 ::: {#exr-lg-orbit-stabiliser}
 #### The isotropy group of the north pole
 
-Find all $X = x_aL_a \in \mathfrak{so}(3)$ with $Xe_3 = 0$, check that the rotations $e^{tL_3}$ fix $e_3$, and compute
+Find all $X = x_aL_a \in \mathfrak{so}(3)$ with $X\mathbf e_3 = 0$, check that the rotations $e^{tL_3}$ fix $\mathbf e_3$, and compute
 the orbit of the point $(\sin\theta, 0, \cos\theta)$ under them.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$Xe_3 = (x_2, -x_1, 0)$, which vanishes exactly when $x_1 = x_2 = 0$: the generators of the isotropy group are the
-multiples of $L_3$, and the isotropy group of $e_3$ is the $SO(2)$ of rotations about the $Z$-axis. Its orbit through
+$X\mathbf e_3 = (x_2, -x_1, 0)$, which vanishes exactly when $x_1 = x_2 = 0$: the generators of the isotropy group are the
+multiples of $L_3$, and the isotropy group of $\mathbf e_3$ is the $SO(2)$ of rotations about the $Z$-axis. Its orbit through
 $(\sin\theta, 0, \cos\theta)$ is $(\cos t\sin\theta, \sin t\sin\theta, \cos\theta)$, the parallel at height
 $\cos\theta$ and radius $\sin\theta$, which shrinks to a point at the poles:
 
@@ -724,8 +724,8 @@ The general element of $SU(2)$ is $a_0 1 - i a_k\sigma_k$ with $(a_0, a)$ a unit
 $2T_k = -i\sigma_k$. The equations $\operatorname{Ad}_g = R$ have exactly two solutions, $(a_0, a_1, a_2, a_3) = \pm
 (\tfrac{1}{\sqrt2}, \tfrac{1}{\sqrt2}, 0, 0)$; by @eq-exp-su2 the plus sign is $e^{(\pi/2)T_1} = \cos\frac{\pi}{4} -
 i\sin\frac{\pi}{4}\sigma_1$, and the minus sign is $-e^{(\pi/2)T_1} = e^{(\pi/2 + 2\pi)T_1}$. In general $g$ covers the
-rotation by $2\arccos a_0$ about the unit vector $a/|a|$, and $-g$ gives the angle $2\pi - 2\arccos a_0$ about
-$-a/|a|$, which is the same rotation:
+rotation by $2\arccos a_0$ about the unit vector $\mathbf a/|\mathbf a|$, and $-g$ gives the angle $2\pi - 2\arccos a_0$ about
+$-\mathbf a/|\mathbf a|$, which is the same rotation:
 
 ```python
 s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
@@ -762,7 +762,7 @@ proposition below records their three defining properties: the identity at zero,
 ::: {#prp-so2-group}
 #### $SO(2)$ is a one-parameter group of orthogonal matrices
 
-$R(0) = 1$, $R(s)R(t) = R(s + t)$ and $R(t)R(t)^{\mathsf{T}} = 1$ for the rotation matrices about the $Z$-axis.
+$R(0) = 1$, $R(s)R(t) = R(s + t)$ and $R(t)R(t)^\top = 1$ for the rotation matrices about the $Z$-axis.
 :::
 ::::
 
@@ -785,8 +785,8 @@ this inverse as the rotation by the opposite angle.
 ::: {#exm-lg-so2-inverse}
 #### Inverse equals transpose
 
-From $R(s)R(t) = R(s + t)$ and $R(0) = 1$, $R(t)R(-t) = 1$, so $R(t)^{-1} = R(-t)$; and $R(-t) = R(t)^{\mathsf{T}}$
-because cosine is even and sine odd. This is $R(t)R(t)^{\mathsf{T}} = 1$ again, so the three statements of the
+From $R(s)R(t) = R(s + t)$ and $R(0) = 1$, $R(t)R(-t) = 1$, so $R(t)^{-1} = R(-t)$; and $R(-t) = R(t)^\top$
+because cosine is even and sine odd. This is $R(t)R(t)^\top = 1$ again, so the three statements of the
 proposition are consistent: $t \mapsto R(t)$ is a homomorphism into $O(3)$, and since $\det R(t) = \cos^2t + \sin^2t =
 1$ its image lies in $SO(3)$.
 :::
@@ -811,7 +811,7 @@ It is a quick consistency check of the matrix used throughout the chapter.
 ::: {#exr-lg-so2-group-law}
 #### Checking the group law symbolically
 
-With Sage, verify $R(0) = 1$, $R(s)R(t) = R(s + t)$, $R(t)R(t)^{\mathsf{T}} = 1$, $\det R(t) = 1$, $R(t)^{-1} = R(-t)$
+With Sage, verify $R(0) = 1$, $R(s)R(t) = R(s + t)$, $R(t)R(t)^\top = 1$, $\det R(t) = 1$, $R(t)^{-1} = R(-t)$
 and $R(2\pi) = 1$.
 :::
 
@@ -841,13 +841,13 @@ R(2 pi) = 1: True
 ```
 :::
 
-The proposition shows that every $R(t)$ lies in $SO(2)$, the group of rotations of the plane spanned by $e_1$ and
-$e_2$. The second exercise proves the converse, that every rotation of the plane is some $R(t)$.
+The proposition shows that every $R(t)$ lies in $SO(2)$, the group of rotations of the plane spanned by $\mathbf e_1$ and
+$\mathbf e_2$. The second exercise proves the converse, that every rotation of the plane is some $R(t)$.
 
 ::: {#exr-lg-so2-abelian}
 #### Every plane rotation is an $R(t)$
 
-Show that every $2 \times 2$ real matrix $M$ with $M^{\mathsf{T}}M = 1$ and $\det M = 1$ is $\begin{pmatrix} \cos t & -
+Show that every $2 \times 2$ real matrix $M$ with $M^\top M = 1$ and $\det M = 1$ is $\begin{pmatrix} \cos t & -
 \sin t \\ \sin t & \cos t \end{pmatrix}$ for some $t$, unique modulo $2\pi$. Conclude that $SO(2)$ is abelian.
 :::
 
@@ -865,14 +865,14 @@ which properties of the proposition survive.
 #### Boosts of the Minkowski plane
 
 Let $B(w) = \begin{pmatrix} \cosh w & \sinh w \\ \sinh w & \cosh w \end{pmatrix}$ and $\eta = \operatorname{diag}(1, -
-1)$. Show that $B(0) = 1$, $B(v)B(w) = B(v + w)$ and $B(w)^{\mathsf{T}}\eta B(w) = \eta$, but that $B(w)$ is not
+1)$. Show that $B(0) = 1$, $B(v)B(w) = B(v + w)$ and $B(w)^\top\eta B(w) = \eta$, but that $B(w)$ is not
 orthogonal and that $w \mapsto B(w)$ is injective.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The composition law is the addition formulas for $\cosh$ and $\sinh$, and $B^{\mathsf{T}}\eta B = \eta$ is
+The composition law is the addition formulas for $\cosh$ and $\sinh$, and $B^\top\eta B = \eta$ is
 $\cosh^2w - \sinh^2w = 1$; so the boosts form a one-parameter subgroup of $SO(1, 1)$, the group preserving $\eta$.
-$BB^{\mathsf{T}} = B(2w) \neq 1$ for $w \neq 0$, so they are not orthogonal. The trace $2\cosh w$ equals $2$ only at
+$BB^\top = B(2w) \neq 1$ for $w \neq 0$, so they are not orthogonal. The trace $2\cosh w$ equals $2$ only at
 $w = 0$, so $B(w) = 1$ only for $w = 0$: the kernel is trivial and the subgroup is a line, not a circle. The rapidity
 $w$ is additive, as the rotation angle is.
 
@@ -967,16 +967,16 @@ that it satisfies the axioms of a Lie algebra and identifies its structure const
 #### The cross product
 
 Show that $(\mathbb{R}^3, \times)$ is a Lie algebra: the cross product is bilinear and antisymmetric, and the Jacobi
-identity follows from $a \times (b \times c) = b(a \cdot c) - c(a \cdot b)$. Show that $e_a \times e_b = \epsilon_{abc}
-e_c$ and that the cross product is not associative.
+identity follows from $\mathbf a \times (\mathbf b \times \mathbf c) = \mathbf b(\mathbf a \cdot \mathbf c) - \mathbf c(\mathbf a \cdot \mathbf b)$. Show that $\mathbf e_a \times \mathbf e_b = \epsilon_{abc}
+\mathbf e_c$ and that the cross product is not associative.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Bilinearity and antisymmetry are visible in the component formula $(a \times b)_c = \epsilon_{cde}a_db_e$. Summing
-the identity $a \times (b \times c) = b(a \cdot c) - c(a \cdot b)$ over the three cyclic permutations, the six terms
-cancel in pairs, which is the Jacobi identity. The basis vectors give $e_1 \times e_2 = e_3$ and cyclically, the
-structure constants $\epsilon_{abc}$ of $\mathfrak{so}(3)$ (@eq-so3-brackets). Associativity fails: $(e_1 \times e_1)
-\times e_2 = 0$ while $e_1 \times (e_1 \times e_2) = -e_2$.
+Bilinearity and antisymmetry are visible in the component formula $(\mathbf a \times \mathbf b)_c = \epsilon_{cde}a_db_e$. Summing
+the identity $\mathbf a \times (\mathbf b \times \mathbf c) = \mathbf b(\mathbf a \cdot \mathbf c) - \mathbf c(\mathbf a \cdot \mathbf b)$ over the three cyclic permutations, the six terms
+cancel in pairs, which is the Jacobi identity. The basis vectors give $\mathbf e_1 \times \mathbf e_2 = \mathbf e_3$ and cyclically, the
+structure constants $\epsilon_{abc}$ of $\mathfrak{so}(3)$ (@eq-so3-brackets). Associativity fails: $(\mathbf e_1 \times \mathbf e_1)
+\times \mathbf e_2 = 0$ while $\mathbf e_1 \times (\mathbf e_1 \times \mathbf e_2) = -\mathbf e_2$.
 
 ```python
 A = vector(SR, var("a1 a2 a3")); B = vector(SR, var("b1 b2 b3")); C = vector(SR, var("c1 c2 c3"))
@@ -1182,7 +1182,7 @@ basis is fixed by the conventions of the book.
 ::: {#exm-so3-algebra}
 #### $\mathfrak{so}(3)$: antisymmetric matrices
 
-Differentiating $R(t)^{\mathsf{T}} R(t) = 1$ at $t = 0$ for a curve $R(t)$ in $SO(3)$ through $1$ gives $X^{\mathsf{T}} +
+Differentiating $R(t)^\top R(t) = 1$ at $t = 0$ for a curve $R(t)$ in $SO(3)$ through $1$ gives $X^\top +
 X = 0$: $\mathfrak{so}(3)$ consists of the antisymmetric $3 \times 3$ matrices, a three-dimensional space with
 the basis $(L_a)_{bc} = -\epsilon_{abc}$ of @sec-conventions-lie,
 $$
@@ -1281,15 +1281,15 @@ finds this condition and counts its solutions.
 ::: {#exr-lg-sp2-algebra}
 #### The symplectic Lie algebra
 
-Show that the Lie algebra of $Sp(2n, \mathbb{R})$ is $\mathfrak{sp}(2n) = \{X : X^{\mathsf{T}}J + JX = 0\}$, that
+Show that the Lie algebra of $Sp(2n, \mathbb{R})$ is $\mathfrak{sp}(2n) = \{X : X^\top J + JX = 0\}$, that
 $X \in \mathfrak{sp}(2n)$ exactly when $JX$ is symmetric, and deduce $\dim \mathfrak{sp}(2n) = n(2n + 1)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Differentiating $e^{tX^{\mathsf{T}}}Je^{tX} = J$ at $t = 0$ gives $X^{\mathsf{T}}J + JX = 0$; conversely, if this
-holds then $\frac{d}{dt}(e^{tX^{\mathsf{T}}}Je^{tX}) = e^{tX^{\mathsf{T}}}(X^{\mathsf{T}}J + JX)e^{tX} = 0$, so
-$e^{tX}$ stays in the group. Since $J^{\mathsf{T}} = -J$, $(JX)^{\mathsf{T}} = X^{\mathsf{T}}J^{\mathsf{T}} = -
-X^{\mathsf{T}}J$, so the condition says $(JX)^{\mathsf{T}} = JX$. As $J$ is invertible, $X \mapsto JX$ is a linear
+Differentiating $e^{tX^\top}Je^{tX} = J$ at $t = 0$ gives $X^\top J + JX = 0$; conversely, if this
+holds then $\frac{d}{dt}(e^{tX^\top}Je^{tX}) = e^{tX^\top}(X^\top J + JX)e^{tX} = 0$, so
+$e^{tX}$ stays in the group. Since $J^\top = -J$, $(JX)^\top = X^\top J^\top = -
+X^\top J$, so the condition says $(JX)^\top = JX$. As $J$ is invertible, $X \mapsto JX$ is a linear
 bijection onto the symmetric $2n \times 2n$ matrices, of dimension $2n(2n + 1)/2 = n(2n + 1)$, in agreement with the
 group dimension of @exr-lg-symplectic.
 :::
@@ -1306,7 +1306,7 @@ for $j < k$ and dimension $n(n - 1)/2$, and that $[M_{ij}, M_{kl}] = \delta_{jk}
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-As in @exm-so3-algebra, differentiating $R^{\mathsf{T}}R = 1$ gives $X^{\mathsf{T}} = -X$, and the $M_{jk}$ with $j < k$
+As in @exm-so3-algebra, differentiating $R^\top R = 1$ gives $X^\top = -X$, and the $M_{jk}$ with $j < k$
 form a basis of these matrices, $n(n - 1)/2$ of them, the dimension of $O(n)$ of @exm-matrix-orthogonal. With
 $E_{ij}E_{kl} = \delta_{jk}E_{il}$, $M_{ij}M_{kl} = \delta_{jk}E_{il} - \delta_{jl}E_{ik} - \delta_{ik}E_{jl} +
 \delta_{il}E_{jk}$; subtracting the same expression with $(ij) \leftrightarrow (kl)$ and collecting the $E$'s into
@@ -1642,9 +1642,9 @@ $\mathfrak{so}(3)$ is the cross product of $\mathbb{R}^3$.
 ::: {#exm-lg-so3-cross}
 #### Generators as cross products
 
-$(L_av)_b = (L_a)_{bc}v_c = -\epsilon_{abc}v_c = \epsilon_{bac}v_c = (e_a \times v)_b$, so $L_av = e_a \times v$ and,
-for $n \in \mathbb{R}^3$, $(n \cdot L)v = n \times v$: the infinitesimal rotation about $n$. The bracket $[n \cdot L, m
-\cdot L] = (n \times m) \cdot L$ is then the proposition written without indices, and its Jacobi identity is that of
+$(L_av)_b = (L_a)_{bc}v_c = -\epsilon_{abc}v_c = \epsilon_{bac}v_c = (\mathbf e_a \times \mathbf v)_b$, so $L_av = \mathbf e_a \times \mathbf v$ and,
+for $\mathbf n \in \mathbb{R}^3$, $(\mathbf n \cdot\mathbf L)\mathbf v = \mathbf n \times \mathbf v$: the infinitesimal rotation about $\mathbf n$. The bracket $[\mathbf n \cdot\mathbf L, \mathbf m
+\cdot\mathbf L] = (\mathbf n \times \mathbf m) \cdot\mathbf L$ is then the proposition written without indices, and its Jacobi identity is that of
 the cross product (@exr-lg-cross-product, @exr-lg-so3-cross-product).
 :::
 
@@ -1719,14 +1719,14 @@ does this and recovers the proposition from it.
 ::: {#exr-lg-so3-cross-product}
 #### The commutator is the cross product
 
-For $n, m, v \in \mathbb{R}^3$ show that $(n \cdot L)v = n \times v$ and $[n \cdot L, m \cdot L] = (n \times m) \cdot L$,
-and recover $[L_a, L_b] = \epsilon_{abc}L_c$ by choosing $n = e_a$, $m = e_b$.
+For $\mathbf n, \mathbf m, \mathbf v \in \mathbb{R}^3$ show that $(\mathbf n \cdot\mathbf L)\mathbf v = \mathbf n \times \mathbf v$ and $[\mathbf n \cdot\mathbf L, \mathbf m \cdot\mathbf L] = (\mathbf n \times \mathbf m) \cdot\mathbf L$,
+and recover $[L_a, L_b] = \epsilon_{abc}L_c$ by choosing $\mathbf n = \mathbf e_a$, $\mathbf m = \mathbf e_b$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The first identity is @exm-lg-so3-cross. For the second, apply both sides to $v$: $[n \cdot L, m \cdot L]v = n \times (m
-\times v) - m \times (n \times v) = (n \times m) \times v$ by the Jacobi identity of the cross product, which is $((n
-\times m) \cdot L)v$. With $n = e_a$, $m = e_b$, $e_a \times e_b = \epsilon_{abc}e_c$ gives the proposition:
+The first identity is @exm-lg-so3-cross. For the second, apply both sides to $\mathbf v$: $[\mathbf n \cdot\mathbf L, \mathbf m \cdot\mathbf L]\mathbf v = \mathbf n \times (\mathbf m
+\times \mathbf v) - \mathbf m \times (\mathbf n \times \mathbf v) = (\mathbf n \times \mathbf m) \times \mathbf v$ by the Jacobi identity of the cross product, which is $((\mathbf n
+\times \mathbf m) \cdot\mathbf L)\mathbf v$. With $\mathbf n = \mathbf e_a$, $\mathbf m = \mathbf e_b$, $\mathbf e_a \times \mathbf e_b = \epsilon_{abc}\mathbf e_c$ gives the proposition:
 
 ```python
 L = [matrix(SR, [[0, 0, 0], [0, 0, -1], [0, 1, 0]]), matrix(SR, [[0, 0, 1], [0, 0, 0], [-1, 0, 0]]), matrix(SR, [[0, -1, 0], [1, 0, 0], [0, 0, 0]])]
@@ -1830,7 +1830,7 @@ components of any element in the basis $T_a$.
 
 For $X = x_aT_a$, $\operatorname{tr}(T_bX) = x_a\operatorname{tr}(T_bT_a) = -\tfrac12x_b$, so $x_b = -
 2\operatorname{tr}(T_bX)$, the formula used for the Maurer-Cartan forms in @def-maurer-cartan-form. Explicitly $X =
-\tfrac12\begin{pmatrix} -ix_3 & -ix_1 - x_2 \\ -ix_1 + x_2 & ix_3 \end{pmatrix}$, with $\det X = \tfrac14|x|^2$
+\tfrac12\begin{pmatrix} -ix_3 & -ix_1 - x_2 \\ -ix_1 + x_2 & ix_3 \end{pmatrix}$, with $\det X = \tfrac14|\mathbf x|^2$
 (@exr-lg-su2-components).
 :::
 ::::
@@ -1842,14 +1842,14 @@ exercise also computes the square of a general element.
 ::: {#exr-lg-su2-components}
 #### The trace form of $\mathfrak{su}(2)$
 
-For $X = x_aT_a$ and $Y = y_aT_a$ verify $x_a = -2\operatorname{tr}(T_aX)$, $X^2 = -\tfrac14|x|^2 1$, $\det X =
-\tfrac14|x|^2$ and $-2\operatorname{tr}(XY) = x \cdot y$.
+For $X = x_aT_a$ and $Y = y_aT_a$ verify $x_a = -2\operatorname{tr}(T_aX)$, $X^2 = -\tfrac14|\mathbf x|^2 1$, $\det X =
+\tfrac14|\mathbf x|^2$ and $-2\operatorname{tr}(XY) = \mathbf x \cdot \mathbf y$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-From @eq-pauli, $(x_a\sigma_a)^2 = x_ax_b(\delta_{ab} + i\epsilon_{abc}\sigma_c) = |x|^2 1$, so $X^2 =
-(-\tfrac{i}{2})^2|x|^2 1 = -\tfrac14|x|^2 1$; taking the trace of $XY$ in the same way gives $-\tfrac12x \cdot y$.
-For a traceless $2 \times 2$ matrix $X^2 = -\det X \cdot 1$ (Cayley-Hamilton), so $\det X = \tfrac14|x|^2$:
+From @eq-pauli, $(x_a\sigma_a)^2 = x_ax_b(\delta_{ab} + i\epsilon_{abc}\sigma_c) = |\mathbf x|^2 1$, so $X^2 =
+(-\tfrac{i}{2})^2|\mathbf x|^2 1 = -\tfrac14|\mathbf x|^2 1$; taking the trace of $XY$ in the same way gives $-\tfrac12\mathbf x \cdot \mathbf y$.
+For a traceless $2 \times 2$ matrix $X^2 = -\det X \cdot 1$ (Cayley-Hamilton), so $\det X = \tfrac14|\mathbf x|^2$:
 
 ```python
 x = vector(SR, var("x1 x2 x3", domain="real")); y = vector(SR, var("y1 y2 y3", domain="real"))
@@ -1932,7 +1932,7 @@ Euclidean dot product.
 ::: {#exm-lg-killing-so3-dot}
 #### The Killing form as a dot product
 
-For $X = x \cdot L$ and $Y = y \cdot L$, bilinearity gives $\kappa(X, Y) = x_ay_b\kappa(L_a, L_b) = -2x \cdot y$. So
+For $X = \mathbf x \cdot\mathbf L$ and $Y = \mathbf y \cdot\mathbf L$, bilinearity gives $\kappa(X, Y) = x_ay_b\kappa(L_a, L_b) = -2\mathbf x \cdot \mathbf y$. So
 $-\tfrac12\kappa$ is the Euclidean inner product of $\mathbb{R}^3 \cong \mathfrak{so}(3)$, and the invariance of
 $\kappa$ is the invariance of the dot product under rotations (@exr-lg-killing-so3-invariance).
 :::
@@ -1955,7 +1955,7 @@ element, which commutes with every generator.
 #### The Casimir element
 
 With $\kappa_{ab} = -2\delta_{ab}$ the inverse is $\kappa^{ab} = -\tfrac12\delta_{ab}$, and the Casimir element in the
-defining representation is $C = \kappa^{ab}L_aL_b = -\tfrac12\sum_aL_a^2$. Since $L_a^2 = -(1 - e_ae_a^{\mathsf{T}})$,
+defining representation is $C = \kappa^{ab}L_aL_b = -\tfrac12\sum_aL_a^2$. Since $L_a^2 = -(1 - e_ae_a^\top)$,
 $\sum_aL_a^2 = -2 \cdot 1$ and $C = 1$: a multiple of the identity, as Schur's lemma requires for an irreducible
 representation, and $C$ commutes with every $L_b$.
 :::
@@ -2051,15 +2051,15 @@ from the transformation of generators under rotations.
 ::: {#exr-lg-killing-so3-invariance}
 #### Invariance under rotations
 
-Show that $RL_aR^{-1} = R_{ba}L_b$ for $R \in SO(3)$, i.e. $\operatorname{Ad}_R(x \cdot L) = (Rx) \cdot L$, and deduce
+Show that $RL_aR^{-1} = R_{ba}L_b$ for $R \in SO(3)$, i.e. $\operatorname{Ad}_R(\mathbf x \cdot\mathbf L) = (R\mathbf x) \cdot\mathbf L$, and deduce
 $\kappa(\operatorname{Ad}_RX, \operatorname{Ad}_RY) = \kappa(X, Y)$ from the proposition.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @exm-lg-so3-cross, $(x \cdot L)v = x \times v$, and for a rotation $R(x \times R^{-1}v) = (Rx) \times v$, since
-rotations preserve the cross product (they have determinant one). Hence $R(x \cdot L)R^{-1} = (Rx) \cdot L$. With
-$\kappa(x \cdot L, y \cdot L) = -2x \cdot y$ (@exm-lg-killing-so3-dot), $\kappa(\operatorname{Ad}_RX,
-\operatorname{Ad}_RY) = -2(Rx) \cdot (Ry) = -2x \cdot y = \kappa(X, Y)$, since $R$ is orthogonal.
+By @exm-lg-so3-cross, $(\mathbf x \cdot\mathbf L)\mathbf v = \mathbf x \times \mathbf v$, and for a rotation $R(\mathbf x \times R^{-1}\mathbf v) = (R\mathbf x) \times \mathbf v$, since
+rotations preserve the cross product (they have determinant one). Hence $R(\mathbf x \cdot\mathbf L)R^{-1} = (R\mathbf x) \cdot\mathbf L$. With
+$\kappa(\mathbf x \cdot\mathbf L, \mathbf y \cdot\mathbf L) = -2\mathbf x \cdot \mathbf y$ (@exm-lg-killing-so3-dot), $\kappa(\operatorname{Ad}_RX,
+\operatorname{Ad}_RY) = -2(R\mathbf x) \cdot (R\mathbf y) = -2\mathbf x \cdot \mathbf y = \kappa(X, Y)$, since $R$ is orthogonal.
 :::
 ::::
 
@@ -2273,8 +2273,8 @@ rotation subgroup of $SO(3)$ twice.
 #### Great circles of $SU(2)$
 
 $t \mapsto e^{tT_a}$ are one-parameter subgroups of $SU(2)$, great circles of $S^3$ through the identity of
-period $4\pi$ (@eq-exp-su2); every one-parameter subgroup of $SU(2)$ is $e^{t(n_aT_a)}$ for a unit vector $n$, a
-rotation about the axis $n$ after the double cover.
+period $4\pi$ (@eq-exp-su2); every one-parameter subgroup of $SU(2)$ is $e^{t(n_aT_a)}$ for a unit vector $\mathbf n$, a
+rotation about the axis $\mathbf n$ after the double cover.
 :::
 
 On the torus every one-parameter subgroup is a straight line in the angle coordinates. Its slope decides whether it
@@ -2353,15 +2353,15 @@ arbitrary axis.
 ::: {#exr-lg-one-param-su2-axis}
 #### One-parameter subgroups of $SU(2)$ about any axis
 
-For a unit vector $n$ show that $e^{t\,n \cdot T} = \cos\frac{t}{2}1 - i\sin\frac{t}{2}\,n \cdot \sigma$, that it has
-period $4\pi$, and that its image in $SO(3)$ is the rotation by $t$ about $n$.
+For a unit vector $\mathbf n$ show that $e^{t\,\mathbf n \cdot\mathbf T} = \cos\frac{t}{2}1 - i\sin\frac{t}{2}\,\mathbf n \cdot\boldsymbol\sigma$, that it has
+period $4\pi$, and that its image in $SO(3)$ is the rotation by $t$ about $\mathbf n$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @eq-pauli, $(n \cdot \sigma)^2 = n_an_b(\delta_{ab} + i\epsilon_{abc}\sigma_c) = |n|^2 1 = 1$, so the series for
-$e^{-it\,n \cdot \sigma/2}$ splits into even and odd powers exactly as in @exm-exp-su2. The result equals $1$ when
+By @eq-pauli, $(\mathbf n \cdot\boldsymbol\sigma)^2 = n_an_b(\delta_{ab} + i\epsilon_{abc}\sigma_c) = |\mathbf n|^2 1 = 1$, so the series for
+$e^{-it\,\mathbf n \cdot\boldsymbol\sigma/2}$ splits into even and odd powers exactly as in @exm-exp-su2. The result equals $1$ when
 $\cos\frac{t}{2} = 1$, i.e. $t \in 4\pi\mathbb{Z}$, and $-1$ at $t = 2\pi$. Its image under $\operatorname{Ad}$ is
-$e^{t\,\operatorname{ad}_{n \cdot T}} = e^{t\,n \cdot L}$ (@exr-lg-su2-so3-isomorphism, @exr-lg-ad-exp), the rotation
+$e^{t\,\operatorname{ad}_{\mathbf n \cdot\mathbf T}} = e^{t\,\mathbf n \cdot\mathbf L}$ (@exr-lg-su2-so3-isomorphism, @exr-lg-ad-exp), the rotation
 by $t$ about $n$ (@exm-lg-rotation-rodrigues), which has period $2\pi$.
 :::
 ::::
@@ -2398,7 +2398,7 @@ alternative description of every element as a product of exponentials.
 ::: {#exm-exponential-su2}
 #### $\mathfrak{su}(2) \to SU(2)$
 
-$\exp$ sends the ball $|X| < 2\pi$ (with $|n_aT_a| = 1$ for unit $n$) onto $SU(2)$ minus $-1$ and the whole sphere
+$\exp$ sends the ball $|X| < 2\pi$ (with $|n_aT_a| = 1$ for unit $\mathbf n$) onto $SU(2)$ minus $-1$ and the whole sphere
 $|X| = 2\pi$ to $-1$: surjective but not injective. Every element of $SU(2)$ is an exponential, and the Euler
 angles @eq-euler-angles write it as a product of three.
 :::
@@ -2538,7 +2538,7 @@ a one-parameter subgroup, from the powers of $L_3$ to the differential equation.
 #### The rotation matrix is the one-parameter subgroup of $L_3$
 
 $L_3^2 = \operatorname{diag}(-1, -1, 0)$, $L_3^3 = -L_3$, and the matrix $R(t)$ satisfies $R(0) = 1$, $R(s)R(t) =
-R(s+t)$, $R(t)R(t)^{\mathsf{T}} = 1$ and $\dot R(t) = L_3 R(t)$ entry by entry.
+R(s+t)$, $R(t)R(t)^\top = 1$ and $\dot R(t) = L_3 R(t)$ entry by entry.
 :::
 ::::
 
@@ -2550,9 +2550,9 @@ given by the cross product with the axis.
 #### The rotation equation column by column
 
 The first column of $R(t)$ is $(\cos t, \sin t, 0)$, with derivative $(-\sin t, \cos t, 0)$, and $L_3(\cos t, \sin t, 0)
-= e_3 \times (\cos t, \sin t, 0) = (-\sin t, \cos t, 0)$ by @exm-lg-so3-cross; the second column works the same way, and
-the third column $e_3$ is constant with $L_3e_3 = 0$. So $\dot R = L_3R$ says that every point moves with the velocity
-$e_3 \times x$ of a rigid rotation with unit angular velocity about $Z$.
+= \mathbf e_3 \times (\cos t, \sin t, 0) = (-\sin t, \cos t, 0)$ by @exm-lg-so3-cross; the second column works the same way, and
+the third column $\mathbf e_3$ is constant with $L_3\mathbf e_3 = 0$. So $\dot R = L_3R$ says that every point moves with the velocity
+$\mathbf e_3 \times \mathbf x$ of a rigid rotation with unit angular velocity about $Z$.
 :::
 
 The two algebraic identities of the proposition, $L_3^2 = \operatorname{diag}(-1, -1, 0)$ and $L_3^3 = -L_3$, hold for
@@ -2561,13 +2561,13 @@ any unit axis. They give a closed form for every rotation.
 ::: {#exm-lg-rotation-rodrigues}
 #### Rodrigues' formula
 
-For a unit vector $n$ and $N = n \cdot L$, $N^2 = nn^{\mathsf{T}} - 1$ and $N^3 = -N$ (@exr-lg-rodrigues), so the
+For a unit vector $\mathbf n$ and $N = \mathbf n \cdot\mathbf L$, $N^2 = \mathbf n\mathbf n^\top - 1$ and $N^3 = -N$ (@exr-lg-rodrigues), so the
 exponential series sums as in @exm-exp-so3:
 $$
 e^{tN} = 1 + \sin t\,N + (1 - \cos t)N^2 ,
 $$
-the rotation by $t$ about $n$. Applied to $v$ it reads $v\cos t + (n \times v)\sin t + n(n \cdot v)(1 - \cos t)$, and
-for $n = e_3$ it is the matrix $R(t)$ of the proposition.
+the rotation by $t$ about $\mathbf n$. Applied to $\mathbf v$ it reads $\mathbf v\cos t + (\mathbf n \times \mathbf v)\sin t + \mathbf n(\mathbf n \cdot \mathbf v)(1 - \cos t)$, and
+for $\mathbf n = \mathbf e_3$ it is the matrix $R(t)$ of the proposition.
 :::
 
 The period of the rotation subgroup is read off from the eigenvalues of its generator. Comparing with $SU(2)$ shows
@@ -2576,7 +2576,7 @@ where the factor two of the double cover comes from.
 ::: {#exm-lg-rotation-spectrum}
 #### Eigenvalues and periods
 
-$L_3$ has eigenvalues $0$ (eigenvector $e_3$) and $\pm i$ (eigenvectors $(1, \mp i, 0)/\sqrt2$), so $R(t) = e^{tL_3}$
+$L_3$ has eigenvalues $0$ (eigenvector $\mathbf e_3$) and $\pm i$ (eigenvectors $(1, \mp i, 0)/\sqrt2$), so $R(t) = e^{tL_3}$
 has eigenvalues $1$ and $e^{\pm it}$ and returns to the identity first at $t = 2\pi$. The generator $T_3$ of $SU(2)$ has
 eigenvalues $\mp\tfrac{i}{2}$, half as large, and $e^{tT_3}$ needs $t = 4\pi$. The adjoint representation doubles the
 eigenvalues: those of $\operatorname{ad}_{T_3}$ are the differences of the eigenvalues of $T_3$, namely $0$ and $\pm i$,
@@ -2622,22 +2622,22 @@ orthogonal with determinant 1: True True
 ```
 :::
 
-Rodrigues' formula follows from an algebraic identity for $n \cdot L$ that holds for every vector $n$. The second
+Rodrigues' formula follows from an algebraic identity for $\mathbf n \cdot\mathbf L$ that holds for every vector $\mathbf n$. The second
 exercise checks this identity symbolically and evaluates a rotation about a diagonal axis.
 
 ::: {#exr-lg-rodrigues}
 #### Rotations about an arbitrary axis
 
-Show that $(n \cdot L)^2 = nn^{\mathsf{T}} - |n|^21$ and $(n \cdot L)^3 = -|n|^2(n \cdot L)$ for all $n \in
-\mathbb{R}^3$, derive Rodrigues' formula of @exm-lg-rotation-rodrigues for $|n| = 1$, and show that the rotation by
+Show that $(\mathbf n \cdot\mathbf L)^2 = \mathbf n\mathbf n^\top - |\mathbf n|^21$ and $(\mathbf n \cdot\mathbf L)^3 = -|\mathbf n|^2(\mathbf n \cdot\mathbf L)$ for all $\mathbf n \in
+\mathbb{R}^3$, derive Rodrigues' formula of @exm-lg-rotation-rodrigues for $|\mathbf n| = 1$, and show that the rotation by
 $2\pi/3$ about $(1, 1, 1)/\sqrt3$ permutes the coordinate axes cyclically.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(n \cdot L)^2v = n \times (n \times v) = n(n \cdot v) - |n|^2v$ gives the first identity, and multiplying by $n \cdot L$,
-with $(n \cdot L)n = n \times n = 0$, gives the second. For $|n| = 1$ the odd powers of $N$ are $\pm N$ and the even
-ones $\pm N^2$, and the series sums to $1 + \sin t\,N + (1 - \cos t)N^2$. At $t = 2\pi/3$ and $n = (1, 1, 1)/\sqrt3$ the
-result is the permutation matrix sending $e_1 \to e_2 \to e_3 \to e_1$, a symmetry of the cube:
+$(\mathbf n \cdot\mathbf L)^2\mathbf v = \mathbf n \times (\mathbf n \times \mathbf v) = \mathbf n(\mathbf n \cdot \mathbf v) - |\mathbf n|^2\mathbf v$ gives the first identity, and multiplying by $\mathbf n \cdot\mathbf L$,
+with $(\mathbf n \cdot\mathbf L)\mathbf n = \mathbf n \times \mathbf n = 0$, gives the second. For $|\mathbf n| = 1$ the odd powers of $N$ are $\pm N$ and the even
+ones $\pm N^2$, and the series sums to $1 + \sin t\,N + (1 - \cos t)N^2$. At $t = 2\pi/3$ and $\mathbf n = (1, 1, 1)/\sqrt3$ the
+result is the permutation matrix sending $\mathbf e_1 \to \mathbf e_2 \to \mathbf e_3 \to \mathbf e_1$, a symmetry of the cube:
 
 ```python
 L = [matrix(SR, [[0, 0, 0], [0, 0, -1], [0, 1, 0]]), matrix(SR, [[0, 0, 1], [0, 0, 0], [-1, 0, 0]]), matrix(SR, [[0, -1, 0], [1, 0, 0], [0, 0, 0]])]
@@ -2671,13 +2671,13 @@ The third exercise proves the uniqueness directly, using only orthogonality and 
 #### Uniqueness of the rotation subgroup
 
 Let $M(t)$ be a differentiable family of $3 \times 3$ matrices with $M(0) = 1$ and $\dot M = L_3M$. Show that
-$\frac{d}{dt}(R(t)^{\mathsf{T}}M(t)) = 0$ and conclude that $M(t) = R(t) = e^{tL_3}$.
+$\frac{d}{dt}(R(t)^\top M(t)) = 0$ and conclude that $M(t) = R(t) = e^{tL_3}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By the proposition $\dot R = L_3R$, so $\frac{d}{dt}(R^{\mathsf{T}}M) = (L_3R)^{\mathsf{T}}M + R^{\mathsf{T}}L_3M =
-R^{\mathsf{T}}(L_3^{\mathsf{T}} + L_3)M = 0$, since $L_3$ is antisymmetric. Hence $R(t)^{\mathsf{T}}M(t) =
-R(0)^{\mathsf{T}}M(0) = 1$, and with $RR^{\mathsf{T}} = 1$ from the proposition, $M(t) = R(t)$. The same argument with
+By the proposition $\dot R = L_3R$, so $\frac{d}{dt}(R^\top M) = (L_3R)^\top M + R^\top L_3M =
+R^\top(L_3^\top + L_3)M = 0$, since $L_3$ is antisymmetric. Hence $R(t)^\top M(t) =
+R(0)^\top M(0) = 1$, and with $RR^\top = 1$ from the proposition, $M(t) = R(t)$. The same argument with
 $e^{tL_3}$ in place of $M$ identifies $R(t)$ with the exponential, the step that the proposition does not state.
 :::
 ::::
@@ -2691,21 +2691,21 @@ product is computed most easily there, which is also how rotations are composed 
 ::: {#prp-lg-rotation-composition}
 #### Composition of rotations
 
-For unit vectors $n_1, n_2 \in \mathbb{R}^3$ and angles $t_1, t_2$, write $c_i = \cos\frac{t_i}{2}$ and $s_i =
-\sin\frac{t_i}{2}$. The elements $e^{t_in_i \cdot T} = c_i1 - is_i\,n_i \cdot \sigma$ of $SU(2)$ multiply to
-$e^{t_1n_1 \cdot T}e^{t_2n_2 \cdot T} = c1 - i\,v \cdot \sigma$ with
+For unit vectors $\mathbf n_1, \mathbf n_2 \in \mathbb{R}^3$ and angles $t_1, t_2$, write $c_i = \cos\frac{t_i}{2}$ and $s_i =
+\sin\frac{t_i}{2}$. The elements $e^{t_i\mathbf n_i \cdot\mathbf T} = c_i1 - is_i\,\mathbf n_i \cdot\boldsymbol\sigma$ of $SU(2)$ multiply to
+$e^{t_1\mathbf n_1 \cdot\mathbf T}e^{t_2\mathbf n_2 \cdot\mathbf T} = c1 - i\,\mathbf v \cdot\boldsymbol\sigma$ with
 $$
-c = c_1c_2 - s_1s_2\,n_1 \cdot n_2, \qquad v = s_1c_2\,n_1 + c_1s_2\,n_2 + s_1s_2\,n_1 \times n_2 ,
+c = c_1c_2 - s_1s_2\,\mathbf n_1 \cdot \mathbf n_2, \qquad \mathbf v = s_1c_2\,\mathbf n_1 + c_1s_2\,\mathbf n_2 + s_1s_2\,\mathbf n_1 \times \mathbf n_2 ,
 $$ {#eq-lg-rotation-composition}
-and $c^2 + |v|^2 = 1$. Writing $c = \cos\frac t2$ and $v = \sin\frac t2\,n$ with a unit vector $n$, the rotation by
-$t_2$ about $n_2$ followed by the rotation by $t_1$ about $n_1$, $e^{t_1n_1 \cdot L}e^{t_2n_2 \cdot L}$, is the rotation
-$e^{tn \cdot L}$ by $t$ about $n$.
+and $c^2 + |\mathbf v|^2 = 1$. Writing $c = \cos\frac t2$ and $\mathbf v = \sin\frac t2\,\mathbf n$ with a unit vector $\mathbf n$, the rotation by
+$t_2$ about $\mathbf n_2$ followed by the rotation by $t_1$ about $\mathbf n_1$, $e^{t_1\mathbf n_1 \cdot\mathbf L}e^{t_2\mathbf n_2 \cdot\mathbf L}$, is the rotation
+$e^{t\mathbf n \cdot\mathbf L}$ by $t$ about $\mathbf n$.
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The formula follows from the product rule $(n_1 \cdot \sigma)(n_2 \cdot \sigma) = n_1 \cdot n_2\,1 + i(n_1 \times n_2) \cdot
-\sigma$ of @exr-lg-su2-product-rule, and the last sentence from $\operatorname{Ad}(e^{tn \cdot T}) = e^{tn \cdot L}$
+The formula follows from the product rule $(\mathbf n_1 \cdot\boldsymbol\sigma)(\mathbf n_2 \cdot\boldsymbol\sigma) = \mathbf n_1 \cdot \mathbf n_2\,1 + i(\mathbf n_1 \times \mathbf n_2) \cdot
+\boldsymbol\sigma$ of @exr-lg-su2-product-rule, and the last sentence from $\operatorname{Ad}(e^{t\mathbf n \cdot\mathbf T}) = e^{t\mathbf n \cdot\mathbf L}$
 (@exr-lg-ad-exp), since $\operatorname{Ad}$ is a homomorphism. Two quarter turns about perpendicular axes give the
 simplest composite that is not about one of the two axes; it is the rotation of @exr-lg-rodrigues that permutes the
 coordinate axes.
@@ -2713,10 +2713,10 @@ coordinate axes.
 ::: {#exm-lg-comp-quarter-turns}
 #### Two quarter turns
 
-For $t_1 = t_2 = \frac\pi2$, $n_1 = e_1$ and $n_2 = e_2$, $c_i = s_i = \frac{1}{\sqrt2}$, so $c = \frac12$ and $v =
-\frac12(e_1 + e_2 + e_3)$: the composite is the rotation by $t = \frac{2\pi}{3}$ about $n = (1, 1, 1)/\sqrt3$. Directly,
-the quarter turn about $e_2$ followed by the quarter turn about $e_1$ sends $e_1 \to -e_3 \to e_2$, $e_2 \to e_2 \to e_3$
-and $e_3 \to e_1 \to e_1$, the cyclic permutation of @exr-lg-rodrigues.
+For $t_1 = t_2 = \frac\pi2$, $\mathbf n_1 = \mathbf e_1$ and $\mathbf n_2 = \mathbf e_2$, $c_i = s_i = \frac{1}{\sqrt2}$, so $c = \frac12$ and $\mathbf v =
+\frac12(\mathbf e_1 + \mathbf e_2 + \mathbf e_3)$: the composite is the rotation by $t = \frac{2\pi}{3}$ about $\mathbf n = (1, 1, 1)/\sqrt3$. Directly,
+the quarter turn about $\mathbf e_2$ followed by the quarter turn about $\mathbf e_1$ sends $\mathbf e_1 \to -\mathbf e_3 \to \mathbf e_2$, $\mathbf e_2 \to \mathbf e_2 \to \mathbf e_3$
+and $\mathbf e_3 \to \mathbf e_1 \to \mathbf e_1$, the cyclic permutation of @exr-lg-rodrigues.
 :::
 
 The cross product in @eq-lg-rotation-composition is the only term that changes sign when the two factors are
@@ -2726,14 +2726,14 @@ construction on the sphere [@sinha2023rigid, Sec. 1.1.4].
 ::: {#exm-lg-comp-order}
 #### The order matters
 
-Exchanging the factors keeps $c$, hence the angle, and replaces $n_1 \times n_2$ by $n_2 \times n_1$: the axis of
-$e^{t_2n_2 \cdot L}e^{t_1n_1 \cdot L}$ is the mirror image of $n$ in the plane of $n_1$ and $n_2$. For the quarter turns
+Exchanging the factors keeps $c$, hence the angle, and replaces $\mathbf n_1 \times \mathbf n_2$ by $\mathbf n_2 \times \mathbf n_1$: the axis of
+$e^{t_2\mathbf n_2 \cdot\mathbf L}e^{t_1\mathbf n_1 \cdot\mathbf L}$ is the mirror image of $\mathbf n$ in the plane of $\mathbf n_1$ and $\mathbf n_2$. For the quarter turns
 of @exm-lg-comp-quarter-turns the reversed composite is the rotation by $\frac{2\pi}{3}$ about $(1, 1, -1)/\sqrt3$. For
-small angles the two vectors $v$ differ by $2s_1s_2\,n_1 \times n_2 \approx \frac12t_1t_2\,n_1 \times n_2$, of second
-order: the bracket $[n_1 \cdot L, n_2 \cdot L] = (n_1 \times n_2) \cdot L$ of @exm-lg-so3-cross seen in the group, as in
+small angles the two vectors $\mathbf v$ differ by $2s_1s_2\,\mathbf n_1 \times \mathbf n_2 \approx \frac12t_1t_2\,\mathbf n_1 \times \mathbf n_2$, of second
+order: the bracket $[\mathbf n_1 \cdot\mathbf L, \mathbf n_2 \cdot\mathbf L] = (\mathbf n_1 \times \mathbf n_2) \cdot\mathbf L$ of @exm-lg-so3-cross seen in the group, as in
 @exm-lg-so3-small-rotations. On the unit sphere, with $0 < t_1, t_2 < 2\pi$, the axis is the third vertex $C$ of the
-spherical triangle with vertices $A = n_1$ and $B = n_2$, angles $\frac{t_1}{2}$ at $A$ and $\frac{t_2}{2}$ at $B$, on the
-side of $n_1 \times n_2$; the composite angle is $-2\gamma$, minus twice the angle at $C$ (@exr-lg-comp-hamilton).
+spherical triangle with vertices $A = \mathbf n_1$ and $B = \mathbf n_2$, angles $\frac{t_1}{2}$ at $A$ and $\frac{t_2}{2}$ at $B$, on the
+side of $\mathbf n_1 \times \mathbf n_2$; the composite angle is $-2\gamma$, minus twice the angle at $C$ (@exr-lg-comp-hamilton).
 :::
 
 Half-turns are the rotations with $c_i = 0$, and for them the formula collapses to a dot and a cross product. The
@@ -2742,9 +2742,9 @@ third example shows that two half-turns make a rotation about their common perpe
 ::: {#exm-lg-comp-half-turns}
 #### Two half-turns
 
-For $t_1 = t_2 = \pi$, $c_i = 0$ and $s_i = 1$, so $c = -n_1 \cdot n_2$ and $v = n_1 \times n_2$. If the axes make an angle
+For $t_1 = t_2 = \pi$, $c_i = 0$ and $s_i = 1$, so $c = -\mathbf n_1 \cdot \mathbf n_2$ and $\mathbf v = \mathbf n_1 \times \mathbf n_2$. If the axes make an angle
 $\alpha \in (0, \pi)$, then $\cos\frac t2 = -\cos\alpha$ and $\sin\frac t2 = \sin\alpha$: the composite is the rotation
-by $2\pi - 2\alpha$ about $n_1 \times n_2/\sin\alpha$, that is, by $2\alpha$ about $n_2 \times n_1/\sin\alpha$. In the
+by $2\pi - 2\alpha$ about $\mathbf n_1 \times \mathbf n_2/\sin\alpha$, that is, by $2\alpha$ about $\mathbf n_2 \times \mathbf n_1/\sin\alpha$. In the
 plane perpendicular to that axis each half-turn acts as the reflection in a line, and two reflections in lines at an
 angle $\alpha$ make a rotation by $2\alpha$. Conversely every rotation by $2\alpha$ is a product of two half-turns about
 axes at the angle $\alpha$ perpendicular to its axis, which is the idea of @exr-lg-comp-hamilton.
@@ -2758,19 +2758,19 @@ ways, by traces and by an eigenvector, as a numerical library would [@boudreau20
 ::: {#exr-lg-comp-axis-angle}
 #### Axis and angle of a product
 
-For $g = c1 - i\sin\frac t2\,n \cdot \sigma \in SU(2)$ show that $c = \frac12\operatorname{tr}g$ and $\sin\frac t2\,n_a =
+For $g = c1 - i\sin\frac t2\,\mathbf n \cdot\boldsymbol\sigma \in SU(2)$ show that $c = \frac12\operatorname{tr}g$ and $\sin\frac t2\,n_a =
 \frac i2\operatorname{tr}(\sigma_ag)$, and that the eigenvalues of $g$ are $e^{\mp it/2}$, with unit eigenvectors
-$\xi_\pm$ satisfying $(n \cdot \sigma)\xi_\pm = \pm\xi_\pm$ and $n = \xi_+^\dagger\sigma\xi_+$. Apply both methods with
+$\xi_\pm$ satisfying $(\mathbf n \cdot\boldsymbol\sigma)\xi_\pm = \pm\xi_\pm$ and $\mathbf n = \xi_+^\dagger\boldsymbol\sigma\xi_+$. Apply both methods with
 Sage to the product of @exm-lg-comp-quarter-turns, and check that $\operatorname{Ad}$ of the product is
 $e^{\frac\pi2L_1}e^{\frac\pi2L_2}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Since $\operatorname{tr}\sigma_a = 0$ and $\operatorname{tr}(\sigma_a\sigma_b) = 2\delta_{ab}$, $\operatorname{tr}g = 2c$
-and $\operatorname{tr}(\sigma_ag) = -2i\sin\frac t2\,n_a$. The matrix $n \cdot \sigma$ is Hermitian and traceless with
+and $\operatorname{tr}(\sigma_ag) = -2i\sin\frac t2\,n_a$. The matrix $\mathbf n \cdot\boldsymbol\sigma$ is Hermitian and traceless with
 square $1$, so its eigenvalues are $\pm1$, and on its eigenvectors $g$ acts as $\cos\frac t2 \mp i\sin\frac t2 =
-e^{\mp it/2}$. The projector onto $\xi_+$ is $\xi_+\xi_+^\dagger = \frac12(1 + n \cdot \sigma)$, so $\xi_+^\dagger\sigma_a\xi_+ =
-\operatorname{tr}(\sigma_a\xi_+\xi_+^\dagger) = n_a$. For the quarter turns both methods give $t = \frac{2\pi}{3}$ and $n =
+e^{\mp it/2}$. The projector onto $\xi_+$ is $\xi_+\xi_+^\dagger = \frac12(1 + \mathbf n \cdot\boldsymbol\sigma)$, so $\xi_+^\dagger\sigma_a\xi_+ =
+\operatorname{tr}(\sigma_a\xi_+\xi_+^\dagger) = n_a$. For the quarter turns both methods give $t = \frac{2\pi}{3}$ and $\mathbf n =
 (1, 1, 1)/\sqrt3$:
 
 ```python
@@ -2821,20 +2821,20 @@ it in one line.
 ::: {#exr-lg-comp-hamilton}
 #### Hamilton's theorem
 
-Let $A, B, C$ be unit vectors with $\det(A, B, C) > 0$, the vertices of a spherical triangle with angles $\alpha, \beta,
-\gamma$, let $p, q, r$ be unit normals of the planes of the sides $CA$, $AB$, $BC$, and let $H(u) = e^{\pi u \cdot L}$ be
-the half-turn about $u$. Show that $e^{2\alpha A \cdot L} = H(p)H(q)$, $e^{2\beta B \cdot L} = H(q)H(r)$ and $e^{2\gamma C
-\cdot L} = H(r)H(p)$, and deduce $e^{2\alpha A \cdot L}e^{2\beta B \cdot L}e^{2\gamma C \cdot L} = 1$. Check the result with
+Let $\mathbf A, \mathbf B, \mathbf C$ be unit vectors with $\det(\mathbf A, \mathbf B, \mathbf C) > 0$, the vertices of a spherical triangle with angles $\alpha, \beta,
+\gamma$, let $\mathbf p, \mathbf q, \mathbf r$ be unit normals of the planes of the sides $CA$, $AB$, $BC$, and let $H(\mathbf u) = e^{\pi \mathbf u \cdot\mathbf L}$ be
+the half-turn about $\mathbf u$. Show that $e^{2\alpha \mathbf A \cdot\mathbf L} = H(\mathbf p)H(\mathbf q)$, $e^{2\beta \mathbf B \cdot\mathbf L} = H(\mathbf q)H(\mathbf r)$ and $e^{2\gamma \mathbf C
+\cdot\mathbf L} = H(\mathbf r)H(\mathbf p)$, and deduce $e^{2\alpha \mathbf A \cdot\mathbf L}e^{2\beta \mathbf B \cdot\mathbf L}e^{2\gamma \mathbf C \cdot\mathbf L} = 1$. Check the result with
 Sage for the octant triangle and for a generic triangle, and show that the reversed order fails.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The normals $p$ and $q$ are perpendicular to $A$, which lies on both sides $CA$ and $AB$, so by
-@exm-lg-comp-half-turns $H(p)H(q)$ is a rotation about the line through $A$ by twice the angle between the planes $OCA$
-and $OAB$, which is the angle $\alpha$ of the triangle. Whether it turns by $2\alpha$ about $A$ or about $-A$ depends on the
-orientation, and for $\det(A, B, C) > 0$ it is $e^{2\alpha A \cdot L}$, as the Sage check confirms; the other two
-identities are the same statement for $B$ and $C$. Since $H(u)^2 = 1$, the product is $H(p)H(q)H(q)H(r)H(r)H(p) = 1$. For
-the octant triangle $A = e_1$, $B = e_2$, $C = e_3$ all angles are $\frac\pi2$ and the theorem reads
+The normals $\mathbf p$ and $\mathbf q$ are perpendicular to $\mathbf A$, which lies on both sides $CA$ and $AB$, so by
+@exm-lg-comp-half-turns $H(\mathbf p)H(\mathbf q)$ is a rotation about the line through $\mathbf A$ by twice the angle between the planes $OCA$
+and $OAB$, which is the angle $\alpha$ of the triangle. Whether it turns by $2\alpha$ about $\mathbf A$ or about $-\mathbf A$ depends on the
+orientation, and for $\det(\mathbf A, \mathbf B, \mathbf C) > 0$ it is $e^{2\alpha \mathbf A \cdot\mathbf L}$, as the Sage check confirms; the other two
+identities are the same statement for $\mathbf B$ and $\mathbf C$. Since $H(\mathbf u)^2 = 1$, the product is $H(\mathbf p)H(\mathbf q)H(\mathbf q)H(\mathbf r)H(\mathbf r)H(\mathbf p) = 1$. For
+the octant triangle $\mathbf A = \mathbf e_1$, $\mathbf B = \mathbf e_2$, $\mathbf C = \mathbf e_3$ all angles are $\frac\pi2$ and the theorem reads
 $\operatorname{diag}(1, -1, -1)\operatorname{diag}(-1, 1, -1)\operatorname{diag}(-1, -1, 1) = 1$:
 
 ```python
@@ -3036,8 +3036,8 @@ of conjugation in $SO(3)$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $hg = g'$ has the unique solution $h = g'g^{-1}$: existence is transitivity, uniqueness is freeness (the isotropy group
 of every point is $\{e\}$). Conjugation fixes $e$, so it is not free unless $G = \{e\}$, and the orbit of $e$ is $\{e\}$,
-so it is not transitive. In $SO(3)$ the conjugate $hR_n(\alpha)h^{-1}$ of the rotation by $\alpha$ about $n$ is the
-rotation by $\alpha$ about $hn$, so the conjugation orbits are the sets of rotations with a fixed angle $\alpha \in [0,
+so it is not transitive. In $SO(3)$ the conjugate $hR_n(\alpha)h^{-1}$ of the rotation by $\alpha$ about $\mathbf n$ is the
+rotation by $\alpha$ about $h\mathbf n$, so the conjugation orbits are the sets of rotations with a fixed angle $\alpha \in [0,
 \pi]$: two-spheres of axes, collapsed to a point at $\alpha = 0$ and to $\mathbb{RP}^2$ at $\alpha = \pi$.
 :::
 ::::
@@ -3827,13 +3827,13 @@ extracts a vector from the derivative of $R$, in two ways.
 ::: {#def-lg-angular-velocity}
 #### Angular velocity
 
-Let $R(t)$ be a differentiable curve in $SO(3)$. Its **angular velocity in space** $\Omega(t)$ and its **angular
-velocity in the body** $\omega(t)$ are the vectors of $\mathbb{R}^3$ with
+Let $R(t)$ be a differentiable curve in $SO(3)$. Its **angular velocity in space** $\boldsymbol\Omega(t)$ and its **angular
+velocity in the body** $\boldsymbol\omega(t)$ are the vectors of $\mathbb{R}^3$ with
 $$
-\dot R R^{-1} = \Omega \cdot L, \qquad R^{-1}\dot R = \omega \cdot L ,
+\dot R R^{-1} = \boldsymbol\Omega \cdot\mathbf L, \qquad R^{-1}\dot R = \boldsymbol\omega \cdot\mathbf L ,
 $$ {#eq-lg-angular-velocity}
-where $\Omega \cdot L = \Omega_aL_a$; both matrices lie in $\mathfrak{so}(3)$ (@exr-lg-angvel-antisymmetric). In terms of
-@def-maurer-cartan-form, $\omega$ is the Maurer-Cartan form $R^{-1}dR$ and $\Omega$ the right-invariant form $dR\,R^{-1}$
+where $\boldsymbol\Omega \cdot\mathbf L = \Omega_aL_a$; both matrices lie in $\mathfrak{so}(3)$ (@exr-lg-angvel-antisymmetric). In terms of
+@def-maurer-cartan-form, $\boldsymbol\omega$ is the Maurer-Cartan form $R^{-1}dR$ and $\boldsymbol\Omega$ the right-invariant form $dR\,R^{-1}$
 (@exr-lg-mc-right) evaluated on the velocity $\dot R$.
 :::
 ::::
@@ -3845,10 +3845,10 @@ point along the axis, and the velocity of a point is the familiar cross product.
 ::: {#exm-lg-angvel-fixed-axis}
 #### Rotation about a fixed axis
 
-For $R(t) = e^{f(t)n \cdot L}$ with a fixed unit vector $n$, $\dot R = \dot f\,(n \cdot L)R$ and $n \cdot L$ commutes with
-$R$, so $\Omega = \omega = \dot f\,n$. A point $x(t) = R(t)x_0$ moves with $\dot x = \dot f\,(n \cdot L)x = \dot f\,n
-\times x$ (@exm-lg-so3-cross), the velocity $\Omega \times x$ of a rigid rotation with angular speed $\dot f$; the case
-$f(t) = t$, $n = e_3$ is @exm-lg-rotation-ode.
+For $R(t) = e^{f(t)\mathbf n \cdot\mathbf L}$ with a fixed unit vector $\mathbf n$, $\dot R = \dot f\,(\mathbf n \cdot\mathbf L)R$ and $\mathbf n \cdot\mathbf L$ commutes with
+$R$, so $\boldsymbol\Omega = \boldsymbol\omega = \dot f\,\mathbf n$. A point $\mathbf x(t) = R(t)\mathbf x_0$ moves with $\dot{\mathbf x} = \dot f\,(\mathbf n \cdot\mathbf L)\mathbf x = \dot f\,\mathbf n
+\times \mathbf x$ (@exm-lg-so3-cross), the velocity $\boldsymbol\Omega \times \mathbf x$ of a rigid rotation with angular speed $\dot f$; the case
+$f(t) = t$, $\mathbf n = \mathbf e_3$ is @exm-lg-rotation-ode.
 :::
 
 In general the two angular velocities differ, because they are one infinitesimal rotation written in the axes fixed in
@@ -3857,11 +3857,11 @@ space and in the axes carried by the body. The adjoint representation converts o
 ::: {#exm-lg-angvel-space-body}
 #### Space and body components
 
-$\dot RR^{-1} = R(R^{-1}\dot R)R^{-1} = R(\omega \cdot L)R^{-1} = (R\omega) \cdot L$, because a rotation preserves cross
-products: $R(\omega \times R^{-1}y) = R\omega \times y$. So $\Omega = R\omega$, the adjoint action of @exm-adjoint-so3: the
-components of $\Omega$ along the fixed axes $e_a$ are the components of $\omega$ along the body axes $Re_a$, which is why
-$\omega$ is the angular velocity "in the body". In particular $|\Omega| = |\omega|$, and a point of the body moves with
-$\dot x = \dot Rx_0 = \Omega \times x$.
+$\dot RR^{-1} = R(R^{-1}\dot R)R^{-1} = R(\boldsymbol\omega \cdot\mathbf L)R^{-1} = (R\boldsymbol\omega) \cdot\mathbf L$, because a rotation preserves cross
+products: $R(\boldsymbol\omega \times R^{-1}\mathbf y) = R\boldsymbol\omega \times \mathbf y$. So $\boldsymbol\Omega = R\boldsymbol\omega$, the adjoint action of @exm-adjoint-so3: the
+components of $\boldsymbol\Omega$ along the fixed axes $\mathbf e_a$ are the components of $\boldsymbol\omega$ along the body axes $R\mathbf e_a$, which is why
+$\boldsymbol\omega$ is the angular velocity "in the body". In particular $|\boldsymbol\Omega| = |\boldsymbol\omega|$, and a point of the body moves with
+$\dot{\mathbf x} = \dot R\mathbf x_0 = \boldsymbol\Omega \times \mathbf x$.
 :::
 
 The left-invariant forms computed in this section therefore give the angular velocity of a body directly. The third
@@ -3874,27 +3874,27 @@ For $SO(3)$, $R^{-1}dR = \sigma^aL_a$ with the components @eq-su2-forms (@exr-lg
 angles $(\theta(t), \varphi(t), \psi(t))$ the velocity is $\dot\theta\,\partial_\theta + \dot\varphi\,\partial_\varphi +
 \dot\psi\,\partial_\psi$, and $\omega_a = \sigma^a(\dot\theta\,\partial_\theta + \dot\varphi\,\partial_\varphi + \dot\psi\,
 \partial_\psi)$; for instance $\omega_3 = \dot\psi + \cos\theta\,\dot\varphi$. The dual fields $\xi_a$ of
-@exm-lg-su2-dual-fields are the velocities with $\omega = e_a$: unit rotation about the $a$-th axis of the body.
+@exm-lg-su2-dual-fields are the velocities with $\boldsymbol\omega = \mathbf e_a$: unit rotation about the $a$-th axis of the body.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The definition asserts that the two matrices are antisymmetric. The first exercise proves it from $R^{\mathsf{T}}R = 1$
+The definition asserts that the two matrices are antisymmetric. The first exercise proves it from $R^\top R = 1$
 and computes how points move, as seen from space and from the body.
 
 ::: {#exr-lg-angvel-antisymmetric}
 #### Angular velocities are antisymmetric
 
-Differentiate $R^{\mathsf{T}}R = 1$ and $RR^{\mathsf{T}} = 1$ to show that $R^{-1}\dot R$ and $\dot RR^{-1}$ are
-antisymmetric. Show that $x(t) = R(t)x_0$ satisfies $\dot x = \Omega \times x$, and that the body coordinates
-$R^{-1}y$ of a point $y$ fixed in space move with $\frac{d}{dt}(R^{-1}y) = -\omega \times R^{-1}y$.
+Differentiate $R^\top R = 1$ and $RR^\top = 1$ to show that $R^{-1}\dot R$ and $\dot RR^{-1}$ are
+antisymmetric. Show that $\mathbf x(t) = R(t)\mathbf x_0$ satisfies $\dot{\mathbf x} = \boldsymbol\Omega \times \mathbf x$, and that the body coordinates
+$R^{-1}\mathbf y$ of a point $\mathbf y$ fixed in space move with $\frac{d}{dt}(R^{-1}\mathbf y) = -\boldsymbol\omega \times R^{-1}\mathbf y$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$0 = \frac{d}{dt}(R^{\mathsf{T}}R) = \dot R^{\mathsf{T}}R + R^{\mathsf{T}}\dot R = (R^{\mathsf{T}}\dot R)^{\mathsf{T}} +
-R^{\mathsf{T}}\dot R$ with $R^{\mathsf{T}} = R^{-1}$, and likewise $0 = \dot RR^{\mathsf{T}} + (\dot RR^{\mathsf{T}})^{\mathsf
-{T}}$. Then $\dot x = \dot RR^{-1}x = (\Omega \cdot L)x = \Omega \times x$. Since $\frac{d}{dt}R^{-1} = -R^{-1}\dot RR^{-1}$,
-$\frac{d}{dt}(R^{-1}y) = -(R^{-1}\dot R)R^{-1}y = -\omega \times R^{-1}y$: from the body, the fixed point turns with the
+$0 = \frac{d}{dt}(R^\top R) = \dot R^\top R + R^\top\dot R = (R^\top\dot R)^\top +
+R^\top\dot R$ with $R^\top = R^{-1}$, and likewise $0 = \dot RR^\top + (\dot RR^\top)^\top$.
+Then $\dot{\mathbf x} = \dot RR^{-1}\mathbf x = (\boldsymbol\Omega \cdot\mathbf L)\mathbf x = \boldsymbol\Omega \times \mathbf x$. Since $\frac{d}{dt}R^{-1} = -R^{-1}\dot RR^{-1}$,
+$\frac{d}{dt}(R^{-1}\mathbf y) = -(R^{-1}\dot R)R^{-1}\mathbf y = -\boldsymbol\omega \times R^{-1}\mathbf y$: from the body, the fixed point turns with the
 opposite angular velocity.
 :::
 
@@ -3905,16 +3905,16 @@ Sec. 1.1.33].
 ::: {#exr-lg-angvel-moving-line}
 #### The angle swept by a moving line
 
-A line through $O$ has unit direction $u(t)$ in body coordinates, so that its direction in space is $R(t)u(t)$. Show
-that $\frac{d}{dt}(Ru) = R(\dot u + \omega \times u)$, and that the angle between the positions of the line at times
-$t$ and $t + \delta t$ is $\delta t\,|\dot u + \omega \times u| + O(\delta t^2)$. Write the result in components for
-$u = (l, m, n)$.
+A line through $O$ has unit direction $\mathbf u(t)$ in body coordinates, so that its direction in space is $R(t)\mathbf u(t)$. Show
+that $\frac{d}{dt}(R\mathbf u) = R(\dot{\mathbf u} + \boldsymbol\omega \times \mathbf u)$, and that the angle between the positions of the line at times
+$t$ and $t + \delta t$ is $\delta t\,|\dot{\mathbf u} + \boldsymbol\omega \times \mathbf u| + O(\delta t^2)$. Write the result in components for
+$\mathbf u = (l, m, n)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\frac{d}{dt}(Ru) = \dot Ru + R\dot u = R(R^{-1}\dot Ru + \dot u) = R(\omega \times u + \dot u)$. The two positions are
-unit vectors, so the angle $\delta$ between them satisfies $2\sin\frac\delta2 = |R(t + \delta t)u(t + \delta t) -
-R(t)u(t)| = \delta t\,|R(\dot u + \omega \times u)| + O(\delta t^2)$, and $R$ preserves lengths. In components the
+$\frac{d}{dt}(R\mathbf u) = \dot R\mathbf u + R\dot{\mathbf u} = R(R^{-1}\dot R\mathbf u + \dot{\mathbf u}) = R(\boldsymbol\omega \times \mathbf u + \dot{\mathbf u})$. The two positions are
+unit vectors, so the angle $\delta$ between them satisfies $2\sin\frac\delta2 = |R(t + \delta t)\mathbf u(t + \delta t) -
+R(t)\mathbf u(t)| = \delta t\,|R(\dot{\mathbf u} + \boldsymbol\omega \times \mathbf u)| + O(\delta t^2)$, and $R$ preserves lengths. In components the
 angle is $\delta t$ times the length of $(\dot l - m\omega_3 + n\omega_2,\ \dot m - n\omega_1 + l\omega_3,\ \dot n -
 l\omega_2 + m\omega_1)$.
 :::
@@ -3925,17 +3925,17 @@ exercise derives the rule from the Maurer-Cartan form of a product, and the prop
 ::: {#exr-lg-angvel-product}
 #### Adding angular velocities
 
-For $R(t) = R_1(t)R_2(t)$ show that $\omega = R_2^{-1}\omega_1 + \omega_2$ and $\Omega = \Omega_1 + R_1\Omega_2$, where
-$\omega_i$, $\Omega_i$ are the angular velocities of $R_i$. Compute $\omega$ and $\Omega$ for $R = e^{\varphi(t)L_3}
+For $R(t) = R_1(t)R_2(t)$ show that $\boldsymbol\omega = R_2^{-1}\boldsymbol\omega_1 + \boldsymbol\omega_2$ and $\boldsymbol\Omega = \boldsymbol\Omega_1 + R_1\boldsymbol\Omega_2$, where
+$\boldsymbol\omega_i$, $\boldsymbol\Omega_i$ are the angular velocities of $R_i$. Compute $\boldsymbol\omega$ and $\boldsymbol\Omega$ for $R = e^{\varphi(t)L_3}
 e^{\theta_0L_1}$ with constant $\theta_0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @exr-lg-mc-product, $(R_1R_2)^{-1}\frac{d}{dt}(R_1R_2) = R_2^{-1}(\omega_1 \cdot L)R_2 + \omega_2 \cdot L$, and
-$R_2^{-1}(\omega_1 \cdot L)R_2 = (R_2^{-1}\omega_1) \cdot L$ by @exm-lg-angvel-space-body. Likewise $\frac{d}{dt}(R_1R_2)
-(R_1R_2)^{-1} = \Omega_1 \cdot L + R_1(\Omega_2 \cdot L)R_1^{-1}$ gives $\Omega = \Omega_1 + R_1\Omega_2$. For $R =
-e^{\varphi L_3}e^{\theta_0L_1}$ the second factor is constant, so $\Omega = \dot\varphi\,e_3$ and $\omega = R^{-1}\Omega =
-\dot\varphi\,e^{-\theta_0L_1}e_3 = \dot\varphi\,(0, \sin\theta_0, \cos\theta_0)$: a body precessing about the vertical
+By @exr-lg-mc-product, $(R_1R_2)^{-1}\frac{d}{dt}(R_1R_2) = R_2^{-1}(\boldsymbol\omega_1 \cdot\mathbf L)R_2 + \boldsymbol\omega_2 \cdot\mathbf L$, and
+$R_2^{-1}(\boldsymbol\omega_1 \cdot\mathbf L)R_2 = (R_2^{-1}\boldsymbol\omega_1) \cdot\mathbf L$ by @exm-lg-angvel-space-body. Likewise $\frac{d}{dt}(R_1R_2)
+(R_1R_2)^{-1} = \boldsymbol\Omega_1 \cdot\mathbf L + R_1(\boldsymbol\Omega_2 \cdot\mathbf L)R_1^{-1}$ gives $\boldsymbol\Omega = \boldsymbol\Omega_1 + R_1\boldsymbol\Omega_2$. For $R =
+e^{\varphi L_3}e^{\theta_0L_1}$ the second factor is constant, so $\boldsymbol\Omega = \dot\varphi\,\mathbf e_3$ and $\boldsymbol\omega = R^{-1}\boldsymbol\Omega =
+\dot\varphi\,e^{-\theta_0L_1}\mathbf e_3 = \dot\varphi\,(0, \sin\theta_0, \cos\theta_0)$: a body precessing about the vertical
 sees its angular velocity fixed, inclined at $\theta_0$ to its third axis.
 :::
 ::::
@@ -3972,10 +3972,10 @@ proposition for it.
 ::: {#exm-lg-ek-precession}
 #### Steady precession
 
-For $\theta = \theta_0$, $\varphi = \mu t$ and $\psi = \nu t$, @eq-lg-euler-space gives $\Omega = \mu\,e_3 + \nu\,(\sin
-\theta_0\sin\mu t, -\sin\theta_0\cos\mu t, \cos\theta_0) = \mu\,e_3 + \nu\,Re_3$, the precession about the vertical plus
-the spin about the moving axis $Re_3$ of the top (@exr-lg-ek-axis). In the body, $\omega = (\mu\sin\theta_0\sin\nu t,
-\mu\sin\theta_0\cos\nu t, \nu + \mu\cos\theta_0)$ turns about the third body axis, and $|\omega|^2 = \mu^2 + \nu^2 +
+For $\theta = \theta_0$, $\varphi = \mu t$ and $\psi = \nu t$, @eq-lg-euler-space gives $\boldsymbol\Omega = \mu\,\mathbf e_3 + \nu\,(\sin
+\theta_0\sin\mu t, -\sin\theta_0\cos\mu t, \cos\theta_0) = \mu\,\mathbf e_3 + \nu\,R\mathbf e_3$, the precession about the vertical plus
+the spin about the moving axis $R\mathbf e_3$ of the top (@exr-lg-ek-axis). In the body, $\boldsymbol\omega = (\mu\sin\theta_0\sin\nu t,
+\mu\sin\theta_0\cos\nu t, \nu + \mu\cos\theta_0)$ turns about the third body axis, and $|\boldsymbol\omega|^2 = \mu^2 + \nu^2 +
 2\mu\nu\cos\theta_0$ is constant.
 :::
 
@@ -3986,7 +3986,7 @@ different convention for the middle rotation, and the second example also transl
 #### The pole of the chart and the z-y-z convention
 
 The matrix of coefficients of $(\dot\theta, \dot\varphi, \dot\psi)$ in @eq-lg-euler-body has determinant $\sin\theta$,
-so at $\theta = 0$ the rates cannot be recovered from $\omega$, and there $\omega_3 = \dot\varphi + \dot\psi$ sees only
+so at $\theta = 0$ the rates cannot be recovered from $\boldsymbol\omega$, and there $\omega_3 = \dot\varphi + \dot\psi$ sees only
 the sum, as in @exm-exponential-euler (@exr-lg-ek-inverse). The z-y-z convention $e^{\varphi'L_3}e^{\theta L_2}e^{\psi'
 L_3}$ [@sinha2023rigid, Sec. 1.1.29] describes the same rotation as ours with $\varphi = \varphi' + \frac\pi2$ and $\psi
 = \psi' - \frac\pi2$, since $e^{\theta L_2} = e^{\frac\pi2L_3}e^{\theta L_1}e^{-\frac\pi2L_3}$; substituting, $\omega_1 =
@@ -4018,15 +4018,15 @@ do it, and derives the space components by hand from the addition rule.
 #### Euler's equations with Sage
 
 With Sage, compute $R^{-1}\dot R$ and $\dot RR^{-1}$ for $R(t) = e^{\varphi(t)L_3}e^{\theta(t)L_1}e^{\psi(t)L_3}$, read off
-$\omega$ and $\Omega$, and confirm @eq-lg-euler-body, @eq-lg-euler-space, $\Omega = R\omega$ and the value of
-$|\omega|^2$. Derive @eq-lg-euler-space by hand from @exr-lg-angvel-product.
+$\boldsymbol\omega$ and $\boldsymbol\Omega$, and confirm @eq-lg-euler-body, @eq-lg-euler-space, $\boldsymbol\Omega = R\boldsymbol\omega$ and the value of
+$|\boldsymbol\omega|^2$. Derive @eq-lg-euler-space by hand from @exr-lg-angvel-product.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Applying $\Omega = \Omega_1 + R_1\Omega_2$ twice, $\Omega = \dot\varphi\,e_3 + e^{\varphi L_3}\bigl(\dot\theta\,e_1 +
-e^{\theta L_1}\dot\psi\,e_3\bigr) = \dot\varphi\,e_3 + \dot\theta\,(\cos\varphi, \sin\varphi, 0) + \dot\psi\,
+Applying $\boldsymbol\Omega = \boldsymbol\Omega_1 + R_1\boldsymbol\Omega_2$ twice, $\boldsymbol\Omega = \dot\varphi\,\mathbf e_3 + e^{\varphi L_3}\bigl(\dot\theta\,\mathbf e_1 +
+e^{\theta L_1}\dot\psi\,\mathbf e_3\bigr) = \dot\varphi\,\mathbf e_3 + \dot\theta\,(\cos\varphi, \sin\varphi, 0) + \dot\psi\,
 e^{\varphi L_3}(0, -\sin\theta, \cos\theta)$, and $e^{\varphi L_3}(0, -\sin\theta, \cos\theta) = (\sin\theta\sin\varphi,
--\sin\theta\cos\varphi, \cos\theta)$, which is @eq-lg-euler-space. The rule $\omega = R_2^{-1}\omega_1 + \omega_2$ gives
+-\sin\theta\cos\varphi, \cos\theta)$, which is @eq-lg-euler-space. The rule $\boldsymbol\omega = R_2^{-1}\boldsymbol\omega_1 + \boldsymbol\omega_2$ gives
 @eq-lg-euler-body the same way:
 
 ```python
@@ -4094,9 +4094,9 @@ $(\dot\theta^2 + \sin^2\theta\,\dot\varphi^2)^{1/2}$, independent of $\dot\psi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$e^{\psi L_3}e_3 = e_3$, so $Re_3 = e^{\varphi L_3}e^{\theta L_1}e_3 = e^{\varphi L_3}(0, -\sin\theta, \cos\theta) =
-(\sin\theta\sin\varphi, -\sin\theta\cos\varphi, \cos\theta)$. By @exr-lg-angvel-antisymmetric with $x_0 = e_3$,
-$\frac{d}{dt}(Re_3) = \Omega \times Re_3$, whose length is $|R(\omega \times e_3)| = (\omega_1^2 + \omega_2^2)^{1/2} =
+$e^{\psi L_3}\mathbf e_3 = \mathbf e_3$, so $R\mathbf e_3 = e^{\varphi L_3}e^{\theta L_1}\mathbf e_3 = e^{\varphi L_3}(0, -\sin\theta, \cos\theta) =
+(\sin\theta\sin\varphi, -\sin\theta\cos\varphi, \cos\theta)$. By @exr-lg-angvel-antisymmetric with $\mathbf x_0 = \mathbf e_3$,
+$\frac{d}{dt}(R\mathbf e_3) = \boldsymbol\Omega \times R\mathbf e_3$, whose length is $|R(\boldsymbol\omega \times \mathbf e_3)| = (\omega_1^2 + \omega_2^2)^{1/2} =
 (\dot\theta^2 + \sin^2\theta\,\dot\varphi^2)^{1/2}$ by @exm-lg-su2-metric-expansion. The spin $\dot\psi$ turns the body
 about $Re_3$ and leaves the axis in place.
 :::
@@ -4157,7 +4157,7 @@ which is why $\mathfrak{su}(n)$ has rank one less than the size of its matrices.
 ::: {#exm-cartan-su3}
 #### $\mathfrak{su}(3)$ has rank two
 
-$\mathfrak{h} = \operatorname{span}(\lambda_3, \lambda_8)$, the diagonal traceless matrices, which commute with
+$\mathfrak{h} = \operatorname{span}(T_3, T_8)$ with $T_A = -\tfrac{i}{2}\lambda_A$, the diagonal traceless matrices, which commute with
 each other (@sec-roots-su3); $\mathfrak{su}(n)$ has rank $n - 1$, its Cartan subalgebra being the diagonal
 traceless matrices.
 :::
@@ -4182,12 +4182,12 @@ and that any axis serves as well as the third one. The cross product of vectors 
 #### The commutant of an axis
 
 Find all $X = x_aT_a \in \mathfrak{su}(2)$ with $[T_3, X] = 0$, and more generally with $[n_aT_a, X] = 0$ for a unit
-vector $n$. Conclude that $\operatorname{span}(n_aT_a)$ is a maximal abelian subalgebra.
+vector $\mathbf n$. Conclude that $\operatorname{span}(n_aT_a)$ is a maximal abelian subalgebra.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-From $[T_a, T_b] = \epsilon_{abc}T_c$, $[n_aT_a, x_bT_b] = \epsilon_{abc}n_ax_bT_c = (n \times x)_cT_c$. This vanishes
-exactly when $x$ is parallel to $n$, so the commutant of $n_aT_a$ is the line it spans; for $n = e_3$ the condition
+From $[T_a, T_b] = \epsilon_{abc}T_c$, $[n_aT_a, x_bT_b] = \epsilon_{abc}n_ax_bT_c = (\mathbf n \times \mathbf x)_cT_c$. This vanishes
+exactly when $\mathbf x$ is parallel to $\mathbf n$, so the commutant of $n_aT_a$ is the line it spans; for $\mathbf n = \mathbf e_3$ the condition
 reads $x_1T_2 - x_2T_1 = 0$, so $x_1 = x_2 = 0$. A line is abelian, and since nothing outside it commutes with $n_aT_a$
 it is maximal: the rank of $\mathfrak{su}(2)$ is one, whichever axis is chosen.
 :::
@@ -4307,7 +4307,7 @@ multiplicity two (@sec-roots-su3).
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 ![Weight diagrams of $\mathfrak{su}(2)$ from Sage's `WeylCharacterRing`. Left: the weights $m = j, j - 1, \dots, -
-j$ of spin $j$, each of multiplicity one. Right: the weights of $1 \otimes 1$ with multiplicities $1, 2, 3, 2, 1$,
+j$ of spin $j$, each of multiplicity one. Right: the weights of $V_1 \otimes V_1$ with multiplicities $1, 2, 3, 2, 1$,
 which decompose as spin $2$, spin $1$ and spin $0$. Generated by
 `figures/su2_weights.sage`.](figures/su2_weights.svg){#fig-su2-weights width=90%}
 
@@ -4323,7 +4323,7 @@ L_2] = L_3$, and confirm the weights $1, 0, -1$ with Sage.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $L_3 = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$, so $iL_3(1, \pm i, 0) = i(\mp i, 1, 0) =
-\pm(1, \pm i, 0)$ and $iL_3e_3 = 0$: the weights are $+1$ on $(1, i, 0)$, $-1$ on $(1, -i, 0)$ and $0$ on $e_3$, each
+\pm(1, \pm i, 0)$ and $iL_3\mathbf e_3 = 0$: the weights are $+1$ on $(1, i, 0)$, $-1$ on $(1, -i, 0)$ and $0$ on $\mathbf e_3$, each
 once.
 
 ```python
@@ -4356,16 +4356,16 @@ weights.
 #### Weights of tensor products and duals
 
 A Lie algebra acts on $V \otimes W$ by $X(v \otimes w) = Xv \otimes w + v \otimes Xw$ and on the dual $V^*$ by
-$-X^{\mathsf{T}}$. Show that the weights of $V \otimes W$ are the sums $\mu + \nu$ of weights of $V$ and $W$ (with
-multiplicities multiplied), and that those of $V^*$ are the negatives $-\mu$. Apply this to $\tfrac12 \otimes
-\tfrac12$ and to the dual of spin $j$.
+$-X^\top$. Show that the weights of $V \otimes W$ are the sums $\mu + \nu$ of weights of $V$ and $W$ (with
+multiplicities multiplied), and that those of $V^*$ are the negatives $-\mu$. Apply this to $V_{1/2} \otimes
+V_{1/2}$ and to the dual of spin $j$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 If $Hv = \mu(H)v$ and $Hw = \nu(H)w$ for all $H \in \mathfrak{h}$, then $H(v \otimes w) = (\mu(H) + \nu(H))v \otimes w$;
 products of weight bases form a weight basis of $V \otimes W$, so the multiplicity of a weight $\lambda$ is
-$\sum_{\mu + \nu = \lambda}m_V(\mu)m_W(\nu)$. In the dual basis, $-H^{\mathsf{T}}$ is diagonal with entries $-\mu(H)$. For
-$\tfrac12 \otimes \tfrac12$ the weights are $\pm\tfrac12 \pm \tfrac12 = 1, 0, 0, -1$ (@exm-clebsch-spinors). The
+$\sum_{\mu + \nu = \lambda}m_V(\mu)m_W(\nu)$. In the dual basis, $-H^\top$ is diagonal with entries $-\mu(H)$. For
+$V_{1/2} \otimes V_{1/2}$ the weights are $\pm\tfrac12 \pm \tfrac12 = 1, 0, 0, -1$ (@exm-clebsch-spinors). The
 weights $j, \dots, -j$ of spin $j$ are symmetric under $m \to -m$, so the dual has the same weights: every spin-$j$
 representation is equivalent to its dual.
 :::
@@ -4377,13 +4377,13 @@ three-dimensional representation of $\mathfrak{su}(3)$, and its weights show tha
 #### The conjugate representation of $\mathfrak{su}(3)$
 
 $\mathfrak{su}(3)$ acts on $\mathbb{C}^3$ by $T_A = -\tfrac{i}{2}\lambda_A$ and, in the **conjugate representation**
-$\bar{\mathbf{3}}$, by the complex conjugates $\bar T_A$. Show that in $\bar{\mathbf{3}}$ the Hermitian matrices
-$\lambda_A$ act as $-\bar\lambda_A$, and find the weights with respect to $(\lambda_3, \lambda_8)$. Why are
+$\bar{\mathbf{3}}$, by the complex conjugates $T_A^*$. Show that in $\bar{\mathbf{3}}$ the Hermitian matrices
+$\lambda_A$ act as $-\lambda_A^*$, and find the weights with respect to $(\lambda_3, \lambda_8)$. Why are
 $\mathbf{3}$ and $\bar{\mathbf{3}}$ inequivalent?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\bar T_A = \tfrac{i}{2}\bar\lambda_A = -\tfrac{i}{2}(-\bar\lambda_A)$, so $\lambda_A$ is represented by $-\bar\lambda_A$.
+$T_A^* = \tfrac{i}{2}\lambda_A^* = -\tfrac{i}{2}(-\lambda_A^*)$, so $\lambda_A$ is represented by $-\lambda_A^*$.
 Since $\lambda_3$ and $\lambda_8$ are real and diagonal, their eigenvalues change sign: the weights of
 $\bar{\mathbf{3}}$ are $(-1, -\tfrac{1}{\sqrt3})$, $(1, -\tfrac{1}{\sqrt3})$, $(0, \tfrac{2}{\sqrt3})$, the triangle of
 @fig-su3-weights turned upside down. Equivalent representations have the same weights, and the two triangles differ,
@@ -4596,14 +4596,14 @@ exercise produce. Sage checks the brackets and the value of the Casimir up to $j
 #### The spin-$j$ matrices
 
 In the basis $v_m$ normalised to unit length, show that $J_3 = \operatorname{diag}(j, \dots, -j)$ and $J_+v_m =
-\sqrt{j(j + 1) - m(m + 1)}\,v_{m + 1}$, $J_- = J_+^{\mathsf{T}}$. Check the brackets and $C = j(j + 1)\mathbb{1}$ for $j
+\sqrt{j(j + 1) - m(m + 1)}\,v_{m + 1}$, $J_- = J_+^\top$. Check the brackets and $C = j(j + 1)\,1$ for $j
 \leq 3$, and write out $J_+$ for $j = \tfrac32$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 By @exr-lrep-spinj-norm, $\|J_+v_m\|^2 = \langle v_m, J_-J_+v_m\rangle = (j(j + 1) - m^2 - m)\|v_m\|^2$, using $J_-J_+ =
 C - J_3^2 - J_3$; with real positive phases this gives the stated matrix elements, and $J_- = J_+^\dagger =
-J_+^{\mathsf{T}}$ since they are real. For $j = \tfrac32$ the entries are $\sqrt3, 2, \sqrt3$:
+J_+^\top$ since they are real. For $j = \tfrac32$ the entries are $\sqrt3, 2, \sqrt3$:
 
 ```python
 def spin_matrices(j):
@@ -4653,7 +4653,7 @@ Show that $\chi_j(\theta) = \operatorname{tr}e^{i\theta J_3} = \sum_{m = -j}^{j}
 The sum is geometric: multiplying by $e^{i\theta/2} - e^{-i\theta/2}$ telescopes it to $e^{i(j + \frac12)\theta} -
 e^{-i(j + \frac12)\theta}$, and dividing by $2i$ on both sides gives the quotient of sines. At $\theta = 2\pi$ every
 term $e^{2\pi im}$ equals $(-1)^{2j}$ (all $m$ differ from $j$ by integers), so $\chi_j(2\pi) = (-1)^{2j}(2j + 1)$:
-$e^{2\pi iJ_3}$ is $-\mathbb{1}$ on half-integer spins.
+$e^{2\pi iJ_3}$ is $-1$ on half-integer spins.
 
 ```python
 th = var("theta")
@@ -4717,12 +4717,12 @@ the vector representation. The second example finds the basis that removes the d
 ::: {#exm-lrep-dj-spherical-basis}
 #### Spin one and the spherical basis
 
-In the vector representation $J_a = iL_a$ (@exm-lg-so3-angular-momentum), and the vectors $e_{+1} = -(e_1 + ie_2)/
-\sqrt2$, $e_0 = e_3$, $e_{-1} = (e_1 - ie_2)/\sqrt2$ satisfy $J_3e_m = me_m$, $J_+e_{-1} = \sqrt2\,e_0$ and $J_+e_0 =
-\sqrt2\,e_{+1}$, the normalisation of @exr-lrep-spinj-matrices: they are the weight basis. Hence the matrix of the
-rotation $e^{tn \cdot L}$ in this basis is $D^1(e^{tn \cdot T})$. A vector $x = \sum_mx^me_m$ has the spherical components
+In the vector representation $J_a = iL_a$ (@exm-lg-so3-angular-momentum), and the vectors $\mathbf e_{+1} = -(\mathbf e_1 + i\mathbf e_2)/
+\sqrt2$, $\mathbf e_0 = \mathbf e_3$, $\mathbf e_{-1} = (\mathbf e_1 - i\mathbf e_2)/\sqrt2$ satisfy $J_3\mathbf e_m = m\mathbf e_m$, $J_+\mathbf e_{-1} = \sqrt2\,\mathbf e_0$ and $J_+\mathbf e_0 =
+\sqrt2\,\mathbf e_{+1}$, the normalisation of @exr-lrep-spinj-matrices: they are the weight basis. Hence the matrix of the
+rotation $e^{t\mathbf n \cdot\mathbf L}$ in this basis is $D^1(e^{t\mathbf n \cdot\mathbf T})$. A vector $\mathbf x = \sum_mx^m\mathbf e_m$ has the spherical components
 $x^{\pm1} = \mp(x_1 \mp ix_2)/\sqrt2$ and $x^0 = x_3$; multiplying $(x^{+1}, x^0, x^{-1})$ by $D^1$ and reading the
-Cartesian components off again rotates $x$, which is how a program that only knows the $D^j$ rotates ordinary vectors.
+Cartesian components off again rotates $\mathbf x$, which is how a program that only knows the $D^j$ rotates ordinary vectors.
 :::
 
 Computing $e^{-itn \cdot J}$ from its power series is wasteful when the eigenvalues of the exponent are known. The third
@@ -4731,11 +4731,11 @@ example uses them, as numerical libraries do [@boudreau2018applied, eq. 14.3].
 ::: {#exm-lrep-dj-diagonalise}
 #### Exponentiating by diagonalisation
 
-For $h \in SU(2)$ whose rotation $\operatorname{Ad}(h)$ carries $e_3$ to the unit vector $n$, $D^j(h)J_3D^j(h)^{-1} = n
-\cdot J$ (the spin-$j$ form of @exm-lg-angvel-space-body, @exr-lrep-dj-spin-vector). So $n \cdot J$ has the eigenvalues
-$j, j - 1, \dots, -j$, evenly spaced and never degenerate, and with $U = D^j(h)$, $D^j(e^{tn \cdot T}) = U\operatorname{diag}
+For $h \in SU(2)$ whose rotation $\operatorname{Ad}(h)$ carries $\mathbf e_3$ to the unit vector $\mathbf n$, $D^j(h)J_3D^j(h)^{-1} = \mathbf n
+\cdot\mathbf J$ (the spin-$j$ form of @exm-lg-angvel-space-body, @exr-lrep-dj-spin-vector). So $\mathbf n \cdot\mathbf J$ has the eigenvalues
+$j, j - 1, \dots, -j$, evenly spaced and never degenerate, and with $U = D^j(h)$, $D^j(e^{t\mathbf n \cdot\mathbf T}) = U\operatorname{diag}
 (e^{-ijt}, \dots, e^{ijt})U^\dagger$: the exponential of a diagonal matrix is taken entry by entry. At $t = 2\pi$ every
-entry is $e^{\mp 2\pi im} = (-1)^{2j}$, so $D^j(e^{2\pi n \cdot T}) = (-1)^{2j}$, the sign of @exm-spin-half-integer.
+entry is $e^{\mp 2\pi im} = (-1)^{2j}$, so $D^j(e^{2\pi \mathbf n \cdot\mathbf T}) = (-1)^{2j}$, the sign of @exm-spin-half-integer.
 :::
 ::::
 
@@ -4753,7 +4753,7 @@ and which only $4\pi$? Repeat for spin $2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The state $v_j$ is the product of $2j$ spin-up states of spin one-half, the highest weight of $(\frac12)^{\otimes 2j}$
+The state $v_j$ is the product of $2j$ spin-up states of spin one-half, the highest weight of $V_{1/2}^{\otimes 2j}$
 (@def-clebsch-gordan), and each factor is turned into $\cos\frac\theta2\,{\uparrow} - i\sin\frac\theta2\,{\downarrow}$
 by $e^{\theta T_1}$. Expanding the product and projecting on the normalised symmetric state with $j + m$ factors up gives
 the amplitude $\binom{2j}{j - m}^{1/2}\cos^{j + m}\frac\theta2\,(-i\sin\frac\theta2)^{j - m}$, so the probabilities form
@@ -4812,7 +4812,7 @@ weight zero, a convenient way of computing harmonics numerically [@boudreau2018a
 #### Spherical harmonics from rotation matrices
 
 For integer $l$ show that the column $m = 0$ of $D^l(\varphi, \theta, \psi)$ does not depend on $\psi$, and check with
-Sage for $l \leq 3$ that $\sqrt{(2l + 1)/(4\pi)}\,\overline{D^l_{m0}(\varphi, \theta, \psi)} = Y_{lm}(\theta, \varphi -
+Sage for $l \leq 3$ that $\sqrt{(2l + 1)/(4\pi)}\,D^l_{m0}(\varphi, \theta, \psi)^* = Y_{lm}(\theta, \varphi -
 \frac\pi2)$, with the Condon-Shortley phases, where $(\theta, \varphi - \frac\pi2)$ are the spherical angles of the axis
 $Re_3$ (@exr-lg-ek-axis).
 :::
@@ -4863,15 +4863,15 @@ for spin one-half and finds the direction of every spin state [@boudreau2018appl
 ::: {#exr-lrep-dj-spin-vector}
 #### The spin vector of a state
 
-For a unit vector $\xi \in \mathbb{C}^2$ let $s(\xi) = \xi^\dagger J\xi$ with $J = \frac12\sigma$. Show that $g^\dagger
-\sigma_ag = R_{ab}\sigma_b$ with $R = \operatorname{Ad}(g)$, hence $s(g\xi) = Rs(\xi)$, and that $\xi = (\cos\frac\beta2,
-e^{i\alpha}\sin\frac\beta2)$ has $s = \frac12(\sin\beta\cos\alpha, \sin\beta\sin\alpha, \cos\beta)$, so that every state
-of spin one-half points in a definite direction, with $|s| = \frac12$.
+For a unit vector $\xi \in \mathbb{C}^2$ let $\mathbf s(\xi) = \xi^\dagger\mathbf J\xi$ with $\mathbf J = \frac12\boldsymbol\sigma$. Show that $g^\dagger
+\sigma_ag = R_{ab}\sigma_b$ with $R = \operatorname{Ad}(g)$, hence $\mathbf s(g\xi) = R\mathbf s(\xi)$, and that $\xi = (\cos\frac\beta2,
+e^{i\alpha}\sin\frac\beta2)$ has $\mathbf s = \frac12(\sin\beta\cos\alpha, \sin\beta\sin\alpha, \cos\beta)$, so that every state
+of spin one-half points in a definite direction, with $|\mathbf s| = \frac12$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 By definition of the adjoint matrix, $g\sigma_bg^\dagger = R_{cb}\sigma_c$; multiplying by $R_{ab}$, summing over $b$ and
-using $RR^{\mathsf{T}} = 1$ gives $\sigma_a = R_{ab}\,g\sigma_bg^\dagger$, that is $g^\dagger\sigma_ag = R_{ab}\sigma_b$. Then
+using $RR^\top = 1$ gives $\sigma_a = R_{ab}\,g\sigma_bg^\dagger$, that is $g^\dagger\sigma_ag = R_{ab}\sigma_b$. Then
 $s_a(g\xi) = \xi^\dagger g^\dagger J_ag\xi = R_{ab}s_b(\xi)$. For the given $\xi$, $\xi^\dagger\sigma_3\xi = \cos^2\frac\beta2 -
 \sin^2\frac\beta2 = \cos\beta$ and $\xi^\dagger(\sigma_1 + i\sigma_2)\xi = 2\cos\frac\beta2\sin\frac\beta2\,e^{i\alpha} =
 \sin\beta\,e^{i\alpha}$, which gives $s$. Every unit vector of $\mathbb{C}^2$ is of this form up to a phase, which does not
@@ -4889,7 +4889,7 @@ definition below states how such a product splits into spins, and the weights ex
 The tensor product of two representations (@def-direct-sum-rep) decomposes into irreducibles; for
 $\mathfrak{su}(2)$,
 $$
-j_1 \otimes j_2 = (j_1 + j_2) \oplus (j_1 + j_2 - 1) \oplus \dots \oplus |j_1 - j_2| ,
+V_{j_1} \otimes V_{j_2} = V_{j_1 + j_2} \oplus V_{j_1 + j_2 - 1} \oplus \dots \oplus V_{|j_1 - j_2|} ,
 $$ {#eq-clebsch-gordan}
 read off from the weights: the weights of the product are all sums $m_1 + m_2$, and peeling off the highest weight
 and its string repeatedly gives the list. Sage's `WeylCharacterRing` performs this decomposition
@@ -4902,7 +4902,7 @@ The most famous instance combines two spin-$\tfrac12$ particles. Its four states
 singlet of atomic physics.
 
 ::: {#exm-clebsch-spinors}
-#### $\tfrac12 \otimes \tfrac12 = 1 \oplus 0$
+#### $V_{1/2} \otimes V_{1/2} = V_1 \oplus V_0$
 
 Two spinors have weights $\pm\tfrac12 \pm \tfrac12 = 1, 0, 0, -1$: a triplet (the symmetric combinations) and a
 singlet (the antisymmetric one): two spin-$\tfrac12$ particles combine to spin $1$ or spin $0$.
@@ -4912,12 +4912,12 @@ Two vectors give nine states, and the weights now have multiplicities up to thre
 produces three spins, which are the symmetric traceless, antisymmetric and trace parts of a two-index tensor.
 
 ::: {#exm-clebsch-vectors}
-#### $1 \otimes 1 = 2 \oplus 1 \oplus 0$
+#### $V_1 \otimes V_1 = V_2 \oplus V_1 \oplus V_0$
 
 Two vectors have weights $\{1, 0, -1\} + \{1, 0, -1\}$ with multiplicities $1, 2, 3, 2, 1$ (@fig-su2-weights):
 spin $2$ (the symmetric traceless tensors), spin $1$ (the antisymmetric tensors, $\mathbb{R}^3 \wedge \mathbb{R}^3
-\cong \mathbb{R}^3$, the adjoint again) and spin $0$ (the trace), the decomposition $3 \otimes 3 = 5 \oplus 3 \oplus
-1$ of @exm-tensor-spins. In CSDR the scalars live in tensor products of this kind, and the Higgs potential is built
+\cong \mathbb{R}^3$, the adjoint again) and spin $0$ (the trace), the decomposition $\mathbf 3 \otimes \mathbf 3 = \mathbf 5 \oplus \mathbf 3 \oplus
+\mathbf 1$ of @exm-tensor-spins. In CSDR the scalars live in tensor products of this kind, and the Higgs potential is built
 from the invariant (spin $0$) parts.
 :::
 
@@ -4925,10 +4925,10 @@ Combining an integer and a half-integer spin gives only half-integer spins, sinc
 half-integer. The orbital angular momentum $1$ of an electron combined with its spin is the standard example.
 
 ::: {#exm-clebsch-mixed}
-#### $1 \otimes \tfrac12 = \tfrac32 \oplus \tfrac12$
+#### $V_1 \otimes V_{1/2} = V_{3/2} \oplus V_{1/2}$
 
 Weights $\{1, 0, -1\} + \{\pm\tfrac12\} = \tfrac32, \tfrac12, \tfrac12, -\tfrac12, -\tfrac12, -\tfrac32$: the string of
-spin $\tfrac32$ leaves one copy of $\pm\tfrac12$ (@exr-clebsch); likewise $\tfrac32 \otimes \tfrac12 = 2 \oplus 1$.
+spin $\tfrac32$ leaves one copy of $\pm\tfrac12$ (@exr-clebsch); likewise $V_{3/2} \otimes V_{1/2} = V_2 \oplus V_1$.
 :::
 ::::
 
@@ -4939,13 +4939,13 @@ The first exercise carries out the peeling procedure of the definition by hand. 
 ::: {#exr-clebsch}
 #### A tensor product by hand
 
-Decompose $1 \otimes \tfrac12$ and $\tfrac32 \otimes \tfrac12$ of $\mathfrak{su}(2)$ from their weights.
+Decompose $V_1 \otimes V_{1/2}$ and $V_{3/2} \otimes V_{1/2}$ of $\mathfrak{su}(2)$ from their weights.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$1 \otimes \tfrac12$ has weights $\{1, 0, -1\} + \{\pm\tfrac12\} = \tfrac32, \tfrac12, \tfrac12, -\tfrac12, -\tfrac12, -
+$V_1 \otimes V_{1/2}$ has weights $\{1, 0, -1\} + \{\pm\tfrac12\} = \tfrac32, \tfrac12, \tfrac12, -\tfrac12, -\tfrac12, -
 \tfrac32$: the string $\tfrac32, \dots, -\tfrac32$ (spin $\tfrac32$) leaves $\tfrac12, -\tfrac12$ (spin
-$\tfrac12$), so $1 \otimes \tfrac12 = \tfrac32 \oplus \tfrac12$. Likewise $\tfrac32 \otimes \tfrac12 = 2 \oplus 1$, in
+$\tfrac12$), so $V_1 \otimes V_{1/2} = V_{3/2} \oplus V_{1/2}$. Likewise $V_{3/2} \otimes V_{1/2} = V_2 \oplus V_1$, in
 agreement with @eq-clebsch-gordan.
 :::
 
@@ -4960,8 +4960,8 @@ Show that $\sum_{J = |j_1 - j_2|}^{j_1 + j_2}(2J + 1) = (2j_1 + 1)(2j_2 + 1)$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Take $j_1 \geq j_2$ and write $J = j_1 - j_2 + k$, $k = 0, \dots, 2j_2$. Then $\sum_k(2j_1 - 2j_2 + 1 + 2k) = (2j_2 +
-1)(2j_1 - 2j_2 + 1) + 2j_2(2j_2 + 1) = (2j_2 + 1)(2j_1 + 1)$. For example $1 \otimes 1$: $5 + 3 + 1 = 9$, and
-$\tfrac32 \otimes \tfrac12$: $5 + 3 = 8$.
+1)(2j_1 - 2j_2 + 1) + 2j_2(2j_2 + 1) = (2j_2 + 1)(2j_1 + 1)$. For example $V_1 \otimes V_1$: $5 + 3 + 1 = 9$, and
+$V_{3/2} \otimes V_{1/2}$: $5 + 3 = 8$.
 :::
 
 Products of three or more spins are decomposed by applying the rule repeatedly, and a spin can then occur more than
@@ -4970,16 +4970,16 @@ once. The third exercise counts the multiplicities and the invariants, with Sage
 ::: {#exr-lrep-cg-three-spinors}
 #### Three and four spins
 
-Decompose $\tfrac12 \otimes \tfrac12 \otimes \tfrac12$, $1 \otimes 1 \otimes 1$ and $\tfrac12^{\otimes 4}$ by applying
-@eq-clebsch-gordan twice or three times, count the singlets, and identify the singlet of $1 \otimes 1 \otimes 1$.
+Decompose $V_{1/2} \otimes V_{1/2} \otimes V_{1/2}$, $V_1 \otimes V_1 \otimes V_1$ and $V_{1/2}^{\otimes 4}$ by applying
+@eq-clebsch-gordan twice or three times, count the singlets, and identify the singlet of $V_1 \otimes V_1 \otimes V_1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\tfrac12 \otimes \tfrac12 \otimes \tfrac12 = (1 \oplus 0) \otimes \tfrac12 = \tfrac32 \oplus \tfrac12 \oplus \tfrac12$,
-with no singlet (a half-integer total cannot be $0$). $1 \otimes 1 \otimes 1 = (2 \oplus 1 \oplus 0) \otimes 1 = (3
-\oplus 2 \oplus 1) \oplus (2 \oplus 1 \oplus 0) \oplus 1 = 3 \oplus 2 \cdot 2 \oplus 3 \cdot 1 \oplus 0$; its single
-singlet is the triple product $\epsilon_{abc}u_av_bw_c$ of three vectors. $\tfrac12^{\otimes 4} = (1 \oplus 0)
-\otimes (1 \oplus 0) = 2 \oplus 3 \cdot 1 \oplus 2 \cdot 0$, with two singlets. In Sage, `A1(n)` is spin $n/2$:
+$V_{1/2} \otimes V_{1/2} \otimes V_{1/2} = (V_1 \oplus V_0) \otimes V_{1/2} = V_{3/2} \oplus V_{1/2} \oplus V_{1/2}$,
+with no singlet (a half-integer total cannot be $0$). $V_1 \otimes V_1 \otimes V_1 = (V_2 \oplus V_1 \oplus V_0) \otimes V_1 = (V_3
+\oplus V_2 \oplus V_1) \oplus (V_2 \oplus V_1 \oplus V_0) \oplus V_1 = V_3 \oplus 2V_2 \oplus 3V_1 \oplus V_0$; its single
+singlet is the triple product $\epsilon_{abc}u_av_bw_c$ of three vectors. $V_{1/2}^{\otimes 4} = (V_1 \oplus V_0)
+\otimes (V_1 \oplus V_0) = V_2 \oplus 3V_1 \oplus 2V_0$, with two singlets. In Sage, `A1(n)` is spin $n/2$:
 
 ```python
 A1 = WeylCharacterRing("A1", style="coroots")
@@ -5007,7 +5007,7 @@ together with the weights of the spin-$j$ representation.
 ::: {#prp-clebsch-sage}
 #### Clebsch-Gordan decompositions
 
-$\tfrac12 \otimes \tfrac12 = 1 \oplus 0$ and $1 \otimes 1 = 2 \oplus 1 \oplus 0$, and spin $j$ has the $2j + 1$ weights
+$V_{1/2} \otimes V_{1/2} = V_1 \oplus V_0$ and $V_1 \otimes V_1 = V_2 \oplus V_1 \oplus V_0$, and spin $j$ has the $2j + 1$ weights
 $j, \dots, -j$ each once.
 :::
 ::::
@@ -5019,18 +5019,18 @@ to write down, and the ladder operators check which combination belongs to which
 ::: {#exm-lrep-cg-singlet}
 #### The triplet and the singlet
 
-On $\tfrac12 \otimes \tfrac12$ the ladder operators act as $J_\pm \otimes 1 + 1 \otimes J_\pm$. Starting from the
+On $V_{1/2} \otimes V_{1/2}$ the ladder operators act as $J_\pm \otimes 1 + 1 \otimes J_\pm$. Starting from the
 highest vector ${\uparrow\uparrow}$, $J_-$ gives ${\uparrow\downarrow} + {\downarrow\uparrow}$ and then
 $2\,{\downarrow\downarrow}$: the triplet is symmetric. The orthogonal vector ${\uparrow\downarrow} -
 {\downarrow\uparrow}$ is killed by $J_+$ (both terms give ${\uparrow\uparrow}$ with opposite signs) and by $J_-$: it
 is the singlet, and it is antisymmetric.
 :::
 
-The peeling procedure can be watched on the weight multiplicities alone. The example does this for $1 \otimes 1$, the
+The peeling procedure can be watched on the weight multiplicities alone. The example does this for $V_1 \otimes V_1$, the
 right panel of @fig-su2-weights.
 
 ::: {#exm-lrep-cg-peeling}
-#### Peeling the weights of $1 \otimes 1$
+#### Peeling the weights of $V_1 \otimes V_1$
 
 The multiplicities of the weights $2, 1, 0, -1, -2$ are $1, 2, 3, 2, 1$. The highest weight $2$ starts a string of
 spin $2$ with multiplicities $1, 1, 1, 1, 1$; subtracting leaves $0, 1, 2, 1, 0$, whose highest weight $1$ starts a
@@ -5044,22 +5044,22 @@ of the same spin this is a general rule, illustrated here for spins $\tfrac12$ a
 ::: {#exm-lrep-cg-symmetry}
 #### Symmetric and antisymmetric parts
 
-For $j \otimes j$ the summands alternate in symmetry, starting with the symmetric spin $2j$: $\operatorname{Sym}^2(\tfrac12)
-= 1$ and $\Lambda^2(\tfrac12) = 0$ (@exm-lrep-cg-singlet), while $\operatorname{Sym}^2(1) = 2 \oplus 0$, of dimension
-$6$, and $\Lambda^2(1) = 1$, of dimension $3$ (@exm-clebsch-vectors). The dimensions $j(2j + 1)$ of $\Lambda^2$ and
+For $V_j \otimes V_j$ the summands alternate in symmetry, starting with the symmetric spin $2j$: $\operatorname{Sym}^2V_{1/2}
+= V_1$ and $\Lambda^2V_{1/2} = V_0$ (@exm-lrep-cg-singlet), while $\operatorname{Sym}^2V_1 = V_2 \oplus V_0$, of dimension
+$6$, and $\Lambda^2V_1 = V_1$, of dimension $3$ (@exm-clebsch-vectors). The dimensions $j(2j + 1)$ of $\Lambda^2$ and
 $(j + 1)(2j + 1)$ of $\operatorname{Sym}^2$ agree with these counts.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise repeats the computation behind the proposition with Sage, including the weights of $1 \otimes 1$
+The first exercise repeats the computation behind the proposition with Sage, including the weights of $V_1 \otimes V_1$
 and the dimension formula. It is the reference computation for the summary table at the end of the chapter.
 
 ::: {#exr-su2-clebsch}
 #### Tensor products with the Weyl character ring
 
-With Sage's `WeylCharacterRing("A1")`, decompose $\tfrac12 \otimes \tfrac12$, $1 \otimes 1$, $1 \otimes \tfrac12$ and
-$\tfrac32 \otimes \tfrac12$, list the weights of $1 \otimes 1$ with multiplicities, and check $\dim(\text{spin } j) =
+With Sage's `WeylCharacterRing("A1")`, decompose $V_{1/2} \otimes V_{1/2}$, $V_1 \otimes V_1$, $V_1 \otimes V_{1/2}$ and
+$V_{3/2} \otimes V_{1/2}$, list the weights of $V_1 \otimes V_1$ with multiplicities, and check $\dim(\text{spin } j) =
 2j + 1$.
 :::
 
@@ -5090,13 +5090,13 @@ spin j has dimension 2j+1: True
 ```
 :::
 
-The second exercise finds the singlet of $1 \otimes 1$ as an explicit vector, by solving $J_+w = 0$ on the zero-weight
+The second exercise finds the singlet of $V_1 \otimes V_1$ as an explicit vector, by solving $J_+w = 0$ on the zero-weight
 space. The same linear algebra recovers the singlet of two spinors from @exm-lrep-cg-singlet.
 
 ::: {#exr-lrep-cg-highest-vector}
 #### The singlet as a kernel
 
-With the spin-$j$ matrices of @exr-lrep-spinj-matrices, find the vectors of weight $0$ in $j \otimes j$ that are
+With the spin-$j$ matrices of @exr-lrep-spinj-matrices, find the vectors of weight $0$ in $V_j \otimes V_j$ that are
 killed by $J_+ \otimes 1 + 1 \otimes J_+$, for $j = \tfrac12$ and $j = 1$. Explain why their number is the number of
 spin-$0$ summands.
 :::
@@ -5142,7 +5142,7 @@ to $3$. It generalises @exm-lrep-cg-peeling.
 ::: {#exr-lrep-cg-general}
 #### The Clebsch-Gordan series in general
 
-Show that for $j_1 \geq j_2$ the weight $m$ of $j_1 \otimes j_2$ has multiplicity $j_1 + j_2 - |m| + 1$ for $|m| \geq
+Show that for $j_1 \geq j_2$ the weight $m$ of $V_{j_1} \otimes V_{j_2}$ has multiplicity $j_1 + j_2 - |m| + 1$ for $|m| \geq
 j_1 - j_2$ and $2j_2 + 1$ for $|m| \leq j_1 - j_2$, and deduce @eq-clebsch-gordan. Check it with Sage for $j_1, j_2
 \leq 3$.
 :::
@@ -5230,7 +5230,7 @@ Two of the eight matrices are diagonal, and diagonal matrices commute. They form
 #### The Cartan subalgebra
 
 $\lambda_3$ and $\lambda_8$ are the diagonal traceless matrices, they commute, and no other generator commutes
-with both: the Cartan subalgebra is $\operatorname{span}(\lambda_3, \lambda_8)$, rank $2$ (@def-cartan-subalgebra).
+with both: the Cartan subalgebra is $\operatorname{span}(T_3, T_8)$, rank $2$ (@def-cartan-subalgebra).
 :::
 
 The brackets of the Gell-Mann matrices define structure constants, the analogue of $\epsilon_{abc}$ for
@@ -5313,7 +5313,7 @@ anticipates the root decomposition defined next.
 #### Structure constants of $\mathfrak{su}(3)$
 
 Compute the structure constants $f_{ABC}$ in the Gell-Mann basis and split them according to the decomposition
-$\mathfrak{su}(3) = \mathfrak{r} \oplus \mathfrak{k}$ with $\mathfrak{r} = \operatorname{span}(\lambda_3, \lambda_8)$.
+$\mathfrak{su}(3) = \mathfrak{r} \oplus \mathfrak{k}$ with $\mathfrak{r} = \operatorname{span}(T_3, T_8)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -6037,13 +6037,13 @@ is also how the interactive figure is drawn.
 #### From Sage's coordinates to the $(\lambda_3, \lambda_8)$ plane
 
 Show that a weight with diagonal entries $(w_1, w_2, w_3)$ has $(\lambda_3, \lambda_8)$-eigenvalues $(w_1 - w_2, (w_1 + w_2 -
-2w_3)/\sqrt3)$. Map Sage's simple roots $e_1 - e_2$, $e_2 - e_3$ and the weight $(\tfrac23, -\tfrac13, -\tfrac13)$, and
+2w_3)/\sqrt3)$. Map Sage's simple roots $\mathbf e_1 - \mathbf e_2$, $\mathbf e_2 - \mathbf e_3$ and the weight $(\tfrac23, -\tfrac13, -\tfrac13)$, and
 check that the Cartan matrix is the same in both coordinates.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 A diagonal matrix $\operatorname{diag}(d_1, d_2, d_3)$ acts on the weight vector with eigenvalue $\sum_id_iw_i$; for
-$\lambda_3$ and $\lambda_8$ this gives the stated formula. Then $e_1 - e_2 \mapsto (2, 0) = \alpha_1$, $e_2 - e_3 \mapsto
+$\lambda_3$ and $\lambda_8$ this gives the stated formula. Then $\mathbf e_1 - \mathbf e_2 \mapsto (2, 0) = \alpha_1$, $\mathbf e_2 - \mathbf e_3 \mapsto
 (-1, \sqrt3) = \alpha_2$ and $(\tfrac23, -\tfrac13, -\tfrac13) \mapsto (1, \tfrac{1}{\sqrt3}) = \omega_1$. In Sage's
 coordinates the simple roots have squared length $2$ and inner product $-1$; in the plane $4$ and $-2$. The inner
 products are scaled by $2$, and $A_{ij}$ is a ratio of inner products, so it is unchanged.
@@ -6060,8 +6060,8 @@ of $\alpha_1$ is the set of all roots and that every element permutes the roots,
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The group has order $6$ and acts as $S_3$ on the three orthogonal coordinates, permuting $e_1, e_2, e_3$; it permutes
-the roots $e_i - e_j$, and since every root is $e_i - e_j$ for some pair, the orbit of $e_1 - e_2$ is all six. The orbit
+The group has order $6$ and acts as $S_3$ on the three orthogonal coordinates, permuting $\mathbf e_1, \mathbf e_2, \mathbf e_3$; it permutes
+the roots $\mathbf e_i - \mathbf e_j$, and since every root is $\mathbf e_i - \mathbf e_j$ for some pair, the orbit of $\mathbf e_1 - \mathbf e_2$ is all six. The orbit
 of $\omega_1$ is the three weights of $\mathbf{3}$ (@exm-lrep-weyl-reflection):
 
 ```python
@@ -6129,8 +6129,8 @@ splits by the block structure. The first two basis vectors form a doublet and th
 ::: {#exm-restriction-su3-su2}
 #### The fundamental of $\mathfrak{su}(3)$ under $\mathfrak{su}(2)$
 
-Restricted to the $\mathfrak{su}(2)$ of $\lambda_{1, 2, 3}$, $\mathbb{C}^3$ splits into the doublet $(e_1, e_2)$ and
-the singlet $e_3$: $\mathbf{3} \to \mathbf{2} \oplus \mathbf{1}$ (@exr-branching-levi).
+Restricted to the $\mathfrak{su}(2)$ of $\lambda_{1, 2, 3}$, $\mathbb{C}^3$ splits into the doublet $(\mathbf e_1, \mathbf e_2)$ and
+the singlet $\mathbf e_3$: $\mathbf{3} \to \mathbf{2} \oplus \mathbf{1}$ (@exr-branching-levi).
 :::
 
 Restricting all the way down to a Cartan subalgebra leaves only one-dimensional pieces. The branching rule is then
@@ -6151,7 +6151,7 @@ is that any two axes are related by a rotation, and the rotation acts in the rep
 ::: {#exr-lrep-restrict-axis}
 #### Restriction to any axis
 
-Show that the restriction of spin $j$ to the $\mathfrak{u}(1)$ generated by $n_aJ_a$, for a unit vector $n$, has the
+Show that the restriction of spin $j$ to the $\mathfrak{u}(1)$ generated by $n_aJ_a$, for a unit vector $\mathbf n$, has the
 same charges $j, \dots, -j$ as the restriction to $J_3$.
 :::
 
@@ -6173,12 +6173,12 @@ Restrict $\mathbf{3}$ and $\mathbf{8}$ to the $\mathfrak{su}(2)$ spanned by $\la
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\tfrac12H' = \operatorname{diag}(\tfrac12, 0, -\tfrac12)$: on $\mathbf{3}$, $(e_1, e_3)$ is a doublet and $e_2$ a
+$\tfrac12H' = \operatorname{diag}(\tfrac12, 0, -\tfrac12)$: on $\mathbf{3}$, $(\mathbf e_1, \mathbf e_3)$ is a doublet and $\mathbf e_2$ a
 singlet, $\mathbf{3} \to \mathbf{2} \oplus \mathbf{1}$. On the matrix units $[\tfrac12H', E_{ij}] = \tfrac12(h_i -
 h_j)E_{ij}$ with $h = (1, 0, -1)$: $E_{13}, E_{31}$ have weights $\pm 1$, $E_{12}, E_{23}$ weight $\tfrac12$, $E_{21},
 E_{32}$ weight $-\tfrac12$, and the Cartan subalgebra weight $0$ twice. So $\mathbf{8} \to \mathbf{3} \oplus \mathbf{2}
 \oplus \mathbf{2} \oplus \mathbf{1}$, as for the upper-left $\mathfrak{su}(2)$: the two subalgebras are conjugate by a
-permutation matrix exchanging $e_2$ and $e_3$.
+permutation matrix exchanging $\mathbf e_2$ and $\mathbf e_3$.
 :::
 
 The third exercise restricts a representation of a direct sum $\mathfrak{su}(2) \oplus \mathfrak{su}(2)$ to the
@@ -6189,13 +6189,13 @@ diagonal $\mathfrak{su}(2)$. It shows that the Clebsch-Gordan decomposition is i
 
 $\mathfrak{su}(2) \oplus \mathfrak{su}(2)$ (@def-direct-sum-algebras) acts on $V_j \otimes V_k$ by $(X_1, X_2) \mapsto
 \rho_j(X_1) \otimes 1 + 1 \otimes \rho_k(X_2)$, a representation $(j, k)$ of dimension $(2j + 1)(2k + 1)$. Show that
-its restriction to the diagonal $\{(X, X)\}$ is $j \otimes k$, and compute it with Sage for several $(j, k)$, including
+its restriction to the diagonal $\{(X, X)\}$ is $V_j \otimes V_k$, and compute it with Sage for several $(j, k)$, including
 the vector of $\mathfrak{so}(4)$ restricted to $\mathfrak{so}(3)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 On the diagonal, $X$ acts as $\rho_j(X) \otimes 1 + 1 \otimes \rho_k(X)$, which is the tensor product representation, so
-the restriction is $j \otimes k$, decomposed by @eq-clebsch-gordan. For $(\tfrac12, \tfrac12)$ this is $1 \oplus 0$: the
+the restriction is $V_j \otimes V_k$, decomposed by @eq-clebsch-gordan. For $(\tfrac12, \tfrac12)$ this is $V_1 \oplus V_0$: the
 vector of $\mathfrak{so}(4)$ restricted to $\mathfrak{so}(3)$ is $\mathbb{R}^3 \oplus \mathbb{R}$
 (@exm-lrep-so4-diagonal). Sage gives the same through the branching rule from $D_2$ to $B_1$:
 
@@ -6245,8 +6245,8 @@ upper-left $\mathfrak{su}(2)$ and $\lambda_8$. The eight generators fall into fo
 ::: {#exm-branching-su3-su2-u1}
 #### $\mathfrak{su}(3) \supset \mathfrak{su}(2) \times \mathfrak{u}(1)$
 
-Take $\mathfrak{su}(2) = \operatorname{span}(\lambda_1, \lambda_2, \lambda_3)$ and $\mathfrak{u}(1) =
-\operatorname{span}(\lambda_8)$, which commute. The adjoint $\mathbf{8}$ splits into $\lambda_{1,2,3}$ (a triplet of
+Take $\mathfrak{su}(2) = \operatorname{span}(T_1, T_2, T_3)$ and $\mathfrak{u}(1) =
+\operatorname{span}(T_8)$, which commute. The adjoint $\mathbf{8}$ splits into $\lambda_{1,2,3}$ (a triplet of
 $\mathfrak{su}(2)$ with $\lambda_8$-charge $0$, since $[\lambda_8, \lambda_a] = 0$), $\lambda_8$ (a singlet of charge
 $0$), $\lambda_4 \pm i\lambda_5$ and $\lambda_6 \pm i\lambda_7$ (two doublets, with $\lambda_3$-weights $\pm 1$ and
 $\lambda_8$-charges $+\sqrt3$ and $-\sqrt3$):
@@ -6511,7 +6511,7 @@ $h_i$.
 $[H, X]_{ij} = (h_i - h_j)X_{ij}$, so $X$ commutes with $H$ exactly when $X_{ij} = 0$ whenever $h_i \neq h_j$: the
 commutant is block diagonal, one block for each distinct eigenvalue, $\mathfrak{s}(\mathfrak{u}(n_1) \oplus \dots)$ for
 eigenvalue multiplicities $n_1, \dots$. For $\lambda_3 = \operatorname{diag}(1, -1, 0)$ the eigenvalues are distinct and
-the commutant is the Cartan subalgebra $\operatorname{span}(\lambda_3, \lambda_8)$, abelian. Under the $\mathfrak{u}(1)$
+the commutant is the Cartan subalgebra $\operatorname{span}(T_3, T_8)$, abelian. Under the $\mathfrak{u}(1)$
 of $\lambda_3$ the charges $h_i - h_j$ give $\mathbf{8} \to \mathbf{1}_{2} \oplus \mathbf{1}_{-2} \oplus 2 \cdot
 \mathbf{1}_{1} \oplus 2 \cdot \mathbf{1}_{-1} \oplus 2 \cdot \mathbf{1}_{0}$. A non-abelian commutant needs a repeated
 eigenvalue, as for $\lambda_8$ (@exm-lrep-branch-commutant).
@@ -6581,17 +6581,17 @@ commutant of @exm-lrep-branch-commutant seen on its own.
 ::: {#exr-lrep-dsum-u2}
 #### $\mathfrak{u}(2) = \mathfrak{su}(2) \oplus \mathfrak{u}(1)$
 
-Show that every anti-Hermitian $2 \times 2$ matrix is uniquely $X = X_0 + \tfrac12(\operatorname{tr}X)\mathbb{1}$ with
+Show that every anti-Hermitian $2 \times 2$ matrix is uniquely $X = X_0 + \tfrac12(\operatorname{tr}X)\,1$ with
 $X_0 \in \mathfrak{su}(2)$, and that this decomposition is a direct sum of Lie algebras. Is $\mathfrak{u}(2)$
 semisimple?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$X_0 = X - \tfrac12(\operatorname{tr}X)\mathbb{1}$ is traceless and anti-Hermitian (the trace of an anti-Hermitian matrix
-is imaginary, so $\tfrac12(\operatorname{tr}X)\mathbb{1}$ is anti-Hermitian too), and the decomposition is unique since
-$\mathfrak{su}(2) \cap i\mathbb{R}\mathbb{1} = 0$. The identity commutes with everything, and $[X, Y] = [X_0, Y_0]$ is
+$X_0 = X - \tfrac12(\operatorname{tr}X)\,1$ is traceless and anti-Hermitian (the trace of an anti-Hermitian matrix
+is imaginary, so $\tfrac12(\operatorname{tr}X)\,1$ is anti-Hermitian too), and the decomposition is unique since
+$\mathfrak{su}(2) \cap i\mathbb{R}\,1 = 0$. The identity commutes with everything, and $[X, Y] = [X_0, Y_0]$ is
 traceless, so the brackets are those of $\mathfrak{su}(2) \oplus \mathfrak{u}(1)$. It is not semisimple: the summand
-$\mathfrak{u}(1)$ is abelian, not simple. Its centre $i\mathbb{R}\mathbb{1}$ is the obstruction.
+$\mathfrak{u}(1)$ is abelian, not simple. Its centre $i\mathbb{R}\,1$ is the obstruction.
 :::
 
 The second exercise describes the irreducible representations of a direct sum. They are tensor products of
@@ -6706,8 +6706,8 @@ splitting it is the diagonal $\mathfrak{su}(2)$, and the branchings follow from 
 
 From @eq-so4-split, $J_a + K_a$ involves only the $M_{bc}$ with $b, c$ among the first three axes: the diagonal
 $\mathfrak{su}(2)$ is the $\mathfrak{so}(3)$ fixing the fourth axis. Restricted to it, $(\tfrac12, \tfrac12) \to
-\tfrac12 \otimes \tfrac12 = 1 \oplus 0$, which is $\mathbb{R}^4 = \mathbb{R}^3 \oplus \mathbb{R}$, and $(1, 0) \oplus
-(0, 1) \to 1 \oplus 1$, which is $\mathfrak{so}(4) = \mathfrak{so}(3) \oplus \mathfrak{k}$ with $\mathfrak{k}$ spanned by
+V_{1/2} \otimes V_{1/2} = V_1 \oplus V_0$, which is $\mathbb{R}^4 = \mathbb{R}^3 \oplus \mathbb{R}$, and $(1, 0) \oplus
+(0, 1) \to V_1 \oplus V_1$, which is $\mathfrak{so}(4) = \mathfrak{so}(3) \oplus \mathfrak{k}$ with $\mathfrak{k}$ spanned by
 the $M_{a3}$ (@exr-lrep-restrict-diagonal).
 :::
 ::::
@@ -7008,8 +7008,8 @@ $\mathfrak{su}(3)$, which also has rank two.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $J_3$ and $K_3$ commute by @prp-so4-split, and an element $\sum_a(x_aJ_a + y_aK_a)$ commuting with both has $x
-\parallel e_3$ and $y \parallel e_3$ by @exr-lrep-cartan-axis applied to each summand: the span is maximal abelian, rank
+(a) $J_3$ and $K_3$ commute by @prp-so4-split, and an element $\sum_a(x_aJ_a + y_aK_a)$ commuting with both has $\mathbf x
+\parallel \mathbf e_3$ and $\mathbf y \parallel \mathbf e_3$ by @exr-lrep-cartan-axis applied to each summand: the span is maximal abelian, rank
 $2$ (@exm-cartan-abelian). (b) The ladder operators $J_\pm$ of the first copy commute with $K_3$ and have $iJ_3$-weights
 $\pm 1$ (@exm-ladder-adjoint), so their roots are $(\pm 1, 0)$; those of the second copy give $(0, \pm 1)$. Four roots
 and rank two make $\dim = 6$, as it should. (c) With a direction such as $\ell(\mu) = \mu_1 + 2\mu_2$ the positive roots

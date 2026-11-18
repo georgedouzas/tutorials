@@ -1,0 +1,62 @@
+### Symbols for learning
+
+| Symbol | Meaning |
+|---|---|
+| $n$ | sample size: number of observations |
+| $d$ | number of features, the input dimension |
+| $\mathcal X$, $\mathcal Y$ | input (domain) space, label space |
+| $\mathcal D$ | data distribution on $\mathcal X \times \mathcal Y$ |
+| $S = ((\mathbf x_i, y_i))_{i=1}^n$ | training sample |
+| $\mathbf x_i$, $y_i$ | feature vector and label of the $i$-th observation |
+| $\mathbf X$ | data (design) matrix, with rows $\mathbf x_i^\top$ |
+| $\mathbf y$ | vector of the $n$ labels |
+| $\hat y$ | prediction of a label |
+| $h$ | hypothesis (predictor) |
+| $\ell(\hat y, y)$, $\ell(h, z)$ | loss of a prediction, loss of $h$ on an example $z$ |
+| $L_{\mathcal D}(h)$ | true risk, $\mathbb E_{z\sim\mathcal D}[\ell(h, z)]$ |
+| $L_S(h)$ | empirical risk (training loss) on $S$ |
+| $\boldsymbol\theta$ | model parameters |
+| $\mathbf w$, $w_0$ | weights and intercept of a linear model |
+| $\eta$ | learning rate (step size of gradient descent) |
+| $t$ | iteration or time index |
+| $\delta$ | confidence (failure probability) of a PAC or concentration bound, whose accuracy is a small $\varepsilon$ |
+| $m_{\mathcal H}(\varepsilon, \delta)$ | sample complexity of a hypothesis class |
+| $\operatorname{VCdim}$ | VC dimension |
+| $\hat{\mathfrak R}_S$ | empirical Rademacher complexity on $S$ |
+| $\boldsymbol\phi(\mathbf x)$ | feature map |
+| $k(\mathbf x, \mathbf x')$, $\mathbf K$ | kernel, Gram matrix $K_{ij} = k(\mathbf x_i, \mathbf x_j)$ |
+| $K$ | number of classes or clusters |
+| $l$ | layer index of a network |
+| $\mathbf W^{(l)}$, $\mathbf b^{(l)}$, $\mathbf h^{(l)}$ | weights, biases and activations of layer $l$ |
+| $\mathrm{Regret}_T$ | regret after $T$ rounds |
+| $(\mathcal S, \mathcal A, P, R, \gamma)$ | Markov decision process: state space, action space, transition kernel, reward, discount |
+| $S_t$, $A_t$, $R_{t+1}$ | state, action and reward random variables; the reward of step $t$ is $R_{t+1}$ |
+| $s$, $a$, $s'$ | values of states and actions |
+| $P(s' \mid s, a)$ | transition kernel |
+| $\mathbf P_\pi$ | transition matrix under the policy $\pi$ |
+| $\gamma$ | discount factor |
+| $\pi(a \mid s)$ | policy |
+| $\pi_{\boldsymbol\theta}(s)$ | deterministic policy |
+| $b(a \mid s)$ | behaviour policy |
+| $\mu_\pi$ | on-policy state distribution |
+| $G_t$ | discounted return |
+| $v_\pi$, $q_\pi$ | state-value and action-value functions |
+| $v_*$, $q_*$ | optimal value functions |
+| $V$, $Q$ | tabular estimates of $v_\pi$, $q_\pi$ |
+| $\hat v(s, \mathbf w)$, $\hat q(s, a, \mathbf w)$ | approximate value functions |
+| $a_\pi(s, a)$ | advantage, $q_\pi(s, a) - v_\pi(s)$ |
+| $\hat A_t$ | advantage estimate |
+| $\delta_t$ | temporal-difference error |
+| $\rho_t(\boldsymbol\theta)$ | probability ratio of PPO and of importance sampling |
+| $\tau$ | trajectory |
+| $J(\boldsymbol\theta)$ | objective to maximise |
+| $\mathcal B$ | replay buffer |
+
+Conventions:
+
+- Vectors and matrices are bold; the covariance matrix $\Sigma$ is the one plain exception.
+- The sample size is $n$, the input dimension $d$.
+- The loss is $\ell$, the risk $L$; a likelihood is written $p(S \mid \boldsymbol\theta)$ and a log-likelihood
+  $\log p(S \mid \boldsymbol\theta)$, with no separate letter.
+- Reinforcement learning follows Sutton and Barto: uppercase random variables $S_t$, $A_t$, $R_{t+1}$, true values
+  $v_\pi$, $q_\pi$, estimates $V$, $Q$, $\hat v$, $\hat q$.

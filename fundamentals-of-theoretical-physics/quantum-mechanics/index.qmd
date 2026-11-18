@@ -139,7 +139,7 @@ $|\langle\phi|\psi'\rangle|^2$ for $\phi = (e_1 + e_2)/\sqrt2$ as a function of 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\langle\phi|e^{i\alpha}\psi\rangle = e^{i\alpha}\langle\phi|\psi\rangle$ by linearity in the second slot, and
 $|e^{i\alpha}| = 1$. For the superposition, $\langle\phi|\psi'\rangle = (c_1 + e^{i\beta}c_2)/\sqrt2$, so
-$|\langle\phi|\psi'\rangle|^2 = \tfrac12(|c_1|^2 + |c_2|^2) + \operatorname{Re}(\bar c_1c_2e^{i\beta})$: an
+$|\langle\phi|\psi'\rangle|^2 = \tfrac12(|c_1|^2 + |c_2|^2) + \operatorname{Re}(c_1^*c_2e^{i\beta})$: an
 interference term that depends on $\beta$, unless $c_1c_2 = 0$.
 :::
 
@@ -257,9 +257,9 @@ $(|{\uparrow\uparrow}\rangle + |{\uparrow\downarrow}\rangle + |{\downarrow\uparr
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Arrange the coefficients as a matrix $C = (c_{ij})$. A product state has $C = (a, b)^{\mathsf T}(c, d)$, a matrix of
+Arrange the coefficients as a matrix $C = (c_{ij})$. A product state has $C = (a, b)^\top(c, d)$, a matrix of
 rank at most one, so $\det C = 0$. Conversely a non-zero $2 \times 2$ matrix with $\det C = 0$ has rank one and is
-an outer product $uv^{\mathsf T}$, which is the product state $u \otimes v$. The given state has $C =
+an outer product $uv^\top$, which is the product state $u \otimes v$. The given state has $C =
 \tfrac12\begin{pmatrix}1 & 1 \\ 1 & 1\end{pmatrix}$, $\det C = 0$: it is the product
 $\tfrac{1}{\sqrt2}(|{\uparrow}\rangle + |{\downarrow}\rangle) \otimes \tfrac{1}{\sqrt2}(|{\uparrow}\rangle + |
 {\downarrow}\rangle)$.
@@ -350,8 +350,8 @@ place of $1$. The first example checks it with $\hbar$ explicit, extending @def-
 #### Position and momentum
 
 On a smooth rapidly decreasing $\psi$, $(xp - px)\psi = -i\hbar x\psi' + i\hbar(x\psi)' = i\hbar\psi$, so $[x, p] =
-i\hbar$. Both operators are symmetric, $\langle\phi, p\psi\rangle = \int\bar\phi(-i\hbar\psi')dx = \int
-\overline{(-i\hbar\phi')}\psi\,dx = \langle p\phi, \psi\rangle$ after integrating by parts, and both have spectrum
+i\hbar$. Both operators are symmetric, $\langle\phi, p\psi\rangle = \int\phi^*(-i\hbar\psi')dx = \int
+(-i\hbar\phi')^*\psi\,dx = \langle p\phi, \psi\rangle$ after integrating by parts, and both have spectrum
 $\mathbb{R}$ and no eigenvectors in $L^2$: the plane wave $e^{ip_0x/\hbar}$ satisfies $p\,e^{ip_0x/\hbar} =
 p_0e^{ip_0x/\hbar}$ but is not square integrable.
 :::
@@ -364,8 +364,8 @@ example gives the spin observable along the $z$-axis and its eigenvectors.
 
 For a spin one-half the observable of spin along the $z$-axis is $S_z = \tfrac\hbar2\sigma_3 =
 \tfrac\hbar2\begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}$, with eigenvalues $\pm\hbar/2$ and eigenvectors
-$|{\uparrow}\rangle, |{\downarrow}\rangle$. Along the unit vector $\vec n = (\sin\theta\cos\varphi,
-\sin\theta\sin\varphi, \cos\theta)$ it is $S_{\vec n} = \tfrac\hbar2\vec n\cdot\vec\sigma$, again with eigenvalues
+$|{\uparrow}\rangle, |{\downarrow}\rangle$. Along the unit vector $\mathbf n = (\sin\theta\cos\varphi,
+\sin\theta\sin\varphi, \cos\theta)$ it is $S_{\mathbf n} = \tfrac\hbar2\mathbf n\cdot\boldsymbol\sigma$, again with eigenvalues
 $\pm\hbar/2$, and its $+\hbar/2$ eigenvector is the state $|\theta, \varphi\rangle$ of @eq-qm-qubit
 (@def-qm-spin-half).
 :::
@@ -391,14 +391,14 @@ the computation on an interval, where the boundary conditions decide whether the
 ::: {#exr-qm-momentum-symmetric}
 #### When is momentum symmetric?
 
-On $L^2(0, L)$ show that $\langle\phi, p\psi\rangle - \langle p\phi, \psi\rangle = -i\hbar[\bar\phi\psi]_0^L$. Deduce
+On $L^2(0, L)$ show that $\langle\phi, p\psi\rangle - \langle p\phi, \psi\rangle = -i\hbar[\phi^*\psi]_0^L$. Deduce
 that $p$ is symmetric on functions with $\psi(0) = \psi(L) = 0$, and also on periodic functions $\psi(0) = \psi(L)$.
 Which of the two domains contains the eigenvectors $e^{2\pi inx/L}$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\int_0^L\bar\phi(-i\hbar\psi')dx = -i\hbar[\bar\phi\psi]_0^L + i\hbar\int_0^L\bar\phi'\psi\,dx$, and the last term
-is $\langle p\phi, \psi\rangle$ because $\overline{-i\hbar\phi'} = i\hbar\bar\phi'$. The boundary term vanishes if
+$\int_0^L\phi^*(-i\hbar\psi')dx = -i\hbar[\phi^*\psi]_0^L + i\hbar\int_0^L{\phi'}^*\psi\,dx$, and the last term
+is $\langle p\phi, \psi\rangle$ because $(-i\hbar\phi')^* = i\hbar{\phi'}^*$. The boundary term vanishes if
 both functions vanish at the ends, or if both are periodic. The exponentials $e^{2\pi inx/L}$ are periodic, not zero
 at the ends, so they belong to the periodic domain, on which $p$ is self-adjoint with eigenvalues $2\pi n\hbar/L$
 (a particle on a circle); with Dirichlet conditions $p$ is symmetric but has no eigenvectors at all.
@@ -516,9 +516,9 @@ given by the two angles of @eq-qm-qubit.
 
 For $|\theta, \varphi\rangle$ of @eq-qm-qubit, $\langle\sigma_1\rangle = 2\cos\tfrac\theta2\sin\tfrac\theta2\cos\varphi
 = \sin\theta\cos\varphi$, $\langle\sigma_2\rangle = \sin\theta\sin\varphi$ and $\langle\sigma_3\rangle = \cos^2\tfrac
-\theta2 - \sin^2\tfrac\theta2 = \cos\theta$. The **Bloch vector** $\langle\vec\sigma\rangle = (\sin\theta\cos\varphi,
-\sin\theta\sin\varphi, \cos\theta)$ is the unit vector with polar angles $\theta, \varphi$, and $\langle S_{\vec
-m}\rangle = \tfrac\hbar2\vec m\cdot\langle\vec\sigma\rangle$ for every axis $\vec m$ (@prp-qm-uncertainty).
+\theta2 - \sin^2\tfrac\theta2 = \cos\theta$. The **Bloch vector** $\langle\boldsymbol\sigma\rangle = (\sin\theta\cos\varphi,
+\sin\theta\sin\varphi, \cos\theta)$ is the unit vector with polar angles $\theta, \varphi$, and $\langle S_{\mathbf
+m}\rangle = \tfrac\hbar2\mathbf m\cdot\langle\boldsymbol\sigma\rangle$ for every axis $\mathbf m$ (@prp-qm-uncertainty).
 :::
 
 For a wave function the expectation values of position and momentum are integrals, the second one involving a
@@ -528,7 +528,7 @@ derivative. The second example computes them for the Gaussian and identifies the
 #### Mean position and momentum of the Gaussian
 
 For @eq-qm-gaussian, $\langle x\rangle = \int x|\psi|^2dx = x_0$ and $(\Delta x)^2 = \sigma^2$, the mean and
-variance of the normal density. The momentum is $\langle p\rangle = \int\bar\psi(-i\hbar\psi')dx$ with $\psi' =
+variance of the normal density. The momentum is $\langle p\rangle = \int\psi^*(-i\hbar\psi')dx$ with $\psi' =
 (-(x - x_0)/2\sigma^2 + ip_0/\hbar)\psi$; the first term is odd about $x_0$ and integrates to zero after multiplying
 by $-i\hbar$, leaving $\langle p\rangle = p_0$. Similarly $\langle p^2\rangle = \hbar^2\int|\psi'|^2dx = p_0^2 +
 \hbar^2/4\sigma^2$, so $\Delta p = \hbar/2\sigma$ (@prp-qm-uncertainty).
@@ -559,7 +559,7 @@ Show that $\langle A\rangle_\psi$ is real for self-adjoint $A$, that $(\Delta A)
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\overline{\langle\psi, A\psi\rangle} = \langle A\psi, \psi\rangle = \langle\psi, A\psi\rangle$. With $a = \langle
+$\langle\psi, A\psi\rangle^* = \langle A\psi, \psi\rangle = \langle\psi, A\psi\rangle$. With $a = \langle
 A\rangle$ real, $\|(A - a)\psi\|^2 = \langle\psi, (A - a)^2\psi\rangle = \langle A^2\rangle - 2a^2 + a^2 = \langle
 A^2\rangle - a^2$. This vanishes iff $(A - a)\psi = 0$, i.e. $\psi$ is an eigenvector with eigenvalue $a$;
 conversely if $A\psi = \lambda\psi$ then $a = \lambda$ and $(A - a)\psi = 0$.
@@ -871,7 +871,7 @@ Let $A$ be an observable with discrete spectrum, $A = \sum_\lambda\lambda P_\lam
 projection (@def-orthogonal-projection) onto the eigenspace of $\lambda$. The **Born rule** states that a measurement
 of $A$ in the state $\psi$ returns $\lambda$ with probability
 $$
-\operatorname{Prob}(\lambda) = \|P_\lambda\psi\|^2 = \sum_k|\langle e_k|\psi\rangle|^2 ,
+\mathbb P(\lambda) = \|P_\lambda\psi\|^2 = \sum_k|\langle e_k|\psi\rangle|^2 ,
 $$ {#eq-qm-born}
 the sum over an orthonormal basis $e_k$ of the eigenspace. For the position of a particle on the line, the
 probability of finding it in a set $I$ is $\int_I|\psi(x)|^2dx$, and for its momentum $\int_I|\tilde\psi(p)|^2dp$.
@@ -888,7 +888,7 @@ squared moduli of the components, and their mean reproduces the expectation valu
 #### Measuring a spin along $z$
 
 For $|\theta, \varphi\rangle$, $S_z$ has eigenvalues $\pm\hbar/2$ with one-dimensional eigenspaces, and @eq-qm-born
-gives $\operatorname{Prob}(+\hbar/2) = \cos^2\tfrac\theta2$, $\operatorname{Prob}(-\hbar/2) = \sin^2\tfrac\theta2$.
+gives $\mathbb P(+\hbar/2) = \cos^2\tfrac\theta2$, $\mathbb P(-\hbar/2) = \sin^2\tfrac\theta2$.
 The north pole $\theta = 0$ gives $+\hbar/2$ with certainty, the equator gives each value with probability
 $\tfrac12$, and the mean is $\tfrac\hbar2(\cos^2\tfrac\theta2 - \sin^2\tfrac\theta2) = \tfrac\hbar2\cos\theta$.
 :::
@@ -931,21 +931,21 @@ over many copies is $\langle H\rangle = \tfrac{25}{18}\hbar\omega$, which is not
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Measuring a spin along an axis other than $z$ needs the eigenvectors of $S_{\vec n}$, which are states of the form
+Measuring a spin along an axis other than $z$ needs the eigenvectors of $S_{\mathbf n}$, which are states of the form
 @eq-qm-qubit. The first exercise asks for the probability of each outcome along the $x$-axis.
 
 ::: {#exr-qm-born-sx}
 #### Measuring a spin along $x$
 
 The eigenvectors of $S_x$ are $|{\pm x}\rangle = (|{\uparrow}\rangle \pm |{\downarrow}\rangle)/\sqrt2$. Find
-$\operatorname{Prob}(S_x = +\hbar/2)$ in the state $|\theta, \varphi\rangle$ and express it with the Bloch vector.
+$\mathbb P(S_x = +\hbar/2)$ in the state $|\theta, \varphi\rangle$ and express it with the Bloch vector.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\langle{+x}|\theta, \varphi\rangle = (\cos\tfrac\theta2 + e^{i\varphi}\sin\tfrac\theta2)/\sqrt2$, whose squared
 modulus is $\tfrac12(1 + 2\cos\tfrac\theta2\sin\tfrac\theta2\cos\varphi) = \tfrac12(1 + \sin\theta\cos\varphi) =
-\tfrac12(1 + \langle\sigma_1\rangle)$. In general $\operatorname{Prob}(S_{\vec n} = +\hbar/2) = \tfrac12(1 + \vec
-n\cdot\langle\vec\sigma\rangle)$.
+\tfrac12(1 + \langle\sigma_1\rangle)$. In general $\mathbb P(S_{\mathbf n} = +\hbar/2) = \tfrac12(1 + \mathbf
+n\cdot\langle\boldsymbol\sigma\rangle)$.
 :::
 
 A wave function that is not an energy eigenstate has an energy distribution spread over the spectrum. The second
@@ -954,15 +954,15 @@ exercise computes it for the parabola, with Sage, and checks that the probabilit
 ::: {#exr-qm-born-box-energy}
 #### Energies of a parabola in the box
 
-With Sage, expand $\psi = \sqrt{30/L^5}\,x(L - x)$ in the box eigenstates, show that $\operatorname{Prob}(E_n) =
+With Sage, expand $\psi = \sqrt{30/L^5}\,x(L - x)$ in the box eigenstates, show that $\mathbb P(E_n) =
 960/(n^6\pi^6)$ for odd $n$ and $0$ for even $n$, that the probabilities sum to $1$, and compute $\langle H\rangle$
-both from the probabilities and as $\int\bar\psi H\psi\,dx$.
+both from the probabilities and as $\int\psi^* H\psi\,dx$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $c_n = \langle\phi_n|\psi\rangle = 8\sqrt{15}/(n^3\pi^3)$ for odd $n$; the even ones vanish because $\psi$ is
 symmetric about $L/2$ and $\phi_{2k}$ antisymmetric. $\sum_{n\text{ odd}}n^{-6} = \pi^6/960$, so the probabilities
-sum to one, and $\operatorname{Prob}(E_1) = 960/\pi^6 \approx 0.9986$. Both computations give $\langle H\rangle =
+sum to one, and $\mathbb P(E_1) = 960/\pi^6 \approx 0.9986$. Both computations give $\langle H\rangle =
 5\hbar^2/mL^2$, about $1.013E_1$:
 
 ```python
@@ -1003,7 +1003,7 @@ $10^{-6}$?
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 By @exr-qm-momentum-wavefunction, $p$ is normal with mean $p_0$ and standard deviation $\Delta p = \hbar/2\sigma$, so
-$\operatorname{Prob}(p < 0) = \Phi(-p_0/\Delta p) = \Phi(-1) \approx 0.159$, with $\Phi$ the standard normal
+$\mathbb P(p < 0) = \Phi(-p_0/\Delta p) = \Phi(-1) \approx 0.159$, with $\Phi$ the standard normal
 distribution function. $\Phi(-z) < 10^{-6}$ needs $z > 4.75$, i.e. $p_0\sigma/\hbar > 2.38$.
 :::
 
@@ -1124,14 +1124,14 @@ statement and computes the probability of a sequence of outcomes.
 
 Show that the probability of obtaining $\lambda$ and then $\mu$ in successive measurements of $A$ and $B$ (with no
 evolution in between) is $\|Q_\mu P_\lambda\psi\|^2$, where $Q_\mu$ are the projections of $B$. Apply it to
-$|{\uparrow}\rangle$ with $A = S_{\vec n}$ for the axis at angle $\theta$ from $z$ in the $xz$-plane and $B = S_z$,
+$|{\uparrow}\rangle$ with $A = S_{\mathbf n}$ for the axis at angle $\theta$ from $z$ in the $xz$-plane and $B = S_z$,
 outcomes $+\hbar/2$ and $-\hbar/2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The first outcome has probability $\|P_\lambda\psi\|^2$ and leaves $\psi_1 = P_\lambda\psi/\|P_\lambda\psi\|$; the
 second then has probability $\|Q_\mu\psi_1\|^2$, and the product is $\|Q_\mu P_\lambda\psi\|^2$. The $+$ eigenvector
-of $S_{\vec n}$ is $|\theta, 0\rangle$, reached with probability $\cos^2\tfrac\theta2$, and $|\langle{\downarrow}|
+of $S_{\mathbf n}$ is $|\theta, 0\rangle$, reached with probability $\cos^2\tfrac\theta2$, and $|\langle{\downarrow}|
 \theta, 0\rangle|^2 = \sin^2\tfrac\theta2$, so the probability is $\cos^2\tfrac\theta2\sin^2\tfrac\theta2 =
 \tfrac14\sin^2\theta$, maximal ($\tfrac14$) at $\theta = \pi/2$ as in @exm-qm-projection-stern-gerlach.
 :::
@@ -1184,7 +1184,7 @@ effect for a spin turned in small steps.
 ::: {#exr-qm-zeno}
 #### The quantum Zeno effect
 
-A spin starts in $|{\uparrow}\rangle$; a measurement along the axis $\vec n_k$ at angle $k\pi/N$ from $z$ (in the
+A spin starts in $|{\uparrow}\rangle$; a measurement along the axis $\mathbf n_k$ at angle $k\pi/N$ from $z$ (in the
 $xz$-plane) is made for $k = 1, \dots, N$. Show that the probability that every measurement gives $+\hbar/2$ is
 $\cos^{2N}(\pi/2N)$, and with Sage find its values for $N = 1, 10, 100$ and its limit as $N \to \infty$.
 :::
@@ -1417,7 +1417,7 @@ $$ {#eq-qm-schroedinger}
 and in $\mathbb{R}^3$ the second derivative becomes the Laplacian $\nabla^2$. It implies the **continuity equation**
 $\partial_t\rho + \partial_xj = 0$ for the **probability density** $\rho = |\psi|^2$ and the **probability current**
 $$
-j = \frac{\hbar}{m}\operatorname{Im}(\bar\psi\,\partial_x\psi) ,
+j = \frac{\hbar}{m}\operatorname{Im}(\psi^*\,\partial_x\psi) ,
 $$ {#eq-qm-current}
 so that the total probability $\int\rho\,dx$ is constant in time.
 :::
@@ -1442,8 +1442,8 @@ example computes it, and then a standing wave, which carries no current at all.
 ::: {#exm-qm-schroedinger-current}
 #### Currents of plane and standing waves
 
-For $\psi = Ae^{ikx}$, $\bar\psi\psi' = ik|A|^2$ and $j = \frac{\hbar k}{m}|A|^2 = \frac{p}{m}\rho$: density times
-velocity. For the standing wave $\psi = A\sin kx$, real up to a constant phase, $\operatorname{Im}(\bar\psi\psi') =
+For $\psi = Ae^{ikx}$, $\psi^*\psi' = ik|A|^2$ and $j = \frac{\hbar k}{m}|A|^2 = \frac{p}{m}\rho$: density times
+velocity. For the standing wave $\psi = A\sin kx$, real up to a constant phase, $\operatorname{Im}(\psi^*\psi') =
 0$ and $j = 0$: the box eigenstates are superpositions of waves running in both directions with equal currents.
 :::
 
@@ -1508,9 +1508,9 @@ wrong for $V = V_1 - i\Gamma$ with $\Gamma > 0$ constant?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_t(\bar\psi\psi) = \bar\psi\dot\psi + \dot{\bar\psi}\psi$ with $\dot\psi = \frac{1}{i\hbar}(-\frac{\hbar^2}
-{2m}\psi'' + V\psi)$. The $V$ terms cancel for real $V$, leaving $\frac{i\hbar}{2m}(\bar\psi\psi'' - \bar\psi''\psi)
-= \frac{i\hbar}{2m}\partial_x(\bar\psi\psi' - \bar\psi'\psi) = -\partial_x\frac{\hbar}{m}\operatorname{Im}(\bar\psi
+$\partial_t(\psi^*\psi) = \psi^*\dot\psi + \dot{\psi^*}\psi$ with $\dot\psi = \frac{1}{i\hbar}(-\frac{\hbar^2}
+{2m}\psi'' + V\psi)$. The $V$ terms cancel for real $V$, leaving $\frac{i\hbar}{2m}(\psi^*\psi'' - {\psi''}^*\psi)
+= \frac{i\hbar}{2m}\partial_x(\psi^*\psi' - {\psi'}^*\psi) = -\partial_x\frac{\hbar}{m}\operatorname{Im}(\psi^*
 \psi')$. With $V = V_1 - i\Gamma$ an extra term $-\frac{2\Gamma}{\hbar}|\psi|^2$ appears, so $\int|\psi|^2$ decays as
 $e^{-2\Gamma t/\hbar}$: a non-Hermitian Hamiltonian models absorption or decay.
 :::
@@ -1565,7 +1565,7 @@ S'/m$ is a velocity field. For @eq-qm-free-packet show that $v(x, t) = \frac{p_0
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\psi' = (\tfrac{\rho'}{2\sqrt\rho} + \tfrac{iS'}{\hbar}\sqrt\rho)e^{iS/\hbar}$, so $\operatorname{Im}(\bar\psi\psi')
+$\psi' = (\tfrac{\rho'}{2\sqrt\rho} + \tfrac{iS'}{\hbar}\sqrt\rho)e^{iS/\hbar}$, so $\operatorname{Im}(\psi^*\psi')
 = \rho S'/\hbar$ and $j = \rho S'/m$. For the packet, the phase of the exponent is $\frac{p_0x}{\hbar} +
 \operatorname{Im}\big(-\frac{(x - p_0t/m)^2}{4\sigma^2a}\big)$ plus terms independent of $x$, and $\operatorname{Im}
 (1/a) = -\frac{\hbar t}{2m\sigma^2|a|^2}$ gives $S'/m = \frac{p_0}{m} + \frac{\hbar^2t(x - p_0t/m)}{4m^2\sigma^4
@@ -1579,12 +1579,12 @@ exercise shows how its imaginary part enters the continuity equation.
 ::: {#exr-qmb-absorbing-potential}
 #### An absorbing potential
 
-Let $V = V_R + iW$ with real $V_R$ and $W$. Show that $\partial_t\rho + \nabla\cdot\vec j = \tfrac2\hbar W\rho$, and that $\int\rho\,d^3x$ decreases if $W < 0$. Is $H$
+Let $V = V_R + iW$ with real $V_R$ and $W$. Show that $\partial_t\rho + \nabla\cdot\mathbf j = \tfrac2\hbar W\rho$, and that $\int\rho\,d^3x$ decreases if $W < 0$. Is $H$
 Hermitian? [@cini2023quantum, Sec. 3.6, Problem 4]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_t\rho = \psi^*\partial_t\psi + \psi\partial_t\psi^* = \tfrac{1}{i\hbar}\bigl(\psi^*H\psi - \psi(H\psi)^*\bigr)$. The kinetic terms give $-\nabla\cdot\vec j$ as in @exr-qm-continuity, $V_R$
+$\partial_t\rho = \psi^*\partial_t\psi + \psi\partial_t\psi^* = \tfrac{1}{i\hbar}\bigl(\psi^*H\psi - \psi(H\psi)^*\bigr)$. The kinetic terms give $-\nabla\cdot\mathbf j$ as in @exr-qm-continuity, $V_R$
 cancels, and $iW$ gives $\tfrac{1}{i\hbar}(iW - (-iW))|\psi|^2 = \tfrac{2W}{\hbar}\rho$. Integrating, $\tfrac{d}{dt}\int\rho = \tfrac2\hbar\int W\rho < 0$ if $W < 0$: a sink of
 probability, the optical potential of nuclear physics. $H$ is not Hermitian, and its evolution is not unitary.
 :::
@@ -1687,7 +1687,7 @@ The second example contrasts it with the precessing states of @exm-qm-evolution-
 #### A spin along the field
 
 For $H = \tfrac{\hbar\omega}{2}\sigma_3$, $|{\uparrow}\rangle$ and $|{\downarrow}\rangle$ are stationary with
-energies $\pm\hbar\omega/2$: $U(t)|{\uparrow}\rangle = e^{-i\omega t/2}|{\uparrow}\rangle$, and $\langle\vec\sigma
+energies $\pm\hbar\omega/2$: $U(t)|{\uparrow}\rangle = e^{-i\omega t/2}|{\uparrow}\rangle$, and $\langle\boldsymbol\sigma
 \rangle = (0, 0, 1)$ for all $t$. Every other state precesses; the Bloch vectors of the stationary states are the
 two fixed points of the precession, the poles.
 :::
@@ -1710,7 +1710,7 @@ states, which recur in every two-level problem of the book.
 ::: {#exm-qmb-two-state-hamiltonian}
 #### The general two-state Hamiltonian
 
-$H = a|\phi_1\rangle\langle\phi_1| + b|\phi_2\rangle\langle\phi_2| + c|\phi_1\rangle\langle\phi_2| + d|\phi_2\rangle\langle\phi_1|$ is Hermitian iff $a, b \in \mathbb{R}$ and $d = \bar c$. Its eigenvalues are
+$H = a|\phi_1\rangle\langle\phi_1| + b|\phi_2\rangle\langle\phi_2| + c|\phi_1\rangle\langle\phi_2| + d|\phi_2\rangle\langle\phi_1|$ is Hermitian iff $a, b \in \mathbb{R}$ and $d = c^*$. Its eigenvalues are
 $$
 E_\pm = \frac{a + b}{2} \pm \sqrt{\Bigl(\frac{a - b}{2}\Bigr)^2 + |c|^2},
 $$
@@ -1756,7 +1756,7 @@ eigenvector.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle e^{-iEt/\hbar}\phi, Ae^{-iEt/\hbar}\phi\rangle = \overline{e^{-iEt/\hbar}}e^{-iEt/\hbar}\langle\phi,
+$\langle e^{-iEt/\hbar}\phi, Ae^{-iEt/\hbar}\phi\rangle = (e^{-iEt/\hbar})^*e^{-iEt/\hbar}\langle\phi,
 A\phi\rangle = \langle\phi, A\phi\rangle$. For the converse, $\langle\psi(0)|\psi(t)\rangle = \sum_n|c_n|^2e^{-iE_nt/
 \hbar}$, an average of points of the unit circle with weights $|c_n|^2$. Its modulus is $1$ only if all points with
 non-zero weight coincide, $e^{-iE_nt/\hbar}$ equal for all such $n$ and all $t$, which forces a single $E_n$, hence a
@@ -1837,19 +1837,19 @@ is the bottom of the spectrum, there is an eigenvalue below $0$. Only the integr
 the positive parts are outweighed. The same trial function fails in three dimensions (@exm-qmb-weak-binding).
 :::
 
-In a stationary state every expectation value is constant, including that of $\vec x\cdot\vec p$. The next exercise turns this
+In a stationary state every expectation value is constant, including that of $\mathbf x\cdot\mathbf p$. The next exercise turns this
 into the virial theorem, which the hydrogen ground state illustrated in @exm-qm-hydrogen-ground.
 
 ::: {#exr-qmb-virial}
 #### The virial theorem
 
-For $H = p^2/2m + V(\vec x)$, compute $\tfrac{d}{dt}\langle\vec x\cdot\vec p\rangle$ and deduce $2\langle T\rangle = \langle\vec x\cdot\nabla V\rangle$ in every normalisable stationary state.
+For $H = p^2/2m + V(\mathbf x)$, compute $\tfrac{d}{dt}\langle\mathbf x\cdot\mathbf p\rangle$ and deduce $2\langle T\rangle = \langle\mathbf x\cdot\nabla V\rangle$ in every normalisable stationary state.
 What does it give for $V \propto r^n$, and for the oscillator and the Coulomb potential? [@cini2023quantum, Sec. 8.7, Problem 4]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$[H, x_jp_j] = [p^2/2m, x_j]p_j + x_j[V, p_j] = -\tfrac{i\hbar}{m}p_j^2 + i\hbar x_j\partial_jV$, so $\tfrac{d}{dt}\langle\vec x\cdot\vec p\rangle = \tfrac i\hbar\langle[H, \vec x\cdot\vec p]\rangle = 2\langle T\rangle -
-\langle\vec x\cdot\nabla V\rangle$. In a stationary state the left side vanishes. For $V \propto r^n$, $\vec x\cdot\nabla V = nV$ and $2\langle T\rangle = n\langle V\rangle$: for the oscillator ($n = 2$)
+$[H, x_jp_j] = [p^2/2m, x_j]p_j + x_j[V, p_j] = -\tfrac{i\hbar}{m}p_j^2 + i\hbar x_j\partial_jV$, so $\tfrac{d}{dt}\langle\mathbf x\cdot\mathbf p\rangle = \tfrac i\hbar\langle[H, \mathbf x\cdot\mathbf p]\rangle = 2\langle T\rangle -
+\langle\mathbf x\cdot\nabla V\rangle$. In a stationary state the left side vanishes. For $V \propto r^n$, $\mathbf x\cdot\nabla V = nV$ and $2\langle T\rangle = n\langle V\rangle$: for the oscillator ($n = 2$)
 $\langle T\rangle = \langle V\rangle = E/2$; for Coulomb ($n = -1$) $\langle T\rangle = -E$ and $\langle V\rangle = 2E$.
 :::
 
@@ -2233,7 +2233,7 @@ n')\pi}{N + 1} - \cos\frac{j(n + n')\pi}{N + 1}\bigr)$, and $\sum_{j = 0}^{N}\co
 $p = 0$ and, as the real part of a geometric sum, $\frac12(1 - (-1)^p)$ for $0 < |p| < 2(N + 1)$; for $n \neq n'$ the
 two cosine sums cancel ($n - n'$ and $n + n'$ have the same parity), and for $n = n'$ the result is $(N + 1)/2$,
 which the factor $2/(N + 1)$ normalises. For the quadratic form, $\langle v|H_Nv\rangle = \frac{\hbar^2}{2m\Delta
-x^2}\sum_j\bar v_j(2v_j - v_{j + 1} - v_{j - 1})$; regrouping the sum by the links $(j, j + 1)$, $j = 0, \dots, N$,
+x^2}\sum_jv_j^*(2v_j - v_{j + 1} - v_{j - 1})$; regrouping the sum by the links $(j, j + 1)$, $j = 0, \dots, N$,
 gives $\sum_j|v_{j + 1} - v_j|^2$, which vanishes only if all $v_j$ are equal, hence zero by the boundary values. So
 $H_N$ is positive definite, as $H$ is on functions vanishing at the walls.
 :::
@@ -2607,7 +2607,7 @@ would be non-negative. The third example computes the probability of finding the
 
 At energy $\hbar\omega/2$ the classical turning points are where $\frac12m\omega^2x^2 = \frac12\hbar\omega$, i.e.
 $\xi = \pm1$ (the dots in @fig-qm-oscillator). The ground-state density $\pi^{-1/2}e^{-\xi^2}$ gives
-$\operatorname{Prob}(|\xi| > 1) = \operatorname{erfc}(1) \approx 0.157$: in about one measurement in six the particle
+$\mathbb P(|\xi| > 1) = \operatorname{erfc}(1) \approx 0.157$: in about one measurement in six the particle
 is found where classically it could not be.
 :::
 ::::
@@ -3019,7 +3019,7 @@ reads off the mean and variance of the number of quanta and the mean energy.
 ::: {#exm-qm-coherent-poisson}
 #### Poisson statistics
 
-$\operatorname{Prob}(n) = e^{-|\alpha|^2}|\alpha|^{2n}/n!$ is the Poisson distribution with mean $\bar n = |\alpha|^2$
+$\mathbb P(n) = e^{-|\alpha|^2}|\alpha|^{2n}/n!$ is the Poisson distribution with mean $\bar n = |\alpha|^2$
 and variance $|\alpha|^2$, so $\Delta n/\bar n = 1/|\alpha| \to 0$ for large amplitudes. The mean energy is
 $\hbar\omega(|\alpha|^2 + \frac12)$; the light of a laser is in a coherent state of a mode of the field, and its photon
 counts are Poisson distributed.
@@ -3097,14 +3097,14 @@ their overlap.
 ::: {#exr-qm-coherent-overlap}
 #### Overlap of coherent states
 
-Show that $\langle\beta|\alpha\rangle = \exp(-\frac{|\alpha|^2}{2} - \frac{|\beta|^2}{2} + \bar\beta\alpha)$ and hence
+Show that $\langle\beta|\alpha\rangle = \exp(-\frac{|\alpha|^2}{2} - \frac{|\beta|^2}{2} + \beta^*\alpha)$ and hence
 $|\langle\beta|\alpha\rangle|^2 = e^{-|\alpha - \beta|^2}$. Show also that $\frac1\pi\int|\alpha\rangle\langle\alpha|
 \,d^2\alpha = 1$, integrating over the complex plane.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle\beta|\alpha\rangle = e^{-(|\alpha|^2 + |\beta|^2)/2}\sum_n\frac{\bar\beta^n\alpha^n}{n!} = e^{-(|\alpha|^2 + |
-\beta|^2)/2 + \bar\beta\alpha}$, and $|\cdot|^2 = e^{-|\alpha|^2 - |\beta|^2 + 2\operatorname{Re}\bar\beta\alpha} =
+$\langle\beta|\alpha\rangle = e^{-(|\alpha|^2 + |\beta|^2)/2}\sum_n\frac{(\beta^*)^n\alpha^n}{n!} = e^{-(|\alpha|^2 + |
+\beta|^2)/2 + \beta^*\alpha}$, and $|\cdot|^2 = e^{-|\alpha|^2 - |\beta|^2 + 2\operatorname{Re}\beta^*\alpha} =
 e^{-|\alpha - \beta|^2}$. In polar coordinates $\alpha = re^{i\theta}$, $\frac1\pi\int e^{-r^2}\frac{r^{m + n}e^{i(m -
 n)\theta}}{\sqrt{m!n!}}r\,dr\,d\theta\,|m\rangle\langle n| = \sum_n\frac{2}{n!}\int_0^\infty e^{-r^2}r^{2n + 1}dr\,
 |n\rangle\langle n| = \sum_n|n\rangle\langle n| = 1$: the coherent states are an overcomplete family.
@@ -3116,14 +3116,14 @@ Baker-Campbell-Hausdorff identity $e^{A + B} = e^Ae^Be^{-[A, B]/2}$, valid when 
 ::: {#exr-qm-coherent-displacement}
 #### The displacement operator
 
-Let $D(\alpha) = e^{\alpha a^\dagger - \bar\alpha a}$. Show that $D(\alpha)$ is unitary, that $D(\alpha) =
-e^{-|\alpha|^2/2}e^{\alpha a^\dagger}e^{-\bar\alpha a}$, and that $D(\alpha)|0\rangle = |\alpha\rangle$. What is
+Let $D(\alpha) = e^{\alpha a^\dagger - \alpha^* a}$. Show that $D(\alpha)$ is unitary, that $D(\alpha) =
+e^{-|\alpha|^2/2}e^{\alpha a^\dagger}e^{-\alpha^* a}$, and that $D(\alpha)|0\rangle = |\alpha\rangle$. What is
 $D(\alpha)^\dagger aD(\alpha)$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The exponent is anti-Hermitian, so $D$ is unitary. With $A = \alpha a^\dagger$, $B = -\bar\alpha a$, $[A, B] = -
-|\alpha|^2[a^\dagger, a] = |\alpha|^2$, a number, so BCH gives the factorisation. Then $e^{-\bar\alpha a}|0\rangle =
+The exponent is anti-Hermitian, so $D$ is unitary. With $A = \alpha a^\dagger$, $B = -\alpha^* a$, $[A, B] = -
+|\alpha|^2[a^\dagger, a] = |\alpha|^2$, a number, so BCH gives the factorisation. Then $e^{-\alpha^* a}|0\rangle =
 |0\rangle$ and $e^{\alpha a^\dagger}|0\rangle = \sum_n\frac{\alpha^n}{\sqrt{n!}}|n\rangle$, which with the prefactor is
 @eq-qm-coherent. Finally $D^\dagger aD = a + \alpha$ (the series $e^{-X}ae^X = a + [a, X]$ stops because $[a, X] =
 \alpha$), which shows again $aD|0\rangle = D(a + \alpha)|0\rangle = \alpha D|0\rangle$.
@@ -3348,7 +3348,7 @@ For more on this topic, see @demilio2017problems [Ch. 8, Ch. 12], @galitski2013e
 
 ### The angular momentum algebra
 
-Classically the angular momentum $\vec L = \vec x \times \vec p$ has Poisson brackets $\{L_i, L_j\} = \epsilon_{ijk}
+Classically the angular momentum $\mathbf L = \mathbf x \times \mathbf p$ has Poisson brackets $\{L_i, L_j\} = \epsilon_{ijk}
 L_k$ (@def-poisson-bracket). The quantum operators satisfy the same relations with $i\hbar$ in front, and any triple
 of observables with these relations is called an angular momentum, whatever its origin.
 
@@ -3542,7 +3542,7 @@ S^2|s, m\rangle = \hbar^2s(s + 1)|s, m\rangle, \quad S_3|s, m\rangle = \hbar m|s
 \hbar\sqrt{s(s + 1) - m(m \pm 1)}\,|s, m \pm 1\rangle .
 $$ {#eq-qm-spin-matrices}
 The total space of a particle with spin is $L^2(\mathbb{R}^3) \otimes \mathbb{C}^{2s + 1}$, and its total angular
-momentum is $\vec J = \vec L \otimes 1 + 1 \otimes \vec S$. Particles of integer spin are **bosons** and those of
+momentum is $\mathbf J = \mathbf L \otimes 1 + 1 \otimes \mathbf S$. Particles of integer spin are **bosons** and those of
 half-integer spin **fermions**.
 :::
 ::::
@@ -3714,10 +3714,10 @@ Spin one-half is the smallest non-trivial quantum system and the one where every
 observables are combinations of the Pauli matrices, and its states are the points of a sphere (@fig-qm-bloch-sphere).
 
 ![The Bloch sphere of a spin one-half. Left: the state $\cos\frac\theta2|{\uparrow}\rangle + e^{i\varphi}\sin\frac\theta2 |
-{\downarrow}\rangle$ is the unit vector $\langle\vec\sigma\rangle$ with polar angles $\theta, \varphi$ (here $\theta =
+{\downarrow}\rangle$ is the unit vector $\langle\boldsymbol\sigma\rangle$ with polar angles $\theta, \varphi$ (here $\theta =
 \pi/3$, $\varphi = \pi/4$); $|{\uparrow}\rangle$ and $|{\downarrow}\rangle$ are the poles. Under $H =
 \frac{\hbar\omega}{2}\sigma_3$ the vector precesses about $z$ along the dashed circle. Right: the components of
-$\langle\vec\sigma\rangle(t)$. Generated by `figures/qm_bloch_sphere.sage`; the interactive version is a rotatable
+$\langle\boldsymbol\sigma\rangle(t)$. Generated by `figures/qm_bloch_sphere.sage`; the interactive version is a rotatable
 three-dimensional sphere with the precession cone.](figures/qm_bloch_sphere.svg){#fig-qm-bloch-sphere width=95%}
 
 {{< interactive qm_bloch_sphere 460 >}}
@@ -3726,17 +3726,17 @@ three-dimensional sphere with the precession cone.](figures/qm_bloch_sphere.svg)
 ::: {#def-qm-spin-half}
 #### Spin one-half
 
-A **spin one-half** is the system with $\mathcal{H} = \mathbb{C}^2$ and spin operators $\vec S = \frac\hbar2\vec\sigma$,
+A **spin one-half** is the system with $\mathcal{H} = \mathbb{C}^2$ and spin operators $\mathbf S = \frac\hbar2\boldsymbol\sigma$,
 where the **Pauli matrices**
 $$
 \sigma_1 = \begin{pmatrix}0 & 1 \\ 1 & 0\end{pmatrix}, \quad \sigma_2 = \begin{pmatrix}0 & -i \\ i & 0\end{pmatrix},
 \quad \sigma_3 = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}
 $$
 satisfy $\sigma_i\sigma_j = \delta_{ij}1 + i\epsilon_{ijk}\sigma_k$. The **Bloch sphere** is the identification of the
-states @eq-qm-qubit with the unit vectors $\vec n = \langle\vec\sigma\rangle$; the state with Bloch vector $\vec n$ is
-the $+\hbar/2$ eigenvector of $\vec n\cdot\vec S$. The operator $U(\theta, \vec n) = e^{-i\theta\vec n\cdot\vec
-\sigma/2} = \cos\frac\theta2 - i\sin\frac\theta2\,\vec n\cdot\vec\sigma$ rotates every Bloch vector by the angle
-$\theta$ about $\vec n$.
+states @eq-qm-qubit with the unit vectors $\mathbf n = \langle\boldsymbol\sigma\rangle$; the state with Bloch vector $\mathbf n$ is
+the $+\hbar/2$ eigenvector of $\mathbf n\cdot\mathbf S$. The operator $U(\theta, \mathbf n) = e^{-i\theta\mathbf n\cdot\boldsymbol
+\sigma/2} = \cos\frac\theta2 - i\sin\frac\theta2\,\mathbf n\cdot\boldsymbol\sigma$ rotates every Bloch vector by the angle
+$\theta$ about $\mathbf n$.
 :::
 ::::
 
@@ -3747,35 +3747,35 @@ contracts it with two vectors, the form in which it is used most often.
 ::: {#exm-qm-pauli-vectors}
 #### Products of Pauli vectors
 
-For vectors $\vec a, \vec b$ (or commuting operators), $(\vec a\cdot\vec\sigma)(\vec b\cdot\vec\sigma) = a_ib_j(\delta_{ij} +
-i\epsilon_{ijk}\sigma_k) = \vec a\cdot\vec b\,1 + i(\vec a\times\vec b)\cdot\vec\sigma$. In particular $(\vec
-n\cdot\vec\sigma)^2 = 1$ for a unit vector, so $\vec n\cdot\vec S$ has eigenvalues $\pm\hbar/2$ for every axis, and
+For vectors $\mathbf a, \mathbf b$ (or commuting operators), $(\mathbf a\cdot\boldsymbol\sigma)(\mathbf b\cdot\boldsymbol\sigma) = a_ib_j(\delta_{ij} +
+i\epsilon_{ijk}\sigma_k) = \mathbf a\cdot\mathbf b\,1 + i(\mathbf a\times\mathbf b)\cdot\boldsymbol\sigma$. In particular $(\mathbf
+n\cdot\boldsymbol\sigma)^2 = 1$ for a unit vector, so $\mathbf n\cdot\mathbf S$ has eigenvalues $\pm\hbar/2$ for every axis, and
 $\{\sigma_i, \sigma_j\} = 2\delta_{ij}$, $[\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k$, which is
-@eq-qm-angular-momentum for $\vec S = \frac\hbar2\vec\sigma$.
+@eq-qm-angular-momentum for $\mathbf S = \frac\hbar2\boldsymbol\sigma$.
 :::
 
-The exponential of $-i\theta\vec n\cdot\vec\sigma/2$ is computed from $(\vec n\cdot\vec\sigma)^2 = 1$ just like
+The exponential of $-i\theta\mathbf n\cdot\boldsymbol\sigma/2$ is computed from $(\mathbf n\cdot\boldsymbol\sigma)^2 = 1$ just like
 $e^{i\theta} = \cos\theta + i\sin\theta$. The second example checks the rotation of the Bloch vector in the simplest
 case.
 
 ::: {#exm-qm-pauli-rotation}
 #### Rotations of the Bloch sphere
 
-Splitting the exponential series into even and odd powers gives $e^{-i\theta\vec n\cdot\vec\sigma/2} = \cos\frac\theta2 -
-i\sin\frac\theta2\vec n\cdot\vec\sigma$. For $\vec n = \vec e_3$ this is $\operatorname{diag}(e^{-i\theta/2},
+Splitting the exponential series into even and odd powers gives $e^{-i\theta\mathbf n\cdot\boldsymbol\sigma/2} = \cos\frac\theta2 -
+i\sin\frac\theta2\mathbf n\cdot\boldsymbol\sigma$. For $\mathbf n = \mathbf e_3$ this is $\operatorname{diag}(e^{-i\theta/2},
 e^{i\theta/2})$, which maps $|\theta_0, \varphi\rangle$ to $e^{-i\theta/2}|\theta_0, \varphi + \theta\rangle$: a rotation
 of the Bloch vector by $\theta$ about $z$. The map $U \mapsto$ (rotation of Bloch vectors) is the two-to-one
 homomorphism $SU(2) \to SO(3)$, and $U = -1$ ($\theta = 2\pi$) rotates nothing.
 :::
 
-A magnetic moment $\vec\mu = \gamma\vec S$ in a field $\vec B$ has energy $-\vec\mu\cdot\vec B$, and the spin precesses
+A magnetic moment $\boldsymbol\mu = \gamma\mathbf S$ in a field $\mathbf B$ has energy $-\boldsymbol\mu\cdot\mathbf B$, and the spin precesses
 about the field. The third example is the dynamics drawn in @fig-qm-bloch-sphere.
 
 ::: {#exm-qm-larmor}
 #### Larmor precession
 
-For $\vec B = B\vec e_3$, $H = -\gamma BS_3 = \frac{\hbar\omega}{2}\sigma_3$ with $\omega = -\gamma B$, and by
-@exm-qm-evolution-precession the Bloch vector turns about $z$ at the **Larmor frequency** $\omega$: $\langle\vec\sigma
+For $\mathbf B = B\mathbf e_3$, $H = -\gamma BS_3 = \frac{\hbar\omega}{2}\sigma_3$ with $\omega = -\gamma B$, and by
+@exm-qm-evolution-precession the Bloch vector turns about $z$ at the **Larmor frequency** $\omega$: $\langle\boldsymbol\sigma
 \rangle(t) = (\sin\theta\cos(\varphi + \omega t), \sin\theta\sin(\varphi + \omega t), \cos\theta)$
 (@prp-qm-spin-checks). For an electron $\gamma \approx -e/m_e$, and in a field of $1$ T, $|\omega|/2\pi \approx 28$ GHz;
 for a proton it is $42.6$ MHz, the frequency of magnetic resonance imaging.
@@ -3789,8 +3789,8 @@ The Pauli product rule is nine matrix identities, and Sage verifies them along w
 ::: {#exr-qm-pauli-algebra-sage}
 #### The Pauli algebra in Sage
 
-With Sage, check $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ for all $i, j$, and $(\vec a\cdot\vec
-\sigma)(\vec b\cdot\vec\sigma) = \vec a\cdot\vec b + i(\vec a\times\vec b)\cdot\vec\sigma$ for symbolic vectors. Show
+With Sage, check $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ for all $i, j$, and $(\mathbf a\cdot\boldsymbol
+\sigma)(\mathbf b\cdot\boldsymbol\sigma) = \mathbf a\cdot\mathbf b + i(\mathbf a\times\mathbf b)\cdot\boldsymbol\sigma$ for symbolic vectors. Show
 that $\operatorname{tr}\sigma_i = 0$ and $\det\sigma_i = -1$.
 :::
 
@@ -3825,15 +3825,15 @@ also checks that the rotated Bloch vector is given by Rodrigues' rotation formul
 ::: {#exr-qm-pauli-exponential-sage}
 #### The exponential of a Pauli vector
 
-With Sage, compute $U = e^{-i\theta\vec n\cdot\vec\sigma/2}$ for $\vec n = (\sin\alpha, 0, \cos\alpha)$, compare with
-$\cos\frac\theta2 - i\sin\frac\theta2\vec n\cdot\vec\sigma$, and check that $U^\dagger\vec m\cdot\vec\sigma\,U =
-(R^{-1}\vec m)\cdot\vec\sigma$, where $R$ is the rotation by $\theta$ about $\vec n$, for $\vec m = \vec e_1$ and
+With Sage, compute $U = e^{-i\theta\mathbf n\cdot\boldsymbol\sigma/2}$ for $\mathbf n = (\sin\alpha, 0, \cos\alpha)$, compare with
+$\cos\frac\theta2 - i\sin\frac\theta2\mathbf n\cdot\boldsymbol\sigma$, and check that $U^\dagger\mathbf m\cdot\boldsymbol\sigma\,U =
+(R^{-1}\mathbf m)\cdot\boldsymbol\sigma$, where $R$ is the rotation by $\theta$ about $\mathbf n$, for $\mathbf m = \mathbf e_1$ and
 $\alpha = \pi/4$, $\theta = \pi/3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Both identities hold; the second says that the expectation values $\langle U\psi|\vec\sigma|U\psi\rangle$ are the
-rotated Bloch vector $R\langle\vec\sigma\rangle$:
+Both identities hold; the second says that the expectation values $\langle U\psi|\boldsymbol\sigma|U\psi\rangle$ are the
+rotated Bloch vector $R\langle\boldsymbol\sigma\rangle$:
 
 ```python
 th, al = var("th al", domain="real")
@@ -3867,17 +3867,17 @@ exercise derives it from the Heisenberg picture.
 ::: {#exr-qm-bloch-dynamics}
 #### The Bloch equation
 
-For $H = -\gamma\vec B(t)\cdot\vec S$ show that $\frac{d}{dt}\langle\vec S\rangle = \gamma\langle\vec S\rangle \times
-\vec B$. Deduce that $|\langle\vec S\rangle|$ is constant and that the motion is a precession about $\vec B$ when $\vec B$
+For $H = -\gamma\mathbf B(t)\cdot\mathbf S$ show that $\frac{d}{dt}\langle\mathbf S\rangle = \gamma\langle\mathbf S\rangle \times
+\mathbf B$. Deduce that $|\langle\mathbf S\rangle|$ is constant and that the motion is a precession about $\mathbf B$ when $\mathbf B$
 is constant.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\frac{d}{dt}\langle S_k\rangle = \frac i\hbar\langle[H, S_k]\rangle = -\frac{i\gamma}{\hbar}B_j\langle[S_j, S_k]
-\rangle = \gamma B_j\epsilon_{jkl}\langle S_l\rangle = \gamma(\langle\vec S\rangle \times \vec B)_k$, using
-$\epsilon_{jkl}B_jS_l = \epsilon_{klj}S_lB_j$. Then $\frac{d}{dt}|\langle\vec S\rangle|^2 = 2\gamma\langle\vec
-S\rangle\cdot(\langle\vec S\rangle\times\vec B) = 0$, and for constant $\vec B$ the component along $\vec B$ is constant
-while the perpendicular part rotates with angular velocity $-\gamma\vec B$.
+\rangle = \gamma B_j\epsilon_{jkl}\langle S_l\rangle = \gamma(\langle\mathbf S\rangle \times \mathbf B)_k$, using
+$\epsilon_{jkl}B_jS_l = \epsilon_{klj}S_lB_j$. Then $\frac{d}{dt}|\langle\mathbf S\rangle|^2 = 2\gamma\langle\mathbf
+S\rangle\cdot(\langle\mathbf S\rangle\times\mathbf B) = 0$, and for constant $\mathbf B$ the component along $\mathbf B$ is constant
+while the perpendicular part rotates with angular velocity $-\gamma\mathbf B$.
 :::
 
 The Pauli matrices square to one and anticommute, and these two facts alone fix their traces. The next exercise proves
@@ -3899,7 +3899,7 @@ $\sigma_2 \otimes \sigma_3$, or two of the Dirac matrices $\gamma^0$, $i\gamma^1
 
 ### Addition of angular momenta
 
-Two systems with angular momenta $\vec J_1$ and $\vec J_2$ combine into a system whose total angular momentum is the
+Two systems with angular momenta $\mathbf J_1$ and $\mathbf J_2$ combine into a system whose total angular momentum is the
 sum. The tensor product of the two representations is reducible, and its decomposition into irreducible pieces
 (@def-clebsch-gordan) is described by a change of basis whose entries are the Clebsch-Gordan coefficients.
 
@@ -3907,8 +3907,8 @@ sum. The tensor product of the two representations is reducible, and its decompo
 ::: {#def-qm-total-angular-momentum}
 #### Total angular momentum
 
-The **total angular momentum** of two systems with angular momenta $\vec J_1$ on $\mathcal{H}_1$ and $\vec J_2$ on
-$\mathcal{H}_2$ is $\vec J = \vec J_1 \otimes 1 + 1 \otimes \vec J_2$ on $\mathcal{H}_1 \otimes \mathcal{H}_2$; it
+The **total angular momentum** of two systems with angular momenta $\mathbf J_1$ on $\mathcal{H}_1$ and $\mathbf J_2$ on
+$\mathcal{H}_2$ is $\mathbf J = \mathbf J_1 \otimes 1 + 1 \otimes \mathbf J_2$ on $\mathcal{H}_1 \otimes \mathcal{H}_2$; it
 satisfies @eq-qm-angular-momentum. On the product of spins $j_1$ and $j_2$ the **uncoupled basis** $|j_1m_1\rangle
 \otimes |j_2m_2\rangle$ and the **coupled basis** of eigenvectors of $J^2$ and $J_3$ are related by
 $$
@@ -3948,28 +3948,28 @@ combination, with the Condon-Shortley sign, is $|\tfrac12, \tfrac12\rangle = \sq
 \rangle - \sqrt{\tfrac13}|1, 0\rangle|{\uparrow}\rangle$ (@prp-qm-spin-checks).
 :::
 
-The spin-orbit interaction of an atom is proportional to $\vec L\cdot\vec S$, which is diagonal in the coupled basis.
+The spin-orbit interaction of an atom is proportional to $\mathbf L\cdot\mathbf S$, which is diagonal in the coupled basis.
 The third example computes its eigenvalues from $J^2$, the standard trick of angular momentum algebra.
 
 ::: {#exm-qm-addition-spin-orbit}
 #### Spin-orbit coupling
 
-$J^2 = L^2 + S^2 + 2\vec L\cdot\vec S$, so $\vec L\cdot\vec S = \frac12(J^2 - L^2 - S^2) = \frac{\hbar^2}{2}(j(j + 1) -
+$J^2 = L^2 + S^2 + 2\mathbf L\cdot\mathbf S$, so $\mathbf L\cdot\mathbf S = \frac12(J^2 - L^2 - S^2) = \frac{\hbar^2}{2}(j(j + 1) -
 l(l + 1) - s(s + 1))$ on $|j, m\rangle$. For $l = 1$, $s = \tfrac12$ it is $\frac{\hbar^2}{2}$ on the four $j =
 \tfrac32$ states and $-\hbar^2$ on the two $j = \tfrac12$ states: the $p$ level splits into a quartet and a doublet,
 the **fine structure**, with the weighted sum $4\cdot\tfrac12 + 2\cdot(-1) = 0$.
 :::
 
-The nucleus has a spin $\vec I$ of its own, and its magnetic moment couples to the angular momentum $\vec J$ of the
-electron shell exactly as $\vec S$ couples to $\vec L$ in the previous example. The fourth example applies the same
+The nucleus has a spin $\mathbf I$ of its own, and its magnetic moment couples to the angular momentum $\mathbf J$ of the
+electron shell exactly as $\mathbf S$ couples to $\mathbf L$ in the previous example. The fourth example applies the same
 trick to this hyperfine coupling and reads off the line of interstellar hydrogen and the definition of the second
 [@svanberg2022spectroscopy, Sec. 2.6.1, eqs. (2.38)-(2.42)].
 
 ::: {#exm-qms-hyperfine}
 #### Hyperfine structure and the interval rule
 
-The **hyperfine interaction** $H_{\mathrm{hfs}} = \frac{A}{\hbar^2}\vec I\cdot\vec J$ is diagonal in the coupled basis of
-$\vec F = \vec I + \vec J$, with $\frac{A}{2}\bigl(F(F + 1) - I(I + 1) - J(J + 1)\bigr)$ on the level $F$, so adjacent
+The **hyperfine interaction** $H_{\mathrm{hfs}} = \frac{A}{\hbar^2}\mathbf I\cdot\mathbf J$ is diagonal in the coupled basis of
+$\mathbf F = \mathbf I + \mathbf J$, with $\frac{A}{2}\bigl(F(F + 1) - I(I + 1) - J(J + 1)\bigr)$ on the level $F$, so adjacent
 levels are separated by $E(F) - E(F - 1) = AF$, the **interval rule**. In the hydrogen ground state $I = J = \frac12$,
 $F = 1$ lies at $\frac A4$ and $F = 0$ at $-\frac{3A}4$, as in @exr-qm-spin-spin-coupling at zero field; the measured
 $A/h = 1420.405751768$ MHz gives the $21.1$ cm line of radio astronomy. In caesium-133, $I = \frac72$ and $J =
@@ -3992,7 +3992,7 @@ is orthogonal, and write $|0, 0\rangle$ in $1 \otimes 1$ in the uncoupled basis.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The table reproduces @exm-qm-addition-p-electron, and $|0, 0\rangle = \frac{1}{\sqrt3}(|1, -1\rangle - |0, 0\rangle + |
--1, 1\rangle)$ in the notation $|m_1, m_2\rangle$ — the scalar product $-\vec a\cdot\vec b$ of two vectors written in
+-1, 1\rangle)$ in the notation $|m_1, m_2\rangle$ — the scalar product $-\mathbf a\cdot\mathbf b$ of two vectors written in
 the spherical basis:
 
 ```python
@@ -4033,19 +4033,19 @@ invariant under $SU(2)$. Why can no triplet state be invariant?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Identify $\sum c_{ij}|i\rangle|j\rangle$ with the matrix $C$; then $(U \otimes U)$ acts as $C \mapsto UCU^{\mathsf T}$.
+Identify $\sum c_{ij}|i\rangle|j\rangle$ with the matrix $C$; then $(U \otimes U)$ acts as $C \mapsto UCU^\top$.
 The singlet has $C = \frac{1}{\sqrt2}\begin{pmatrix}0 & 1 \\ -1 & 0\end{pmatrix} = \frac{1}{\sqrt2}\epsilon$, and
-$U\epsilon U^{\mathsf T} = \det U\,\epsilon$ for every $2 \times 2$ matrix. An invariant state is annihilated by all
+$U\epsilon U^\top = \det U\,\epsilon$ for every $2 \times 2$ matrix. An invariant state is annihilated by all
 three $J_i$, so it has $J^2 = 0$; the triplet has $J^2 = 2\hbar^2$.
 :::
 
-Two spins coupled by $\vec S_1\cdot\vec S_2$ in a magnetic field are the model of hyperfine structure and of the
+Two spins coupled by $\mathbf S_1\cdot\mathbf S_2$ in a magnetic field are the model of hyperfine structure and of the
 Zeeman effect. The last exercise diagonalises the Hamiltonian with Sage.
 
 ::: {#exr-qm-spin-spin-coupling}
 #### Two coupled spins in a field
 
-With Sage, find the eigenvalues of $H = \frac{A}{\hbar^2}\vec S_1\cdot\vec S_2 + \frac{B}{\hbar}(S_{1,3} +
+With Sage, find the eigenvalues of $H = \frac{A}{\hbar^2}\mathbf S_1\cdot\mathbf S_2 + \frac{B}{\hbar}(S_{1,3} +
 S_{2,3})$, with energies $A, B > 0$, on $\mathbb{C}^2 \otimes \mathbb{C}^2$, and explain the result with the coupled basis.
 :::
 
@@ -4081,7 +4081,7 @@ interpolate between the coupled and the uncoupled basis, and checks the closed f
 ::: {#exr-qms-breit-rabi}
 #### The Breit-Rabi formula
 
-For a shell with $J = \frac12$ and a nucleus of spin $I$, take the Hamiltonian $H = \frac{A}{\hbar^2}\vec I\cdot\vec J +
+For a shell with $J = \frac12$ and a nucleus of spin $I$, take the Hamiltonian $H = \frac{A}{\hbar^2}\mathbf I\cdot\mathbf J +
 \frac{g_J\mu_BB}{\hbar}J_3 - \frac{g_I\mu_BB}{\hbar}I_3$. Show that $H$ commutes with $F_3$ and that each $M = m_I + m_J$ with $|M| < I +
 \frac12$ gives a $2 \times 2$ block. With Sage, check that the eigenvalues are
 $$
@@ -4093,7 +4093,7 @@ exactly for hydrogen ($I = \frac12$) and numerically for potassium-39 ($I = \fra
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$[\vec I\cdot\vec J, F_3] = 0$ and $I_3$, $J_3$ commute with $F_3$, so $H$ preserves the eigenspaces of $F_3$; for
+$[\mathbf I\cdot\mathbf J, F_3] = 0$ and $I_3$, $J_3$ commute with $F_3$, so $H$ preserves the eigenspaces of $F_3$; for
 $|M| < I + \frac12$ the eigenspace is spanned by $|m_I = M - \frac12\rangle|{\uparrow}\rangle$ and $|M +
 \frac12\rangle|{\downarrow}\rangle$, and for $M = \pm(I + \frac12)$ it is one-dimensional, with the energy linear in
 $B$ (the square root becomes $1 \pm y$). The characteristic polynomial vanishes at the four Breit-Rabi energies of
@@ -4167,7 +4167,7 @@ $e^{-2\pi iS_3/\hbar} = (-1)^{2s}$; $e^{-i\theta\sigma_1/2} = \cos\frac\theta2 -
 $\langle 1, 1, \tfrac12, -\tfrac12|\tfrac12, \tfrac12\rangle = \sqrt{2/3}$, $\langle 1, 0, \tfrac12, \tfrac12|\tfrac12,
 \tfrac12\rangle = -\sqrt{1/3}$; the Clebsch-Gordan matrices of $\tfrac12 \otimes \tfrac12$, $1 \otimes \tfrac12$, $1
 \otimes 1$ and $\tfrac32 \otimes 1$ are orthogonal; $\sum_j(2j + 1) = (2j_1 + 1)(2j_2 + 1)$ for $2j_1, 2j_2 \leq 6$;
-and $\vec S_1\cdot\vec S_2$ has eigenvalues $\hbar^2/4$ (three times) and $-3\hbar^2/4$ (once).
+and $\mathbf S_1\cdot\mathbf S_2$ has eigenvalues $\hbar^2/4$ (three times) and $-3\hbar^2/4$ (once).
 :::
 ::::
 
@@ -4190,7 +4190,7 @@ one-half. The second example reads the experiment in the language of this sectio
 ::: {#exm-qm-stern-gerlach}
 #### The Stern-Gerlach experiment
 
-A silver atom has one unpaired electron with $l = 0$, so its magnetic moment is $\gamma\vec S$ with $s = \tfrac12$. In an
+A silver atom has one unpaired electron with $l = 0$, so its magnetic moment is $\gamma\mathbf S$ with $s = \tfrac12$. In an
 inhomogeneous field $B_3(z)$ the energy $-\gamma B_3(z)S_3$ produces a force $\pm\frac{\hbar\gamma}{2}\partial_zB_3$ on the
 two eigenstates of $S_3$, and the beam splits into two, not into a continuous smear as a classical moment would
 produce, and not into an odd number of spots as an orbital angular momentum would. Each atom ends up in one spot: a
@@ -4231,39 +4231,39 @@ $J_-|\tfrac32, \tfrac12\rangle = \hbar\cdot2|\tfrac32, -\tfrac12\rangle$, and th
 both agree with the table.
 :::
 
-The projections onto the triplet and the singlet are polynomials in $\vec\sigma_1\cdot\vec\sigma_2$. The second
+The projections onto the triplet and the singlet are polynomials in $\boldsymbol\sigma_1\cdot\boldsymbol\sigma_2$. The second
 exercise derives them and uses them to write the exchange operator.
 
 ::: {#exr-qm-spin-projectors}
 #### Triplet and singlet projectors
 
-Show that $\vec\sigma_1\cdot\vec\sigma_2$ has eigenvalues $1$ (triplet) and $-3$ (singlet), that $P_1 = \frac14(3 +
-\vec\sigma_1\cdot\vec\sigma_2)$ and $P_0 = \frac14(1 - \vec\sigma_1\cdot\vec\sigma_2)$ are the projections onto the
-triplet and the singlet, and that the exchange operator $|ab\rangle \mapsto |ba\rangle$ is $\frac12(1 + \vec\sigma_1
-\cdot\vec\sigma_2)$.
+Show that $\boldsymbol\sigma_1\cdot\boldsymbol\sigma_2$ has eigenvalues $1$ (triplet) and $-3$ (singlet), that $P_1 = \frac14(3 +
+\boldsymbol\sigma_1\cdot\boldsymbol\sigma_2)$ and $P_0 = \frac14(1 - \boldsymbol\sigma_1\cdot\boldsymbol\sigma_2)$ are the projections onto the
+triplet and the singlet, and that the exchange operator $|ab\rangle \mapsto |ba\rangle$ is $\frac12(1 + \boldsymbol\sigma_1
+\cdot\boldsymbol\sigma_2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\vec\sigma_1\cdot\vec\sigma_2 = \frac{4}{\hbar^2}\vec S_1\cdot\vec S_2 = \frac{2}{\hbar^2}(J^2 - S_1^2 - S_2^2)$, which is
+$\boldsymbol\sigma_1\cdot\boldsymbol\sigma_2 = \frac{4}{\hbar^2}\mathbf S_1\cdot\mathbf S_2 = \frac{2}{\hbar^2}(J^2 - S_1^2 - S_2^2)$, which is
 $2(2 - \tfrac32) = 1$ for $j = 1$ and $2(0 - \tfrac32) = -3$ for $j = 0$. Then $P_1$ is $1$ on the triplet and $0$ on
 the singlet, and $P_0$ the reverse. Exchange is $+1$ on the symmetric triplet and $-1$ on the antisymmetric singlet,
-so it equals $P_1 - P_0 = \frac12(1 + \vec\sigma_1\cdot\vec\sigma_2)$.
+so it equals $P_1 - P_0 = \frac12(1 + \boldsymbol\sigma_1\cdot\boldsymbol\sigma_2)$.
 :::
 
-Spin and orbital motion of a particle in a central potential are coupled only through $\vec L\cdot\vec S$. The last
+Spin and orbital motion of a particle in a central potential are coupled only through $\mathbf L\cdot\mathbf S$. The last
 exercise counts the states of the $n = 2$ level of hydrogen with spin and sorts them by $j$.
 
 ::: {#exr-qm-hydrogen-n2-spin}
 #### The $n = 2$ level with spin
 
 The $n = 2$ level of hydrogen has $l = 0$ and $l = 1$ (@prp-qm-hydrogen-so4). Including the electron spin, list the
-possible $j$ values with their multiplicities, check that the total is $2n^2 = 8$, and give the eigenvalues of $\vec
-L\cdot\vec S/\hbar^2$ on each.
+possible $j$ values with their multiplicities, check that the total is $2n^2 = 8$, and give the eigenvalues of $\mathbf
+L\cdot\mathbf S/\hbar^2$ on each.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$l = 0$: $0 \otimes \tfrac12 = \tfrac12$, two states ($2s_{1/2}$), $\vec L\cdot\vec S = 0$. $l = 1$: $1 \otimes \tfrac12 =
-\tfrac32 \oplus \tfrac12$, four states ($2p_{3/2}$, $\vec L\cdot\vec S/\hbar^2 = \tfrac12$) and two ($2p_{1/2}$,
+$l = 0$: $0 \otimes \tfrac12 = \tfrac12$, two states ($2s_{1/2}$), $\mathbf L\cdot\mathbf S = 0$. $l = 1$: $1 \otimes \tfrac12 =
+\tfrac32 \oplus \tfrac12$, four states ($2p_{3/2}$, $\mathbf L\cdot\mathbf S/\hbar^2 = \tfrac12$) and two ($2p_{1/2}$,
 $-1$). Total $2 + 4 + 2 = 8 = 2\cdot2^2$. In the Dirac theory $2s_{1/2}$ and $2p_{1/2}$ stay degenerate, a remnant of
 the $\mathfrak{so}(4)$ symmetry, until the Lamb shift separates them.
 :::
@@ -4275,7 +4275,7 @@ The last exercise follows the six $p$ states from the weak-field Zeeman effect t
 ::: {#exr-qms-paschen-back}
 #### From Zeeman to Paschen-Back
 
-For a $p$ electron take $H = \frac{\zeta}{\hbar^2}\vec L\cdot\vec S + \frac{\mu_BB}{\hbar}(L_3 + 2S_3)$. Show that
+For a $p$ electron take $H = \frac{\zeta}{\hbar^2}\mathbf L\cdot\mathbf S + \frac{\mu_BB}{\hbar}(L_3 + 2S_3)$. Show that
 $m_j = \pm\frac32$ have $E = \frac\zeta2 \pm 2\mu_BB$ for all $B$, and that for $m_j = \frac12$ the matrix in the basis
 $|m_l = 0\rangle|{\uparrow}\rangle$, $|m_l = 1\rangle|{\downarrow}\rangle$ is $\begin{pmatrix}\mu_BB & \zeta/\sqrt2 \\
 \zeta/\sqrt2 & -\zeta/2\end{pmatrix}$. Find its eigenvalues and their limits: for weak fields $\frac\zeta2 +
@@ -4284,8 +4284,8 @@ strong fields $\mu_BB(m_l + 2m_s) + \zeta m_lm_s$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $m_j = \frac32$ the only state is $|1\rangle|{\uparrow}\rangle$, with $\vec L\cdot\vec S = L_3S_3 = \frac{\hbar^2}{2}$
-and $L_3 + 2S_3 = 2\hbar$. For $m_j = \frac12$, $\vec L\cdot\vec S = L_3S_3 + \frac12(L_+S_- + L_-S_+)$ has the diagonal
+For $m_j = \frac32$ the only state is $|1\rangle|{\uparrow}\rangle$, with $\mathbf L\cdot\mathbf S = L_3S_3 = \frac{\hbar^2}{2}$
+and $L_3 + 2S_3 = 2\hbar$. For $m_j = \frac12$, $\mathbf L\cdot\mathbf S = L_3S_3 + \frac12(L_+S_- + L_-S_+)$ has the diagonal
 entries $0$ and $-\frac{\hbar^2}2$ and the off-diagonal entry $\frac12\cdot\hbar\sqrt2\cdot\hbar = \hbar^2/\sqrt2$, and
 $L_3 + 2S_3$ is $\hbar$ and $0$. The eigenvalues are
 $E_\pm = -\frac\zeta4 + \frac{\mu_BB}{2} \pm \frac12\sqrt{\frac94\zeta^2 + \zeta\mu_BB + \mu_B^2B^2}$. At $B = 0$ they
@@ -4347,7 +4347,7 @@ orbital angular momentum. The second example computes the generator for rotation
 ::: {#exm-qm-unitary-rep-rotations}
 #### Rotations and angular momentum
 
-$(U(R)\psi)(\vec x) = \psi(R^{-1}\vec x)$ is a unitary representation of $SO(3)$ on $L^2(\mathbb{R}^3)$, unitary because
+$(U(R)\psi)(\mathbf x) = \psi(R^{-1}\mathbf x)$ is a unitary representation of $SO(3)$ on $L^2(\mathbb{R}^3)$, unitary because
 rotations preserve volume. For $R_z(\varphi)$ in spherical coordinates, $U(R_z(\varphi))\psi(r, \theta, \varphi_0) =
 \psi(r, \theta, \varphi_0 - \varphi) = e^{-i\varphi L_z/\hbar}\psi$ by @exm-qm-am-lz: the generator is $L_z$. Each
 eigenspace of $L^2$ (spanned by the $Y_{lm}$ for fixed $l$) is invariant, and carries the spin-$l$ representation.
@@ -4359,8 +4359,8 @@ as $-1$. The third example identifies the phases.
 ::: {#exm-qm-unitary-rep-projective}
 #### Spin one-half as a projective representation
 
-Assign to the rotation $R(\theta, \vec n)$ of $SO(3)$, $0 \leq \theta \leq \pi$, the matrix $U = e^{-i\theta\vec n\cdot
-\vec\sigma/2}$. Composing two rotations, $U(R_1)U(R_2) = \pm U(R_1R_2)$, the sign being $-1$ when the composite angle in
+Assign to the rotation $R(\theta, \mathbf n)$ of $SO(3)$, $0 \leq \theta \leq \pi$, the matrix $U = e^{-i\theta\mathbf n\cdot
+\boldsymbol\sigma/2}$. Composing two rotations, $U(R_1)U(R_2) = \pm U(R_1R_2)$, the sign being $-1$ when the composite angle in
 $SU(2)$ exceeds $\pi$: for instance $U(R_z(\pi))^2 = e^{-i\pi\sigma_3} = -1$ while $R_z(\pi)^2 = 1$. The phases $c = \pm1$
 cannot be removed, and the projective representation of $SO(3)$ is an ordinary representation of its double cover
 $SU(2)$ (@exm-qm-spin-two-pi).
@@ -4406,13 +4406,13 @@ this for rotations about $z$ with Cartesian coordinates.
 ::: {#exr-qm-rotation-generator}
 #### The generator of rotations
 
-Let $R_z(\varphi)$ rotate by $\varphi$ about the $z$-axis and $(U(\varphi)\psi)(\vec x) = \psi(R_z(\varphi)^{-1}\vec x)$.
+Let $R_z(\varphi)$ rotate by $\varphi$ about the $z$-axis and $(U(\varphi)\psi)(\mathbf x) = \psi(R_z(\varphi)^{-1}\mathbf x)$.
 Show that $i\hbar\frac{d}{d\varphi}U(\varphi)\psi\big|_{\varphi = 0} = L_z\psi$ with $L_z = -i\hbar(x\partial_y - y\partial_x)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$R_z(\varphi)^{-1}\vec x = (x\cos\varphi + y\sin\varphi, -x\sin\varphi + y\cos\varphi, z)$, whose derivative at $\varphi =
-0$ is $(y, -x, 0)$. By the chain rule $\frac{d}{d\varphi}\psi(R^{-1}\vec x)|_0 = y\partial_x\psi - x\partial_y\psi$, and
+$R_z(\varphi)^{-1}\mathbf x = (x\cos\varphi + y\sin\varphi, -x\sin\varphi + y\cos\varphi, z)$, whose derivative at $\varphi =
+0$ is $(y, -x, 0)$. By the chain rule $\frac{d}{d\varphi}\psi(R^{-1}\mathbf x)|_0 = y\partial_x\psi - x\partial_y\psi$, and
 multiplying by $i\hbar$ gives $-i\hbar(x\partial_y - y\partial_x)\psi = L_z\psi$.
 :::
 
@@ -4450,8 +4450,8 @@ operator, so that the representations of the previous subsection are the general
 Let $T$ be a bijection of the rays of a Hilbert space $\mathcal{H}$ (of dimension at least $2$) that preserves
 transition probabilities, $|\langle T\phi|T\psi\rangle|^2 = |\langle\phi|\psi\rangle|^2$. Then there is an operator $U$ on
 $\mathcal{H}$, either **unitary** or **antiunitary**, inducing $T$ on rays, and $U$ is unique up to a phase. Here
-$U$ is **antiunitary** if it is bijective, antilinear, $U(\alpha\psi) = \bar\alpha U\psi$, and $\langle U\phi|U\psi
-\rangle = \overline{\langle\phi|\psi\rangle}$. Symmetries connected to the identity in a continuous group are unitary. *
+$U$ is **antiunitary** if it is bijective, antilinear, $U(\alpha\psi) = \alpha^* U\psi$, and $\langle U\phi|U\psi
+\rangle = \langle\phi|\psi\rangle^*$. Symmetries connected to the identity in a continuous group are unitary. *
 Quoted* (Wigner 1931; Bargmann 1964 gives a short proof).
 :::
 ::::
@@ -4463,9 +4463,9 @@ example checks that it reverses momentum while keeping position.
 ::: {#exm-qm-wigner-time-reversal}
 #### Time reversal of a spinless particle
 
-$(\Theta\psi)(x) = \overline{\psi(x)}$ is antiunitary on $L^2(\mathbb{R})$, $\langle\Theta\phi|\Theta\psi\rangle =
-\int\phi\bar\psi = \overline{\langle\phi|\psi\rangle}$. It satisfies $\Theta x\Theta^{-1} = x$ and $\Theta p\Theta^{-1} =
--p$, since $\overline{-i\hbar\psi'} = i\hbar\bar\psi'$. If $\psi(t)$ solves the Schrödinger equation with a real potential,
+$(\Theta\psi)(x) = \psi(x)^*$ is antiunitary on $L^2(\mathbb{R})$, $\langle\Theta\phi|\Theta\psi\rangle =
+\int\phi\psi^* = \langle\phi|\psi\rangle^*$. It satisfies $\Theta x\Theta^{-1} = x$ and $\Theta p\Theta^{-1} =
+-p$, since $(-i\hbar\psi')^* = i\hbar{\psi'}^*$. If $\psi(t)$ solves the Schrödinger equation with a real potential,
 so does $\Theta\psi(-t)$: the antilinearity compensates the sign of $t$, which no unitary operator could do while
 keeping $H$ bounded below.
 :::
@@ -4476,7 +4476,7 @@ gives the operator and the consequence, Kramers degeneracy.
 ::: {#exm-qm-wigner-kramers}
 #### Time reversal for spin one-half and Kramers degeneracy
 
-On $\mathbb{C}^2$, $\Theta = -i\sigma_2K$ with $K$ complex conjugation satisfies $\Theta\vec\sigma\Theta^{-1} = -\vec\sigma$
+On $\mathbb{C}^2$, $\Theta = -i\sigma_2K$ with $K$ complex conjugation satisfies $\Theta\boldsymbol\sigma\Theta^{-1} = -\boldsymbol\sigma$
 and $\Theta^2 = -1$ (@prp-qm-hydrogen-so4). If $\Theta$ commutes with $H$ and $H\psi = E\psi$, then $\Theta\psi$ has the
 same energy and is orthogonal to $\psi$: $\langle\psi|\Theta\psi\rangle = \langle\Theta^2\psi|\Theta\psi\rangle = -
 \langle\psi|\Theta\psi\rangle$. Every level of a time-reversal invariant system with an odd number of spin one-half
@@ -4489,9 +4489,9 @@ vectors. The third example uses this to list all symmetries of a spin one-half, 
 ::: {#exm-qm-wigner-bloch}
 #### Symmetries of a spin one-half
 
-For states with Bloch vectors $\vec n, \vec n'$, $|\langle\vec n|\vec n'\rangle|^2 = \frac12(1 + \vec n\cdot\vec n')$, so the
+For states with Bloch vectors $\mathbf n, \mathbf n'$, $|\langle\mathbf n|\mathbf n'\rangle|^2 = \frac12(1 + \mathbf n\cdot\mathbf n')$, so the
 maps of rays preserving transition probabilities are the maps of the sphere preserving angles: the orthogonal group
-$O(3)$. Rotations come from unitary $e^{-i\theta\vec n\cdot\vec\sigma/2}$; the inversion $\vec n \mapsto -\vec n$ comes
+$O(3)$. Rotations come from unitary $e^{-i\theta\mathbf n\cdot\boldsymbol\sigma/2}$; the inversion $\mathbf n \mapsto -\mathbf n$ comes
 from the antiunitary $-i\sigma_2K$ of @exm-qm-wigner-kramers, and reflections from antiunitaries combined with
 rotations. No unitary map sends every state to its orthogonal one.
 :::
@@ -4504,14 +4504,14 @@ facts for complex conjugation and shows that the product of two antiunitary oper
 ::: {#exr-qm-antiunitary-check}
 #### Properties of antiunitary operators
 
-Show that $K\psi = \bar\psi$ on $\mathbb{C}^n$ satisfies $|\langle K\phi|K\psi\rangle| = |\langle\phi|\psi\rangle|$, that
+Show that $K\psi = \psi^*$ on $\mathbb{C}^n$ satisfies $|\langle K\phi|K\psi\rangle| = |\langle\phi|\psi\rangle|$, that
 $K(i\psi) = -iK\psi$, and that the product of two antiunitary operators is unitary. Is $K$ an observable?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle K\phi|K\psi\rangle = \sum\phi_k\bar\psi_k = \overline{\langle\phi|\psi\rangle}$, which has the same modulus;
-$\overline{i\psi} = -i\bar\psi$. For antiunitary $A, B$, $AB$ is linear (two conjugations cancel) and $\langle AB\phi|
-AB\psi\rangle = \overline{\overline{\langle\phi|\psi\rangle}} = \langle\phi|\psi\rangle$. $K$ is not linear, so it is not
+$\langle K\phi|K\psi\rangle = \sum\phi_k\psi_k^* = \langle\phi|\psi\rangle^*$, which has the same modulus;
+$(i\psi)^* = -i\psi^*$. For antiunitary $A, B$, $AB$ is linear (two conjugations cancel) and $\langle AB\phi|
+AB\psi\rangle = (\langle\phi|\psi\rangle^*)^* = \langle\phi|\psi\rangle$. $K$ is not linear, so it is not
 an operator in the sense of @def-qm-observable and cannot be an observable; time reversal gives no conserved quantum
 number, only degeneracies and selection rules.
 :::
@@ -4522,9 +4522,9 @@ exercise checks them with Sage.
 ::: {#exr-qm-time-reversal-spin-sage}
 #### Time reversal for spin in Sage
 
-With $\Theta = UK$ and $U = -i\sigma_2$, $\Theta A\Theta^{-1} = U\bar AU^{-1}$ and $\Theta^2 = U\bar U$. With Sage, check
+With $\Theta = UK$ and $U = -i\sigma_2$, $\Theta A\Theta^{-1} = UA^*U^{-1}$ and $\Theta^2 = UU^*$. With Sage, check
 $\Theta\sigma_i\Theta^{-1} = -\sigma_i$ and $\Theta^2 = -1$, find $\Theta|\theta, \varphi\rangle$ and show that its Bloch
-vector is $-\vec n$.
+vector is $-\mathbf n$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4560,9 +4560,9 @@ exercise proves it in Sage and checks that rotations preserve it.
 ::: {#exr-qm-wigner-qubit}
 #### Transition probabilities on the Bloch sphere
 
-With Sage, show $|\langle\theta, \varphi|\theta', \varphi'\rangle|^2 = \frac12(1 + \vec n\cdot\vec n')$ symbolically, and
-check numerically that applying the same $e^{-i\theta\vec m\cdot\vec\sigma/2}$ to both states leaves it unchanged for a
-random axis $\vec m$.
+With Sage, show $|\langle\theta, \varphi|\theta', \varphi'\rangle|^2 = \frac12(1 + \mathbf n\cdot\mathbf n')$ symbolically, and
+check numerically that applying the same $e^{-i\theta\mathbf m\cdot\boldsymbol\sigma/2}$ to both states leaves it unchanged for a
+random axis $\mathbf m$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4628,7 +4628,7 @@ and $\frac{d}{dt}\langle p\rangle = -\langle V'\rangle$: momentum is conserved e
 translation invariant, i.e. constant.
 :::
 
-A potential depending only on $r = |\vec x|$ is invariant under rotations, so $\vec L$ commutes with $H$ and each level
+A potential depending only on $r = |\mathbf x|$ is invariant under rotations, so $\mathbf L$ commutes with $H$ and each level
 carries a representation of $SO(3)$. The second example derives the $(2l + 1)$-fold degeneracy that results.
 
 ::: {#exm-qm-conserved-central}
@@ -4735,11 +4735,11 @@ four-dimensional one and explains the degeneracy of its spectrum.
 
 For the **Coulomb Hamiltonian** $H = \frac{p^2}{2m} - \frac kr$ with $k > 0$, the **Runge-Lenz vector** is
 $$
-\vec A = \frac12(\vec p\times\vec L - \vec L\times\vec p) - mk\frac{\vec x}{r} ,
+\mathbf A = \frac12(\mathbf p\times\mathbf L - \mathbf L\times\mathbf p) - mk\frac{\mathbf x}{r} ,
 $$ {#eq-qm-runge-lenz}
-the symmetrised form of the classical $\vec p\times\vec L - mk\vec x/r$. It satisfies $[H, A_i] = 0$, $\vec A\cdot\vec L =
-\vec L\cdot\vec A = 0$ and $A^2 = m^2k^2 + 2mH(L^2 + \hbar^2)$. On the bound states ($H < 0$) the rescaled vector $\vec M =
-\vec A/\sqrt{-2mH}$ satisfies, with $\vec L$,
+the symmetrised form of the classical $\mathbf p\times\mathbf L - mk\mathbf x/r$. It satisfies $[H, A_i] = 0$, $\mathbf A\cdot\mathbf L =
+\mathbf L\cdot\mathbf A = 0$ and $A^2 = m^2k^2 + 2mH(L^2 + \hbar^2)$. On the bound states ($H < 0$) the rescaled vector $\mathbf M =
+\mathbf A/\sqrt{-2mH}$ satisfies, with $\mathbf L$,
 $$
 [L_i, L_j] = i\hbar\epsilon_{ijk}L_k, \quad [L_i, M_j] = i\hbar\epsilon_{ijk}M_k, \quad [M_i, M_j] = i\hbar\epsilon_{ijk}L_k ,
 $$ {#eq-qm-so4}
@@ -4754,9 +4754,9 @@ the eccentricity. The first example reads off the orbit from its conservation, w
 ::: {#exm-qm-runge-lenz-classical}
 #### The classical Runge-Lenz vector
 
-For a classical bound orbit $\vec A = \vec p\times\vec L - mk\hat x$ is constant (@prp-qm-hydrogen-so4 checks $\{H, A_i\} =
-0$). It lies in the plane of the orbit ($\vec A\cdot\vec L = 0$), and at perihelion, where $\vec p \perp \vec x$, both terms
-point along $\hat x$: $\vec A$ points to the perihelion. Its length is $|\vec A| = mke$ with $e$ the eccentricity, and
+For a classical bound orbit $\mathbf A = \mathbf p\times\mathbf L - mk\hat{\mathbf x}$ is constant (@prp-qm-hydrogen-so4 checks $\{H, A_i\} =
+0$). It lies in the plane of the orbit ($\mathbf A\cdot\mathbf L = 0$), and at perihelion, where $\mathbf p \perp \mathbf x$, both terms
+point along $\hat{\mathbf x}$: $\mathbf A$ points to the perihelion. Its length is $|\mathbf A| = mke$ with $e$ the eccentricity, and
 $A^2 = m^2k^2 + 2mHL^2$ gives $e^2 = 1 + 2HL^2/mk^2$.
 :::
 
@@ -4766,19 +4766,19 @@ second example writes the split, which is the step that turns the Coulomb proble
 ::: {#exm-qm-so4-split}
 #### Two commuting angular momenta
 
-Put $\vec J_\pm = \frac12(\vec L \pm \vec M)$. From @eq-qm-so4, $[J_{\pm i}, J_{\pm j}] = i\hbar\epsilon_{ijk}J_{\pm k}$ and
-$[J_{+i}, J_{-j}] = 0$: two independent angular momenta, as in @prp-so4-split. Because $\vec L\cdot\vec M = 0$, $J_+^2 =
+Put $\mathbf J_\pm = \frac12(\mathbf L \pm \mathbf M)$. From @eq-qm-so4, $[J_{\pm i}, J_{\pm j}] = i\hbar\epsilon_{ijk}J_{\pm k}$ and
+$[J_{+i}, J_{-j}] = 0$: two independent angular momenta, as in @prp-so4-split. Because $\mathbf L\cdot\mathbf M = 0$, $J_+^2 =
 J_-^2 = \frac14(L^2 + M^2)$, so on a level both carry the same spin $j$, and the level carries the representation $(j, j)$
 of dimension $(2j + 1)^2$.
 :::
 
-The orbital angular momentum is the sum $\vec L = \vec J_+ + \vec J_-$, so its values on a level follow from the
+The orbital angular momentum is the sum $\mathbf L = \mathbf J_+ + \mathbf J_-$, so its values on a level follow from the
 Clebsch-Gordan series. The third example lists them.
 
 ::: {#exm-qm-so4-content}
 #### Angular momenta in a level
 
-On the representation $(j, j)$, $\vec L = \vec J_+ + \vec J_-$ is the total angular momentum of two spins $j$, so by
+On the representation $(j, j)$, $\mathbf L = \mathbf J_+ + \mathbf J_-$ is the total angular momentum of two spins $j$, so by
 @def-clebsch-gordan $l = 0, 1, \dots, 2j$. With $n = 2j + 1$ these are $l = 0, \dots, n - 1$, each with $2l + 1$ states, and
 $\sum_{l = 0}^{n - 1}(2l + 1) = n^2 = (2j + 1)^2$, the degeneracy of the hydrogen level $n$ (@fig-qm-hydrogen-levels).
 :::
@@ -4791,12 +4791,12 @@ checks it with Sage, together with the two algebraic relations of @def-qm-runge-
 ::: {#exr-qm-runge-lenz-classical}
 #### The classical Runge-Lenz vector in Sage
 
-With Sage, compute $\{H, A_i\}$ for $H = p^2/2m - k/r$ and $\vec A = \vec p\times\vec L - mk\vec x/r$, and check $\vec
-A\cdot\vec L = 0$ and $A^2 = m^2k^2 + 2mHL^2$. Is $\{L_i, A_j\} = \epsilon_{ijk}A_k$?
+With Sage, compute $\{H, A_i\}$ for $H = p^2/2m - k/r$ and $\mathbf A = \mathbf p\times\mathbf L - mk\mathbf x/r$, and check $\mathbf
+A\cdot\mathbf L = 0$ and $A^2 = m^2k^2 + 2mHL^2$. Is $\{L_i, A_j\} = \epsilon_{ijk}A_k$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-All three identities hold, and $\{L_i, A_j\} = \epsilon_{ijk}A_k$: $\vec A$ is a vector under rotations, the classical form
+All three identities hold, and $\{L_i, A_j\} = \epsilon_{ijk}A_k$: $\mathbf A$ is a vector under rotations, the classical form
 of the middle relation of @eq-qm-so4:
 
 ```python
@@ -4821,20 +4821,20 @@ A.L = 0 ; A^2 - m^2 k^2 - 2 m H L^2 = 0
 ```
 :::
 
-The conservation of $\vec A$ determines the shape of the orbit without solving any differential equation. The second
+The conservation of $\mathbf A$ determines the shape of the orbit without solving any differential equation. The second
 exercise derives the conic.
 
 ::: {#exr-qm-runge-lenz-ellipse}
 #### The orbit from the Runge-Lenz vector
 
-Show that $\vec A\cdot\vec x = L^2 - mkr$ classically. With $\theta$ the angle between $\vec x$ and $\vec A$, deduce $r =
-\frac{L^2/mk}{1 + e\cos\theta}$, a conic with eccentricity $e = |\vec A|/mk$, and the orbit is closed for $H < 0$.
+Show that $\mathbf A\cdot\mathbf x = L^2 - mkr$ classically. With $\theta$ the angle between $\mathbf x$ and $\mathbf A$, deduce $r =
+\frac{L^2/mk}{1 + e\cos\theta}$, a conic with eccentricity $e = |\mathbf A|/mk$, and the orbit is closed for $H < 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(\vec p\times\vec L)\cdot\vec x = \vec L\cdot(\vec x\times\vec p) = L^2$ and $mk\hat x\cdot\vec x = mkr$, so $\vec A\cdot\vec x
-= L^2 - mkr$. Writing the left side as $|\vec A|r\cos\theta$ gives $r(mk + |\vec A|\cos\theta) = L^2$. For $H < 0$, $e^2 =
-1 + 2HL^2/mk^2 < 1$ and the conic is an ellipse, closed because $\vec A$ does not move.
+$(\mathbf p\times\mathbf L)\cdot\mathbf x = \mathbf L\cdot(\mathbf x\times\mathbf p) = L^2$ and $mk\hat{\mathbf x}\cdot\mathbf x = mkr$, so $\mathbf A\cdot\mathbf x
+= L^2 - mkr$. Writing the left side as $|\mathbf A|r\cos\theta$ gives $r(mk + |\mathbf A|\cos\theta) = L^2$. For $H < 0$, $e^2 =
+1 + 2HL^2/mk^2 < 1$ and the conic is an ellipse, closed because $\mathbf A$ does not move.
 :::
 
 The commutation relations of the two $\mathfrak{su}(2)$s follow from @eq-qm-so4 by linear algebra. The last exercise
@@ -4844,7 +4844,7 @@ carries out the computation.
 #### The two $\mathfrak{su}(2)$ algebras
 
 From @eq-qm-so4 derive $[J_{+i}, J_{+j}] = i\hbar\epsilon_{ijk}J_{+k}$, $[J_{-i}, J_{-j}] = i\hbar\epsilon_{ijk}J_{-k}$
-and $[J_{+i}, J_{-j}] = 0$ for $\vec J_\pm = \frac12(\vec L \pm \vec M)$.
+and $[J_{+i}, J_{-j}] = 0$ for $\mathbf J_\pm = \frac12(\mathbf L \pm \mathbf M)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4879,9 +4879,9 @@ $n = 2j + 1$, of dimension $n^2$, containing $l = 0, \dots, n - 1$. *Outline* (P
 \hbar^2$, so $H = -\frac{mk^2}{2\hbar^2(4j(j + 1) + 1)} = -\frac{mk^2}{2\hbar^2(2j + 1)^2}$. Moreover, the radial functions $R_{nl} = \rho^le^{-\rho/2}L^{2l + 1}_{n - l - 1}(\rho)$, $\rho =
 2r/na$, $a = \hbar^2/mk$, solve the radial equation with $E_n$ for all $l < n \leq 4$, and $R_{10} \perp R_{20}$, $R_{21}
 \perp R_{31}$; $\sum_{l < n}(2l + 1) = n^2$; the diagonal $\mathfrak{su}(2)$ content of $(j, j)$ is $l = 0, \dots, 2j$ for
-$n \leq 6$; the Pauli relation gives $E_n$; classically $\{H, A_i\} = 0$, $\vec A\cdot\vec L = 0$, $A^2 =
+$n \leq 6$; the Pauli relation gives $E_n$; classically $\{H, A_i\} = 0$, $\mathbf A\cdot\mathbf L = 0$, $A^2 =
 m^2k^2 + 2mHL^2$. For the symmetry operators of the section, $e^{-a\,d/dx}$ shifts polynomials, and $\Theta =
--i\sigma_2K$ has $\Theta\vec\sigma\Theta^{-1} = -\vec\sigma$, $\Theta^2 = -1$.
+-i\sigma_2K$ has $\Theta\boldsymbol\sigma\Theta^{-1} = -\boldsymbol\sigma$, $\Theta^2 = -1$.
 :::
 ::::
 
@@ -4963,7 +4963,7 @@ $l$ values as two different hydrogen levels?
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $(j, j) \to 0 \oplus 1 \oplus \dots \oplus 2j$; for instance $n = 3$: $0 \oplus 1 \oplus 2$, $1 + 3 + 5 = 9$. Representations
-with $j_+ \neq j_-$ do not occur, because $\vec L\cdot\vec M = 0$ forces $J_+^2 = J_-^2$:
+with $j_+ \neq j_-$ do not occur, because $\mathbf L\cdot\mathbf M = 0$ forces $J_+^2 = J_-^2$:
 
 ```python
 A1 = WeylCharacterRing("A1", style="coroots")
@@ -5010,12 +5010,12 @@ symbolic. The last exercise asks for them and for the probability of finding the
 #### Moments of the ground state in Sage
 
 With Sage, normalise $\psi_{100} = Ce^{-r/a}$, compute $\langle r\rangle$, $\langle r^2\rangle$, $\langle1/r\rangle$,
-$\langle T\rangle = \langle H\rangle - \langle V\rangle$ with $a = \hbar^2/mk$, and $\operatorname{Prob}(r > 2a)$.
+$\langle T\rangle = \langle H\rangle - \langle V\rangle$ with $a = \hbar^2/mk$, and $\mathbb P(r > 2a)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $C = (\pi a^3)^{-1/2}$, $\langle r\rangle = \frac32a$, $\langle r^2\rangle = 3a^2$, $\langle1/r\rangle = 1/a$, $\langle
-T\rangle = mk^2/2\hbar^2$, and $\operatorname{Prob}(r > 2a) = 13e^{-4} \approx 0.238$:
+T\rangle = mk^2/2\hbar^2$, and $\mathbb P(r > 2a) = 13e^{-4} \approx 0.238$:
 
 ```python
 r = var("r", domain="positive"); hbar, m, k = var("hbar m k", domain="positive")
@@ -5180,14 +5180,14 @@ eqs. (2.34)-(2.35)].
 ::: {#exm-qms-linear-stark}
 #### The linear Stark effect
 
-An electric field $\mathcal E$ along $z$ adds $V = e\mathcal Ez$ to the Hamiltonian of hydrogen. $V$ commutes with
+An electric field $\mathbf E$ of strength $E = |\mathbf E|$ along $z$ adds $V = eEz$ to the Hamiltonian of hydrogen. $V$ commutes with
 $L_3$, so it couples only states with equal $m$, and it is odd under parity, so its diagonal elements in the states
 $2s$, $2p$ vanish. The only non-zero element in the level $n = 2$ is $\langle 200|z|210\rangle = \int_0^\infty
 R_{20}R_{21}r^3dr\int Y_{00}\cos\theta\,Y_{10}\,d\Omega = (-3\sqrt3\,a)\cdot\frac1{\sqrt3} = -3a$, so the $2 \times 2$
-block of @exm-qm-pt-degenerate has $v = -3e\mathcal Ea$: the states $(|200\rangle \mp |210\rangle)/\sqrt2$ shift by
-$\pm3e\mathcal Ea$ and the states with $m = \pm1$ do not move. For $\mathcal E = 10^6$ V/m the shift is $1.6\times10^{-4}$
+block of @exm-qm-pt-degenerate has $v = -3eEa$: the states $(|200\rangle \mp |210\rangle)/\sqrt2$ shift by
+$\pm3eEa$ and the states with $m = \pm1$ do not move. For $E = 10^6$ V/m the shift is $1.6\times10^{-4}$
 eV. The ground state is non-degenerate, its first-order shift vanishes by parity, and the field only induces a
-dipole $\alpha\mathcal E$ with energy $-\frac12\alpha\mathcal E^2$, the quadratic Stark effect of other atoms.
+dipole $\alpha E$ with energy $-\frac12\alpha E^2$, the quadratic Stark effect of other atoms.
 :::
 ::::
 
@@ -5522,7 +5522,7 @@ when the $\chi_a$ are orthonormal? [@izaac2018computational, Problem P10.9]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathcal E\,c^\dagger Sc = c^\dagger Hc$; varying $\bar c_a$ (independently of $c_a$, or $c$ and $ic$ as in the
+$\mathcal E\,c^\dagger Sc = c^\dagger Hc$; varying $c_a^*$ (independently of $c_a$, or $c$ and $ic$ as in the
 proposition) gives $\mathcal E(Sc)_a + (\delta\mathcal E)c^\dagger Sc = (Hc)_a$, so $\delta\mathcal E = 0$ for all
 variations if and only if $Hc = \mathcal ESc$. $c^\dagger Sc = \|\sum_ac_a\chi_a\|^2 > 0$ for $c \neq 0$ because the
 $\chi_a$ are independent, so $S$ is positive definite and has a Cholesky factor $L$. With $d = L^\dagger c$ the
@@ -5645,7 +5645,7 @@ $$
 K(x, y; t) = \langle x|e^{-iHt/\hbar}|y\rangle, \qquad \psi(x, t) = \int K(x, y; t)\psi(y, 0)\,dy .
 $$ {#eq-qm-propagator}
 It solves the Schrödinger equation in $(x, t)$ with $K(x, y; t) \to \delta(x - y)$ as $t \to 0^+$ (@def-dirac-delta), has the
-spectral representation $K = \sum_n\phi_n(x)\overline{\phi_n(y)}e^{-iE_nt/\hbar}$ when $H$ has an orthonormal eigenbasis
+spectral representation $K = \sum_n\phi_n(x)\phi_n(y)^*e^{-iE_nt/\hbar}$ when $H$ has an orthonormal eigenbasis
 $\phi_n$, and satisfies the **composition law** $\int K(x, z; t_1)K(z, y; t_2)\,dz = K(x, y; t_1 + t_2)$. For the free particle
 $$
 K_0(x, y; t) = \sqrt{\frac{m}{2\pi i\hbar t}}\exp\Big(\frac{im(x - y)^2}{2\hbar t}\Big) .
@@ -6354,7 +6354,7 @@ For a real $V$ and a real energy, show that the current @eq-qm-current of a solu
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$j' = \frac\hbar m\operatorname{Im}(\bar\phi'\phi' + \bar\phi\phi'') = \frac\hbar m\operatorname{Im}\bigl(\bar\phi\,\tfrac{2m}{\hbar^2}(V - E)\phi\bigr) = 0$, since $|\phi'|^2$ and $(V - E)|\phi|^2$ are real. On the left, $\bar\phi\phi' = ik(1 - |r|^2) + ik(\bar re^{2ikx} - re^{-2ikx})$, and the bracket $\bar re^{2ikx} - re^{-2ikx}$ is purely imaginary, so its product with $ik$ is real and drops out of the imaginary part, leaving $j = \frac{\hbar k}{m}(1 - |r|^2)$. On the right $j = \frac{\hbar k'}{m}|t|^2$, and equating gives $1 - R = T$. The cross term must drop out because it oscillates in $x$, while $j$ is constant.
+$j' = \frac\hbar m\operatorname{Im}({\phi'}^*\phi' + \phi^*\phi'') = \frac\hbar m\operatorname{Im}\bigl(\phi^*\,\tfrac{2m}{\hbar^2}(V - E)\phi\bigr) = 0$, since $|\phi'|^2$ and $(V - E)|\phi|^2$ are real. On the left, $\phi^*\phi' = ik(1 - |r|^2) + ik(r^*e^{2ikx} - re^{-2ikx})$, and the bracket $r^*e^{2ikx} - re^{-2ikx}$ is purely imaginary, so its product with $ik$ is real and drops out of the imaginary part, leaving $j = \frac{\hbar k}{m}(1 - |r|^2)$. On the right $j = \frac{\hbar k'}{m}|t|^2$, and equating gives $1 - R = T$. The cross term must drop out because it oscillates in $x$, while $j$ is constant.
 :::
 
 A potential that drops instead of rising also reflects, which has no classical counterpart. The second exercise computes the reflection of a particle that runs downhill.
@@ -6462,11 +6462,11 @@ Several obstacles in a row can be handled by multiplying matrices. The sixth exe
 ::: {#exr-qsc-tr-transfer}
 #### The transfer matrix
 
-Let $V$ vanish outside $[x_1, x_2]$, and write a solution as $Ae^{ikx} + Be^{-ikx}$ for $x < x_1$ and $Ce^{ikx} + De^{-ikx}$ for $x > x_2$, with $(C, D)^T = M(A, B)^T$. Show that for real $V$, $M = \begin{pmatrix} a & b \\ \bar b & \bar a\end{pmatrix}$ with $|a|^2 - |b|^2 = 1$, that $T = 1/|a|^2$, and that the matrix of two potentials in succession is the product of their matrices.
+Let $V$ vanish outside $[x_1, x_2]$, and write a solution as $Ae^{ikx} + Be^{-ikx}$ for $x < x_1$ and $Ce^{ikx} + De^{-ikx}$ for $x > x_2$, with $(C, D)^\top = M(A, B)^\top$. Show that for real $V$, $M = \begin{pmatrix} a & b \\ b^* & a^*\end{pmatrix}$ with $|a|^2 - |b|^2 = 1$, that $T = 1/|a|^2$, and that the matrix of two potentials in succession is the product of their matrices.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-If $\phi$ solves the equation, so does $\bar\phi$, which exchanges the roles of $(A, B)$ and $(\bar B, \bar A)$; hence $M_{22} = \bar M_{11}$ and $M_{21} = \bar M_{12}$. The constant current gives $|A|^2 - |B|^2 = |C|^2 - |D|^2$ for all $(A, B)$, which forces $|a|^2 - |b|^2 = 1$. For incidence from the left, $(A, B, C, D) = (1, r, t, 0)$: $0 = \bar b + \bar ar$, so $r = -\bar b/\bar a$ and $t = a + br = (|a|^2 - |b|^2)/\bar a = 1/\bar a$, hence $T = 1/|a|^2$. In a gap between two potentials the solution is again $Ce^{ikx} + De^{-ikx}$, so the coefficients are passed on and the matrices multiply [@zettili2009quantum, Sec. 4.7].
+If $\phi$ solves the equation, so does $\phi^*$, which exchanges the roles of $(A, B)$ and $(B^*, A^*)$; hence $M_{22} = M_{11}^*$ and $M_{21} = M_{12}^*$. The constant current gives $|A|^2 - |B|^2 = |C|^2 - |D|^2$ for all $(A, B)$, which forces $|a|^2 - |b|^2 = 1$. For incidence from the left, $(A, B, C, D) = (1, r, t, 0)$: $0 = b^* + a^*r$, so $r = -b^*/a^*$ and $t = a + br = (|a|^2 - |b|^2)/a^* = 1/a^*$, hence $T = 1/|a|^2$. In a gap between two potentials the solution is again $Ce^{ikx} + De^{-ikx}$, so the coefficients are passed on and the matrices multiply [@zettili2009quantum, Sec. 4.7].
 :::
 
 Two barriers can transmit perfectly even if each alone reflects most of the beam. The seventh exercise finds these resonances for two delta barriers with the transfer matrix.
@@ -6602,15 +6602,15 @@ In three dimensions a scattered particle can leave in any direction, and the out
 ::: {#def-qsc-cross-section}
 #### Differential cross section
 
-Let $V(\vec x)$ fall off faster than $1/r$ as $r = |\vec x| \to \infty$, and let $E = \hbar^2k^2/2m > 0$. A **scattering state** with incident direction $\hat z$ is a solution of $-\frac{\hbar^2}{2m}\nabla^2\psi + V\psi = E\psi$ with
+Let $V(\mathbf x)$ fall off faster than $1/r$ as $r = |\mathbf x| \to \infty$, and let $E = \hbar^2k^2/2m > 0$. A **scattering state** with incident direction $\hat{\mathbf z}$ is a solution of $-\frac{\hbar^2}{2m}\nabla^2\psi + V\psi = E\psi$ with
 $$
-\psi(\vec x) \simeq e^{ikz} + f(\theta, \varphi)\frac{e^{ikr}}{r} \qquad (r \to \infty) ,
+\psi(\mathbf x) \simeq e^{ikz} + f(\theta, \varphi)\frac{e^{ikr}}{r} \qquad (r \to \infty) ,
 $$ {#eq-qsc-asymptotic}
-the sum of an incident plane wave and an outgoing spherical wave; $f$ is the **scattering amplitude**. The incident wave carries the current $\hbar k/m$ along $\hat z$, and the spherical wave the radial current $\frac{\hbar k}{m}\frac{|f|^2}{r^2}$, so the number of particles scattered per unit time into the solid angle $d\Omega$ around $(\theta, \varphi)$, divided by $d\Omega$ and by the incident flux, is the **differential cross section**
+the sum of an incident plane wave and an outgoing spherical wave; $f$ is the **scattering amplitude**. The incident wave carries the current $\hbar k/m$ along $\hat{\mathbf z}$, and the spherical wave the radial current $\frac{\hbar k}{m}\frac{|f|^2}{r^2}$, so the number of particles scattered per unit time into the solid angle $d\Omega$ around $(\theta, \varphi)$, divided by $d\Omega$ and by the incident flux, is the **differential cross section**
 $$
 \frac{d\sigma}{d\Omega} = |f(\theta, \varphi)|^2 ,
 $$ {#eq-qsc-cross-section}
-and $\sigma = \int|f|^2\,d\Omega$ is the **total cross section**, an area. For two particles of masses $m_1$, $m_2$ interacting through $V(\vec x_1 - \vec x_2)$ the same holds for the relative motion in the centre-of-mass frame, with $m$ the reduced mass $m_1m_2/(m_1 + m_2)$ [@cini2023quantum, Secs. 14.2-14.3, eqs. (14.8), (14.14) and (14.16); @zettili2009quantum, Sec. 11.2].
+and $\sigma = \int|f|^2\,d\Omega$ is the **total cross section**, an area. For two particles of masses $m_1$, $m_2$ interacting through $V(\mathbf x_1 - \mathbf x_2)$ the same holds for the relative motion in the centre-of-mass frame, with $m$ the reduced mass $m_1m_2/(m_1 + m_2)$ [@cini2023quantum, Secs. 14.2-14.3, eqs. (14.8), (14.14) and (14.16); @zettili2009quantum, Sec. 11.2].
 :::
 ::::
 
@@ -6648,7 +6648,7 @@ The identification of the cross section with $|f|^2$ rests on the current carrie
 ::: {#exm-qsc-cs-current}
 #### The scattered current
 
-For $\psi_{\rm sc} = fe^{ikr}/r$, the radial part of the current $\frac{\hbar}{m}\operatorname{Im}(\bar\psi_{\rm sc}\nabla\psi_{\rm sc})$ is $\frac{\hbar}{m}\operatorname{Im}\bigl(\frac{\bar f}{r}\bigl(ik - \frac1r\bigr)\frac{f}{r}\bigr) = \frac{\hbar k}{m}\frac{|f|^2}{r^2}$, and the angular parts are of order $1/r^3$. Through the area $r^2d\Omega$ of a distant detector flow $\frac{\hbar k}{m}|f|^2d\Omega$ particles per unit time; dividing by the incident current $\hbar k/m$ gives @eq-qsc-cross-section, independently of the normalisation of $\psi$ [@cini2023quantum, Sec. 14.3, eq. (14.15)].
+For $\psi_{\rm sc} = fe^{ikr}/r$, the radial part of the current $\frac{\hbar}{m}\operatorname{Im}(\psi_{\rm sc}^*\nabla\psi_{\rm sc})$ is $\frac{\hbar}{m}\operatorname{Im}\bigl(\frac{f^*}{r}\bigl(ik - \frac1r\bigr)\frac{f}{r}\bigr) = \frac{\hbar k}{m}\frac{|f|^2}{r^2}$, and the angular parts are of order $1/r^3$. Through the area $r^2d\Omega$ of a distant detector flow $\frac{\hbar k}{m}|f|^2d\Omega$ particles per unit time; dividing by the incident current $\hbar k/m$ gives @eq-qsc-cross-section, independently of the normalisation of $\psi$ [@cini2023quantum, Sec. 14.3, eq. (14.15)].
 :::
 
 The interference between the incident and the scattered wave was ignored in the count. The next example explains why the experiment itself justifies this.
@@ -6700,7 +6700,7 @@ Particles of the same kind cannot be told apart after the collision, so a detect
 ::: {#exm-qsc-cs-identical}
 #### Identical particles
 
-For two identical spinless bosons in the centre-of-mass frame, the spatial wave function must be symmetric under $\vec x \to -\vec x$, which maps the direction $(\theta, \varphi)$ to $(\pi - \theta, \varphi + \pi)$. The scattered wave becomes $\bigl(f(\theta) + f(\pi - \theta)\bigr)e^{ikr}/r$ for a central potential, and $\frac{d\sigma}{d\Omega} = |f(\theta) + f(\pi - \theta)|^2$. At $\theta = 90°$ this is $4|f|^2$, twice the classical $|f(\theta)|^2 + |f(\pi - \theta)|^2$ for distinguishable particles [@zettili2009quantum, Sec. 11.5].
+For two identical spinless bosons in the centre-of-mass frame, the spatial wave function must be symmetric under $\mathbf x \to -\mathbf x$, which maps the direction $(\theta, \varphi)$ to $(\pi - \theta, \varphi + \pi)$. The scattered wave becomes $\bigl(f(\theta) + f(\pi - \theta)\bigr)e^{ikr}/r$ for a central potential, and $\frac{d\sigma}{d\Omega} = |f(\theta) + f(\pi - \theta)|^2$. At $\theta = 90°$ this is $4|f|^2$, twice the classical $|f(\theta)|^2 + |f(\pi - \theta)|^2$ for distinguishable particles [@zettili2009quantum, Sec. 11.5].
 :::
 ::::
 
@@ -6722,11 +6722,11 @@ The radial current of the spherical wave was computed only to leading order. The
 ::: {#exr-qsc-cs-current-sage}
 #### The current of the spherical wave
 
-With Sage, compute all three spherical components of $\frac\hbar m\operatorname{Im}(\bar\psi\nabla\psi)$ for $\psi = f(\theta, \varphi)e^{ikr}/r$ with a symbolic complex $f$, and confirm that the radial component is exactly $\frac{\hbar k}{m}\frac{|f|^2}{r^2}$ while the angular ones are of order $1/r^3$.
+With Sage, compute all three spherical components of $\frac\hbar m\operatorname{Im}(\psi^*\nabla\psi)$ for $\psi = f(\theta, \varphi)e^{ikr}/r$ with a symbolic complex $f$, and confirm that the radial component is exactly $\frac{\hbar k}{m}\frac{|f|^2}{r^2}$ while the angular ones are of order $1/r^3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The radial part has no correction at all, because $\operatorname{Im}(\bar\psi\partial_r\psi) = \operatorname{Im}(ik - 1/r)|\psi|^2$; the angular parts are $\frac{\hbar}{mr^3}\operatorname{Im}(\bar f\partial_\theta f)$ and $\frac{\hbar}{mr^3\sin\theta}\operatorname{Im}(\bar f\partial_\varphi f)$:
+The radial part has no correction at all, because $\operatorname{Im}(\psi^*\partial_r\psi) = \operatorname{Im}(ik - 1/r)|\psi|^2$; the angular parts are $\frac{\hbar}{mr^3}\operatorname{Im}(f^*\partial_\theta f)$ and $\frac{\hbar}{mr^3\sin\theta}\operatorname{Im}(f^*\partial_\varphi f)$:
 
 ```python
 r, th, ph, k, hb, m = var('r theta phi k hbar m'); assume(r > 0, k > 0, 0 < th, th < pi)
@@ -6881,11 +6881,11 @@ The reduction of a two-body collision to a one-body problem is the step that mak
 ::: {#exr-qsc-cs-two-body}
 #### From two bodies to one
 
-For $H = \frac{p_1^2}{2m_1} + \frac{p_2^2}{2m_2} + V(\vec x_1 - \vec x_2)$, introduce $\vec X = \frac{m_1\vec x_1 + m_2\vec x_2}{m_1 + m_2}$, $\vec x = \vec x_1 - \vec x_2$ and the conjugate momenta $\vec P = \vec p_1 + \vec p_2$, $\vec p = \frac{m_2\vec p_1 - m_1\vec p_2}{m_1 + m_2}$. Show that the new variables satisfy the canonical commutation relations and that $H = \frac{P^2}{2M} + \frac{p^2}{2\mu} + V(\vec x)$, with $M = m_1 + m_2$ and $\mu$ the reduced mass.
+For $H = \frac{p_1^2}{2m_1} + \frac{p_2^2}{2m_2} + V(\mathbf x_1 - \mathbf x_2)$, introduce $\mathbf X = \frac{m_1\mathbf x_1 + m_2\mathbf x_2}{m_1 + m_2}$, $\mathbf x = \mathbf x_1 - \mathbf x_2$ and the conjugate momenta $\mathbf P = \mathbf p_1 + \mathbf p_2$, $\mathbf p = \frac{m_2\mathbf p_1 - m_1\mathbf p_2}{m_1 + m_2}$. Show that the new variables satisfy the canonical commutation relations and that $H = \frac{P^2}{2M} + \frac{p^2}{2\mu} + V(\mathbf x)$, with $M = m_1 + m_2$ and $\mu$ the reduced mass.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$[X_i, P_j] = \frac{m_1 + m_2}{m_1 + m_2}i\hbar\delta_{ij}$, $[x_i, p_j] = \frac{m_2 + m_1}{m_1 + m_2}i\hbar\delta_{ij}$, and the mixed ones vanish: $[X_i, p_j] = \frac{m_1m_2 - m_2m_1}{(m_1 + m_2)^2}i\hbar\delta_{ij} = 0$, $[x_i, P_j] = i\hbar\delta_{ij} - i\hbar\delta_{ij} = 0$. Inverting, $\vec p_1 = \frac{m_1}{M}\vec P + \vec p$ and $\vec p_2 = \frac{m_2}{M}\vec P - \vec p$, and the cross terms in $\frac{p_1^2}{2m_1} + \frac{p_2^2}{2m_2}$ cancel, leaving $\frac{P^2}{2M} + \frac{p^2}{2}\bigl(\frac1{m_1} + \frac1{m_2}\bigr)$. The centre of mass moves freely and the relative motion is a particle of mass $\mu$ in $V$ [@cini2023quantum, Ch. 14, introduction, and Sec. 14.3].
+$[X_i, P_j] = \frac{m_1 + m_2}{m_1 + m_2}i\hbar\delta_{ij}$, $[x_i, p_j] = \frac{m_2 + m_1}{m_1 + m_2}i\hbar\delta_{ij}$, and the mixed ones vanish: $[X_i, p_j] = \frac{m_1m_2 - m_2m_1}{(m_1 + m_2)^2}i\hbar\delta_{ij} = 0$, $[x_i, P_j] = i\hbar\delta_{ij} - i\hbar\delta_{ij} = 0$. Inverting, $\mathbf p_1 = \frac{m_1}{M}\mathbf P + \mathbf p$ and $\mathbf p_2 = \frac{m_2}{M}\mathbf P - \mathbf p$, and the cross terms in $\frac{p_1^2}{2m_1} + \frac{p_2^2}{2m_2}$ cancel, leaving $\frac{P^2}{2M} + \frac{p^2}{2}\bigl(\frac1{m_1} + \frac1{m_2}\bigr)$. The centre of mass moves freely and the relative motion is a particle of mass $\mu$ in $V$ [@cini2023quantum, Ch. 14, introduction, and Sec. 14.3].
 :::
 
 Bosons enhance scattering at $90°$, and fermions in a symmetric spin state suppress it. The ninth exercise works out unpolarised spin-one-half fermions with the singlet and triplet of @def-qm-total-angular-momentum.
@@ -6893,11 +6893,11 @@ Bosons enhance scattering at $90°$, and fermions in a symmetric spin state supp
 ::: {#exr-qsc-cs-fermions}
 #### Identical fermions
 
-Two identical spin-one-half fermions have an antisymmetric total state. Show that in the spin singlet $\frac{d\sigma}{d\Omega} = |f(\theta) + f(\pi - \theta)|^2$ and in the triplet $|f(\theta) - f(\pi - \theta)|^2$, for a spin-independent central potential. For an unpolarised beam on an unpolarised target, show that $\frac{d\sigma}{d\Omega} = |f(\theta)|^2 + |f(\pi - \theta)|^2 - \operatorname{Re}\bigl(\bar f(\theta)f(\pi - \theta)\bigr)$, and evaluate it at $90°$.
+Two identical spin-one-half fermions have an antisymmetric total state. Show that in the spin singlet $\frac{d\sigma}{d\Omega} = |f(\theta) + f(\pi - \theta)|^2$ and in the triplet $|f(\theta) - f(\pi - \theta)|^2$, for a spin-independent central potential. For an unpolarised beam on an unpolarised target, show that $\frac{d\sigma}{d\Omega} = |f(\theta)|^2 + |f(\pi - \theta)|^2 - \operatorname{Re}\bigl(f^*(\theta)f(\pi - \theta)\bigr)$, and evaluate it at $90°$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The singlet is antisymmetric in spin, so the spatial part is symmetric; the triplet is symmetric, so the spatial part is antisymmetric, and the exchange $\vec x \to -\vec x$ maps $\theta$ to $\pi - \theta$. Unpolarised spins are in the singlet with probability $\frac14$ and in the triplet with $\frac34$: $\frac14|f + f'|^2 + \frac34|f - f'|^2 = |f|^2 + |f'|^2 - \operatorname{Re}(\bar ff')$ with $f' = f(\pi - \theta)$. At $90°$, $f = f'$ and the result is $|f|^2$, half the classical $2|f|^2$ [@zettili2009quantum, Sec. 11.5].
+The singlet is antisymmetric in spin, so the spatial part is symmetric; the triplet is symmetric, so the spatial part is antisymmetric, and the exchange $\mathbf x \to -\mathbf x$ maps $\theta$ to $\pi - \theta$. Unpolarised spins are in the singlet with probability $\frac14$ and in the triplet with $\frac34$: $\frac14|f + f'|^2 + \frac34|f - f'|^2 = |f|^2 + |f'|^2 - \operatorname{Re}(f^*f')$ with $f' = f(\pi - \theta)$. At $90°$, $f = f'$ and the result is $|f|^2$, half the classical $2|f|^2$ [@zettili2009quantum, Sec. 11.5].
 :::
 
 The total cross section of the Coulomb potential diverges because of the distant collisions. The last exercise shows that a screened potential, which the Born approximation of the next unit treats, is finite, using the classical cross section.
@@ -6921,23 +6921,23 @@ The scattering amplitude is defined by the asymptotics of a solution, and for mo
 ::: {#prp-qsc-born}
 #### Born approximation
 
-Let $V$ be as in @def-qsc-cross-section, let $\vec k = k\hat z$ be the incident and $\vec k' = k\vec x/r$ the outgoing wave vector, and let
+Let $V$ be as in @def-qsc-cross-section, let $\mathbf k = k\hat{\mathbf z}$ be the incident and $\mathbf k' = k\mathbf x/r$ the outgoing wave vector, and let
 $$
-G(\vec x) = -\frac{m}{2\pi\hbar^2}\frac{e^{ik|\vec x|}}{|\vec x|} ,
+G(\mathbf x) = -\frac{m}{2\pi\hbar^2}\frac{e^{ik|\mathbf x|}}{|\mathbf x|} ,
 $$ {#eq-qsc-green}
 the outgoing solution of $(\nabla^2 + k^2)G = \frac{2m}{\hbar^2}\delta^3$, a Green's function (@def-greens-function) of $\frac{\hbar^2}{2m}(\nabla^2 + k^2)$. The scattering state of @eq-qsc-asymptotic solves the **Lippmann-Schwinger equation**
 $$
-\psi(\vec x) = e^{i\vec k\cdot\vec x} + \int G(\vec x - \vec y)V(\vec y)\psi(\vec y)\,d^3y ,
+\psi(\mathbf x) = e^{i\mathbf k\cdot\mathbf x} + \int G(\mathbf x - \mathbf y)V(\mathbf y)\psi(\mathbf y)\,d^3y ,
 $$ {#eq-qsc-lippmann-schwinger}
-and its amplitude is exactly $f(\vec k', \vec k) = -\frac{m}{2\pi\hbar^2}\int e^{-i\vec k'\cdot\vec y}V(\vec y)\psi(\vec y)\,d^3y$. Replacing $\psi$ under the integral by the incident wave gives the **first Born approximation**
+and its amplitude is exactly $f(\mathbf k', \mathbf k) = -\frac{m}{2\pi\hbar^2}\int e^{-i\mathbf k'\cdot\mathbf y}V(\mathbf y)\psi(\mathbf y)\,d^3y$. Replacing $\psi$ under the integral by the incident wave gives the **first Born approximation**
 $$
-f_B(\vec k', \vec k) = -\frac{m}{2\pi\hbar^2}\int e^{i\vec q\cdot\vec y}V(\vec y)\,d^3y, \qquad \vec q = \vec k - \vec k' ,
+f_B(\mathbf k', \mathbf k) = -\frac{m}{2\pi\hbar^2}\int e^{i\mathbf q\cdot\mathbf y}V(\mathbf y)\,d^3y, \qquad \mathbf q = \mathbf k - \mathbf k' ,
 $$ {#eq-qsc-born}
-proportional to the Fourier transform (@def-fourier-transform) of $V$ at the momentum transfer $\hbar\vec q$. For a central potential, with $q = |\vec q| = 2k\sin(\theta/2)$,
+proportional to the Fourier transform (@def-fourier-transform) of $V$ at the momentum transfer $\hbar\mathbf q$. For a central potential, with $q = |\mathbf q| = 2k\sin(\theta/2)$,
 $$
 f_B(\theta) = -\frac{2m}{\hbar^2q}\int_0^\infty rV(r)\sin(qr)\,dr .
 $$ {#eq-qsc-born-central}
-The approximation is reliable when $\frac{2m}{\hbar^2k}\bigl|\int_0^\infty V(r)e^{ikr}\sin(kr)\,dr\bigr| \ll 1$, the condition that the scattered wave be small at the centre; this holds at high energy for every short-range potential, and at low energy it becomes $\frac{2m}{\hbar^2}\int_0^\infty|V(r)|r\,dr \ll 1$, which means that even the attractive version of the potential is far from binding. *Proof.* Applying $\frac{\hbar^2}{2m}(\nabla^2 + k^2)$ to @eq-qsc-lippmann-schwinger gives $V\psi$, so $\psi$ solves the Schrödinger equation. For $r \gg |\vec y|$, $|\vec x - \vec y| = r - \vec x\cdot\vec y/r + O(1/r)$, so $G(\vec x - \vec y) \simeq -\frac{m}{2\pi\hbar^2}\frac{e^{ikr}}{r}e^{-i\vec k'\cdot\vec y}$, and comparing with @eq-qsc-asymptotic gives the exact amplitude and @eq-qsc-born. For a central $V$, take $\vec q$ as the polar axis: $\int_{-1}^1e^{iqru}\,du = \frac{2\sin qr}{qr}$, which gives @eq-qsc-born-central, and $|\vec k - \vec k'|^2 = 2k^2(1 - \cos\theta)$. The validity condition is $|\int G(-\vec y)V(\vec y)e^{i\vec k\cdot\vec y}\,d^3y| \ll 1$ evaluated by the same angular integral [@cini2023quantum, Secs. 14.7-14.8, eqs. (14.64), (14.68), (14.70), (14.72)-(14.74), (14.78) and (14.80)].
+The approximation is reliable when $\frac{2m}{\hbar^2k}\bigl|\int_0^\infty V(r)e^{ikr}\sin(kr)\,dr\bigr| \ll 1$, the condition that the scattered wave be small at the centre; this holds at high energy for every short-range potential, and at low energy it becomes $\frac{2m}{\hbar^2}\int_0^\infty|V(r)|r\,dr \ll 1$, which means that even the attractive version of the potential is far from binding. *Proof.* Applying $\frac{\hbar^2}{2m}(\nabla^2 + k^2)$ to @eq-qsc-lippmann-schwinger gives $V\psi$, so $\psi$ solves the Schrödinger equation. For $r \gg |\mathbf y|$, $|\mathbf x - \mathbf y| = r - \mathbf x\cdot\mathbf y/r + O(1/r)$, so $G(\mathbf x - \mathbf y) \simeq -\frac{m}{2\pi\hbar^2}\frac{e^{ikr}}{r}e^{-i\mathbf k'\cdot\mathbf y}$, and comparing with @eq-qsc-asymptotic gives the exact amplitude and @eq-qsc-born. For a central $V$, take $\mathbf q$ as the polar axis: $\int_{-1}^1e^{iqru}\,du = \frac{2\sin qr}{qr}$, which gives @eq-qsc-born-central, and $|\mathbf k - \mathbf k'|^2 = 2k^2(1 - \cos\theta)$. The validity condition is $|\int G(-\mathbf y)V(\mathbf y)e^{i\mathbf k\cdot\mathbf y}\,d^3y| \ll 1$ evaluated by the same angular integral [@cini2023quantum, Secs. 14.7-14.8, eqs. (14.64), (14.68), (14.70), (14.72)-(14.74), (14.78) and (14.80)].
 :::
 ::::
 
@@ -6987,7 +6987,7 @@ A Gaussian potential has a Gaussian Fourier transform, which makes it the standa
 ::: {#exm-qsc-born-gaussian}
 #### A Gaussian potential
 
-For $V = V_0e^{-r^2/b^2}$, $\int e^{i\vec q\cdot\vec y}e^{-y^2/b^2}\,d^3y = \pi^{3/2}b^3e^{-q^2b^2/4}$ by the Gaussian integral of @exr-qm-momentum-wavefunction applied in each direction, so $f_B = -\frac{\sqrt\pi\,mV_0b^3}{2\hbar^2}e^{-q^2b^2/4}$. The cross section falls off like $e^{-q^2b^2/2}$, faster than any power, and at high energy only small angles $\theta \lesssim 1/kb$ contribute [@cini2023quantum, Sec. 14.8; @galitski2013exploring, Problem 13.1].
+For $V = V_0e^{-r^2/b^2}$, $\int e^{i\mathbf q\cdot\mathbf y}e^{-y^2/b^2}\,d^3y = \pi^{3/2}b^3e^{-q^2b^2/4}$ by the Gaussian integral of @exr-qm-momentum-wavefunction applied in each direction, so $f_B = -\frac{\sqrt\pi\,mV_0b^3}{2\hbar^2}e^{-q^2b^2/4}$. The cross section falls off like $e^{-q^2b^2/2}$, faster than any power, and at high energy only small angles $\theta \lesssim 1/kb$ contribute [@cini2023quantum, Sec. 14.8; @galitski2013exploring, Problem 13.1].
 :::
 
 A potential concentrated on a spherical shell is the three-dimensional cousin of the delta barrier of @exm-qsc-tr-delta. The next example computes its Born amplitude, the exact one being known from partial waves [@zettili2009quantum, Problem 11.2].
@@ -7011,7 +7011,7 @@ The Born amplitude is linear in $V$, so its square does not see the sign of the 
 ::: {#exm-qsc-born-inversion}
 #### What the Born approximation measures
 
-Since $f_B \propto V$, an attractive and a repulsive potential of the same shape have the same Born cross section; the sign appears only at second order, or through interference with a known amplitude. On the other hand, measuring $|f_B|$ at all momentum transfers determines $|\tilde V(\vec q)|$, so high-energy scattering maps out the shape of the target. This is how the size of the proton, below $1\,$fm, was first measured by electron scattering, with the Fourier transform of the charge density, the form factor, in place of $\tilde V$ [@cini2023quantum, Sec. 14.8].
+Since $f_B \propto V$, an attractive and a repulsive potential of the same shape have the same Born cross section; the sign appears only at second order, or through interference with a known amplitude. On the other hand, measuring $|f_B|$ at all momentum transfers determines $|\hat V(\mathbf q)|$, so high-energy scattering maps out the shape of the target. This is how the size of the proton, below $1\,$fm, was first measured by electron scattering, with the Fourier transform of the charge density, the form factor, in place of $\tilde V$ [@cini2023quantum, Sec. 14.8].
 :::
 
 The low-energy validity condition is a statement about binding, and for the Yukawa potential it can be evaluated. The next example does this and connects it with the existence of bound states.
@@ -7071,11 +7071,11 @@ The exact formula for the amplitude follows from the far-field form of the Green
 ::: {#exr-qsc-born-far-field}
 #### The far field
 
-Show that $|\vec x - \vec y| = r - \hat x\cdot\vec y + O(|\vec y|^2/r)$ and $\frac1{|\vec x - \vec y|} = \frac1r + O(|\vec y|/r^2)$ for $r \gg |\vec y|$, $\hat x = \vec x/r$. Derive $f = -\frac{m}{2\pi\hbar^2}\int e^{-i\vec k'\cdot\vec y}V\psi\,d^3y$ from @eq-qsc-lippmann-schwinger. Why must the phase be expanded to first order and the amplitude only to zeroth order, and what condition on $k$ does the neglected phase $k|\vec y|^2/2r$ impose?
+Show that $|\mathbf x - \mathbf y| = r - \hat{\mathbf x}\cdot\mathbf y + O(|\mathbf y|^2/r)$ and $\frac1{|\mathbf x - \mathbf y|} = \frac1r + O(|\mathbf y|/r^2)$ for $r \gg |\mathbf y|$, $\hat{\mathbf x} = \mathbf x/r$. Derive $f = -\frac{m}{2\pi\hbar^2}\int e^{-i\mathbf k'\cdot\mathbf y}V\psi\,d^3y$ from @eq-qsc-lippmann-schwinger. Why must the phase be expanded to first order and the amplitude only to zeroth order, and what condition on $k$ does the neglected phase $k|\mathbf y|^2/2r$ impose?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$|\vec x - \vec y| = r\sqrt{1 - 2\hat x\cdot\vec y/r + y^2/r^2} = r - \hat x\cdot\vec y + O(y^2/r)$. In $e^{ik|\vec x - \vec y|}$ the term $k\hat x\cdot\vec y$ is of order one and must be kept, giving $e^{ikr}e^{-i\vec k'\cdot\vec y}$, while in the amplitude $1/|\vec x - \vec y|$ the correction is of relative order $y/r$. Then $\int GV\psi \simeq -\frac{m}{2\pi\hbar^2}\frac{e^{ikr}}{r}\int e^{-i\vec k'\cdot\vec y}V\psi\,d^3y$, which is $f\frac{e^{ikr}}{r}$. The neglected phase $ky^2/2r$ must be small for $y$ up to the range $a$: $r \gg ka^2$, the condition for the detector to be in the far zone, as in Fraunhofer diffraction [@cini2023quantum, Sec. 14.7, eq. (14.70)].
+$|\mathbf x - \mathbf y| = r\sqrt{1 - 2\hat{\mathbf x}\cdot\mathbf y/r + y^2/r^2} = r - \hat{\mathbf x}\cdot\mathbf y + O(y^2/r)$. In $e^{ik|\mathbf x - \mathbf y|}$ the term $k\hat{\mathbf x}\cdot\mathbf y$ is of order one and must be kept, giving $e^{ikr}e^{-i\mathbf k'\cdot\mathbf y}$, while in the amplitude $1/|\mathbf x - \mathbf y|$ the correction is of relative order $y/r$. Then $\int GV\psi \simeq -\frac{m}{2\pi\hbar^2}\frac{e^{ikr}}{r}\int e^{-i\mathbf k'\cdot\mathbf y}V\psi\,d^3y$, which is $f\frac{e^{ikr}}{r}$. The neglected phase $ky^2/2r$ must be small for $y$ up to the range $a$: $r \gg ka^2$, the condition for the detector to be in the far zone, as in Fraunhofer diffraction [@cini2023quantum, Sec. 14.7, eq. (14.70)].
 :::
 
 The total Born cross section of the Yukawa potential has a closed form, which shows how $\sigma$ depends on the energy. The third exercise computes it with Sage.
@@ -7217,16 +7217,16 @@ Apply the condition $k \gg \frac{\pi m\kappa}{2\hbar^2}$ of @exm-qsc-born-proton
 With $\kappa = e^2/4\pi\varepsilon_0$ and $m = m_e$, $\frac{m\kappa}{\hbar^2} = \frac1{a_0}$, so the condition is $ka_0 \gg \frac\pi2$ and $E = \frac{\hbar^2k^2}{2m} \gg \frac{\pi^2}{4}\frac{\hbar^2}{2ma_0^2} = \frac{\pi^2}{4}\,\mathrm{Ry} = 33.6\,$eV, with $\mathrm{Ry} = 13.6\,$eV (@exm-qm-hydrogen-numbers). At $1\,$keV, $E$ is $30$ times the threshold and the approximation is good [@cini2023quantum, Sec. 14.8, eqs. (14.84)-(14.85)].
 :::
 
-A potential without spherical symmetry gives an amplitude that depends on the orientation of $\vec q$. The eighth exercise treats two point scatterers, which interfere like two slits.
+A potential without spherical symmetry gives an amplitude that depends on the orientation of $\mathbf q$. The eighth exercise treats two point scatterers, which interfere like two slits.
 
 ::: {#exr-qsc-born-two-centres}
 #### Two point scatterers
 
-Model two scattering centres at $\pm\vec d$ by $V = \lambda\bigl(\delta^3(\vec x - \vec d) + \delta^3(\vec x + \vec d)\bigr)$. Compute $f_B$ and $\frac{d\sigma}{d\Omega}$, and describe the pattern for $\vec d = d\hat z$ along the beam and for $\vec d$ perpendicular to it.
+Model two scattering centres at $\pm\mathbf d$ by $V = \lambda\bigl(\delta^3(\mathbf x - \mathbf d) + \delta^3(\mathbf x + \mathbf d)\bigr)$. Compute $f_B$ and $\frac{d\sigma}{d\Omega}$, and describe the pattern for $\mathbf d = d\hat{\mathbf z}$ along the beam and for $\mathbf d$ perpendicular to it.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-@eq-qsc-born gives $f_B = -\frac{m\lambda}{2\pi\hbar^2}(e^{i\vec q\cdot\vec d} + e^{-i\vec q\cdot\vec d}) = -\frac{m\lambda}{\pi\hbar^2}\cos(\vec q\cdot\vec d)$, and $\frac{d\sigma}{d\Omega} = \frac{m^2\lambda^2}{\pi^2\hbar^4}\cos^2(\vec q\cdot\vec d)$: four times the cross section of one centre where the waves interfere constructively, zero where they cancel. For $\vec d = d\hat z$, $\vec q\cdot\vec d = kd(1 - \cos\theta)$, a pattern of rings in $\theta$; for $\vec d$ along $\hat x$, $\vec q\cdot\vec d = -kd\sin\theta\cos\varphi$, fringes that also depend on the azimuth, as behind a double slit. This is the basis of the structure analysis of molecules and crystals by diffraction [@zettili2009quantum, Problem 11.5].
+@eq-qsc-born gives $f_B = -\frac{m\lambda}{2\pi\hbar^2}(e^{i\mathbf q\cdot\mathbf d} + e^{-i\mathbf q\cdot\mathbf d}) = -\frac{m\lambda}{\pi\hbar^2}\cos(\mathbf q\cdot\mathbf d)$, and $\frac{d\sigma}{d\Omega} = \frac{m^2\lambda^2}{\pi^2\hbar^4}\cos^2(\mathbf q\cdot\mathbf d)$: four times the cross section of one centre where the waves interfere constructively, zero where they cancel. For $\mathbf d = d\hat{\mathbf z}$, $\mathbf q\cdot\mathbf d = kd(1 - \cos\theta)$, a pattern of rings in $\theta$; for $\mathbf d$ along $\hat{\mathbf x}$, $\mathbf q\cdot\mathbf d = -kd\sin\theta\cos\varphi$, fringes that also depend on the azimuth, as behind a double slit. This is the basis of the structure analysis of molecules and crystals by diffraction [@zettili2009quantum, Problem 11.5].
 :::
 
 The Born amplitude is a Fourier transform, so it can be inverted. The ninth exercise reconstructs a potential from its amplitude with Sage.
@@ -7238,7 +7238,7 @@ Suppose that measurements at high energy give $f_B(q) = -\frac{A}{q^2 + \mu^2}$ 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-@eq-qsc-born says $\tilde V(q) = \int e^{i\vec q\cdot\vec y}V\,d^3y = -\frac{2\pi\hbar^2}{m}f_B$, and the inverse transform of a radial function is $V(r) = \frac{1}{2\pi^2r}\int_0^\infty q\tilde V(q)\sin(qr)\,dq$, which is the stated formula:
+@eq-qsc-born says $\hat V(q) = \int e^{-i\mathbf q\cdot\mathbf y}V\,d^3y = \int e^{i\mathbf q\cdot\mathbf y}V\,d^3y = -\frac{2\pi\hbar^2}{m}f_B$, and the inverse transform of a radial function is $V(r) = \frac{1}{2\pi^2r}\int_0^\infty q\hat V(q)\sin(qr)\,dq$, which is the stated formula:
 
 ```python
 q, r, A, mu, m, hb = var('q r A mu m hbar'); assume(q > 0, r > 0, A > 0, mu > 0, m > 0, hb > 0)
@@ -7264,11 +7264,11 @@ The Born series continues the approximation to higher orders. The last exercise 
 ::: {#exr-qsc-born-second}
 #### The second Born term
 
-Iterating @eq-qsc-lippmann-schwinger once gives the second Born amplitude $f^{(2)} = -\frac{m}{2\pi\hbar^2}\int\!\!\int e^{-i\vec k'\cdot\vec x}V(\vec x)G(\vec x - \vec y)V(\vec y)e^{i\vec k\cdot\vec y}\,d^3x\,d^3y$. For the shell $V = g\delta(r - a)$ of @exm-qsc-born-shell at $k = 0$, evaluate it and show that $f_B + f^{(2)} = -\frac{2mga^2}{\hbar^2}\bigl(1 - \frac{2mga}{\hbar^2} + \dots\bigr)$. Compare with the expansion of the exact scattering length $a_s = a\frac{2mga/\hbar^2}{1 + 2mga/\hbar^2}$ of the shell, which the matching of $u = rR_0$ at $r = a$ gives [@zettili2009quantum, Problem 11.2].
+Iterating @eq-qsc-lippmann-schwinger once gives the second Born amplitude $f^{(2)} = -\frac{m}{2\pi\hbar^2}\int\!\!\int e^{-i\mathbf k'\cdot\mathbf x}V(\mathbf x)G(\mathbf x - \mathbf y)V(\mathbf y)e^{i\mathbf k\cdot\mathbf y}\,d^3x\,d^3y$. For the shell $V = g\delta(r - a)$ of @exm-qsc-born-shell at $k = 0$, evaluate it and show that $f_B + f^{(2)} = -\frac{2mga^2}{\hbar^2}\bigl(1 - \frac{2mga}{\hbar^2} + \dots\bigr)$. Compare with the expansion of the exact scattering length $a_s = a\frac{2mga/\hbar^2}{1 + 2mga/\hbar^2}$ of the shell, which the matching of $u = rR_0$ at $r = a$ gives [@zettili2009quantum, Problem 11.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-At $k = 0$, $G = -\frac{m}{2\pi\hbar^2|\vec x - \vec y|}$, and for $\vec x$, $\vec y$ on the sphere of radius $a$, $\int\frac{d\Omega_y}{|\vec x - \vec y|} = \frac{4\pi}{a}$ (the potential of a uniform shell on its surface). So $f^{(2)} = -\frac{m}{2\pi\hbar^2}g^2a^4\int d\Omega_x\bigl(-\frac{m}{2\pi\hbar^2}\bigr)\frac{4\pi}{a} = \frac{m^2g^2}{4\pi^2\hbar^4}\cdot16\pi^2a^3 = \frac{4m^2g^2a^3}{\hbar^4}$, and $f_B + f^{(2)} = -\frac{2mga^2}{\hbar^2}\bigl(1 - \frac{2mga}{\hbar^2}\bigr)$. The exact $-a_s = -\frac{2mga^2}{\hbar^2}\bigl(1 + \frac{2mga}{\hbar^2}\bigr)^{-1}$ has the same two first terms: the Born series is its expansion in powers of the strength, convergent only for $\frac{2m|g|a}{\hbar^2} < 1$ [@cini2023quantum, Sec. 14.8, eq. (14.71)].
+At $k = 0$, $G = -\frac{m}{2\pi\hbar^2|\mathbf x - \mathbf y|}$, and for $\mathbf x$, $\mathbf y$ on the sphere of radius $a$, $\int\frac{d\Omega_y}{|\mathbf x - \mathbf y|} = \frac{4\pi}{a}$ (the potential of a uniform shell on its surface). So $f^{(2)} = -\frac{m}{2\pi\hbar^2}g^2a^4\int d\Omega_x\bigl(-\frac{m}{2\pi\hbar^2}\bigr)\frac{4\pi}{a} = \frac{m^2g^2}{4\pi^2\hbar^4}\cdot16\pi^2a^3 = \frac{4m^2g^2a^3}{\hbar^4}$, and $f_B + f^{(2)} = -\frac{2mga^2}{\hbar^2}\bigl(1 - \frac{2mga}{\hbar^2}\bigr)$. The exact $-a_s = -\frac{2mga^2}{\hbar^2}\bigl(1 + \frac{2mga}{\hbar^2}\bigr)^{-1}$ has the same two first terms: the Born series is its expansion in powers of the strength, convergent only for $\frac{2m|g|a}{\hbar^2} < 1$ [@cini2023quantum, Sec. 14.8, eq. (14.71)].
 :::
 ::::
 
@@ -7648,7 +7648,7 @@ The electromagnetism chapter described a charge in given fields by its minimally
 
 For more on this topic, see @guidry2022symmetry [Ch. 27 and Sec. 28.2] and @galitski2013exploring [Ch. 7].
 
-The units are those of the electromagnetism chapter, Heaviside-Lorentz with $c = 1$, in which the minimally coupled Hamiltonian has the same form $\frac{1}{2m}|\vec p - q\vec A|^2 + q\phi$ as in SI units; numbers are given in SI units. We write $\vec A$, $\vec B$ and $\vec E$ for the $\mathbf A$, $\mathbf B$ and $\mathbf E$ of that chapter, and keep $\hbar$ explicit, which that chapter set to one. The sources are @guidry2022symmetry [Secs. 27.1, 27.3 and 28.2 and Problems 27.1-27.6 and 28.2-28.4] and @galitski2013exploring [Problems 7.1-7.10 and 13.24].
+The units are those of the electromagnetism chapter, Heaviside-Lorentz with $c = 1$, in which the minimally coupled Hamiltonian has the same form $\frac{1}{2m}|\mathbf p - q\mathbf A|^2 + q\Phi$ as in SI units; numbers are given in SI units. We write $\mathbf A$, $\mathbf B$ and $\mathbf E$ for the $\mathbf A$, $\mathbf B$ and $\mathbf E$ of that chapter, and keep $\hbar$ explicit, which that chapter set to one. The sources are @guidry2022symmetry [Secs. 27.1, 27.3 and 28.2 and Problems 27.1-27.6 and 28.2-28.4] and @galitski2013exploring [Problems 7.1-7.10 and 13.24].
 
 ### Gauge covariance {#sec-qcp-gauge-covariance}
 
@@ -7660,19 +7660,19 @@ Replacing the momentum by $-i\hbar\nabla$ in the minimally coupled Hamiltonian g
 ::: {#prp-qcp-gauge-covariance}
 #### Gauge covariance of the Schrödinger equation
 
-Let $(\phi, \vec A)$ be potentials and let a particle of mass $m$ and charge $q$ have the Hamiltonian of @def-emm-minimal-coupling with $\vec p = -i\hbar\nabla$,
+Let $(\Phi, \mathbf A)$ be potentials and let a particle of mass $m$ and charge $q$ have the Hamiltonian of @def-emm-minimal-coupling with $\mathbf p = -i\hbar\nabla$,
 $$
-H = \frac{1}{2m}\bigl(-i\hbar\nabla - q\vec A\bigr)^2 + q\phi .
+H = \frac{1}{2m}\bigl(-i\hbar\nabla - q\mathbf A\bigr)^2 + q\Phi .
 $$ {#eq-qcp-hamiltonian}
-If $\psi$ solves $i\hbar\partial_t\psi = H\psi$ and $\lambda(t, \vec x)$ is a gauge function, then
+If $\psi$ solves $i\hbar\partial_t\psi = H\psi$ and $\lambda(t, \mathbf x)$ is a gauge function, then
 $$
 \psi' = e^{iq\lambda/\hbar}\psi
 $$ {#eq-qcp-phase}
-solves the Schrödinger equation with the transformed potentials $\phi' = \phi - \partial_t\lambda$, $\vec A' = \vec A + \nabla\lambda$ of @eq-emm-gauge-transformation. The **kinetic momentum** $\vec\pi = -i\hbar\nabla - q\vec A$ is covariant, $\vec\pi'\psi' = e^{iq\lambda/\hbar}\vec\pi\psi$, so the density $\rho = |\psi|^2$ and the current
+solves the Schrödinger equation with the transformed potentials $\Phi' = \Phi - \partial_t\lambda$, $\mathbf A' = \mathbf A + \nabla\lambda$ of @eq-emm-gauge-transformation. The **kinetic momentum** $\boldsymbol\pi = -i\hbar\nabla - q\mathbf A$ is covariant, $\boldsymbol\pi'\psi' = e^{iq\lambda/\hbar}\boldsymbol\pi\psi$, so the density $\rho = |\psi|^2$ and the current
 $$
-\vec j = \frac1m\operatorname{Re}\bigl(\bar\psi\,\vec\pi\psi\bigr) = \frac\hbar m\operatorname{Im}(\bar\psi\nabla\psi) - \frac qm\vec A|\psi|^2 ,
+\mathbf j = \frac1m\operatorname{Re}\bigl(\psi^*\,\boldsymbol\pi\psi\bigr) = \frac\hbar m\operatorname{Im}(\psi^*\nabla\psi) - \frac qm\mathbf A|\psi|^2 ,
 $$ {#eq-qcp-current}
-which satisfy $\partial_t\rho + \nabla\cdot\vec j = 0$, are gauge invariant, while the canonical momentum $-i\hbar\nabla$ is not. The components of $\vec\pi$ do not commute: $[\pi_i, \pi_j] = i\hbar q\epsilon_{ijk}B_k$. *Proof.* $(-i\hbar\nabla - q\vec A - q\nabla\lambda)(e^{iq\lambda/\hbar}\psi) = e^{iq\lambda/\hbar}(q\nabla\lambda - i\hbar\nabla - q\vec A - q\nabla\lambda)\psi = e^{iq\lambda/\hbar}\vec\pi\psi$, and in the same way $(i\hbar\partial_t - q\phi')(e^{iq\lambda/\hbar}\psi) = e^{iq\lambda/\hbar}(i\hbar\partial_t - q\phi)\psi$. Applying the first identity twice gives $H'\psi' = e^{iq\lambda/\hbar}(H - q\phi + q\phi')\psi$, hence the Schrödinger equation for $\psi'$. The continuity equation follows as in @exr-qm-continuity with $\nabla$ replaced by $\nabla - iq\vec A/\hbar$, and $[\pi_i, \pi_j]\psi = i\hbar q(\partial_iA_j - \partial_jA_i)\psi = i\hbar q\epsilon_{ijk}B_k\psi$, since the derivatives of $\psi$ cancel. This is the quantum form of @prp-emm-gauge-invariance-motion, as anticipated in @exm-emm-gi-phase [@guidry2022symmetry, Sec. 27.1.3 and Problem 28.4; @galitski2013exploring, eqs. (VII.1)-(VII.2)].
+which satisfy $\partial_t\rho + \nabla\cdot\mathbf j = 0$, are gauge invariant, while the canonical momentum $-i\hbar\nabla$ is not. The components of $\boldsymbol\pi$ do not commute: $[\pi_i, \pi_j] = i\hbar q\epsilon_{ijk}B_k$. *Proof.* $(-i\hbar\nabla - q\mathbf A - q\nabla\lambda)(e^{iq\lambda/\hbar}\psi) = e^{iq\lambda/\hbar}(q\nabla\lambda - i\hbar\nabla - q\mathbf A - q\nabla\lambda)\psi = e^{iq\lambda/\hbar}\boldsymbol\pi\psi$, and in the same way $(i\hbar\partial_t - q\Phi')(e^{iq\lambda/\hbar}\psi) = e^{iq\lambda/\hbar}(i\hbar\partial_t - q\Phi)\psi$. Applying the first identity twice gives $H'\psi' = e^{iq\lambda/\hbar}(H - q\Phi + q\Phi')\psi$, hence the Schrödinger equation for $\psi'$. The continuity equation follows as in @exr-qm-continuity with $\nabla$ replaced by $\nabla - iq\mathbf A/\hbar$, and $[\pi_i, \pi_j]\psi = i\hbar q(\partial_iA_j - \partial_jA_i)\psi = i\hbar q\epsilon_{ijk}B_k\psi$, since the derivatives of $\psi$ cancel. This is the quantum form of @prp-emm-gauge-invariance-motion, as anticipated in @exm-emm-gi-phase [@guidry2022symmetry, Sec. 27.1.3 and Problem 28.4; @galitski2013exploring, eqs. (VII.1)-(VII.2)].
 :::
 ::::
 
@@ -7682,11 +7682,11 @@ Squaring the kinetic momentum produces terms of first and second order in the po
 ::: {#exm-qcp-gc-expansion}
 #### Expanding the Hamiltonian
 
-Since $(-i\hbar\nabla)\cdot(\vec A\psi) = \vec A\cdot(-i\hbar\nabla\psi) - i\hbar(\nabla\cdot\vec A)\psi$,
+Since $(-i\hbar\nabla)\cdot(\mathbf A\psi) = \mathbf A\cdot(-i\hbar\nabla\psi) - i\hbar(\nabla\cdot\mathbf A)\psi$,
 $$
-H = \frac{p^2}{2m} - \frac{q}{2m}(\vec p\cdot\vec A + \vec A\cdot\vec p) + \frac{q^2A^2}{2m} + q\phi, \qquad \vec p\cdot\vec A = \vec A\cdot\vec p - i\hbar\nabla\cdot\vec A .
+H = \frac{p^2}{2m} - \frac{q}{2m}(\mathbf p\cdot\mathbf A + \mathbf A\cdot\mathbf p) + \frac{q^2A^2}{2m} + q\Phi, \qquad \mathbf p\cdot\mathbf A = \mathbf A\cdot\mathbf p - i\hbar\nabla\cdot\mathbf A .
 $$
-In the Coulomb gauge $\nabla\cdot\vec A = 0$ (@prp-emm-gauges) the two orderings agree and the linear term is $-\frac qm\vec A\cdot\vec p$. The quadratic term is the **diamagnetic** one, which @exm-qcp-gc-diamagnetic estimates [@galitski2013exploring, eq. (VII.1); @guidry2022symmetry, eq. (28.3)].
+In the Coulomb gauge $\nabla\cdot\mathbf A = 0$ (@prp-emm-gauges) the two orderings agree and the linear term is $-\frac qm\mathbf A\cdot\mathbf p$. The quadratic term is the **diamagnetic** one, which @exm-qcp-gc-diamagnetic estimates [@galitski2013exploring, eq. (VII.1); @guidry2022symmetry, eq. (28.3)].
 :::
 
 A constant vector potential describes no field at all, and its only effect is to relabel the canonical momentum. The next example shows this on plane waves, the eigenstates of the free particle.
@@ -7694,7 +7694,7 @@ A constant vector potential describes no field at all, and its only effect is to
 ::: {#exm-qcp-gc-constant-A}
 #### A constant vector potential
 
-For constant $\vec A$ and $\phi = 0$, the plane wave $e^{i\vec k\cdot\vec x}$ is an eigenstate of @eq-qcp-hamiltonian with $E = \frac{|\hbar\vec k - q\vec A|^2}{2m}$: the canonical momentum $\hbar\vec k$ is shifted from the kinetic one $m\vec v = \hbar\vec k - q\vec A$. The gauge function $\lambda = -\vec A\cdot\vec x$ removes $\vec A$ and turns the state into $e^{i(\vec k - q\vec A/\hbar)\cdot\vec x}$, a free plane wave with the kinetic momentum: nothing physical depended on $\vec A$ [@guidry2022symmetry, Sec. 27.1.3].
+For constant $\mathbf A$ and $\Phi = 0$, the plane wave $e^{i\mathbf k\cdot\mathbf x}$ is an eigenstate of @eq-qcp-hamiltonian with $E = \frac{|\hbar\mathbf k - q\mathbf A|^2}{2m}$: the canonical momentum $\hbar\mathbf k$ is shifted from the kinetic one $m\mathbf v = \hbar\mathbf k - q\mathbf A$. The gauge function $\lambda = -\mathbf A\cdot\mathbf x$ removes $\mathbf A$ and turns the state into $e^{i(\mathbf k - q\mathbf A/\hbar)\cdot\mathbf x}$, a free plane wave with the kinetic momentum: nothing physical depended on $\mathbf A$ [@guidry2022symmetry, Sec. 27.1.3].
 :::
 
 A gauge function that depends only on time changes the scalar potential by a constant and the wave function by a global phase. The next example connects this with the constant shift of the potential met in @exm-qmb-constant-shift.
@@ -7702,7 +7702,7 @@ A gauge function that depends only on time changes the scalar potential by a con
 ::: {#exm-qcp-gc-global}
 #### A time-dependent constant
 
-For $\lambda = ct$, @eq-emm-gauge-transformation gives $\phi' = \phi - c$, $\vec A' = \vec A$, and @eq-qcp-phase gives $\psi' = e^{iqct/\hbar}\psi$. Shifting the potential energy by the constant $-qc$ multiplies the state by the phase $e^{iqct/\hbar}$, which is the global phase of @exm-qmb-constant-shift; only energy differences are observable [@guidry2022symmetry, Problem 28.4].
+For $\lambda = ct$, @eq-emm-gauge-transformation gives $\Phi' = \Phi - c$, $\mathbf A' = \mathbf A$, and @eq-qcp-phase gives $\psi' = e^{iqct/\hbar}\psi$. Shifting the potential energy by the constant $-qc$ multiplies the state by the phase $e^{iqct/\hbar}$, which is the global phase of @exm-qmb-constant-shift; only energy differences are observable [@guidry2022symmetry, Problem 28.4].
 :::
 
 A vector potential that is the gradient of a function on a simply connected region carries no field and can be removed. The next example writes the solutions of such a problem through the free ones, a step that the Aharonov-Bohm phase takes further.
@@ -7710,7 +7710,7 @@ A vector potential that is the gradient of a function on a simply connected regi
 ::: {#exm-qcp-gc-pure-gauge}
 #### A pure gauge potential
 
-If $\vec A = \nabla\Lambda$ and $\phi = -\partial_t\Lambda$ on a simply connected region, then $\lambda = -\Lambda$ transforms the potentials to zero, so every solution is $\psi = e^{iq\Lambda/\hbar}\psi_0$ with $\psi_0$ a solution of the free equation. For a static $\vec A$ with $\nabla\times\vec A = 0$, $\Lambda(\vec x) = \int_{\vec x_0}^{\vec x}\vec A\cdot d\vec\ell$ along any path in the region, independent of the path by Stokes' theorem (@thm-stokes). Where the region is not simply connected, $\Lambda$ may fail to be single valued, the situation of @exm-emm-gauge-flux-tube [@guidry2022symmetry, Sec. 27.1.4].
+If $\mathbf A = \nabla\Lambda$ and $\Phi = -\partial_t\Lambda$ on a simply connected region, then $\lambda = -\Lambda$ transforms the potentials to zero, so every solution is $\psi = e^{iq\Lambda/\hbar}\psi_0$ with $\psi_0$ a solution of the free equation. For a static $\mathbf A$ with $\nabla\times\mathbf A = 0$, $\Lambda(\mathbf x) = \int_{\mathbf x_0}^{\mathbf x}\mathbf A\cdot d\boldsymbol\ell$ along any path in the region, independent of the path by Stokes' theorem (@thm-stokes). Where the region is not simply connected, $\Lambda$ may fail to be single valued, the situation of @exm-emm-gauge-flux-tube [@guidry2022symmetry, Sec. 27.1.4].
 :::
 
 A uniform electric field can be described by a scalar or by a vector potential, as @exr-emm-gi-uniform-E found classically. The next example relates the two quantum descriptions.
@@ -7718,7 +7718,7 @@ A uniform electric field can be described by a scalar or by a vector potential, 
 ::: {#exm-qcp-gc-electric}
 #### A uniform electric field in two gauges
 
-For $\vec E = E_0\hat x$ take either $\phi = -E_0x$, $\vec A = 0$, or $\phi = 0$, $\vec A = -E_0t\hat x$; they are related by $\lambda = -E_0xt$. If $\psi$ solves the first equation, $e^{-iqE_0xt/\hbar}\psi$ solves the second. In the first gauge stationary states exist and $H$ is the energy; in the second $H$ depends on time but conserves the canonical momentum, and the plane wave $e^{ikx}$ becomes, up to a phase, a state whose kinetic momentum $\hbar k + qE_0t$ grows at the rate $qE_0$ of Newton's law [@galitski2013exploring, Problem 7.3].
+For $\mathbf E = E_0\hat{\mathbf x}$ take either $\Phi = -E_0x$, $\mathbf A = 0$, or $\Phi = 0$, $\mathbf A = -E_0t\hat{\mathbf x}$; they are related by $\lambda = -E_0xt$. If $\psi$ solves the first equation, $e^{-iqE_0xt/\hbar}\psi$ solves the second. In the first gauge stationary states exist and $H$ is the energy; in the second $H$ depends on time but conserves the canonical momentum, and the plane wave $e^{ikx}$ becomes, up to a phase, a state whose kinetic momentum $\hbar k + qE_0t$ grows at the rate $qE_0$ of Newton's law [@galitski2013exploring, Problem 7.3].
 :::
 
 The current of a charge in a vector potential has an extra term, without which it would not be gauge invariant. The next example shows that the term is needed already for a plane wave.
@@ -7726,7 +7726,7 @@ The current of a charge in a vector potential has an extra term, without which i
 ::: {#exm-qcp-gc-current}
 #### The current needs the potential
 
-For the plane wave of @exm-qcp-gc-constant-A, $\frac\hbar m\operatorname{Im}(\bar\psi\nabla\psi) = \frac{\hbar\vec k}{m}$, which depends on the gauge, since $\hbar\vec k$ does. @eq-qcp-current adds $-\frac qm\vec A$ and gives $\vec j = \frac{\hbar\vec k - q\vec A}{m}$, the velocity of the particle, which is gauge invariant. A current measured with an ammeter is $q\vec j$, so the potential term is physical: in a superconductor it produces the London current $\propto -\vec A$ [@galitski2013exploring, eq. (VII.5)].
+For the plane wave of @exm-qcp-gc-constant-A, $\frac\hbar m\operatorname{Im}(\psi^*\nabla\psi) = \frac{\hbar\mathbf k}{m}$, which depends on the gauge, since $\hbar\mathbf k$ does. @eq-qcp-current adds $-\frac qm\mathbf A$ and gives $\mathbf j = \frac{\hbar\mathbf k - q\mathbf A}{m}$, the velocity of the particle, which is gauge invariant. A current measured with an ammeter is $q\mathbf j$, so the potential term is physical: in a superconductor it produces the London current $\propto -\mathbf A$ [@galitski2013exploring, eq. (VII.5)].
 :::
 
 The commutator of the kinetic momenta is the quantum version of the Poisson bracket of @exm-emm-mc-poisson. The next example draws the consequence for the velocity components.
@@ -7734,7 +7734,7 @@ The commutator of the kinetic momenta is the quantum version of the Poisson brac
 ::: {#exm-qcp-gc-velocity}
 #### Velocities do not commute
 
-The velocity operator is $\vec v = \frac i\hbar[H, \vec x] = \vec\pi/m$, and $[v_x, v_y] = \frac{i\hbar q}{m^2}B_z$. In a magnetic field the two transverse velocity components cannot both be sharp, the uncertainty relation of @prp-qm-uncertainty giving $\Delta v_x\Delta v_y \geq \frac{\hbar|qB_z|}{2m^2}$. This is why the transverse motion of @prp-qcp-landau-levels is quantised [@galitski2013exploring, eq. (VII.2)].
+The velocity operator is $\mathbf v = \frac i\hbar[H, \mathbf x] = \boldsymbol\pi/m$, and $[v_x, v_y] = \frac{i\hbar q}{m^2}B_z$. In a magnetic field the two transverse velocity components cannot both be sharp, the uncertainty relation of @prp-qm-uncertainty giving $\Delta v_x\Delta v_y \geq \frac{\hbar|qB_z|}{2m^2}$. This is why the transverse motion of @prp-qcp-landau-levels is quantised [@galitski2013exploring, eq. (VII.2)].
 :::
 
 In a weak uniform field the linear term of @exm-qcp-gc-expansion couples the field to the orbital angular momentum. The next example finds the resulting splitting of the hydrogen levels.
@@ -7742,7 +7742,7 @@ In a weak uniform field the linear term of @exm-qcp-gc-expansion couples the fie
 ::: {#exm-qcp-gc-zeeman}
 #### The normal Zeeman effect
 
-For $\vec B = B\hat z$ in the symmetric gauge $\vec A = \frac12\vec B\times\vec x$ (@fig-emm-gauges), $\nabla\cdot\vec A = 0$ and $\vec A\cdot\vec p = \frac B2L_z$, so the linear term is $-\frac{qB}{2m}L_z$, as in @exm-emm-mc-weak-field. For the electron, $q = -e$, a level with $L_z = \hbar m_l$ shifts by $\mu_Bm_lB$, with the **Bohr magneton** $\mu_B = e\hbar/2m_e = 5.79 \times 10^{-5}\,\mathrm{eV/T}$; the $n = 2$, $l = 1$ level of hydrogen splits into three, $\mu_BB$ apart, spin ignored [@galitski2013exploring, Problem 7.1].
+For $\mathbf B = B\hat{\mathbf z}$ in the symmetric gauge $\mathbf A = \frac12\mathbf B\times\mathbf x$ (@fig-emm-gauges), $\nabla\cdot\mathbf A = 0$ and $\mathbf A\cdot\mathbf p = \frac B2L_z$, so the linear term is $-\frac{qB}{2m}L_z$, as in @exm-emm-mc-weak-field. For the electron, $q = -e$, a level with $L_z = \hbar m_l$ shifts by $\mu_Bm_lB$, with the **Bohr magneton** $\mu_B = e\hbar/2m_e = 5.79 \times 10^{-5}\,\mathrm{eV/T}$; the $n = 2$, $l = 1$ level of hydrogen splits into three, $\mu_BB$ apart, spin ignored [@galitski2013exploring, Problem 7.1].
 :::
 
 The quadratic term is much smaller in atoms, and the next example estimates it for the hydrogen ground state. Its sign makes atoms without orbital moment diamagnetic.
@@ -7758,7 +7758,7 @@ The phase of @eq-qcp-phase has a classical shadow in the action, which the elect
 ::: {#exm-qcp-gc-semiclassical}
 #### The phase and the action
 
-Writing $\psi = \sqrt\rho\,e^{iS/\hbar}$ as in @exr-qm-current-polar, @eq-qcp-phase changes $S$ to $S + q\lambda$, which is the change of the Hamilton-Jacobi function under a gauge transformation (@exm-emm-gi-hamilton-jacobi), and @eq-qcp-current becomes $\vec j = \rho\,\frac{\nabla S - q\vec A}{m}$, the density times the gauge-invariant velocity $(\nabla S - q\vec A)/m$. In the classical limit of @def-qm-classical-limit the phase of each path is $S/\hbar$, and the gauge function enters only through its values at the endpoints, as for the action in @exm-emm-gi-action [@guidry2022symmetry, Sec. 27.1.3].
+Writing $\psi = \sqrt\rho\,e^{iS/\hbar}$ as in @exr-qm-current-polar, @eq-qcp-phase changes $S$ to $S + q\lambda$, which is the change of the Hamilton-Jacobi function under a gauge transformation (@exm-emm-gi-hamilton-jacobi), and @eq-qcp-current becomes $\mathbf j = \rho\,\frac{\nabla S - q\mathbf A}{m}$, the density times the gauge-invariant velocity $(\nabla S - q\mathbf A)/m$. In the classical limit of @def-qm-classical-limit the phase of each path is $S/\hbar$, and the gauge function enters only through its values at the endpoints, as for the action in @exm-emm-gi-action [@guidry2022symmetry, Sec. 27.1.3].
 :::
 ::::
 
@@ -7768,7 +7768,7 @@ The exercises begin with the proposition itself, which Sage checks in three dime
 ::: {#exr-qcp-gc-covariance-sage}
 #### Gauge covariance with Sage
 
-With Sage, take symbolic functions $\phi$, $A_x$, $A_y$, $A_z$, $\lambda$ and $\psi$ of $(t, x, y, z)$ and check that $\bigl(i\hbar\partial_t - H'\bigr)(e^{iq\lambda/\hbar}\psi) = e^{iq\lambda/\hbar}\bigl(i\hbar\partial_t - H\bigr)\psi$, where $H'$ uses the transformed potentials.
+With Sage, take symbolic functions $\Phi$, $A_x$, $A_y$, $A_z$, $\lambda$ and $\psi$ of $(t, x, y, z)$ and check that $\bigl(i\hbar\partial_t - H'\bigr)(e^{iq\lambda/\hbar}\psi) = e^{iq\lambda/\hbar}\bigl(i\hbar\partial_t - H\bigr)\psi$, where $H'$ uses the transformed potentials.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7800,11 +7800,11 @@ The current @eq-qcp-current was stated with its continuity equation. The second 
 ::: {#exr-qcp-gc-current}
 #### The gauge-invariant current
 
-Derive $\partial_t|\psi|^2 + \nabla\cdot\vec j = 0$ for @eq-qcp-hamiltonian with real potentials, and show directly that $\vec j$ is unchanged by @eq-qcp-phase. Why is $\frac\hbar m\operatorname{Im}(\bar\psi\nabla\psi)$ alone not acceptable?
+Derive $\partial_t|\psi|^2 + \nabla\cdot\mathbf j = 0$ for @eq-qcp-hamiltonian with real potentials, and show directly that $\mathbf j$ is unchanged by @eq-qcp-phase. Why is $\frac\hbar m\operatorname{Im}(\psi^*\nabla\psi)$ alone not acceptable?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Write $D = \nabla - \frac{iq}\hbar\vec A$, so $H = -\frac{\hbar^2}{2m}D\cdot D + q\phi$. Then $\partial_t|\psi|^2 = \frac{2}{\hbar}\operatorname{Im}(\bar\psi H\psi)$ and $\operatorname{Im}(\bar\psi D\cdot D\psi) = \nabla\cdot\operatorname{Im}(\bar\psi D\psi)$, because $\nabla(\bar\psi D\psi) = \overline{D\psi}\cdot D\psi + \bar\psi D\cdot D\psi$ (the $\vec A$ terms combine as a covariant product rule) and the first term is real. Hence $\partial_t|\psi|^2 = -\nabla\cdot\frac\hbar m\operatorname{Im}(\bar\psi D\psi)$, and $\frac\hbar m\operatorname{Im}(\bar\psi D\psi) = \vec j$. Under @eq-qcp-phase, $D'\psi' = e^{iq\lambda/\hbar}D\psi$, so $\bar\psi'D'\psi' = \bar\psi D\psi$. The term without $\vec A$ changes by $\frac qm\nabla\lambda|\psi|^2$ and would make the measured current depend on the gauge [@galitski2013exploring, eq. (VII.5)].
+Write $D = \nabla - \frac{iq}\hbar\mathbf A$, so $H = -\frac{\hbar^2}{2m}D\cdot D + q\Phi$. Then $\partial_t|\psi|^2 = \frac{2}{\hbar}\operatorname{Im}(\psi^* H\psi)$ and $\operatorname{Im}(\psi^* D\cdot D\psi) = \nabla\cdot\operatorname{Im}(\psi^* D\psi)$, because $\nabla(\psi^* D\psi) = (D\psi)^*\cdot D\psi + \psi^* D\cdot D\psi$ (the $\mathbf A$ terms combine as a covariant product rule) and the first term is real. Hence $\partial_t|\psi|^2 = -\nabla\cdot\frac\hbar m\operatorname{Im}(\psi^* D\psi)$, and $\frac\hbar m\operatorname{Im}(\psi^* D\psi) = \mathbf j$. Under @eq-qcp-phase, $D'\psi' = e^{iq\lambda/\hbar}D\psi$, so ${\psi'}^*D'\psi' = \psi^* D\psi$. The term without $\mathbf A$ changes by $\frac qm\nabla\lambda|\psi|^2$ and would make the measured current depend on the gauge [@galitski2013exploring, eq. (VII.5)].
 :::
 
 The commutator of the kinetic momenta measures the field, whatever the gauge. The third exercise computes it with Sage for arbitrary potentials.
@@ -7816,7 +7816,7 @@ With Sage, apply $\pi_x\pi_y - \pi_y\pi_x$ to a symbolic $\psi(x, y, z)$ for arb
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The derivatives of $\psi$ cancel and only the derivatives of $\vec A$ survive, in the combination $\nabla\times\vec A$:
+The derivatives of $\psi$ cancel and only the derivatives of $\mathbf A$ survive, in the combination $\nabla\times\mathbf A$:
 
 ```python
 x, y, z, hb, q = var('x y z hbar q'); X = (x, y, z)
@@ -7840,16 +7840,16 @@ for (i, j, k) in [(0, 1, 2), (1, 2, 0), (2, 0, 1)]:
 So $[\pi_i, \pi_j] = i\hbar q\epsilon_{ijk}B_k$, the quantum version of the bracket of @exm-emm-mc-poisson [@galitski2013exploring, eq. (VII.2)].
 :::
 
-The two orderings of $\vec p\cdot\vec A$ differ when the potential has a divergence. The fourth exercise checks that the symmetrised Hamiltonian is self-adjoint in any gauge.
+The two orderings of $\mathbf p\cdot\mathbf A$ differ when the potential has a divergence. The fourth exercise checks that the symmetrised Hamiltonian is self-adjoint in any gauge.
 
 ::: {#exr-qcp-gc-hermitian}
 #### Self-adjointness of the coupling
 
-Show that $\vec p\cdot\vec A + \vec A\cdot\vec p$ is symmetric for real $\vec A$ ($\langle\chi, (\vec p\cdot\vec A + \vec A\cdot\vec p)\psi\rangle = \langle(\vec p\cdot\vec A + \vec A\cdot\vec p)\chi, \psi\rangle$ for rapidly decreasing $\chi$, $\psi$), while $\vec A\cdot\vec p$ alone is not unless $\nabla\cdot\vec A = 0$. Why is the gauge covariance of @prp-qcp-gauge-covariance compatible with a gauge in which $\nabla\cdot\vec A \neq 0$?
+Show that $\mathbf p\cdot\mathbf A + \mathbf A\cdot\mathbf p$ is symmetric for real $\mathbf A$ ($\langle\chi, (\mathbf p\cdot\mathbf A + \mathbf A\cdot\mathbf p)\psi\rangle = \langle(\mathbf p\cdot\mathbf A + \mathbf A\cdot\mathbf p)\chi, \psi\rangle$ for rapidly decreasing $\chi$, $\psi$), while $\mathbf A\cdot\mathbf p$ alone is not unless $\nabla\cdot\mathbf A = 0$. Why is the gauge covariance of @prp-qcp-gauge-covariance compatible with a gauge in which $\nabla\cdot\mathbf A \neq 0$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\vec p$ and multiplication by real $A_i$ are symmetric, and $(\vec p\cdot\vec A)^\dagger = \vec A\cdot\vec p$, so the sum is symmetric; $\vec A\cdot\vec p - (\vec A\cdot\vec p)^\dagger = \vec A\cdot\vec p - \vec p\cdot\vec A = i\hbar\nabla\cdot\vec A$, which vanishes only in the Coulomb gauge. @eq-qcp-hamiltonian is $\frac{1}{2m}\vec\pi\cdot\vec\pi$ with $\vec\pi$ symmetric, hence symmetric in every gauge, and it is the symmetrised form that the expansion of @exm-qcp-gc-expansion produces [@galitski2013exploring, Ch. 7].
+$\mathbf p$ and multiplication by real $A_i$ are symmetric, and $(\mathbf p\cdot\mathbf A)^\dagger = \mathbf A\cdot\mathbf p$, so the sum is symmetric; $\mathbf A\cdot\mathbf p - (\mathbf A\cdot\mathbf p)^\dagger = \mathbf A\cdot\mathbf p - \mathbf p\cdot\mathbf A = i\hbar\nabla\cdot\mathbf A$, which vanishes only in the Coulomb gauge. @eq-qcp-hamiltonian is $\frac{1}{2m}\boldsymbol\pi\cdot\boldsymbol\pi$ with $\boldsymbol\pi$ symmetric, hence symmetric in every gauge, and it is the symmetrised form that the expansion of @exm-qcp-gc-expansion produces [@galitski2013exploring, Ch. 7].
 :::
 
 The canonical momentum depends on the gauge, so its expectation value does too. The fifth exercise computes it for a Gaussian packet in a uniform field, in two gauges.
@@ -7857,11 +7857,11 @@ The canonical momentum depends on the gauge, so its expectation value does too. 
 ::: {#exr-qcp-gc-two-gauges}
 #### Momentum in two gauges
 
-Let $\psi$ be a Gaussian packet centred at $(x_0, y_0)$ with zero mean momentum in the symmetric gauge $\vec A_s = \frac B2(-y, x, 0)$. Find $\langle\vec p\rangle$ and $\langle\vec\pi\rangle$ in this gauge, and then in the Landau gauge $\vec A_L = (0, Bx, 0)$ after the transformation $\lambda = \frac B2xy$ of @fig-emm-gauges. Which of the two expectation values is the same in both gauges?
+Let $\psi$ be a Gaussian packet centred at $(x_0, y_0)$ with zero mean momentum in the symmetric gauge $\mathbf A_s = \frac B2(-y, x, 0)$. Find $\langle\mathbf p\rangle$ and $\langle\boldsymbol\pi\rangle$ in this gauge, and then in the Landau gauge $\mathbf A_L = (0, Bx, 0)$ after the transformation $\lambda = \frac B2xy$ of @fig-emm-gauges. Which of the two expectation values is the same in both gauges?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In the symmetric gauge $\langle\vec p\rangle = 0$ and $\langle\vec\pi\rangle = -q\langle\vec A_s\rangle = -\frac{qB}{2}(-y_0, x_0, 0)$. After the transformation $\psi' = e^{iqBxy/2\hbar}\psi$, $\langle\vec p\rangle' = \langle\vec p\rangle + q\langle\nabla\lambda\rangle = \frac{qB}{2}(y_0, x_0, 0)$, which differs, while $\langle\vec\pi\rangle' = \langle\vec p\rangle' - q\langle\vec A_L\rangle = \frac{qB}2(y_0, x_0, 0) - qB(0, x_0, 0) = -\frac{qB}{2}(-y_0, x_0, 0)$, the same as before. Only the kinetic momentum, $m$ times the velocity, is observable [@guidry2022symmetry, Problem 28.4].
+In the symmetric gauge $\langle\mathbf p\rangle = 0$ and $\langle\boldsymbol\pi\rangle = -q\langle\mathbf A_s\rangle = -\frac{qB}{2}(-y_0, x_0, 0)$. After the transformation $\psi' = e^{iqBxy/2\hbar}\psi$, $\langle\mathbf p\rangle' = \langle\mathbf p\rangle + q\langle\nabla\lambda\rangle = \frac{qB}{2}(y_0, x_0, 0)$, which differs, while $\langle\boldsymbol\pi\rangle' = \langle\mathbf p\rangle' - q\langle\mathbf A_L\rangle = \frac{qB}2(y_0, x_0, 0) - qB(0, x_0, 0) = -\frac{qB}{2}(-y_0, x_0, 0)$, the same as before. Only the kinetic momentum, $m$ times the velocity, is observable [@guidry2022symmetry, Problem 28.4].
 :::
 
 The Zeeman splitting of @exm-qcp-gc-zeeman is small, but spectroscopy resolves it. The sixth exercise computes it for the Lyman-$\alpha$ line with Sage.
@@ -7929,19 +7929,19 @@ B = 1e+05 T: shift = 1.231e+00 eV
 shift = 13.6 eV at B = 3.323e+05 T; magnetic length there sqrt(hbar/eB) = 0.0445 nm (a0 = 0.0529 nm)
 ```
 
-It reaches $13.6\,$eV near $3.3 \times 10^5\,$T, where the magnetic length of @prp-qcp-landau-levels, $\sqrt{\hbar/eB}$, becomes as small as $a_0$: the field then dominates the Coulomb force and the atom is squeezed into a needle along $\vec B$ [@galitski2013exploring, Problem 7.5].
+It reaches $13.6\,$eV near $3.3 \times 10^5\,$T, where the magnetic length of @prp-qcp-landau-levels, $\sqrt{\hbar/eB}$, becomes as small as $a_0$: the field then dominates the Coulomb force and the atom is squeezed into a needle along $\mathbf B$ [@galitski2013exploring, Problem 7.5].
 :::
 
-An electron has a spin magnetic moment, and the Pauli Hamiltonian couples it to the field. The eighth exercise shows that minimal coupling in the square of $\vec\sigma\cdot\vec p$ produces it, with $g = 2$.
+An electron has a spin magnetic moment, and the Pauli Hamiltonian couples it to the field. The eighth exercise shows that minimal coupling in the square of $\boldsymbol\sigma\cdot\mathbf p$ produces it, with $g = 2$.
 
 ::: {#exr-qcp-gc-pauli}
 #### The Pauli Hamiltonian
 
-Using $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ (@def-qm-spin-half) and $[\pi_i, \pi_j] = i\hbar q\epsilon_{ijk}B_k$, show that $\frac{1}{2m}(\vec\sigma\cdot\vec\pi)^2 = \frac{\pi^2}{2m} - \frac{q\hbar}{2m}\vec\sigma\cdot\vec B$. What is the magnetic moment of the spin, compared with that of an orbital angular momentum $\hbar$?
+Using $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$ (@def-qm-spin-half) and $[\pi_i, \pi_j] = i\hbar q\epsilon_{ijk}B_k$, show that $\frac{1}{2m}(\boldsymbol\sigma\cdot\boldsymbol\pi)^2 = \frac{\pi^2}{2m} - \frac{q\hbar}{2m}\boldsymbol\sigma\cdot\mathbf B$. What is the magnetic moment of the spin, compared with that of an orbital angular momentum $\hbar$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(\vec\sigma\cdot\vec\pi)^2 = \sigma_i\sigma_j\pi_i\pi_j = \pi^2 + i\epsilon_{ijk}\sigma_k\pi_i\pi_j = \pi^2 + \frac i2\epsilon_{ijk}\sigma_k[\pi_i, \pi_j] = \pi^2 + \frac i2\epsilon_{ijk}\epsilon_{ijl}i\hbar qB_l\sigma_k = \pi^2 - \hbar q\vec\sigma\cdot\vec B$, using $\epsilon_{ijk}\epsilon_{ijl} = 2\delta_{kl}$. The spin term is $-\vec\mu\cdot\vec B$ with $\vec\mu = \frac{q\hbar}{2m}\vec\sigma = g\frac{q}{2m}\vec S$, $g = 2$: a spin $\hbar/2$ has the same moment as an orbital angular momentum $\hbar$. The Dirac chapter derives this form from the relativistic equation [@galitski2013exploring, Problem 7.10].
+$(\boldsymbol\sigma\cdot\boldsymbol\pi)^2 = \sigma_i\sigma_j\pi_i\pi_j = \pi^2 + i\epsilon_{ijk}\sigma_k\pi_i\pi_j = \pi^2 + \frac i2\epsilon_{ijk}\sigma_k[\pi_i, \pi_j] = \pi^2 + \frac i2\epsilon_{ijk}\epsilon_{ijl}i\hbar qB_l\sigma_k = \pi^2 - \hbar q\boldsymbol\sigma\cdot\mathbf B$, using $\epsilon_{ijk}\epsilon_{ijl} = 2\delta_{kl}$. The spin term is $-\boldsymbol\mu\cdot\mathbf B$ with $\boldsymbol\mu = \frac{q\hbar}{2m}\boldsymbol\sigma = g\frac{q}{2m}\mathbf S$, $g = 2$: a spin $\hbar/2$ has the same moment as an orbital angular momentum $\hbar$. The Dirac chapter derives this form from the relativistic equation [@galitski2013exploring, Problem 7.10].
 :::
 
 The probabilities of a position measurement are gauge invariant, but those of a canonical-momentum measurement are not. The ninth exercise works out what this means.
@@ -7949,11 +7949,11 @@ The probabilities of a position measurement are gauge invariant, but those of a 
 ::: {#exr-qcp-gc-observables}
 #### Which momentum is observable
 
-Show that the probability density of the canonical momentum, $|\tilde\psi(\vec p)|^2$, changes under the gauge transformation $\lambda = -\vec A_0\cdot\vec x$ with constant $\vec A_0$, while that of the kinetic momentum, defined with the eigenstates of $\vec\pi$ in the respective gauge, does not. Conclude that only gauge-covariant operators, for which $O' = e^{iq\lambda/\hbar}Oe^{-iq\lambda/\hbar}$, represent observables.
+Show that the probability density of the canonical momentum, $|\tilde\psi(\mathbf p)|^2$, changes under the gauge transformation $\lambda = -\mathbf A_0\cdot\mathbf x$ with constant $\mathbf A_0$, while that of the kinetic momentum, defined with the eigenstates of $\boldsymbol\pi$ in the respective gauge, does not. Conclude that only gauge-covariant operators, for which $O' = e^{iq\lambda/\hbar}Oe^{-iq\lambda/\hbar}$, represent observables.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\psi' = e^{-iq\vec A_0\cdot\vec x/\hbar}\psi$ has $\tilde\psi'(\vec p) = \tilde\psi(\vec p + q\vec A_0)$: the canonical-momentum distribution is shifted by $-q\vec A_0$. The eigenstates of $\vec\pi = \vec p - q\vec A$ with eigenvalue $\vec\varpi$ are $e^{i(\vec\varpi + q\vec A)\cdot\vec x/\hbar}$ in a gauge with constant $\vec A$, and $\vec A' = \vec A - \vec A_0$, so the overlap of $\psi'$ with the eigenstate in the new gauge equals that of $\psi$ in the old: the distribution of $\vec\pi$ is unchanged. In general $\langle\psi', O'\psi'\rangle = \langle\psi, O\psi\rangle$ exactly when $O' = e^{iq\lambda/\hbar}Oe^{-iq\lambda/\hbar}$, which holds for $\vec x$, $\vec\pi$ and $H - q\phi$ but not for $\vec p$ [@guidry2022symmetry, Problem 28.4].
+$\psi' = e^{-iq\mathbf A_0\cdot\mathbf x/\hbar}\psi$ has $\tilde\psi'(\mathbf p) = \tilde\psi(\mathbf p + q\mathbf A_0)$: the canonical-momentum distribution is shifted by $-q\mathbf A_0$. The eigenstates of $\boldsymbol\pi = \mathbf p - q\mathbf A$ with eigenvalue $\boldsymbol\varpi$ are $e^{i(\boldsymbol\varpi + q\mathbf A)\cdot\mathbf x/\hbar}$ in a gauge with constant $\mathbf A$, and $\mathbf A' = \mathbf A - \mathbf A_0$, so the overlap of $\psi'$ with the eigenstate in the new gauge equals that of $\psi$ in the old: the distribution of $\boldsymbol\pi$ is unchanged. In general $\langle\psi', O'\psi'\rangle = \langle\psi, O\psi\rangle$ exactly when $O' = e^{iq\lambda/\hbar}Oe^{-iq\lambda/\hbar}$, which holds for $\mathbf x$, $\boldsymbol\pi$ and $H - q\Phi$ but not for $\mathbf p$ [@guidry2022symmetry, Problem 28.4].
 :::
 
 The classical equation of motion of a charge is the Lorentz force law. The last exercise derives its quantum version for expectation values, Ehrenfest's theorem in a field.
@@ -7961,11 +7961,11 @@ The classical equation of motion of a charge is the Lorentz force law. The last 
 ::: {#exr-qcp-gc-ehrenfest}
 #### Ehrenfest's theorem in a field
 
-For static potentials, show with the Heisenberg equations (@exm-qmb-heisenberg-free) that $m\frac{d}{dt}\langle\vec x\rangle = \langle\vec\pi\rangle$ and $\frac{d}{dt}\langle\vec\pi\rangle = q\bigl\langle\vec E + \frac{1}{2m}(\vec\pi\times\vec B - \vec B\times\vec\pi)\bigr\rangle$. Why must the magnetic force be symmetrised?
+For static potentials, show with the Heisenberg equations (@exm-qmb-heisenberg-free) that $m\frac{d}{dt}\langle\mathbf x\rangle = \langle\boldsymbol\pi\rangle$ and $\frac{d}{dt}\langle\boldsymbol\pi\rangle = q\bigl\langle\mathbf E + \frac{1}{2m}(\boldsymbol\pi\times\mathbf B - \mathbf B\times\boldsymbol\pi)\bigr\rangle$. Why must the magnetic force be symmetrised?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$[H, x_j] = \frac{1}{2m}[\pi_i\pi_i, x_j] = -\frac{i\hbar}{m}\pi_j$, so $\frac{d}{dt}\langle x_j\rangle = \frac i\hbar\langle[H, x_j]\rangle = \frac{\langle\pi_j\rangle}{m}$. Next, $[\pi_i\pi_i, \pi_j] = \pi_i[\pi_i, \pi_j] + [\pi_i, \pi_j]\pi_i = i\hbar q\epsilon_{ijk}(\pi_iB_k + B_k\pi_i)$ and $[q\phi, \pi_j] = i\hbar q\partial_j\phi$, so $\frac{d}{dt}\langle\pi_j\rangle = \frac i\hbar\langle[H, \pi_j]\rangle = -\frac{q}{2m}\langle\epsilon_{ijk}(\pi_iB_k + B_k\pi_i)\rangle - q\langle\partial_j\phi\rangle$. With $\epsilon_{ijk}\pi_iB_k = -(\vec\pi\times\vec B)_j$, $\epsilon_{ijk}B_k\pi_i = (\vec B\times\vec\pi)_j$ and $\vec E = -\nabla\phi$ this is the stated force. The operators $\vec\pi$ and $\vec B(\vec x)$ do not commute, and only the symmetrised product is self-adjoint [@galitski2013exploring, Problem 6.10 and eq. (VII.2)].
+$[H, x_j] = \frac{1}{2m}[\pi_i\pi_i, x_j] = -\frac{i\hbar}{m}\pi_j$, so $\frac{d}{dt}\langle x_j\rangle = \frac i\hbar\langle[H, x_j]\rangle = \frac{\langle\pi_j\rangle}{m}$. Next, $[\pi_i\pi_i, \pi_j] = \pi_i[\pi_i, \pi_j] + [\pi_i, \pi_j]\pi_i = i\hbar q\epsilon_{ijk}(\pi_iB_k + B_k\pi_i)$ and $[q\Phi, \pi_j] = i\hbar q\partial_j\Phi$, so $\frac{d}{dt}\langle\pi_j\rangle = \frac i\hbar\langle[H, \pi_j]\rangle = -\frac{q}{2m}\langle\epsilon_{ijk}(\pi_iB_k + B_k\pi_i)\rangle - q\langle\partial_j\Phi\rangle$. With $\epsilon_{ijk}\pi_iB_k = -(\boldsymbol\pi\times\mathbf B)_j$, $\epsilon_{ijk}B_k\pi_i = (\mathbf B\times\boldsymbol\pi)_j$ and $\mathbf E = -\nabla\Phi$ this is the stated force. The operators $\boldsymbol\pi$ and $\mathbf B(\mathbf x)$ do not commute, and only the symmetrised product is self-adjoint [@galitski2013exploring, Problem 6.10 and eq. (VII.2)].
 :::
 ::::
 
@@ -7977,9 +7977,9 @@ A classical charge in a uniform magnetic field circles at the cyclotron frequenc
 ::: {#prp-qcp-landau-levels}
 #### Landau levels
 
-Let $\vec B = B\hat z$ with $qB > 0$, $\phi = 0$, and take the Landau gauge $\vec A = (0, Bx, 0)$ of @fig-emm-gauges. With the **cyclotron frequency** $\omega_c = qB/m$ and the **magnetic length** $\ell_B = \sqrt{\hbar/qB}$, the functions
+Let $\mathbf B = B\hat{\mathbf z}$ with $qB > 0$, $\Phi = 0$, and take the Landau gauge $\mathbf A = (0, Bx, 0)$ of @fig-emm-gauges. With the **cyclotron frequency** $\omega_c = qB/m$ and the **magnetic length** $\ell_B = \sqrt{\hbar/qB}$, the functions
 $$
-\psi_{n, k, k_z}(\vec x) = e^{i(ky + k_zz)}\chi_n(x - x_k), \qquad x_k = \ell_B^2k ,
+\psi_{n, k, k_z}(\mathbf x) = e^{i(ky + k_zz)}\chi_n(x - x_k), \qquad x_k = \ell_B^2k ,
 $$ {#eq-qcp-landau-states}
 where $\chi_n$ is the oscillator eigenfunction of @eq-qm-hermite-functions with mass $m$ and frequency $\omega_c$, are eigenfunctions of @eq-qcp-hamiltonian with
 $$
@@ -7987,7 +7987,7 @@ E = \hbar\omega_c\Big(n + \frac12\Big) + \frac{\hbar^2k_z^2}{2m}, \qquad n = 0, 
 $$ {#eq-qcp-landau-energies}
 independent of $k$. The energies $\hbar\omega_c(n + \frac12)$ of the motion across the field are the **Landau levels**. For a sample of area $\mathcal A = L_xL_y$ in the plane, periodic in $y$ and with the centres $x_k$ in $[0, L_x]$, each Landau level contains
 $$
-N = \frac{qB\mathcal A}{2\pi\hbar} = \frac{\Phi}{\Phi_0}, \qquad \Phi = B\mathcal A, \quad \Phi_0 = \frac{2\pi\hbar}{|q|} ,
+N = \frac{qB\mathcal A}{2\pi\hbar} = \frac{\Phi_B}{\Phi_0}, \qquad \Phi_B = B\mathcal A, \quad \Phi_0 = \frac{2\pi\hbar}{|q|} ,
 $$ {#eq-qcp-landau-degeneracy}
 states (for each $k_z$): one per **flux quantum** $\Phi_0$, or one per area $2\pi\ell_B^2$. *Proof.* In this gauge $H = \frac{1}{2m}\bigl(p_x^2 + (p_y - qBx)^2 + p_z^2\bigr)$ commutes with $p_y$ and $p_z$. On $e^{i(ky + k_zz)}\chi(x)$ it acts as $\frac{p_x^2}{2m} + \frac{q^2B^2}{2m}(x - x_k)^2 + \frac{\hbar^2k_z^2}{2m}$ with $x_k = \hbar k/qB$, a shifted oscillator of frequency $qB/m$, whose spectrum is given by @prp-qm-oscillator-spectrum. Periodicity in $y$ makes $k = 2\pi j/L_y$, $j \in \mathbb{Z}$, so the centres are spaced by $2\pi\ell_B^2/L_y$, and $L_x$ holds $\frac{L_xL_y}{2\pi\ell_B^2}$ of them [@guidry2022symmetry, Secs. 28.2.1-28.2.2, eqs. (28.3)-(28.10) and Problem 28.2; @galitski2013exploring, eq. (VII.3) and Problem 7.1].
 :::
@@ -8031,7 +8031,7 @@ In the symmetric gauge the Hamiltonian is invariant under rotations about the ax
 ::: {#exm-qcp-ll-symmetric}
 #### The symmetric gauge
 
-With $\vec A = \frac B2(-y, x, 0)$ and $w = x + iy$, the functions $\psi_m = w^me^{-|w|^2/4\ell_B^2}$, $m = 0, 1, 2, \dots$, have $L_z = \hbar m$ and energy $\frac12\hbar\omega_c$: they span the lowest Landau level. The density of $\psi_m$ is a ring of mean square radius $\langle\rho^2\rangle = 2(m + 1)\ell_B^2$, which encloses $m + 1$ flux quanta. In general the energies are $\hbar\omega_c\bigl(n_\rho + \frac{|m| - m}{2} + \frac12\bigr)$ with $n_\rho = 0, 1, \dots$, so each level contains infinitely many $m$ [@galitski2013exploring, Problem 7.1(b); @guidry2022symmetry, eq. (28.5)].
+With $\mathbf A = \frac B2(-y, x, 0)$ and $w = x + iy$, the functions $\psi_m = w^me^{-|w|^2/4\ell_B^2}$, $m = 0, 1, 2, \dots$, have $L_z = \hbar m$ and energy $\frac12\hbar\omega_c$: they span the lowest Landau level. The density of $\psi_m$ is a ring of mean square radius $\langle\rho^2\rangle = 2(m + 1)\ell_B^2$, which encloses $m + 1$ flux quanta. In general the energies are $\hbar\omega_c\bigl(n_\rho + \frac{|m| - m}{2} + \frac12\bigr)$ with $n_\rho = 0, 1, \dots$, so each level contains infinitely many $m$ [@galitski2013exploring, Problem 7.1(b); @guidry2022symmetry, eq. (28.5)].
 :::
 
 A two-dimensional electron gas fills the Landau levels from below. The next example defines the filling factor, the parameter of the quantum Hall effect.
@@ -8071,7 +8071,7 @@ An electric field across the magnetic field makes the orbit centres drift. The l
 ::: {#exm-qcp-ll-crossed}
 #### Crossed fields
 
-Add $\vec E = E_0\hat x$, with $\phi = -E_0x$. In the Landau gauge, completing the square gives the energies $\hbar\omega_c(n + \frac12) - qE_0x_k - \frac{mE_0^2}{2B^2}$ with the same oscillator functions, shifted by $mE_0/qB^2$. The degeneracy is lifted, and the group velocity $\frac1\hbar\frac{\partial E}{\partial k} = -\frac{E_0}{B}$ along $y$ is the drift velocity $\vec E\times\vec B/B^2$ of classical physics [@galitski2013exploring, Problem 7.3].
+Add $\mathbf E = E_0\hat{\mathbf x}$, with $\Phi = -E_0x$. In the Landau gauge, completing the square gives the energies $\hbar\omega_c(n + \frac12) - qE_0x_k - \frac{mE_0^2}{2B^2}$ with the same oscillator functions, shifted by $mE_0/qB^2$. The degeneracy is lifted, and the group velocity $\frac1\hbar\frac{\partial E}{\partial k} = -\frac{E_0}{B}$ along $y$ is the drift velocity $\mathbf E\times\mathbf B/B^2$ of classical physics [@galitski2013exploring, Problem 7.3].
 :::
 ::::
 
@@ -8081,7 +8081,7 @@ The exercises start from the Schrödinger equation in the Landau gauge. The firs
 ::: {#exr-qcp-ll-reduction}
 #### Reduction to an oscillator
 
-Write the Schrödinger equation for @eq-qcp-hamiltonian in the Landau gauge with $\phi = 0$, insert $\psi = e^{iky}\chi(x)$ (ignore $z$), and show that $\chi$ solves $\bigl(-\ell_B^2\frac{d^2}{dx^2} + \frac{(x - x_k)^2}{\ell_B^2}\bigr)\chi = \frac{2E}{\hbar\omega_c}\chi$. Deduce @eq-qcp-landau-energies from @prp-qm-oscillator-spectrum.
+Write the Schrödinger equation for @eq-qcp-hamiltonian in the Landau gauge with $\Phi = 0$, insert $\psi = e^{iky}\chi(x)$ (ignore $z$), and show that $\chi$ solves $\bigl(-\ell_B^2\frac{d^2}{dx^2} + \frac{(x - x_k)^2}{\ell_B^2}\bigr)\chi = \frac{2E}{\hbar\omega_c}\chi$. Deduce @eq-qcp-landau-energies from @prp-qm-oscillator-spectrum.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -8127,7 +8127,7 @@ The Landau and symmetric gauges describe the same field, and their wave function
 ::: {#exr-qcp-ll-gauge-change}
 #### From one gauge to the other
 
-Check that both $(0, Bx, 0)$ and $\frac B2(-y, x, 0)$ have curl $B\hat z$ and find the gauge function relating them. Show that $e^{-iqBxy/2\hbar}\psi_{0, k}$ is an eigenfunction of the symmetric-gauge Hamiltonian, and that $|\psi|^2$ does not change. Find the misprint in the published solution of @guidry2022symmetry [Problem 28.4], where the phase is written $e^{i\hbar c\chi/e}$.
+Check that both $(0, Bx, 0)$ and $\frac B2(-y, x, 0)$ have curl $B\hat{\mathbf z}$ and find the gauge function relating them. Show that $e^{-iqBxy/2\hbar}\psi_{0, k}$ is an eigenfunction of the symmetric-gauge Hamiltonian, and that $|\psi|^2$ does not change. Find the misprint in the published solution of @guidry2022symmetry [Problem 28.4], where the phase is written $e^{i\hbar c\chi/e}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -8163,11 +8163,11 @@ The lowest Landau level in the symmetric gauge has an elegant description by ana
 ::: {#exr-qcp-ll-symmetric-sage}
 #### The lowest level in the symmetric gauge
 
-With Sage, in units $\hbar = q = B = m = 1$ (so $\ell_B = 1$, $\omega_c = 1$), apply the symmetric-gauge Hamiltonian to $w^me^{-|w|^2/4}$, $w = x + iy$, for $m = 0, 1, 2, 3$ and check the energy $\frac12$ and $L_z = m$. Compute $\langle\rho^2\rangle$ and confirm $2(m + 1)$. Is $\bar w^me^{-|w|^2/4}$ in the lowest level too?
+With Sage, in units $\hbar = q = B = m = 1$ (so $\ell_B = 1$, $\omega_c = 1$), apply the symmetric-gauge Hamiltonian to $w^me^{-|w|^2/4}$, $w = x + iy$, for $m = 0, 1, 2, 3$ and check the energy $\frac12$ and $L_z = m$. Compute $\langle\rho^2\rangle$ and confirm $2(m + 1)$. Is $(w^*)^me^{-|w|^2/4}$ in the lowest level too?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$H\psi_m = \frac12\psi_m$ and $L_z\psi_m = m\psi_m$, while $\bar w\,e^{-|w|^2/4}$ has energy $\frac32$: it belongs to the level $n = 1$, as the formula $n_\rho + \frac{|m| - m}{2}$ with $m = -1$ says:
+$H\psi_m = \frac12\psi_m$ and $L_z\psi_m = m\psi_m$, while $w^*\,e^{-|w|^2/4}$ has energy $\frac32$: it belongs to the level $n = 1$, as the formula $n_\rho + \frac{|m| - m}{2}$ with $m = -1$ says:
 
 ```python
 x, y, r = var('x y r'); assume(r > 0)
@@ -8277,15 +8277,15 @@ Classically a charge responds only to the fields at its position, and the potent
 ::: {#prp-qcp-aharonov-bohm}
 #### Aharonov-Bohm phase
 
-Let $\vec B = \nabla\times\vec A = 0$ and $\phi = 0$ on a region $U \subset \mathbb{R}^3$, for example the outside of an infinitely long solenoid of flux $\Phi$, where $\vec A = \frac{\Phi}{2\pi s}\hat\varphi$ in cylindrical coordinates (@exm-emm-gauge-flux-tube). On a simply connected part $U_0$ of $U$, every solution of the Schrödinger equation with @eq-qcp-hamiltonian is
+Let $\mathbf B = \nabla\times\mathbf A = 0$ and $\Phi = 0$ on a region $U \subset \mathbb{R}^3$, for example the outside of an infinitely long solenoid of flux $\Phi_B$, where $\mathbf A = \frac{\Phi_B}{2\pi s}\hat{\boldsymbol\varphi}$ in cylindrical coordinates (@exm-emm-gauge-flux-tube). On a simply connected part $U_0$ of $U$, every solution of the Schrödinger equation with @eq-qcp-hamiltonian is
 $$
-\psi(t, \vec x) = \exp\Big(\frac{iq}\hbar\int_\gamma\vec A\cdot d\vec\ell\Big)\psi_0(t, \vec x) ,
+\psi(t, \mathbf x) = \exp\Big(\frac{iq}\hbar\int_\gamma\mathbf A\cdot d\boldsymbol\ell\Big)\psi_0(t, \mathbf x) ,
 $$ {#eq-qcp-ab-solution}
-where $\gamma$ is any path in $U_0$ from a fixed $\vec x_0$ to $\vec x$ and $\psi_0$ solves the equation with $\vec A = 0$. If two paths $\gamma_1$, $\gamma_2$ in $U$ from $\vec x_0$ to $\vec x$ pass on opposite sides of the solenoid, the two phase factors differ by the **Aharonov-Bohm phase**
+where $\gamma$ is any path in $U_0$ from a fixed $\mathbf x_0$ to $\mathbf x$ and $\psi_0$ solves the equation with $\mathbf A = 0$. If two paths $\gamma_1$, $\gamma_2$ in $U$ from $\mathbf x_0$ to $\mathbf x$ pass on opposite sides of the solenoid, the two phase factors differ by the **Aharonov-Bohm phase**
 $$
-\exp\Big(\frac{iq}\hbar\oint_{\gamma_1 - \gamma_2}\vec A\cdot d\vec\ell\Big) = e^{iq\Phi/\hbar} ,
+\exp\Big(\frac{iq}\hbar\oint_{\gamma_1 - \gamma_2}\mathbf A\cdot d\boldsymbol\ell\Big) = e^{iq\Phi_B/\hbar} ,
 $$ {#eq-qcp-ab-phase}
-because the circulation around the loop $\gamma_1 - \gamma_2$ equals, by Stokes' theorem (@thm-stokes), the flux through any surface it bounds, which crosses the solenoid. The phase is gauge invariant, it shifts the interference of the two paths although the particle never meets a field, and it depends on $\Phi$ only modulo the **flux quantum** $\Phi_0 = 2\pi\hbar/|q|$. In the language of @exm-potential-flat-torus, $\vec A$ is a flat connection on $U$ with non-trivial holonomy, and $e^{iq\Phi/\hbar}$ is that holonomy for the representation of charge $q$; the gauge-theory chapter takes this as its starting point. *Proof.* On $U_0$, $\nabla\times\vec A = 0$, so $\Lambda(\vec x) = \int_\gamma\vec A\cdot d\vec\ell$ is independent of the path in $U_0$ by Stokes' theorem and satisfies $\nabla\Lambda = \vec A$. The gauge function $\lambda = -\Lambda$ transforms $\vec A$ to $0$, and by @prp-qcp-gauge-covariance $e^{-iq\Lambda/\hbar}\psi = \psi_0$ solves the free equation, which is @eq-qcp-ab-solution (@exm-qcp-gc-pure-gauge). For the solenoid, $\oint\vec A\cdot d\vec\ell = \Phi$ for a loop winding once around it. A gauge transformation with single-valued $\lambda$ changes both line integrals by $\lambda(\vec x) - \lambda(\vec x_0)$, so their difference is invariant; changing $\Phi$ by $\Phi_0$ changes the phase by $2\pi$ [@guidry2022symmetry, Sec. 27.1, eqs. (27.1)-(27.9); @galitski2013exploring, Problem 13.24].
+because the circulation around the loop $\gamma_1 - \gamma_2$ equals, by Stokes' theorem (@thm-stokes), the flux through any surface it bounds, which crosses the solenoid. The phase is gauge invariant, it shifts the interference of the two paths although the particle never meets a field, and it depends on $\Phi_B$ only modulo the **flux quantum** $\Phi_0 = 2\pi\hbar/|q|$. In the language of @exm-potential-flat-torus, $\mathbf A$ is a flat connection on $U$ with non-trivial holonomy, and $e^{iq\Phi_B/\hbar}$ is that holonomy for the representation of charge $q$; the gauge-theory chapter takes this as its starting point. *Proof.* On $U_0$, $\nabla\times\mathbf A = 0$, so $\Lambda(\mathbf x) = \int_\gamma\mathbf A\cdot d\boldsymbol\ell$ is independent of the path in $U_0$ by Stokes' theorem and satisfies $\nabla\Lambda = \mathbf A$. The gauge function $\lambda = -\Lambda$ transforms $\mathbf A$ to $0$, and by @prp-qcp-gauge-covariance $e^{-iq\Lambda/\hbar}\psi = \psi_0$ solves the free equation, which is @eq-qcp-ab-solution (@exm-qcp-gc-pure-gauge). For the solenoid, $\oint\mathbf A\cdot d\boldsymbol\ell = \Phi_B$ for a loop winding once around it. A gauge transformation with single-valued $\lambda$ changes both line integrals by $\lambda(\mathbf x) - \lambda(\mathbf x_0)$, so their difference is invariant; changing $\Phi_B$ by $\Phi_0$ changes the phase by $2\pi$ [@guidry2022symmetry, Sec. 27.1, eqs. (27.1)-(27.9); @galitski2013exploring, Problem 13.24].
 :::
 ::::
 
@@ -8295,7 +8295,7 @@ The standard source of a flux without a field outside is a long thin solenoid. T
 ::: {#exm-qcp-ab-solenoid}
 #### The potential of a solenoid
 
-For a solenoid of radius $R$ with uniform field $B$ inside, $\vec A = A_\varphi\hat\varphi$ with $A_\varphi = \frac{Bs}{2}$ for $s < R$ and $A_\varphi = \frac{BR^2}{2s}$ for $s > R$, in cylindrical coordinates $(s, \varphi, z)$. Its curl is $B\hat z$ inside and $0$ outside, while $A_\varphi$ falls off only like $1/s$ (@exr-qcp-ab-curl-sage). The flux is $\Phi = \pi R^2B$, and the circulation of $\vec A$ around any loop that winds once around the solenoid is $\Phi$, however far away the loop is [@guidry2022symmetry, Sec. 27.1.2, eqs. (27.1)-(27.2)].
+For a solenoid of radius $R$ with uniform field $B$ inside, $\mathbf A = A_\varphi\hat{\boldsymbol\varphi}$ with $A_\varphi = \frac{Bs}{2}$ for $s < R$ and $A_\varphi = \frac{BR^2}{2s}$ for $s > R$, in cylindrical coordinates $(s, \varphi, z)$. Its curl is $B\hat{\mathbf z}$ inside and $0$ outside, while $A_\varphi$ falls off only like $1/s$ (@exr-qcp-ab-curl-sage). The flux is $\Phi_B = \pi R^2B$, and the circulation of $\mathbf A$ around any loop that winds once around the solenoid is $\Phi_B$, however far away the loop is [@guidry2022symmetry, Sec. 27.1.2, eqs. (27.1)-(27.2)].
 :::
 
 Outside the solenoid the potential is locally a gradient, but the function whose gradient it is cannot be single valued. The next example finds it.
@@ -8303,7 +8303,7 @@ Outside the solenoid the potential is locally a gradient, but the function whose
 ::: {#exm-qcp-ab-multivalued}
 #### A gauge function that is not single valued
 
-Outside the solenoid $\vec A = \nabla\chi$ with $\chi = \frac{BR^2}{2}\varphi = \frac{\Phi}{2\pi}\varphi$, since $\nabla\varphi = \hat\varphi/s$. Going once around, $\chi$ increases by $\Phi$, so $\chi$ is single valued only on a region cut along a half-plane, and $\vec A$ cannot be gauged to zero on all of $U$. The solution @eq-qcp-ab-solution is then $e^{iq\Phi\varphi/2\pi\hbar}\psi_0$, which is single valued only if $\psi_0$ compensates the jump [@guidry2022symmetry, Sec. 27.1.4, eqs. (27.8)-(27.9)].
+Outside the solenoid $\mathbf A = \nabla\chi$ with $\chi = \frac{BR^2}{2}\varphi = \frac{\Phi_B}{2\pi}\varphi$, since $\nabla\varphi = \hat{\boldsymbol\varphi}/s$. Going once around, $\chi$ increases by $\Phi_B$, so $\chi$ is single valued only on a region cut along a half-plane, and $\mathbf A$ cannot be gauged to zero on all of $U$. The solution @eq-qcp-ab-solution is then $e^{iq\Phi_B\varphi/2\pi\hbar}\psi_0$, which is single valued only if $\psi_0$ compensates the jump [@guidry2022symmetry, Sec. 27.1.4, eqs. (27.8)-(27.9)].
 :::
 
 In a two-slit experiment the Aharonov-Bohm phase adds to the path difference. The next example computes the shift of the interference fringes.
@@ -8311,11 +8311,11 @@ In a two-slit experiment the Aharonov-Bohm phase adds to the path difference. Th
 ::: {#exm-qcp-ab-fringes}
 #### The shift of the fringes
 
-Electrons of wavelength $\lambda_{\rm dB}$ pass two slits a distance $d$ apart and reach a screen at distance $L$. Without flux, the phase difference at the point $x$ of the screen is $\delta = 2\pi xd/L\lambda_{\rm dB}$, giving fringes of spacing $L\lambda_{\rm dB}/d$. A solenoid between the paths adds $q\Phi/\hbar$, and the whole pattern moves by
+Electrons of wavelength $\lambda_{\rm dB}$ pass two slits a distance $d$ apart and reach a screen at distance $L$. Without flux, the phase difference at the point $x$ of the screen is $\delta = 2\pi xd/L\lambda_{\rm dB}$, giving fringes of spacing $L\lambda_{\rm dB}/d$. A solenoid between the paths adds $q\Phi_B/\hbar$, and the whole pattern moves by
 $$
-\Delta x = \frac{L\lambda_{\rm dB}}{2\pi d}\frac{q\Phi}{\hbar} = \frac{L\lambda_{\rm dB}}{d}\frac{\Phi}{\Phi_0} ,
+\Delta x = \frac{L\lambda_{\rm dB}}{2\pi d}\frac{q\Phi_B}{\hbar} = \frac{L\lambda_{\rm dB}}{d}\frac{\Phi_B}{\Phi_0} ,
 $$
-a full fringe per flux quantum. The pattern is unchanged when $\Phi$ is a multiple of $\Phi_0$ [@guidry2022symmetry, Sec. 27.1.2, eqs. (27.6)-(27.7)].
+a full fringe per flux quantum. The pattern is unchanged when $\Phi_B$ is a multiple of $\Phi_0$ [@guidry2022symmetry, Sec. 27.1.2, eqs. (27.6)-(27.7)].
 :::
 
 The flux quantum sets the scale on which the effect can be seen. The next example evaluates it and the fields it corresponds to.
@@ -8331,11 +8331,11 @@ A charge confined to a ring around a flux tube has a spectrum that depends on th
 ::: {#exm-qcp-ab-ring}
 #### A ring around a flux
 
-On a ring of radius $R$ around the solenoid, $A_\varphi = \Phi/2\pi R$ and $H = \frac{1}{2mR^2}\bigl(-i\hbar\partial_\varphi - \frac{q\Phi}{2\pi}\bigr)^2$. The single-valued eigenfunctions $e^{in\varphi}$, $n \in \mathbb{Z}$, give
+On a ring of radius $R$ around the solenoid, $A_\varphi = \Phi_B/2\pi R$ and $H = \frac{1}{2mR^2}\bigl(-i\hbar\partial_\varphi - \frac{q\Phi_B}{2\pi}\bigr)^2$. The single-valued eigenfunctions $e^{in\varphi}$, $n \in \mathbb{Z}$, give
 $$
-E_n(\Phi) = \frac{\hbar^2}{2mR^2}\Big(n - \frac{\Phi}{\Phi_0}\Big)^2 \qquad (q > 0) .
+E_n(\Phi_B) = \frac{\hbar^2}{2mR^2}\Big(n - \frac{\Phi_B}{\Phi_0}\Big)^2 \qquad (q > 0) .
 $$
-The spectrum as a set is periodic in $\Phi$ with period $\Phi_0$, while each level moves (@fig-qcp-landau-ab); for $\Phi = 0$ it is the spectrum of @exr-qm-lz-ring, and at $\Phi = \Phi_0/2$ the ground state is doubly degenerate [@galitski2013exploring, Problem 13.24].
+The spectrum as a set is periodic in $\Phi_B$ with period $\Phi_0$, while each level moves (@fig-qcp-landau-ab); for $\Phi_B = 0$ it is the spectrum of @exr-qm-lz-ring, and at $\Phi_B = \Phi_0/2$ the ground state is doubly degenerate [@galitski2013exploring, Problem 13.24].
 :::
 
 The path integral of @def-qm-path-integral expresses the propagator as a sum over paths, and the potential adds a phase to each. The next example shows how the Aharonov-Bohm phase sorts the paths by their winding number.
@@ -8343,7 +8343,7 @@ The path integral of @def-qm-path-integral expresses the propagator as a sum ove
 ::: {#exm-qcp-ab-path-integral}
 #### The path integral around a flux
 
-The Lagrangian @eq-emm-charged-lagrangian adds $q\dot{\vec x}\cdot\vec A$ to the free one, so each path $\gamma$ acquires the factor $e^{\frac{iq}\hbar\int_\gamma\vec A\cdot d\vec\ell}$. In the plane pierced by the solenoid, the paths from $\vec x_0$ to $\vec x$ fall into classes labelled by how many times $w \in \mathbb{Z}$ they wind around the solenoid, and within a class the line integral is the same up to $w\Phi$. Hence $K = \sum_we^{iwq\Phi/\hbar}e^{iq\Lambda/\hbar}K_w$, where $K_w$ is the free sum over the paths of class $w$: the flux weights the topological classes of paths by phases [@guidry2022symmetry, Sec. 27.1.4].
+The Lagrangian @eq-emm-charged-lagrangian adds $q\dot{\mathbf x}\cdot\mathbf A$ to the free one, so each path $\gamma$ acquires the factor $e^{\frac{iq}\hbar\int_\gamma\mathbf A\cdot d\boldsymbol\ell}$. In the plane pierced by the solenoid, the paths from $\mathbf x_0$ to $\mathbf x$ fall into classes labelled by how many times $w \in \mathbb{Z}$ they wind around the solenoid, and within a class the line integral is the same up to $w\Phi_B$. Hence $K = \sum_we^{iwq\Phi_B/\hbar}e^{iq\Lambda/\hbar}K_w$, where $K_w$ is the free sum over the paths of class $w$: the flux weights the topological classes of paths by phases [@guidry2022symmetry, Sec. 27.1.4].
 :::
 
 The classes of paths are classes of loops in the plane with a hole. The next example names the topology behind the effect.
@@ -8351,7 +8351,7 @@ The classes of paths are classes of loops in the plane with a hole. The next exa
 ::: {#exm-qcp-ab-topology}
 #### Why the hole matters
 
-The region outside an infinitely long solenoid is $\mathbb{R}^2 \setminus \{\text{disc}\}$ times $\mathbb{R}$, whose loops are classified by an integer winding number $w$. A gauge function $\lambda$ with $e^{iq\lambda/\hbar}$ single valued may wind too: $\lambda = \frac{w\hbar}{q}\varphi$ is allowed, because $e^{iw\varphi}$ is single valued, and it changes $\Phi$ by $w\Phi_0$. So fluxes that differ by multiples of $\Phi_0$ are gauge equivalent, and the gauge-invariant content of the potential outside is $e^{iq\Phi/\hbar} \in U(1)$ [@guidry2022symmetry, Sec. 27.1.4 and Problem 27.4].
+The region outside an infinitely long solenoid is $\mathbb{R}^2 \setminus \{\text{disc}\}$ times $\mathbb{R}$, whose loops are classified by an integer winding number $w$. A gauge function $\lambda$ with $e^{iq\lambda/\hbar}$ single valued may wind too: $\lambda = \frac{w\hbar}{q}\varphi$ is allowed, because $e^{iw\varphi}$ is single valued, and it changes $\Phi_B$ by $w\Phi_0$. So fluxes that differ by multiples of $\Phi_0$ are gauge equivalent, and the gauge-invariant content of the potential outside is $e^{iq\Phi_B/\hbar} \in U(1)$ [@guidry2022symmetry, Sec. 27.1.4 and Problem 27.4].
 :::
 
 A scalar potential can produce the same kind of effect in time. The next example describes the electric Aharonov-Bohm effect, in which the particle feels no force.
@@ -8367,7 +8367,7 @@ A similar phase arises in parameter space, when a state is carried around a loop
 ::: {#exm-qcp-ab-berry}
 #### Berry's phase of a spin
 
-A spin one-half with $H = -\frac12\mu\vec\sigma\cdot\vec B$ (@def-qm-spin-half) stays in the instantaneous eigenstate aligned with $\vec B$ if the direction of $\vec B$ is turned slowly. When the direction goes once around a cone of opening $\theta$, the state returns with, besides the dynamical phase, the **Berry phase** $\gamma = -\pi(1 - \cos\theta)$, minus half the solid angle of the cone. Here $i\langle n|\nabla_{\vec B}n\rangle$ plays the role of $q\vec A/\hbar$, and its curl is the field of a monopole of strength $\frac12$ at $\vec B = 0$ [@guidry2022symmetry, Secs. 27.2-27.3, Example 27.1].
+A spin one-half with $H = -\frac12\mu\boldsymbol\sigma\cdot\mathbf B$ (@def-qm-spin-half) stays in the instantaneous eigenstate aligned with $\mathbf B$ if the direction of $\mathbf B$ is turned slowly. When the direction goes once around a cone of opening $\theta$, the state returns with, besides the dynamical phase, the **Berry phase** $\gamma = -\pi(1 - \cos\theta)$, minus half the solid angle of the cone. Here $i\langle n|\nabla_{\mathbf B}n\rangle$ plays the role of $q\mathbf A/\hbar$, and its curl is the field of a monopole of strength $\frac12$ at $\mathbf B = 0$ [@guidry2022symmetry, Secs. 27.2-27.3, Example 27.1].
 :::
 
 The Aharonov-Bohm effect also shows up as scattering, without any slits. The last example quotes the cross section of a thin flux tube.
@@ -8377,9 +8377,9 @@ The Aharonov-Bohm effect also shows up as scattering, without any slits. The las
 
 A particle moving in the plane perpendicular to an infinitely thin flux tube is scattered with the cross section per unit length
 $$
-\frac{d\sigma}{d\varphi} = \frac{\sin^2(\pi\Phi/\Phi_0)}{2\pi k\sin^2(\varphi/2)} ,
+\frac{d\sigma}{d\varphi} = \frac{\sin^2(\pi\Phi_B/\Phi_0)}{2\pi k\sin^2(\varphi/2)} ,
 $$
-which vanishes when $\Phi$ is a multiple of $\Phi_0$ and diverges in the forward direction, so that the total cross section is infinite. There is no classical counterpart, since the Lorentz force vanishes everywhere the particle goes; as $\hbar \to 0$ at fixed $\Phi$ the factor $\sin^2(\pi\Phi/\Phi_0)$ oscillates ever faster and averages away [@galitski2013exploring, Problem 13.24].
+which vanishes when $\Phi_B$ is a multiple of $\Phi_0$ and diverges in the forward direction, so that the total cross section is infinite. There is no classical counterpart, since the Lorentz force vanishes everywhere the particle goes; as $\hbar \to 0$ at fixed $\Phi_B$ the factor $\sin^2(\pi\Phi_B/\Phi_0)$ oscillates ever faster and averages away [@galitski2013exploring, Problem 13.24].
 :::
 ::::
 
@@ -8389,11 +8389,11 @@ The exercises start with the field of the solenoid, the device behind every Ahar
 ::: {#exr-qcp-ab-curl-sage}
 #### The field of the solenoid with Sage
 
-With Sage, compute $\nabla\times\vec A$ in cylindrical coordinates for $A_\varphi = \frac{Bs}{2}$ and for $A_\varphi = \frac{BR^2}{2s}$, and the circulation $\oint\vec A\cdot d\vec\ell$ around circles of radius $s < R$ and $s > R$.
+With Sage, compute $\nabla\times\mathbf A$ in cylindrical coordinates for $A_\varphi = \frac{Bs}{2}$ and for $A_\varphi = \frac{BR^2}{2s}$, and the circulation $\oint\mathbf A\cdot d\boldsymbol\ell$ around circles of radius $s < R$ and $s > R$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In cylindrical coordinates $(\nabla\times\vec A)_z = \frac1s\partial_s(sA_\varphi)$, which is $B$ inside and $0$ outside, while the circulation $2\pi sA_\varphi$ is $\pi s^2B$ inside and $\pi R^2B = \Phi$ outside:
+In cylindrical coordinates $(\nabla\times\mathbf A)_z = \frac1s\partial_s(sA_\varphi)$, which is $B$ inside and $0$ outside, while the circulation $2\pi sA_\varphi$ is $\pi s^2B$ inside and $\pi R^2B = \Phi_B$ outside:
 
 ```python
 s, B, R, ph = var('s B R phi'); assume(s > 0, R > 0)
@@ -8422,11 +8422,11 @@ The phase difference of two paths is a closed line integral. The second exercise
 ::: {#exr-qcp-ab-stokes}
 #### From circulation to flux
 
-Show that $\int_{\gamma_1}\vec A\cdot d\vec\ell - \int_{\gamma_2}\vec A\cdot d\vec\ell = \oint_{\gamma_1 - \gamma_2}\vec A\cdot d\vec\ell = \int_S\vec B\cdot d\vec S$ for any surface $S$ with boundary $\gamma_1 - \gamma_2$, and that two such surfaces give the same flux because $\nabla\cdot\vec B = 0$. Why does the result not depend on the precise paths, as long as they stay on their sides of the solenoid?
+Show that $\int_{\gamma_1}\mathbf A\cdot d\boldsymbol\ell - \int_{\gamma_2}\mathbf A\cdot d\boldsymbol\ell = \oint_{\gamma_1 - \gamma_2}\mathbf A\cdot d\boldsymbol\ell = \int_S\mathbf B\cdot d\mathbf S$ for any surface $S$ with boundary $\gamma_1 - \gamma_2$, and that two such surfaces give the same flux because $\nabla\cdot\mathbf B = 0$. Why does the result not depend on the precise paths, as long as they stay on their sides of the solenoid?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Reversing $\gamma_2$ closes the loop, and @thm-stokes with $\omega = \vec A\cdot d\vec x$, $d\omega = \vec B\cdot d\vec S$ gives the flux. Two surfaces with the same boundary bound a volume, and by the divergence theorem their fluxes differ by $\int\nabla\cdot\vec B = 0$. Deforming $\gamma_1$ in $U$ changes the loop by the boundary of a surface in $U$, where $\vec B = 0$, so the circulation does not change; only crossing the solenoid changes it, by $\pm\Phi$ [@guidry2022symmetry, Problem 27.2 and Box 27.1].
+Reversing $\gamma_2$ closes the loop, and @thm-stokes with $\omega = \mathbf A\cdot d\mathbf x$, $d\omega = \mathbf B\cdot d\mathbf S$ gives the flux. Two surfaces with the same boundary bound a volume, and by the divergence theorem their fluxes differ by $\int\nabla\cdot\mathbf B = 0$. Deforming $\gamma_1$ in $U$ changes the loop by the boundary of a surface in $U$, where $\mathbf B = 0$, so the circulation does not change; only crossing the solenoid changes it, by $\pm\Phi_B$ [@guidry2022symmetry, Problem 27.2 and Box 27.1].
 :::
 
 The gauge function of the solenoid is multivalued. The third exercise finds it and shows what goes wrong on the full region.
@@ -8434,11 +8434,11 @@ The gauge function of the solenoid is multivalued. The third exercise finds it a
 ::: {#exr-qcp-ab-chi}
 #### The gauge function of the solenoid
 
-Find $\chi$ with $\nabla\chi = \vec A$ outside the solenoid and show that it is defined only up to the cut. Show that if one used $\lambda = -\chi$ to remove $\vec A$, the transformed wave function $e^{-iq\chi/\hbar}\psi$ would jump across the cut by $e^{-iq\Phi/\hbar}$, and conclude when the solenoid is undetectable.
+Find $\chi$ with $\nabla\chi = \mathbf A$ outside the solenoid and show that it is defined only up to the cut. Show that if one used $\lambda = -\chi$ to remove $\mathbf A$, the transformed wave function $e^{-iq\chi/\hbar}\psi$ would jump across the cut by $e^{-iq\Phi_B/\hbar}$, and conclude when the solenoid is undetectable.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\chi = \frac{\Phi}{2\pi}\varphi$ with $\varphi \in (0, 2\pi)$, which jumps by $\Phi$ across the half-plane $\varphi = 0$. The transformed function solves the free equation away from the cut, but it is single valued only if $e^{iq\Phi/\hbar} = 1$, that is if $\Phi$ is a multiple of $\Phi_0$: then the cut is invisible and the solenoid cannot be detected by any experiment outside it. Otherwise the free problem must be solved with the twisted boundary condition, and the flux is physical [@guidry2022symmetry, Problem 27.3].
+$\chi = \frac{\Phi_B}{2\pi}\varphi$ with $\varphi \in (0, 2\pi)$, which jumps by $\Phi_B$ across the half-plane $\varphi = 0$. The transformed function solves the free equation away from the cut, but it is single valued only if $e^{iq\Phi_B/\hbar} = 1$, that is if $\Phi_B$ is a multiple of $\Phi_0$: then the cut is invisible and the solenoid cannot be detected by any experiment outside it. Otherwise the free problem must be solved with the twisted boundary condition, and the flux is physical [@guidry2022symmetry, Problem 27.3].
 :::
 
 The ring of @exm-qcp-ab-ring carries a current in its ground state. The fourth exercise computes this persistent current with Sage.
@@ -8446,11 +8446,11 @@ The ring of @exm-qcp-ab-ring carries a current in its ground state. The fourth e
 ::: {#exr-qcp-ab-ring-sage}
 #### A persistent current
 
-With Sage, find the ground-state energy $E(\Phi) = \min_nE_n(\Phi)$ of @exm-qcp-ab-ring and the current $I = -\partial E/\partial\Phi$. Show that $I$ is periodic in $\Phi$ with period $\Phi_0$ and odd in $\Phi$, and evaluate its largest value for an electron on a ring of radius $1\,\mu$m.
+With Sage, find the ground-state energy $E(\Phi_B) = \min_nE_n(\Phi_B)$ of @exm-qcp-ab-ring and the current $I = -\partial E/\partial\Phi_B$. Show that $I$ is periodic in $\Phi_B$ with period $\Phi_0$ and odd in $\Phi_B$, and evaluate its largest value for an electron on a ring of radius $1\,\mu$m.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $|\Phi| < \Phi_0/2$ the ground state is $n = 0$ and $I = \frac{\hbar^2}{mR^2}\frac{\Phi}{\Phi_0^2}$ up to sign; it grows linearly and jumps to its negative at $\Phi = \pm\Phi_0/2$, where the ground state changes:
+For $|\Phi_B| < \Phi_0/2$ the ground state is $n = 0$ and $I = \frac{\hbar^2}{mR^2}\frac{\Phi_B}{\Phi_0^2}$ up to sign; it grows linearly and jumps to its negative at $\Phi_B = \pm\Phi_0/2$, where the ground state changes:
 
 ```python
 f = var('f')                  # f = Phi/Phi0; energies in units hbar^2/(2 m R^2)
@@ -8482,11 +8482,11 @@ The proposition says that only the holonomy of the potential is gauge invariant.
 ::: {#exr-qcp-ab-large-gauge}
 #### Large gauge transformations
 
-On the ring, show that $\lambda = \frac{w\hbar}{q}\varphi$, $w \in \mathbb{Z}$, gives a single-valued $e^{iq\lambda/\hbar}$, changes $\Phi$ to $\Phi + w\Phi_0$, and maps the eigenfunction $e^{in\varphi}$ to $e^{i(n + w)\varphi}$ with the same energy. Why is the spectrum then periodic in $\Phi$ while each $E_n$ is not?
+On the ring, show that $\lambda = \frac{w\hbar}{q}\varphi$, $w \in \mathbb{Z}$, gives a single-valued $e^{iq\lambda/\hbar}$, changes $\Phi_B$ to $\Phi_B + w\Phi_0$, and maps the eigenfunction $e^{in\varphi}$ to $e^{i(n + w)\varphi}$ with the same energy. Why is the spectrum then periodic in $\Phi_B$ while each $E_n$ is not?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$e^{iq\lambda/\hbar} = e^{iw\varphi}$ is single valued, and $A_\varphi \mapsto A_\varphi + \frac1R\partial_\varphi\lambda = A_\varphi + \frac{w\hbar}{qR}$ raises the circulation by $\frac{2\pi w\hbar}{q} = w\Phi_0$. By @prp-qcp-gauge-covariance $e^{iw\varphi}e^{in\varphi}$ is an eigenfunction for $\Phi + w\Phi_0$ with the same energy: $E_{n + w}(\Phi + w\Phi_0) = E_n(\Phi)$. The labels $n$ are permuted, so the set of energies is periodic, while a single level $E_n$ follows a parabola [@guidry2022symmetry, Sec. 27.1.4 and Problem 27.4].
+$e^{iq\lambda/\hbar} = e^{iw\varphi}$ is single valued, and $A_\varphi \mapsto A_\varphi + \frac1R\partial_\varphi\lambda = A_\varphi + \frac{w\hbar}{qR}$ raises the circulation by $\frac{2\pi w\hbar}{q} = w\Phi_0$. By @prp-qcp-gauge-covariance $e^{iw\varphi}e^{in\varphi}$ is an eigenfunction for $\Phi_B + w\Phi_0$ with the same energy: $E_{n + w}(\Phi_B + w\Phi_0) = E_n(\Phi_B)$. The labels $n$ are permuted, so the set of energies is periodic, while a single level $E_n$ follows a parabola [@guidry2022symmetry, Sec. 27.1.4 and Problem 27.4].
 :::
 
 On a lattice, the vector potential enters through phases on the hopping terms, as in the lattice part of the gauge-theory chapter. The sixth exercise discretises the ring and recovers the flux dependence with Sage.
@@ -8494,11 +8494,11 @@ On a lattice, the vector potential enters through phases on the hopping terms, a
 ::: {#exr-qcp-ab-grid-sage}
 #### The ring on a grid
 
-Discretise the ring into $N$ sites $\varphi_j = jh$, $h = 2\pi/N$, with the grid Laplacian of @prp-qmn-grid-box made periodic, and attach the phase $e^{-i\theta}$, $\theta = 2\pi\Phi/N\Phi_0$, to each hop from site $j + 1$ to site $j$: $(Hc)_j = \frac{1}{2h^2}\bigl(2c_j - e^{-i\theta}c_{j + 1} - e^{i\theta}c_{j - 1}\bigr)$ in units $\hbar = m = R = 1$. With Sage, for $N = 40$, compute the lowest four eigenvalues for $\Phi/\Phi_0 = 0$, $0.25$, $0.5$, $1$, and compare with $E_n(\Phi)$. Why does only the product of the $N$ phases, $e^{-2\pi i\Phi/\Phi_0}$, matter?
+Discretise the ring into $N$ sites $\varphi_j = jh$, $h = 2\pi/N$, with the grid Laplacian of @prp-qmn-grid-box made periodic, and attach the phase $e^{-i\theta}$, $\theta = 2\pi\Phi_B/N\Phi_0$, to each hop from site $j + 1$ to site $j$: $(Hc)_j = \frac{1}{2h^2}\bigl(2c_j - e^{-i\theta}c_{j + 1} - e^{i\theta}c_{j - 1}\bigr)$ in units $\hbar = m = R = 1$. With Sage, for $N = 40$, compute the lowest four eigenvalues for $\Phi_B/\Phi_0 = 0$, $0.25$, $0.5$, $1$, and compare with $E_n(\Phi_B)$. Why does only the product of the $N$ phases, $e^{-2\pi i\Phi_B/\Phi_0}$, matter?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The vectors $c_j = e^{in\varphi_j}$ are eigenvectors with eigenvalues $\frac{1}{h^2}\bigl(1 - \cos((n - \Phi/\Phi_0)h)\bigr) = \frac{N^2}{4\pi^2}\bigl(1 - \cos\frac{2\pi(n - \Phi/\Phi_0)}{N}\bigr)$, which tend to $\frac12(n - \Phi/\Phi_0)^2$ for $|n| \ll N$:
+The vectors $c_j = e^{in\varphi_j}$ are eigenvectors with eigenvalues $\frac{1}{h^2}\bigl(1 - \cos((n - \Phi_B/\Phi_0)h)\bigr) = \frac{N^2}{4\pi^2}\bigl(1 - \cos\frac{2\pi(n - \Phi_B/\Phi_0)}{N}\bigr)$, which tend to $\frac12(n - \Phi_B/\Phi_0)^2$ for $|n| \ll N$:
 
 ```python
 N = 40; hh = 2*pi.n()/N
@@ -8532,7 +8532,7 @@ Phi/Phi0 = 1.00: numerical [0.000000000000000, 0.49897, 0.49897, 1.9836]
 spectra at Phi = 0 and Phi = Phi0 coincide: True
 ```
 
-A site-dependent phase change $c_j \to e^{i\alpha_j}c_j$, the lattice gauge transformation, moves phase from one link to the next, and only the product around the ring, the lattice holonomy, survives; the spectra for $\Phi = 0$ and $\Phi = \Phi_0$ coincide [@guidry2022symmetry, Secs. 26.5 and 27.1].
+A site-dependent phase change $c_j \to e^{i\alpha_j}c_j$, the lattice gauge transformation, moves phase from one link to the next, and only the product around the ring, the lattice holonomy, survives; the spectra for $\Phi_B = 0$ and $\Phi_B = \Phi_0$ coincide [@guidry2022symmetry, Secs. 26.5 and 27.1].
 :::
 
 The fringe shift of @exm-qcp-ab-fringes is small in absolute terms. The seventh exercise evaluates it for a realistic electron interferometer with Sage.
@@ -8540,11 +8540,11 @@ The fringe shift of @exm-qcp-ab-fringes is small in absolute terms. The seventh 
 ::: {#exr-qcp-ab-fringes-sage}
 #### Fringes in an electron microscope
 
-Electrons of $50\,$keV (wavelength $5.4\,$pm, relativistically corrected) pass two paths separated by $d = 10\,\mu$m, and the screen is at $L = 1\,$m. With Sage, compute the fringe spacing, the shift for $\Phi = \Phi_0/4$, and the field in a whisker of radius $0.5\,\mu$m that shifts the pattern by one fringe.
+Electrons of $50\,$keV (wavelength $5.4\,$pm, relativistically corrected) pass two paths separated by $d = 10\,\mu$m, and the screen is at $L = 1\,$m. With Sage, compute the fringe spacing, the shift for $\Phi_B = \Phi_0/4$, and the field in a whisker of radius $0.5\,\mu$m that shifts the pattern by one fringe.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The fringe spacing is $L\lambda/d$, the shift is that times $\Phi/\Phi_0$, and one fringe needs $\Phi = \Phi_0$:
+The fringe spacing is $L\lambda/d$, the shift is that times $\Phi_B/\Phi_0$, and one fringe needs $\Phi_B = \Phi_0$:
 
 ```python
 hc, mc2, Ek = 1239.84198, 510998.95, 50000.0          # eV nm, eV, eV
@@ -8574,7 +8574,7 @@ Berry's phase for the spin is computed from the eigenvectors of a two-by-two mat
 ::: {#exr-qcp-ab-berry-sage}
 #### Berry's phase with Sage
 
-For $H = -\frac12\mu\vec\sigma\cdot\vec B$ with $\vec B = B(\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)$, check with Sage that $|n\rangle = (\cos\frac\theta2, \sin\frac\theta2e^{i\varphi})$ is the eigenvector of energy $-\frac12\mu B$, compute $\gamma = \oint i\langle n|\partial_\varphi n\rangle\,d\varphi$ around the cone of fixed $\theta$, and compare with the eigenvector $(\cos\frac\theta2e^{-i\varphi/2}, \sin\frac\theta2e^{i\varphi/2})$ used in @guidry2022symmetry [eq. (27.30)].
+For $H = -\frac12\mu\boldsymbol\sigma\cdot\mathbf B$ with $\mathbf B = B(\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)$, check with Sage that $|n\rangle = (\cos\frac\theta2, \sin\frac\theta2e^{i\varphi})$ is the eigenvector of energy $-\frac12\mu B$, compute $\gamma = \oint i\langle n|\partial_\varphi n\rangle\,d\varphi$ around the cone of fixed $\theta$, and compare with the eigenvector $(\cos\frac\theta2e^{-i\varphi/2}, \sin\frac\theta2e^{i\varphi/2})$ used in @guidry2022symmetry [eq. (27.30)].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -8609,11 +8609,11 @@ A solenoid is not the only way to enclose flux without touching it. The ninth ex
 ::: {#exr-qcp-ab-toroid}
 #### A toroidal coil
 
-A toroidal coil confines its field $\vec B$ to the inside of the torus, with total flux $\Phi$ through a cross section. Show that outside the torus $\vec B = 0$ but that the circulation of $\vec A$ along a loop threading the hole of the torus once is $\pm\Phi$, so that an electron wave split into a part passing through the hole and a part passing outside acquires the relative phase $q\Phi/\hbar$. Why is a toroid better than a finite solenoid?
+A toroidal coil confines its field $\mathbf B$ to the inside of the torus, with total flux $\Phi_B$ through a cross section. Show that outside the torus $\mathbf B = 0$ but that the circulation of $\mathbf A$ along a loop threading the hole of the torus once is $\pm\Phi_B$, so that an electron wave split into a part passing through the hole and a part passing outside acquires the relative phase $q\Phi_B/\hbar$. Why is a toroid better than a finite solenoid?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-A loop threading the hole links the torus once; any surface it bounds is pierced by the torus and carries the flux $\Phi$ (or $-\Phi$, depending on orientation), so $\oint\vec A\cdot d\vec\ell = \pm\Phi$ by Stokes' theorem, and @eq-qcp-ab-phase applies. A finite solenoid has return flux outside its ends, through which the electrons could pass, while a toroid closes its field lines on themselves; covered by a superconductor, it confines the field completely [@guidry2022symmetry, Sec. 27.1.1].
+A loop threading the hole links the torus once; any surface it bounds is pierced by the torus and carries the flux $\Phi_B$ (or $-\Phi_B$, depending on orientation), so $\oint\mathbf A\cdot d\boldsymbol\ell = \pm\Phi_B$ by Stokes' theorem, and @eq-qcp-ab-phase applies. A finite solenoid has return flux outside its ends, through which the electrons could pass, while a toroid closes its field lines on themselves; covered by a superconductor, it confines the field completely [@guidry2022symmetry, Sec. 27.1.1].
 :::
 
 The phase @eq-qcp-ab-phase can be read as a parallel transport around a loop. The last exercise shows that, for a small loop in a region with field, the same transport measures the field, which connects the Aharonov-Bohm phase with the curvature of the gauge-theory chapter.
@@ -8621,7 +8621,7 @@ The phase @eq-qcp-ab-phase can be read as a parallel transport around a loop. Th
 ::: {#exr-qcp-ab-small-loop}
 #### A small loop measures the field
 
-For a small square loop of side $\epsilon$ in the $xy$ plane at $\vec x$, show that $\frac{q}{\hbar}\oint\vec A\cdot d\vec\ell = \frac{q}{\hbar}\epsilon^2B_z(\vec x) + O(\epsilon^3)$, so that the phase factor around an infinitesimal loop is $1 + \frac{iq}{\hbar}\epsilon^2B_z$. Explain why a uniform field in the whole plane gives the phase $qB\mathcal A/\hbar = 2\pi\Phi/\Phi_0$ around any loop of area $\mathcal A$, and relate this to the degeneracy of @prp-qcp-landau-levels.
+For a small square loop of side $\epsilon$ in the $xy$ plane at $\mathbf x$, show that $\frac{q}{\hbar}\oint\mathbf A\cdot d\boldsymbol\ell = \frac{q}{\hbar}\epsilon^2B_z(\mathbf x) + O(\epsilon^3)$, so that the phase factor around an infinitesimal loop is $1 + \frac{iq}{\hbar}\epsilon^2B_z$. Explain why a uniform field in the whole plane gives the phase $qB\mathcal A/\hbar = 2\pi\Phi_B/\Phi_0$ around any loop of area $\mathcal A$, and relate this to the degeneracy of @prp-qcp-landau-levels.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -8742,7 +8742,7 @@ and which symmetry explains it?
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) $L^2$, $L_z$ and $S_z$ commute with $H_0$ (rotation invariance, @def-qm-conserved-quantity) and with $V$; $J^2$ does not
-commute with $V$, since $L_z + 2S_z$ is not a function of $\vec J$. (b) $V$ is diagonal in $|l, m_l, m_s\rangle$, because these are
+commute with $V$, since $L_z + 2S_z$ is not a function of $\mathbf J$. (b) $V$ is diagonal in $|l, m_l, m_s\rangle$, because these are
 eigenvectors of $L_z$ and $S_z$; the degenerate subspace is already split by the conserved quantities, and the first-order shifts
 are the diagonal entries. (c) $l = 0$: $m_l + 2m_s = \pm1$; $l = 1$: $m_l + 2m_s \in \{2, 0, 1, -1, 0, -2\}$. Altogether the shifts
 $2\mu_BB$ (one state), $\mu_BB$ (two), $0$ (two), $-\mu_BB$ (two), $-2\mu_BB$ (one): $1 + 2 + 2 + 2 + 1 = 8$. (d) The remaining

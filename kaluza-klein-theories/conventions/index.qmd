@@ -1,8 +1,16 @@
 ---
-pagetitle: "Prerequisites and conventions"
+pagetitle: "Notation and conventions"
 ---
 
-# Prerequisites and conventions {#sec-conventions}
+# Notation and conventions {#sec-conventions}
+
+This page fixes the notation of the whole tutorial. The tables are shared with the other tutorials of the site, so a
+symbol means the same thing here as in [Fundamentals of Mathematics for Physicists](../../fundamentals-of-mathematics-for-physicists/index.qmd)
+and [Fundamentals of Theoretical Physics](../../fundamentals-of-theoretical-physics/index.qmd). The chapters follow this
+notation, including the metric signature and the other sign and normalisation conventions, whatever notation their
+sources use; where a chapter quotes a source's convention, it says so and names the source. The last section lists
+what is particular to Kaluza-Klein theories: the higher-dimensional fields, the internal coordinates and the internal
+metric.
 
 ## Who these lectures are for
 
@@ -26,84 +34,120 @@ sections. To keep the line of the argument visible, the examples of a statement 
 **Examples** box placed right after it, and its exercises, with their solutions, into one collapsed **Exercises**
 box; open them to work through the material. Solutions that compute show the code and its output.
 
+## Sets and logic
+
+{{< include ../../_notation/sets-logic.qmd >}}
+
+## Linear algebra
+
+{{< include ../../_notation/linear-algebra.qmd >}}
+
+## Analysis
+
+{{< include ../../_notation/analysis.qmd >}}
+
 ## Coordinates, indices and signature {#sec-conventions-indices}
 
-Spacetime is four-dimensional with coordinates $x^\mu$, $\mu = 0, 1, 2, 3$, and metric signature
-$(+, -, -, -)$: $\eta_{\mu\nu} = \operatorname{diag}(1, -1, -1, -1)$, timelike vectors have $\eta(v, v) > 0$ and
-spacelike ones $\eta(v, v) < 0$. Internal (compact) coordinates are $y^m$, and the full higher-dimensional
-coordinates are $z^M = (x^\mu, y^m)$. Internal metrics are **negative definite**, so that the full metric
-$\hat g_{MN}$ has signature $(+, -, \dots, -)$: the Kaluza-Klein ansatz reads $d\hat s^2 = g_{\mu\nu}dx^\mu dx^\nu -
-\phi^2(dy + A_\mu dx^\mu)^2$ on the circle and $g_{\mu\nu}dx^\mu dx^\nu - R^2(d\theta^2 + \sin^2\theta\,d\varphi^2)$
-on the sphere, and we write $h_{mn} = -\gamma_{mn}$ with $\gamma_{mn}$ the positive-definite round metric when the
-internal geometry is discussed on its own (Part I treats Riemannian metrics, which are positive definite). Indices
-are summed when repeated once up and once down.
-
-The signature fixes the signs of the field-theory formulas: the Klein-Gordon equation is $(\Box + m^2)\phi = 0$
-with $\Box = \eta^{\mu\nu}\partial_\mu\partial_\nu = \partial_t^2 - \nabla^2$, the scalar Lagrangian is
-$\tfrac12\eta^{\mu\nu}\partial_\mu\phi\,\partial_\nu\phi - V(\phi)$, the Maxwell and Yang-Mills Lagrangians are
-$-\tfrac14F_{\mu\nu}F^{\mu\nu}$ (unchanged by the signature, two indices being raised), the Dirac equation is
-$(i\gamma^\mu\partial_\mu - m)\psi = 0$ with $\{\gamma^\mu, \gamma^\nu\} = 2\eta^{\mu\nu}$, $(\gamma^0)^2 = 1$,
-$(\gamma^i)^2 = -1$, and the Einstein-Hilbert Lagrangian is $-\tfrac{1}{16\pi G}\sqrt{-g}\,R$ with the curvature
-conventions of @sec-conventions-curvature (the curvature scalar changes sign with the signature while the Riemann
-and Ricci tensors do not). Under the ansatz above the circle reduction gives $\hat R = R + \tfrac14\phi^2
-F_{\mu\nu}F^{\mu\nu} - 2\phi^{-1}\Box\phi$ (Part III).
-
-The Kaluza-Klein literature is split on the signature: @overduin1998 [Sec. 3], @tanii1998 and the CSDR reviews
-[@manolakos2016, eq. 9; @manousselis2000] use $(+,-,-,-)$ as we do, while @duff1994 [p. 2], @duff2025 and
-@martin1997 use $(-,+,+,+)$. Where we quote a formula from a source with the other signature, we say so and
-convert: the rule is $g_{MN} \to -g_{MN}$, which leaves $\Gamma$, $R^\rho{}_{\sigma\mu\nu}$, $R_{\mu\nu}$ and
-$F_{\mu\nu}F^{\mu\nu}$ unchanged and flips the signs of $R$, of $\Box$, of every $\eta^{\mu\nu}$ contraction with
-an odd number of inverse metrics, and of the $\eta$ in the Clifford relation.
-
-In the Lean library a chart is $\mathbb{R}^n$, written `Fin n → ℝ`, and a metric is the family of its components
-$g_{ij}(x)$. The chart hypotheses (for instance $\sin\theta \neq 0$ on the sphere) exclude the points where the
-coordinates degenerate; every statement holds on the chart domain.
+{{< include ../../_notation/geometry-spacetime.qmd >}}
 
 ## Connection and curvature {#sec-conventions-curvature}
 
-The Levi-Civita connection has Christoffel symbols
+{{< include ../../_notation/curvature-gravity.qmd >}}
+
+The chapters cite the two defining formulas by number. The Christoffel symbols of the Levi-Civita connection are
 $$
 \Gamma^k_{ij} = \tfrac12 g^{kl} \left( \partial_i g_{lj} + \partial_j g_{li} - \partial_l g_{ij} \right),
 $$ {#eq-christoffel-def}
-the Riemann tensor is
+and the Riemann tensor is
 $$
 R^\rho{}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma}
-  + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda} \Gamma^\lambda_{\mu\sigma},
+  + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda} \Gamma^\lambda_{\mu\sigma}.
 $$ {#eq-riemann-def}
-the Ricci tensor is $R_{\sigma\nu} = R^\rho{}_{\sigma\rho\nu}$ and the scalar curvature is
-$R = g^{\sigma\nu} R_{\sigma\nu}$. With these signs the round unit sphere has $R = +2$ and the Einstein-Hilbert
-action of general relativity is $S = \frac{1}{2\kappa^2} \int d^4x \sqrt{-g}\, R$ with $\kappa^2 = 8\pi G$. These
-are the definitions coded in the Lean library (`CoordinateGeometry.christoffel`, `riemann`, `ricci`,
-`scalarCurvature`), so every curvature statement is verified with exactly these signs.
 
-## Lie algebras and gauge fields {#sec-conventions-lie}
+## Lie groups and Lie algebras {#sec-conventions-lie}
 
-Lie algebra generators are anti-Hermitian matrices $T_A$ with real structure constants,
-$$
-[T_A, T_B] = f_{AB}{}^C\, T_C .
-$$ {#eq-structure-constants}
-For $\mathfrak{so}(3) \cong \mathfrak{su}(2)$ the generators are the real matrices $(L_a)_{bc} = -\epsilon_{abc}$,
-or equivalently $T_a = -\tfrac{i}{2}\sigma_a$ with the Pauli matrices, and $f_{ab}{}^c = \epsilon_{abc}$. This is
-the convention of the CSDR literature [@kubyshin2003, Sec. 1; @chatzistavrakidis2007consistency, eq. 2.4], in which
-the generators of a coset $S/R$ are split into $Q_i$ spanning $\mathfrak{r}$ and $Q_a$ spanning its complement.
+{{< include ../../_notation/groups-algebras.qmd >}}
 
-A gauge field is a Lie-algebra-valued one-form $A = A_M\, dz^M$ with anti-Hermitian components, the covariant
-derivative is $D_M = \partial_M + A_M$, and the field strength is
-$$
-F_{MN} = \partial_M A_N - \partial_N A_M + [A_M, A_N], \qquad F = dA + A \wedge A .
-$$ {#eq-field-strength}
-The Yang-Mills action is $S = \frac{1}{2 g^2} \int d^Dz \sqrt{|g|}\, \operatorname{Tr}(F_{MN} F^{MN})$ with the trace
-in the fundamental representation and a positive coupling $g$. With $F_{MN} = F^a_{MN}T_a$ and
-$\operatorname{Tr}(T_aT_b) = -\tfrac12\delta_{ab}$ this is $S = -\frac{1}{4g^2}\int d^Dz\sqrt{|g|}\,F^a_{MN}F^{a\,MN}$,
-whose electric part $\tfrac{1}{2g^2}F^a_{0i}F^a_{0i}$ enters with the positive sign of a kinetic energy in the
-signature $(+, -, \dots, -)$. @manolakos2016 and @manousselis2000 write $F_{MN} = \partial_M A_N - \partial_N A_M - [A_M, A_N]$ with
-$D_M = \partial_M - A_M$, which is the same convention after $A \to -A$; @kubyshin2003 prints the commutator with a
-minus sign in his eq. (9) but uses $F = dA + A\wedge A$ in his example (see the reading note). We never need a
-gauge coupling inside the internal space, since CSDR fixes the internal components of $A$ in units of the coset
-radius.
+## Fields and particles
+
+{{< include ../../_notation/fields-particles.qmd >}}
 
 ## Units
 
-$\hbar = c = 1$. The five-dimensional gravitational coupling is $\hat\kappa^2 = 8\pi \hat G$; the circle has
-circumference $2\pi R$. Lie algebra generators are normalised by $\operatorname{Tr}(T_a T_b) = -\tfrac12 \delta_{ab}$
-in the fundamental representation of $SU(2)$ and $SU(3)$.
+{{< include ../../_notation/units.qmd >}}
+
+## Conventions specific to this tutorial
+
+Spacetime $M_4$ has coordinates $x^\mu$. Internal (compact) coordinates are $y^m$, and the full higher-dimensional
+coordinates are $z^M = (x^\mu, y^m)$. Internal metrics are **negative definite**, so that the full metric
+$\hat g_{MN}$ has signature $(+, -, \dots, -)$: the Kaluza-Klein ansatz reads $d\hat s^2 = g_{\mu\nu}dx^\mu dx^\nu -
+\phi^2(dy + A_\mu dx^\mu)^2$ on a circle of radius $r$, with $y \sim y + 2\pi r$, and
+$g_{\mu\nu}dx^\mu dx^\nu - r^2(d\theta^2 + \sin^2\theta\,d\varphi^2)$ on a sphere of radius $r$. We write
+$h_{mn} = -\gamma_{mn}$ for the internal block, with $\gamma_{mn}$ the positive-definite metric used when the internal
+geometry is discussed on its own (Riemannian metrics are positive definite). Under the circle ansatz the
+higher-dimensional curvature scalar is $\hat R = R + \tfrac14\phi^2 F_{\mu\nu}F^{\mu\nu} - 2\phi^{-1}\Box\phi$.
+
+The Kaluza-Klein literature is split on the signature: @overduin1998 [Sec. 3], @tanii1998 and the CSDR reviews
+[@manolakos2016, eq. 9; @manousselis2000] use $(+,-,-,-)$ as we do, while @duff1994 [p. 2], @duff2025 and
+@martin1997 use $(-,+,+,+)$. Where we quote a formula from a source with the other signature, we say so and convert
+with the rule of the geometry table above.
+
+The anti-Hermitian generators are the convention of the CSDR literature [@kubyshin2003, Sec. 1;
+@chatzistavrakidis2007consistency, eq. 2.4], in which the generators of a coset $S/R$ are split into $Q_i$ spanning
+$\mathfrak r$ and $Q_a$ spanning its complement $\mathfrak k$. @manolakos2016 and @manousselis2000 write
+$F_{MN} = \partial_M A_N - \partial_N A_M - [A_M, A_N]$ with $D_M = \partial_M - A_M$, which is the same convention after
+$A \to -A$; @kubyshin2003 prints the commutator with a minus sign in his eq. (9) but uses $F = dA + A\wedge A$ in his
+example (see the reading note). We never need a gauge coupling inside the internal space, since CSDR fixes the
+internal components of $A$ in units of the coset radius.
+
+| Symbol | Meaning |
+|---|---|
+| $\hat g_{MN}$, $\hat R$, $\hat A_M$, $\hat F_{MN}$, $\hat S$ | a hat marks a higher-dimensional quantity: metric, curvature scalar, gauge field, field strength, action |
+| $\hat\kappa$, $\hat G$ | higher-dimensional gravitational coupling and Newton constant, $\hat\kappa^2 = 8\pi\hat G$; a subscript ($G_5$, $\kappa_5$) is used only when the dimension must be named |
+| $y^m$, $m = 1, \dots, n$ | internal coordinates; $y$ on the circle |
+| $z^M = (x^\mu, y^m)$ | higher-dimensional coordinates; $M$, $N$ curved higher-dimensional indices |
+| $a$, $b$ | flat (frame) indices in four dimensions |
+| $A$, $B$ | flat indices in $4 + n$ dimensions, and labels of the generators of $S$ |
+| $M_4$ | four-dimensional spacetime |
+| $X$ | internal manifold of dimension $n$ ($S/R$ when it is a coset) |
+| $\gamma_{mn}$ | positive-definite internal metric |
+| $h_{mn} = -\gamma_{mn}$ | internal block of $\hat g_{MN}$, negative definite |
+| $R_\gamma$ | curvature scalar of the internal metric $\gamma$ |
+| $r$ | radius of the internal circle or sphere; the circle has $y \sim y + 2\pi r$ |
+| $\phi$ | Kaluza-Klein scalar; the circle has circumference $2\pi r\phi$ |
+| $\sigma = \sqrt3\log\phi$ | dilaton |
+| $\Omega$ | Weyl factor, $\tilde g = \Omega^2 g$ (in the compactification survey, the holomorphic $(m, 0)$-form) |
+| $g^E_{\mu\nu}$ | Einstein-frame metric |
+| $\omega_{\mathrm{BD}}$ | Brans-Dicke parameter |
+| $K_a = K_a{}^m\partial_m$ | Killing vectors of the internal metric |
+| $c_{ab}{}^c$ | structure constants of the Killing vectors, $[K_a, K_b] = c_{ab}{}^c K_c$; on the sphere $c_{ab}{}^c = -\epsilon_{abc} = -f_{ab}{}^c$, opposite to the gauge algebra |
+| $\xi^M$ | generator of a diffeomorphism |
+| $\Phi(x, y)$, $\Phi_n(x)$ | higher-dimensional field and its Kaluza-Klein modes, $\Phi = \sum_n \Phi_n(x)\,e^{iny/r}$ with $\Phi_n = \frac{1}{2\pi r}\int_0^{2\pi r}\Phi\,e^{-iny/r}\,dy$ |
+| $m_n = \lvert n\rvert/r$ | mass of the mode $n$ |
+| $q_n$ | charge of the mode $n$, proportional to $n/r$, with the sign fixed by $D_\mu = \partial_\mu + iqA_\mu$ |
+| $\langle\cdot\rangle$ | average over the internal space |
+| $\operatorname{Vol}(X)$ | volume of the internal manifold |
+| $R$ | in the coset chapters, the isotropy group of $S/R$; it never appears in a formula with the scalar curvature |
+| $Q_i$, $Q_a$ | generators spanning $\mathfrak r$ and $\mathfrak k$ |
+| $\phi_a$ | CSDR scalars, the internal components of $\hat A$ |
+| $\tau: R \to G$ | CSDR embedding of the isotropy group in the gauge group |
+| $H = C_G(\tau(R))$ | four-dimensional gauge group, the centraliser of $\tau(R)$ |
+| $\theta_W$ | Weinberg angle |
+| $\mathcal N$ | number of supersymmetries (the normal distribution never appears in this tutorial) |
+| $h^{p,q}$, $\chi$ | Hodge numbers, Euler number |
+| $J$ | Kähler form |
+| $\mathcal G_{ab}$ | gauge coupling matrix of a reduction on $X$, the average of $K_a\cdot K_b$ over $X$; the reduced action contains $-\tfrac14\mathcal G_{ab}F^a_{\mu\nu}F^{b\,\mu\nu}$ |
+| $\mu$ | Scherk-Schwarz twist mass parameter, with monodromy $e^{2\pi i\mu r}$ around the circle |
+| $\rho_F$ | representation of $G$ carried by the higher-dimensional fermions in CSDR |
+| $\Lambda_{1/2}(s, y)$ | lift of the isometry $s$ of $S/R$ to the spinors |
+| $L$ | size of large extra dimensions, internal volume $L^n$ (the Arkani-Hamed-Dimopoulos-Dvali scenario) |
+| $K_{abc}$ | contorsion (three frame indices; the Killing vectors $K_a$ carry one) |
+| $\mathcal M$ | moduli space of a compactification; in the section on cosets with torsion, the geometric mass operator of the fermions |
+
+- **Units:** $\hbar = c = 1$ throughout; Newton's constant is kept explicit through $\kappa^2 = 8\pi G_N$.
+- **Hats:** in this tutorial a hat marks a higher-dimensional quantity, never a Fourier transform; Fourier modes on the
+  circle are written $\Phi_n$.
+- **Hermitian generators** appear only where the Standard Model or the fuzzy sphere is compared, and are then written
+  $t_a = iT_a$.
+- **Charges of the modes:** with the ansatz $dy + A_\mu dx^\mu$ and $D_\mu = \partial_\mu + iqA_\mu$, the mode
+  $e^{iny/r}$ has charge $q_n = -n/r$, that is $q_n = -ne$ with $e = \sqrt2\kappa/r$.

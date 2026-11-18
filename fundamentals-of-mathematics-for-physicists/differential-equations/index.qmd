@@ -1475,15 +1475,14 @@ system with a symmetric stiffness matrix has real frequencies or real growth rat
 ::: {#exr-eigen-symmetric}
 #### Symmetric matrices have real eigenvalues
 
-Prove that every eigenvalue of a real symmetric matrix $A = A^{\mathsf T}$ is real, and that eigenvectors for
+Prove that every eigenvalue of a real symmetric matrix $A = A^\top$ is real, and that eigenvectors for
 different eigenvalues are orthogonal for the dot product.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $Av = \lambda v$ with $v \in \mathbb{C}^n$ non-zero and let $\bar v$ be the complex conjugate. Then $\bar
-v^{\mathsf T}Av = \lambda\,\bar v^{\mathsf T}v$, and taking the conjugate transpose of the same scalar, using $A$
-real symmetric, gives $\bar v^{\mathsf T}Av = \bar\lambda\,\bar v^{\mathsf T}v$; since $\bar v^{\mathsf T}v =
-\sum|v_i|^2 > 0$, $\lambda = \bar\lambda$. If $Av = \lambda v$ and $Aw = \mu w$ with $\lambda \neq \mu$, then
+Let $Av = \lambda v$ with $v \in \mathbb{C}^n$ non-zero and let $v^*$ be the complex conjugate. Then $v^\dagger Av = \lambda\,v^\dagger v$, and taking the conjugate transpose of the same scalar, using $A$
+real symmetric, gives $v^\dagger Av = \lambda^*\,v^\dagger v$; since $v^\dagger v =
+\sum|v_i|^2 > 0$, $\lambda = \lambda^*$. If $Av = \lambda v$ and $Aw = \mu w$ with $\lambda \neq \mu$, then
 $\lambda\,w\cdot v = w\cdot Av = (Aw)\cdot v = \mu\,w\cdot v$, so $w\cdot v = 0$.
 :::
 ::::
@@ -1632,7 +1631,7 @@ $e^{tA}e^{tB}$, and find with Sage two $2 \times 2$ matrices for which the ident
 Both $U(t) = e^{t(A+B)}$ and $V(t) = e^{tA}e^{tB}$ equal $1$ at $t = 0$; $\dot U = (A + B)U$, and $\dot V =
 Ae^{tA}e^{tB} + e^{tA}Be^{tB} = (A + B)V$ because $B$ commutes with $e^{tA}$ when it commutes with $A$. Both solve
 the same linear system with the same initial value, so they coincide by uniqueness. For $A = N$ and $B =
-N^{\mathsf T}$ the identity fails:
+N^\top$ the identity fails:
 
 ```python
 N = matrix(QQ, [[0, 1], [0, 0]])
@@ -1966,7 +1965,7 @@ $\tan\varphi = \frac{v_0 + \gamma q_0}{\omega_dq_0}$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $Z(0) = A_1 + A_2 = q_0$ and $\dot Z(0) = -\gamma q_0 + i\omega_d(A_1 - A_2) = v_0$, so $A_1 - A_2 = -i(v_0 + \gamma
 q_0)/\omega_d$ and $A_{1,2} = \frac12\bigl(q_0 \mp i\frac{v_0 + \gamma q_0}{\omega_d}\bigr)$, complex conjugates; then
-$Z$ is real and equals the stated $q$, because $A_1e^{i\omega_dt} + \overline{A_1e^{i\omega_dt}} = 2\operatorname{Re}
+$Z$ is real and equals the stated $q$, because $A_1e^{i\omega_dt} + (A_1e^{i\omega_dt})^* = 2\operatorname{Re}
 (A_1e^{i\omega_dt}) = q_0\cos\omega_dt + \frac{v_0 + \gamma q_0}{\omega_d}\sin\omega_dt$. Expanding $R\cos(\omega_dt -
 \varphi) = R\cos\varphi\cos\omega_dt + R\sin\varphi\sin\omega_dt$ and matching gives $R\cos\varphi = q_0$, $R\sin\varphi
 = (v_0 + \gamma q_0)/\omega_d$. The source prints the coefficient of the second term with $\cos\omega_dt$ in place of
@@ -3056,13 +3055,13 @@ and its conjugate. It parallels @exr-eigen-symmetric for matrices.
 #### Real eigenvalues
 
 Show that the eigenvalues of a regular Sturm-Liouville problem are real: apply Lagrange's identity to $u$ and
-$\bar u$, where $u$ is an eigenfunction with complex eigenvalue $\lambda$.
+$u^*$, where $u$ is an eigenfunction with complex eigenvalue $\lambda$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Since $p, q, w$ are real, $\bar u$ is an eigenfunction with eigenvalue $\bar\lambda$. The identity of
-@exr-slt-orthogonality with $v = \bar u$ gives $(\lambda - \bar\lambda)\int|u|^2w\,dx = 0$, and $\int|u|^2w > 0$
-for $u \neq 0$, so $\lambda = \bar\lambda$. The eigenfunction can then be taken real (its real and imaginary parts
+Since $p, q, w$ are real, $u^*$ is an eigenfunction with eigenvalue $\lambda^*$. The identity of
+@exr-slt-orthogonality with $v = u^*$ gives $(\lambda - \lambda^*)\int|u|^2w\,dx = 0$, and $\int|u|^2w > 0$
+for $u \neq 0$, so $\lambda = \lambda^*$. The eigenfunction can then be taken real (its real and imaginary parts
 are eigenfunctions), and simplicity follows from uniqueness for the initial value problem at $a$: two
 eigenfunctions with the same $\lambda$ both vanish at $a$ and are proportional to the solution with $u'(a) = 1$.
 :::
@@ -3204,14 +3203,14 @@ point at the origin. The second exercise classifies it for the Coulomb potential
 ::: {#exr-frob-radial}
 #### The radial equation at the origin
 
-The radial equation $u'' + \bigl(\frac{2m}{\hbar^2}(E + \frac{e^2}{r}) - \frac{l(l + 1)}{r^2}\bigr)u = 0$ has $P = 0$. Show that
+The radial equation $u'' + \bigl(\frac{2m}{\hbar^2}(E + \frac{e^2}{4\pi r}) - \frac{l(l + 1)}{r^2}\bigr)u = 0$ has $P = 0$. Show that
 $r = 0$ is a regular singular point and that infinity is an irregular one, and find the exponents at $r = 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$r^2Q = \frac{2m}{\hbar^2}(Er^2 + e^2r) - l(l + 1)$ is a polynomial, and $rP = 0$, so $r = 0$ is regular singular. With $z
-= 1/r$ the equation becomes $u_{zz} + \frac2zu_z + \frac1{z^4}\bigl(\frac{2m}{\hbar^2}(E + e^2z) - l(l + 1)z^2\bigr)u = 0$, and
-$z^2Q = \frac{2m}{\hbar^2}\bigl(\frac{E}{z^2} + \frac{e^2}z\bigr) - l(l + 1)$ is not analytic at $z = 0$, for every $E$. At $r = 0$,
+$r^2Q = \frac{2m}{\hbar^2}(Er^2 + \frac{e^2}{4\pi}r) - l(l + 1)$ is a polynomial, and $rP = 0$, so $r = 0$ is regular singular. With $z
+= 1/r$ the equation becomes $u_{zz} + \frac2zu_z + \frac1{z^4}\bigl(\frac{2m}{\hbar^2}(E + \frac{e^2}{4\pi}z) - l(l + 1)z^2\bigr)u = 0$, and
+$z^2Q = \frac{2m}{\hbar^2}\bigl(\frac{E}{z^2} + \frac{e^2}{4\pi z}\bigr) - l(l + 1)$ is not analytic at $z = 0$, for every $E$. At $r = 0$,
 $p_0 = 0$ and $q_0 = -l(l + 1)$, so the indicial equation $k(k - 1) - l(l + 1) = 0$ has the roots $l + 1$ and $-l$, as for
 the Euler equation of the next exercise: only $u \sim r^{l + 1}$ is regular. The irregular point at infinity carries the
 exponentials $e^{\pm\sqrt{-2mE}\,r/\hbar}$ of bound and scattering states.
@@ -3226,15 +3225,15 @@ Problem 7.3.6(a)].
 
 Show that $x^2y'' + axy' + by = 0$ has a regular singular point at $0$ and solutions $x^k$ with $k(k - 1) + ak + b = 0$.
 For $y'' - \frac{\beta(\beta + 1)}{x^2}y = 0$ with $\beta > 0$ find both solutions, and for a double root $k$ check that
-$x^k\ln x$ is a second solution.
+$x^k\log x$ is a second solution.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $xP = a$ and $x^2Q = b$ are constants. Substituting $x^k$ gives $(k(k - 1) + ak + b)x^k = 0$. For $a = 0$, $b =
 -\beta(\beta + 1)$, the roots of $k^2 - k - \beta(\beta + 1) = 0$ are $k = \beta + 1$ and $k = -\beta$: the solutions
 $x^{\beta + 1}$ and $x^{-\beta}$, one regular and one singular at the origin, as for the radial functions $r^l$ and
-$r^{-l - 1}$. For a double root $(a - 1)^2 = 4b$ and $k = (1 - a)/2$; with $y = x^k\ln x$, $x^2y'' + axy' + by = (k(k -
-1) + ak + b)x^k\ln x + (2k - 1 + a)x^k = 0$, since both brackets vanish.
+$r^{-l - 1}$. For a double root $(a - 1)^2 = 4b$ and $k = (1 - a)/2$; with $y = x^k\log x$, $x^2y'' + axy' + by = (k(k -
+1) + ak + b)x^k\log x + (2k - 1 + a)x^k = 0$, since both brackets vanish.
 :::
 ::::
 
@@ -3253,8 +3252,8 @@ $$k(k - 1) + p_0k + q_0 = 0,$$ {#eq-indicial-equation}
 labelled with $\operatorname{Re}k_1 \geq \operatorname{Re}k_2$. Then there is a solution $y_1 = x^{k_1}\sum_{j \geq
 0}a_jx^j$ with $a_0 = 1$, the series converging for $|x| < \rho$, and the coefficients follow from the recursion
 obtained by substituting and equating powers. If $k_1 - k_2$ is not an integer, $y_2 = x^{k_2}\sum_jb_jx^j$ is a second,
-independent solution. If $k_1 = k_2$, the second solution is $y_1\ln x + x^{k_1}\sum_{j \geq 1}b_jx^j$; if $k_1 - k_2$ is a
-positive integer, it is $cy_1\ln x + x^{k_2}\sum_jb_jx^j$ for some constant $c$, possibly zero. At an ordinary point
+independent solution. If $k_1 = k_2$, the second solution is $y_1\log x + x^{k_1}\sum_{j \geq 1}b_jx^j$; if $k_1 - k_2$ is a
+positive integer, it is $cy_1\log x + x^{k_2}\sum_jb_jx^j$ for some constant $c$, possibly zero. At an ordinary point
 $p_0 = q_0 = 0$, the roots are $1$ and $0$, and both solutions are power series.
 
 *Sketch.* Substituting $y = x^k\sum a_jx^j$ and collecting the power $x^{k + j}$ gives $a_jF(k + j) = -\sum_{m =
@@ -3368,13 +3367,13 @@ substitution. The second exercise computes them for Bessel's equation of order $
 ::: {#exr-frob-bessel-log}
 #### A logarithmic second solution
 
-Substitute $y_2 = J_0(x)\ln x + \sum_{k \geq 1}b_kx^{2k}$ into $x^2y'' + xy' + x^2y = 0$ and show that the logarithms cancel and
+Substitute $y_2 = J_0(x)\log x + \sum_{k \geq 1}b_kx^{2k}$ into $x^2y'' + xy' + x^2y = 0$ and show that the logarithms cancel and
 that $b_k = -(-1)^kH_k/(4^k(k!)^2)$, with $H_k = 1 + \frac12 + \dots + \frac1k$. Check the first six coefficients in Sage and
-compare $y_2 + (\gamma - \ln2)J_0$ with $\frac\pi2Y_0$, the standard second solution.
+compare $y_2 + (\gamma - \log 2)J_0$ with $\frac\pi2Y_0$, the standard second solution.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The terms with $\ln x$ are $\ln x$ times Bessel's operator applied to $J_0$, which vanishes; what remains is $2xJ_0' +
+The terms with $\log x$ are $\log x$ times Bessel's operator applied to $J_0$, which vanishes; what remains is $2xJ_0' +
 \sum_kb_k(4k^2x^{2k} + x^{2k + 2}) = 0$, a recursion for the $b_k$ driven by the series of $J_0'$. The first ones are
 $b_1 = \frac14$, $b_2 = -\frac3{128}$, $b_3 = \frac{11}{13824}$, matching the harmonic numbers:
 
@@ -3414,7 +3413,7 @@ x\operatorname{artanh}x - 1$, check them in Sage, and describe them near $x = 1$
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P = -2x/(1 - x^2)$ gives $-\int P = \ln(1 - x^2)^{-1}$ and $W = C/(1 - x^2)$. Since $(y_2/y_1)' = W/y_1^2$, the formula
+$P = -2x/(1 - x^2)$ gives $-\int P = \log(1 - x^2)^{-1}$ and $W = C/(1 - x^2)$. Since $(y_2/y_1)' = W/y_1^2$, the formula
 follows with $C = 1$. For $y_1 = 1$, $y_2 = \int\frac{dx}{1 - x^2} = \operatorname{artanh}x$; for $y_1 = x$, $\int\frac{dx}{x^2(1 -
 x^2)} = -\frac1x + \operatorname{artanh}x$, and $y_2 = x\operatorname{artanh}x - 1$:
 
@@ -3441,7 +3440,7 @@ x = 0.990000000000000: Q0 = 2.6467, -log(1 - x)/2 + log(2)/2 = 2.6492
 x = 0.999000000000000: Q0 = 3.8002, -log(1 - x)/2 + log(2)/2 = 3.8005
 ```
 
-Near $x = 1$, $Q_0 = -\frac12\ln(1 - x) + \frac12\ln2 + \dots$: the exponents at $x = 1$ are both $0$ ($p_0 = 1$, $q_0 = 0$
+Near $x = 1$, $Q_0 = -\frac12\log(1 - x) + \frac12\log 2 + \dots$: the exponents at $x = 1$ are both $0$ ($p_0 = 1$, $q_0 = 0$
 in the variable $x - 1$), and the second solution carries the logarithm that @thm-frobenius-method predicts.
 :::
 ::::
@@ -4164,14 +4163,13 @@ invariant under a change of variables, as the signature of a bilinear form is.
 
 Under a change of variables $(\xi, \eta) = (\xi(x, y), \eta(x, y))$ with Jacobian matrix $J$ (@def-jacobian),
 show that the matrix $M = \begin{pmatrix} A & B \\ B & C \end{pmatrix}$ of second-order coefficients becomes
-$JMJ^{\mathsf T}$, and deduce that the sign of $B^2 - AC$ is unchanged.
+$JMJ^\top$, and deduce that the sign of $B^2 - AC$ is unchanged.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 By the chain rule $\partial_x = \xi_x\partial_\xi + \eta_x\partial_\eta$ and similarly for $\partial_y$, so the
 second-order part $\sum M_{ij}\partial_i\partial_j$ becomes $\sum M_{ij}J_{ki}J_{lj}\partial_k\partial_l$ plus
-first-order terms from differentiating the coefficients: the new matrix is $JMJ^{\mathsf T}$. Then $\det(JMJ^{\mathsf
-T}) = (\det J)^2\det M$, and $\det M = AC - B^2$ keeps its sign since $\det J \neq 0$; more generally the signature
+first-order terms from differentiating the coefficients: the new matrix is $JMJ^\top$. Then $\det(JMJ^\top) = (\det J)^2\det M$, and $\det M = AC - B^2$ keeps its sign since $\det J \neq 0$; more generally the signature
 of $M$ is invariant by Sylvester's law of inertia (@def-signature).
 :::
 
@@ -4760,7 +4758,7 @@ for solving linear equations on simple domains.
 #### Separation of variables
 
 **Separation of variables** seeks solutions of a linear homogeneous equation in the product form $u = T(t)X(x)$
-(or $R(r)\Theta(\theta)$, and so on). Substituting and dividing by $u$ splits the equation into ordinary
+(or $R(r)\Phi(\theta)$, and so on). Substituting and dividing by $u$ splits the equation into ordinary
 differential equations for the factors coupled by a **separation constant** $\lambda$; the boundary conditions
 make the spatial equation a Sturm-Liouville problem (@def-sturm-liouville-problem) whose eigenvalues $\lambda_n$
 and eigenfunctions $X_n$ are then combined, by the completeness of @thm-sturm-liouville, into the series $u =
@@ -4805,8 +4803,8 @@ equation is of Euler type and its solutions are powers.
 ::: {#exm-sep-laplace}
 #### Laplace's equation on the disk
 
-For $u_{rr} + \frac1ru_r + \frac1{r^2}u_{\theta\theta} = 0$ with $u = R(r)\Theta(\theta)$, $r^2R''/R + rR'/R = -
-\Theta''/\Theta = n^2$; periodicity in $\theta$ forces $n$ to be an integer, $\Theta = \cos n\theta, \sin
+For $u_{rr} + \frac1ru_r + \frac1{r^2}u_{\theta\theta} = 0$ with $u = R(r)\Phi(\theta)$, $r^2R''/R + rR'/R = -
+\Phi''/\Phi = n^2$; periodicity in $\theta$ forces $n$ to be an integer, $\Phi = \cos n\theta, \sin
 n\theta$, and the Euler equation $r^2R'' + rR' - n^2R = 0$ has $R = r^{\pm n}$ ($1$ and $\log r$ for $n = 0$).
 Boundedness at the centre selects $r^n$, giving the series of @exm-laplace-disk.
 :::
@@ -5319,7 +5317,7 @@ N = 40 Gauss-Seidel centre 0.24999839,  2024 sweeps (rate estimate  2983)
 N = 40 SOR          centre 0.24999999,   142 sweeps (rate estimate   117)
 ```
 
-The centre values fall short of $\frac14$ by about $\epsilon/(1 - \rho)$, where $\epsilon = 10^{-8}$ is the stopping threshold: a
+The centre values fall short of $\frac14$ by about $\varepsilon/(1 - \rho)$, where $\varepsilon = 10^{-8}$ is the stopping threshold: a
 small change per sweep does not mean a small error when $\rho$ is close to $1$, a point to remember when judging
 convergence of any slow iteration.
 :::
@@ -5491,7 +5489,7 @@ For more on this topic, see @aliev2024mathematical [Ch. 1].
 The **Dirac delta** $\delta(x)$ is the rule that assigns to every continuous function its value at the origin,
 written as an integral: $\int_{-\infty}^\infty\delta(x)f(x)\,dx = f(0)$, and $\delta(x - a)$ picks out $f(a)$. It
 is not a function but the limit of a sequence of functions of unit integral concentrating at $0$, such as the
-heat kernel $K(t, x)$ as $t \to 0^+$; it is the derivative of the **step function** $\theta(x)$ ($0$ for $x < 0$,
+heat kernel $K(t, x)$ as $t \to 0^+$; it is the derivative of the **step function** $\Theta(x)$ ($0$ for $x < 0$,
 $1$ for $x > 0$) in the sense that $\int\theta'f = -\int\theta f' = f(0)$; and in $n$ dimensions $\delta^n(\mathbf
 x) = \delta(x^1)\cdots\delta(x^n)$ picks out the value at the origin of $\mathbb{R}^n$.
 :::
@@ -5506,9 +5504,9 @@ function tends to the value at zero.
 ::: {#exm-delta-gaussian}
 #### Gaussians of shrinking width
 
-$g_\epsilon(x) = \frac1{\sqrt{\pi}\epsilon}e^{-x^2/\epsilon^2}$ has unit integral for every $\epsilon$, and
-$\int g_\epsilon f\,dx \to f(0)$ as $\epsilon \to 0$ for continuous bounded $f$: for $f = \cos x$ the integral is
-$e^{-\epsilon^2/4} \to 1$ (@exr-delta-gaussian). The heat kernel is $g_\epsilon$ with $\epsilon^2 = 4\kappa t$.
+$g_\varepsilon(x) = \frac1{\sqrt{\pi}\varepsilon}e^{-x^2/\varepsilon^2}$ has unit integral for every $\varepsilon$, and
+$\int g_\varepsilon f\,dx \to f(0)$ as $\varepsilon \to 0$ for continuous bounded $f$: for $f = \cos x$ the integral is
+$e^{-\varepsilon^2/4} \to 1$ (@exr-delta-gaussian). The heat kernel is $g_\varepsilon$ with $\varepsilon^2 = 4\kappa t$.
 :::
 
 
@@ -5548,12 +5546,12 @@ limit is the value at zero in each case.
 ::: {#exr-delta-gaussian}
 #### The Gaussian sequence against test functions
 
-Compute $\int g_\epsilon(x)f(x)\,dx$ for $f = \cos x$, $f = x^2$ and $f = e^{x}$ with Sage and take the limit
-$\epsilon \to 0$.
+Compute $\int g_\varepsilon(x)f(x)\,dx$ for $f = \cos x$, $f = x^2$ and $f = e^{x}$ with Sage and take the limit
+$\varepsilon \to 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The integrals are $e^{-\epsilon^2/4}$, $\epsilon^2/2$ and $e^{\epsilon^2/4}$, with limits $1 = \cos0$, $0 = 0^2$
+The integrals are $e^{-\varepsilon^2/4}$, $\varepsilon^2/2$ and $e^{\varepsilon^2/4}$, with limits $1 = \cos0$, $0 = 0^2$
 and $1 = e^0$:
 
 ```python
@@ -5969,7 +5967,7 @@ It can be checked by d'Alembert's formula.
 ::: {#exm-ret-1d}
 #### One space dimension
 
-For $\partial_t^2 - \partial_x^2$ the retarded Green's function is $G_{\mathrm{ret}} = \tfrac12\theta(t - |
+For $\partial_t^2 - \partial_x^2$ the retarded Green's function is $G_{\mathrm{ret}} = \tfrac12\Theta(t - |
 x|)$: it equals $\tfrac12$ inside the forward light cone $|x| < t$ and $0$ outside. The signal from a point source
 does not pass but fills the cone, a consequence of the absence of Huygens' principle in odd space-time dimension;
 @exr-ret-1d derives it from d'Alembert's formula.
@@ -6043,15 +6041,15 @@ $\delta(t)\delta(x)$ is equivalent to an initial velocity $\delta(x)$ at $t = 0$
 
 Show that the solution of $u_{tt} - u_{xx} = \delta(t)\delta(x)$ vanishing for $t < 0$ equals, for $t > 0$, the
 solution of the homogeneous equation with $u(0, x) = 0$, $u_t(0, x) = \delta(x)$; evaluate it by d'Alembert's
-formula and obtain $G_{\mathrm{ret}} = \tfrac12\theta(t - |x|)$.
+formula and obtain $G_{\mathrm{ret}} = \tfrac12\Theta(t - |x|)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Integrating the equation over $t \in (-\epsilon, \epsilon)$ gives $u_t(\epsilon, x) - u_t(-\epsilon, x) =
-\delta(x)$ (the $u_{xx}$ term contributes nothing as $\epsilon \to 0$ since $u$ is bounded), and $u = 0$ for $t <
+Integrating the equation over $t \in (-\varepsilon, \varepsilon)$ gives $u_t(\varepsilon, x) - u_t(-\varepsilon, x) =
+\delta(x)$ (the $u_{xx}$ term contributes nothing as $\varepsilon \to 0$ since $u$ is bounded), and $u = 0$ for $t <
 0$, so the source acts as an initial velocity $\delta(x)$ with zero initial displacement. D'Alembert's formula
 with $\varphi = 0$, $\psi = \delta$ and $c = 1$ gives $u = \tfrac12\int_{x-t}^{x+t}\delta(s)\,ds$, which is
-$\tfrac12$ if $0 \in (x - t, x + t)$, that is, $|x| < t$, and $0$ otherwise: $G_{\mathrm{ret}} = \tfrac12\theta(t -
+$\tfrac12$ if $0 \in (x - t, x + t)$, that is, $|x| < t$, and $0$ otherwise: $G_{\mathrm{ret}} = \tfrac12\Theta(t -
 |x|)$.
 :::
 
@@ -6095,9 +6093,9 @@ quantum field theory, in outline.
 #### Feynman propagator
 
 The **Feynman propagator** $G_F$ is the Green's function of $\Box + m^2$ obtained from the momentum-space form by
-the **$i\epsilon$ prescription**, $G_F(x) = \int\frac{d^4k}{(2\pi)^4}\frac{-e^{-ik\cdot x}}{k^2 - m^2 +
-i\epsilon}$ with $k\cdot x = k_0t - \mathbf k\cdot\mathbf x$ and $\epsilon \to 0^+$: the poles at $k_0 =
-\pm(\omega_{\mathbf k} - i\epsilon')$ are displaced so that the $k_0$ contour (@sec-contour-integration) passes
+the **$i\varepsilon$ prescription**, $G_F(x) = \int\frac{d^4k}{(2\pi)^4}\frac{-e^{-ik\cdot x}}{k^2 - m^2 +
+i\varepsilon}$ with $k\cdot x = k_0t - \mathbf k\cdot\mathbf x$ and $\varepsilon \to 0^+$: the poles at $k_0 =
+\pm(\omega_{\mathbf k} - i\varepsilon')$ are displaced so that the $k_0$ contour (@sec-contour-integration) passes
 below the negative pole and above the positive one. Closing the contour gives positive frequencies $e^{-i\omega t}$
 propagating forward in time and negative frequencies backward, in contrast to $G_{\mathrm{ret}}$, whose poles are
 both displaced below the real axis so that all frequencies propagate forward. Stated in outline; the
@@ -6129,9 +6127,9 @@ fundamental solution, and their differences are homogeneous solutions.
 ::: {#exm-feyn-prescriptions}
 #### Retarded, advanced and Feynman
 
-With poles at $k_0 = \omega - i\epsilon$ and $k_0 = -\omega - i\epsilon$ the contour closes in the lower half-plane
+With poles at $k_0 = \omega - i\varepsilon$ and $k_0 = -\omega - i\varepsilon$ the contour closes in the lower half-plane
 for $t > 0$ and in the upper one for $t < 0$ (where it encloses nothing): the retarded function. Both poles above
-give the advanced function. The Feynman rule, $\omega - i\epsilon$ and $-\omega + i\epsilon$, picks the positive
+give the advanced function. The Feynman rule, $\omega - i\varepsilon$ and $-\omega + i\varepsilon$, picks the positive
 pole for $t > 0$ and the negative one for $t < 0$ (@exr-feyn-poles); $G_F - G_{\mathrm{ret}}$ is a homogeneous
 solution made of negative-frequency plane waves.
 :::
@@ -6145,7 +6143,7 @@ avoided altogether and the propagator becomes the Yukawa-type Green's function i
 #### Wick rotation
 
 Rotating $k_0 = ik_4$ (allowed by the Feynman displacement of the poles, which the rotated contour does not
-cross; @sec-analytic-continuation) turns $k^2 - m^2 + i\epsilon$ into $-(k_4^2 + |\mathbf k|^2 + m^2)$, and the
+cross; @sec-analytic-continuation) turns $k^2 - m^2 + i\varepsilon$ into $-(k_4^2 + |\mathbf k|^2 + m^2)$, and the
 propagator becomes $\int\frac{d^4k_E}{(2\pi)^4}\frac{e^{ik_E\cdot x_E}}{k_E^2 + m^2}$, the four-dimensional
 Euclidean analogue of the Yukawa integral of @exr-ret-static, with no poles on the real axis. In three
 dimensions the same integral is $e^{-mr}/(4\pi r)$ (@prp-greens-laplacian).
@@ -6162,14 +6160,14 @@ time-ordered combination of positive and negative frequencies.
 #### The $k_0$ integral by residues
 
 For fixed $\mathbf k$, compute $\int_{-\infty}^\infty\frac{dk_0}{2\pi}\frac{-e^{-ik_0t}}{k_0^2 - \omega^2 +
-i\epsilon}$ by residues with Sage: locate the poles for small $\epsilon > 0$, close the contour according to the
+i\varepsilon}$ by residues with Sage: locate the poles for small $\varepsilon > 0$, close the contour according to the
 sign of $t$, and show that the result is $\frac{i}{2\omega}e^{-i\omega|t|}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The poles are at $k_0 = \pm\sqrt{\omega^2 - i\epsilon} \approx \pm(\omega - i\epsilon/(2\omega))$; for $t > 0$ the
-contour closes below, enclosing $k_0 = \omega - i\epsilon'$ clockwise, and for $t < 0$ above, enclosing $-\omega +
-i\epsilon'$ counter-clockwise, each giving $\frac{i}{2\omega}e^{-i\omega|t|}$:
+The poles are at $k_0 = \pm\sqrt{\omega^2 - i\varepsilon} \approx \pm(\omega - i\varepsilon/(2\omega))$; for $t > 0$ the
+contour closes below, enclosing $k_0 = \omega - i\varepsilon'$ clockwise, and for $t < 0$ above, enclosing $-\omega +
+i\varepsilon'$ counter-clockwise, each giving $\frac{i}{2\omega}e^{-i\omega|t|}$:
 
 ```python
 k0, t, w, eps = var("k0 t omega eps")
@@ -6204,8 +6202,8 @@ the axis. The comparison with the Feynman result shows the difference in the neg
 ::: {#exr-feyn-retarded-compare}
 #### The retarded prescription
 
-Repeat @exr-feyn-poles with both poles displaced to $\pm\omega - i\epsilon$ and show that the result is
-$\theta(t)\frac{\sin\omega t}{\omega}$; verify that it solves $\ddot g + \omega^2g = \delta(t)$, the Green's
+Repeat @exr-feyn-poles with both poles displaced to $\pm\omega - i\varepsilon$ and show that the result is
+$\Theta(t)\frac{\sin\omega t}{\omega}$; verify that it solves $\ddot g + \omega^2g = \delta(t)$, the Green's
 function of the harmonic oscillator of @def-harmonic-oscillator.
 :::
 
@@ -6213,7 +6211,7 @@ function of the harmonic oscillator of @def-harmonic-oscillator.
 For $t < 0$ the contour closes above and encloses no pole, giving $0$. For $t > 0$ it closes below and encloses
 both poles clockwise: the residues of $-e^{-ik_0t}/[(k_0 - \omega)(k_0 + \omega)]$ are $-e^{-i\omega t}/(2\omega)$
 and $e^{i\omega t}/(2\omega)$, and $-2\pi i/(2\pi)$ times their sum is $\frac{i}{2\omega}(e^{-i\omega t} -
-e^{i\omega t}) = \frac{\sin\omega t}{\omega}$. The function $g = \theta(t)\sin\omega t/\omega$ vanishes for $t <
+e^{i\omega t}) = \frac{\sin\omega t}{\omega}$. The function $g = \Theta(t)\sin\omega t/\omega$ vanishes for $t <
 0$, has $g(0^+) = 0$ and $\dot g(0^+) = 1$, so $\ddot g + \omega^2g$ is zero away from $0$ with a unit jump in
 $\dot g$, which is $\delta(t)$ (@exm-delta-step). It differs from the Feynman result
 $\frac{i}{2\omega}e^{-i\omega|t|}$ by $\frac{i}{2\omega}e^{i\omega t}$ for all $t$ (for $t > 0$: $\frac{\sin\omega t}
@@ -6528,7 +6526,7 @@ reduces the equation to $-\nabla^2v = (\omega^2 - m^2)v$, a Helmholtz equation, 
 spherically symmetric solution decaying at infinity is the Yukawa function with mass $\sqrt{m^2 - \omega^2}$; (b)
 in a box $[0, \pi]^3$ with Dirichlet conditions, find the allowed frequencies from the separated modes and show
 that the lowest is $\sqrt{3 + m^2}$; (c) derive the one-dimensional retarded Green's function of $\partial_t^2 -
-\partial_x^2 + m^2$ in the form $G = \tfrac12\theta(t - |x|)J_0(m\sqrt{t^2 - x^2})$ by checking with Sage that
+\partial_x^2 + m^2$ in the form $G = \tfrac12\Theta(t - |x|)J_0(m\sqrt{t^2 - x^2})$ by checking with Sage that
 $J_0(m\sqrt{t^2 - x^2})$ solves the homogeneous equation inside the light cone, and explain how the value
 $\tfrac12$ on the cone reproduces @exm-ret-1d for $m = 0$.
 :::

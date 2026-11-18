@@ -1,0 +1,52 @@
+---
+pagetitle: "Notation"
+---
+
+# Notation {#sec-notation}
+
+This page fixes the notation of the whole tutorial. The tables are shared with the other tutorials of the site, so a
+symbol means the same thing here as in [Fundamentals of Machine Learning](../../fundamentals-of-machine-learning/index.qmd).
+The chapters follow this notation whatever notation their sources use; where a chapter quotes a source's convention,
+it says so and names the source. The last section lists what is particular to this tutorial.
+
+The notation consolidates that of the main textbooks: @bishop2024deeplearning [Preface], @deisenroth2020mml [Table of
+Symbols], @james2023statistical [Ch. 1], @shalev2014ml [Ch. 1], @theodoridis2025ml [Notation] and @zhao2025rl [Symbols].
+
+## Sets and logic
+
+{{< include ../../_notation/sets-logic.qmd >}}
+
+## Linear algebra
+
+{{< include ../../_notation/linear-algebra.qmd >}}
+
+## Analysis
+
+{{< include ../../_notation/analysis.qmd >}}
+
+## Probability and statistics
+
+{{< include ../../_notation/probability-statistics.qmd >}}
+
+## Learning
+
+{{< include ../../_notation/learning.qmd >}}
+
+## Conventions specific to this tutorial
+
+These symbols are used only in the machine-learning tutorials, or depart from the shared tables for a stated reason.
+
+| Symbol | Meaning |
+|---|---|
+| $\mathcal H$ | hypothesis class. This departs from the shared tables, where $\mathcal H$ is a Hilbert space, because $\mathcal H$ is the standard name in learning theory; a reproducing-kernel Hilbert space is written $\mathcal H_k$ |
+| $\mathcal A$, $\mathcal C$, $\mathcal X$ | sets are written in calligraphic uppercase |
+| $a$, $b$, $\alpha$, $\beta$ | scalars (lowercase) |
+| $\hat\theta_{\mathrm{MLE}}$, $\hat\theta_{\mathrm{MAP}}$ | maximum-likelihood and maximum a posteriori estimates |
+| $\mathcal L(\mathbf x, \lambda) = f(\mathbf x) - \lambda g(\mathbf x)$ | Lagrangian of the problem of optimising $f$ subject to $g(\mathbf x) = 0$, with Lagrange multiplier $\lambda$ |
+| $\operatorname{Bern}(x \mid p)$, $\operatorname{Bin}(k \mid n, p)$ | the Bernoulli and binomial mass functions at $x$ and $k$ |
+| $\operatorname{Mult}(\cdot \mid n, p_1, \dots, p_k)$ | multinomial distribution |
+| $\varepsilon$ | noise term, $y = f(\mathbf x) + \varepsilon$ |
+
+- **Logarithms:** $\log$ is the natural logarithm, and entropies are in nats; a quantity in bits is written with
+  $\log_2$ and says so.
+- **Events in Bayes' theorem** are written $A$ and $B$; $H$ is kept for the entropy.

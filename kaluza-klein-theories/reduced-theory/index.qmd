@@ -43,12 +43,13 @@ For the ansatz @eq-nonabelian-ansatz with $x$-independent internal metric,
 $$
 \hat R = R + R_h - \tfrac14\,h_{mn}K^m_aK^n_b\,F^a_{\mu\nu}F^{b\,\mu\nu}
   = R - R_\gamma + \tfrac14\,\gamma_{mn}K^m_aK^n_b\,F^a_{\mu\nu}F^{b\,\mu\nu}, \qquad
-F^c_{\mu\nu} = \partial_\mu A^c_\nu - \partial_\nu A^c_\mu - f_{ab}{}^cA^a_\mu A^b_\nu ,
+F^c_{\mu\nu} = \partial_\mu A^c_\nu - \partial_\nu A^c_\mu + f_{ab}{}^cA^a_\mu A^b_\nu ,
 $$ {#eq-nonabelian-reduced-scalar}
 with $R$ the curvature of $g$, $R_h = -R_\gamma$ the curvature of the internal block $h = -\gamma$ ($R_\gamma = 2$ for the
 unit sphere) and $F^c$ the Yang-Mills field strength
-@eq-yang-mills-F of the gauge transformation @eq-nonabelian-kk-gauge, whose structure constants are $-f_{ab}{}^c$, the
-opposite of the Killing brackets (for the sphere, $+\epsilon_{abc}$; @prp-nonabelian-curvature); for the circle,
+@eq-yang-mills-F of the gauge transformation @eq-nonabelian-kk-gauge, whose structure constants are $f_{ab}{}^c = -c_{ab}{}^c$, the
+opposite of those of the Killing brackets $[K_a, K_b] = c_{ab}{}^cK_c$ (for the sphere, $f_{ab}{}^c = +\epsilon_{abc}$ and
+$c_{ab}{}^c = -\epsilon_{abc}$; @prp-nonabelian-curvature); for the circle,
 $K = 1$, $h = -\phi^2$ and $f = 0$, this is @eq-kk-scalar without the scalar terms.
 :::
 ::::
@@ -72,7 +73,7 @@ matter of taste: the geometry produces one sign, and only that one reproduces th
 #### The commutator term
 
 With three components $A^1_x$, $A^2_t$, $A^3_x$ depending on $(t, x)$, the product $A^a_\mu A^b_\nu$ contributes to
-$F^c$ through the commutator term $-f_{ab}{}^cA^a_\mu A^b_\nu = +\epsilon_{abc}A^a_\mu A^b_\nu$, and
+$F^c$ through the commutator term $f_{ab}{}^cA^a_\mu A^b_\nu = +\epsilon_{abc}A^a_\mu A^b_\nu$, and
 @eq-nonabelian-reduced-scalar holds only with this sign, and fails with the opposite one: the field strength that the
 geometry produces is the non-abelian one, with the same sign flip relative to the Killing brackets as the gauge
 transformation @eq-nonabelian-kk-gauge.
@@ -84,9 +85,9 @@ with a constant coupling matrix, and none of the difficulties of the sphere aris
 ::: {#exm-reduced-scalar-flat}
 #### Flat internal space
 
-For $T^k$, $R_h = 0$, $K^m_a = \delta^m_a$ and $\gamma_{mn}K^m_aK^n_b = \gamma_{ab}$ constant: $\hat R = R + \tfrac14\gamma_{ab}F^aF^b$,
+For $T^k$, $R_h = 0$, $K^m_a = \delta^m_a$ and $\gamma_{mn}K^m_aK^n_b = \mathcal G_{ab}$ constant: $\hat R = R + \tfrac14\mathcal G_{ab}F^aF^b$,
 $k$ Maxwell fields with the internal metric as coupling matrix (the sign of the Einstein-Hilbert action makes it
-$-\tfrac14\gamma_{ab}F^aF^b$ in the Lagrangian, @eq-yang-mills-from-gravity), and the ansatz solves the vacuum equations
+$-\tfrac14\mathcal G_{ab}F^aF^b$ in the Lagrangian, @eq-yang-mills-from-gravity), and the ansatz solves the vacuum equations
 exactly when $g$ and $A$ do [@duff1994, Sec. 4].
 :::
 ::::
@@ -240,7 +241,8 @@ the Killing brackets.
 
 For flat spacetime and gauge fields $A^1_x$, $A^2_t$, $A^3_x$ given by polynomials in $(t, x)$,
 @eq-nonabelian-reduced-scalar holds exactly with the commutator term $+\epsilon_{abc}A^a_\mu A^b_\nu$ (the gauge
-structure constants $-f_{ab}{}^c$, opposite to the Killing brackets $f_{ab}{}^c = -\epsilon_{abc}$) and fails with the
+structure constants $f_{ab}{}^c = -c_{ab}{}^c = +\epsilon_{abc}$, opposite to those of the Killing brackets,
+$c_{ab}{}^c = -\epsilon_{abc}$) and fails with the
 opposite sign;
 $\hat R$ depends on the point of the sphere.
 :::
@@ -380,8 +382,8 @@ it and states its form on the sphere, where it has a simple geometric meaning.
 
 The **Killing inner products** are the functions $K_a\cdot K_b = \gamma_{mn}K^m_aK^n_b$ on the internal space, taken
 with the positive round metric; on the unit sphere
-$K_a\cdot K_b = \delta_{ab} - n_an_b$ with $\vec n$ the unit position vector, of rank two (the combination $n^aK_a$
-vanishes at $\vec n$), and their average over the sphere is $\langle K_a\cdot K_b\rangle = \tfrac23\delta_{ab}$
+$K_a\cdot K_b = \delta_{ab} - n_an_b$ with $\mathbf n$ the unit position vector, of rank two (the combination $n^aK_a$
+vanishes at $\mathbf n$), and their average over the sphere is $\langle K_a\cdot K_b\rangle = \tfrac23\delta_{ab}$
 (@prp-killing-average).
 :::
 ::::
@@ -393,7 +395,7 @@ reads it off from the rotation velocities of the three Killing vectors.
 ::: {#exm-inner-products-geometry}
 #### Geometry of $\delta_{ab} - n_an_b$
 
-$K_a$ generates the rotation about the $a$-axis, whose velocity at $\vec n$ is $\vec e_a \times \vec n$, of squared
+$K_a$ generates the rotation about the $a$-axis, whose velocity at $\mathbf n$ is $\mathbf e_a \times \mathbf n$, of squared
 length $1 - n_a^2$: the inner product is the projector onto the tangent plane, and it vanishes at the two fixed
 points of the rotation (@fig-killing-inner-products).
 :::
@@ -406,8 +408,8 @@ coefficient is the inverse square of the gauge coupling, which is therefore fixe
 
 Integrating $\hat R$ over the sphere with $\int d^2y\sqrt\gamma = 4\pi$ gives $\int\sqrt\gamma\,K_a\cdot K_b = \tfrac{8\pi}{3}
 \delta_{ab}$: with the overall $-\tfrac{1}{2\hat\kappa^2}$ of the action, the Yang-Mills term of the reduced action is $-\tfrac14\cdot\tfrac{8\pi}{3}\cdot\tfrac{1}{2\hat\kappa^2}
-F^aF^a$, and the gauge coupling is fixed by the radius of the sphere and the higher-dimensional Newton constant,
-$g^2 \propto \hat\kappa^2/R^4$ for a sphere of radius $R$ (@exr-nonabelian-coupling).
+F^aF^a$, and the gauge coupling is fixed by the radius of the sphere and the higher-dimensional gravitational coupling,
+$g^2 \propto \hat\kappa^2/r^4$ for a sphere of radius $r$ (@exr-nonabelian-coupling).
 :::
 
 On a group manifold half of the Killing vectors behave differently. The left-invariant fields have constant inner
@@ -434,8 +436,8 @@ $1, 1, 0$, and identify the eigenvectors.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The trace is $\sum_a(1 - n_a^2) = 3 - 1 = 2$, the dimension of the sphere. The projector $P = 1 - \vec n\vec n^T$ satisfies
-$P\vec n = 0$ and $P\vec v = \vec v$ for $\vec v \perp \vec n$, so its eigenvalues are $0$ (eigenvector $\vec n$) and $1$ (twice,
+The trace is $\sum_a(1 - n_a^2) = 3 - 1 = 2$, the dimension of the sphere. The projector $P = 1 - \mathbf n\mathbf n^\top$ satisfies
+$P\mathbf n = 0$ and $P\mathbf v = \mathbf v$ for $\mathbf v \perp \mathbf n$, so its eigenvalues are $0$ (eigenvector $\mathbf n$) and $1$ (twice,
 the tangent plane). The zero eigenvector is the combination $n^aK_a = 0$ of @def-killing-inner-products, the rotation
 about the axis through the point itself.
 :::
@@ -489,13 +491,13 @@ and relates them to a topological fact about the sphere.
 ::: {#exr-nak-inner-zeros}
 #### Zeros of the Killing vectors
 
-Show that $v^aK_a$, for a non-zero $\vec v \in \mathbb{R}^3$, vanishes exactly at $\vec n = \pm\vec v/|\vec v|$, and compute
+Show that $v^aK_a$, for a non-zero $\mathbf v \in \mathbb{R}^3$, vanishes exactly at $\mathbf n = \pm\mathbf v/|\mathbf v|$, and compute
 $|v^aK_a|^2$. Why must every vector field on $S^2$ vanish somewhere?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$v^aK_a$ is the rotation field $\vec v \times \vec n$ (@exr-nak-killing-cross-product), which vanishes when $\vec n$ is parallel
-to $\vec v$, and $|v^aK_a|^2 = v^av^b(\delta_{ab} - n_an_b) = |\vec v|^2 - (\vec v\cdot\vec n)^2$. That every continuous tangent field
+$v^aK_a$ is the rotation field $\mathbf v \times \mathbf n$ (@exr-nak-killing-cross-product), which vanishes when $\mathbf n$ is parallel
+to $\mathbf v$, and $|v^aK_a|^2 = v^av^b(\delta_{ab} - n_an_b) = |\mathbf v|^2 - (\mathbf v\cdot\mathbf n)^2$. That every continuous tangent field
 on $S^2$ has a zero is the hairy ball theorem: the Euler characteristic of the sphere is $2 \neq 0$. Consequently no
 Killing vector of the sphere has constant length, which is the root of the consistency problem below.
 :::
@@ -520,7 +522,7 @@ themselves, and a matrix invariant under all rotations must be a multiple of the
 #### Proportional to the identity by symmetry
 
 A rotation $\mathcal{R}$ of the sphere maps $K_a$ to $\mathcal{R}_{ab}K_b$ and preserves the round measure, so the averaged matrix
-$M_{ab} = \langle K_a\cdot K_b\rangle$ satisfies $\mathcal{R}M\mathcal{R}^T = M$ for all $\mathcal{R} \in SO(3)$; since the vector
+$M_{ab} = \langle K_a\cdot K_b\rangle$ satisfies $\mathcal{R}M\mathcal{R}^\top = M$ for all $\mathcal{R} \in SO(3)$; since the vector
 representation is irreducible, $M = \lambda\cdot 1$ by Schur's lemma (@exr-nak-average-schur).
 :::
 
@@ -541,7 +543,7 @@ gauge fields, even though at each point one of them is invisible.
 ::: {#exm-nak-average-rank}
 #### Rank two pointwise, rank three on average
 
-At each point $K_a\cdot K_b$ annihilates $\vec n$, so one combination of the gauge fields drops out of $\hat R$ there
+At each point $K_a\cdot K_b$ annihilates $\mathbf n$, so one combination of the gauge fields drops out of $\hat R$ there
 (@exr-nak-inverse-equator); the average $\tfrac23\delta_{ab}$ is invertible, and every gauge field acquires a kinetic term
 in the reduced action. The pointwise degeneracy is the local shadow of the hairy ball theorem (@exr-nak-inner-zeros).
 :::
@@ -558,7 +560,7 @@ Compute $\langle n_an_b\rangle$ and $\langle n_an_bn_cn_d\rangle$ over the unit 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By symmetry $\langle n_an_b\rangle = \lambda\delta_{ab}$ with $3\lambda = \langle|\vec n|^2\rangle = 1$, and $\langle n_an_bn_cn_d\rangle =
+By symmetry $\langle n_an_b\rangle = \lambda\delta_{ab}$ with $3\lambda = \langle|\mathbf n|^2\rangle = 1$, and $\langle n_an_bn_cn_d\rangle =
 \mu(\delta_{ab}\delta_{cd} + \delta_{ac}\delta_{bd} + \delta_{ad}\delta_{bc})$ with $\mu = \langle n_3^4\rangle/3 = \tfrac15/3 = \tfrac{1}{15}$. Then
 $\langle K_a\cdot K_b\rangle = \delta_{ab} - \tfrac13\delta_{ab} = \tfrac23\delta_{ab}$:
 
@@ -624,13 +626,13 @@ invariance of the round measure.
 ::: {#exr-nak-average-schur}
 #### The symmetry argument
 
-Show that under a rotation $\vec n \mapsto \mathcal{R}\vec n$ the functions $K_a\cdot K_b$ transform as $(K_a\cdot K_b)(\mathcal{R}\vec n) =
-\mathcal{R}_{ac}\mathcal{R}_{bd}(K_c\cdot K_d)(\vec n)$, and conclude that $\langle K_a\cdot K_b\rangle = \lambda\delta_{ab}$.
+Show that under a rotation $\mathbf n \mapsto \mathcal{R}\mathbf n$ the functions $K_a\cdot K_b$ transform as $(K_a\cdot K_b)(\mathcal{R}\mathbf n) =
+\mathcal{R}_{ac}\mathcal{R}_{bd}(K_c\cdot K_d)(\mathbf n)$, and conclude that $\langle K_a\cdot K_b\rangle = \lambda\delta_{ab}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\delta_{ab} - (\mathcal{R}\vec n)_a(\mathcal{R}\vec n)_b = \mathcal{R}_{ac}\mathcal{R}_{bd}(\delta_{cd} - n_cn_d)$ because $\mathcal{R}\mathcal{R}^T = 1$.
-Averaging with the rotation-invariant measure gives $M = \mathcal{R}M\mathcal{R}^T$ for every rotation. A symmetric matrix
+$\delta_{ab} - (\mathcal{R}\mathbf n)_a(\mathcal{R}\mathbf n)_b = \mathcal{R}_{ac}\mathcal{R}_{bd}(\delta_{cd} - n_cn_d)$ because $\mathcal{R}\mathcal{R}^\top = 1$.
+Averaging with the rotation-invariant measure gives $M = \mathcal{R}M\mathcal{R}^\top$ for every rotation. A symmetric matrix
 commuting with all rotations has every eigenspace invariant under $SO(3)$; the only invariant subspaces of
 $\mathbb{R}^3$ are $0$ and $\mathbb{R}^3$, so there is one eigenvalue and $M = \lambda\cdot 1$.
 :::
@@ -754,14 +756,14 @@ the sphere lacks.
 ::: {#exr-nak-consistency-torus}
 #### Why the torus is consistent
 
-For $T^k$ with constant metric and $K_a = \partial_a$, show that every component of $\hat R_{AB}$ in the coordinates $(x, y)$ is
+For $T^k$ with constant metric and $K_a = \partial_a$, show that every component of $\hat R_{MN}$ in the coordinates $(x, y)$ is
 independent of $y$, and conclude that the ansatz of @exm-reduced-scalar-flat is consistent.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-On the torus the metric components $\hat g_{AB}$ of the ansatz depend on $x$ only: $\gamma_{mn}$ is constant and
+On the torus the metric components $\hat g_{MN}$ of the ansatz depend on $x$ only: $\gamma_{mn}$ is constant and
 $K^m_a = \delta^m_a$. Christoffel symbols and curvature are built from $\hat g$, its inverse and $x$-derivatives, so they are
-$y$-independent as well. The vacuum equations $\hat R_{AB} = 0$ are then equations on $M_4$ alone, the reduced field
+$y$-independent as well. The vacuum equations $\hat R_{MN} = 0$ are then equations on $M_4$ alone, the reduced field
 equations, and every solution of the latter lifts. The sphere fails exactly because $K^m_a$ and $\gamma_{mn}$ depend on $y$
 in a way that does not cancel in $K_a\cdot K_b$.
 :::
@@ -830,7 +832,7 @@ compute $\langle q^2\rangle$, and find the $\ell = 2$ part of $\hat R$ for $A^1_
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle q\rangle = \tfrac13 - \tfrac13 = 0$ and $\langle qn_a\rangle = 0$ because $q$ is even under $\vec n \to -\vec n$ and $n_a$ is odd.
+$\langle q\rangle = \tfrac13 - \tfrac13 = 0$ and $\langle qn_a\rangle = 0$ because $q$ is even under $\mathbf n \to -\mathbf n$ and $n_a$ is odd.
 $\langle q^2\rangle = \tfrac19 - \tfrac23\cdot\tfrac13 + \tfrac15 = \tfrac{4}{45}$, the variance of $K_1\cdot K_1$. The $\ell = 2$ part of $\hat R = -
 2 - \tfrac12c^2K_1\cdot K_1$ is $-\tfrac12c^2q = \tfrac12c^2(n_1^2 - \tfrac13)$:
 
@@ -905,27 +907,27 @@ cosmological term.
 
 After integration over the internal space the reduced action is
 $$
-\hat S = -\frac{V_k}{2\hat\kappa^2}\int d^4x\sqrt{-g}\left(R - R_\gamma + \tfrac14\gamma_{ab}F^a_{\mu\nu}F^{b\,\mu\nu}\right)
-  = \frac{V_k}{2\hat\kappa^2}\int d^4x\sqrt{-g}\left(-R + R_\gamma - \tfrac14\gamma_{ab}F^a_{\mu\nu}F^{b\,\mu\nu}\right),
-\qquad \gamma_{ab} = \frac{1}{V_k}\int d^ky\sqrt\gamma\,\gamma_{mn}K^m_aK^n_b ,
+\hat S = -\frac{\operatorname{Vol}(X)}{2\hat\kappa^2}\int d^4x\sqrt{-g}\left(R - R_\gamma + \tfrac14\mathcal G_{ab}F^a_{\mu\nu}F^{b\,\mu\nu}\right)
+  = \frac{\operatorname{Vol}(X)}{2\hat\kappa^2}\int d^4x\sqrt{-g}\left(-R + R_\gamma - \tfrac14\mathcal G_{ab}F^a_{\mu\nu}F^{b\,\mu\nu}\right),
+\qquad \mathcal G_{ab} = \frac{1}{\operatorname{Vol}(X)}\int d^ky\sqrt\gamma\,\gamma_{mn}K^m_aK^n_b ,
 $$ {#eq-yang-mills-from-gravity}
 Einstein gravity with the sign of @eq-einstein-hilbert, a cosmological term $R_\gamma$ from the internal curvature,
-and the Yang-Mills action $-\tfrac14\gamma_{ab}F^aF^b$ of the isometry group with coupling matrix $\gamma_{ab}$ (the
-average of the Killing inner products, not to be confused with the internal metric $\gamma_{mn}$): the gauge theory of @sec-yang-mills, derived from geometry, up to the
+and the Yang-Mills action $-\tfrac14\mathcal G_{ab}F^aF^b$ of the isometry group with coupling matrix $\mathcal G_{ab}$ (the
+average of the Killing inner products): the gauge theory of @sec-yang-mills, derived from geometry, up to the
 consistency caveat of @def-consistency-problem.
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-For the sphere of radius $R$ all the ingredients of the reduced action are known. The example collects them and reads
+For the sphere of radius $r$ all the ingredients of the reduced action are known. The example collects them and reads
 off the gauge coupling and the cosmological constant.
 
 ::: {#exm-ym-gravity-sphere}
 #### The sphere
 
-$V_2 = 4\pi R^2$, $R_\gamma = 2/R^2$, $\gamma_{ab} = \tfrac23R^2\delta_{ab}$: an $SO(3)$ Yang-Mills theory with
-$1/g^2 \propto 4\pi R^2\cdot\tfrac23R^2/2\hat\kappa^2$, so the gauge coupling is $g \sim \hat\kappa/R^2$, small for a
-large sphere in Planck units, and a cosmological constant $\Lambda = -R_\gamma/2 = -1/R^2$ in the convention of
+$\operatorname{Vol}(S^2) = 4\pi r^2$, $R_\gamma = 2/r^2$, $\mathcal G_{ab} = \tfrac23r^2\delta_{ab}$: an $SO(3)$ Yang-Mills theory with
+$1/g^2 \propto 4\pi r^2\cdot\tfrac23r^2/2\hat\kappa^2$, so the gauge coupling is $g \sim \hat\kappa/r^2$, small for a
+large sphere in Planck units, and a cosmological constant $\Lambda = -R_\gamma/2 = -1/r^2$ in the convention of
 @def-cosmological-constant, negative and of Planckian size for a Planck-size sphere, that must be cancelled
 (@exr-nonabelian-coupling, @exr-nak-cosmological-term).
 :::
@@ -949,28 +951,28 @@ of the isometry group, exactly as the Fourier modes of the circle carried electr
 #### Charges from harmonics
 
 The massive modes are the harmonics of the internal space in representations of $G$ (@sec-branching); for $S^2$
-the spherical harmonics of spin $\ell$, charged under $SO(3)$ as the modes $e^{iny/R}$ were under $U(1)$: the
+the spherical harmonics of spin $\ell$, charged under $SO(3)$ as the modes $e^{iny/r}$ were under $U(1)$: the
 non-abelian analogue of the Kaluza-Klein tower of @sec-kk-tower.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The first exercise turns the reduced action into numbers. It expresses the gauge coupling in terms of the
-four-dimensional Newton constant and the radius, as Part III did for the circle.
+four-dimensional gravitational coupling and the radius, as Part III did for the circle.
 
 ::: {#exr-nonabelian-coupling}
 #### The gauge coupling from the radius
 
-For a sphere of radius $R$ compute $V_2$, $R_\gamma$, $\gamma_{ab}$ and the Yang-Mills coupling in terms of $\hat\kappa$ and
-$R$.
+For a sphere of radius $r$ compute $\operatorname{Vol}(S^2)$, $R_\gamma$, $\mathcal G_{ab}$ and the Yang-Mills coupling in terms of $\hat\kappa$ and
+$r$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Scaling the unit-sphere results: $V_2 = 4\pi R^2$, $R_\gamma = 2/R^2$, and the Killing vectors of the sphere of radius $R$
-have $K_a\cdot K_b = R^2(\delta_{ab} - n_an_b)$, so $\gamma_{ab} = \tfrac23R^2\delta_{ab}$. The Yang-Mills term is
-$-\frac{4\pi R^2}{2\hat\kappa^2}\cdot\tfrac14\cdot\tfrac23R^2F^aF^a = -\frac{1}{4g^2}F^aF^a$ with $\frac{1}{g^2} =
-\frac{4\pi R^4}{3\hat\kappa^2}$: $g = \sqrt{3/4\pi}\,\hat\kappa/R^2$, and with $\kappa^2 = \hat\kappa^2/4\pi R^2$ the
-four-dimensional Newton constant, $g = \sqrt3\,\kappa/R$, the analogue of $e = \sqrt2\kappa/R$ of
+Scaling the unit-sphere results: $\operatorname{Vol}(S^2) = 4\pi r^2$, $R_\gamma = 2/r^2$, and the Killing vectors of the sphere of radius $r$
+have $K_a\cdot K_b = r^2(\delta_{ab} - n_an_b)$, so $\mathcal G_{ab} = \tfrac23r^2\delta_{ab}$. The Yang-Mills term is
+$-\frac{4\pi r^2}{2\hat\kappa^2}\cdot\tfrac14\cdot\tfrac23r^2F^aF^a = -\frac{1}{4g^2}F^aF^a$ with $\frac{1}{g^2} =
+\frac{4\pi r^4}{3\hat\kappa^2}$: $g = \sqrt{3/4\pi}\,\hat\kappa/r^2$, and with $\kappa^2 = \hat\kappa^2/4\pi r^2$ the
+four-dimensional gravitational coupling, $g = \sqrt3\,\kappa/r$, the analogue of $e = \sqrt2\kappa/r$ of
 @def-planck-radius-relation.
 :::
 
@@ -981,13 +983,13 @@ cosmological constant and estimates its size.
 #### The cosmological term
 
 Write the gravitational part of @eq-yang-mills-from-gravity in the form $-\tfrac{1}{2\kappa^2}\int\sqrt{-g}(R + 2\Lambda)$ of
-@def-cosmological-constant, find $\kappa$ and $\Lambda$ for the sphere of radius $R$, and compare $|\Lambda|$ with the
-observed value $\sim 10^{-122}$ in Planck units if $R$ is of the order of the Planck length.
+@def-cosmological-constant, find $\kappa$ and $\Lambda$ for the sphere of radius $r$, and compare $|\Lambda|$ with the
+observed value $\sim 10^{-122}$ in Planck units if $r$ is of the order of the Planck length.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$-\tfrac{V_2}{2\hat\kappa^2}\int\sqrt{-g}(R - R_\gamma)$ has $\kappa^2 = \hat\kappa^2/V_2$ and $2\Lambda = -R_\gamma$, so $\Lambda = -1/R^2$:
-negative, an anti-de Sitter curvature, as for every positively curved internal space without flux. For $R \sim \ell_P$,
+$-\tfrac{\operatorname{Vol}(S^2)}{2\hat\kappa^2}\int\sqrt{-g}(R - R_\gamma)$ has $\kappa^2 = \hat\kappa^2/\operatorname{Vol}(S^2)$ and $2\Lambda = -R_\gamma$, so $\Lambda = -1/r^2$:
+negative, an anti-de Sitter curvature, as for every positively curved internal space without flux. For $r \sim \ell_P$,
 $|\Lambda| \sim 1$ in Planck units, some $120$ orders of magnitude above the observed value: the internal curvature must
 be balanced by matter (@exm-consistency-matter), which is one more reason why pure gravity on $S^2$ is not a realistic
 model.
@@ -1005,9 +1007,9 @@ couplings?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\gamma_{ab} = \gamma_{mn}$ for $K_a = \partial_a$, and the gauge Lagrangian is $-\tfrac{V_2}{8\hat\kappa^2}(F^1F^1 + 2\beta F^1F^2 + F^2F^2)$.
-With $A^\pm = (A^1 \pm A^2)/\sqrt2$ it becomes $-\tfrac{V_2}{8\hat\kappa^2}((1 + \beta)F^+F^+ + (1 - \beta)F^-F^-)$, two Maxwell fields with
-$1/g_\pm^2 = V_2(1 \pm \beta)/(2\hat\kappa^2)$. The rotation is a change of basis of the Killing vectors, $K_\pm = (\partial_1 \pm
+$\mathcal G_{ab} = \gamma_{mn}$ for $K_a = \partial_a$, and the gauge Lagrangian is $-\tfrac{\operatorname{Vol}(T^2)}{8\hat\kappa^2}(F^1F^1 + 2\beta F^1F^2 + F^2F^2)$.
+With $A^\pm = (A^1 \pm A^2)/\sqrt2$ it becomes $-\tfrac{\operatorname{Vol}(T^2)}{8\hat\kappa^2}((1 + \beta)F^+F^+ + (1 - \beta)F^-F^-)$, two Maxwell fields with
+$1/g_\pm^2 = \operatorname{Vol}(T^2)(1 \pm \beta)/(2\hat\kappa^2)$. The rotation is a change of basis of the Killing vectors, $K_\pm = (\partial_1 \pm
 \partial_2)/\sqrt2$, along the eigenvectors of $\gamma$: the shape of the torus sets the ratio of the two couplings.
 :::
 ::::
@@ -1031,9 +1033,9 @@ there are.
 #### Isometries of a group manifold
 
 On a compact connected Lie group $G$ with a bi-invariant metric, both the left translations $g \mapsto hg$ and the
-right translations $g \mapsto gh$ are isometries. Their generators are the right-invariant fields $\xi_a$ and the
-left-invariant fields $e_a$ (@def-left-invariant-field), with $[e_a, \xi_b] = 0$; the **isometry algebra** of the group
-manifold is spanned by the $e_a$ and the $\xi_a$, two copies of $\mathfrak{g}$ that share the centre $\mathfrak{z}$, on which the two
+right translations $g \mapsto gh$ are isometries. Their generators are the right-invariant fields $K_a$ and the
+left-invariant fields $e_a$ (@def-left-invariant-field), with $[e_a, K_b] = 0$; the **isometry algebra** of the group
+manifold is spanned by the $e_a$ and the $K_a$, two copies of $\mathfrak{g}$ that share the centre $\mathfrak{z}$, on which the two
 actions agree, and has dimension $2\dim G - \dim\mathfrak{z}$. For semisimple $G$ the non-abelian ansatz yields $2\dim G$ gauge bosons of
 $G \times G$.
 :::
@@ -1058,7 +1060,7 @@ and the formula of the definition accounts for this through the centre.
 ::: {#exm-nak-group-u1}
 #### $U(1)$ and the torus
 
-For $G = U(1) = S^1$, $gh = hg$, so left and right translations are the same rotations and $e = \xi = \partial_y$: one Killing
+For $G = U(1) = S^1$, $gh = hg$, so left and right translations are the same rotations and $e = K = \partial_y$: one Killing
 vector, $2\cdot 1 - 1 = 1$. For $T^k = U(1)^k$ the centre is everything and there are $k$ Killing vectors, the gauge
 group $U(1)^k$ of @exm-structure-torus.
 :::
@@ -1093,11 +1095,11 @@ are tangent to $S^3$ and independent.
 
 With $(M_{ij})_{kl} = \delta_{ik}\delta_{jl} - \delta_{il}\delta_{jk}$, let $J^\pm_1 = \tfrac12(M_{23} \pm M_{14})$, $J^\pm_2 = \tfrac12(M_{31} \pm
 M_{24})$, $J^\pm_3 = \tfrac12(M_{12} \pm M_{34})$. Show that $[J^+_a, J^-_b] = 0$, that each family closes into $\mathfrak{su}(2)$, and
-that the six fields $M_{ij}\vec x$ are independent and tangent to $S^3$.
+that the six fields $M_{ij}\mathbf x$ are independent and tangent to $S^3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The matrices $M_{ij}$ are antisymmetric, so $\vec x\cdot M_{ij}\vec x = 0$ and the fields are tangent to every sphere about
+The matrices $M_{ij}$ are antisymmetric, so $\mathbf x\cdot M_{ij}\mathbf x = 0$ and the fields are tangent to every sphere about
 the origin. The combinations $J^\pm$ are the self-dual and anti-self-dual parts of $\mathfrak{so}(4)$; a direct computation gives
 $[J^\pm_a, J^\pm_b] = -\epsilon_{abc}J^\pm_c$ and $[J^+_a, J^-_b] = 0$:
 
@@ -1172,8 +1174,8 @@ bound that maximally symmetric spaces attain.
 ::: {#def-nak-gauge-boson-count}
 #### Number of gauge bosons
 
-The **number of gauge bosons** of the non-abelian Kaluza-Klein ansatz on $M_4 \times M_k$ is the dimension of the
-isometry group of $(M_k, \gamma)$, one massless gauge field per independent Killing vector. It is at most $k(k+1)/2$,
+The **number of gauge bosons** of the non-abelian Kaluza-Klein ansatz on $M_4 \times X$ is the dimension of the
+isometry group of $(X, \gamma)$, one massless gauge field per independent Killing vector. It is at most $k(k+1)/2$,
 with equality exactly for the maximally symmetric spaces (@def-maximally-symmetric), and it is independent of $k$
 otherwise: it can be smaller than $k$ (a generic metric has no Killing vectors) or larger (@fig-nak-isometry-count).
 :::
@@ -1281,9 +1283,9 @@ symmetry.
 
 (i) On $S^n$ the $n(n+1)/2$ rotation fields $x_i\partial_j - x_j\partial_i$ are linearly independent tangent fields ($n \le 6$),
 and on $S^2$ the three fields of @eq-sphere-killing are Killing. (ii) On $S^3 = SU(2)$ with the round metric
-$\tfrac14\sum_a(\sigma^a)^2$ the three left-invariant fields $e_a$ and the three right-invariant fields $\xi_a$ are Killing,
-independent over $\mathbb{R}$, and commute, $[e_a, \xi_b] = 0$. (iii) For the Berger metric $a^2((\sigma^1)^2 + (\sigma^2)^2) +
-b^2(\sigma^3)^2$ with $a \neq b$, the $\xi_a$ and $e_3$ are Killing while $e_1$ and $e_2$ are not.
+$\tfrac14\sum_a(\sigma^a)^2$ the three left-invariant fields $e_a$ and the three right-invariant fields $K_a$ are Killing,
+independent over $\mathbb{R}$, and commute, $[e_a, K_b] = 0$. (iii) For the Berger metric $a^2((\sigma^1)^2 + (\sigma^2)^2) +
+b^2(\sigma^3)^2$ with $a \neq b$, the $K_a$ and $e_3$ are Killing while $e_1$ and $e_2$ are not.
 :::
 ::::
 
@@ -1306,7 +1308,7 @@ to the circle that preserves the fibres. The gauge group shrinks accordingly.
 ::: {#exm-nak-berger-breaking}
 #### Symmetry breaking by squashing
 
-For $a \neq b$ the isometry algebra is $\mathfrak{su}(2) \oplus \mathfrak{u}(1)$: the $\xi_a$ survive, and of the $e_a$ only $e_3$, which
+For $a \neq b$ the isometry algebra is $\mathfrak{su}(2) \oplus \mathfrak{u}(1)$: the $K_a$ survive, and of the $e_a$ only $e_3$, which
 rotates $(\sigma^1, \sigma^2)$ into each other and so preserves $a^2((\sigma^1)^2 + (\sigma^2)^2)$. The two gauge bosons along $e_1$,
 $e_2$ are no longer massless; varying $b/a$ continuously from $1$ is a geometric analogue of the Higgs mechanism of
 @sec-higgs.
@@ -1318,8 +1320,8 @@ $\mathbb{R}^4$ these are the self-dual and anti-self-dual combinations.
 ::: {#exm-nak-s3-split}
 #### Left and right as self-dual and anti-self-dual
 
-The left- and right-invariant fields of $SU(2) = S^3$ are, up to normalisation and sign, the fields $J^+_a\vec x$ and
-$J^-_a\vec x$ of @exr-nak-s3-killing: $\mathfrak{so}(4) = \mathfrak{su}(2)_+ \oplus \mathfrak{su}(2)_-$, and the two descriptions of the
+The left- and right-invariant fields of $SU(2) = S^3$ are, up to normalisation and sign, the fields $J^+_a\mathbf x$ and
+$J^-_a\mathbf x$ of @exr-nak-s3-killing: $\mathfrak{so}(4) = \mathfrak{su}(2)_+ \oplus \mathfrak{su}(2)_-$, and the two descriptions of the
 round $S^3$ in @exm-coset-s3, as $SO(4)/SO(3)$ and as $(SU(2) \times SU(2))/SU(2)_{\mathrm{diag}}$, have the same six
 gauge bosons.
 :::
@@ -1332,14 +1334,14 @@ They decide whether the reduction with the surviving gauge fields is consistent.
 ::: {#exr-nak-berger-killing}
 #### Inner products on the Berger sphere
 
-With SageManifolds, check that the $\xi_a$ and $e_3$ are Killing for the Berger metric, compute $\xi_a\cdot\xi_b$ and
-$e_3\cdot e_3$, and average $\xi_a\cdot\xi_b$ over $S^3$ (the measure $\sin\theta\,d\theta\,d\varphi\,d\psi$, $\psi \in [0, 4\pi)$).
+With SageManifolds, check that the $K_a$ and $e_3$ are Killing for the Berger metric, compute $K_a\cdot K_b$ and
+$e_3\cdot e_3$, and average $K_a\cdot K_b$ over $S^3$ (the measure $\sin\theta\,d\theta\,d\varphi\,d\psi$, $\psi \in [0, 4\pi)$).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\xi_a = \operatorname{Ad}(g^{-1})_{ca}e_c$, so $\xi_a\cdot\xi_b = a^2\delta_{ab} + (b^2 - a^2)\operatorname{Ad}(g^{-1})_{3a}\operatorname{Ad}(g^{-1})_{3b}$, which
+$K_a = \operatorname{Ad}(g^{-1})_{ca}e_c$, so $K_a\cdot K_b = a^2\delta_{ab} + (b^2 - a^2)\operatorname{Ad}(g^{-1})_{3a}\operatorname{Ad}(g^{-1})_{3b}$, which
 varies over $S^3$ unless $a = b$, with average $\tfrac{2a^2 + b^2}{3}\delta_{ab}$; $e_3\cdot e_3 = b^2$ is constant. The $U(1)$ of
-$e_3$ reduces consistently, the $SU(2)$ of the $\xi_a$ has the sphere's problem:
+$e_3$ reduces consistently, the $SU(2)$ of the $K_a$ has the sphere's problem:
 
 ```python
 a, b = var("a b"); assume(a > 0, b > 0)
@@ -1356,14 +1358,14 @@ S = matrix(SR, [v.list() for v in s]); SRm = matrix(SR, [v.list() for v in sR])
 E = (S.inverse()).apply_map(lambda e: e.simplify_full()); XI = (SRm.inverse()).apply_map(lambda e: e.simplify_full())
 e = [M.vector_field(*E.column(k).list()) for k in range(3)]; xi = [M.vector_field(*XI.column(k).list()) for k in range(3)]
 iszero = lambda T: all(bool(T[i, j].expr().simplify_full() == 0) for i in range(3) for j in range(3))
-print("[PASS] the right-invariant fields xi_a are Killing for every a, b:", all(iszero(g.lie_derivative(v)) for v in xi))
+print("[PASS] the right-invariant fields K_a are Killing for every a, b:", all(iszero(g.lie_derivative(v)) for v in xi))
 print("[PASS] e_3 = d_ps is Killing, e_1 is not for a != b:", iszero(g.lie_derivative(e[2])) and not iszero(g.lie_derivative(e[0])))
 GI = matrix(SR, 3, 3, lambda i, j: (XI.column(i) * G * XI.column(j)).simplify_full())
-print("xi_1 . xi_1 =", GI[0, 0].factor())
+print("K_1 . K_1 =", GI[0, 0].factor())
 vol = sin(th)
 avg = lambda f: integrate(integrate(integrate(f * vol, th, 0, pi), ph, 0, 2 * pi), ps, 0, 4 * pi) / (16 * pi^2)
 A = matrix(SR, 3, 3, lambda i, j: avg(GI[i, j]).simplify_full())
-print("[PASS] <xi_a . xi_b> = ((2 a^2 + b^2)/3) delta_ab:", (A - (2 * a^2 + b^2) / 3 * identity_matrix(3)).apply_map(lambda t: t.simplify_full()).is_zero())
+print("[PASS] <K_a . K_b> = ((2 a^2 + b^2)/3) delta_ab:", (A - (2 * a^2 + b^2) / 3 * identity_matrix(3)).apply_map(lambda t: t.simplify_full()).is_zero())
 print("[PASS] for a = b the inner products are constant, a^2 delta_ab:", (GI.subs(b=a) - a^2 * identity_matrix(3)).apply_map(lambda t: t.simplify_full()).is_zero())
 print("[PASS] e_3 . e_3 = b^2 is constant:", bool((E.column(2) * G * E.column(2) - b^2).simplify_full() == 0))
 ```
@@ -1371,10 +1373,10 @@ print("[PASS] e_3 . e_3 = b^2 is constant:", bool((E.column(2) * G * E.column(2)
 *Output:*
 
 ```text
-[PASS] the right-invariant fields xi_a are Killing for every a, b: True
+[PASS] the right-invariant fields K_a are Killing for every a, b: True
 [PASS] e_3 = d_ps is Killing, e_1 is not for a != b: True
-xi_1 . xi_1 = -a^2*sin(ph)^2*sin(th)^2 + b^2*sin(ph)^2*sin(th)^2 + a^2
-[PASS] <xi_a . xi_b> = ((2 a^2 + b^2)/3) delta_ab: True
+K_1 . K_1 = -a^2*sin(ph)^2*sin(th)^2 + b^2*sin(ph)^2*sin(th)^2 + a^2
+[PASS] <K_a . K_b> = ((2 a^2 + b^2)/3) delta_ab: True
 [PASS] for a = b the inner products are constant, a^2 delta_ab: True
 [PASS] e_3 . e_3 = b^2 is constant: True
 ```
@@ -1407,7 +1409,7 @@ isotropy group: what is the stabiliser of a point, and how does it compare with 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-On a homogeneous space $G/H$ the dimension of the isometry group is $\dim(G/H) + \dim H$: translations plus
+On a homogeneous space $S/R$ the dimension of the isometry group is $\dim(S/R) + \dim R$: translations plus
 rotations about a point. For $\mathbb{CP}^2 = SU(3)/U(2)$ this is $4 + 4 = 8$. A maximally symmetric space has the full
 rotation group $SO(4)$, of dimension $6$, as isotropy; $U(2) \subset SO(4)$ has dimension $4$, the rotations that commute
 with the complex structure. The two missing rotations would not preserve the complex structure, and the curvature of
@@ -1431,7 +1433,7 @@ constant.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\hat R = -\tfrac{2}{r^2} - \tfrac12c^2r^2(1 - \sin^2\theta\cos^2\varphi)$: $R_\gamma = 2/r^2$, $K_1\cdot K_1 = r^2(1 - n_1^2)$ and $F^1F^1 = -
-2c^2$. Its average is $-\tfrac{2}{r^2} - \tfrac13c^2r^2$, so $\gamma_{ab} = \tfrac23r^2\delta_{ab}$, and with $V_2 = 4\pi r^2$ the reduced action gives
+2c^2$. Its average is $-\tfrac{2}{r^2} - \tfrac13c^2r^2$, so $\mathcal G_{ab} = \tfrac23r^2\delta_{ab}$, and with $\operatorname{Vol}(S^2) = 4\pi r^2$ the reduced action gives
 $g = \sqrt3\,\kappa/r$ and $\Lambda = -1/r^2$ (@exr-nonabelian-coupling, @exr-nak-cosmological-term):
 
 ```python
@@ -1469,15 +1471,15 @@ bosons and their coupling all change, and the general sphere formula emerges.
 ::: {#exr-nak-reduced-s3}
 #### Reduction on the round three-sphere
 
-For $S^3$ of radius $r$ give $V_3$, $R_\gamma$, the number of gauge bosons, the coupling matrix $\gamma_{ab}$ for the rotation
+For $S^3$ of radius $r$ give $\operatorname{Vol}(S^3)$, $R_\gamma$, the number of gauge bosons, the coupling matrix $\mathcal G_{ab}$ for the rotation
 fields $K_{ij}$ (@exr-nak-inner-sn) and the gauge coupling in terms of $\kappa$ and $r$. Generalise to $S^n$ and compare
 with $S^1$ and $S^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$V_3 = 2\pi^2r^3$, $R_\gamma = 6/r^2$, and $6$ gauge bosons of $SO(4)$. The averages $\langle K_{ij}\cdot K_{kl}\rangle$ vanish unless
-$\{i, j\} = \{k, l\}$, by the symmetry $x_i \to -x_i$, and equal $\tfrac12r^2$ otherwise, so $\gamma_{ab} = \tfrac12r^2\delta_{ab}$. With
-$1/g^2 = V_3\gamma/(2\hat\kappa^2)$ and $\kappa^2 = \hat\kappa^2/V_3$, $g^2 = 2\kappa^2/\gamma = 4\kappa^2/r^2$. On $S^n$, $\gamma = \tfrac{2}{n + 1}r^2$
+$\operatorname{Vol}(S^3) = 2\pi^2r^3$, $R_\gamma = 6/r^2$, and $6$ gauge bosons of $SO(4)$. The averages $\langle K_{ij}\cdot K_{kl}\rangle$ vanish unless
+$\{i, j\} = \{k, l\}$, by the symmetry $x_i \to -x_i$, and equal $\tfrac12r^2$ otherwise, so $\mathcal G_{ab} = \mathcal G\,\delta_{ab}$ with $\mathcal G = \tfrac12r^2$. With
+$1/g^2 = \operatorname{Vol}(S^3)\,\mathcal G/(2\hat\kappa^2)$ and $\kappa^2 = \hat\kappa^2/\operatorname{Vol}(S^3)$, $g^2 = 2\kappa^2/\mathcal G = 4\kappa^2/r^2$. On $S^n$, $\mathcal G = \tfrac{2}{n + 1}r^2$
 and $g^2 = (n + 1)\kappa^2/r^2$: $2\kappa^2/r^2$ for the circle (@def-planck-radius-relation), $3\kappa^2/r^2$ for $S^2$
 (@exr-nonabelian-coupling), $4\kappa^2/r^2$ for $S^3$. The consistency problem is the same: $|K_{ij}|^2 = r^2(x_i^2 + x_j^2)$
 varies over $S^3$.
@@ -1498,7 +1500,7 @@ truncation of pure gravity, using the Killing inner products. What does coset sp
 The criterion is whether the Killing inner products of the kept gauge fields are constant on the internal space (and,
 for the vacuum, whether the internal space is flat or supported by matter). Circle and torus: constant, consistent.
 $S^2$: $\delta_{ab} - n_an_b$ varies, inconsistent (@prp-consistency-text). $S^3$ with six fields: the mixed products
-$e_a\cdot\xi_b$ vary (@exr-nak-s3-ansatz), inconsistent; with only the left-invariant $e_a$: constant, consistent, the
+$e_a\cdot K_b$ vary (@exr-nak-s3-ansatz), inconsistent; with only the left-invariant $e_a$: constant, consistent, the
 group-manifold reduction of Part VI. Berger sphere with $e_3$: $e_3\cdot e_3 = b^2$ constant, consistent for that $U(1)$
 (@exr-nak-berger-killing). In all curved cases $R_\gamma \neq 0$ and the internal space needs matter for a vacuum.
 Coset space dimensional reduction (@sec-csdr-constraints) keeps the full isometry group as a symmetry but replaces

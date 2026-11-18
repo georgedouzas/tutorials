@@ -640,7 +640,7 @@ decay is at infinity. The second example compares the two ends of $(0, \infty)$.
 On $(0, 1)$, $x^{-\alpha}$ lies in $L^p$ exactly when $\alpha p < 1$; on $(1, \infty)$ exactly when $\alpha p > 1$.
 So $x^{-1/4}$ lies in $L^p(0, 1)$ for $p < 4$ (right panel of the figure), and $1/x$ is in $L^2(1, \infty)$ but not
 in $L^1(1, \infty)$. On $(0, \infty)$ no power lies in any $L^p$, and neither of $L^1(\mathbb{R})$, $L^2(\mathbb{R})$
-contains the other: $x^{-1/2}\mathbf{1}_{(0, 1)}$ is in $L^1$ only, and $(1 + |x|)^{-1}$ in $L^2$ only.
+contains the other: $x^{-1/2}\mathbb 1_{(0, 1)}$ is in $L^1$ only, and $(1 + |x|)^{-1}$ in $L^2$ only.
 :::
 
 The Gaussian lies in every $L^p(\mathbb{R})$, and its norms can be computed in closed form. The third example does
@@ -835,14 +835,14 @@ attains the bound. The third exercise constructs it and checks it numerically.
 ::: {#exr-fan-holder-equality}
 #### The extremal function
 
-For $f \in L^p$, $1 < p < \infty$, $f \neq 0$, set $g = \overline{\operatorname{sgn}f}\,|f|^{p - 1}/\|f\|_p^{p - 1}$,
+For $f \in L^p$, $1 < p < \infty$, $f \neq 0$, set $g = (\operatorname{sgn}f)^*\,|f|^{p - 1}/\|f\|_p^{p - 1}$,
 where $\operatorname{sgn}f = f/|f|$ (and $0$ where $f = 0$). Show $\|g\|_q = 1$ and $\int fg = \|f\|_p$. Work it out
 for $f = (1, -2, 3)$ and $p = 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $|g|^q = |f|^{(p - 1)q}/\|f\|_p^{(p - 1)q} = |f|^p/\|f\|_p^p$, which integrates to $1$, and $fg = |f|^p/\|f\|_p^{p -
-1}$ integrates to $\|f\|_p^p/\|f\|_p^{p - 1} = \|f\|_p$. For $f = (1, -2, 3)$, $p = 3$: $\|f\|_3 = 36^{1/3}$ and $\overline{\operatorname{sgn}f}\,|f|^2 = (1, -4, 9)$, so $g =
+1}$ integrates to $\|f\|_p^p/\|f\|_p^{p - 1} = \|f\|_p$. For $f = (1, -2, 3)$, $p = 3$: $\|f\|_3 = 36^{1/3}$ and $(\operatorname{sgn}f)^*\,|f|^2 = (1, -4, 9)$, so $g =
 (1, -4, 9)/36^{2/3}$ and $\sum f_kg_k = (1 + 8 + 27)/36^{2/3} = 36^{1/3}$, while
 $\|g\|_{3/2}^{3/2} = (1 + 8 + 27)/36 = 1$.
 :::
@@ -1030,7 +1030,7 @@ under conjugation. The first example applies the theorem to them.
 #### Trigonometric polynomials
 
 On $S^1$ the trigonometric polynomials $\sum_{|n| \leq N}c_ne^{inx}$ form an algebra ($e^{inx}e^{imx} = e^{i(n +
-m)x}$), closed under conjugation ($\overline{e^{inx}} = e^{-inx}$), containing $1$, and separating points ($e^{ix}$
+m)x}$), closed under conjugation ($(e^{inx})^* = e^{-inx}$), containing $1$, and separating points ($e^{ix}$
 is injective on the circle). By Stone-Weierstrass they are dense in $C(S^1)$. This is the uniform version of the
 completeness of the Fourier basis (@exm-onb-fourier-parseval).
 :::
@@ -1056,7 +1056,7 @@ closed proper subalgebra.
 On $[-1, 1]$ the even polynomials form an algebra with $1$, closed under conjugation, but they do not separate $x$ and
 $-x$; their closure is the even continuous functions, so $x$ is not approximated. On the closed unit disc, the
 polynomials in $z$ separate points but are not closed under conjugation; their uniform limits are holomorphic inside,
-so $\bar z$ is not approximated: $\|\bar z - p(z)\|_\infty \geq 1$ for every polynomial $p$ @arcozzi2025 [Sec. 1.4].
+so $z^*$ is not approximated: $\|z^* - p(z)\|_\infty \geq 1$ for every polynomial $p$ @arcozzi2025 [Sec. 1.4].
 :::
 ::::
 
@@ -1076,7 +1076,7 @@ x(1 - x)/(n\delta^2)$ and conclude that $B_nf \to f$ uniformly.
 $B_nf(x) = \mathbb{E}f(S_n/n)$ with $S_n$ binomial$(n, x)$; the three identities are $\mathbb{E}1 = 1$,
 $\mathbb{E}S_n/n = x$, $\mathbb{E}(S_n/n)^2 = x^2 + x(1 - x)/n$. Split $|B_nf - f| \leq \mathbb{E}|f(S_n/n) - f(x)|$
 into $|S_n/n - x| \leq \delta$, contributing at most $\omega(\delta)$, and the rest, contributing at most
-$2\|f\|_\infty P(|S_n/n - x| > \delta) \leq 2\|f\|_\infty x(1 - x)/(n\delta^2)$ by Chebyshev. Choose $\delta$ with
+$2\|f\|_\infty \mathbb P(|S_n/n - x| > \delta) \leq 2\|f\|_\infty x(1 - x)/(n\delta^2)$ by Chebyshev. Choose $\delta$ with
 $\omega(\delta) < \varepsilon$, then $n$ large; $x(1 - x) \leq \tfrac14$ makes the bound uniform.
 :::
 
@@ -1106,12 +1106,12 @@ this uniqueness, which is the starting point of the moment problem in probabilit
 #### Functions determined by their moments
 
 Let $f \in C[0, 1]$ with $\int_0^1f(x)x^ndx = 0$ for all $n \geq 0$. Show that $\int_0^1|f|^2 = 0$, hence $f = 0$, by
-approximating $\bar f$ uniformly by polynomials.
+approximating $f^*$ uniformly by polynomials.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By hypothesis $\int fp = 0$ for every polynomial $p$. Choose $p_n \to \bar f$ uniformly. Then $|\int f\bar f - \int
-fp_n| \leq \|f\|_\infty\|\bar f - p_n\|_\infty \to 0$, so $\int|f|^2 = 0$ and the continuous function $|f|^2$
+By hypothesis $\int fp = 0$ for every polynomial $p$. Choose $p_n \to f^*$ uniformly. Then $|\int ff^* - \int
+fp_n| \leq \|f\|_\infty\|f^* - p_n\|_\infty \to 0$, so $\int|f|^2 = 0$ and the continuous function $|f|^2$
 vanishes identically.
 :::
 ::::
@@ -1151,7 +1151,7 @@ form, unlike the Euclidean case. The first example derives the two formulas draw
 For a matrix $A$ on $(\mathbb{C}^n, \|\cdot\|_1)$, $\|Ax\|_1 \leq \sum_j|x_j|\sum_i|A_{ij}| \leq (\max_j\sum_i|A_{ij}|)
 \|x\|_1$, with equality at the basis vector of the largest column: $\|A\|_{1 \to 1}$ is the largest column sum. On
 $(\mathbb{C}^n, \|\cdot\|_\infty)$ the same argument gives the largest row sum, attained at $x_j =
-\overline{\operatorname{sgn}A_{ij}}$ for the largest row $i$. For the matrix of the figure both are $3$.
+(\operatorname{sgn}A_{ij})^*$ for the largest row $i$. For the matrix of the figure both are $3$.
 :::
 
 Multiplication by a fixed function is the simplest operator on a function space, and its norm is the size of the
@@ -1161,7 +1161,7 @@ multiplier. The second example computes it on $L^p$ @arcozzi2025 [Exercise 3.11]
 #### Multiplication operators on $L^p$
 
 For $g \in L^\infty$, $M_gf = gf$ satisfies $\|gf\|_p \leq \|g\|_\infty\|f\|_p$, and the bound is sharp: if $|g| > \lambda$
-on a set $E$ of positive finite measure, $f = \mathbf{1}_E$ gives $\|gf\|_p \geq \lambda\|f\|_p$. So $\|M_g\| =
+on a set $E$ of positive finite measure, $f = \mathbb 1_E$ gives $\|gf\|_p \geq \lambda\|f\|_p$. So $\|M_g\| =
 \|g\|_\infty$ on every $L^p$, $1 \leq p \leq \infty$, as for the Hilbert case $p = 2$ in @exm-bo-multiplication.
 :::
 
@@ -1173,7 +1173,7 @@ kernel's modulus. The third example computes it for the Volterra operator, which
 
 $(Vf)(x) = \int_0^xf(t)\,dt$ satisfies $|Vf(x)| \leq x\|f\|_\infty$, so $\|V\| \leq 1$, with equality at $f = 1$,
 $Vf(x) = x$. More generally $(Kf)(x) = \int_0^1k(x, t)f(t)\,dt$ with continuous $k$ has $\|K\|_{C \to C} = \max_x
-\int_0^1|k(x, t)|\,dt$; for $V$, $k(x, t) = \mathbf{1}_{t \leq x}$ is not continuous, but the formula still gives
+\int_0^1|k(x, t)|\,dt$; for $V$, $k(x, t) = \mathbb 1_{t \leq x}$ is not continuous, but the formula still gives
 $\max_xx = 1$.
 :::
 ::::
@@ -1221,12 +1221,12 @@ exactly. The third exercise does so for the matrix of the figure and compares th
 #### Three norms of one matrix
 
 For $A = \begin{pmatrix} 1 & 2 \\ 0 & 1\end{pmatrix}$, show that $\|A\|_{2 \to 2} = 1 + \sqrt2$ from the eigenvalues of
-$A^{\mathsf T}A$, compute the other two norms of the figure and $\|A^{-1}\|_{2 \to 2}$. Show that
+$A^\top A$, compute the other two norms of the figure and $\|A^{-1}\|_{2 \to 2}$. Show that
 $\|A\|_{2 \to 2}^2 \leq \|A\|_{1 \to 1}\|A\|_{\infty \to \infty}$ here.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$A^{\mathsf T}A = \begin{pmatrix} 1 & 2 \\ 2 & 5\end{pmatrix}$ has eigenvalues $3 \pm 2\sqrt2 = (1 \pm \sqrt2)^2$, so
+$A^\top A = \begin{pmatrix} 1 & 2 \\ 2 & 5\end{pmatrix}$ has eigenvalues $3 \pm 2\sqrt2 = (1 \pm \sqrt2)^2$, so
 $\|A\|_{2 \to 2} = 1 + \sqrt2 \approx 2.414$ and, $A^{-1}$ having the same singular values inverted and swapped,
 $\|A^{-1}\|_{2 \to 2} = 1/(\sqrt2 - 1) = 1 + \sqrt2$. The largest column and row sums of $A$ are $1 + 0 = 1$, $2 + 1 = 3$ and $1 + 2 = 3$, $0 + 1 = 1$, so the other two
 norms are $3$. Then $(1 + \sqrt2)^2 = 3 + 2\sqrt2 \approx 5.83 \leq 9$.
@@ -1274,7 +1274,7 @@ $\|\varphi\| = 1 = \|y\|_{3/2}$. Generated by `figures/fa2-dual-norms.sage`.](fi
 The **dual space** of a normed space $X$ over $\mathbb{K} = \mathbb{R}$ or $\mathbb{C}$ is $X^* =
 \mathcal{B}(X, \mathbb{K})$, the space of continuous linear functionals (@def-linear-functional) with the norm
 $\|\varphi\| = \sup_{\|x\| \leq 1}|\varphi(x)|$. It is a Banach space even when $X$ is not. The dual of $X^*$ is the
-**bidual** $X^{**}$, and each $x \in X$ defines $\hat x \in X^{**}$ by $\hat x(\varphi) = \varphi(x)$. In finite
+**bidual** $X^{**}$, and each $x \in X$ defines $Jx \in X^{**}$ by $(Jx)(\varphi) = \varphi(x)$. In finite
 dimensions $X^*$ is the algebraic dual of @def-dual-space; in infinite dimensions it is a proper subspace of it.
 :::
 ::::
@@ -1422,7 +1422,7 @@ computes this by applying the theorem twice.
 ::: {#exm-fan-bidual-c0}
 #### The bidual of $c_0$
 
-$c_0^* = \ell^1$ and $(\ell^1)^* = \ell^\infty$, so $c_0^{**} = \ell^\infty$, and the canonical map $a \mapsto \hat a$
+$c_0^* = \ell^1$ and $(\ell^1)^* = \ell^\infty$, so $c_0^{**} = \ell^\infty$, and the canonical map $J : a \mapsto Ja$
 of @def-continuous-dual is the inclusion $c_0 \subset \ell^\infty$. The constant sequence $(1, 1, \dots)$ is an element
 of the bidual that does not come from $c_0$. For $1 < p < \infty$, by contrast, $(\ell^p)^{**} = (\ell^q)^* = \ell^p$,
 and these spaces are the model of the reflexive spaces of @sec-weak-topologies.
@@ -1454,7 +1454,7 @@ $y \in \ell^q$, $\varphi(a) = \sum y_na_n$ and $\|\varphi\| = \|y\|_q$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $a_n = \overline{\operatorname{sgn}y_n}|y_n|^{q - 1}$ for $n \leq N$ and $0$ beyond. Then $\varphi(a) = \sum_{n \leq
+Let $a_n = (\operatorname{sgn}y_n)^*|y_n|^{q - 1}$ for $n \leq N$ and $0$ beyond. Then $\varphi(a) = \sum_{n \leq
 N}|y_n|^q$ and $\|a\|_p = (\sum_{n \leq N}|y_n|^{(q - 1)p})^{1/p} = (\sum_{n \leq N}|y_n|^q)^{1/p}$, since $(q - 1)p
 = q$. From $\varphi(a) \leq \|\varphi\|\,\|a\|_p$ we get $(\sum_{n \leq N}|y_n|^q)^{1 - 1/p} \leq \|\varphi\|$, that
 is, the claim. Letting $N \to \infty$, $\|y\|_q \leq \|\varphi\|$; density of $c_{00}$ in $\ell^p$ gives $\varphi(a) =
@@ -1608,7 +1608,7 @@ for $t \geq 0$), $Y \subset X$ a subspace and $\ell : Y \to \mathbb{R}$ linear w
 has a linear extension $L$ to $X$ with $L \leq p$ on $X$; over $\mathbb{C}$ the same holds with $|\ell| \leq p$
 @arcozzi2025 [Thms. 3.4 and 3.5]. Consequences for a normed space $X$: every $\lambda \in Y^*$ extends to some $L \in
 X^*$ with $\|L\| = \|\lambda\|$; for every $x \in X$ there is $\varphi \in X^*$ with $\|\varphi\| = 1$ and $\varphi(x)
-= \|x\|$; the canonical map $x \mapsto \hat x$ of $X$ into $X^{**}$ is an isometry; and for a subspace $Z$ and $y$ at
+= \|x\|$; the canonical map $J : x \mapsto Jx$ of $X$ into $X^{**}$ is an isometry; and for a subspace $Z$ and $y$ at
 distance $d(y, Z) > 0$ there is $\varphi \in X^*$ with $\|\varphi\| = 1$, $\varphi|_Z = 0$ and $\varphi(y) = d(y, Z)$
 @arcozzi2025 [Cors. 3.1-3.3, Thm. 3.7]. In geometric form, two disjoint convex sets, one of them open, are separated
 by a closed real hyperplane @ramesh2020weak [Thm. 2.15].
@@ -1622,7 +1622,7 @@ writes it down @arcozzi2025 [Exercise 3.1].
 ::: {#exm-fan-hb-hilbert}
 #### Extension in a Hilbert space
 
-Let $M$ be a closed subspace of a Hilbert space $H$ and $\lambda \in M^*$. By the Riesz representation theorem
+Let $M$ be a closed subspace of a Hilbert space $\mathcal H$ and $\lambda \in M^*$. By the Riesz representation theorem
 (@thm-riesz-representation) on $M$, $\lambda(m) = \langle y, m\rangle$ for some $y \in M$ with $\|y\| = \|\lambda\|$.
 Then $L(x) = \langle y, x\rangle$ extends $\lambda$ with $\|L\| = \|y\|$. It is the only norm-preserving extension:
 any other is $\langle y + z, x\rangle$ with $z \perp M$, of norm $(\|y\|^2 + \|z\|^2)^{1/2}$.
@@ -1647,9 +1647,9 @@ each case the functional touches the unit ball at $x/\|x\|$.
 #### Norming functionals
 
 In $\ell^p$, $1 < p < \infty$, the norming functional of $x$ is the extremal vector of @exr-fan-holder-equality. In
-$C[0, 1]$, if $|f|$ attains its maximum at $x_0$, then $\varphi = \overline{\operatorname{sgn}f(x_0)}\,\delta_{x_0}$
+$C[0, 1]$, if $|f|$ attains its maximum at $x_0$, then $\varphi = (\operatorname{sgn}f(x_0))^*\,\delta_{x_0}$
 has $\|\varphi\| = 1$ and $\varphi(f) = \|f\|_\infty$; for $f(x) = x - x^2$ this is $\delta_{1/2}$. In $\ell^1$ the
-functional $y = (\overline{\operatorname{sgn}x_n}) \in \ell^\infty$ norms $x$, and it is not unique when some $x_n =
+functional $y = ((\operatorname{sgn}x_n)^*) \in \ell^\infty$ norms $x$, and it is not unique when some $x_n =
 0$.
 :::
 ::::
@@ -1661,7 +1661,7 @@ proves it directly @arcozzi2025 [Exercise 3.6]. The argument uses only the paral
 ::: {#exr-fan-hb-hilbert-proof}
 #### Uniqueness in Hilbert spaces
 
-Let $L, L'$ be two extensions of $\lambda \in M^*$ to $H$ with $\|L\| = \|L'\| = \|\lambda\|$. Represent them by
+Let $L, L'$ be two extensions of $\lambda \in M^*$ to $\mathcal H$ with $\|L\| = \|L'\| = \|\lambda\|$. Represent them by
 vectors $y, y'$ and use the parallelogram law on $\tfrac12(y + y')$ to show $y = y'$.
 :::
 
@@ -1729,13 +1729,13 @@ fourth exercise asks for the proof @arcozzi2025 [Thm. 3.7].
 ::: {#exr-fan-hb-bidual}
 #### The canonical embedding is isometric
 
-Show $\|\hat x\|_{X^{**}} \leq \|x\|$ from $|\varphi(x)| \leq \|\varphi\|\,\|x\|$, and the reverse inequality from the
-norming functional of $x$. Deduce that the closure of $\{\hat x\}$ in $X^{**}$ is a completion of $X$.
+Show $\|Jx\|_{X^{**}} \leq \|x\|$ from $|\varphi(x)| \leq \|\varphi\|\,\|x\|$, and the reverse inequality from the
+norming functional of $x$. Deduce that the closure of $\{Jx\}$ in $X^{**}$ is a completion of $X$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$|\hat x(\varphi)| = |\varphi(x)| \leq \|\varphi\|\,\|x\|$ gives $\|\hat x\| \leq \|x\|$; the norming functional
-$\varphi$ has $\|\varphi\| = 1$ and $\hat x(\varphi) = \|x\|$, giving equality. $X^{**}$ is a Banach space
+$|(Jx)(\varphi)| = |\varphi(x)| \leq \|\varphi\|\,\|x\|$ gives $\|Jx\| \leq \|x\|$; the norming functional
+$\varphi$ has $\|\varphi\| = 1$ and $(Jx)(\varphi) = \|x\|$, giving equality. $X^{**}$ is a Banach space
 (@def-continuous-dual), so the closure of the isometric image of $X$ is complete and contains $X$ densely, which is the
 completion of @def-banach-space.
 :::
@@ -2034,11 +2034,11 @@ Generated by `figures/fa2-lebesgue-constants.sage`.](figures/fa2-lebesgue-consta
 ::: {#thm-uniform-boundedness}
 #### Uniform boundedness principle
 
-Let $X$ be a Banach space, $Y$ a normed space and $\mathcal{F} \subset \mathcal{B}(X, Y)$ a family with $\sup_{T \in
-\mathcal{F}}\|Tx\| < \infty$ for every $x \in X$. Then $\sup_{T \in \mathcal{F}}\|T\| < \infty$ (**Banach-Steinhaus**)
+Let $X$ be a Banach space, $Y$ a normed space and $\mathcal{T} \subset \mathcal{B}(X, Y)$ a family with $\sup_{T \in
+\mathcal{T}}\|Tx\| < \infty$ for every $x \in X$. Then $\sup_{T \in \mathcal{T}}\|T\| < \infty$ (**Banach-Steinhaus**)
 @arcozzi2025 [Thm. 3.13]. Consequently, if $T_n \in \mathcal{B}(X, Y)$ and $Tx = \lim T_nx$ exists for every $x$, then
 $T$ is bounded with $\|T\| \leq \liminf\|T_n\|$ @arcozzi2025 [Cor. 3.4]; @ramesh2020weak [Thm. 2.16]. Equivalently, if
-$\sup_{T \in \mathcal{F}}\|T\| = \infty$, the points $x$ with $\sup_T\|Tx\| = \infty$ form a comeagre set.
+$\sup_{T \in \mathcal{T}}\|T\| = \infty$, the points $x$ with $\sup_T\|Tx\| = \infty$ form a comeagre set.
 :::
 ::::
 
@@ -2062,8 +2062,8 @@ second example shows the limit of the truncations and the limit of the shifts.
 #### Pointwise limits
 
 The truncations $P_N a = (a_1, \dots, a_N, 0, \dots)$ on $\ell^p$, $p < \infty$, have $\|P_N\| = 1$ and $P_Na \to a$, so
-the limit $1$ is bounded with norm $\leq 1$. The powers of the backward shift satisfy $(S^*)^na \to 0$ for every $a \in
-\ell^2$, although $\|(S^*)^n\| = 1$: the bound $\|T\| \leq\liminf\|T_n\|$ can be strict, and pointwise convergence does
+the limit $1$ is bounded with norm $\leq 1$. The powers of the backward shift satisfy $(S^\dagger)^na \to 0$ for every $a \in
+\ell^2$, although $\|(S^\dagger)^n\| = 1$: the bound $\|T\| \leq\liminf\|T_n\|$ can be strict, and pointwise convergence does
 not imply norm convergence.
 :::
 
@@ -2087,7 +2087,7 @@ asks for it @arcozzi2025 [Thm. 3.13].
 #### Proof of the principle
 
 Let $A_m = \{x : \sup_T\|Tx\| \leq m\}$. Show that the $A_m$ are closed and cover $X$, that some $A_m$ contains a ball
-$\bar B(z, r)$, and that then $\|T\| \leq 2m/r$ for all $T \in \mathcal{F}$.
+$\bar B(z, r)$, and that then $\|T\| \leq 2m/r$ for all $T \in \mathcal{T}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2149,13 +2149,13 @@ into functionals on $X^*$.
 #### Weakly bounded sets are bounded
 
 Let $A \subset X$ with $\sup_{a \in A}|\varphi(a)| < \infty$ for every $\varphi \in X^*$. Apply the principle to the
-family $\{\hat a : a \in A\} \subset \mathcal{B}(X^*, \mathbb{K})$, using that $X^*$ is complete, and conclude that
+family $\{Ja : a \in A\} \subset \mathcal{B}(X^*, \mathbb{K})$, using that $X^*$ is complete, and conclude that
 $\sup_{a \in A}\|a\| < \infty$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$X^*$ is a Banach space (@def-continuous-dual), and $\hat a(\varphi) = \varphi(a)$ is bounded in $a$ for each fixed
-$\varphi$ by hypothesis. The principle gives $\sup_a\|\hat a\| < \infty$, and $\|\hat a\| = \|a\|$ by
+$X^*$ is a Banach space (@def-continuous-dual), and $(Ja)(\varphi) = \varphi(a)$ is bounded in $a$ for each fixed
+$\varphi$ by hypothesis. The principle gives $\sup_a\|Ja\| < \infty$, and $\|Ja\| = \|a\|$ by
 @thm-hahn-banach.
 :::
 ::::
@@ -2212,7 +2212,7 @@ third example describes it; it is the model of the evolution equations that the 
 ::: {#exm-fan-time-derivative}
 #### The weighted time derivative
 
-For $\rho > 0$ let $H_{\rho} = \{f : e^{-\rho t}f \in L^2(\mathbb{R})\}$ with $\|f\|_\rho^2 = \int|f|^2e^{-2\rho t}dt$
+For $\rho > 0$ let $\mathcal H_{\rho} = \{f : e^{-\rho t}f \in L^2(\mathbb{R})\}$ with $\|f\|_\rho^2 = \int|f|^2e^{-2\rho t}dt$
 @picard2020primer [Def. 1.1.1]. The closure $\partial_{0, \rho}$ of $d/dt$ on compactly supported $C^1$ functions is a closed
 operator that is invertible, with $(\partial_{0, \rho}^{-1}f)(t) = \int_{-\infty}^tf(s)\,ds$ and $\|\partial_{0, \rho}^{-1}
 \| \leq 1/\rho$ @picard2020primer [Thm. 1.1.4]. On $L^2(\mathbb{R})$ ($\rho = 0$) the derivative is not invertible.
@@ -2259,15 +2259,15 @@ from an integration by parts. The third exercise proves it and computes an examp
 ::: {#exr-fan-time-derivative-bound}
 #### The bound $\|\partial_{0, \rho}^{-1}\| \leq 1/\rho$
 
-For compactly supported $C^1$ functions $u$, show $\operatorname{Re}\int\bar uu'\,e^{-2\rho t}dt = \rho\|u\|_\rho^2$ by
-integrating by parts, and deduce $\rho\|u\|_\rho \leq \|u'\|_\rho$. For $\rho = 1$ and $f = \mathbf{1}_{[0, a]}$,
+For compactly supported $C^1$ functions $u$, show $\operatorname{Re}\int u^*u'\,e^{-2\rho t}dt = \rho\|u\|_\rho^2$ by
+integrating by parts, and deduce $\rho\|u\|_\rho \leq \|u'\|_\rho$. For $\rho = 1$ and $f = \mathbb 1_{[0, a]}$,
 compute $u(t) = \int_{-\infty}^tf$ and the limit of $\|u\|_\rho/\|f\|_\rho$ as $a \to \infty$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\tfrac{d}{dt}|u|^2 = 2\operatorname{Re}\bar uu'$, so $2\operatorname{Re}\int\bar uu'e^{-2\rho t} = -\int|u|^2
+$\tfrac{d}{dt}|u|^2 = 2\operatorname{Re}u^*u'$, so $2\operatorname{Re}\int u^*u'e^{-2\rho t} = -\int|u|^2
 \tfrac{d}{dt}e^{-2\rho t} = 2\rho\|u\|_\rho^2$, and Cauchy-Schwarz gives $\rho\|u\|_\rho^2 \leq \|u\|_\rho\|u'\|_\rho$.
-For $f = \mathbf{1}_{[0, a]}$ and $\rho = 1$: $\|f\|_1^2 = \int_0^ae^{-2t}dt = \tfrac12(1 - e^{-2a})$, and $u = t$ on
+For $f = \mathbb 1_{[0, a]}$ and $\rho = 1$: $\|f\|_1^2 = \int_0^ae^{-2t}dt = \tfrac12(1 - e^{-2a})$, and $u = t$ on
 $[0, a]$, $u = a$ after, so $\|u\|_1^2 = \int_0^at^2e^{-2t}dt + \tfrac{a^2}2e^{-2a} = \tfrac14 - e^{-2a}(\tfrac a2 +
 \tfrac14)$. The ratio tends to $(\tfrac14/\tfrac12)^{1/2} = 1/\sqrt2 < 1$, within the bound.
 :::
@@ -2319,7 +2319,7 @@ closed graph theorem.
 ::: {#exm-fan-hellinger-toeplitz}
 #### The Hellinger-Toeplitz theorem
 
-Let $A : H \to H$ be linear with $\langle Ax, y\rangle = \langle x, Ay\rangle$ for all $x, y$. If $x_n \to x$ and
+Let $A : \mathcal H \to \mathcal H$ be linear with $\langle Ax, y\rangle = \langle x, Ay\rangle$ for all $x, y$. If $x_n \to x$ and
 $Ax_n \to z$, then $\langle z, y\rangle = \lim\langle x_n, Ay\rangle = \langle x, Ay\rangle = \langle Ax, y\rangle$, so
 $z = Ax$: $A$ is closed and, by the theorem, bounded. Since $x$ (@exm-ub-multiplication-domain) is unbounded, it cannot be defined on
 all of $L^2(\mathbb{R})$.
@@ -2457,7 +2457,7 @@ case it converges to zero in a weaker sense. The figure shows the three mechanis
 
 ![Three ways to converge weakly but not in norm. Left: $\sin(nx)$ on $[0, 2\pi]$ for $n = 2, 8$, with $\int_0^{2\pi}x
 \sin(nx)\,dx = -2\pi/n \to 0$ while $\|\sin nx\|_2 = \sqrt\pi$. Centre: the travelling bump $e^{-(x - n)^2}$ for $n = 0, 3,
-6$, tending to $0$ weakly in $L^2(\mathbb{R})$. Right: the concentrating bumps $n\mathbf{1}_{[0, 1/n]}$ for $n = 2, 4, 8$,
+6$, tending to $0$ weakly in $L^2(\mathbb{R})$. Right: the concentrating bumps $n\mathbb 1_{[0, 1/n]}$ for $n = 2, 4, 8$,
 which have integral $1$ and converge weak-* to $\delta_0$ as functionals on $C[0, 1]$. Generated by
 `figures/fa2-weak-convergence.sage`.](figures/fa2-weak-convergence.svg){#fig-fa2-weak-convergence width=95%}
 
@@ -2482,7 +2482,7 @@ first example records it @arcozzi2025 [eq. 3.4.2].
 ::: {#exm-fan-orthonormal-weak}
 #### Orthonormal sequences
 
-If $(e_n)$ is orthonormal in a Hilbert space and $y \in H$, Bessel's inequality (@def-orthonormal-system) gives
+If $(e_n)$ is orthonormal in a Hilbert space and $y \in \mathcal H$, Bessel's inequality (@def-orthonormal-system) gives
 $\sum_n|\langle y, e_n\rangle|^2 \leq \|y\|^2$, so $\langle y, e_n\rangle \to 0$: $e_n \rightharpoonup 0$. Since
 $\|e_n\| = 1$, the inequality $\|0\| \leq \liminf\|e_n\|$ is strict, and no subsequence converges in norm, as $\|e_m -
 e_n\| = \sqrt2$.
@@ -2626,7 +2626,7 @@ functional. The second example proves it.
 ::: {#exm-fan-concentrating-bumps}
 #### Approximate identities
 
-$\varphi_n(f) = n\int_0^{1/n}f(x)\,dx$ has $\|\varphi_n\| = \|n\mathbf{1}_{[0, 1/n]}\|_1 = 1$, and $|\varphi_n(f) - f(0)|
+$\varphi_n(f) = n\int_0^{1/n}f(x)\,dx$ has $\|\varphi_n\| = \|n\mathbb 1_{[0, 1/n]}\|_1 = 1$, and $|\varphi_n(f) - f(0)|
 \leq \max_{[0, 1/n]}|f - f(0)| \to 0$ by continuity: $\varphi_n \xrightarrow{w^*}\delta_0$. The limit is not given by an
 $L^1$ function, so the sequence has no weak limit in $L^1$ itself; this is the origin of the Dirac delta as a limit of
 functions (@def-dirac-delta).
@@ -2859,7 +2859,7 @@ its norm $\|y\|_2 = 1/\sqrt3$ at $a = y/\|y\|_2$, as in every reflexive space. G
 ::: {#def-reflexive-space}
 #### Reflexive space
 
-A Banach space $X$ is **reflexive** if the canonical isometry $x \mapsto \hat x$ of $X$ into $X^{**}$ (@thm-hahn-banach) is
+A Banach space $X$ is **reflexive** if the canonical isometry $J : x \mapsto Jx$ of $X$ into $X^{**}$ (@thm-hahn-banach) is
 onto @arcozzi2025 [Sec. 3.3]; @ramesh2020weak [Sec. 3]. Equivalently: the closed unit ball of $X$ is weakly compact
 @ramesh2020weak [Thm. 5.2]; or every $\varphi \in X^*$ attains its norm on the unit sphere (**James's theorem**)
 @ramesh2020weak [Thm. 5.7]. Closed subspaces of reflexive spaces are reflexive, and $X$ is reflexive if and only if $X^*$ is
@@ -2874,9 +2874,9 @@ first example records both.
 ::: {#exm-fan-hilbert-reflexive}
 #### Hilbert spaces
 
-If $\dim X < \infty$ then $\dim X^{**} = \dim X$ and the injective map $x \mapsto \hat x$ is onto. For a Hilbert space,
-every $\Phi \in H^{**}$ is, by @thm-riesz-representation applied in the Hilbert space $H^*$, of the form $\Phi(\varphi) =
-\langle\varphi_z, \varphi\rangle_{H^*}$ for some $\varphi_z = \langle z, \cdot\rangle$; unwinding the inner product of $H^*$
+If $\dim X < \infty$ then $\dim X^{**} = \dim X$ and the injective map $x \mapsto Jx$ is onto. For a Hilbert space,
+every $\Phi \in \mathcal H^{**}$ is, by @thm-riesz-representation applied in the Hilbert space $\mathcal H^*$, of the form $\Phi(\varphi) =
+\langle\varphi_z, \varphi\rangle_{\mathcal H^*}$ for some $\varphi_z = \langle z, \cdot\rangle$; unwinding the inner product of $\mathcal H^*$
 gives $\Phi(\varphi) = \varphi(z) = \hat z(\varphi)$.
 :::
 
@@ -2887,7 +2887,7 @@ gives the computation and its analogue for $L^p$.
 #### $\ell^p$ and $L^p$ for $1 < p < \infty$
 
 $(\ell^p)^* = \ell^q$ and $(\ell^q)^* = \ell^p$ (@thm-lp-duality), and the composite identification $\ell^p \to (\ell^p)^{**}$
-sends $a$ to the functional $y \mapsto \sum_ny_na_n$, which is $\hat a$. So $\ell^p$ is reflexive, and similarly
+sends $a$ to the functional $y \mapsto \sum_ny_na_n$, which is $Ja$. So $\ell^p$ is reflexive, and similarly
 $L^p(X, \mu)$ for $1 < p < \infty$. Bounded sequences in these spaces have weakly convergent subsequences, as in
 @exr-fan-minimiser.
 :::
@@ -2964,7 +2964,7 @@ $\ell^1$ is not reflexive from the fact that $c_0$ is not, using $c_0^* = \ell^1
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 If $J : X \to X^{**}$ is onto, every $\Psi \in X^{***}$ defines $\psi = \Psi\circ J \in X^*$, and for $\Phi = Jx \in
-X^{**}$, $\hat\psi(\Phi) = \Phi(\psi) = \psi(x) = \Psi(Jx) = \Psi(\Phi)$, so $\Psi = \hat\psi$ and $X^*$ is reflexive.
+X^{**}$, $(J_{X^*}\psi)(\Phi) = \Phi(\psi) = \psi(x) = \Psi(Jx) = \Psi(\Phi)$, so $\Psi = J_{X^*}\psi$, with $J_{X^*}$ the canonical map of $X^*$, and $X^*$ is reflexive.
 Conversely, if $X^*$ is reflexive then so is $X^{**}$, and $X$, a closed subspace of $X^{**}$, is reflexive. If $\ell^1 =
 c_0^*$ were reflexive, $c_0$ would be, contradicting @exm-fan-non-reflexive.
 :::
@@ -3078,8 +3078,8 @@ antilinear in its first slot and linear in its second, which is the convention o
 An **inner product** on a complex vector space $V$ (@def-vector-space) is a map $\langle\cdot, \cdot\rangle : V
 \times V \to \mathbb{C}$ that is **linear in the second slot**, $\langle u, \alpha v + \beta w\rangle =
 \alpha\langle u, v\rangle + \beta\langle u, w\rangle$, **conjugate symmetric**, $\langle v, u\rangle =
-\overline{\langle u, v\rangle}$, and **positive definite**, $\langle u, u\rangle > 0$ for $u \neq 0$. The two
-rules together make it **antilinear in the first slot**, $\langle \alpha u, v\rangle = \bar\alpha\langle u,
+\langle u, v\rangle^*$, and **positive definite**, $\langle u, u\rangle > 0$ for $u \neq 0$. The two
+rules together make it **antilinear in the first slot**, $\langle \alpha u, v\rangle = \alpha^*\langle u,
 v\rangle$. The **norm** is $\|u\| = \sqrt{\langle u, u\rangle}$; it satisfies the **Cauchy-Schwarz inequality**
 $|\langle u, v\rangle| \leq \|u\|\,\|v\|$ and the **triangle inequality** $\|u + v\| \leq \|u\| + \|v\|$. A vector
 space with an inner product is an **inner product space**, and on a real vector space the same definition with
@@ -3095,9 +3095,9 @@ without it the "length" of $(1, i)$ would be zero.
 ::: {#exm-ip-cn}
 #### $\mathbb{C}^n$
 
-$\langle u, v\rangle = \sum_k \bar u_k v_k$ is an inner product on $\mathbb{C}^n$, with $\|u\|^2 = \sum |u_k|^2$.
+$\langle u, v\rangle = \sum_k u_k^* v_k$ is an inner product on $\mathbb{C}^n$, with $\|u\|^2 = \sum |u_k|^2$.
 For $u = (1, i)$ this gives $\|u\|^2 = 1 + 1 = 2$, whereas the unconjugated sum $\sum u_k u_k = 1 + i^2 = 0$ would
-not be a norm; $\langle (1, i), (i, 1)\rangle = \bar 1\cdot i + \bar i\cdot 1 = i - i = 0$, so the two vectors are
+not be a norm; $\langle (1, i), (i, 1)\rangle = 1^*\cdot i + i^*\cdot 1 = i - i = 0$, so the two vectors are
 orthogonal.
 :::
 
@@ -3108,7 +3108,7 @@ orthogonal to each other and to the identity.
 ::: {#exm-ip-matrices}
 #### Matrices with the trace form
 
-$\langle A, B\rangle = \operatorname{tr}(A^\dagger B)$, with $A^\dagger = \bar A^{\mathsf{T}}$ the conjugate
+$\langle A, B\rangle = \operatorname{tr}(A^\dagger B)$, with $A^\dagger = (A^\dagger)^\top$ the conjugate
 transpose, is an inner product on the $n \times n$ complex matrices: $\langle A, A\rangle = \sum_{jk}|A_{jk}|^2$.
 The identity and the three Pauli matrices $\sigma_1 = \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}$, $\sigma_2 =
 \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix}$, $\sigma_3 = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}$ satisfy
@@ -3123,7 +3123,7 @@ first orthogonality relation between exponentials.
 ::: {#exm-ip-functions}
 #### Continuous functions on an interval
 
-On the continuous complex functions on $[0, 2\pi]$, $\langle f, g\rangle = \int_0^{2\pi}\overline{f(x)}g(x)\,dx$
+On the continuous complex functions on $[0, 2\pi]$, $\langle f, g\rangle = \int_0^{2\pi}f(x)^*g(x)\,dx$
 is an inner product (the Riemann integral of @sec-riemann-integral), and positive definiteness holds because a
 continuous $|f|^2$ with zero integral vanishes identically. For $e_n(x) = e^{inx}$ one finds $\langle e_m,
 e_n\rangle = \int_0^{2\pi}e^{i(n - m)x}dx = 2\pi\delta_{mn}$, the orthogonality of modes of @sec-fourier-series.
@@ -3144,8 +3144,8 @@ deduce the triangle inequality.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 If $v = 0$ there is nothing to prove; otherwise set $t = \langle v, u\rangle/\|v\|^2$. Then $0 \leq \|u - tv\|^2 =
-\|u\|^2 - \bar t\langle v, u\rangle - t\langle u, v\rangle + |t|^2\|v\|^2 = \|u\|^2 - |\langle u, v\rangle|^2/
-\|v\|^2$, using $\langle u, v\rangle = \overline{\langle v, u\rangle}$, which is the inequality. For the triangle
+\|u\|^2 - t^*\langle v, u\rangle - t\langle u, v\rangle + |t|^2\|v\|^2 = \|u\|^2 - |\langle u, v\rangle|^2/
+\|v\|^2$, using $\langle u, v\rangle = \langle v, u\rangle^*$, which is the inequality. For the triangle
 inequality, $\|u + v\|^2 = \|u\|^2 + 2\operatorname{Re}\langle u, v\rangle + \|v\|^2 \leq \|u\|^2 + 2\|u\|\|v\| +
 \|v\|^2 = (\|u\| + \|v\|)^2$.
 :::
@@ -3165,7 +3165,7 @@ Show that $\|u + v\|^2 + \|u - v\|^2 = 2\|u\|^2 + 2\|v\|^2$ (parallelogram law),
 Expanding, $\|u \pm v\|^2 = \|u\|^2 \pm 2\operatorname{Re}\langle u, v\rangle + \|v\|^2$, and adding gives the
 parallelogram law. For polarisation, $\|u + i^kv\|^2 = \|u\|^2 + \|v\|^2 + 2\operatorname{Re}(i^k\langle u,
 v\rangle)$; the constant terms cancel in $\sum_k i^{-k}$ since $\sum_k i^{-k} = 0$, and $\sum_k i^{-k}\cdot
-2\operatorname{Re}(i^k z) = \sum_k i^{-k}(i^kz + i^{-k}\bar z) = 4z + \bar z\sum_k i^{-2k} = 4z$ because $\sum_k
+2\operatorname{Re}(i^k z) = \sum_k i^{-k}(i^kz + i^{-k}z^*) = 4z + z^*\sum_k i^{-2k} = 4z$ because $\sum_k
 (-1)^k = 0$. Dividing by $4$ gives $\langle u, v\rangle$.
 :::
 
@@ -3251,7 +3251,7 @@ vector in it by taking inner products.
 #### An orthonormal pair in $\mathbb{C}^2$
 
 $e_1 = (1, i)/\sqrt2$, $e_2 = (1, -i)/\sqrt2$ satisfy $\langle e_1, e_1\rangle = (1 + 1)/2 = 1$ and $\langle e_1,
-e_2\rangle = (1 + \bar i(-i))/2 = (1 - 1)/2 = 0$, an orthonormal system; they are the eigenvectors of
+e_2\rangle = (1 + i^*(-i))/2 = (1 - 1)/2 = 0$, an orthonormal system; they are the eigenvectors of
 $\sigma_2$ (@sec-spectral-theory). A vector $u = (a, b)$ has components $\langle e_1, u\rangle = (a - ib)/\sqrt2$
 and $\langle e_2, u\rangle = (a + ib)/\sqrt2$, and $|\langle e_1, u\rangle|^2 + |\langle e_2, u\rangle|^2 = |a|^2 +
 |b|^2 = \|u\|^2$.
@@ -3264,7 +3264,7 @@ integrals of even powers of $x$ over $[-1, 1]$.
 ::: {#exm-on-legendre}
 #### Gram-Schmidt on $1, x, x^2$
 
-With $\langle f, g\rangle = \int_{-1}^1 \bar f g\,dx$: $w_1 = 1$; $w_2 = x - \langle 1, x\rangle/\langle 1,
+With $\langle f, g\rangle = \int_{-1}^1 f^* g\,dx$: $w_1 = 1$; $w_2 = x - \langle 1, x\rangle/\langle 1,
 1\rangle = x$ since $\int_{-1}^1 x\,dx = 0$; $w_3 = x^2 - \tfrac{\langle 1, x^2\rangle}{\langle 1, 1\rangle} -
 \tfrac{\langle x, x^2\rangle}{\langle x, x\rangle}x = x^2 - \tfrac13$. These are $P_0$, $P_1$ and $\tfrac23P_2$,
 the Legendre polynomials of @sec-sturm-liouville, and normalising gives $e_k = \sqrt{(2k + 1)/2}\,P_k$
@@ -3401,8 +3401,8 @@ the class of spaces in which infinite expansions in orthonormal systems make sen
 ::: {#def-hilbert-space}
 #### Hilbert space
 
-A **Hilbert space** is an inner product space $H$ that is **complete**: every Cauchy sequence, $\|u_m - u_n\| \to
-0$ as $m, n \to \infty$, converges to some $u \in H$ in the norm, $\|u_n - u\| \to 0$. A subspace that is closed in
+A **Hilbert space** is an inner product space $\mathcal H$ that is **complete**: every Cauchy sequence, $\|u_m - u_n\| \to
+0$ as $m, n \to \infty$, converges to some $u \in \mathcal H$ in the norm, $\|u_n - u\| \to 0$. A subspace that is closed in
 the norm is again a Hilbert space. Every inner product space has a **completion**, a Hilbert space containing it as
 a dense subspace, obtained as for $\mathbb{R}$ from $\mathbb{Q}$ by adjoining limits of Cauchy sequences.
 :::
@@ -3429,7 +3429,7 @@ details in @exr-hs-l2-cauchy.
 ::: {#exm-hs-l2-sequences}
 #### The sequence space $\ell^2$
 
-$\ell^2 = \{(a_n)_{n \geq 1} : \sum_n |a_n|^2 < \infty\}$ with $\langle a, b\rangle = \sum_n \bar a_n b_n$ is a
+$\ell^2 = \{(a_n)_{n \geq 1} : \sum_n |a_n|^2 < \infty\}$ with $\langle a, b\rangle = \sum_n a_n^* b_n$ is a
 Hilbert space; the series converges absolutely by Cauchy-Schwarz on partial sums. Completeness: a Cauchy sequence
 $a^{(m)}$ has Cauchy coordinates $a^{(m)}_n \to a_n$, and the limit sequence $a$ is in $\ell^2$ with $a^{(m)} \to
 a$ (@exr-hs-l2-cauchy). The sequence $a_n = 1/n$ is in $\ell^2$ ($\sum 1/n^2 = \pi^2/6$, @sec-series), while
@@ -3445,8 +3445,8 @@ exhibits such a sequence, and the completion is the space $L^2$ defined next.
 
 On $[-1, 1]$ let $f_n(x) = \max(-1, \min(1, nx))$, continuous and equal to the sign function outside
 $[-1/n, 1/n]$. Then $\|f_m - f_n\|^2 \leq \int_{-1/n}^{1/n} 4\,dx = 8/n$ for $m > n$, a Cauchy sequence, but the
-only candidate limit is the discontinuous $\operatorname{sign}(x)$, which is not in the space: the norm limit is
-missing. The completion is $L^2(-1, 1)$ (@def-l2-space), in which $\operatorname{sign}$ is an element.
+only candidate limit is the discontinuous $\operatorname{sgn}(x)$, which is not in the space: the norm limit is
+missing. The completion is $L^2(-1, 1)$ (@def-l2-space), in which $\operatorname{sgn}$ is an element.
 :::
 ::::
 
@@ -3497,15 +3497,15 @@ kept apart. The last exercise computes the norm distances explicitly and compare
 ::: {#exr-hs-l2-completeness-proof}
 #### Norm convergence versus uniform convergence
 
-For $f_n$ as in @exm-hs-incomplete compute $\|f_n - \operatorname{sign}\|^2$ exactly, show that $f_n \to
-\operatorname{sign}$ in the $L^2$ norm, and explain why the convergence is not uniform.
+For $f_n$ as in @exm-hs-incomplete compute $\|f_n - \operatorname{sgn}\|^2$ exactly, show that $f_n \to
+\operatorname{sgn}$ in the $L^2$ norm, and explain why the convergence is not uniform.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 On $[0, 1/n]$, $f_n(x) - 1 = nx - 1$, and $\int_0^{1/n}(nx - 1)^2dx = 1/(3n)$; by symmetry $\|f_n -
-\operatorname{sign}\|^2 = 2/(3n) \to 0$. The convergence is not uniform since $\sup_x|f_n(x) -
-\operatorname{sign}(x)| = 1$ for every $n$ (approach $x = 0^+$), and indeed a uniform limit of continuous
-functions would be continuous, which $\operatorname{sign}$ is not.
+\operatorname{sgn}\|^2 = 2/(3n) \to 0$. The convergence is not uniform since $\sup_x|f_n(x) -
+\operatorname{sgn}(x)| = 1$ for every $n$ (approach $x = 0^+$), and indeed a uniform limit of continuous
+functions would be continuous, which $\operatorname{sgn}$ is not.
 :::
 ::::
 
@@ -3526,7 +3526,7 @@ with the property that limits can be exchanged with the integral under mild cond
 function is Lebesgue integrable with the same integral. A set is **null** (of **measure zero**) if it can be
 covered by intervals of arbitrarily small total length, and functions that agree outside a null set are
 **identified**. The space $L^2(X)$ consists of the (classes of) measurable functions with $\int_X|f|^2d\mu <
-\infty$, with the inner product $\langle f, g\rangle = \int_X\bar f g\,d\mu$; it is a Hilbert space (the *
+\infty$, with the inner product $\langle f, g\rangle = \int_Xf^* g\,d\mu$; it is a Hilbert space (the *
 *Riesz-Fischer theorem**), and the continuous functions are dense in it.
 :::
 ::::
@@ -3540,7 +3540,7 @@ in @exm-hs-incomplete is admitted.
 #### $L^2(0, 2\pi)$ and the circle
 
 $L^2(0, 2\pi)$, equivalently $L^2(S^1)$ for $2\pi$-periodic functions, contains every bounded Riemann integrable
-function, including step functions and $\operatorname{sign}(x - \pi)$, and the exponentials $e^{inx}/\sqrt{2\pi}$
+function, including step functions and $\operatorname{sgn}(x - \pi)$, and the exponentials $e^{inx}/\sqrt{2\pi}$
 are an orthonormal system in it. The function $1/\sqrt x$ is in $L^2(0, 2\pi)$ only if $\int_0^{2\pi}dx/x$
 converges, which it does not (@def-improper-integral); $x^{-1/4}$ is in $L^2$ since $\int_0^{2\pi}x^{-1/2}dx =
 2\sqrt{2\pi}$.
@@ -3568,7 +3568,7 @@ orthonormal system.
 #### $L^2(S^2)$
 
 On the unit sphere with the area element $d\mu = \sin\theta\,d\theta\,d\varphi$, $\langle f, g\rangle =
-\int_0^{2\pi}\int_0^\pi \bar f g\,\sin\theta\,d\theta\,d\varphi$. The constant $1$ has $\|1\|^2 = 4\pi$, the area;
+\int_0^{2\pi}\int_0^\pi f^* g\,\sin\theta\,d\theta\,d\varphi$. The constant $1$ has $\|1\|^2 = 4\pi$, the area;
 $\cos\theta$ has $\|\cos\theta\|^2 = 2\pi\int_0^\pi\cos^2\theta\sin\theta\,d\theta = 4\pi/3$, and $\langle 1,
 \cos\theta\rangle = 0$. Normalised, $Y_{00} = 1/\sqrt{4\pi}$ and $Y_{10} = \sqrt{3/4\pi}\cos\theta$ are the first
 spherical harmonics (@exr-l2-sphere-norm).
@@ -3687,12 +3687,12 @@ equality.
 ::: {#def-orthonormal-basis}
 #### Orthonormal basis
 
-An orthonormal system $(e_k)$ in a Hilbert space $H$ is an **orthonormal basis** if it is **complete**: the only
-vector orthogonal to every $e_k$ is $0$. Equivalently, every $u \in H$ is the norm-convergent sum of its
+An orthonormal system $(e_k)$ in a Hilbert space $\mathcal H$ is an **orthonormal basis** if it is **complete**: the only
+vector orthogonal to every $e_k$ is $0$. Equivalently, every $u \in \mathcal H$ is the norm-convergent sum of its
 **expansion** $u = \sum_k\langle e_k, u\rangle e_k$, and equivalently again **Parseval's identity** $\|u\|^2 =
-\sum_k|\langle e_k, u\rangle|^2$ holds for all $u$; then also $\langle u, v\rangle = \sum_k\overline{\langle e_k,
-u\rangle}\langle e_k, v\rangle$. A Hilbert space with a countable orthonormal basis is **separable**, and the map
-$u \mapsto (\langle e_k, u\rangle)_k$ is then an isomorphism of $H$ onto $\ell^2$ preserving inner products. An
+\sum_k|\langle e_k, u\rangle|^2$ holds for all $u$; then also $\langle u, v\rangle = \sum_k\langle e_k,
+u\rangle^*\langle e_k, v\rangle$. A Hilbert space with a countable orthonormal basis is **separable**, and the map
+$u \mapsto (\langle e_k, u\rangle)_k$ is then an isomorphism of $\mathcal H$ onto $\ell^2$ preserving inner products. An
 orthonormal basis of an infinite-dimensional space is not a basis in the sense of @def-basis, since infinite sums
 are allowed.
 :::
@@ -3839,8 +3839,8 @@ bra vectors and ket vectors can be identified.
 ::: {#thm-riesz-representation}
 #### Riesz representation theorem
 
-Let $H$ be a Hilbert space and $\varphi : H \to \mathbb{C}$ a linear functional that is **bounded**: $|\varphi(u)|
-\leq C\|u\|$ for some constant $C$ and all $u$. Then there is a unique $v \in H$ with $\varphi(u) = \langle v,
+Let $\mathcal H$ be a Hilbert space and $\varphi : \mathcal H \to \mathbb{C}$ a linear functional that is **bounded**: $|\varphi(u)|
+\leq C\|u\|$ for some constant $C$ and all $u$. Then there is a unique $v \in \mathcal H$ with $\varphi(u) = \langle v,
 u\rangle$ for all $u$, and the smallest constant $C$ equals $\|v\|$. Conversely every $u \mapsto \langle v,
 u\rangle$ is bounded by Cauchy-Schwarz. The proof takes $v$ in the orthogonal complement of the kernel of
 $\varphi$, which is a closed subspace of codimension one; the statement is quoted here and the outline is
@@ -3857,7 +3857,7 @@ norms.
 #### Functionals on $\mathbb{C}^n$
 
 A linear functional on $\mathbb{C}^n$ is $\varphi(u) = \sum_k c_ku_k$ for some coefficients $c_k$
-(@sec-linear-maps-dual), and $\varphi(u) = \langle v, u\rangle$ with $v_k = \bar c_k$. For $\varphi(u) = u_1 +
+(@sec-linear-maps-dual), and $\varphi(u) = \langle v, u\rangle$ with $v_k = c_k^*$. For $\varphi(u) = u_1 +
 iu_2$ on $\mathbb{C}^2$ the representing vector is $v = (1, -i)$, and the best constant in $|\varphi(u)| \leq
 C\|u\|$ is $\|v\| = \sqrt2$, attained at $u = v$.
 :::
@@ -3869,8 +3869,8 @@ space with an orthonormal basis, boundedness of a functional is a condition on i
 ::: {#exm-riesz-l2}
 #### Functionals on $\ell^2$
 
-For $c \in \ell^2$, $\varphi_c(a) = \sum_n\bar c_na_n = \langle c, a\rangle$ is bounded by $\|c\|$. Conversely a
-bounded $\varphi$ has values $c_n = \overline{\varphi(\delta^{(n)})}$ with $\sum_{n \leq N}|c_n|^2 =
+For $c \in \ell^2$, $\varphi_c(a) = \sum_nc_n^*a_n = \langle c, a\rangle$ is bounded by $\|c\|$. Conversely a
+bounded $\varphi$ has values $c_n = (\varphi(\delta^{(n)}))^*$ with $\sum_{n \leq N}|c_n|^2 =
 \varphi(\sum_{n \leq N}c_n\delta^{(n)}) \leq C(\sum_{n \leq N}|c_n|^2)^{1/2}$, so $\sum|c_n|^2 \leq C^2$ and $c \in
 \ell^2$ (@exr-riesz-norm). The functional $\varphi(a) = \sum_n a_n$ is defined on the finite sequences but not
 bounded: on $a = (1, \tfrac12, \dots, \tfrac1N, 0, \dots)$ it gives $H_N \to \infty$ while $\|a\| \leq \pi/\sqrt6$.
@@ -3886,7 +3886,7 @@ function. This is where the Riesz theorem hands over to the theory of distributi
 On $L^2(-1, 1)$ the functional $f \mapsto f(0)$ is not even well defined, since $f(0)$ depends on the
 representative (@exr-l2-dirichlet-function); on continuous functions it is defined but not bounded in the $L^2$
 norm: $f_n(x) = \max(0, 1 - n|x|)$ has $f_n(0) = 1$ and $\|f_n\|^2 = 2/(3n) \to 0$. So there is no $g \in L^2$
-with $f(0) = \int\bar gf\,dx$; the "function" $\delta(x)$ that would do it is a distribution
+with $f(0) = \int g^*f\,dx$; the "function" $\delta(x)$ that would do it is a distribution
 (@sec-distributions). The theorem does apply to $f \mapsto \int_{-1}^0f\,dx$, represented by the indicator
 function of $[-1, 0]$.
 :::
@@ -3917,15 +3917,15 @@ one vector orthogonal to it.
 ::: {#exr-riesz-proof-outline}
 #### Outline of the proof
 
-Assume that every closed subspace $K$ of $H$ has an orthogonal complement, $H = K \oplus K^\perp$. For a bounded
+Assume that every closed subspace $K$ of $\mathcal H$ has an orthogonal complement, $\mathcal H = K \oplus K^\perp$. For a bounded
 non-zero functional $\varphi$, let $K = \ker\varphi$ and pick a unit vector $w \in K^\perp$. Show that $K^\perp$ is
-one-dimensional and that $v = \overline{\varphi(w)}\,w$ represents $\varphi$.
+one-dimensional and that $v = \varphi(w)^*\,w$ represents $\varphi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $K$ is closed because $\varphi$ is continuous (bounded). For any $u$, the vector $\varphi(w)u - \varphi(u)w$ lies in
 $K$, so it is orthogonal to $w$: $\varphi(w)\langle w, u\rangle - \varphi(u)\langle w, w\rangle = 0$, that is,
-$\varphi(u) = \varphi(w)\langle w, u\rangle = \langle\overline{\varphi(w)}w, u\rangle$. In particular every $u \in
+$\varphi(u) = \varphi(w)\langle w, u\rangle = \langle\varphi(w)^*w, u\rangle$. In particular every $u \in
 K^\perp$ satisfies $u = \langle w, u\rangle w$ (apply the identity $u = (u - \varphi(u)w/\varphi(w)) +
 \varphi(u)w/\varphi(w)$ and note that the first term is in $K \cap K^\perp = 0$), so $K^\perp = \mathbb{C}w$.
 Uniqueness: if $\langle v - v', u\rangle = 0$ for all $u$, take $u = v - v'$.
@@ -4091,7 +4091,7 @@ wave onto the first few modes and for the errors, which follow Parseval exactly.
 ::: {#exr-hsc-trig-projection}
 #### Projecting the square wave
 
-For $f = \operatorname{sign}(x)$ on $(-\pi, \pi)$, compute with Sage the projection $P_Nf$ onto
+For $f = \operatorname{sgn}(x)$ on $(-\pi, \pi)$, compute with Sage the projection $P_Nf$ onto
 $\{e^{inx}/\sqrt{2\pi} : |n| \leq N\}$ for $N = 1, 3, 5$, the errors $\|f - P_Nf\|^2$, and check them against
 $\|f\|^2 - \sum_{|n| \leq N}|\langle e_n, f\rangle|^2$.
 :::
@@ -4150,12 +4150,12 @@ under the orthogonal projection $P$ onto the diagonal (a segment, $\|P\| = 1$). 
 ::: {#def-bounded-operator}
 #### Bounded operator
 
-A linear map $A : H \to H$ on a Hilbert space is a **bounded operator** if its **operator norm** $\|A\| =
+A linear map $A : \mathcal H \to \mathcal H$ on a Hilbert space is a **bounded operator** if its **operator norm** $\|A\| =
 \sup_{u \neq 0}\|Au\|/\|u\| = \sup_{\|u\| = 1}\|Au\|$ is finite, so that $\|Au\| \leq \|A\|\,\|u\|$ for all $u$;
-a linear map is bounded exactly when it is continuous. The bounded operators form a vector space $\mathcal{B}(H)$
+a linear map is bounded exactly when it is continuous. The bounded operators form a vector space $\mathcal{B}(\mathcal H)$
 with $\|A + B\| \leq \|A\| + \|B\|$, $\|\alpha A\| = |\alpha|\|A\|$, and the composition satisfies $\|AB\| \leq
 \|A\|\,\|B\|$. In finite dimensions every linear map is bounded and $\|A\|$ is the largest **singular value** of
-$A$, the square root of the largest eigenvalue of $A^\dagger A$, with $A^\dagger = \bar A^{\mathsf{T}}$.
+$A$, the square root of the largest eigenvalue of $A^\dagger A$, with $A^\dagger = (A^\dagger)^\top$.
 :::
 ::::
 
@@ -4167,7 +4167,7 @@ eigenvalue.
 ::: {#exm-bo-matrix-norm}
 #### The norm of a $2 \times 2$ matrix
 
-For $A = \begin{pmatrix} 2 & 1 \\ 0 & 1\end{pmatrix}$, $A^{\mathsf{T}}A = \begin{pmatrix} 4 & 2 \\ 2 & 2
+For $A = \begin{pmatrix} 2 & 1 \\ 0 & 1\end{pmatrix}$, $A^\top A = \begin{pmatrix} 4 & 2 \\ 2 & 2
 \end{pmatrix}$ has eigenvalues $3 \pm \sqrt5$, so $\|A\| = \sqrt{3 + \sqrt5} = (1 + \sqrt5)/\sqrt2 \approx 2.288$
 (@prp-bounded-operator-checks). This exceeds the eigenvalues $2$ and $1$ of $A$ itself: the vector $u = (1,
 1)/\sqrt2$ is stretched to $\|Au\| = \|(3, 1)\|/\sqrt2 = \sqrt5 \approx 2.236$, and the best direction does
@@ -4195,7 +4195,7 @@ finite-dimensional analogue.
 #### The shift on $\ell^2$
 
 $S(a_1, a_2, a_3, \dots) = (0, a_1, a_2, \dots)$ satisfies $\|Sa\| = \|a\|$, so $\|S\| = 1$; the **backward
-shift** $S^*(a_1, a_2, \dots) = (a_2, a_3, \dots)$ also has norm $1$, with $\|S^*a\| < \|a\|$ whenever $a_1 \neq
+shift** $S^\dagger(a_1, a_2, \dots) = (a_2, a_3, \dots)$ also has norm $1$, with $\|S^\dagger a\| < \|a\|$ whenever $a_1 \neq
 0$. The differentiation operator, by contrast, is not bounded on any natural domain in $L^2$
 (@exr-bo-differentiation-unbounded), which is why @sec-unbounded-operators is needed.
 :::
@@ -4210,12 +4210,12 @@ which has the golden ratio as its norm.
 #### Operator norms in Sage
 
 Compute $\|A\|$ for $A = \begin{pmatrix} 1 & 2 \\ 3 & 4\end{pmatrix}$ and $B = \begin{pmatrix} 1 & 1 \\ 0 & 1
-\end{pmatrix}$ from the eigenvalues of $A^{\mathsf{T}}A$ and $B^{\mathsf{T}}B$, compare with Sage's `norm(2)`, and
+\end{pmatrix}$ from the eigenvalues of $A^\top A$ and $B^\top B$, compare with Sage's `norm(2)`, and
 show that $\|B\| = (1 + \sqrt5)/2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$B^{\mathsf{T}}B = \begin{pmatrix} 1 & 1 \\ 1 & 2\end{pmatrix}$ has largest eigenvalue $(3 + \sqrt5)/2 = \varphi^2$
+$B^\top B = \begin{pmatrix} 1 & 1 \\ 1 & 2\end{pmatrix}$ has largest eigenvalue $(3 + \sqrt5)/2 = \varphi^2$
 with $\varphi$ the golden ratio, so $\|B\| = \varphi \approx 1.618$; for $A$, $\|A\| = \sqrt{(30 + \sqrt{884})/2}
 \approx 5.465$:
 
@@ -4251,7 +4251,7 @@ the position operator on $L^2(0, 1)$ has norm $1$ but $\|xf\| < \|f\|$ for every
 $\|ABu\| \leq \|A\|\|Bu\| \leq \|A\|\|B\|\|u\|$. By Cauchy-Schwarz $|\langle v, Au\rangle| \leq \|Au\| \leq
 \|A\|$ for unit $u, v$, and choosing $v = Au/\|Au\|$ gives $|\langle v, Au\rangle| = \|Au\|$, whose supremum over
 unit $u$ is $\|A\|$. For the position operator, $\|xf\|^2 = \int_0^1x^2|f|^2dx < \int_0^1|f|^2dx$ because $x^2 <
-1$ on $(0, 1)$ and $|f|^2$ is not the zero class; but $f_n = \sqrt n\,\mathbf{1}_{[1 - 1/n, 1]}$ has $\|f_n\| = 1$
+1$ on $(0, 1)$ and $|f|^2$ is not the zero class; but $f_n = \sqrt n\,\mathbb 1_{[1 - 1/n, 1]}$ has $\|f_n\| = 1$
 and $\|xf_n\|^2 = n\int_{1 - 1/n}^1x^2dx = 1 - 1/n + 1/(3n^2) \to 1$, so the norm is $1$.
 :::
 
@@ -4284,11 +4284,11 @@ operators, where the Riesz representation theorem guarantees its existence.
 #### Adjoint operator
 
 The **adjoint** of a bounded operator $A$ is the unique bounded operator $A^\dagger$ with $\langle Au, v\rangle =
-\langle u, A^\dagger v\rangle$ for all $u, v \in H$; it exists because for fixed $v$ the functional $u \mapsto
+\langle u, A^\dagger v\rangle$ for all $u, v \in \mathcal H$; it exists because for fixed $v$ the functional $u \mapsto
 \langle v, Au\rangle$ is bounded and so, by @thm-riesz-representation, equals $\langle A^\dagger v, u\rangle$ for a
 unique vector $A^\dagger v$. The adjoint satisfies $(A^\dagger)^\dagger = A$, $(AB)^\dagger = B^\dagger
-A^\dagger$, $(\alpha A + B)^\dagger = \bar\alpha A^\dagger + B^\dagger$, $\|A^\dagger\| = \|A\|$ and
-$\|A^\dagger A\| = \|A\|^2$. For a matrix in an orthonormal basis, $A^\dagger = \bar A^{\mathsf{T}}$, the
+A^\dagger$, $(\alpha A + B)^\dagger = \alpha^* A^\dagger + B^\dagger$, $\|A^\dagger\| = \|A\|$ and
+$\|A^\dagger A\| = \|A\|^2$. For a matrix in an orthonormal basis, $A^\dagger = (A^\dagger)^\top$, the
 **conjugate transpose**. In Dirac's notation the operator $|u\rangle\langle v| : w \mapsto \langle v, w\rangle u$
 has adjoint $|v\rangle\langle u|$.
 :::
@@ -4304,8 +4304,8 @@ matters.
 
 For $A = \begin{pmatrix} 1 & i \\ 0 & 2\end{pmatrix}$, $A^\dagger = \begin{pmatrix} 1 & 0 \\ -i & 2\end{pmatrix}$.
 With $u = (1, 0)$ and $v = (0, 1)$: $Au = (1, 0)$, $\langle Au, v\rangle = 0$, and $A^\dagger v = (0, 2)$,
-$\langle u, A^\dagger v\rangle = 0$; with $u = (0, 1)$, $v = (1, 0)$: $\langle Au, v\rangle = \overline{i}\cdot1 = -
-i$ and $\langle u, A^\dagger v\rangle = \overline{1}\cdot(-i) = -i$. Without the conjugation the second pair
+$\langle u, A^\dagger v\rangle = 0$; with $u = (0, 1)$, $v = (1, 0)$: $\langle Au, v\rangle = i^*\cdot1 = -
+i$ and $\langle u, A^\dagger v\rangle = 1^*\cdot(-i) = -i$. Without the conjugation the second pair
 would give $i \neq -i$ (@exr-adj-sage-check).
 :::
 
@@ -4316,8 +4316,8 @@ the algebra of operators.
 ::: {#exm-adj-shift}
 #### The adjoint of the shift
 
-$\langle Sa, b\rangle = \sum_{n \geq 2}\bar a_{n-1}b_n = \sum_{n \geq 1}\bar a_nb_{n+1} = \langle a, S^*b\rangle$
-with $S^*b = (b_2, b_3, \dots)$: the adjoint $S^\dagger$ is the backward shift. $S^\dagger S = 1$, but $SS^\dagger
+$\langle Sa, b\rangle = \sum_{n \geq 2}a_{n-1}^*b_n = \sum_{n \geq 1}a_n^*b_{n+1} = \langle a, S^\dagger b\rangle$
+with $S^\dagger b = (b_2, b_3, \dots)$: the adjoint $S^\dagger$ is the backward shift. $S^\dagger S = 1$, but $SS^\dagger
 a = (0, a_2, a_3, \dots)$, so $SS^\dagger = 1 - P_1$ with $P_1$ the projection onto the first coordinate: a
 one-sided inverse that is not two-sided (@exr-boc-shift-matrix).
 :::
@@ -4329,9 +4329,9 @@ cover most operators met in practice.
 ::: {#exm-adj-multiplication}
 #### Multiplication and integral operators
 
-$\langle M_gf, h\rangle = \int\overline{gf}\,h = \int\bar f(\bar gh) = \langle f, M_{\bar g}h\rangle$, so
-$M_g^\dagger = M_{\bar g}$. For an **integral operator** $(Kf)(x) = \int k(x, y)f(y)\,dy$ with a square-integrable
-kernel, exchanging the order of integration gives $K^\dagger$ with kernel $k^\dagger(x, y) = \overline{k(y, x)}$
+$\langle M_gf, h\rangle = \int(gf)^*\,h = \int f^*(g^*h) = \langle f, M_{g^*}h\rangle$, so
+$M_g^\dagger = M_{g^*}$. For an **integral operator** $(Kf)(x) = \int k(x, y)f(y)\,dy$ with a square-integrable
+kernel, exchanging the order of integration gives $K^\dagger$ with kernel $k^\dagger(x, y) = k(y, x)^*$
 (@exr-adj-integral-operator), the continuous analogue of the conjugate transpose.
 :::
 ::::
@@ -4405,16 +4405,16 @@ identifies the self-adjoint kernels.
 #### The adjoint kernel
 
 For $(Kf)(x) = \int_0^1k(x, y)f(y)\,dy$ on $L^2(0, 1)$ with continuous $k$, show that $K^\dagger$ has kernel
-$\overline{k(y, x)}$, and conclude that $K$ is self-adjoint exactly when $k(x, y) = \overline{k(y, x)}$. Which of
+$k(y, x)^*$, and conclude that $K$ is self-adjoint exactly when $k(x, y) = k(y, x)^*$. Which of
 $k = xy$, $k = x - y$, $k = i(x - y)$, $k = e^{i(x - y)}$ give self-adjoint operators?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle Kf, g\rangle = \int\overline{\int k(x, y)f(y)dy}\,g(x)dx = \int\bar f(y)\left(\int\overline{k(x, y)}
-g(x)dx\right)dy = \langle f, K'g\rangle$ with $(K'g)(y) = \int\overline{k(x, y)}g(x)dx$, so $K^\dagger$ has
-kernel $(y, x) \mapsto \overline{k(x, y)}$, that is, $k^\dagger(x, y) = \overline{k(y, x)}$. Self-adjointness means
-$k(x, y) = \overline{k(y, x)}$: true for $xy$ (real symmetric), false for $x - y$ (antisymmetric), true for $i(x -
-y)$ (since $\overline{i(y - x)} = i(x - y)$), and true for $e^{i(x - y)}$ (since $\overline{e^{i(y - x)}} =
+$\langle Kf, g\rangle = \int(\int k(x, y)f(y)dy)^*\,g(x)dx = \int f^*(y)\left(\int k(x, y)^*
+g(x)dx\right)dy = \langle f, K'g\rangle$ with $(K'g)(y) = \int k(x, y)^*g(x)dx$, so $K^\dagger$ has
+kernel $(y, x) \mapsto k(x, y)^*$, that is, $k^\dagger(x, y) = k(y, x)^*$. Self-adjointness means
+$k(x, y) = k(y, x)^*$: true for $xy$ (real symmetric), false for $x - y$ (antisymmetric), true for $i(x -
+y)$ (since $(i(y - x))^* = i(x - y)$), and true for $e^{i(x - y)}$ (since $(e^{i(y - x)})^* =
 e^{i(x - y)}$).
 :::
 ::::
@@ -4431,8 +4431,8 @@ central.
 #### Self-adjoint operator
 
 A bounded operator is **self-adjoint** (or **Hermitian**) if $A^\dagger = A$, that is, $\langle Au, v\rangle =
-\langle u, Av\rangle$ for all $u, v$. Then $\langle u, Au\rangle = \overline{\langle Au, u\rangle} =
-\overline{\langle u, Au\rangle}$ is real for every $u$, and on a complex Hilbert space the converse holds
+\langle u, Av\rangle$ for all $u, v$. Then $\langle u, Au\rangle = \langle Au, u\rangle^* =
+\langle u, Au\rangle^*$ is real for every $u$, and on a complex Hilbert space the converse holds
 (@exr-sa-real-expectation). A self-adjoint $A$ is **positive**, $A \geq 0$, if $\langle u, Au\rangle \geq 0$ for
 all $u$. Every bounded operator is uniquely $A = B + iC$ with $B = \tfrac12(A + A^\dagger)$ and $C =
 \tfrac{1}{2i}(A - A^\dagger)$ self-adjoint, the analogue of real and imaginary parts.
@@ -4447,8 +4447,8 @@ of a two-level system.
 ::: {#exm-sa-pauli}
 #### Hermitian $2 \times 2$ matrices
 
-$\sigma_1, \sigma_2, \sigma_3$ are Hermitian: $\sigma_2^\dagger = \overline{\sigma_2}^{\mathsf{T}} =
-\begin{pmatrix} 0 & i \\ -i & 0\end{pmatrix}^{\mathsf{T}} = \sigma_2$. A matrix $a_0 1 + \sum_a a_a\sigma_a$ is
+$\sigma_1, \sigma_2, \sigma_3$ are Hermitian: $\sigma_2^\dagger = (\sigma_2^*)^\top =
+\begin{pmatrix} 0 & i \\ -i & 0\end{pmatrix}^\top = \sigma_2$. A matrix $a_0 1 + \sum_a a_a\sigma_a$ is
 Hermitian exactly when all $a_\mu$ are real (@exr-ip-sage-matrices gave $a = (2, 2, 1, -1)$ for a Hermitian
 example), and $\sigma_a^2 = 1$ makes each $\sigma_a$ a Hermitian matrix whose square is positive.
 :::
@@ -4460,7 +4460,7 @@ quantum mechanics, which are all of this type.
 ::: {#exm-sa-multiplication}
 #### Real multiplication operators
 
-$M_g^\dagger = M_{\bar g}$ (@exm-adj-multiplication), so $M_g$ is self-adjoint exactly when $g$ is real, and then
+$M_g^\dagger = M_{g^*}$ (@exm-adj-multiplication), so $M_g$ is self-adjoint exactly when $g$ is real, and then
 $\langle f, M_gf\rangle = \int g|f|^2$ is real, positive if $g \geq 0$. The position operator on $L^2(0, 1)$ is
 positive; multiplication by $\cos x$ on $L^2(0, 2\pi)$ is self-adjoint but not positive; multiplication by
 $e^{ix}$ is not self-adjoint, and its decomposition $B + iC$ is $M_{\cos x} + iM_{\sin x}$.
@@ -4473,8 +4473,8 @@ for all differential operators in @sec-unbounded-operators, and shows that the e
 ::: {#exm-sa-derivative-periodic}
 #### $-i\,d/dx$ on periodic functions
 
-On smooth $2\pi$-periodic $f, g$, $\langle -if', g\rangle = \int_0^{2\pi}\overline{(-if')}g\,dx =
-i\int\bar f'g\,dx = i[\bar fg]_0^{2\pi} - i\int\bar fg'\,dx = \langle f, -ig'\rangle$, the boundary term vanishing
+On smooth $2\pi$-periodic $f, g$, $\langle -if', g\rangle = \int_0^{2\pi}(-if')^*g\,dx =
+i\int f'^*g\,dx = i[f^*g]_0^{2\pi} - i\int f^*g'\,dx = \langle f, -ig'\rangle$, the boundary term vanishing
 by periodicity. The operator is **symmetric**, and its eigenfunctions $e^{inx}$ have real eigenvalues $n$; it is
 not bounded (@exr-bo-differentiation-unbounded), so the full definition of self-adjointness for it is deferred to
 @def-unbounded-operator.
@@ -4495,11 +4495,11 @@ without being symmetric.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $B = A - A^\dagger$; then $\langle u, Bu\rangle = \langle u, Au\rangle - \overline{\langle u, Au\rangle} = 0$
+Let $B = A - A^\dagger$; then $\langle u, Bu\rangle = \langle u, Au\rangle - \langle u, Au\rangle^* = 0$
 for all $u$. Polarising, $\langle u, Bv\rangle = \tfrac14\sum_k i^{-k}\langle u + i^kv, B(u + i^kv)\rangle = 0$ for
 all $u, v$ (the identity of @exr-ip-polarisation holds for the form $\langle u, Bv\rangle$ by the same expansion),
 so $B = 0$. On $\mathbb{R}^2$ the rotation $J = \begin{pmatrix} 0 & -1 \\ 1 & 0\end{pmatrix}$ has $\langle u,
-Ju\rangle = -u_1u_2 + u_2u_1 = 0$ but $J^{\mathsf{T}} = -J \neq J$; complex scalars are needed for the
+Ju\rangle = -u_1u_2 + u_2u_1 = 0$ but $J^\top = -J \neq J$; complex scalars are needed for the
 polarisation step.
 :::
 
@@ -4516,8 +4516,8 @@ Au\rangle = \langle u, A'u\rangle$ for all $u$ are equal.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$B = \tfrac12(A + A^{\mathsf{T}}) = \begin{pmatrix} 1 & 1 \\ 1 & 1\end{pmatrix}$ and $C = \tfrac{1}{2i}(A -
-A^{\mathsf{T}}) = \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix} = \sigma_2$, both Hermitian; $[B, C] = BC - CB =
+$B = \tfrac12(A + A^\top) = \begin{pmatrix} 1 & 1 \\ 1 & 1\end{pmatrix}$ and $C = \tfrac{1}{2i}(A -
+A^\top) = \begin{pmatrix} 0 & -i \\ i & 0\end{pmatrix} = \sigma_2$, both Hermitian; $[B, C] = BC - CB =
 \begin{pmatrix} i & -i \\ i & -i\end{pmatrix} - \begin{pmatrix} -i & -i \\ i & i\end{pmatrix} = 2i\sigma_3 \neq
 0$. If $\langle u, (A - A')u\rangle = 0$ for all $u$, the polarisation identity of the previous solution gives
 $\langle u, (A - A')v\rangle = 0$ for all $u, v$, hence $A = A'$.
@@ -4536,7 +4536,7 @@ and anti-Hermitian parts of $N = \begin{pmatrix} 1 & 2 \\ 3 & 4i\end{pmatrix}$ a
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle u, Mu\rangle = 2\sum|u_k|^2 - 2\operatorname{Im}(\bar u_1u_2 + \bar u_2u_3)$, since $i(z - \bar z) = -
+$\langle u, Mu\rangle = 2\sum|u_k|^2 - 2\operatorname{Im}(u_1^*u_2 + u_2^*u_3)$, since $i(z - z^*) = -
 2\operatorname{Im}z$, visibly real; the parts of $N$ are $B = \begin{pmatrix} 1 & 5/2 \\ 5/2 & 0\end{pmatrix}$ and
 $C = \begin{pmatrix} 0 & i/2 \\ -i/2 & 4\end{pmatrix}$:
 
@@ -4582,7 +4582,7 @@ A bounded operator $U$ is **unitary** if $U^\dagger U = UU^\dagger = 1$, that is
 = U^\dagger$. Equivalently, $U$ is surjective and preserves inner products, $\langle Uu, Uv\rangle = \langle u,
 v\rangle$, or surjective and preserves norms, $\|Uu\| = \|u\|$ (@exr-un-norm-one). An operator with $U^\dagger U
 = 1$ alone is an **isometry**; in finite dimensions every isometry is unitary. A unitary has $\|U\| = 1$, maps
-orthonormal bases to orthonormal bases, and the unitaries of $H$ form a group under composition, $U(n)$ for $H =
+orthonormal bases to orthonormal bases, and the unitaries of $\mathcal H$ form a group under composition, $U(n)$ for $\mathcal H =
 \mathbb{C}^n$.
 :::
 ::::
@@ -4596,7 +4596,7 @@ in the background.
 #### Rotations and phases
 
 $R_\theta = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta\end{pmatrix}$ satisfies
-$R_\theta^{\mathsf{T}}R_\theta = 1$: it is unitary (orthogonal) and maps the unit circle to itself
+$R_\theta^\top R_\theta = 1$: it is unitary (orthogonal) and maps the unit circle to itself
 (@fig-operator-norm-ellipse). The diagonal matrix $e^{i\theta\sigma_3} = \operatorname{diag}(e^{i\theta},
 e^{-i\theta})$ is unitary with $\det = 1$, an element of $SU(2) \subset U(2)$, and $e^{i\theta\sigma_2} =
 \cos\theta + i\sin\theta\,\sigma_2 = R_\theta$ (@exr-un-sage-exp).
@@ -4611,9 +4611,9 @@ itself. The second example lists them; the unitarity of the Fourier transform is
 
 Multiplication by $e^{i\alpha(x)}$ with real $\alpha$ is unitary on $L^2(X)$, since $M_{e^{i\alpha}}^\dagger =
 M_{e^{-i\alpha}}$ is its inverse. Translation $(T_af)(x) = f(x - a)$ is unitary on $L^2(\mathbb{R})$, as
-$\int|f(x - a)|^2dx = \int|f|^2dx$ and $T_a^{-1} = T_{-a}$. The Fourier transform $\hat f(k) = (2\pi)^{-1/2}\int
-f(x)e^{-ikx}dx$ is unitary on $L^2(\mathbb{R})$: $\|\hat f\| = \|f\|$ is Plancherel's theorem
-(@sec-fourier-transform), and it turns $T_a$ into multiplication by $e^{-ika}$.
+$\int|f(x - a)|^2dx = \int|f|^2dx$ and $T_a^{-1} = T_{-a}$. The unitary Fourier transform $(Uf)(k) = (2\pi)^{-1/2}\hat f(k) =
+(2\pi)^{-1/2}\int f(x)e^{-ikx}dx$ is unitary on $L^2(\mathbb{R})$: $\|Uf\| = \|f\|$ is Plancherel's theorem
+$\|\hat f\|^2 = 2\pi\|f\|^2$ (@sec-fourier-transform), and it turns $T_a$ into multiplication by $e^{-ika}$.
 :::
 
 The shift is an isometry that is not unitary, since its range misses the first coordinate, while the two-sided
@@ -4732,7 +4732,7 @@ and the Dirac notation for rank-one projections, which is the notation of quantu
 
 An **orthogonal projection** is a bounded operator $P$ with $P^2 = P$ and $P^\dagger = P$. Its range $K = PH$ is
 a closed subspace, $Pu$ is the point of $K$ closest to $u$, and $1 - P$ is the projection onto the **orthogonal
-complement** $K^\perp = \{v : \langle v, k\rangle = 0 \text{ for all } k \in K\}$, so that $H = K \oplus K^\perp$.
+complement** $K^\perp = \{v : \langle v, k\rangle = 0 \text{ for all } k \in K\}$, so that $\mathcal H = K \oplus K^\perp$.
 Conversely every closed subspace is the range of exactly one orthogonal projection. If $e_1, e_2, \dots$ is an
 orthonormal basis of $K$ then $P = \sum_k|e_k\rangle\langle e_k|$, where $|e\rangle\langle e| : u \mapsto \langle
 e, u\rangle e$ is the projection onto the line $\mathbb{C}e$ for a unit vector $e$; $\|P\| = 1$ unless $P = 0$.
@@ -4747,7 +4747,7 @@ checks the two defining equations.
 ::: {#exm-proj-line}
 #### Projection onto a line in $\mathbb{C}^2$
 
-For $e = (1, i)/\sqrt2$, $P = |e\rangle\langle e|$ has entries $P_{jk} = e_j\bar e_k$: $P = \tfrac12
+For $e = (1, i)/\sqrt2$, $P = |e\rangle\langle e|$ has entries $P_{jk} = e_je_k^*$: $P = \tfrac12
 \begin{pmatrix} 1 & -i \\ i & 1\end{pmatrix} = \tfrac12(1 + \sigma_2)$. Then $P^\dagger = P$ and $P^2 = \tfrac14(1 +
 2\sigma_2 + \sigma_2^2) = \tfrac12(1 + \sigma_2) = P$; the complementary projection $1 - P = \tfrac12(1 -
 \sigma_2)$ projects onto $(1, -i)/\sqrt2$, and $\sigma_2 = P - (1 - P)$.
@@ -5023,7 +5023,7 @@ For $A = \begin{pmatrix} 2 & 1 \\ 0 & 1\end{pmatrix}$, $\|A\| = \sqrt{3 + \sqrt5
 the semi-axes of the ellipse $A(S^1)$ are the singular values and their product is $|\det A| = 2$; $\langle Au,
 v\rangle = \langle u, A^\dagger v\rangle$ holds identically for symbolic $u, v \in \mathbb{C}^3$ and a complex
 $3 \times 3$ matrix; $P = \tfrac12\begin{pmatrix} 1 & 1 \\ 1 & 1\end{pmatrix}$ satisfies $P^2 = P = P^\dagger$
-with $\|P\| = 1$; the rotation $R_\theta$ satisfies $R_\theta^{\mathsf{T}}R_\theta = 1$ and preserves $\|u\|$ for
+with $\|P\| = 1$; the rotation $R_\theta$ satisfies $R_\theta^\top R_\theta = 1$ and preserves $\|u\|$ for
 symbolic $u$; $[\sigma_a, \sigma_b] = 2i\varepsilon_{abc}\sigma_c$; and $\operatorname{tr}[A, B] = 0$ for symbolic
 $3 \times 3$ matrices.
 :::
@@ -5031,13 +5031,13 @@ $3 \times 3$ matrices.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The ellipse in the figure is determined by the singular value decomposition of $A$: its axes point along the
-images of the eigenvectors of $A^{\mathsf{T}}A$. The first example reads the geometry of the left panel from the
+images of the eigenvectors of $A^\top A$. The first example reads the geometry of the left panel from the
 computation.
 
 ::: {#exm-boc-ellipse}
 #### The ellipse of a matrix
 
-$A^{\mathsf{T}}A$ has eigenvectors $v_\pm$ for the eigenvalues $3 \pm \sqrt5$, and $Av_\pm$ are orthogonal with
+$A^\top A$ has eigenvectors $v_\pm$ for the eigenvalues $3 \pm \sqrt5$, and $Av_\pm$ are orthogonal with
 lengths $\sigma_\pm = \sqrt{3 \pm \sqrt5} \approx 2.288, 0.874$: the unit circle is mapped to the ellipse with
 these semi-axes, and the area scales by $\sigma_+\sigma_- = \sqrt{9 - 5} = 2 = |\det A|$. The direction stretched
 most is $v_+ \approx (0.85, 0.53)$, not the eigenvector $(1, 0)$ of $A$ for its largest eigenvalue $2$.
@@ -5051,7 +5051,7 @@ touches the circle only at the stretched direction.
 #### Circles onto circles
 
 $R_\theta$ maps the unit circle onto itself and $\|R_\theta u\| = \|u\|$ for every $u$, since
-$R_\theta^{\mathsf{T}}R_\theta = 1$. The matrix $\begin{pmatrix} 1 & 0 \\ 0 & 1/2\end{pmatrix}$ also has norm $1$ but is not
+$R_\theta^\top R_\theta = 1$. The matrix $\begin{pmatrix} 1 & 0 \\ 0 & 1/2\end{pmatrix}$ also has norm $1$ but is not
 unitary: its ellipse has semi-axes $1$ and $\tfrac12$ and meets the unit circle only at $(\pm1, 0)$. A norm-one
 operator is unitary exactly when it preserves every length, not just the largest.
 :::
@@ -5073,7 +5073,7 @@ restores the zero trace.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The singular values of a matrix are the lengths of the semi-axes of its ellipse, and Sage computes them through
-$A^{\mathsf{T}}A$ or the singular value decomposition. The first exercise asks for them, for the norm of the
+$A^\top A$ or the singular value decomposition. The first exercise asks for them, for the norm of the
 inverse and for the condition number of the matrix of the figure.
 
 ::: {#exr-boc-singular-values}
@@ -5115,12 +5115,12 @@ exercise computes these products and the norms.
 ::: {#exr-boc-shift-matrix}
 #### The truncated shift
 
-Let $S_N$ be the $N \times N$ matrix with $1$ on the first subdiagonal and $0$ elsewhere. Compute $S_N^{\mathsf{T}}
-S_N$ and $S_NS_N^{\mathsf{T}}$, their norms, and $S_N^N$; explain how the infinite shift $S$ differs.
+Let $S_N$ be the $N \times N$ matrix with $1$ on the first subdiagonal and $0$ elsewhere. Compute $S_N^\top
+S_N$ and $S_NS_N^\top$, their norms, and $S_N^N$; explain how the infinite shift $S$ differs.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$S_N^{\mathsf{T}}S_N = \operatorname{diag}(1, \dots, 1, 0)$ and $S_NS_N^{\mathsf{T}} = \operatorname{diag}(0, 1,
+$S_N^\top S_N = \operatorname{diag}(1, \dots, 1, 0)$ and $S_NS_N^\top = \operatorname{diag}(0, 1,
 \dots, 1)$, both projections of rank $N - 1$ and norm $1$; $S_N^N = 0$ (nilpotent), so $S_N$ has only the
 eigenvalue $0$. The infinite shift has $S^\dagger S = 1$ exactly, since no coordinate is lost, $SS^\dagger = 1 -
 P_1$, and $S^n \neq 0$ for all $n$ with $\|S^n\| = 1$; it has no eigenvalues at all, as $Sa = \lambda a$ forces
@@ -5241,7 +5241,7 @@ approximate eigenvectors that replace eigenvectors in the next definition.
 
 If $xf(x) = \lambda f(x)$ in $L^2(0, 1)$ then $(x - \lambda)f(x) = 0$ for almost every $x$, and since $x - \lambda
 \neq 0$ except at one point, $f = 0$ almost everywhere, that is, $f$ is the zero class. For every $\lambda \in
-[0, 1]$ there are nonetheless **approximate eigenvectors**, $f_n = \sqrt n\,\mathbf{1}_{[\lambda, \lambda + 1/n]}$
+[0, 1]$ there are nonetheless **approximate eigenvectors**, $f_n = \sqrt n\,\mathbb 1_{[\lambda, \lambda + 1/n]}$
 with $\|f_n\| = 1$ and $\|(x - \lambda)f_n\|^2 = n\int_\lambda^{\lambda + 1/n}(x - \lambda)^2dx = 1/(3n^2) \to 0$
 (@exm-sp-multiplication).
 :::
@@ -5306,10 +5306,10 @@ orthogonal, and that the same orthogonality holds for a unitary operator, whose 
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 If $Au = \lambda u$ with $u \neq 0$ and $A^\dagger = A$: $\lambda\|u\|^2 = \langle u, Au\rangle = \langle Au,
-u\rangle = \bar\lambda\|u\|^2$, so $\lambda$ is real. If also $Av = \mu v$ with $\mu \neq \lambda$: $\lambda\langle
+u\rangle = \lambda^*\|u\|^2$, so $\lambda$ is real. If also $Av = \mu v$ with $\mu \neq \lambda$: $\lambda\langle
 v, u\rangle = \langle v, Au\rangle = \langle Av, u\rangle = \mu\langle v, u\rangle$, so $\langle v, u\rangle = 0$.
-For unitary $U$ with $Uu = \lambda u$, $Uv = \mu v$: $\langle v, u\rangle = \langle Uv, Uu\rangle = \bar\mu\lambda
-\langle v, u\rangle$, and $|\lambda| = |\mu| = 1$ (@exr-un-norm-one) gives $\bar\mu\lambda = \lambda/\mu \neq 1$,
+For unitary $U$ with $Uu = \lambda u$, $Uv = \mu v$: $\langle v, u\rangle = \langle Uv, Uu\rangle = \mu^*\lambda
+\langle v, u\rangle$, and $|\lambda| = |\mu| = 1$ (@exr-un-norm-one) gives $\mu^*\lambda = \lambda/\mu \neq 1$,
 hence $\langle v, u\rangle = 0$.
 :::
 
@@ -5391,7 +5391,7 @@ bilateral shift with a multiplication operator.
 #### Spectra of the shifts
 
 $\|S\| = 1$ gives $\sigma(S) \subset \{|\lambda| \leq 1\}$. Every $|\lambda| < 1$ is an eigenvalue of $S^\dagger$
-(@exr-ev-shift-adjoint), so $S^\dagger - \lambda$ is not injective, hence $S - \bar\lambda = (S^\dagger -
+(@exr-ev-shift-adjoint), so $S^\dagger - \lambda$ is not injective, hence $S - \lambda^* = (S^\dagger -
 \lambda)^\dagger$ is not invertible (an invertible operator has an invertible adjoint); since the spectrum is
 closed, $\sigma(S) = \{|\lambda| \leq 1\}$, with empty point spectrum. The bilateral shift is unitarily equivalent to
 $M_{e^{ix}}$ on $L^2(-\pi, \pi)$ (@exr-un-fourier-plancherel), whose spectrum is the range of $e^{ix}$, the unit
@@ -5454,7 +5454,7 @@ $|\lambda| > \|A\|$ lies in the resolvent set, and that the resolvent set is ope
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The partial sums of $\sum B^n$ are Cauchy in operator norm since $\|B^n\| \leq \|B\|^n$, and $\mathcal{B}(H)$ is
+The partial sums of $\sum B^n$ are Cauchy in operator norm since $\|B^n\| \leq \|B\|^n$, and $\mathcal{B}(\mathcal H)$ is
 complete, so the series converges to some $C$ with $(1 - B)C = \lim(1 - B^{N+1}) = 1 = C(1 - B)$. For $|\lambda| >
 \|A\|$ write $A - \lambda = -\lambda(1 - A/\lambda)$ with $\|A/\lambda\| < 1$. If $\lambda_0$ is in the resolvent
 set and $|\lambda - \lambda_0| < 1/\|R(\lambda_0)\|$, then $A - \lambda = (A - \lambda_0)(1 - (\lambda -
@@ -5477,7 +5477,7 @@ $B$ with $\|Bu\| \geq c\|u\|$ ($c > 0$) and $B^\dagger$ with the same property i
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $\lambda = a + ib$, $\|(A - \lambda)u\|^2 = \|(A - a)u\|^2 + b^2\|u\|^2 - 2b\operatorname{Im}\langle (A -
 a)u, u\rangle$, and the last term vanishes because $\langle (A - a)u, u\rangle$ is real; so $\|(A - \lambda)u\|
-\geq |b|\|u\|$, and the same for $(A - \lambda)^\dagger = A - \bar\lambda$. For $b \neq 0$ the granted criterion
+\geq |b|\|u\|$, and the same for $(A - \lambda)^\dagger = A - \lambda^*$. For $b \neq 0$ the granted criterion
 gives invertibility, so non-real $\lambda$ are in the resolvent set. For $U$: if $|\lambda| > 1$, $U - \lambda$ is
 invertible by the Neumann series ($\|U\| = 1$); if $|\lambda| < 1$, $U - \lambda = U(1 - \lambda U^\dagger)$ with
 $\|\lambda U^\dagger\| < 1$ is also invertible.
@@ -5542,7 +5542,7 @@ checks.
 
 For $A = \begin{pmatrix} 2 & 1 & 0 \\ 1 & 2 & 1 \\ 0 & 1 & 2\end{pmatrix}$ the orthonormal eigenvectors are
 $e_1 = (1, \sqrt2, 1)/2$, $e_2 = (1, 0, -1)/\sqrt2$, $e_3 = (1, -\sqrt2, 1)/2$ for $\lambda = 2 + \sqrt2, 2, 2 -
-\sqrt2$, and $A = UDU^{\mathsf{T}}$ with these as the columns of $U$; equivalently $A = \sum_k\lambda_k|e_k\rangle
+\sqrt2$, and $A = UDU^\top$ with these as the columns of $U$; equivalently $A = \sum_k\lambda_k|e_k\rangle
 \langle e_k|$ (@exr-sth-sage-decomposition). The complex Hermitian matrix $\begin{pmatrix} 2 & i & 0 \\ -i & 2 & i
 \\ 0 & -i & 2\end{pmatrix}$ has the same eigenvalues with eigenvectors $(1, \pm i\sqrt2, -1)/2$, $(1, 0, 1)/\sqrt2$
 (@prp-spectral-decompositions).
@@ -5657,7 +5657,7 @@ their norm limits as the examples that cover every case met in this chapter.
 ::: {#def-compact-operator}
 #### Compact operator
 
-A bounded operator $A$ on $H$ is **compact** if the image of the unit ball has compact closure, equivalently if
+A bounded operator $A$ on $\mathcal H$ is **compact** if the image of the unit ball has compact closure, equivalently if
 every bounded sequence $u_n$ has a subsequence along which $Au_n$ converges in norm. Operators of **finite rank**
 (finite-dimensional range) are compact, norm limits of compact operators are compact, and on a Hilbert space every
 compact operator is a norm limit of finite-rank operators. An operator with $\sum_k\|Ae_k\|^2 < \infty$ for an
@@ -5806,11 +5806,11 @@ Au\rangle|$.
 ::: {#thm-spectral-theorem-compact}
 #### Spectral theorem for compact self-adjoint operators
 
-Let $A$ be a compact self-adjoint operator on a Hilbert space $H$. Then $H$ has an orthonormal basis of
+Let $A$ be a compact self-adjoint operator on a Hilbert space $\mathcal H$. Then $\mathcal H$ has an orthonormal basis of
 eigenvectors of $A$; the non-zero eigenvalues are real, each of finite multiplicity, and form a finite set or a
 sequence $\lambda_k \to 0$; $\|A\| = \max_k|\lambda_k|$ is attained; and $A = \sum_k\lambda_k|e_k\rangle\langle
 e_k|$ with convergence in operator norm. For an integral operator with Hermitian kernel $k \in L^2(X \times X)$ the
-kernel itself expands as $k(x, y) = \sum_k\lambda_ke_k(x)\overline{e_k(y)}$ in $L^2(X \times X)$ (the
+kernel itself expands as $k(x, y) = \sum_k\lambda_ke_k(x)e_k(y)^*$ in $L^2(X \times X)$ (the
 **Hilbert-Schmidt theorem**). The theorem is quoted; the first eigenvalue is characterised in @exr-stc-min-max.
 :::
 ::::
@@ -5914,7 +5914,7 @@ For $A = \sum_k\lambda_k|e_k\rangle\langle e_k|$ compact self-adjoint with $\lam
 With $u = \sum c_ke_k$ and $\sum|c_k|^2 = 1$, $\langle u, Au\rangle = \sum_k\lambda_k|c_k|^2 \leq
 \lambda_1\sum|c_k|^2 = \lambda_1$, with equality for $u = e_1$. If $u \perp e_1$ then $c_1 = 0$ and $\sum_{k \geq
 2}\lambda_k|c_k|^2 \leq \lambda_2$, with equality at $e_2$. Iterating gives the **min-max characterisation** of all
-eigenvalues, and for the Green's operator $\lambda_1 = 1/\pi^2$ is the maximum of $\int\int g(x, y)\bar u(x)u(y)$
+eigenvalues, and for the Green's operator $\lambda_1 = 1/\pi^2$ is the maximum of $\int\int g(x, y)u^*(x)u(y)$
 over unit $u$.
 :::
 
@@ -5953,7 +5953,7 @@ this way.
 For a self-adjoint operator with spectral decomposition $A = \sum_k\lambda_kP_k$ (a Hermitian matrix or a compact
 self-adjoint operator) and a function $f$ on the spectrum, $f(A) = \sum_kf(\lambda_k)P_k$. This **functional
 calculus** agrees with the algebraic definition for polynomials, satisfies $(fg)(A) = f(A)g(A)$, $f(A)^\dagger =
-\bar f(A)$, $\|f(A)\| = \max_k|f(\lambda_k)|$, and $\sigma(f(A)) = f(\sigma(A))$ (the **spectral mapping
+f^*(A)$, $\|f(A)\| = \max_k|f(\lambda_k)|$, and $\sigma(f(A)) = f(\sigma(A))$ (the **spectral mapping
 theorem**); for a multiplication operator, $f(M_g) = M_{f \circ g}$. In particular $e^{itA}$ is unitary for real
 $t$ with $e^{itA}e^{isA} = e^{i(t + s)A}$, and $\sqrt A = \sum\sqrt{\lambda_k}P_k$ is the positive square root of a
 positive $A$. For a general bounded self-adjoint operator the same calculus exists with the sum replaced by an
@@ -6264,7 +6264,7 @@ An operator is compact when it maps bounded sets into sets that are almost finit
 the historical examples, and the figure shows how fast the singular values of two of them, the Volterra operator and the
 Green's operator of $-d^2/dx^2$, decrease, compared with the identity, whose singular values are all $1$.
 
-![The singular values $s_k$ (square roots of the eigenvalues of $T^*T$) on $L^2(0, 1)$ of the Volterra operator $Vf(x) =
+![The singular values $s_k$ (square roots of the eigenvalues of $T^\dagger T$) on $L^2(0, 1)$ of the Volterra operator $Vf(x) =
 \int_0^xf$, $s_k = \tfrac{2}{(2k - 1)\pi}$, and of the Green's operator $G$ of $-d^2/dx^2$ with Dirichlet conditions, $s_k
 = \tfrac1{k^2\pi^2}$, against $k$ on logarithmic axes; the points are the singular values of $200 \times 200$
 discretisations. Both tend to zero, as for every compact operator. Generated by
@@ -6293,7 +6293,7 @@ applies the Arzelà-Ascoli theorem to it @arcozzi2025 [Thm. 4.8].
 
 For $\|f\|_\infty \leq 1$, $Vf(x) = \int_0^xf$ satisfies $|Vf(x)| \leq 1$ and $|Vf(x) - Vf(y)| \leq |x - y|$. The set $V(B)$
 is bounded and equicontinuous, hence has compact closure in $C[0, 1]$ by Arzelà-Ascoli: $V$ is compact. On $L^2(0, 1)$ it
-is compact too, being Hilbert-Schmidt with kernel $\mathbf{1}_{t \leq x}$ @arcozzi2025 [Thm. 4.10].
+is compact too, being Hilbert-Schmidt with kernel $\mathbb 1_{t \leq x}$ @arcozzi2025 [Thm. 4.10].
 :::
 
 Diagonal operators on the sequence spaces are compact exactly when their entries tend to zero. The second example proves
@@ -6367,20 +6367,20 @@ Choose $n$ with $\|T - T_n\| < \varepsilon/3$ and points $y_1, \dots, y_m$ with 
 $T(B)$ is totally bounded. In the complete space $Y$ a totally bounded set has compact closure.
 :::
 
-The singular values of the Volterra operator can be found by solving the eigenvalue problem for $V^*V$, which is a
+The singular values of the Volterra operator can be found by solving the eigenvalue problem for $V^\dagger V$, which is a
 boundary value problem. The third exercise does this and compares with a discretisation.
 
 ::: {#exr-fan-volterra-singular-values}
 #### Singular values of the Volterra operator
 
-Show $V^*g(x) = \int_x^1g$ and that $V^*Vf = \mu f$ becomes $-\mu f'' = f$ with $f'(0) = 0$, $f(1) = 0$. Solve it to find
-$\mu_k = \tfrac{4}{(2k - 1)^2\pi^2}$. With Sage, compare with the singular values of the matrix $h\,(\mathbf{1}_{i \geq
+Show $V^\dagger g(x) = \int_x^1g$ and that $V^\dagger Vf = \mu f$ becomes $-\mu f'' = f$ with $f'(0) = 0$, $f(1) = 0$. Solve it to find
+$\mu_k = \tfrac{4}{(2k - 1)^2\pi^2}$. With Sage, compare with the singular values of the matrix $h\,(\mathbb 1_{i \geq
 j})$, $h = 1/N$, for $N = 200$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle g, Vf\rangle = \int_0^1\bar g(x)\int_0^xf = \int_0^1f(t)\overline{\int_t^1g}\,dt$ gives $V^*$ @arcozzi2025 [Thm.
-4.10]. With $u = V^*Vf$, $u' = -Vf$ and $u'' = -f$, with $u(1) = 0$ and $u'(0) = -Vf(0) = 0$. So $\mu f = u$ gives $-\mu
+$\langle g, Vf\rangle = \int_0^1g^*(x)\int_0^xf = \int_0^1f(t)(\int_t^1g)^*\,dt$ gives $V^\dagger$ @arcozzi2025 [Thm.
+4.10]. With $u = V^\dagger Vf$, $u' = -Vf$ and $u'' = -f$, with $u(1) = 0$ and $u'(0) = -Vf(0) = 0$. So $\mu f = u$ gives $-\mu
 f'' = f$, $f'(0) = 0 = f(1)$, solved by $f = \cos(\omega x)$ with $\cos\omega = 0$, $\omega = (k - \tfrac12)\pi$, and $\mu
 = \omega^{-2}$:
 
@@ -6578,7 +6578,7 @@ the range of $\lambda - K$ is closed, and $\dim\ker(\lambda - K) = \dim\ker(\lam
 \mathcal{B}(X^*)$. Either $\lambda - K$ is invertible, so that $(\lambda - K)u = f$ has exactly one solution for every $f$,
 or $(\lambda - K)u = 0$ has non-zero solutions; in the second case $(\lambda - K)u = f$ is solvable if and only if
 $\varphi(f) = 0$ for every $\varphi \in \ker(\lambda - K')$ @arcozzi2025 [Thm. 4.4, Cor. 4.2]. On a Hilbert space $K'$ is
-the adjoint $K^*$ and the condition reads $f \perp \ker(\bar\lambda - K^*)$.
+the adjoint $K^\dagger$ and the condition reads $f \perp \ker(\lambda^* - K^\dagger)$.
 :::
 ::::
 
@@ -6601,8 +6601,8 @@ that the theorem generalises.
 ::: {#exm-fan-alternative-matrices}
 #### Square matrices
 
-For an $n \times n$ matrix $A$, $\dim\ker A = n - \operatorname{rank}A = \dim\ker A^{\mathsf T}$, and $Ax = b$ is solvable iff
-$b \perp \ker A^{\mathsf T}$ (in the real case). For $A = \begin{pmatrix} 1 & 2 \\ 2 & 4\end{pmatrix}$, $\ker A^{\mathsf T}$
+For an $n \times n$ matrix $A$, $\dim\ker A = n - \operatorname{rank}A = \dim\ker A^\top$, and $Ax = b$ is solvable iff
+$b \perp \ker A^\top$ (in the real case). For $A = \begin{pmatrix} 1 & 2 \\ 2 & 4\end{pmatrix}$, $\ker A^\top$
 is spanned by $(2, -1)$, so $Ax = (1, 2)$ is solvable and $Ax = (1, 0)$ is not.
 :::
 
@@ -6612,7 +6612,7 @@ The third example shows the failure.
 ::: {#exm-fan-alternative-fails}
 #### Failure for non-compact operators
 
-On $\ell^2$, $1 - S$ is injective: $(1 - S)a = 0$ gives $a_1 = 0$ and $a_n = a_{n - 1}$, so $a = 0$. Its adjoint $1 - S^*$ is
+On $\ell^2$, $1 - S$ is injective: $(1 - S)a = 0$ gives $a_1 = 0$ and $a_n = a_{n - 1}$, so $a = 0$. Its adjoint $1 - S^\dagger$ is
 injective too, since $(1, 1, \dots) \notin \ell^2$. Yet $1 - S$ is not onto: $(1 - S)a = \delta^{(1)}$ forces $a = (1, 1,
 \dots)$. The range is dense but not closed, which is what the theorem rules out for $1 - K$ with $K$ compact.
 :::
@@ -6624,7 +6624,7 @@ explicitly.
 #### A Volterra equation
 
 $u - \mu Vu = f$ with $f \in C^1$ gives $u' - \mu u = f'$, $u(0) = f(0)$, hence $u(x) = f(x) + \mu\int_0^xe^{\mu(x - t)}f(t)\,dt$
-for every $\mu \in \mathbb{C}$: the resolvent kernel is $\mu e^{\mu(x - t)}\mathbf{1}_{t \leq x} = \sum_{n \geq 1}\mu^n
+for every $\mu \in \mathbb{C}$: the resolvent kernel is $\mu e^{\mu(x - t)}\mathbb 1_{t \leq x} = \sum_{n \geq 1}\mu^n
 \tfrac{(x - t)^{n - 1}}{(n - 1)!}$, the Neumann series of @exr-fan-volterra-powers summed.
 :::
 ::::
@@ -6691,7 +6691,7 @@ Let $Kx = \sum_{j \leq n}\varphi_j(x)u_j$. Show that $x - Kx = f$ is equivalent 
 If $x - Kx = f$ then $x = f + \sum_jc_ju_j$ with $c_j = \varphi_j(x)$, and applying $\varphi_i$ gives $c_i = \varphi_i(f) +
 \sum_jM_{ij}c_j$. Conversely each solution $c$ gives a solution $x$. So the equation is uniquely solvable for all $f$ iff
 $1 - M$ is invertible; otherwise the homogeneous equation has solutions $\sum c_ju_j$ with $c \in \ker(1 - M)$, and solvability
-is a finite set of linear conditions on $(\varphi_i(f))$, those of $\ker(1 - M)^{\mathsf T}$.
+is a finite set of linear conditions on $(\varphi_i(f))$, those of $\ker(1 - M)^\top$.
 :::
 
 The second-kind Volterra equation has a solution for every right-hand side, which the third exercise checks on an example. It
@@ -6748,7 +6748,7 @@ A bounded operator $T : X \to Y$ between Banach spaces is a **Fredholm operator*
 and its range $\operatorname{ran}T$ has finite codimension; the range is then closed @waterstraat2016 [Lemma 1.1.11, Lemma
 1.2.15]. Its **index** is $\operatorname{ind}T = \dim\ker T - \operatorname{codim}\operatorname{ran}T$. The same definition
 applies to closed operators $T : D(T) \subset X \to Y$ @waterstraat2016 [Def. 1.2.14]. On Hilbert spaces
-$\operatorname{codim}\operatorname{ran}T = \dim\ker T^*$, so $\operatorname{ind}T = \dim\ker T - \dim\ker T^*$.
+$\operatorname{codim}\operatorname{ran}T = \dim\ker T^\dagger$, so $\operatorname{ind}T = \dim\ker T - \dim\ker T^\dagger$.
 :::
 ::::
 
@@ -6770,8 +6770,8 @@ from their kernels and ranges.
 ::: {#exm-fan-shift-index}
 #### Shifts
 
-On $\ell^2$, $S$ is injective with range $\{a : a_1 = 0\}$ of codimension $1$, so $\operatorname{ind}S = -1$; $S^*$ is onto with
-kernel $\mathbb{C}\delta^{(1)}$, so $\operatorname{ind}S^* = 1$; and $\operatorname{ind}S^k = -k$. The equation $Sa = b$ is
+On $\ell^2$, $S$ is injective with range $\{a : a_1 = 0\}$ of codimension $1$, so $\operatorname{ind}S = -1$; $S^\dagger$ is onto with
+kernel $\mathbb{C}\delta^{(1)}$, so $\operatorname{ind}S^\dagger = 1$; and $\operatorname{ind}S^k = -k$. The equation $Sa = b$ is
 solvable iff $b_1 = 0$, one condition and no free parameter.
 :::
 
@@ -6805,13 +6805,13 @@ The index is additive under composition, which the first exercise checks on shif
 ::: {#exr-fan-shift-products}
 #### Products of shifts
 
-Compute $\ker$ and $\operatorname{ran}$ of $S^m(S^*)^n$ on $\ell^2$, and show $\operatorname{ind}S^m(S^*)^n = n - m =
-\operatorname{ind}S^m + \operatorname{ind}(S^*)^n$. Show $S^*S = 1$ but $SS^* = 1 - |\delta^{(1)}\rangle\langle\delta^{(1)}|$.
+Compute $\ker$ and $\operatorname{ran}$ of $S^m(S^\dagger)^n$ on $\ell^2$, and show $\operatorname{ind}S^m(S^\dagger)^n = n - m =
+\operatorname{ind}S^m + \operatorname{ind}(S^\dagger)^n$. Show $S^\dagger S = 1$ but $SS^\dagger = 1 - |\delta^{(1)}\rangle\langle\delta^{(1)}|$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(S^*)^n$ drops the first $n$ entries: kernel of dimension $n$, onto. $S^m$ then prepends $m$ zeros: injective, range of
-codimension $m$. So $\dim\ker = n$, $\operatorname{codim}\operatorname{ran} = m$, index $n - m$. $S^*Sa = a$, while $SS^*a = (0,
+$(S^\dagger)^n$ drops the first $n$ entries: kernel of dimension $n$, onto. $S^m$ then prepends $m$ zeros: injective, range of
+codimension $m$. So $\dim\ker = n$, $\operatorname{codim}\operatorname{ran} = m$, index $n - m$. $S^\dagger Sa = a$, while $SS^\dagger a = (0,
 a_2, a_3, \dots)$, which is $a$ minus its projection on $\delta^{(1)}$.
 :::
 
@@ -6878,7 +6878,7 @@ checks the sign convention of the theorem.
 ::: {#exm-fan-toeplitz-monomials}
 #### Monomial symbols
 
-$\varphi(z) = z^k$ has $\hat\varphi(n) = \delta_{nk}$, so $T_{z^k} = S^k$ for $k \geq 0$ and $T_{z^{-k}} = (S^*)^k$. The winding
+$\varphi(z) = z^k$ has $\hat\varphi(n) = \delta_{nk}$, so $T_{z^k} = S^k$ for $k \geq 0$ and $T_{z^{-k}} = (S^\dagger)^k$. The winding
 numbers are $\pm k$ and the indices $\mp k$, as computed directly. The constant symbol $1$ gives the identity, of index $0$.
 :::
 
@@ -6889,7 +6889,7 @@ computes kernel and cokernel.
 #### The symbol $z - a$
 
 $T_{z - a} = S - a$. For $|a| > 1$ it is invertible ($\|S\| = 1 < |a|$, Neumann series), index $0$, and $z - a$ does not wind.
-For $|a| < 1$, $S - a$ is injective, and $\ker(S^* - \bar a)$ is spanned by $(1, \bar a, \bar a^2, \dots) \in \ell^2$, so the
+For $|a| < 1$, $S - a$ is injective, and $\ker(S^\dagger - a^*)$ is spanned by $(1, a^*, {a^*}^2, \dots) \in \ell^2$, so the
 cokernel has dimension $1$: index $-1 = -\operatorname{wind}(z - a)$. For $|a| = 1$ the symbol vanishes on $S^1$, and $S - a$
 is not Fredholm.
 :::
@@ -6901,7 +6901,7 @@ one, which is the Hamiltonian of a particle hopping on a half-line.
 #### A tridiagonal Toeplitz operator
 
 $\varphi(e^{i\theta}) = 3 + e^{i\theta} + e^{-i\theta} = 3 + 2\cos\theta \geq 1$ gives the tridiagonal matrix with $3$ on the
-diagonal and $1$ beside it, $T_\varphi = 3 + S + S^*$. It is self-adjoint with $\langle a, T_\varphi a\rangle \geq \|a\|^2$, hence
+diagonal and $1$ beside it, $T_\varphi = 3 + S + S^\dagger$. It is self-adjoint with $\langle a, T_\varphi a\rangle \geq \|a\|^2$, hence
 invertible, index $0 = -\operatorname{wind}\varphi$.
 :::
 ::::
@@ -6913,14 +6913,14 @@ computes it and its normalisation.
 ::: {#exr-fan-edge-state}
 #### The cokernel of $S - a$
 
-For $|a| < 1$ solve $(S^* - \bar a)x = 0$ on $\ell^2$, normalise the solution, and show that $\operatorname{ran}(S - a) =
+For $|a| < 1$ solve $(S^\dagger - a^*)x = 0$ on $\ell^2$, normalise the solution, and show that $\operatorname{ran}(S - a) =
 \{b : \sum_n a^{n - 1}b_n = 0\}$. Why does the solution disappear for $|a| \geq 1$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(S^*x)_n = x_{n + 1} = \bar ax_n$ gives $x_n = \bar a^{n - 1}x_1$, of norm $|x_1|(1 - |a|^2)^{-1/2}$; normalised, $x_1 = (1 -
-|a|^2)^{1/2}$. The range of $S - a$ is closed (Fredholm) and equals $\ker(S^* - \bar a)^\perp = \{b : \sum a^{n - 1}b_n = 0\}$.
-For $|a| \geq 1$ the geometric sequence is not square summable, so the kernel of $S^* - \bar a$ is $0$.
+$(S^\dagger x)_n = x_{n + 1} = a^*x_n$ gives $x_n = {a^*}^{n - 1}x_1$, of norm $|x_1|(1 - |a|^2)^{-1/2}$; normalised, $x_1 = (1 -
+|a|^2)^{1/2}$. The range of $S - a$ is closed (Fredholm) and equals $\ker(S^\dagger - a^*)^\perp = \{b : \sum a^{n - 1}b_n = 0\}$.
+For $|a| \geq 1$ the geometric sequence is not square summable, so the kernel of $S^\dagger - a^*$ is $0$.
 :::
 
 Winding numbers of rational symbols are counted by the argument principle (@thm-residue). The second exercise computes one and
@@ -6966,13 +6966,13 @@ simplest pair.
 ::: {#exr-fan-toeplitz-semicommutator}
 #### The semicommutator
 
-Show $T_{\bar z}T_z = 1 = T_{\bar zz}$ but $T_zT_{\bar z} = 1 - |\delta^{(0)}\rangle\langle\delta^{(0)}|$ (indexing from $0$).
-Check that both products have index $0 = \operatorname{ind}T_z + \operatorname{ind}T_{\bar z}$.
+Show $T_{z^*}T_z = 1 = T_{z^*z}$ but $T_zT_{z^*} = 1 - |\delta^{(0)}\rangle\langle\delta^{(0)}|$ (indexing from $0$).
+Check that both products have index $0 = \operatorname{ind}T_z + \operatorname{ind}T_{z^*}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$T_z = S$ and $T_{\bar z} = S^*$, so $T_{\bar z}T_z = S^*S = 1$ and $T_zT_{\bar z} = SS^*$ is the projection that kills the
-$0$-th mode (@exr-fan-shift-products). The difference $T_zT_{\bar z} - T_{z\bar z}$ has rank one, hence is compact. $1$ has index
+$T_z = S$ and $T_{z^*} = S^\dagger$, so $T_{z^*}T_z = S^\dagger S = 1$ and $T_zT_{z^*} = SS^\dagger$ is the projection that kills the
+$0$-th mode (@exr-fan-shift-products). The difference $T_zT_{z^*} - T_{zz^*}$ has rank one, hence is compact. $1$ has index
 $0$, and $1 - P$ with $P$ a rank-one projection has a one-dimensional kernel and cokernel, index $0$; both equal $-1 + 1$.
 :::
 ::::
@@ -7039,28 +7039,28 @@ of dimensions.
 #### The product formula for matrices
 
 For $T : \mathbb{C}^n \to \mathbb{C}^m$ and $S : \mathbb{C}^m \to \mathbb{C}^p$, verify $\operatorname{ind}(ST) = \operatorname{ind}S +
-\operatorname{ind}T$ using @exm-fan-matrix-index. Then check it for $S^*\cdot S^2$ on $\ell^2$.
+\operatorname{ind}T$ using @exm-fan-matrix-index. Then check it for $S^\dagger\cdot S^2$ on $\ell^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\operatorname{ind}(ST) = n - p = (m - p) + (n - m)$. On $\ell^2$, $S^*S^2 = S$ has index $-1 = 1 + (-2)$.
+$\operatorname{ind}(ST) = n - p = (m - p) + (n - m)$. On $\ell^2$, $S^\dagger S^2 = S$ has index $-1 = 1 + (-2)$.
 :::
 
-The kernel of $S^* - \lambda$ is one-dimensional on the whole open disc, which shows that the dimension of the kernel can be
-locally constant as well. The second exercise computes the index of $S^* - \lambda$ and identifies where the family leaves the
+The kernel of $S^\dagger - \lambda$ is one-dimensional on the whole open disc, which shows that the dimension of the kernel can be
+locally constant as well. The second exercise computes the index of $S^\dagger - \lambda$ and identifies where the family leaves the
 Fredholm operators.
 
 ::: {#exr-fan-backward-shift-family}
-#### The family $S^* - \lambda$
+#### The family $S^\dagger - \lambda$
 
-For $|\lambda| < 1$, find $\ker(S^* - \lambda)$ and show $S^* - \lambda$ is onto, so the index is $1$. For $|\lambda| > 1$ show it
+For $|\lambda| < 1$, find $\ker(S^\dagger - \lambda)$ and show $S^\dagger - \lambda$ is onto, so the index is $1$. For $|\lambda| > 1$ show it
 is invertible. Which part of the theorem explains that the index is constant on the open disc?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$x_{n + 1} = \lambda x_n$ gives the one-dimensional kernel spanned by $(1, \lambda, \lambda^2, \dots)$. The adjoint $S - \bar\lambda$
-is injective (@exm-fan-toeplitz-affine), and the range of a Fredholm operator is closed, so $S^* - \lambda$ is onto: index $1$.
-For $|\lambda| > 1$ the Neumann series inverts it. The disc is connected and $\lambda \mapsto S^* - \lambda$ is continuous, so
+$x_{n + 1} = \lambda x_n$ gives the one-dimensional kernel spanned by $(1, \lambda, \lambda^2, \dots)$. The adjoint $S - \lambda^*$
+is injective (@exm-fan-toeplitz-affine), and the range of a Fredholm operator is closed, so $S^\dagger - \lambda$ is onto: index $1$.
+For $|\lambda| > 1$ the Neumann series inverts it. The disc is connected and $\lambda \mapsto S^\dagger - \lambda$ is continuous, so
 part (iii) makes the index constant there.
 :::
 
@@ -7112,13 +7112,13 @@ second integrative exercise computes the kernel and cokernel of a perturbed shif
 ::: {#exr-fan-perturbed-shift}
 #### A perturbed shift
 
-Let $T = S + c\,|\delta^{(1)}\rangle\langle\delta^{(1)}|$ on $\ell^2$. Find $\ker T$ and $\ker T^*$ for every $c$, and check that the
+Let $T = S + c\,|\delta^{(1)}\rangle\langle\delta^{(1)}|$ on $\ell^2$. Find $\ker T$ and $\ker T^\dagger$ for every $c$, and check that the
 index is always $-1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$Ta = (ca_1, a_1, a_2, \dots)$, which vanishes only for $a = 0$: $\ker T = 0$. $T^*b = (b_2 + \bar cb_1, b_3, b_4, \dots)$ vanishes iff
-$b_n = 0$ for $n \geq 3$ and $b_2 = -\bar cb_1$, a one-dimensional space. So the index is $0 - 1 = -1$ for every $c$, as part (ii) of
+$Ta = (ca_1, a_1, a_2, \dots)$, which vanishes only for $a = 0$: $\ker T = 0$. $T^\dagger b = (b_2 + c^*b_1, b_3, b_4, \dots)$ vanishes iff
+$b_n = 0$ for $n \geq 3$ and $b_2 = -c^*b_1$, a one-dimensional space. So the index is $0 - 1 = -1$ for every $c$, as part (ii) of
 @thm-index-stability predicts.
 :::
 
@@ -7135,8 +7135,8 @@ cokernel. Why do the finite truncations of $T_\varphi$ not show the cokernel?
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Only the zero $\tfrac12$ lies inside the disc, so $\operatorname{wind}\varphi = 1$ and $\operatorname{ind}T_\varphi = -1$. $T_\varphi =
 (S - \tfrac12)(S - 2)$; $S - 2$ is invertible, and $S - \tfrac12$ is injective with cokernel spanned by $(1, \tfrac12, \tfrac14, \dots)$
-(@exr-fan-edge-state). So $\ker T_\varphi = 0$, and $T_\varphi^* = (S^* - 2)(S^* - \tfrac12)$ with $S^* - 2$ invertible, so $\ker T_\varphi^* =
-\ker(S^* - \tfrac12)$ is spanned by $(2^{-n})_{n \geq 0}$. The truncations are lower triangular with $\hat\varphi(0) = 1$ on the
+(@exr-fan-edge-state). So $\ker T_\varphi = 0$, and $T_\varphi^\dagger = (S^\dagger - 2)(S^\dagger - \tfrac12)$ with $S^\dagger - 2$ invertible, so $\ker T_\varphi^\dagger =
+\ker(S^\dagger - \tfrac12)$ is spanned by $(2^{-n})_{n \geq 0}$. The truncations are lower triangular with $\hat\varphi(0) = 1$ on the
 diagonal, hence invertible: the cokernel lives at infinity, in the tail that every truncation cuts off.
 :::
 ::::
@@ -7151,7 +7151,7 @@ torus, whose spectrum on a compact space is discrete; the figure shows the eigen
 
 ### Domains
 
-An operator that cannot be defined on every vector of $H$ must come with the subspace on which it is defined, and
+An operator that cannot be defined on every vector of $\mathcal H$ must come with the subspace on which it is defined, and
 notions such as symmetric and self-adjoint must be reconsidered with domains in view. The definition below does
 this, and records that the spectral theorem survives for self-adjoint unbounded operators.
 
@@ -7159,8 +7159,8 @@ this, and records that the spectral theorem survives for self-adjoint unbounded 
 ::: {#def-unbounded-operator}
 #### Unbounded operator
 
-An **operator** on $H$ is a linear map $A : D(A) \to H$ defined on a dense subspace $D(A)$, its **domain**; it is
-**bounded** if $\|Au\| \leq C\|u\|$ on $D(A)$, in which case it extends to all of $H$, and **unbounded**
+An **operator** on $\mathcal H$ is a linear map $A : D(A) \to \mathcal H$ defined on a dense subspace $D(A)$, its **domain**; it is
+**bounded** if $\|Au\| \leq C\|u\|$ on $D(A)$, in which case it extends to all of $\mathcal H$, and **unbounded**
 otherwise. It is **symmetric** if $\langle Au, v\rangle = \langle u, Av\rangle$ for all $u, v \in D(A)$. The
 **adjoint** $A^\dagger$ has domain $D(A^\dagger) = \{v : u \mapsto \langle v, Au\rangle \text{ is bounded on }
 D(A)\}$ and is defined there by @thm-riesz-representation, so that $\langle Au, v\rangle = \langle u, A^\dagger
@@ -7168,7 +7168,7 @@ v\rangle$ for $u \in D(A)$, $v \in D(A^\dagger)$; $A$ is **self-adjoint** if $A^
 of domains $D(A^\dagger) = D(A)$. A symmetric operator has $D(A) \subseteq D(A^\dagger)$ and is self-adjoint only
 when its domain is large enough. Eigenvectors are required to lie in the domain, and the spectrum is defined as in
 @def-spectrum. For self-adjoint $A$ the spectrum is real, the spectral theorem and the functional calculus extend
-(quoted), and $e^{itA}$ is a unitary group on all of $H$.
+(quoted), and $e^{itA}$ is a unitary group on all of $\mathcal H$.
 :::
 ::::
 
@@ -7209,7 +7209,7 @@ this, which is the pattern for all Laplacians on compact spaces.
 #### $-d^2/dx^2$ on the circle
 
 On $L^2(S^1) = L^2(-\pi, \pi)$ with periodic functions, $-d^2/dx^2$ on smooth periodic functions is symmetric and
-positive, since $\langle f, -g''\rangle = \int\bar f'g'\,dx$ after one integration by parts without boundary terms.
+positive, since $\langle f, -g''\rangle = \int f'^*g'\,dx$ after one integration by parts without boundary terms.
 Under $U : f \mapsto (\langle e_n, f\rangle)_n$ of @exr-un-fourier-plancherel it becomes the multiplication
 operator $(a_n) \mapsto (n^2a_n)$ on $\ell^2(\mathbb{Z})$, self-adjoint on the domain $\{a : \sum n^4|a_n|^2 <
 \infty\}$, which pulls back to the periodic Sobolev space $H^2(S^1)$ (@exr-ub-unbounded-norm). Its spectrum is
@@ -7270,14 +7270,14 @@ the second statement and for the proof that a bounded symmetric operator is self
 #### Symmetric operators and their adjoints
 
 Show that for a symmetric operator $D(A) \subseteq D(A^\dagger)$ with $A^\dagger = A$ on $D(A)$, and that a
-bounded symmetric operator defined on all of $H$ is self-adjoint. Explain, using @exm-sa-derivative-periodic, why
+bounded symmetric operator defined on all of $\mathcal H$ is self-adjoint. Explain, using @exm-sa-derivative-periodic, why
 $-i\,d/dx$ on smooth periodic functions is symmetric but has a strictly larger adjoint domain.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For $v \in D(A)$ the functional $u \mapsto \langle v, Au\rangle = \langle Av, u\rangle$ is bounded by
 $\|Av\|\|u\|$, so $v \in D(A^\dagger)$ and $A^\dagger v = Av$ by uniqueness in the Riesz theorem. If $A$ is bounded
-on $H$, then $D(A^\dagger) = H = D(A)$, since every $u \mapsto \langle v, Au\rangle$ is bounded, and $A^\dagger = A$
+on $\mathcal H$, then $D(A^\dagger) = \mathcal H = D(A)$, since every $u \mapsto \langle v, Au\rangle$ is bounded, and $A^\dagger = A$
 there. For $-i\,d/dx$ on smooth periodic functions, any $v \in H^1(S^1)$ (for example a continuous piecewise linear
 periodic function) makes $u \mapsto \langle v, -iu'\rangle = \langle -iv', u\rangle$ bounded, so $v \in
 D(A^\dagger)$ without being smooth; the self-adjoint version is the extension to $H^1(S^1)$.
@@ -7294,8 +7294,8 @@ $D(x^\dagger) = D(x)$, so that $x$ is self-adjoint.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Symmetry: $\langle xf, g\rangle = \int\overline{xf}g = \int\bar f(xg) = \langle f, xg\rangle$ since $x$ is real.
-If $v \in D(x^\dagger)$, there is $w = x^\dagger v \in L^2$ with $\int\bar v\,xu = \int\bar w\,u$ for all $u \in
+Symmetry: $\langle xf, g\rangle = \int(xf)^*g = \int f^*(xg) = \langle f, xg\rangle$ since $x$ is real.
+If $v \in D(x^\dagger)$, there is $w = x^\dagger v \in L^2$ with $\int v^*\,xu = \int w^*\,u$ for all $u \in
 D(x)$; taking $u$ supported in a bounded set (where $D(x)$ contains all of $L^2$) gives $xv = w$ on every bounded
 set, hence $xv = w \in L^2$ and $v \in D(x)$. Together with $D(x) \subseteq D(x^\dagger)$ (@exr-ub-closed-graph) this
 gives equality of domains, and $x^\dagger = x$.
@@ -7317,7 +7317,7 @@ their derivatives, faster than any power, the **position operator** $(xf)(x) = x
 $(pf)(x) = -if'(x)$ (units with $\hbar = 1$) are symmetric, map $\mathcal{S}$ into itself, and satisfy the
 **canonical commutation relation** $[x, p] = i$ on $\mathcal{S}$: $(xp - px)f = -ixf' + i(xf)' = if$. Both extend
 to self-adjoint operators on $L^2(\mathbb{R})$ with spectrum $\mathbb{R}$ and no eigenvalues, and the Fourier
-transform $\mathcal{F}$ exchanges them, $\mathcal{F}p\mathcal{F}^{-1}$ is multiplication by $k$. For a unit vector
+transform $U$ exchanges them, $UpU^{-1}$ is multiplication by $k$. For a unit vector
 $\psi$, $\langle x\rangle = \langle\psi, x\psi\rangle$ is the **expectation value** and $(\Delta x)^2 = \langle (x -
 \langle x\rangle)^2\rangle$ the **variance**, and the relation implies the **uncertainty inequality** $\Delta x\,
 \Delta p \geq \tfrac12$ (@exr-hso-uncertainty).
@@ -7426,14 +7426,14 @@ approximate eigenvectors made square-integrable by a Gaussian envelope. The seco
 ::: {#exr-ccr-fourier-conjugation}
 #### The spectrum of the momentum operator
 
-Using $\widehat{f'}(k) = ik\hat f(k)$ (@sec-fourier-transform), show that $\mathcal{F}p\mathcal{F}^{-1}$ is
+Using $\widehat{f'}(k) = ik\hat f(k)$ (@sec-fourier-transform), show that $UpU^{-1}$, with $U$ the unitary Fourier transform $(2\pi)^{-1/2}\hat f$, is
 multiplication by $k$ on $L^2(\mathbb{R}, dk)$, so $\sigma(p) = \mathbb{R}$ with no eigenvalues. Then show
 directly that $\psi_L(x) = e^{ikx}e^{-x^2/2L^2}$ satisfies $\|(p - k)\psi_L\|/\|\psi_L\| = 1/(L\sqrt2)$, so $k$ is
 an approximate eigenvalue.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\widehat{pf} = -i\cdot ik\hat f = k\hat f$, so under the unitary $\mathcal{F}$ the operator $p$ becomes $M_k$,
+$\widehat{pf} = -i\cdot ik\hat f = k\hat f$, so under the unitary $U$ the operator $p$ becomes $M_k$,
 whose spectrum is the range $\mathbb{R}$ of $k$ and which has no eigenvalues (@exm-sp-multiplication); the
 "eigenfunctions" $e^{ikx}$ are not in $L^2$ (@exm-l2-real-line). Directly, $(p - k)\psi_L = -i\psi_L' - k\psi_L =
 (ix/L^2)\psi_L$, so $\|(p - k)\psi_L\|^2 = L^{-4}\int x^2e^{-x^2/L^2}dx = L^{-4}\cdot\tfrac{L^3\sqrt\pi}{2}$ and
@@ -7520,7 +7520,7 @@ one is the operator of @exm-sa-derivative-periodic.
 
 $-i\,d/dx$ on $C_c^\infty(0, 2\pi)$ has $n_+ = n_- = 1$: $\ker(A^\dagger \mp i)$ is spanned by $e^{\pm x}$. Its
 self-adjoint extensions are indexed by $\alpha \in [0, 2\pi)$, with domain $\{f \in H^1(0, 2\pi) : f(2\pi) =
-e^{i\alpha}f(0)\}$; the boundary term $-i[\bar fg]_0^{2\pi}$ vanishes on it (@exr-sae-boundary-form). The
+e^{i\alpha}f(0)\}$; the boundary term $-i[f^*g]_0^{2\pi}$ vanishes on it (@exr-sae-boundary-form). The
 eigenfunctions are $e^{i(n + \alpha/2\pi)x}$ with eigenvalues $n + \alpha/2\pi$, $n \in \mathbb{Z}$
 (@exr-sae-spectrum-twisted): the spectrum is the integers shifted by $\alpha/2\pi$, and $\alpha = 0$ is the periodic
 case.
@@ -7608,9 +7608,9 @@ the eigenvalues are exactly $n^2$, $n \geq 1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Two integrations by parts give $\langle -f'', g\rangle - \langle f, -g''\rangle = [-\bar f'g + \bar fg']_0^\pi$.
+Two integrations by parts give $\langle -f'', g\rangle - \langle f, -g''\rangle = [-f'^*g + f^*g']_0^\pi$.
 Under Dirichlet conditions both $f, g$ vanish at the ends; under Neumann both derivatives vanish; under Robin
-conditions $-\bar f'g + \bar fg' = -\kappa\bar fg + \kappa\bar fg = 0$ at $0$ and similarly at $\pi$ (real
+conditions $-f'^*g + f^*g' = -\kappa f^*g + \kappa f^*g = 0$ at $0$ and similarly at $\pi$ (real
 $\kappa$ is essential). For Dirichlet eigenfunctions, $-f'' = \lambda f$ has solutions $A\sin\sqrt\lambda x +
 B\cos\sqrt\lambda x$; $f(0) = 0$ forces $B = 0$ and $f(\pi) = 0$ forces $\sin\sqrt\lambda\pi = 0$, so $\lambda =
 n^2$ ($\lambda \leq 0$ gives only the zero solution by positivity of the operator).
@@ -7629,12 +7629,12 @@ $f, g$ in $D_\alpha = \{f(2\pi) = e^{i\alpha}f(0)\}$, that it does not vanish fo
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Integration by parts gives $\langle -if', g\rangle - \langle f, -ig'\rangle = i\int\bar f'g + i\int\bar fg' =
-i[\bar fg]_0^{2\pi} = i(\overline{f(2\pi)}g(2\pi) - \overline{f(0)}g(0))$. On $D_\alpha$ this is $i(e^{-i\alpha}
-e^{i\alpha} - 1)\overline{f(0)}g(0) = 0$. On $\{f(0) = 0\}$ it is $i\overline{f(2\pi)}g(2\pi)$, non-zero for
+Integration by parts gives $\langle -if', g\rangle - \langle f, -ig'\rangle = i\int f'^*g + i\int f^*g' =
+i[f^*g]_0^{2\pi} = i(f(2\pi)^*g(2\pi) - f(0)^*g(0))$. On $D_\alpha$ this is $i(e^{-i\alpha}
+e^{i\alpha} - 1)f(0)^*g(0) = 0$. On $\{f(0) = 0\}$ it is $if(2\pi)^*g(2\pi)$, non-zero for
 functions not vanishing at $2\pi$: the condition is too weak (the adjoint has the smaller domain $\{f(0) = f(2\pi)
-= 0\}$, and the operator is symmetric but not self-adjoint). On $\{f(0) = 2f(2\pi)\}$ it is $i(1 - 4)\overline{
-f(2\pi)}g(2\pi) \neq 0$: the condition is not even symmetric, since $|2| \neq 1$. Only unimodular phases work,
+= 0\}$, and the operator is symmetric but not self-adjoint). On $\{f(0) = 2f(2\pi)\}$ it is $i(1 - 4)(
+f(2\pi))^*g(2\pi) \neq 0$: the condition is not even symmetric, since $|2| \neq 1$. Only unimodular phases work,
 which is the $U(1)$ of von Neumann's criterion.
 :::
 ::::
@@ -7663,8 +7663,8 @@ On a Riemannian manifold with metric $g_{ij}$ in coordinates $y^i$ (@sec-metrics
 operator** on functions is $\Delta f = \frac{1}{\sqrt g}\partial_i\left(\sqrt g\,g^{ij}\partial_jf\right)$, with
 $g = \det(g_{ij})$ and $g^{ij}$ the inverse metric; it is the divergence of the gradient and reduces to
 $\sum_i\partial_i^2$ in flat coordinates. On a compact manifold $M$ without boundary, with $L^2(M)$ defined by the
-volume element $\sqrt g\,d^ny$, **Green's identity** $\langle f, -\Delta h\rangle = \int_Mg^{ij}\,\overline{
-\partial_if}\,\partial_jh\,\sqrt g\,d^ny$ shows that $-\Delta$ is symmetric and positive on smooth functions, with
+volume element $\sqrt g\,d^ny$, **Green's identity** $\langle f, -\Delta h\rangle = \int_Mg^{ij}\,(
+\partial_if)^*\,\partial_jh\,\sqrt g\,d^ny$ shows that $-\Delta$ is symmetric and positive on smooth functions, with
 $\Delta f = 0$ only for constants when $M$ is connected. Scaling the metric by $R^2$ scales $\Delta$ by $R^{-2}$.
 :::
 ::::
@@ -7923,16 +7923,16 @@ follows from it mode by mode. The second exercise asks for the derivation and fo
 
 Derive $\ddot c_k = -\lambda_kc_k$ from $\partial_t^2\phi = \Delta_M\phi$ and the mode expansion, justify the
 termwise differentiation formally, and show that $E = \sum_k(|\dot c_k|^2 + \lambda_k|c_k|^2)$ is conserved and
-equals $\int_M(|\partial_t\phi|^2 + g^{ij}\overline{\partial_i\phi}\partial_j\phi)\sqrt g\,d^ny$.
+equals $\int_M(|\partial_t\phi|^2 + g^{ij}(\partial_i\phi)^*\partial_j\phi)\sqrt g\,d^ny$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $c_k(t) = \langle\varphi_k, \phi(t, \cdot)\rangle$, so $\ddot c_k = \langle\varphi_k, \partial_t^2\phi\rangle =
 \langle\varphi_k, \Delta\phi\rangle = \langle\Delta\varphi_k, \phi\rangle = -\lambda_kc_k$ by symmetry of
 $\Delta$ (differentiation under the inner product is justified for smooth $\phi$ by @thm-differentiation-under-integral).
-Then $\tfrac{d}{dt}(|\dot c_k|^2 + \lambda_k|c_k|^2) = 2\operatorname{Re}(\bar{\dot c}_k\ddot c_k + \lambda_k\bar
-c_k\dot c_k) = 0$. By Parseval, $\sum|\dot c_k|^2 = \|\partial_t\phi\|^2$ and $\sum\lambda_k|c_k|^2 = \langle\phi,
--\Delta\phi\rangle = \int g^{ij}\overline{\partial_i\phi}\partial_j\phi\sqrt g$ by Green's identity.
+Then $\tfrac{d}{dt}(|\dot c_k|^2 + \lambda_k|c_k|^2) = 2\operatorname{Re}(\dot c_k^*\ddot c_k + \lambda_kc_k^*\dot c_k) = 0$.
+By Parseval, $\sum|\dot c_k|^2 = \|\partial_t\phi\|^2$ and $\sum\lambda_k|c_k|^2 = \langle\phi,
+-\Delta\phi\rangle = \int g^{ij}(\partial_i\phi)^*\partial_j\phi\sqrt g$ by Green's identity.
 :::
 
 For the heat equation the modes decay exponentially at rates given by the eigenvalues, so the solution converges
@@ -8190,7 +8190,7 @@ step function.
 ::: {#exm-fan-step-no-weak}
 #### The step function
 
-For $H = \mathbf{1}_{x > 0}$ on $(-1, 1)$, $\int H\varphi' = -\varphi(0)$, so a weak derivative $g$ would satisfy $\int g\varphi =
+For $\Theta = \mathbb 1_{x > 0}$ on $(-1, 1)$, $\int \Theta\varphi' = -\varphi(0)$, so a weak derivative $g$ would satisfy $\int g\varphi =
 \varphi(0)$ for every test function. Testing with $\varphi$ supported away from $0$ forces $g = 0$ almost everywhere, and
 then $\varphi(0) = 0$ for all $\varphi$, a contradiction. The distributional derivative is $\delta$ (@def-dirac-delta), which
 is not a function.
@@ -8362,7 +8362,7 @@ identity is Parseval's theorem applied to $f$ and $f'$.
 ::: {#exr-fan-h1-norm-circle}
 #### The $H^1$ norm on the circle
 
-Show that $\|f\|_{H^1}^2 = \|f\|_2^2 + \|f'\|_2^2$ on $T^1$ for $f \in C^1$, using $c_k(f') = ikc_k(f)$. Compute $\|\sin x +
+Show that $\|f\|_{H^1}^2 = \|f\|_2^2 + \|f'\|_2^2$ on $S^1$ for $f \in C^1$, using $c_k(f') = ikc_k(f)$. Compute $\|\sin x +
 \tfrac12\cos 2x\|_{H^1}^2$ both ways.
 :::
 
@@ -8437,7 +8437,7 @@ exercise proves it.
 ::: {#exr-fan-holder-half}
 #### $H^1$ functions are Hölder
 
-For $f \in C^1(T^1)$ show $|f(x) - f(y)| \leq |x - y|^{1/2}\|f'\|_2$, and extend it to $f \in H^1$ by density. Show that the
+For $f \in C^1(S^1)$ show $|f(x) - f(y)| \leq |x - y|^{1/2}\|f'\|_2$, and extend it to $f \in H^1$ by density. Show that the
 exponent $\tfrac12$ is sharp using $f(x) = |x|^{1/2 + \varepsilon}$ near $0$.
 :::
 
@@ -8471,18 +8471,18 @@ which the bound is an equality.
 #### The constant on the circle
 
 For $n = 1$, $s = 1$: $C^2 = \tfrac1{2\pi}\sum_{k \in \mathbb{Z}}\tfrac1{1 + k^2} = \tfrac1{2\pi}\pi\coth\pi = \tfrac12\coth\pi$, so
-$\|f\|_\infty \leq 0.7084\,\|f\|_{H^1}$ on $T^1$. Equality holds for $f$ with $c_k \propto (1 + k^2)^{-1}$, that is, the periodic
+$\|f\|_\infty \leq 0.7084\,\|f\|_{H^1}$ on $S^1$. Equality holds for $f$ with $c_k \propto (1 + k^2)^{-1}$, that is, the periodic
 Green's function of $1 - d^2/dx^2$, $f(x) = \cosh(x - \pi)$ on $[0, 2\pi]$, at $x = 0$.
 :::
 
 At $s = \tfrac n2$ the theorem fails, and a lacunary-type logarithmic series shows it. The second example gives a function in
-$H^{1/2}(T^1)$ that is unbounded.
+$H^{1/2}(S^1)$ that is unbounded.
 
 ::: {#exm-fan-critical-unbounded}
 #### Unbounded at the critical exponent
 
 $f(x) = \sum_{k \geq 2}\tfrac{\cos kx}{k\log k}$ has $\sum_k(1 + k^2)^{1/2}\tfrac1{k^2\log^2k} \approx \sum\tfrac1{k\log^2k} <
-\infty$, so $f \in H^{1/2}(T^1)$, but $f(0) = \sum_k\tfrac1{k\log k} = \infty$ (integral test) and the partial sums at $0$ grow
+\infty$, so $f \in H^{1/2}(S^1)$, but $f(0) = \sum_k\tfrac1{k\log k} = \infty$ (integral test) and the partial sums at $0$ grow
 like $\log\log N$. In two dimensions, $\log\log(1/|x|)$ near $0$ is the analogous unbounded $H^1$ function.
 :::
 
@@ -8505,12 +8505,12 @@ for the condition $s > \tfrac n2$.
 #### Proof of the embedding
 
 Show $\sum_k|c_k| \leq (\sum_k(1 + |k|^2)^{-s})^{1/2}(\sum_k(1 + |k|^2)^s|c_k|^2)^{1/2}$, that the first sum is finite iff $s > \tfrac
-n2$ (compare with $\int_{\mathbb{R}^n}(1 + |\xi|^2)^{-s}d\xi$), and deduce the theorem's bound and continuity.
+n2$ (compare with $\int_{\mathbb{R}^n}(1 + |k|^2)^{-s}dk$), and deduce the theorem's bound and continuity.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Write $|c_k| = (1 + |k|^2)^{-s/2}\cdot(1 + |k|^2)^{s/2}|c_k|$ and apply Cauchy-Schwarz. The sum $\sum(1 + |k|^2)^{-s}$ is comparable
-to $\int(1 + |\xi|^2)^{-s}d\xi = |S^{n - 1}|\int_0^\infty\tfrac{r^{n - 1}}{(1 + r^2)^s}dr$, finite iff $2s - n + 1 > 1$. The series
+to $\int(1 + |k|^2)^{-s}dk = |S^{n - 1}|\int_0^\infty\tfrac{r^{n - 1}}{(1 + r^2)^s}dr$, finite iff $2s - n + 1 > 1$. The series
 $\sum c_ke^{ik\cdot x}$ then converges absolutely and uniformly, so its sum is continuous, and $|f(x)| \leq \sum|c_k| \leq C_{n,
 s}\|f\|_{H^s}$ with the factors of $2\pi$ as in the definition.
 :::
@@ -8558,9 +8558,9 @@ The algebra property of $H^s$ for $s > \tfrac n2$ is what makes non-linear field
 exercise proves it on the circle for $s = 1$.
 
 ::: {#exr-fan-h1-algebra}
-#### $H^1(T^1)$ is an algebra
+#### $H^1(S^1)$ is an algebra
 
-For $f, g \in H^1(T^1)$, use $(fg)' = f'g + fg'$ and the embedding $\|g\|_\infty \leq C\|g\|_{H^1}$ to show $\|fg\|_{H^1} \leq
+For $f, g \in H^1(S^1)$, use $(fg)' = f'g + fg'$ and the embedding $\|g\|_\infty \leq C\|g\|_{H^1}$ to show $\|fg\|_{H^1} \leq
 2C\|f\|_{H^1}\|g\|_{H^1}$ with $C = C_{1, 1}$.
 :::
 
@@ -8573,13 +8573,13 @@ the last at most $2C^2\|g\|_{H^1}^2\|f\|_{H^1}^2$. So $\|fg\|_{H^1}^2 \leq 4C^2\
 
 ### Sobolev spaces on $\mathbb{R}^n$
 
-On $\mathbb{R}^n$ the Fourier transform replaces the Fourier series, and smoothness is read from the decay of $\hat f(\xi)$ at
-large $|\xi|$. The figure shows the transforms of three functions of decreasing regularity, and the definition below weights them
-by powers of $1 + |\xi|^2$.
+On $\mathbb{R}^n$ the Fourier transform replaces the Fourier series, and smoothness is read from the decay of $\hat f(k)$ at
+large $|k|$. The figure shows the transforms of three functions of decreasing regularity, and the definition below weights them
+by powers of $1 + |k|^2$.
 
-![The Fourier transforms $|\hat f(\xi)|$ on logarithmic axes of the Gaussian $e^{-x^2/2}$ (decaying faster than any power, in
-every $H^s$), of $e^{-|x|}$ ($\hat f = 2/(1 + \xi^2)$, in $H^s$ for $s < \tfrac32$) and of the indicator of $[-1, 1]$ ($\hat f =
-2\sin\xi/\xi$, in $H^s$ for $s < \tfrac12$), with the reference slopes $\xi^{-2}$ and $\xi^{-1}$. Generated by
+![The Fourier transforms $|\hat f(k)|$ on logarithmic axes of the Gaussian $e^{-x^2/2}$ (decaying faster than any power, in
+every $H^s$), of $e^{-|x|}$ ($\hat f = 2/(1 + k^2)$, in $H^s$ for $s < \tfrac32$) and of the indicator of $[-1, 1]$ ($\hat f =
+2\sin k/k$, in $H^s$ for $s < \tfrac12$), with the reference slopes $k^{-2}$ and $k^{-1}$. Generated by
 `figures/fa2-sobolev-rn.sage`.](figures/fa2-sobolev-rn.svg){#fig-fa2-sobolev-rn width=60%}
 
 :::: {.statement-box}
@@ -8587,13 +8587,13 @@ every $H^s$), of $e^{-|x|}$ ($\hat f = 2/(1 + \xi^2)$, in $H^s$ for $s < \tfrac3
 #### Sobolev space on $\mathbb{R}^n$
 
 For real $s$, $H^s(\mathbb{R}^n)$ is the space of tempered distributions $f$ (for $s \geq 0$, functions in $L^2$) whose Fourier
-transform $\hat f(\xi) = \int f(x)e^{-i\xi\cdot x}dx$ is a function with
+transform $\hat f(k) = \int f(x)e^{-ik\cdot x}dx$ is a function with
 $$
-\|f\|_{H^s}^2 = (2\pi)^{-n}\int_{\mathbb{R}^n}(1 + |\xi|^2)^s|\hat f(\xi)|^2d\xi < \infty .
+\|f\|_{H^s}^2 = (2\pi)^{-n}\int_{\mathbb{R}^n}(1 + |k|^2)^s|\hat f(k)|^2dk < \infty .
 $$
 It is a Hilbert space, $H^0 = L^2$ isometrically (@thm-plancherel), and for integer $s = m \geq 0$ it is $W^{m, 2}(\mathbb{R}^n)$
 with an equivalent norm; for $m = 1$, $\|f\|_{H^1}^2 = \|f\|_2^2 + \|\nabla f\|_2^2$ exactly. The operator $(1 - \Delta)^{t/2}$,
-multiplication of $\hat f$ by $(1 + |\xi|^2)^{t/2}$, is an isometry of $H^{s + t}$ onto $H^s$.
+multiplication of $\hat f$ by $(1 + |k|^2)^{t/2}$, is an isometry of $H^{s + t}$ onto $H^s$.
 :::
 ::::
 
@@ -8604,8 +8604,8 @@ computes it.
 ::: {#exm-fan-exp-abs}
 #### The two-sided exponential
 
-$f(x) = e^{-|x|}$ has $\hat f(\xi) = \int e^{-|x| - i\xi x}dx = \tfrac{2}{1 + \xi^2}$. Then $(1 + \xi^2)^s|\hat f|^2 = 4(1 +
-\xi^2)^{s - 2}$ is integrable iff $2s - 4 < -1$: $f \in H^s(\mathbb{R})$ iff $s < \tfrac32$. As on the circle, a corner leaves one
+$f(x) = e^{-|x|}$ has $\hat f(k) = \int e^{-|x| - ik x}dx = \tfrac{2}{1 + k^2}$. Then $(1 + k^2)^s|\hat f|^2 = 4(1 +
+k^2)^{s - 2}$ is integrable iff $2s - 4 < -1$: $f \in H^s(\mathbb{R})$ iff $s < \tfrac32$. As on the circle, a corner leaves one
 derivative and a half.
 :::
 
@@ -8614,7 +8614,7 @@ A jump on the line costs half a derivative, as on the circle. The second example
 ::: {#exm-fan-indicator-hs}
 #### An indicator function
 
-$f = \mathbf{1}_{[-1, 1]}$ has $\hat f(\xi) = 2\sin\xi/\xi$, and $(1 + \xi^2)^s\tfrac{4\sin^2\xi}{\xi^2}$ is integrable at
+$f = \mathbb 1_{[-1, 1]}$ has $\hat f(k) = 2\sin k/k$, and $(1 + k^2)^s\tfrac{4\sin^2k}{k^2}$ is integrable at
 infinity iff $2s - 2 < -1$ (the average of $\sin^2$ being $\tfrac12$). So $f \in H^s(\mathbb{R})$ iff $s < \tfrac12$, and by the
 embedding theorem on the line (@exr-fan-embedding-line) a function in $H^s$ with $s > \tfrac12$ is continuous.
 :::
@@ -8625,8 +8625,8 @@ negative and the other at arbitrarily large order.
 ::: {#exm-fan-delta-gaussian-hs}
 #### The delta function and the Gaussian
 
-$\hat\delta = 1$, so $\delta \in H^s(\mathbb{R}^n)$ iff $\int(1 + |\xi|^2)^sd\xi < \infty$, iff $s < -\tfrac n2$. The Gaussian
-$e^{-|x|^2/2}$ has $\hat f = (2\pi)^{n/2}e^{-|\xi|^2/2}$ and lies in every $H^s$; its $H^1$ norm is $\|f\|_2^2(1 + \tfrac n2)$, with
+$\hat\delta = 1$, so $\delta \in H^s(\mathbb{R}^n)$ iff $\int(1 + |k|^2)^sdk < \infty$, iff $s < -\tfrac n2$. The Gaussian
+$e^{-|x|^2/2}$ has $\hat f = (2\pi)^{n/2}e^{-|k|^2/2}$ and lies in every $H^s$; its $H^1$ norm is $\|f\|_2^2(1 + \tfrac n2)$, with
 $\|f\|_2^2 = \pi^{n/2}$.
 :::
 ::::
@@ -8643,7 +8643,7 @@ Compute $\|e^{-|x|}\|_{H^1}^2$ from $\|f\|_2^2 + \|f'\|_2^2$ and from the Fourie
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\|f\|_2^2 = 2\int_0^\infty e^{-2x} = 1$ and $f' = -\operatorname{sgn}x\,e^{-|x|}$ weakly, with $\|f'\|_2^2 = 1$: total $2$. In
-Fourier space $\tfrac1{2\pi}\int(1 + \xi^2)\tfrac4{(1 + \xi^2)^2}d\xi = \tfrac2\pi\int\tfrac{d\xi}{1 + \xi^2} = 2$:
+Fourier space $\tfrac1{2\pi}\int(1 + k^2)\tfrac4{(1 + k^2)^2}dk = \tfrac2\pi\int\tfrac{dk}{1 + k^2} = 2$:
 
 ```python
 x, xi = var("x xi")
@@ -8671,13 +8671,13 @@ asks for the case $n = 1$.
 ::: {#exr-fan-embedding-line}
 #### The embedding on the line
 
-For $f \in H^s(\mathbb{R})$ with $s > \tfrac12$, show $\|\hat f\|_1 \leq (\int(1 + \xi^2)^{-s})^{1/2}(2\pi)^{1/2}\|f\|_{H^s}$, and
+For $f \in H^s(\mathbb{R})$ with $s > \tfrac12$, show $\|\hat f\|_1 \leq (\int(1 + k^2)^{-s})^{1/2}(2\pi)^{1/2}\|f\|_{H^s}$, and
 conclude from the inversion formula that $f$ is bounded and continuous. Compute the constant for $s = 1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Cauchy-Schwarz as in @exr-fan-embedding-proof. Then $f(x) = \tfrac1{2\pi}\int\hat fe^{i\xi x}d\xi$ is continuous by dominated
-convergence, with $\|f\|_\infty \leq \tfrac1{2\pi}\|\hat f\|_1$. For $s = 1$, $\int\tfrac{d\xi}{1 + \xi^2} = \pi$, so $\|f\|_\infty
+Cauchy-Schwarz as in @exr-fan-embedding-proof. Then $f(x) = \tfrac1{2\pi}\int\hat fe^{ik x}dk$ is continuous by dominated
+convergence, with $\|f\|_\infty \leq \tfrac1{2\pi}\|\hat f\|_1$. For $s = 1$, $\int\tfrac{dk}{1 + k^2} = \pi$, so $\|f\|_\infty
 \leq \tfrac{\sqrt{2\pi}\sqrt\pi}{2\pi}\|f\|_{H^1} = \tfrac1{\sqrt2}\|f\|_{H^1}$; $e^{-|x|}$ attains it: $1 = \tfrac1{\sqrt2}\sqrt2$.
 :::
 
@@ -8687,13 +8687,13 @@ exercise computes the scaling of the homogeneous part of the norm.
 ::: {#exr-fan-sobolev-scaling}
 #### Scaling
 
-For $f_\lambda(x) = f(\lambda x)$ show $\hat f_\lambda(\xi) = \lambda^{-n}\hat f(\xi/\lambda)$ and $\int|\xi|^{2s}|\hat f_\lambda|^2d\xi
-= \lambda^{2s - n}\int|\xi|^{2s}|\hat f|^2d\xi$. Explain why no inequality $\|f\|_\infty \leq C\|f\|_{\dot H^s}$ with the
+For $f_\lambda(x) = f(\lambda x)$ show $\hat f_\lambda(k) = \lambda^{-n}\hat f(k/\lambda)$ and $\int|k|^{2s}|\hat f_\lambda|^2dk
+= \lambda^{2s - n}\int|k|^{2s}|\hat f|^2dk$. Explain why no inequality $\|f\|_\infty \leq C\|f\|_{\dot H^s}$ with the
 homogeneous norm can hold unless $s = \tfrac n2$, and why it fails even then.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The transform follows by substituting $y = \lambda x$, and the integral by substituting $\eta = \xi/\lambda$: $\lambda^{-2n}
+The transform follows by substituting $y = \lambda x$, and the integral by substituting $\eta = k/\lambda$: $\lambda^{-2n}
 \lambda^{2s}\lambda^n = \lambda^{2s - n}$. Since $\|f_\lambda\|_\infty = \|f\|_\infty$, an inequality $\|f\|_\infty \leq C\lambda^{s -
 n/2}\|f\|_{\dot H^s}$ for all $\lambda$ forces $s = \tfrac n2$; at $s = \tfrac n2$ the logarithmic examples of
 @exm-fan-critical-unbounded violate it.
@@ -8720,7 +8720,7 @@ The first example checks it.
 ::: {#exm-fan-yukawa-1d}
 #### The Green's function of $1 - d^2/dx^2$
 
-$u = \tfrac12e^{-|x|}$ has $\hat u = \tfrac1{1 + \xi^2}$, so $(1 - d^2/dx^2)u = \delta$. Since $\delta \in H^s$ for $s < -\tfrac12$,
+$u = \tfrac12e^{-|x|}$ has $\hat u = \tfrac1{1 + k^2}$, so $(1 - d^2/dx^2)u = \delta$. Since $\delta \in H^s$ for $s < -\tfrac12$,
 the theorem gives $u \in H^{s + 2}$ for $s + 2 < \tfrac32$, in agreement with @exm-fan-exp-abs. In three dimensions the Green's
 function of $1 - \Delta$ is the Yukawa potential $e^{-|x|}/(4\pi|x|)$, in $H^s$ for $s < \tfrac12$.
 :::
@@ -8730,7 +8730,7 @@ On the circle the theorem solves Poisson's equation and counts derivatives. The 
 ::: {#exm-fan-poisson-circle}
 #### Poisson's equation on the circle
 
-$-u'' = f$ on $T^1$ is solvable iff $c_0(f) = 0$, with $c_k(u) = c_k(f)/k^2$ for $k \neq 0$. For the square wave $f$ of
+$-u'' = f$ on $S^1$ is solvable iff $c_0(f) = 0$, with $c_k(u) = c_k(f)/k^2$ for $k \neq 0$. For the square wave $f$ of
 @exm-fan-square-wave-hs, in $H^s$ for $s < \tfrac12$, the solution lies in $H^{s + 2}$ for $s + 2 < \tfrac52$: it is $C^1$ but
 not $C^2$. Explicitly, the solution of mean zero is $u(x) = \tfrac12x(\pi - |x|)$ on $[-\pi, \pi]$, periodic and $C^1$ (with
 $u'(\pm\pi) = -\tfrac\pi2$), while $u'' = -\operatorname{sgn}x$ jumps at $0$ and $\pi$.
@@ -8749,30 +8749,30 @@ and $\Delta u = -\lambda u \in H^0$ give $u \in H^2$, then $H^4$, and so on.
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The isometry of the theorem is the statement that the weight $(1 + |\xi|^2)^s$ shifts by $2$ under multiplication by $1 + |\xi|^2$.
+The isometry of the theorem is the statement that the weight $(1 + |k|^2)^s$ shifts by $2$ under multiplication by $1 + |k|^2$.
 The first exercise writes out the proof.
 
 ::: {#exr-fan-elliptic-proof}
 #### Proof of the isometry
 
-Show $\|(1 - \Delta)u\|_{H^s} = \|u\|_{H^{s + 2}}$ and that $(1 - \Delta)^{-1}$, multiplication of $\hat f$ by $(1 + |\xi|^2)^{-1}$,
+Show $\|(1 - \Delta)u\|_{H^s} = \|u\|_{H^{s + 2}}$ and that $(1 - \Delta)^{-1}$, multiplication of $\hat f$ by $(1 + |k|^2)^{-1}$,
 maps $H^s$ onto $H^{s + 2}$. Deduce the regularity statement: if $u \in H^t$ and $\Delta u \in H^s$, write $(1 - \Delta)u = u - \Delta
 u$ and iterate.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\widehat{(1 - \Delta)u} = (1 + |\xi|^2)\hat u$, so $(1 + |\xi|^2)^s|\widehat{(1 - \Delta)u}|^2 = (1 + |\xi|^2)^{s + 2}|\hat u|^2$,
+$\widehat{(1 - \Delta)u} = (1 + |k|^2)\hat u$, so $(1 + |k|^2)^s|\widehat{(1 - \Delta)u}|^2 = (1 + |k|^2)^{s + 2}|\hat u|^2$,
 and the inverse multiplier is defined on all of $H^s$. If $u \in H^t$ and $\Delta u \in H^s$, then $(1 - \Delta)u \in H^{\min(t,
 s)}$, so $u \in H^{\min(t, s) + 2}$; repeating raises $t$ by $2$ each time until $t \geq s$, and then $u \in H^{s + 2}$.
 :::
 
-The equation $u - u'' = \mathbf{1}_{[-1, 1]}$ can be solved by convolution with the Green's function, and its solution has exactly the
+The equation $u - u'' = \mathbb 1_{[-1, 1]}$ can be solved by convolution with the Green's function, and its solution has exactly the
 regularity predicted. The second exercise finds it.
 
 ::: {#exr-fan-screened-box}
 #### A screened box
 
-Solve $u - u'' = \mathbf{1}_{[-1, 1]}$ on $\mathbb{R}$ by $u = \tfrac12e^{-|x|}*\mathbf{1}_{[-1, 1]}$, and show that $u$ is $C^1$ but
+Solve $u - u'' = \mathbb 1_{[-1, 1]}$ on $\mathbb{R}$ by $u = \tfrac12e^{-|x|}*\mathbb 1_{[-1, 1]}$, and show that $u$ is $C^1$ but
 $u''$ jumps at $\pm1$, in agreement with $u \in H^s$ for $s < \tfrac52$.
 :::
 
@@ -8870,7 +8870,7 @@ example computes them.
 ::: {#exm-fan-circle-resolvent}
 #### The resolvent on the circle
 
-$(1 - d^2/dx^2)^{-1}e^{ikx} = \tfrac1{1 + k^2}e^{ikx}$, so the resolvent is compact self-adjoint on $L^2(T^1)$ with eigenvalues
+$(1 - d^2/dx^2)^{-1}e^{ikx} = \tfrac1{1 + k^2}e^{ikx}$, so the resolvent is compact self-adjoint on $L^2(S^1)$ with eigenvalues
 $\tfrac1{1 + k^2} \to 0$, each of multiplicity $2$ except $k = 0$. Hence $\sigma(-d^2/dx^2) = \{k^2 : k \geq 0\}$, the spectrum of
 @exm-lb-circle, and the theorem explains why it is discrete.
 :::
@@ -8900,7 +8900,7 @@ from the Fourier coefficients. The inequality fails without the condition of mea
 ::: {#exr-fan-poincare}
 #### The Poincaré inequality on the circle
 
-Show that $\|f\|_2 \leq \|f'\|_2$ for $f \in H^1(T^1)$ with $\int f = 0$, with equality exactly for $f = a\cos x + b\sin x$. What
+Show that $\|f\|_2 \leq \|f'\|_2$ for $f \in H^1(S^1)$ with $\int f = 0$, with equality exactly for $f = a\cos x + b\sin x$. What
 is the constant on a circle of length $L$?
 :::
 
@@ -8915,13 +8915,13 @@ the inclusion is explicit. The decay rate measures how much smoothing the inclus
 ::: {#exr-fan-inclusion-truncation}
 #### Approximating the inclusion
 
-Let $\iota : H^1(T^1) \to L^2(T^1)$ be the inclusion and $\iota_N = \iota P_{\leq N}$. Compute $\|\iota - \iota_N\|$, and show that
+Let $\iota : H^1(S^1) \to L^2(S^1)$ be the inclusion and $\iota_N = \iota P_{\leq N}$. Compute $\|\iota - \iota_N\|$, and show that
 the identity of $L^2$ is not a norm limit of finite-rank operators.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In the diagonal picture $\iota - \iota_N = \operatorname{diag}((1 + k^2)^{-1/2}\mathbf{1}_{|k| > N})$, of norm $(1 + (N + 1)^2)^{-1/2}
-\to 0$. For the identity of $L^2$ the same truncation leaves $\operatorname{diag}(\mathbf{1}_{|k| > N})$ of norm $1$, and any finite-rank
+In the diagonal picture $\iota - \iota_N = \operatorname{diag}((1 + k^2)^{-1/2}\mathbb 1_{|k| > N})$, of norm $(1 + (N + 1)^2)^{-1/2}
+\to 0$. For the identity of $L^2$ the same truncation leaves $\operatorname{diag}(\mathbb 1_{|k| > N})$ of norm $1$, and any finite-rank
 $F$ has $\|1 - F\| \geq 1$, since $1 - F$ is the identity on the infinite-dimensional $\ker F$.
 :::
 ::::
@@ -8938,7 +8938,7 @@ smoothing on the circle.
 ::: {#exr-fan-heat-smoothing}
 #### Heat flow smooths
 
-For $t > 0$ let $e^{t\Delta}$ act on $L^2(T^1)$ by $c_k \mapsto e^{-tk^2}c_k$. Show $\|e^{t\Delta}\|_{L^2 \to H^s} = \sup_k(1 +
+For $t > 0$ let $e^{t\Delta}$ act on $L^2(S^1)$ by $c_k \mapsto e^{-tk^2}c_k$. Show $\|e^{t\Delta}\|_{L^2 \to H^s} = \sup_k(1 +
 k^2)^{s/2}e^{-tk^2}$, bound it by $e^t(s/(2et))^{s/2}$ for $t \leq s/2$, and conclude that $e^{t\Delta}f$ is smooth.
 :::
 
@@ -8969,18 +8969,18 @@ s = 10, t = 0.50: norm 1110.8997, bound 1110.8997
 :::
 
 Rellich's theorem in one dimension can be proved with Arzelà-Ascoli, since $H^1$ functions are uniformly Hölder. The second
-integrative exercise does so, with values in $C(T^1)$ rather than $L^2$.
+integrative exercise does so, with values in $C(S^1)$ rather than $L^2$.
 
 ::: {#exr-fan-rellich-arzela}
 #### Rellich by Arzelà-Ascoli
 
-Use @exm-fan-sobolev-constant and @exr-fan-holder-half to show that the unit ball of $H^1(T^1)$ is bounded and equicontinuous in
-$C(T^1)$, and conclude that $H^1(T^1) \to C(T^1)$ is compact.
+Use @exm-fan-sobolev-constant and @exr-fan-holder-half to show that the unit ball of $H^1(S^1)$ is bounded and equicontinuous in
+$C(S^1)$, and conclude that $H^1(S^1) \to C(S^1)$ is compact.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\|f\|_\infty \leq 0.71\|f\|_{H^1} \leq 0.71$ and $|f(x) - f(y)| \leq |x - y|^{1/2}$ on the unit ball, so the ball is uniformly
-bounded and equicontinuous; by Arzelà-Ascoli its image has compact closure in $C(T^1)$. This is stronger than compactness into
+bounded and equicontinuous; by Arzelà-Ascoli its image has compact closure in $C(S^1)$. This is stronger than compactness into
 $L^2$, since $\|f\|_2 \leq \sqrt{2\pi}\|f\|_\infty$.
 :::
 
@@ -8990,14 +8990,14 @@ carries this out on the circle.
 ::: {#exr-fan-weak-poisson}
 #### Weak solutions by Riesz
 
-On $\dot H^1 = \{u \in H^1(T^1) : \int u = 0\}$ use the inner product $(u, v) = \int\bar u'v'$. Show that it is equivalent to the
+On $\dot H^1 = \{u \in H^1(S^1) : \int u = 0\}$ use the inner product $(u, v) = \int u'^*v'$. Show that it is equivalent to the
 $H^1$ inner product (by @exr-fan-poincare), and that for $f \in L^2$ with $\int f = 0$ there is a unique $u \in \dot H^1$ with $(\varphi,
-u) = \int\bar\varphi f$ for all $\varphi \in \dot H^1$. Show that $u$ solves $-u'' = f$ and lies in $H^2$.
+u) = \int\varphi^* f$ for all $\varphi \in \dot H^1$. Show that $u$ solves $-u'' = f$ and lies in $H^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\|u'\|_2^2 \leq \|u\|_{H^1}^2 = \|u\|_2^2 + \|u'\|_2^2 \leq 2\|u'\|_2^2$, so $\dot H^1$ is a Hilbert space with $(\cdot, \cdot)$. The
-functional $\varphi \mapsto \int\bar\varphi f$ is bounded: $|\int\bar\varphi f| \leq \|f\|_2\|\varphi\|_2 \leq \|f\|_2\|\varphi'\|_2$.
+functional $\varphi \mapsto \int\varphi^* f$ is bounded: $|\int\varphi^* f| \leq \|f\|_2\|\varphi\|_2 \leq \|f\|_2\|\varphi'\|_2$.
 @thm-riesz-representation gives $u$. Taking $\varphi = e^{ikx}$: $k^2c_k(u)\cdot 2\pi = 2\pi c_k(f)$, which is $-u'' = f$ weakly, and
 $c_k(u) = c_k(f)/k^2$ puts $u$ in $H^2$ (@thm-elliptic-regularity).
 :::
@@ -9342,7 +9342,7 @@ Let $-\Delta$ on a compact manifold $M$ have the orthonormal eigenbasis $\varphi
 (@thm-laplacian-discrete-spectrum). The **heat operator** $e^{t\Delta} = \sum_ke^{-t\lambda_k}|\varphi_k\rangle
 \langle\varphi_k|$, $t > 0$, solves the heat equation: $u(t) = e^{t\Delta}f$ satisfies $\partial_tu = \Delta u$,
 $u(0) = f$ (@def-heat-equation). It is the integral operator with the **heat kernel** $K_t(x, y) =
-\sum_ke^{-t\lambda_k}\varphi_k(x)\overline{\varphi_k(y)}$, a smooth function for $t > 0$ with $K_t(x, \cdot) \to
+\sum_ke^{-t\lambda_k}\varphi_k(x)\varphi_k(y)^*$, a smooth function for $t > 0$ with $K_t(x, \cdot) \to
 \delta_x$ as $t \to 0$ and the **semigroup property** $\int_MK_t(x, z)K_s(z, y)\,dz = K_{t + s}(x, y)$. The **heat
 trace** is $Z(t) = \operatorname{tr}e^{t\Delta} = \sum_ke^{-t\lambda_k} = \int_MK_t(x, x)\,dx$, finite for every
 $t > 0$ by Weyl's law, so $e^{t\Delta}$ is trace class.
@@ -9384,7 +9384,7 @@ the angle between the two points, and the heat trace is a sum over $l$ alone. Th
 ::: {#exm-hk-sphere}
 #### The sphere
 
-On the unit $S^2$, $\sum_{m = -l}^lY_{lm}(x)\overline{Y_{lm}(y)} = \frac{2l + 1}{4\pi}P_l(\cos\gamma)$ with $\gamma$
+On the unit $S^2$, $\sum_{m = -l}^lY_{lm}(x)Y_{lm}(y)^* = \frac{2l + 1}{4\pi}P_l(\cos\gamma)$ with $\gamma$
 the angle between $x$ and $y$ (the addition theorem, @sec-harmonic-analysis), so $K_t(x, y) = \sum_{l \geq 0}
 \frac{2l + 1}{4\pi}e^{-tl(l + 1)}P_l(\cos\gamma)$ and $Z(t) = \sum_{l \geq 0}(2l + 1)e^{-tl(l + 1)}$. There is no
 closed form, but $Z(t) = \frac1t + \frac13 + \frac{t}{15} + O(t^2)$ as $t \to 0$ (@exm-hta-sphere,
@@ -10139,7 +10139,7 @@ inverses. The first example records both facts @arcozzi2025 [Sec. 6.1.1].
 #### Bounded operators
 
 $\mathcal{B}(X)$ with composition and the operator norm is a unital Banach algebra (@def-bounded-linear-map). In
-$\mathcal{B}(\ell^2)$, $S^*S = 1$ but $SS^* \neq 1$: $S$ has the left inverse $S^*$ and no right inverse, since it is not onto.
+$\mathcal{B}(\ell^2)$, $S^\dagger S = 1$ but $SS^\dagger \neq 1$: $S$ has the left inverse $S^\dagger$ and no right inverse, since it is not onto.
 The $n \times n$ matrices with the operator norm are the finite-dimensional case.
 :::
 
@@ -10190,12 +10190,12 @@ exercise proves this @arcozzi2025 [Thm. 6.1].
 #### Products of commuting elements
 
 If $ab = ba$ and $ab$ is invertible, show that $(ab)^{-1}a$ is a left and $a(ab)^{-1}$ a right inverse of $b$, so $b$ is invertible.
-Why does $S^*S = 1$ not contradict this?
+Why does $S^\dagger S = 1$ not contradict this?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $(ab)^{-1}ab = 1$ shows that $(ab)^{-1}a$ is a left inverse of $b$, and $ba(ab)^{-1} = ab(ab)^{-1} = 1$ that $a(ab)^{-1}$ is a right
-inverse; the two coincide, so $b$ is invertible, and similarly $a$. For the shift, $S^*$ and $S$ do not commute ($SS^* \neq S^*S$), so
+inverse; the two coincide, so $b$ is invertible, and similarly $a$. For the shift, $S^\dagger$ and $S$ do not commute ($SS^\dagger \neq S^\dagger S$), so
 the hypothesis fails.
 :::
 
@@ -10383,7 +10383,7 @@ Let $\mathcal{A}$ be a unital Banach algebra and $a \in \mathcal{A}$. The **reso
 \mathbb{C}$ for which $\lambda - a$ is invertible, the **spectrum** is $\sigma(a) = \mathbb{C} \setminus \rho(a)$, the **resolvent** is
 $R_\lambda(a) = (\lambda - a)^{-1}$, holomorphic on $\rho(a)$, and the **spectral radius** is $r(a) = \max\{|\lambda| : \lambda \in
 \sigma(a)\}$ @arcozzi2025 [Sec. 6.1.2, 6.1.5]; @landsman1998 [Def. 2.2.2]. The spectrum is a non-empty compact subset of the disc
-$|\lambda| \leq \|a\|$ @arcozzi2025 [Thms. 6.3 and 6.4]; @landsman1998 [Thm. 2.2.3]. For $\mathcal{A} = \mathcal{B}(H)$ it is the
+$|\lambda| \leq \|a\|$ @arcozzi2025 [Thms. 6.3 and 6.4]; @landsman1998 [Thm. 2.2.3]. For $\mathcal{A} = \mathcal{B}(\mathcal H)$ it is the
 spectrum of @def-spectrum.
 :::
 ::::
@@ -10407,7 +10407,7 @@ previous example. The second example states it @arcozzi2025 [Sec. 6.1.3].
 #### Multiplication operators
 
 For $g \in L^\infty$, $\sigma(M_g)$ is the **essential range** of $g$, the set of $w$ with $\mu\{|g - w| < \varepsilon\} > 0$ for every
-$\varepsilon > 0$. For $g(x) = x$ on $L^2(0, 1)$ it is $[0, 1]$, with no eigenvalues; for $g = \mathbf{1}_{[0, 1/2]}$ it is $\{0, 1\}$,
+$\varepsilon > 0$. For $g(x) = x$ on $L^2(0, 1)$ it is $[0, 1]$, with no eigenvalues; for $g = \mathbb 1_{[0, 1/2]}$ it is $\{0, 1\}$,
 both eigenvalues of infinite multiplicity.
 :::
 
@@ -10638,7 +10638,7 @@ predicted ratio l1 (b/a)^2 (l2/l1 - 1) = -3.50000000000000
 
 ### C\*-algebras and the functional calculus
 
-On a Hilbert space the adjoint gives the algebra of bounded operators one more operation, linked to the norm by $\|A^*A\| = \|A\|^2$.
+On a Hilbert space the adjoint gives the algebra of bounded operators one more operation, linked to the norm by $\|A^\dagger A\| = \|A\|^2$.
 The figure shows the consequence for a self-adjoint matrix: the norm of a function of the matrix is the largest value of the function on
 the spectrum, and the definition below names the algebras with this property.
 
@@ -10654,7 +10654,7 @@ A **C\*-algebra** is a Banach algebra $\mathcal{A}$ with an **involution** $a \m
 satisfying the **C\*-identity** $\|a^*a\| = \|a\|^2$ @landsman1998 [Defs. 2.1.9 and 2.1.10]. Then $\|a^*\| = \|a\|$. An element is
 **self-adjoint** if $a^* = a$, **normal** if $a^*a = aa^*$, **unitary** if $a^*a = aa^* = 1$, and **positive** if $a = b^*b$ for some $b$.
 A **state** is a linear functional $\omega$ with $\omega(a^*a) \geq 0$ and $\omega(1) = 1$ @landsman1998 [Def. 2.8.1]. Every norm-closed
-$*$-subalgebra of $\mathcal{B}(H)$ is a C\*-algebra, and by the Gelfand-Naimark theorem every C\*-algebra is of this form.
+$*$-subalgebra of $\mathcal{B}(\mathcal H)$ is a C\*-algebra, and by the Gelfand-Naimark theorem every C\*-algebra is of this form.
 :::
 ::::
 
@@ -10665,9 +10665,9 @@ example gives it @landsman1998 [eq. 2.14].
 ::: {#exm-fan-bh-cstar}
 #### Bounded operators on a Hilbert space
 
-For $A \in \mathcal{B}(H)$ and $\|\psi\| = 1$, $\|A\psi\|^2 = \langle\psi, A^*A\psi\rangle \leq \|A^*A\|$, so $\|A\|^2 \leq \|A^*A\|
-\leq \|A^*\|\,\|A\|$. This gives $\|A\| \leq \|A^*\|$, by symmetry equality, and then $\|A^*A\| = \|A\|^2$. The matrices
-$M_n(\mathbb{C})$ with the operator norm and the compact operators $\mathcal{K}(H)$ (without unit) are C\*-algebras.
+For $A \in \mathcal{B}(\mathcal H)$ and $\|\psi\| = 1$, $\|A\psi\|^2 = \langle\psi, A^\dagger A\psi\rangle \leq \|A^\dagger A\|$, so $\|A\|^2 \leq \|A^\dagger A\|
+\leq \|A^\dagger\|\,\|A\|$. This gives $\|A\| \leq \|A^\dagger\|$, by symmetry equality, and then $\|A^\dagger A\| = \|A\|^2$. The matrices
+$M_n(\mathbb{C})$ with the operator norm and the compact operators $\mathcal{K}(\mathcal H)$ (without unit) are C\*-algebras.
 :::
 
 Continuous functions with complex conjugation are the commutative C\*-algebras, and by the Gelfand-Naimark theorem the only ones. The
@@ -10676,7 +10676,7 @@ second example checks the identity and describes the states.
 ::: {#exm-fan-ck-cstar}
 #### Continuous functions
 
-On $C(K)$ with $f^* = \bar f$, $\|\bar ff\|_\infty = \||f|^2\|_\infty = \|f\|_\infty^2$. Every commutative unital C\*-algebra is
+On $C(K)$ with $f^*$ the complex conjugate of $f$, $\|f^*f\|_\infty = \||f|^2\|_\infty = \|f\|_\infty^2$. Every commutative unital C\*-algebra is
 isomorphic to some $C(K)$ @landsman1998 [Thm. 2.4.1], and the states of $C(K)$ are the probability measures on $K$ @landsman1998 [Thm.
 2.8.2]: classical observables and classical statistical states.
 :::
@@ -10686,7 +10686,7 @@ The Wiener algebra has a natural involution but violates the C\*-identity. The t
 ::: {#exm-fan-wiener-not-cstar}
 #### A Banach $*$-algebra that is not C\*
 
-On $\ell^1(\mathbb{Z})$ let $(a^*)_n = \overline{a_{-n}}$. For $a = \delta^{(0)} + \delta^{(1)} - \delta^{(2)}$, $\|a\|_1^2 = 9$, while
+On $\ell^1(\mathbb{Z})$ let $(a^*)_n = a_{-n}^*$. For $a = \delta^{(0)} + \delta^{(1)} - \delta^{(2)}$, $\|a\|_1^2 = 9$, while
 $a^* * a$ has entries $3$ at $0$, $0$ at $\pm1$ and $-1$ at $\pm2$, so $\|a^*a\|_1 = 5 < 9$. The C\*-norm on this algebra is instead
 $\|\hat a\|_\infty$, the norm of $C(S^1)$.
 :::
@@ -10730,7 +10730,7 @@ e^{2i\theta}$. Show $\max_\theta|\hat a(\theta)|^2 = \|\widehat{a^*a}\|_\infty \
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(a^*a)_n = \sum_m\overline{a_{m - n}}a_m$ is the autocorrelation: lag $0$ gives $1 + 1 + 1 = 3$, lag $\pm1$ gives $1\cdot1 + 1\cdot(-1) =
+$(a^*a)_n = \sum_ma_{m - n}^*a_m$ is the autocorrelation: lag $0$ gives $1 + 1 + 1 = 3$, lag $\pm1$ gives $1\cdot1 + 1\cdot(-1) =
 0$, lag $\pm2$ gives $-1$; so $\|a^*a\|_1 = 5$. $\widehat{a^*a} = |\hat a|^2 = 3 - 2\cos2\theta$, with maximum $5$ at $\theta = \tfrac\pi2$,
 equal here to $\|a^*a\|_1$; $\|\hat a\|_\infty = \sqrt5 < 3 = \|a\|_1$.
 
@@ -10765,7 +10765,7 @@ quantum version of a probability measure having total mass one.
 ::: {#exr-fan-states}
 #### Vector states and density matrices
 
-For a unit vector $\psi$ show that $\omega_\psi(a) = \langle\psi, a\psi\rangle$ is a state on $\mathcal{B}(H)$ with $|\omega_\psi(a)| \leq
+For a unit vector $\psi$ show that $\omega_\psi(a) = \langle\psi, a\psi\rangle$ is a state on $\mathcal{B}(\mathcal H)$ with $|\omega_\psi(a)| \leq
 \|a\|$. For $\rho = \tfrac12(1 + \mathbf r\cdot\boldsymbol\sigma)$ show that $\rho \geq 0$ iff $|\mathbf r| \leq 1$, and compute
 $\omega(\sigma_3)$.
 :::
@@ -10823,8 +10823,8 @@ sense. The third example uses the nilpotent matrix.
 #### A non-normal matrix
 
 $N = \begin{pmatrix} 0 & 1 \\ 0 & 0\end{pmatrix}$ has $\sigma(N) = \{0\}$ but $\|N\| = 1 \neq r(N)$. If an isometric calculus existed, $N
-= \mathrm{id}(N)$ would have norm $\sup_{\{0\}}|z| = 0$. The C\*-identity is fine ($\|N^*N\| = 1 = \|N\|^2$); what fails is normality,
-$NN^* \neq N^*N$, and with it the commutativity of the algebra generated by $N$ and $N^*$.
+= \mathrm{id}(N)$ would have norm $\sup_{\{0\}}|z| = 0$. The C\*-identity is fine ($\|N^\dagger N\| = 1 = \|N\|^2$); what fails is normality,
+$NN^\dagger \neq N^\dagger N$, and with it the commutativity of the algebra generated by $N$ and $N^\dagger$.
 :::
 ::::
 
@@ -10889,14 +10889,14 @@ non-Hermitian matrix. The absolute value $|b| = (b^*b)^{1/2}$ is the positive pa
 ::: {#exr-fan-square-root}
 #### Square roots and absolute values
 
-Compute $\sqrt P$ for $P = \begin{pmatrix} 5 & 4 \\ 4 & 5\end{pmatrix}$ by the calculus, and $|N| = (N^*N)^{1/2}$ for the nilpotent $N$ of
+Compute $\sqrt P$ for $P = \begin{pmatrix} 5 & 4 \\ 4 & 5\end{pmatrix}$ by the calculus, and $|N| = (N^\dagger N)^{1/2}$ for the nilpotent $N$ of
 @exm-fan-fc-nonnormal. Check $\|\,|N|\,\| = \|N\|$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $P$ has eigenvalues $9$ and $1$ with eigenvectors $(1, 1)/\sqrt2$ and $(1, -1)/\sqrt2$, so $\sqrt P = 3\cdot\tfrac12\begin{pmatrix} 1 & 1
 \\ 1 & 1\end{pmatrix} + 1\cdot\tfrac12\begin{pmatrix} 1 & -1 \\ -1 & 1\end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 1 & 2\end{pmatrix}$, whose
-square is $P$. $N^*N = \operatorname{diag}(0, 1)$ is a projection, so $|N| = \operatorname{diag}(0, 1)$, of norm $1 = \|N\|$, as $\|\,|b|\,\|^2
+square is $P$. $N^\dagger N = \operatorname{diag}(0, 1)$ is a projection, so $|N| = \operatorname{diag}(0, 1)$, of norm $1 = \|N\|$, as $\|\,|b|\,\|^2
 = \|b^*b\| = \|b\|^2$ in general.
 
 Sage computes the square root by diagonalisation and the absolute value of $N$:
@@ -10908,14 +10908,14 @@ S = (Q * D.apply_map(sqrt) * Q.inverse()).change_ring(QQ)
 print("eigenvalues:", D.diagonal(), "; sqrt(P) =", S.list(), "; squared:", (S^2).list())
 N = matrix(QQ, [[0, 1], [0, 0]])
 NN = N.transpose() * N
-print("N^* N =", NN.list(), "is a projection:", NN^2 == NN, "; so |N| = N^*N, norm", NN.change_ring(RDF).norm(2), "= |N| =", N.change_ring(RDF).norm(2))
+print("N^dagger N =", NN.list(), "is a projection:", NN^2 == NN, "; so |N| = N^dagger N, norm", NN.change_ring(RDF).norm(2), "= |N| =", N.change_ring(RDF).norm(2))
 ```
 
 *Output:*
 
 ```text
 eigenvalues: [9, 1] ; sqrt(P) = [2, 1, 1, 2] ; squared: [5, 4, 4, 5]
-N^* N = [0, 0, 0, 1] is a projection: True ; so |N| = N^*N, norm 1.0 = |N| = 1.0
+N^dagger N = [0, 0, 0, 1] is a projection: True ; so |N| = N^dagger N, norm 1.0 = |N| = 1.0
 ```
 :::
 ::::
@@ -10932,15 +10932,15 @@ formula with the eigenvectors of the adjoint.
 ::: {#exr-fan-shift-spectrum-algebra}
 #### The spectrum of the shift, again
 
-Use @thm-spectral-radius-formula to show $\sigma(S) \subset \{|\lambda| \leq 1\}$, the eigenvectors $(1, \bar\lambda, \bar\lambda^2,
-\dots)$ of $S^*$ to show that $\lambda - S$ is not onto for $|\lambda| < 1$, and closedness of the spectrum to conclude $\sigma(S) = \{|\lambda|
+Use @thm-spectral-radius-formula to show $\sigma(S) \subset \{|\lambda| \leq 1\}$, the eigenvectors $(1, \lambda^*, {\lambda^*}^2,
+\dots)$ of $S^\dagger$ to show that $\lambda - S$ is not onto for $|\lambda| < 1$, and closedness of the spectrum to conclude $\sigma(S) = \{|\lambda|
 \leq 1\}$. Is $S$ normal?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$r(S) = \lim\|S^n\|^{1/n} = 1$. For $|\lambda| < 1$, $v = (1, \bar\lambda, \dots) \in \ell^2$ satisfies $S^*v = \bar\lambda v$, so $v \perp
+$r(S) = \lim\|S^n\|^{1/n} = 1$. For $|\lambda| < 1$, $v = (1, \lambda^*, \dots) \in \ell^2$ satisfies $S^\dagger v = \lambda^* v$, so $v \perp
 \operatorname{ran}(\lambda - S)$ and $\lambda - S$ is not onto. The open disc lies in $\sigma(S)$, and so does its closure. $S$ is not
-normal ($S^*S = 1 \neq SS^*$), yet $\|S\| = r(S) = 1$: normality is sufficient, not necessary, for $\|a\| = r(a)$.
+normal ($S^\dagger S = 1 \neq SS^\dagger$), yet $\|S\| = r(S) = 1$: normality is sufficient, not necessary, for $\|a\| = r(a)$.
 :::
 
 The resolvent of a matrix is the Laplace transform of its exponential, and both are given by the functional calculus. The second
@@ -10986,13 +10986,13 @@ integrative exercise computes $e^{-i\theta\mathbf n\cdot\boldsymbol\sigma/2}$ an
 
 For a unit vector $\mathbf n$, use $\sigma(\mathbf n\cdot\boldsymbol\sigma) = \{\pm1\}$ and the calculus to show $e^{-i\theta\mathbf
 n\cdot\boldsymbol\sigma/2} = \cos\tfrac\theta2 - i\sin\tfrac\theta2\,\mathbf n\cdot\boldsymbol\sigma$. For $\mathbf n = e_3$ and the state
-$\rho = \tfrac12(1 + \sigma_1)$, compute $U\rho U^*$ and its Bloch vector.
+$\rho = \tfrac12(1 + \sigma_1)$, compute $U\rho U^\dagger$ and its Bloch vector.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With the spectral projections $P_\pm = \tfrac12(1 \pm \mathbf n\cdot\boldsymbol\sigma)$, $f(\mathbf n\cdot\boldsymbol\sigma) = f(1)P_+ +
 f(-1)P_-$, and $f(x) = e^{-i\theta x/2}$ gives the formula. For $\mathbf n = e_3$, $U = \operatorname{diag}(e^{-i\theta/2}, e^{i\theta/2})$
-and $U\sigma_1U^* = \cos\theta\,\sigma_1 + \sin\theta\,\sigma_2$, so the Bloch vector $(1, 0, 0)$ rotates to $(\cos\theta, \sin\theta,
+and $U\sigma_1U^\dagger = \cos\theta\,\sigma_1 + \sin\theta\,\sigma_2$, so the Bloch vector $(1, 0, 0)$ rotates to $(\cos\theta, \sin\theta,
 0)$ about the $3$-axis.
 
 Sage checks the formula for a non-axial $\mathbf n$ and computes the rotated Bloch vector:
@@ -11009,14 +11009,14 @@ U3 = (-I * th / 2 * s3).exp()
 rho = (1 + s1) / 2
 r2 = (U3 * rho * U3.conjugate_transpose()).simplify_full()
 bloch = [((r2 * s).trace()).simplify_full().simplify_trig() for s in (s1, s2, s3)]
-print("Bloch vector of U rho U^*:", [b.rectform().simplify_full().simplify_trig() for b in bloch])
+print("Bloch vector of U rho U^dagger:", [b.rectform().simplify_full().simplify_trig() for b in bloch])
 ```
 
 *Output:*
 
 ```text
 exp(-i th n.sigma/2) = cos(th/2) - i sin(th/2) n.sigma for n = (1,2,2)/3: True
-Bloch vector of U rho U^*: [cos(th), sin(th), 0]
+Bloch vector of U rho U^dagger: [cos(th), sin(th), 0]
 ```
 :::
 ::::
@@ -11045,7 +11045,7 @@ real $\lambda$, which for $x, p$ singles out the Gaussians.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The first inequality is Cauchy-Schwarz (@def-inner-product). Since $A, B$ are self-adjoint, $\langle B\psi, A\psi
-\rangle = \overline{\langle A\psi, B\psi\rangle}$ and $\langle A\psi, B\psi\rangle - \langle B\psi, A\psi\rangle =
+\rangle = \langle A\psi, B\psi\rangle^*$ and $\langle A\psi, B\psi\rangle - \langle B\psi, A\psi\rangle =
 \langle\psi, (AB - BA)\psi\rangle$, so $\operatorname{Im}\langle A\psi, B\psi\rangle = \tfrac{1}{2i}\langle\psi, [A,
 B]\psi\rangle$ and $|\operatorname{Im}| \leq |\cdot|$. With $(\Delta A)^2 = \|(A - \langle A\rangle)\psi\|^2$ and
 $[A - \langle A\rangle, B - \langle B\rangle] = [A, B]$ the general form follows, and $[x, p] = i$ gives $\Delta x

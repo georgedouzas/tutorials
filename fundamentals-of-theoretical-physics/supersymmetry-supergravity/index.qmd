@@ -26,8 +26,8 @@ with hidden solutions. The anticommuting computations, the matrix identities, th
 counting of states and the Freund-Rubin curvatures are derived in full, and the eleven-dimensional action is displayed
 and cited rather than derived. The signature is
 $(+, -, -, -)$ throughout, $\eta = \operatorname{diag}(1, -1, -1, -1)$, with the standard Weyl matrices
-$\gamma^\mu = \begin{pmatrix} 0 & \sigma^\mu \\ \bar\sigma^\mu & 0 \end{pmatrix}$, $\sigma^\mu = (1, \vec\sigma)$,
-$\bar\sigma^\mu = (1, -\vec\sigma)$; the main sources, @martin1997 and @tanii1998, use the mostly-plus and our
+$\gamma^\mu = \begin{pmatrix} 0 & \sigma^\mu \\ \bar\sigma^\mu & 0 \end{pmatrix}$, $\sigma^\mu = (1, \boldsymbol\sigma)$,
+$\bar\sigma^\mu = (1, -\boldsymbol\sigma)$; the main sources, @martin1997 and @tanii1998, use the mostly-plus and our
 signature respectively, and every formula taken from the former is converted, with the change of sign noted.
 
 ## Supersymmetry {#sec-supersymmetry}
@@ -239,8 +239,8 @@ the Lorentz group by the $(\tfrac12, 0)$ representation; its Hermitian conjugate
 **right-handed**. Indices are raised and lowered with $\epsilon^{12} = -\epsilon^{21} = \epsilon_{21} = -\epsilon_{12} = 1$,
 $\xi^\alpha = \epsilon^{\alpha\beta}\xi_\beta$, and the invariant products are $\xi\chi = \xi^\alpha\chi_\alpha$,
 $\xi^\dagger\chi^\dagger = \xi^\dagger_{\dot\alpha}\chi^{\dagger\dot\alpha}$ and $\xi^\dagger\bar\sigma^\mu\chi =
-\xi^\dagger_{\dot\alpha}(\bar\sigma^\mu)^{\dot\alpha\alpha}\chi_\alpha$, with $\sigma^\mu = (1, \vec\sigma)$ and
-$\bar\sigma^\mu = (1, -\vec\sigma)$ [@martin1997, eqs. 2.7-2.18]. A Dirac spinor of @def-spinor-field is a pair
+\xi^\dagger_{\dot\alpha}(\bar\sigma^\mu)^{\dot\alpha\alpha}\chi_\alpha$, with $\sigma^\mu = (1, \boldsymbol\sigma)$ and
+$\bar\sigma^\mu = (1, -\boldsymbol\sigma)$ [@martin1997, eqs. 2.7-2.18]. A Dirac spinor of @def-spinor-field is a pair
 $\Psi_D = (\xi_\alpha, \chi^{\dagger\dot\alpha})$ of a left- and a right-handed Weyl spinor.
 :::
 ::::
@@ -320,8 +320,8 @@ Show that every $\sigma^\mu$ is Hermitian and that $(\bar\sigma^\mu)^{\dot\alpha
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The identity and the Pauli matrices are Hermitian. In matrix form the relation reads $\bar\sigma^\mu = \epsilon(\sigma^\mu)^T
-\epsilon^T$; for $\mu = 0$ this is $\epsilon\epsilon^T = 1$, and for the spatial matrices it is the familiar $\sigma_2\sigma_i^T\sigma_2
+The identity and the Pauli matrices are Hermitian. In matrix form the relation reads $\bar\sigma^\mu = \epsilon(\sigma^\mu)^\top
+\epsilon^\top$; for $\mu = 0$ this is $\epsilon\epsilon^\top = 1$, and for the spatial matrices it is the familiar $\sigma_2\sigma_i^\top\sigma_2
 = -\sigma_i$, since $\epsilon = i\sigma_2$:
 
 ```python
@@ -350,14 +350,14 @@ $2 \times 2$ Hermitian matrices, as a boost.
 ::: {#exr-ssg-sl2c-invariance}
 #### Invariance under $SL(2, \mathbb{C})$
 
-Show that $M^T\epsilon M = (\det M)\epsilon$ for every $2 \times 2$ matrix $M$, so that $\xi\chi$ is invariant under $\xi \to M\xi$,
-$\chi \to M\chi$ when $\det M = 1$. For $M = e^{-r\sigma_3/2}$ and $X = x^\mu\sigma_\mu = x^0 - \vec x\cdot\vec\sigma$, compute
+Show that $M^\top\epsilon M = (\det M)\epsilon$ for every $2 \times 2$ matrix $M$, so that $\xi\chi$ is invariant under $\xi \to M\xi$,
+$\chi \to M\chi$ when $\det M = 1$. For $M = e^{-r\sigma_3/2}$ and $X = x^\mu\sigma_\mu = x^0 - \mathbf x\cdot\boldsymbol\sigma$, compute
 $MXM^\dagger$ and identify the Lorentz transformation of $x^\mu$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The product is $\xi\chi = -\xi^T\epsilon\chi$ with $\epsilon = \epsilon^{\alpha\beta}$, and it transforms into $-\xi^TM^T\epsilon M\chi$. A
-direct computation gives $M^T\epsilon M = (\det M)\epsilon$; this is the statement that $\epsilon$ is the volume form of
+The product is $\xi\chi = -\xi^\top\epsilon\chi$ with $\epsilon = \epsilon^{\alpha\beta}$, and it transforms into $-\xi^\top M^\top\epsilon M\chi$. A
+direct computation gives $M^\top\epsilon M = (\det M)\epsilon$; this is the statement that $\epsilon$ is the volume form of
 $\mathbb{C}^2$. $\det X = x_\mu x^\mu$ is preserved by $X \to MXM^\dagger$ when $|\det M| = 1$, and for the diagonal
 boost matrix the result is $t' = \cosh r\,t + \sinh r\,z$, $z' = \sinh r\,t + \cosh r\,z$: a boost of rapidity $r$
 along $z$:
@@ -437,7 +437,7 @@ statements is a finite check over all index values.
 ::: {#prp-sigma-identities}
 #### Two-component spinor identities
 
-On the explicit matrices $\sigma^\mu = (1, \vec\sigma)$, $\bar\sigma^\mu = (1, -\vec\sigma)$, with $\eta =
+On the explicit matrices $\sigma^\mu = (1, \boldsymbol\sigma)$, $\bar\sigma^\mu = (1, -\boldsymbol\sigma)$, with $\eta =
 \operatorname{diag}(1, -1, -1, -1)$: $\sigma^\mu\bar\sigma^\nu + \sigma^\nu\bar\sigma^\mu = 2\eta^{\mu\nu}$,
 $\operatorname{tr}(\sigma^\mu\bar\sigma^\nu) = 2\eta^{\mu\nu}$,
 $\sum_\mu\eta_{\mu\mu}\sigma^\mu_{\alpha\dot\alpha}\bar\sigma^{\mu\,\dot\beta\beta} = 2\delta_\alpha^\beta\delta_{\dot\alpha}^{\dot\beta}$,
@@ -623,7 +623,7 @@ print("[PASS] the boosts have opposite signs on the two chiralities, the rotatio
 
 The identities of the proposition concern products of two matrices. Products of three and four occur in every
 superspace computation, and they contain the Levi-Civita symbol; the fourth exercise derives them in our signature,
-where the signs differ from the mostly-plus forms in the literature.
+where the signs differ from the mostly-plus forms of @nath2017supersymmetry.
 
 ::: {#exr-ssg-sigma-triple}
 #### Products of three and four $\sigma$-matrices
@@ -821,7 +821,7 @@ truncation.
 ::: {#exr-ssg-witten-index}
 #### The Witten index
 
-Compute $\operatorname{Tr}(-1)^Fe^{-\beta H}$ and $\operatorname{Tr}e^{-\beta H}$ for the supersymmetric oscillator, and explain why the first does not
+Compute $\operatorname{tr}(-1)^Fe^{-\beta H}$ and $\operatorname{tr}e^{-\beta H}$ for the supersymmetric oscillator, and explain why the first does not
 depend on $\beta$.
 :::
 
@@ -869,7 +869,7 @@ from Martin's.
 ::: {#def-superalgebra}
 #### Supersymmetry algebra
 
-The **$N = 1$ supersymmetry algebra** extends the Poincaré algebra by the anticommutators
+The **$\mathcal N = 1$ supersymmetry algebra** extends the Poincaré algebra by the anticommutators
 $$
 \{Q_\alpha, Q^\dagger_{\dot\alpha}\} = 2\sigma^\mu_{\alpha\dot\alpha}P_\mu, \qquad \{Q_\alpha, Q_\beta\} = \{Q^\dagger_{\dot\alpha},
 Q^\dagger_{\dot\beta}\} = 0, \qquad [Q_\alpha, P^\mu] = [Q^\dagger_{\dot\alpha}, P^\mu] = 0,
@@ -880,7 +880,7 @@ rest. Two supersymmetry transformations compose to a
 translation, $[\delta_{\epsilon_2}, \delta_{\epsilon_1}] X = i(-\epsilon_1\sigma^\mu\epsilon_2^\dagger +
 \epsilon_2\sigma^\mu\epsilon_1^\dagger)\partial_\mu X$ (@def-off-shell-closure). It is a **Lie superalgebra**: a
 $\mathbb{Z}_2$-graded algebra with commutators between even and anticommutators between odd generators, satisfying
-a graded Jacobi identity. With $N$ supercharges $Q^i_\alpha$ it is the **$N$-extended** algebra.
+a graded Jacobi identity. With $\mathcal N$ supercharges $Q^i_\alpha$ it is the **$\mathcal N$-extended** algebra.
 :::
 ::::
 
@@ -913,9 +913,9 @@ The third example sketches both, since the second is what leads to the bound on 
 ::: {#exm-superalgebra-extended}
 #### Extended and higher-dimensional algebras
 
-With $N$ supercharges in four dimensions the anticommutator may contain **central charges** $Z^{ij}$, and the
-automorphism group $U(N)$ rotating the $Q^i$ is the **R-symmetry**; in $d$ dimensions $Q$ is a spinor of
-$SO(1, d - 1)$ with $\{Q, Q^T\} = \gamma^aCP_a + \dots$ [@tanii1998, eq. 4.5], and the number of real components of
+With $\mathcal N$ supercharges in four dimensions the anticommutator may contain **central charges** $Z^{ij}$, and the
+automorphism group $U(\mathcal N)$ rotating the $Q^i$ is the **R-symmetry**; in $d$ dimensions $Q$ is a spinor of
+$SO(1, d - 1)$ with $\{Q, Q^\top\} = \gamma^aCP_a + \dots$ [@tanii1998, eq. 4.5], and the number of real components of
 $Q$ grows like $2^{\lfloor d/2\rfloor}$ (@sec-gravitino), which is what bounds the dimension by eleven (@sec-sugra11).
 :::
 
@@ -929,7 +929,7 @@ For bosonic symmetries of a relativistic scattering matrix the Coleman-Mandula t
 Poincaré group with an internal group whose generators $B_a$ commute with $P_\mu$ and $M_{\mu\nu}$
 [@nath2017supersymmetry, Sec. 8.1]. Then $B_a$ commutes with the Casimir operators $P^2 = P_\mu P^\mu$ and $W^2 =
 W_\mu W^\mu$, where $W^\mu = \tfrac12\epsilon^{\mu\nu\rho\sigma}P_\nu M_{\rho\sigma}$ is the Pauli-Lubanski vector; in the rest
-frame of a particle of mass $m$ one finds $W^0 = 0$ and $W^2 = -m^2\vec J^2$, so all members of an internal multiplet
+frame of a particle of mass $m$ one finds $W^0 = 0$ and $W^2 = -m^2\mathbf J^2$, so all members of an internal multiplet
 have the same mass and the same spin. A supercharge commutes with $P_\mu$, hence with $P^2$, but it is a spinor and does
 not commute with $M_{\mu\nu}$, hence not with $W^2$: the states it connects have equal masses and spins differing by
 $\tfrac12$, which is the structure of the supermultiplets defined below [@nath2017supersymmetry, eqs. 8.4-8.15].
@@ -973,7 +973,7 @@ has positive eigenvalues.
 At rest $\{Q_\alpha, Q^\dagger_{\dot\beta}\} = 2M\delta_{\alpha\dot\beta}$: two independent fermionic oscillators $Q_\alpha/\sqrt{2M}$. For the
 massless momentum $P_\mu = (E, 0, 0, -E)$ and $2\sigma^\mu P_\mu = \operatorname{diag}(0, 4E)$, so $\{Q_1, Q_1^\dagger\} = 0$ and
 $\|Q_1|\psi\rangle\|^2 + \|Q_1^\dagger|\psi\rangle\|^2 = 0$ for every state: $Q_1 = 0$ on the Hilbert space, and only $Q_2$ acts. In
-general the matrix has determinant $4M^2$ and trace $4E$, hence eigenvalues $2(E \mp |\vec p|) > 0$:
+general the matrix has determinant $4M^2$ and trace $4E$, hence eigenvalues $2(E \mp |\mathbf p|) > 0$:
 
 ```python
 M, E = var("M E", domain="positive")
@@ -1270,19 +1270,19 @@ of the trace, the same argument that underlies the Witten index.
 #### Why $n_B = n_F$
 
 Let $(-1)^F$ be $+1$ on bosonic and $-1$ on fermionic states, so that $(-1)^FQ = -Q(-1)^F$. On a finite-dimensional
-multiplet of fixed momentum $p \neq 0$, show that $\operatorname{Tr}[(-1)^F\{Q_\alpha, Q^\dagger_{\dot\beta}\}] = 0$ and deduce $n_B = n_F$.
+multiplet of fixed momentum $p \neq 0$, show that $\operatorname{tr}[(-1)^F\{Q_\alpha, Q^\dagger_{\dot\beta}\}] = 0$ and deduce $n_B = n_F$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\operatorname{Tr}[(-1)^FQ_\alpha Q^\dagger_{\dot\beta}] = \operatorname{Tr}[Q^\dagger_{\dot\beta}(-1)^FQ_\alpha] = -\operatorname{Tr}[(-1)^FQ^\dagger_{\dot\beta}Q_\alpha]$ by
+$\operatorname{tr}[(-1)^FQ_\alpha Q^\dagger_{\dot\beta}] = \operatorname{tr}[Q^\dagger_{\dot\beta}(-1)^FQ_\alpha] = -\operatorname{tr}[(-1)^FQ^\dagger_{\dot\beta}Q_\alpha]$ by
 cyclicity and anticommutation, so the trace of $(-1)^F$ times the anticommutator vanishes. The anticommutator is
-$2\sigma^\mu_{\alpha\dot\beta}p_\mu$ times the identity on the multiplet, so $2\sigma^\mu_{\alpha\dot\beta}p_\mu\operatorname{Tr}(-1)^F = 0$; for $p \neq 0$
-some entry of $p\cdot\sigma$ is non-zero, hence $\operatorname{Tr}(-1)^F = n_B - n_F = 0$ [@martin1997, eq. 1.12]. For $p = 0$ the
+$2\sigma^\mu_{\alpha\dot\beta}p_\mu$ times the identity on the multiplet, so $2\sigma^\mu_{\alpha\dot\beta}p_\mu\operatorname{tr}(-1)^F = 0$; for $p \neq 0$
+some entry of $p\cdot\sigma$ is non-zero, hence $\operatorname{tr}(-1)^F = n_B - n_F = 0$ [@martin1997, eq. 1.12]. For $p = 0$ the
 argument fails, which is why a supersymmetric vacuum may be a single bosonic state.
 :::
 
 A massive particle at rest sees two pairs of fermionic oscillators (@exr-ssg-algebra-rest-frame). The second exercise
-builds the massive multiplets of $N = 1$ from this and counts their states.
+builds the massive multiplets of $\mathcal N = 1$ from this and counts their states.
 
 ::: {#exr-ssg-massive-multiplet}
 #### Massive multiplets
@@ -1302,11 +1302,11 @@ results when a gauge multiplet eats a chiral one in the Higgs mechanism.
 :::
 
 For a massless particle only one supercharge acts (@exr-ssg-algebra-rest-frame), and it raises the helicity by one
-half. The third exercise builds the massless multiplets of $N = 1$ from this, and shows why the CPT conjugate must
+half. The third exercise builds the massless multiplets of $\mathcal N = 1$ from this, and shows why the CPT conjugate must
 be added.
 
 ::: {#exr-ssg-massless-n1}
-#### Massless $N = 1$ multiplets
+#### Massless $\mathcal N = 1$ multiplets
 
 The normalised $Q_2/\sqrt{4E}$ and its adjoint form one fermionic oscillator, and one of them, call it $a^\dagger$, raises the
 helicity by $\tfrac12$. Build the massless multiplet from a Clifford vacuum of helicity $\lambda$, annihilated by $a$. Which values of $\lambda$ give the chiral, the gauge and the gravity multiplets, and why does each need its CPT
@@ -1323,14 +1323,14 @@ $(\pm\tfrac12, \pm1)$ and the gravity multiplet $(\pm\tfrac32, \pm2)$, $2 + 2$ s
 ::::
 
 ![Massless supermultiplets as helicity ladders: the number of states of each helicity in the gravity multiplets
-(top helicity $2$) of $N = 1, \dots, 8$ extended supersymmetry, completed by their CPT conjugates, with bosons in
-blue and fermions in red. Each ladder is a row of Pascal's triangle; $N = 7$ and $N = 8$ give the same
-self-conjugate multiplet $1, 8, 28, 56, 70, 56, 28, 8, 1$, and $N = 9$ would need helicity $\tfrac52$. Generated by
+(top helicity $2$) of $\mathcal N = 1, \dots, 8$ extended supersymmetry, completed by their CPT conjugates, with bosons in
+blue and fermions in red. Each ladder is a row of Pascal's triangle; $\mathcal N = 7$ and $\mathcal N = 8$ give the same
+self-conjugate multiplet $1, 8, 28, 56, 70, 56, 28, 8, 1$, and $\mathcal N = 9$ would need helicity $\tfrac52$. Generated by
 `figures/supermultiplets.sage`.](figures/supermultiplets.svg){#fig-supermultiplets width=95%}
 
 {{< interactive supermultiplets 460 >}}
 
-The construction of the last exercise extends to $N$ supercharges, and the result is the counting that bounds the
+The construction of the last exercise extends to $\mathcal N$ supercharges, and the result is the counting that bounds the
 number of supersymmetries. The proposition records it; the ladders are built one creation operator at a time, as in
 the figure.
 
@@ -1338,41 +1338,41 @@ the figure.
 ::: {#prp-ssg-massless-multiplets}
 #### Massless supermultiplets
 
-For a massless momentum the $N$-extended algebra acts through $N$ fermionic creation operators, each raising the
+For a massless momentum the $\mathcal N$-extended algebra acts through $\mathcal N$ fermionic creation operators, each raising the
 helicity by $\tfrac12$, so the multiplet built on a Clifford vacuum of helicity $\lambda_0$ has $\binom{N}{k}$ states of helicity
-$\lambda_0 + \tfrac{k}{2}$, $2^N$ states in all, half of them bosonic. The gravity multiplet of $N = 8$, from $\lambda_0 = -2$, has
+$\lambda_0 + \tfrac{k}{2}$, $2^{\mathcal N}$ states in all, half of them bosonic. The gravity multiplet of $\mathcal N = 8$, from $\lambda_0 = -2$, has
 multiplicities $1, 8, 28, 56, 70, 56, 28, 8, 1$ and is its own CPT conjugate; since a ladder spans $\tfrac{N}{2}$ units of
-helicity, $|\lambda| \leq 2$ requires $N \leq 8$ and $|\lambda| \leq 1$ requires $N \leq 4$.
+helicity, $|\lambda| \leq 2$ requires $\mathcal N \leq 8$ and $|\lambda| \leq 1$ requires $\mathcal N \leq 4$.
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The first example reads the proposition for $N = 1$, where each ladder has two rungs. It recovers the multiplets of
+The first example reads the proposition for $\mathcal N = 1$, where each ladder has two rungs. It recovers the multiplets of
 the definition and of @exr-ssg-massless-n1.
 
 ::: {#exm-ssg-ladders-n1}
-#### The $N = 1$ ladders
+#### The $\mathcal N = 1$ ladders
 
-$N = 1$, $2^1 = 2$ states: $(\lambda_0, \lambda_0 + \tfrac12)$, which for $\lambda_0 = 0, \tfrac12, 1, \tfrac32$ are the chiral, gauge,
+$\mathcal N = 1$, $2^1 = 2$ states: $(\lambda_0, \lambda_0 + \tfrac12)$, which for $\lambda_0 = 0, \tfrac12, 1, \tfrac32$ are the chiral, gauge,
 gravitino and gravity multiplets, each with its CPT conjugate (@fig-supermultiplets, first panel).
 :::
 
 The second example is the largest multiplet without gravity. With top helicity one, the ladder can be at most four
-rungs of one half long, and the resulting $N = 4$ multiplet is its own conjugate.
+rungs of one half long, and the resulting $\mathcal N = 4$ multiplet is its own conjugate.
 
 ::: {#exm-ssg-ladders-n4}
-#### $N = 4$ super-Yang-Mills
+#### $\mathcal N = 4$ super-Yang-Mills
 
-From $\lambda_0 = -1$ with $N = 4$: one vector of helicity $-1$, four helicity $-\tfrac12$ states, six scalars, four helicity
-$+\tfrac12$ states, one of helicity $+1$: $1, 4, 6, 4, 1$, self-conjugate, $8 + 8$ states. It is the field content of $N = 4$
+From $\lambda_0 = -1$ with $\mathcal N = 4$: one vector of helicity $-1$, four helicity $-\tfrac12$ states, six scalars, four helicity
+$+\tfrac12$ states, one of helicity $+1$: $1, 4, 6, 4, 1$, self-conjugate, $8 + 8$ states. It is the field content of $\mathcal N = 4$
 super-Yang-Mills theory, a gauge field, four Weyl gauginos and six real scalars in the adjoint.
 :::
 
-The third example is the maximal multiplet with gravity. Its field content is that of $N = 8$ supergravity, which
+The third example is the maximal multiplet with gravity. Its field content is that of $\mathcal N = 8$ supergravity, which
 appears again as the reduction of the eleven-dimensional theory.
 
 ::: {#exm-ssg-ladders-n8}
-#### $N = 8$ supergravity
+#### $\mathcal N = 8$ supergravity
 
 From $\lambda_0 = -2$: $1, 8, 28, 56, 70, 56, 28, 8, 1$ at helicities $-2, \dots, 2$, that is one graviton, eight gravitini, $28$
 vectors, $56$ spin-$\tfrac12$ fields and $70$ scalars, $128 + 128$ states (@exm-sugra-multiplet-extended, @fig-supermultiplets).
@@ -1380,37 +1380,37 @@ vectors, $56$ spin-$\tfrac12$ fields and $70$ scalars, $128 + 128$ states (@exm-
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise applies the proposition to $N = 2$. It finds the two multiplets used in $N = 2$ theories, the
+The first exercise applies the proposition to $\mathcal N = 2$. It finds the two multiplets used in $\mathcal N = 2$ theories, the
 vector multiplet and the hypermultiplet.
 
 ::: {#exr-ssg-n2-multiplets}
-#### $N = 2$ multiplets
+#### $\mathcal N = 2$ multiplets
 
-List the helicities of the $N = 2$ multiplets with $\lambda_0 = 0$ and $\lambda_0 = -\tfrac12$, add CPT conjugates where needed, and
+List the helicities of the $\mathcal N = 2$ multiplets with $\lambda_0 = 0$ and $\lambda_0 = -\tfrac12$, add CPT conjugates where needed, and
 count the states.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\lambda_0 = 0$: helicities $0, \tfrac12, \tfrac12, 1$, not self-conjugate; with the conjugate $-1, -\tfrac12, -\tfrac12, 0$ this is the $N = 2$
+$\lambda_0 = 0$: helicities $0, \tfrac12, \tfrac12, 1$, not self-conjugate; with the conjugate $-1, -\tfrac12, -\tfrac12, 0$ this is the $\mathcal N = 2$
 vector multiplet, a vector, two Weyl fermions and a complex scalar, $4 + 4$. $\lambda_0 = -\tfrac12$: $-\tfrac12, 0, 0, \tfrac12$, which
 looks self-conjugate, but the two scalars form a doublet of the $SU(2)$ R-symmetry and CPT requires a second copy;
 the result is the hypermultiplet, two complex scalars and two Weyl fermions, $4 + 4$ [@tanii1998, Sec. 3].
 :::
 
-The gravity multiplets for every $N$ are a short computation. The second exercise lists them in Sage and checks the
-coincidence of $N = 7$ and $N = 8$ visible in the figure.
+The gravity multiplets for every $\mathcal N$ are a short computation. The second exercise lists them in Sage and checks the
+coincidence of $\mathcal N = 7$ and $\mathcal N = 8$ visible in the figure.
 
 ::: {#exr-ssg-ladders}
 #### The gravity ladders
 
-For $N = 1, \dots, 8$ list the CPT-completed gravity multiplets, count bosons and fermions, and check that $N = 7$ gives
-the same states as $N = 8$. Show that $N = 9$ forces a helicity above $2$.
+For $\mathcal N = 1, \dots, 8$ list the CPT-completed gravity multiplets, count bosons and fermions, and check that $\mathcal N = 7$ gives
+the same states as $\mathcal N = 8$. Show that $\mathcal N = 9$ forces a helicity above $2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Each ladder has $2^N$ states, doubled by CPT except for $N = 8$; bosons and fermions are equal in number. For $N = 7$
-the ladder from $-\tfrac32$ to $2$ plus its conjugate gives exactly the $N = 8$ multiplet, so $N = 7$ supergravity has an
-eighth supersymmetry automatically. A ladder of $N = 9$ spans $\tfrac92 > 4$ units, so its ends cannot both lie in
+Each ladder has $2^{\mathcal N}$ states, doubled by CPT except for $\mathcal N = 8$; bosons and fermions are equal in number. For $\mathcal N = 7$
+the ladder from $-\tfrac32$ to $2$ plus its conjugate gives exactly the $\mathcal N = 8$ multiplet, so $\mathcal N = 7$ supergravity has an
+eighth supersymmetry automatically. A ladder of $\mathcal N = 9$ spans $\tfrac92 > 4$ units, so its ends cannot both lie in
 $[-2, 2]$:
 
 ```python
@@ -1452,22 +1452,22 @@ N = 8: 2:1, 3/2:8, 1:28, 1/2:56, 0:70, -1/2:56, -1:28, -3/2:8, -2:1  bosons 128 
 :::
 
 The multiplicities $\binom{N}{k}$ have a group-theoretic meaning: the level-$k$ states are antisymmetric in $k$ indices of the
-R-symmetry $SU(N)$. The third exercise identifies them with the fundamental representations of $SU(8)$ and $SU(4)$
+R-symmetry $SU(\mathcal N)$. The third exercise identifies them with the fundamental representations of $SU(8)$ and $SU(4)$
 using Sage's Weyl character rings.
 
 ::: {#exr-ssg-r-symmetry}
 #### The R-symmetry representations
 
-Show that the level-$k$ states of the $N = 8$ ladder form $\Lambda^k\mathbf{8}$ of $SU(8)$, check their dimensions with the Weyl
+Show that the level-$k$ states of the $\mathcal N = 8$ ladder form $\Lambda^k\mathbf{8}$ of $SU(8)$, check their dimensions with the Weyl
 character ring, decompose $\mathbf{8} \otimes \mathbf{8}$, and show that the $70$ scalars form a self-conjugate
-representation. Do the same for the scalars of $N = 4$ super-Yang-Mills.
+representation. Do the same for the scalars of $\mathcal N = 4$ super-Yang-Mills.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The state $a^\dagger_{i_1}\cdots a^\dagger_{i_k}|\lambda_0\rangle$ is antisymmetric in $i_1, \dots, i_k$ because the $a^\dagger_i$ anticommute, so
 level $k$ carries $\Lambda^k\mathbf{8}$, the $k$-th fundamental representation of $SU(8)$ (@sec-lie-algebras). Its dimension is
 $\binom8k$; $\mathbf 8 \otimes \mathbf 8 = \mathbf{28} \oplus \mathbf{36}$, the $28$ vectors being the antisymmetric part; $\Lambda^k$ and
-$\Lambda^{8 - k}$ are conjugate, so $\Lambda^4 = \mathbf{70}$ is self-conjugate, as $70$ real scalars must be. For $N = 4$ the six
+$\Lambda^{8 - k}$ are conjugate, so $\Lambda^4 = \mathbf{70}$ is self-conjugate, as $70$ real scalars must be. For $\mathcal N = 4$ the six
 scalars are $\Lambda^2\mathbf 4 = \mathbf 6$ of $SU(4) \cong SO(6)$, the real vector:
 
 ```python
@@ -1676,8 +1676,8 @@ of a superpotential and finds the scalar potential.
 ::: {#exm-auxiliary-interacting}
 #### $F$ with a superpotential
 
-With the terms $W^iF_i + \text{c.c.}$ of @sec-superpotential, $F^*F + W'F + \bar W'F^* = |F + \bar W'|^2 - |W'|^2$, so
-the equation of motion is $F = -\bar W'$ and eliminating $F$ leaves the potential $|W'|^2$
+With the terms $W^iF_i + \text{c.c.}$ of @sec-superpotential, $F^*F + W'F + W'^*F^* = |F + W'^*|^2 - |W'|^2$, so
+the equation of motion is $F = -W'^*$ and eliminating $F$ leaves the potential $|W'|^2$
 (@prp-auxiliary-elimination, @exr-wz-potential).
 :::
 
@@ -1767,7 +1767,7 @@ Complete the square: $\tfrac12D^2 + JD = \tfrac12(D + J)^2 - \tfrac12J^2$. Shift
 point leaves the measure invariant, so $\int\mathcal{D}D\,e^{i\int(\frac12D^2 + JD)} = e^{-i\int\frac12J^2}\int\mathcal{D}D\,
 e^{i\int\frac12D^2}$; the last factor is a constant independent of the other fields. The exponent $-\tfrac12J^2$ is the
 value of $\mathcal{L}_{\text{aux}}$ at $D = -J$, the classical solution: for Gaussian integrals the stationary-phase
-approximation is exact. The same argument with $F^*F + wF + \bar w\bar F$ gives the potential $|w|^2$.
+approximation is exact. The same argument with $F^*F + wF + w^*F^*$ gives the potential $|w|^2$.
 :::
 ::::
 
@@ -1778,8 +1778,8 @@ proposition, because it is the step that turns the superpotential into the scala
 ::: {#prp-auxiliary-elimination}
 #### Eliminating the auxiliary field
 
-$F^*F + wF + \bar w\bar F = |F + \bar w|^2 - |w|^2$ for complex $w$ and $F$, so the auxiliary Lagrangian is extremised
-at $F = -\bar w$ with value $-|w|^2$.
+$F^*F + wF + w^*F^* = |F + w^*|^2 - |w|^2$ for complex $w$ and $F$, so the auxiliary Lagrangian is extremised
+at $F = -w^*$ with value $-|w|^2$.
 :::
 ::::
 
@@ -1812,7 +1812,7 @@ square for it, anticipating the D-term potential.
 #### The real case
 
 For a real $D$ with $\tfrac12D^2 + jD$, $j$ real, $\tfrac12D^2 + jD = \tfrac12(D + j)^2 - \tfrac12j^2$: $D = -j$ and the value is
-$-\tfrac12j^2$. With $j = g\phi^*T^a\phi$ this is the D-term potential $\tfrac12g^2(\phi^*T^a\phi)^2$ of @def-d-term-potential.
+$-\tfrac12j^2$. With $j = g\phi^*t^a\phi$, $t^a = iT^a$ the Hermitian generators, this is the D-term potential $\tfrac12g^2(\phi^*t^a\phi)^2$ of @def-d-term-potential.
 :::
 ::::
 
@@ -1828,7 +1828,7 @@ compute the Hessian of $\mathcal{L}_{\text{aux}}$ there.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The stationary point is $a = -u$, $b = v$, that is $F = -\bar w$; the Hessian is $2\cdot1$, a minimum of $\mathcal{L}_{\text{aux}}$
+The stationary point is $a = -u$, $b = v$, that is $F = -w^*$; the Hessian is $2\cdot1$, a minimum of $\mathcal{L}_{\text{aux}}$
 with value $-(u^2 + v^2) = -|w|^2$. Since $V = -\mathcal{L}$ for the non-derivative terms, the potential is $+|w|^2$:
 
 ```python
@@ -1862,12 +1862,12 @@ compares the complex and the real case and finds the factor $\tfrac12$ of the D-
 ::: {#exr-ssg-aux-normalisation}
 #### Normalisations
 
-Eliminate $F$ from $cF^*F + wF + \bar w\bar F$ with $c > 0$, and $D$ from $\tfrac{c}{2}D^2 + jD$. Why is the normalisation $c = 1$ fixed
+Eliminate $F$ from $cF^*F + wF + w^*F^*$ with $c > 0$, and $D$ from $\tfrac{c}{2}D^2 + jD$. Why is the normalisation $c = 1$ fixed
 by supersymmetry rather than by convention?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F = -\bar w/c$ with value $-|w|^2/c$, and $D = -j/c$ with value $-j^2/(2c)$. The normalisation of $F^*F$ is tied to that of
+$F = -w^*/c$ with value $-|w|^2/c$, and $D = -j/c$ with value $-j^2/(2c)$. The normalisation of $F^*F$ is tied to that of
 the kinetic terms by the transformations @eq-wz-transformation: $\delta(F^*F)$ must cancel the terms produced by $\epsilon F$
 in $\delta\psi$ (@exm-transformation-auxiliary), which fixes $c = 1$ once $\delta\psi \ni \epsilon F$; rescaling $F$ changes $c$ and the
 transformation together, and the potential $|W'|^2$ is unchanged.
@@ -1880,12 +1880,12 @@ and finds a positive potential with the inverse metric.
 ::: {#exr-ssg-aux-matrix}
 #### A matrix of auxiliary fields
 
-For $\mathcal{L}_{\text{aux}} = F^{*i}K_{ij}F_j + w^jF_j + \bar w^j F^*_j$ with a positive Hermitian matrix $K$, find the stationary
+For $\mathcal{L}_{\text{aux}} = F^{*i}K_{ij}F_j + w^jF_j + w^{*j} F^*_j$ with a positive Hermitian matrix $K$, find the stationary
 point and the potential, and check the result for $K = \begin{pmatrix} 2 & 1 + i \\ 1 - i & 3 \end{pmatrix}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Varying $F^*$: $KF + \bar w = 0$, so $F = -K^{-1}\bar w$, and the value is $-wK^{-1}w^\dagger$; the potential $V = wK^{-1}w^\dagger$ is
+Varying $F^*$: $KF + w^* = 0$, so $F = -K^{-1}w^*$, and the value is $-wK^{-1}w^\dagger$; the potential $V = wK^{-1}w^\dagger$ is
 positive because $K^{-1}$ is. For $K = 1$ it is $\sum_i|w_i|^2$:
 
 ```python
@@ -2397,7 +2397,7 @@ argument, and notes where it leads in supergravity.
 
 Off-shell $\psi$ has four real components and $\phi$ two; a representation of the algebra on the off-shell fields
 needs $n_B = n_F$ (@def-supermultiplet), and $F$ supplies the missing two bosonic components [@martin1997, p.
-20]. The same reasoning gives $D$ for the gauge multiplet; for supergravities beyond $N = 1$ in four dimensions no
+20]. The same reasoning gives $D$ for the gauge multiplet; for supergravities beyond $\mathcal N = 1$ in four dimensions no
 off-shell formulation is known [@tanii1998, p. 6].
 :::
 ::::
@@ -2486,7 +2486,7 @@ vector does, which is a quick consistency test of signs.
 #### Equal parameters
 
 For $\epsilon_1 = \epsilon_2 = \epsilon$, $v^\mu = -\epsilon\sigma^\mu\epsilon^\dagger + \epsilon\sigma^\mu\epsilon^\dagger = 0$: two identical transformations
-commute, as they must. For $\epsilon_2 = c\,\epsilon_1$ with a complex number $c$, $v^\mu = (c - \bar c)\,\epsilon_1\sigma^\mu\epsilon_1^\dagger$, which
+commute, as they must. For $\epsilon_2 = c\,\epsilon_1$ with a complex number $c$, $v^\mu = (c - c^*)\,\epsilon_1\sigma^\mu\epsilon_1^\dagger$, which
 vanishes for real $c$ and is a translation along $\epsilon_1\sigma^\mu\epsilon_1^\dagger$ for imaginary $c$: the two
 transformations then differ by a phase, which is a genuinely different direction in the space of parameters.
 :::
@@ -2497,9 +2497,9 @@ The oscillator of @prp-susy-oscillator realises the same structure in one dimens
 ::: {#exm-ssg-closure-oscillator}
 #### Closure as $\{Q, Q^\dagger\} = H$
 
-On the oscillator, with Grassmann parameters $\epsilon_i$, $\bar\epsilon_i$ and $G_i = \epsilon_iQ + \bar\epsilon_iQ^\dagger$ acting by commutators,
+On the oscillator, with Grassmann parameters $\epsilon_i$, $\epsilon_i^*$ and $G_i = \epsilon_iQ + \epsilon_i^*Q^\dagger$ acting by commutators,
 $[G_2, [G_1, X]] - [G_1, [G_2, X]] = [[G_2, G_1], X]$, and $Q^2 = 0$ with the anticommutation of the parameters past
-$Q$ gives $[G_2, G_1] = (\bar\epsilon_1\epsilon_2 - \bar\epsilon_2\epsilon_1)\{Q, Q^\dagger\} = (\bar\epsilon_1\epsilon_2 - \bar\epsilon_2\epsilon_1)H$: the commutator of two
+$Q$ gives $[G_2, G_1] = (\epsilon_1^*\epsilon_2 - \epsilon_2^*\epsilon_1)\{Q, Q^\dagger\} = (\epsilon_1^*\epsilon_2 - \epsilon_2^*\epsilon_1)H$: the commutator of two
 supersymmetries is a time translation, the $0 + 1$-dimensional @eq-wz-closure.
 :::
 ::::
@@ -3422,7 +3422,7 @@ energy bound for such domain walls, which is fixed by the superpotential alone.
 #### Domain walls
 
 For a static field depending on one coordinate, the energy per area is $\int(|\phi'|^2 + |W'|^2)\,dx \geq 2|W(\phi_+) - W(\phi_-)|$,
-with equality for $\phi' = e^{i\alpha}\overline{W'(\phi)}$: the **BPS** walls, whose tension is fixed by the superpotential at the
+with equality for $\phi' = e^{i\alpha}W'(\phi)^*$: the **BPS** walls, whose tension is fixed by the superpotential at the
 two vacua (@exr-ssg-wz-domain-wall).
 :::
 ::::
@@ -3569,9 +3569,9 @@ example lists the extra terms, whose strength is fixed by the gauge coupling.
 ::: {#exm-gauge-multiplet-coupling}
 #### Coupling to chiral multiplets
 
-Supersymmetry requires, beyond the covariant derivatives, the terms $-\sqrt2g(\phi^*T^a\psi)\lambda^a + \text{c.c.} +
-g(\phi^*T^a\phi)D^a$ [@martin1997, eq. 3.4.9], with the gauge coupling fixing their strength: the gaugino couples
-to matter as the gauge boson does, and the superpotential must be gauge invariant, $W^i(T^a\phi)_i = 0$.
+Supersymmetry requires, beyond the covariant derivatives, the terms $-\sqrt2g(\phi^*t^a\psi)\lambda^a + \text{c.c.} +
+g(\phi^*t^a\phi)D^a$ with the Hermitian generators $t^a = iT^a$ (Martin's $T^a$) [@martin1997, eq. 3.4.9], with the gauge coupling fixing their strength: the gaugino couples
+to matter as the gauge boson does, and the superpotential must be gauge invariant, $W^i(t^a\phi)_i = 0$.
 :::
 
 Gauge multiplets in four dimensions also arise from higher-dimensional ones. The third example describes the
@@ -3696,13 +3696,13 @@ replaced by singular values. The fourth exercise computes them in closed form an
 
 The charged gaugino-higgsino mass matrix is $M_C = \begin{pmatrix} M_2 & \sqrt2\,m_W\sin\beta \\ \sqrt2\,m_W\cos\beta & \mu
 \end{pmatrix}$ [@nath2017supersymmetry, eq. 10.43]. Show that the squared chargino masses, the eigenvalues of
-$M_CM_C^T$, are $m^2_\pm = \tfrac12\bigl[(M_2^2 + \mu^2 + 2m_W^2) \pm \sqrt{(M_2^2 + \mu^2 + 2m_W^2)^2 - 4(M_2\mu -
+$M_CM_C^\top$, are $m^2_\pm = \tfrac12\bigl[(M_2^2 + \mu^2 + 2m_W^2) \pm \sqrt{(M_2^2 + \mu^2 + 2m_W^2)^2 - 4(M_2\mu -
 m_W^2\sin2\beta)^2}\,\bigr]$, and evaluate them with Sage for $M_2 = 200$ GeV, $\mu = 300$ GeV, $\tan\beta = 10$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-A real matrix is diagonalised by two orthogonal matrices, $U M_C V^T = \operatorname{diag}(m_1, m_2)$, and the $m_i^2$ are the
-eigenvalues of $M_CM_C^T$ [@nath2017supersymmetry, eq. 10.44]. Its trace is $M_2^2 + \mu^2 + 2m_W^2(\sin^2\beta + \cos^2\beta) = M_2^2 +
+A real matrix is diagonalised by two orthogonal matrices, $U M_C V^\top = \operatorname{diag}(m_1, m_2)$, and the $m_i^2$ are the
+eigenvalues of $M_CM_C^\top$ [@nath2017supersymmetry, eq. 10.44]. Its trace is $M_2^2 + \mu^2 + 2m_W^2(\sin^2\beta + \cos^2\beta) = M_2^2 +
 \mu^2 + 2m_W^2$ and its determinant $(\det M_C)^2 = (M_2\mu - 2m_W^2\sin\beta\cos\beta)^2 = (M_2\mu - m_W^2\sin2\beta)^2$, so the
 quadratic formula gives the stated roots [@nath2017supersymmetry, eq. 10.49]. Numerically the masses are $175.3$ GeV
 and $335.0$ GeV: close to $M_2$ and $\mu$, pushed apart by the mixing.
@@ -3748,10 +3748,10 @@ theory.
 ::: {#def-d-term-potential}
 #### D-term potential
 
-Eliminating $D^a = -g(\phi^*T^a\phi)$ gives the **D-term potential**, and the complete scalar potential of a
+Eliminating $D^a = -g(\phi^*t^a\phi)$ gives the **D-term potential**, and the complete scalar potential of a
 renormalisable supersymmetric theory is
 $$
-V = \sum_i|W^i|^2 + \tfrac12\sum_ag_a^2(\phi^*T^a\phi)^2 ,
+V = \sum_i|W^i|^2 + \tfrac12\sum_ag_a^2(\phi^*t^a\phi)^2 ,
 $$ {#eq-susy-potential}
 F-terms fixed by the superpotential and D-terms by the gauge couplings, with no free quartic couplings
 [@martin1997, eqs. 3.4.11-3.4.12].
@@ -3765,7 +3765,7 @@ coupling is the gauge coupling.
 ::: {#exm-d-term-doublet}
 #### The $SU(2)$ doublet
 
-For a doublet with $T^a = \tfrac12\sigma^a$, $\tfrac12g^2\sum_a(\phi^\dagger\tfrac12\sigma^a\phi)^2 = \tfrac18g^2(\phi^\dagger\phi)^2$
+For a doublet with $t^a = \tfrac12\sigma^a$, $\tfrac12g^2\sum_a(\phi^\dagger\tfrac12\sigma^a\phi)^2 = \tfrac18g^2(\phi^\dagger\phi)^2$
 (@exr-d-term-doublet): a quartic potential with coupling fixed by $g$, which is why the Higgs quartic coupling
 of the supersymmetric Standard Model is predicted.
 :::
@@ -3786,7 +3786,7 @@ potential of the reduced Yang-Mills theory.
 ::: {#exm-d-term-csdr}
 #### D-terms as commutators
 
-For adjoint scalars, $(\phi^*T^a\phi)$ is $\operatorname{Tr}(T^a[\phi, \phi^\dagger])$ and $V_D \propto \operatorname{Tr}[\phi,
+For adjoint scalars, $(\phi^*t^a\phi)$ is $\operatorname{tr}(t^a[\phi, \phi^\dagger])$ and $V_D \propto \operatorname{tr}[\phi,
 \phi^\dagger]^2$: the quartic commutator potential that the reduction of a Yang-Mills field produces (@exm-ym-reduction),
 now recognised as a D-term.
 :::
@@ -3799,11 +3799,11 @@ standard one and gives the Higgs quartic of the supersymmetric Standard Model.
 ::: {#exr-d-term-doublet}
 #### The D-term of a doublet
 
-Show that for an $SU(2)$ doublet $\tfrac12g^2\sum_a(\phi^\dagger T^a\phi)^2 = \tfrac18g^2(\phi^\dagger\phi)^2$.
+Show that for an $SU(2)$ doublet $\tfrac12g^2\sum_a(\phi^\dagger t^a\phi)^2 = \tfrac18g^2(\phi^\dagger\phi)^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $T^a = \tfrac12\sigma^a$ and the Fierz identity $\sum_a\sigma^a_{ij}\sigma^a_{kl} = 2\delta_{il}\delta_{jk} - \delta_{ij}
+With $t^a = \tfrac12\sigma^a$ and the Fierz identity $\sum_a\sigma^a_{ij}\sigma^a_{kl} = 2\delta_{il}\delta_{jk} - \delta_{ij}
 \delta_{kl}$ (@exm-gamma-euclidean), $\sum_a(\phi^\dagger\sigma^a\phi)^2 = 2(\phi^\dagger\phi)^2 - (\phi^\dagger\phi)^2 = (\phi^\dagger
 \phi)^2$, so $V_D = \tfrac12g^2\cdot\tfrac14(\phi^\dagger\phi)^2 = \tfrac18g^2(\phi^\dagger\phi)^2$. With two doublets $H_u, H_d$
 this gives the quartic terms of the supersymmetric Higgs potential [@martin1997, eq. 8.1.1], whose coupling is a
@@ -3834,13 +3834,13 @@ also finds a family of D-flat directions of the adjoint.
 #### D-terms in components
 
 With $\phi = (a_1 + ib_1, a_2 + ib_2)$ verify that each $D^a$ is real and $V_D = \tfrac18g^2(\phi^\dagger\phi)^2$, and check the Fierz
-identity. For an $SU(2)$ adjoint, relate $\phi^*T^a_{\text{adj}}\phi$ to $\operatorname{tr}(T^a[\phi, \phi^\dagger])$ and show that real directions are
+identity. For an $SU(2)$ adjoint, relate $\phi^*t^a_{\text{adj}}\phi$ to $\operatorname{tr}(t^a[\phi, \phi^\dagger])$ and show that real directions are
 D-flat.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-All four statements hold; the adjoint D-term is, up to a sign fixed by the convention for $T^a_{\text{adj}}$,
-$2\operatorname{tr}(T^a[\phi, \phi^\dagger])$, and for a real field $\phi = \phi^\dagger$ the commutator vanishes:
+All four statements hold; the adjoint D-term is, up to a sign fixed by the convention for $t^a_{\text{adj}}$,
+$2\operatorname{tr}(t^a[\phi, \phi^\dagger])$, and for a real field $\phi = \phi^\dagger$ the commutator vanishes:
 
 ```python
 g = var("g", domain="positive")
@@ -3854,13 +3854,13 @@ n2 = (phi.conjugate() * phi).expand()
 print("[PASS] V_D = g^2 (phi^dag phi)^2 / 8:", bool((VD - g^2 * n2^2 / 8).expand().simplify_full() == 0))
 fierz = all(sum(p[i, j] * p[k, l] for p in pauli) == 2 * (i == l) * (j == k) - (i == j) * (k == l) for i in range(2) for j in range(2) for k in range(2) for l in range(2))
 print("[PASS] Fierz identity sum_a sigma^a_ij sigma^a_kl = 2 delta_il delta_jk - delta_ij delta_kl:", fierz)
-# adjoint: phi = phi^a T^a with T^a = sigma^a/2 as a 2x2 matrix; D^a proportional to tr(T^a [phi, phi^dag])
+# adjoint: phi = phi^a t^a with t^a = sigma^a/2 as a 2x2 matrix; D^a proportional to tr(t^a [phi, phi^dag])
 u = [var("u%d" % k, domain="real") for k in range(3)]; v = [var("v%d" % k, domain="real") for k in range(3)]
 pa = [u[k] + I * v[k] for k in range(3)]
 Phi = sum(pa[k] * pauli[k] / 2 for k in range(3))
 C = Phi * Phi.conjugate_transpose() - Phi.conjugate_transpose() * Phi
 Dadj = [(-I * sum(pa[b].conjugate() * pa[c] * (1 if (a, b, c) in [(0, 1, 2), (1, 2, 0), (2, 0, 1)] else -1 if (a, c, b) in [(0, 1, 2), (1, 2, 0), (2, 0, 1)] else 0) for b in range(3) for c in range(3))) for a in range(3)]
-print("[PASS] the adjoint D-terms phi^* T^a_adj phi = -i (phi^* x phi)^a equal 2 tr(T^a [phi, phi^dag]) up to sign:",
+print("[PASS] the adjoint D-terms phi^* t^a_adj phi = -i (phi^* x phi)^a equal 2 tr(t^a [phi, phi^dag]) up to sign:",
       all(bool((Dadj[a] - 2 * (pauli[a] / 2 * C).trace()).expand() == 0) or bool((Dadj[a] + 2 * (pauli[a] / 2 * C).trace()).expand() == 0) for a in range(3)))
 print("[PASS] a real direction phi^a = u^a (v = 0) is D-flat: [phi, phi^dag] = 0:", C.subs({v[k]: 0 for k in range(3)}).expand().is_zero())
 ```
@@ -3871,7 +3871,7 @@ print("[PASS] a real direction phi^a = u^a (v = 0) is D-flat: [phi, phi^dag] = 0
 [PASS] each D^a is real: True
 [PASS] V_D = g^2 (phi^dag phi)^2 / 8: True
 [PASS] Fierz identity sum_a sigma^a_ij sigma^a_kl = 2 delta_il delta_jk - delta_ij delta_kl: True
-[PASS] the adjoint D-terms phi^* T^a_adj phi = -i (phi^* x phi)^a equal 2 tr(T^a [phi, phi^dag]) up to sign: True
+[PASS] the adjoint D-terms phi^* t^a_adj phi = -i (phi^* x phi)^a equal 2 tr(t^a [phi, phi^dag]) up to sign: True
 [PASS] a real direction phi^a = u^a (v = 0) is D-flat: [phi, phi^dag] = 0: True
 ```
 :::
@@ -3926,7 +3926,7 @@ realistic breaking difficult.
 ::: {#exm-breaking-sum-rule}
 #### The supertrace sum rule
 
-At tree level $\operatorname{STr}m^2 = \sum(-1)^{2j}(2j + 1)\operatorname{Tr}m_j^2 = 0$ for theories without $U(1)$
+At tree level $\operatorname{STr}m^2 = \sum(-1)^{2j}(2j + 1)\operatorname{tr}m_j^2 = 0$ for theories without $U(1)$
 D-terms [@martin1997, eq. 7.1.13]: the splittings go both ways, $m^2 \pm yk$ in the O'Raifeartaigh model, which is
 why realistic breaking needs a hidden sector or supergravity (@def-super-higgs).
 :::
@@ -4237,8 +4237,8 @@ model.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The scalar mass matrix in the basis $(\phi, \phi^*)$ has diagonal blocks $W^{*}_{ik}W^{kj}$ and off-diagonal blocks $W^{*}_kW^{kij}$;
-only the diagonal blocks contribute to the trace, $2\operatorname{Tr}(W^\dagger W)$. The fermions contribute $\operatorname{Tr}(W^\dagger W)$ per Weyl
-fermion with weight $2$ in the supertrace, so $\operatorname{STr}m^2 = 2\operatorname{Tr}(W^\dagger W) - 2\operatorname{Tr}(W^\dagger W) = 0$ at every point,
+only the diagonal blocks contribute to the trace, $2\operatorname{tr}(W^\dagger W)$. The fermions contribute $\operatorname{tr}(W^\dagger W)$ per Weyl
+fermion with weight $2$ in the supertrace, so $\operatorname{STr}m^2 = 2\operatorname{tr}(W^\dagger W) - 2\operatorname{tr}(W^\dagger W) = 0$ at every point,
 whatever $\phi_1$ is [@martin1997, eq. 7.1.13]. The individual masses change along the flat direction
 (@exm-ssg-oraifeartaigh-pseudomodulus), but the sum rule does not.
 :::
@@ -4249,7 +4249,7 @@ whatever $\phi_1$ is [@martin1997, eq. 7.1.13]. The individual masses change alo
 The superpotential of @def-superpotential is integrated over half of superspace, and a phase rotation of the
 Grassmann coordinates is a symmetry of everything except, possibly, the superpotential. This extra phase symmetry,
 which rotates bosons and fermions of one multiplet by different phases, constrains the superpotential and the
-gaugino masses, and it is the abelian part of the $U(N)$ of @exr-ssg-r-symmetry for $N = 1$.
+gaugino masses, and it is the abelian part of the $U(\mathcal N)$ of @exr-ssg-r-symmetry for $\mathcal N = 1$.
 
 :::: {.statement-box}
 ::: {#def-ssg-r-symmetry}
@@ -4403,7 +4403,7 @@ Making supersymmetry local forces gravity in: the gravitino is the gauge field o
 eleven-dimensional supergravity is the maximal theory of this kind. This part develops it in two sections. Local
 supersymmetry and the gravitino introduces Majorana spinors and the charge-conjugation matrix, the dimensions of the
 smallest spinors in each spacetime dimension, the gauging of supersymmetry and its gauge field of spin three halves,
-the supergravity multiplets of four dimensions up to $N = 8$, and the super-Higgs mechanism by which the gravitino
+the supergravity multiplets of four dimensions up to $\mathcal N = 8$, and the super-Higgs mechanism by which the gravitino
 becomes massive. Eleven-dimensional supergravity defines maximal supergravity, displays the action and the
 transformation rules of the unique eleven-dimensional theory, solves its field equations with the Freund-Rubin
 ansatz on anti-de Sitter space times a seven-dimensional Einstein space, and counts the supersymmetries that a
@@ -4430,8 +4430,8 @@ fixes it for the gamma matrices of this chapter.
 ::: {#def-majorana-spinor}
 #### Majorana spinor
 
-The **charge conjugate** of a Dirac spinor is $\psi^c = C\bar\psi^T$ with the **charge-conjugation matrix** $C$
-satisfying $C\gamma^\mu C^{-1} = -(\gamma^\mu)^T$ and $C^T = -C$ [@tanii1998, eq. 2.1]; a **Majorana spinor** is one
+The **charge conjugate** of a Dirac spinor is $\psi^c = C\bar\psi^\top$ with the **charge-conjugation matrix** $C$
+satisfying $C\gamma^\mu C^{-1} = -(\gamma^\mu)^\top$ and $C^\top = -C$ [@tanii1998, eq. 2.1]; a **Majorana spinor** is one
 with $\psi^c = \psi$, a real spinor in the sense that it has half the components of a Dirac spinor. In the Weyl
 basis of @exm-gamma-weyl, $C \propto \gamma^0\gamma^2$ (@prp-charge-conjugation) and a Majorana spinor is a Dirac spinor
 $(\xi_\alpha, \xi^{\dagger\dot\alpha})$ built from a single Weyl spinor [@martin1997, eq. 2.29].
@@ -4481,12 +4481,12 @@ needs only the explicit $C$ and the Dirac conjugate.
 ::: {#exr-ssg-majorana-components}
 #### A Majorana spinor in components
 
-With $C = \gamma^0\gamma^2$ and $\Psi = (\xi_\alpha, \chi^{\dagger\dot\alpha})$, compute $\Psi^c = C\bar\Psi^T$ with $\bar\Psi = \Psi^\dagger\gamma^0$, and show
+With $C = \gamma^0\gamma^2$ and $\Psi = (\xi_\alpha, \chi^{\dagger\dot\alpha})$, compute $\Psi^c = C\bar\Psi^\top$ with $\bar\Psi = \Psi^\dagger\gamma^0$, and show
 that $\Psi^c = \Psi$ (up to the phase convention of $C$) means $\chi = \xi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\bar\Psi^T = \gamma^{0T}\Psi^* = \gamma^0\Psi^*$, so $\Psi^c = \gamma^0\gamma^2\gamma^0\Psi^* = -\gamma^2\Psi^*$ (since $\gamma^0\gamma^2\gamma^0 = -\gamma^2$). In
+$\bar\Psi^\top = (\gamma^0)^\top\Psi^* = \gamma^0\Psi^*$, so $\Psi^c = \gamma^0\gamma^2\gamma^0\Psi^* = -\gamma^2\Psi^*$ (since $\gamma^0\gamma^2\gamma^0 = -\gamma^2$). In
 blocks $\gamma^2 = \begin{pmatrix} 0 & \sigma_2 \\ -\sigma_2 & 0 \end{pmatrix}$, so $\Psi^c = (-\sigma_2\chi^{\dagger *}, \sigma_2\xi^*)$: the upper
 components of $\Psi^c$ are built from $\chi$ and the lower from $\xi$. Since $\sigma_2 = -i\epsilon$ (as matrices, with
 $\epsilon^{12} = 1$) and complex conjugation turns an undotted index into a dotted one, $\Psi^c$ is $(\chi_\alpha, \xi^{\dagger\dot\alpha})$ up to a
@@ -4537,8 +4537,8 @@ proposition gives it explicitly for our gamma matrices, where both properties ar
 ::: {#prp-charge-conjugation}
 #### The charge-conjugation matrix
 
-For the Dirac matrices of @exm-gamma-weyl, $C = \gamma^0\gamma^2$ satisfies $C\gamma^\mu = -(\gamma^\mu)^TC$ for all $\mu$ and
-$C^T = -C$.
+For the Dirac matrices of @exm-gamma-weyl, $C = \gamma^0\gamma^2$ satisfies $C\gamma^\mu = -(\gamma^\mu)^\top C$ for all $\mu$ and
+$C^\top = -C$.
 :::
 ::::
 
@@ -4561,7 +4561,7 @@ reversed. The second example states it, with the computation left to the third e
 ::: {#exm-ssg-c-dirac}
 #### Charge conjugation of the Dirac equation
 
-If $\psi$ solves $(i\gamma^\mu(\partial_\mu + ieA_\mu) - m)\psi = 0$, then $\psi^c = C\bar\psi^T$ solves the same equation with $e \to -e$
+If $\psi$ solves $(i\gamma^\mu(\partial_\mu + ieA_\mu) - m)\psi = 0$, then $\psi^c = C\bar\psi^\top$ solves the same equation with $e \to -e$
 (@exr-ssg-charge-conjugate-dirac): $\psi^c$ describes the antiparticle, and a Majorana spinor, equal to its conjugate,
 can only be neutral, as @exr-ssg-majorana-phase found from the mass term.
 :::
@@ -4572,7 +4572,7 @@ third example gives the rule that is used throughout supergravity.
 ::: {#exm-ssg-c-bilinears}
 #### Majorana bilinears
 
-For anticommuting Majorana spinors, $\bar\psi_1\Gamma\psi_2 = +\bar\psi_2\Gamma\psi_1$ for $\Gamma = 1, \gamma^5, \gamma^\mu\gamma^5$ and $-\bar\psi_2\Gamma\psi_1$
+For anticommuting Majorana spinors, $\bar\psi_1\Gamma\psi_2 = +\bar\psi_2\Gamma\psi_1$ for $\Gamma = 1, \gamma_5, \gamma^\mu\gamma_5$ and $-\bar\psi_2\Gamma\psi_1$
 for $\Gamma = \gamma^\mu, \gamma^{\mu\nu}$ (@exr-ssg-c-symmetric-products). In particular $\bar\psi\gamma^\mu\psi = 0$ for a single Majorana
 spinor, so a Majorana field carries no conserved vector current, and the kinetic term needs the factor $\tfrac12$ of
 @exm-majorana-lagrangian.
@@ -4585,9 +4585,9 @@ for Euclidean signature.
 ::: {#exm-ssg-c-general}
 #### The transposition matrix in any even dimension
 
-In $2\nu$ Euclidean dimensions there is a matrix $E$ with $\gamma_i^T = -E\gamma_iE^{-1}$ for all $i$, unique up to a factor by
-Pauli's theorem (@thm-pauli-uniqueness), and $E^T = (-1)^{\nu(\nu + 1)/2}E$ [@zhelnorovich2019spinors, Sec. 1.1, eqs.
-1.44-1.53]: antisymmetric for $2\nu = 2, 4, 10$ and symmetric for $2\nu = 6, 8$. For $2\nu = 4$ this is the antisymmetry $C^T = -C$ of
+In $2\nu$ Euclidean dimensions there is a matrix $E$ with $\gamma_i^\top = -E\gamma_iE^{-1}$ for all $i$, unique up to a factor by
+Pauli's theorem (@thm-pauli-uniqueness), and $E^\top = (-1)^{\nu(\nu + 1)/2}E$ [@zhelnorovich2019spinors, Sec. 1.1, eqs.
+1.44-1.53]: antisymmetric for $2\nu = 2, 4, 10$ and symmetric for $2\nu = 6, 8$. For $2\nu = 4$ this is the antisymmetry $C^\top = -C$ of
 the proposition, and the antisymmetry in ten dimensions is what makes the Majorana bilinears of type II supergravity
 behave as in four.
 :::
@@ -4651,13 +4651,13 @@ third example, which are the main tool for manipulating fermion bilinears in sup
 ::: {#exr-ssg-c-symmetric-products}
 #### Symmetric and antisymmetric $C\Gamma$
 
-Determine which of $C$, $C\gamma^5$, $C\gamma^\mu\gamma^5$, $C\gamma^\mu$, $C\gamma^{\mu\nu}$ are symmetric. For Majorana spinors with
-$\bar\psi = \psi^TK$, $K = (C^T)^{-1}$, deduce the flip rule $\bar\psi_1\Gamma\psi_2 = \pm\bar\psi_2\Gamma\psi_1$.
+Determine which of $C$, $C\gamma_5$, $C\gamma^\mu\gamma_5$, $C\gamma^\mu$, $C\gamma^{\mu\nu}$ are symmetric. For Majorana spinors with
+$\bar\psi = \psi^\top K$, $K = (C^\top)^{-1}$, deduce the flip rule $\bar\psi_1\Gamma\psi_2 = \pm\bar\psi_2\Gamma\psi_1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$C$, $C\gamma^5$ and $C\gamma^\mu\gamma^5$ are antisymmetric ($6$ matrices), $C\gamma^\mu$ and $C\gamma^{\mu\nu}$ symmetric ($10$). For anticommuting
-components, $\psi_1^TM\psi_2 = -\psi_2^TM^T\psi_1$, so the sign is $+$ when $K\Gamma$ is antisymmetric and $-$ when it is symmetric:
+$C$, $C\gamma_5$ and $C\gamma^\mu\gamma_5$ are antisymmetric ($6$ matrices), $C\gamma^\mu$ and $C\gamma^{\mu\nu}$ symmetric ($10$). For anticommuting
+components, $\psi_1^\top M\psi_2 = -\psi_2^\top M^\top\psi_1$, so the sign is $+$ when $K\Gamma$ is antisymmetric and $-$ when it is symmetric:
 
 ```python
 pauli = [matrix(QQbar, [[0, 1], [1, 0]]), matrix(QQbar, [[0, -I], [I, 0]]), matrix(QQbar, [[1, 0], [0, -1]])]
@@ -4666,14 +4666,14 @@ Z = zero_matrix(QQbar, 2)
 gam = [block_matrix([[Z, sig[m]], [sigb[m], Z]]) for m in range(4)]
 g5 = I * gam[0] * gam[1] * gam[2] * gam[3]
 C = gam[0] * gam[2]
-print("gamma^5 =", g5.diagonal())
+print("gamma_5 =", g5.diagonal())
 def sym(M): return "symmetric" if M.transpose() == M else "antisymmetric" if M.transpose() == -M else "neither"
-sets = {"1": [identity_matrix(QQbar, 4)], "gamma^5": [g5], "gamma^mu gamma^5": [gam[m] * g5 for m in range(4)],
+sets = {"1": [identity_matrix(QQbar, 4)], "gamma_5": [g5], "gamma^mu gamma_5": [gam[m] * g5 for m in range(4)],
         "gamma^mu": gam, "gamma^{mu nu}": [(gam[m] * gam[n] - gam[n] * gam[m]) / 2 for m in range(4) for n in range(m + 1, 4)]}
 res = {k: set(sym(C * G) for G in v) for k, v in sets.items()}
 print(res)
-print("[PASS] C, C gamma^5, C gamma^mu gamma^5 are antisymmetric; C gamma^mu and C gamma^{mu nu} are symmetric:",
-      res == {"1": {"antisymmetric"}, "gamma^5": {"antisymmetric"}, "gamma^mu gamma^5": {"antisymmetric"}, "gamma^mu": {"symmetric"}, "gamma^{mu nu}": {"symmetric"}})
+print("[PASS] C, C gamma_5, C gamma^mu gamma_5 are antisymmetric; C gamma^mu and C gamma^{mu nu} are symmetric:",
+      res == {"1": {"antisymmetric"}, "gamma_5": {"antisymmetric"}, "gamma^mu gamma_5": {"antisymmetric"}, "gamma^mu": {"symmetric"}, "gamma^{mu nu}": {"symmetric"}})
 print("[PASS] counting: 6 antisymmetric (1 + 1 + 4) and 10 symmetric (4 + 6) of the 16 = 6 + 10 matrices C Gamma:",
       sum(len(v) for k, v in sets.items() if res[k] == {"antisymmetric"}) == 6 and sum(len(v) for k, v in sets.items() if res[k] == {"symmetric"}) == 10)
 # flip rule: for Majorana psi = C psibar^T, psibar = psi^T C^{-1}... with C^{-1} = -C^T... the bilinear psibar_1 Gamma psi_2 = psi_1^T K Gamma psi_2
@@ -4681,19 +4681,19 @@ print("[PASS] counting: 6 antisymmetric (1 + 1 + 4) and 10 symmetric (4 + 6) of 
 K = (C.transpose()).inverse()
 flip = {k: set("+" if (K * G).transpose() == -(K * G) else "-" if (K * G).transpose() == (K * G) else "?" for G in v) for k, v in sets.items()}
 print("flip signs psibar_1 Gamma psi_2 = (sign) psibar_2 Gamma psi_1:", flip)
-print("[PASS] Majorana flip: + for 1, gamma^5, gamma^mu gamma^5 and - for gamma^mu, gamma^{mu nu} (anticommuting components):",
-      flip == {"1": {"+"}, "gamma^5": {"+"}, "gamma^mu gamma^5": {"+"}, "gamma^mu": {"-"}, "gamma^{mu nu}": {"-"}})
+print("[PASS] Majorana flip: + for 1, gamma_5, gamma^mu gamma_5 and - for gamma^mu, gamma^{mu nu} (anticommuting components):",
+      flip == {"1": {"+"}, "gamma_5": {"+"}, "gamma^mu gamma_5": {"+"}, "gamma^mu": {"-"}, "gamma^{mu nu}": {"-"}})
 ```
 
 *Output:*
 
 ```text
-gamma^5 = [-1, -1, 1, 1]
-{'1': {'antisymmetric'}, 'gamma^5': {'antisymmetric'}, 'gamma^mu gamma^5': {'antisymmetric'}, 'gamma^mu': {'symmetric'}, 'gamma^{mu nu}': {'symmetric'}}
-[PASS] C, C gamma^5, C gamma^mu gamma^5 are antisymmetric; C gamma^mu and C gamma^{mu nu} are symmetric: True
+gamma_5 = [-1, -1, 1, 1]
+{'1': {'antisymmetric'}, 'gamma_5': {'antisymmetric'}, 'gamma^mu gamma_5': {'antisymmetric'}, 'gamma^mu': {'symmetric'}, 'gamma^{mu nu}': {'symmetric'}}
+[PASS] C, C gamma_5, C gamma^mu gamma_5 are antisymmetric; C gamma^mu and C gamma^{mu nu} are symmetric: True
 [PASS] counting: 6 antisymmetric (1 + 1 + 4) and 10 symmetric (4 + 6) of the 16 = 6 + 10 matrices C Gamma: True
-flip signs psibar_1 Gamma psi_2 = (sign) psibar_2 Gamma psi_1: {'1': {'+'}, 'gamma^5': {'+'}, 'gamma^mu gamma^5': {'+'}, 'gamma^mu': {'-'}, 'gamma^{mu nu}': {'-'}}
-[PASS] Majorana flip: + for 1, gamma^5, gamma^mu gamma^5 and - for gamma^mu, gamma^{mu nu} (anticommuting components): True
+flip signs psibar_1 Gamma psi_2 = (sign) psibar_2 Gamma psi_1: {'1': {'+'}, 'gamma_5': {'+'}, 'gamma^mu gamma_5': {'+'}, 'gamma^mu': {'-'}, 'gamma^{mu nu}': {'-'}}
+[PASS] Majorana flip: + for 1, gamma_5, gamma^mu gamma_5 and - for gamma^mu, gamma^{mu nu} (anticommuting components): True
 ```
 :::
 
@@ -4703,14 +4703,14 @@ conjugate of the Dirac equation.
 ::: {#exr-ssg-charge-conjugate-dirac}
 #### $\psi^c$ has the opposite charge
 
-Take the complex conjugate of $(i\gamma^\mu(\partial_\mu + ieA_\mu) - m)\psi = 0$, multiply by suitable matrices, and use $C\gamma^{\mu T}C^{-1} = -
-\gamma^\mu$ and $\gamma^0\gamma^{\mu*}\gamma^0 = \gamma^{\mu T}$ to show that $\psi^c = C\gamma^{0T}\psi^*$ satisfies the equation with $e \to -e$.
+Take the complex conjugate of $(i\gamma^\mu(\partial_\mu + ieA_\mu) - m)\psi = 0$, multiply by suitable matrices, and use $C(\gamma^\mu)^\top C^{-1} = -
+\gamma^\mu$ and $\gamma^0\gamma^{\mu*}\gamma^0 = (\gamma^\mu)^\top$ to show that $\psi^c = C(\gamma^0)^\top\psi^*$ satisfies the equation with $e \to -e$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The conjugate equation is $(-i\gamma^{\mu*}(\partial_\mu - ieA_\mu) - m)\psi^* = 0$. Multiply by $C\gamma^0$ on the left (with $\gamma^{0T} = \gamma^0$
-in our basis): $C\gamma^0\gamma^{\mu*}\psi^* = C\gamma^{\mu T}\gamma^0\psi^* = -\gamma^\mu C\gamma^0\psi^*$, using $\gamma^0\gamma^{\mu*} = \gamma^{\mu T}\gamma^0$ (the
-Hermiticity property $\gamma^0\gamma^\mu\gamma^0 = \gamma^{\mu\dagger}$ transposed) and $C\gamma^{\mu T} = -\gamma^\mu C$. So $(i\gamma^\mu(\partial_\mu - ieA_\mu) -
+The conjugate equation is $(-i\gamma^{\mu*}(\partial_\mu - ieA_\mu) - m)\psi^* = 0$. Multiply by $C\gamma^0$ on the left (with $(\gamma^0)^\top = \gamma^0$
+in our basis): $C\gamma^0\gamma^{\mu*}\psi^* = C(\gamma^\mu)^\top\gamma^0\psi^* = -\gamma^\mu C\gamma^0\psi^*$, using $\gamma^0\gamma^{\mu*} = (\gamma^\mu)^\top\gamma^0$ (the
+Hermiticity property $\gamma^0\gamma^\mu\gamma^0 = \gamma^{\mu\dagger}$ transposed) and $C(\gamma^\mu)^\top = -\gamma^\mu C$. So $(i\gamma^\mu(\partial_\mu - ieA_\mu) -
 m)\psi^c = 0$: the charge-conjugate field has charge $-e$.
 :::
 
@@ -4723,15 +4723,15 @@ dimensions up to ten.
 
 With Dirac matrices built from Pauli matrices, $\nu$ of them symmetric and $\nu$ antisymmetric, take $E$ to be the product of the
 symmetric ones for even $\nu$ and of the antisymmetric ones for odd $\nu$. Check with Sage, for $2\nu = 2, \dots, 10$, that
-$\gamma_i^T = -E\gamma_iE^{-1}$, that $E^T = (-1)^{\nu(\nu + 1)/2}E$, and that $(E\gamma_{i_1\dots i_k})^T = (-1)^{[\nu(\nu + 1) + k(k + 1)]/2}
+$\gamma_i^\top = -E\gamma_iE^{-1}$, that $E^\top = (-1)^{\nu(\nu + 1)/2}E$, and that $(E\gamma_{i_1\dots i_k})^\top = (-1)^{[\nu(\nu + 1) + k(k + 1)]/2}
 E\gamma_{i_1\dots i_k}$ for antisymmetrised products [@zhelnorovich2019spinors, eqs. 1.51-1.55].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For even $\nu$, $E = \gamma_1\cdots\gamma_\nu$ (the symmetric ones): transposing $\gamma_i$ through the product gives a sign $(-1)^\nu = 1$ times
-$\gamma_i$ for an antisymmetric $\gamma_i$ and $(-1)^{\nu - 1}$ for a symmetric one, which is exactly $-\gamma_i^T$ in both cases; odd $\nu$ is
+$\gamma_i$ for an antisymmetric $\gamma_i$ and $(-1)^{\nu - 1}$ for a symmetric one, which is exactly $-\gamma_i^\top$ in both cases; odd $\nu$ is
 analogous. Reversing a product of $m$ anticommuting matrices costs $(-1)^{m(m - 1)/2}$, which gives the symmetry of $E$, and
-$(\gamma_{i_1\dots i_k})^T = (-1)^{k(k + 1)/2}E\gamma_{i_1\dots i_k}E^{-1}$ gives the second rule [@zhelnorovich2019spinors, eq. 1.54].
+$(\gamma_{i_1\dots i_k})^\top = (-1)^{k(k + 1)/2}E\gamma_{i_1\dots i_k}E^{-1}$ gives the second rule [@zhelnorovich2019spinors, eq. 1.54].
 
 ```python
 from itertools import combinations
@@ -4780,8 +4780,8 @@ print("[PASS] E exists, E^T = (-1)^{nu(nu+1)/2} E and (E gamma_{i1..ik})^T = (-1
 
 ![Real components of the smallest spinor in $d$-dimensional Minkowski space, computed from the Weyl and Majorana
 conditions allowed in each dimension (labels: W Weyl, M Majorana, pM pseudo-Majorana, MW Majorana-Weyl). A
-theory with $N$ minimal supercharges has $N$ times this many real supercharges; $32$, reached by $d = 11$ with
-$N = 1$, is the maximum compatible with helicities at most $2$. Generated by
+theory with $\mathcal N$ minimal supercharges has $\mathcal N$ times this many real supercharges; $32$, reached by $d = 11$ with
+$\mathcal N = 1$, is the maximum compatible with helicities at most $2$. Generated by
 `figures/spinor_dimensions.sage`.](figures/spinor_dimensions.svg){#fig-spinor-dimensions width=75%}
 
 The rules of @exm-majorana-dimensions, applied dimension by dimension, give the table in the figure. The proposition
@@ -4805,7 +4805,7 @@ supercharges of the first part.
 #### Four dimensions
 
 $d = 4$: the Dirac spinor has $4$ complex components, a Weyl or a Majorana condition halves it to $4$ real ones (not both).
-The $N = 1$ supercharge $(Q_\alpha, Q^\dagger_{\dot\alpha})$ is one Majorana spinor with $4$ real components, and $N = 8$ gives $32$
+The $\mathcal N = 1$ supercharge $(Q_\alpha, Q^\dagger_{\dot\alpha})$ is one Majorana spinor with $4$ real components, and $\mathcal N = 8$ gives $32$
 (@fig-spinor-dimensions).
 :::
 
@@ -4913,18 +4913,18 @@ print("    Gamma^0 ... Gamma^10 =", P[0, 0], "* identity")
 ```
 :::
 
-The table bounds the number of supersymmetries in each dimension. The third exercise derives the maximal $N$ in each
+The table bounds the number of supersymmetries in each dimension. The third exercise derives the maximal $\mathcal N$ in each
 dimension from the bound of $32$ real supercharges.
 
 ::: {#exr-ssg-max-supercharges}
-#### The maximal $N$ in each dimension
+#### The maximal $\mathcal N$ in each dimension
 
-With at most $32$ real supercharges, find the maximal number $N$ of minimal spinor supercharges for $d = 4, 5, 6, 7, 10, 11$.
+With at most $32$ real supercharges, find the maximal number $\mathcal N$ of minimal spinor supercharges for $d = 4, 5, 6, 7, 10, 11$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$N_{\max} = 32/n_{\min}(d)$ with the table of the proposition: $d = 4$: $32/4 = 8$; $d = 5$: $32/8 = 4$ (usually counted as
-$N = 8$ in symplectic-Majorana units of half that size); $d = 6$: $32/8 = 4$, realised as $(2, 2)$ chiral pairs; $d = 7$:
+$\mathcal N_{\max} = 32/n_{\min}(d)$ with the table of the proposition: $d = 4$: $32/4 = 8$; $d = 5$: $32/8 = 4$ (usually counted as
+$\mathcal N = 8$ in symplectic-Majorana units of half that size); $d = 6$: $32/8 = 4$, realised as $(2, 2)$ chiral pairs; $d = 7$:
 $32/16 = 2$; $d = 10$: $32/16 = 2$, types IIA and IIB; $d = 11$: $32/32 = 1$ [@tanii1998, Table 3]. Beyond $d = 11$ even one
 supercharge exceeds the bound.
 :::
@@ -5045,7 +5045,7 @@ four-dimensional supergravity.
 ::: {#exm-local-algebra}
 #### The local algebra
 
-In $d = 4$, $N = 1$ supergravity, $[\delta_Q(\epsilon_1), \delta_Q(\epsilon_2)] = \delta_G(\xi) + \delta_L(\xi\cdot\hat\omega) +
+In $d = 4$, $\mathcal N = 1$ supergravity, $[\delta_Q(\epsilon_1), \delta_Q(\epsilon_2)] = \delta_G(\xi) + \delta_L(\xi\cdot\hat\omega) +
 \delta_Q(\xi\cdot\psi)$ with $\xi^\mu = i\bar\epsilon_2\gamma^\mu\epsilon_1$: a coordinate transformation plus
 field-dependent Lorentz and supersymmetry transformations, closing only on-shell [@tanii1998, eq. 2.11].
 :::
@@ -5096,7 +5096,7 @@ fermion, show that $\delta\psi_\mu = \kappa^{-1}\partial_\mu\epsilon$ with a con
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $[\xi^\mu] = -\tfrac12 - \tfrac12 = -1$, a length, as a translation must be. $[\partial_\mu\epsilon] = \tfrac12$, so a field of dimension $\tfrac32$ needs a
 factor of dimension $1$: $\delta\psi_\mu = \kappa^{-1}\partial_\mu\epsilon$ with $[\kappa] = -1$. The only such constant is the gravitational one,
-$\kappa = \sqrt{8\pi G} = 1/M_P$, which @tanii1998 sets to a fixed number ($4\pi G = 1$); the coupling $\kappa\bar\psi_\mu J^\mu$ is then
+$\kappa = \sqrt{8\pi G_N} = 1/M_{\mathrm{Pl}}$, which @tanii1998 sets to a fixed number ($4\pi G_N = 1$); the coupling $\kappa\bar\psi_\mu J^\mu$ is then
 suppressed by the Planck mass, like every gravitational interaction.
 :::
 
@@ -5256,14 +5256,14 @@ For distinct indices the gamma matrices anticommute, so all six orderings agree 
 There are $\binom43 = 4$ independent matrices $\gamma^{\mu\nu\rho}$ in four dimensions.
 :::
 
-In four dimensions the three-index product is dual to a single gamma matrix times $\gamma^5$. The second example gives the
+In four dimensions the three-index product is dual to a single gamma matrix times $\gamma_5$. The second example gives the
 relation, which turns the Rarita-Schwinger Lagrangian into its frequently quoted form with $\epsilon^{\mu\nu\rho\sigma}$.
 
 ::: {#exm-ssg-gamma3-dual}
 #### Duality in four dimensions
 
-With $\epsilon_{0123} = 1$ and $\gamma^5 = i\gamma^0\gamma^1\gamma^2\gamma^3$, $\gamma^{\mu\nu\rho} = -i\epsilon^{\mu\nu\rho\sigma}\gamma_\sigma\gamma^5$
-(@exr-ssg-gamma3-expansion), so the Rarita-Schwinger Lagrangian is $-\tfrac12\epsilon^{\mu\nu\rho\sigma}\bar\psi_\mu\gamma_\sigma\gamma^5\partial_\nu\psi_\rho$
+With $\epsilon_{0123} = 1$ and $\gamma_5 = i\gamma^0\gamma^1\gamma^2\gamma^3$, $\gamma^{\mu\nu\rho} = -i\epsilon^{\mu\nu\rho\sigma}\gamma_\sigma\gamma_5$
+(@exr-ssg-gamma3-expansion), so the Rarita-Schwinger Lagrangian is $-\tfrac12\epsilon^{\mu\nu\rho\sigma}\bar\psi_\mu\gamma_\sigma\gamma_5\partial_\nu\psi_\rho$
 in flat space, and the proposition is the statement $\epsilon^{\mu\nu\rho\sigma}\partial_\nu\partial_\rho = 0$.
 :::
 
@@ -5288,7 +5288,7 @@ Both are used repeatedly in supergravity computations.
 #### Expanding $\gamma^\mu\gamma^\nu\gamma^\rho$
 
 Verify $\gamma^\mu\gamma^\nu\gamma^\rho = \gamma^{\mu\nu\rho} + \eta^{\mu\nu}\gamma^\rho - \eta^{\mu\rho}\gamma^\nu + \eta^{\nu\rho}\gamma^\mu$ for all indices, and find the
-constant $c$ in $\gamma^{\mu\nu\rho} = c\,\epsilon^{\mu\nu\rho\sigma}\gamma_\sigma\gamma^5$.
+constant $c$ in $\gamma^{\mu\nu\rho} = c\,\epsilon^{\mu\nu\rho\sigma}\gamma_\sigma\gamma_5$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5307,18 +5307,18 @@ print("[PASS] gamma^mu gamma^nu gamma^rho = gamma^{mu nu rho} + eta^{mu nu} gamm
       all(gam[m] * gam[n] * gam[r] == g3(m, n, r) + e(m, n) * gam[r] - e(m, r) * gam[n] + e(n, r) * gam[m] for m in range(4) for n in range(4) for r in range(4)))
 g5 = I * gam[0] * gam[1] * gam[2] * gam[3]
 def eps_up(*idx): return -Permutation([i + 1 for i in idx]).sign() if len(set(idx)) == 4 else 0
-dual = lambda m, n, r: sum(eps_up(m, n, r, s) * eta[s] * gam[s] * g5 for s in range(4))   # eps^{mu nu rho sigma} gamma_sigma gamma^5
+dual = lambda m, n, r: sum(eps_up(m, n, r, s) * eta[s] * gam[s] * g5 for s in range(4))   # eps^{mu nu rho sigma} gamma_sigma gamma_5
 cs = [c for c in (1, -1, I, -I) if all(g3(m, n, r) == c * dual(m, n, r) for m in range(4) for n in range(4) for r in range(4))]
-print("gamma^{mu nu rho} = c eps^{mu nu rho sigma} gamma_sigma gamma^5 with c =", cs)
-print("[PASS] the three-index gamma is dual to gamma_sigma gamma^5 with c = -i, so the Rarita-Schwinger operator is eps^{mu nu rho sigma} gamma^5 gamma_sigma d_nu psi_rho up to a factor:", cs == [-I])
+print("gamma^{mu nu rho} = c eps^{mu nu rho sigma} gamma_sigma gamma_5 with c =", cs)
+print("[PASS] the three-index gamma is dual to gamma_sigma gamma_5 with c = -i, so the Rarita-Schwinger operator is eps^{mu nu rho sigma} gamma_5 gamma_sigma d_nu psi_rho up to a factor:", cs == [-I])
 ```
 
 *Output:*
 
 ```text
 [PASS] gamma^mu gamma^nu gamma^rho = gamma^{mu nu rho} + eta^{mu nu} gamma^rho - eta^{mu rho} gamma^nu + eta^{nu rho} gamma^mu for all indices: True
-gamma^{mu nu rho} = c eps^{mu nu rho sigma} gamma_sigma gamma^5 with c = [-I]
-[PASS] the three-index gamma is dual to gamma_sigma gamma^5 with c = -i, so the Rarita-Schwinger operator is eps^{mu nu rho sigma} gamma^5 gamma_sigma d_nu psi_rho up to a factor: True
+gamma^{mu nu rho} = c eps^{mu nu rho sigma} gamma_sigma gamma_5 with c = [-I]
+[PASS] the three-index gamma is dual to gamma_sigma gamma_5 with c = -i, so the Rarita-Schwinger operator is eps^{mu nu rho sigma} gamma_5 gamma_sigma d_nu psi_rho up to a factor: True
 ```
 :::
 
@@ -5366,15 +5366,15 @@ gives their action, the supersymmetric extension of the Einstein-Hilbert action,
 ::: {#def-supergravity-multiplet}
 #### Supergravity multiplet
 
-The **supergravity multiplet** of $N = 1$ in four dimensions is the pair $(e_\mu{}^a, \psi_\mu)$ of the vierbein and
+The **supergravity multiplet** of $\mathcal N = 1$ in four dimensions is the pair $(e_\mu{}^a, \psi_\mu)$ of the vierbein and
 the gravitino, the helicity states $(2, \tfrac32)$ and $(-\tfrac32, -2)$ of the massless superalgebra; its action is
 $$
 \mathcal{L} = -\tfrac14e\hat R - \tfrac{i}{2}e\bar\psi_\mu\gamma^{\mu\nu\rho}\hat D_\nu\psi_\rho
 $$ {#eq-sugra4}
-in our signature $(+, -, -, -)$, which is that of @tanii1998 [eq. 2.2, with $4\pi G = 1$, so that $-\tfrac14e\hat R$ is
+in our signature $(+, -, -, -)$, which is that of @tanii1998 [eq. 2.2, with $4\pi G_N = 1$, so that $-\tfrac14e\hat R$ is
 the Einstein-Hilbert Lagrangian @eq-einstein-hilbert], invariant under
 $\delta e_\mu{}^a = -i\bar\epsilon\gamma^a\psi_\mu$, $\delta\psi_\mu = \hat D_\mu\epsilon$ with the torsionful spin connection
-$\hat\omega$ of eq. 2.5 there. For $N$-extended supersymmetry there are $N$ gravitini and further fields
+$\hat\omega$ of eq. 2.5 there. For $\mathcal N$-extended supersymmetry there are $\mathcal N$ gravitini and further fields
 [@tanii1998, Table 3].
 :::
 ::::
@@ -5384,21 +5384,21 @@ The simplest supergravity contains only these two fields. The first example reco
 general relativity.
 
 ::: {#exm-sugra-multiplet-n1}
-#### Pure $N = 1$ supergravity
+#### Pure $\mathcal N = 1$ supergravity
 
 Only $(e, \psi_\mu)$, $2 + 2$ on-shell degrees of freedom: the supersymmetric extension of the Einstein-Hilbert
 action of @sec-einstein-hilbert, the vierbein $e_\mu{}^a$ replacing the metric because spinors need the frames of
 @sec-coset-vielbeins.
 :::
 
-The extended supergravities contain more fields, up to the maximal $N = 8$. The second example gives the content of
+The extended supergravities contain more fields, up to the maximal $\mathcal N = 8$. The second example gives the content of
 the largest, which is the helicity ladder of @exm-ssg-ladders-n8.
 
 ::: {#exm-sugra-multiplet-extended}
 #### Extended multiplets
 
-$N = 8$ in four dimensions contains the graviton, $8$ gravitini, $28$ vectors, $56$ spin-$\tfrac12$ fields and $70$
-scalars, $128 + 128$ states, and $N \geq 9$ would require helicities above $2$, for which no consistent interacting
+$\mathcal N = 8$ in four dimensions contains the graviton, $8$ gravitini, $28$ vectors, $56$ spin-$\tfrac12$ fields and $70$
+scalars, $128 + 128$ states, and $\mathcal N \geq 9$ would require helicities above $2$, for which no consistent interacting
 theory is known [@tanii1998, Table 3 and p. 14]; the $70$ scalars parametrise the coset $E_{7(7)}/SU(8)$, a coset
 space of the kind studied in @sec-coset-spaces [@tanii1998, Table 4].
 :::
@@ -5434,13 +5434,13 @@ the algebra closes only on-shell (@exm-local-algebra), as in @exm-closure-counti
 :::
 
 The content of all the extended supergravities follows from the helicity ladders of the first part. The second
-exercise reads it off for each $N$ and compares with the table of @tanii1998.
+exercise reads it off for each $\mathcal N$ and compares with the table of @tanii1998.
 
 ::: {#exr-ssg-extended-content}
 #### The extended multiplets
 
 From the CPT-completed gravity ladders, list the numbers of gravitons, gravitini, vectors, spin-$\tfrac12$ fields and real
-scalars for $N = 1, \dots, 6, 8$.
+scalars for $\mathcal N = 1, \dots, 6, 8$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5484,18 +5484,18 @@ N = 8: {'graviton': 1, 'gravitini': 8, 'vectors': 28, 'spin-1/2': 56, 'real scal
 :::
 
 The scalars of the extended theories live on coset spaces. The third exercise checks the dimension of the coset of
-$N = 8$ and its five-dimensional counterpart with Sage's Lie algebra data.
+$\mathcal N = 8$ and its five-dimensional counterpart with Sage's Lie algebra data.
 
 ::: {#exr-ssg-e7-coset}
-#### The scalar coset of $N = 8$
+#### The scalar coset of $\mathcal N = 8$
 
 Check that $\dim E_7 - \dim SU(8) = 70$ and $\dim E_6 - \dim USp(8) = 42$, and find the smallest representation of $E_7$. Why is it
 the right size for the vectors?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$133 - 63 = 70$ and $78 - 36 = 42$, the scalars of $N = 8$ supergravity in four and five dimensions. The smallest
-representation of $E_7$ is the $56$, which under $SU(8)$ is $28 \oplus \overline{28}$: the $28$ vectors with their magnetic duals,
+$133 - 63 = 70$ and $78 - 36 = 42$, the scalars of $\mathcal N = 8$ supergravity in four and five dimensions. The smallest
+representation of $E_7$ is the $\mathbf{56}$, which under $SU(8)$ is $\mathbf{28} \oplus \overline{\mathbf{28}}$: the $28$ vectors with their magnetic duals,
 which $E_{7(7)}$ rotates into each other (an electric-magnetic duality symmetry of the field equations):
 
 ```python
@@ -5534,7 +5534,7 @@ part of the gravitino, as a Goldstone boson becomes part of a massive vector. Th
 
 When supersymmetry is spontaneously broken in a supergravity, the gravitino acquires a mass by absorbing the
 goldstino of @def-susy-breaking as its helicity-$\pm\tfrac12$ states, the **super-Higgs mechanism**; the massive
-gravitino has four helicity states and a mass $m_{3/2} \sim \langle F\rangle/M_P$ for F-term breaking [@martin1997, Sec.
+gravitino has four helicity states and a mass $m_{3/2} \sim \langle F\rangle/M_{\mathrm{Pl}}$ for F-term breaking [@martin1997, Sec.
 7.5], the fermionic analogue of @def-higgs-mechanism.
 :::
 ::::
@@ -5556,7 +5556,7 @@ magnitude in the usual scenarios.
 ::: {#exm-super-higgs-scale}
 #### The gravitino mass scale
 
-$m_{3/2}$ vanishes both as $\langle F\rangle \to 0$ (supersymmetry restored) and as $M_P \to \infty$ (gravity off); in
+$m_{3/2}$ vanishes both as $\langle F\rangle \to 0$ (supersymmetry restored) and as $M_{\mathrm{Pl}} \to \infty$ (gravity off); in
 gravity-mediated models it is comparable to the superpartner masses, in gauge-mediated ones much smaller
 [@martin1997, eq. 7.5.4].
 :::
@@ -5596,14 +5596,14 @@ exercise evaluates it for typical breaking scales with the reduced Planck mass.
 ::: {#exr-ssg-gravitino-mass-scale}
 #### Numbers
 
-With $m_{3/2} = \langle F\rangle/(\sqrt3M_P)$ and $M_P = 2.4 \times 10^{18}$ GeV, compute $m_{3/2}$ for $\sqrt{\langle F\rangle} = 10^5$ GeV and $10^{11}$ GeV.
+With $m_{3/2} = \langle F\rangle/(\sqrt3M_{\mathrm{Pl}})$ and $M_{\mathrm{Pl}} = 2.4 \times 10^{18}$ GeV, compute $m_{3/2}$ for $\sqrt{\langle F\rangle} = 10^5$ GeV and $10^{11}$ GeV.
 In the O'Raifeartaigh model, express the vacuum energy $k^2$ in terms of $m_{3/2}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\sqrt F = 10^5$ GeV gives $m_{3/2} \approx 2.4$ eV (gauge mediation, a very light gravitino); $\sqrt F = 10^{11}$ GeV gives $\approx 2.4$ TeV
-(gravity mediation). With $F = k$, $V = k^2 = 3m_{3/2}^2M_P^2$, the term that the supergravity potential $V = |F|^2 -
-3|W|^2/M_P^2$ can cancel by a constant in $W$ [@martin1997, eqs. 7.5.4-7.5.6]:
+(gravity mediation). With $F = k$, $V = k^2 = 3m_{3/2}^2M_{\mathrm{Pl}}^2$, the term that the supergravity potential $V = |F|^2 -
+3|W|^2/M_{\mathrm{Pl}}^2$ can cancel by a constant in $W$ [@martin1997, eqs. 7.5.4-7.5.6]:
 
 ```python
 MP = 2.435e18
@@ -5613,7 +5613,7 @@ for sF in (1e5, 1e11):
 print("[PASS] sqrt(F) = 100 TeV gives m_3/2 of a few eV (2.37 eV), gauge mediation:", abs(1e10 / (sqrt(3.0) * MP) * 1e9 - 2.371) < 0.01)
 print("[PASS] sqrt(F) = 1e11 GeV gives m_3/2 of a few TeV (2.37 TeV), gravity mediation:", abs(1e22 / (sqrt(3.0) * MP) / 1e3 - 2.371) < 0.01)
 k = var("k", domain="positive"); MPs = var("M_P", domain="positive")
-print("[PASS] in the O'Raifeartaigh model F = k, V = k^2 = 3 m_3/2^2 M_P^2 (the vacuum energy that supergravity can cancel with -3|W|^2/M_P^2):",
+print("[PASS] in the O'Raifeartaigh model F = k, V = k^2 = 3 m_3/2^2 M_Pl^2 (the vacuum energy that supergravity can cancel with -3|W|^2/M_Pl^2):",
       bool((k^2 - 3 * (k / (sqrt(3) * MPs))^2 * MPs^2).simplify_full() == 0))
 ```
 
@@ -5624,7 +5624,7 @@ sqrt(F) = 1e+05 GeV: m_3/2 = 2.371e-09 GeV
 sqrt(F) = 1e+11 GeV: m_3/2 = 2.371e+03 GeV
 [PASS] sqrt(F) = 100 TeV gives m_3/2 of a few eV (2.37 eV), gauge mediation: True
 [PASS] sqrt(F) = 1e11 GeV gives m_3/2 of a few TeV (2.37 TeV), gravity mediation: True
-[PASS] in the O'Raifeartaigh model F = k, V = k^2 = 3 m_3/2^2 M_P^2 (the vacuum energy that supergravity can cancel with -3|W|^2/M_P^2): True
+[PASS] in the O'Raifeartaigh model F = k, V = k^2 = 3 m_3/2^2 M_Pl^2 (the vacuum energy that supergravity can cancel with -3|W|^2/M_Pl^2): True
 ```
 :::
 
@@ -5634,28 +5634,28 @@ explains why, from the form of the supergravity potential.
 ::: {#exr-ssg-super-higgs-cosmological}
 #### Breaking with zero vacuum energy
 
-The F-term potential of supergravity is $V = |F|^2 - 3|W|^2/M_P^2$ (in the simplest case). Explain why supersymmetry can be
+The F-term potential of supergravity is $V = |F|^2 - 3|W|^2/M_{\mathrm{Pl}}^2$ (in the simplest case). Explain why supersymmetry can be
 broken with $V = 0$, contrary to the global criterion of @def-susy-breaking, and what the constant term of $W$ does.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 In global supersymmetry $H = \tfrac14\sum\{Q, Q^\dagger\} \geq 0$ makes $V > 0$ the signal of breaking. In supergravity the
-algebra is local and the energy includes gravity; the potential acquires the negative term $-3|W|^2/M_P^2$, so a
-vacuum with $F \neq 0$ (broken) can have $V = 0$ if $|W| = |F|M_P/\sqrt3$. A constant added to $W$, irrelevant in global
-supersymmetry (@exr-ssg-fterm-nonneg), now matters: it sets the gravitino mass $m_{3/2} = |W|/M_P^2$ and can cancel the
+algebra is local and the energy includes gravity; the potential acquires the negative term $-3|W|^2/M_{\mathrm{Pl}}^2$, so a
+vacuum with $F \neq 0$ (broken) can have $V = 0$ if $|W| = |F|M_{\mathrm{Pl}}/\sqrt3$. A constant added to $W$, irrelevant in global
+supersymmetry (@exr-ssg-fterm-nonneg), now matters: it sets the gravitino mass $m_{3/2} = |W|/M_{\mathrm{Pl}}^2$ and can cancel the
 positive vacuum energy, giving flat space with broken supersymmetry; the breaking is then signalled by $m_{3/2} \neq 0$
 [@martin1997, Sec. 7.5].
 :::
 
-The gravitino couples to the other fields with the gravitational strength $1/M_P$, so it decays slowly. The fourth
+The gravitino couples to the other fields with the gravitational strength $1/M_{\mathrm{Pl}}$, so it decays slowly. The fourth
 exercise estimates its lifetime and the bound that the history of the early universe places on its mass
 [@nath2017supersymmetry, Sec. 18.4].
 
 ::: {#exr-ssg-gravitino-lifetime}
 #### The gravitino lifetime
 
-The decay rate of a gravitino into a photon and a light photino is $\Gamma = m_{3/2}^3/(4M_P^2)$ [@nath2017supersymmetry, eq.
-18.91, neglecting the photino mass]. With $M_P = 2.4 \times 10^{18}$ GeV and $\hbar = 6.58 \times 10^{-25}$ GeV s, find the lifetime for
+The decay rate of a gravitino into a photon and a light photino is $\Gamma = m_{3/2}^3/(4M_{\mathrm{Pl}}^2)$ [@nath2017supersymmetry, eq.
+18.91, neglecting the photino mass]. With $M_{\mathrm{Pl}} = 2.4 \times 10^{18}$ GeV and $\hbar = 6.58 \times 10^{-25}$ GeV s, find the lifetime for
 $m_{3/2} = 1$ TeV, and the mass above which the gravitino decays before $0.1$ s, so that it does not disturb the
 nucleosynthesis of light elements.
 :::
@@ -5683,7 +5683,7 @@ this subsection defines that function and states the resulting potential [@nath2
 A **Kähler potential** is a real function $K(\phi, \phi^*)$ of the complex scalars $\phi^i$ whose matrix of mixed second derivatives
 $K_{i\bar\jmath} = \partial^2K/\partial\phi^i\partial\phi^{*j}$ is positive definite; it fixes the scalar kinetic term $K_{i\bar\jmath}\,
 \partial_\mu\phi^i\partial^\mu\phi^{*j}$, so that $K_{i\bar\jmath}$ is the metric of the space of scalar fields. A **Kähler transformation**
-$K \to K + f(\phi) + f^*(\phi^*)$ with $f$ holomorphic leaves $K_{i\bar\jmath}$ unchanged; in supergravity, in units $M_P = 1$, it is
+$K \to K + f(\phi) + f^*(\phi^*)$ with $f$ holomorphic leaves $K_{i\bar\jmath}$ unchanged; in supergravity, in units $M_{\mathrm{Pl}} = 1$, it is
 accompanied by $W \to e^{-f}W$ [@nath2017supersymmetry, eqs. 12.5-12.9 and 12.15-12.16, where $K$ is normalised with
 additional factors of $\kappa$].
 :::
@@ -5816,9 +5816,9 @@ counterpart of the positive energy of global supersymmetry.
 ::: {#prp-ssg-sugra-potential}
 #### The supergravity scalar potential
 
-In units $M_P = 1$, the F-term potential of chiral multiplets coupled to supergravity is
+In units $M_{\mathrm{Pl}} = 1$, the F-term potential of chiral multiplets coupled to supergravity is
 $$
-V = e^K\left(K^{i\bar\jmath}D_iW\,\overline{D_jW} - 3|W|^2\right), \qquad D_iW = \partial_iW + K_iW,
+V = e^K\left(K^{i\bar\jmath}D_iW\,(D_jW)^* - 3|W|^2\right), \qquad D_iW = \partial_iW + K_iW,
 $$ {#eq-ssg-sugra-potential}
 with $K^{i\bar\jmath}$ the inverse of $K_{i\bar\jmath}$ [@nath2017supersymmetry, eqs. 12.12-12.14]. It equals $e^G(G^{i\bar\jmath}G_iG_{\bar\jmath} -
 3)$ with $G = K + \log|W|^2$, and it is invariant under Kähler transformations. Supersymmetry is unbroken exactly where all
@@ -5855,11 +5855,11 @@ The supergravity potential must reduce to the global one when gravity decouples.
 Planck mass and takes the limit.
 
 ::: {#exm-ssg-sugra-global-limit}
-#### The limit $M_P \to \infty$
+#### The limit $M_{\mathrm{Pl}} \to \infty$
 
-With $M_P$ restored, $V = e^{K/M_P^2}(K^{i\bar\jmath}D_iW\overline{D_jW} - 3|W|^2/M_P^2)$ and $D_iW = W_i + K_iW/M_P^2$. For fixed fields and
-couplings, as $M_P \to \infty$ the exponential tends to $1$, $D_iW \to W_i$ and the negative term disappears, leaving
-$K^{i\bar\jmath}W_i\overline{W_j}$, which for the canonical $K$ is the F-term potential $\sum|W_i|^2$ of @def-f-term-potential.
+With $M_{\mathrm{Pl}}$ restored, $V = e^{K/M_{\mathrm{Pl}}^2}(K^{i\bar\jmath}D_iW(D_jW)^* - 3|W|^2/M_{\mathrm{Pl}}^2)$ and $D_iW = W_i + K_iW/M_{\mathrm{Pl}}^2$. For fixed fields and
+couplings, as $M_{\mathrm{Pl}} \to \infty$ the exponential tends to $1$, $D_iW \to W_i$ and the negative term disappears, leaving
+$K^{i\bar\jmath}W_iW_j^*$, which for the canonical $K$ is the F-term potential $\sum|W_i|^2$ of @def-f-term-potential.
 :::
 ::::
 
@@ -5970,7 +5970,7 @@ Show that $V$ of @eq-ssg-sugra-potential equals $e^G(G^{i\bar\jmath}G_iG_{\bar\j
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $G_i = K_i + W_i/W$ and $G_{i\bar\jmath} = K_{i\bar\jmath}$, since $\log W$ is holomorphic. Then $WG_i = D_iW$, so $e^G G^{i\bar\jmath}G_iG_{\bar\jmath} =
-e^K|W|^2K^{i\bar\jmath}\frac{D_iW\,\overline{D_jW}}{|W|^2} = e^KK^{i\bar\jmath}D_iW\overline{D_jW}$ and $3e^G = 3e^K|W|^2$. Since $G$ is
+e^K|W|^2K^{i\bar\jmath}\frac{D_iW\,(D_jW)^*}{|W|^2} = e^KK^{i\bar\jmath}D_iW(D_jW)^*$ and $3e^G = 3e^K|W|^2$. Since $G$ is
 invariant, so is $V$. Where all $D_iW = 0$ the first term vanishes and $V = -3e^K|W|^2 \leq 0$, zero only if $W = 0$ there; in
 supergravity, unlike @exm-superalgebra-energy, positive energy is not the criterion of supersymmetry breaking, $D_iW \neq 0$ is.
 :::
@@ -5998,7 +5998,7 @@ this singles out eleven dimensions.
 A supergravity is **maximal** if it has $32$ real supercharges, the largest number for which all massless
 multiplets have helicities at most $2$; since a Majorana spinor in $d$ dimensions has at least $2^{\lfloor d/2\rfloor}$
 real components (@prp-spinor-dimensions), $32$ supercharges fit in a single spinor only for $d \leq 11$, and the
-**eleven-dimensional supergravity** of Cremmer, Julia and Scherk is the unique $d = 11$, $N = 1$ theory
+**eleven-dimensional supergravity** of Cremmer, Julia and Scherk is the unique $d = 11$, $\mathcal N = 1$ theory
 [@tanii1998, pp. 14-16].
 :::
 ::::
@@ -6018,9 +6018,9 @@ Reducing on a torus does not change the number of supercharges. The second examp
 that results from seven circles.
 
 ::: {#exm-maximal-four}
-#### $N = 8$ in four dimensions
+#### $\mathcal N = 8$ in four dimensions
 
-Reducing on a seven-torus gives the $N = 8$ multiplet of @exm-sugra-multiplet-extended with $128 + 128$ states, the
+Reducing on a seven-torus gives the $\mathcal N = 8$ multiplet of @exm-sugra-multiplet-extended with $128 + 128$ states, the
 same count in every dimension from eleven down to four [@tanii1998, Table 3] (@exr-dof-11d).
 :::
 
@@ -6048,9 +6048,9 @@ $2$ in $d \geq 12$ (in signature with one time).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Reduced to four dimensions on a torus, a theory with $\mathcal{N}$ real supercharges becomes an $N = \mathcal{N}/4$ theory, whose
-massless ladders span $N/2 = \mathcal{N}/8$ units of helicity; helicities at most $2$ require a span of at most $4$, so
-$\mathcal{N} \leq 32$. In $d = 12$ the smallest spinor has $64$ real components (@exm-ssg-spinor-eleven), so even one supercharge
+Reduced to four dimensions on a torus, a theory with $n_Q$ real supercharges becomes an $\mathcal N = n_Q/4$ theory, whose
+massless ladders span $\mathcal N/2 = n_Q/8$ units of helicity; helicities at most $2$ require a span of at most $4$, so
+$n_Q \leq 32$. In $d = 12$ the smallest spinor has $64$ real components (@exm-ssg-spinor-eleven), so even one supercharge
 exceeds the bound; eleven is the largest dimension where a single spinor has $32$ components.
 :::
 
@@ -6151,12 +6151,12 @@ of the proposition. It follows from the light-cone counting of the transverse co
 #### Degrees of freedom
 
 $44 + 84 = 128$ bosonic and $128$ fermionic on-shell degrees of freedom in eleven dimensions, and $2 + 56 + 70 = 128$,
-$16 + 112 = 128$ for $N = 8$ in four (@exr-dof-11d).
+$16 + 112 = 128$ for $\mathcal N = 8$ in four (@exr-dof-11d).
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-![Physical degrees of freedom of eleven-dimensional supergravity and of its $N = 8$ reduction to four dimensions,
+![Physical degrees of freedom of eleven-dimensional supergravity and of its $\mathcal N = 8$ reduction to four dimensions,
 counted with the light-cone formulas: the graviton $\tfrac12(d - 2)(d - 1) - 1$, a $p$-form $\binom{d - 2}{p}$, a
 Majorana gravitino $\tfrac12(d - 3)2^{\lfloor d/2\rfloor}$, a Majorana spin-$\tfrac12$ field $\tfrac12 2^{\lfloor d/2\rfloor}$. In
 both dimensions $128 + 128$. Generated by `figures/sugra11_dof.sage`.](figures/sugra11_dof.svg){#fig-sugra11-dof width=75%}
@@ -6171,7 +6171,7 @@ Graviton: $\tfrac12\cdot9\cdot10 - 1 = 44$; three-form: $\binom93 = 84$; graviti
 equal the fermions, as @def-supermultiplet requires and @exr-ssg-so9-little-group confirms representation-theoretically.
 :::
 
-In four dimensions the count is that of the $N = 8$ ladder. The second example reads it in terms of fields.
+In four dimensions the count is that of the $\mathcal N = 8$ ladder. The second example reads it in terms of fields.
 
 ::: {#exm-ssg-dof-four}
 #### Four dimensions
@@ -6276,7 +6276,7 @@ four-dimensional spinors. How many four-dimensional gravitini and spin-$\tfrac12
 The $32$ real components of the eleven-dimensional Majorana spinor form $8$ four-dimensional Majorana spinors of $4$
 components ($32 = 4 \times 8$, the $8$ being a spinor of the internal $SO(7)$). So $\psi_\mu$ gives $8$ gravitini and the seven $\psi_m$
 give $7 \times 8 = 56$ spin-$\tfrac12$ fields (after a field redefinition removing the gamma trace from $\psi_\mu$), as in
-@exm-ssg-dof-four. The eight gravitini are the $N = 8$ of the reduced theory (@exr-ssg-sugra-11-to-4).
+@exm-ssg-dof-four. The eight gravitini are the $\mathcal N = 8$ of the reduced theory (@exr-ssg-sugra-11-to-4).
 :::
 
 Ten-dimensional supergravity also exists with half the maximal supersymmetry, and then it can be coupled to gauge fields,
@@ -6286,7 +6286,7 @@ as in the low-energy limit of the heterotic string. The fourth exercise counts i
 ::: {#exr-ssg-heterotic-count}
 #### Ten-dimensional supergravity with gauge fields
 
-The $N = 1$ supergravity multiplet in ten dimensions contains the graviton, a two-form $B_{\mu\nu}$, a scalar, a Majorana-Weyl
+The $\mathcal N = 1$ supergravity multiplet in ten dimensions contains the graviton, a two-form $B_{\mu\nu}$, a scalar, a Majorana-Weyl
 gravitino and a Majorana-Weyl spinor; a gauge multiplet contains a vector and a Majorana-Weyl gaugino. Count the states of
 each with the little group $SO(8)$, and the states of the gauge sector when the gauge group is $SO(32)$ or $E_8 \times E_8$.
 :::
@@ -6311,7 +6311,7 @@ definition displays it in our signature.
 ::: {#def-sugra11-action}
 #### Eleven-dimensional supergravity action
 
-In our signature $(+, -, \dots, -)$, which is that of @tanii1998 [eq. 5.1, with $4\pi G = 1$], and with $F_{\mu\nu\rho\sigma} =
+In our signature $(+, -, \dots, -)$, which is that of @tanii1998 [eq. 5.1, with $4\pi G_N = 1$], and with $F_{\mu\nu\rho\sigma} =
 4\partial_{[\mu}B_{\nu\rho\sigma]}$,
 $$
 \begin{aligned}
@@ -6328,7 +6328,7 @@ and the **Chern-Simons term** $F \wedge F \wedge B$. It is *displayed and cited*
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The bosonic part of the action is what the Freund-Rubin solution solves. The first example gives it with its field
-equations, and records the sign change from the mostly-plus metric.
+equations, and records the sign change from the mostly-plus metric of @duff2025.
 
 ::: {#exm-sugra11-bosonic}
 #### The bosonic action
@@ -6351,14 +6351,14 @@ of @def-gauge-field-u1; the Chern-Simons term changes by a total derivative, as 
 (@def-exterior-derivative).
 :::
 
-The fields of the action reduce to the fields of four-dimensional $N = 8$ supergravity. The third example lists the
+The fields of the action reduce to the fields of four-dimensional $\mathcal N = 8$ supergravity. The third example lists the
 bosons that come from each.
 
 ::: {#exm-sugra11-reduction}
 #### Reduction of the fields
 
 On $M_4 \times T^7$ the metric gives $7$ vectors and $28$ scalars, the three-form $7$ two-forms (dual to scalars),
-$21$ vectors and $35$ scalars: $28$ vectors and $70$ scalars in all, the $N = 8$ content (@exr-dof-11d), each
+$21$ vectors and $35$ scalars: $28$ vectors and $70$ scalars in all, the $\mathcal N = 8$ content (@exr-dof-11d), each
 counted by the branching rules of @sec-branching.
 :::
 ::::
@@ -6497,7 +6497,7 @@ form on the Freund-Rubin background.
 
 On the Freund-Rubin background the operator $\tilde D_\mu = D_\mu + m\gamma_\mu\gamma_5$ on $AdS_4$ and $\tilde D_m = D_m -
 \tfrac12m\Gamma_m$ on the internal space [@duff2025, eqs. 12-13] replaces $D$, and the Killing spinors are the
-solutions of $\tilde D_m\eta = 0$ on the internal space: $8$ of them on the round $S^7$, giving $N = 8$, and $1$ on
+solutions of $\tilde D_m\eta = 0$ on the internal space: $8$ of them on the round $S^7$, giving $\mathcal N = 8$, and $1$ on
 the squashed sphere [@duff2025, Sec. 2].
 :::
 
@@ -6588,20 +6588,20 @@ the equation $D_m\eta = \tfrac12m\Gamma_m\eta$ of the Freund-Rubin background.
 ::: {#exr-ssg-killing-integrability}
 #### Integrability
 
-In our signature the internal gamma matrices satisfy $\{\Gamma_m, \Gamma_n\} = 2g_{mn} = -2\gamma_{mn}$, so $\Gamma_m = i\hat\gamma_m$ with Hermitian
-$\hat\gamma_m$, $\{\hat\gamma_m, \hat\gamma_n\} = 2\gamma_{mn}$. From $D_m\eta = \tfrac12m\Gamma_m\eta$ derive $[D_m, D_n]\eta = \tfrac12m^2\hat\gamma_{mn}\eta$, with
-$\hat\gamma_{mn} = \tfrac12[\hat\gamma_m, \hat\gamma_n]$. Using $[D_m, D_n] = \tfrac14R_{mnab}\hat\gamma^{ab}$ and the curvature $R_{mnab} =
-a^{-2}(\gamma_{ma}\gamma_{nb} - \gamma_{mb}\gamma_{na})$ of the round sphere of radius $a$, show that the condition holds for every $\eta$
+In our signature the internal gamma matrices satisfy $\{\Gamma_m, \Gamma_n\} = 2g_{mn} = -2\gamma_{mn}$, so they are
+anti-Hermitian. From $D_m\eta = \tfrac12m\Gamma_m\eta$ derive $[D_m, D_n]\eta = -\tfrac12m^2\Gamma_{mn}\eta$, with
+$\Gamma_{mn} = \tfrac12[\Gamma_m, \Gamma_n]$. Using $[D_m, D_n] = \tfrac14R_{mnab}\Gamma^{ab}$ and the curvature $R_{mnab} =
+-a^{-2}(g_{ma}g_{nb} - g_{mb}g_{na})$ of the round sphere of radius $a$ (indices lowered with $g_{mn} = -\gamma_{mn}$), show that the condition holds for every $\eta$
 exactly when $a = 1/m$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $D_mD_n\eta = \tfrac12m\Gamma_nD_m\eta = \tfrac14m^2\Gamma_n\Gamma_m\eta$ (the gamma matrices are covariantly constant, and the Christoffel
-terms cancel in the commutator because the connection has no torsion), so $[D_m, D_n]\eta = \tfrac14m^2[\Gamma_n, \Gamma_m]\eta = -
-\tfrac14m^2[\hat\gamma_n, \hat\gamma_m]\eta = \tfrac12m^2\hat\gamma_{mn}\eta$. On the round sphere $\tfrac14R_{mnab}\hat\gamma^{ab} = \tfrac14a^{-2}(\hat\gamma_{mn} -
-\hat\gamma_{nm}) = \tfrac12a^{-2}\hat\gamma_{mn}$, so the integrability condition $(\tfrac12a^{-2} - \tfrac12m^2)\hat\gamma_{mn}\eta = 0$ holds for every
-$\eta$ exactly when $a = 1/m$, the radius of @exm-freund-rubin-s7. With Hermitian gamma matrices the same equation reads
-$D_m\eta = \tfrac{i}{2}m\hat\gamma_m\eta$, the form solved on $S^2$ in @exr-ssg-killing-s2 (with $m = 1$); a real constant with Hermitian
+terms cancel in the commutator because the connection has no torsion), so $[D_m, D_n]\eta = \tfrac14m^2[\Gamma_n, \Gamma_m]\eta =
+-\tfrac12m^2\Gamma_{mn}\eta$. On the round sphere $\tfrac14R_{mnab}\Gamma^{ab} = -\tfrac14a^{-2}(\Gamma_{mn} -
+\Gamma_{nm}) = -\tfrac12a^{-2}\Gamma_{mn}$, so the integrability condition $(\tfrac12a^{-2} - \tfrac12m^2)\Gamma_{mn}\eta = 0$ holds for every
+$\eta$ exactly when $a = 1/m$, the radius of @exm-freund-rubin-s7. Written with the Hermitian matrices $-i\Gamma_m$ the same equation reads
+$D_m\eta = \tfrac{i}{2}m(-i\Gamma_m)\eta$, the form solved on $S^2$ in @exr-ssg-killing-s2 (with $m = 1$); a real constant with Hermitian
 matrices would require negative curvature instead. An internal space with fewer Killing spinors only needs the
 condition on a subspace of spinors, which allows other Einstein spaces.
 :::
@@ -6757,7 +6757,7 @@ example lists other internal spaces, all of them coset spaces.
 
 The internal equations ask only for $R_{mn} = 6m^2\gamma_{mn}$, so every compact Einstein seven-manifold with positive
 curvature gives a Freund-Rubin solution: the squashed $S^7$, the spaces $M^{pqr}$, $N^{pqr}$ and $Q^{pqr}$, all coset
-spaces $G/H$ of the kind studied in Part I [@duff2025, Sec. 8]; how much supersymmetry survives depends on their
+spaces $S/R$ of the kind studied in Part I [@duff2025, Sec. 8]; how much supersymmetry survives depends on their
 Killing spinors.
 :::
 
@@ -7152,9 +7152,9 @@ supersymmetries of a compactification by the Killing spinors of its internal spa
 #### Counting preserved supercharges
 
 The number of four-dimensional supersymmetries of a compactification is the number of Killing spinors of the
-internal background (@def-sugra11-transformation): $N$ counts the independent solutions of $\delta\psi_m = 0$, and the
-four-dimensional theory has $4N$ real supercharges. A torus preserves all $32$; a Freund-Rubin sphere preserves
-$N = 8$; manifolds of special holonomy preserve fractions.
+internal background (@def-sugra11-transformation): $\mathcal N$ counts the independent solutions of $\delta\psi_m = 0$, and the
+four-dimensional theory has $4\mathcal N$ real supercharges. A torus preserves all $32$; a Freund-Rubin sphere preserves
+$\mathcal N = 8$; manifolds of special holonomy preserve fractions.
 :::
 ::::
 
@@ -7164,7 +7164,7 @@ The torus is the simplest case, since it is flat and has no flux. The first exam
 ::: {#exm-counting-torus}
 #### The torus
 
-$T^7$ is flat, every constant spinor is parallel, and all $32$ supercharges survive as the $N = 8$ of
+$T^7$ is flat, every constant spinor is parallel, and all $32$ supercharges survive as the $\mathcal N = 8$ of
 @exm-maximal-four: dimensional reduction on a torus never breaks supersymmetry.
 :::
 
@@ -7174,8 +7174,8 @@ compares the round and the squashed seven-sphere.
 ::: {#exm-counting-sphere}
 #### Round and squashed spheres
 
-The round $S^7$ has $8$ Killing spinors ($N = 8$ in four dimensions, the gauged $SO(8)$ supergravity), the squashed
-$S^7$ has $1$ ($N = 1$), and its skew-whiffed version none [@duff2025, Sec. 2]: the same manifold with different
+The round $S^7$ has $8$ Killing spinors ($\mathcal N = 8$ in four dimensions, the gauged $SO(8)$ supergravity), the squashed
+$S^7$ has $1$ ($\mathcal N = 1$), and its skew-whiffed version none [@duff2025, Sec. 2]: the same manifold with different
 metrics or orientations gives different amounts of supersymmetry.
 :::
 
@@ -7185,27 +7185,27 @@ result for the special holonomy groups.
 ::: {#exm-counting-special-holonomy}
 #### Special holonomy
 
-Reducing on a Calabi-Yau threefold preserves $\tfrac14$ of the supercharges ($N = 2$ from eleven or ten dimensions)
-and a $G_2$-manifold $\tfrac18$ ($N = 1$), the fractions dictated by the invariant spinors of @exm-killing-spinor-holonomy;
+Reducing on a Calabi-Yau threefold preserves $\tfrac14$ of the supercharges ($\mathcal N = 2$ from eleven or ten dimensions)
+and a $G_2$-manifold $\tfrac18$ ($\mathcal N = 1$), the fractions dictated by the invariant spinors of @exm-killing-spinor-holonomy;
 these are the compactifications of Part VI, and CSDR with supersymmetry breaking by the coset
 (@manousselis2000) is their field-theory counterpart.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise converts fractions of preserved supersymmetry into four-dimensional $N$. It is arithmetic, but it
+The first exercise converts fractions of preserved supersymmetry into four-dimensional $\mathcal N$. It is arithmetic, but it
 makes the dictionary explicit.
 
 ::: {#exr-ssg-count-fractions}
-#### From fractions to $N$
+#### From fractions to $\mathcal N$
 
 A compactification of eleven-dimensional supergravity to four dimensions preserves a fraction $f$ of the $32$
-supercharges. Give $N$ for $f = 1, \tfrac12, \tfrac14, \tfrac18$ and name an internal space realising each.
+supercharges. Give $\mathcal N$ for $f = 1, \tfrac12, \tfrac14, \tfrac18$ and name an internal space realising each.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$N = 32f/4 = 8f$: $f = 1$, $N = 8$ ($T^7$, or the round $S^7$ with flux); $f = \tfrac12$, $N = 4$ ($K3 \times T^3$, holonomy $SU(2)$); $f = \tfrac14$,
-$N = 2$ ($CY_3 \times S^1$, holonomy $SU(3)$); $f = \tfrac18$, $N = 1$ (a $G_2$-manifold, or the squashed $S^7$ with flux). Each halving
+$\mathcal N = 32f/4 = 8f$: $f = 1$, $\mathcal N = 8$ ($T^7$, or the round $S^7$ with flux); $f = \tfrac12$, $\mathcal N = 4$ ($K3 \times T^3$, holonomy $SU(2)$); $f = \tfrac14$,
+$\mathcal N = 2$ ($CY_3 \times S^1$, holonomy $SU(3)$); $f = \tfrac18$, $\mathcal N = 1$ (a $G_2$-manifold, or the squashed $S^7$ with flux). Each halving
 corresponds to a further reduction of the holonomy group, which leaves fewer of the eight internal spinor components
 invariant.
 :::
@@ -7235,7 +7235,7 @@ two-sphere with that on the seven-sphere.
 #### Killing spinors on spheres
 
 On $S^n$ of radius $1/m$ the equation $D_m\eta = \pm\tfrac12m\Gamma_m\eta$ (with the factor $i$ of @exr-ssg-killing-s2 in even dimensions) has, for
-each sign, as many solutions as the dimension of the spinor. Give the numbers for $S^2$ and $S^7$, and explain the $N = 8$ of
+each sign, as many solutions as the dimension of the spinor. Give the numbers for $S^2$ and $S^7$, and explain the $\mathcal N = 8$ of
 $AdS_4 \times S^7$.
 :::
 
@@ -7243,8 +7243,8 @@ $AdS_4 \times S^7$.
 On $S^2$ the spinor has $2$ complex components and there are $2$ solutions for each sign (@exr-ssg-killing-s2). On $S^7$ the
 spinor of $SO(7)$ has $8$ components, and the round sphere has $8$ Killing spinors for each sign of the constant. The flux
 selects the sign that enters $\delta\psi_m = 0$, and each of the $8$ solutions, tensored with the four-component Killing spinors of
-$AdS_4$, gives a four-dimensional supersymmetry: $N = 8$, all $32$ supercharges preserved (@exm-counting-sphere). Because the
-round sphere has Killing spinors of both signs, both orientations of the flux preserve $N = 8$; skew-whiffing breaks
+$AdS_4$, gives a four-dimensional supersymmetry: $\mathcal N = 8$, all $32$ supercharges preserved (@exm-counting-sphere). Because the
+round sphere has Killing spinors of both signs, both orientations of the flux preserve $\mathcal N = 8$; skew-whiffing breaks
 supersymmetry only for internal spaces, such as the squashed sphere, whose Killing spinors all have one sign
 [@duff2025, Sec. 2].
 :::
@@ -7390,7 +7390,7 @@ radial scalar mass^2 = 2*g*kappa ; vector mass^2 2 g^2 |phi_+|^2 = 2*g*kappa
 :::
 
 Three exercises that combine the units of @sec-supergravity: eleven-dimensional supergravity reduced on a torus and
-compared with the helicity ladder of $N = 8$, the Freund-Rubin vacuum $AdS_4 \times S^7$ from the flux to the supersymmetry it
+compared with the helicity ladder of $\mathcal N = 8$, the Freund-Rubin vacuum $AdS_4 \times S^7$ from the flux to the supersymmetry it
 preserves, and the super-Higgs mechanism in the O'Raifeartaigh model coupled to supergravity.
 
 The first integrative exercise checks the reduction on $T^7$ against the representation theory of the first part. The
@@ -7400,14 +7400,14 @@ fields, the fermions and the supercharges are all counted in Sage.
 #### From eleven to four dimensions
 
 Reduce eleven-dimensional supergravity on $T^7$: list the four-dimensional bosons from the metric and the three-form and
-the fermions from the gravitino, compare with the CPT-completed $N = 8$ ladder of @prp-ssg-massless-multiplets, count the
+the fermions from the gravitino, compare with the CPT-completed $\mathcal N = 8$ ladder of @prp-ssg-massless-multiplets, count the
 states, and count the four-dimensional supercharges.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Bosons: $1$ graviton, $7 + 21 = 28$ vectors, $28 + 35 + 7 = 70$ scalars (the seven two-forms dualised). Fermions: $32 = 8 \times 4$
 gives $8$ gravitini and $7 \times 8 = 56$ spin-$\tfrac12$ fields. These are the multiplicities $1, 8, 28, 56, 70$ of the ladder, with
-$128 + 128$ states, and the $32$ real supercharges become $N = 8$ four-component ones (@exm-counting-torus):
+$128 + 128$ states, and the $32$ real supercharges become $\mathcal N = 8$ four-component ones (@exm-counting-torus):
 
 ```python
 vectors = 7 + binomial(7, 2)
@@ -7444,14 +7444,14 @@ uses the curvature computation, the Killing spinors and the supergravity multipl
 
 For the Freund-Rubin ansatz with parameter $m$ on the round $S^7$: (a) give the radii, the cosmological constant and the
 eleven-dimensional scalar curvature; (b) the number of preserved supersymmetries; (c) the isometry group of $S^7$ and the
-number of four-dimensional gauge fields it provides; (d) compare with the field content of the $N = 8$ multiplet, and
+number of four-dimensional gauge fields it provides; (d) compare with the field content of the $\mathcal N = 8$ multiplet, and
 say which coupling distinguishes the resulting theory from the $T^7$ reduction.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $a = 1/m$, $L = 1/(2m)$, $\Lambda = -12m^2$, $R = 6m^2$ (@prp-freund-rubin, @exr-ssg-fr-radii). (b) Eight Killing spinors, $N = 8$, all
+(a) $a = 1/m$, $L = 1/(2m)$, $\Lambda = -12m^2$, $R = 6m^2$ (@prp-freund-rubin, @exr-ssg-fr-radii). (b) Eight Killing spinors, $\mathcal N = 8$, all
 $32$ supercharges (@exr-ssg-count-spheres). (c) The isometry group is $SO(8)$, of dimension $28$; each Killing vector gives a
-gauge field in the reduction (@sec-flows-killing). (d) The $N = 8$ multiplet has exactly $28$ vectors
+gauge field in the reduction (@sec-flows-killing). (d) The $\mathcal N = 8$ multiplet has exactly $28$ vectors
 (@exm-ssg-ladders-n8), which on $S^7$ gauge $SO(8)$: the four-dimensional theory is the gauged $SO(8)$ supergravity of
 @exm-sugra-multiplet-gauged, with the gauge coupling $g \propto m$ setting the cosmological constant $\propto -g^2$ and the gravitino
 mass-like terms, absent in the ungauged $T^7$ reduction where the vectors are abelian.
@@ -7463,16 +7463,16 @@ goldstino and the super-Higgs mechanism.
 ::: {#exr-ssg-sugra-super-higgs}
 #### The O'Raifeartaigh model in supergravity
 
-Couple the O'Raifeartaigh model (with $m^2 > yk$) to $N = 1$ supergravity. (a) Which fermion is eaten, and how many states
-does the gravitino have afterwards? (b) Give $m_{3/2}$ in terms of $k$ and $M_P$, and its value for $\sqrt k = 10^{11}$ GeV. (c) What
+Couple the O'Raifeartaigh model (with $m^2 > yk$) to $\mathcal N = 1$ supergravity. (a) Which fermion is eaten, and how many states
+does the gravitino have afterwards? (b) Give $m_{3/2}$ in terms of $k$ and $M_{\mathrm{Pl}}$, and its value for $\sqrt k = 10^{11}$ GeV. (c) What
 must be added to $W$ to have zero vacuum energy, and how does this change the count of fermions? (d) Count all
 on-shell states before and after the breaking.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) The goldstino is $\psi_1$ (@exr-ssg-goldstino); it supplies the helicities $\pm\tfrac12$ of the massive gravitino, which has $4$ states
-(@exr-ssg-super-higgs-states). (b) $F = k$, so $m_{3/2} = k/(\sqrt3M_P) \approx 2.4$ TeV for $\sqrt k = 10^{11}$ GeV (@exr-ssg-gravitino-mass-scale).
-(c) A constant $W_0$ with $|W_0| = kM_P/\sqrt3$ cancels the vacuum energy $k^2$ in $V = |F|^2 - 3|W|^2/M_P^2$
+(@exr-ssg-super-higgs-states). (b) $F = k$, so $m_{3/2} = k/(\sqrt3M_{\mathrm{Pl}}) \approx 2.4$ TeV for $\sqrt k = 10^{11}$ GeV (@exr-ssg-gravitino-mass-scale).
+(c) A constant $W_0$ with $|W_0| = kM_{\mathrm{Pl}}/\sqrt3$ cancels the vacuum energy $k^2$ in $V = |F|^2 - 3|W|^2/M_{\mathrm{Pl}}^2$
 (@exr-ssg-super-higgs-cosmological); the fermion content is unchanged except that $\psi_1$ is now part of the gravitino. (d)
 Before: graviton $2$ + three complex scalars $6$ = $8$ bosonic; gravitino $2$ + three Weyl fermions $6$ = $8$ fermionic. After:
 the same $8$ bosonic states (the scalars split in mass, @exm-breaking-oraifeartaigh), and a massive gravitino $4$ plus two

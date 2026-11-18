@@ -502,7 +502,7 @@ $t$. Moving the power of $t$ instead gives the zeta function of @def-zeta-regula
 #### Proper-time regularisation
 
 Let $D$ be a positive elliptic operator of Laplace type on an $n$-dimensional manifold, with heat trace
-$K(t) = \operatorname{Tr}e^{-tD}$. Since $\log\lambda = -\int_0^\infty\frac{dt}{t}e^{-t\lambda}$ up to a constant independent of $\lambda$, the
+$K(t) = \operatorname{tr}e^{-tD}$. Since $\log\lambda = -\int_0^\infty\frac{dt}{t}e^{-t\lambda}$ up to a constant independent of $\lambda$, the
 one-loop effective action $W = \tfrac12\log\det D$ is formally $-\frac12\int_0^\infty\frac{dt}{t}K(t)$. Its **proper-time
 regularisation** with cutoff $\Lambda$ is
 $$
@@ -758,15 +758,15 @@ computes the shift for a minimally coupled scalar.
 ::: {#exr-ren-induced-gravity}
 #### The shift of Newton's constant
 
-With the Euclidean Einstein-Hilbert action $-\frac{1}{16\pi G}\int\sqrt g\,R$, find the shift $\delta(1/G)$ produced by the term of
+With the Euclidean Einstein-Hilbert action $-\frac{1}{16\pi G_N}\int\sqrt g\,R$, find the shift $\delta(1/G_N)$ produced by the term of
 @exm-ren-hk-induced-gravity, and evaluate it for $\xi = 0$ and $\Lambda = 10^{19}\,\mathrm{GeV}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The effective action contains $-\frac{\Lambda^2}{32\pi^2}(\frac16 - \xi)\int\sqrt g\,R$, which adds to $-\frac{1}{16\pi G}\int\sqrt gR$; so
-$\delta\bigl(\frac{1}{16\pi G}\bigr) = \frac{\Lambda^2}{32\pi^2}(\frac16 - \xi)$ and $\delta(1/G) = \frac{\Lambda^2(1 - 6\xi)}{12\pi}$. For $\xi = 0$ and $\Lambda = 10^{19}\,\mathrm{GeV}$
-this is $2.7 \times 10^{36}\,\mathrm{GeV}^2$, compared with $1/G = M_P^2 = 1.5 \times 10^{38}\,\mathrm{GeV}^2$: a single scalar shifts
-$1/G$ by about $2\%$ with a Planckian cutoff, Sakharov's observation that gravity may be induced by matter.
+The effective action contains $-\frac{\Lambda^2}{32\pi^2}(\frac16 - \xi)\int\sqrt g\,R$, which adds to $-\frac{1}{16\pi G_N}\int\sqrt gR$; so
+$\delta\bigl(\frac{1}{16\pi G_N}\bigr) = \frac{\Lambda^2}{32\pi^2}(\frac16 - \xi)$ and $\delta(1/G_N) = \frac{\Lambda^2(1 - 6\xi)}{12\pi}$. For $\xi = 0$ and $\Lambda = 10^{19}\,\mathrm{GeV}$
+this is $2.7 \times 10^{36}\,\mathrm{GeV}^2$, compared with $1/G_N = 8\pi M_{\mathrm{Pl}}^2 = 1.5 \times 10^{38}\,\mathrm{GeV}^2$: a single scalar shifts
+$1/G_N$ by about $2\%$ with a Planckian cutoff, Sakharov's observation that gravity may be induced by matter.
 :::
 
 On a flat space without boundary the heat coefficients $a_k$ with $k \geq 1$ vanish for the Laplacian, so $\zeta(0)$ is fixed by
@@ -1031,17 +1031,17 @@ integrative exercise extracts it with three regulators.
 ::: {#exr-ren-x-casimir-regulators}
 #### The Casimir energy with three regulators
 
-For a massless scalar on a circle of radius $R$ in $1 + 1$ dimensions, compute $E_0 = \frac12\sum_{n \in \mathbb Z}\frac{|n|}{R}$ with an
-exponential cutoff $e^{-\delta|n|/R}$, expanding in $\delta$ with Sage; with the heat-kernel cutoff $e^{-\delta^2n^2/R^2}$, using the
+For a massless scalar on a circle of radius $r$ in $1 + 1$ dimensions, compute $E_0 = \frac12\sum_{n \in \mathbb Z}\frac{|n|}{R}$ with an
+exponential cutoff $e^{-\delta|n|/r}$, expanding in $\delta$ with Sage; with the heat-kernel cutoff $e^{-\delta^2n^2/r^2}$, using the
 Euler-Maclaurin formula; and with the zeta function. Show that the three finite parts agree.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With the exponential, $E_0(\delta) = \frac1R\sum_{n \geq 1}ne^{-\delta n/R} = \frac{e^{\delta/R}}{R(e^{\delta/R} - 1)^2} = \frac{R}{\delta^2} - \frac{1}{12R} + O(\delta^2)$. With
-the Gaussian, Euler-Maclaurin gives $\sum_{n \geq 1}ne^{-\delta^2n^2/R^2} = \int_0^\infty xe^{-\delta^2x^2/R^2}dx - \frac{1}{12} + O(\delta^2) = \frac{R^2}{2\delta^2} - \frac1{12} +
-\dots$, so $E_0 = \frac{R}{2\delta^2} - \frac{1}{12R}$. Zeta regularisation gives $\frac{\zeta_R(-1)}{R} = -\frac{1}{12R}$ directly
-(@exr-rn-circle-casimir). The divergent terms differ, the finite term $-\frac{1}{12R}$ does not; the divergent term is
-proportional to the length $2\pi R$, a local cosmological constant on the line:
+With the exponential, $E_0(\delta) = \frac1r\sum_{n \geq 1}ne^{-\delta n/r} = \frac{e^{\delta/r}}{r(e^{\delta/r} - 1)^2} = \frac{r}{\delta^2} - \frac{1}{12r} + O(\delta^2)$. With
+the Gaussian, Euler-Maclaurin gives $\sum_{n \geq 1}ne^{-\delta^2n^2/r^2} = \int_0^\infty xe^{-\delta^2x^2/r^2}dx - \frac{1}{12} + O(\delta^2) = \frac{r^2}{2\delta^2} - \frac1{12} +
+\dots$, so $E_0 = \frac{r}{2\delta^2} - \frac{1}{12r}$. Zeta regularisation gives $\frac{\zeta_R(-1)}{r} = -\frac{1}{12r}$ directly
+(@exr-rn-circle-casimir). The divergent terms differ, the finite term $-\frac{1}{12r}$ does not; the divergent term is
+proportional to the length $2\pi r$, a local cosmological constant on the line:
 
 ```python
 var('d'); var('R', domain='positive')
@@ -1320,8 +1320,8 @@ how the four-dimensional coupling is related to it.
 
 In $D$ dimensions the gauge field has $[A] = \frac{D - 2}{2}$, and with the normalisation $-\frac{1}{4g^2}F^2$ the coupling has $[g^2] = 4 - D$
 [@dienes1998grand, eq. 2.11]. For $D = 5$, $[g_5^2] = -1$, and $\omega$ grows by one with every loop: the theory is
-non-renormalisable. On a circle of circumference $2\pi R$ the zero modes have the four-dimensional coupling
-$g_4^2 = g_5^2/(2\pi R)$ (@dienes1998grand [eq. 2.12] write $\alpha = R^{-\delta}\tilde\alpha$ with their normalisation of the volume), and the
+non-renormalisable. On a circle of circumference $2\pi r$ the zero modes have the four-dimensional coupling
+$g_4^2 = g_5^2/(2\pi r)$ (@dienes1998grand [eq. 2.12] write $\alpha = r^{-\delta}\tilde\alpha$ with their normalisation of the volume), and the
 loop expansion parameter at energy $E$ is of order $g_5^2E/(24\pi^3)$, which reaches one at a finite energy
 (@sec-renormalisation-higher-dimensions).
 :::
@@ -1414,11 +1414,11 @@ fails. The third exercise estimates it.
 
 At energy $E$ the dimensionless strength of a five-dimensional gauge interaction at one loop is of order $\frac{g_5^2E}{\ell_5}$,
 with the loop factor $\ell_5 = (4\pi)^{5/2}\Gamma(5/2) = 24\pi^3$. With $g_5^2 = 2\pi Rg_4^2$ and $g_4^2 = 4\pi/30$, find the energy
-$\Lambda$ at which it reaches one, in units of $1/R$.
+$\Lambda$ at which it reaches one, in units of $1/r$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\frac{g_5^2\Lambda}{24\pi^3} = 1$ gives $\Lambda = \frac{24\pi^3}{2\pi Rg_4^2} = \frac{12\pi^2}{g_4^2R}$. With $g_4^2 = 4\pi/30 = 0.419$ this is $\Lambda R \approx 283$: the
+$\frac{g_5^2\Lambda}{24\pi^3} = 1$ gives $\Lambda = \frac{24\pi^3}{2\pi Rg_4^2} = \frac{12\pi^2}{g_4^2r}$. With $g_4^2 = 4\pi/30 = 0.419$ this is $\Lambda r \approx 283$: the
 five-dimensional theory is weakly coupled for about two decades above the compactification scale, and must be
 replaced by something else above that. The estimate is the naive dimensional analysis of
 @sec-renormalisation-higher-dimensions; the precise number depends on the loop factor and is only an order of
@@ -3528,8 +3528,8 @@ evaluates it for hydrogen, where it is part of the Lamb shift that the Dirac equ
 ::: {#exm-ren-vp-uehling}
 #### The Uehling term and the Lamb shift
 
-For $|q^2| \ll m^2$, $\hat\Pi(q^2) = -\frac{\alpha}{15\pi}\frac{q^2}{m^2} + O(q^4)$. For a static potential $q^2 = -\vec q^{\,2}$, and $-\frac{4\pi\alpha}{\vec q^{\,2}}(1 +
-\hat\Pi) = -\frac{4\pi\alpha}{\vec q^{\,2}} - \frac{4\alpha^2}{15m^2}$, so $V(\vec r) = -\frac\alpha r - \frac{4\alpha^2}{15m^2}\delta^3(\vec r)$. In first-order perturbation theory, with
+For $|q^2| \ll m^2$, $\hat\Pi(q^2) = -\frac{\alpha}{15\pi}\frac{q^2}{m^2} + O(q^4)$. For a static potential $q^2 = -\mathbf q^{\,2}$, and $-\frac{4\pi\alpha}{\mathbf q^{\,2}}(1 +
+\hat\Pi) = -\frac{4\pi\alpha}{\mathbf q^{\,2}} - \frac{4\alpha^2}{15m^2}$, so $V(\mathbf r) = -\frac\alpha r - \frac{4\alpha^2}{15m^2}\delta^3(\mathbf r)$. In first-order perturbation theory, with
 $|\psi_{n00}(0)|^2 = \frac{(m\alpha)^3}{\pi n^3}$, the $nS$ levels of hydrogen shift by $\Delta E = -\frac{4\alpha^5m}{15\pi n^3}$, which for $2S$ is $-1.12 \times 10^{-7}\,\mathrm{eV}$ or
 $-27.1\,\mathrm{MHz}$ (@exr-ren-vp-lamb), about $-2.6\%$ of the measured Lamb shift of $1057.8\,\mathrm{MHz}$, whose bulk comes from the
 electron self-energy.
@@ -4175,7 +4175,7 @@ representations $F$ and complex scalars in representations $S$,
 $$
 \beta_g = \frac{g^3}{16\pi^2}\Bigl(-\frac{11}{3}C_2(G) + \frac23\sum_FT(F) + \frac13\sum_ST(S)\Bigr)
 $$
-with $\operatorname{tr}(T^aT^b) = T(R)\delta^{ab}$, $T = \frac12$ for the fundamental and $T = C_2(G) = N$ for the adjoint of $SU(N)$ [@nath2017supersymmetry, eqs.
+with $\operatorname{tr}(t_at_b) = T(R)\delta_{ab}$ for the Hermitian generators $t_a = iT_a$ of the representation $R$, $T = \frac12$ for the fundamental and $T = C_2(G) = N$ for the adjoint of $SU(N)$ [@nath2017supersymmetry, eqs.
 9.35-9.37; @grozin2005lectures, eq. 4.45]. In the momentum-subtraction scheme the contribution of a particle of mass $m$
 is multiplied by a function of $\mu/m$ that tends to $1$ for $\mu \gg m$ and vanishes like $\mu^2/m^2$ for $\mu \ll m$; for the electron loop
 it is $6\int_0^1dx\frac{x^2(1 - x)^2\mu^2}{m^2 + x(1 - x)\mu^2}$ [@manohar2018introduction, eqs. 7.3-7.5].
@@ -4245,7 +4245,7 @@ asymptotic freedom, and evaluate the threshold function. The first is a Sage com
 ::: {#exr-ren-bf-sm}
 #### The Standard Model coefficients
 
-With the Weyl fermions of one generation, $Q(3, 2, \frac16)$, $u^c(\bar3, 1, -\frac23)$, $d^c(\bar3, 1, \frac13)$, $L(1, 2, -\frac12)$, $e^c(1, 1, 1)$, and one Higgs doublet $H(1, 2,
+With the Weyl fermions of one generation, $Q(\mathbf 3, \mathbf 2, \frac16)$, $u^c(\bar{\mathbf 3}, \mathbf 1, -\frac23)$, $d^c(\bar{\mathbf 3}, \mathbf 1, \frac13)$, $L(\mathbf 1, \mathbf 2, -\frac12)$, $e^c(\mathbf 1, \mathbf 1, 1)$, and one Higgs doublet $H(\mathbf 1, \mathbf 2,
 \frac12)$, compute $b_i = -\frac{11}{3}C_2(G_i) + \frac23\sum_FT_i(F)d_i'(F) + \frac13\sum_ST_i(S)d'_i(S)$, where $d_i'$ is the dimension of the representation under the other
 factors and $T_1 = \frac35Y^2$. Confirm $(\frac{41}{10}, -\frac{19}{6}, -7)$.
 :::
@@ -4802,8 +4802,8 @@ grand unified models. It combines @prp-ren-beta-functions with @def-ren-lambda-p
 ::: {#exr-ren-x-su5}
 #### A unified gauge theory
 
-For $SU(5)$ with three generations in $\bar5 + 10$ (Weyl fermions, $T(\bar5) = \frac12$, $T(10) = \frac32$), a Higgs in the $5$ and one in the
-adjoint $24$ (a real scalar, counting half a complex one, $T(24) = 5$), compute $b_0$ and decide whether the theory is
+For $SU(5)$ with three generations in $\bar{\mathbf 5} + \mathbf{10}$ (Weyl fermions, $T(\bar{\mathbf 5}) = \frac12$, $T(\mathbf{10}) = \frac32$), a Higgs in the $\mathbf 5$ and one in the
+adjoint $\mathbf{24}$ (a real scalar, counting half a complex one, $T(\mathbf{24}) = 5$), compute $b_0$ and decide whether the theory is
 asymptotically free above the unification scale.
 :::
 
@@ -6701,14 +6701,14 @@ term of quantum electrodynamics. It combines @exm-ren-match-heavy-lepton with @e
 #### The Uehling term as an operator
 
 Show that the operator $-c'\partial_\alpha F_{\mu\nu}\partial^\alpha F^{\mu\nu}$ with $c' = \frac{e^2}{240\pi^2m^2}$ modifies the potential between two static charges
-$Q_1$, $Q_2$ by a contact term, and that for an electron and a proton the term is $-\frac{4\alpha^2}{15m^2}\delta^3(\vec r)$.
+$Q_1$, $Q_2$ by a contact term, and that for an electron and a proton the term is $-\frac{4\alpha^2}{15m^2}\delta^3(\mathbf r)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For static fields $F_{0i} = -\partial_iA_0$, $F_{\mu\nu}F^{\mu\nu} = -2(\nabla A_0)^2$ and $\partial_\alpha F_{\mu\nu}\partial^\alpha F^{\mu\nu} = 2(\partial_i\partial_jA_0)^2$, so the Lagrangian of $A_0$ is
-$\frac12(\nabla A_0)^2 - 2c'(\partial_i\partial_jA_0)^2 - \rho A_0$. In momentum space the field equation is $(\vec q^{\,2} - 4c'\vec q^{\,4})A_0 = \rho$, so $A_0 \approx \frac{\rho}{\vec q^{\,2}}(1 +
-4c'\vec q^{\,2})$, and the interaction energy is $Q_1Q_2(\frac{1}{\vec q^{\,2}} + 4c')$. For $Q_1Q_2 = -e^2$ the extra term is $-4c'e^2 = -\frac{e^4}{60\pi^2m^2} = -\frac{4\alpha^2}{15m^2}$, a
-contact term $-\frac{4\alpha^2}{15m^2}\delta^3(\vec r)$: the Uehling term of @exm-ren-vp-uehling, now obtained from the effective Lagrangian. The negative
+$\frac12(\nabla A_0)^2 - 2c'(\partial_i\partial_jA_0)^2 - \rho A_0$. In momentum space the field equation is $(\mathbf q^{\,2} - 4c'\mathbf q^{\,4})A_0 = \rho$, so $A_0 \approx \frac{\rho}{\mathbf q^{\,2}}(1 +
+4c'\mathbf q^{\,2})$, and the interaction energy is $Q_1Q_2(\frac{1}{\mathbf q^{\,2}} + 4c')$. For $Q_1Q_2 = -e^2$ the extra term is $-4c'e^2 = -\frac{e^4}{60\pi^2m^2} = -\frac{4\alpha^2}{15m^2}$, a
+contact term $-\frac{4\alpha^2}{15m^2}\delta^3(\mathbf r)$: the Uehling term of @exm-ren-vp-uehling, now obtained from the effective Lagrangian. The negative
 sign of the operator is what makes it attractive.
 :::
 
@@ -6778,11 +6778,11 @@ four-dimensional description to the higher-dimensional one [@dienes1998grand, Se
 In $D = 4 + \delta$ dimensions the gauge coupling has mass dimension $-\delta/2$ and Newton's constant dimension $-2 - \delta$
 (@exm-ren-ren-ym-five). Power counting then admits infinitely many counterterms, and the theory is predictive only as an
 effective theory below some scale. The figure shows where perturbation theory breaks down for a gauge theory
-compactified on $\delta$ circles of radius $R$, with a four-dimensional coupling of the size of the unified coupling.
+compactified on $\delta$ circles of radius $r$, with a four-dimensional coupling of the size of the unified coupling.
 
-![The strong-coupling scale of a $(4 + \delta)$-dimensional gauge theory on a torus of radius $R$ with $\alpha_4 = 1/30$, $\Lambda_sR =
-\bigl(\frac{(4\pi)^{D/2}\Gamma(D/2)}{g_4^2(2\pi)^\delta}\bigr)^{1/\delta}$, against $\delta$. With one extra dimension perturbation theory holds up to about $280/R$; with six, only
-up to about $2.6/R$: the more extra dimensions, the sooner the tower becomes strongly coupled. Generated by
+![The strong-coupling scale of a $(4 + \delta)$-dimensional gauge theory on a torus of radius $r$ with $\alpha_4 = 1/30$, $\Lambda_sr =
+\bigl(\frac{(4\pi)^{D/2}\Gamma(D/2)}{g_4^2(2\pi)^\delta}\bigr)^{1/\delta}$, against $\delta$. With one extra dimension perturbation theory holds up to about $280/r$; with six, only
+up to about $2.6/r$: the more extra dimensions, the sooner the tower becomes strongly coupled. Generated by
 `figures/ren-strong-coupling.sage`.](figures/ren-strong-coupling.svg){#fig-ren-strong-coupling width=70%}
 
 The definition gives the scale. It is an estimate by naive dimensional analysis: the loop factor counts the phase space
@@ -6799,7 +6799,7 @@ $$
 \Lambda_s = \Bigl(\frac{\ell_D}{g_D^2}\Bigr)^{1/\delta} ;
 $$
 above $\Lambda_s$ the loop expansion fails and the higher-dimensional theory must be replaced by a more complete one. On a torus of
-volume $(2\pi R)^\delta$ the zero modes have $g_4^2 = g_D^2/(2\pi R)^\delta$.
+volume $(2\pi r)^\delta$ the zero modes have $g_4^2 = g_D^2/(2\pi r)^\delta$.
 :::
 ::::
 
@@ -6810,8 +6810,8 @@ language of the definition.
 ::: {#exm-ren-sc-five}
 #### One extra dimension
 
-For $\delta = 1$, $\ell_5 = (4\pi)^{5/2}\Gamma(\frac52) = 24\pi^3$, and $\Lambda_s = \frac{24\pi^3}{g_5^2} = \frac{24\pi^3}{2\pi Rg_4^2} = \frac{12\pi^2}{g_4^2R}$. With $\alpha_4 = \frac{1}{30}$, $g_4^2 = 0.419$ and
-$\Lambda_sR = 283$: about $280$ Kaluza-Klein levels can be treated perturbatively before the five-dimensional theory becomes
+For $\delta = 1$, $\ell_5 = (4\pi)^{5/2}\Gamma(\frac52) = 24\pi^3$, and $\Lambda_s = \frac{24\pi^3}{g_5^2} = \frac{24\pi^3}{2\pi Rg_4^2} = \frac{12\pi^2}{g_4^2r}$. With $\alpha_4 = \frac{1}{30}$, $g_4^2 = 0.419$ and
+$\Lambda_s r = 283$: about $280$ Kaluza-Klein levels can be treated perturbatively before the five-dimensional theory becomes
 strong. At that scale the effective strength summed over the levels below it is of order one, the same statement seen
 from four dimensions (@exm-rn-tower-strength).
 :::
@@ -6823,9 +6823,9 @@ two, as @arkanihamed1998 [Sec. 1] does.
 ::: {#exm-ren-sc-gravity}
 #### Gravity in higher dimensions
 
-With $\delta$ compact dimensions of size $R$, Gauss's law gives $M_{\mathrm{Pl}}^2 \sim M_D^{2 + \delta}R^\delta$ [@arkanihamed1998, Sec. 1]: the four-dimensional gravitational
-coupling is weak because the field lines spread into the extra volume. For $M_D \sim 1\,\mathrm{TeV}$ and $\delta = 2$, $R \sim
-M_{\mathrm{Pl}}/M_D^2 \sim 10^{13}\,\mathrm{GeV}^{-1}$, about two millimetres. The strong-coupling scale of gravity is then $M_D$, the effective theory of
+With $\delta$ compact dimensions of size $r$, Gauss's law gives $G_N^{-1} \sim M_D^{2 + \delta}r^\delta$ [@arkanihamed1998, Sec. 1]: the four-dimensional gravitational
+coupling is weak because the field lines spread into the extra volume. For $M_D \sim 1\,\mathrm{TeV}$ and $\delta = 2$, $r \sim
+G_N^{-1/2}/M_D^2 \sim 10^{13}\,\mathrm{GeV}^{-1}$, about two millimetres. The strong-coupling scale of gravity is then $M_D$, the effective theory of
 gravity holds below it, and quantum gravity effects could appear at a TeV (@exr-ren-sc-add).
 :::
 
@@ -6851,29 +6851,29 @@ divergence of a five-dimensional loop. The first uses Sage.
 ::: {#exr-ren-sc-table}
 #### The strong-coupling scale for several dimensions
 
-Compute $\Lambda_sR$ for $\delta = 1, \dots, 6$ with $\alpha_4 = \frac{1}{30}$, using $g_D^2 = (2\pi R)^\delta g_4^2$.
+Compute $\Lambda_s r$ for $\delta = 1, \dots, 6$ with $\alpha_4 = \frac{1}{30}$, using $g_D^2 = (2\pi r)^\delta g_4^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\Lambda_sR = (\ell_D/(g_4^2(2\pi)^\delta))^{1/\delta}$ gives $283$, $15.5$, $6.1$, $3.9$, $3.0$ and $2.6$ for $\delta = 1, \dots, 6$. In six extra dimensions, the number relevant
+$\Lambda_s r = (\ell_D/(g_4^2(2\pi)^\delta))^{1/\delta}$ gives $283$, $15.5$, $6.1$, $3.9$, $3.0$ and $2.6$ for $\delta = 1, \dots, 6$. In six extra dimensions, the number relevant
 for ten-dimensional theories, the perturbative window above the compactification scale is a factor of about three:
 
 ```python
 g4sq = 4 * pi / 30
 for d in range(1, 7):
     D = 4 + d; ell = (4 * pi)^(D / 2) * gamma(D / 2)
-    print("delta = %d: loop factor %.4g, Lambda_s R = %.3g" % (d, ell.n(), ((ell / (g4sq * (2 * pi)^d))^(1 / d)).n()))
+    print("delta = %d: loop factor %.4g, Lambda_s r = %.3g" % (d, ell.n(), ((ell / (g4sq * (2 * pi)^d))^(1 / d)).n()))
 ```
 
 *Output:*
 
 ```text
-delta = 1: loop factor 744.2, Lambda_s R = 283
-delta = 2: loop factor 3969, Lambda_s R = 15.5
-delta = 3: loop factor 2.338e+04, Lambda_s R = 6.08
-delta = 4: loop factor 1.496e+05, Lambda_s R = 3.89
-delta = 5: loop factor 1.028e+06, Lambda_s R = 3.02
-delta = 6: loop factor 7.521e+06, Lambda_s R = 2.58
+delta = 1: loop factor 744.2, Lambda_s r = 283
+delta = 2: loop factor 3969, Lambda_s r = 15.5
+delta = 3: loop factor 2.338e+04, Lambda_s r = 6.08
+delta = 4: loop factor 1.496e+05, Lambda_s r = 3.89
+delta = 5: loop factor 1.028e+06, Lambda_s r = 3.02
+delta = 6: loop factor 7.521e+06, Lambda_s r = 2.58
 ```
 :::
 
@@ -6883,12 +6883,12 @@ chosen. The second exercise evaluates it and confronts it with tests of Newton's
 ::: {#exr-ren-sc-add}
 #### Sizes of large extra dimensions
 
-With $M_{\mathrm{Pl}} = 1.2 \times 10^{19}\,\mathrm{GeV}$, $M_D = 1\,\mathrm{TeV}$ and $R = (M_{\mathrm{Pl}}^2/M_D^{2 + \delta})^{1/\delta}$, compute $R$ in metres for $\delta = 1, 2, 6$ ($1\,\mathrm{GeV}^{-1} = 1.97 \times 10^{-16}\,\mathrm{m}$).
+With $G_N^{-1/2} = \sqrt{8\pi}\,M_{\mathrm{Pl}} = 1.2 \times 10^{19}\,\mathrm{GeV}$, $M_D = 1\,\mathrm{TeV}$ and $r = (G_N^{-1}/M_D^{2 + \delta})^{1/\delta}$, compute $r$ in metres for $\delta = 1, 2, 6$ ($1\,\mathrm{GeV}^{-1} = 1.97 \times 10^{-16}\,\mathrm{m}$).
 Which values are excluded by the observation that Newton's law holds at the scale of the solar system?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$M_{\mathrm{Pl}}^2/M_D^2 = 1.44 \times 10^{32}$, so $R = (1.44 \times 10^{32})^{1/\delta}/M_D$: for $\delta = 1$, $1.44 \times 10^{29}\,\mathrm{GeV}^{-1} = 3 \times 10^{13}\,\mathrm{m}$, the size of the solar
+$G_N^{-1}/M_D^2 = 1.44 \times 10^{32}$, so $r = (1.44 \times 10^{32})^{1/\delta}/M_D$: for $\delta = 1$, $1.44 \times 10^{29}\,\mathrm{GeV}^{-1} = 3 \times 10^{13}\,\mathrm{m}$, the size of the solar
 system, excluded; for $\delta = 2$, $1.2 \times 10^{13}\,\mathrm{GeV}^{-1} = 2\,\mathrm{mm}$, at the edge of torsion-balance tests; for $\delta = 6$, $2.3 \times 10^2\,\mathrm{GeV}^{-1} = 5
 \times 10^{-14}\,\mathrm{m}$, invisible to gravity experiments. The relation holds up to factors of $2\pi$ that depend on the
 normalisation of $M_D$ [@arkanihamed1998, Sec. 1].
@@ -6907,7 +6907,7 @@ What does dimensional regularisation give?
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With the area $\frac{8\pi^2}{3}$ of the unit four-sphere, the integral is $\frac{8\pi^2}{3(2\pi)^5}\int_{\mu}^\Lambda\frac{k^4dk}{k^4} = \frac{\Lambda - \mu}{12\pi^3}$ with an infrared cutoff $\mu$. The
 vacuum polarisation at zero momentum has this form, so $\delta(\frac{1}{g_5^2}) \propto \frac{\Lambda}{12\pi^3}$, a linear divergence; reduced on a circle, $\frac{1}{g_4^2} =
-\frac{2\pi R}{g_5^2}$ acquires a correction $\propto R\Lambda$, the number of Kaluza-Klein levels below $\Lambda$. Dimensional regularisation sets the
+\frac{2\pi r}{g_5^2}$ acquires a correction $\propto r\Lambda$, the number of Kaluza-Klein levels below $\Lambda$. Dimensional regularisation sets the
 scaleless integral to zero, and the linear dependence reappears as the dependence on the scale at which the theory is
 matched to its completion (@prp-ren-power-law-running).
 :::
@@ -6915,13 +6915,13 @@ matched to its completion (@prp-ren-power-law-running).
 
 ### The Kaluza-Klein tower in loops
 
-On a circle of radius $R$ a five-dimensional field is a tower of four-dimensional fields of masses $|n|/R$. At an energy $E$ the
+On a circle of radius $r$ a five-dimensional field is a tower of four-dimensional fields of masses $|n|/r$. At an energy $E$ the
 number of light levels grows like $ER$, and every level contributes to a loop like an ordinary particle of its mass. The
 figure shows the result for the gauge couplings of the supersymmetric Standard Model with the gauge and Higgs fields in
 one extra dimension.
 
 ![Power-law running [@dienes1998grand, eq. 3.13]. The inverse gauge couplings of the minimal supersymmetric model run
-logarithmically up to $\mu_0 = 1/R = 10^5\,\mathrm{GeV}$; above, with the Kaluza-Klein towers of the gauge and Higgs fields ($\delta = 1$,
+logarithmically up to $\mu_0 = 1/r = 10^5\,\mathrm{GeV}$; above, with the Kaluza-Klein towers of the gauge and Higgs fields ($\delta = 1$,
 $\tilde b_i = (\frac35, -3, -6)$), they change like $(\Lambda/\mu_0)^\delta$. The couplings $\alpha_1$ and $\alpha_2$ meet at $\Lambda \approx 20\mu_0$ with $\alpha^{-1} \approx 45$, and $\alpha_3$ is
 within $5\%$ there. Generated by `figures/ren-power-law.sage`.](figures/ren-power-law.svg){#fig-ren-power-law width=75%}
 
@@ -6934,24 +6934,24 @@ dependence on the cutoff $\Lambda$ of the higher-dimensional theory rather than 
 ::: {#prp-ren-power-law-running}
 #### Power-law running
 
-Let $\delta$ extra dimensions of radius $R = 1/\mu_0$ carry Kaluza-Klein towers whose levels contribute $\tilde b_i$ to the one-loop
+Let $\delta$ extra dimensions of radius $r = 1/\mu_0$ carry Kaluza-Klein towers whose levels contribute $\tilde b_i$ to the one-loop
 coefficients, while the zero modes contribute $b_i$. Then for $\Lambda \geq \mu_0$
 $$
 \alpha_i^{-1}(\Lambda) = \alpha_i^{-1}(\mu_0) - \frac{b_i - \tilde b_i}{2\pi}\log\frac{\Lambda}{\mu_0} - \frac{\tilde b_iX_\delta}{2\pi\delta}\Bigl[\Bigl(\frac{\Lambda}{\mu_0}\Bigr)^\delta - 1\Bigr], \qquad X_\delta =
 \frac{\pi^{\delta/2}}{\Gamma(1 + \delta/2)} ,
 $$
-where $X_\delta$ is the volume of the unit ball in $\delta$ dimensions and the number of levels with mass below $\mu$ is $X_\delta(\mu R)^\delta$ for $\mu R \gg 1$. The
+where $X_\delta$ is the volume of the unit ball in $\delta$ dimensions and the number of levels with mass below $\mu$ is $X_\delta(\mu r)^\delta$ for $\mu r \gg 1$. The
 formula follows from the proper-time representation of the vacuum polarisation with the sum over levels,
-$\sum_ne^{-tn^2/R^2} = \vartheta_3(\frac{it}{\pi R^2})^\delta$, and the Poisson formula $\vartheta_3(\frac{it}{\pi R^2}) = R\sqrt{\pi/t}\,(1 + O(e^{-\pi^2R^2/t}))$ [@dienes1998grand, eqs.
+$\sum_ne^{-tn^2/r^2} = \vartheta_3(\frac{it}{\pi r^2})^\delta$, and the Poisson formula $\vartheta_3(\frac{it}{\pi r^2}) = r\sqrt{\pi/t}\,(1 + O(e^{-\pi^2r^2/t}))$ [@dienes1998grand, eqs.
 3.8-3.13 and A.9-A.15].
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 *Proof (outline).* With a proper time $t$, each level of mass $m_n$ contributes to the vacuum polarisation at zero momentum
-$\propto\int\frac{dt}{t}e^{-tm_n^2}$, and the sum over the levels of a $\delta$-torus is $\sum_{\vec n}e^{-t\vec n^{\,2}/R^2} = \vartheta_3^\delta$ [@dienes1998grand, eq. A.13]. For $t \gg R^2$ only the
-zero mode survives and the integral gives the logarithm of four dimensions; for $t \ll R^2$ the Poisson formula gives
-$(\pi R^2/t)^{\delta/2}$, and $\int_{\Lambda^{-2}}\frac{dt}{t}t^{-\delta/2} \propto \Lambda^\delta/\delta$. With the cutoffs normalised so that the number of levels below $\Lambda$ is $X_\delta(\Lambda R)^\delta$
+$\propto\int\frac{dt}{t}e^{-tm_n^2}$, and the sum over the levels of a $\delta$-torus is $\sum_{\mathbf n}e^{-t\mathbf n^{\,2}/r^2} = \vartheta_3^\delta$ [@dienes1998grand, eq. A.13]. For $t \gg r^2$ only the
+zero mode survives and the integral gives the logarithm of four dimensions; for $t \ll r^2$ the Poisson formula gives
+$(\pi r^2/t)^{\delta/2}$, and $\int_{\Lambda^{-2}}\frac{dt}{t}t^{-\delta/2} \propto \Lambda^\delta/\delta$. With the cutoffs normalised so that the number of levels below $\Lambda$ is $X_\delta(\Lambda r)^\delta$
 [@dienes1998grand, eqs. 3.10 and A.15], the coefficient is $\frac{\tilde b_iX_\delta}{2\pi\delta}$; the term $b_i - \tilde b_i$ corrects for the zero modes, which differ from
 the excited levels. $\square$
 
@@ -6961,9 +6961,9 @@ The factor $X_\delta$ counts the levels below a scale. The first example checks 
 ::: {#exm-ren-kk-count}
 #### Counting the levels
 
-On a torus the levels are labelled by $\vec n \in \mathbb Z^\delta$ with masses $|\vec n|/R$, and those below $\mu$ are the lattice points in a ball of
-radius $\mu R$, about $X_\delta(\mu R)^\delta$: $2\mu R$ for $\delta = 1$, $\pi(\mu R)^2$ for $\delta = 2$ (the count $317$ for $\mu R = 10$ against $314$ in
-@exr-rn-tower-count), $\frac43\pi(\mu R)^3$ for $\delta = 3$. The derivative of the count with respect to $\log\mu$ is $\delta X_\delta(\mu R)^\delta$, the effective number of
+On a torus the levels are labelled by $\mathbf n \in \mathbb Z^\delta$ with masses $|\mathbf n|/r$, and those below $\mu$ are the lattice points in a ball of
+radius $\mu r$, about $X_\delta(\mu r)^\delta$: $2\mu r$ for $\delta = 1$, $\pi(\mu r)^2$ for $\delta = 2$ (the count $317$ for $\mu r = 10$ against $314$ in
+@exr-rn-tower-count), $\frac43\pi(\mu r)^3$ for $\delta = 3$. The derivative of the count with respect to $\log\mu$ is $\delta X_\delta(\mu r)^\delta$, the effective number of
 particles contributing to the running at $\mu$, which is why the beta function grows like $\mu^\delta$.
 :::
 
@@ -6973,10 +6973,10 @@ time. The second example evaluates the two limits.
 ::: {#exm-ren-kk-theta}
 #### Four dimensions and $4 + \delta$ dimensions in one function
 
-For $\delta = 1$, $\sum_ne^{-tn^2/R^2}$ is $1 + 2e^{-t/R^2} + \dots \to 1$ for $t \gg R^2$, the zero mode alone, and $R\sqrt{\pi/t}(1 + 2e^{-\pi^2R^2/t} + \dots)$ for $t \ll R^2$,
+For $\delta = 1$, $\sum_ne^{-tn^2/r^2}$ is $1 + 2e^{-t/r^2} + \dots \to 1$ for $t \gg r^2$, the zero mode alone, and $r\sqrt{\pi/t}(1 + 2e^{-\pi^2r^2/t} + \dots)$ for $t \ll r^2$,
 the heat kernel of a five-dimensional field restricted to the circle, by the Poisson formula of @fig-ren-heat-trace. Long
 proper times are long distances, where the circle is invisible; short proper times are short distances, where the
-circle looks like a line. The crossover is at $t \sim R^2$, that is at energies $\mu \sim 1/R$.
+circle looks like a line. The crossover is at $t \sim r^2$, that is at energies $\mu \sim 1/r$.
 :::
 
 With the minimal supersymmetric model and one extra dimension the three couplings approach each other quickly above
@@ -7014,7 +7014,7 @@ locate the unification point. The first uses Sage.
 ::: {#exr-ren-kk-xdelta}
 #### Lattice points in balls
 
-Count the points of $\mathbb Z^\delta$ with $|\vec n| \leq N$ for $\delta = 1, 2, 3$ and $N = 10, 30$ with Sage, and compare with $X_\delta N^\delta$.
+Count the points of $\mathbb Z^\delta$ with $|\mathbf n| \leq N$ for $\delta = 1, 2, 3$ and $N = 10, 30$ with Sage, and compare with $X_\delta N^\delta$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7049,7 +7049,7 @@ exercise compares it with the exact sum over levels for $\delta = 1$.
 ::: {#exr-ren-kk-exact}
 #### The exact sum over levels
 
-With $R = 1$, compare $\int_{r\Lambda^{-2}}^{r}\frac{dt}{t}\sum_ne^{-tn^2}$ with $r = \pi X_1^{-2} = \frac\pi4$ [@dienes1998grand, eqs. A.13-A.15] against the approximate form $2X_1(\Lambda - 1)$
+With unit radius, compare $\int_{r\Lambda^{-2}}^{r}\frac{dt}{t}\sum_ne^{-tn^2}$ with $r = \pi X_1^{-2} = \frac\pi4$ [@dienes1998grand, eqs. A.13-A.15] against the approximate form $2X_1(\Lambda - 1)$
 obtained from $\vartheta_3 \approx \sqrt{\pi/t}$ for $t < r$, for $\Lambda = 10, 100$, with Sage.
 :::
 
@@ -7126,13 +7126,13 @@ The quartic coupling of a scalar on a circle runs with a power law for the same 
 #### Power-law running of a scalar coupling
 
 For a five-dimensional scalar with the quartic coupling of its zero mode $\lambda_4$, each Kaluza-Klein level below $\mu$ contributes a
-bubble. Using the count $X_1\mu R = 2\mu R$ of levels, show that $\mu\frac{d\lambda_4}{d\mu} \approx \frac{3\lambda_4^2}{16\pi^2}\cdot2\mu R$ for $\mu R \gg 1$, solve it, and find the scale where
+bubble. Using the count $X_1\mu r = 2\mu r$ of levels, show that $\mu\frac{d\lambda_4}{d\mu} \approx \frac{3\lambda_4^2}{16\pi^2}\cdot2\mu r$ for $\mu r \gg 1$, solve it, and find the scale where
 the coupling diverges. Compare with $\Lambda_s$ of @def-ren-strong-coupling-scale.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The solution of $\frac{d\lambda_4}{\lambda_4^2} = \frac{6R}{16\pi^2}d\mu$ is $\frac{1}{\lambda_4(\mu)} = \frac{1}{\lambda_4(\mu_0)} - \frac{6R(\mu - \mu_0)}{16\pi^2}$, which diverges at $\mu \approx \frac{16\pi^2}{6R\lambda_4}$. With $\lambda_5 =
-2\pi R\lambda_4$ this is $\frac{16\pi^2\cdot2\pi}{6\lambda_5} = \frac{16\pi^3}{3\lambda_5}$, of the form $\ell_5/\lambda_5$ up to a number of order one: the Landau pole of the tower and the
+The solution of $\frac{d\lambda_4}{\lambda_4^2} = \frac{6r}{16\pi^2}d\mu$ is $\frac{1}{\lambda_4(\mu)} = \frac{1}{\lambda_4(\mu_0)} - \frac{6r(\mu - \mu_0)}{16\pi^2}$, which diverges at $\mu \approx \frac{16\pi^2}{6r\lambda_4}$. With $\lambda_5 =
+2\pi r\lambda_4$ this is $\frac{16\pi^2\cdot2\pi}{6\lambda_5} = \frac{16\pi^3}{3\lambda_5}$, of the form $\ell_5/\lambda_5$ up to a number of order one: the Landau pole of the tower and the
 strong-coupling scale of the five-dimensional theory are the same scale.
 :::
 ::::
@@ -7327,7 +7327,7 @@ periodic scalar [@ponton2001casimir, eqs. 10-12 and 18, with $\ell = 2L$].
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-*Proof (outline).* The energy is $\frac12\sum_n\int\frac{d^3k}{(2\pi)^3}\sqrt{\vec k^2 + m^2 + (2\pi n/\ell)^2}$ divided by $\ell$. In dimensional regularisation the $k$
+*Proof (outline).* The energy is $\frac12\sum_n\int\frac{d^3k}{(2\pi)^3}\sqrt{\mathbf k^2 + m^2 + (2\pi n/\ell)^2}$ divided by $\ell$. In dimensional regularisation the $k$
 integral in $3 - \epsilon$ dimensions is a multiple of $\Gamma(-2 + \frac\epsilon2)M_n^{4 - \epsilon}$, and for $m = 0$, with $M_n = 2\pi|n|/\ell$, the sum over $n$ is $2(2\pi/\ell)^{4 - \epsilon}\zeta(-4 + \epsilon)$:
 the pole of $\Gamma$ multiplies $\zeta(-4) = 0$, so the result is finite and proportional to $\zeta'(-4) = \frac{3\zeta(5)}{4\pi^4}$, which gives $-\frac{3\zeta(5)}{4\pi^2\ell^4}$
 [@ponton2001casimir, eqs. 9-11]. For $m > 0$, Poisson resummation turns the sum over levels into a sum over windings $k$
@@ -7503,7 +7503,7 @@ coupling. It compares the pole of the running with the strong-coupling scale of 
 #### Power law and strong coupling
 
 For an abelian gauge theory with towers in $\delta$ extra dimensions, $b = \tilde b = 1$, and $\alpha^{-1}(\mu_0) = 30$, find with the proposition the cutoff
-$\Lambda$ at which $\alpha^{-1}$ reaches zero, for $\delta = 1$ and $\delta = 2$, and compare $\Lambda/\mu_0$ with the strong-coupling scale $\Lambda_sR$ of @exr-ren-sc-table.
+$\Lambda$ at which $\alpha^{-1}$ reaches zero, for $\delta = 1$ and $\delta = 2$, and compare $\Lambda/\mu_0$ with the strong-coupling scale $\Lambda_s r$ of @exr-ren-sc-table.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -7519,15 +7519,15 @@ decoupling applies to it. It combines @exm-ren-thr-tower, @prp-ren-power-law-run
 ::: {#exr-ren-x-kk-decoupling}
 #### Do Kaluza-Klein modes decouple
 
-The Kaluza-Klein levels have masses $|n|/R$ that do not come from couplings. Use @thm-ren-decoupling to argue that at energies
-$E \ll 1/R$ their effects on four-dimensional amplitudes are suppressed by $(ER)^2$ apart from finite threshold corrections to the
+The Kaluza-Klein levels have masses $|n|/r$ that do not come from couplings. Use @thm-ren-decoupling to argue that at energies
+$E \ll 1/r$ their effects on four-dimensional amplitudes are suppressed by $(ER)^2$ apart from finite threshold corrections to the
 couplings, and estimate the size of these corrections for a gauge coupling with $\tilde b = -6$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The masses are vector-like, set by the geometry, and the couplings of the levels to the zero modes are the
 four-dimensional gauge coupling, independent of $n$: the hypotheses of the theorem hold for each level, and its effects
-below $1/R$ are a change of the couplings plus terms of order $(E/m_n)^2 = (ER)^2/n^2$, whose sum over $n$ converges. The threshold
+below $1/r$ are a change of the couplings plus terms of order $(E/m_n)^2 = (ER)^2/n^2$, whose sum over $n$ converges. The threshold
 correction of the tower is of order $\frac{\tilde b}{2\pi}$ times a number of order one (@exm-ren-thr-tower), about $1$ in $\alpha^{-1}$ for $\tilde b = -6$:
 compared with $\alpha_3^{-1} \approx 8.5$ at $M_Z$ it is a ten per cent effect, which a precision analysis of unification must
 include.

@@ -3577,9 +3577,9 @@ rectangles of equal area mapped to sectors of different areas. The second exampl
 ::: {#exm-polar-jacobian-areas}
 #### The two sectors of the figure
 
-A rectangle $[r_0, r_0 + \delta] \times [\varphi_0, \varphi_0 + \epsilon]$ is mapped to a sector of area
-$\tfrac12((r_0 + \delta)^2 - r_0^2)\epsilon = (r_0 + \delta/2)\delta\epsilon$, which is $\det J = r$ evaluated at the
-midpoint times the rectangle's area $\delta\epsilon$: the Jacobian factor is exact for sectors, not only to first
+A rectangle $[r_0, r_0 + \delta] \times [\varphi_0, \varphi_0 + \varepsilon]$ is mapped to a sector of area
+$\tfrac12((r_0 + \delta)^2 - r_0^2)\varepsilon = (r_0 + \delta/2)\delta\varepsilon$, which is $\det J = r$ evaluated at the
+midpoint times the rectangle's area $\delta\varepsilon$: the Jacobian factor is exact for sectors, not only to first
 order.
 :::
 
@@ -3724,7 +3724,7 @@ $g(x, y) = x^2 + 4y^2 - 2x$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $H_f = \begin{pmatrix} 2y & 2x \\ 2x & -\sin y \end{pmatrix}$, symmetric. For $g$: $\nabla g = (2x - 2, 8y)$ vanishes
-at $(1, 0)$, and $H_g = \mathrm{diag}(2, 8)$ is positive definite (@def-signature), so $(1, 0)$ is a strict local
+at $(1, 0)$, and $H_g = \operatorname{diag}(2, 8)$ is positive definite (@def-signature), so $(1, 0)$ is a strict local
 minimum, $g = -1$ there.
 :::
 
@@ -3999,13 +3999,13 @@ free-field path integral.
 ::: {#exr-gaussian-matrix}
 #### The multivariate Gaussian integral
 
-For a symmetric positive definite $n \times n$ matrix $A$, show that $\int_{\mathbb{R}^n} e^{-\frac12 x^{\mathsf T}
+For a symmetric positive definite $n \times n$ matrix $A$, show that $\int_{\mathbb{R}^n} e^{-\frac12 x^\top
 A x}\,d^nx = (2\pi)^{n/2}/\sqrt{\det A}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Diagonalise $A = O^{\mathsf T} D O$ with $O$ orthogonal ($|\det O| = 1$, so the change of variables $y = Ox$ costs
-nothing) and $D = \mathrm{diag}(\lambda_i)$, $\lambda_i > 0$ (@def-signature, positive definite). The integral
+Diagonalise $A = O^\top D O$ with $O$ orthogonal ($|\det O| = 1$, so the change of variables $y = Ox$ costs
+nothing) and $D = \operatorname{diag}(\lambda_i)$, $\lambda_i > 0$ (@def-signature, positive definite). The integral
 factorises into $\prod_i \int e^{-\lambda_i y_i^2/2}dy_i = \prod_i \sqrt{2\pi/\lambda_i} = (2\pi)^{n/2}/\sqrt{\prod
 \lambda_i}$, and $\prod\lambda_i = \det A$.
 :::

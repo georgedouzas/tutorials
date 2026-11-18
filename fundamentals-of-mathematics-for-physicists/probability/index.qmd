@@ -167,11 +167,11 @@ inclusion-exclusion.
 ::: {#def-probability-measure}
 #### Probability measure
 
-A **probability measure** on $(\Omega, \mathcal{F})$ is a map (@def-map) $P : \mathcal{F} \to [0, 1]$ with $P(\Omega)
-= 1$ and **countable additivity**: $P(\bigcup_n A_n) = \sum_n P(A_n)$ for every sequence of pairwise disjoint
-events. The triple $(\Omega, \mathcal{F}, P)$ is a **probability space**. Consequences: $P(\emptyset) = 0$,
-$P(A^c) = 1 - P(A)$, $A \subseteq B$ implies $P(A) \leq P(B)$, and **inclusion-exclusion** $P(A \cup B) = P(A) +
-P(B) - P(A \cap B)$. On a finite $\Omega$ with $N$ equally likely outcomes (the **uniform** measure), $P(A) =
+A **probability measure** on $(\Omega, \mathcal{F})$ is a map (@def-map) $\mathbb P : \mathcal{F} \to [0, 1]$ with $\mathbb P(\Omega)
+= 1$ and **countable additivity**: $\mathbb P(\bigcup_n A_n) = \sum_n \mathbb P(A_n)$ for every sequence of pairwise disjoint
+events. The triple $(\Omega, \mathcal{F}, \mathbb P)$ is a **probability space**. Consequences: $\mathbb P(\emptyset) = 0$,
+$\mathbb P(A^c) = 1 - \mathbb P(A)$, $A \subseteq B$ implies $\mathbb P(A) \leq \mathbb P(B)$, and **inclusion-exclusion** $\mathbb P(A \cup B) = \mathbb P(A) +
+\mathbb P(B) - \mathbb P(A \cap B)$. On a finite $\Omega$ with $N$ equally likely outcomes (the **uniform** measure), $\mathbb P(A) =
 |A|/N$, and probability is counting.
 :::
 ::::
@@ -183,10 +183,10 @@ The first example verifies the axioms for a fair die and computes a few probabil
 ::: {#exm-prob-fair-die}
 #### A fair die
 
-$P(\{k\}) = \tfrac16$ for each face, so $P(A) = |A|/6$: $P(\text{even}) = \tfrac12$, $P(\text{at least } 5) =
-\tfrac13$, and $P(\text{even or at least } 5) = \tfrac12 + \tfrac13 - P(\{6\}) = \tfrac23$, which agrees with
+$\mathbb P(\{k\}) = \tfrac16$ for each face, so $\mathbb P(A) = |A|/6$: $\mathbb P(\text{even}) = \tfrac12$, $\mathbb P(\text{at least } 5) =
+\tfrac13$, and $\mathbb P(\text{even or at least } 5) = \tfrac12 + \tfrac13 - \mathbb P(\{6\}) = \tfrac23$, which agrees with
 counting $\{2, 4, 5, 6\}$ directly. Additivity holds because disjoint subsets have disjoint elements, and
-$P(\Omega) = 6/6 = 1$.
+$\mathbb P(\Omega) = 6/6 = 1$.
 :::
 
 The $36$ outcomes of two dice are equally likely, but the sums are not, and their probabilities are read off the
@@ -196,10 +196,10 @@ probabilities of the events $A$, $B$ and $C$.
 ::: {#exm-prob-two-dice-sums}
 #### Sums of two dice
 
-Counting the diagonals of the grid, $P(\text{sum} = s)$ is $\tfrac{1}{36}, \tfrac{2}{36}, \dots, \tfrac{6}{36},
-\dots, \tfrac{1}{36}$ for $s = 2, \dots, 7, \dots, 12$: the sum $7$ is the most likely, with $P(C) = \tfrac16$. The
-sums $10, 11, 12$ have $3 + 2 + 1 = 6$ outcomes, so $P(A) = \tfrac16$; the top three rows give $P(B) = \tfrac12$;
-and $P(A \cup B) = P(B) = \tfrac12$ since $A \subset B$, consistent with inclusion-exclusion $\tfrac16 + \tfrac12 -
+Counting the diagonals of the grid, $\mathbb P(\text{sum} = s)$ is $\tfrac{1}{36}, \tfrac{2}{36}, \dots, \tfrac{6}{36},
+\dots, \tfrac{1}{36}$ for $s = 2, \dots, 7, \dots, 12$: the sum $7$ is the most likely, with $\mathbb P(C) = \tfrac16$. The
+sums $10, 11, 12$ have $3 + 2 + 1 = 6$ outcomes, so $\mathbb P(A) = \tfrac16$; the top three rows give $\mathbb P(B) = \tfrac12$;
+and $\mathbb P(A \cup B) = \mathbb P(B) = \tfrac12$ since $A \subset B$, consistent with inclusion-exclusion $\tfrac16 + \tfrac12 -
 \tfrac16$ (@prp-probability-space-values).
 :::
 
@@ -210,9 +210,9 @@ continuous analogue of the fair die and the basis of every Monte Carlo simulatio
 ::: {#exm-prob-uniform-interval}
 #### The uniform measure on $[0, 1\rbrack$
 
-$P([a, b]) = b - a$ for $0 \leq a \leq b \leq 1$ defines the **uniform** probability on $[0, 1]$: $P(\Omega) = 1$,
-lengths of disjoint intervals add, and $P(\{x\}) = 0$ for every point, so events of probability zero can occur.
-More generally $P(A) = \int_A \rho(x)\,dx$ for a non-negative $\rho$ with $\int_0^1 \rho = 1$ is a probability
+$\mathbb P([a, b]) = b - a$ for $0 \leq a \leq b \leq 1$ defines the **uniform** probability on $[0, 1]$: $\mathbb P(\Omega) = 1$,
+lengths of disjoint intervals add, and $\mathbb P(\{x\}) = 0$ for every point, so events of probability zero can occur.
+More generally $\mathbb P(A) = \int_A \rho(x)\,dx$ for a non-negative $\rho$ with $\int_0^1 \rho = 1$ is a probability
 measure, the **density** $\rho$ being the continuous counterpart of the table of @exm-prob-two-dice-sums.
 :::
 
@@ -226,7 +226,7 @@ answers. The fourth example is Bertrand's chord problem, the classical instance 
 What is the probability that a random chord of the unit circle is longer than $\sqrt3$, the side of the inscribed
 equilateral triangle? A chord is fixed by the distance $d$ of its midpoint from the centre and is longer than $\sqrt3$
 exactly when $d < \tfrac12$. Uniform $d \in [0, 1]$ gives $\tfrac12$; a uniform angle $\theta \in [0, \pi]$ between the chord and
-the tangent at one end, with $d = |\cos\theta|$, gives $P(\tfrac\pi3 < \theta < \tfrac{2\pi}3) = \tfrac13$; and a midpoint uniform in
+the tangent at one end, with $d = |\cos\theta|$, gives $\mathbb P(\tfrac\pi3 < \theta < \tfrac{2\pi}3) = \tfrac13$; and a midpoint uniform in
 the disc gives the area ratio $\tfrac14$. Each is a probability measure in the sense of the definition, and the
 question does not say which one describes the throw. Requiring the answer to be unchanged under rotations,
 rescalings and small translations of the circle singles out the first, $\tfrac12$, which straws thrown on a circle
@@ -281,15 +281,15 @@ instructive exercise in using disjoint decompositions. The second exercise asks 
 ::: {#exr-prob-axiom-consequences}
 #### Consequences of the axioms
 
-From the axioms derive $P(\emptyset) = 0$, $P(A^c) = 1 - P(A)$, monotonicity, and inclusion-exclusion for two
+From the axioms derive $\mathbb P(\emptyset) = 0$, $\mathbb P(A^c) = 1 - \mathbb P(A)$, monotonicity, and inclusion-exclusion for two
 events.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\Omega = \Omega \cup \emptyset$ disjointly, so $1 = 1 + P(\emptyset)$. $\Omega = A \cup A^c$ disjointly gives $1 =
-P(A) + P(A^c)$. If $A \subseteq B$, $B = A \cup (B \setminus A)$ disjointly, so $P(B) = P(A) + P(B \setminus A)
-\geq P(A)$. Finally $A \cup B = A \cup (B \setminus A)$ and $B = (A \cap B) \cup (B \setminus A)$, both disjoint,
-so $P(A \cup B) = P(A) + P(B \setminus A) = P(A) + P(B) - P(A \cap B)$.
+$\Omega = \Omega \cup \emptyset$ disjointly, so $1 = 1 + \mathbb P(\emptyset)$. $\Omega = A \cup A^c$ disjointly gives $1 =
+\mathbb P(A) + \mathbb P(A^c)$. If $A \subseteq B$, $B = A \cup (B \setminus A)$ disjointly, so $\mathbb P(B) = \mathbb P(A) + \mathbb P(B \setminus A)
+\geq \mathbb P(A)$. Finally $A \cup B = A \cup (B \setminus A)$ and $B = (A \cap B) \cup (B \setminus A)$, both disjoint,
+so $\mathbb P(A \cup B) = \mathbb P(A) + \mathbb P(B \setminus A) = \mathbb P(A) + \mathbb P(B) - \mathbb P(A \cap B)$.
 :::
 
 Countable additivity, as opposed to finite additivity, is needed as soon as an experiment can take arbitrarily
@@ -299,7 +299,7 @@ infinitely many possible waiting times sum to one, so the wait is finite with pr
 ::: {#exr-prob-geometric-waiting}
 #### Waiting for the first head
 
-A fair coin is tossed until the first head appears. Show that $P(\text{first head at toss } k) = 2^{-k}$, that these
+A fair coin is tossed until the first head appears. Show that $\mathbb P(\text{first head at toss } k) = 2^{-k}$, that these
 probabilities sum to $1$, and deduce that the probability of never seeing a head is $0$; check the sum with Sage.
 :::
 
@@ -337,23 +337,23 @@ makes the renormalisation precise and records the two identities, the chain rule
 probability, that follow from it.
 
 ![Conditional probability on the sample space of two dice (left): the event $B$, first die at least $4$, is the
-blue region of $18$ outcomes; $A$, sum at least $10$, is orange and lies inside $B$, so $P(A \mid B) = 6/18 =
-\tfrac13$ while $P(A) = \tfrac16$; $C$, sum equal to $7$, has green frames and meets $B$ in exactly $3$ outcomes, so
-$P(C \mid B) = \tfrac16 = P(C)$. Bayes' rule as a mosaic (right): with prevalence $\tfrac1{10}$, sensitivity
+blue region of $18$ outcomes; $A$, sum at least $10$, is orange and lies inside $B$, so $\mathbb P(A \mid B) = 6/18 =
+\tfrac13$ while $\mathbb P(A) = \tfrac16$; $C$, sum equal to $7$, has green frames and meets $B$ in exactly $3$ outcomes, so
+$\mathbb P(C \mid B) = \tfrac16 = \mathbb P(C)$. Bayes' rule as a mosaic (right): with prevalence $\tfrac1{10}$, sensitivity
 $\tfrac9{10}$ and false-positive rate $\tfrac15$, the positive results (lower band) are mostly false positives and
-$P(\text{ill} \mid +) = \tfrac13$. Generated by
+$\mathbb P(\text{ill} \mid +) = \tfrac13$. Generated by
 `figures/conditional_probability.sage`.](figures/conditional_probability.svg){#fig-conditional-probability width=95%}
 
 :::: {.statement-box}
 ::: {#def-conditional-probability}
 #### Conditional probability
 
-For events $A, B$ with $P(B) > 0$, the **conditional probability** of $A$ given $B$ is
-$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}.$$
-For fixed $B$ the map $A \mapsto P(A \mid B)$ is again a probability measure, concentrated on $B$. Rewriting the
-definition gives the **chain rule** $P(A \cap B) = P(A \mid B)\,P(B)$, and if $B_1, \dots, B_n$ partition $\Omega$
+For events $A, B$ with $\mathbb P(B) > 0$, the **conditional probability** of $A$ given $B$ is
+$$\mathbb P(A \mid B) = \frac{\mathbb P(A \cap B)}{\mathbb P(B)}.$$
+For fixed $B$ the map $A \mapsto \mathbb P(A \mid B)$ is again a probability measure, concentrated on $B$. Rewriting the
+definition gives the **chain rule** $\mathbb P(A \cap B) = \mathbb P(A \mid B)\,\mathbb P(B)$, and if $B_1, \dots, B_n$ partition $\Omega$
 (disjoint, with union $\Omega$, each of positive probability) the **law of total probability** reads
-$$P(A) = \sum_{i=1}^n P(A \mid B_i)\,P(B_i).$$
+$$\mathbb P(A) = \sum_{i=1}^n \mathbb P(A \mid B_i)\,\mathbb P(B_i).$$
 :::
 ::::
 
@@ -365,9 +365,9 @@ one event whose probability changes and one whose probability does not.
 ::: {#exm-prob-dice-conditional}
 #### Conditioning on the first die
 
-In @fig-conditional-probability, $P(A \mid B) = P(A \cap B)/P(B) = \tfrac{6/36}{18/36} = \tfrac13$, twice the
-unconditional $P(A) = \tfrac16$: a high first die makes a high sum likelier. For the sum $7$, $P(C \mid B) =
-\tfrac{3/36}{18/36} = \tfrac16 = P(C)$, and in fact $P(C \mid \text{first die} = i) = \tfrac16$ for every $i$,
+In @fig-conditional-probability, $\mathbb P(A \mid B) = \mathbb P(A \cap B)/\mathbb P(B) = \tfrac{6/36}{18/36} = \tfrac13$, twice the
+unconditional $\mathbb P(A) = \tfrac16$: a high first die makes a high sum likelier. For the sum $7$, $\mathbb P(C \mid B) =
+\tfrac{3/36}{18/36} = \tfrac16 = \mathbb P(C)$, and in fact $\mathbb P(C \mid \text{first die} = i) = \tfrac16$ for every $i$,
 since each row contains exactly one outcome with sum $7$. The next subsection names this situation independence.
 :::
 
@@ -378,9 +378,9 @@ unconditional probability of an ace on the second draw, which is the law of tota
 ::: {#exm-prob-cards-chain}
 #### Two cards without replacement
 
-From a deck of $52$ cards with $4$ aces, $P(\text{ace first}) = \tfrac4{52}$ and $P(\text{ace second} \mid \text{ace
-first}) = \tfrac3{51}$, so the chain rule gives $P(\text{two aces}) = \tfrac4{52}\cdot\tfrac3{51} = \tfrac1{221}$.
-By total probability over the first card, $P(\text{ace second}) = \tfrac3{51}\cdot\tfrac4{52} +
+From a deck of $52$ cards with $4$ aces, $\mathbb P(\text{ace first}) = \tfrac4{52}$ and $\mathbb P(\text{ace second} \mid \text{ace
+first}) = \tfrac3{51}$, so the chain rule gives $\mathbb P(\text{two aces}) = \tfrac4{52}\cdot\tfrac3{51} = \tfrac1{221}$.
+By total probability over the first card, $\mathbb P(\text{ace second}) = \tfrac3{51}\cdot\tfrac4{52} +
 \tfrac4{51}\cdot\tfrac{48}{52} = \tfrac4{52}$: the second card is an ace with the same probability as the first,
 although the two events are not independent.
 :::
@@ -392,9 +392,9 @@ positive result, the denominator that Bayes' rule will need.
 ::: {#exm-prob-test-total}
 #### The probability of a positive test
 
-With prevalence $P(\text{ill}) = \tfrac1{10}$, sensitivity $P(+ \mid \text{ill}) = \tfrac9{10}$ and false-positive
-rate $P(+ \mid \text{healthy}) = \tfrac15$, total probability over the partition $\{\text{ill}, \text{healthy}\}$
-gives $P(+) = \tfrac9{10}\cdot\tfrac1{10} + \tfrac15\cdot\tfrac9{10} = \tfrac{9}{100} + \tfrac{18}{100} =
+With prevalence $\mathbb P(\text{ill}) = \tfrac1{10}$, sensitivity $\mathbb P(+ \mid \text{ill}) = \tfrac9{10}$ and false-positive
+rate $\mathbb P(+ \mid \text{healthy}) = \tfrac15$, total probability over the partition $\{\text{ill}, \text{healthy}\}$
+gives $\mathbb P(+) = \tfrac9{10}\cdot\tfrac1{10} + \tfrac15\cdot\tfrac9{10} = \tfrac{9}{100} + \tfrac{18}{100} =
 \tfrac{27}{100}$. Two thirds of the positive results come from healthy people, the lower orange band of the mosaic
 in @fig-conditional-probability; this is the arithmetic behind @exm-prob-bayes-test.
 :::
@@ -408,13 +408,13 @@ figure, which exhibits the dependence of one and the independence of the other r
 ::: {#exr-prob-conditional-table}
 #### Conditional probabilities row by row
 
-With Sage, compute $P(\text{sum} \geq 10 \mid \text{first die} = i)$ and $P(\text{sum} = 7 \mid \text{first die} =
+With Sage, compute $\mathbb P(\text{sum} \geq 10 \mid \text{first die} = i)$ and $\mathbb P(\text{sum} = 7 \mid \text{first die} =
 i)$ for $i = 1, \dots, 6$ as exact rationals, and verify the law of total probability for both events.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The sum $7$ has conditional probability $\tfrac16$ in every row, while a sum of at least $10$ has $0, 0, 0,
-\tfrac16, \tfrac13, \tfrac12$; weighting each by $P(\text{first die} = i) = \tfrac16$ reproduces $\tfrac16$ in both
+\tfrac16, \tfrac13, \tfrac12$; weighting each by $\mathbb P(\text{first die} = i) = \tfrac16$ reproduces $\tfrac16$ in both
 cases:
 
 ```python
@@ -446,22 +446,22 @@ total probability: sum_i P(C | i) P(i) = 1/6 = P(C) = 1/6 : True
 ```
 :::
 
-The claim that $A \mapsto P(A \mid B)$ is a probability measure is what allows every rule of the subject to be
+The claim that $A \mapsto \mathbb P(A \mid B)$ is a probability measure is what allows every rule of the subject to be
 applied "given $B$". The second exercise asks for the verification of the axioms and for the chain rule with
 three events, which is the form used for sequences of draws.
 
 ::: {#exr-prob-conditional-measure}
 #### Conditioning gives a probability measure
 
-Show that $P(\cdot \mid B)$ satisfies the axioms of @def-probability-measure, and prove the three-event chain rule
-$P(A \cap B \cap C) = P(A \mid B \cap C)\,P(B \mid C)\,P(C)$ when $P(B \cap C) > 0$.
+Show that $\mathbb P(\cdot \mid B)$ satisfies the axioms of @def-probability-measure, and prove the three-event chain rule
+$\mathbb P(A \cap B \cap C) = \mathbb P(A \mid B \cap C)\,\mathbb P(B \mid C)\,\mathbb P(C)$ when $\mathbb P(B \cap C) > 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(A \mid B) \geq 0$ since both $P(A \cap B)$ and $P(B)$ are; $P(\Omega \mid B) = P(B)/P(B) = 1$; and for disjoint
-$A_n$ the sets $A_n \cap B$ are disjoint, so $P(\bigcup A_n \mid B) = \sum P(A_n \cap B)/P(B) = \sum P(A_n \mid
-B)$. For the chain rule, apply the two-event rule twice: $P(A \cap (B \cap C)) = P(A \mid B \cap C)\,P(B \cap C)$
-and $P(B \cap C) = P(B \mid C)\,P(C)$.
+$\mathbb P(A \mid B) \geq 0$ since both $\mathbb P(A \cap B)$ and $\mathbb P(B)$ are; $\mathbb P(\Omega \mid B) = \mathbb P(B)/\mathbb P(B) = 1$; and for disjoint
+$A_n$ the sets $A_n \cap B$ are disjoint, so $\mathbb P(\bigcup A_n \mid B) = \sum \mathbb P(A_n \cap B)/\mathbb P(B) = \sum \mathbb P(A_n \mid
+B)$. For the chain rule, apply the two-event rule twice: $\mathbb P(A \cap (B \cap C)) = \mathbb P(A \mid B \cap C)\,\mathbb P(B \cap C)$
+and $\mathbb P(B \cap C) = \mathbb P(B \mid C)\,\mathbb P(C)$.
 :::
 
 Conditional probability is where intuition fails most often, and the Monty Hall problem is the classic trap: a
@@ -512,19 +512,19 @@ given choice 1 and door 3 opened: P(prize behind 2) = 2/3 , P(prize behind 1) = 
 ### Independence
 
 Two events are independent when learning one tells nothing about the other, which in terms of conditional
-probability means $P(A \mid B) = P(A)$ and, symmetrically, means that the probability of both is the product of
-the probabilities. The definition uses the product form, which also makes sense when $P(B) = 0$, and extends it to
+probability means $\mathbb P(A \mid B) = \mathbb P(A)$ and, symmetrically, means that the probability of both is the product of
+the probabilities. The definition uses the product form, which also makes sense when $\mathbb P(B) = 0$, and extends it to
 families of events.
 
 :::: {.statement-box}
 ::: {#def-independence}
 #### Independence
 
-Events $A$ and $B$ are **independent** if $P(A \cap B) = P(A)\,P(B)$; when $P(B) > 0$ this is equivalent to $P(A
-\mid B) = P(A)$. Events $A_1, \dots, A_n$ are (**mutually**) **independent** if $P(A_{i_1} \cap \dots \cap
-A_{i_k}) = P(A_{i_1}) \cdots P(A_{i_k})$ for every sub-collection, which is stronger than **pairwise**
+Events $A$ and $B$ are **independent** if $\mathbb P(A \cap B) = \mathbb P(A)\,\mathbb P(B)$; when $\mathbb P(B) > 0$ this is equivalent to $\mathbb P(A
+\mid B) = \mathbb P(A)$. Events $A_1, \dots, A_n$ are (**mutually**) **independent** if $\mathbb P(A_{i_1} \cap \dots \cap
+A_{i_k}) = \mathbb P(A_{i_1}) \cdots \mathbb P(A_{i_k})$ for every sub-collection, which is stronger than **pairwise**
 independence of each two. Independent repetitions of an experiment are modelled on the product space $\Omega^n$
-with the product measure $P(A_1 \times \dots \times A_n) = \prod P(A_i)$, under which events depending on
+with the product measure $\mathbb P(A_1 \times \dots \times A_n) = \prod \mathbb P(A_i)$, under which events depending on
 different trials are independent.
 :::
 ::::
@@ -536,10 +536,10 @@ the product formula and explains structurally why it holds, each row of the grid
 ::: {#exm-prob-independent-dice}
 #### Sum $7$ and the first die
 
-In @fig-conditional-probability, $P(C \cap B) = \tfrac{3}{36} = \tfrac16\cdot\tfrac12 = P(C)\,P(B)$, so "sum $7$"
-and "first die at least $4$" are independent; likewise $P(C \cap \{\text{first} = i\}) = \tfrac1{36} =
+In @fig-conditional-probability, $\mathbb P(C \cap B) = \tfrac{3}{36} = \tfrac16\cdot\tfrac12 = \mathbb P(C)\,\mathbb P(B)$, so "sum $7$"
+and "first die at least $4$" are independent; likewise $\mathbb P(C \cap \{\text{first} = i\}) = \tfrac1{36} =
 \tfrac16\cdot\tfrac16$ for every $i$. The reason is that for every value of the first die exactly one value of the
-second gives sum $7$. No other sum has this property: $A$ and $B$ are dependent, since $P(A \cap B) = \tfrac16 \neq
+second gives sum $7$. No other sum has this property: $A$ and $B$ are dependent, since $\mathbb P(A \cap B) = \tfrac16 \neq
 \tfrac16\cdot\tfrac12$.
 :::
 
@@ -564,7 +564,7 @@ next section will study as a distribution.
 
 Repeating an experiment with success probability $p$ independently $n$ times, a particular string with $k$
 successes has probability $p^k(1 - p)^{n-k}$ by the product rule, and there are $\binom{n}{k}$ such strings, so
-$P(k \text{ successes}) = \binom{n}{k}p^k(1 - p)^{n-k}$. For $n = 2$ coin flips this is $\tfrac14, \tfrac12,
+$\mathbb P(k \text{ successes}) = \binom{n}{k}p^k(1 - p)^{n-k}$. For $n = 2$ coin flips this is $\tfrac14, \tfrac12,
 \tfrac14$ for $k = 0, 1, 2$, and for $n = 4$ it is $\tfrac1{16}, \tfrac4{16}, \tfrac6{16}, \tfrac4{16},
 \tfrac1{16}$, the first panel of @fig-binomial-poisson-gaussian.
 :::
@@ -578,13 +578,13 @@ happen". The first exercise asks for the proof, which is a one-line application 
 #### Independence and complements
 
 Show that if $A$ and $B$ are independent then so are $A$ and $B^c$, and $A^c$ and $B^c$. Deduce that if $A_1,
-\dots, A_n$ are mutually independent with $P(A_i) = p_i$, then $P(\text{none occurs}) = \prod(1 - p_i)$.
+\dots, A_n$ are mutually independent with $\mathbb P(A_i) = p_i$, then $\mathbb P(\text{none occurs}) = \prod(1 - p_i)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(A \cap B^c) = P(A) - P(A \cap B) = P(A) - P(A)P(B) = P(A)(1 - P(B)) = P(A)P(B^c)$; applying this twice gives the
+$\mathbb P(A \cap B^c) = \mathbb P(A) - \mathbb P(A \cap B) = \mathbb P(A) - \mathbb P(A)\mathbb P(B) = \mathbb P(A)(1 - \mathbb P(B)) = \mathbb P(A)\mathbb P(B^c)$; applying this twice gives the
 complements of both. For $n$ events the same argument shows that the complements are mutually independent, so
-$P(A_1^c \cap \dots \cap A_n^c) = \prod P(A_i^c) = \prod (1 - p_i)$, and "at least one occurs" has probability $1 -
+$\mathbb P(A_1^c \cap \dots \cap A_n^c) = \prod \mathbb P(A_i^c) = \prod (1 - p_i)$, and "at least one occurs" has probability $1 -
 \prod(1 - p_i)$.
 :::
 
@@ -680,13 +680,13 @@ probabilities that intuition tends to omit.
 ::: {#thm-bayes-rule}
 #### Bayes' rule
 
-For events $A, B$ with $P(A), P(B) > 0$,
-$$P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)},$$
-and if $A_1, \dots, A_n$ partition $\Omega$ the denominator is $P(B) = \sum_i P(B \mid A_i)P(A_i)$, so that
-$$P(A_i \mid B) = \frac{P(B \mid A_i)\,P(A_i)}{\sum_j P(B \mid A_j)\,P(A_j)}.$$
-$P(A_i)$ is the **prior** probability of $A_i$ and $P(A_i \mid B)$ its **posterior** after observing $B$.
-*Proof.* By the chain rule $P(A \cap B) = P(A \mid B)P(B) = P(B \mid A)P(A)$; divide by $P(B)$. The second form
-substitutes the law of total probability for $P(B)$.
+For events $A, B$ with $\mathbb P(A), \mathbb P(B) > 0$,
+$$\mathbb P(A \mid B) = \frac{\mathbb P(B \mid A)\,\mathbb P(A)}{\mathbb P(B)},$$
+and if $A_1, \dots, A_n$ partition $\Omega$ the denominator is $\mathbb P(B) = \sum_i \mathbb P(B \mid A_i)\mathbb P(A_i)$, so that
+$$\mathbb P(A_i \mid B) = \frac{\mathbb P(B \mid A_i)\,\mathbb P(A_i)}{\sum_j \mathbb P(B \mid A_j)\,\mathbb P(A_j)}.$$
+$\mathbb P(A_i)$ is the **prior** probability of $A_i$ and $\mathbb P(A_i \mid B)$ its **posterior** after observing $B$.
+*Proof.* By the chain rule $\mathbb P(A \cap B) = \mathbb P(A \mid B)\mathbb P(B) = \mathbb P(B \mid A)\mathbb P(A)$; divide by $\mathbb P(B)$. The second form
+substitutes the law of total probability for $\mathbb P(B)$.
 :::
 ::::
 
@@ -698,7 +698,7 @@ posterior probability of illness given a positive result.
 ::: {#exm-prob-bayes-test}
 #### A positive test
 
-With the numbers of @exm-prob-test-total, $P(\text{ill} \mid +) = \frac{P(+ \mid \text{ill})P(\text{ill})}{P(+)} =
+With the numbers of @exm-prob-test-total, $\mathbb P(\text{ill} \mid +) = \frac{\mathbb P(+ \mid \text{ill})\mathbb P(\text{ill})}{\mathbb P(+)} =
 \frac{9/100}{27/100} = \tfrac13$: a positive result from a test that is right $90\%$ of the time on the ill
 leaves a two-thirds chance of being healthy, because the healthy are nine times as numerous. This value and the one of the next example are collected in
 @prp-probability-space-values.
@@ -711,9 +711,9 @@ six, a number worth remembering.
 ::: {#exm-prob-bayes-rare}
 #### A rare condition
 
-With $P(\text{ill}) = \tfrac1{100}$, $P(+ \mid \text{ill}) = \tfrac{99}{100}$ and $P(+ \mid \text{healthy}) =
-\tfrac1{20}$, $P(+) = \tfrac{99}{10000} + \tfrac{99}{100}\cdot\tfrac1{20} = \tfrac{99}{10000} +
-\tfrac{495}{10000} = \tfrac{594}{10000}$ and $P(\text{ill} \mid +) = \tfrac{99}{594} = \tfrac16$. Five of six
+With $\mathbb P(\text{ill}) = \tfrac1{100}$, $\mathbb P(+ \mid \text{ill}) = \tfrac{99}{100}$ and $\mathbb P(+ \mid \text{healthy}) =
+\tfrac1{20}$, $\mathbb P(+) = \tfrac{99}{10000} + \tfrac{99}{100}\cdot\tfrac1{20} = \tfrac{99}{10000} +
+\tfrac{495}{10000} = \tfrac{594}{10000}$ and $\mathbb P(\text{ill} \mid +) = \tfrac{99}{594} = \tfrac16$. Five of six
 positives are false; a second independent positive test would raise the posterior to $\tfrac{99}{99 + 25} \approx 0.
 80$ (@exr-prob-bayes-sequential).
 :::
@@ -726,7 +726,7 @@ two-headed as it keeps landing heads.
 #### Is the coin fair?
 
 A bag holds one two-headed coin and $999$ fair ones; a coin is drawn and lands heads $k$ times in a row. With prior
-$P(\text{two-headed}) = 10^{-3}$ and likelihoods $P(k \text{ heads} \mid \text{two-headed}) = 1$, $P(k \text{
+$\mathbb P(\text{two-headed}) = 10^{-3}$ and likelihoods $\mathbb P(k \text{ heads} \mid \text{two-headed}) = 1$, $\mathbb P(k \text{
 heads} \mid \text{fair}) = 2^{-k}$, the posterior is $\frac{10^{-3}}{10^{-3} + 0.999 \cdot 2^{-k}}$: about $0.002$
 after one head, $0.5$ after ten, $0.999$ after twenty. The evidence overturns a prior of one in a thousand after
 about $\log_2 1000 \approx 10$ heads.
@@ -741,13 +741,13 @@ tests, checking the numbers of @exm-prob-bayes-rare in Sage.
 ::: {#exr-prob-bayes-sequential}
 #### Two tests in a row
 
-Show that Bayes' rule can be written in odds form, $\frac{P(A \mid B)}{P(A^c \mid B)} = \frac{P(B \mid A)}{P(B
-\mid A^c)}\cdot\frac{P(A)}{P(A^c)}$, and use it in Sage to find the posterior after two conditionally independent
+Show that Bayes' rule can be written in odds form, $\frac{\mathbb P(A \mid B)}{\mathbb P(A^c \mid B)} = \frac{\mathbb P(B \mid A)}{\mathbb P(B
+\mid A^c)}\cdot\frac{\mathbb P(A)}{\mathbb P(A^c)}$, and use it in Sage to find the posterior after two conditionally independent
 positive tests with the numbers of @exm-prob-bayes-rare.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Dividing Bayes' rule for $A$ by the same for $A^c$ cancels $P(B)$ and leaves the prior odds times the likelihood
+Dividing Bayes' rule for $A$ by the same for $A^c$ cancels $\mathbb P(B)$ and leaves the prior odds times the likelihood
 ratio. Two conditionally independent tests multiply the likelihood ratio twice: prior odds $\tfrac1{99}$, likelihood
 ratio $\tfrac{99/100}{1/20} = \tfrac{99}{5}$, posterior odds $\tfrac{99}{5}$ after one test, $\tfrac{99^2}{25 \cdot
 99} = \tfrac{99}{25}$ after two, that is, $P = \tfrac{99}{124} \approx 0.798$:
@@ -784,15 +784,15 @@ theorem.
 #### Three urns
 
 Urn $1$ has $2$ red and $1$ blue ball, urn $2$ has $1$ red and $2$ blue, urn $3$ has $3$ blue. An urn is chosen
-uniformly and a ball drawn. Find $P(\text{urn } i \mid \text{red})$ for $i = 1, 2, 3$ and $P(\text{urn } 3 \mid
+uniformly and a ball drawn. Find $\mathbb P(\text{urn } i \mid \text{red})$ for $i = 1, 2, 3$ and $\mathbb P(\text{urn } 3 \mid
 \text{blue})$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(\text{red}) = \tfrac13(\tfrac23 + \tfrac13 + 0) = \tfrac13$, so $P(\text{urn } 1 \mid \text{red}) =
-\frac{(2/3)(1/3)}{1/3} = \tfrac23$, $P(\text{urn } 2 \mid \text{red}) = \tfrac13$ and $P(\text{urn } 3 \mid
-\text{red}) = 0$: a red ball excludes urn $3$ and favours urn $1$ two to one. For blue, $P(\text{blue}) =
-\tfrac13(\tfrac13 + \tfrac23 + 1) = \tfrac23$ and $P(\text{urn } 3 \mid \text{blue}) = \frac{1 \cdot (1/3)}{2/3}
+$\mathbb P(\text{red}) = \tfrac13(\tfrac23 + \tfrac13 + 0) = \tfrac13$, so $\mathbb P(\text{urn } 1 \mid \text{red}) =
+\frac{(2/3)(1/3)}{1/3} = \tfrac23$, $\mathbb P(\text{urn } 2 \mid \text{red}) = \tfrac13$ and $\mathbb P(\text{urn } 3 \mid
+\text{red}) = 0$: a red ball excludes urn $3$ and favours urn $1$ two to one. For blue, $\mathbb P(\text{blue}) =
+\tfrac13(\tfrac13 + \tfrac23 + 1) = \tfrac23$ and $\mathbb P(\text{urn } 3 \mid \text{blue}) = \frac{1 \cdot (1/3)}{2/3}
 = \tfrac12$; the three posteriors given blue are $\tfrac16, \tfrac13, \tfrac12$, proportional to the numbers
 of blue balls $1, 2, 3$ because the prior is uniform and every urn has three balls.
 :::
@@ -851,8 +851,8 @@ from it at random is gold. What is the probability that the other coin in the bo
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $GG$, $SS$, $GS$ be the boxes and $G$ the event of drawing gold: $P(G \mid GG) = 1$, $P(G \mid SS) = 0$, $P(G \mid GS) = \tfrac12$,
-each box with prior $\tfrac13$. Bayes' rule gives $P(GG \mid G) = \frac{1\cdot\frac13}{1\cdot\frac13 + 0 + \frac12\cdot\frac13} = \frac23$, and the other
+Let $GG$, $SS$, $GS$ be the boxes and $G$ the event of drawing gold: $\mathbb P(G \mid GG) = 1$, $\mathbb P(G \mid SS) = 0$, $\mathbb P(G \mid GS) = \tfrac12$,
+each box with prior $\tfrac13$. Bayes' rule gives $\mathbb P(GG \mid G) = \frac{1\cdot\frac13}{1\cdot\frac13 + 0 + \frac12\cdot\frac13} = \frac23$, and the other
 coin is gold exactly when the box is $GG$. The tempting answer $\tfrac12$ treats the two remaining boxes as equally
 likely, forgetting that the $GG$ box offers two gold coins to draw.
 :::
@@ -863,14 +863,14 @@ does this for a drawer of coins with three different biases [@bricmont2022statis
 ::: {#exr-pbr-three-coins}
 #### Which coin was tossed?
 
-A drawer holds two fair coins (type $A$), two coins with $P(\text{heads}) = 0.6$ (type $B$) and one with $0.9$ (type $C$). A
+A drawer holds two fair coins (type $A$), two coins with $\mathbb P(\text{heads}) = 0.6$ (type $B$) and one with $0.9$ (type $C$). A
 coin drawn at random is tossed once and shows heads. Find the posterior probabilities of the three types, and then
 the probability that a second toss of the same coin shows heads.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The priors are $\frac25, \frac25, \frac15$ and $P(H) = \frac25\cdot0.5 + \frac25\cdot0.6 + \frac15\cdot0.9 = 0.62$ by total probability. Bayes' rule gives
-$P(A \mid H) = 0.2/0.62 = 0.323$, $P(B \mid H) = 0.24/0.62 = 0.387$ and $P(C \mid H) = 0.18/0.62 = 0.290$: the single head shifts
+The priors are $\frac25, \frac25, \frac15$ and $\mathbb P(H) = \frac25\cdot0.5 + \frac25\cdot0.6 + \frac15\cdot0.9 = 0.62$ by total probability. Bayes' rule gives
+$\mathbb P(A \mid H) = 0.2/0.62 = 0.323$, $\mathbb P(B \mid H) = 0.24/0.62 = 0.387$ and $\mathbb P(C \mid H) = 0.18/0.62 = 0.290$: the single head shifts
 weight towards the biased coins, $C$ gaining most relative to its prior. The second toss gives heads with probability
 $\sum_XP(X \mid H)p_X = (0.2\cdot0.5 + 0.24\cdot0.6 + 0.18\cdot0.9)/0.62 = 0.406/0.62 = 0.655$, more than the $0.62$ of the first
 toss: the tosses of an unknown coin are not independent.
@@ -889,7 +889,7 @@ them are exact rational numbers, obtained by counting outcomes, so no rounding e
 ::: {#prp-probability-space-values}
 #### Probabilities of the running examples
 
-On two fair dice, $P(\text{sum} \geq 10) = \tfrac16$, $P(\text{first} \geq 4) = \tfrac12$, $P(\text{sum} \geq 10
+On two fair dice, $\mathbb P(\text{sum} \geq 10) = \tfrac16$, $\mathbb P(\text{first} \geq 4) = \tfrac12$, $\mathbb P(\text{sum} \geq 10
 \mid \text{first} \geq 4) = \tfrac13$, and the sum $7$ is independent of the first die; the law of total
 probability and inclusion-exclusion hold on these events. Bayes' rule gives posteriors $\tfrac13$ (prevalence
 $\tfrac1{10}$, sensitivity $\tfrac9{10}$, false-positive rate $\tfrac15$) and $\tfrac16$ (prevalence
@@ -993,8 +993,8 @@ even", "second die even" and "sum at least $8$".
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$; apply the
-two-event formula to $A \cup (B \cup C)$ and expand $P(A \cap (B \cup C))$ with it again. On the dice events the
+$\mathbb P(A \cup B \cup C) = \mathbb P(A) + \mathbb P(B) + \mathbb P(C) - \mathbb P(A \cap B) - \mathbb P(A \cap C) - \mathbb P(B \cap C) + \mathbb P(A \cap B \cap C)$; apply the
+two-event formula to $A \cup (B \cup C)$ and expand $\mathbb P(A \cap (B \cup C))$ with it again. On the dice events the
 exact value is $\tfrac{5}{6}$:
 
 ```python
@@ -1027,12 +1027,12 @@ for a conditional probability, which anticipates the convolutions of @sec-limit-
 ::: {#exr-prob-three-dice}
 #### Three dice
 
-Enumerate the $216$ outcomes of three dice in Sage, find $P(\text{sum} \geq 15)$ and $P(\text{sum} \geq 15 \mid
+Enumerate the $216$ outcomes of three dice in Sage, find $\mathbb P(\text{sum} \geq 15)$ and $\mathbb P(\text{sum} \geq 15 \mid
 \text{first die} = 6)$ exactly, and check that the most likely sums are $10$ and $11$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(\text{sum} \geq 15) = \tfrac{20}{216} = \tfrac{5}{54}$, and given a first six it rises to $\tfrac{10}{36} =
+$\mathbb P(\text{sum} \geq 15) = \tfrac{20}{216} = \tfrac{5}{54}$, and given a first six it rises to $\tfrac{10}{36} =
 \tfrac{5}{18}$; the sums $10$ and $11$ each have $27$ outcomes:
 
 ```python
@@ -1082,14 +1082,14 @@ in the continuous one.
 ::: {#def-random-variable}
 #### Random variable
 
-A **random variable** on a probability space $(\Omega, \mathcal{F}, P)$ is a map $X : \Omega \to \mathbb{R}$ such
+A **random variable** on a probability space $(\Omega, \mathcal{F}, \mathbb P)$ is a map $X : \Omega \to \mathbb{R}$ such
 that $\{X \leq x\} = \{\omega : X(\omega) \leq x\}$ is an event for every $x$. Its **distribution** is the
-probability measure $P_X(B) = P(X \in B)$ on $\mathbb{R}$, determined by the **cumulative distribution function**
-$F_X(x) = P(X \leq x)$, non-decreasing from $0$ to $1$ with $P(a < X \leq b) = F_X(b) - F_X(a)$. $X$ is
-**discrete** if it takes countably many values $x_k$, with **probability mass function** $p_k = P(X = x_k)$,
-$\sum p_k = 1$; it is **continuous** with **density** $\rho$ if $P(a \leq X \leq b) = \int_a^b \rho(x)\,dx$ for a
+probability measure $\mathbb P_X(B) = \mathbb P(X \in B)$ on $\mathbb{R}$, determined by the **cumulative distribution function**
+$F_X(x) = \mathbb P(X \leq x)$, non-decreasing from $0$ to $1$ with $\mathbb P(a < X \leq b) = F_X(b) - F_X(a)$. $X$ is
+**discrete** if it takes countably many values $x_k$, with **probability mass function** $p_k = \mathbb P(X = x_k)$,
+$\sum p_k = 1$; it is **continuous** with **density** $\rho$ if $\mathbb P(a \leq X \leq b) = \int_a^b \rho(x)\,dx$ for a
 non-negative integrable $\rho$ with $\int_{-\infty}^\infty \rho = 1$ (@def-improper-integral), in which case
-$F_X' = \rho$ and $P(X = x) = 0$ for every $x$.
+$F_X' = \rho$ and $\mathbb P(X = x) = 0$ for every $x$.
 :::
 ::::
 
@@ -1103,7 +1103,7 @@ distributions.
 
 The face $X$ of a fair die is the identity map on $\Omega = \{1, \dots, 6\}$ with $p_k = \tfrac16$ for $k = 1,
 \dots, 6$; its distribution function jumps by $\tfrac16$ at each integer. For an event $A$ the **indicator**
-$\mathbf{1}_A$ equals $1$ on $A$ and $0$ off it, a random variable with $P(\mathbf{1}_A = 1) = P(A)$; "the number of
+$\mathbb 1_A$ equals $1$ on $A$ and $0$ off it, a random variable with $\mathbb P(\mathbb 1_A = 1) = \mathbb P(A)$; "the number of
 heads in $n$ tosses" is the sum of $n$ indicators, which is how counts become sums (@exm-rv-sum-of-indicators).
 :::
 
@@ -1127,9 +1127,9 @@ functions, which is how the density is actually used to compute probabilities.
 ::: {#exm-rv-uniform-exponential}
 #### Uniform and exponential variables
 
-$U$ **uniform on $[0, 1]$** has $\rho(u) = 1$ there and $0$ elsewhere, so $F_U(u) = u$ on $[0, 1]$ and $P(\tfrac14
+$U$ **uniform on $[0, 1]$** has $\rho(u) = 1$ there and $0$ elsewhere, so $F_U(u) = u$ on $[0, 1]$ and $\mathbb P(\tfrac14
 < U \leq \tfrac34) = \tfrac12$. $T$ **exponential with rate $\lambda > 0$** has $\rho(t) = \lambda e^{-\lambda t}$
-for $t \geq 0$, $F_T(t) = 1 - e^{-\lambda t}$, and models the time to the next decay of a nucleus: $P(T > t) =
+for $t \geq 0$, $F_T(t) = 1 - e^{-\lambda t}$, and models the time to the next decay of a nucleus: $\mathbb P(T > t) =
 e^{-\lambda t}$, the survival probability (@exr-rv-exponential-memoryless). Both densities integrate to $1$, the
 second as an improper integral.
 :::
@@ -1144,12 +1144,12 @@ sum, whose table is known.
 #### The maximum of two dice
 
 Find the probability mass function and the distribution function of $M = \max(i, j)$ for two dice, by hand from
-$P(M \leq m) = (m/6)^2$ and by enumeration in Sage, and compare $P(M = 6)$ with $P(S = 7)$.
+$\mathbb P(M \leq m) = (m/6)^2$ and by enumeration in Sage, and compare $\mathbb P(M = 6)$ with $\mathbb P(S = 7)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F_M(m) = P(\text{both} \leq m) = m^2/36$, so $p_m = F_M(m) - F_M(m - 1) = (2m - 1)/36$: $\tfrac1{36}, \tfrac3{36},
-\dots, \tfrac{11}{36}$. $P(M = 6) = \tfrac{11}{36}$ exceeds $P(S = 7) = \tfrac{6}{36}$, the most likely sum:
+$F_M(m) = \mathbb P(\text{both} \leq m) = m^2/36$, so $p_m = F_M(m) - F_M(m - 1) = (2m - 1)/36$: $\tfrac1{36}, \tfrac3{36},
+\dots, \tfrac{11}{36}$. $\mathbb P(M = 6) = \tfrac{11}{36}$ exceeds $\mathbb P(S = 7) = \tfrac{6}{36}$, the most likely sum:
 
 ```python
 Omega = [(i, j) for i in range(1, 7) for j in range(1, 7)]
@@ -1188,7 +1188,7 @@ integrates to $1$, and explain why it is unbounded near $0$ although $X$ has a b
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $0 \leq y \leq 1$, $F_Y(y) = P(-\sqrt y \leq X \leq \sqrt y) = \sqrt y$, so $\rho_Y(y) = \tfrac{1}{2\sqrt y}$
+For $0 \leq y \leq 1$, $F_Y(y) = \mathbb P(-\sqrt y \leq X \leq \sqrt y) = \sqrt y$, so $\rho_Y(y) = \tfrac{1}{2\sqrt y}$
 on $(0, 1]$, an improper but convergent integral: $\int_0^1 dy/2\sqrt y = 1$ (@def-improper-integral). The
 density is $\rho_X(\sqrt y)\,|d\sqrt y/dy| \cdot 2$ (two preimages), and the factor $1/2\sqrt y$ is the Jacobian of
 the map $x \mapsto x^2$ near $x = 0$, where the map compresses a whole neighbourhood of $0$ into a tiny interval of
@@ -1203,15 +1203,15 @@ theorem in @sec-limit-theorems.
 ::: {#exr-rv-convolution}
 #### Sums of independent variables
 
-Show that if $X, Y$ are independent and integer-valued then $P(X + Y = s) = \sum_k P(X = k)\,P(Y = s - k)$; verify
-that it gives the two-dice table from the one-die table, and compute $P(S_3 = 10)$ for three dice from the two-dice
+Show that if $X, Y$ are independent and integer-valued then $\mathbb P(X + Y = s) = \sum_k \mathbb P(X = k)\,\mathbb P(Y = s - k)$; verify
+that it gives the two-dice table from the one-die table, and compute $\mathbb P(S_3 = 10)$ for three dice from the two-dice
 table.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\{X + Y = s\}$ is the disjoint union over $k$ of $\{X = k\} \cap \{Y = s - k\}$, and independence makes each term
-a product. With $P(X = k) = \tfrac16$ for $k = 1, \dots, 6$, the sum counts the $k$ with $1 \leq s - k \leq 6$,
-which is $6 - |s - 7|$ terms of $\tfrac1{36}$. For three dice, $P(S_3 = 10) = \sum_{k=1}^6 \tfrac16 P(S_2 = 10 - k)
+a product. With $\mathbb P(X = k) = \tfrac16$ for $k = 1, \dots, 6$, the sum counts the $k$ with $1 \leq s - k \leq 6$,
+which is $6 - |s - 7|$ terms of $\tfrac1{36}$. For three dice, $\mathbb P(S_3 = 10) = \sum_{k=1}^6 \tfrac16 \mathbb P(S_2 = 10 - k)
 = \tfrac16\cdot\tfrac{3 + 4 + 5 + 6 + 5 + 4}{36} = \tfrac{27}{216}$, in agreement with @exr-prob-three-dice.
 :::
 ::::
@@ -1257,9 +1257,9 @@ trivial.
 ::: {#exm-rv-sum-of-indicators}
 #### Expectations of counts
 
-The number of heads in $n$ tosses is $N = \sum_i \mathbf{1}_{A_i}$ with $A_i$ = "toss $i$ is heads", so
-$\mathbb{E}N = \sum_i P(A_i) = n/2$ without the binomial table. The number of fixed points of a uniformly random
-permutation of $n$ objects is $\sum_i \mathbf{1}_{\{\sigma(i) = i\}}$ with $\mathbb{E} = n \cdot \tfrac1n = 1$ for
+The number of heads in $n$ tosses is $N = \sum_i \mathbb 1_{A_i}$ with $A_i$ = "toss $i$ is heads", so
+$\mathbb{E}N = \sum_i \mathbb P(A_i) = n/2$ without the binomial table. The number of fixed points of a uniformly random
+permutation of $n$ objects is $\sum_i \mathbb 1_{\{\sigma(i) = i\}}$ with $\mathbb{E} = n \cdot \tfrac1n = 1$ for
 every $n$, although the indicators are not independent; linearity does not care.
 :::
 
@@ -1291,9 +1291,9 @@ the definition, and prove $\mathbb{E}(XY) = \mathbb{E}X\,\mathbb{E}Y$ when $X$ a
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-On a finite space $\mathbb{E}X = \sum_\omega X(\omega)P(\{\omega\})$ (group the outcomes by value), and this form
-is visibly linear in $X$. For the product, $\mathbb{E}(XY) = \sum_{x, y} xy\,P(X = x, Y = y) = \sum_{x, y} xy\,P(X
-= x)P(Y = y) = (\sum_x xP(X = x))(\sum_y yP(Y = y))$, using independence to factor the joint probability.
+On a finite space $\mathbb{E}X = \sum_\omega X(\omega)\mathbb P(\{\omega\})$ (group the outcomes by value), and this form
+is visibly linear in $X$. For the product, $\mathbb{E}(XY) = \sum_{x, y} xy\,\mathbb P(X = x, Y = y) = \sum_{x, y} xy\,\mathbb P(X
+= x)\mathbb P(Y = y) = (\sum_x xP(X = x))(\sum_y yP(Y = y))$, using independence to factor the joint probability.
 :::
 
 Waiting times have expectations given by series, and Sage sums them symbolically. The second exercise computes the
@@ -1303,7 +1303,7 @@ single payoff is finite.
 ::: {#exr-rv-st-petersburg}
 #### Waiting times and the St Petersburg game
 
-The first head appears at toss $K$ with $P(K = k) = 2^{-k}$. Compute $\mathbb{E}K$ and $\mathbb{E}K^2$ in Sage,
+The first head appears at toss $K$ with $\mathbb P(K = k) = 2^{-k}$. Compute $\mathbb{E}K$ and $\mathbb{E}K^2$ in Sage,
 and show that the payoff $2^K$ has infinite expectation; compute the expected payoff if it is capped at $2^{30}$.
 :::
 
@@ -1339,14 +1339,14 @@ ratio of two Gaussians as a concrete source of Cauchy variables.
 #### The Cauchy distribution
 
 Show that $\int_{-\infty}^\infty \frac{|x|\,dx}{\pi(1 + x^2)}$ diverges while $\int_{-\infty}^\infty
-\frac{dx}{\pi(1 + x^2)} = 1$, find $P(|X| > 1)$ for a Cauchy variable, and show that $\tan\Theta$ is Cauchy when
+\frac{dx}{\pi(1 + x^2)} = 1$, find $\mathbb P(|X| > 1)$ for a Cauchy variable, and show that $\tan\Theta$ is Cauchy when
 $\Theta$ is uniform on $(-\pi/2, \pi/2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\int_0^R \frac{x\,dx}{1 + x^2} = \tfrac12\log(1 + R^2) \to \infty$, while $\int \frac{dx}{1 + x^2} = \arctan x$
-gives $\pi$ over the line. $P(|X| > 1) = 1 - \tfrac{1}{\pi}[\arctan x]_{-1}^{1} = 1 - \tfrac12 = \tfrac12$. With
-$\Theta$ uniform, $P(\tan\Theta \leq x) = P(\Theta \leq \arctan x) = \tfrac1\pi(\arctan x + \tfrac\pi2)$, whose
+gives $\pi$ over the line. $\mathbb P(|X| > 1) = 1 - \tfrac{1}{\pi}[\arctan x]_{-1}^{1} = 1 - \tfrac12 = \tfrac12$. With
+$\Theta$ uniform, $\mathbb P(\tan\Theta \leq x) = \mathbb P(\Theta \leq \arctan x) = \tfrac1\pi(\arctan x + \tfrac\pi2)$, whose
 derivative is the Cauchy density. The ratio of two independent standard Gaussians is also Cauchy, since its
 direction angle is uniform.
 :::
@@ -1360,13 +1360,13 @@ waiting time is finite with probability one. The last exercise computes the dist
 
 You have had a bad result at a game, and you meet people one after another; your result and theirs are independent
 with a continuous distribution, so all orderings are equally likely. Let $T$ be the index of the first person whose
-result is worse than yours. Show that $P(T > n) = \frac1{n + 1}$ and $P(T = n) = \frac1{n(n + 1)}$, that $T$ is finite with
+result is worse than yours. Show that $\mathbb P(T > n) = \frac1{n + 1}$ and $\mathbb P(T = n) = \frac1{n(n + 1)}$, that $T$ is finite with
 probability one, and that $\mathbb{E}T = \infty$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $T > n$ means that among you and the first $n$ people you are the worst, which by symmetry has probability
-$\frac1{n + 1}$. Then $P(T = n) = P(T > n - 1) - P(T > n) = \frac1n - \frac1{n + 1} = \frac1{n(n + 1)}$, and $P(T > n) \to 0$, so $T <
+$\frac1{n + 1}$. Then $\mathbb P(T = n) = \mathbb P(T > n - 1) - \mathbb P(T > n) = \frac1n - \frac1{n + 1} = \frac1{n(n + 1)}$, and $\mathbb P(T > n) \to 0$, so $T <
 \infty$ almost surely. But $\mathbb{E}T = \sum_{n \geq 1}nP(T = n) = \sum_n\frac1{n + 1} = \infty$: as in the St Petersburg game of
 @exr-rv-st-petersburg, a finite random variable without a mean.
 :::
@@ -1463,13 +1463,13 @@ with the two-dice value, from the exact tables.
 ::: {#exr-rv-binomial-variance}
 #### The variance of a count
 
-Show that an indicator with $P(A) = p$ has variance $p(1 - p)$, deduce that the number of successes in $n$
+Show that an indicator with $\mathbb P(A) = p$ has variance $p(1 - p)$, deduce that the number of successes in $n$
 independent trials has variance $np(1 - p)$, and check in Sage from the exact tables that $\operatorname{Var}S =
 \tfrac{35}{6}$ for two dice and $\operatorname{Var}N = 5/2$ for $n = 10$ coin flips.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbf{1}_A^2 = \mathbf{1}_A$, so $\mathbb{E}\mathbf{1}_A^2 - (\mathbb{E}\mathbf{1}_A)^2 = p - p^2$; the $n$
+$\mathbb 1_A^2 = \mathbb 1_A$, so $\mathbb{E}\mathbb 1_A^2 - (\mathbb{E}\mathbb 1_A)^2 = p - p^2$; the $n$
 indicators are independent, so their variances add. The exact tables agree:
 
 ```python
@@ -1572,7 +1572,7 @@ deferred to the definition of the Gaussian below.
 ::: {#exm-rv-cf-gaussian}
 #### The Gaussian
 
-For $X \sim N(\mu, \sigma^2)$, $\varphi_X(t) = e^{i\mu t - \sigma^2 t^2/2}$ (@def-gaussian-distribution,
+For $X \sim \mathcal N(\mu, \sigma^2)$, $\varphi_X(t) = e^{i\mu t - \sigma^2 t^2/2}$ (@def-gaussian-distribution,
 @prp-distribution-values). Expanding at $\mu = 0$, $e^{-\sigma^2t^2/2} = \sum_n \frac{(-1)^n \sigma^{2n}
 t^{2n}}{2^n n!}$, and comparing with $\sum \frac{(it)^{2n}}{(2n)!}\mathbb{E}X^{2n}$ gives $\mathbb{E}X^{2n} =
 \frac{(2n)!}{2^n n!}\sigma^{2n} = (2n - 1)!!\,\sigma^{2n}$, the moments of @thm-wick-moments; the odd moments
@@ -1653,8 +1653,8 @@ inversion formula and uses it in Sage to recover the two-dice table from $\varph
 ::: {#exr-rv-cf-inversion}
 #### Inverting a characteristic function
 
-For an integer-valued $X$ show that $P(X = k) = \frac{1}{2\pi}\int_0^{2\pi} e^{-itk}\varphi_X(t)\,dt$, and use
-Sage to recover $P(S = s)$ for the sum of two dice from $\varphi_S = \varphi_X^2$.
+For an integer-valued $X$ show that $\mathbb P(X = k) = \frac{1}{2\pi}\int_0^{2\pi} e^{-itk}\varphi_X(t)\,dt$, and use
+Sage to recover $\mathbb P(S = s)$ for the sum of two dice from $\varphi_S = \varphi_X^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1696,13 +1696,13 @@ integral of @sec-real-analysis, and its characteristic function.
 #### Gaussian distribution
 
 A random variable is **Gaussian** (or **normal**) with mean $\mu$ and variance $\sigma^2 > 0$, written $X \sim
-N(\mu, \sigma^2)$, if it has the density
+\mathcal N(\mu, \sigma^2)$, if it has the density
 $$\rho(x) = \frac{1}{\sqrt{2\pi}\,\sigma}\,e^{-(x - \mu)^2/2\sigma^2}.$$
 The normalisation follows from $\int e^{-x^2}dx = \sqrt\pi$ (@prp-integral-values) by the substitution $x \to (x -
 \mu)/\sqrt2\sigma$ (@exm-change-gaussian); $\mathbb{E}X = \mu$ and $\operatorname{Var}X = \sigma^2$; the
-characteristic function is $\varphi_X(t) = e^{i\mu t - \sigma^2t^2/2}$. $N(0, 1)$ is the **standard** Gaussian,
-with distribution function $\Phi(z) = \tfrac12\bigl(1 + \operatorname{erf}(z/\sqrt2)\bigr)$, and $X \sim N(\mu,
-\sigma^2)$ if and only if $Z = (X - \mu)/\sigma \sim N(0, 1)$ (**standardisation**).
+characteristic function is $\varphi_X(t) = e^{i\mu t - \sigma^2t^2/2}$. $\mathcal N(0, 1)$ is the **standard** Gaussian,
+with distribution function $\Phi(z) = \tfrac12\bigl(1 + \operatorname{erf}(z/\sqrt2)\bigr)$, and $X \sim \mathcal N(\mu,
+\sigma^2)$ if and only if $Z = (X - \mu)/\sigma \sim \mathcal N(0, 1)$ (**standardisation**).
 :::
 ::::
 
@@ -1714,8 +1714,8 @@ error function and records the quantile $1.96$ of the $95\%$ interval.
 ::: {#exm-rv-gaussian-rule}
 #### The $68$-$95$-$99.7$ rule
 
-$P(|X - \mu| \leq k\sigma) = P(|Z| \leq k) = \operatorname{erf}(k/\sqrt2)$: $0.6827$, $0.9545$, $0.9973$ for $k =
-1, 2, 3$ (@exr-rv-gaussian-intervals). Conversely $P(|Z| \leq 1.96) = 0.9500$, so "$\mu \pm 1.96\sigma$" is the
+$\mathbb P(|X - \mu| \leq k\sigma) = \mathbb P(|Z| \leq k) = \operatorname{erf}(k/\sqrt2)$: $0.6827$, $0.9545$, $0.9973$ for $k =
+1, 2, 3$ (@exr-rv-gaussian-intervals). Conversely $\mathbb P(|Z| \leq 1.96) = 0.9500$, so "$\mu \pm 1.96\sigma$" is the
 $95\%$ interval used for confidence statements in @sec-statistics; the value is correct to four
 decimals.
 :::
@@ -1727,9 +1727,9 @@ standard deviation shrinks like $1/\sqrt n$.
 ::: {#exm-rv-gaussian-sums}
 #### Sums and averages of Gaussians
 
-If $X_i \sim N(\mu_i, \sigma_i^2)$ are independent, $\varphi_{\sum X_i}(t) = \prod e^{i\mu_it - \sigma_i^2t^2/2} =
-e^{i(\sum\mu_i)t - (\sum\sigma_i^2)t^2/2}$, so $\sum X_i \sim N(\sum\mu_i, \sum\sigma_i^2)$ by uniqueness. For $n$
-independent measurements $X_i \sim N(\mu, \sigma^2)$ the average $\bar X = \tfrac1n\sum X_i$ is $N(\mu,
+If $X_i \sim \mathcal N(\mu_i, \sigma_i^2)$ are independent, $\varphi_{\sum X_i}(t) = \prod e^{i\mu_it - \sigma_i^2t^2/2} =
+e^{i(\sum\mu_i)t - (\sum\sigma_i^2)t^2/2}$, so $\sum X_i \sim \mathcal N(\sum\mu_i, \sum\sigma_i^2)$ by uniqueness. For $n$
+independent measurements $X_i \sim \mathcal N(\mu, \sigma^2)$ the average $\bar X = \tfrac1n\sum X_i$ is $\mathcal N(\mu,
 \sigma^2/n)$ by the rescaling rule: averaging $n$ Gaussian measurements divides the standard deviation by $\sqrt
 n$, exactly and not only asymptotically.
 :::
@@ -1742,11 +1742,11 @@ field theory.
 ::: {#exm-rv-gaussian-multivariate}
 #### Several variables
 
-Independent $X_1, \dots, X_n \sim N(0, \sigma_i^2)$ have the joint density $\prod_i \rho_i(x_i) = (2\pi)^{-n/2}(\det
-A)^{1/2} e^{-\frac12 x^\top A x}$ with $A = \operatorname{diag}(\sigma_i^{-2})$. For a general positive-definite
+Independent $X_1, \dots, X_n \sim \mathcal N(0, \sigma_i^2)$ have the joint density $\prod_i \rho_i(x_i) = (2\pi)^{-n/2}(\det
+A)^{1/2} e^{-\frac12 \mathbf x^\top A\mathbf x}$ with $A = \operatorname{diag}(\sigma_i^{-2})$. For a general positive-definite
 symmetric matrix $A$ the same formula defines a **multivariate Gaussian** with covariance matrix $A^{-1}$, that is,
 $\mathbb{E}(X_iX_j) = (A^{-1})_{ij}$; the normalisation is the $n$-dimensional Gaussian integral
-$\int e^{-\frac12 x^\top Ax}d^nx = (2\pi)^{n/2}(\det A)^{-1/2}$, obtained by diagonalising $A$
+$\int e^{-\frac12 \mathbf x^\top A\mathbf x}d^nx = (2\pi)^{n/2}(\det A)^{-1/2}$, obtained by diagonalising $A$
 (@sec-multiple-integrals).
 :::
 ::::
@@ -1777,8 +1777,8 @@ the two-sided $90\%$, $95\%$ and $99\%$ intervals.
 ::: {#exr-rv-gaussian-intervals}
 #### Gaussian intervals in Sage
 
-Compute $P(|Z| \leq k)$ for $k = 1, 2, 3$ with `erf` and with `RealDistribution('gaussian', 1)`, and find the
-$z$ with $P(|Z| \leq z) = 0.90, 0.95, 0.99$.
+Compute $\mathbb P(|Z| \leq k)$ for $k = 1, 2, 3$ with `erf` and with `RealDistribution('gaussian', 1)`, and find the
+$z$ with $\mathbb P(|Z| \leq z) = 0.90, 0.95, 0.99$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1815,7 +1815,7 @@ derivation and for its consequence, that the Gaussian is determined by its first
 #### The Gaussian characteristic function
 
 Show that $\int_{-\infty}^\infty e^{itx}e^{-x^2/2\sigma^2}dx = \sqrt{2\pi}\sigma\,e^{-\sigma^2t^2/2}$ by
-completing the square, deduce $\varphi_X(t)$ for $X \sim N(\mu, \sigma^2)$, and explain why a Gaussian is
+completing the square, deduce $\varphi_X(t)$ for $X \sim \mathcal N(\mu, \sigma^2)$, and explain why a Gaussian is
 determined by its mean and variance.
 :::
 
@@ -1836,8 +1836,8 @@ number of trials gives its Poisson limit; the figure shows both families approac
 parameters grow. The definition fixes the two distributions with their means, variances and characteristic
 functions.
 
-![The binomial distributions $\mathrm{Binomial}(n, \tfrac12)$ for $n = 4, 16, 64$ (top) and the Poisson
-distributions $\mathrm{Poisson}(\lambda)$ for $\lambda = 1, 4, 16$ (bottom), with the Gaussian density of the same
+![The binomial distributions $\operatorname{Bin}(n, \tfrac12)$ for $n = 4, 16, 64$ (top) and the Poisson
+distributions $\operatorname{Poisson}(\lambda)$ for $\lambda = 1, 4, 16$ (bottom), with the Gaussian density of the same
 mean and variance in red: both approach the Gaussian as $n$ or $\lambda$ grows. Generated by
 `figures/binomial_poisson_gaussian.sage`.](figures/binomial_poisson_gaussian.svg){#fig-binomial-poisson-gaussian width=95%}
 
@@ -1849,12 +1849,12 @@ mean and variance in red: both approach the Gaussian as $n$ or $\lambda$ grows. 
 
 A **Bernoulli** variable with parameter $p$ takes the value $1$ with probability $p$ and $0$ with probability $1 -
 p$. The number $N$ of successes in $n$ independent Bernoulli trials has the **binomial distribution**
-$\mathrm{Binomial}(n, p)$,
-$$P(N = k) = \binom{n}{k}p^k(1 - p)^{n-k}, \quad k = 0, \dots, n,$$
+$\operatorname{Bin}(n, p)$,
+$$\mathbb P(N = k) = \binom{n}{k}p^k(1 - p)^{n-k}, \quad k = 0, \dots, n,$$
 with $\mathbb{E}N = np$, $\operatorname{Var}N = np(1 - p)$ and $\varphi_N(t) = (1 - p + pe^{it})^n$. In the limit
 $n \to \infty$ with $np = \lambda$ fixed the binomial probabilities tend to those of the **Poisson distribution**
-$\mathrm{Poisson}(\lambda)$,
-$$P(N = k) = e^{-\lambda}\frac{\lambda^k}{k!}, \quad k = 0, 1, 2, \dots,$$
+$\operatorname{Poisson}(\lambda)$,
+$$\mathbb P(N = k) = e^{-\lambda}\frac{\lambda^k}{k!}, \quad k = 0, 1, 2, \dots,$$
 with $\mathbb{E}N = \operatorname{Var}N = \lambda$ and $\varphi_N(t) = \exp\bigl(\lambda(e^{it} - 1)\bigr)$.
 :::
 ::::
@@ -1867,7 +1867,7 @@ characteristic function as a product.
 ::: {#exm-rv-binomial-four}
 #### Four coin flips
 
-$\mathrm{Binomial}(4, \tfrac12)$ has probabilities $\tfrac1{16}, \tfrac4{16}, \tfrac6{16}, \tfrac4{16},
+$\operatorname{Bin}(4, \tfrac12)$ has probabilities $\tfrac1{16}, \tfrac4{16}, \tfrac6{16}, \tfrac4{16},
 \tfrac1{16}$ for $k = 0, \dots, 4$, mean $2$ and variance $1$; $\varphi_N(t) = (\tfrac12 + \tfrac12e^{it})^4$,
 the fourth power of the characteristic function of one Bernoulli trial, as the product rule for the four
 independent indicators requires. Expanding the fourth power by the binomial theorem reproduces the table, which
@@ -1881,8 +1881,8 @@ second example computes the probabilities of observing no decay and of observing
 ::: {#exm-rv-poisson-decays}
 #### Counting decays
 
-A source producing $\lambda = 2$ decays per second on average gives $P(N = 0) = e^{-2} = 0.135$, $P(N = 1) =
-2e^{-2} = 0.271$, $P(N = 2) = 2e^{-2} = 0.271$ and $P(N \leq 2) = 5e^{-2} = 0.677$ in one second. The variance
+A source producing $\lambda = 2$ decays per second on average gives $\mathbb P(N = 0) = e^{-2} = 0.135$, $\mathbb P(N = 1) =
+2e^{-2} = 0.271$, $\mathbb P(N = 2) = 2e^{-2} = 0.271$ and $\mathbb P(N \leq 2) = 5e^{-2} = 0.677$ in one second. The variance
 equals the mean, so the count $N$ has standard deviation $\sqrt\lambda$: a count of $N$ decays comes with the
 **counting error** $\sqrt N$, the Poisson rule of thumb of every counting experiment (@exr-rv-poisson-counts).
 :::
@@ -1894,7 +1894,7 @@ rare event are well described by the Poisson distribution.
 ::: {#exm-rv-poisson-limit}
 #### How fast the limit is reached
 
-For $\mathrm{Binomial}(n, 2/n)$ the largest difference from $\mathrm{Poisson}(2)$ over $k \leq 5$ is $0.031$ at
+For $\operatorname{Bin}(n, 2/n)$ the largest difference from $\operatorname{Poisson}(2)$ over $k \leq 5$ is $0.031$ at
 $n = 10$, $0.0027$ at $n = 100$ and $0.0003$ at $n = 1000$ (@prp-distribution-values): the error falls like $1/n$. The Poisson distribution is thus the model for any count of
 rare independent events, decays, photons in a faint beam, misprints per page, whenever the number of opportunities
 is large and the chance per opportunity small.
@@ -1906,8 +1906,8 @@ one for six coin flips [@bricmont2022statistical, Exercise 2.1].
 ::: {#exm-pbr-four-heads}
 #### At least four heads in six tosses
 
-For $N \sim \mathrm{Binomial}(6, \tfrac12)$, $P(N \geq 4) = \frac{\binom64 + \binom65 + \binom66}{2^6} = \frac{15 + 6 + 1}{64} = \frac{11}{32} =
-0.344$. By the symmetry $k \leftrightarrow 6 - k$ of the fair coin, $P(N \leq 2) = \frac{11}{32}$ as well, and the remaining $P(N = 3) =
+For $N \sim \operatorname{Bin}(6, \tfrac12)$, $\mathbb P(N \geq 4) = \frac{\binom64 + \binom65 + \binom66}{2^6} = \frac{15 + 6 + 1}{64} = \frac{11}{32} =
+0.344$. By the symmetry $k \leftrightarrow 6 - k$ of the fair coin, $\mathbb P(N \leq 2) = \frac{11}{32}$ as well, and the remaining $\mathbb P(N = 3) =
 \frac{20}{64} = \frac5{16}$ completes the total; the most likely single value carries less than a third of the probability.
 :::
 ::::
@@ -1966,16 +1966,16 @@ characteristic functions and identifies the most likely value of a binomial.
 ::: {#exr-rv-binomial-closure}
 #### Sums of binomials and of Poissons
 
-Using characteristic functions show that independent $\mathrm{Binomial}(n, p)$ and $\mathrm{Binomial}(m, p)$
-variables sum to $\mathrm{Binomial}(n + m, p)$, and independent $\mathrm{Poisson}(\lambda)$ and
-$\mathrm{Poisson}(\mu)$ to $\mathrm{Poisson}(\lambda + \mu)$. Show that the mode of $\mathrm{Binomial}(n, p)$ is
+Using characteristic functions show that independent $\operatorname{Bin}(n, p)$ and $\operatorname{Bin}(m, p)$
+variables sum to $\operatorname{Bin}(n + m, p)$, and independent $\operatorname{Poisson}(\lambda)$ and
+$\operatorname{Poisson}(\mu)$ to $\operatorname{Poisson}(\lambda + \mu)$. Show that the mode of $\operatorname{Bin}(n, p)$ is
 $\lfloor (n + 1)p \rfloor$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $(1 - p + pe^{it})^n(1 - p + pe^{it})^m = (1 - p + pe^{it})^{n+m}$ and $e^{\lambda(e^{it} - 1)}e^{\mu(e^{it} - 1)}
 = e^{(\lambda + \mu)(e^{it} - 1)}$; uniqueness identifies the distributions. The ratio of consecutive binomial
-probabilities is $\frac{P(k)}{P(k - 1)} = \frac{(n - k + 1)p}{k(1 - p)}$, which is at least $1$ exactly when $k
+probabilities is $\frac{\mathbb P(k)}{\mathbb P(k - 1)} = \frac{(n - k + 1)p}{k(1 - p)}$, which is at least $1$ exactly when $k
 \leq (n + 1)p$; the probabilities rise up to $k = \lfloor (n + 1)p\rfloor$ and fall afterwards.
 :::
 
@@ -1986,14 +1986,14 @@ true probability of landing within one standard deviation.
 ::: {#exr-rv-poisson-counts}
 #### Counting errors
 
-With Sage compute $P(|N - \lambda| \leq \sqrt\lambda)$ for $N \sim \mathrm{Poisson}(\lambda)$ and $\lambda = 2,
-10, 100$, compare with the Gaussian value $0.6827$, and find $P(N = 0)$ and $P(N \geq 5)$ for $\lambda = 2$
+With Sage compute $\mathbb P(|N - \lambda| \leq \sqrt\lambda)$ for $N \sim \operatorname{Poisson}(\lambda)$ and $\lambda = 2,
+10, 100$, compare with the Gaussian value $0.6827$, and find $\mathbb P(N = 0)$ and $\mathbb P(N \geq 5)$ for $\lambda = 2$
 exactly in terms of $e^{-2}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The probability within one standard deviation is $0.722$, $0.734$ and $0.707$ (the discreteness of the integers
-matters even at $\lambda = 100$, and the interval includes the endpoints), against the Gaussian $0.683$; $P(N = 0) = e^{-2}$ and $P(N \geq 5) = 1 -
+matters even at $\lambda = 100$, and the interval includes the endpoints), against the Gaussian $0.683$; $\mathbb P(N = 0) = e^{-2}$ and $\mathbb P(N \geq 5) = 1 -
 7e^{-2} = 0.053$:
 
 ```python
@@ -2025,8 +2025,8 @@ Exercise 2.12].
 #### The multinomial distribution
 
 An urn has balls of $L$ colours in proportions $p_1, \dots, p_L$; $n$ balls are drawn with replacement, and $N_i$ counts the
-colour $i$. Show that $P(N_1 = n_1, \dots, N_L = n_L) = \frac{n!}{n_1!\cdots n_L!}p_1^{n_1}\cdots p_L^{n_L}$ for $n_1 + \dots + n_L = n$, that
-each $N_i$ is $\mathrm{Binomial}(n, p_i)$, and that $\operatorname{Cov}(N_i, N_j) = -np_ip_j$ for $i \neq j$.
+colour $i$. Show that $\mathbb P(N_1 = n_1, \dots, N_L = n_L) = \frac{n!}{n_1!\cdots n_L!}p_1^{n_1}\cdots p_L^{n_L}$ for $n_1 + \dots + n_L = n$, that
+each $N_i$ is $\operatorname{Bin}(n, p_i)$, and that $\operatorname{Cov}(N_i, N_j) = -np_ip_j$ for $i \neq j$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2051,12 +2051,12 @@ sums, the Poisson ones exponential series and the Gaussian ones Gaussian integra
 ::: {#prp-distribution-values}
 #### Moments and characteristic functions of the three distributions
 
-$\mathrm{Binomial}(n, p)$ has total probability $1$, mean $np$, variance $np(1 - p)$ and characteristic function
-$(1 - p + pe^{it})^n$; $\mathrm{Poisson}(\lambda)$ has total probability $1$, mean and variance $\lambda$ and
-characteristic function $e^{\lambda(e^{it} - 1)}$; $N(\mu, \sigma^2)$ has density integrating to $1$, mean $\mu$,
-variance $\sigma^2$ and characteristic function $e^{i\mu t - \sigma^2t^2/2}$. $\mathrm{Binomial}(n, 2/n)$ approaches
-$\mathrm{Poisson}(2)$ with error below $10^{-3}$ at $n = 1000$, and for $\mathrm{Binomial}(400, \tfrac12)$,
-$P(|N - 200| \leq 10) = 0.706$ is within $0.03$ of $\operatorname{erf}(1/\sqrt2) = 0.683$.
+$\operatorname{Bin}(n, p)$ has total probability $1$, mean $np$, variance $np(1 - p)$ and characteristic function
+$(1 - p + pe^{it})^n$; $\operatorname{Poisson}(\lambda)$ has total probability $1$, mean and variance $\lambda$ and
+characteristic function $e^{\lambda(e^{it} - 1)}$; $\mathcal N(\mu, \sigma^2)$ has density integrating to $1$, mean $\mu$,
+variance $\sigma^2$ and characteristic function $e^{i\mu t - \sigma^2t^2/2}$. $\operatorname{Bin}(n, 2/n)$ approaches
+$\operatorname{Poisson}(2)$ with error below $10^{-3}$ at $n = 1000$, and for $\operatorname{Bin}(400, \tfrac12)$,
+$\mathbb P(|N - 200| \leq 10) = 0.706$ is within $0.03$ of $\operatorname{erf}(1/\sqrt2) = 0.683$.
 :::
 ::::
 
@@ -2093,7 +2093,7 @@ $0.02$, which is a discreteness effect.
 ::: {#exm-rv-sage-de-moivre}
 #### An exact binomial tail against the Gaussian
 
-The exact $P(|N - 200| \leq 10) = 0.7063$ for $400$ flips is compared with $\operatorname{erf}(1/\sqrt2) = 0.6827$
+The exact $\mathbb P(|N - 200| \leq 10) = 0.7063$ for $400$ flips is compared with $\operatorname{erf}(1/\sqrt2) = 0.6827$
 ($\sigma = 10$). The difference is mostly the **continuity correction**: the integers $190, \dots, 210$ occupy the
 interval $[189.5, 210.5]$, which has half-width $1.05\sigma$, and $\operatorname{erf}(1.05/\sqrt2) = 0.7063$
 matches to four decimals (@exr-rv-continuity-correction).
@@ -2108,7 +2108,7 @@ symbolically in $p$ and checks the characteristic function.
 ::: {#exr-rv-geometric-sage}
 #### The geometric distribution
 
-For $P(K = k) = (1 - p)^{k-1}p$, $k \geq 1$, compute in Sage (with $0 < p < 1$ assumed) the total probability,
+For $\mathbb P(K = k) = (1 - p)^{k-1}p$, $k \geq 1$, compute in Sage (with $0 < p < 1$ assumed) the total probability,
 $\mathbb{E}K$, $\operatorname{Var}K$ and $\varphi_K(t)$, and specialise to $p = \tfrac12$ to recover
 @exr-rv-st-petersburg.
 :::
@@ -2148,7 +2148,7 @@ without the correction for two sample sizes.
 ::: {#exr-rv-continuity-correction}
 #### The continuity correction
 
-For $N \sim \mathrm{Binomial}(n, \tfrac12)$ with $n = 100$ and $n = 400$, compute exactly $P(|N - n/2| \leq
+For $N \sim \operatorname{Bin}(n, \tfrac12)$ with $n = 100$ and $n = 400$, compute exactly $\mathbb P(|N - n/2| \leq
 \sqrt n/2)$ and compare with $\operatorname{erf}(1/\sqrt2)$ and with the corrected value
 $\operatorname{erf}\bigl((\sqrt n/2 + \tfrac12)/(\sqrt{n}/2)/\sqrt2\bigr)$.
 :::
@@ -2183,13 +2183,13 @@ memory.
 ::: {#exr-rv-exponential-memoryless}
 #### Memorylessness
 
-Show that an exponential variable satisfies $P(T > s + t \mid T > s) = P(T > t)$ for all $s, t \geq 0$, and that
-conversely a continuous positive variable with this property and $P(T > t) = G(t)$ continuous must have $G(t) =
+Show that an exponential variable satisfies $\mathbb P(T > s + t \mid T > s) = \mathbb P(T > t)$ for all $s, t \geq 0$, and that
+conversely a continuous positive variable with this property and $\mathbb P(T > t) = G(t)$ continuous must have $G(t) =
 e^{-\lambda t}$ for some $\lambda$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(T > s + t \mid T > s) = e^{-\lambda(s + t)}/e^{-\lambda s} = e^{-\lambda t}$. Conversely the property says
+$\mathbb P(T > s + t \mid T > s) = e^{-\lambda(s + t)}/e^{-\lambda s} = e^{-\lambda t}$. Conversely the property says
 $G(s + t) = G(s)G(t)$ with $G(0) = 1$ and $G$ continuous and non-increasing; this functional equation forces
 $G(t) = G(1)^t$ for rational $t$ (induction and roots) and, by continuity, for all $t$, so $G(t) = e^{-\lambda t}$
 with $\lambda = -\log G(1) > 0$.
@@ -2226,8 +2226,8 @@ limit theorem). Generated by `figures/law_of_large_numbers.sage`.](figures/law_o
 ::: {#def-convergence-in-probability}
 #### Convergence in probability
 
-Random variables $Y_n$ **converge in probability** to $Y$ if $P(|Y_n - Y| \geq \varepsilon) \to 0$ for every
-$\varepsilon > 0$. They **converge almost surely** if $P(\{\omega : Y_n(\omega) \to Y(\omega)\}) = 1$, which implies
+Random variables $Y_n$ **converge in probability** to $Y$ if $\mathbb P(|Y_n - Y| \geq \varepsilon) \to 0$ for every
+$\varepsilon > 0$. They **converge almost surely** if $\mathbb P(\{\omega : Y_n(\omega) \to Y(\omega)\}) = 1$, which implies
 convergence in probability. They **converge in distribution** to a random variable with distribution function $F$
 if $F_{Y_n}(x) \to F(x)$ at every point where $F$ is continuous, equivalently (**Lévy's continuity theorem**) if
 $\varphi_{Y_n}(t) \to \varphi_Y(t)$ for every $t$; convergence in probability implies convergence in distribution.
@@ -2256,7 +2256,7 @@ that convergence in distribution is weaker than convergence in probability.
 ::: {#exm-lt-rare-large}
 #### A rare large value
 
-Let $Y_n = n$ with probability $1/n$ and $0$ otherwise. Then $P(|Y_n| \geq \varepsilon) = 1/n \to 0$, so $Y_n \to
+Let $Y_n = n$ with probability $1/n$ and $0$ otherwise. Then $\mathbb P(|Y_n| \geq \varepsilon) = 1/n \to 0$, so $Y_n \to
 0$ in probability, yet $\mathbb{E}Y_n = 1$ for all $n$ and $\mathbb{E}Y_n^2 = n \to \infty$. Separately, if $Z$ is
 a fair coin ($\pm1$) and $Y_n = (-1)^nZ$, every $Y_n$ has the same distribution as $Z$, so $Y_n \to Z$ in
 distribution, but $|Y_n - Z| = 2$ for odd $n$: no convergence in probability.
@@ -2292,8 +2292,8 @@ $Y_n \to 0$ in probability but $Y_n(\omega)$ converges for no $\omega$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 If $Y_n \to Y$ almost surely then for every $\varepsilon$ the events $B_N = \bigcup_{n \geq N}\{|Y_n - Y| \geq
 \varepsilon\}$ decrease to a set of probability zero (outside it $Y_n$ eventually stays within $\varepsilon$), so
-$P(B_N) \to 0$ by countable additivity, and $P(|Y_N - Y| \geq \varepsilon) \leq P(B_N) \to 0$. The bumps have
-width $2^{-m} \to 0$, so $P(Y_n = 1) \to 0$; but every $\omega$ lies in one bump of each generation $m$, so
+$\mathbb P(B_N) \to 0$ by countable additivity, and $\mathbb P(|Y_N - Y| \geq \varepsilon) \leq \mathbb P(B_N) \to 0$. The bumps have
+width $2^{-m} \to 0$, so $\mathbb P(Y_n = 1) \to 0$; but every $\omega$ lies in one bump of each generation $m$, so
 $Y_n(\omega) = 1$ infinitely often and $= 0$ infinitely often.
 :::
 
@@ -2352,15 +2352,15 @@ exponential variable.
 ::: {#exr-lt-maximum-uniform}
 #### The maximum of uniform variables
 
-Let $U_1, \dots, U_n$ be independent and uniform on $[0, 1]$ and $M_n = \max_i U_i$. Find $P(M_n \leq x)$, show that
+Let $U_1, \dots, U_n$ be independent and uniform on $[0, 1]$ and $M_n = \max_i U_i$. Find $\mathbb P(M_n \leq x)$, show that
 $M_n \to 1$ in probability, and show that $n(1 - M_n)$ converges in distribution to an exponential variable with
 rate $1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(M_n \leq x) = P(\text{all } U_i \leq x) = x^n$ for $0 \leq x \leq 1$, so $P(M_n \leq 1 - \varepsilon) = (1 -
-\varepsilon)^n \to 0$. For $y \geq 0$, $P(n(1 - M_n) > y) = P(M_n < 1 - y/n) = (1 - y/n)^n \to e^{-y}$, which is
-$P(T > y)$ for an exponential variable with rate $1$ (@exm-rv-uniform-exponential).
+$\mathbb P(M_n \leq x) = \mathbb P(\text{all } U_i \leq x) = x^n$ for $0 \leq x \leq 1$, so $\mathbb P(M_n \leq 1 - \varepsilon) = (1 -
+\varepsilon)^n \to 0$. For $y \geq 0$, $\mathbb P(n(1 - M_n) > y) = \mathbb P(M_n < 1 - y/n) = (1 - y/n)^n \to e^{-y}$, which is
+$\mathbb P(T > y)$ for an exponential variable with rate $1$ (@exm-rv-uniform-exponential).
 :::
 ::::
 
@@ -2376,11 +2376,11 @@ expectation.
 #### Chebyshev's inequality
 
 For a random variable $X$ with mean $\mu$ and variance $\sigma^2$ and every $a > 0$,
-$$P(|X - \mu| \geq a) \leq \frac{\sigma^2}{a^2}, \qquad\text{that is,}\qquad P(|X - \mu| \geq k\sigma) \leq
+$$\mathbb P(|X - \mu| \geq a) \leq \frac{\sigma^2}{a^2}, \qquad\text{that is,}\qquad \mathbb P(|X - \mu| \geq k\sigma) \leq
 \frac1{k^2}.$$
-*Proof.* First **Markov's inequality**: for $Y \geq 0$ and $a > 0$, $a\,\mathbf{1}_{\{Y \geq a\}} \leq Y$
-pointwise, so taking expectations $a\,P(Y \geq a) \leq \mathbb{E}Y$. Apply it to $Y = (X - \mu)^2$ and the
-threshold $a^2$: $P(|X - \mu| \geq a) = P(Y \geq a^2) \leq \mathbb{E}Y/a^2 = \sigma^2/a^2$.
+*Proof.* First **Markov's inequality**: for $Y \geq 0$ and $a > 0$, $a\,\mathbb 1_{\{Y \geq a\}} \leq Y$
+pointwise, so taking expectations $a\,\mathbb P(Y \geq a) \leq \mathbb{E}Y$. Apply it to $Y = (X - \mu)^2$ and the
+threshold $a^2$: $\mathbb P(|X - \mu| \geq a) = \mathbb P(Y \geq a^2) \leq \mathbb{E}Y/a^2 = \sigma^2/a^2$.
 :::
 ::::
 
@@ -2391,9 +2391,9 @@ well-behaved distribution.
 ::: {#exm-lt-chebyshev-dice}
 #### Two dice
 
-The sum $S$ of two dice has $\mu = 7$, $\sigma = \sqrt{35/6} = 2.415$. Exactly, $P(|S - 7| \geq \sigma) = P(S \leq
-4 \text{ or } S \geq 10) = \tfrac{12}{36} = 0.333$ against the bound $1$; $P(|S - 7| \geq 2\sigma) = P(S \leq 2
-\text{ or } S \geq 12) = \tfrac{2}{36} = 0.056$ against $\tfrac14$; $P(|S - 7| \geq 3\sigma) = 0$ against
+The sum $S$ of two dice has $\mu = 7$, $\sigma = \sqrt{35/6} = 2.415$. Exactly, $\mathbb P(|S - 7| \geq \sigma) = \mathbb P(S \leq
+4 \text{ or } S \geq 10) = \tfrac{12}{36} = 0.333$ against the bound $1$; $\mathbb P(|S - 7| \geq 2\sigma) = \mathbb P(S \leq 2
+\text{ or } S \geq 12) = \tfrac{2}{36} = 0.056$ against $\tfrac14$; $\mathbb P(|S - 7| \geq 3\sigma) = 0$ against
 $\tfrac19$ (@prp-limit-theorem-values). The bound is far from the truth because it must also cover distributions
 with heavy tails.
 :::
@@ -2405,7 +2405,7 @@ which it is an equality, one in which all the variance sits at exactly $k$ stand
 #### The extremal distribution
 
 Let $X = \pm k\sigma$ with probability $\tfrac1{2k^2}$ each and $X = 0$ otherwise. Then $\mathbb{E}X = 0$,
-$\operatorname{Var}X = 2 \cdot \tfrac1{2k^2} \cdot k^2\sigma^2 = \sigma^2$ and $P(|X| \geq k\sigma) = 1/k^2$
+$\operatorname{Var}X = 2 \cdot \tfrac1{2k^2} \cdot k^2\sigma^2 = \sigma^2$ and $\mathbb P(|X| \geq k\sigma) = 1/k^2$
 exactly. Any inequality valid for all distributions with a given variance can therefore be no better than
 Chebyshev's at the threshold $k\sigma$, though for specific families, such as the Gaussian, the true tails are
 exponentially smaller.
@@ -2418,7 +2418,7 @@ many tosses guarantee a given accuracy with a given confidence.
 ::: {#exm-lt-chebyshev-average}
 #### How many tosses?
 
-The fraction of heads $\bar X_n$ has mean $\tfrac12$ and variance $\tfrac1{4n}$, so $P(|\bar X_n - \tfrac12| \geq 0.
+The fraction of heads $\bar X_n$ has mean $\tfrac12$ and variance $\tfrac1{4n}$, so $\mathbb P(|\bar X_n - \tfrac12| \geq 0.
 1) \leq \tfrac{1}{4n(0.01)} = \tfrac{25}{n}$: $n = 250$ tosses guarantee a deviation below $0.1$ with
 probability at least $0.9$. The exact probability at $n = 100$ is $0.057$, already below the bound $0.25$
 (@exr-lt-binomial-tail-sage); the Gaussian approximation of @thm-central-limit-theorem predicts $0.046$.
@@ -2434,14 +2434,14 @@ version, which gives tails decaying exponentially in the threshold.
 #### Markov and Chernoff
 
 Prove Markov's inequality for a discrete non-negative $X$ directly from the definition of expectation. Then show
-that for any $s > 0$, $P(X \geq a) \leq e^{-sa}\,\mathbb{E}e^{sX}$, and apply it with the best $s$ to the number of
-heads in $n$ tosses to bound $P(N \geq n/2 + t)$.
+that for any $s > 0$, $\mathbb P(X \geq a) \leq e^{-sa}\,\mathbb{E}e^{sX}$, and apply it with the best $s$ to the number of
+heads in $n$ tosses to bound $\mathbb P(N \geq n/2 + t)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbb{E}X = \sum_k x_kp_k \geq \sum_{x_k \geq a}x_kp_k \geq a\sum_{x_k \geq a}p_k = a\,P(X \geq a)$. Since $x
-\mapsto e^{sx}$ is increasing, $P(X \geq a) = P(e^{sX} \geq e^{sa}) \leq e^{-sa}\mathbb{E}e^{sX}$ by Markov. For
-$N$, $\mathbb{E}e^{sN} = (\tfrac12 + \tfrac12e^s)^n$, and optimising $s$ gives $P(N \geq n/2 + t) \leq
+$\mathbb{E}X = \sum_k x_kp_k \geq \sum_{x_k \geq a}x_kp_k \geq a\sum_{x_k \geq a}p_k = a\,\mathbb P(X \geq a)$. Since $x
+\mapsto e^{sx}$ is increasing, $\mathbb P(X \geq a) = \mathbb P(e^{sX} \geq e^{sa}) \leq e^{-sa}\mathbb{E}e^{sX}$ by Markov. For
+$N$, $\mathbb{E}e^{sN} = (\tfrac12 + \tfrac12e^s)^n$, and optimising $s$ gives $\mathbb P(N \geq n/2 + t) \leq
 e^{-2t^2/n}$ (Hoeffding's form), exponentially small in $t^2/n$ where Chebyshev gives only $n/4t^2$.
 :::
 
@@ -2452,7 +2452,7 @@ Chebyshev's bound is for sums.
 ::: {#exr-lt-binomial-tail-sage}
 #### Exact tails against the bounds
 
-For $n = 25, 100, 400$ fair tosses compute exactly $P(|\bar X_n - \tfrac12| \geq 0.1)$ in Sage and compare with
+For $n = 25, 100, 400$ fair tosses compute exactly $\mathbb P(|\bar X_n - \tfrac12| \geq 0.1)$ in Sage and compare with
 Chebyshev's $25/n$ and with the two-sided Chernoff bound $2e^{-2n(0.1)^2}$.
 :::
 
@@ -2485,12 +2485,12 @@ shift.
 ::: {#exr-lt-cantelli}
 #### Cantelli's one-sided inequality
 
-Show that for $a > 0$, $P(X - \mu \geq a) \leq \frac{\sigma^2}{\sigma^2 + a^2}$, by applying Markov's inequality to
+Show that for $a > 0$, $\mathbb P(X - \mu \geq a) \leq \frac{\sigma^2}{\sigma^2 + a^2}$, by applying Markov's inequality to
 $(X - \mu + c)^2$ for a suitable $c > 0$; compare with Chebyshev's two-sided bound at $a = \sigma$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $c > 0$, $\{X - \mu \geq a\} \subseteq \{(X - \mu + c)^2 \geq (a + c)^2\}$, so $P(X - \mu \geq a) \leq
+For $c > 0$, $\{X - \mu \geq a\} \subseteq \{(X - \mu + c)^2 \geq (a + c)^2\}$, so $\mathbb P(X - \mu \geq a) \leq
 \frac{\sigma^2 + c^2}{(a + c)^2}$; the choice $c = \sigma^2/a$ minimises the right side and gives
 $\frac{\sigma^2}{\sigma^2 + a^2}$. At $a = \sigma$ this is $\tfrac12$, against Chebyshev's $1$ for the two-sided
 event, so the one-sided bound is genuinely sharper.
@@ -2503,14 +2503,14 @@ exponentially, at a rate given by a relative entropy. The last exercise computes
 ::: {#exr-pbr-large-deviations}
 #### Large deviations of a biased coin
 
-A coin with $P(\text{heads}) = p = \tfrac13$ is tossed $n$ times. Use the Chernoff bound of @exr-lt-markov-chernoff to show
-that $P(N/n \geq a) \leq e^{-nI(a)}$ for $a > p$, with $I(a) = a\ln\frac ap + (1 - a)\ln\frac{1 - a}{1 - p}$. With Sage, compute the exact
-probability that $|N/n - \frac12| \leq 0.01$ for $n = 100, 1000, 10000$, compare it with the bound, and compare $-\frac1n\ln P$ with
-$I(\tfrac12) = \tfrac12\ln\tfrac98$.
+A coin with $\mathbb P(\text{heads}) = p = \tfrac13$ is tossed $n$ times. Use the Chernoff bound of @exr-lt-markov-chernoff to show
+that $\mathbb P(N/n \geq a) \leq e^{-nI(a)}$ for $a > p$, with $I(a) = a\log\frac ap + (1 - a)\log\frac{1 - a}{1 - p}$. With Sage, compute the exact
+probability that $|N/n - \frac12| \leq 0.01$ for $n = 100, 1000, 10000$, compare it with the bound, and compare $-\frac1n\log P$ with
+$I(\tfrac12) = \tfrac12\log\tfrac98$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(N \geq na) \leq e^{-sna}\mathbb{E}e^{sN} = \exp\bigl(-n[sa - \ln(1 - p + pe^s)]\bigr)$ for every $s > 0$. The bracket is largest at $e^s =
+$\mathbb P(N \geq na) \leq e^{-sna}\mathbb{E}e^{sN} = \exp\bigl(-n[sa - \log(1 - p + pe^s)]\bigr)$ for every $s > 0$. The bracket is largest at $e^s =
 \frac{a(1 - p)}{p(1 - a)}$, where it equals $I(a)$. The window $[0.49, 0.51]$ lies above $p$, so its probability is at most
 $e^{-nI(0.49)}$:
 
@@ -2534,7 +2534,7 @@ N = 10000: P = 4.9270e-229, Chernoff bound 2.9631e-227, -ln(P)/N = 0.052570
 fair coin, same window: P = 0.9556 (N = 10000), tending to 1
 ```
 
-The exact probability decays like $e^{-nI(0.49)}$ with a prefactor of order $n^{-1/2}$, and $-\frac1n\ln P$ approaches $I(0.49) =
+The exact probability decays like $e^{-nI(0.49)}$ with a prefactor of order $n^{-1/2}$, and $-\frac1n\log P$ approaches $I(0.49) =
 0.0522$, close to $I(\tfrac12) = 0.0589$. For a fair coin the same window has probability $0.956$ at $n = 10^4$: the
 law of large numbers concentrates the frequency, and $I$ measures how fast the wrong frequencies lose probability.
 :::
@@ -2554,7 +2554,7 @@ finite-variance hypothesis, which covers every application in this book.
 
 Let $X_1, X_2, \dots$ be independent random variables with the same distribution, of mean $\mu$ and finite
 variance $\sigma^2$, and let $\bar X_n = \tfrac1n(X_1 + \dots + X_n)$. Then for every $\varepsilon > 0$,
-$$P(|\bar X_n - \mu| \geq \varepsilon) \leq \frac{\sigma^2}{n\varepsilon^2} \to 0,$$
+$$\mathbb P(|\bar X_n - \mu| \geq \varepsilon) \leq \frac{\sigma^2}{n\varepsilon^2} \to 0,$$
 so $\bar X_n \to \mu$ in probability. *Proof.* By linearity $\mathbb{E}\bar X_n = \mu$, and by independence
 $\operatorname{Var}\bar X_n = \tfrac1{n^2}\sum\operatorname{Var}X_i = \sigma^2/n$ (@def-variance). Chebyshev's
 inequality with $a = \varepsilon$ gives the bound.
@@ -2569,8 +2569,8 @@ frequency interpretation of probability.
 ::: {#exm-lt-frequency}
 #### Frequencies converge to probabilities
 
-For an event $A$ with $P(A) = p$ repeated independently, the indicators $\mathbf{1}_{A_i}$ have mean $p$ and
-variance $p(1 - p) \leq \tfrac14$, so the observed frequency $f_n$ satisfies $P(|f_n - p| \geq \varepsilon) \leq
+For an event $A$ with $\mathbb P(A) = p$ repeated independently, the indicators $\mathbb 1_{A_i}$ have mean $p$ and
+variance $p(1 - p) \leq \tfrac14$, so the observed frequency $f_n$ satisfies $\mathbb P(|f_n - p| \geq \varepsilon) \leq
 \frac{1}{4n\varepsilon^2}$. The bound is uniform in $p$: $n = 2500$ trials pin any probability down to $\pm 0.1$
 with confidence $0.96$ by Chebyshev, and to $\pm 0.02$ with confidence $0.95$ by the Gaussian approximation
 (@sec-statistics).
@@ -2629,15 +2629,15 @@ has the same spread for every $n$.
 #### Cauchy averages do not converge
 
 The Cauchy distribution has characteristic function $e^{-|t|}$ (accept this). Show that the average of $n$
-independent Cauchy variables is again Cauchy, and conclude that $P(|\bar X_n| > 1) = \tfrac12$ for every $n$,
+independent Cauchy variables is again Cauchy, and conclude that $\mathbb P(|\bar X_n| > 1) = \tfrac12$ for every $n$,
 so the weak law fails.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 By the product and rescaling rules of @def-characteristic-function, $\varphi_{\bar X_n}(t) =
 \varphi_X(t/n)^n = (e^{-|t|/n})^n = e^{-|t|}$, the Cauchy characteristic function again; by uniqueness $\bar X_n$ is
-Cauchy. Then $P(|\bar X_n| > 1) = \tfrac12$ by @exr-rv-cauchy-no-mean, independent of $n$, so no $\varepsilon <
-1$ has $P(|\bar X_n| \geq \varepsilon) \to 0$. The hypothesis of a finite mean (not merely of a finite variance) is
+Cauchy. Then $\mathbb P(|\bar X_n| > 1) = \tfrac12$ by @exr-rv-cauchy-no-mean, independent of $n$, so no $\varepsilon <
+1$ has $\mathbb P(|\bar X_n| \geq \varepsilon) \to 0$. The hypothesis of a finite mean (not merely of a finite variance) is
 what fails.
 :::
 
@@ -2690,13 +2690,13 @@ the strong law below.
 ::: {#exr-lt-borel-cantelli}
 #### The Borel-Cantelli lemma
 
-Prove that if $\sum_n P(B_n) < \infty$ then $P(B_n \text{ infinitely often}) = 0$, where "$B_n$ infinitely often"
-is $\bigcap_N\bigcup_{n \geq N}B_n$. Deduce that if $\sum_n P(|Y_n - Y| \geq \varepsilon) < \infty$ for every
+Prove that if $\sum_n \mathbb P(B_n) < \infty$ then $\mathbb P(B_n \text{ infinitely often}) = 0$, where "$B_n$ infinitely often"
+is $\bigcap_N\bigcup_{n \geq N}B_n$. Deduce that if $\sum_n \mathbb P(|Y_n - Y| \geq \varepsilon) < \infty$ for every
 $\varepsilon > 0$ then $Y_n \to Y$ almost surely.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(\bigcup_{n \geq N}B_n) \leq \sum_{n \geq N}P(B_n)$ (countable subadditivity, from additivity on a disjoint
+$\mathbb P(\bigcup_{n \geq N}B_n) \leq \sum_{n \geq N}\mathbb P(B_n)$ (countable subadditivity, from additivity on a disjoint
 decomposition), and the tail of a convergent series tends to $0$; the intersection over $N$ has probability at
 most every one of these, hence $0$. For the deduction take $\varepsilon = 1/k$: for each $k$, almost surely $|Y_n -
 Y| < 1/k$ for all large $n$; the countable intersection over $k$ of these almost sure events is almost sure, and
@@ -2715,7 +2715,7 @@ reveals the expectation.
 
 Let $X_1, X_2, \dots$ be independent random variables with the same distribution and finite mean $\mu =
 \mathbb{E}X_1$ (that is, $\mathbb{E}|X_1| < \infty$). Then $\bar X_n \to \mu$ almost surely:
-$$P\Bigl(\lim_{n \to \infty}\tfrac1n(X_1 + \dots + X_n) = \mu\Bigr) = 1.$$
+$$\mathbb P\Bigl(\lim_{n \to \infty}\tfrac1n(X_1 + \dots + X_n) = \mu\Bigr) = 1.$$
 Conversely, if $\mathbb{E}|X_1| = \infty$ then $\bar X_n$ fails to converge to any finite limit almost surely.
 (Kolmogorov's theorem, stated without proof.)
 :::
@@ -2731,7 +2731,7 @@ the strong law in disguise.
 
 For $\omega$ uniform in $[0, 1]$ the decimal digits $D_1(\omega), D_2(\omega), \dots$ are independent and uniform
 on $\{0, \dots, 9\}$ (each digit splits every interval of the previous generation into ten equal parts). The
-strong law applied to the indicators $\mathbf{1}_{\{D_i = d\}}$ gives: for almost every $\omega$, each digit $d$
+strong law applied to the indicators $\mathbb 1_{\{D_i = d\}}$ gives: for almost every $\omega$, each digit $d$
 appears with limiting frequency $\tfrac1{10}$. No specific number, such as $\pi$ or $\sqrt2$, is known to have
 this property, though the first $10^5$ digits of $\pi$ behave as if it did (@exr-lt-digits-of-pi).
 :::
@@ -2758,7 +2758,7 @@ hypothesis of statistical mechanics generalises to dependent sequences.
 #### Time averages equal ensemble averages
 
 If $g(X_1), g(X_2), \dots$ are the values of an observable along a sequence of independent samples of a
-distribution $P_X$, the strong law gives $\tfrac1n\sum_{i \leq n}g(X_i) \to \mathbb{E}g(X) = \int g\,dP_X$ almost
+distribution $\mathbb P_X$, the strong law gives $\tfrac1n\sum_{i \leq n}g(X_i) \to \mathbb{E}g(X) = \int g\,d\mathbb P_X$ almost
 surely: the long-time average along one sequence equals the average over the distribution. Ergodic theorems extend
 this to sequences with dependence that decays sufficiently fast; the independent case is the strong law itself.
 :::
@@ -2818,7 +2818,7 @@ $n^2$, which makes the tail probabilities summable.
 
 Let $X_i$ be independent, identically distributed, with $\mathbb{E}X_i = 0$ and $\mathbb{E}X_i^4 < \infty$, and
 $S_n = \sum_{i \leq n}X_i$. Show that $\mathbb{E}S_n^4 = n\,\mathbb{E}X_1^4 + 3n(n - 1)\sigma^4$, deduce
-$P(|S_n/n| \geq \varepsilon) \leq C/(n^2\varepsilon^4)$, and conclude by @exr-lt-borel-cantelli that $S_n/n \to 0$
+$\mathbb P(|S_n/n| \geq \varepsilon) \leq C/(n^2\varepsilon^4)$, and conclude by @exr-lt-borel-cantelli that $S_n/n \to 0$
 almost surely.
 :::
 
@@ -2826,7 +2826,7 @@ almost surely.
 Expanding $S_n^4 = \sum_{i,j,k,l}X_iX_jX_kX_l$, every term with an index appearing exactly once has zero expectation
 by independence and $\mathbb{E}X_i = 0$; what survives are the $n$ terms $X_i^4$ and the $3n(n - 1)$ terms
 $X_i^2X_j^2$ with $i \neq j$ (three ways to pair four indices), each with expectation $\sigma^4$. Markov's inequality
-on $S_n^4$ gives $P(|S_n| \geq n\varepsilon) \leq \mathbb{E}S_n^4/(n\varepsilon)^4 \leq (\mathbb{E}X_1^4 +
+on $S_n^4$ gives $\mathbb P(|S_n| \geq n\varepsilon) \leq \mathbb{E}S_n^4/(n\varepsilon)^4 \leq (\mathbb{E}X_1^4 +
 3\sigma^4)/(n^2\varepsilon^4)$, summable in $n$; Borel-Cantelli gives almost sure convergence. The count $3$ of
 pairings is the first instance of Wick's theorem (@thm-wick-moments).
 :::
@@ -2838,15 +2838,15 @@ second Borel-Cantelli lemma, stated as a hint.
 ::: {#exr-lt-converse-slln}
 #### Without a mean the averages diverge
 
-Suppose $\mathbb{E}|X_1| = \infty$. Show that $\sum_n P(|X_n| \geq n) = \infty$ (compare the sum with
+Suppose $\mathbb{E}|X_1| = \infty$. Show that $\sum_n \mathbb P(|X_n| \geq n) = \infty$ (compare the sum with
 $\mathbb{E}|X_1|$), and, accepting the second Borel-Cantelli lemma (independent events with divergent sum of
 probabilities occur infinitely often almost surely), deduce that $|X_n|/n \geq 1$ infinitely often, so that $S_n/n$
 cannot converge.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbb{E}|X_1| \leq \sum_{n \geq 0}P(|X_1| \geq n)$ (write $|X_1| \leq \sum_{n \geq 0}\mathbf{1}_{\{|X_1| \geq
-n\}}$ and take expectations), and the $X_n$ share the distribution of $X_1$, so the series $\sum P(|X_n| \geq n)$
+$\mathbb{E}|X_1| \leq \sum_{n \geq 0}\mathbb P(|X_1| \geq n)$ (write $|X_1| \leq \sum_{n \geq 0}\mathbb 1_{\{|X_1| \geq
+n\}}$ and take expectations), and the $X_n$ share the distribution of $X_1$, so the series $\sum \mathbb P(|X_n| \geq n)$
 diverges. The events $\{|X_n| \geq n\}$ are independent, so they occur infinitely often almost surely. If $S_n/n$
 converged to a finite $L$, then $X_n/n = S_n/n - \tfrac{n-1}{n}S_{n-1}/(n - 1) \to L - L = 0$, contradicting
 $|X_n|/n \geq 1$ infinitely often.
@@ -2866,12 +2866,12 @@ continuity theorem that converts convergence of characteristic functions into co
 
 Let $X_1, X_2, \dots$ be independent random variables with the same distribution, mean $\mu$ and variance $\sigma^2
 \in (0, \infty)$, and $S_n = X_1 + \dots + X_n$. Then
-$$\frac{S_n - n\mu}{\sigma\sqrt n} \to N(0, 1) \quad\text{in distribution:}\qquad P\Bigl(a \leq \frac{S_n -
+$$\frac{S_n - n\mu}{\sigma\sqrt n} \to \mathcal N(0, 1) \quad\text{in distribution:}\qquad \mathbb P\Bigl(a \leq \frac{S_n -
 n\mu}{\sigma\sqrt n} \leq b\Bigr) \to \frac{1}{\sqrt{2\pi}}\int_a^b e^{-z^2/2}dz.$$
 *Sketch.* Let $Y_i = (X_i - \mu)/\sigma$, with $\mathbb{E}Y_i = 0$, $\mathbb{E}Y_i^2 = 1$ and characteristic
 function $\varphi(t) = 1 - \tfrac{t^2}{2} + o(t^2)$ as $t \to 0$ (@def-characteristic-function). The standardised sum
 is $\tfrac1{\sqrt n}\sum Y_i$, with characteristic function $\varphi(t/\sqrt n)^n = \bigl(1 - \tfrac{t^2}{2n} +
-o(\tfrac1n)\bigr)^n \to e^{-t^2/2}$, the characteristic function of $N(0, 1)$. Lévy's continuity theorem turns this
+o(\tfrac1n)\bigr)^n \to e^{-t^2/2}$, the characteristic function of $\mathcal N(0, 1)$. Lévy's continuity theorem turns this
 into convergence in distribution. (Stated with this sketch; the continuity theorem is not proved here.)
 :::
 ::::
@@ -2898,7 +2898,7 @@ deviation to $\operatorname{erf}(1/\sqrt2)$ is slow but visible.
 ::: {#exm-lt-clt-dice}
 #### Dice
 
-The exact probability $P(|S_n - 7n/2| \leq \sigma\sqrt n)$ is $0.667$ for $n = 1$ and $n = 2$, $0.687$ for $n =
+The exact probability $\mathbb P(|S_n - 7n/2| \leq \sigma\sqrt n)$ is $0.667$ for $n = 1$ and $n = 2$, $0.687$ for $n =
 10$ and $0.689$ for $n = 30$, against the Gaussian $0.683$; the residual is the discreteness effect of
 @exm-rv-sage-de-moivre, not a failure of convergence. Already five dice give a bell-shaped distribution, which is
 why sums of a handful of comparable random contributions, such as the errors of a measurement, are so often
@@ -2907,16 +2907,16 @@ Gaussian.
 
 The theorem explains the Gaussian shapes of @fig-binomial-poisson-gaussian in both rows: a binomial is a sum of
 $n$ indicators, and a Poisson variable with integer $\lambda$ is a sum of $\lambda$ independent
-$\mathrm{Poisson}(1)$ variables. The third example spells this out and gives the practical rule for when the
+$\operatorname{Poisson}(1)$ variables. The third example spells this out and gives the practical rule for when the
 approximation is usable.
 
 ::: {#exm-lt-clt-binomial-poisson}
 #### Binomial and Poisson
 
-$\mathrm{Binomial}(n, p)$ is a sum of $n$ independent Bernoulli variables, so $(N - np)/\sqrt{np(1 - p)} \to N(0,
+$\operatorname{Bin}(n, p)$ is a sum of $n$ independent Bernoulli variables, so $(N - np)/\sqrt{np(1 - p)} \to \mathcal N(0,
 1)$ (the de Moivre-Laplace theorem, the original central limit theorem of 1733); the rule of thumb is $np(1 - p)
-\geq 10$. $\mathrm{Poisson}(\lambda)$ with $\lambda = m$ an integer is the sum of $m$ independent
-$\mathrm{Poisson}(1)$ variables by @exr-rv-binomial-closure, so $(N - \lambda)/\sqrt\lambda \to N(0, 1)$ as
+\geq 10$. $\operatorname{Poisson}(\lambda)$ with $\lambda = m$ an integer is the sum of $m$ independent
+$\operatorname{Poisson}(1)$ variables by @exr-rv-binomial-closure, so $(N - \lambda)/\sqrt\lambda \to \mathcal N(0, 1)$ as
 $\lambda \to \infty$, which is the bottom row of the figure.
 :::
 ::::
@@ -2974,7 +2974,7 @@ by the rescaling rule.
 ::: {#exr-lt-clt-poisson}
 #### The Poisson limit by hand
 
-For $N \sim \mathrm{Poisson}(\lambda)$ show that $Z = (N - \lambda)/\sqrt\lambda$ has characteristic function
+For $N \sim \operatorname{Poisson}(\lambda)$ show that $Z = (N - \lambda)/\sqrt\lambda$ has characteristic function
 $\exp\bigl(\lambda(e^{it/\sqrt\lambda} - 1) - it\sqrt\lambda\bigr)$, expand the exponent in powers of $t/\sqrt
 \lambda$, and show that it tends to $-t^2/2$ as $\lambda \to \infty$.
 :::
@@ -3034,17 +3034,17 @@ exercise repeats that computation [@bricmont2022statistical, Exercise 2.11].
 ::: {#exr-pbr-stirling}
 #### De Moivre's theorem from Stirling's formula
 
-For $N \sim \mathrm{Binomial}(n, \tfrac12)$ write $N = \frac n2 + \sqrt n\,x$. Using $\ln m! = m\ln m - m + \tfrac12\ln(2\pi m) + o(1)$, show that
-$P(N = \frac n2 + \sqrt nx) \approx \frac{2}{\sqrt{2\pi n}}e^{-2x^2}$ for fixed $x$, and conclude that $x$ is approximately Gaussian with mean $0$
+For $N \sim \operatorname{Bin}(n, \tfrac12)$ write $N = \frac n2 + \sqrt n\,x$. Using $\log m! = m\log m - m + \tfrac12\log(2\pi m) + o(1)$, show that
+$\mathbb P(N = \frac n2 + \sqrt nx) \approx \frac{2}{\sqrt{2\pi n}}e^{-2x^2}$ for fixed $x$, and conclude that $x$ is approximately Gaussian with mean $0$
 and variance $\tfrac14$, as @thm-central-limit-theorem predicts.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $k = \frac n2(1 + \epsilon)$, $\epsilon = 2x/\sqrt n$, Stirling's formula gives $\ln\binom nk = -\frac n2[(1 + \epsilon)\ln(1 + \epsilon) + (1 -
-\epsilon)\ln(1 - \epsilon)] + n\ln2 + \tfrac12\ln\frac2{\pi n(1 - \epsilon^2)} + o(1)$. Expanding, $(1 + \epsilon)\ln(1 + \epsilon) + (1 - \epsilon)\ln(1 - \epsilon) =
-\epsilon^2 + O(\epsilon^4)$, so $\ln(\binom nk2^{-n}) = -\frac n2\epsilon^2 + \tfrac12\ln\frac2{\pi n} + o(1) = -2x^2 + \ln\frac2{\sqrt{2\pi n}} + o(1)$.
+With $k = \frac n2(1 + \varepsilon)$, $\varepsilon = 2x/\sqrt n$, Stirling's formula gives $\log\binom nk = -\frac n2[(1 + \varepsilon)\log(1 + \varepsilon) + (1 -
+\varepsilon)\log(1 - \varepsilon)] + n\log2 + \tfrac12\log\frac2{\pi n(1 - \varepsilon^2)} + o(1)$. Expanding, $(1 + \varepsilon)\log(1 + \varepsilon) + (1 - \varepsilon)\log(1 - \varepsilon) =
+\varepsilon^2 + O(\varepsilon^4)$, so $\log(\binom nk2^{-n}) = -\frac n2\varepsilon^2 + \tfrac12\log\frac2{\pi n} + o(1) = -2x^2 + \log\frac2{\sqrt{2\pi n}} + o(1)$.
 Consecutive values of $N$ are $1/\sqrt n$ apart in $x$, so the probability per unit $x$ is $\frac2{\sqrt{2\pi}}e^{-2x^2}$, the density of
-$N(0, \tfrac14)$; and $\operatorname{Var}x = \operatorname{Var}N/n = \tfrac14$, matching the theorem.
+$\mathcal N(0, \tfrac14)$; and $\operatorname{Var}x = \operatorname{Var}N/n = \tfrac14$, matching the theorem.
 :::
 ::::
 
@@ -3061,7 +3061,7 @@ of any number of variables.
 ::: {#thm-wick-moments}
 #### Wick's theorem for Gaussian moments
 
-If $X \sim N(0, \sigma^2)$ then $\mathbb{E}X^{2n+1} = 0$ and
+If $X \sim \mathcal N(0, \sigma^2)$ then $\mathbb{E}X^{2n+1} = 0$ and
 $$\mathbb{E}X^{2n} = (2n - 1)!!\,\sigma^{2n} = (2n - 1)(2n - 3)\cdots 3 \cdot 1\;\sigma^{2n},$$
 where $(2n - 1)!!$ is the number of ways to partition $2n$ labelled points into $n$ unordered pairs (**pairings**
 or **Wick contractions**). More generally, for jointly Gaussian variables of mean zero, $\mathbb{E}(X_1X_2\cdots
@@ -3107,9 +3107,9 @@ situation only one of them survives.
 ::: {#exm-lt-wick-multivariate}
 #### Four variables
 
-For jointly Gaussian $X_1, \dots, X_4$ of mean zero with covariances $C_{ij} = \mathbb{E}(X_iX_j)$,
-$\mathbb{E}(X_1X_2X_3X_4) = C_{12}C_{34} + C_{13}C_{24} + C_{14}C_{23}$. If $X$ and $Y$ are independent $N(0,
-\sigma^2)$, then $\mathbb{E}(X^2Y^2) = C_{XX}C_{YY} + 0 + 0 = \sigma^4$, while $\mathbb{E}(X^4) = 3\sigma^4$: the
+For jointly Gaussian $X_1, \dots, X_4$ of mean zero with covariances $\Sigma_{ij} = \mathbb{E}(X_iX_j)$,
+$\mathbb{E}(X_1X_2X_3X_4) = \Sigma_{12}\Sigma_{34} + \Sigma_{13}\Sigma_{24} + \Sigma_{14}\Sigma_{23}$. If $X$ and $Y$ are independent $\mathcal N(0,
+\sigma^2)$, then $\mathbb{E}(X^2Y^2) = \Sigma_{XX}\Sigma_{YY} + 0 + 0 = \sigma^4$, while $\mathbb{E}(X^4) = 3\sigma^4$: the
 two extra pairings are the correlations of $X$ with itself. With correlation $\mathbb{E}(XY) = c$ the formula gives
 $\mathbb{E}(X^2Y^2) = \sigma^4 + 2c^2$ (@exr-lt-wick-bivariate-sage).
 :::
@@ -3123,7 +3123,7 @@ confirms the recursion step by step.
 ::: {#exr-lt-wick-moments-sage}
 #### Moments and pairings in Sage
 
-Compute $\mathbb{E}X^{2n}$ for $X \sim N(0, \sigma^2)$ and $n \leq 6$ by symbolic integration, check the recursion
+Compute $\mathbb{E}X^{2n}$ for $X \sim \mathcal N(0, \sigma^2)$ and $n \leq 6$ by symbolic integration, check the recursion
 $\mathbb{E}X^{2n} = (2n - 1)\sigma^2\,\mathbb{E}X^{2n-2}$, and count the pairings of $2n$ points with
 `SetPartitions(2n, [2]*n)` for $n \leq 6$.
 :::
@@ -3166,7 +3166,7 @@ general form, Stein's identity, from which the recursion is the special case $f(
 ::: {#exr-lt-stein-identity}
 #### Stein's identity
 
-Show that for $X \sim N(0, \sigma^2)$ and every differentiable $f$ with $f(x)e^{-x^2/2\sigma^2} \to 0$ at $\pm
+Show that for $X \sim \mathcal N(0, \sigma^2)$ and every differentiable $f$ with $f(x)e^{-x^2/2\sigma^2} \to 0$ at $\pm
 \infty$, $\mathbb{E}[Xf(X)] = \sigma^2\,\mathbb{E}[f'(X)]$. Derive the moment recursion from it, and use it to
 compute $\mathbb{E}[Xe^{aX}]$.
 :::
@@ -3186,13 +3186,13 @@ moments $\mathbb{E}(X^2Y^2)$ and $\mathbb{E}(X^3Y)$ with a general covariance ma
 #### Two correlated Gaussians
 
 For the density proportional to $\exp\bigl(-\tfrac12(x, y)A(x, y)^\top\bigr)$ with $A = \begin{pmatrix} a & b \\ b
-& d\end{pmatrix}$ positive definite, compute in Sage the covariances $C = A^{-1}$ and verify by symbolic
-integration that $\mathbb{E}(X^2Y^2) = C_{xx}C_{yy} + 2C_{xy}^2$ and $\mathbb{E}(X^3Y) = 3C_{xx}C_{xy}$ for a
+& d\end{pmatrix}$ positive definite, compute in Sage the covariances $\Sigma = A^{-1}$ and verify by symbolic
+integration that $\mathbb{E}(X^2Y^2) = \Sigma_{xx}\Sigma_{yy} + 2\Sigma_{xy}^2$ and $\mathbb{E}(X^3Y) = 3\Sigma_{xx}\Sigma_{xy}$ for a
 numerical choice such as $a = 2, b = 1, d = 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $A = \begin{pmatrix}2 & 1\\ 1 & 3\end{pmatrix}$, $C = \tfrac15\begin{pmatrix}3 & -1\\ -1 & 2\end{pmatrix}$, and
+With $A = \begin{pmatrix}2 & 1\\ 1 & 3\end{pmatrix}$, $\Sigma = \tfrac15\begin{pmatrix}3 & -1\\ -1 & 2\end{pmatrix}$, and
 the integrals give $\mathbb{E}(X^2Y^2) = \tfrac{6}{25} + \tfrac{2}{25} = \tfrac{8}{25}$ and $\mathbb{E}(X^3Y) = -
 \tfrac{9}{25}$, as the pairings predict:
 
@@ -3200,28 +3200,28 @@ the integrals give $\mathbb{E}(X^2Y^2) = \tfrac{6}{25} + \tfrac{2}{25} = \tfrac{
 x, y = var("x y")
 A = matrix(QQ, [[2, 1], [1, 3]])
 C = A.inverse()
-print("covariance matrix C = A^-1 =\n", C)
+print("covariance matrix Sigma = A^-1 =\n", C)
 Q = (vector([x, y]) * A * vector([x, y])) / 2
 Z = integrate(integrate(exp(-Q), y, -oo, oo), x, -oo, oo)
 print("normalisation Z =", Z.simplify_full(), "= 2 pi / sqrt(det A):", bool((Z / (2 * pi / sqrt(A.det()))).canonicalize_radical() == 1))
 E = lambda f: (integrate(integrate(f * exp(-Q), y, -oo, oo), x, -oo, oo) / Z).simplify_full()
-print("E X^2 =", E(x ** 2), ", E Y^2 =", E(y ** 2), ", E XY =", E(x * y), "; equal to C:", bool(E(x ** 2) == C[0, 0]) and bool(E(y ** 2) == C[1, 1]) and bool(E(x * y) == C[0, 1]))
-print("E X^2 Y^2 =", E(x ** 2 * y ** 2), "; Wick: Cxx Cyy + 2 Cxy^2 =", C[0, 0] * C[1, 1] + 2 * C[0, 1] ** 2, ":", bool(E(x ** 2 * y ** 2) == C[0, 0] * C[1, 1] + 2 * C[0, 1] ** 2))
-print("E X^3 Y =", E(x ** 3 * y), "; Wick: 3 Cxx Cxy =", 3 * C[0, 0] * C[0, 1], ":", bool(E(x ** 3 * y) == 3 * C[0, 0] * C[0, 1]))
-print("E X^4 =", E(x ** 4), "; Wick: 3 Cxx^2 =", 3 * C[0, 0] ** 2, ":", bool(E(x ** 4) == 3 * C[0, 0] ** 2))
+print("E X^2 =", E(x ** 2), ", E Y^2 =", E(y ** 2), ", E XY =", E(x * y), "; equal to Sigma:", bool(E(x ** 2) == C[0, 0]) and bool(E(y ** 2) == C[1, 1]) and bool(E(x * y) == C[0, 1]))
+print("E X^2 Y^2 =", E(x ** 2 * y ** 2), "; Wick: Sigma_xx Sigma_yy + 2 Sigma_xy^2 =", C[0, 0] * C[1, 1] + 2 * C[0, 1] ** 2, ":", bool(E(x ** 2 * y ** 2) == C[0, 0] * C[1, 1] + 2 * C[0, 1] ** 2))
+print("E X^3 Y =", E(x ** 3 * y), "; Wick: 3 Sigma_xx Sigma_xy =", 3 * C[0, 0] * C[0, 1], ":", bool(E(x ** 3 * y) == 3 * C[0, 0] * C[0, 1]))
+print("E X^4 =", E(x ** 4), "; Wick: 3 Sigma_xx^2 =", 3 * C[0, 0] ** 2, ":", bool(E(x ** 4) == 3 * C[0, 0] ** 2))
 ```
 
 *Output:*
 
 ```text
-covariance matrix C = A^-1 =
+covariance matrix Sigma = A^-1 =
  [ 3/5 -1/5]
 [-1/5  2/5]
 normalisation Z = 1/15*sqrt(6)*sqrt(5)*sqrt(3)*sqrt(2)*pi = 2 pi / sqrt(det A): True
-E X^2 = 3/5 , E Y^2 = 2/5 , E XY = -1/5 ; equal to C: True
-E X^2 Y^2 = 8/25 ; Wick: Cxx Cyy + 2 Cxy^2 = 8/25 : True
-E X^3 Y = -9/25 ; Wick: 3 Cxx Cxy = -9/25 : True
-E X^4 = 27/25 ; Wick: 3 Cxx^2 = 27/25 : True
+E X^2 = 3/5 , E Y^2 = 2/5 , E XY = -1/5 ; equal to Sigma: True
+E X^2 Y^2 = 8/25 ; Wick: Sigma_xx Sigma_yy + 2 Sigma_xy^2 = 8/25 : True
+E X^3 Y = -9/25 ; Wick: 3 Sigma_xx Sigma_xy = -9/25 : True
+E X^4 = 27/25 ; Wick: 3 Sigma_xx^2 = 27/25 : True
 ```
 :::
 ::::
@@ -3265,9 +3265,9 @@ of the position and its Gaussian approximation [@foulaadvand2023computational, e
 ::: {#exm-rw-distribution}
 #### Where the walker is after $N$ steps
 
-With $R$ right steps among $N$, $X_N = (2R - N)a$, and $R \sim \mathrm{Binomial}(N, p)$ by @def-binomial-distribution. Hence $P(X_N = ma) =
+With $R$ right steps among $N$, $X_N = (2R - N)a$, and $R \sim \operatorname{Bin}(N, p)$ by @def-binomial-distribution. Hence $\mathbb P(X_N = ma) =
 \binom N{(N + m)/2}p^{(N + m)/2}q^{(N - m)/2}$ for $|m| \leq N$ with $m$ of the parity of $N$, and $0$ otherwise. By
-@thm-central-limit-theorem, $(X_N - N(p - q)a)/\sqrt{4pqNa^2}$ is approximately $N(0, 1)$; for the symmetric walk, $P(X_N = ma) \approx
+@thm-central-limit-theorem, $(X_N - N(p - q)a)/\sqrt{4pqNa^2}$ is approximately $\mathcal N(0, 1)$; for the symmetric walk, $\mathbb P(X_N = ma) \approx
 \frac2{\sqrt{2\pi N}}e^{-m^2/2N}$, the factor $2$ because only every second site can be occupied.
 :::
 
@@ -3299,8 +3299,8 @@ What is the probability that after $10^4$ steps he is more than $200$ units from
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbb{E}(\sum_is_i)^2 = \sum_i\mathbb{E}s_i^2 + \sum_{i \neq j}\mathbb{E}s_i\,\mathbb{E}s_j = T + 0$. By the central limit theorem $x(T)/\sqrt T \to N(0, 1)$.
-At $T = 10^4$, $200 = 2\sqrt T$, so the probability is about $P(|Z| > 2) = 0.046$; the sailor is typically $100$ units away
+$\mathbb{E}(\sum_is_i)^2 = \sum_i\mathbb{E}s_i^2 + \sum_{i \neq j}\mathbb{E}s_i\,\mathbb{E}s_j = T + 0$. By the central limit theorem $x(T)/\sqrt T \to \mathcal N(0, 1)$.
+At $T = 10^4$, $200 = 2\sqrt T$, so the probability is about $\mathbb P(|Z| > 2) = 0.046$; the sailor is typically $100$ units away
 after $10^4$ steps of one unit, which is the inefficiency of diffusion compared with straight motion.
 :::
 
@@ -3313,7 +3313,7 @@ position, and its mean obeys a differential equation. The second exercise solves
 
 $N$ particles start in the left half of a box; at each step one particle, chosen at random, moves to the other half.
 The number $n_t$ in the left half moves to $n - 1$ with probability $n/N$ and to $n + 1$ with probability $(N - n)/N$. Show that
-$\mathbb{E}n_{t + 1} = (1 - \frac2N)\mathbb{E}n_t + 1$, so $\mathbb{E}n_t = \frac N2 + \frac N2(1 - \frac2N)^t \approx \frac N2(1 + e^{-2t/N})$, and that $\mathrm{Binomial}(N,
+$\mathbb{E}n_{t + 1} = (1 - \frac2N)\mathbb{E}n_t + 1$, so $\mathbb{E}n_t = \frac N2 + \frac N2(1 - \frac2N)^t \approx \frac N2(1 + e^{-2t/N})$, and that $\operatorname{Bin}(N,
 \tfrac12)$ is stationary. Check both with Sage's exact transition matrix for $N = 8, 64$, and simulate $N = 400$ to measure the
 relative fluctuation of $n$ about $N/2$.
 :::
@@ -3396,7 +3396,7 @@ partial differential equation. The proposition derives it and identifies it with
 ::: {#prp-rw-diffusion-limit}
 #### The diffusion limit of the random walk
 
-Let $P_N(m) = P(X_N = ma)$ for the walk of @def-random-walk. It obeys the **master equation**
+Let $P_N(m) = \mathbb P(X_N = ma)$ for the walk of @def-random-walk. It obeys the **master equation**
 $$P_{N + 1}(m) = pP_N(m - 1) + qP_N(m + 1).$$
 Let $a, \Delta t \to 0$ with $D = \frac{a^2}{2\Delta t}$ fixed and $v = (p - q)\frac{a}{\Delta t}$ fixed, and let $\rho(t, x)$ be a smooth function with $P_N(m) \approx
 a\rho(N\Delta t, ma)$. Then $\rho$ satisfies the **drift-diffusion equation**
@@ -3452,7 +3452,7 @@ limit. The third example sets up the master equation with walls, correcting the 
 
 On the sites $-L, \dots, L$, a walker at $\pm L$ steps back to $\pm(L - 1)$. The master equation is $P_{N + 1}(m) = \frac12P_N(m - 1) +
 \frac12P_N(m + 1)$ for $|m| \leq L - 2$, with $P_{N + 1}(\pm(L - 1)) = P_N(\pm L) + \frac12P_N(\pm(L - 2))$ and $P_{N + 1}(\pm L) = \frac12P_N(\pm(L -
-1))$. The source omits the factors $\frac12$ and imposes $P(\pm L) = 0$, which describes absorbing, not reflecting, walls.
+1))$. The source omits the factors $\frac12$ and imposes $\mathbb P(\pm L) = 0$, which describes absorbing, not reflecting, walls.
 The distribution in which every interior site has weight $1$ and the two walls weight $\frac12$, normalised, is
 stationary; since the position changes parity at every step, at even times the walk started at $0$ converges to this
 distribution restricted to the sites of even parity.
@@ -3542,21 +3542,21 @@ L = 100, x0 = 50: simulated mean 2450.7 +- 44.2 (standard error), x0(L - x0) = 2
 ```
 :::
 
-The entropy $-\sum P\ln P$ of the distribution of the walk measures how far it has spread, and with walls it must
+The entropy $-\sum P\log P$ of the distribution of the walk measures how far it has spread, and with walls it must
 level off. The last exercise computes it from the master equation of @exm-rw-reflecting [@foulaadvand2023computational,
 Problem 10.12].
 
 ::: {#exr-rw-entropy}
 #### Entropy growth between walls
 
-For the walk between reflecting walls at $\pm L$ started at $0$, compute with Sage the entropy $S(N) = -\sum_mP_N(m)\ln P_N(m)$ for
-$L = 10$ and $L = 50$ up to $N = 20000$. Compare $S$ at early times with the entropy $\frac12\ln(2\pi eN) - \ln2$ of the lattice
+For the walk between reflecting walls at $\pm L$ started at $0$, compute with Sage the entropy $S(N) = -\sum_mP_N(m)\log P_N(m)$ for
+$L = 10$ and $L = 50$ up to $N = 20000$. Compare $S$ at early times with the entropy $\frac12\log(2\pi eN) - \log2$ of the lattice
 Gaussian, and the late value with the entropy of the stationary distribution on the sites of even parity.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Early on the walls are not felt and $S(N) \approx \frac12\ln(2\pi eN) - \ln2$: the Gaussian of variance $N$ on every second site. Once
-$\sqrt N$ reaches $L$ the entropy saturates at the value for the stationary distribution, slightly above $\ln L$ (about
+Early on the walls are not felt and $S(N) \approx \frac12\log(2\pi eN) - \log2$: the Gaussian of variance $N$ on every second site. Once
+$\sqrt N$ reaches $L$ the entropy saturates at the value for the stationary distribution, slightly above $\log L$ (about
 $L + 1$ even sites, the two walls with half weight):
 
 ```python
@@ -3591,7 +3591,7 @@ L = 50: S(10) = 1.8760, S(100) = 3.0284, S(1000) = 3.9026, S(5000) = 3.9259, S(2
 ```
 
 The entropy rises from $0$ to its limit, though not at every single step: near saturation it alternates slightly
-between even and odd times. What decreases at every step is the relative entropy $\sum_mP_N(m)\ln(P_N(m)/\pi(m))$ with respect
+between even and odd times. What decreases at every step is the relative entropy $\sum_mP_N(m)\log(P_N(m)/\pi(m))$ with respect
 to the stationary distribution $\pi$, a general property of Markov chains. The saturation time grows like $L^2$, the
 diffusive time to cross the box.
 :::
@@ -3609,9 +3609,9 @@ limit, are collected in one proposition. All of them are exact except the compar
 ::: {#prp-limit-theorem-values}
 #### Limit theorems on the running examples
 
-For the sum of two dice, $P(|S - 7| \geq k\sigma) \leq 1/k^2$ holds exactly for $k = 1, \tfrac32, 2, 3$; the mean of
-$n$ coin flips has variance $1/4n$ and $P(|\bar X_{100} - \tfrac12| \geq 0.1) = 0.057 \leq \tfrac14$; the exact
-$P(|S_n - 7n/2| \leq \sigma\sqrt n)$ for $n$ dice is within $0.02$ of $\operatorname{erf}(1/\sqrt2)$ at $n = 30$;
+For the sum of two dice, $\mathbb P(|S - 7| \geq k\sigma) \leq 1/k^2$ holds exactly for $k = 1, \tfrac32, 2, 3$; the mean of
+$n$ coin flips has variance $1/4n$ and $\mathbb P(|\bar X_{100} - \tfrac12| \geq 0.1) = 0.057 \leq \tfrac14$; the exact
+$\mathbb P(|S_n - 7n/2| \leq \sigma\sqrt n)$ for $n$ dice is within $0.02$ of $\operatorname{erf}(1/\sqrt2)$ at $n = 30$;
 $\mathbb{E}X^{2n} = (2n - 1)!!\,\sigma^{2n}$ for $n \leq 5$ with vanishing odd moments; the pairings of $2n$ points
 number $1, 3, 15, 105, 945$; and $n\log\cos(t/\sqrt n) \to -t^2/2$.
 :::
@@ -3665,7 +3665,7 @@ thresholds in Sage.
 ::: {#exr-lt-three-dice-chebyshev}
 #### Three dice against the bounds
 
-For the sum of three dice ($\mu = 10.5$, $\sigma^2 = 35/4$), compute exactly $P(|S_3 - 10.5| \geq k\sigma)$ for $k =
+For the sum of three dice ($\mu = 10.5$, $\sigma^2 = 35/4$), compute exactly $\mathbb P(|S_3 - 10.5| \geq k\sigma)$ for $k =
 1, \tfrac32, 2$, and compare with $1/k^2$ and with the Gaussian $1 - \operatorname{erf}(k/\sqrt2)$.
 :::
 
@@ -3721,17 +3721,17 @@ the content of the last exercise. It is the same linear algebra as the normalisa
 ::: {#exr-lt-wick-reduction}
 #### Reducing many variables to one
 
-Let $X = (X_1, \dots, X_m)$ be Gaussian with mean zero and covariance $C$, and let $u \in \mathbb{R}^m$. Show that
-$u \cdot X$ is $N(0, u^\top Cu)$, deduce $\mathbb{E}(u \cdot X)^4 = 3(u^\top Cu)^2$, and show that expanding both
-sides in the components of $u$ gives the pairing formula for $\mathbb{E}(X_iX_jX_kX_l)$.
+Let $\mathbf X = (X_1, \dots, X_m)$ be Gaussian with mean zero and covariance $\Sigma$, and let $\mathbf u \in \mathbb{R}^m$. Show that
+$\mathbf u \cdot \mathbf X$ is $\mathcal N(0, \mathbf u^\top\Sigma\mathbf u)$, deduce $\mathbb{E}(\mathbf u \cdot \mathbf X)^4 = 3(\mathbf u^\top\Sigma\mathbf u)^2$, and show that expanding both
+sides in the components of $\mathbf u$ gives the pairing formula for $\mathbb{E}(X_iX_jX_kX_l)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$u \cdot X$ is a linear combination of jointly Gaussian variables, hence Gaussian, with variance
-$\sum_{ij}u_iu_jC_{ij} = u^\top Cu$; Wick's one-variable theorem gives the fourth moment $3(u^\top Cu)^2$. The
+$\mathbf u \cdot \mathbf X$ is a linear combination of jointly Gaussian variables, hence Gaussian, with variance
+$\sum_{ij}u_iu_j\Sigma_{ij} = \mathbf u^\top\Sigma\mathbf u$; Wick's one-variable theorem gives the fourth moment $3(\mathbf u^\top\Sigma\mathbf u)^2$. The
 left side is $\sum_{ijkl}u_iu_ju_ku_l\,\mathbb{E}(X_iX_jX_kX_l)$ and the right side is $3\sum
-u_iu_ju_ku_l\,C_{ij}C_{kl}$; symmetrising the right side over the $4!$ orderings of $(i, j, k, l)$ turns the
-single product into the average of the three pairings $C_{ij}C_{kl}, C_{ik}C_{jl}, C_{il}C_{jk}$ (each appearing
+u_iu_ju_ku_l\,\Sigma_{ij}\Sigma_{kl}$; symmetrising the right side over the $4!$ orderings of $(i, j, k, l)$ turns the
+single product into the average of the three pairings $\Sigma_{ij}\Sigma_{kl}, \Sigma_{ik}\Sigma_{jl}, \Sigma_{il}\Sigma_{jk}$ (each appearing
 $8$ times among $24$), and comparing coefficients of the symmetric tensor $u_iu_ju_ku_l$ gives the formula.
 :::
 ::::
@@ -3895,7 +3895,7 @@ X_i^2 - \bar X^2$ consistent for $\sigma^2$?
 $\hat\sigma^2 = \tfrac1n\sum X_i^2 - \bar X^2$, and both terms converge in probability by the weak law ($\tfrac1n
 \sum X_i^2 \to \mathbb{E}X^2$, $\bar X \to \mu$, and continuous functions preserve convergence in probability),
 so $\hat\sigma^2 \to \mathbb{E}X^2 - \mu^2 = \sigma^2$; the factor $\tfrac{n}{n-1}$ tends to $1$, so $s^2$ is
-consistent too. $X_1$ has mean $\mu$ but its distribution does not change with $n$, so $P(|X_1 - \mu| \geq
+consistent too. $X_1$ has mean $\mu$ but its distribution does not change with $n$, so $\mathbb P(|X_1 - \mu| \geq
 \varepsilon)$ does not tend to $0$. The last expression is $\hat\sigma^2$ itself, hence consistent.
 :::
 ::::
@@ -3915,7 +3915,7 @@ For a random sample $x_1, \dots, x_n$ from a family of distributions with mass f
 the fixed data, and the **log-likelihood** is $\ell(\theta) = \log L(\theta) = \sum_i\log f(x_i \mid \theta)$. The
 **maximum likelihood estimator** $\hat\theta$ is the value maximising $L$, found in regular cases by solving
 $\ell'(\theta) = 0$. Under regularity conditions $\hat\theta_n$ is consistent and $\sqrt n(\hat\theta_n - \theta)
-\to N(0, 1/I(\theta))$ in distribution, where $I(\theta) = -\mathbb{E}\,\partial_\theta^2\log f(X \mid \theta)$ is
+\to \mathcal N(0, 1/I(\theta))$ in distribution, where $I(\theta) = -\mathbb{E}\,\partial_\theta^2\log f(X \mid \theta)$ is
 the **Fisher information** of one observation.
 :::
 ::::
@@ -4034,7 +4034,7 @@ checks that the sample mean attains the bound, which is why it is the estimator 
 ::: {#exr-st-cramer-rao}
 #### The Cramér-Rao bound for the Gaussian mean
 
-Compute the Fisher information $I(\mu)$ of one $N(\mu, \sigma^2)$ observation (with $\sigma$ known), state the
+Compute the Fisher information $I(\mu)$ of one $\mathcal N(\mu, \sigma^2)$ observation (with $\sigma$ known), state the
 Cramér-Rao bound $\operatorname{Var}\hat\mu \geq 1/nI(\mu)$ for unbiased estimators, and verify that the sample
 mean attains it. Does the sample median, with asymptotic variance $\pi\sigma^2/2n$, attain it?
 :::
@@ -4059,9 +4059,9 @@ interval.
 #### Confidence interval
 
 A **confidence interval** of level $1 - \alpha$ for a parameter $\theta$ is a random interval $[A_n, B_n]$
-computed from the sample such that $P(A_n \leq \theta \leq B_n) \geq 1 - \alpha$ for every $\theta$. If
-$\hat\theta_n$ is approximately $N(\theta, \tau^2/n)$ by @thm-central-limit-theorem, the interval
-$$\hat\theta_n \pm z_{\alpha/2}\,\frac{\tau}{\sqrt n}, \qquad P(|Z| \leq z_{\alpha/2}) = 1 - \alpha,$$
+computed from the sample such that $\mathbb P(A_n \leq \theta \leq B_n) \geq 1 - \alpha$ for every $\theta$. If
+$\hat\theta_n$ is approximately $\mathcal N(\theta, \tau^2/n)$ by @thm-central-limit-theorem, the interval
+$$\hat\theta_n \pm z_{\alpha/2}\,\frac{\tau}{\sqrt n}, \qquad \mathbb P(|Z| \leq z_{\alpha/2}) = 1 - \alpha,$$
 has approximate level $1 - \alpha$, with $z_{0.025} = 1.960$ for $95\%$ and $z_{0.005} = 2.576$ for $99\%$; when
 $\tau$ is unknown it is replaced by a consistent estimate such as $s$. The probability statement is about the
 interval, which is random, not about $\theta$, which is fixed.
@@ -4075,8 +4075,8 @@ Gaussian, and the first example gives it. The interpretation in terms of repeate
 ::: {#exm-st-ci-mean}
 #### The mean of a Gaussian sample
 
-If $X_i \sim N(\mu, \sigma^2)$ with $\sigma$ known, $\bar X \sim N(\mu, \sigma^2/n)$ exactly
-(@exm-rv-gaussian-sums), so $P(|\bar X - \mu| \leq 1.96\sigma/\sqrt n) = 0.95$ and $\bar X \pm 1.96\sigma/\sqrt
+If $X_i \sim \mathcal N(\mu, \sigma^2)$ with $\sigma$ known, $\bar X \sim \mathcal N(\mu, \sigma^2/n)$ exactly
+(@exm-rv-gaussian-sums), so $\mathbb P(|\bar X - \mu| \leq 1.96\sigma/\sqrt n) = 0.95$ and $\bar X \pm 1.96\sigma/\sqrt
 n$ is an exact $95\%$ interval. Of many such intervals computed from independent samples, $95\%$ contain $\mu$;
 a particular one either does or does not. With $\sigma$ replaced by $s$ the exact level needs Student's $t$
 distribution, and for $n \geq 30$ the Gaussian quantile is adequate.
@@ -4157,8 +4157,8 @@ the rate for which it is unusually small. The second exercise computes the exact
 ::: {#exr-st-poisson-exact-interval}
 #### An exact Poisson interval
 
-For an observed count $N = 3$, find numerically the $\lambda_{\mathrm{lo}}$ with $P(N \geq 3 \mid
-\lambda_{\mathrm{lo}}) = 0.025$ and the $\lambda_{\mathrm{hi}}$ with $P(N \leq 3 \mid \lambda_{\mathrm{hi}}) =
+For an observed count $N = 3$, find numerically the $\lambda_{\mathrm{lo}}$ with $\mathbb P(N \geq 3 \mid
+\lambda_{\mathrm{lo}}) = 0.025$ and the $\lambda_{\mathrm{hi}}$ with $\mathbb P(N \leq 3 \mid \lambda_{\mathrm{hi}}) =
 0.025$, and compare the interval $[\lambda_{\mathrm{lo}}, \lambda_{\mathrm{hi}}]$ with the Gaussian $3 \pm
 1.96\sqrt3$.
 :::
@@ -4224,7 +4224,7 @@ If the hypothesis is true and the $E_i$ are not too small (a rule of thumb is $E
 approximately the **chi-squared distribution** with $m - 1$ degrees of freedom, the distribution of a sum of $m -
 1$ squares of independent standard Gaussians, with mean $m - 1$ and variance $2(m - 1)$ (one degree is lost to
 $\sum O_i = n$, and one more for each parameter estimated from the data). The hypothesis is **rejected at level
-$\alpha$** if $\chi^2$ exceeds the $1 - \alpha$ quantile, equivalently if the **$p$-value** $P(\chi^2_{m-1} \geq
+$\alpha$** if $\chi^2$ exceeds the $1 - \alpha$ quantile, equivalently if the **$p$-value** $\mathbb P(\chi^2_{m-1} \geq
 \chi^2_{\mathrm{obs}})$ is below $\alpha$.
 :::
 ::::
@@ -4328,8 +4328,8 @@ that $Z_1^2 + Z_2^2$ is exponential with mean $2$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\mathbb{E}Z^2 = 1$ and $\operatorname{Var}Z^2 = \mathbb{E}Z^4 - 1 = 2$, and independence adds means and variances.
-$P(Z^2 \leq y) = 2\Phi(\sqrt y) - 1$, so the density is $\Phi'(\sqrt y)/\sqrt y = e^{-y/2}/\sqrt{2\pi y}$, which is
-the $\chi^2_1$ density ($\Gamma(\tfrac12) = \sqrt\pi$). For two variables, $P(Z_1^2 + Z_2^2 > r^2) =
+$\mathbb P(Z^2 \leq y) = 2\Phi(\sqrt y) - 1$, so the density is $\Phi'(\sqrt y)/\sqrt y = e^{-y/2}/\sqrt{2\pi y}$, which is
+the $\chi^2_1$ density ($\Gamma(\tfrac12) = \sqrt\pi$). For two variables, $\mathbb P(Z_1^2 + Z_2^2 > r^2) =
 \frac{1}{2\pi}\int_{|z| > r}e^{-|z|^2/2}d^2z = e^{-r^2/2}$ in polar coordinates, the survival function of an
 exponential variable with mean $2$ in the variable $r^2$.
 :::
@@ -4372,12 +4372,12 @@ falls like $1/\sqrt N$. Generated by `figures/monte_carlo_pi.sage`.](figures/mon
 ::: {#def-monte-carlo-estimate}
 #### Monte Carlo estimate
 
-To compute $I = \mathbb{E}\,g(X) = \int g\,dP_X$, draw independent samples $X_1, \dots, X_N$ from $P_X$ and form the
+To compute $I = \mathbb{E}\,g(X) = \int g\,d\mathbb P_X$, draw independent samples $X_1, \dots, X_N$ from $\mathbb P_X$ and form the
 **Monte Carlo estimate**
 $$\hat I_N = \frac1N\sum_{i=1}^N g(X_i), \qquad \mathbb{E}\hat I_N = I, \qquad \operatorname{Var}\hat I_N =
 \frac{\operatorname{Var}g(X)}{N}.$$
 By the strong law $\hat I_N \to I$ almost surely, and by the central limit theorem the error is approximately
-$N(0, \tau^2/N)$ with $\tau^2 = \operatorname{Var}g(X)$, estimated from the same samples by the sample variance of
+$\mathcal N(0, \tau^2/N)$ with $\tau^2 = \operatorname{Var}g(X)$, estimated from the same samples by the sample variance of
 the $g(X_i)$: the **statistical error** is $\tau/\sqrt N$, whatever the dimension of $X$. Halving the error costs
 four times the samples; reducing $\tau$ by a better choice of sampling distribution (**importance sampling**) or
 of $g$ is the other route.
@@ -4528,7 +4528,7 @@ independent standard Gaussians.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(F^{-1}(U) \leq x) = P(U \leq F(x)) = F(x)$. For the exponential, $F^{-1}(u) = -\lambda^{-1}\log(1 - u)$, or
+$\mathbb P(F^{-1}(U) \leq x) = \mathbb P(U \leq F(x)) = F(x)$. For the exponential, $F^{-1}(u) = -\lambda^{-1}\log(1 - u)$, or
 equivalently $-\lambda^{-1}\log U$ since $1 - U$ is also uniform. For Box-Muller, $R^2 = -2\log U_1$ is exponential
 with mean $2$ and $\Theta = 2\pi U_2$ is uniform and independent of $R$; by @exr-st-chi-squared-moments this is
 exactly the joint distribution of $(Z_1^2 + Z_2^2, \arg(Z_1, Z_2))$ for independent standard Gaussians, whose
@@ -4550,7 +4550,7 @@ this section.
 $\mathbb{E}\bar X = \mu$ and $\mathbb{E}s^2 = \sigma^2$ with the divisor $n - 1$ (and $\tfrac{n-1}{n}\sigma^2$ with
 the divisor $n$) for $n = 3, 4, 5$, by symbolic expectation; the Gaussian maximum likelihood estimates for the data
 $(1, 2, 2, 5)$ are $\hat\mu = \tfrac52$ and $\hat\sigma^2 = \tfrac94$, and the Poisson estimate for the counts $(2,
-0, 3, 1, 4)$ is $\hat\lambda = 2$; $P(|Z| \leq 1.96) = 0.9500$ and $P(|Z| \leq 1) = 0.6827$; the die counts $(8,
+0, 3, 1, 4)$ is $\hat\lambda = 2$; $\mathbb P(|Z| \leq 1.96) = 0.9500$ and $\mathbb P(|Z| \leq 1) = 0.6827$; the die counts $(8,
 12, 9, 11, 7, 13)$ give $\chi^2 = \tfrac{14}{5}$ with $p$-value $0.73$; the quarter-disc indicator has variance
 $\tfrac\pi4(1 - \tfrac\pi4)$, and the $42$ seeded errors of @fig-monte-carlo-pi are within three predicted standard
 deviations.
@@ -4679,7 +4679,7 @@ How does importance sampling with a density $q$ under which the event has probab
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\operatorname{Var}\hat p = p(1 - p)/N$, so the relative error is $\sqrt{(1 - p)/pN}$, and a $10\%$ relative error
 needs $N = 100(1 - p)/p$: $100$, $10^5$ and $10^8$ trials. Under $q$ the estimator is the average of
-$\mathbf{1}_A\,(dP/dq)$, whose variance depends on how well $q$ matches $P$ on $A$; if the likelihood ratio is
+$\mathbb 1_A\,(d\mathbb P/dq)$, whose variance depends on how well $q$ matches $\mathbb P$ on $A$; if the likelihood ratio is
 nearly constant on $A$ the relative error is again about $\sqrt{1/N}$ and $N = 100$ suffices, a gain of six orders
 of magnitude at $p = 10^{-6}$.
 :::
@@ -4810,9 +4810,9 @@ moments alone do not show.
 ::: {#exr-pr-simulation-study}
 #### A complete simulation study
 
-With a fixed seed, generate $N = 5000$ samples from the mixture that draws from $N(-1, 1)$ or $N(1, 1)$ with
+With a fixed seed, generate $N = 5000$ samples from the mixture that draws from $\mathcal N(-1, 1)$ or $\mathcal N(1, 1)$ with
 probability $\tfrac12$ each. Compute $\bar x$ and $s^2$ with $95\%$ confidence intervals, compare with the exact
-mean $0$ and variance $2$ (prove the latter with the law of total probability), fit a single Gaussian $N(\bar x,
+mean $0$ and variance $2$ (prove the latter with the law of total probability), fit a single Gaussian $\mathcal N(\bar x,
 s^2)$ by maximum likelihood, bin the data into ten equiprobable bins of the fitted Gaussian and compute the
 chi-squared statistic with $10 - 1 - 2 = 7$ degrees of freedom. Is the single Gaussian rejected?
 :::

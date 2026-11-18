@@ -1,0 +1,105 @@
+---
+pagetitle: "Notation"
+---
+
+# Notation {#sec-fundamentals-of-theoretical-physics-notation}
+
+This page fixes the notation of the whole tutorial. The tables are shared with the other tutorials of the site, so a
+symbol means the same thing here as in [Fundamentals of Mathematics for Physicists](../../fundamentals-of-mathematics-for-physicists/index.qmd)
+and [Kaluza-Klein Theories](../../kaluza-klein-theories/index.qmd). The chapters follow this notation, including the metric
+signature and the other sign and normalisation conventions, whatever notation their sources use; where a chapter
+quotes a source's convention, it says so and names the source. The last section lists what is particular to this
+tutorial.
+
+## Sets and logic
+
+{{< include ../../_notation/sets-logic.qmd >}}
+
+## Linear algebra
+
+{{< include ../../_notation/linear-algebra.qmd >}}
+
+## Analysis
+
+{{< include ../../_notation/analysis.qmd >}}
+
+## Probability and statistics
+
+{{< include ../../_notation/probability-statistics.qmd >}}
+
+## Geometry and spacetime
+
+{{< include ../../_notation/geometry-spacetime.qmd >}}
+
+## Curvature and gravity
+
+{{< include ../../_notation/curvature-gravity.qmd >}}
+
+## Groups and algebras
+
+{{< include ../../_notation/groups-algebras.qmd >}}
+
+## Fields and particles
+
+{{< include ../../_notation/fields-particles.qmd >}}
+
+## Units
+
+{{< include ../../_notation/units.qmd >}}
+
+## Conventions specific to this tutorial
+
+These symbols are used only in this tutorial, or depart from the shared tables for a stated reason.
+
+| Symbol | Meaning |
+|---|---|
+| $A$, $\gamma^\mu$, $\Lambda^\mu{}_\nu$ | matrices are written plain, as in the physics literature, since their entries carry indices; the identity matrix is $1$ |
+| $\gamma = (1 - v^2)^{-1/2}$ | Lorentz factor (never with an index, unlike $\gamma^\mu$) |
+| $\tau$ | proper time |
+| $\hat{\mathbf n}$, $\hat{\mathbf r}$ | unit vector, unit vector along $\mathbf r$ (a hat on a bold vector) |
+| $\hat a$, $\hat\phi$, $\hat H$ | in the quantum-field-theory chapter, a hat marks an operator as opposed to a classical field; elsewhere operators carry no hat |
+| $\tilde f$ | in the quantum-field-theory chapter, Fourier transform (the hat being taken by operators); elsewhere $\hat f$ |
+| $H$ | Hamiltonian; in general relativity, the Hubble rate |
+| $L$ | Lagrangian of a mechanical system; $\mathcal L$ is a Lagrangian density |
+| $\pi = \partial\mathcal L/\partial\dot\phi$ | canonical momentum density |
+| $\hat P^\mu$, $\hat M^{\mu\nu}$, $\hat J_i$, $\hat K_i$, $\hat W^\mu$ | in the special-relativity chapter, the Hermitian generators $\hat X = \pm i\,dU(X)$ of a unitary representation, kept apart from the Lie-algebra elements $P^\mu$, $M^{\mu\nu}$, $J_i$, $K_i$; and the Pauli-Lubanski vector built from them |
+| $\tilde\psi(p)$ | momentum wave function, $\tilde\psi(p) = (2\pi\hbar)^{-1/2}\int\psi(x)\,e^{-ipx/\hbar}\,dx$: the unitary transform with $\hbar$, not the Fourier transform $\hat\psi$ |
+| $\mathcal E$ | electromotive force |
+| $\Phi_B$ | magnetic flux through a surface (always with its subscript, since $\Phi$ is the scalar potential) |
+| $\alpha = e^2/(4\pi)$ | fine-structure constant (with $\hbar = c = 1$) |
+| $\Lambda_{\mathrm{UV}}$, $\Lambda_{\mathrm{QCD}}$ | ultraviolet cutoff, confinement scale |
+| $\beta = \gamma^0$ | Dirac matrix of the Hamiltonian form of the Dirac equation |
+| $\beta(g)$ | beta function of a coupling $g$ |
+| $\gamma_\phi$ | anomalous dimension of a field $\phi$ |
+| $\mu$ | renormalisation scale |
+| $r$ | radius of a compact extra dimension, $y \sim y + 2\pi r$, as in Kaluza-Klein theories; $R$ stays the curvature scalar |
+| $G_F$ | Fermi constant |
+| $\mathcal D\phi$ | path-integral measure |
+| $i\mathcal M$ | invariant amplitude |
+| $D_F$, $S_F$ | Feynman propagators of a scalar and of a Dirac field |
+| $c$, $\bar c$ | Faddeev-Popov ghost and antighost (gauge-theory chapters) |
+| $Q_\alpha$, $\bar Q_{\dot\alpha}$ | supercharges; $\alpha$, $\dot\alpha$ two-component spinor indices |
+| $W$, $K$ | superpotential, Kähler potential |
+| $\hat\omega_\mu{}^{ab}$, $\hat D_\mu$, $\hat R$ | in supergravity, the spin connection with the gravitino torsion, and the covariant derivative and curvature built from it; $\hat\mu$, $\hat a$ are eleven-dimensional indices |
+| $\mathcal N$ | number of supersymmetries (the normal distribution $\mathcal N(\mu, \sigma^2)$ never appears in the same chapter) |
+
+### Units by chapter
+
+| Chapter | Units |
+|---|---|
+| Classical mechanics | no constant is set to $1$; plots and examples choose units such as $m = k = 1$ where they say so |
+| Classical electromagnetism | Heaviside-Lorentz with $c = 1$; SI where numbers are given |
+| Special relativity | $c = 1$; SI where numbers are given |
+| Thermodynamics and statistical mechanics | $k_B = 1$; $\hbar = 1$ where quantum mechanics enters |
+| Quantum mechanics | $\hbar$ explicit; plots use $\hbar = m = 1$ where they say so |
+| Classical field theory | $c = 1$, Heaviside-Lorentz |
+| The Dirac equation | $\hbar = c = 1$ |
+| Quantum field theory | $\hbar$ explicit in the first section, then $\hbar = c = 1$ |
+| Gauge theories, renormalisation | $\hbar = c = 1$ |
+| General relativity | $c = 1$, $G_N$ explicit |
+| Supersymmetry and supergravity | $\hbar = c = 1$ |
+
+- **Fourier transforms** follow the analysis table: $\hat f$, with $e^{-ik\cdot x}$ for positive-frequency modes and
+  $(2\pi)^4$ in the inverse transform on spacetime.
+- **Averages:** $\langle A\rangle$ is a quantum expectation value and $\langle\cdot\rangle_\beta$ a thermal average;
+  $\mathbb E$ is kept for classical random variables.

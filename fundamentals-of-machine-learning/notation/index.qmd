@@ -1,0 +1,55 @@
+---
+pagetitle: "Notation"
+---
+
+# Notation {#sec-fundamentals-of-machine-learning-notation}
+
+This page fixes the notation of the whole tutorial. The tables are shared with the other tutorials of the site, so a
+symbol means the same thing here as in
+[Fundamentals of Mathematics for Machine Learning](../../fundamentals-of-mathematics-for-machine-learning/index.qmd). The
+chapters follow this notation whatever notation their sources use; where a chapter quotes a source's convention, it
+says so and names the source. The last section lists what is particular to this tutorial.
+
+## Sets and logic
+
+{{< include ../../_notation/sets-logic.qmd >}}
+
+## Linear algebra
+
+{{< include ../../_notation/linear-algebra.qmd >}}
+
+## Analysis
+
+{{< include ../../_notation/analysis.qmd >}}
+
+## Probability and statistics
+
+{{< include ../../_notation/probability-statistics.qmd >}}
+
+## Learning
+
+{{< include ../../_notation/learning.qmd >}}
+
+## Conventions specific to this tutorial
+
+These symbols are used only in the machine-learning tutorials, or depart from the shared tables for a stated reason.
+
+| Symbol | Meaning |
+|---|---|
+| $\mathcal H$ | hypothesis class. This departs from the shared tables, where $\mathcal H$ is a Hilbert space, because $\mathcal H$ is the standard name in learning theory; a reproducing-kernel Hilbert space is written $\mathcal H_k$ |
+| $\mathcal A$, $\mathcal C$, $\mathcal X$ | sets are written in calligraphic uppercase |
+| $\hat f$ | fitted predictor. In this tutorial a hat on a function marks an estimate, never a Fourier transform |
+| $\mathbf 1$ | vector of ones |
+| $\sigma(\cdot)$ | logistic sigmoid, or an activation function; $\sigma$ without an argument is a standard deviation |
+| $\lambda$ | regularisation strength |
+| $\alpha$ | step size of a tabular reinforcement-learning update; in hypothesis testing, the significance level |
+| $\varepsilon$ | noise term, $y = f(\mathbf x) + \varepsilon$; $\varepsilon$-greedy exploration |
+| $\mathbf Q$, $\mathbf K$, $\mathbf V$, $d_k$ | queries, keys and values of attention, and the key dimension |
+| $H_0$, $p_i$ | null hypothesis, $p$-values |
+| $\pi_k$ | mixing weight of component $k$ of a mixture, or prior probability of class $k$; $\pi$ without an index is a policy |
+| $D$ | number of layers (depth) of a network, whose layers are indexed by $l$ |
+| $\hat a(s, a, \mathbf w)$ | approximate advantage function, as $\hat v$ and $\hat q$ approximate $v_\pi$ and $q_\pi$ |
+
+- **Logarithms:** $\log$ is the natural logarithm; code lengths in bits are written with $\log_2$.
+- **Reinforcement learning** follows Sutton and Barto in every section, including the deep reinforcement-learning
+  methods (GAE, PPO, SAC, offline learning), which their sources write with lowercase $s_t$, $a_t$, $r_t$.

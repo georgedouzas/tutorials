@@ -906,7 +906,7 @@ transition map becomes the holomorphic map $w \mapsto 1/w$.
 ::: {#exm-stereographic-riemann-sphere}
 #### Complex notation and the Riemann sphere
 
-With $w = u + iv$ the inversion is $w' = 1/\bar w$, since $1/\bar w = w/|w|^2 = (u + iv)/(u^2 + v^2)$. Composing
+With $w = u + iv$ the inversion is $w' = 1/w^*$, since $1/w^* = w/|w|^2 = (u + iv)/(u^2 + v^2)$. Composing
 the south chart with the reflection $v' \mapsto -v'$ turns the transition map into $w \mapsto 1/w$, a holomorphic
 map (@exr-stereographic-complex); the sphere with this pair of complex charts is the Riemann sphere of
 @exm-riemann-sphere, on which rational functions become smooth maps.
@@ -942,13 +942,13 @@ verifies the Cauchy-Riemann equations for $1/w$, which is why the reflected tran
 ::: {#exr-stereographic-complex}
 #### The transition map as a complex function
 
-With $w = u + iv$, check that $1/\bar w$ has real and imaginary parts $u/(u^2 + v^2)$ and $v/(u^2 + v^2)$; compute
+With $w = u + iv$, check that $1/w^*$ has real and imaginary parts $u/(u^2 + v^2)$ and $v/(u^2 + v^2)$; compute
 the Jacobian determinant of the inversion and of the map $w \mapsto 1/w$ (the inversion followed by $v \mapsto -
-v$); and verify that $1/w$ satisfies the Cauchy-Riemann equations while $1/\bar w$ does not preserve orientation.
+v$); and verify that $1/w$ satisfies the Cauchy-Riemann equations while $1/w^*$ does not preserve orientation.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$1/\bar w = w/(w\bar w) = (u + iv)/(u^2 + v^2)$. The inversion has Jacobian determinant $-1/(u^2 + v^2)^2 < 0$, so
+$1/w^* = w/(ww^*) = (u + iv)/(u^2 + v^2)$. The inversion has Jacobian determinant $-1/(u^2 + v^2)^2 < 0$, so
 it reverses orientation; composing with the reflection gives $w \mapsto 1/w = (u - iv)/(u^2 + v^2)$, with real part
 $P = u/(u^2 + v^2)$ and imaginary part $Q = -v/(u^2 + v^2)$ satisfying $P_u = Q_v$ and $P_v = -Q_u$, and with
 Jacobian determinant $1/(u^2 + v^2)^2 = |f'(w)|^2$ for $f(w) = 1/w$, positive:
@@ -1065,7 +1065,7 @@ three-sphere; the Euler angles provide a chart with the same kind of degeneratio
 The group $SU(2)$ of $2 \times 2$ unitary matrices of determinant one (groups are defined in @sec-groups) is the
 set of matrices
 $$
-g = \begin{pmatrix} a & -\bar b \\ b & \bar a \end{pmatrix}, \qquad a, b \in \mathbb{C}, \quad |a|^2 + |b|^2 = 1,
+g = \begin{pmatrix} a & -b^* \\ b & a^* \end{pmatrix}, \qquad a, b \in \mathbb{C}, \quad |a|^2 + |b|^2 = 1,
 $$ {#eq-su2-matrix}
 since $\det g = |a|^2 + |b|^2$ (@prp-su2-det), and $|a|^2 + |b|^2 = 1$ says that $(\operatorname{Re} a,
 \operatorname{Im} a, \operatorname{Re} b, \operatorname{Im} b)$ lies on the unit sphere $S^3 \subset \mathbb{R}^4$:
@@ -1096,8 +1096,8 @@ and that every $SU(2)$ matrix has this form.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $g^\dagger g = (|a|^2 + |b|^2)\, 1$ by direct multiplication, and $\det g = |a|^2 + |b|^2$ (@prp-su2-det), so $g
 \in SU(2)$ iff $|a|^2 + |b|^2 = 1$. Conversely, for a unitary $g = \begin{pmatrix} a & c \\ b & d \end{pmatrix}$ of
-determinant one, $g^{-1} = g^\dagger$ and $g^{-1} = \begin{pmatrix} d & -c \\ -b & a \end{pmatrix}$ give $d = \bar
-a$, $c = -\bar b$.
+determinant one, $g^{-1} = g^\dagger$ and $g^{-1} = \begin{pmatrix} d & -c \\ -b & a \end{pmatrix}$ give $d =
+a^*$, $c = -b^*$.
 :::
 
 Many manifolds arise as open pieces of known ones, and the second exercise establishes the general principle and
@@ -1182,7 +1182,7 @@ the point (u, v, w) = (0, 0, 0) is the south pole (0, 0, 0, -1): [0, 0, 0, -1]
 
 The description of $SU(2)$ as a three-sphere rests on one identity, that the determinant of the matrix
 @eq-su2-matrix is the squared length of $(a, b) \in \mathbb{C}^2$. The proposition records it; the proof expands
-the $2 \times 2$ determinant and rewrites $|a|^2$ and $|b|^2$ as $\bar a a$ and $\bar b b$, after which the identity
+the $2 \times 2$ determinant and rewrites $|a|^2$ and $|b|^2$ as $a^* a$ and $b^* b$, after which the identity
 is a polynomial one.
 
 :::: {.statement-box}
@@ -1249,8 +1249,8 @@ the form @eq-su2-matrix; which point of $S^3$ is it?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$g^\dagger = \begin{pmatrix} \bar a & \bar b \\ -b & a \end{pmatrix}$ and $g^\dagger g = (|a|^2 + |b|^2)\, 1 =
-1$, so $g^{-1} = g^\dagger$; it is the form @eq-su2-matrix with $(a, b)$ replaced by $(\bar a, -b)$, the point
+$g^\dagger = \begin{pmatrix} a^* & b^* \\ -b & a \end{pmatrix}$ and $g^\dagger g = (|a|^2 + |b|^2)\, 1 =
+1$, so $g^{-1} = g^\dagger$; it is the form @eq-su2-matrix with $(a, b)$ replaced by $(a^*, -b)$, the point
 $(\operatorname{Re} a, -\operatorname{Im} a, -\operatorname{Re} b, -\operatorname{Im} b)$ of $S^3$, the
 reflection of $(a, b)$ in the first coordinate axis. Its determinant is again $|a|^2 + |b|^2 = 1$ by
 @prp-su2-det.
@@ -1274,7 +1274,7 @@ $e^{\varphi T_3} = \operatorname{diag}(e^{-i\varphi/2}, e^{i\varphi/2})$ and $e^
 1 - i\sin(\theta/2)\,\sigma_1$, since $\sigma_1^2 = 1$ makes the exponential series split into a cosine and a sine.
 The product is $\begin{pmatrix} \cos(\theta/2) e^{-i(\varphi + \psi)/2} & -i\sin(\theta/2) e^{-i(\varphi -
 \psi)/2} \\ -i\sin(\theta/2) e^{i(\varphi - \psi)/2} & \cos(\theta/2) e^{i(\varphi + \psi)/2} \end{pmatrix}$,
-whose entries are $a$, $-\bar b$, $b$, $\bar a$ with the stated $a, b$; $|a|^2 + |b|^2 = \cos^2(\theta/2) +
+whose entries are $a$, $-b^*$, $b$, $a^*$ with the stated $a, b$; $|a|^2 + |b|^2 = \cos^2(\theta/2) +
 \sin^2(\theta/2) = 1$. At $\theta = 0$ the matrix is $\operatorname{diag}(e^{-i(\varphi + \psi)/2}, e^{i(\varphi +
 \psi)/2})$, which depends on $\varphi + \psi$ only. Sage computes the exponentials exactly, with a `trig_reduce`
 to collapse the half-angle expressions:
@@ -1328,18 +1328,18 @@ the multiplication rule of quaternions and the four-square identity of Euler.
 #### Products of $SU(2)$ matrices
 
 Show with Sage that the product of two matrices of the form @eq-su2-matrix, with parameters $(a, b)$ and $(a',
-b')$, is again of that form with parameters $(aa' - \bar b b',\ ba' + \bar a b')$, and that the determinant is
-multiplicative: $|aa' - \bar b b'|^2 + |ba' + \bar a b'|^2 = (|a|^2 + |b|^2)(|a'|^2 + |b'|^2)$. Conclude that
+b')$, is again of that form with parameters $(aa' - b^* b',\ ba' + a^* b')$, and that the determinant is
+multiplicative: $|aa' - b^* b'|^2 + |ba' + a^* b'|^2 = (|a|^2 + |b|^2)(|a'|^2 + |b'|^2)$. Conclude that
 $SU(2)$ is closed under products.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Writing $a = a_1 + ia_2$ and so on with real symbols and expanding, the product has top row $(aa' - \bar b b',\ -
-(\bar a \bar b' + \bar b a'))$ and bottom row $(ba' + \bar a b',\ \bar a\bar a' - b\bar b')$, which is the form
-with $a'' = aa' - \bar b b'$, $b'' = ba' + \bar a b'$. The determinant identity is @prp-su2-det applied to $g g'$
+Writing $a = a_1 + ia_2$ and so on with real symbols and expanding, the product has top row $(aa' - b^* b',\ -
+(a^* b'^* + b^* a'))$ and bottom row $(ba' + a^* b',\ a^*a'^* - bb'^*)$, which is the form
+with $a'' = aa' - b^* b'$, $b'' = ba' + a^* b'$. The determinant identity is @prp-su2-det applied to $g g'$
 together with $\det(gg') = \det g \det g'$, and expanding both sides in the eight real variables confirms it; with
 $|a|^2 + |b|^2 = |a'|^2 + |b'|^2 = 1$ the product again has $|a''|^2 + |b''|^2 = 1$. The rule $(a, b)(a', b')
-= (aa' - \bar b b', ba' + \bar a b')$ is the multiplication of quaternions $a + bj$, and the identity is Euler's
+= (aa' - b^* b', ba' + a^* b')$ is the multiplication of quaternions $a + bj$, and the identity is Euler's
 four-square identity:
 
 ```python
@@ -1418,7 +1418,7 @@ $SU(2)$, which lie outside the chart domain.
 ::: {#exm-trace-function}
 #### The trace on $SU(2)$
 
-$g \mapsto \operatorname{tr} g = a + \bar a = 2\operatorname{Re} a$ is a smooth function on $SU(2)$; in Euler
+$g \mapsto \operatorname{tr} g = a + a^* = 2\operatorname{Re} a$ is a smooth function on $SU(2)$; in Euler
 angles it is $2\cos(\theta/2)\cos((\varphi + \psi)/2)$, a smooth expression. It takes the value $2$ only at the
 identity and $-2$ only at $-1$.
 :::
@@ -1502,7 +1502,7 @@ with $\operatorname{tr} g = \pm 2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\operatorname{tr} g = a + \bar a = 2\operatorname{Re} a = 2\cos(\theta/2)\cos((\varphi + \psi)/2)$. On $0 <
+$\operatorname{tr} g = a + a^* = 2\operatorname{Re} a = 2\cos(\theta/2)\cos((\varphi + \psi)/2)$. On $0 <
 \theta < \pi$, $0 < \cos(\theta/2) < 1$ and $|\cos((\varphi + \psi)/2)| \leq 1$, so $|\operatorname{tr} g| < 2$.
 The value $2$ needs $\cos(\theta/2) = 1$, that is $\theta = 0$ (outside the chart), and $\cos((\varphi + \psi)/2)
 = 1$, giving $g = \operatorname{diag}(e^{-i(\varphi + \psi)/2}, e^{i(\varphi + \psi)/2}) = 1$; the value $-2$
@@ -2480,7 +2480,7 @@ detects where the columns become dependent, and its square root is the area fact
 The **Gram matrix** of a parametrisation is the $n \times n$ matrix of inner products of its coordinate
 velocities,
 $$
-G_{ij} = \sum_{k=1}^N \frac{\partial E^k}{\partial x^i} \frac{\partial E^k}{\partial x^j} = (J^{\mathsf{T}} J)_{ij} .
+G_{ij} = \sum_{k=1}^N \frac{\partial E^k}{\partial x^i} \frac{\partial E^k}{\partial x^j} = (J^\top J)_{ij} .
 $$ {#eq-gram}
 It is a symmetric bilinear form (@def-symmetric-form) at each point, $\det G > 0$ exactly where the columns are
 linearly independent, so $\det G \neq 0$ is the rank condition of @def-embedding, and $\sqrt{\det G}$ is the
@@ -2537,14 +2537,14 @@ $\varphi$- and $\psi$-curves are not orthogonal, which is why $SU(2)$ is not a p
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 SageManifolds computes Gram matrices as pullbacks of the Euclidean metric, and the first exercise uses this on the
-torus and compares with the direct formula $J^{\mathsf{T}} J$. The determinant is a product of two squares that
+torus and compares with the direct formula $J^\top J$. The determinant is a product of two squares that
 never vanish, which is the regularity claimed in @exm-embedding-torus.
 
 ::: {#exr-torus-gram}
 #### The Gram matrix of the torus
 
 Compute the Gram matrix of the torus parametrisation @eq-torus-embedding as the pullback of the Euclidean metric
-with SageManifolds, compare with $J^{\mathsf{T}} J$, and find where the parametrisation is regular.
+with SageManifolds, compare with $J^\top J$, and find where the parametrisation is regular.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2726,7 +2726,7 @@ height of the zone, the same as the area of the band of the circumscribed cylind
 :::
 
 A Gram matrix is attached to a parametrisation, and changing coordinates changes it by a definite rule, $G' =
-J^{\mathsf{T}} G J$ with $J$ the Jacobian of the change. The third exercise checks the rule between the
+J^\top G J$ with $J$ the Jacobian of the change. The third exercise checks the rule between the
 stereographic and spherical charts with Sage: the conformal Gram matrix of one becomes the diagonal one of the
 other.
 
@@ -2735,14 +2735,14 @@ other.
 
 Let $J$ be the Jacobian of the transition map $(\theta, \varphi) \mapsto (u, v)$ of @exm-transition-spherical and
 $G_{\text{ste}} = 4/(1 + u^2 + v^2)^2$ times the identity the Gram matrix of the stereographic chart. Show with
-Sage that $J^{\mathsf{T}} G_{\text{ste}} J = \operatorname{diag}(1, \sin^2\theta)$ and that $\det G$ transforms
+Sage that $J^\top G_{\text{ste}} J = \operatorname{diag}(1, \sin^2\theta)$ and that $\det G$ transforms
 by the factor $(\det J)^2$; explain why the rule holds in general.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The spherical parametrisation is $E_{\text{ste}} \circ T$ with $T$ the transition map, so by the chain rule its
-Jacobian is $J_{\text{ste}} J$ and its Gram matrix is $(J_{\text{ste}} J)^{\mathsf{T}} (J_{\text{ste}} J) =
-J^{\mathsf{T}} G_{\text{ste}} J$; taking determinants gives $\det G_{\text{sph}} = (\det J)^2 \det
+Jacobian is $J_{\text{ste}} J$ and its Gram matrix is $(J_{\text{ste}} J)^\top (J_{\text{ste}} J) =
+J^\top G_{\text{ste}} J$; taking determinants gives $\det G_{\text{sph}} = (\det J)^2 \det
 G_{\text{ste}}$. Substituting $u, v$ in terms of $\theta, \varphi$ turns the conformal factor into $(1 -
 \cos\theta)^2$, and the matrix product simplifies to $\operatorname{diag}(1, \sin^2\theta)$; with $\det J =
 -\sin\theta/(1 - \cos\theta)^2$ the determinant is $\sin^2\theta$ (@prp-sphere-gram):
@@ -2859,7 +2859,7 @@ handled by Sage's trigonometric simplification.
 ::: {#exr-su2-gram-sage}
 #### The Gram matrix of $SU(2)$ in Sage
 
-Write the four real components of the Euler-angle parametrisation of $SU(2)$, compute $J^{\mathsf{T}} J$ with
+Write the four real components of the Euler-angle parametrisation of $SU(2)$, compute $J^\top J$ with
 Sage and show that it equals @eq-su2-gram; compute the determinant and the cosine of the angle between the
 $\varphi$- and $\psi$-velocities.
 :::
@@ -2867,7 +2867,7 @@ $\varphi$- and $\psi$-velocities.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $E = (\cos\tfrac\theta2\cos\tfrac{\varphi + \psi}2,\ -\cos\tfrac\theta2\sin\tfrac{\varphi + \psi}2,\
 \sin\tfrac\theta2\sin\tfrac{\varphi - \psi}2,\ -\sin\tfrac\theta2\cos\tfrac{\varphi - \psi}2)$, which lies on
-$S^3$, the Jacobian is a $4 \times 3$ matrix and $J^{\mathsf{T}} J$ simplifies to $\tfrac14\begin{pmatrix} 1 & 0
+$S^3$, the Jacobian is a $4 \times 3$ matrix and $J^\top J$ simplifies to $\tfrac14\begin{pmatrix} 1 & 0
 & 0 \\ 0 & 1 & \cos\theta \\ 0 & \cos\theta & 1 \end{pmatrix}$ after `trig_reduce`; the determinant is
 $\sin^2\theta/64$ and the cosine of the angle is $\cos\theta$ (@exr-su2-gram-angle):
 
@@ -3545,7 +3545,7 @@ point. The first example identifies it and its dimension.
 #### $T_pS^2$ is the tangent plane
 
 For the embedded sphere, $T_pS^2$ is identified with the plane through $p$ spanned by $\partial_\theta E$ and
-$\partial_\varphi E$, the plane perpendicular to the position vector $p$ (@fig-tangent-vectors), of dimension $2$.
+$\partial_\varphi E$, the plane perpendicular to the position vector $\mathbf p$ (@fig-tangent-vectors), of dimension $2$.
 :::
 
 Groups of matrices are manifolds, and their tangent spaces at the identity are spaces of matrices. The second example
@@ -3595,12 +3595,12 @@ that the defining equation of the group becomes, after differentiation, a linear
 ::: {#exr-tv-so-tangent}
 #### Tangent spaces of rotation groups
 
-Differentiate $R(t)^{\mathsf T}R(t) = 1$ at $t = 0$ for a curve of rotation matrices with $R(0) = 1$, and conclude
+Differentiate $R(t)^\top R(t) = 1$ at $t = 0$ for a curve of rotation matrices with $R(0) = 1$, and conclude
 that $T_1SO(n)$ consists of antisymmetric matrices. Give a basis for $n = 2$ and the dimension for $n = 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $A = \dot R(0)$, the derivative of $R^{\mathsf T}R = 1$ at $t = 0$ is $A^{\mathsf T} + A = 0$: velocities at
+With $A = \dot R(0)$, the derivative of $R^\top R = 1$ at $t = 0$ is $A^\top + A = 0$: velocities at
 the identity are antisymmetric. Conversely $R(t) = e^{tA}$ is a curve of rotations with velocity $A$ for every
 antisymmetric $A$. For $n = 2$ the space is spanned by $\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$, the
 velocity of the rotation by the angle $t$, so $SO(2)$ is one-dimensional; for $n = 3$ an antisymmetric matrix has
@@ -4010,14 +4010,14 @@ rigid rotations.
 
 Let $K_1 = -\sin\varphi\,\partial_\theta - \cot\theta\cos\varphi\,\partial_\varphi$, $K_2 = \cos\varphi\,\partial_\theta -
 \cot\theta\sin\varphi\,\partial_\varphi$ and $K_3 = \partial_\varphi$. With SageManifolds, compute their ambient
-vectors through the Jacobian of the embedding and show that $K_a$ is the cross product $e_a \times p$ of the $a$-th
-axis with the position vector $p$. Where does each field vanish?
+vectors through the Jacobian of the embedding and show that $K_a$ is the cross product $\mathbf e_a \times \mathbf p$ of the $a$-th
+axis with the position vector $\mathbf p$. Where does each field vanish?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Each ambient vector equals $e_a \times p$, the velocity of a rigid rotation about the $a$-th axis at unit angular
-speed; it is orthogonal to $p$, hence tangent, and its squared length $1 - (p \cdot e_a)^2$ vanishes exactly at the two
-points $\pm e_a$ where the axis meets the sphere:
+Each ambient vector equals $\mathbf e_a \times \mathbf p$, the velocity of a rigid rotation about the $a$-th axis at unit angular
+speed; it is orthogonal to $\mathbf p$, hence tangent, and its squared length $1 - (\mathbf p \cdot \mathbf e_a)^2$ vanishes exactly at the two
+points $\pm\mathbf e_a$ where the axis meets the sphere:
 
 ```python
 S2 = Manifold(2, "S^2"); A = S2.open_subset("A")
@@ -5194,7 +5194,7 @@ nine numbers $dX_b(K_a)$ for the rotation fields of @exr-vf-rotation-fields. Sho
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $dZ = -\sin\theta\,d\theta$ is the proposition; $dX$ and $dY$ have both components. The table of $dX_b(K_a) = K_a(X_b)$
-is $-\epsilon_{abc}X_c$, the infinitesimal form of $K_a = e_a \times p$: for instance $dY(K_1) = -Z$ and $dZ(K_1) = Y$:
+is $-\epsilon_{abc}X_c$, the infinitesimal form of $K_a = \mathbf e_a \times \mathbf p$: for instance $dY(K_1) = -Z$ and $dZ(K_1) = Y$:
 
 ```python
 S2 = Manifold(2, "S^2"); A = S2.open_subset("A")
@@ -5540,7 +5540,7 @@ tensor?
 ::: {.callout-note .solution collapse="true" title="Solution"}
 @eq-tensor-transformation with one upper and one lower index reads $T'^i{}_j = J^i{}_kT^k{}_l(J^{-1})^l{}_j$, that is
 $T' = JTJ^{-1}$, a similarity. Hence $\operatorname{tr}T' = \operatorname{tr}(TJ^{-1}J) = \operatorname{tr}T$ and $\det
-T' = \det J\det T\det J^{-1} = \det T$. A $(0, 2)$ tensor transforms as $T' = (J^{-1})^{\mathsf T}TJ^{-1}$, which is a
+T' = \det J\det T\det J^{-1} = \det T$. A $(0, 2)$ tensor transforms as $T' = (J^{-1})^\top TJ^{-1}$, which is a
 congruence, not a similarity: its determinant picks up $(\det J)^{-2}$ and its trace changes, as for the metric in
 @exr-metric-chart-independence.
 :::
@@ -5933,7 +5933,7 @@ $T'_{lk} = \frac{\partial x^j}{\partial x'^l}\frac{\partial x^i}{\partial x'^k}T
 and using $T_{ji} = T_{ij}$ gives $\frac{\partial x^i}{\partial x'^k}\frac{\partial x^j}{\partial x'^l}T_{ij} = T'_{kl}$,
 and with $T_{ji} = -T_{ij}$ a minus sign appears. A symmetric matrix is fixed by its entries on and above the diagonal,
 $n + \tfrac12n(n - 1) = \tfrac12n(n + 1)$ of them; an antisymmetric one by those strictly above, $\tfrac12n(n - 1)$; the
-sum is $n^2$, and the decomposition $T = \tfrac12(T + T^{\mathsf T}) + \tfrac12(T - T^{\mathsf T})$ is unique because
+sum is $n^2$, and the decomposition $T = \tfrac12(T + T^\top) + \tfrac12(T - T^\top)$ is unique because
 a matrix that is both symmetric and antisymmetric is zero.
 :::
 ::::
@@ -7104,7 +7104,7 @@ every overlapping chart. Check the formula on the polar chart of the plane.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Since $g$ is a tensor field, $g = g_{ij}\,dx^i \otimes dx^j$ and $dx^i = (\partial x^i/\partial x'^k)\,dx'^k$;
-substituting gives the components $g'_{kl}$ as stated, which in matrix form reads $g' = J^{\mathsf{T}} g J$. Taking
+substituting gives the components $g'_{kl}$ as stated, which in matrix form reads $g' = J^\top g J$. Taking
 determinants, $\det g' = (\det J)^2\det g$, and $\det J \neq 0$ on the overlap of two charts because the transition
 map is a diffeomorphism. So $\det g'$ and $\det g$ vanish at the same points: non-degeneracy is a property of the
 metric. For the polar chart, $J = \begin{pmatrix} \cos\varphi & -r\sin\varphi \\ \sin\varphi & r\cos\varphi
@@ -7137,7 +7137,7 @@ computes the squared Euclidean length of an ambient velocity.
 #### Riemannian examples
 
 The Euclidean metric, the Gram matrix of any embedding into Euclidean space (its eigenvalues are positive since
-$v^{\mathsf{T}}Gv = |Jv|^2 > 0$), and every internal space of these lectures: the circle, the sphere, the torus,
+$v^\top Gv = |Jv|^2 > 0$), and every internal space of these lectures: the circle, the sphere, the torus,
 $SU(2)$.
 :::
 
@@ -7243,7 +7243,7 @@ $\det g_{ij} \neq 0$ everywhere.
 Order the eigenvalues $\lambda_1(p) \leq \dots \leq \lambda_n(p)$ of the component matrix; each is a continuous
 function of $p$ within a chart, and none vanishes since their product is $\det g \neq 0$. A continuous function
 that never vanishes keeps its sign on a connected set, so each $\lambda_k$ has a constant sign on the chart domain,
-and the number $p$ of positive eigenvalues is constant there. On an overlap, $g' = J^{\mathsf{T}}gJ$ has the same
+and the number $p$ of positive eigenvalues is constant there. On an overlap, $g' = J^\top gJ$ has the same
 signature as $g$ by Sylvester's law (@def-signature), so the count agrees between charts. The set of points where
 the count equals a given value is therefore open, and its complement is a union of such open sets; on a connected
 manifold a set that is open and closed is everything or nothing, so the count is constant.
@@ -7507,13 +7507,13 @@ easy to invert in @sec-induced-metrics.
 ::: {#exr-inverse-metric-tensor}
 #### The inverse metric is a $(2, 0)$ tensor
 
-From $g' = J^{\mathsf{T}} g J$ under a change of chart (@exr-metric-chart-independence), derive the transformation
+From $g' = J^\top g J$ under a change of chart (@exr-metric-chart-independence), derive the transformation
 law of $g^{-1}$ and identify it as that of a tensor of type $(2, 0)$. Show also that the inverse of a block-diagonal
 metric is block diagonal, with the inverses of the blocks.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Inverting $g' = J^{\mathsf{T}} g J$ gives $g'^{-1} = J^{-1}g^{-1}J^{-\mathsf{T}}$, that is, $g'^{kl} =
+Inverting $g' = J^\top g J$ gives $g'^{-1} = J^{-1}g^{-1}J^{-\top}$, that is, $g'^{kl} =
 \dfrac{\partial x'^k}{\partial x^i}\dfrac{\partial x'^l}{\partial x^j}\,g^{ij}$, since $J^{-1} = \partial x'/\partial
 x$. Two factors of the inverse Jacobian is the transformation law of a tensor with two upper indices
 (@def-tensor-field). For $g = \begin{pmatrix} A & 0 \\ 0 & B \end{pmatrix}$ with $A$, $B$ invertible,
@@ -7698,10 +7698,10 @@ hyperbolic identity $\cosh^2 - \sinh^2 = 1$ appears.
 ::: {#exm-minkowski-boost}
 #### Boosts preserve the determinant
 
-A Lorentz transformation satisfies $\Lambda^{\mathsf{T}}\eta\Lambda = \eta$; taking determinants gives
+A Lorentz transformation satisfies $\Lambda^\top\eta\Lambda = \eta$; taking determinants gives
 $(\det\Lambda)^2\det\eta = \det\eta$, so $\det\Lambda = \pm1$. For the boost $\Lambda = \begin{pmatrix} \cosh\xi &
 \sinh\xi \\ \sinh\xi & \cosh\xi \end{pmatrix}$ in the $(t, x)$ plane, $\det\Lambda = \cosh^2\xi - \sinh^2\xi = 1$,
-and the transformed metric $\Lambda^{\mathsf{T}}\eta\Lambda$ is $\eta$ again (@exr-isometry-boost), with the same
+and the transformed metric $\Lambda^\top\eta\Lambda$ is $\eta$ again (@exr-isometry-boost), with the same
 determinant $-1$.
 :::
 
@@ -7727,7 +7727,7 @@ with a symbolic radius, together with their signatures.
 ::: {#exr-minkowski-det-sage}
 #### Determinants with Sage
 
-Compute with Sage $\det\eta$ and the signature of $\eta$; check that $\Lambda^{\mathsf{T}}\eta\Lambda = \eta$ for
+Compute with Sage $\det\eta$ and the signature of $\eta$; check that $\Lambda^\top\eta\Lambda = \eta$ for
 the boost of @exm-minkowski-boost and that $\det\Lambda = 1$; and compute the determinant and signature of
 $\operatorname{diag}(1, -1, -1, -1, -R^2)$.
 :::
@@ -7789,7 +7789,7 @@ signature and spells out the consequence for even and odd dimensions.
 ::: {#exr-minkowski-det-sign}
 #### The sign of the determinant in any chart
 
-Show that a metric of signature $(p, q)$ has $\operatorname{sign}\det g = (-1)^q$ in every chart. Deduce that a
+Show that a metric of signature $(p, q)$ has $\operatorname{sgn}\det g = (-1)^q$ in every chart. Deduce that a
 Lorentzian metric has negative determinant in even dimension and positive determinant in odd dimension, and
 identify the two cases in @exm-minkowski-det-sign and @exm-minkowski-five.
 :::
@@ -7797,7 +7797,7 @@ identify the two cases in @exm-minkowski-det-sign and @exm-minkowski-five.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 At a point, Sylvester's law (@def-signature) gives a basis in which the matrix of $g$ is $\operatorname{diag}(1,
 \dots, 1, -1, \dots, -1)$ with $q$ entries $-1$, so in that basis $\det g = (-1)^q$. Any other basis is related by
-an invertible $P$, and $\det(P^{\mathsf{T}}gP) = (\det P)^2\det g$ has the same sign. A Lorentzian metric has
+an invertible $P$, and $\det(P^\top gP) = (\det P)^2\det g$ has the same sign. A Lorentzian metric has
 $q = n - 1$: $\det g < 0$ for $n$ even ($n = 4$: $\det\eta = -1$) and $\det g > 0$ for $n$ odd ($n = 5$: $R^2$).
 This is why $\sqrt{-g}$ is correct in four dimensions and $\sqrt{|g|}$ is needed in general.
 :::
@@ -7978,7 +7978,7 @@ torus (f = R + r cos t, h = r sin t) : ds^2 = (r^2) dt^2 + ((r*cos(t) + R)^2) dp
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 SageMath [@sagemath] has a manifolds package that stores charts, metrics and tensor fields, so the computations of
 this section can be checked by machine. The example below builds the unit 2-sphere with its spherical chart and prints
-the round metric induced from $\mathbb{E}^3$.
+the round metric induced from $\mathbb{R}^3$.
 
 ::: {#exm-sage-sphere}
 #### The 2-sphere in SageMath
@@ -8594,8 +8594,8 @@ $(X^\flat)^\sharp = X$ for every one-form $\omega$ and vector $X$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\partial_\mu f = (\omega, -k_x, -k_y, -k_z)$ and $(\nabla f)^\mu = \eta^{\mu\nu}\partial_\nu f = (\omega, k_x, k_y,
-k_z)$: the wave four-vector. Its norm is $\eta(\nabla f, \nabla f) = \omega^2 - |\vec k|^2$, null exactly when
-$\omega = |\vec k|$, the dispersion relation of a massless wave; for a massive field $\omega^2 - |\vec k|^2 = m^2 >
+k_z)$: the wave four-vector. Its norm is $\eta(\nabla f, \nabla f) = \omega^2 - |\mathbf k|^2$, null exactly when
+$\omega = |\mathbf k|$, the dispersion relation of a massless wave; for a massive field $\omega^2 - |\mathbf k|^2 = m^2 >
 0$ and the gradient is timelike. In general $((\omega^\sharp)^\flat)_i = g_{ij}g^{jk}\omega_k = \delta_i^k\omega_k =
 \omega_i$ and $((X^\flat)^\sharp)^i = g^{ij}g_{jk}X^k = X^i$, both from $g^{ik}g_{kj} = \delta^i_j$.
 :::
@@ -8754,7 +8754,7 @@ $dx\,dy$ in Cartesian and $r\,dr\,d\varphi$ in polar coordinates.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-From $g' = J^{\mathsf{T}}gJ$ (@exr-metric-chart-independence), $\sqrt{|\det g'|} = |\det J|\sqrt{|\det g|}$. The
+From $g' = J^\top gJ$ (@exr-metric-chart-independence), $\sqrt{|\det g'|} = |\det J|\sqrt{|\det g|}$. The
 change of variables formula of @sec-calculus gives $d^nx = |\det J|\,d^nx'$, so $\sqrt{|\det g|}\,d^nx = |
 \det J|\sqrt{|\det g|}\,d^nx' = \sqrt{|\det g'|}\,d^nx'$. On the plane, $\det g = 1$ in Cartesian coordinates and
 $r^2$ in polar ones, with $|\det J| = r$: $dx\,dy = r\,dr\,d\varphi$, the familiar substitution.
@@ -8897,8 +8897,8 @@ $T^i{}_i = g^{ij}T_{ij}$ is chart independent.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $g^{ik}g^{jl}g_{kl} = g^{ik}\delta^j_k = g^{ij}$; $g^{ik}g_{kj} = \delta^i_j$ by definition of the inverse; and
 $g^{ij}g_{ij} = \delta^i_i = n$, the dimension. $T^i{}_j$ is a $(1, 1)$ tensor, being a contraction of tensors, and
-its trace is a full contraction, hence a scalar: in another chart $g'^{ij}T'_{ij} = (J^{-1}g^{-1}J^{-\mathsf{T}})^{ij}
-(J^{\mathsf{T}}TJ)_{ij} = \operatorname{tr}(J^{-1}g^{-1}J^{-\mathsf{T}}J^{\mathsf{T}}TJ) = \operatorname{tr}(g^{-1}T)$
+its trace is a full contraction, hence a scalar: in another chart $g'^{ij}T'_{ij} = (J^{-1}g^{-1}J^{-\top})^{ij}
+(J^\top TJ)_{ij} = \operatorname{tr}(J^{-1}g^{-1}J^{-\top}J^\top TJ) = \operatorname{tr}(g^{-1}T)$
 by cyclicity. For $T = g$ this is the dimension count again; for the Ricci tensor of @sec-riemann it is the scalar
 curvature.
 :::
@@ -9469,7 +9469,7 @@ reflection $Z \mapsto -Z$ of $\mathbb{R}^3$). Under $\theta' = \theta/2$, $d\the
 $\sin^2(\theta/2) \neq \sin^2\theta$: lengths change, not an isometry.
 :::
 
-For a constant metric and a linear map the isometry condition is a matrix identity, $\Lambda^{\mathsf{T}}\eta\Lambda
+For a constant metric and a linear map the isometry condition is a matrix identity, $\Lambda^\top\eta\Lambda
 = \eta$. The second exercise verifies it with Sage for a boost and a rotation, finds how a dilation fails it, and
 follows a unit timelike vector through a boost.
 
@@ -9477,12 +9477,12 @@ follows a unit timelike vector through a boost.
 #### Lorentz transformations as isometries
 
 With Sage, check that a boost of rapidity $\xi$ along $x$ and a rotation by $\alpha$ about $z$ satisfy
-$\Lambda^{\mathsf{T}}\eta\Lambda = \eta$, compute $\Lambda^{\mathsf{T}}\eta\Lambda$ for the dilation $\Lambda =
+$\Lambda^\top\eta\Lambda = \eta$, compute $\Lambda^\top\eta\Lambda$ for the dilation $\Lambda =
 \lambda\,1$, and find the image of $(1, 0, 0, 0)$ under the boost together with its norm.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For a linear map the pulled-back metric is $\Lambda^{\mathsf{T}}\eta\Lambda$, which equals $\eta$ for the boost
+For a linear map the pulled-back metric is $\Lambda^\top\eta\Lambda$, which equals $\eta$ for the boost
 (using $\cosh^2\xi - \sinh^2\xi = 1$) and for the rotation (using $\cos^2\alpha + \sin^2\alpha = 1$), while the
 dilation gives $\lambda^2\eta$. The boost sends $(1, 0, 0, 0)$ to $(\cosh\xi, \sinh\xi, 0, 0)$, a unit timelike
 vector again: isometries preserve the classification of @exr-lowering-minkowski-components.
@@ -9698,7 +9698,7 @@ its line element, it is introduced here as a metric, following @boskoff2024journ
 ::: {#def-hyp-half-plane}
 #### Poincaré half-plane
 
-The **Poincaré half-plane** is the open set $\mathbb{H} = \{(x, y) \in \mathbb{R}^2 : y > 0\}$ with the metric
+The **Poincaré half-plane** is the open set $\mathbb{H}^2 = \{(x, y) \in \mathbb{R}^2 : y > 0\}$ with the metric
 $$
 ds^2 = \frac{dx^2 + dy^2}{y^2} .
 $$ {#eq-hyp-half-plane}
@@ -9715,11 +9715,11 @@ geometry [@boskoff2024journey, Ex. 4.13.2].
 ::: {#exm-hyp-pseudosphere}
 #### The pseudosphere
 
-The pseudosphere has the embedding $(\sin\sigma\cos\varphi, \sin\sigma\sin\varphi, \cos\sigma + \ln\tan(\sigma/2))$, $0 <
+The pseudosphere has the embedding $(\sin\sigma\cos\varphi, \sin\sigma\sin\varphi, \cos\sigma + \log\tan(\sigma/2))$, $0 <
 \sigma < \pi/2$, and the induced metric $\cot^2\sigma\,d\sigma^2 + \sin^2\sigma\,d\varphi^2$ (@exr-hyp-tractrix). The
 substitution $x = \varphi$, $y = 1/\sin\sigma$ gives $dy = -\cos\sigma\,d\sigma/\sin^2\sigma$, so $dy^2/y^2 =
 \cot^2\sigma\,d\sigma^2$ and $dx^2/y^2 = \sin^2\sigma\,d\varphi^2$: the pseudosphere is the half-strip $0 < x < 2\pi$, $y >
-1$ of $\mathbb{H}$, with the edges $x = 0$ and $x = 2\pi$ glued. The rim $\sigma = \pi/2$ is the segment $y = 1$, and the
+1$ of $\mathbb{H}^2$, with the edges $x = 0$ and $x = 2\pi$ glued. The rim $\sigma = \pi/2$ is the segment $y = 1$, and the
 cusp at infinity is $y \to \infty$.
 :::
 
@@ -9730,10 +9730,10 @@ shortest of them.
 ::: {#exm-hyp-lengths}
 #### Lengths in the half-plane
 
-The vertical segment from $(x_0, y_1)$ to $(x_0, y_2)$ has length $\int_{y_1}^{y_2}dy/y = \ln(y_2/y_1)$, which diverges as
+The vertical segment from $(x_0, y_1)$ to $(x_0, y_2)$ has length $\int_{y_1}^{y_2}dy/y = \log(y_2/y_1)$, which diverges as
 $y_1 \to 0$: the boundary line $y = 0$ is infinitely far from every point. The horizontal segment from $(-1, 1)$ to $(1,
 1)$ has length $2$. The arc of the circle $x = \sqrt2\cos\vartheta$, $y = \sqrt2\sin\vartheta$, $\pi/4 \leq \vartheta \leq
-3\pi/4$, joining the same points has $ds = d\vartheta/\sin\vartheta$ and length $\ln\tan(3\pi/8) - \ln\tan(\pi/8) = 2\ln(1 + \sqrt2)
+3\pi/4$, joining the same points has $ds = d\vartheta/\sin\vartheta$ and length $\log\tan(3\pi/8) - \log\tan(\pi/8) = 2\log(1 + \sqrt2)
 \approx 1.763$, shorter than the straight segment: the arc bulges upwards, where the metric is smaller.
 :::
 
@@ -9768,10 +9768,10 @@ $|x| < 1$, $0 < y < 1$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\sqrt{\det g} = 1/y^2$, so $dA = dx\,dy/y^2$. The half-strip has area $\int_{-1}^1\int_1^\infty dy\,dx/y^2 = 2$, although it is
 unbounded. For the ideal triangle the inner integral is $\int_{\sqrt{1 - x^2}}^\infty dy/y^2 = 1/\sqrt{1 - x^2}$, and $\int_{-1}^1
-dx/\sqrt{1 - x^2} = \pi$. The region near the boundary has area $\int_{-1}^1\int_\epsilon^1 dy\,dx/y^2 = 2(1 - \epsilon)/\epsilon \to
+dx/\sqrt{1 - x^2} = \pi$. The region near the boundary has area $\int_{-1}^1\int_\varepsilon^1 dy\,dx/y^2 = 2(1 - \varepsilon)/\varepsilon \to
 \infty$. The sides of the triangle are geodesics (@prp-hyp-geodesics) meeting at angle zero, and its area is $\pi - (0 + 0 +
 0)$, the hyperbolic counterpart of the spherical excess: a geodesic triangle with angles $\alpha, \beta, \gamma$ on the unit
-sphere has area $\alpha + \beta + \gamma - \pi$, and on $\mathbb{H}$ it has area $\pi - \alpha - \beta - \gamma$.
+sphere has area $\alpha + \beta + \gamma - \pi$, and on $\mathbb{H}^2$ it has area $\pi - \alpha - \beta - \gamma$.
 
 ```python
 from sage.all import *
@@ -9807,13 +9807,13 @@ with SageManifolds.
 #### Möbius maps are isometries
 
 Let $w = (az + b)/(cz + d)$ with real $a, b, c, d$ and $ad - bc = 1$. Show that $dw = dz/(cz + d)^2$ and $\operatorname{Im} w
-= \operatorname{Im} z/|cz + d|^2$, conclude that the map sends $\mathbb{H}$ to itself isometrically, and identify the
+= \operatorname{Im} z/|cz + d|^2$, conclude that the map sends $\mathbb{H}^2$ to itself isometrically, and identify the
 translations, dilations and the inversion of @exm-hyp-isometries among these maps.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$dw/dz = (a(cz + d) - c(az + b))/(cz + d)^2 = 1/(cz + d)^2$. Multiplying numerator and denominator by $c\bar z + d$,
-$w = (ac|z|^2 + bd + adz + bc\bar z)/|cz + d|^2$, whose imaginary part is $(ad - bc)y/|cz + d|^2 = y/|cz + d|^2 > 0$. Hence
+$dw/dz = (a(cz + d) - c(az + b))/(cz + d)^2 = 1/(cz + d)^2$. Multiplying numerator and denominator by $cz^* + d$,
+$w = (ac|z|^2 + bd + adz + bcz^*)/|cz + d|^2$, whose imaginary part is $(ad - bc)y/|cz + d|^2 = y/|cz + d|^2 > 0$. Hence
 $|dw|^2/(\operatorname{Im} w)^2 = |dz|^2/y^2$. The translation by $b$ is $\begin{pmatrix} 1 & b \\ 0 & 1\end{pmatrix}$, the dilation by
 $\lambda = a^2$ is $\operatorname{diag}(a, 1/a)$, and the inversion is $\begin{pmatrix} 0 & -1 \\ 1 & 0\end{pmatrix}$. The matrices
 $\pm M$ give the same map, so the group is $SL(2, \mathbb{R})/\{\pm 1\}$, of dimension three; the reflection $x \mapsto -x$
@@ -9855,16 +9855,16 @@ property of its profile [@boskoff2024journey, Ex. 4.3.3].
 ::: {#exr-hyp-tractrix}
 #### The tractrix and the pseudosphere
 
-For the embedding $E(\sigma, \varphi) = (\sin\sigma\cos\varphi, \sin\sigma\sin\varphi, \cos\sigma + \ln\tan(\sigma/2))$, $0 < \sigma <
+For the embedding $E(\sigma, \varphi) = (\sin\sigma\cos\varphi, \sin\sigma\sin\varphi, \cos\sigma + \log\tan(\sigma/2))$, $0 < \sigma <
 \pi/2$, compute the coordinate velocities and the induced metric. Show that the tangent line to the profile $\varphi = 0$
 at the point with parameter $\sigma$ meets the axis $X = 0$ at distance $1$ from that point.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\frac{d}{d\sigma}\ln\tan(\sigma/2) = 1/\sin\sigma$, $\partial_\sigma E = (\cos\sigma\cos\varphi, \cos\sigma\sin\varphi,
+With $\frac{d}{d\sigma}\log\tan(\sigma/2) = 1/\sin\sigma$, $\partial_\sigma E = (\cos\sigma\cos\varphi, \cos\sigma\sin\varphi,
 \cos^2\sigma/\sin\sigma)$ and $\partial_\varphi E = (-\sin\sigma\sin\varphi, \sin\sigma\cos\varphi, 0)$. Then $g_{\sigma\sigma} = \cos^2\sigma +
 \cos^4\sigma/\sin^2\sigma = \cot^2\sigma$, $g_{\sigma\varphi} = 0$ and $g_{\varphi\varphi} = \sin^2\sigma$. On the profile the
-point is $(\sin\sigma, \cos\sigma + \ln\tan(\sigma/2))$ in the $(X, Z)$ plane, with tangent direction $(\cos\sigma,
+point is $(\sin\sigma, \cos\sigma + \log\tan(\sigma/2))$ in the $(X, Z)$ plane, with tangent direction $(\cos\sigma,
 \cos^2\sigma/\sin\sigma) \propto (\sin\sigma, \cos\sigma)$, a unit vector. Moving along it by $-1$ changes $X$ by $-\sin\sigma$, which
 reaches the axis: the tangent segment has length $1$, the defining property of the tractrix.
 :::
@@ -9878,7 +9878,7 @@ produces, the disc model in which the rotations about the centre are manifest is
 ::: {#prp-hyp-disc}
 #### The Poincaré disc
 
-The map $w = (z - i)/(z + i)$ is a diffeomorphism of $\mathbb{H}$ onto the unit disc $\mathbb{D} = \{|w| < 1\}$, with
+The map $w = (z - i)/(z + i)$ is a diffeomorphism of $\mathbb{H}^2$ onto the unit disc $\mathbb{D} = \{|w| < 1\}$, with
 inverse $z = i(1 + w)/(1 - w)$, and it carries @eq-hyp-half-plane to
 $$
 ds^2 = \frac{4\,(du^2 + dv^2)}{(1 - u^2 - v^2)^2} , \qquad w = u + iv .
@@ -9900,7 +9900,7 @@ line through the map.
 The point $z = i$ goes to the centre $w = 0$, and $z = iy$ goes to $w = (y - 1)/(y + 1)$, real: the imaginary axis is
 mapped onto the diameter $(-1, 1)$, with $y \to 0$ and $y \to \infty$ at its two ends, and the boundary line $y = 0$ onto the
 unit circle minus $w = 1$, the image of $\infty$. The distance from $0$ to $\rho$ along the diameter is $\int_0^\rho 2\,dr/(1 - r^2)
-= \ln\frac{1 + \rho}{1 - \rho}$, and with $\rho = (y - 1)/(y + 1)$ this is $\ln y$, the length of the vertical segment from $i$ to
+= \log\frac{1 + \rho}{1 - \rho}$, and with $\rho = (y - 1)/(y + 1)$ this is $\log y$, the length of the vertical segment from $i$ to
 $iy$ (@exm-hyp-lengths), as an isometry requires.
 :::
 
@@ -9967,7 +9967,7 @@ maps of @exr-hyp-moebius and finds the inversion among the rotations.
 #### Rotations about $i$
 
 Show that $w \mapsto e^{i\alpha}w$ preserves @eq-hyp-disc. Writing the map $z \mapsto w$ as the matrix $\begin{pmatrix} 1 & -i \\ 1
-& i\end{pmatrix}$ acting by $z \mapsto (az + b)/(cz + d)$, show that the corresponding map of $\mathbb{H}$ is
+& i\end{pmatrix}$ acting by $z \mapsto (az + b)/(cz + d)$, show that the corresponding map of $\mathbb{H}^2$ is
 $$
 z \mapsto \frac{\cos(\alpha/2)\,z + \sin(\alpha/2)}{-\sin(\alpha/2)\,z + \cos(\alpha/2)} ,
 $$
@@ -9980,7 +9980,7 @@ multiplication of their matrices, and a matrix and its non-zero multiples give t
 $\operatorname{diag}(e^{i\alpha/2}, e^{-i\alpha/2})$, and $\begin{pmatrix} 1 & -i \\ 1 & i\end{pmatrix}^{-1} = \frac{1}{2i}\begin{pmatrix} i & i \\ -1 &
 1\end{pmatrix}$. Multiplying out, $\frac{1}{2i}\begin{pmatrix} i & i \\ -1 & 1\end{pmatrix}\begin{pmatrix} e^{i\alpha/2} & -ie^{i\alpha/2} \\
 e^{-i\alpha/2} & ie^{-i\alpha/2}\end{pmatrix} = \begin{pmatrix} \cos(\alpha/2) & \sin(\alpha/2) \\ -\sin(\alpha/2) & \cos(\alpha/2)\end{pmatrix}$,
-a real matrix of determinant one, hence an isometry of $\mathbb{H}$ by @exr-hyp-moebius. It fixes $i$ since
+a real matrix of determinant one, hence an isometry of $\mathbb{H}^2$ by @exr-hyp-moebius. It fixes $i$ since
 $i(-\sin(\alpha/2)\,i + \cos(\alpha/2)) = \sin(\alpha/2) + i\cos(\alpha/2)$. For $\alpha = \pi$ the matrix is $\begin{pmatrix} 0 & 1 \\ -1 &
 0\end{pmatrix}$, the map $z \mapsto -1/z$: the inversion of @exm-hyp-isometries is the half-turn about $i$. The rotations
 about $i$ form the subgroup $SO(2)$ of $SL(2, \mathbb{R})$, the isotropy group of the point $i$.
@@ -9992,14 +9992,14 @@ between two manifolds. The third exercise does this and evaluates the distance b
 ::: {#exr-hyp-disc-sage}
 #### The disc metric by pullback
 
-With SageManifolds define $\mathbb{H}$ and $\mathbb{D}$ as manifolds with their charts, the map $w = (z - i)/(z + i)$
-in real coordinates, and pull back @eq-hyp-disc. Compare the result with @eq-hyp-half-plane, and compute the distance from $i$ to $2i$ in $\mathbb{H}$ and between their images in $\mathbb{D}$.
+With SageManifolds define $\mathbb{H}^2$ and $\mathbb{D}$ as manifolds with their charts, the map $w = (z - i)/(z + i)$
+in real coordinates, and pull back @eq-hyp-disc. Compare the result with @eq-hyp-half-plane, and compute the distance from $i$ to $2i$ in $\mathbb{H}^2$ and between their images in $\mathbb{D}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 In real coordinates the map is $u = (x^2 + y^2 - 1)/(x^2 + (y + 1)^2)$, $v = -2x/(x^2 + (y + 1)^2)$, and $1 - u^2 - v^2 = 4y/(x^2 +
 (y + 1)^2)$. The pullback is $(dx^2 + dy^2)/y^2$. The points $i$ and $2i$ go to $0$ and
-$1/3$, at distance $\int_0^{1/3}2\,dr/(1 - r^2) = \ln 2 = \int_1^2dy/y$.
+$1/3$, at distance $\int_0^{1/3}2\,dr/(1 - r^2) = \log 2 = \int_1^2dy/y$.
 
 ```python
 from sage.all import *
@@ -11073,16 +11073,16 @@ pattern. The second exercise derives it, so that the symbols of any orthogonal c
 
 For a diagonal metric $g = \operatorname{diag}(h_1^2, \dots, h_n^2)$, show from @eq-christoffel that, with no sum
 over repeated indices and $i \neq j$ distinct from $k$,
-$\Gamma^i_{ii} = \partial_i\ln h_i$, $\Gamma^i_{ij} = \partial_j\ln h_i$, $\Gamma^i_{jj} = -\frac{h_j}{h_i^2}\partial_ih_j$
+$\Gamma^i_{ii} = \partial_i\log h_i$, $\Gamma^i_{ij} = \partial_j\log h_i$, $\Gamma^i_{jj} = -\frac{h_j}{h_i^2}\partial_ih_j$
 and $\Gamma^k_{ij} = 0$. Check the formulas on the polar metric and the sphere.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $g^{ii} = h_i^{-2}$ only one term of the contraction survives. $\Gamma^i_{ii} = \tfrac12h_i^{-2}\partial_ih_i^2 =
-\partial_i\ln h_i$; $\Gamma^i_{ij} = \tfrac12h_i^{-2}(\partial_jh_i^2 + 0 - 0) = \partial_j\ln h_i$; $\Gamma^i_{jj} =
+\partial_i\log h_i$; $\Gamma^i_{ij} = \tfrac12h_i^{-2}(\partial_jh_i^2 + 0 - 0) = \partial_j\log h_i$; $\Gamma^i_{jj} =
 \tfrac12h_i^{-2}(0 + 0 - \partial_ih_j^2) = -h_jh_i^{-2}\partial_ih_j$; and for three distinct indices every derivative
 in the bracket is of an off-diagonal component, hence zero. Polar: $h_r = 1$, $h_\varphi = r$, so $\Gamma^\varphi_{\varphi r}
-= \partial_r\ln r = 1/r$ and $\Gamma^r_{\varphi\varphi} = -r\partial_rr = -r$. Sphere: $h_\varphi = \sin\theta$ gives
+= \partial_r\log r = 1/r$ and $\Gamma^r_{\varphi\varphi} = -r\partial_rr = -r$. Sphere: $h_\varphi = \sin\theta$ gives
 $\Gamma^\varphi_{\varphi\theta} = \cot\theta$ and $\Gamma^\theta_{\varphi\varphi} = -\sin\theta\cos\theta$.
 :::
 
@@ -11413,7 +11413,7 @@ appears in every divergence. The third exercise derives it.
 ::: {#exr-first-kind-determinant}
 #### The contracted symbol
 
-Show that $\Gamma^i_{ij} = \partial_j\ln\sqrt{|\det g|}$, using $\partial_j\ln|\det g| = g^{ik}\partial_jg_{ik}$. Check it
+Show that $\Gamma^i_{ij} = \partial_j\log\sqrt{|\det g|}$, using $\partial_j\log|\det g| = g^{ik}\partial_jg_{ik}$. Check it
 on the sphere and on $SU(2)$, and deduce that the divergence of a vector field is $\nabla_iX^i =
 \frac{1}{\sqrt{|\det g|}}\partial_i\big(\sqrt{|\det g|}\,X^i\big)$.
 :::
@@ -11421,10 +11421,10 @@ on the sphere and on $SU(2)$, and deduce that the divergence of a vector field i
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\Gamma^i_{ij} = g^{ik}\Gamma_{kij} = \tfrac12g^{ik}(\partial_ig_{jk} + \partial_jg_{ki} - \partial_kg_{ij})$; the first and
 third terms cancel after renaming $i \leftrightarrow k$ (both are symmetric), leaving $\tfrac12g^{ik}\partial_jg_{ik} =
-\tfrac12\partial_j\ln|\det g|$. Sphere: $\det g = \sin^2\theta$, $\Gamma^i_{i\theta} = \cot\theta = \Gamma^\varphi_{\varphi\theta}$.
+\tfrac12\partial_j\log|\det g|$. Sphere: $\det g = \sin^2\theta$, $\Gamma^i_{i\theta} = \cot\theta = \Gamma^\varphi_{\varphi\theta}$.
 $SU(2)$: $\det g = \sin^2\theta/64$, so $\Gamma^i_{i\theta} = \cot\theta$, which is $\Gamma^\varphi_{\varphi\theta} +
 \Gamma^\psi_{\psi\theta} = 2\cdot\frac{\cos\theta}{2\sin\theta}$. Then $\nabla_iX^i = \partial_iX^i + \Gamma^i_{ij}X^j =
-\partial_iX^i + X^j\partial_j\ln\sqrt{|\det g|}$, which is the stated formula.
+\partial_iX^i + X^j\partial_j\log\sqrt{|\det g|}$, which is the stated formula.
 :::
 ::::
 
@@ -11893,7 +11893,7 @@ and evaluate the symbols at the pole $u = v = 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\sigma = \ln 2 - \ln(1 + u^2 + v^2)$, $\partial_u\sigma = -2u/(1 + u^2 + v^2)$, and the six symbols are $\pm 2u/(1 +
+With $\sigma = \log 2 - \log(1 + u^2 + v^2)$, $\partial_u\sigma = -2u/(1 + u^2 + v^2)$, and the six symbols are $\pm 2u/(1 +
 u^2 + v^2)$ or $\pm 2v/(1 + u^2 + v^2)$, in agreement with the conformal formula. All vanish at the pole: the
 divergence of $\cot\theta$ in @fig-sphere-christoffel belongs to the spherical chart, not to the sphere.
 
@@ -11938,9 +11938,9 @@ Christoffel symbols and check $\Gamma^z_{\varphi\varphi}$ against $\Gamma^\theta
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $h_z^2 = (1 - z^2)^{-1}$ and $h_\varphi^2 = 1 - z^2$ (@exr-christoffel-diagonal): $\Gamma^z_{zz} = \tfrac12\partial_z\ln(1 -
+With $h_z^2 = (1 - z^2)^{-1}$ and $h_\varphi^2 = 1 - z^2$ (@exr-christoffel-diagonal): $\Gamma^z_{zz} = \tfrac12\partial_z\log(1 -
 z^2)^{-1} = \frac{z}{1 - z^2}$, $\Gamma^z_{\varphi\varphi} = -\tfrac12(1 - z^2)\partial_z(1 - z^2) = z(1 - z^2)$ and
-$\Gamma^\varphi_{z\varphi} = \tfrac12\partial_z\ln(1 - z^2) = -\frac{z}{1 - z^2}$. The transformation law for $\Gamma^z_{\varphi\varphi}$
+$\Gamma^\varphi_{z\varphi} = \tfrac12\partial_z\log(1 - z^2) = -\frac{z}{1 - z^2}$. The transformation law for $\Gamma^z_{\varphi\varphi}$
 has no inhomogeneous term, since $\varphi$ is unchanged: $\Gamma^z_{\varphi\varphi} = \frac{dz}{d\theta}\Gamma^\theta_{\varphi\varphi} =
 (-\sin\theta)(-\sin\theta\cos\theta) = z(1 - z^2)$.
 :::
@@ -12895,7 +12895,7 @@ the first example checks the simpler family.
 
 For $x = a$, $y = e^s$: $\dot x = \ddot x = 0$ and $\ddot y + (0 - \dot y^2)/y = e^s - e^{2s}/e^s = 0$, and the speed is
 $\sqrt{\dot y^2}/y = 1$. The vertical half-lines are geodesics, and by @exm-hyp-lengths the arc length between heights
-$y_1$ and $y_2$ is $|\ln(y_2/y_1)|$: in both directions the geodesic is infinitely long, and it reaches the boundary only in
+$y_1$ and $y_2$ is $|\log(y_2/y_1)|$: in both directions the geodesic is infinitely long, and it reaches the boundary only in
 the limit $s \to -\infty$.
 :::
 
@@ -12910,7 +12910,7 @@ For $x = a + R\tanh s$, $y = R/\cosh s$: $\dot x = R/\cosh^2s$, $\dot y = -R\sin
 (1 + \sinh^2s)/\cosh^2s = 1$. The first equation: $\ddot x = -2R\sinh s/\cosh^3s$ and $(2/y)\dot x\dot y = -2R\sinh
 s/\cosh^3s$, so it holds. The second: $\ddot y = R(\sinh^2s - 1)/\cosh^3s$ and $(\dot x^2 - \dot y^2)/y = R(1 - \sinh^2s)/\cosh^3s$,
 which cancel. The semicircle $a = 0$, $R = \sqrt2$ passes through $(\mp1, 1)$ at $\tanh s = \mp1/\sqrt2$, that is $s = \mp
-\operatorname{artanh}(1/\sqrt2) = \mp\ln(1 + \sqrt2)$, so the arc between them has length $2\ln(1 + \sqrt2)$, as found in
+\operatorname{artanh}(1/\sqrt2) = \mp\log(1 + \sqrt2)$, so the arc between them has length $2\log(1 + \sqrt2)$, as found in
 @exm-hyp-lengths: it is the geodesic between the two points.
 :::
 
@@ -13015,14 +13015,14 @@ exercise checks the formula on the two families of the proposition and its invar
 ::: {#exr-hyp-distance}
 #### The distance formula
 
-The distance between $z_1, z_2 \in \mathbb{H}$ is given by $\cosh d(z_1, z_2) = 1 + |z_1 - z_2|^2/(2y_1y_2)$. Check it for two points on a
+The distance between $z_1, z_2 \in \mathbb{H}^2$ is given by $\cosh d(z_1, z_2) = 1 + |z_1 - z_2|^2/(2y_1y_2)$. Check it for two points on a
 vertical line and for the points $-1 + i$ and $1 + i$, using @exm-hyp-semicircle. Show that the right-hand side is unchanged
 by translations, dilations and $z \mapsto -1/z$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $z_1 = iy_1$, $z_2 = iy_2$: $1 + (y_2 - y_1)^2/(2y_1y_2) = (y_1^2 + y_2^2)/(2y_1y_2) = \cosh\ln(y_2/y_1)$, matching @exm-hyp-vertical. For
-$\pm1 + i$: $1 + 4/2 = 3$, and $\cosh(2\ln(1 + \sqrt2)) = \tfrac12((1 + \sqrt2)^2 + (\sqrt2 - 1)^2) = 3$. Translations leave $z_1 - z_2$ and
+For $z_1 = iy_1$, $z_2 = iy_2$: $1 + (y_2 - y_1)^2/(2y_1y_2) = (y_1^2 + y_2^2)/(2y_1y_2) = \cosh\log(y_2/y_1)$, matching @exm-hyp-vertical. For
+$\pm1 + i$: $1 + 4/2 = 3$, and $\cosh(2\log(1 + \sqrt2)) = \tfrac12((1 + \sqrt2)^2 + (\sqrt2 - 1)^2) = 3$. Translations leave $z_1 - z_2$ and
 the heights unchanged; dilations multiply $|z_1 - z_2|^2$ and $y_1y_2$ by $\lambda^2$; under $z \mapsto -1/z$, $|1/z_2 - 1/z_1|^2 =
 |z_1 - z_2|^2/(|z_1|^2|z_2|^2)$ and $y_k \mapsto y_k/|z_k|^2$, so the ratio is unchanged. These maps generate the Möbius group
 of @exr-hyp-moebius, and every pair of points can be moved onto the imaginary axis, so the vertical case proves the
@@ -13492,7 +13492,7 @@ both multiplied by $(ad - bc)^2$, so that $K(X', Y') = K(X, Y)$.
 Write $Q(X, Y) = R_{\rho\sigma\mu\nu}X^\rho Y^\sigma X^\mu Y^\nu$. By antisymmetry in each pair, $R(X', Y', \cdot, \cdot)$ is
 determined by the bivector $X' \wedge Y' = (ad - bc)X \wedge Y$, so $Q(X', Y') = (ad - bc)^2Q(X, Y)$. The denominator is the
 Gram determinant $\det\begin{pmatrix} g(X', X') & g(X', Y') \\ g(Y', X') & g(Y', Y') \end{pmatrix}$, the squared area of the
-parallelogram, which for $\begin{pmatrix} X' \\ Y' \end{pmatrix} = M\begin{pmatrix} X \\ Y \end{pmatrix}$ is $\det(MGM^{\mathsf T}) =
+parallelogram, which for $\begin{pmatrix} X' \\ Y' \end{pmatrix} = M\begin{pmatrix} X \\ Y \end{pmatrix}$ is $\det(MGM^\top) =
 (\det M)^2\det G$. The factors cancel.
 :::
 ::::
@@ -14289,7 +14289,7 @@ Ex. 4.10.4].
 ::: {#exr-sff-pseudosphere}
 #### Principal curvatures of the pseudosphere
 
-For $E = (\sin\sigma\cos\varphi, \sin\sigma\sin\varphi, \cos\sigma + \ln\tan(\sigma/2))$, $0 < \sigma < \pi/2$, compute $\mathbf n$, the second
+For $E = (\sin\sigma\cos\varphi, \sin\sigma\sin\varphi, \cos\sigma + \log\tan(\sigma/2))$, $0 < \sigma < \pi/2$, compute $\mathbf n$, the second
 fundamental form and the shape operator, and the product of the principal curvatures. What happens at the rim $\sigma
 \to \pi/2$?
 :::
@@ -14438,7 +14438,7 @@ hyperbolic plane [@boskoff2024journey, Ex. 4.10.4].
 
 From @exr-sff-pseudosphere, $\det h = -\cot\sigma\cdot\sin\sigma\cos\sigma = -\cos^2\sigma$, and $\det g = \cot^2\sigma\sin^2\sigma = \cos^2\sigma$, so $K =
 -1$. Intrinsically, the metric $\cot^2\sigma\,d\sigma^2 + \sin^2\sigma\,d\varphi^2$ is @eq-hyp-half-plane in the chart of
-@exm-hyp-pseudosphere, with $K = -1$; it is also $du^2 + e^{-2u}d\varphi^2$ with $u = -\ln\sin\sigma$, for which $K = -f''/f = -1$
+@exm-hyp-pseudosphere, with $K = -1$; it is also $du^2 + e^{-2u}d\varphi^2$ with $u = -\log\sin\sigma$, for which $K = -f''/f = -1$
 (@exr-gauss-negative-sage).
 :::
 ::::
@@ -15179,7 +15179,7 @@ stereographic chart.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathrm{Ric} = g$ and $R = 2$ in both charts:
+$\operatorname{Ric} = g$ and $R = 2$ in both charts:
 
 ```python
 import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _curvature import *
@@ -15329,7 +15329,7 @@ the sectional curvatures of the three coordinate planes.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathrm{Ric} = 2g$, $R = 6$ and all three sectional curvatures equal $1$:
+$\operatorname{Ric} = 2g$, $R = 6$ and all three sectional curvatures equal $1$:
 
 ```python
 import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _curvature import *
@@ -15947,7 +15947,7 @@ The transformation laws of @sec-tensor-fields are pullbacks by the transition ma
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The coordinate formula for the pullback of a metric is a matrix product $J^{\mathsf{T}}gJ$ with the Jacobian $J$ of
+The coordinate formula for the pullback of a metric is a matrix product $J^\top gJ$ with the Jacobian $J$ of
 the map. The first exercise applies it by hand to a shear, which turns out not to be an isometry although it
 preserves areas.
 
@@ -15959,7 +15959,7 @@ e^{-t}y)$. Which of them preserve the metric, and which preserve the area form $
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For the shear $J = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$, so $J^{\mathsf{T}}J = \begin{pmatrix} 1 & t \\ t &
+For the shear $J = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$, so $J^\top J = \begin{pmatrix} 1 & t \\ t &
 1 + t^2 \end{pmatrix}$ and $\Phi^*(dx^2 + dy^2) = dx^2 + 2t\,dx\,dy + (1 + t^2)\,dy^2$. For the squeeze $J =
 \operatorname{diag}(e^t, e^{-t})$ and $\Psi^*(dx^2 + dy^2) = e^{2t}dx^2 + e^{-2t}dy^2$. Neither is an isometry for $t
 \neq 0$. Both preserve the area form, since $\Phi^*(dx \wedge dy) = \det J\,dx \wedge dy$ and $\det J = 1$ in both
@@ -16381,7 +16381,7 @@ matrix of derivatives of the field is antisymmetric. On the plane this leaves ex
 
 For the Euclidean plane, $g_{ij} = \delta_{ij}$ is constant and @eq-killing reads $\partial_i K_j + \partial_j
 K_i = 0$: the solutions are the translations $\partial_x$, $\partial_y$ and the rotation $x\partial_y -
-y\partial_x$ (@exr-killing-plane); the dilation $x\partial_x + y\partial_y$ is not Killing, since $\mathcal{L} g
+y\partial_x$ (@exr-killing-plane); the dilation $x\partial_x + y\partial_y$ is not Killing, since $\mathcal{L}_{x\partial_x + y\partial_y} g
 = 2g$ (@prp-polar-lie).
 :::
 
@@ -16607,15 +16607,15 @@ generators by solving for their components in the basis $\partial_\theta, \parti
 
 Write the fields $\xi_1 = y\,\partial_z - z\,\partial_y$, $\xi_2 = z\,\partial_x - x\,\partial_z$, $\xi_3 =
 x\,\partial_y - y\,\partial_x$ of $\mathbb{R}^3$ in spherical coordinates on the unit sphere, by solving
-$J\,(K^\theta, K^\varphi)^{\mathsf{T}} = \xi$ with the Jacobian @eq-sphere-jacobian.
+$J\,(K^\theta, K^\varphi)^\top = \xi$ with the Jacobian @eq-sphere-jacobian.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Since $\xi_a$ is tangent to the sphere it is a combination of the columns $\partial_\theta E$ and
-$\partial_\varphi E$, and the coefficients are found with the Gram matrix: $(K^\theta, K^\varphi)^{\mathsf{T}} =
-G^{-1} J^{\mathsf{T}} \xi$. For $\xi_3 = (-y, x, 0) = (-\sin\theta\sin\varphi, \sin\theta\cos\varphi, 0) =
+$\partial_\varphi E$, and the coefficients are found with the Gram matrix: $(K^\theta, K^\varphi)^\top =
+G^{-1} J^\top \xi$. For $\xi_3 = (-y, x, 0) = (-\sin\theta\sin\varphi, \sin\theta\cos\varphi, 0) =
 \partial_\varphi E$ the answer is $K_3 = \partial_\varphi$ by inspection. For $\xi_1 = (0, -z, y) = (0,
--\cos\theta, \sin\theta\sin\varphi)$, $J^{\mathsf{T}}\xi_1 = (-\cos^2\theta\sin\varphi - \sin^2\theta\sin\varphi,\
+-\cos\theta, \sin\theta\sin\varphi)$, $J^\top\xi_1 = (-\cos^2\theta\sin\varphi - \sin^2\theta\sin\varphi,\
 -\sin\theta\cos\theta\cos\varphi) = (-\sin\varphi, -\sin\theta\cos\theta\cos\varphi)$ and dividing by $G =
 \operatorname{diag}(1, \sin^2\theta)$ gives $K_1 = (-\sin\varphi, -\cot\theta\cos\varphi)$. In Sage, for all three:
 
@@ -17231,7 +17231,7 @@ $e^{y + i\lambda}$.
 $X^2 + Y^2 + Z^2 = 1/\cosh^2 y + \tanh^2 y = (1 + \sinh^2 y)/\cosh^2 y = 1$. As $y \to \pm\infty$, $Z \to \pm 1$,
 so the image is the sphere minus the poles and the half-meridian $\lambda = 0$: the same domain as the spherical
 chart. Comparing with @eq-sphere-embedding, $\lambda = \varphi$ and $\tanh y = \cos\theta$, that is $y =
-\operatorname{artanh}(\cos\theta) = \ln\cot(\theta/2)$, and $1/\cosh y = \sin\theta$; the Jacobian of $(\theta,
+\operatorname{artanh}(\cos\theta) = \log\cot(\theta/2)$, and $1/\cosh y = \sin\theta$; the Jacobian of $(\theta,
 \varphi) \mapsto (\lambda, y)$ is $\begin{pmatrix} 0 & 1 \\ -1/\sin\theta & 0 \end{pmatrix}$ with determinant
 $1/\sin\theta \neq 0$, so the Mercator chart is compatible with the spherical atlas. The velocities
 $\partial_\lambda E = (-\sin\lambda, \cos\lambda, 0)/\cosh y$ and $\partial_y E = (-\cos\lambda\sinh y, -
@@ -17557,7 +17557,7 @@ contributions, and the Einstein tensor. Which of the coordinate circles are geod
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The metric is $da^2 + (2 + \cos a)^2db^2$, with $\Gamma^a_{bb} = (2 + \cos a)\sin a$ and $\Gamma^b_{ab} = -\sin a/(2 + \cos a)$;
-$R^a{}_{bab} = \cos a\,(2 + \cos a)$, $\mathrm{Ric} = Kg$ with $K = \cos a/(2 + \cos a)$, equal to $\tfrac13$, $-1$ and $0$ on
+$R^a{}_{bab} = \cos a\,(2 + \cos a)$, $\operatorname{Ric} = Kg$ with $K = \cos a/(2 + \cos a)$, equal to $\tfrac13$, $-1$ and $0$ on
 the three circles, and $R = 2K$. The area is $8\pi^2 = 4\pi^2Rr$; the total curvature is $0$, made of $4\pi$ from the outer
 half and $-4\pi$ from the inner half; the Einstein tensor vanishes, as on every surface. The outer and inner equators
 and the tube circles are geodesics, since $\Gamma^a_{bb}$ vanishes at $a = 0, \pi$ and no symbol has two lower $a$ indices
@@ -17774,7 +17774,7 @@ of @exm-isometry-algebra-plane.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) The translations $(t + s, x)$ and $(t, x + s)$ have identity Jacobian, so they pull $\eta$ back to itself. The
 boost flow $\Lambda_w = \begin{pmatrix} \cosh w & \sinh w \\ \sinh w & \cosh w \end{pmatrix}$ (@exr-killing-minkowski-2d)
-satisfies $\Lambda_w^{\mathsf{T}}\eta\Lambda_w = \eta$ because $\cosh^2w - \sinh^2w = 1$; so $\Lambda_w^*\eta = \eta$, and
+satisfies $\Lambda_w^\top\eta\Lambda_w = \eta$ because $\cosh^2w - \sinh^2w = 1$; so $\Lambda_w^*\eta = \eta$, and
 $t^2 - x^2$ is preserved. (b) With $K_\mu = \eta_{\mu\nu}K^\nu$, Killing's equation for constant $\eta$ is $\partial_\mu
 K_\nu + \partial_\nu K_\mu = 0$, and the argument of @exr-killing-general-plane goes through unchanged: $K_\mu = a_\mu +
 \omega_{\mu\nu}x^\nu$ with $\omega$ antisymmetric, $2 + 1 = 3$ parameters, so the plane is maximally symmetric. With
@@ -17793,8 +17793,8 @@ chapter. On the sphere the three conserved quantities turn out to be the compone
 
 Show that for a geodesic $\gamma$ (@def-geodesic) and a Killing field $K$, $Q = g(K, \dot\gamma)$ is constant, by
 proving $\frac{dQ}{ds} = \tfrac12(\mathcal{L}_Kg)(\dot\gamma, \dot\gamma)$ with the geodesic equation @eq-geodesic. Check
-with SageManifolds that $\frac{dQ_a}{ds} = 0$ for the three Killing fields of the sphere, that $Q_a = (x \times
-\dot x)_a$ for any curve on the sphere, and evaluate $Q$ on a tilted great circle.
+with SageManifolds that $\frac{dQ_a}{ds} = 0$ for the three Killing fields of the sphere, that $Q_a = (\mathbf x \times
+\dot{\mathbf x})_a$ for any curve on the sphere, and evaluate $Q$ on a tilted great circle.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -17803,7 +17803,7 @@ $\frac{d}{ds}(g_{ij}K^i\dot\gamma^j) = \partial_kg_{ij}\dot\gamma^kK^i\dot\gamma
 @eq-christoffel, the first and last terms combine to $\tfrac12K^m\partial_mg_{kl}\dot\gamma^k\dot\gamma^l$, so that
 $\frac{dQ}{ds} = \tfrac12(\mathcal{L}_Kg)_{kl}\dot\gamma^k\dot\gamma^l$ by @eq-lie-metric, which vanishes for a Killing
 field. For $K_3 = \partial_\varphi$, $Q_3 = \sin^2\theta\,\dot\varphi$ is Clairaut's relation. Since $JK_a = \xi_a$
-and $\xi_a\cdot\dot x = \epsilon_{abc}x^b\dot x^c$, the three quantities form the angular momentum $x \times \dot x$,
+and $\xi_a\cdot\dot{\mathbf x} = \epsilon_{abc}x^b\dot x^c$, the three quantities form the angular momentum $\mathbf x \times \dot{\mathbf x}$,
 which for a great circle is the unit normal of its plane:
 
 ```python

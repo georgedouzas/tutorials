@@ -49,8 +49,8 @@ assumption has a geometric meaning, a symmetry of the metric, and a physical one
 ::: {#def-cylinder-condition}
 #### Cylinder condition
 
-A five-dimensional metric $\hat g_{AB}(x, y)$ on $M_4 \times S^1$ satisfies the **cylinder condition** if none of its
-components depends on the circle coordinate, $\partial_y\hat g_{AB} = 0$. The vector field $\partial_y$ is then a Killing
+A five-dimensional metric $\hat g_{MN}(x, y)$ on $M_4 \times S^1$ satisfies the **cylinder condition** if none of its
+components depends on the circle coordinate, $\partial_y\hat g_{MN} = 0$. The vector field $\partial_y$ is then a Killing
 vector (@def-killing), and the metric is determined by its components at a single value of $y$.
 :::
 ::::
@@ -63,8 +63,8 @@ assumption into an approximation that becomes exact for small radii.
 #### Kaluza's assumption
 
 Kaluza imposed the condition by fiat, "for no good reason" as @duff1994 [p. 3] puts it; Klein explained it: on a
-circle of radius $R$ every field is a Fourier series $\sum_nf_n(x)e^{iny/R}$, the mode $n$ has mass $|n|/R$
-(@sec-kk-tower), and for small $R$ only the $y$-independent mode $n = 0$ is light.
+circle of radius $r$ every field is a Fourier series $\sum_nf_n(x)e^{iny/r}$, the mode $n$ has mass $|n|/r$
+(@sec-kk-tower), and for small $r$ only the $y$-independent mode $n = 0$ is light.
 :::
 
 A two-dimensional version of the condition can be drawn. Its metric has one spacetime coordinate and one circle,
@@ -73,7 +73,7 @@ and it is the picture of the ansatz used throughout the chapter.
 ::: {#exm-cylinder-two-dimensions}
 #### The two-dimensional toy
 
-On the cylinder with coordinates $(x, y)$, $y \sim y + 2\pi$, the Riemannian metric $dx^2 + \phi(x)^2(dy + A(x)dx)^2$
+On the cylinder with coordinates $(x, y)$, $y \sim y + 2\pi r$ with $r = 1$, the Riemannian metric $dx^2 + \phi(x)^2(dy + A(x)dx)^2$
 satisfies the condition; it is the surface of revolution of radius $\phi(x)$ in @fig-kk-circle, and its curvature is
 $R = -2\phi''/\phi$ whatever $A$ is (@exr-kk-toy). The toy is Riemannian so that it embeds as a surface; in the
 five-dimensional ansatz below the $(x, y)$ block is $-dx^2 - \phi^2dy^2$ for flat $g$, its negative, and the
@@ -108,14 +108,14 @@ condition is the coordinate form of a symmetry.
 ::: {#exr-kkr-cylinder-killing}
 #### The Killing vector of the circle
 
-Show that $\partial_y$ is a Killing vector of $\hat g$ if and only if $\partial_y\hat g_{AB} = 0$ in the coordinates
+Show that $\partial_y$ is a Killing vector of $\hat g$ if and only if $\partial_y\hat g_{MN} = 0$ in the coordinates
 $(x^\mu, y)$, and that its flow $y \mapsto y + c$ maps each circle of constant $x$ into itself.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For a coordinate vector field the Lie derivative of the metric is the partial derivative of its components:
-$(\mathcal{L}_{\partial_y}\hat g)_{AB} = \partial_y\hat g_{AB} + \hat g_{CB}\partial_A\delta^C_y + \hat g_{AC}\partial_B\delta^C_y =
-\partial_y\hat g_{AB}$, since the components of $\partial_y$ are constant (@def-lie-derivative). The Killing equation
+$(\mathcal{L}_{\partial_y}\hat g)_{MN} = \partial_y\hat g_{MN} + \hat g_{PN}\partial_M\delta^P_y + \hat g_{MP}\partial_N\delta^P_y =
+\partial_y\hat g_{MN}$, since the components of $\partial_y$ are constant (@def-lie-derivative). The Killing equation
 $\mathcal{L}_{\partial_y}\hat g = 0$ is therefore exactly the cylinder condition. The flow of $\partial_y$ is $(x, y)
 \mapsto (x, y + c)$, which keeps $x$ fixed and rotates each circle rigidly.
 :::
@@ -166,12 +166,12 @@ products of modes, which is how interactions between modes arise.
 #### Products of modes
 
 Using the Fourier coefficients of @sec-fourier-series, show with Sage that a product of $y$-independent functions
-has only a zero mode, that the product of the modes $e^{iy}$ and $e^{-iy}$ has a zero mode, and that $e^{iy}e^{iy}$
+has only a zero mode, that the product of the modes $e^{iy/r}$ and $e^{-iy/r}$ has a zero mode, and that $e^{iy/r}e^{iy/r}$
 has only the mode $n = 2$. What does this say about truncating to the zero modes?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The $n$-th coefficient of $e^{iay}e^{iby}$ is $\frac{1}{2\pi}\int_0^{2\pi}e^{i(a + b - n)y}dy = \delta_{n, a + b}$: momentum
+The $n$-th coefficient of $e^{iay/r}e^{iby/r}$ is $\frac{1}{2\pi r}\int_0^{2\pi r}e^{i(a + b - n)y/r}dy = \delta_{n, a + b}$ (the code takes $r = 1$): momentum
 around the circle adds. Zero modes therefore generate only zero modes, so the equations for the massive modes are
 solved by setting them to zero, while massive modes in pairs $(n, -n)$ do source the zero modes:
 
@@ -224,7 +224,7 @@ $$ {#eq-kk-components}
 all independent of $y$. It is the most general metric satisfying the cylinder condition, written so that its
 fifteen components are a symmetric tensor $g_{\mu\nu}$, a vector $A_\mu$ and a scalar $\phi > 0$ on $M_4$ [@overduin1998,
 eq. 5, with $\kappa = 1$]. The minus sign makes the circle direction spacelike, so that $\hat g$ has signature
-$(+, -, -, -, -)$ when $g$ has signature $(+, -, -, -)$, and the circumference of the circle over $x$ is $2\pi\phi(x)$.
+$(+, -, -, -, -)$ when $g$ has signature $(+, -, -, -)$; with $y \sim y + 2\pi r$ the circumference of the circle over $x$ is $2\pi r\phi(x)$, so $\phi$ is dimensionless.
 The gauge coupling is restored in @sec-kk-tower.
 :::
 ::::
@@ -236,7 +236,7 @@ block formulas of linear algebra.
 ::: {#exm-ansatz-matrix}
 #### In block form
 
-$\hat g = \begin{pmatrix} g - \phi^2AA^T & -\phi^2A \\ -\phi^2A^T & -\phi^2 \end{pmatrix}$: the $4 \times 4$ block, the
+$\hat g = \begin{pmatrix} g - \phi^2AA^\top & -\phi^2A \\ -\phi^2A^\top & -\phi^2 \end{pmatrix}$: the $4 \times 4$ block, the
 $4 \times 1$ column and the $1 \times 1$ corner. The index set is the disjoint union of the four spacetime indices and
 the single circle index $y$ (@prp-kk-volume-factor).
 :::
@@ -247,8 +247,8 @@ non-trivial case and already contains the scalar sector of the theory.
 ::: {#exm-ansatz-brans-dicke}
 #### $A_\mu = 0$
 
-$d\hat s^2 = g_{\mu\nu}dx^\mu dx^\nu - \phi^2dy^2$, a warped product with the circle radius $\phi(x)$ varying over
-spacetime; its reduction is the Brans-Dicke theory with $\omega = 0$ of @exm-jordan-brans-dicke [@overduin1998, Sec.
+$d\hat s^2 = g_{\mu\nu}dx^\mu dx^\nu - \phi^2dy^2$, a warped product with the circle radius $r\phi(x)$ varying over
+spacetime; its reduction is the Brans-Dicke theory with $\omega_{\mathrm{BD}} = 0$ of @exm-jordan-brans-dicke [@overduin1998, Sec.
 3.5].
 :::
 
@@ -258,7 +258,7 @@ the Kaluza-Klein modes, refers to this background.
 ::: {#exm-ansatz-ground-state}
 #### The ground state
 
-$g_{\mu\nu} = \eta_{\mu\nu}$, $A_\mu = 0$, $\phi = R$ constant: flat $M_4 \times S^1$ with a circle of radius $R$,
+$g_{\mu\nu} = \eta_{\mu\nu}$, $A_\mu = 0$, $\phi = 1$: flat $M_4 \times S^1$ with a circle of radius $r$,
 the vacuum around which the Fourier expansion of @sec-kk-tower is made [@duff1994, eq. 12].
 :::
 ::::
@@ -271,7 +271,7 @@ The first exercise reads the components off the line element. It is the step fro
 #### Reading off the components
 
 Expand @eq-kk-ansatz and derive @eq-kk-components, remembering that the off-diagonal terms $\hat g_{\mu y}dx^\mu dy$
-appear twice in $\hat g_{AB}dx^Adx^B$.
+appear twice in $\hat g_{MN}dz^Mdz^N$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -288,13 +288,13 @@ curve, @sec-metrics.
 ::: {#exr-kkr-ansatz-circumference}
 #### The size of the circle
 
-Compute the proper length of the closed curve $y \mapsto (x_0, y)$, $0 \leq y \leq 2\pi$, in the metric
+Compute the proper length of the closed curve $y \mapsto (x_0, y)$, $0 \leq y \leq 2\pi r$, in the metric
 @eq-kk-ansatz. Does it depend on $A_\mu$? Is the curve a geodesic when $\phi$ is not constant?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The tangent vector is $\partial_y$, with $\hat g(\partial_y, \partial_y) = -\phi^2 < 0$ (spacelike), so the length is
-$\int_0^{2\pi}\sqrt{|\hat g_{yy}|}\,dy = 2\pi\phi(x_0)$, independently of $A_\mu$. The geodesic equation for $x^\lambda$
+$\int_0^{2\pi r}\sqrt{|\hat g_{yy}|}\,dy = 2\pi r\phi(x_0)$, independently of $A_\mu$. The geodesic equation for $x^\lambda$
 along the curve is $\ddot x^\lambda + \hat\Gamma^\lambda_{yy}\dot y^2 = 0$ with $\hat\Gamma^\lambda_{yy} = \phi\partial^\lambda\phi$
 (@eq-kk-christoffel), so the circle is a geodesic only where $\partial\phi = 0$: otherwise a curve along the fibre is
 pushed towards larger circles (@exm-christoffel-upper-spacetime).
@@ -307,12 +307,12 @@ congruence transformation of a block-diagonal matrix.
 #### The signature
 
 Let $E$ be the $5 \times 5$ matrix whose rows are the components of the one-forms $dx^\mu$ and $e^y = dy +
-A_\mu dx^\mu$. Show that $\hat g = E^T\operatorname{diag}(g, -\phi^2)E$, and deduce with Sylvester's law of inertia that
+A_\mu dx^\mu$. Show that $\hat g = E^\top\operatorname{diag}(g, -\phi^2)E$, and deduce with Sylvester's law of inertia that
 $\hat g$ has signature $(+, -, -, -, -)$. Check with a numerical example.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$d\hat s^2 = g_{\mu\nu}dx^\mu dx^\nu - \phi^2(e^y)^2$ is the statement $\hat g = E^T\operatorname{diag}(g, -\phi^2)E$, and $E$ is
+$d\hat s^2 = g_{\mu\nu}dx^\mu dx^\nu - \phi^2(e^y)^2$ is the statement $\hat g = E^\top\operatorname{diag}(g, -\phi^2)E$, and $E$ is
 lower triangular with unit diagonal, so $\det E = 1$. Congruent symmetric matrices have the same numbers of positive
 and negative eigenvalues, so $\hat g$ has the signature of $g$ plus one minus sign:
 
@@ -367,7 +367,7 @@ argument, which @exr-kk-tensor-law completes.
 ::: {#exm-fields-tensor-law}
 #### From the five-dimensional tensor law
 
-$\hat g'_{AB} = \frac{\partial x^C}{\partial x'^A}\frac{\partial x^D}{\partial x'^B}\hat g_{CD}$ with
+$\hat g'_{MN} = \frac{\partial z^P}{\partial z'^M}\frac{\partial z^Q}{\partial z'^N}\hat g_{PQ}$ with
 $\partial y/\partial x'^\mu = 0$ gives $\hat g'_{yy} = \hat g_{yy}$, so $\phi$ is a scalar; $\hat g'_{\mu y} = \frac{\partial x^\nu}
 {\partial x'^\mu}\hat g_{\nu y}$, so $-\phi^2A_\mu$ and hence $A_\mu$ is a covector; and then $g_{\mu\nu} = \hat g_{\mu\nu} +
 \phi^2A_\mu A_\nu$ is a tensor (@exr-kk-tensor-law).
@@ -402,7 +402,7 @@ of the Jacobian.
 ::: {#exr-kk-tensor-law}
 #### The tensor law
 
-Verify from $\hat g'_{AB} = \frac{\partial x^C}{\partial x'^A}\frac{\partial x^D}{\partial x'^B}\hat g_{CD}$ with $x' = x'(x)$,
+Verify from $\hat g'_{MN} = \frac{\partial z^P}{\partial z'^M}\frac{\partial z^Q}{\partial z'^N}\hat g_{PQ}$ with $x' = x'(x)$,
 $y' = y$ that $g_{\mu\nu}$, $A_\mu$, $\phi$ transform as a tensor, a covector and a scalar.
 :::
 
@@ -421,13 +421,13 @@ covector and a scalar. The second exercise checks this on a concrete boost.
 #### A boost at fixed $y$
 
 Take $g = \eta$, a constant $A_\mu$ and a constant $\phi$, and apply the boost $t = \cosh b\,t' + \sinh b\,x'$, $x =
-\sinh b\,t' + \cosh b\,x'$, $y' = y$. Show with Sage that the transformed ansatz has $g' = \eta$, $A' = \Lambda^TA$
+\sinh b\,t' + \cosh b\,x'$, $y' = y$. Show with Sage that the transformed ansatz has $g' = \eta$, $A' = \Lambda^\top A$
 and $\phi' = \phi$, where $\Lambda$ is the boost matrix.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The Jacobian is $\operatorname{diag}(\Lambda, 1)$ and $\Lambda^T\eta\Lambda = \eta$, so the $AA^T$ term becomes
-$(\Lambda^TA)(\Lambda^TA)^T$ and the column $-\phi^2A$ becomes $-\phi^2\Lambda^TA$:
+The Jacobian is $\operatorname{diag}(\Lambda, 1)$ and $\Lambda^\top\eta\Lambda = \eta$, so the $AA^\top$ term becomes
+$(\Lambda^\top A)(\Lambda^\top A)^\top$ and the column $-\phi^2A$ becomes $-\phi^2\Lambda^\top A$:
 
 ```python
 b = var("b"); A = vector(SR, var("A0 A1 A2 A3")); phi = var("phi")
@@ -503,7 +503,7 @@ The inverse can be checked by multiplying out. The first example does the three 
 $g^{\mu\lambda}g_{\lambda\nu} = \delta^\mu_\nu$.
 
 ::: {#exm-inverse-check}
-#### Checking $\hat g^{AC}\hat g_{CB} = \delta^A_B$
+#### Checking $\hat g^{MP}\hat g_{PN} = \delta^M_N$
 
 $\hat g^{\mu\lambda}\hat g_{\lambda\nu} + \hat g^{\mu y}\hat g_{y\nu} = g^{\mu\lambda}(g_{\lambda\nu} - \phi^2A_\lambda A_\nu) + A^\mu\phi^2A_\nu
 = \delta^\mu_\nu$, $\hat g^{\mu\lambda}\hat g_{\lambda y} + \hat g^{\mu y}\hat g_{yy} = -\phi^2A^\mu + \phi^2A^\mu = 0$, and
@@ -517,10 +517,10 @@ Kaluza-Klein masses.
 ::: {#exm-inverse-ground-state}
 #### At the ground state
 
-With $A = 0$, $\hat g^{AB} = \operatorname{diag}(g^{\mu\nu}, -\phi^{-2})$, and at $\phi = R$ the circle direction is
-rescaled by $-R^{-2}$: on the mode $e^{iny}$ (period $2\pi$ in $y$) the operator $\hat g^{yy}\partial_y^2$ gives
-$-R^{-2}\cdot(-n^2) = (n/R)^2$, so $\hat g^{AB}\partial_A\partial_B = \Box_4 + (n/R)^2$, the origin of the mass
-$|n|/R$ (@sec-kk-tower).
+With $A = 0$, $\hat g^{MN} = \operatorname{diag}(g^{\mu\nu}, -\phi^{-2})$, and at $\phi = 1$ the circle entry is
+$-1$: on the mode $e^{iny/r}$ (period $2\pi r$ in $y$) the operator $\hat g^{yy}\partial_y^2$ gives
+$-1\cdot(-n^2/r^2) = (n/r)^2$, so $\hat g^{MN}\partial_M\partial_N = \Box_4 + (n/r)^2$, the origin of the mass
+$|n|/r$ (@sec-kk-tower).
 :::
 
 In the curvature computations of @sec-kk-reduction the inverse of the four-dimensional metric is not computed but
@@ -530,7 +530,7 @@ treated as a set of new variables. The third example explains why this is enough
 #### The inverse as free symbols
 
 In the jet computations of @sec-kk-reduction the entries $g^{\mu\nu}$ are independent symbols and @eq-kk-inverse is
-the definition of $\hat g^{AB}$; the reduction never needs $g^{\mu\lambda}g_{\lambda\nu} = \delta^\mu_\nu$, a fact the
+the definition of $\hat g^{MN}$; the reduction never needs $g^{\mu\lambda}g_{\lambda\nu} = \delta^\mu_\nu$, a fact the
 computation itself reveals (@def-jet-variables).
 :::
 ::::
@@ -590,8 +590,8 @@ third exercise finds it by raising the indices of the frame one-forms.
 ::: {#exr-kkr-inverse-dual-frame}
 #### The dual frame
 
-Show with Sage that $\hat g^{AB}$ maps the one-form $e^y = dy + A_\mu dx^\mu$ to the vector $-\phi^{-2}\partial_y$ and $dx^\mu$
-to $g^{\mu\nu}h_\nu$, where $h_\nu = \partial_\nu - A_\nu\partial_y$. What is $\hat g^{AB}$ in the frame $(h_\mu, \partial_y)$?
+Show with Sage that $\hat g^{MN}$ maps the one-form $e^y = dy + A_\mu dx^\mu$ to the vector $-\phi^{-2}\partial_y$ and $dx^\mu$
+to $g^{\mu\nu}h_\nu$, where $h_\nu = \partial_\nu - A_\nu\partial_y$. What is $\hat g^{MN}$ in the frame $(h_\mu, \partial_y)$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -609,25 +609,25 @@ Gi[4, 4] = -phi^(-2) + sum(A[m] * Au[m] for m in range(4))
 ey = vector(SR, A + [1])
 up = (ey * Gi).apply_map(lambda e: e.expand())
 print("e^y raised:", list(up))
-print("[PASS] G^{AB} (e^y)_B = -phi^{-2} (d_y)^A:", all(bool(up[k] == 0) for k in range(4)) and bool(up[4] == -phi^(-2)))
+print("[PASS] G^{MN} (e^y)_N = -phi^{-2} (d_y)^M:", all(bool(up[k] == 0) for k in range(4)) and bool(up[4] == -phi^(-2)))
 ok = True
 for m in range(4):
     dxm = vector(SR, [1 if k == m else 0 for k in range(5)])
     v = (dxm * Gi).apply_map(lambda e: e.expand())
     target = sum(gi[m][k] * vector(SR, [1 if l == k else 0 for l in range(4)] + [-A[k]]) for k in range(4))
     ok = ok and all(bool((v[l] - target[l]).expand() == 0) for l in range(5))
-print("[PASS] G^{AB} (dx^mu)_B = g^{mu nu} h_nu with h_nu = d_nu - A_nu d_y:", ok)
+print("[PASS] G^{MN} (dx^mu)_N = g^{mu nu} h_nu with h_nu = d_nu - A_nu d_y:", ok)
 ```
 
 *Output:*
 
 ```text
 e^y raised: [0, 0, 0, 0, -1/phi^2]
-[PASS] G^{AB} (e^y)_B = -phi^{-2} (d_y)^A: True
-[PASS] G^{AB} (dx^mu)_B = g^{mu nu} h_nu with h_nu = d_nu - A_nu d_y: True
+[PASS] G^{MN} (e^y)_N = -phi^{-2} (d_y)^M: True
+[PASS] G^{MN} (dx^mu)_N = g^{mu nu} h_nu with h_nu = d_nu - A_nu d_y: True
 ```
 
-So the vectors dual to $(dx^\mu, e^y)$ are $(h_\mu, \partial_y)$, and in this frame $\hat g^{AB} = \operatorname{diag}(g^{\mu\nu}, -
+So the vectors dual to $(dx^\mu, e^y)$ are $(h_\mu, \partial_y)$, and in this frame $\hat g^{MN} = \operatorname{diag}(g^{\mu\nu}, -
 \phi^{-2})$: written in the frame, the inverse ansatz is as simple as the ansatz itself.
 :::
 ::::
@@ -656,8 +656,8 @@ and shows how the vector drops out.
 ::: {#exm-volume-block}
 #### By the block determinant
 
-$\det\begin{pmatrix} P & Q \\ Q^T & D \end{pmatrix} = \det D\,\det(P - QD^{-1}Q^T)$ with $D = -\phi^2$, $Q = -\phi^2A$ gives
-$-\phi^2\det(g - \phi^2AA^T + \phi^2AA^T) = -\phi^2\det g$: the $A$-dependence cancels exactly. This is the proof
+$\det\begin{pmatrix} P & Q \\ Q^\top & D \end{pmatrix} = \det D\,\det(P - QD^{-1}Q^\top)$ with $D = -\phi^2$, $Q = -\phi^2A$ gives
+$-\phi^2\det(g - \phi^2AA^\top + \phi^2AA^\top) = -\phi^2\det g$: the $A$-dependence cancels exactly. This is the proof
 of @prp-kk-volume-factor.
 :::
 
@@ -668,7 +668,7 @@ example computes it.
 #### The toy model
 
 For the Riemannian toy $dx^2 + \phi^2(dy + A\,dx)^2$, $\det = (1 + \phi^2A^2)\phi^2 - \phi^4A^2 = \phi^2$: the area
-element is $\phi\,dx\,dy$, the circumference $2\pi\phi(x)$ times $dx$, as the surface of revolution of @fig-kk-circle
+element is $\phi\,dx\,dy$, the circumference $2\pi\phi(x)$ (with $r = 1$) times $dx$, as the surface of revolution of @fig-kk-circle
 shows. With the circle block negative, $dx^2 - \phi^2(dy + A\,dx)^2$, the determinant is $-\phi^2$ and the area
 element $\sqrt{|\det|}\,dx\,dy$ is again $\phi\,dx\,dy$.
 :::
@@ -678,7 +678,7 @@ The volume factor enters the action directly. The third example shows the conseq
 ::: {#exm-volume-action}
 #### In the action
 
-$\int d^5x\sqrt{|\hat g|}\,\hat R = \int dy\int d^4x\sqrt{-g}\,\phi\hat R$: after the $y$-integral the reduced Lagrangian
+$\int d^5z\sqrt{|\hat g|}\,\hat R = \int dy\int d^4x\sqrt{-g}\,\phi\hat R$: after the $y$-integral the reduced Lagrangian
 carries an overall $\phi$, the origin of the Jordan-frame form of @sec-kk-einstein-frame.
 :::
 ::::
@@ -695,7 +695,7 @@ Compute the area of the part $-3 \leq x \leq 3$ of the surface $dx^2 + \phi(x)^2
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The area element is $\phi\,dx\,dy$ by @exm-volume-two-dimensions, so the area is $\int_{-3}^3\int_0^{2\pi}\phi\,dy\,dx =
+The area element is $\phi\,dx\,dy$ by @exm-volume-two-dimensions, so the area, with $r = 1$, is $\int_{-3}^3\int_0^{2\pi}\phi\,dy\,dx =
 2\pi\int_{-3}^3(1 + 0.35\sin x)dx = 2\pi \cdot 6 = 12\pi$, because $\sin$ is odd. This is the lateral area of the
 cylinder of radius $1$ and length $6$, and it does not depend on $A$: the bulges and the necks of the surface
 compensate. (The induced metric of the embedded surface of revolution is $(1 + \phi'^2)dx^2 + \phi^2dy^2$, whose area is
@@ -749,17 +749,17 @@ explicit, which matters when comparing conventions.
 ::: {#exr-kkr-volume-circle}
 #### Integrating over the circle
 
-For a $y$-independent function $f(x)$, compute $\int d^5x\sqrt{|\hat g|}\,f$ when $y \sim y + 2\pi$, and when $y \sim y +
-2\pi L$. Show that the coordinate $y' = y/L$ turns the second ansatz into the first with $(\phi, A)$ replaced by $(L\phi,
-A/L)$, and conclude which combination of $\phi$ and the period is physical.
+For a $y$-independent function $f(x)$, compute $\int d^5z\sqrt{|\hat g|}\,f$ when $y \sim y + 2\pi$, and when $y \sim y +
+2\pi r$. Show that the coordinate $y' = y/r$ turns the second ansatz into the first with $(\phi, A)$ replaced by $(r\phi,
+A/r)$, and conclude which combination of $\phi$ and the period is physical.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With period $2\pi$ the integral is $2\pi\int d^4x\sqrt{-g}\,\phi f$, and with period $2\pi L$ it is $2\pi L\int
-d^4x\sqrt{-g}\,\phi f$. With $y = Ly'$, $\phi^2(dy + A_\mu dx^\mu)^2 = (L\phi)^2(dy' + L^{-1}A_\mu dx^\mu)^2$ and $y'$ has period
-$2\pi$: the same metric is the ansatz for $(g, A/L, L\phi)$, and $2\pi\int\sqrt{-g}\,(L\phi)f$ agrees with the second
-integral. Only the circumference, period times $\phi$, is physical; this is why @sec-kk-tower can use $y \sim y + 2\pi R$
-with $\phi = 1$ in place of $y \sim y + 2\pi$ with $\phi = R$, at the price of rescaling $A$.
+With period $2\pi$ the integral is $2\pi\int d^4x\sqrt{-g}\,\phi f$, and with period $2\pi r$ it is $2\pi r\int
+d^4x\sqrt{-g}\,\phi f$. With $y = ry'$, $\phi^2(dy + A_\mu dx^\mu)^2 = (r\phi)^2(dy' + r^{-1}A_\mu dx^\mu)^2$ and $y'$ has period
+$2\pi$: the same metric is the ansatz for $(g, A/r, r\phi)$, and $2\pi\int\sqrt{-g}\,(r\phi)f$ agrees with the second
+integral. Only the circumference, period times $\phi$, is physical; this is why the tutorial can use $y \sim y + 2\pi r$
+with $\phi = 1$ in the ground state in place of the period $2\pi$ with $\phi = r$ used by some sources, at the price of rescaling $A$.
 :::
 ::::
 
@@ -770,7 +770,7 @@ completely general symmetric four-dimensional metric.
 ::: {#prp-kk-inverse}
 #### The inverse metric
 
-$\hat g^{AC}\hat g_{CB} = \delta^A_B$ for @eq-kk-inverse with a generic symmetric four-dimensional metric, and
+$\hat g^{MP}\hat g_{PN} = \delta^M_N$ for @eq-kk-inverse with a generic symmetric four-dimensional metric, and
 $\det\hat g = -\phi^2\det g$.
 :::
 ::::
@@ -794,7 +794,7 @@ why this turns the proposition into a finite algebraic identity.
 #### Polynomial entries
 
 Every entry of @eq-kk-inverse is a polynomial in $g^{\mu\nu}$, $A_\mu$ and $\phi^{-2}$; the only division is the one hidden
-in $g^{\mu\nu}$. The product $\hat g^{AC}\hat g_{CB}$ is then a polynomial that reduces to $\delta^A_B$ modulo
+in $g^{\mu\nu}$. The product $\hat g^{MP}\hat g_{PN}$ is then a polynomial that reduces to $\delta^M_N$ modulo
 $g^{\mu\lambda}g_{\lambda\nu} = \delta^\mu_\nu$ and $\phi^{-2}\phi^2 = 1$, so the inverse is established by polynomial
 algebra alone, without solving any equation.
 :::
@@ -805,8 +805,8 @@ check of the signs.
 ::: {#exm-kkr-inverse-ground-determinant}
 #### The ground state
 
-For $\eta_{\mu\nu}$, $A = 0$, $\phi = R$, $\hat g = \operatorname{diag}(1, -1, -1, -1, -R^2)$, $\det\hat g = R^2 = -R^2\det\eta$
-(with $\det\eta = -1$), and $\hat g^{-1} = \operatorname{diag}(1, -1, -1, -1, -R^{-2})$, in agreement with @eq-kk-inverse.
+For $\eta_{\mu\nu}$, $A = 0$ and a constant $\phi = \phi_0$ (the ground state has $\phi_0 = 1$), $\hat g = \operatorname{diag}(1, -1, -1, -1, -\phi_0^2)$, $\det\hat g = \phi_0^2 = -\phi_0^2\det\eta$
+(with $\det\eta = -1$), and $\hat g^{-1} = \operatorname{diag}(1, -1, -1, -1, -\phi_0^{-2})$, in agreement with @eq-kk-inverse.
 :::
 ::::
 
@@ -817,14 +817,14 @@ The first exercise derives the inverse rather than verifying it. It uses the Sch
 ::: {#exr-kkr-inverse-schur}
 #### Deriving the inverse
 
-Use the block inversion formula $\begin{pmatrix} P & Q \\ Q^T & D \end{pmatrix}^{-1} = \begin{pmatrix} S^{-1} & -S^{-1}QD^{-1}
-\\ -D^{-1}Q^TS^{-1} & D^{-1} + D^{-1}Q^TS^{-1}QD^{-1} \end{pmatrix}$, $S = P - QD^{-1}Q^T$, to derive @eq-kk-inverse.
+Use the block inversion formula $\begin{pmatrix} P & Q \\ Q^\top & D \end{pmatrix}^{-1} = \begin{pmatrix} S^{-1} & -S^{-1}QD^{-1}
+\\ -D^{-1}Q^\top S^{-1} & D^{-1} + D^{-1}Q^\top S^{-1}QD^{-1} \end{pmatrix}$, $S = P - QD^{-1}Q^\top$, to derive @eq-kk-inverse.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $P = g - \phi^2AA^T$, $Q = -\phi^2A$, $D = -\phi^2$: $QD^{-1}Q^T = -\phi^2AA^T$, so $S = g$ and $S^{-1} = g^{-1}$.
+With $P = g - \phi^2AA^\top$, $Q = -\phi^2A$, $D = -\phi^2$: $QD^{-1}Q^\top = -\phi^2AA^\top$, so $S = g$ and $S^{-1} = g^{-1}$.
 Then $-S^{-1}QD^{-1} = -g^{-1}(-\phi^2A)(-\phi^{-2}) = -g^{-1}A$, which is $\hat g^{\mu y} = -A^\mu$, and $D^{-1} +
-D^{-1}Q^TS^{-1}QD^{-1} = -\phi^{-2} + \phi^{-4}\phi^4A^Tg^{-1}A = -\phi^{-2} + A_\mu A^\mu$. The Schur complement being $g$
+D^{-1}Q^\top S^{-1}QD^{-1} = -\phi^{-2} + \phi^{-4}\phi^4A^\top g^{-1}A = -\phi^{-2} + A_\mu A^\mu$. The Schur complement being $g$
 itself is the algebraic form of completing the square in @eq-kk-ansatz.
 :::
 
@@ -906,9 +906,9 @@ which keeps the two kinds of index apart and reduces the determinant to a block 
 #### The index set
 
 The rows and columns of $\hat g$ are indexed by the disjoint union $\{0, 1, 2, 3\} \sqcup \{y\}$: an index is either a
-spacetime index $\mu$ or the circle index $y$. Splitting the index set this way writes $\hat g = \begin{pmatrix} P & Q \\ Q^T
-& D \end{pmatrix}$ with $P = g - \phi^2AA^T$, $Q = -\phi^2A$ and $D = -\phi^2$, and the Schur-complement formula
-$\det\hat g = \det D\,\det(P - QD^{-1}Q^T)$, valid when the corner $D$ is invertible, gives the determinant.
+spacetime index $\mu$ or the circle index $y$. Splitting the index set this way writes $\hat g = \begin{pmatrix} P & Q \\ Q^\top
+& D \end{pmatrix}$ with $P = g - \phi^2AA^\top$, $Q = -\phi^2A$ and $D = -\phi^2$, and the Schur-complement formula
+$\det\hat g = \det D\,\det(P - QD^{-1}Q^\top)$, valid when the corner $D$ is invertible, gives the determinant.
 :::
 
 The statement holds for any $4 \times 4$ matrix, not only for symmetric ones. The second example comments on this
@@ -980,7 +980,7 @@ operations, and read off $\det\hat g$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Subtracting $A_\nu$ times the last column $(-\phi^2A_\mu, -\phi^2)^T$ from column $\nu$ changes the $(\mu, \nu)$ entry to
+Subtracting $A_\nu$ times the last column $(-\phi^2A_\mu, -\phi^2)^\top$ from column $\nu$ changes the $(\mu, \nu)$ entry to
 $g_{\mu\nu} - \phi^2A_\mu A_\nu + \phi^2A_\mu A_\nu = g_{\mu\nu}$ and the $(y, \nu)$ entry to $-\phi^2A_\nu + \phi^2A_\nu = 0$; subtracting
 $A_\mu$ times the last row from row $\mu$ then clears the entries $(\mu, y)$. Together these operations are the congruence
 by $E^{-1}$ of @exr-kkr-ansatz-signature. The result is $\operatorname{diag}(g, -\phi^2)$, the operations do not
@@ -1158,7 +1158,7 @@ from $g$, $F$ and $\phi$.
 #### Christoffel symbols of the ansatz
 
 With $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu$, indices raised with $g^{\mu\nu}$ and $\Gamma^\lambda_{\mu\nu}$ the Levi-Civita
-symbols of $g$, the five-dimensional symbols $\hat\Gamma^A_{BC}$ fall into six patterns:
+symbols of $g$, the five-dimensional symbols $\hat\Gamma^M_{NP}$ fall into six patterns:
 $$
 \begin{aligned}
 \hat\Gamma^\lambda_{\mu\nu} &= \Gamma^\lambda_{\mu\nu} - \tfrac12\phi^2(A_\mu F_\nu{}^\lambda + A_\nu F_\mu{}^\lambda) + \phi A_\mu A_\nu\partial^\lambda\phi, &
@@ -1170,7 +1170,7 @@ $$
 \end{aligned}
 $$ {#eq-kk-christoffel}
 (@prp-kk-christoffel). Each is a polynomial identity in the jets and $\phi^{-1}$. Every term depends on $\phi$ only
-through $\phi^2$, so these are the formulas of the mostly-plus literature with $\phi^2 \to -\phi^2$; the three
+through $\phi^2$, so these are the formulas of the mostly-plus literature (for example @duff1994, whose signature is $(-, +, +, +, +)$) with $\phi^2 \to -\phi^2$; the three
 symbols with an upper $y$ keep their form, written through the $\hat\Gamma^\lambda$, under the switch.
 :::
 ::::
@@ -1185,7 +1185,7 @@ first example reads off the force exerted by a varying circle.
 $\hat\Gamma^\lambda_{\mu\nu}$ is the four-dimensional symbol plus terms in $A$ and $F$: for $A = 0$ it reduces to
 $\Gamma^\lambda_{\mu\nu}$ exactly, and $\hat\Gamma^\lambda_{yy} = \phi\partial^\lambda\phi$ enters the geodesic equation as $\ddot x^\lambda = -\phi\,\partial^\lambda\phi\,\dot y^2$:
 since $\partial^i\phi = -\partial_i\phi$ in this signature, a particle moving along the circle feels a force
-$\phi\nabla\phi\,\dot y^2$ pushing it towards large circles, where its Kaluza-Klein mass $|n|/\phi$ is smallest
+$\phi\nabla\phi\,\dot y^2$ pushing it towards large circles, where its Kaluza-Klein mass $|n|/(r\phi)$ is smallest
 (@sec-kk-tower).
 :::
 
@@ -1200,14 +1200,14 @@ $A$-independent parts are $\partial_\mu\phi/\phi$ and $\tfrac12(\partial_\mu A_\
 does not enter $F$.
 :::
 
-The contracted symbol $\hat\Gamma^A_{A\mu}$ is the derivative of the logarithm of the volume element. The third example
+The contracted symbol $\hat\Gamma^M_{M\mu}$ is the derivative of the logarithm of the volume element. The third example
 checks this standard identity against @eq-kk-volume.
 
 ::: {#exm-christoffel-trace}
 #### The trace
 
-$\hat\Gamma^A_{A\mu} = \Gamma^\lambda_{\lambda\mu} + \partial_\mu\phi/\phi = \partial_\mu\ln(\phi\sqrt{-g})$, in agreement with
-$\partial_\mu\ln\sqrt{|\hat g|}$ and @eq-kk-volume; all the $A$-dependence cancels in the trace (@exr-kk-christoffel).
+$\hat\Gamma^M_{M\mu} = \Gamma^\lambda_{\lambda\mu} + \partial_\mu\phi/\phi = \partial_\mu\log(\phi\sqrt{-g})$, in agreement with
+$\partial_\mu\log\sqrt{|\hat g|}$ and @eq-kk-volume; all the $A$-dependence cancels in the trace (@exr-kk-christoffel).
 :::
 ::::
 
@@ -1281,13 +1281,13 @@ One pattern can be derived in two lines. The second exercise does so, as a model
 ::: {#exr-kkr-christoffel-yy}
 #### Deriving $\hat\Gamma^\lambda_{yy}$
 
-Derive $\hat\Gamma^\lambda_{yy} = \phi\,\partial^\lambda\phi$ from $\hat\Gamma^A_{BC} = \tfrac12\hat g^{AD}(\partial_B\hat g_{DC} + \partial_C\hat g_{DB} -
-\partial_D\hat g_{BC})$ and @eq-kk-inverse.
+Derive $\hat\Gamma^\lambda_{yy} = \phi\,\partial^\lambda\phi$ from $\hat\Gamma^M_{NP} = \tfrac12\hat g^{MQ}(\partial_N\hat g_{QP} + \partial_P\hat g_{QN} -
+\partial_Q\hat g_{NP})$ and @eq-kk-inverse.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $B = C = y$ and the cylinder condition, $\partial_y\hat g_{Dy} = 0$, so $\hat\Gamma^\lambda_{yy} = -\tfrac12\hat g^{\lambda D}\partial_D\hat
-g_{yy} = -\tfrac12\hat g^{\lambda\mu}\partial_\mu(-\phi^2)$, the term with $D = y$ vanishing because $\partial_y\hat g_{yy} = 0$. With
+With $N = P = y$ and the cylinder condition, $\partial_y\hat g_{Qy} = 0$, so $\hat\Gamma^\lambda_{yy} = -\tfrac12\hat g^{\lambda Q}\partial_Q\hat
+g_{yy} = -\tfrac12\hat g^{\lambda\mu}\partial_\mu(-\phi^2)$, the term with $Q = y$ vanishing because $\partial_y\hat g_{yy} = 0$. With
 $\hat g^{\lambda\mu} = g^{\lambda\mu}$ this is $g^{\lambda\mu}\phi\partial_\mu\phi = \phi\,\partial^\lambda\phi$. No $A$ appears because $\hat
 g^{\lambda\mu}$ is $A$-independent.
 :::
@@ -1298,7 +1298,7 @@ consistency check. Only the sum of two patterns is needed.
 ::: {#exr-kkr-christoffel-trace}
 #### The trace from the patterns
 
-Compute $\hat\Gamma^A_{A\mu} = \hat\Gamma^\lambda_{\lambda\mu} + \hat\Gamma^y_{y\mu}$ from @eq-kk-christoffel and show that the $A$-dependent
+Compute $\hat\Gamma^M_{M\mu} = \hat\Gamma^\lambda_{\lambda\mu} + \hat\Gamma^y_{y\mu}$ from @eq-kk-christoffel and show that the $A$-dependent
 terms cancel.
 :::
 
@@ -1438,7 +1438,7 @@ the price.
 ::: {#exr-kkr-ricci-constant-phi}
 #### Constant $\phi$
 
-Write the vacuum equations $\hat R_{AB} = 0$ for $\phi = 1$ as four-dimensional equations. Which of them is a constraint
+Write the vacuum equations $\hat R_{MN} = 0$ for $\phi = 1$ as four-dimensional equations. Which of them is a constraint
 on the electromagnetic field?
 :::
 
@@ -1465,7 +1465,7 @@ $$
 $$ {#eq-kk-scalar}
 (@prp-kk-scalar): the four-dimensional scalar, the Maxwell invariant with the coefficient $\tfrac14\phi^2$ (it becomes
 the Maxwell Lagrangian $-\tfrac14F^2$ once the sign of the Einstein-Hilbert action in this signature is included,
-@def-reduced-action), and a total derivative in disguise. It follows from @eq-kk-ricci by $\hat R = \hat g^{AB}\hat R_{AB}$ with @eq-kk-inverse, all
+@def-reduced-action), and a total derivative in disguise. It follows from @eq-kk-ricci by $\hat R = \hat g^{MN}\hat R_{MN}$ with @eq-kk-inverse, all
 $A$-dependent terms cancelling.
 :::
 ::::
@@ -1579,7 +1579,7 @@ R5 = 1/2*B^2 ; F^2 = 2*B^2
 In general $F^2 = 2(B^2 - E^2)$, so electric and magnetic fields curve the five-dimensional space with opposite signs.
 :::
 
-Much of the literature uses the signature $(-, +, +, +, +)$. The third exercise translates @eq-kk-scalar, which is a
+Much of the literature, for example @duff1994 and @martin1997, uses the signature $(-, +, +, +, +)$. The third exercise translates @eq-kk-scalar, which is a
 useful check of every sign in it.
 
 ::: {#exr-kkr-scalar-mostly-plus}
@@ -1595,7 +1595,7 @@ The Christoffel symbols and the Ricci tensor are unchanged by $\hat g \to -\hat 
 $\hat R \to -\hat R$, $R \to -R$, $\Box \to -\Box$, and $F_{\mu\nu}F^{\mu\nu}$, with two inverse metrics, is unchanged. The
 mostly-plus metric $g_+ + \phi^2(dy + A)^2$ is $-(g - \phi^2(dy + A)^2)$ with $g = -g_+$, so $-\hat R_+ = -R_+ + \tfrac14\phi^2F^2 +
 \tfrac{2}{\phi}\Box_+\phi$, that is $\hat R_+ = R_+ - \tfrac14\phi^2F^2 - \tfrac{2}{\phi}\Box_+\phi$, the form usually quoted in the
-mostly-plus literature.
+mostly-plus literature (@duff1994).
 :::
 ::::
 
@@ -1607,15 +1607,15 @@ The five-dimensional action is the integral of the curvature scalar against the 
 #### The reduced action
 
 Inserting @eq-kk-scalar and @eq-kk-volume into the five-dimensional Einstein-Hilbert action and integrating over
-the circle of circumference $2\pi$,
+the circle $y \sim y + 2\pi r$,
 $$
-\hat S = -\frac{1}{2\hat\kappa^2}\int d^5x\sqrt{|\hat g|}\,\hat R
-  = -\frac{2\pi}{2\hat\kappa^2}\int d^4x\sqrt{-g}\,\phi\left(R + \tfrac14\phi^2F_{\mu\nu}F^{\mu\nu}\right) ,
+\hat S = -\frac{1}{2\hat\kappa^2}\int d^5z\sqrt{|\hat g|}\,\hat R
+  = -\frac{2\pi r}{2\hat\kappa^2}\int d^4x\sqrt{-g}\,\phi\left(R + \tfrac14\phi^2F_{\mu\nu}F^{\mu\nu}\right) ,
 $$ {#eq-kk-reduced-action}
 the overall sign being that of the Einstein-Hilbert action in the signature $(+, -, -, -)$ (@eq-einstein-hilbert)
 and the term $-2\sqrt{-g}\,\Box\phi = -2\partial_\mu(\sqrt{-g}\,g^{\mu\nu}\partial_\nu\phi)$ being a total derivative
 (@exr-kk-total-derivative). This is the **Jordan-frame** action [@overduin1998, eq. 9], with the Newton constant
-$\kappa^2 = \hat\kappa^2/2\pi$ when $\phi = 1$ and the Maxwell term $-\tfrac14\phi^3F_{\mu\nu}F^{\mu\nu}$ carrying the
+$\kappa^2 = \hat\kappa^2/2\pi r$ when $\phi = 1$ and the Maxwell term $-\tfrac14\phi^3F_{\mu\nu}F^{\mu\nu}$ carrying the
 factor $\phi^3$ and the standard sign.
 :::
 ::::
@@ -1639,7 +1639,7 @@ problem it poses.
 ::: {#exm-action-brans-dicke}
 #### $A = 0$
 
-$\hat S = -\frac{1}{2\kappa^2}\int\sqrt{-g}\,\phi R$, the Brans-Dicke action with $\omega = 0$; observation requires $\omega >
+$\hat S = -\frac{1}{2\kappa^2}\int\sqrt{-g}\,\phi R$, the Brans-Dicke action with $\omega_{\mathrm{BD}} = 0$; observation requires $\omega_{\mathrm{BD}} >
 500$, so the scalar must be frozen or made massive for a realistic theory [@overduin1998, Sec. 3.5]. The Weyl
 rescaling of @sec-kk-einstein-frame shows it is a canonical massless scalar.
 :::
@@ -1670,7 +1670,7 @@ Show that $\sqrt{-g}\,\Box\phi = \partial_\mu(\sqrt{-g}\,g^{\mu\nu}\partial_\nu\
 $\Box\phi = g^{\mu\nu}(\partial_\mu\partial_\nu\phi - \Gamma^\lambda_{\mu\nu}\partial_\lambda\phi)$ and $g^{\mu\nu}\Gamma^\lambda_{\mu\nu} = -\frac{1}{\sqrt{-g}}
 \partial_\mu(\sqrt{-g}g^{\mu\lambda})$ (@exm-christoffel-trace and the contracted Christoffel identity), so $\sqrt{-g}\Box\phi =
 \sqrt{-g}g^{\mu\nu}\partial_\mu\partial_\nu\phi + \partial_\mu(\sqrt{-g}g^{\mu\lambda})\partial_\lambda\phi = \partial_\mu(\sqrt{-g}g^{\mu\nu}\partial_\nu\phi)$.
-Multiplied by the constant $-2\pi/2\hat\kappa^2$, this integrates to a boundary term, which vanishes for fields that
+Multiplied by the constant $-2\pi r/2\hat\kappa^2$, this integrates to a boundary term, which vanishes for fields that
 decay at infinity; note that the factor $\phi$ of @eq-kk-volume multiplies $-\tfrac{2}{\phi}\Box\phi$ to give exactly
 $-2\Box\phi$, which is why no $(\partial\phi)^2$ term survives in @eq-kk-reduced-action.
 :::
@@ -1689,9 +1689,9 @@ field is canonical?
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The Maxwell part is $-\frac{1}{2\kappa^2}\cdot\tfrac14\int\sqrt{-g}F^2$, and $F = \sqrt2\kappa\,\mathcal{F}$ gives $F^2 =
 2\kappa^2\mathcal{F}^2$, so it is $-\tfrac14\int\sqrt{-g}\,\mathcal{F}^2$. The coupling then sits in the covariant
-derivatives of charged fields: a field that couples to $A$ through $\partial_\mu - iqA_\mu$ couples to $\mathcal{A}$ through
-$\partial_\mu - iq\sqrt2\kappa\,\mathcal{A}_\mu$, so its charge in canonical units is $\sqrt2\kappa q$. With $q = n/R$ for the
-Kaluza-Klein modes this is the charge $ne$ with $e = \sqrt2\kappa/R$ of @def-charge-quantisation: gravitational strength
+derivatives of charged fields: a field that couples to $A$ through $\partial_\mu + iqA_\mu$ couples to $\mathcal{A}$ through
+$\partial_\mu + iq\sqrt2\kappa\,\mathcal{A}_\mu$, so its charge in canonical units is $\sqrt2\kappa q$. With $q = -n/r$ for the
+Kaluza-Klein modes this is the charge $-ne$ with $e = \sqrt2\kappa/r$ of @def-charge-quantisation: gravitational strength
 divided by the radius.
 :::
 
@@ -1707,7 +1707,7 @@ follows from $\hat R = 0$ and $\hat R_{yy} = 0$ with @eq-kk-scalar and @eq-kk-ri
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The Lagrangian is $\sqrt{-g}(\phi R + \tfrac14\phi^3F^2)$ up to a constant, with no derivatives of $\phi$, so the
-Euler-Lagrange equation is $\partial/\partial\phi = 0$: $R + \tfrac34\phi^2F^2 = 0$. In five dimensions $\hat R_{AB} = 0$
+Euler-Lagrange equation is $\partial/\partial\phi = 0$: $R + \tfrac34\phi^2F^2 = 0$. In five dimensions $\hat R_{MN} = 0$
 implies $\hat R = 0$, that is $R + \tfrac14\phi^2F^2 - 2\phi^{-1}\Box\phi = 0$, and $\hat R_{yy} = 0$ gives $\Box\phi = -
 \tfrac14\phi^3F^2$; substituting, $R + \tfrac14\phi^2F^2 + \tfrac12\phi^2F^2 = R + \tfrac34\phi^2F^2 = 0$. The two
 descriptions agree, as they must for a consistent truncation.
@@ -1816,7 +1816,7 @@ patterns, Kaluza's second miracle.
 ::: {#exr-kkr-christoffel-lorentz}
 #### The Lorentz force
 
-For $\phi = 1$, show that $p_y = \hat g_{yA}\dot x^A = -(\dot y + A_\mu\dot x^\mu)$ is constant along a geodesic, and that the
+For $\phi = 1$, show that $p_y = \hat g_{yM}\dot z^M = -(\dot y + A_\mu\dot x^\mu)$ is constant along a geodesic, and that the
 spacetime components of the geodesic equation become $\ddot x^\lambda + \Gamma^\lambda_{\mu\nu}\dot x^\mu\dot x^\nu = p_y\,F^\lambda{}_\mu\dot x^\mu$
 (dots are derivatives with respect to the five-dimensional proper parameter).
 :::
@@ -1837,13 +1837,13 @@ checks the only non-obvious case.
 #### Symmetry in the lower indices
 
 Check that the expressions for $\hat\Gamma^\lambda_{\mu\nu}$ and $\hat\Gamma^y_{\mu\nu}$ in @eq-kk-christoffel are symmetric in $\mu\nu$,
-and explain why $\hat\Gamma^A_{\mu y} = \hat\Gamma^A_{y\mu}$ needs no check.
+and explain why $\hat\Gamma^M_{\mu y} = \hat\Gamma^M_{y\mu}$ needs no check.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\Gamma^\lambda_{\mu\nu}$ is symmetric, the bracket $A_\mu F_\nu{}^\lambda + A_\nu F_\mu{}^\lambda$ and $A_\mu A_\nu$ are symmetric by
 construction, and so are $A_\mu\partial_\nu\phi + A_\nu\partial_\mu\phi$ and $\partial_\mu A_\nu + \partial_\nu A_\mu$; $-A_\lambda\hat\Gamma^\lambda_{\mu\nu}$
-inherits the symmetry. The patterns with a lower $y$ define $\hat\Gamma^A_{\mu y}$, and $\hat\Gamma^A_{y\mu}$ is the same number
+inherits the symmetry. The patterns with a lower $y$ define $\hat\Gamma^M_{\mu y}$, and $\hat\Gamma^M_{y\mu}$ is the same number
 because the Levi-Civita connection is torsion free: the pattern list has six entries rather than eight for this
 reason.
 :::
@@ -1888,7 +1888,7 @@ resulting system. It is the form in which the proposition is used in the integra
 ::: {#exm-kkr-ricci-vacuum}
 #### The vacuum equations
 
-$\hat R_{AB} = 0$ is equivalent, by @eq-kk-ricci, to the three four-dimensional equations $\phi\Box\phi = -\tfrac14\phi^4F^2$,
+$\hat R_{MN} = 0$ is equivalent, by @eq-kk-ricci, to the three four-dimensional equations $\phi\Box\phi = -\tfrac14\phi^4F^2$,
 $\nabla^\lambda F_{\lambda\mu} = 3\phi^{-1}\partial_\lambda\phi F_\mu{}^\lambda$ and $R_{\mu\nu} = -\tfrac12\phi^2F_\mu{}^\lambda F_{\nu\lambda} +
 \phi^{-1}\nabla_\mu\partial_\nu\phi$: Einstein-Maxwell theory (@def-grf-einstein-maxwell) with a scalar, every solution of which lifts to a Ricci-flat
 five-dimensional metric (@exr-kkr-int-black-string).
@@ -1902,7 +1902,7 @@ behind @exm-kkr-ricci-electric-values.
 ::: {#exr-kkr-ricci-electric}
 #### All components for a constant field
 
-With SageManifolds, compute $\hat R_{AB}$ for $g = \eta$, $\phi = 1$, $A_x = Bt$ and compare with @eq-kk-ricci.
+With SageManifolds, compute $\hat R_{MN}$ for $g = \eta$, $\phi = 1$, $A_x = Bt$ and compare with @eq-kk-ricci.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1980,7 +1980,7 @@ which is the quickest route from @eq-kk-ricci to @eq-kk-scalar.
 ::: {#exr-kkr-ricci-trace}
 #### From Ricci to the scalar
 
-Using $\hat g^{AB} = \operatorname{diag}(g^{\mu\nu}, -\phi^{-2})$ in the frame $(h_\mu, \partial_y)$ and the frame components of
+Using $\hat g^{MN} = \operatorname{diag}(g^{\mu\nu}, -\phi^{-2})$ in the frame $(h_\mu, \partial_y)$ and the frame components of
 @exr-kkr-ricci-frame, derive @eq-kk-scalar.
 :::
 
@@ -2110,22 +2110,22 @@ carries energy, which curves the five-dimensional space, although the trace $F^2
 vacuum solution unless the four-dimensional metric responds to that energy.
 :::
 
-A constant circle of radius $R$ rescales the Maxwell term. The third exercise shows how the rescaling is absorbed,
+A constant circle of radius $r\phi_0$ rescales the Maxwell term. The third exercise shows how the rescaling is absorbed,
 which is why one may set $\phi = 1$ in the ground state without loss.
 
 ::: {#exr-kkr-scalar-constant-radius}
 #### A constant radius
 
-For constant $\phi = R$, show that @eq-kk-reduced-action is the $\phi = 1$ action with $A$ replaced by $RA$ and
-$\hat\kappa^2$ by $\hat\kappa^2/R$. Which combination is the four-dimensional Newton constant?
+For constant $\phi = \phi_0$, show that @eq-kk-reduced-action is the $\phi = 1$ action with $A$ replaced by $\phi_0A$ and
+$\hat\kappa^2$ by $\hat\kappa^2/\phi_0$. Which combination is the four-dimensional Newton constant?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\phi = R$: $-\frac{2\pi R}{2\hat\kappa^2}\int\sqrt{-g}(R_4 + \tfrac14R^2F^2)$, and $R^2F_{\mu\nu}F^{\mu\nu}$ is the Maxwell
-invariant of $RA$. So the action is the $\phi = 1$ action for $(g, RA)$ with $2\pi/2\hat\kappa^2$ replaced by $2\pi
-R/2\hat\kappa^2$, and the Newton constant is $\kappa^2 = \hat\kappa^2/2\pi R$, the five-dimensional one divided by the
-circumference (@exr-frame-newton). The rescaled field $RA$ is the gauge field of the coordinate $Ry$, of period $2\pi
-R$ (@exr-kkr-volume-circle).
+With $\phi = \phi_0$: $-\frac{2\pi r\phi_0}{2\hat\kappa^2}\int\sqrt{-g}(R + \tfrac14\phi_0^2F^2)$, and $\phi_0^2F_{\mu\nu}F^{\mu\nu}$ is the Maxwell
+invariant of $\phi_0A$. So the action is the $\phi = 1$ action for $(g, \phi_0A)$ with $2\pi r/2\hat\kappa^2$ replaced by $2\pi
+r\phi_0/2\hat\kappa^2$, and the Newton constant is $\kappa^2 = \hat\kappa^2/2\pi r\phi_0$, the five-dimensional one divided by the
+circumference (@exr-frame-newton). The rescaled field $\phi_0A$ is the gauge field of the coordinate $\phi_0y$, of period $2\pi
+r\phi_0$ (@exr-kkr-volume-circle).
 :::
 ::::
 
@@ -2220,7 +2220,7 @@ geodesic of $g$ a geodesic of $\tilde g$?
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\tilde g(u, v)/\sqrt{\tilde g(u, u)\tilde g(v, v)} = \Omega^2g(u, v)/(\Omega^2\sqrt{g(u, u)g(v, v)})$, the same cosine, and $\tilde g(v, v) =
 \Omega^2g(v, v)$ vanishes exactly when $g(v, v)$ does. Geodesics are not preserved in general: the Christoffel symbols
-change by $\delta^\lambda_\mu\partial_\nu\ln\Omega + \delta^\lambda_\nu\partial_\mu\ln\Omega - g_{\mu\nu}\partial^\lambda\ln\Omega$. Null geodesics are
+change by $\delta^\lambda_\mu\partial_\nu\log\Omega + \delta^\lambda_\nu\partial_\mu\log\Omega - g_{\mu\nu}\partial^\lambda\log\Omega$. Null geodesics are
 preserved as curves (with a different affine parameter), timelike ones are not: this is why "which frame do particles
 follow" is a real question (@exm-jordan-geodesics).
 :::
@@ -2276,7 +2276,7 @@ the factor $\phi$ in front of $R$ into a kinetic term.
 In four dimensions, for $\tilde g = \Omega^2g$,
 $$
 \tilde R = \Omega^{-2}\left(R - 6\,\Omega^{-1}\Box\Omega\right)
-  = \Omega^{-2}\left(R - 6\,\Box\ln\Omega - 6\,g^{\mu\nu}\partial_\mu\ln\Omega\,\partial_\nu\ln\Omega\right),
+  = \Omega^{-2}\left(R - 6\,\Box\log\Omega - 6\,g^{\mu\nu}\partial_\mu\log\Omega\,\partial_\nu\log\Omega\right),
 $$ {#eq-weyl-curvature}
 with $\Box = g^{\mu\nu}\nabla_\mu\partial_\nu$ the d'Alembertian of $g$ [@overduin1998, eq. 15], a formula valid in every
 signature since $R$ and $\Box$ change sign together under $g \to -g$; in $n$ dimensions the coefficients are $2(n - 1)$ and
@@ -2290,8 +2290,8 @@ In two dimensions the formula simplifies. The first example checks it on the res
 ::: {#exm-weyl-two-dimensions}
 #### Two dimensions
 
-$\tilde R = \Omega^{-2}(R - 2\Box\ln\Omega)$: for the rescaled sphere of @exm-weyl-sphere SageManifolds gives exactly
-this, with $R = 2$ (@fig-kk-einstein-frame). The absence of a $(\partial\ln\Omega)^2$ term is special to $n = 2$.
+$\tilde R = \Omega^{-2}(R - 2\Box\log\Omega)$: for the rescaled sphere of @exm-weyl-sphere SageManifolds gives exactly
+this, with $R = 2$ (@fig-kk-einstein-frame). The absence of a $(\partial\log\Omega)^2$ term is special to $n = 2$.
 :::
 
 The four-dimensional formula is tested on a time-dependent rescaling of de Sitter space. The second example records
@@ -2317,7 +2317,7 @@ $\Omega$.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 ![Weyl rescaling. Left: the unit sphere (dashed) and the profile of the rescaled metric $\Omega^2g$ with $\Omega = 1 +
-\tfrac12\cos\theta$. Right: the curvature scalar $R = 2$ of the sphere and $\tilde R = \Omega^{-2}(R - 2\Box\ln\Omega)$
+\tfrac12\cos\theta$. Right: the curvature scalar $R = 2$ of the sphere and $\tilde R = \Omega^{-2}(R - 2\Box\log\Omega)$
 of the rescaled metric, computed with SageManifolds; the four-dimensional formula is checked on de Sitter space in
 the same script. Generated by
 `figures/kk_einstein_frame.sage`.](figures/kk_einstein_frame.svg){#fig-kk-einstein-frame width=90%}
@@ -2328,14 +2328,14 @@ the chain rule.
 ::: {#exr-kkr-weyl-log-form}
 #### The logarithmic form
 
-Show that $\Omega^{-1}\Box\Omega = \Box\ln\Omega + g^{\mu\nu}\partial_\mu\ln\Omega\,\partial_\nu\ln\Omega$, and hence that the two expressions in
+Show that $\Omega^{-1}\Box\Omega = \Box\log\Omega + g^{\mu\nu}\partial_\mu\log\Omega\,\partial_\nu\log\Omega$, and hence that the two expressions in
 @eq-weyl-curvature agree.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_\nu\ln\Omega = \Omega^{-1}\partial_\nu\Omega$, so $\nabla_\mu\partial_\nu\ln\Omega = \Omega^{-1}\nabla_\mu\partial_\nu\Omega - \Omega^{-2}\partial_\mu\Omega\,
-\partial_\nu\Omega$. Contracting with $g^{\mu\nu}$: $\Box\ln\Omega = \Omega^{-1}\Box\Omega - (\partial\ln\Omega)^2$, which is the identity.
-Multiplied by $-6$ it turns $-6\Omega^{-1}\Box\Omega$ into $-6\Box\ln\Omega - 6(\partial\ln\Omega)^2$.
+$\partial_\nu\log\Omega = \Omega^{-1}\partial_\nu\Omega$, so $\nabla_\mu\partial_\nu\log\Omega = \Omega^{-1}\nabla_\mu\partial_\nu\Omega - \Omega^{-2}\partial_\mu\Omega\,
+\partial_\nu\Omega$. Contracting with $g^{\mu\nu}$: $\Box\log\Omega = \Omega^{-1}\Box\Omega - (\partial\log\Omega)^2$, which is the identity.
+Multiplied by $-6$ it turns $-6\Omega^{-1}\Box\Omega$ into $-6\Box\log\Omega - 6(\partial\log\Omega)^2$.
 :::
 
 The round sphere is conformally flat, through the stereographic projection. The second exercise uses the
@@ -2349,8 +2349,8 @@ curvature with SageManifolds and with the two-dimensional formula of @exm-weyl-t
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $R = 0$ and the flat Laplacian $\Delta$ (the Riemannian $\Box$), $\tilde R = -2\Omega^{-2}\Delta\ln\Omega$, and
-$\Delta\ln\Omega = -4/(1 + x^2 + y^2)^2 = -\Omega^2$:
+With $R = 0$ and the flat Laplacian $\Delta$ (the Riemannian $\Box$), $\tilde R = -2\Omega^{-2}\Delta\log\Omega$, and
+$\Delta\log\Omega = -4/(1 + x^2 + y^2)^2 = -\Omega^2$:
 
 ```python
 M = Manifold(2, "M"); X = M.chart("x y"); x, y = X[:]
@@ -2377,8 +2377,8 @@ The coefficients of the formula depend on the dimension. The third exercise chec
 ::: {#exr-kkr-weyl-three-dims}
 #### Three dimensions
 
-Check with SageManifolds that $\tilde g = \Omega(x)^2(dx^2 + dy^2 + dz^2)$ has $\tilde R = \Omega^{-2}(-4(\ln\Omega)'' -
-2((\ln\Omega)')^2)$, the $n$-dimensional formula with $n = 3$.
+Check with SageManifolds that $\tilde g = \Omega(x)^2(dx^2 + dy^2 + dz^2)$ has $\tilde R = \Omega^{-2}(-4(\log\Omega)'' -
+2((\log\Omega)')^2)$, the $n$-dimensional formula with $n = 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2417,7 +2417,7 @@ directly out of the reduction.
 
 The **Jordan frame** is the description in which the metric is the one appearing in the higher-dimensional
 ansatz: the reduced action @eq-kk-reduced-action, $-\frac{1}{2\kappa^2}\int\sqrt{-g}\,\phi(R + \tfrac14\phi^2F^2)$, with the
-scalar multiplying the curvature. In it the effective Newton constant is $G/\phi$, varying in space and time.
+scalar multiplying the curvature. In it the effective Newton constant is $G_N/\phi$, varying in space and time.
 :::
 ::::
 
@@ -2428,8 +2428,8 @@ Jordan-frame action among them. The comparison fixes the value of the Brans-Dick
 ::: {#exm-jordan-brans-dicke}
 #### Brans-Dicke theory
 
-$-\frac{1}{2\kappa^2}\int\sqrt{-g}\,(\phi R - \omega\phi^{-1}(\partial\phi)^2)$, with $(\partial\phi)^2 = g^{\mu\nu}\partial_\mu\phi\,\partial_\nu\phi$,
-is the Brans-Dicke action in the signature $(+, -, -, -)$, and the Kaluza-Klein scalar is the case $\omega = 0$ [@overduin1998, eq. 13]; solar-system tests require $\omega > 500$, so the scalar must be
+$-\frac{1}{2\kappa^2}\int\sqrt{-g}\,(\phi R - \omega_{\mathrm{BD}}\phi^{-1}(\partial\phi)^2)$, with $(\partial\phi)^2 = g^{\mu\nu}\partial_\mu\phi\,\partial_\nu\phi$,
+is the Brans-Dicke action in the signature $(+, -, -, -)$, and the Kaluza-Klein scalar is the case $\omega_{\mathrm{BD}} = 0$ [@overduin1998, eq. 13]; solar-system tests require $\omega_{\mathrm{BD}} > 500$, so the scalar must be
 stabilised by extra ingredients in any realistic model.
 :::
 
@@ -2456,7 +2456,7 @@ entirely hidden in its coupling to $R$, and is revealed by the rescaling below.
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise reads off the effective gravitational coupling of the Jordan frame. It makes the statement "$G/\phi$"
+The first exercise reads off the effective gravitational coupling of the Jordan frame. It makes the statement "$G_N/\phi$"
 quantitative. The result is plotted in the figure of the dilaton couplings below.
 
 ::: {#exr-kkr-jordan-newton}
@@ -2467,8 +2467,8 @@ Newton constant. By how much does gravity weaken where the circle is twice as la
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The coefficient is $-\frac{2\pi\phi}{2\hat\kappa^2}$, which has the Einstein-Hilbert form $-\frac{1}{16\pi G_{\text{eff}}}$
-with $16\pi G_{\text{eff}} = 2\hat\kappa^2/(2\pi\phi)$, i.e. $G_{\text{eff}} = G/\phi$ with $G$ the value at $\phi = 1$. Where the
+The coefficient is $-\frac{2\pi r\phi}{2\hat\kappa^2}$, which has the Einstein-Hilbert form $-\frac{1}{16\pi G_{\text{eff}}}$
+with $16\pi G_{\text{eff}} = 2\hat\kappa^2/(2\pi r\phi)$, i.e. $G_{\text{eff}} = G_N/\phi$ with $G_N$ the value at $\phi = 1$. Where the
 circle is twice as large ($\phi = 2$) the effective Newton constant is halved: gravity is diluted over a larger
 internal volume, the mechanism of @exr-frame-newton applied point by point (@fig-kkr-couplings).
 :::
@@ -2493,23 +2493,23 @@ down the gradient of $p_y^2/\phi^2$, the square of the Jordan-frame Kaluza-Klein
 towards larger circles.
 :::
 
-The Kaluza-Klein scalar is a Brans-Dicke field with $\omega = 0$. The third exercise performs the frame change for any
-$\omega$, which shows which theories have a healthy scalar.
+The Kaluza-Klein scalar is a Brans-Dicke field with $\omega_{\mathrm{BD}} = 0$. The third exercise performs the frame change for any
+$\omega_{\mathrm{BD}}$, which shows which theories have a healthy scalar.
 
 ::: {#exr-kkr-jordan-brans-dicke}
 #### Brans-Dicke in the Einstein frame
 
 Rescale $g = \phi^{-1}g^E$ in the Brans-Dicke action of @exm-jordan-brans-dicke and show that, up to a total derivative,
-it becomes $\frac{1}{2\kappa^2}\int\sqrt{-g^E}(-R^E + (\omega + \tfrac32)(\partial_E\ln\phi)^2)$. For which $\omega$ is the scalar
+it becomes $\frac{1}{2\kappa^2}\int\sqrt{-g^E}(-R^E + (\omega_{\mathrm{BD}} + \tfrac32)(\partial_E\log\phi)^2)$. For which $\omega_{\mathrm{BD}}$ is the scalar
 not a ghost?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The $\phi R$ term gives @eq-einstein-frame-identity. For the kinetic term, $\sqrt{-g} = \phi^{-2}\sqrt{-g^E}$ and $g^{\mu\nu} =
 \phi g_E^{\mu\nu}$, so $\sqrt{-g}\,\phi^{-1}g^{\mu\nu}\partial_\mu\phi\partial_\nu\phi = \sqrt{-g^E}\,\phi^{-2}(\partial_E\phi)^2 =
-\sqrt{-g^E}(\partial_E\ln\phi)^2$. Altogether $-\frac{1}{2\kappa^2}\sqrt{-g^E}(R^E - \tfrac32(\partial\ln\phi)^2 - \omega(\partial\ln\phi)^2)$
-plus a total derivative. The kinetic term $\frac{1}{2\kappa^2}(\omega + \tfrac32)(\partial\ln\phi)^2$ has the healthy sign in
-$(+, -, -, -)$ exactly when $\omega > -\tfrac32$; the Kaluza-Klein value $\omega = 0$ gives $\tfrac32$, as in
+\sqrt{-g^E}(\partial_E\log\phi)^2$. Altogether $-\frac{1}{2\kappa^2}\sqrt{-g^E}(R^E - \tfrac32(\partial\log\phi)^2 - \omega_{\mathrm{BD}}(\partial\log\phi)^2)$
+plus a total derivative. The kinetic term $\frac{1}{2\kappa^2}(\omega_{\mathrm{BD}} + \tfrac32)(\partial\log\phi)^2$ has the healthy sign in
+$(+, -, -, -)$ exactly when $\omega_{\mathrm{BD}} > -\tfrac32$; the Kaluza-Klein value $\omega_{\mathrm{BD}} = 0$ gives $\tfrac32$, as in
 @eq-einstein-frame-action.
 :::
 ::::
@@ -2524,11 +2524,11 @@ The Einstein frame is defined by the requirement that the coefficient of the cur
 The **Einstein frame** metric is $g^E_{\mu\nu} = \phi\,g_{\mu\nu}$, that is $g = \Omega^2g^E$ with $\Omega^2 = \phi^{-1}$. By
 @eq-weyl-curvature and @eq-kk-volume,
 $$
-\sqrt{-g}\,\phi R = \sqrt{-g^E}\left(R^E + 3\,\Box^E\ln\phi - \tfrac32\,g_E^{\mu\nu}\partial_\mu\ln\phi\,\partial_\nu\ln\phi\right),
+\sqrt{-g}\,\phi R = \sqrt{-g^E}\left(R^E + 3\,\Box^E\log\phi - \tfrac32\,g_E^{\mu\nu}\partial_\mu\log\phi\,\partial_\nu\log\phi\right),
 $$ {#eq-einstein-frame-identity}
 and dropping the total derivative the reduced action becomes
 $$
-\hat S = \frac{1}{2\kappa^2}\int d^4x\sqrt{-g^E}\left(-R^E + \tfrac32\,g_E^{\mu\nu}\partial_\mu\ln\phi\,\partial_\nu\ln\phi
+\hat S = \frac{1}{2\kappa^2}\int d^4x\sqrt{-g^E}\left(-R^E + \tfrac32\,g_E^{\mu\nu}\partial_\mu\log\phi\,\partial_\nu\log\phi
   - \tfrac14\phi^3F_{\mu\nu}F^{\mu\nu}_E\right)
 $$ {#eq-einstein-frame-action}
 [@overduin1998, eq. 17]: canonical gravity ($-R$, the sign of @eq-einstein-hilbert), a scalar with a positive
@@ -2542,10 +2542,10 @@ The kinetic term comes from the derivative terms of the Weyl formula. The first 
 ::: {#exm-einstein-frame-kinetic}
 #### The kinetic term
 
-$\Omega = \phi^{-1/2}$ gives $\ln\Omega = -\tfrac12\ln\phi$, and the terms $-6\Box\ln\Omega - 6(\partial\ln\Omega)^2$ of
-@eq-weyl-curvature become $3\Box\ln\phi - \tfrac32(\partial\ln\phi)^2$; the factors $\sqrt{-g}\,\phi = \Omega^4\phi\sqrt{-g^E} =
+$\Omega = \phi^{-1/2}$ gives $\log\Omega = -\tfrac12\log\phi$, and the terms $-6\Box\log\Omega - 6(\partial\log\Omega)^2$ of
+@eq-weyl-curvature become $3\Box\log\phi - \tfrac32(\partial\log\phi)^2$; the factors $\sqrt{-g}\,\phi = \Omega^4\phi\sqrt{-g^E} =
 \phi^{-1}\sqrt{-g^E}$ and $\Omega^{-2} = \phi$ cancel exactly (@exr-kk-weyl); the overall $-\tfrac{1}{2\kappa^2}$ of the
-action then turns $-\tfrac32(\partial\ln\phi)^2$ into the positive kinetic term of @eq-einstein-frame-action, the sign a
+action then turns $-\tfrac32(\partial\log\phi)^2$ into the positive kinetic term of @eq-einstein-frame-action, the sign a
 scalar must have in the signature $(+, -, -, -)$ (@sec-conventions-indices).
 :::
 
@@ -2564,27 +2564,27 @@ In the Einstein frame the Newton constant is a constant. The third example relat
 ::: {#exm-einstein-frame-newton}
 #### Newton's constant
 
-In the Einstein frame the coefficient of $R^E$ is the constant $1/2\kappa^2$ with $\kappa^2 = \hat\kappa^2/2\pi$: the
+In the Einstein frame the coefficient of $R^E$ is the constant $1/2\kappa^2$ with $\kappa^2 = \hat\kappa^2/2\pi r$: the
 four-dimensional Newton constant is the five-dimensional one divided by the circumference of the circle,
-$G_4 = G_5/2\pi R$ for a circle of radius $R$ [@overduin1998, eq. 10] (@exr-frame-newton).
+$G_N = \hat G/2\pi r$ for a circle of radius $r$ [@overduin1998, eq. 10] (@exr-frame-newton).
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise derives the relation between the two Newton constants for a circle of radius $R$. It is the
+The first exercise derives the relation between the two Newton constants for a circle of radius $r$. It is the
 relation used throughout @sec-kk-tower.
 
 ::: {#exr-frame-newton}
 #### Newton's constant and the circle
 
-With $\hat S = -\frac{1}{2\hat\kappa^2}\int d^5x\sqrt{|\hat g|}\,\hat R$ and a circle $0 \leq y < 2\pi R$, express the
-four-dimensional $\kappa$ in terms of $\hat\kappa$ and $R$.
+With $\hat S = -\frac{1}{2\hat\kappa^2}\int d^5z\sqrt{|\hat g|}\,\hat R$ and a circle $0 \leq y < 2\pi r$, express the
+four-dimensional $\kappa$ in terms of $\hat\kappa$ and $r$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\phi = R$ constant (the circle has circumference $2\pi R$ for $0 \leq y < 2\pi$ in @eq-kk-ansatz) the $y$
-integral gives $2\pi$ and the factor $\phi = R$: $\hat S = -\frac{2\pi R}{2\hat\kappa^2}\int\sqrt{-g}\,R_4 + \dots$, so
-$\kappa^2 = \hat\kappa^2/2\pi R$, that is $G_4 = G_5/(2\pi R)$: gravity is weaker in four dimensions by the volume of
+With $\phi = 1$ (the circle has circumference $2\pi r$ for $0 \leq y < 2\pi r$ in @eq-kk-ansatz) the $y$
+integral gives $2\pi r$: $\hat S = -\frac{2\pi r}{2\hat\kappa^2}\int\sqrt{-g}\,R + \dots$, so
+$\kappa^2 = \hat\kappa^2/2\pi r$, that is $G_N = \hat G/(2\pi r)$: gravity is weaker in four dimensions by the volume of
 the internal space, the mechanism of @arkanihamed1998 for large extra dimensions (Part VI). In Duff's
 normalisation with $0 \leq my \leq 2\pi$ this is $2\pi\kappa^2 = m\hat\kappa^2$ [@duff1994, p. 5].
 :::
@@ -2614,12 +2614,12 @@ compare the Kaluza-Klein masses of @sec-kk-tower in the two frames.
 
 A point particle of mass $m$ in the Jordan frame has action $-m\int d\tau_J$ with $d\tau_J^2 = g_{\mu\nu}dx^\mu dx^\nu$. Show
 that its Einstein-frame mass is $m\phi^{-1/2}$ for constant $\phi$, and apply this to the Jordan-frame Kaluza-Klein
-mass $|n|/(R\phi)$.
+mass $|n|/(r\phi)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $g = \phi^{-1}g^E$ gives $d\tau_J = \phi^{-1/2}d\tau_E$, so $-m\int d\tau_J = -m\phi^{-1/2}\int d\tau_E$: the Einstein-frame mass is
-$m\phi^{-1/2}$. For the Kaluza-Klein modes, $|n|/(R\phi) \cdot \phi^{-1/2} = |n|/(R\phi^{3/2})$, which is what the wave
+$m\phi^{-1/2}$. For the Kaluza-Klein modes, $|n|/(r\phi) \cdot \phi^{-1/2} = |n|/(r\phi^{3/2})$, which is what the wave
 equation gives directly in @exr-kkr-mass-einstein-frame.
 :::
 ::::
@@ -2631,7 +2631,7 @@ canonical defines the dilaton, and exposes the exponential coupling to the Maxwe
 ::: {#def-dilaton}
 #### Dilaton
 
-The **dilaton** is the canonically normalised scalar $\sigma = \sqrt3\ln\phi$, in terms of which
+The **dilaton** is the canonically normalised scalar $\sigma = \sqrt3\log\phi$, in terms of which
 @eq-einstein-frame-action reads
 $$
 \hat S = \frac{1}{2\kappa^2}\int d^4x\sqrt{-g^E}\left(-R^E + \tfrac12(\partial\sigma)^2 - \tfrac14e^{\sqrt3\sigma}F^2\right),
@@ -2648,7 +2648,7 @@ kinetic term.
 ::: {#exm-dilaton-normalisation}
 #### Fixing the normalisation
 
-$\tfrac32(\partial\ln\phi)^2 = \tfrac12(\partial\sigma)^2$ requires $\ln\phi = \sigma/\sqrt3$, and then $\phi^3 = e^{\sqrt3\sigma}$: the
+$\tfrac32(\partial\log\phi)^2 = \tfrac12(\partial\sigma)^2$ requires $\log\phi = \sigma/\sqrt3$, and then $\phi^3 = e^{\sqrt3\sigma}$: the
 coefficient $\sqrt3$ in the exponent is forced by the kinetic normalisation (@exr-dilaton-normalisation).
 :::
 
@@ -2676,10 +2676,10 @@ the massive modes of @sec-kk-tower.
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-![The couplings of the reduced theory as functions of the size $\phi$ of the circle, with $y \sim y + 2\pi R$: the
-Jordan-frame Newton constant $G/\phi$ (blue), the Einstein-frame gauge coupling $e\phi^{-3/2}$ read off from
-$-\tfrac14e^{\sqrt3\sigma}F^2 = -\tfrac14\phi^3F^2$, which coincides with the Einstein-frame mass $m_1R = \phi^{-3/2}$ of the
-first Kaluza-Klein mode (red; dashed, the Jordan-frame mass $\phi^{-1}$), and the ratio $q_n/(\sqrt2\kappa m_n) = 1$
+![The couplings of the reduced theory as functions of the size $\phi$ of the circle, with $y \sim y + 2\pi r$: the
+Jordan-frame Newton constant $G_N/\phi$ (blue), the Einstein-frame gauge coupling $e\phi^{-3/2}$ read off from
+$-\tfrac14e^{\sqrt3\sigma}F^2 = -\tfrac14\phi^3F^2$, which coincides with the Einstein-frame mass $m_1r = \phi^{-3/2}$ of the
+first Kaluza-Klein mode (red; dashed, the Jordan-frame mass $\phi^{-1}$), and the ratio $|q_n|/(\sqrt2\kappa m_n) = 1$
 (green), independent of $\phi$. The exponents are checked symbolically, the mass from the wave equation on $\phi^{-1}\eta -
 \phi^2dy^2$ with SageManifolds. Generated by `figures/kkr_couplings.sage`.](figures/kkr_couplings.svg){#fig-kkr-couplings width=75%}
 
@@ -2695,7 +2695,7 @@ Derive @eq-dilaton-action from @eq-einstein-frame-action.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\phi = e^{c\sigma}$, $\ln\phi = c\sigma$ and $\tfrac32(\partial\ln\phi)^2 = \tfrac32c^2(\partial\sigma)^2$, which equals
+With $\phi = e^{c\sigma}$, $\log\phi = c\sigma$ and $\tfrac32(\partial\log\phi)^2 = \tfrac32c^2(\partial\sigma)^2$, which equals
 $\tfrac12(\partial\sigma)^2$ for $c = 1/\sqrt3$; then $\phi^3 = e^{3c\sigma} = e^{\sqrt3\sigma}$. The sign of $\sigma$ is a
 convention: @duff1994 writes $e^{-\sqrt3\phi}$ with his $\phi = -\sigma$.
 :::
@@ -2714,7 +2714,7 @@ effective gauge coupling of @fig-kkr-couplings change?
 $R^E$ and $(\partial\sigma)^2$ do not change, and $e^{\sqrt3(\sigma + c)}(e^{-\sqrt3c/2})^2F^2 = e^{\sqrt3\sigma}F^2$. The symmetry
 changes the vacuum value of $\phi = e^{\sigma/\sqrt3}$ by $e^{c/\sqrt3}$ and hence the effective coupling $e\phi^{-3/2}$ by
 $e^{-\sqrt3c/2}$, compensated by the rescaling of $A$: in the zero-mode theory the value of the gauge coupling is not
-fixed. It is fixed only by the charged massive modes, whose charges $n/R$ are quantised (@def-charge-quantisation),
+fixed. It is fixed only by the charged massive modes, whose charges $q_n = -n/r$ are quantised (@def-charge-quantisation),
 so the symmetry is broken by the full tower.
 :::
 
@@ -2865,15 +2865,15 @@ consistency, which tests the derivative terms of the formula.
 ::: {#exr-kkr-weyl-inverse}
 #### Rescaling back
 
-Apply @eq-weyl-curvature to $g = \Omega^{-2}\tilde g$, using $\tilde\Box f = \Omega^{-2}(\Box f + 2g^{\mu\nu}\partial_\mu\ln\Omega\,\partial_\nu f)$ in
+Apply @eq-weyl-curvature to $g = \Omega^{-2}\tilde g$, using $\tilde\Box f = \Omega^{-2}(\Box f + 2g^{\mu\nu}\partial_\mu\log\Omega\,\partial_\nu f)$ in
 four dimensions, and show that it returns $R$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\ln\Omega^{-1} = -\ln\Omega$: $R = \Omega^2(\tilde R + 6\tilde\Box\ln\Omega - 6(\tilde\partial\ln\Omega)^2)$. Here $\tilde\Box\ln\Omega =
-\Omega^{-2}(\Box\ln\Omega + 2(\partial\ln\Omega)^2)$ and $(\tilde\partial\ln\Omega)^2 = \Omega^{-2}(\partial\ln\Omega)^2$, and $\Omega^2\tilde R = R -
-6\Box\ln\Omega - 6(\partial\ln\Omega)^2$. Altogether $R - 6\Box\ln\Omega - 6(\partial\ln\Omega)^2 + 6\Box\ln\Omega + 12(\partial\ln\Omega)^2 -
-6(\partial\ln\Omega)^2 = R$.
+With $\log\Omega^{-1} = -\log\Omega$: $R = \Omega^2(\tilde R + 6\tilde\Box\log\Omega - 6(\tilde\partial\log\Omega)^2)$. Here $\tilde\Box\log\Omega =
+\Omega^{-2}(\Box\log\Omega + 2(\partial\log\Omega)^2)$ and $(\tilde\partial\log\Omega)^2 = \Omega^{-2}(\partial\log\Omega)^2$, and $\Omega^2\tilde R = R -
+6\Box\log\Omega - 6(\partial\log\Omega)^2$. Altogether $R - 6\Box\log\Omega - 6(\partial\log\Omega)^2 + 6\Box\log\Omega + 12(\partial\log\Omega)^2 -
+6(\partial\log\Omega)^2 = R$.
 :::
 ::::
 
@@ -2905,8 +2905,8 @@ The identity contains a total derivative that disappears from the action. The se
 ::: {#exm-kkr-einstein-boundary}
 #### The boundary term
 
-$3\sqrt{-g^E}\Box^E\ln\phi = 3\partial_\mu(\sqrt{-g^E}g_E^{\mu\nu}\partial_\nu\ln\phi)$ by @exr-kk-total-derivative applied to $g^E$, a
-total derivative; the only trace of the rescaling in the action is the kinetic term $-\tfrac32(\partial\ln\phi)^2$.
+$3\sqrt{-g^E}\Box^E\log\phi = 3\partial_\mu(\sqrt{-g^E}g_E^{\mu\nu}\partial_\nu\log\phi)$ by @exr-kk-total-derivative applied to $g^E$, a
+total derivative; the only trace of the rescaling in the action is the kinetic term $-\tfrac32(\partial\log\phi)^2$.
 :::
 
 In cosmology the two frames give different expansion histories. The third example, checked in
@@ -2915,8 +2915,8 @@ In cosmology the two frames give different expansion histories. The third exampl
 ::: {#exm-kkr-einstein-frw}
 #### A cosmological metric
 
-For $g^E = dt^2 - a(t)^2d\vec x^2$ and $\phi = \phi(t)$, $R^E = -6(\dot a^2 + a\ddot a)/a^2$, $\Box^E\ln\phi = a^{-3}\partial_t(a^3\partial_t\ln\phi)$ and
-$(\partial\ln\phi)^2 = (\partial_t\ln\phi)^2$; the identity then expresses the curvature of the Jordan metric $\phi^{-1}g^E$, whose scale
+For $g^E = dt^2 - a(t)^2d\mathbf x^2$ and $\phi = \phi(t)$, $R^E = -6(\dot a^2 + a\ddot a)/a^2$, $\Box^E\log\phi = a^{-3}\partial_t(a^3\partial_t\log\phi)$ and
+$(\partial\log\phi)^2 = (\partial_t\log\phi)^2$; the identity then expresses the curvature of the Jordan metric $\phi^{-1}g^E$, whose scale
 factor is $a/\sqrt\phi$, through these.
 :::
 ::::
@@ -2970,8 +2970,8 @@ terms in the Einstein frame.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Every term of the reduction depends on $\phi^2$, except $\phi^{-1}\Box\phi = \Box\ln\phi + (\partial\ln\phi)^2$, which depends only on
-$\ln\phi^2$; so $\phi^2 \to -\phi^2$ gives $\hat R = R - \tfrac14\phi^2F^2 - \tfrac{2}{\phi}\Box\phi$, while $\sqrt{|\hat g|} =
+Every term of the reduction depends on $\phi^2$, except $\phi^{-1}\Box\phi = \Box\log\phi + (\partial\log\phi)^2$, which depends only on
+$\log\phi^2$; so $\phi^2 \to -\phi^2$ gives $\hat R = R - \tfrac14\phi^2F^2 - \tfrac{2}{\phi}\Box\phi$, while $\sqrt{|\hat g|} =
 \phi\sqrt{-g}$ is unchanged. The Einstein-frame rescaling acts only on $\sqrt{-g}\,\phi R$, so the scalar kinetic term
 keeps its healthy sign, but the Maxwell term becomes $+\tfrac14\phi^3F^2$: the photon is a ghost with negative energy. A
 second time direction is excluded for this reason; the spacelike circle is forced.
@@ -2983,12 +2983,12 @@ corresponding proper times.
 ::: {#exr-kkr-einstein-scale-factors}
 #### Two scale factors
 
-For $g^E = dt^2 - a_E(t)^2d\vec x^2$ and $\phi = \phi(t)$, write the Jordan metric $g = \phi^{-1}g^E$ in the form $d\tau_J^2 -
-a_J(\tau_J)^2d\vec x^2$. If the circle shrinks, which scale factor grows faster?
+For $g^E = dt^2 - a_E(t)^2d\mathbf x^2$ and $\phi = \phi(t)$, write the Jordan metric $g = \phi^{-1}g^E$ in the form $d\tau_J^2 -
+a_J(\tau_J)^2d\mathbf x^2$. If the circle shrinks, which scale factor grows faster?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$g = \phi^{-1}dt^2 - \phi^{-1}a_E^2d\vec x^2$, so $d\tau_J = \phi^{-1/2}dt$ and $a_J = \phi^{-1/2}a_E$. If $\phi$ decreases, $\phi^{-1/2}$
+$g = \phi^{-1}dt^2 - \phi^{-1}a_E^2d\mathbf x^2$, so $d\tau_J = \phi^{-1/2}dt$ and $a_J = \phi^{-1/2}a_E$. If $\phi$ decreases, $\phi^{-1/2}$
 increases and $a_J/a_E$ grows: a shrinking circle makes the Jordan-frame universe expand faster than the
 Einstein-frame one. The Kasner solution of @exr-kkr-int-kasner is an example, with $a_J \propto \sqrt t$ and $a_E \propto
 t^{1/4}$.
@@ -3091,9 +3091,9 @@ expansion in four-dimensional cosmology?
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) $q = 1 - 3p$ and $3p^2 + (1 - 3p)^2 = 1$ give $12p^2 = 6p$, so $p = \tfrac12$, $q = -\tfrac12$ (the other root $p = 0$, $q = 1$
-is flat space in Milne coordinates). Then $\phi = t^{-1/2}$, the circle shrinking, $A = 0$, and $g = dt^2 - t\,d\vec
+is flat space in Milne coordinates). Then $\phi = t^{-1/2}$, the circle shrinking, $A = 0$, and $g = dt^2 - t\,d\mathbf
 x^2$. (b) $\hat R_{yy} = \phi\Box\phi = 0$ and $\hat R = R - 2\phi^{-1}\Box\phi = 0$ predict $\Box\phi = 0$ and $R = 0$. (c) $g^E =
-\phi g = t^{-1/2}dt^2 - t^{1/2}d\vec x^2$: proper time $\tau = \int t^{-1/4}dt = \tfrac43t^{3/4}$ and $a_E = t^{1/4} =
+\phi g = t^{-1/2}dt^2 - t^{1/2}d\mathbf x^2$: proper time $\tau = \int t^{-1/4}dt = \tfrac43t^{3/4}$ and $a_E = t^{1/4} =
 (3\tau/4)^{1/3}$:
 
 ```python
@@ -3133,7 +3133,7 @@ tau(t) = 4/3*t^(3/4) ; a_E(tau)^3 = 3/4*tau
 
 $a \propto \tau^{1/3}$ is the expansion of a flat universe filled with stiff matter, $p = \rho$, which is what a homogeneous
 massless scalar is: in the Einstein frame the shrinking circle appears as the kinetic energy of the rolling dilaton,
-$\sigma = \sqrt3\ln\phi = -\tfrac{\sqrt3}{2}\ln t$. In the Jordan frame the scale factor is $\sqrt t$ instead
+$\sigma = \sqrt3\log\phi = -\tfrac{\sqrt3}{2}\log t$. In the Jordan frame the scale factor is $\sqrt t$ instead
 (@exr-kkr-einstein-scale-factors).
 :::
 
@@ -3146,19 +3146,19 @@ four dimensions.
 Take the ansatz @eq-kk-ansatz with a $d$-dimensional metric $g$. (a) Find $\det\hat g$ and the volume element. (b)
 Assuming that @eq-kk-scalar holds in every dimension (the jet computation never uses $d = 4$), write the reduced
 action. (c) Find the Einstein-frame rescaling $g = \phi^ag^E$, using the $n$-dimensional Weyl formula of
-@def-weyl-curvature-formula. (d) Show that the canonical dilaton is $\sigma = \sqrt{2(d - 1)/(d - 2)}\,\ln\phi$ and that the
+@def-weyl-curvature-formula. (d) Show that the canonical dilaton is $\sigma = \sqrt{2(d - 1)/(d - 2)}\,\log\phi$ and that the
 Maxwell term becomes $-\tfrac14e^{a\sigma}F^2$ with $a = \sqrt{2(d - 1)/(d - 2)}$. Check $d = 4$. What goes wrong for $d = 2$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $\det\hat g = -\phi^2\det g$ (@exr-kkr-volume-dims) and $\sqrt{|\hat g|} = \phi\sqrt{|g|}$. (b) $-\frac{2\pi}{2\hat\kappa^2}\int
+(a) $\det\hat g = -\phi^2\det g$ (@exr-kkr-volume-dims) and $\sqrt{|\hat g|} = \phi\sqrt{|g|}$. (b) $-\frac{2\pi r}{2\hat\kappa^2}\int
 d^dx\sqrt{|g|}\,\phi(R + \tfrac14\phi^2F^2)$, the $\Box\phi$ term being a total derivative as before. (c) With $\Omega^2 = \phi^a$,
 $\sqrt{|g|}\,\phi R = \phi^{ad/2}\phi\,\phi^{-a}\sqrt{|g^E|}(R^E + \dots)$, constant coefficient for $a(d - 2)/2 = -1$: $g =
-\phi^{-2/(d - 2)}g^E$. (d) With $\ln\Omega = -\ln\phi/(d - 2)$ the term $-(d - 1)(d - 2)(\partial\ln\Omega)^2$ of the Weyl formula gives
-$-\frac{d - 1}{d - 2}(\partial\ln\phi)^2$ inside the bracket, hence the kinetic term $\frac{1}{2\kappa^2}\frac{d - 1}{d - 2}(\partial\ln\phi)^2
-= \frac{1}{2\kappa^2}\tfrac12(\partial\sigma)^2$ for $\sigma = \sqrt{2(d - 1)/(d - 2)}\ln\phi$. The Maxwell term picks up $\Omega^{d - 4}$
+\phi^{-2/(d - 2)}g^E$. (d) With $\log\Omega = -\log\phi/(d - 2)$ the term $-(d - 1)(d - 2)(\partial\log\Omega)^2$ of the Weyl formula gives
+$-\frac{d - 1}{d - 2}(\partial\log\phi)^2$ inside the bracket, hence the kinetic term $\frac{1}{2\kappa^2}\frac{d - 1}{d - 2}(\partial\log\phi)^2
+= \frac{1}{2\kappa^2}\tfrac12(\partial\sigma)^2$ for $\sigma = \sqrt{2(d - 1)/(d - 2)}\log\phi$. The Maxwell term picks up $\Omega^{d - 4}$
 (@exr-kkr-weyl-maxwell): $\phi^3\phi^{-(d - 4)/(d - 2)} = \phi^{2(d - 1)/(d - 2)} = e^{a\sigma}$ with $a = \frac{2(d - 1)}{d -
-2}\big/\sqrt{\frac{2(d - 1)}{d - 2}} = \sqrt{\frac{2(d - 1)}{d - 2}}$. For $d = 4$: $\sigma = \sqrt3\ln\phi$, $a = \sqrt3$ and the
+2}\big/\sqrt{\frac{2(d - 1)}{d - 2}} = \sqrt{\frac{2(d - 1)}{d - 2}}$. For $d = 4$: $\sigma = \sqrt3\log\phi$, $a = \sqrt3$ and the
 weight $\phi^3$, as in @def-dilaton. For $d = 2$ the exponent $-2/(d - 2)$ is undefined: two-dimensional gravity is
 Weyl invariant ($\sqrt g R$ is a total derivative) and no rescaling can remove $\phi$, which survives as a
 dilaton-gravity theory.

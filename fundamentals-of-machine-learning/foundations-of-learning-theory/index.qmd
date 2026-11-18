@@ -10,7 +10,7 @@ models, data, and prediction—and computational learning theory—which address
 Together, these frameworks provide the mathematical foundations that allow us to reason about the reliability, efficiency, and
 limitations of machine learning models.
 
-Statistical Learning Theory sets up the model $Y = f(\mathbf{X}) + \epsilon$ and the ways of judging an estimate of $f$.
+Statistical Learning Theory sets up the model $Y = f(\mathbf{x}) + \varepsilon$ and the ways of judging an estimate of $f$.
 Computational Learning Theory introduces the PAC framework, the VC-dimension and the No-Free-Lunch theorem. Generalization,
 Complexity, and Stability bounds the gap between training and true error, and Model Selection and Validation turns those bounds
 into practical procedures. Computational Complexity of Learning asks which learning rules can be run efficiently, and Nonuniform
@@ -30,28 +30,28 @@ For more on this topic, see @bishop2024deeplearning [Ch. 4], @james2023statistic
 
 ### The Statistical Learning Framework
 
-At the heart of statistical learning is a simple but powerful model. Suppose we observe a quantitative response $Y$ and $p$
-different predictors $X_1, X_2, \ldots, X_p$. We assume there exists a relationship between $Y$ and $\mathbf{X} = (X_1, X_2,
-\ldots, X_p)$ that can be written as in the definition below.
+At the heart of statistical learning is a simple but powerful model. Suppose we observe a quantitative response $Y$ and $d$
+different predictors $X_1, X_2, \ldots, X_d$. We assume there exists a relationship between $Y$ and $\mathbf{x} = (X_1, X_2,
+\ldots, X_d)$ that can be written as in the definition below.
 
 :::: {.statement-box}
 ::: {#def-flt-statistical-model}
 #### Statistical learning model
 
-The **statistical learning model** relates the response $Y$ to the predictors $\mathbf{X}$ by
+The **statistical learning model** relates the response $Y$ to the predictors $\mathbf{x}$ by
 
-$$Y = f(\mathbf{X}) + \epsilon$$
+$$Y = f(\mathbf{x}) + \varepsilon$$
 
 where:
 
-- $f$ is some fixed but unknown function representing the systematic information that $\mathbf{X}$ provides about $Y$
-- $\epsilon$ is a random error term that is independent of $\mathbf{X}$ and has mean zero: $\mathbb{E}[\epsilon] = 0$
+- $f$ is some fixed but unknown function representing the systematic information that $\mathbf{x}$ provides about $Y$
+- $\varepsilon$ is a random error term that is independent of $\mathbf{x}$ and has mean zero: $\mathbb{E}[\varepsilon] = 0$
 :::
 
 ::::
 
 The error term captures unmeasured variables, unmeasurable variation, and measurement error. The examples below separate the two
-parts of the model in the simplest setting, so that the roles of $f$ and $\epsilon$ can be seen one at a time.
+parts of the model in the simplest setting, so that the roles of $f$ and $\varepsilon$ can be seen one at a time.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The simplest instance of @def-flt-statistical-model has a linear systematic part and Gaussian noise. It shows how each
@@ -60,14 +60,14 @@ observation splits into a deterministic signal and a random deviation around it.
 ::: {#exm-flt-statistical-model-linear}
 #### A linear signal with Gaussian noise
 
-Let $Y = 2 + 3X + \epsilon$ with $\epsilon \sim \mathcal{N}(0, 0.25)$ independent of $X$. Here $f(x) = 2 + 3x$ is the
+Let $Y = 2 + 3X + \varepsilon$ with $\varepsilon \sim \mathcal{N}(0, 0.25)$ independent of $X$. Here $f(x) = 2 + 3x$ is the
 systematic part. At $X = 1$ the response has mean $f(1) = 5$ and variance $0.25$: repeated observations at the same $X$
 scatter around $5$ with standard deviation $0.5$, and no estimate of $f$ can remove that scatter.
 :::
 ::::
 
-The two assumptions on $\epsilon$, independence and mean zero, pin down what $f$ is in terms of the joint distribution of
-$(\mathbf{X}, Y)$. The exercise below makes this precise.
+The two assumptions on $\varepsilon$, independence and mean zero, pin down what $f$ is in terms of the joint distribution of
+$(\mathbf{x}, Y)$. The exercise below makes this precise.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The exercise asks the reader to identify $f$ with the conditional mean of $Y$. It is a direct check of the two assumptions in
@@ -76,15 +76,15 @@ The exercise asks the reader to identify $f$ with the conditional mean of $Y$. I
 ::: {#exr-flt-conditional-mean}
 #### $f$ is the regression function
 
-Show that in the statistical learning model $\mathbb{E}[Y \mid \mathbf{X} = \mathbf{x}] = f(\mathbf{x})$ and
-$\text{Var}(Y \mid \mathbf{X} = \mathbf{x}) = \text{Var}(\epsilon)$.
+Show that in the statistical learning model $\mathbb{E}[Y \mid \mathbf{x}] = f(\mathbf{x})$ and
+$\operatorname{Var}(Y \mid \mathbf{x}) = \operatorname{Var}(\varepsilon)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Since $\epsilon$ is independent of $\mathbf{X}$, $\mathbb{E}[\epsilon \mid \mathbf{X} = \mathbf{x}] = \mathbb{E}[\epsilon] = 0$,
-so $\mathbb{E}[Y \mid \mathbf{X} = \mathbf{x}] = f(\mathbf{x}) + 0 = f(\mathbf{x})$. Given $\mathbf{X} = \mathbf{x}$, the term
-$f(\mathbf{x})$ is a constant, so $\text{Var}(Y \mid \mathbf{X} = \mathbf{x}) = \text{Var}(\epsilon \mid \mathbf{X} = \mathbf{x})
-= \text{Var}(\epsilon)$, again by independence.
+Since $\varepsilon$ is independent of $\mathbf{x}$, $\mathbb{E}[\varepsilon \mid \mathbf{x}] = \mathbb{E}[\varepsilon] = 0$,
+so $\mathbb{E}[Y \mid \mathbf{x}] = f(\mathbf{x}) + 0 = f(\mathbf{x})$. Given $\mathbf{x}$, the term
+$f(\mathbf{x})$ is a constant, so $\operatorname{Var}(Y \mid \mathbf{x}) = \operatorname{Var}(\varepsilon \mid \mathbf{x})
+= \operatorname{Var}(\varepsilon)$, again by independence.
 :::
 ::::
 
@@ -92,28 +92,28 @@ $f(\mathbf{x})$ is a constant, so $\text{Var}(Y \mid \mathbf{X} = \mathbf{x}) = 
 
 There are two primary reasons for estimating $f$: prediction and inference.
 
-**Prediction.** In many situations, inputs $\mathbf{X}$ are readily available, but the output $Y$ cannot be easily obtained. Since
-$\mathbb{E}[\epsilon] = 0$, we can predict $Y$ using $\hat{Y} = \hat{f}(\mathbf{X})$ where $\hat{f}$ represents our estimate for
+**Prediction.** In many situations, inputs $\mathbf{x}$ are readily available, but the output $Y$ cannot be easily obtained. Since
+$\mathbb{E}[\varepsilon] = 0$, we can predict $Y$ using $\hat{Y} = \hat{f}(\mathbf{x})$ where $\hat{f}$ represents our estimate for
 $f$. In prediction settings, $\hat{f}$ is often treated as a black box.
 
 The accuracy of $\hat{Y}$ depends on two types of error. The proposition below separates them for a given estimate $\hat{f}$ and
-predictors $\mathbf{X}$.
+predictors $\mathbf{x}$.
 
 :::: {.statement-box}
 ::: {#prp-flt-reducible-irreducible}
 #### Reducible and irreducible error
 
-For a given estimate $\hat{f}$ and predictors $\mathbf{X}$:
+For a given estimate $\hat{f}$ and predictors $\mathbf{x}$:
 
-$$\mathbb{E}[(Y - \hat{Y})^2] = [f(\mathbf{X}) - \hat{f}(\mathbf{X})]^2 + \text{Var}(\epsilon)$$
+$$\mathbb{E}[(Y - \hat{Y})^2] = [f(\mathbf{x}) - \hat{f}(\mathbf{x})]^2 + \operatorname{Var}(\varepsilon)$$
 :::
 
 ::::
 
-With $\hat{f}$ and $\mathbf{X}$ fixed, $Y - \hat{Y} = (f(\mathbf{X}) - \hat{f}(\mathbf{X})) + \epsilon$, where the first term is a
-constant. Squaring and taking the expectation gives $[f(\mathbf{X}) - \hat{f}(\mathbf{X})]^2 + 2[f(\mathbf{X}) -
-\hat{f}(\mathbf{X})]\,\mathbb{E}[\epsilon] + \mathbb{E}[\epsilon^2]$; the middle term vanishes because $\mathbb{E}[\epsilon] = 0$,
-and $\mathbb{E}[\epsilon^2] = \text{Var}(\epsilon)$ for the same reason.
+With $\hat{f}$ and $\mathbf{x}$ fixed, $Y - \hat{Y} = (f(\mathbf{x}) - \hat{f}(\mathbf{x})) + \varepsilon$, where the first term is a
+constant. Squaring and taking the expectation gives $[f(\mathbf{x}) - \hat{f}(\mathbf{x})]^2 + 2[f(\mathbf{x}) -
+\hat{f}(\mathbf{x})]\,\mathbb{E}[\varepsilon] + \mathbb{E}[\varepsilon^2]$; the middle term vanishes because $\mathbb{E}[\varepsilon] = 0$,
+and $\mathbb{E}[\varepsilon^2] = \operatorname{Var}(\varepsilon)$ for the same reason.
 
 The first term is reducible error (can be improved with better methods), and the second is irreducible error (cannot be reduced).
 The irreducible error provides a lower bound on prediction accuracy. The example below puts numbers on the two terms.
@@ -125,7 +125,7 @@ fixed amount, and the noise adds its variance on top.
 ::: {#exm-flt-reducible-irreducible-point}
 #### A misspecified estimate at one point
 
-Let $f(x) = x^2$, $\hat{f}(x) = x$ and $\text{Var}(\epsilon) = 1$. At $X = 2$ the expected squared error is $(4 - 2)^2 + 1 = 5$:
+Let $f(x) = x^2$, $\hat{f}(x) = x$ and $\operatorname{Var}(\varepsilon) = 1$. At $X = 2$ the expected squared error is $(4 - 2)^2 + 1 = 5$:
 four units are reducible and would disappear with $\hat{f} = f$, one unit is irreducible.
 :::
 ::::
@@ -139,18 +139,18 @@ the smallest achievable expected squared error.
 ::: {#exr-flt-optimal-predictor}
 #### The best predictor
 
-Show that among all estimates $\hat{f}$, the expected squared error at $\mathbf{X}$ is minimised by $\hat{f}(\mathbf{X}) =
-f(\mathbf{X})$, and that the minimum is $\text{Var}(\epsilon)$.
+Show that among all estimates $\hat{f}$, the expected squared error at $\mathbf{x}$ is minimised by $\hat{f}(\mathbf{x}) =
+f(\mathbf{x})$, and that the minimum is $\operatorname{Var}(\varepsilon)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @prp-flt-reducible-irreducible the error is $[f(\mathbf{X}) - \hat{f}(\mathbf{X})]^2 + \text{Var}(\epsilon)$. The first term is
-non-negative and vanishes exactly when $\hat{f}(\mathbf{X}) = f(\mathbf{X})$; the second does not depend on $\hat{f}$. The minimum
-is therefore $\text{Var}(\epsilon)$, attained at $\hat{f} = f$.
+By @prp-flt-reducible-irreducible the error is $[f(\mathbf{x}) - \hat{f}(\mathbf{x})]^2 + \operatorname{Var}(\varepsilon)$. The first term is
+non-negative and vanishes exactly when $\hat{f}(\mathbf{x}) = f(\mathbf{x})$; the second does not depend on $\hat{f}$. The minimum
+is therefore $\operatorname{Var}(\varepsilon)$, attained at $\hat{f} = f$.
 :::
 ::::
 
-**Inference.** In inference problems, we want to understand the relationship between $Y$ and $\mathbf{X}$. Key questions include:
+**Inference.** In inference problems, we want to understand the relationship between $Y$ and $\mathbf{x}$. Key questions include:
 Which predictors are associated with the response? What is the relationship between the response and each predictor? Can the
 relationship be adequately summarized using a linear equation?
 
@@ -184,7 +184,7 @@ Linear regression and nearest-neighbour averaging are the standard representativ
 ::: {#exm-flt-linear-vs-knn}
 #### Linear regression and nearest neighbours
 
-Linear regression assumes $f(x) = \beta_0 + \beta_1 x$ and estimates two numbers, whatever the size of the training set: it is
+Linear regression assumes $f(x) = w_0 + w_1 x$ and estimates two numbers, whatever the size of the training set: it is
 parametric. $k$-nearest-neighbour regression predicts at $x$ the average response of the $k$ training points closest to $x$; it
 fixes no functional form and its fitted function is described by the whole training set: it is non-parametric.
 :::
@@ -199,13 +199,13 @@ Each method below is to be classified by @def-flt-parametric-method. The answer 
 ::: {#exr-flt-classify-methods}
 #### Parametric or not?
 
-Classify (a) quadratic polynomial regression, (b) $5$-nearest-neighbour regression and (c) logistic regression with $p$ predictors.
+Classify (a) quadratic polynomial regression, (b) $5$-nearest-neighbour regression and (c) logistic regression with $d$ predictors.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) Parametric: $f(x) = \beta_0 + \beta_1 x + \beta_2 x^2$ has three parameters. (b) Non-parametric: the prediction depends on the
+(a) Parametric: $f(x) = w_0 + w_1 x + w_2 x^2$ has three parameters. (b) Non-parametric: the prediction depends on the
 whole training set, and no fixed finite list of numbers describes the fit for all data sets. (c) Parametric: $\mathbb{P}(Y = 1
-\mid \mathbf{x}) = 1/(1 + e^{-\beta_0 - \boldsymbol{\beta}^\top \mathbf{x}})$ has $p + 1$ parameters.
+\mid \mathbf{x}) = 1/(1 + e^{-w_0 - \mathbf{w}^\top \mathbf{x}})$ has $d + 1$ parameters.
 :::
 ::::
 
@@ -316,15 +316,15 @@ nothing about the test MSE.
 #### Zero training error
 
 Show that for $n$ observations with distinct $x_i \in \mathbb{R}$ there is a polynomial of degree at most $n - 1$ with training
-MSE zero, and that its expected test MSE at a new point is still at least $\text{Var}(\epsilon)$.
+MSE zero, and that its expected test MSE at a new point is still at least $\operatorname{Var}(\varepsilon)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The conditions $\hat{f}(x_i) = y_i$ are $n$ linear equations in the $n$ coefficients of a polynomial of degree at most $n - 1$; the
 matrix is a Vandermonde matrix, invertible because the $x_i$ are distinct, so the interpolating polynomial exists and its training
-MSE is zero. At a new point $x_0$ the response $Y_0 = f(x_0) + \epsilon_0$ has noise independent of the training data, so by
-@prp-flt-reducible-irreducible the expected squared error is $\mathbb{E}[(f(x_0) - \hat{f}(x_0))^2] + \text{Var}(\epsilon) \ge
-\text{Var}(\epsilon)$.
+MSE is zero. At a new point $x_0$ the response $Y_0 = f(x_0) + \varepsilon_0$ has noise independent of the training data, so by
+@prp-flt-reducible-irreducible the expected squared error is $\mathbb{E}[(f(x_0) - \hat{f}(x_0))^2] + \operatorname{Var}(\varepsilon) \ge
+\operatorname{Var}(\varepsilon)$.
 :::
 ::::
 
@@ -410,7 +410,7 @@ following components [@shalev2014ml]:
 
 - Domain Set ($\mathcal{X}$): An arbitrary set of objects that we wish to label.
 - Label Set ($\mathcal{Y}$): The set of possible labels (e.g., $\{0, 1\}$).
-- Training Data ($S$): A finite sequence of labeled examples, $S = ((x_1, y_1), \dots, (x_m, y_m))$, sampled i.i.d. from an
+- Training Data ($S$): A finite sequence of labeled examples, $S = ((x_1, y_1), \dots, (x_n, y_n))$, sampled i.i.d. from an
   unknown probability distribution $\mathcal{D}$ over $\mathcal{X} \times \mathcal{Y}$.
 - Hypothesis Class ($\mathcal{H}$): A set of functions $h: \mathcal{X} \rightarrow \mathcal{Y}$ that the learning algorithm
   can choose from. This is the inductive bias of the learner.
@@ -429,7 +429,7 @@ them.
 #### Thresholds on the line
 
 Take $\mathcal{X} = \mathbb{R}$, $\mathcal{Y} = \{0, 1\}$ and $\mathcal{H} = \{h_a : a \in \mathbb{R}\}$ with $h_a(x) =
-\mathbb{1}_{x \ge a}$. A training set might be $S = ((0.2, 0), (0.7, 1), (0.9, 1))$, drawn from an unknown $\mathcal{D}$; the
+\mathbb{1}[x \ge a]$. A training set might be $S = ((0.2, 0), (0.7, 1), (0.9, 1))$, drawn from an unknown $\mathcal{D}$; the
 inductive bias is the assumption that a single cut point separates the labels.
 :::
 ::::
@@ -445,7 +445,7 @@ for the finite-class bound below.
 #### Thresholds on ten points
 
 Let $\mathcal{X} = \{1, 2, \dots, 10\}$. How many distinct functions $\mathcal{X} \to \{0, 1\}$ does the class of thresholds
-$h_a(x) = \mathbb{1}_{x \ge a}$, $a \in \mathbb{R}$, contain?
+$h_a(x) = \mathbb{1}[x \ge a]$, $a \in \mathbb{R}$, contain?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -463,7 +463,7 @@ for the 0-1 loss as:
 
 The **true error (risk)** of hypothesis $h$ under distribution $\mathcal{D}$:
 
-$$ L_{\mathcal{D}}(h) = \mathbb{P}_{(x,y) \sim \mathcal{D}}[h(x) \neq y] $$
+$$ L_{\mathcal{D}}(h) = \mathbb{P}_{(x,y) \sim \mathcal{D}}(h(x) \neq y) $$
 :::
 
 ::::
@@ -478,7 +478,7 @@ hypothesis and the target disagree.
 ::: {#exm-flt-true-error-threshold}
 #### A misplaced threshold
 
-Let $x$ be uniform on $[0, 1]$ with label $y = \mathbb{1}_{x \ge 0.5}$, and let $h = h_{0.6}$. The two disagree exactly on
+Let $x$ be uniform on $[0, 1]$ with label $y = \mathbb{1}[x \ge 0.5]$, and let $h = h_{0.6}$. The two disagree exactly on
 $[0.5, 0.6)$, so $L_{\mathcal{D}}(h) = 0.1$.
 :::
 ::::
@@ -509,7 +509,7 @@ Since $\mathcal{D}$ is unknown, the learner uses the empirical error on the trai
 ::: {#def-empirical-error}
 #### Empirical error
 
-$$ L_S(h) = \frac{1}{m} |\{i \in [m] : h(x_i) \neq y_i\}| $$
+$$ L_S(h) = \frac{1}{n} |\{i \in [n] : h(x_i) \neq y_i\}| $$
 :::
 
 ::::
@@ -538,12 +538,12 @@ a hypothesis chosen from the data, which is the subject of @sec-generalization.
 ::: {#exr-flt-empirical-unbiased}
 #### An unbiased proxy
 
-Show that for a fixed $h$ and $S \sim \mathcal{D}^m$, $\mathbb{E}_S[L_S(h)] = L_{\mathcal{D}}(h)$.
+Show that for a fixed $h$ and $S \sim \mathcal{D}^n$, $\mathbb{E}_S[L_S(h)] = L_{\mathcal{D}}(h)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$L_S(h) = \frac1m \sum_{i=1}^m \mathbb{1}[h(x_i) \neq y_i]$. Each $(x_i, y_i)$ has distribution $\mathcal{D}$, so each indicator has
-expectation $\mathbb{P}_{\mathcal{D}}[h(x) \neq y] = L_{\mathcal{D}}(h)$, and by linearity $\mathbb{E}_S[L_S(h)] = \frac1m \cdot m
+$L_S(h) = \frac1n \sum_{i=1}^n \mathbb{1}[h(x_i) \neq y_i]$. Each $(x_i, y_i)$ has distribution $\mathcal{D}$, so each indicator has
+expectation $\mathbb{P}_{\mathcal{D}}(h(x) \neq y) = L_{\mathcal{D}}(h)$, and by linearity $\mathbb{E}_S[L_S(h)] = \frac1n \cdot n
 L_{\mathcal{D}}(h) = L_{\mathcal{D}}(h)$.
 :::
 ::::
@@ -562,20 +562,20 @@ data—an idealized but useful starting point.
 ::: {#def-pac-learnable}
 #### PAC learnable
 
-A hypothesis class $\mathcal{H}$ is **PAC learnable** if there exists a function $m_{\mathcal{H}}:(0,1)^2 \rightarrow \mathbb{N}$ and a learning algorithm such that for every $\epsilon, \delta \in (0,1)$ and distribution $\mathcal{D}$ (under realizability), running the algorithm on $m \ge m_{\mathcal{H}}(\epsilon, \delta)$ i.i.d. examples returns $h$ with:
+A hypothesis class $\mathcal{H}$ is **PAC learnable** if there exists a function $m_{\mathcal{H}}:(0,1)^2 \rightarrow \mathbb{N}$ and a learning algorithm such that for every $\varepsilon, \delta \in (0,1)$ and distribution $\mathcal{D}$ (under realizability), running the algorithm on $n \ge m_{\mathcal{H}}(\varepsilon, \delta)$ i.i.d. examples returns $h$ with:
 
-$$ \mathbb{P}[L_{\mathcal{D}}(h) \le \epsilon] \ge 1-\delta $$
+$$ \mathbb{P}(L_{\mathcal{D}}(h) \le \varepsilon) \ge 1-\delta $$
 :::
 
 ::::
 
-Let's unpack this definition. The parameters $\epsilon$ and $\delta$ represent our learning goals:
+Let's unpack this definition. The parameters $\varepsilon$ and $\delta$ represent our learning goals:
 
-- $\epsilon$ is the accuracy parameter: we want a hypothesis with error at most $\epsilon$
+- $\varepsilon$ is the accuracy parameter: we want a hypothesis with error at most $\varepsilon$
 - $\delta$ is the confidence parameter: we want this guarantee to hold with probability at least $1-\delta$
 
-The function $m_{\mathcal{H}}(\epsilon, \delta)$ is the sample complexity: it tells us how many examples we need. For example, if
-we want 95% confidence ($\delta = 0.05$) that our error is at most 1% ($\epsilon = 0.01$), the sample complexity tells us the
+The function $m_{\mathcal{H}}(\varepsilon, \delta)$ is the sample complexity: it tells us how many examples we need. For example, if
+we want 95% confidence ($\delta = 0.05$) that our error is at most 1% ($\varepsilon = 0.01$), the sample complexity tells us the
 required training set size. The example below shows the definition satisfied in the most trivial way.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -585,7 +585,7 @@ The class with a single hypothesis is the extreme case of @def-pac-learnable. Re
 #### A single hypothesis
 
 Let $\mathcal{H} = \{h_0\}$. Realizability forces $L_{\mathcal{D}}(h_0) = 0$, so the algorithm that ignores the data and returns
-$h_0$ satisfies the definition with $m_{\mathcal{H}}(\epsilon, \delta) = 1$ for all $\epsilon, \delta$.
+$h_0$ satisfies the definition with $m_{\mathcal{H}}(\varepsilon, \delta) = 1$ for all $\varepsilon, \delta$.
 :::
 ::::
 
@@ -598,14 +598,14 @@ check of the definition.
 ::: {#exr-flt-pac-monotone}
 #### Weaker goals need fewer examples
 
-Show that if the guarantee holds at $(\epsilon, \delta)$ with $m$ examples, it holds at every $(\epsilon', \delta')$ with $\epsilon'
-\ge \epsilon$, $\delta' \ge \delta$ with the same $m$, so that $m_{\mathcal{H}}$ can be chosen non-increasing in each argument.
+Show that if the guarantee holds at $(\varepsilon, \delta)$ with $n$ examples, it holds at every $(\varepsilon', \delta')$ with $\varepsilon'
+\ge \varepsilon$, $\delta' \ge \delta$ with the same $n$, so that $m_{\mathcal{H}}$ can be chosen non-increasing in each argument.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The event $\{L_{\mathcal{D}}(h) \le \epsilon\}$ is contained in $\{L_{\mathcal{D}}(h) \le \epsilon'\}$, so the latter has probability
-at least $1 - \delta \ge 1 - \delta'$. Hence $m_{\mathcal{H}}(\epsilon, \delta)$ examples suffice for $(\epsilon', \delta')$, and
-replacing $m_{\mathcal{H}}(\epsilon', \delta')$ by $\min\{m_{\mathcal{H}}(\epsilon'', \delta'') : \epsilon'' \le \epsilon', \delta''
+The event $\{L_{\mathcal{D}}(h) \le \varepsilon\}$ is contained in $\{L_{\mathcal{D}}(h) \le \varepsilon'\}$, so the latter has probability
+at least $1 - \delta \ge 1 - \delta'$. Hence $m_{\mathcal{H}}(\varepsilon, \delta)$ examples suffice for $(\varepsilon', \delta')$, and
+replacing $m_{\mathcal{H}}(\varepsilon', \delta')$ by $\min\{m_{\mathcal{H}}(\varepsilon'', \delta'') : \varepsilon'' \le \varepsilon', \delta''
 \le \delta'\}$ over the values already known to work gives a non-increasing choice.
 :::
 ::::
@@ -619,18 +619,18 @@ theorem below gives its sample complexity.
 
 For a finite hypothesis class $\mathcal{H}$, ERM is a PAC learner, and the sample complexity is bounded as:
 
-$$ m_{\mathcal{H}}(\epsilon, \delta) \le \left\lceil \frac{\ln(|\mathcal{H}|/\delta)}{\epsilon} \right\rceil $$
+$$ m_{\mathcal{H}}(\varepsilon, \delta) \le \left\lceil \frac{\log(|\mathcal{H}|/\delta)}{\varepsilon} \right\rceil $$
 :::
 
 ::::
 
-Call $h$ bad if $L_{\mathcal{D}}(h) > \epsilon$. A bad $h$ is consistent with $m$ i.i.d. examples with probability $(1 -
-L_{\mathcal{D}}(h))^m \le (1 - \epsilon)^m \le e^{-\epsilon m}$, so by the union bound some bad $h$ is consistent with the sample
-with probability at most $|\mathcal{H}| e^{-\epsilon m}$, which is at most $\delta$ once $m \ge \ln(|\mathcal{H}|/\delta)/\epsilon$.
+Call $h$ bad if $L_{\mathcal{D}}(h) > \varepsilon$. A bad $h$ is consistent with $n$ i.i.d. examples with probability $(1 -
+L_{\mathcal{D}}(h))^n \le (1 - \varepsilon)^n \le e^{-\varepsilon n}$, so by the union bound some bad $h$ is consistent with the sample
+with probability at most $|\mathcal{H}| e^{-\varepsilon n}$, which is at most $\delta$ once $n \ge \log(|\mathcal{H}|/\delta)/\varepsilon$.
 Under realizability ERM returns a hypothesis with $L_S = 0$, which is then not bad with probability at least $1 - \delta$.
 
 This elegant result shows that the sample complexity grows logarithmically with the hypothesis class size and linearly with
-$1/\epsilon$. The example below puts numbers into the bound.
+$1/\varepsilon$. The example below puts numbers into the bound.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The numbers below show how weakly @thm-flt-finite-class depends on the size of the class. Accuracy, not class size, drives the
@@ -639,8 +639,8 @@ sample complexity.
 ::: {#exm-flt-finite-class-numbers}
 #### A thousand hypotheses
 
-For instance, if $|\mathcal{H}| = 1000$, $\epsilon = 0.1$, and $\delta = 0.05$, we need approximately $\lceil
-\frac{\ln(20000)}{0.1} \rceil \approx 100$ examples. Doubling the accuracy requirement (halving $\epsilon$) doubles the sample
+For instance, if $|\mathcal{H}| = 1000$, $\varepsilon = 0.1$, and $\delta = 0.05$, we need approximately $\lceil
+\frac{\log(20000)}{0.1} \rceil \approx 100$ examples. Doubling the accuracy requirement (halving $\varepsilon$) doubles the sample
 requirement, while increasing the hypothesis class size by a factor of 1000 only adds about 70 examples due to the logarithmic
 dependence.
 :::
@@ -655,11 +655,11 @@ It is a direct computation.
 ::: {#exr-flt-finite-class-bits}
 #### Twenty-bit hypotheses
 
-How many examples does the bound require for $|\mathcal{H}| = 2^{20}$, $\epsilon = 0.01$ and $\delta = 0.01$?
+How many examples does the bound require for $|\mathcal{H}| = 2^{20}$, $\varepsilon = 0.01$ and $\delta = 0.01$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\ln(2^{20}/0.01) = 20 \ln 2 + \ln 100 \approx 13.863 + 4.605 = 18.468$, and $18.468/0.01 = 1846.8$, so $m = 1847$ examples suffice.
+$\log(2^{20}/0.01) = 20 \log 2 + \log 100 \approx 13.863 + 4.605 = 18.468$, and $18.468/0.01 = 1846.8$, so $n = 1847$ examples suffice.
 :::
 ::::
 
@@ -674,16 +674,16 @@ compete with the best hypothesis in our class.
 #### Agnostic PAC learning
 
 A hypothesis class $\mathcal{H}$ is **agnostically PAC learnable** if there exists a function $m_{\mathcal{H}}:(0,1)^2
-\rightarrow \mathbb{N}$ and a learning algorithm such that for every $\epsilon, \delta \in (0,1)$ and for every distribution
-$\mathcal{D}$, running the algorithm on $m \ge m_{\mathcal{H}}(\epsilon, \delta)$ i.i.d. examples returns a hypothesis $h$ such
+\rightarrow \mathbb{N}$ and a learning algorithm such that for every $\varepsilon, \delta \in (0,1)$ and for every distribution
+$\mathcal{D}$, running the algorithm on $n \ge m_{\mathcal{H}}(\varepsilon, \delta)$ i.i.d. examples returns a hypothesis $h$ such
 that, with probability at least $1-\delta$:
 
-$$ L_{\mathcal{D}}(h) \le \min_{h^* \in \mathcal{H}} L_{\mathcal{D}}(h^*) + \epsilon $$
+$$ L_{\mathcal{D}}(h) \le \min_{h^* \in \mathcal{H}} L_{\mathcal{D}}(h^*) + \varepsilon $$
 :::
 
 ::::
 
-This guarantee is weaker but more realistic: we only promise to be within $\epsilon$ of the best possible hypothesis in our class.
+This guarantee is weaker but more realistic: we only promise to be within $\varepsilon$ of the best possible hypothesis in our class.
 The example below reads the guarantee for a concrete error level.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -693,7 +693,7 @@ member is far from perfect.
 ::: {#exm-flt-agnostic-ten-percent}
 #### Competing with a 10% classifier
 
-If the best hypothesis has 10% error, we guarantee at most 11% error (with $\epsilon = 0.01$).
+If the best hypothesis has 10% error, we guarantee at most 11% error (with $\varepsilon = 0.01$).
 :::
 ::::
 
@@ -711,13 +711,13 @@ Show that an agnostically PAC learnable class is PAC learnable, with the same sa
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Apply the agnostic guarantee to a realizable $\mathcal{D}$. There $\min_{h^*} L_{\mathcal{D}}(h^*) = 0$, so with probability at
-least $1 - \delta$ the output satisfies $L_{\mathcal{D}}(h) \le \epsilon$, which is the PAC guarantee with the same
+least $1 - \delta$ the output satisfies $L_{\mathcal{D}}(h) \le \varepsilon$, which is the PAC guarantee with the same
 $m_{\mathcal{H}}$.
 :::
 ::::
 
 In the agnostic setting, the sample complexity depends on a more sophisticated measure of complexity than just the size of
-$\mathcal{H}$. This is captured by the Vapnik-Chervonenkis (VC) dimension, denoted $\text{VCdim}(\mathcal{H})$
+$\mathcal{H}$. This is captured by the Vapnik-Chervonenkis (VC) dimension, denoted $\operatorname{VCdim}(\mathcal{H})$
 (@def-vc-dimension below).
 
 :::: {.statement-box}
@@ -726,25 +726,25 @@ $\mathcal{H}$. This is captured by the Vapnik-Chervonenkis (VC) dimension, denot
 
 The sample complexity for any class $\mathcal{H}$ with finite VC-dimension is:
 
-$$ m_{\mathcal{H}}(\epsilon, \delta) = O\left( \frac{\text{VCdim}(\mathcal{H}) + \ln(1/\delta)}{\epsilon^2} \right) $$
+$$ m_{\mathcal{H}}(\varepsilon, \delta) = O\left( \frac{\operatorname{VCdim}(\mathcal{H}) + \log(1/\delta)}{\varepsilon^2} \right) $$
 :::
 
 ::::
 
-Note the crucial difference: sample complexity now scales as $1/\epsilon^2$ rather than $1/\epsilon$. This quadratic dependence
+Note the crucial difference: sample complexity now scales as $1/\varepsilon^2$ rather than $1/\varepsilon$. This quadratic dependence
 means that achieving high accuracy in the agnostic setting is significantly more expensive. To halve the error, we need four times
 as many examples. This fundamental result connects the generalization ability of a learner to the complexity of its hypothesis
 class [@shalev2014ml; @theodoridis2025ml]. The example compares the two regimes side by side.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The example contrasts @thm-flt-agnostic-sample-complexity with @thm-flt-finite-class as $\epsilon$ shrinks. Only the scaling is
+The example contrasts @thm-flt-agnostic-sample-complexity with @thm-flt-finite-class as $\varepsilon$ shrinks. Only the scaling is
 compared, since the $O$ hides constants.
 
 ::: {#exm-flt-realizable-vs-agnostic}
 #### Realizable and agnostic scaling
 
-Going from $\epsilon = 0.1$ to $\epsilon = 0.05$ multiplies the realizable bound $\ln(|\mathcal{H}|/\delta)/\epsilon$ by $2$ and the
-agnostic bound $(\text{VCdim}(\mathcal{H}) + \ln(1/\delta))/\epsilon^2$ by $4$.
+Going from $\varepsilon = 0.1$ to $\varepsilon = 0.05$ multiplies the realizable bound $\log(|\mathcal{H}|/\delta)/\varepsilon$ by $2$ and the
+agnostic bound $(\operatorname{VCdim}(\mathcal{H}) + \log(1/\delta))/\varepsilon^2$ by $4$.
 :::
 ::::
 
@@ -757,12 +757,12 @@ computation.
 ::: {#exr-flt-agnostic-tenfold}
 #### Ten times more accurate
 
-By what factor does the agnostic sample complexity grow when $\epsilon$ goes from $0.1$ to $0.01$, with $\mathcal{H}$ and $\delta$
+By what factor does the agnostic sample complexity grow when $\varepsilon$ goes from $0.1$ to $0.01$, with $\mathcal{H}$ and $\delta$
 fixed? And the realizable bound of @thm-flt-finite-class?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The agnostic bound scales as $1/\epsilon^2$, so it grows by $(0.1/0.01)^2 = 100$. The realizable bound scales as $1/\epsilon$, so it
+The agnostic bound scales as $1/\varepsilon^2$, so it grows by $(0.1/0.01)^2 = 100$. The realizable bound scales as $1/\varepsilon$, so it
 grows by $10$.
 :::
 ::::
@@ -795,7 +795,7 @@ The example tests @def-shattering for thresholds on three points. A single label
 ::: {#exm-flt-thresholds-three-points}
 #### Thresholds and three points
 
-For example, consider three points on a line and the class of threshold functions $h_a(x) = \mathbb{1}_{x \geq a}$. Can we shatter
+For example, consider three points on a line and the class of threshold functions $h_a(x) = \mathbb{1}[x \geq a]$. Can we shatter
 these three points? We need to realize all $2^3 = 8$ possible labelings. Try as we might, we cannot: if the middle point is
 labeled 1 and the two outer points are labeled 0, no threshold can achieve this. Therefore, threshold functions cannot shatter
 three points.
@@ -827,7 +827,7 @@ The largest shattered set measures the class. This is the VC-dimension.
 
 The **VC-dimension** of $\mathcal{H}$ is the maximum size of a set that can be shattered:
 
-$$ \text{VCdim}(\mathcal{H}) = \max\{ |C| : C \text{ is shattered by } \mathcal{H} \} $$
+$$ \operatorname{VCdim}(\mathcal{H}) = \max\{ |C| : C \text{ is shattered by } \mathcal{H} \} $$
 :::
 
 ::::
@@ -842,7 +842,7 @@ shattered and two cannot.
 ::: {#exm-flt-vc-thresholds}
 #### Threshold functions
 
-Threshold functions on $\mathbb{R}$: $\text{VCdim} = 1$. We can shatter any single point (two labelings: 0 or 1), but not
+Threshold functions on $\mathbb{R}$: $\operatorname{VCdim} = 1$. We can shatter any single point (two labelings: 0 or 1), but not
 two points (cannot achieve [1,0] labeling).
 :::
 
@@ -851,7 +851,7 @@ Intervals add one degree of freedom to thresholds. The VC-dimension goes up by o
 ::: {#exm-flt-vc-intervals}
 #### Intervals
 
-Intervals on $\mathbb{R}$: $\text{VCdim} = 2$. An interval $[a,b]$ can shatter two points but not three. For three points
+Intervals on $\mathbb{R}$: $\operatorname{VCdim} = 2$. An interval $[a,b]$ can shatter two points but not three. For three points
 $x_1 < x_2 < x_3$, we cannot achieve the labeling [1,0,1] with a single interval.
 :::
 
@@ -860,7 +860,7 @@ Linear classifiers are the most important case in practice. Their VC-dimension e
 ::: {#exm-flt-vc-halfspaces}
 #### Linear classifiers
 
-Linear classifiers in $\mathbb{R}^d$: $\text{VCdim} = d + 1$. A hyperplane in $d$ dimensions can shatter $d+1$ points in
+Linear classifiers in $\mathbb{R}^d$: $\operatorname{VCdim} = d + 1$. A hyperplane in $d$ dimensions can shatter $d+1$ points in
 general position. For $\mathbb{R}^2$, three points can be shattered (try all 8 labelings with different line orientations), but
 four points in general position cannot all be shattered.
 :::
@@ -883,7 +883,7 @@ Lower bound: the four points $(\pm 1, 0), (0, \pm 1)$ are shattered, since for a
 empty rectangle far away) contains it and none of the other points, which each stick out on one side. Upper bound: given five
 points, pick a leftmost, a rightmost, a lowest and a highest one; these are at most four points, so some fifth point lies in their
 bounding box. Labelling the chosen points $1$ and the fifth $0$ is impossible, since any rectangle containing the chosen points
-contains their bounding box. Hence $\text{VCdim} = 4$.
+contains their bounding box. Hence $\operatorname{VCdim} = 4$.
 :::
 ::::
 
@@ -922,7 +922,7 @@ learnability. The argument is one line.
 #### All functions
 
 Let $\mathcal{X}$ be infinite and $\mathcal{H}$ the set of all functions $\mathcal{X} \to \{0, 1\}$. Show that
-$\text{VCdim}(\mathcal{H}) = \infty$.
+$\operatorname{VCdim}(\mathcal{H}) = \infty$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -940,46 +940,46 @@ Sauer's Lemma provides a crucial bound on the effective size of a hypothesis cla
 ::: {#lem-flt-sauer}
 #### Sauer's Lemma
 
-If $\text{VCdim}(\mathcal{H}) = d$, then for any set of $m$ points, the number of different labelings that can be realized by
-$\mathcal{H}$ is at most $\sum_{i=0}^d \binom{m}{i}$.
+If $\operatorname{VCdim}(\mathcal{H}) = d$, then for any set of $n$ points, the number of different labelings that can be realized by
+$\mathcal{H}$ is at most $\sum_{i=0}^d \binom{n}{i}$.
 :::
 
 ::::
 
-For $m > d$, this bound is approximately $(em/d)^d$, showing that the effective size of $\mathcal{H}$ grows polynomially rather
+For $n > d$, this bound is approximately $(em/d)^d$, showing that the effective size of $\mathcal{H}$ grows polynomially rather
 than exponentially with the sample size. This polynomial growth is what makes learning possible—if the effective size grew
 exponentially, we would need exponentially many examples to learn. The technical details of this bound are provided in
 [Technical Lemmas](../../fundamentals-of-mathematics-for-machine-learning/appendices-and-technical-background/index.qmd#sec-tech-lemmas).
 The example shows that the lemma is sharp for thresholds.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The threshold class has VC-dimension $1$, so @lem-flt-sauer allows at most $1 + m$ labelings of $m$ points. The example shows that
+The threshold class has VC-dimension $1$, so @lem-flt-sauer allows at most $1 + n$ labelings of $n$ points. The example shows that
 thresholds realise exactly that many.
 
 ::: {#exm-flt-sauer-thresholds}
 #### Thresholds attain the bound
 
-On $m$ distinct points $x_1 < \dots < x_m$, a threshold labels a final segment $x_k, \dots, x_m$ by $1$, for $k = 1, \dots, m + 1$
-(with $k = m + 1$ the all-zero labeling). That is $m + 1 = \binom{m}{0} + \binom{m}{1}$ labelings, the bound of the lemma.
+On $n$ distinct points $x_1 < \dots < x_n$, a threshold labels a final segment $x_k, \dots, x_n$ by $1$, for $k = 1, \dots, n + 1$
+(with $k = n + 1$ the all-zero labeling). That is $n + 1 = \binom{n}{0} + \binom{n}{1}$ labelings, the bound of the lemma.
 :::
 ::::
 
 Intervals have VC-dimension two, and they too attain the bound. The exercise asks for the count.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise counts the labelings realised by intervals on $m$ points and compares the count with @lem-flt-sauer. Equality again
+The exercise counts the labelings realised by intervals on $n$ points and compares the count with @lem-flt-sauer. Equality again
 holds.
 
 ::: {#exr-flt-sauer-intervals}
 #### Intervals attain the bound
 
-Count the labelings of $m$ distinct points on $\mathbb{R}$ realised by intervals and compare with $\sum_{i=0}^2 \binom{m}{i}$.
+Count the labelings of $n$ distinct points on $\mathbb{R}$ realised by intervals and compare with $\sum_{i=0}^2 \binom{n}{i}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-An interval labels by $1$ a set of consecutive points, possibly empty. There is one empty labeling and $m(m+1)/2$ non-empty blocks
-$x_i, \dots, x_j$ with $i \le j$, so $1 + m(m+1)/2$ labelings. Since $\binom{m}{1} + \binom{m}{2} = m + m(m-1)/2 = m(m+1)/2$, this
-equals $\binom{m}{0} + \binom{m}{1} + \binom{m}{2}$.
+An interval labels by $1$ a set of consecutive points, possibly empty. There is one empty labeling and $n(n+1)/2$ non-empty blocks
+$x_i, \dots, x_j$ with $i \le j$, so $1 + n(n+1)/2$ labelings. Since $\binom{n}{1} + \binom{n}{2} = n + n(n-1)/2 = n(n+1)/2$, this
+equals $\binom{n}{0} + \binom{n}{1} + \binom{n}{2}$.
 :::
 ::::
 
@@ -1047,10 +1047,10 @@ bound the generalization gap for all hypotheses in a class simultaneously.
 ::: {#def-flt-uniform-convergence}
 #### Uniform convergence
 
-A class $\mathcal{H}$ satisfies **uniform convergence** with rate $\epsilon(m, \mathcal{H}, \delta)$ if, with probability at least
-$1-\delta$ over $S \sim \mathcal{D}^m$, for all $h \in \mathcal{H}$:
+A class $\mathcal{H}$ satisfies **uniform convergence** with rate $\varepsilon(n, \mathcal{H}, \delta)$ if, with probability at least
+$1-\delta$ over $S \sim \mathcal{D}^n$, for all $h \in \mathcal{H}$:
 
-$$ |L_{\mathcal{D}}(h) - L_S(h)| \le \epsilon(m, \mathcal{H}, \delta) $$
+$$ |L_{\mathcal{D}}(h) - L_S(h)| \le \varepsilon(n, \mathcal{H}, \delta) $$
 :::
 
 ::::
@@ -1060,14 +1060,14 @@ true error. The example gives the rate for a finite class.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 For a finite class, Hoeffding's inequality and a union bound give @def-flt-uniform-convergence directly. The rate depends on the
-class only through $\ln|\mathcal{H}|$.
+class only through $\log|\mathcal{H}|$.
 
 ::: {#exm-flt-uniform-convergence-finite}
 #### Finite classes
 
-For one hypothesis, Hoeffding's inequality gives $\mathbb{P}[|L_{\mathcal{D}}(h) - L_S(h)| > \epsilon] \le 2e^{-2m\epsilon^2}$. A
-union bound over $\mathcal{H}$ makes the failure probability at most $2|\mathcal{H}|e^{-2m\epsilon^2}$, which equals $\delta$ for
-$\epsilon(m, \mathcal{H}, \delta) = \sqrt{\ln(2|\mathcal{H}|/\delta)/(2m)}$.
+For one hypothesis, Hoeffding's inequality gives $\mathbb{P}(|L_{\mathcal{D}}(h) - L_S(h)| > \varepsilon) \le 2e^{-2n\varepsilon^2}$. A
+union bound over $\mathcal{H}$ makes the failure probability at most $2|\mathcal{H}|e^{-2n\varepsilon^2}$, which equals $\delta$ for
+$\varepsilon(n, \mathcal{H}, \delta) = \sqrt{\log(2|\mathcal{H}|/\delta)/(2n)}$.
 :::
 ::::
 
@@ -1080,12 +1080,12 @@ The exercise turns @def-flt-uniform-convergence into a guarantee for ERM. The fa
 #### ERM under uniform convergence
 
 Show that on the event of @def-flt-uniform-convergence, $L_{\mathcal{D}}(h_S) \le \min_{h \in \mathcal{H}} L_{\mathcal{D}}(h) +
-2\epsilon(m, \mathcal{H}, \delta)$.
+2\varepsilon(n, \mathcal{H}, \delta)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Write $\epsilon = \epsilon(m, \mathcal{H}, \delta)$. For every $h \in \mathcal{H}$, $L_{\mathcal{D}}(h_S) \le L_S(h_S) + \epsilon
-\le L_S(h) + \epsilon \le L_{\mathcal{D}}(h) + 2\epsilon$, using the bound for $h_S$, the minimality of $L_S(h_S)$, and the bound
+Write $\varepsilon = \varepsilon(n, \mathcal{H}, \delta)$. For every $h \in \mathcal{H}$, $L_{\mathcal{D}}(h_S) \le L_S(h_S) + \varepsilon
+\le L_S(h) + \varepsilon \le L_{\mathcal{D}}(h) + 2\varepsilon$, using the bound for $h_S$, the minimality of $L_S(h_S)$, and the bound
 for $h$. Taking the minimum over $h$ gives the claim.
 :::
 ::::
@@ -1096,8 +1096,8 @@ The bias-variance trade-off is one of the most fundamental concepts in machine l
 overly complex models fail to generalize well. This decomposition, introduced in [Probability and Statistics](../../fundamentals-of-mathematics-for-machine-learning/mathematical-and-statistical-foundations/index.qmd#sec-probability-statistics), provides deep
 insight into the nature of prediction errors.
 
-For regression problems with squared loss, consider predicting a target $y = f(x) + \epsilon$, where $f(x)$ is the true function
-and $\epsilon$ is irreducible noise with $\mathbb{E}[\epsilon] = 0$ and $\text{Var}(\epsilon) = \sigma^2$. When we train a model
+For regression problems with squared loss, consider predicting a target $y = f(x) + \varepsilon$, where $f(x)$ is the true function
+and $\varepsilon$ is irreducible noise with $\mathbb{E}[\varepsilon] = 0$ and $\operatorname{Var}(\varepsilon) = \sigma^2$. When we train a model
 $\hat{f}(x)$ on a random training set, the expected squared error at a point $x$ decomposes as follows.
 
 :::: {.statement-box}
@@ -1113,12 +1113,12 @@ Error}} $$
 
 ::::
 
-Write $y - \hat{f}(x) = (f(x) - \mathbb{E}[\hat{f}(x)]) + (\mathbb{E}[\hat{f}(x)] - \hat{f}(x)) + \epsilon$. The first term is a
-constant, the second has mean zero, and $\epsilon$ has mean zero and is independent of $\hat{f}$; so after squaring all cross terms
+Write $y - \hat{f}(x) = (f(x) - \mathbb{E}[\hat{f}(x)]) + (\mathbb{E}[\hat{f}(x)] - \hat{f}(x)) + \varepsilon$. The first term is a
+constant, the second has mean zero, and $\varepsilon$ has mean zero and is independent of $\hat{f}$; so after squaring all cross terms
 have expectation zero, and the three squares give the three terms.
 
 Let's understand each component through a concrete example. Suppose the true relationship is $f(x) = \sin(2\pi x)$ for $x \in
-[0,1]$, and we observe noisy data $y_i = f(x_i) + \epsilon_i$. The two examples below fit this data with a model that is too
+[0,1]$, and we observe noisy data $y_i = f(x_i) + \varepsilon_i$. The two examples below fit this data with a model that is too
 simple and with one that is too complex.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -1153,7 +1153,7 @@ data, the variance decreases because the model's flexibility is constrained by m
 ::::
 
 Irreducible Error: The term $\sigma^2$ represents the inherent noise in the data. Even if we knew the true function $f(x)$
-perfectly, we couldn't predict better than this because of the random noise $\epsilon$. This sets a fundamental lower bound on
+perfectly, we couldn't predict better than this because of the random noise $\varepsilon$. This sets a fundamental lower bound on
 prediction error. The exercise computes all three terms for an estimator simple enough to do by hand.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
@@ -1163,12 +1163,12 @@ amount of shrinkage balances the two.
 ::: {#exr-flt-shrinkage}
 #### Shrinking the mean
 
-Let $f(x) = \mu$ be constant, let the training set be $y_1, \dots, y_n$ with $y_i = \mu + \epsilon_i$, and let $\hat{f} = a\bar{y}$
+Let $f(x) = \mu$ be constant, let the training set be $y_1, \dots, y_n$ with $y_i = \mu + \varepsilon_i$, and let $\hat{f} = a\bar{y}$
 for a constant $a$. Compute the bias and the variance, and find the $a$ that minimises their sum.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbb{E}[a\bar{y}] = a\mu$, so $\text{Bias}^2 = (a - 1)^2\mu^2$, and $\text{Var}(a\bar{y}) = a^2\sigma^2/n$. The sum $(a-1)^2\mu^2
+$\mathbb{E}[a\bar{y}] = a\mu$, so $\text{Bias}^2 = (a - 1)^2\mu^2$, and $\operatorname{Var}(a\bar{y}) = a^2\sigma^2/n$. The sum $(a-1)^2\mu^2
 + a^2\sigma^2/n$ has derivative $2(a-1)\mu^2 + 2a\sigma^2/n$, which vanishes at $a^* = \mu^2/(\mu^2 + \sigma^2/n)$. Since $a^* < 1$,
 some shrinkage always helps, and $a^* \to 1$ as $n \to \infty$, when the variance disappears.
 :::
@@ -1198,7 +1198,7 @@ largest set of points that the hypothesis class can shatter. Recall from @def-sh
 labeling of the points in $C$, there exists a hypothesis in $\mathcal{H}$ that realizes that labeling. That is, $|\{ h \cap C : h
 \in \mathcal{H} \}| = 2^{|C|}$. Recall also from @def-vc-dimension:
 
--   VC-dimension: $\text{VCdim}(\mathcal{H}) = \max\{ |C| : C \text{ is shattered by } \mathcal{H} \}$. If
+-   VC-dimension: $\operatorname{VCdim}(\mathcal{H}) = \max\{ |C| : C \text{ is shattered by } \mathcal{H} \}$. If
 $\mathcal{H}$ can shatter arbitrarily large sets, its VC-dimension is infinite.
 
 Example: The VC-dimension of intervals on the real line is 2 (@exm-flt-vc-intervals); half-intervals, the thresholds, have
@@ -1211,9 +1211,9 @@ and only if it has a finite VC-dimension (compare @thm-flt-fundamental-theorem).
 ::: {#thm-flt-vc-generalization-bound}
 #### VC generalization bound
 
-With probability at least $1 - \delta$ over $S \sim \mathcal{D}^m$, for all $h \in \mathcal{H}$:
+With probability at least $1 - \delta$ over $S \sim \mathcal{D}^n$, for all $h \in \mathcal{H}$:
 
-$$ L_{\mathcal{D}}(h) \le L_S(h) + O\left(\sqrt{\frac{\text{VCdim}(\mathcal{H}) + \ln(1/\delta)}{m}}\right) $$
+$$ L_{\mathcal{D}}(h) \le L_S(h) + O\left(\sqrt{\frac{\operatorname{VCdim}(\mathcal{H}) + \log(1/\delta)}{n}}\right) $$
 :::
 
 ::::
@@ -1228,7 +1228,7 @@ the order of magnitude of the gap for a moderately sized data set.
 ::: {#exm-flt-vc-bound-numbers}
 #### Ten parameters, ten thousand examples
 
-For $\text{VCdim}(\mathcal{H}) = 10$, $\delta = 0.05$ ($\ln 20 \approx 3$) and $m = 10\,000$, the term is $\sqrt{13/10\,000}
+For $\operatorname{VCdim}(\mathcal{H}) = 10$, $\delta = 0.05$ ($\log 20 \approx 3$) and $n = 10\,000$, the term is $\sqrt{13/10\,000}
 \approx 0.036$: the true error exceeds the training error by at most a few percentage points.
 :::
 ::::
@@ -1236,17 +1236,17 @@ For $\text{VCdim}(\mathcal{H}) = 10$, $\delta = 0.05$ ($\ln 20 \approx 3$) and $
 Read backwards, the bound tells how much data is needed for a given gap. The exercise asks for this.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise inverts @thm-flt-vc-generalization-bound, again with the constant set to one. It shows the $1/\epsilon^2$ cost of the
+The exercise inverts @thm-flt-vc-generalization-bound, again with the constant set to one. It shows the $1/\varepsilon^2$ cost of the
 agnostic setting.
 
 ::: {#exr-flt-vc-bound-inverse}
 #### A one-percent gap
 
-With $\text{VCdim}(\mathcal{H}) = 10$ and $\delta = 0.05$, how large must $m$ be for the complexity term to be at most $0.01$?
+With $\operatorname{VCdim}(\mathcal{H}) = 10$ and $\delta = 0.05$, how large must $n$ be for the complexity term to be at most $0.01$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-We need $\sqrt{13/m} \le 0.01$, i.e. $13/m \le 10^{-4}$, so $m \ge 130\,000$.
+We need $\sqrt{13/n} \le 0.01$, i.e. $13/n \le 10^{-4}$, so $n \ge 130\,000$.
 :::
 ::::
 
@@ -1259,9 +1259,9 @@ noise. The definition below makes this precise for a fixed sample.
 
 The **empirical Rademacher complexity** of $\mathcal{H}$ with respect to sample $S$:
 
-$$ \hat{\mathfrak{R}}_S(\mathcal{H}) = \mathbb{E}_{\boldsymbol{\sigma}}\left[ \sup_{h \in \mathcal{H}} \frac{1}{m} \sum_{i=1}^m \sigma_i h(x_i) \right] $$
+$$ \hat{\mathfrak{R}}_S(\mathcal{H}) = \mathbb{E}_{\boldsymbol{\sigma}}\left[ \sup_{h \in \mathcal{H}} \frac{1}{n} \sum_{i=1}^n \sigma_i h(x_i) \right] $$
 
-where $\sigma_i$ are independent Rademacher random variables with $P(\sigma_i=\pm 1) = 1/2$.
+where $\sigma_i$ are independent Rademacher random variables with $\mathbb{P}(\sigma_i=\pm 1) = 1/2$.
 :::
 
 ::::
@@ -1276,7 +1276,7 @@ $1$.
 ::: {#exm-flt-rademacher-extremes}
 #### One hypothesis and all hypotheses
 
-For $\mathcal{H} = \{h\}$ the supremum is over one function, so $\hat{\mathfrak{R}}_S = \frac1m \sum_i \mathbb{E}[\sigma_i] h(x_i)
+For $\mathcal{H} = \{h\}$ the supremum is over one function, so $\hat{\mathfrak{R}}_S = \frac1n \sum_i \mathbb{E}[\sigma_i] h(x_i)
 = 0$. If $\mathcal{H}$ contains all $\pm 1$-valued functions and the $x_i$ are distinct, then for every $\boldsymbol{\sigma}$ some
 $h$ has $h(x_i) = \sigma_i$, the supremum is $1$, and $\hat{\mathfrak{R}}_S = 1$.
 :::
@@ -1291,7 +1291,7 @@ sum of random signs.
 ::: {#exr-flt-rademacher-two}
 #### A hypothesis and its negative
 
-Let $\mathcal{H} = \{h, -h\}$ with $h(x_i) \in \{\pm 1\}$ and $m = 2$. Compute $\hat{\mathfrak{R}}_S(\mathcal{H})$.
+Let $\mathcal{H} = \{h, -h\}$ with $h(x_i) \in \{\pm 1\}$ and $n = 2$. Compute $\hat{\mathfrak{R}}_S(\mathcal{H})$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1310,9 +1310,9 @@ values in $[0, 1]$.
 
 With probability at least $1-\delta$, for all $h \in \mathcal{H}$:
 
-$$ L_{\mathcal{D}}(h) \le L_S(h) + 2\mathfrak{R}_m(\mathcal{H}) + \sqrt{\frac{\ln(1/\delta)}{2m}} $$
+$$ L_{\mathcal{D}}(h) \le L_S(h) + 2\mathfrak{R}_n(\mathcal{H}) + \sqrt{\frac{\log(1/\delta)}{2n}} $$
 
-where $\mathfrak{R}_m(\mathcal{H})$ is the average empirical Rademacher complexity.
+where $\mathfrak{R}_n(\mathcal{H})$ is the average empirical Rademacher complexity.
 :::
 
 ::::
@@ -1326,7 +1326,7 @@ The example inserts numbers into @thm-flt-rademacher-bound. The confidence term 
 ::: {#exm-flt-rademacher-numbers}
 #### A numerical bound
 
-With $L_S(h) = 0.1$, $\mathfrak{R}_m(\mathcal{H}) = 0.05$, $m = 1000$ and $\delta = 0.05$, the confidence term is $\sqrt{\ln 20 /
+With $L_S(h) = 0.1$, $\mathfrak{R}_n(\mathcal{H}) = 0.05$, $n = 1000$ and $\delta = 0.05$, the confidence term is $\sqrt{\log 20 /
 2000} \approx 0.039$, so $L_{\mathcal{D}}(h) \le 0.1 + 0.1 + 0.039 = 0.239$.
 :::
 ::::
@@ -1339,11 +1339,11 @@ The exercise isolates the last term of @thm-flt-rademacher-bound. It is independ
 ::: {#exr-flt-rademacher-confidence}
 #### The confidence term
 
-How large must $m$ be for $\sqrt{\ln(1/\delta)/(2m)} \le 0.01$ when $\delta = 0.01$?
+How large must $n$ be for $\sqrt{\log(1/\delta)/(2n)} \le 0.01$ when $\delta = 0.01$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-We need $\ln(100)/(2m) \le 10^{-4}$, i.e. $m \ge \ln(100)/(2 \cdot 10^{-4}) \approx 4.605 \times 5000 \approx 23\,026$.
+We need $\log(100)/(2n) \le 10^{-4}$, i.e. $n \ge \log(100)/(2 \cdot 10^{-4}) \approx 4.605 \times 5000 \approx 23\,026$.
 :::
 ::::
 
@@ -1370,13 +1370,13 @@ example takes the two simplest ones.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example computes the constant of @def-flt-uniform-stability for an algorithm that ignores the data and for one that averages
-it. Averaging over $m$ points makes the influence of each point of order $1/m$.
+it. Averaging over $n$ points makes the influence of each point of order $1/n$.
 
 ::: {#exm-flt-stability-mean}
 #### Constant output and the sample mean
 
-The algorithm $A(S) = h_0$ has $\beta = 0$. For data $z_i \in [0, 1]$, $A(S) = \frac1m\sum_i z_i$ and $\ell(w, z) = (w - z)^2$,
-replacing one point moves $w$ by at most $1/m$, and $|(w - z)^2 - (w' - z)^2| = |w - w'|\,|w + w' - 2z| \le 2/m$; so $\beta = 2/m$.
+The algorithm $A(S) = h_0$ has $\beta = 0$. For data $z_i \in [0, 1]$, $A(S) = \frac1n\sum_i z_i$ and $\ell(w, z) = (w - z)^2$,
+replacing one point moves $w$ by at most $1/n$, and $|(w - z)^2 - (w' - z)^2| = |w - w'|\,|w + w' - 2z| \le 2/n$; so $\beta = 2/n$.
 :::
 ::::
 
@@ -1417,12 +1417,12 @@ example applies the theorem to the sample mean.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example combines @thm-flt-stability-generalization with @exm-flt-stability-mean. The expected gap of the sample mean shrinks
-like $1/m$.
+like $1/n$.
 
 ::: {#exm-flt-stability-mean-gap}
 #### The gap of the sample mean
 
-With $\beta = 2/m$, the expected generalization gap of the sample mean under squared loss is at most $2/m$: for $m = 100$ it is at
+With $\beta = 2/n$, the expected generalization gap of the sample mean under squared loss is at most $2/n$: for $n = 100$ it is at
 most $0.02$.
 :::
 ::::
@@ -1660,10 +1660,10 @@ complexity. The first one penalises each parameter by a fixed amount.
 
 **Akaike Information Criterion (AIC)**: The AIC is defined as:
 
-$$ \text{AIC} = 2k - 2\ln(\hat{L}) $$
+$$ \text{AIC} = 2k - 2\log p(S \mid \hat{\boldsymbol{\theta}}) $$
 
-where $k$ is the number of parameters in the model and $\hat{L}$ is the maximum value of the likelihood function for the
-model. The model with the lowest AIC is preferred.
+where $k$ is the number of parameters in the model and $p(S \mid \hat{\boldsymbol{\theta}})$ is the maximum value of the likelihood
+function for the model, attained at the maximum-likelihood estimate $\hat{\boldsymbol{\theta}}$. The model with the lowest AIC is preferred.
 :::
 
 ::::
@@ -1676,7 +1676,7 @@ The example evaluates @def-flt-aic for two nested models. Extra parameters must 
 ::: {#exm-flt-aic-tie}
 #### A tie
 
-A model with $k = 2$ and $\ln \hat{L} = -100$ has $\text{AIC} = 4 + 200 = 204$; a model with $k = 5$ and $\ln \hat{L} = -97$ has
+A model with $k = 2$ and $\log p(S \mid \hat{\boldsymbol{\theta}}) = -100$ has $\text{AIC} = 4 + 200 = 204$; a model with $k = 5$ and $\log p(S \mid \hat{\boldsymbol{\theta}}) = -97$ has
 $\text{AIC} = 10 + 194 = 204$. Three extra parameters bought exactly the three units of log-likelihood that AIC charges for them.
 :::
 ::::
@@ -1693,7 +1693,8 @@ By how much must the maximised log-likelihood increase when one parameter is add
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The larger model's AIC is $2(k+1) - 2\ln\hat{L}'$, smaller than $2k - 2\ln\hat{L}$ exactly when $\ln\hat{L}' - \ln\hat{L} > 1$.
+The larger model's AIC is $2(k+1) - 2\log p(S \mid \hat{\boldsymbol{\theta}}')$, smaller than $2k - 2\log p(S \mid \hat{\boldsymbol{\theta}})$ exactly when
+$\log p(S \mid \hat{\boldsymbol{\theta}}') - \log p(S \mid \hat{\boldsymbol{\theta}}) > 1$.
 :::
 ::::
 
@@ -1705,7 +1706,7 @@ The second criterion lets the penalty grow with the sample size. The definition 
 
 **Bayesian Information Criterion (BIC)**: The BIC is similar to the AIC but with a larger penalty for model complexity:
 
-$$ \text{BIC} = k\ln(n) - 2\ln(\hat{L}) $$
+$$ \text{BIC} = k\log(n) - 2\log p(S \mid \hat{\boldsymbol{\theta}}) $$
 
 where $n$ is the number of observations.
 :::
@@ -1721,7 +1722,7 @@ model.
 ::: {#exm-flt-bic-breaks-tie}
 #### Breaking the tie
 
-With $n = 100$, $\ln n \approx 4.605$. The first model has $\text{BIC} \approx 9.21 + 200 = 209.21$ and the second $\approx 23.03 +
+With $n = 100$, $\log n \approx 4.605$. The first model has $\text{BIC} \approx 9.21 + 200 = 209.21$ and the second $\approx 23.03 +
 194 = 217.03$, so BIC prefers the model with two parameters.
 :::
 ::::
@@ -1738,7 +1739,7 @@ For which $n$ is the BIC penalty per parameter larger than the AIC penalty?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-We need $\ln n > 2$, i.e. $n > e^2 \approx 7.39$. Since $\ln 7 \approx 1.95$ and $\ln 8 \approx 2.08$, BIC is stricter for all
+We need $\log n > 2$, i.e. $n > e^2 \approx 7.39$. Since $\log 7 \approx 1.95$ and $\log 8 \approx 2.08$, BIC is stricter for all
 $n \ge 8$.
 :::
 ::::
@@ -1759,8 +1760,8 @@ including the complexity of implementing the ERM rule and the hardness of learni
 
 ### Efficient Learning and the ERM Rule
 
-A learning algorithm is considered efficient if its running time is polynomial in the relevant parameters: the sample size $m$,
-the dimension of the input space, $1/\epsilon$, and $1/\delta$. The question arises: when can the ERM rule be implemented
+A learning algorithm is considered efficient if its running time is polynomial in the relevant parameters: the sample size $n$,
+the dimension of the input space, $1/\varepsilon$, and $1/\delta$. The question arises: when can the ERM rule be implemented
 efficiently?
 
 :::: {.statement-box}
@@ -1785,14 +1786,14 @@ The example below gives the simplest case in full.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Thresholds on the line have an efficient ERM implementation in the sense of @def-flt-efficient-erm. Sorting reduces the search to
-$m + 1$ candidates.
+$n + 1$ candidates.
 
 ::: {#exm-flt-erm-thresholds}
 #### ERM for thresholds
 
-Sort the sample, $x_{(1)} \le \dots \le x_{(m)}$. Only the $m + 1$ positions of the threshold between consecutive points matter.
-Scanning them in order, the number of errors changes by one at each step, so all $m + 1$ empirical risks are found in $O(m)$ after
-an $O(m \log m)$ sort.
+Sort the sample, $x_{(1)} \le \dots \le x_{(n)}$. Only the $n + 1$ positions of the threshold between consecutive points matter.
+Scanning them in order, the number of errors changes by one at each step, so all $n + 1$ empirical risks are found in $O(n)$ after
+an $O(n \log n)$ sort.
 :::
 ::::
 
@@ -1805,12 +1806,12 @@ implementation.
 ::: {#exr-flt-erm-intervals}
 #### ERM for intervals
 
-Give an algorithm that implements ERM for intervals on $\mathbb{R}$ in time polynomial in $m$.
+Give an algorithm that implements ERM for intervals on $\mathbb{R}$ in time polynomial in $n$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 After sorting, an interval labels by $1$ a block $x_{(i)}, \dots, x_{(j)}$ of consecutive points or no point at all, so there are
-$1 + m(m+1)/2$ candidate labelings (@exr-flt-sauer-intervals). With prefix sums of the numbers of $0$- and $1$-labels, the
+$1 + n(n+1)/2$ candidate labelings (@exr-flt-sauer-intervals). With prefix sums of the numbers of $0$- and $1$-labels, the
 empirical risk of each block is found in $O(1)$, so ERM takes $O(m^2)$ time after the sort.
 :::
 ::::
@@ -1952,7 +1953,7 @@ A learner for the threshold class outputs the indicator of an interval $[a, b]$ 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-No. A threshold $\mathbb{1}_{x \ge a}$ equals $1$ on an unbounded set, while the indicator of a bounded interval does not, so the
+No. A threshold $\mathbb{1}[x \ge a]$ equals $1$ on an unbounded set, while the indicator of a bounded interval does not, so the
 output lies outside the threshold class; the learner is improper even if its error is small.
 :::
 ::::
@@ -2041,10 +2042,10 @@ The first relaxation lets the number of examples depend on the hypothesis we com
 #### Nonuniform learnability
 
 A hypothesis class $\mathcal{H}$ is **nonuniformly learnable** if there exist a learning algorithm $A$ and a function
-$m_{\mathcal{H}}^{\text{NUL}}: (0,1)^2 \times \mathcal{H} \to \mathbb{N}$ such that for every $\epsilon, \delta \in (0,1)$ and $h
-\in \mathcal{H}$, if $m \geq m_{\mathcal{H}}^{\text{NUL}}(\epsilon, \delta, h)$, then for every distribution $\mathcal{D}$:
+$m_{\mathcal{H}}^{\text{NUL}}: (0,1)^2 \times \mathcal{H} \to \mathbb{N}$ such that for every $\varepsilon, \delta \in (0,1)$ and $h
+\in \mathcal{H}$, if $n \geq m_{\mathcal{H}}^{\text{NUL}}(\varepsilon, \delta, h)$, then for every distribution $\mathcal{D}$:
 
-$$\mathbb{P}_{S \sim \mathcal{D}^m}[L_{\mathcal{D}}(A(S)) \leq L_{\mathcal{D}}(h) + \epsilon] \geq 1 - \delta$$
+$$\mathbb{P}_{S \sim \mathcal{D}^n}(L_{\mathcal{D}}(A(S)) \leq L_{\mathcal{D}}(h) + \varepsilon) \geq 1 - \delta$$
 :::
 
 ::::
@@ -2059,9 +2060,9 @@ argument.
 ::: {#exm-flt-pac-is-nonuniform}
 #### PAC learnable classes
 
-If $\mathcal{H}$ is agnostically PAC learnable with $m_{\mathcal{H}}$, set $m_{\mathcal{H}}^{\text{NUL}}(\epsilon, \delta, h) =
-m_{\mathcal{H}}(\epsilon, \delta)$. The agnostic guarantee $L_{\mathcal{D}}(A(S)) \le \min_{h'} L_{\mathcal{D}}(h') + \epsilon$
-implies $L_{\mathcal{D}}(A(S)) \le L_{\mathcal{D}}(h) + \epsilon$ for every $h$.
+If $\mathcal{H}$ is agnostically PAC learnable with $m_{\mathcal{H}}$, set $m_{\mathcal{H}}^{\text{NUL}}(\varepsilon, \delta, h) =
+m_{\mathcal{H}}(\varepsilon, \delta)$. The agnostic guarantee $L_{\mathcal{D}}(A(S)) \le \min_{h'} L_{\mathcal{D}}(h') + \varepsilon$
+implies $L_{\mathcal{D}}(A(S)) \le L_{\mathcal{D}}(h) + \varepsilon$ for every $h$.
 :::
 ::::
 
@@ -2074,14 +2075,14 @@ notion is weaker.
 ::: {#exr-flt-quantifiers}
 #### Order of quantifiers
 
-Write both definitions with explicit quantifiers over $\epsilon, \delta, h, m$ and $\mathcal{D}$, and explain which implies which.
+Write both definitions with explicit quantifiers over $\varepsilon, \delta, h, n$ and $\mathcal{D}$, and explain which implies which.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Agnostic PAC: $\exists A, m_{\mathcal{H}}\ \forall \epsilon, \delta\ \forall m \ge m_{\mathcal{H}}(\epsilon, \delta)\ \forall
-\mathcal{D}\ \forall h$: $\mathbb{P}[L_{\mathcal{D}}(A(S)) \le L_{\mathcal{D}}(h) + \epsilon] \ge 1 - \delta$. Nonuniform: $\exists
-A, m^{\text{NUL}}\ \forall \epsilon, \delta\ \forall h\ \forall m \ge m^{\text{NUL}}(\epsilon, \delta, h)\ \forall \mathcal{D}$: the
-same event. In the first, $m$ is chosen before $h$; in the second after. So agnostic PAC implies nonuniform (@exm-flt-pac-is-nonuniform),
+Agnostic PAC: $\exists A, m_{\mathcal{H}}\ \forall \varepsilon, \delta\ \forall n \ge m_{\mathcal{H}}(\varepsilon, \delta)\ \forall
+\mathcal{D}\ \forall h$: $\mathbb{P}(L_{\mathcal{D}}(A(S)) \le L_{\mathcal{D}}(h) + \varepsilon) \ge 1 - \delta$. Nonuniform: $\exists
+A, m^{\text{NUL}}\ \forall \varepsilon, \delta\ \forall h\ \forall n \ge m^{\text{NUL}}(\varepsilon, \delta, h)\ \forall \mathcal{D}$: the
+same event. In the first, $n$ is chosen before $h$; in the second after. So agnostic PAC implies nonuniform (@exm-flt-pac-is-nonuniform),
 and not conversely.
 :::
 ::::
@@ -2093,7 +2094,7 @@ The theorem below says exactly which classes are nonuniformly learnable.
 #### Characterization of nonuniform learnability
 
 A hypothesis class $\mathcal{H}$ is nonuniformly learnable if and only if it can be written as a countable union of PAC learnable
-classes: $$\mathcal{H} = \bigcup_{n=1}^\infty \mathcal{H}_n$$ where each $\mathcal{H}_n$ has finite VC-dimension.
+classes: $$\mathcal{H} = \bigcup_{k=1}^\infty \mathcal{H}_k$$ where each $\mathcal{H}_k$ has finite VC-dimension.
 :::
 
 ::::
@@ -2108,8 +2109,8 @@ VC-dimension, the union does not.
 ::: {#exm-flt-polynomial-union}
 #### Polynomial classifiers of all degrees
 
-Let $\mathcal{H}_n$ be the classifiers $x \mapsto \mathbb{1}[p(x) \ge 0]$ with $p$ a polynomial on $\mathbb{R}$ of degree at most
-$n$; it has VC-dimension $n + 1$. The union $\mathcal{H} = \bigcup_n \mathcal{H}_n$ shatters every finite set, since a polynomial can
+Let $\mathcal{H}_k$ be the classifiers $x \mapsto \mathbb{1}[p(x) \ge 0]$ with $p$ a polynomial on $\mathbb{R}$ of degree at most
+$k$; it has VC-dimension $k + 1$. The union $\mathcal{H} = \bigcup_k \mathcal{H}_k$ shatters every finite set, since a polynomial can
 change sign between any chosen consecutive points, so it is not PAC learnable but it is nonuniformly learnable.
 :::
 ::::
@@ -2126,7 +2127,7 @@ Show that every countable class $\mathcal{H} = \{h_1, h_2, \dots\}$ is nonunifor
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathcal{H} = \bigcup_n \{h_n\}$, and each singleton has VC-dimension $0$ (it realises only one labeling of any non-empty set). By
+$\mathcal{H} = \bigcup_k \{h_k\}$, and each singleton has VC-dimension $0$ (it realises only one labeling of any non-empty set). By
 @thm-flt-nonuniform-characterization, $\mathcal{H}$ is nonuniformly learnable.
 :::
 ::::
@@ -2142,7 +2143,7 @@ definition below states the rule.
 
 Given a nested sequence of hypothesis classes: $$\mathcal{H}_1 \subseteq \mathcal{H}_2 \subseteq \cdots \subseteq \mathcal{H}$$
 
-**SRM** selects the hypothesis that minimizes: $$\hat{h} = \arg\min_{h \in \bigcup_n \mathcal{H}_n} \left\{ L_S(h) + \text{complexity
+**SRM** selects the hypothesis that minimizes: $$\hat{h} = \arg\min_{h \in \bigcup_k \mathcal{H}_k} \left\{ L_S(h) + \text{complexity
 penalty}(h) \right\}$$
 :::
 
@@ -2150,11 +2151,11 @@ penalty}(h) \right\}$$
 
 SRM Algorithm:
 
-1. For each $n$, compute $h_n = \text{ERM}_{\mathcal{H}_n}(S)$
-2. For each $n$, compute confidence interval:
-$$L_S(h_n) \pm \sqrt{\frac{\text{VCdim}(\mathcal{H}_n) + \ln(1/\delta)}{m}}$$
-3. Select $n^*$ that minimizes the upper bound of the confidence interval
-4. Return $h_{n^*}$
+1. For each $k$, compute $h_k = \text{ERM}_{\mathcal{H}_k}(S)$
+2. For each $k$, compute confidence interval:
+$$L_S(h_k) \pm \sqrt{\frac{\operatorname{VCdim}(\mathcal{H}_k) + \log(1/\delta)}{n}}$$
+3. Select $k^*$ that minimizes the upper bound of the confidence interval
+4. Return $h_{k^*}$
 
 The example runs these four steps on three classes.
 
@@ -2165,13 +2166,13 @@ against complexity.
 ::: {#exm-flt-srm-three-classes}
 #### Three nested classes
 
-Let $m = 1000$, $\delta = 0.05$ ($\ln 20 \approx 3$), and suppose $\text{VCdim}(\mathcal{H}_n) = 2, 10, 50$ with
-$L_S(h_n) = 0.20, 0.08, 0.05$. The upper bounds are $0.20 + \sqrt{5/1000} \approx 0.271$, $0.08 + \sqrt{13/1000} \approx 0.194$ and
+Let $n = 1000$, $\delta = 0.05$ ($\log 20 \approx 3$), and suppose $\operatorname{VCdim}(\mathcal{H}_k) = 2, 10, 50$ with
+$L_S(h_k) = 0.20, 0.08, 0.05$. The upper bounds are $0.20 + \sqrt{5/1000} \approx 0.271$, $0.08 + \sqrt{13/1000} \approx 0.194$ and
 $0.05 + \sqrt{53/1000} \approx 0.280$, so SRM returns $h_2$.
 :::
 ::::
 
-To make the bounds hold for all $n$ at once, the confidence $\delta$ is split among the classes. The exercise checks a standard
+To make the bounds hold for all $k$ at once, the confidence $\delta$ is split among the classes. The exercise checks a standard
 split.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
@@ -2180,13 +2181,13 @@ The exercise verifies a weighting that makes the bounds of @def-flt-srm hold sim
 ::: {#exr-flt-srm-weights}
 #### Splitting the confidence
 
-Show that $\delta_n = 6\delta/(\pi^2 n^2)$ satisfies $\sum_{n \ge 1}\delta_n = \delta$, and explain why using $\delta_n$ for class
-$n$ makes all the bounds hold together with probability at least $1 - \delta$.
+Show that $\delta_k = 6\delta/(\pi^2 k^2)$ satisfies $\sum_{k \ge 1}\delta_k = \delta$, and explain why using $\delta_k$ for class
+$k$ makes all the bounds hold together with probability at least $1 - \delta$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\sum_{n \ge 1} 1/n^2 = \pi^2/6$, so $\sum_n \delta_n = \delta$. If the bound for class $n$ fails with probability at most $\delta_n$,
-the union bound gives probability at most $\sum_n\delta_n = \delta$ that some bound fails.
+$\sum_{k \ge 1} 1/k^2 = \pi^2/6$, so $\sum_k \delta_k = \delta$. If the bound for class $k$ fails with probability at most $\delta_k$,
+the union bound gives probability at most $\sum_k\delta_k = \delta$ that some bound fails.
 :::
 ::::
 
@@ -2209,7 +2210,7 @@ MDL selects: $\hat{h} = \arg\min_h \{L(h) + L(S|h)\}$
 
 ::::
 
-With a probabilistic model, the data description length is the code length $-\log_2 P(S|h)$. The example compares two coin models
+With a probabilistic model, the data description length is the code length $-\log_2 p(S|h)$. The example compares two coin models
 this way.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -2219,7 +2220,7 @@ code lengths.
 ::: {#exm-flt-mdl-coin}
 #### A biased coin
 
-Let $h_1$ be a fair coin and $h_2$ a coin with $P(\text{heads}) = 0.9$, each described with $1$ bit. For ten flips with nine heads,
+Let $h_1$ be a fair coin and $h_2$ a coin with $\mathbb{P}(\text{heads}) = 0.9$, each described with $1$ bit. For ten flips with nine heads,
 $L(S|h_1) = 10$ bits and $L(S|h_2) = -9\log_2 0.9 - \log_2 0.1 \approx 1.37 + 3.32 = 4.69$ bits, so MDL selects $h_2$.
 :::
 ::::
@@ -2247,8 +2248,8 @@ A refined version of MDL replaces the two-part code by a single normalised distr
 ::: {#def-flt-nml}
 #### Normalized Maximum Likelihood
 
-**Normalized Maximum Likelihood (NML)**: For model class $\mathcal{M}$ and data $S$: $$P_{\text{NML}}(S|\mathcal{M}) =
-\frac{\max_{\theta \in \mathcal{M}} P(S|\theta)}{\sum_{S'} \max_{\theta \in \mathcal{M}} P(S'|\theta)}$$
+**Normalized Maximum Likelihood (NML)**: For model class $\mathcal{H}$ and data $S$: $$p_{\mathrm{NML}}(S|\mathcal{H}) =
+\frac{\max_{\theta \in \mathcal{H}} p(S|\theta)}{\sum_{S'} \max_{\theta \in \mathcal{H}} p(S'|\theta)}$$
 :::
 
 ::::
@@ -2263,8 +2264,8 @@ likelihoods.
 ::: {#exm-flt-nml-two-flips}
 #### Two flips
 
-For $\mathcal{M}$ the Bernoulli coins, $\max_\theta P(00|\theta) = \max_\theta P(11|\theta) = 1$ and $\max_\theta P(01|\theta) =
-\max_\theta P(10|\theta) = 1/4$ (at $\theta = 1/2$). The normaliser is $2.5$, so $P_{\text{NML}}(00) = 0.4$ and $P_{\text{NML}}(01) =
+For $\mathcal{H}$ the Bernoulli coins, $\max_\theta p(00|\theta) = \max_\theta p(11|\theta) = 1$ and $\max_\theta p(01|\theta) =
+\max_\theta p(10|\theta) = 1/4$ (at $\theta = 1/2$). The normaliser is $2.5$, so $p_{\mathrm{NML}}(00) = 0.4$ and $p_{\mathrm{NML}}(01) =
 0.1$.
 :::
 ::::
@@ -2277,12 +2278,12 @@ The exercise verifies that @def-flt-nml defines a distribution and computes it f
 ::: {#exr-flt-nml-one-flip}
 #### One flip
 
-Show that $\sum_S P_{\text{NML}}(S|\mathcal{M}) = 1$, and compute $P_{\text{NML}}$ for a single flip of a Bernoulli coin.
+Show that $\sum_S p_{\mathrm{NML}}(S|\mathcal{H}) = 1$, and compute $p_{\mathrm{NML}}$ for a single flip of a Bernoulli coin.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Summing the numerator over $S$ gives the denominator, so the total is $1$. For one flip, $\max_\theta P(0|\theta) = \max_\theta
-P(1|\theta) = 1$, the normaliser is $2$, and $P_{\text{NML}}(0) = P_{\text{NML}}(1) = 1/2$.
+Summing the numerator over $S$ gives the denominator, so the total is $1$. For one flip, $\max_\theta p(0|\theta) = \max_\theta
+p(1|\theta) = 1$, the normaliser is $2$, and $p_{\mathrm{NML}}(0) = p_{\mathrm{NML}}(1) = 1/2$.
 :::
 ::::
 
@@ -2295,8 +2296,8 @@ The weakest requirement on a learner is that it eventually succeeds. The definit
 #### Consistency
 
 A learning algorithm is **consistent** for a hypothesis class $\mathcal{H}$ if for every $h^* \in \mathcal{H}$ and distribution
-$\mathcal{D}$ such that $L_{\mathcal{D}}(h^*) = 0$: $$\lim_{m \to \infty} \mathbb{P}_{S \sim \mathcal{D}^m}[L_{\mathcal{D}}(A(S)) >
-\epsilon] = 0$$ for every $\epsilon > 0$.
+$\mathcal{D}$ such that $L_{\mathcal{D}}(h^*) = 0$: $$\lim_{n \to \infty} \mathbb{P}_{S \sim \mathcal{D}^n}(L_{\mathcal{D}}(A(S)) >
+\varepsilon) = 0$$ for every $\varepsilon > 0$.
 :::
 
 ::::
@@ -2310,8 +2311,8 @@ The example derives @def-flt-consistency for ERM over a finite class. The failur
 ::: {#exm-flt-erm-consistent}
 #### ERM on a finite class
 
-By the proof of @thm-flt-finite-class, $\mathbb{P}[L_{\mathcal{D}}(\text{ERM}(S)) > \epsilon] \le |\mathcal{H}|e^{-\epsilon m}$, which
-tends to $0$ as $m \to \infty$ for every $\epsilon > 0$.
+By the proof of @thm-flt-finite-class, $\mathbb{P}(L_{\mathcal{D}}(\text{ERM}(S)) > \varepsilon) \le |\mathcal{H}|e^{-\varepsilon n}$, which
+tends to $0$ as $n \to \infty$ for every $\varepsilon > 0$.
 :::
 ::::
 
@@ -2327,8 +2328,8 @@ Show that a PAC learner for $\mathcal{H}$ is consistent for $\mathcal{H}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Fix $\epsilon$ and any $\delta > 0$. For $m \ge m_{\mathcal{H}}(\epsilon, \delta)$, $\mathbb{P}[L_{\mathcal{D}}(A(S)) > \epsilon] \le
-\delta$. Hence $\limsup_m \mathbb{P}[L_{\mathcal{D}}(A(S)) > \epsilon] \le \delta$ for every $\delta > 0$, and the limit is $0$.
+Fix $\varepsilon$ and any $\delta > 0$. For $n \ge m_{\mathcal{H}}(\varepsilon, \delta)$, $\mathbb{P}(L_{\mathcal{D}}(A(S)) > \varepsilon) \le
+\delta$. Hence $\limsup_n \mathbb{P}(L_{\mathcal{D}}(A(S)) > \varepsilon) \le \delta$ for every $\delta > 0$, and the limit is $0$.
 :::
 ::::
 
@@ -2412,7 +2413,7 @@ The example evaluates @def-flt-fwer through the distribution of $V$. The binomia
 ::: {#exm-flt-fwer-binomial}
 #### A binomial count
 
-With $m$ true nulls tested independently at level $\alpha$, $V \sim \text{Binomial}(m, \alpha)$ and $\text{FWER} = 1 - (1 -
+With $m$ true nulls tested independently at level $\alpha$, $V \sim \operatorname{Bin}(m, \alpha)$ and $\text{FWER} = 1 - (1 -
 \alpha)^m$, as in @prp-flt-at-least-one-false-positive.
 :::
 ::::
@@ -2906,7 +2907,7 @@ variance. The definition below states it.
 #### First principal component
 
 **Principal Component Analysis (PCA)**: Finds linear projections that maximize variance: $$\mathbf{w}_1 =
-\arg\max_{\|\mathbf{w}\|=1} \text{Var}(\mathbf{w}^\top \mathbf{X})$$
+\arg\max_{\|\mathbf{w}\|=1} \operatorname{Var}(\mathbf{w}^\top \mathbf{x})$$
 :::
 
 ::::
@@ -2921,7 +2922,7 @@ coordinate axis with the larger variance.
 ::: {#exm-flt-pca-diagonal}
 #### A diagonal covariance
 
-If $\text{Cov}(\mathbf{X}) = \text{diag}(4, 1)$, then $\text{Var}(\mathbf{w}^\top\mathbf{X}) = 4w_1^2 + w_2^2$, which on the unit
+If $\operatorname{Cov}(\mathbf{x}) = \operatorname{diag}(4, 1)$, then $\operatorname{Var}(\mathbf{w}^\top\mathbf{x}) = 4w_1^2 + w_2^2$, which on the unit
 circle is largest at $\mathbf{w} = \pm\mathbf{e}_1$, with variance $4$.
 :::
 ::::
@@ -2935,12 +2936,12 @@ diagonalises $\Sigma$.
 ::: {#exr-flt-pca-eigenvector}
 #### The top eigenvector
 
-Show that $\mathbf{w}_1$ is a unit eigenvector of $\Sigma = \text{Cov}(\mathbf{X})$ for its largest eigenvalue $\lambda_1$, and that
+Show that $\mathbf{w}_1$ is a unit eigenvector of $\Sigma = \operatorname{Cov}(\mathbf{x})$ for its largest eigenvalue $\lambda_1$, and that
 the maximal variance is $\lambda_1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\text{Var}(\mathbf{w}^\top\mathbf{X}) = \mathbf{w}^\top\Sigma\mathbf{w}$. Write $\Sigma = \sum_j \lambda_j \mathbf{u}_j\mathbf{u}_j^\top$
+$\operatorname{Var}(\mathbf{w}^\top\mathbf{x}) = \mathbf{w}^\top\Sigma\mathbf{w}$. Write $\Sigma = \sum_j \lambda_j \mathbf{u}_j\mathbf{u}_j^\top$
 with orthonormal eigenvectors and $\lambda_1 \ge \lambda_2 \ge \dots$. For a unit $\mathbf{w} = \sum_j c_j\mathbf{u}_j$,
 $\mathbf{w}^\top\Sigma\mathbf{w} = \sum_j \lambda_j c_j^2 \le \lambda_1\sum_j c_j^2 = \lambda_1$, with equality at $\mathbf{w} =
 \mathbf{u}_1$.
@@ -2956,9 +2957,9 @@ objective.
 
 **Autoencoders**: Learn compressed representations through reconstruction:
 
-- Encoder: $\mathbf{z} = f_{\text{enc}}(\mathbf{x}; \theta_{\text{enc}})$
-- Decoder: $\hat{\mathbf{x}} = f_{\text{dec}}(\mathbf{z}; \theta_{\text{dec}})$
-- Objective: $\min_{\theta} \mathbb{E}[\|\mathbf{x} - f_{\text{dec}}(f_{\text{enc}}(\mathbf{x}))\|^2]$
+- Encoder: $\mathbf{z} = f_{\text{enc}}(\mathbf{x}; \boldsymbol{\theta}_{\text{enc}})$
+- Decoder: $\hat{\mathbf{x}} = f_{\text{dec}}(\mathbf{z}; \boldsymbol{\theta}_{\text{dec}})$
+- Objective: $\min_{\boldsymbol{\theta}} \mathbb{E}[\|\mathbf{x} - f_{\text{dec}}(f_{\text{enc}}(\mathbf{x}))\|^2]$
 :::
 
 ::::
@@ -2988,25 +2989,25 @@ variance add up to a constant.
 ::: {#exr-flt-linear-autoencoder}
 #### A linear autoencoder is PCA
 
-Let $\mathbf{X}$ have mean zero, $z = \mathbf{w}^\top\mathbf{x}$ and $\hat{\mathbf{x}} = \mathbf{w}z$ with $\|\mathbf{w}\| = 1$. Show
+Let $\mathbf{x}$ have mean zero, $z = \mathbf{w}^\top\mathbf{x}$ and $\hat{\mathbf{x}} = \mathbf{w}z$ with $\|\mathbf{w}\| = 1$. Show
 that minimising the reconstruction error over $\mathbf{w}$ gives the first principal component.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\|\mathbf{x} - \mathbf{w}\mathbf{w}^\top\mathbf{x}\|^2 = \|\mathbf{x}\|^2 - (\mathbf{w}^\top\mathbf{x})^2$ since
-$\mathbf{w}\mathbf{w}^\top$ is an orthogonal projection. Taking expectations, the error is $\mathbb{E}\|\mathbf{X}\|^2 -
-\text{Var}(\mathbf{w}^\top\mathbf{X})$, so minimising it maximises the projected variance, which is
+$\mathbf{w}\mathbf{w}^\top$ is an orthogonal projection. Taking expectations, the error is $\mathbb{E}\|\mathbf{x}\|^2 -
+\operatorname{Var}(\mathbf{w}^\top\mathbf{x})$, so minimising it maximises the projected variance, which is
 @def-flt-first-principal-component.
 :::
 ::::
 
-Variational Autoencoders (VAEs): Learn probabilistic latent representations: $$\mathcal{L} =
-\mathbb{E}_{q(\mathbf{z}|\mathbf{x})}[\log p(\mathbf{x}|\mathbf{z})] - D_{KL}(q(\mathbf{z}|\mathbf{x}) \| p(\mathbf{z}))$$
+Variational Autoencoders (VAEs): Learn probabilistic latent representations by maximising $$J =
+\mathbb{E}_{q(\mathbf{z}|\mathbf{x})}[\log p(\mathbf{x}|\mathbf{z})] - D_{\mathrm{KL}}(q(\mathbf{z}|\mathbf{x}) \,\Vert\, p(\mathbf{z}))$$
 
 ### Self-Supervised Learning
 
-Contrastive Learning: Learn representations by contrasting positive and negative pairs: $$\mathcal{L} = -\log
-\frac{\exp(\text{sim}(\mathbf{z}_i, \mathbf{z}_j)/\tau)}{\sum_{k=1}^{2N} \mathbb{1}_{k \neq i} \exp(\text{sim}(\mathbf{z}_i,
+Contrastive Learning: Learn representations by contrasting positive and negative pairs: $$\ell = -\log
+\frac{\exp(\text{sim}(\mathbf{z}_i, \mathbf{z}_j)/\tau)}{\sum_{k=1}^{2N} \mathbb{1}[k \neq i] \exp(\text{sim}(\mathbf{z}_i,
 \mathbf{z}_k)/\tau)}$$
 
 Masked Language Modeling: Predict masked tokens in sequences (BERT, GPT)
@@ -3128,7 +3129,7 @@ components although the data form a one-dimensional manifold.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\mathbb{E}[\cos t] = \mathbb{E}[\sin t] = \mathbb{E}[\cos t\sin t] = 0$ and $\mathbb{E}[\cos^2 t] = \mathbb{E}[\sin^2 t] = 1/2$, so the
-covariance is $\text{diag}(1/2, 1/2, 0)$. Two eigenvalues are equal and positive, so no single direction captures more than half
+covariance is $\operatorname{diag}(1/2, 1/2, 0)$. Two eigenvalues are equal and positive, so no single direction captures more than half
 the variance, and PCA needs two components. The manifold is the circle, of dimension $1$; a nonlinear method such as Isomap
 recovers the angle $t$ as a single coordinate.
 :::
@@ -3270,12 +3271,12 @@ to that of the best fixed hypothesis in hindsight:
 
 The **regret** after $T$ rounds is
 
-$$\text{Regret}_T = \sum_{t=1}^T \ell(\hat{y}_t, y_t) - \min_{h \in \mathcal{H}} \sum_{t=1}^T \ell(h(x_t), y_t)$$
+$$\mathrm{Regret}_T = \sum_{t=1}^T \ell(\hat{y}_t, y_t) - \min_{h \in \mathcal{H}} \sum_{t=1}^T \ell(h(x_t), y_t)$$
 :::
 
 ::::
 
-The goal is to achieve sublinear regret, meaning $\text{Regret}_T = o(T)$, which ensures that the average regret approaches zero
+The goal is to achieve sublinear regret, meaning $\mathrm{Regret}_T = o(T)$, which ensures that the average regret approaches zero
 as $T \to \infty$. The example computes the regret of a short run.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -3298,11 +3299,11 @@ The exercise turns a $\sqrt{T}$ bound on @def-flt-regret into the statement abou
 ::: {#exr-flt-sqrt-regret}
 #### Square-root regret
 
-Show that $\text{Regret}_T \le c\sqrt{T}$ implies that the average regret $\text{Regret}_T/T$ tends to $0$.
+Show that $\mathrm{Regret}_T \le c\sqrt{T}$ implies that the average regret $\mathrm{Regret}_T/T$ tends to $0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\text{Regret}_T/T \le c/\sqrt{T} \to 0$. (The average regret is bounded below by $-\max\ell$, so only the upper bound matters.)
+$\mathrm{Regret}_T/T \le c/\sqrt{T} \to 0$. (The average regret is bounded below by $-\max\ell$, so only the upper bound matters.)
 :::
 ::::
 
@@ -3317,11 +3318,11 @@ protocol.
 
 In OCO, at each round $t$:
 
-1. The learner chooses a point $w_t$ from a convex set $\mathcal{W}$
+1. The learner chooses a point $\mathbf{w}_t$ from a convex set $\mathcal{W}$
 2. A convex loss function $f_t: \mathcal{W} \to \mathbb{R}$ is revealed
-3. The learner incurs loss $f_t(w_t)$
+3. The learner incurs loss $f_t(\mathbf{w}_t)$
 
-The regret is defined as: $$\text{Regret}_T = \sum_{t=1}^T f_t(w_t) - \min_{w \in \mathcal{W}} \sum_{t=1}^T f_t(w)$$
+The regret is defined as: $$\mathrm{Regret}_T = \sum_{t=1}^T f_t(\mathbf{w}_t) - \min_{\mathbf{w} \in \mathcal{W}} \sum_{t=1}^T f_t(\mathbf{w})$$
 :::
 
 ::::
@@ -3335,7 +3336,7 @@ Online least squares is an instance of @def-flt-oco. The loss of each round is a
 ::: {#exm-flt-online-regression}
 #### Online linear regression
 
-With $\mathcal{W} = \{w \in \mathbb{R}^d : \|w\| \le B\}$ and $f_t(w) = (\langle w, x_t\rangle - y_t)^2$, each $f_t$ is convex, as the
+With $\mathcal{W} = \{\mathbf{w} \in \mathbb{R}^d : \|\mathbf{w}\| \le B\}$ and $f_t(\mathbf{w}) = (\langle \mathbf{w}, \mathbf{x}_t\rangle - y_t)^2$, each $f_t$ is convex, as the
 square of an affine function, and the regret compares the learner with the best fixed linear predictor in hindsight.
 :::
 ::::
@@ -3348,13 +3349,13 @@ The exercise places the expert problem inside @def-flt-oco. The convex set is th
 ::: {#exr-flt-experts-oco}
 #### Experts as OCO
 
-With $N$ experts whose losses at round $t$ are $\ell_t \in [0, 1]^N$, let the learner choose a probability vector $w_t$ and pay
-$f_t(w_t) = \langle w_t, \ell_t\rangle$. Show that this is an OCO problem and that the comparator is the best single expert.
+With $N$ experts whose losses at round $t$ are $\boldsymbol{\ell}_t \in [0, 1]^N$, let the learner choose a probability vector $\mathbf{w}_t$ and pay
+$f_t(\mathbf{w}_t) = \langle \mathbf{w}_t, \boldsymbol{\ell}_t\rangle$. Show that this is an OCO problem and that the comparator is the best single expert.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The simplex $\{w \ge 0, \sum_i w_i = 1\}$ is convex and $f_t$ is linear, hence convex. A linear function on the simplex is minimised
-at a vertex, so $\min_w \sum_t \langle w, \ell_t\rangle = \min_i \sum_t \ell_t^{(i)}$, the cumulative loss of the best expert.
+The simplex $\{\mathbf{w} \ge 0, \sum_i w_i = 1\}$ is convex and $f_t$ is linear, hence convex. A linear function on the simplex is minimised
+at a vertex, so $\min_{\mathbf{w}} \sum_t \langle \mathbf{w}, \boldsymbol{\ell}_t\rangle = \min_i \sum_t \ell_t^{(i)}$, the cumulative loss of the best expert.
 :::
 ::::
 
@@ -3362,7 +3363,7 @@ at a vertex, so $\min_w \sum_t \langle w, \ell_t\rangle = \min_i \sum_t \ell_t^{
 
 One of the most fundamental online learning algorithms is Online Gradient Descent (OGD):
 
-$$w_{t+1} = \Pi_{\mathcal{W}}(w_t - \eta_t \nabla f_t(w_t))$$
+$$\mathbf{w}_{t+1} = \Pi_{\mathcal{W}}(\mathbf{w}_t - \eta_t \nabla f_t(\mathbf{w}_t))$$
 
 where $\Pi_{\mathcal{W}}$ is the projection onto the constraint set $\mathcal{W}$ and $\eta_t$ is the learning rate. The theorem
 below bounds its regret.
@@ -3372,14 +3373,14 @@ below bounds its regret.
 #### OGD regret bound
 
 For convex and Lipschitz loss functions, OGD with learning rate $\eta_t = \frac{D}{G\sqrt{t}}$ achieves regret:
-$$\text{Regret}_T \leq \tfrac{3}{2}DG\sqrt{T}$$ where $D$ is the diameter of $\mathcal{W}$ and $G$ is the Lipschitz constant.
+$$\mathrm{Regret}_T \leq \tfrac{3}{2}DG\sqrt{T}$$ where $D$ is the diameter of $\mathcal{W}$ and $G$ is the Lipschitz constant.
 :::
 
 ::::
 
-For any $w \in \mathcal{W}$, convexity gives $f_t(w_t) - f_t(w) \le \langle\nabla f_t(w_t), w_t - w\rangle$, and since projection
-does not increase distances, $\|w_{t+1} - w\|^2 \le \|w_t - w\|^2 - 2\eta_t\langle\nabla f_t(w_t), w_t - w\rangle + \eta_t^2G^2$.
-Solving for the inner product and summing over $t$ gives $\text{Regret}_T \le \frac{D^2}{2\eta_T} + \frac{G^2}{2}\sum_t\eta_t$; with
+For any $\mathbf{w} \in \mathcal{W}$, convexity gives $f_t(\mathbf{w}_t) - f_t(\mathbf{w}) \le \langle\nabla f_t(\mathbf{w}_t), \mathbf{w}_t - \mathbf{w}\rangle$, and since projection
+does not increase distances, $\|\mathbf{w}_{t+1} - \mathbf{w}\|^2 \le \|\mathbf{w}_t - \mathbf{w}\|^2 - 2\eta_t\langle\nabla f_t(\mathbf{w}_t), \mathbf{w}_t - \mathbf{w}\rangle + \eta_t^2G^2$.
+Solving for the inner product and summing over $t$ gives $\mathrm{Regret}_T \le \frac{D^2}{2\eta_T} + \frac{G^2}{2}\sum_t\eta_t$; with
 $\eta_t = D/(G\sqrt{t})$ and $\sum_{t \le T} 1/\sqrt{t} \le 2\sqrt{T}$ this is at most $\frac12 DG\sqrt{T} + DG\sqrt{T}$. The example
 evaluates the bound.
 
@@ -3401,8 +3402,8 @@ The exercise reruns the proof of @thm-flt-ogd-regret with a constant learning ra
 ::: {#exr-flt-ogd-constant-step}
 #### A constant step
 
-Using $\text{Regret}_T \le \frac{D^2}{2\eta} + \frac{\eta TG^2}{2}$ for a constant step $\eta$, show that $\eta = D/(G\sqrt{T})$ gives
-$\text{Regret}_T \le DG\sqrt{T}$, and that this $\eta$ minimises the bound.
+Using $\mathrm{Regret}_T \le \frac{D^2}{2\eta} + \frac{\eta TG^2}{2}$ for a constant step $\eta$, show that $\eta = D/(G\sqrt{T})$ gives
+$\mathrm{Regret}_T \le DG\sqrt{T}$, and that this $\eta$ minimises the bound.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3422,7 +3423,7 @@ Algorithm (Perceptron):
 - Initialize $\mathbf{w}_1 = \mathbf{0}$
 - For $t = 1, 2, \ldots, T$:
   - Receive $\mathbf{x}_t$
-  - Predict $\hat{y}_t = \text{sign}(\langle\mathbf{w}_t, \mathbf{x}_t\rangle)$
+  - Predict $\hat{y}_t = \operatorname{sgn}(\langle\mathbf{w}_t, \mathbf{x}_t\rangle)$
   - Receive $y_t$
   - If $\hat{y}_t \neq y_t$: $\mathbf{w}_{t+1} = \mathbf{w}_t + y_t\mathbf{x}_t$
   - Else: $\mathbf{w}_{t+1} = \mathbf{w}_t$
@@ -3460,7 +3461,7 @@ dimension.
 Running the algorithm by hand shows the updates and lets one compare with the bound. The exercise asks for such a run.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercise runs the Perceptron on five points and checks @thm-flt-perceptron-mistake-bound. Take $\text{sign}(0) = +1$.
+The exercise runs the Perceptron on five points and checks @thm-flt-perceptron-mistake-bound. Take $\operatorname{sgn}(0) = +1$.
 
 ::: {#exr-flt-perceptron-run}
 #### A run by hand
@@ -3470,7 +3471,7 @@ bound for $\mathbf{w}^* = (2, -1)/\sqrt{5}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbf{w}_1 = 0$: round 1 predicts $+1$, correct. Round 2: $\langle 0, (0,1)\rangle = 0 \to +1$, mistake, $\mathbf{w} = (0,-1)$.
+$\mathbf{w}_1 = \mathbf{0}$: round 1 predicts $+1$, correct. Round 2: $\langle 0, (0,1)\rangle = 0 \to +1$, mistake, $\mathbf{w} = (0,-1)$.
 Round 3: $\langle(0,-1),(1,1)\rangle = -1$, mistake, $\mathbf{w} = (1,0)$. Round 4: $0 \to +1$, mistake, $\mathbf{w} = (1,-1)$.
 Round 5: $0 \to +1$, correct. Three mistakes. For $\mathbf{w}^*$ the margins are $2/\sqrt5, 1/\sqrt5, 1/\sqrt5$, so $\gamma =
 1/\sqrt5$; with $R = \sqrt2$ the bound is $2 \cdot 5 = 10 \ge 3$.
@@ -3495,8 +3496,8 @@ The theorem below bounds its expected regret for losses in $[0, 1]$.
 ::: {#thm-flt-hedge-regret}
 #### Hedge regret bound
 
-With losses in $[0, 1]$ and learning rate $\eta = \sqrt{\frac{\ln N}{T}}$, the Hedge algorithm achieves (expected) regret:
-$$\text{Regret}_T \leq \sqrt{2T \ln N}$$
+With losses in $[0, 1]$ and learning rate $\eta = \sqrt{\frac{\log N}{T}}$, the Hedge algorithm achieves (expected) regret:
+$$\mathrm{Regret}_T \leq \sqrt{2T \log N}$$
 :::
 
 ::::
@@ -3510,7 +3511,7 @@ The example evaluates @thm-flt-hedge-regret for a thousand experts. The average 
 ::: {#exm-flt-hedge-numbers}
 #### A thousand experts
 
-With $N = 1000$ ($\ln N \approx 6.91$) and $T = 10\,000$, the bound is $\sqrt{2 \cdot 10^4 \cdot 6.91} \approx 372$, an average
+With $N = 1000$ ($\log N \approx 6.91$) and $T = 10\,000$, the bound is $\sqrt{2 \cdot 10^4 \cdot 6.91} \approx 372$, an average
 regret of about $0.037$ per round.
 :::
 ::::
@@ -3524,11 +3525,11 @@ $e^{-\eta}$.
 ::: {#exr-flt-hedge-one-round}
 #### One round of Hedge
 
-With $N = 2$, $\eta = \ln 2$ and losses $(1, 0)$ in the first round, compute the probabilities used in round two.
+With $N = 2$, $\eta = \log 2$ and losses $(1, 0)$ in the first round, compute the probabilities used in round two.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$w_2 = (e^{-\ln 2}, 1) = (1/2, 1)$, so $p_2 = (1/3, 2/3)$.
+$\mathbf{w}_2 = (e^{-\log 2}, 1) = (1/2, 1)$, so $\mathbf{p}_2 = (1/3, 2/3)$.
 :::
 ::::
 
@@ -3542,17 +3543,17 @@ The Follow the Regularized Leader (FTRL) framework generalizes many online learn
 
 **FTRL** chooses
 
-$$w_{t+1} = \arg\min_{w \in \mathcal{W}} \left\{ \sum_{s=1}^t f_s(w) + R(w) \right\}$$
+$$\mathbf{w}_{t+1} = \arg\min_{\mathbf{w} \in \mathcal{W}} \left\{ \sum_{s=1}^t f_s(\mathbf{w}) + R(\mathbf{w}) \right\}$$
 
-where $R(w)$ is a regularization function.
+where $R(\mathbf{w})$ is a regularization function.
 :::
 
 ::::
 
-Different choices of $R(w)$ lead to different algorithms:
+Different choices of $R(\mathbf{w})$ lead to different algorithms:
 
-- $R(w) = \frac{1}{2\eta}\|w\|^2$ gives Online Gradient Descent (for linear losses)
-- $R(w) = \frac{1}{\eta}\sum_i w_i \ln w_i$ gives Hedge (in the simplex)
+- $R(\mathbf{w}) = \frac{1}{2\eta}\|\mathbf{w}\|^2$ gives Online Gradient Descent (for linear losses)
+- $R(\mathbf{w}) = \frac{1}{\eta}\sum_i w_i \log w_i$ gives Hedge (in the simplex)
 
 The example derives the first of these.
 
@@ -3563,9 +3564,9 @@ a constant step.
 ::: {#exm-flt-ftrl-quadratic}
 #### Quadratic regulariser
 
-With $\mathcal{W} = \mathbb{R}^d$, $f_s(w) = \langle g_s, w\rangle$ and $R(w) = \frac{1}{2\eta}\|w\|^2$, the objective $\langle
-\sum_{s \le t} g_s, w\rangle + \frac{1}{2\eta}\|w\|^2$ is minimised at $w_{t+1} = -\eta\sum_{s \le t}g_s$. Hence $w_{t+1} = w_t -
-\eta g_t$ with $w_1 = 0$: unprojected OGD with constant step.
+With $\mathcal{W} = \mathbb{R}^d$, $f_s(\mathbf{w}) = \langle \mathbf{g}_s, \mathbf{w}\rangle$ and $R(\mathbf{w}) = \frac{1}{2\eta}\|\mathbf{w}\|^2$, the objective $\langle
+\sum_{s \le t} \mathbf{g}_s, \mathbf{w}\rangle + \frac{1}{2\eta}\|\mathbf{w}\|^2$ is minimised at $\mathbf{w}_{t+1} = -\eta\sum_{s \le t}\mathbf{g}_s$. Hence $\mathbf{w}_{t+1} = \mathbf{w}_t -
+\eta \mathbf{g}_t$ with $\mathbf{w}_1 = \mathbf{0}$: unprojected OGD with constant step.
 :::
 ::::
 
@@ -3577,11 +3578,11 @@ The exercise evaluates the closed form of @exm-flt-ftrl-quadratic. It is a direc
 ::: {#exr-flt-ftrl-two-steps}
 #### Two steps of FTRL
 
-With $\eta = 0.5$, $g_1 = (1, 0)$ and $g_2 = (0, 2)$, compute $w_2$ and $w_3$.
+With $\eta = 0.5$, $\mathbf{g}_1 = (1, 0)$ and $\mathbf{g}_2 = (0, 2)$, compute $\mathbf{w}_2$ and $\mathbf{w}_3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$w_2 = -0.5(1, 0) = (-0.5, 0)$ and $w_3 = -0.5(1, 2) = (-0.5, -1)$.
+$\mathbf{w}_2 = -0.5(1, 0) = (-0.5, 0)$ and $\mathbf{w}_3 = -0.5(1, 2) = (-0.5, -1)$.
 :::
 ::::
 
@@ -3595,7 +3596,7 @@ below states the most common one.
 #### AdaGrad
 
 **AdaGrad**: Uses learning rates inversely proportional to the square root of the sum of squared gradients: $$\eta_{t,i} =
-\frac{\alpha}{\sqrt{\sum_{s=1}^t g_{s,i}^2 + \epsilon}}$$
+\frac{\alpha}{\sqrt{\sum_{s=1}^t g_{s,i}^2 + \varepsilon}}$$
 :::
 
 ::::
@@ -3604,12 +3605,12 @@ Each coordinate gets its own step, which shrinks fast where gradients are large 
 computes one step size.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The example evaluates @def-flt-adagrad for one coordinate after two rounds. The $\epsilon$ only guards against division by zero.
+The example evaluates @def-flt-adagrad for one coordinate after two rounds. The $\varepsilon$ only guards against division by zero.
 
 ::: {#exm-flt-adagrad-step}
 #### Two gradients
 
-If coordinate $i$ has seen gradients $3$ and $4$, then $\eta_{2,i} = \alpha/\sqrt{25 + \epsilon} \approx \alpha/5$.
+If coordinate $i$ has seen gradients $3$ and $4$, then $\eta_{2,i} = \alpha/\sqrt{25 + \varepsilon} \approx \alpha/5$.
 :::
 ::::
 
@@ -3625,13 +3626,13 @@ If $|g_{s,i}| = g$ for all $s$, show that $\eta_{t,i} \approx \alpha/(g\sqrt{t})
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\sum_{s \le t} g_{s,i}^2 = tg^2$, so $\eta_{t,i} = \alpha/\sqrt{tg^2 + \epsilon} \approx \alpha/(g\sqrt{t})$ when $\epsilon$ is small,
+$\sum_{s \le t} g_{s,i}^2 = tg^2$, so $\eta_{t,i} = \alpha/\sqrt{tg^2 + \varepsilon} \approx \alpha/(g\sqrt{t})$ when $\varepsilon$ is small,
 the $1/\sqrt{t}$ schedule of @thm-flt-ogd-regret with $D/G$ replaced by $\alpha/g$.
 :::
 ::::
 
-Online Newton Step: Uses second-order information: $$w_{t+1} = w_t - H_t^{-1} \nabla f_t(w_t)$$ where $H_t = \sum_{s=1}^t
-\nabla^2 f_s(w_s)$ is the cumulative Hessian.
+Online Newton Step: Uses second-order information: $$\mathbf{w}_{t+1} = \mathbf{w}_t - \mathbf{H}_t^{-1} \nabla f_t(\mathbf{w}_t)$$ where $\mathbf{H}_t = \sum_{s=1}^t
+\nabla^2 f_s(\mathbf{w}_s)$ is the cumulative Hessian.
 
 ### Bandit Learning
 
@@ -3641,7 +3642,7 @@ actions. This partial feedback makes the problem significantly more challenging.
 Algorithm (UCB1 for Stochastic Bandits):
 
 - For each arm $i$, maintain empirical mean $\hat{\mu}_i$ and number of pulls $n_i$
-- At time $t$, choose arm: $$i_t = \arg\max_i \left\{ \hat{\mu}_i + \sqrt{\frac{2\ln t}{n_i}} \right\}$$
+- At time $t$, choose arm: $$i_t = \arg\max_i \left\{ \hat{\mu}_i + \sqrt{\frac{2\log t}{n_i}} \right\}$$
 
 The theorem below bounds its expected regret in terms of the gaps between the arms.
 
@@ -3649,8 +3650,8 @@ The theorem below bounds its expected regret in terms of the gaps between the ar
 ::: {#thm-flt-ucb1-regret}
 #### UCB1 regret
 
-For stochastic bandits with $K$ arms, UCB1 achieves regret: $$\mathbb{E}[\text{Regret}_T] \leq \sum_{i:
-\Delta_i > 0} \frac{8\ln T}{\Delta_i} + O(K)$$ where $\Delta_i$ is the suboptimality gap of arm $i$.
+For stochastic bandits with $K$ arms, UCB1 achieves regret: $$\mathbb{E}[\mathrm{Regret}_T] \leq \sum_{i:
+\Delta_i > 0} \frac{8\log T}{\Delta_i} + O(K)$$ where $\Delta_i$ is the suboptimality gap of arm $i$.
 :::
 
 ::::
@@ -3664,7 +3665,7 @@ The example evaluates the leading term of @thm-flt-ucb1-regret for two arms. Sma
 ::: {#exm-flt-ucb-numbers}
 #### Two arms, a million rounds
 
-With $K = 2$, $\Delta = 0.1$ and $T = 10^6$, the leading term is $8\ln(10^6)/0.1 \approx 8 \cdot 13.8/0.1 \approx 1105$: about a
+With $K = 2$, $\Delta = 0.1$ and $T = 10^6$, the leading term is $8\log(10^6)/0.1 \approx 8 \cdot 13.8/0.1 \approx 1105$: about a
 thousand pulls of the worse arm out of a million.
 :::
 ::::
@@ -3683,7 +3684,7 @@ choose?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\ln 12 \approx 2.485$. Arm 1: $0.6 + \sqrt{4.97/10} \approx 0.6 + 0.705 = 1.305$. Arm 2: $0.5 + \sqrt{4.97/2} \approx 0.5 + 1.576 =
+$\log 12 \approx 2.485$. Arm 1: $0.6 + \sqrt{4.97/10} \approx 0.6 + 0.705 = 1.305$. Arm 2: $0.5 + \sqrt{4.97/2} \approx 0.5 + 1.576 =
 2.076$. UCB1 chooses arm 2.
 :::
 ::::
@@ -3699,14 +3700,14 @@ supervised learning and reinforcement learning.
 
 **LinUCB Algorithm**: For linear contextual bandits where rewards are linear in features:
 
-- Maintain estimate $\hat{\theta}_t$ and confidence set
-- Choose action with highest upper confidence bound: $$a_t = \arg\max_a \left\{ \hat{\theta}_t^\top x_{t,a} +
-\beta_t \sqrt{x_{t,a}^\top A_t^{-1} x_{t,a}} \right\}$$
+- Maintain estimate $\hat{\boldsymbol{\theta}}_t$ and confidence set
+- Choose action with highest upper confidence bound: $$a_t = \arg\max_a \left\{ \hat{\boldsymbol{\theta}}_t^\top \mathbf{x}_{t,a} +
+\beta_t \sqrt{\mathbf{x}_{t,a}^\top \mathbf{A}_t^{-1} \mathbf{x}_{t,a}} \right\}$$
 :::
 
 ::::
 
-Here $A_t = \lambda I + \sum_{s < t} x_{s,a_s}x_{s,a_s}^\top$ collects the features already played, so the bonus is large in
+Here $\mathbf{A}_t = \lambda \mathbf{I} + \sum_{s < t} \mathbf{x}_{s,a_s}\mathbf{x}_{s,a_s}^\top$ collects the features already played, so the bonus is large in
 directions that have rarely been explored. The example computes the rule with one feature.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -3728,13 +3729,13 @@ The exercise computes the bonus of @def-flt-linucb after repeated plays in one d
 ::: {#exr-flt-linucb-bonus}
 #### A shrinking bonus
 
-If a unit vector $u$ has been played $n$ times and nothing else, so that $A_t = \lambda I + nuu^\top$, show that the bonus for $x =
-u$ is $\beta_t/\sqrt{\lambda + n}$.
+If a unit vector $\mathbf{u}$ has been played $n$ times and nothing else, so that $\mathbf{A}_t = \lambda \mathbf{I} + n\mathbf{u}\mathbf{u}^\top$, show that the bonus
+for $\mathbf{x} = \mathbf{u}$ is $\beta_t/\sqrt{\lambda + n}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$u$ is an eigenvector of $A_t$ with eigenvalue $\lambda + n$, so $A_t^{-1}u = u/(\lambda + n)$ and $u^\top A_t^{-1}u = 1/(\lambda +
-n)$. The bonus is $\beta_t/\sqrt{\lambda + n}$.
+$\mathbf{u}$ is an eigenvector of $\mathbf{A}_t$ with eigenvalue $\lambda + n$, so $\mathbf{A}_t^{-1}\mathbf{u} = \mathbf{u}/(\lambda + n)$ and
+$\mathbf{u}^\top \mathbf{A}_t^{-1}\mathbf{u} = 1/(\lambda + n)$. The bonus is $\beta_t/\sqrt{\lambda + n}$.
 :::
 ::::
 
@@ -3746,17 +3747,17 @@ Online learning algorithms can be converted to batch learning algorithms with st
 ::: {#thm-flt-online-to-batch}
 #### Online-to-batch conversion
 
-If an online algorithm achieves regret $R_T$, then averaging its predictions gives a batch algorithm with generalization error
-$O(R_T/T)$. Precisely, for convex losses and i.i.d. examples, the average $\bar{w} = \frac1T\sum_t w_t$ satisfies
-$\mathbb{E}[L_{\mathcal{D}}(\bar{w})] - \min_w L_{\mathcal{D}}(w) \le \mathbb{E}[R_T]/T$.
+If an online algorithm achieves regret $\mathrm{Regret}_T$, then averaging its predictions gives a batch algorithm with generalization error
+$O(\mathrm{Regret}_T/T)$. Precisely, for convex losses and i.i.d. examples, the average $\bar{\mathbf{w}} = \frac1T\sum_t \mathbf{w}_t$ satisfies
+$\mathbb{E}[L_{\mathcal{D}}(\bar{\mathbf{w}})] - \min_{\mathbf{w}} L_{\mathcal{D}}(\mathbf{w}) \le \mathbb{E}[\mathrm{Regret}_T]/T$.
 :::
 
 ::::
 
-Since $w_t$ depends only on the first $t - 1$ examples, $\mathbb{E}[f_t(w_t)] = \mathbb{E}[L_{\mathcal{D}}(w_t)]$, and for any fixed
-$w$, $\mathbb{E}[f_t(w)] = L_{\mathcal{D}}(w)$. Taking expectations in the definition of regret gives $\frac1T\sum_t
-\mathbb{E}[L_{\mathcal{D}}(w_t)] - L_{\mathcal{D}}(w) \le \mathbb{E}[R_T]/T$, and Jensen's inequality bounds
-$L_{\mathcal{D}}(\bar{w})$ by the average.
+Since $\mathbf{w}_t$ depends only on the first $t - 1$ examples, $\mathbb{E}[f_t(\mathbf{w}_t)] = \mathbb{E}[L_{\mathcal{D}}(\mathbf{w}_t)]$, and for any fixed
+$\mathbf{w}$, $\mathbb{E}[f_t(\mathbf{w})] = L_{\mathcal{D}}(\mathbf{w})$. Taking expectations in the definition of regret gives $\frac1T\sum_t
+\mathbb{E}[L_{\mathcal{D}}(\mathbf{w}_t)] - L_{\mathcal{D}}(\mathbf{w}) \le \mathbb{E}[\mathrm{Regret}_T]/T$, and Jensen's inequality bounds
+$L_{\mathcal{D}}(\bar{\mathbf{w}})$ by the average.
 
 This connection shows that online learnability implies batch learnability, providing another perspective on the fundamental limits
 of learning [@shalev2014ml]. The example converts the OGD bound.
@@ -3768,7 +3769,7 @@ The example combines @thm-flt-online-to-batch with @thm-flt-ogd-regret. A $\sqrt
 #### Averaged OGD
 
 OGD has regret at most $\frac32 DG\sqrt{T}$, so averaging its iterates gives excess risk at most $\frac32 DG/\sqrt{T}$, the
-$1/\epsilon^2$ sample complexity of the agnostic setting (@thm-flt-agnostic-sample-complexity).
+$1/\varepsilon^2$ sample complexity of the agnostic setting (@thm-flt-agnostic-sample-complexity).
 :::
 ::::
 
@@ -3803,20 +3804,20 @@ bound, uniform convergence, and the Hedge algorithm of online learning.
 
 Let $\mathcal{H}$ be the $101$ thresholds on $\mathcal{X} = \{1, \dots, 100\}$ (compare @exr-flt-count-thresholds).
 
-(a) How many examples does @thm-flt-finite-class require for $\epsilon = 0.05$, $\delta = 0.01$ in the realizable setting?
+(a) How many examples does @thm-flt-finite-class require for $\varepsilon = 0.05$, $\delta = 0.01$ in the realizable setting?
 
-(b) Using the finite-class rate of @exm-flt-uniform-convergence-finite, bound $\sup_h|L_{\mathcal{D}}(h) - L_S(h)|$ for $m = 1000$
+(b) Using the finite-class rate of @exm-flt-uniform-convergence-finite, bound $\sup_h|L_{\mathcal{D}}(h) - L_S(h)|$ for $n = 1000$
 and $\delta = 0.05$.
 
 (c) Treating the $101$ thresholds as experts, bound the regret of Hedge (@thm-flt-hedge-regret) over $T = 10\,000$ rounds.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $\ln(101/0.01) = \ln 10\,100 \approx 9.220$, and $9.220/0.05 \approx 184.4$, so $185$ examples suffice.
+(a) $\log(101/0.01) = \log 10\,100 \approx 9.220$, and $9.220/0.05 \approx 184.4$, so $185$ examples suffice.
 
-(b) $\epsilon = \sqrt{\ln(2 \cdot 101/0.05)/2000} = \sqrt{\ln 4040/2000} \approx \sqrt{8.304/2000} \approx 0.064$.
+(b) $\varepsilon = \sqrt{\log(2 \cdot 101/0.05)/2000} = \sqrt{\log 4040/2000} \approx \sqrt{8.304/2000} \approx 0.064$.
 
-(c) $\sqrt{2 \cdot 10^4 \cdot \ln 101} \approx \sqrt{2 \cdot 10^4 \cdot 4.615} \approx 304$, an average regret of about $0.03$ per round.
+(c) $\sqrt{2 \cdot 10^4 \cdot \log 101} \approx \sqrt{2 \cdot 10^4 \cdot 4.615} \approx 304$, an average regret of about $0.03$ per round.
 :::
 
 The second exercise selects a polynomial degree and then tests the coefficients of the chosen model. It combines information
@@ -3838,7 +3839,7 @@ significant at level $0.05$ by Bonferroni (@prp-flt-bonferroni), Holm (@def-flt-
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) AIC: $4 + 240 = 244$, $6 + 220 = 226$, $12 + 212 = 224$, so AIC selects $k = 6$. BIC with $\ln 200 \approx 5.298$: $10.60 + 240 =
+(a) AIC: $4 + 240 = 244$, $6 + 220 = 226$, $12 + 212 = 224$, so AIC selects $k = 6$. BIC with $\log 200 \approx 5.298$: $10.60 + 240 =
 250.60$, $15.89 + 220 = 235.89$, $31.79 + 212 = 243.79$, so BIC selects $k = 3$, in line with its heavier penalty.
 
 (b) The $k = 6$ model contains the $k = 3$ model, so it can represent more shapes and its average fit is typically closer to $f$

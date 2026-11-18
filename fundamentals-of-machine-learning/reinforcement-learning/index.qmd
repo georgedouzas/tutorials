@@ -84,8 +84,8 @@ down, left, right} for grid navigation) or continuous (e.g., motor torques in $\
 available actions depend on the current state, denoted $\mathcal{A}(s)$.
 
 - $P: \mathcal{S} \times \mathcal{A} \times \mathcal{S} \to [0,1]$: The **state transition probability function**, where
-$P(s'|s,a)$ gives the probability of transitioning to state $s'$ when taking action $a$ in state $s$. This function must satisfy
-$\sum_{s' \in \mathcal{S}} P(s'|s,a) = 1$ for all $s, a$. Deterministic environments have $P(s'|s,a) \in \{0,1\}$, while
+$P(s' \mid s,a)$ gives the probability of transitioning to state $s'$ when taking action $a$ in state $s$. This function must satisfy
+$\sum_{s' \in \mathcal{S}} P(s' \mid s,a) = 1$ for all $s, a$. Deterministic environments have $P(s' \mid s,a) \in \{0,1\}$, while
 stochastic environments have probabilistic transitions.
 
 - $R: \mathcal{S} \times \mathcal{A} \times \mathcal{S} \to \mathbb{R}$: The **reward function**, where $R(s,a,s')$ specifies the
@@ -107,7 +107,7 @@ The same elements can be written with the reward and the policy as probability d
     - Action space: $\mathcal{A}(s)=\left\{a_1, a_2, \ldots \right\}$
     - Reward space: $\mathcal{R}(s, a)=\left\{r_1, r_2, \ldots \right\}$
 - Model
-    - State transition probability: $p(s' \mid s, a)$
+    - State transition probability: $P(s' \mid s, a)$
     - Reward probability: $p(r \mid s, a)$
 - Policy
     - $\pi(a \mid s) = p(a \mid s)$
@@ -179,7 +179,7 @@ of the foundations, where its values, Bellman equations and matrices are compute
     - Action space: $\mathcal{A} = \{ \uparrow, \downarrow, \leftarrow, \rightarrow, \bigcirc \}$
     - Reward space: $\mathcal{R} = \{ -1, +1, 0 \}$
 - Model
-    - State transition: $p(s' \mid s, a) = 0 \text{ or } 1$
+    - State transition: $P(s' \mid s, a) = 0 \text{ or } 1$
     - Reward: $p(r \mid s, a) = 0 \text{ or } 1$
 - Policy
     - $\pi(a \mid s) = 0 \text{ or } 1$
@@ -227,7 +227,7 @@ description of the dynamics.
 The defining characteristic of an MDP is the Markov property, discussed in @sec-probability-statistics, which states that the
 future is independent of the past given the present:
 
-$$P(S_{t+1}=s'|S_t=s, A_t=a, S_{t-1}, A_{t-1}, \ldots, S_0, A_0) = P(S_{t+1}=s'|S_t=s, A_t=a)$$
+$$\mathbb P(S_{t+1}=s' \mid S_t=s, A_t=a, S_{t-1}, A_{t-1}, \ldots, S_0, A_0) = \mathbb P(S_{t+1}=s' \mid S_t=s, A_t=a)$$
 :::
 
 ::::
@@ -261,13 +261,13 @@ restores the Markov property of @def-rl-markov-property.
 ::: {#exr-rl-markov-second-order}
 #### Second-order processes
 
-Let $X_{t+1}$ depend on the past only through $(X_t, X_{t-1})$, i.e. $P(X_{t+1} \mid X_t, \ldots, X_0) = P(X_{t+1} \mid X_t,
+Let $X_{t+1}$ depend on the past only through $(X_t, X_{t-1})$, i.e. $\mathbb P(X_{t+1} \mid X_t, \ldots, X_0) = \mathbb P(X_{t+1} \mid X_t,
 X_{t-1})$. Show that $Y_t = (X_t, X_{t-1})$ is a Markov process.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$Y_{t+1} = (X_{t+1}, X_t)$, and its second component is already a function of $Y_t$. Hence $P(Y_{t+1} = (x', x) \mid Y_t, \ldots,
-Y_1) = \mathbb{1}[x = X_t] \, P(X_{t+1} = x' \mid X_t, \ldots, X_0) = \mathbb{1}[x = X_t] \, P(X_{t+1} = x' \mid X_t, X_{t-1})$,
+$Y_{t+1} = (X_{t+1}, X_t)$, and its second component is already a function of $Y_t$. Hence $\mathbb P(Y_{t+1} = (x', x) \mid Y_t, \ldots,
+Y_1) = \mathbb{1}[x = X_t] \, \mathbb P(X_{t+1} = x' \mid X_t, \ldots, X_0) = \mathbb{1}[x = X_t] \, \mathbb P(X_{t+1} = x' \mid X_t, X_{t-1})$,
 which depends on the history only through $Y_t = (X_t, X_{t-1})$. The history $Y_t, \ldots, Y_1$ determines $X_t, \ldots, X_0$,
 so conditioning on it is the same as conditioning on the past of $X$.
 :::
@@ -405,7 +405,7 @@ following policy $\pi$ thereafter:
 ::: {#def-state-value-function}
 #### State-Value Function
 
-$$v_\pi(s) = \mathbb{E}_\pi[G_t | S_t = s] = \mathbb{E}_\pi\left[\sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = s\right]$$
+$$v_\pi(s) = \mathbb{E}_\pi[G_t \mid S_t = s] = \mathbb{E}_\pi\left[\sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = s\right]$$
 :::
 
 ::::
@@ -460,7 +460,7 @@ state $s$, taking action $a$, and following policy $\pi$ thereafter:
 ::: {#def-rl-action-value-function}
 #### Action-value function
 
-$$q_\pi(s,a) = \mathbb{E}_\pi[G_t | S_t = s, A_t = a] = \mathbb{E}_\pi\left[\sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = s,
+$$q_\pi(s,a) = \mathbb{E}_\pi[G_t \mid S_t = s, A_t = a] = \mathbb{E}_\pi\left[\sum_{k=0}^\infty \gamma^k R_{t+k+1} \bigg| S_t = s,
 A_t = a\right]$$
 :::
 
@@ -531,11 +531,11 @@ below express each in terms of the other.
 
 The value of a state is the expected value of the actions taken from that state:
 
-$$v_\pi(s) = \sum_{a \in \mathcal{A}} \pi(a|s) q_\pi(s,a) = \mathbb{E}_{a \sim \pi(\cdot|s)}[q_\pi(s,a)]$$
+$$v_\pi(s) = \sum_{a \in \mathcal{A}} \pi(a \mid s) q_\pi(s,a) = \mathbb{E}_{a \sim \pi(\cdot \mid s)}[q_\pi(s,a)]$$
 
 Conversely, the Q-function can be expressed in terms of the state-value function:
 
-$$q_\pi(s,a) = \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma v_\pi(s')]$$
+$$q_\pi(s,a) = \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma v_\pi(s')]$$
 :::
 
 ::::
@@ -603,11 +603,11 @@ return.
 
 The optimal state-value function is defined as:
 
-$$v_*(s) = \max_\pi v_\pi(s) = \max_\pi \mathbb{E}_\pi[G_t | S_t = s]$$
+$$v_*(s) = \max_\pi v_\pi(s) = \max_\pi \mathbb{E}_\pi[G_t \mid S_t = s]$$
 
 Similarly, the optimal action-value function is:
 
-$$q_*(s,a) = \max_\pi q_\pi(s,a) = \max_\pi \mathbb{E}_\pi[G_t | S_t = s, A_t = a]$$
+$$q_*(s,a) = \max_\pi q_\pi(s,a) = \max_\pi \mathbb{E}_\pi[G_t \mid S_t = s, A_t = a]$$
 :::
 
 ::::
@@ -665,12 +665,12 @@ current policy:
 ::: {#def-rl-advantage-function}
 #### Advantage function
 
-$$A_\pi(s,a) = q_\pi(s,a) - v_\pi(s)$$
+$$a_\pi(s,a) = q_\pi(s,a) - v_\pi(s)$$
 :::
 
 ::::
 
-The advantage function is zero on average: $\mathbb{E}_{a \sim \pi}[A_\pi(s,a)] = 0$. Positive advantages indicate actions that
+The advantage function is zero on average: $\mathbb{E}_{a \sim \pi}[a_\pi(s,a)] = 0$. Positive advantages indicate actions that
 are better than average, while negative advantages indicate worse-than-average actions. The advantage function is particularly
 useful in policy gradient methods, where it can reduce variance in gradient estimates.
 
@@ -681,8 +681,8 @@ average, with policy-weighted mean zero.
 ::: {#exm-rl-advantage-four-state}
 #### Advantages in the four-state grid world
 
-With $\gamma = 0.9$, $q_\pi(s_1, \downarrow) = 9$, $q_\pi(s_1, \rightarrow) = 8$ and $v_\pi(s_1) = 8.5$, so $A_\pi(s_1,
-\downarrow) = 0.5$ and $A_\pi(s_1, \rightarrow) = -0.5$. Their average under $\pi(\cdot \mid s_1) = (0.5, 0.5)$ is $0$. Moving
+With $\gamma = 0.9$, $q_\pi(s_1, \downarrow) = 9$, $q_\pi(s_1, \rightarrow) = 8$ and $v_\pi(s_1) = 8.5$, so $a_\pi(s_1,
+\downarrow) = 0.5$ and $a_\pi(s_1, \rightarrow) = -0.5$. Their average under $\pi(\cdot \mid s_1) = (0.5, 0.5)$ is $0$. Moving
 down is better than the policy's average in $s_1$, since it avoids the forbidden cell.
 :::
 ::::
@@ -697,13 +697,13 @@ it and specializes it to deterministic policies.
 ::: {#exr-rl-advantage-zero-mean}
 #### The advantage has mean zero
 
-Prove $\mathbb{E}_{a \sim \pi(\cdot \mid s)}[A_\pi(s, a)] = 0$, and show that $A_\pi(s, \pi(s)) = 0$ for a deterministic policy.
+Prove $\mathbb{E}_{a \sim \pi(\cdot \mid s)}[a_\pi(s, a)] = 0$, and show that $a_\pi(s, \pi(s)) = 0$ for a deterministic policy.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @prp-rl-value-relations, $\sum_a \pi(a \mid s) A_\pi(s, a) = \sum_a \pi(a \mid s) q_\pi(s, a) - v_\pi(s) \sum_a \pi(a \mid s)
+By @prp-rl-value-relations, $\sum_a \pi(a \mid s) a_\pi(s, a) = \sum_a \pi(a \mid s) q_\pi(s, a) - v_\pi(s) \sum_a \pi(a \mid s)
 = v_\pi(s) - v_\pi(s) = 0$. For a deterministic policy $v_\pi(s) = q_\pi(s, \pi(s))$ (@exr-rl-value-relations-deterministic), so
-$A_\pi(s, \pi(s)) = 0$.
+$a_\pi(s, \pi(s)) = 0$.
 :::
 ::::
 
@@ -722,11 +722,11 @@ recursively, and likewise for the action-value function.
 
 For every policy $\pi$,
 
-$$v_\pi(s) = \sum_{a \in \mathcal{A}} \pi(a|s) \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma v_\pi(s')]$$
+$$v_\pi(s) = \sum_{a \in \mathcal{A}} \pi(a \mid s) \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma v_\pi(s')]$$
 
 and
 
-$$q_\pi(s,a) = \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma \sum_{a' \in \mathcal{A}} \pi(a'|s') q_\pi(s',a')]$$
+$$q_\pi(s,a) = \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma \sum_{a' \in \mathcal{A}} \pi(a' \mid s') q_\pi(s',a')]$$
 :::
 
 ::::
@@ -737,13 +737,13 @@ stochastic transitions of the environment.
 
 **Derivation:** Starting from the definition of the value function:
 
-\begin{align*} v_\pi(s) &= \mathbb{E}_\pi[G_t | S_t = s] \\ &= \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1} | S_t = s] \\ &=
-\mathbb{E}_\pi[R_{t+1} | S_t = s] + \gamma \mathbb{E}_\pi[G_{t+1} | S_t = s] \\ &= \sum_a \pi(a|s) \sum_{s'} P(s'|s,a) R(s,a,s') +
-\gamma \sum_a \pi(a|s) \sum_{s'} P(s'|s,a) v_\pi(s') \\ &= \sum_a \pi(a|s) \sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma v_\pi(s')]
+\begin{align*} v_\pi(s) &= \mathbb{E}_\pi[G_t \mid S_t = s] \\ &= \mathbb{E}_\pi[R_{t+1} + \gamma G_{t+1} \mid S_t = s] \\ &=
+\mathbb{E}_\pi[R_{t+1} \mid S_t = s] + \gamma \mathbb{E}_\pi[G_{t+1} \mid S_t = s] \\ &= \sum_a \pi(a \mid s) \sum_{s'} P(s' \mid s,a) R(s,a,s') +
+\gamma \sum_a \pi(a \mid s) \sum_{s'} P(s' \mid s,a) v_\pi(s') \\ &= \sum_a \pi(a \mid s) \sum_{s'} P(s' \mid s,a)[R(s,a,s') + \gamma v_\pi(s')]
 \end{align*}
 
 The key insight is that the return $G_t$ can be decomposed into the immediate reward $R_{t+1}$ plus the discounted future return
-$\gamma G_{t+1}$, and by the Markov property, $\mathbb{E}[G_{t+1}|S_t=s, A_t=a, S_{t+1}=s'] = v_\pi(s')$.
+$\gamma G_{t+1}$, and by the Markov property, $\mathbb{E}[G_{t+1} \mid S_t=s, A_t=a, S_{t+1}=s'] = v_\pi(s')$.
 
 The second equation expresses the Q-value as the expected immediate reward plus the expected discounted Q-value of the next
 state-action pair. It follows by substituting the first relation of @prp-rl-value-relations for $v_\pi(s')$ in the second.
@@ -860,41 +860,41 @@ ensures that the spectral radius of $\gamma \mathbf{P}_\pi$ is less than 1.
 
 With reward distributions, the entries of $\mathbf{r}_\pi$ and $\mathbf{P}_\pi$ are
 
-$$\left[r_\pi\right]_s \doteq \sum_{a \in \mathcal{A}} \pi(a \mid s) \sum_{r \in \mathcal{R}} p(r \mid s, a) r$$
+$$\left[\mathbf{r}_\pi\right]_s \doteq \sum_{a \in \mathcal{A}} \pi(a \mid s) \sum_{r \in \mathcal{R}} p(r \mid s, a) r$$
 
-$$\left[P_\pi\right]_{s s^{\prime}} \doteq \sum_{a \in \mathcal{A}} \pi(a \mid s) p\left(s^{\prime} \mid s, a\right)$$
+$$\left[\mathbf{P}_\pi\right]_{s s^{\prime}} \doteq \sum_{a \in \mathcal{A}} \pi(a \mid s) P\left(s^{\prime} \mid s, a\right)$$
 
 The state transition matrix has the following properties:
 
-$$P_\pi \geq 0$$
+$$\mathbf{P}_\pi \geq 0$$
 
-$$P_\pi \mathbf{1}=\mathbf{1}$$
+$$\mathbf{P}_\pi \mathbf{1}=\mathbf{1}$$
 
-$$\exists (I-\gamma P_\pi)^{-1}$$
+$$\exists (\mathbf{I}-\gamma \mathbf{P}_\pi)^{-1}$$
 
-$$\left(I-\gamma P_\pi\right)^{-1} \geq I$$
+$$\left(\mathbf{I}-\gamma \mathbf{P}_\pi\right)^{-1} \geq \mathbf{I}$$
 
-$$\left(I-\gamma P_\pi\right)^{-1} r \geq 0, \quad r \geq 0$$
+$$\left(\mathbf{I}-\gamma \mathbf{P}_\pi\right)^{-1} \mathbf{r} \geq 0, \quad \mathbf{r} \geq 0$$
 
-$$\left(I-\gamma P_\pi\right)^{-1} r_1 \geq\left(I-\gamma P_\pi\right)^{-1} r_2, \quad r_1 \geq r_2$$
+$$\left(\mathbf{I}-\gamma \mathbf{P}_\pi\right)^{-1} \mathbf{r}_1 \geq\left(\mathbf{I}-\gamma \mathbf{P}_\pi\right)^{-1} \mathbf{r}_2, \quad \mathbf{r}_1 \geq \mathbf{r}_2$$
 
 Instead of inverting the matrix, the state values can also be found iteratively:
 
-$$v_{k+1}=r_\pi+\gamma P_\pi v_k, \quad k=0,1,2, \ldots$$
+$$\mathbf{v}_{k+1}=\mathbf{r}_\pi+\gamma \mathbf{P}_\pi \mathbf{v}_k, \quad k=0,1,2, \ldots$$
 
 The action values satisfy the matrix-vector form
 
-$$q_\pi=\tilde{r}+\gamma P \Pi q_\pi$$
+$$\mathbf{q}_\pi=\tilde{\mathbf{r}}+\gamma \mathbf{P} \boldsymbol{\Pi} \mathbf{q}_\pi$$
 
 where
 
-$$\left[q_\pi\right]_{(s, a)}=q_\pi(s, a)$$
+$$\left[\mathbf{q}_\pi\right]_{(s, a)}=q_\pi(s, a)$$
 
-$$[\tilde{r}]_{(s, a)}=\sum_{r \in \mathcal{R}} p(r \mid s, a) r$$
+$$[\tilde{\mathbf{r}}]_{(s, a)}=\sum_{r \in \mathcal{R}} p(r \mid s, a) r$$
 
-$$[P]_{(s, a), s^{\prime}}=p\left(s^{\prime} \mid s, a\right)$$
+$$[\mathbf{P}]_{(s, a), s^{\prime}}=P\left(s^{\prime} \mid s, a\right)$$
 
-$$\Pi_{s^{\prime},\left(s^{\prime}, a^{\prime}\right)}=\pi\left(a^{\prime} \mid s^{\prime}\right)$$
+$$\boldsymbol{\Pi}_{s^{\prime},\left(s^{\prime}, a^{\prime}\right)}=\pi\left(a^{\prime} \mid s^{\prime}\right)$$
 
 The matrices are easiest to understand on an example small enough to print in full. The four-state grid world provides one, with
 twenty state-action pairs and four states.
@@ -906,12 +906,12 @@ averages the two actions of the stochastic policy, and the rows of $\mathbf{P}_\
 ::: {#exm-rl-matrix-form-four-state}
 #### Matrix-vector form in the four-state grid world
 
-- $r_\pi = \left[\begin{array}{c}0.5(0)+0.5(-1) \\ 1 \\ 1 \\ 1\end{array}\right]$
-- $P_\pi = \left[\begin{array}{cccc}0 & 0.5 & 0.5 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 1\end{array}\right]$
-- $\tilde{r} = \left[\begin{array}{c} -1 \\ 0 \\ -1 \\ -1 \\ 0 \\ \vdots\end{array}\right]$
-- $P = \left[\begin{array}{cccc}1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ \vdots &
+- $\mathbf{r}_\pi = \left[\begin{array}{c}0.5(0)+0.5(-1) \\ 1 \\ 1 \\ 1\end{array}\right]$
+- $\mathbf{P}_\pi = \left[\begin{array}{cccc}0 & 0.5 & 0.5 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 1\end{array}\right]$
+- $\tilde{\mathbf{r}} = \left[\begin{array}{c} -1 \\ 0 \\ -1 \\ -1 \\ 0 \\ \vdots\end{array}\right]$
+- $\mathbf{P} = \left[\begin{array}{cccc}1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ \vdots &
   \vdots & \vdots & \vdots \end{array}\right]$
-- $\Pi = \left[\begin{array}{cccc}0 & 0.5 & 0 & 0.5 & 0 & 0 & 0 & 0 & 0 & 0 &\dots \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0
+- $\boldsymbol{\Pi} = \left[\begin{array}{cccc}0 & 0.5 & 0 & 0.5 & 0 & 0 & 0 & 0 & 0 & 0 &\dots \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0
   &\dots \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \dots \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \dots \end{array}\right]$
 :::
 ::::
@@ -926,7 +926,7 @@ row by row when $\mathbf{P}_\pi$ is as sparse as here. The reader computes $\mat
 ::: {#exr-rl-matrix-form-solve}
 #### Solving the matrix equation
 
-With $r_\pi = (-0.5, 1, 1, 1)$ and $P_\pi$ as in @exm-rl-matrix-form-four-state, solve $\mathbf{v}_\pi = \mathbf{r}_\pi + 0.9
+With $\mathbf{r}_\pi = (-0.5, 1, 1, 1)$ and $\mathbf{P}_\pi$ as in @exm-rl-matrix-form-four-state, solve $\mathbf{v}_\pi = \mathbf{r}_\pi + 0.9
 \mathbf{P}_\pi \mathbf{v}_\pi$.
 :::
 
@@ -1015,7 +1015,7 @@ R = np.array(
 
 The policy probabilities:
 
-$$[\Pi]_{a, s} = p(a \mid s)$$
+$$[\mathbf{M}]_{a, s} = \pi(a \mid s)$$
 
 ```{python}
 Pi = np.array([
@@ -1029,10 +1029,10 @@ Pi = np.array([
 
 The expected reward under the policy:
 
-$$\left[r_\pi\right]_s = \sum_{a \in \mathcal{A}} \pi(a \mid s) \sum_{r \in \mathcal{R}} p(r \mid s, a) r$$
+$$\left[\mathbf{r}_\pi\right]_s = \sum_{a \in \mathcal{A}} \pi(a \mid s) \sum_{r \in \mathcal{R}} p(r \mid s, a) r$$
 
-$$\left[r_\pi\right]_s = \sum_{a \in \mathcal{A}} \big( R \cdot \left[\begin{array}{c}-1 & 1 & 0 \end{array}\right]^T
-\big)_{s, a} \cdot [\Pi]_{a, s}$$
+$$\left[\mathbf{r}_\pi\right]_s = \sum_{a \in \mathcal{A}} \big( \mathbf{R} \cdot \left[\begin{array}{c}-1 & 1 & 0 \end{array}\right]^\top
+\big)_{s, a} \cdot [\mathbf{M}]_{a, s}$$
 
 ```{python}
 r_space = np.array([-1, 1, 0])
@@ -1047,9 +1047,9 @@ r_p
 
 The state transition probabilities under the policy:
 
-$$\left[P_\pi\right]_{s s^{\prime}} = \sum_{a \in \mathcal{A}} \pi(a \mid s) p\left(s^{\prime} \mid s, a\right)$$
+$$\left[\mathbf{P}_\pi\right]_{s s^{\prime}} = \sum_{a \in \mathcal{A}} \pi(a \mid s) P\left(s^{\prime} \mid s, a\right)$$
 
-$$\left[P_\pi\right]_{s s^{\prime}} = \sum_{a \in \mathcal{A}} [\Pi^T]_{s, a} [P]_{(s, a), s^{\prime}}$$
+$$\left[\mathbf{P}_\pi\right]_{s s^{\prime}} = \sum_{a \in \mathcal{A}} [\mathbf{M}^\top]_{s, a} [\mathbf{P}]_{(s, a), s^{\prime}}$$
 
 ```{python}
 P_p = np.diagonal(
@@ -1061,7 +1061,7 @@ P_p = np.diagonal(
 P_p
 ```
 
-The closed-form solution $v_\pi=\left(I-\gamma P_\pi\right)^{-1} r_\pi$:
+The closed-form solution $\mathbf{v}_\pi=\left(\mathbf{I}-\gamma \mathbf{P}_\pi\right)^{-1} \mathbf{r}_\pi$:
 
 ```{python}
 gamma = 0.9
@@ -1070,7 +1070,7 @@ v_cfs = np.dot(np.linalg.inv(I - gamma * P_p), r_p)
 v_cfs
 ```
 
-The iterative solution $v_{k+1}=r_\pi+\gamma P_\pi v_k$, stopped once no state value changes by more than the tolerance:
+The iterative solution $\mathbf{v}_{k+1}=\mathbf{r}_\pi+\gamma \mathbf{P}_\pi \mathbf{v}_k$, stopped once no state value changes by more than the tolerance:
 
 ```{python}
 tol = 1e-5
@@ -1097,11 +1097,11 @@ equation satisfied by the optimal values, whose solution yields an optimal polic
 ::: {#thm-rl-bellman-optimality-equation}
 #### Bellman optimality equation
 
-$$v_*(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma v_*(s')]$$
+$$v_*(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma v_*(s')]$$
 
 For the optimal action-value function:
 
-$$q_*(s,a) = \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma \max_{a' \in \mathcal{A}} q_*(s',a')]$$
+$$q_*(s,a) = \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma \max_{a' \in \mathcal{A}} q_*(s',a')]$$
 :::
 
 ::::
@@ -1150,7 +1150,7 @@ times the best action value of the next state, and $\max(17.2, 18) = 18 = v_*(A)
 
 **Optimal Policy Extraction:** Once we have the optimal value functions, we can extract an optimal policy:
 
-$$\pi_*(s) = \arg\max_{a \in \mathcal{A}} q_*(s,a) = \arg\max_{a \in \mathcal{A}} \sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma
+$$\pi_*(s) = \arg\max_{a \in \mathcal{A}} q_*(s,a) = \arg\max_{a \in \mathcal{A}} \sum_{s'} P(s' \mid s,a)[R(s,a,s') + \gamma
 v_*(s')]$$
 
 This policy is greedy with respect to the optimal value function. A fundamental result in MDP theory is that there always exists
@@ -1212,11 +1212,11 @@ that these operators contract distances, which gives existence, uniqueness and c
 
 **Contraction Mapping:** The Bellman expectation operator $T^\pi$ is defined by:
 
-$$(T^\pi v)(s) = \sum_a \pi(a|s) \sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma v(s')]$$
+$$(T^\pi v)(s) = \sum_a \pi(a \mid s) \sum_{s'} P(s' \mid s,a)[R(s,a,s') + \gamma v(s')]$$
 
 Similarly, the Bellman optimality operator $T^*$ is defined by:
 
-$$(T^* v)(s) = \max_a \sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma v(s')]$$
+$$(T^* v)(s) = \max_a \sum_{s'} P(s' \mid s,a)[R(s,a,s') + \gamma v(s')]$$
 
 :::: {.statement-box}
 ::: {#thm-rl-bellman-contraction}
@@ -1229,8 +1229,8 @@ point $v_*$.
 
 ::::
 
-For $T^\pi$, the rewards cancel in the difference, and $|(T^\pi v - T^\pi u)(s)| = \gamma \left|\sum_a \pi(a|s) \sum_{s'}
-P(s'|s,a)(v(s') - u(s'))\right| \leq \gamma \|v - u\|_\infty$, since the weights $\pi(a|s) P(s'|s,a)$ are non-negative and sum to
+For $T^\pi$, the rewards cancel in the difference, and $|(T^\pi v - T^\pi u)(s)| = \gamma \left|\sum_a \pi(a \mid s) \sum_{s'}
+P(s' \mid s,a)(v(s') - u(s'))\right| \leq \gamma \|v - u\|_\infty$, since the weights $\pi(a \mid s) P(s' \mid s,a)$ are non-negative and sum to
 one. For $T^*$, the same bound holds for each action, and $|\max_a f(a) - \max_a g(a)| \leq \max_a |f(a) - g(a)|$ carries it
 through the maximum.
 
@@ -1280,7 +1280,7 @@ action spaces. Despite these limitations, DP provides the foundation for underst
 **Policy Evaluation (Prediction):** Given a policy $\pi$, policy evaluation computes the state-value function $v_\pi$ by
 iteratively applying the Bellman expectation operator:
 
-$$v_{k+1}(s) = \sum_{a \in \mathcal{A}} \pi(a|s) \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma v_k(s')]$$
+$$v_{k+1}(s) = \sum_{a \in \mathcal{A}} \pi(a \mid s) \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma v_k(s')]$$
 
 **Algorithm (Iterative Policy Evaluation):** ``` Input: Policy π, discount factor γ, threshold θ Initialize: v(s) = 0 for all s ∈
 S Repeat: Δ ← 0 For each s ∈ S: v_old ← v(s) v(s) ← Σ_a π(a|s) Σ_s' P(s'|s,a)[R(s,a,s') + γv(s')] Δ ← max(Δ, |v_old - v(s)|) Until
@@ -1335,7 +1335,7 @@ With $\gamma = 0.9$ and $\|v_0 - v_\pi\|_\infty \leq 10$, how many sweeps guaran
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-It suffices that $10 \cdot 0.9^k \leq 0.01$, i.e. $0.9^k \leq 10^{-3}$, i.e. $k \geq \frac{\ln 1000}{\ln(1/0.9)} = \frac{6.908}{0.1054}
+It suffices that $10 \cdot 0.9^k \leq 0.01$, i.e. $0.9^k \leq 10^{-3}$, i.e. $k \geq \frac{\log 1000}{\log(1/0.9)} = \frac{6.908}{0.1054}
 \approx 65.6$. So $k = 66$ sweeps suffice.
 :::
 ::::
@@ -1348,7 +1348,7 @@ the current values does that, and the policy improvement theorem guarantees that
 **Policy Improvement:** Given the value function $v_\pi$ for a policy $\pi$, we can construct an improved policy $\pi'$ by acting
 greedily with respect to $v_\pi$:
 
-$$\pi'(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma v_\pi(s')] = \arg\max_{a \in
+$$\pi'(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma v_\pi(s')] = \arg\max_{a \in
 \mathcal{A}} q_\pi(s,a)$$
 
 :::: {.statement-box}
@@ -1364,9 +1364,9 @@ for at least one state, then $v_{\pi'}(s) > v_\pi(s)$ for at least one state.
 
 **Proof Sketch:** By repeatedly applying the Bellman equation and using the greedy improvement condition, we can show:
 
-\begin{align*} v_\pi(s) &\leq q_\pi(s, \pi'(s)) \\ &= \mathbb{E}[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t=s, A_t=\pi'(s)] \\ &\leq
-\mathbb{E}[R_{t+1} + \gamma q_\pi(S_{t+1}, \pi'(S_{t+1})) | S_t=s, A_t=\pi'(s)] \\ &= \mathbb{E}[R_{t+1} + \gamma R_{t+2} +
-\gamma^2 v_\pi(S_{t+2}) | S_t=s, \pi'] \\ &\leq \cdots \\ &\leq v_{\pi'}(s) \end{align*}
+\begin{align*} v_\pi(s) &\leq q_\pi(s, \pi'(s)) \\ &= \mathbb{E}[R_{t+1} + \gamma v_\pi(S_{t+1}) \mid S_t=s, A_t=\pi'(s)] \\ &\leq
+\mathbb{E}[R_{t+1} + \gamma q_\pi(S_{t+1}, \pi'(S_{t+1})) \mid S_t=s, A_t=\pi'(s)] \\ &= \mathbb{E}[R_{t+1} + \gamma R_{t+2} +
+\gamma^2 v_\pi(S_{t+2}) \mid S_t=s, \pi'] \\ &\leq \cdots \\ &\leq v_{\pi'}(s) \end{align*}
 
 This theorem guarantees that greedy policy improvement never makes the policy worse and will strictly improve it unless it is
 already optimal. The example applies one greedy step to a deliberately short-sighted policy.
@@ -1468,7 +1468,7 @@ single sweep, which turns it into repeated application of the Bellman optimality
 
 **Value Iteration:** Value iteration combines policy evaluation and improvement into a single update:
 
-$$v_{k+1}(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P(s'|s,a)[R(s,a,s') + \gamma v_k(s')]$$
+$$v_{k+1}(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} P(s' \mid s,a)[R(s,a,s') + \gamma v_k(s')]$$
 
 This is equivalent to performing a single sweep of policy evaluation followed by policy improvement. Value iteration can be viewed
 as applying the Bellman optimality operator.
@@ -1487,9 +1487,9 @@ $$\|v_k - v_*\|_\infty \leq \gamma^k \|v_0 - v_*\|_\infty$$
 
 Once $v_k$ is sufficiently close to $v_*$, the greedy policy with respect to $v_k$ is optimal. A useful stopping criterion is:
 
-$$\|v_{k+1} - v_k\|_\infty < \frac{\theta(1-\gamma)}{2\gamma}$$
+$$\|v_{k+1} - v_k\|_\infty < \frac{\varepsilon_{\mathrm{tol}}(1-\gamma)}{2\gamma}$$
 
-which guarantees that the greedy policy is within $\theta$ of optimal.
+which guarantees that the greedy policy is within $\varepsilon_{\mathrm{tol}}$ of optimal.
 :::
 
 ::::
@@ -1506,7 +1506,7 @@ myopic action to the far-sighted one along the way. The stopping threshold for a
 
 From $v_0 = 0$, the iterates are $v_1 = (1, 2)$, $v_2 = (1.9, 3.8)$ (@exm-rl-contraction-two-state), $v_3 = (\max(2.71, 3.42),
 5.42) = (3.42, 5.42)$, so the maximum in $A$ is attained by "stay" for $v_1$ and $v_2$ but by "go" from $v_3$ on; $v_k(B) = 20(1 -
-0.9^k)$ and $v_k(A) \to 18$. For accuracy $\theta = 0.1$ the stopping threshold is $\frac{0.1 \cdot 0.1}{2 \cdot 0.9} \approx
+0.9^k)$ and $v_k(A) \to 18$. For accuracy $\varepsilon_{\mathrm{tol}} = 0.1$ the stopping threshold is $\frac{0.1 \cdot 0.1}{2 \cdot 0.9} \approx
 0.0056$.
 :::
 ::::
@@ -1562,7 +1562,7 @@ averages converge to the expected values as the number of samples increases.
 **Monte Carlo Policy Evaluation:** To evaluate a policy $\pi$, we generate episodes following $\pi$ and average the returns
 observed from each state:
 
-$$v_\pi(s) = \mathbb{E}_\pi[G_t | S_t = s] \approx \frac{1}{N(s)} \sum_{i=1}^{N(s)} G_t^{(i)}$$
+$$v_\pi(s) = \mathbb{E}_\pi[G_t \mid S_t = s] \approx \frac{1}{N(s)} \sum_{i=1}^{N(s)} G_t^{(i)}$$
 
 where $N(s)$ is the number of times state $s$ has been visited and $G_t^{(i)}$ is the return from the $i$-th visit.
 
@@ -1653,29 +1653,29 @@ Repeat forever: Choose S₀ ∈ S, A₀ ∈ A(S₀) randomly (exploring starts) 
     t = T-1, T-2, ..., 0: G ← γG + R_{t+1} If (S_t, A_t) does not appear in (S₀,A₀), ..., (S_{t-1},A_{t-1}): Append G to
     Returns(S_t, A_t) Q(S_t, A_t) ← average(Returns(S_t, A_t)) π(S_t) ← argmax_a Q(S_t, a) ```
 
-**ε-Greedy Policies:** A more practical approach is to use $\epsilon$-greedy policies, which ensure continued exploration. The definition below gives the probability it assigns to each action.
+**ε-Greedy Policies:** A more practical approach is to use $\varepsilon$-greedy policies, which ensure continued exploration. The definition below gives the probability it assigns to each action.
 
 :::: {.statement-box}
 ::: {#def-rl-epsilon-greedy-policy}
 #### ε-greedy policy
 
-$$\pi(a|s) = \begin{cases} 1-\epsilon+\epsilon/|\mathcal{A}(s)| & \text{if } a = \arg\max_{a'} Q(s,a') \\
-\epsilon/|\mathcal{A}(s)| & \text{otherwise} \end{cases}$$
+$$\pi(a \mid s) = \begin{cases} 1-\varepsilon+\varepsilon/|\mathcal{A}(s)| & \text{if } a = \arg\max_{a'} Q(s,a') \\
+\varepsilon/|\mathcal{A}(s)| & \text{otherwise} \end{cases}$$
 :::
 
 ::::
 
-With probability $1-\epsilon$, the greedy action is selected; with probability $\epsilon$, a random action is chosen. This ensures
+With probability $1-\varepsilon$, the greedy action is selected; with probability $\varepsilon$, a random action is chosen. This ensures
 all actions are tried with non-zero probability.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The usual choice $\epsilon = 0.1$ with four actions gives concrete probabilities. They show that the greedy action is also among
-the random choices, which is why its probability exceeds $1 - \epsilon$.
+The usual choice $\varepsilon = 0.1$ with four actions gives concrete probabilities. They show that the greedy action is also among
+the random choices, which is why its probability exceeds $1 - \varepsilon$.
 
 ::: {#exm-rl-epsilon-greedy-four-actions}
 #### Four actions with ε = 0.1
 
-With $|\mathcal{A}(s)| = 4$ and $\epsilon = 0.1$, the greedy action has probability $0.9 + 0.025 = 0.925$ and each of the three
+With $|\mathcal{A}(s)| = 4$ and $\varepsilon = 0.1$, the greedy action has probability $0.9 + 0.025 = 0.925$ and each of the three
 others $0.025$; the total is $0.925 + 3 \cdot 0.025 = 1$.
 :::
 ::::
@@ -1684,27 +1684,27 @@ The exercise checks that the definition gives a probability distribution in gene
 action's probability that makes the policy exploratory.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The formula of @def-rl-epsilon-greedy-policy must define a probability distribution for every $\epsilon \in [0, 1]$. The reader
-checks normalization and the lower bound $\epsilon / |\mathcal{A}(s)|$.
+The formula of @def-rl-epsilon-greedy-policy must define a probability distribution for every $\varepsilon \in [0, 1]$. The reader
+checks normalization and the lower bound $\varepsilon / |\mathcal{A}(s)|$.
 
 ::: {#exr-rl-epsilon-greedy-normalization}
 #### ε-greedy is a distribution
 
-Show that the $\epsilon$-greedy probabilities sum to one and that every action has probability at least $\epsilon /
+Show that the $\varepsilon$-greedy probabilities sum to one and that every action has probability at least $\varepsilon /
 |\mathcal{A}(s)|$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $n = |\mathcal{A}(s)|$, the sum is $(1 - \epsilon + \epsilon/n) + (n - 1)\epsilon/n = 1 - \epsilon + \epsilon = 1$. Every
-probability is $\epsilon/n$ plus a non-negative term ($1 - \epsilon \geq 0$ for the greedy action), so each is at least
-$\epsilon/n$.
+With $n = |\mathcal{A}(s)|$, the sum is $(1 - \varepsilon + \varepsilon/n) + (n - 1)\varepsilon/n = 1 - \varepsilon + \varepsilon = 1$. Every
+probability is $\varepsilon/n$ plus a non-negative term ($1 - \varepsilon \geq 0$ for the greedy action), so each is at least
+$\varepsilon/n$.
 :::
 ::::
 
 **On-Policy vs. Off-Policy:**
 
 - **On-Policy Methods:** Learn the value of the policy being used to make decisions (e.g., learning the value of an
-$\epsilon$-greedy policy while following it).
+$\varepsilon$-greedy policy while following it).
 
 - **Off-Policy Methods:** Learn the value of one policy (target policy) while following another policy (behavior policy). This
 allows learning about optimal policies while following exploratory policies.
@@ -1716,34 +1716,34 @@ Repeat forever: Generate episode following π G ← 0 For each step t = T-1, T-2
     appear in (S₀,A₀), ..., (S_{t-1},A_{t-1}): Append G to Returns(S_t, A_t) Q(S_t, A_t) ← average(Returns(S_t, A_t)) π ← ε-greedy
     policy derived from Q ```
 
-A fixed $\epsilon$ explores forever but never becomes greedy, so the policy it learns is only the best $\epsilon$-soft one. The
-GLIE conditions say how $\epsilon$ must decay for convergence to an optimal policy.
+A fixed $\varepsilon$ explores forever but never becomes greedy, so the policy it learns is only the best $\varepsilon$-soft one. The
+GLIE conditions say how $\varepsilon$ must decay for convergence to an optimal policy.
 
 :::: {.statement-box}
 ::: {#def-rl-glie}
 #### GLIE (Greedy in the Limit with Infinite Exploration)
 
 For convergence to the optimal policy, we need the exploration parameter
-$\epsilon$ to decrease over time while ensuring infinite exploration:
+$\varepsilon$ to decrease over time while ensuring infinite exploration:
 
 1. All state-action pairs are visited infinitely often: $\lim_{k \to \infty} N_k(s,a) = \infty$
 2. The policy converges to greedy:
-$\lim_{k \to \infty} \epsilon_k = 0$
+$\lim_{k \to \infty} \varepsilon_k = 0$
 :::
 
 ::::
 
-A common schedule is $\epsilon_k = 1/k$, which satisfies GLIE conditions. The example and exercise explain why, and which nearby
+A common schedule is $\varepsilon_k = 1/k$, which satisfies GLIE conditions. The example and exercise explain why, and which nearby
 schedules fail.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The schedule $\epsilon_k = 1/k$ is the standard GLIE example. Its two properties pull in opposite directions, and the harmonic
+The schedule $\varepsilon_k = 1/k$ is the standard GLIE example. Its two properties pull in opposite directions, and the harmonic
 series balances them.
 
 ::: {#exm-rl-glie-harmonic}
 #### The schedule ε_k = 1/k
 
-With $\epsilon_k = 1/k$ in episode $k$, $\epsilon_k \to 0$, so condition 2 holds. The expected number of exploratory choices in a
+With $\varepsilon_k = 1/k$ in episode $k$, $\varepsilon_k \to 0$, so condition 2 holds. The expected number of exploratory choices in a
 given state, visited in every episode, is proportional to $\sum_k 1/k = \infty$, and since the choices are independent the second
 Borel-Cantelli lemma gives infinitely many of them with probability one, which is what condition 1 needs.
 :::
@@ -1758,11 +1758,11 @@ Not every schedule tending to zero satisfies @def-rl-glie. The reader examines a
 ::: {#exr-rl-glie-schedules}
 #### Schedules that fail
 
-Decide whether $\epsilon_k = 0.1$ and $\epsilon_k = 1/k^2$ satisfy the GLIE conditions.
+Decide whether $\varepsilon_k = 0.1$ and $\varepsilon_k = 1/k^2$ satisfy the GLIE conditions.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\epsilon_k = 0.1$ explores forever but does not tend to zero, so condition 2 fails. For $\epsilon_k = 1/k^2$, $\sum_k 1/k^2 <
+$\varepsilon_k = 0.1$ explores forever but does not tend to zero, so condition 2 fails. For $\varepsilon_k = 1/k^2$, $\sum_k 1/k^2 <
 \infty$, so by the first Borel-Cantelli lemma only finitely many exploratory choices occur with probability one; after the last
 of them the policy is greedy, and pairs it never selects stop being visited, so condition 1 can fail.
 :::
@@ -1773,8 +1773,8 @@ of them the policy is greedy, and pairs it never selects stop being visited, so 
 **Off-Policy Monte Carlo:** Off-policy methods use importance sampling to estimate the value of the target policy $\pi$ from
 episodes generated by a behavior policy $b$:
 
-$$v_\pi(s) = \mathbb{E}_b\left[\frac{\pi(A_t|S_t)}{b(A_t|S_t)} \frac{\pi(A_{t+1}|S_{t+1})}{b(A_{t+1}|S_{t+1})} \cdots
-\frac{\pi(A_T|S_T)}{b(A_T|S_T)} G_t \bigg| S_t = s\right]$$
+$$v_\pi(s) = \mathbb{E}_b\left[\frac{\pi(A_t \mid S_t)}{b(A_t \mid S_t)} \frac{\pi(A_{t+1} \mid S_{t+1})}{b(A_{t+1} \mid S_{t+1})} \cdots
+\frac{\pi(A_T \mid S_T)}{b(A_T \mid S_T)} G_t \bigg| S_t = s\right]$$
 
 The weights in this expectation correct for the different action probabilities of the two policies. The definition below names
 them and the two estimators built from them.
@@ -1785,7 +1785,7 @@ them and the two estimators built from them.
 
 The importance sampling ratio is:
 
-$$\rho_{t:T-1} = \prod_{k=t}^{T-1} \frac{\pi(A_k|S_k)}{b(A_k|S_k)}$$
+$$\rho_{t:T-1} = \prod_{k=t}^{T-1} \frac{\pi(A_k \mid S_k)}{b(A_k \mid S_k)}$$
 
 **Ordinary Importance Sampling:** Simply scales returns by the importance sampling ratio:
 
@@ -1948,7 +1948,7 @@ For each episode: Initialize S Choose A from S using policy derived from Q (e.g.
     A, observe R, S' Choose A' from S' using policy derived from Q Q(S,A) ← Q(S,A) + α[R + γQ(S',A') - Q(S,A)] S ← S'; A ← A'
     Until S is terminal ```
 
-SARSA is an **on-policy** method: it learns the value of the policy being followed (e.g., $\epsilon$-greedy). The convergence of
+SARSA is an **on-policy** method: it learns the value of the policy being followed (e.g., $\varepsilon$-greedy). The convergence of
 SARSA to the optimal policy requires that the policy becomes greedy in the limit (GLIE conditions).
 
 **Q-Learning: Off-Policy TD Control:** Q-learning is one of the most important breakthroughs in reinforcement learning. It learns
@@ -1988,7 +1988,7 @@ The same transition can be fed to SARSA and to Q-learning. The two targets diffe
 #### SARSA and Q-learning on one transition
 
 Let $Q(s, a) = 1$, $Q(s', a_1) = 2$, $Q(s', a_2) = 5$, $\gamma = 0.9$, $\alpha = 0.5$, and observe $(s, a, r = 0, s')$, after which
-the $\epsilon$-greedy behavior picks the exploratory action $a_1$. SARSA uses $Q(s', a_1)$: $Q(s, a) \leftarrow 1 + 0.5(0 + 1.8 - 1) =
+the $\varepsilon$-greedy behavior picks the exploratory action $a_1$. SARSA uses $Q(s', a_1)$: $Q(s, a) \leftarrow 1 + 0.5(0 + 1.8 - 1) =
 1.4$. Q-learning uses $\max_a Q(s', a) = 5$: $Q(s, a) \leftarrow 1 + 0.5(0 + 4.5 - 1) = 2.75$.
 :::
 ::::
@@ -2067,13 +2067,13 @@ independent copies used for evaluation, and $A^* = \arg\max_i X_i$. Show $\mathb
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) The maximum is $-1$ only when both are $-1$, with probability $\frac14$, so $\mathbb{E}[\max] = \frac34 - \frac14 = \frac12 > 0
 = \max_i \mathbb{E}[X_i]$. (b) $A^*$ is a function of $(X_1, X_2)$, independent of $(Y_1, Y_2)$, so $\mathbb{E}[Y_{A^*}] = \sum_i
-P(A^* = i) \mathbb{E}[Y_i] = 0$: the selection no longer correlates with the evaluation noise.
+\mathbb P(A^* = i) \mathbb{E}[Y_i] = 0$: the selection no longer correlates with the evaluation noise.
 :::
 ::::
 
 **Expected SARSA:** A variant that uses the expected value under the policy instead of sampling:
 
-$$Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha[R_{t+1} + \gamma \sum_{a} \pi(a|S_{t+1})Q(S_{t+1}, a) - Q(S_t, A_t)]$$
+$$Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha[R_{t+1} + \gamma \sum_{a} \pi(a \mid S_{t+1})Q(S_{t+1}, a) - Q(S_t, A_t)]$$
 
 Expected SARSA eliminates the variance due to random action selection and can perform better than SARSA. When $\pi$ is greedy,
 Expected SARSA becomes Q-learning.
@@ -2213,7 +2213,7 @@ for episode termination 3. **Continuing tasks:** Works for non-episodic problems
 variance compared to MC 5. **Computational efficiency:** Simple updates, no model required
 
 **Practical Considerations:** - **Step size:** Critical for convergence and learning speed. Common choices: $\alpha = 0.1$ or
-decreasing schedules - **Exploration:** $\epsilon$-greedy with $\epsilon = 0.1$ is common; can decay over time -
+decreasing schedules - **Exploration:** $\varepsilon$-greedy with $\varepsilon = 0.1$ is common; can decay over time -
 **Initialization:** Optimistic initialization (high initial values) encourages exploration - **Function approximation:** Tabular
 methods don't scale; need function approximation for large state spaces
 
@@ -2255,9 +2255,9 @@ squared value error below weights the errors by a state distribution.
 
 A natural objective is to minimize the mean squared error:
 
-$$\overline{VE}(\mathbf{w}) = \sum_{s \in \mathcal{S}} \mu(s)[v_\pi(s) - \hat{v}(s, \mathbf{w})]^2$$
+$$\overline{VE}(\mathbf{w}) = \sum_{s \in \mathcal{S}} \mu_\pi(s)[v_\pi(s) - \hat{v}(s, \mathbf{w})]^2$$
 
-where $\mu(s)$ is a state distribution (often the on-policy distribution).
+where $\mu_\pi(s)$ is a state distribution (often the on-policy distribution).
 :::
 
 ::::
@@ -2266,11 +2266,11 @@ This objective is not always achievable, and different algorithms make different
 
 **Linear Function Approximation:** The simplest form uses a linear combination of features:
 
-$$\hat{v}(s, \mathbf{w}) = \mathbf{w}^T\phi(s) = \sum_{i=1}^d w_i \phi_i(s)$$
+$$\hat{v}(s, \mathbf{w}) = \mathbf{w}^\top\boldsymbol{\phi}(s) = \sum_{i=1}^d w_i \phi_i(s)$$
 
-where $\phi(s) = [\phi_1(s), \ldots, \phi_d(s)]^T$ is a feature vector. Common feature constructions include:
+where $\boldsymbol{\phi}(s) = [\phi_1(s), \ldots, \phi_d(s)]^\top$ is a feature vector. Common feature constructions include:
 
-1. **Polynomial features:** $\phi(s) = [1, s, s^2, s^3, \ldots]^T$
+1. **Polynomial features:** $\boldsymbol{\phi}(s) = [1, s, s^2, s^3, \ldots]^\top$
 2. **Fourier basis:** $\phi_i(s) = \cos(i \pi s)$
 3. **Radial
 basis functions:** $\phi_i(s) = \exp(-\|s - c_i\|^2 / (2\sigma^2))$
@@ -2288,9 +2288,9 @@ The gradient descent update is:
 
 $$\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha[v_\pi(S_t) - \hat{v}(S_t, \mathbf{w}_t)]\nabla_{\mathbf{w}}\hat{v}(S_t, \mathbf{w}_t)$$
 
-For linear approximation, $\nabla_{\mathbf{w}}\hat{v}(s, \mathbf{w}) = \phi(s)$, giving:
+For linear approximation, $\nabla_{\mathbf{w}}\hat{v}(s, \mathbf{w}) = \boldsymbol{\phi}(s)$, giving:
 
-$$\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha[v_\pi(S_t) - \mathbf{w}_t^T\phi(S_t)]\phi(S_t)$$
+$$\mathbf{w}_{t+1} = \mathbf{w}_t + \alpha[v_\pi(S_t) - \mathbf{w}_t^\top\boldsymbol{\phi}(S_t)]\boldsymbol{\phi}(S_t)$$
 
 A linear approximator with one weight and two states already shows the trade-off the objective makes. The example minimizes it
 exactly.
@@ -2302,7 +2302,7 @@ no single weight fits both states.
 ::: {#exm-rl-ve-two-states}
 #### One weight, two states
 
-Let $\phi(A) = 1$, $\phi(B) = 2$, $\hat v(s, w) = w \phi(s)$, $v_\pi(A) = 1$, $v_\pi(B) = 3$ and $\mu$ uniform. Then
+Let $\phi(A) = 1$, $\phi(B) = 2$, $\hat v(s, w) = w \boldsymbol{\phi}(s)$, $v_\pi(A) = 1$, $v_\pi(B) = 3$ and $\mu_\pi$ uniform. Then
 $\overline{VE}(w) = \frac12[(1 - w)^2 + (3 - 2w)^2]$, whose derivative $5w - 7$ vanishes at $w = 1.4$, with $\overline{VE}(1.4) =
 \frac12(0.16 + 0.04) = 0.1$.
 :::
@@ -2318,7 +2318,7 @@ Stochastic gradient descent on @def-rl-mean-squared-value-error uses one state a
 #### One gradient Monte Carlo step
 
 In @exm-rl-ve-two-states, start from $w = 1$, observe $S_t = B$ with return $G_t = 3$, and apply $w \leftarrow w + \alpha[G_t -
-\hat v(S_t, w)] \phi(S_t)$ with $\alpha = 0.1$. What happens to $\hat v(A, w)$?
+\hat v(S_t, w)] \boldsymbol{\phi}(S_t)$ with $\alpha = 0.1$. What happens to $\hat v(A, w)$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2440,7 +2440,7 @@ $$\nabla_{\mathbf{w}}\hat{v}(s, \mathbf{w}) = \nabla_{\mathbf{w}} f_{\mathbf{w}}
 
 $$\mathbf{w}_{LSTD} = \mathbf{A}^{-1}\mathbf{b}$$
 
-where: $$\mathbf{A} = \sum_{t=1}^T \phi(S_t)[\phi(S_t) - \gamma\phi(S_{t+1})]^T$$ $$\mathbf{b} = \sum_{t=1}^T R_{t+1}\phi(S_t)$$
+where: $$\mathbf{A} = \sum_{t=1}^T \boldsymbol{\phi}(S_t)[\boldsymbol{\phi}(S_t) - \gamma\boldsymbol{\phi}(S_{t+1})]^\top$$ $$\mathbf{b} = \sum_{t=1}^T R_{t+1}\boldsymbol{\phi}(S_t)$$
 
 LSTD finds the exact solution to the linear TD fixed point but requires $O(d^2)$ memory and $O(d^3)$ computation.
 
@@ -2482,7 +2482,7 @@ Clearly, we cannot store a table. We need function approximation.
 **The DQN Architecture:** DQN uses a deep convolutional neural network (see @sec-neural-networks for CNN details) to approximate
 the action-value function:
 
-$$Q(s,a;\boldsymbol{\theta}) \approx q_*(s,a)$$
+$$\hat{q}(s,a, \boldsymbol{\theta}) \approx q_*(s,a)$$
 
 where $\boldsymbol{\theta}$ represents all network parameters (weights and biases). The network takes raw pixels as input and
 outputs Q-values for each possible action.
@@ -2511,12 +2511,12 @@ leading to overfitting 2. **Non-stationary targets:** Q-values change as the pol
 
 **Solution:** Store experiences in a replay buffer and learn from random mini-batches.
 
-**Replay Buffer $\mathcal{D}$:** A circular buffer storing transitions $(s_t, a_t, r_t, s_{t+1}, \text{done}_t)$ with capacity $N$
+**Replay Buffer $\mathcal{B}$:** A circular buffer storing transitions $(S_t, A_t, R_{t+1}, S_{t+1}, \text{done}_t)$ with capacity $N$
 (typically $N = 10^6$). When full, oldest transitions are discarded (FIFO).
 
-**Training Process:** 1. Agent interacts with environment, storing transitions in $\mathcal{D}$
+**Training Process:** 1. Agent interacts with environment, storing transitions in $\mathcal{B}$
 2. Sample random mini-batch of 32
-transitions from $\mathcal{D}$
+transitions from $\mathcal{B}$
 3. Compute loss and update network using backpropagation (@sec-neural-networks) 4. Repeat steps 2-3
 multiple times per environment step
 
@@ -2536,7 +2536,7 @@ tail" problem. The target keeps moving as we try to reach it!
 **Solution:** Maintain two networks: - **Online network $\boldsymbol{\theta}$:** Updated every step, used for action selection -
 **Target network $\boldsymbol{\theta}^-$:** Updated every $C$ steps (typically $C = 10,000$), used for computing targets
 
-**Target Computation:** $$y_i = r_i + \gamma \max_{a'} Q(s_i', a'; \boldsymbol{\theta}^-)$$
+**Target Computation:** $$y_i = r_i + \gamma \max_{a'} \hat{q}(s_i', a', \boldsymbol{\theta}^-)$$
 
 The target network $\boldsymbol{\theta}^-$ is frozen for $C$ steps, providing a stable target. Every $C$ steps:
 $$\boldsymbol{\theta}^- \leftarrow \boldsymbol{\theta}$$
@@ -2553,18 +2553,16 @@ supplies the frozen target. The definition below writes it out.
 
 DQN minimizes the squared temporal difference error:
 
-$$L(\boldsymbol{\theta}) = \mathbb{E}_{(s,a,r,s') \sim \mathcal{D}}\left[\left(r + \gamma \max_{a'} Q(s', a';
-\boldsymbol{\theta}^-) - Q(s,a;\boldsymbol{\theta})\right)^2\right]$$
+$$L(\boldsymbol{\theta}) = \mathbb{E}_{(s,a,r,s') \sim \mathcal{B}}\left[\left(r + \gamma \max_{a'} \hat{q}(s', a', \boldsymbol{\theta}^-) - \hat{q}(s,a, \boldsymbol{\theta})\right)^2\right]$$
 :::
 
 ::::
 
 The gradient (computed via backpropagation, see @sec-neural-networks) is:
 
-$$\nabla_{\boldsymbol{\theta}} L(\boldsymbol{\theta}) = \mathbb{E}\left[\left(r + \gamma \max_{a'} Q(s', a';
-\boldsymbol{\theta}^-) - Q(s,a;\boldsymbol{\theta})\right) \nabla_{\boldsymbol{\theta}} Q(s,a;\boldsymbol{\theta})\right]$$
+$$\nabla_{\boldsymbol{\theta}} L(\boldsymbol{\theta}) = \mathbb{E}\left[\left(r + \gamma \max_{a'} \hat{q}(s', a', \boldsymbol{\theta}^-) - \hat{q}(s,a, \boldsymbol{\theta})\right) \nabla_{\boldsymbol{\theta}} \hat{q}(s,a, \boldsymbol{\theta})\right]$$
 
-Note: We don't differentiate through the target $\max_{a'} Q(s', a'; \boldsymbol{\theta}^-)$, making this a semi-gradient method
+Note: We don't differentiate through the target $\max_{a'} \hat{q}(s', a', \boldsymbol{\theta}^-)$, making this a semi-gradient method
 (similar to TD learning).
 
 **DQN Training Algorithm:** ``` Initialize replay buffer D with capacity N = 1,000,000 Initialize Q-network with random weights θ
@@ -2621,9 +2619,9 @@ Double DQN variant, for a three-action problem.
 ::: {#exr-rl-dqn-targets}
 #### Computing DQN targets
 
-A transition has $r = 1$, $\gamma = 0.99$, target-network values $Q(s', \cdot; \boldsymbol\theta^-) = (2, 5, 3)$ and online values
-$Q(s', \cdot; \boldsymbol\theta) = (4, 1, 6)$. Compute the DQN target if $s'$ is not terminal and if it is, and the Double DQN
-target $r + \gamma Q(s', \arg\max_{a'} Q(s', a'; \boldsymbol\theta); \boldsymbol\theta^-)$.
+A transition has $r = 1$, $\gamma = 0.99$, target-network values $\hat{q}(s', \cdot, \boldsymbol\theta^-) = (2, 5, 3)$ and online values
+$\hat{q}(s', \cdot, \boldsymbol\theta) = (4, 1, 6)$. Compute the DQN target if $s'$ is not terminal and if it is, and the Double DQN
+target $r + \gamma \hat{q}(s', \arg\max_{a'} \hat{q}(s', a', \boldsymbol\theta), \boldsymbol\theta^-)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2635,7 +2633,7 @@ with the reduced overestimation.
 
 **Double DQN (DDQN):** Addresses overestimation bias in DQN by decoupling action selection and evaluation:
 
-$$y_i = r_i + \gamma Q(s_i', \arg\max_{a'} Q(s_i', a'; \boldsymbol{\theta}); \boldsymbol{\theta}^-)$$
+$$y_i = r_i + \gamma \hat{q}(s_i', \arg\max_{a'} \hat{q}(s_i', a', \boldsymbol{\theta}), \boldsymbol{\theta}^-)$$
 
 The online network $\boldsymbol{\theta}$ selects the action, while the target network $\boldsymbol{\theta}^-$ evaluates it. This
 simple change significantly reduces overestimation and improves performance.
@@ -2649,21 +2647,21 @@ overestimation that propagates through the Bellman updates.
 
 **Dueling DQN:** Decomposes the Q-function into state value and advantage:
 
-$$Q(s,a;\boldsymbol{\theta}) = V(s;\boldsymbol{\theta}_V) + A(s,a;\boldsymbol{\theta}_A)$$
+$$\hat{q}(s,a, \boldsymbol{\theta}) = \hat{v}(s, \boldsymbol{\theta}_V) + \hat{a}(s,a, \boldsymbol{\theta}_A)$$
 
 However, this decomposition is not unique. To ensure identifiability, we force the advantage to have zero mean:
 
-$$Q(s,a;\boldsymbol{\theta}) = V(s;\boldsymbol{\theta}_V) + \left(A(s,a;\boldsymbol{\theta}_A) - \frac{1}{|\mathcal{A}|}\sum_{a'}
-A(s,a';\boldsymbol{\theta}_A)\right)$$
+$$\hat{q}(s,a, \boldsymbol{\theta}) = \hat{v}(s, \boldsymbol{\theta}_V) + \left(\hat{a}(s,a, \boldsymbol{\theta}_A) - \frac{1}{|\mathcal{A}|}\sum_{a'}
+\hat{a}(s,a', \boldsymbol{\theta}_A)\right)$$
 
 Alternatively, we can subtract the maximum advantage:
 
-$$Q(s,a;\boldsymbol{\theta}) = V(s;\boldsymbol{\theta}_V) + \left(A(s,a;\boldsymbol{\theta}_A) - \max_{a'}
-A(s,a';\boldsymbol{\theta}_A)\right)$$
+$$\hat{q}(s,a, \boldsymbol{\theta}) = \hat{v}(s, \boldsymbol{\theta}_V) + \left(\hat{a}(s,a, \boldsymbol{\theta}_A) - \max_{a'}
+\hat{a}(s,a', \boldsymbol{\theta}_A)\right)$$
 
-**Architecture:** The network splits into two streams after the convolutional layers: - **Value stream:** Outputs scalar $V(s)$
+**Architecture:** The network splits into two streams after the convolutional layers: - **Value stream:** Outputs scalar $\hat{v}(s, \boldsymbol{\theta}_V)$
 -
-**Advantage stream:** Outputs vector $A(s,a)$ for each action
+**Advantage stream:** Outputs vector $\hat{a}(s,a, \boldsymbol{\theta}_A)$ for each action
 
 These are combined using the formula above to produce Q-values.
 
@@ -2679,7 +2677,7 @@ Rainbow achieves state-of-the-art performance on Atari, demonstrating that these
 
 **Distributional RL (C51):** Instead of estimating expected return, model the full distribution:
 
-$$Z(s,a) = \text{distribution of } G_t | S_t=s, A_t=a$$
+$$Z(s,a) = \text{distribution of } G_t \mid S_t=s, A_t=a$$
 
 Represent the distribution using discrete atoms:
 
@@ -2691,12 +2689,12 @@ $$Z(s,a) \stackrel{D}{=} R(s,a) + \gamma Z(s',a')$$
 
 C51 uses 51 atoms and minimizes the KL divergence between the projected Bellman distribution and the current distribution.
 
-**Noisy Networks:** Replace $\epsilon$-greedy exploration with learned stochastic parameters:
+**Noisy Networks:** Replace $\varepsilon$-greedy exploration with learned stochastic parameters:
 
-$$\boldsymbol{\theta} = \boldsymbol{\mu} + \boldsymbol{\sigma} \odot \boldsymbol{\epsilon}$$
+$$\boldsymbol{\theta} = \boldsymbol{\mu} + \boldsymbol{\sigma} \odot \boldsymbol{\varepsilon}$$
 
-where $\boldsymbol{\mu}$ and $\boldsymbol{\sigma}$ are learned and $\boldsymbol{\epsilon} \sim \mathcal{N}(0,1)$ is noise. This
-provides state-dependent exploration that improves over $\epsilon$-greedy.
+where $\boldsymbol{\mu}$ and $\boldsymbol{\sigma}$ are learned and $\boldsymbol{\varepsilon} \sim \mathcal{N}(0,1)$ is noise. This
+provides state-dependent exploration that improves over $\varepsilon$-greedy.
 
 **Limitations of DQN:** 1. **Sample inefficiency:** Requires millions of frames 2. **Discrete actions only:** Cannot handle
 continuous action spaces 3. **Overestimation:** Even with Double DQN 4. **Instability:** Can diverge or forget 5. **Hyperparameter
@@ -2720,14 +2718,14 @@ guarantees. Policy gradient methods form the foundation of modern deep reinforce
 
 **Policy Parameterization:** Represent the policy as a parameterized function:
 
-$$\pi(a|s;\boldsymbol{\theta}): \mathcal{S} \times \mathcal{A} \to [0,1]$$
+$$\pi(a \mid s;\boldsymbol{\theta}): \mathcal{S} \times \mathcal{A} \to [0,1]$$
 
 where $\boldsymbol{\theta} \in \mathbb{R}^d$ are the policy parameters. Common parameterizations include:
 
-1. **Softmax for discrete actions:** $$\pi(a|s;\boldsymbol{\theta}) = \frac{\exp(\phi(s,a)^T\boldsymbol{\theta})}{\sum_{a'}
-   \exp(\phi(s,a')^T\boldsymbol{\theta})}$$
+1. **Softmax for discrete actions:** $$\pi(a \mid s;\boldsymbol{\theta}) = \frac{\exp(\boldsymbol{\phi}(s,a)^\top\boldsymbol{\theta})}{\sum_{a'}
+   \exp(\boldsymbol{\phi}(s,a')^\top\boldsymbol{\theta})}$$
 
-2. **Gaussian for continuous actions:** $$\pi(a|s;\boldsymbol{\theta}) = \mathcal{N}(a | \mu_{\boldsymbol{\theta}}(s),
+2. **Gaussian for continuous actions:** $$\pi(a \mid s;\boldsymbol{\theta}) = \mathcal{N}(a \mid \mu_{\boldsymbol{\theta}}(s),
    \sigma_{\boldsymbol{\theta}}^2(s))$$ where both mean and variance can be parameterized by neural networks.
 
 **Objective Function:** The goal is to maximize the expected return:
@@ -2741,9 +2739,9 @@ For episodic tasks, we can write:
 
 $$J(\boldsymbol{\theta}) = \mathbb{E}_{s_0}[v_{\pi_{\boldsymbol{\theta}}}(s_0)]$$
 
-For continuing tasks with a stationary distribution $d_{\pi_{\boldsymbol{\theta}}}(s)$:
+For continuing tasks with a stationary distribution $\mu_{\pi_{\boldsymbol{\theta}}}(s)$:
 
-$$J(\boldsymbol{\theta}) = \sum_s d_{\pi_{\boldsymbol{\theta}}}(s) \sum_a \pi(a|s;\boldsymbol{\theta}) r(s,a)$$
+$$J(\boldsymbol{\theta}) = \sum_s \mu_{\pi_{\boldsymbol{\theta}}}(s) \sum_a \pi(a \mid s;\boldsymbol{\theta}) r(s,a)$$
 
 **The Policy Gradient Theorem:** The fundamental result that enables policy gradient methods is the policy gradient theorem, which
 provides a formula for the gradient of the objective.
@@ -2753,7 +2751,7 @@ provides a formula for the gradient of the objective.
 #### Policy gradient theorem
 
 $$\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) = \mathbb{E}_{\pi_{\boldsymbol{\theta}}}\left[\nabla_{\boldsymbol{\theta}}
-\log \pi(a|s;\boldsymbol{\theta}) \, q_{\pi_{\boldsymbol{\theta}}}(s,a)\right]$$
+\log \pi(a \mid s;\boldsymbol{\theta}) \, q_{\pi_{\boldsymbol{\theta}}}(s,a)\right]$$
 :::
 
 ::::
@@ -2764,19 +2762,19 @@ reward function.
 **Proof Sketch:** For episodic tasks:
 
 \begin{align*} \nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) &= \nabla_{\boldsymbol{\theta}} \mathbb{E}_{\tau \sim
-\pi_{\boldsymbol{\theta}}}[G_0] \\ &= \nabla_{\boldsymbol{\theta}} \int P(\tau;\boldsymbol{\theta}) G(\tau) d\tau \\ &= \int
-\nabla_{\boldsymbol{\theta}} P(\tau;\boldsymbol{\theta}) G(\tau) d\tau \\ &= \int P(\tau;\boldsymbol{\theta})
-\nabla_{\boldsymbol{\theta}} \log P(\tau;\boldsymbol{\theta}) G(\tau) d\tau \\ &= \mathbb{E}_{\tau \sim
-\pi_{\boldsymbol{\theta}}}[\nabla_{\boldsymbol{\theta}} \log P(\tau;\boldsymbol{\theta}) G(\tau)] \end{align*}
+\pi_{\boldsymbol{\theta}}}[G_0] \\ &= \nabla_{\boldsymbol{\theta}} \int p(\tau;\boldsymbol{\theta}) G(\tau) d\tau \\ &= \int
+\nabla_{\boldsymbol{\theta}} p(\tau;\boldsymbol{\theta}) G(\tau) d\tau \\ &= \int p(\tau;\boldsymbol{\theta})
+\nabla_{\boldsymbol{\theta}} \log p(\tau;\boldsymbol{\theta}) G(\tau) d\tau \\ &= \mathbb{E}_{\tau \sim
+\pi_{\boldsymbol{\theta}}}[\nabla_{\boldsymbol{\theta}} \log p(\tau;\boldsymbol{\theta}) G(\tau)] \end{align*}
 
 The trajectory probability is:
 
-$$P(\tau;\boldsymbol{\theta}) = \mu(s_0) \prod_{t=0}^{T-1} \pi(a_t|s_t;\boldsymbol{\theta}) P(s_{t+1}|s_t,a_t)$$
+$$p(\tau;\boldsymbol{\theta}) = p(s_0) \prod_{t=0}^{T-1} \pi(a_t \mid s_t;\boldsymbol{\theta}) P(s_{t+1} \mid s_t,a_t)$$
 
 Taking the log and gradient:
 
-$$\nabla_{\boldsymbol{\theta}} \log P(\tau;\boldsymbol{\theta}) = \sum_{t=0}^{T-1} \nabla_{\boldsymbol{\theta}} \log
-\pi(a_t|s_t;\boldsymbol{\theta})$$
+$$\nabla_{\boldsymbol{\theta}} \log p(\tau;\boldsymbol{\theta}) = \sum_{t=0}^{T-1} \nabla_{\boldsymbol{\theta}} \log
+\pi(a_t \mid s_t;\boldsymbol{\theta})$$
 
 Note that the environment dynamics cancel out! Substituting back and using the definition of Q-values yields the policy gradient
 theorem.
@@ -2788,9 +2786,9 @@ example computes it.
 ::: {#exm-rl-softmax-score}
 #### Score of the softmax policy
 
-For $\pi(a \mid s; \boldsymbol\theta) \propto \exp(\phi(s, a)^T \boldsymbol\theta)$, $\log \pi(a \mid s; \boldsymbol\theta) =
-\phi(s, a)^T \boldsymbol\theta - \log \sum_{a'} \exp(\phi(s, a')^T \boldsymbol\theta)$, so $\nabla_{\boldsymbol\theta} \log \pi(a
-\mid s; \boldsymbol\theta) = \phi(s, a) - \sum_{a'} \pi(a' \mid s; \boldsymbol\theta) \phi(s, a')$: the feature of the chosen
+For $\pi(a \mid s; \boldsymbol\theta) \propto \exp(\boldsymbol{\phi}(s, a)^\top \boldsymbol\theta)$, $\log \pi(a \mid s; \boldsymbol\theta) =
+\boldsymbol{\phi}(s, a)^\top \boldsymbol\theta - \log \sum_{a'} \exp(\boldsymbol{\phi}(s, a')^\top \boldsymbol\theta)$, so $\nabla_{\boldsymbol\theta} \log \pi(a
+\mid s; \boldsymbol\theta) = \boldsymbol{\phi}(s, a) - \sum_{a'} \pi(a' \mid s; \boldsymbol\theta) \boldsymbol{\phi}(s, a')$: the feature of the chosen
 action minus its average under the policy.
 :::
 ::::
@@ -2819,11 +2817,11 @@ $\mathbb{E}[\nabla \log \pi \, q] = \sigma(1 - \sigma) r_1 + (1 - \sigma)(-\sigm
 **REINFORCE Algorithm:** The simplest policy gradient algorithm uses Monte Carlo sampling to estimate the gradient:
 
 $$\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) \approx \frac{1}{N}\sum_{i=1}^N \sum_{t=0}^{T-1}
-\nabla_{\boldsymbol{\theta}} \log \pi(a_t^{(i)}|s_t^{(i)};\boldsymbol{\theta}) G_t^{(i)}$$
+\nabla_{\boldsymbol{\theta}} \log \pi(a_t^{(i)} \mid s_t^{(i)};\boldsymbol{\theta}) G_t^{(i)}$$
 
 The update rule is:
 
-$$\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t + \alpha \nabla_{\boldsymbol{\theta}} \log \pi(A_t|S_t;\boldsymbol{\theta}_t)
+$$\boldsymbol{\theta}_{t+1} = \boldsymbol{\theta}_t + \alpha \nabla_{\boldsymbol{\theta}} \log \pi(A_t \mid S_t;\boldsymbol{\theta}_t)
 G_t$$
 
 **Algorithm (REINFORCE):** ``` Input: Differentiable policy π(a|s;θ) Parameters: Step size α, discount γ Initialize: Policy
@@ -2850,28 +2848,28 @@ below states that the gradient is unchanged.
 For any baseline $b(s)$ that does not depend on the action,
 
 $$\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) = \mathbb{E}_{\pi_{\boldsymbol{\theta}}}\left[\nabla_{\boldsymbol{\theta}}
-\log \pi(a|s;\boldsymbol{\theta}) (q_{\pi_{\boldsymbol{\theta}}}(s,a) - b(s))\right]$$
+\log \pi(a \mid s;\boldsymbol{\theta}) (q_{\pi_{\boldsymbol{\theta}}}(s,a) - b(s))\right]$$
 :::
 
 ::::
 
 **Proof of Unbiasedness:** The baseline doesn't introduce bias because:
 
-\begin{align*} \mathbb{E}_{a \sim \pi}[\nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta}) b(s)] &= b(s) \sum_a
-\pi(a|s;\boldsymbol{\theta}) \nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta}) \\ &= b(s) \sum_a
-\nabla_{\boldsymbol{\theta}} \pi(a|s;\boldsymbol{\theta}) \\ &= b(s) \nabla_{\boldsymbol{\theta}} \sum_a
-\pi(a|s;\boldsymbol{\theta}) \\ &= b(s) \nabla_{\boldsymbol{\theta}} 1 = 0 \end{align*}
+\begin{align*} \mathbb{E}_{a \sim \pi}[\nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta}) b(s)] &= b(s) \sum_a
+\pi(a \mid s;\boldsymbol{\theta}) \nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta}) \\ &= b(s) \sum_a
+\nabla_{\boldsymbol{\theta}} \pi(a \mid s;\boldsymbol{\theta}) \\ &= b(s) \nabla_{\boldsymbol{\theta}} \sum_a
+\pi(a \mid s;\boldsymbol{\theta}) \\ &= b(s) \nabla_{\boldsymbol{\theta}} 1 = 0 \end{align*}
 
 **Optimal Baseline:** The baseline that minimizes variance is:
 
-$$b^*(s) = \frac{\mathbb{E}[\|\nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta})\|^2
-q_{\pi}(s,a)]}{\mathbb{E}[\|\nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta})\|^2]}$$
+$$b^*(s) = \frac{\mathbb{E}[\|\nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta})\|^2
+q_{\pi}(s,a)]}{\mathbb{E}[\|\nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta})\|^2]}$$
 
 In practice, we use $b(s) = v_{\pi_{\boldsymbol{\theta}}}(s)$, which is close to optimal and easy to learn.
 
 **Advantage Function:** Using the value function as baseline gives the advantage:
 
-$$A_{\pi}(s,a) = q_{\pi}(s,a) - v_{\pi}(s)$$
+$$a_\pi(s,a) = q_{\pi}(s,a) - v_{\pi}(s)$$
 
 The advantage measures how much better action $a$ is compared to the average action in state $s$. This significantly reduces
 variance while maintaining the correct gradient direction.
@@ -2930,8 +2928,8 @@ J(\boldsymbol{\theta})$$
 
 where $F(\boldsymbol{\theta})$ is the Fisher information matrix:
 
-$$F(\boldsymbol{\theta}) = \mathbb{E}_{s \sim d_{\pi}, a \sim \pi}[\nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta})
-\nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta})^T]$$
+$$F(\boldsymbol{\theta}) = \mathbb{E}_{s \sim \mu_\pi, a \sim \pi}[\nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta})
+\nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta})^\top]$$
 :::
 
 ::::
@@ -2984,7 +2982,7 @@ gives conditions under which this substitution is exact.
 For the policy gradient theorem to hold with function approximation, the value function
 approximation must satisfy:
 
-1. $\nabla_{\mathbf{w}} \hat{q}(s,a;\mathbf{w}) = \nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta})$
+1. $\nabla_{\mathbf{w}} \hat{q}(s,a, \mathbf{w}) = \nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta})$
 2. $\mathbf{w}$
 minimizes the mean squared error
 :::
@@ -3001,8 +2999,8 @@ specific kind.
 ::: {#exm-rl-compatible-softmax}
 #### Compatible features for the softmax policy
 
-By @exm-rl-softmax-score, condition 1 holds for $\hat q(s, a; \mathbf{w}) = \mathbf{w}^T\left(\phi(s, a) - \sum_{a'} \pi(a' \mid
-s) \phi(s, a')\right)$, a linear function of the centered features.
+By @exm-rl-softmax-score, condition 1 holds for $\hat q(s, a, \mathbf{w}) = \mathbf{w}^\top\left(\boldsymbol{\phi}(s, a) - \sum_{a'} \pi(a' \mid
+s) \boldsymbol{\phi}(s, a')\right)$, a linear function of the centered features.
 :::
 ::::
 
@@ -3010,24 +3008,24 @@ The compatible approximator has a structural property that explains why it is re
 exercise proves it.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-An approximator satisfying condition 1 of @thm-rl-compatible-function-approximation with $\hat q = \mathbf{w}^T
+An approximator satisfying condition 1 of @thm-rl-compatible-function-approximation with $\hat q = \mathbf{w}^\top
 \nabla_{\boldsymbol\theta} \log \pi$ averages to zero over actions. The reader proves this.
 
 ::: {#exr-rl-compatible-zero-mean}
 #### Compatible approximators have mean zero
 
-Show that $\sum_a \pi(a \mid s; \boldsymbol\theta) \, \mathbf{w}^T \nabla_{\boldsymbol\theta} \log \pi(a \mid s;
-\boldsymbol\theta) = 0$, and conclude that $\hat q$ approximates $A_\pi$ rather than $q_\pi$.
+Show that $\sum_a \pi(a \mid s; \boldsymbol\theta) \, \mathbf{w}^\top \nabla_{\boldsymbol\theta} \log \pi(a \mid s;
+\boldsymbol\theta) = 0$, and conclude that $\hat q$ approximates $a_\pi$ rather than $q_\pi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\sum_a \pi \nabla \log \pi = \sum_a \nabla \pi = \nabla \sum_a \pi = 0$, as in the proof of @prp-rl-baseline-unbiased; multiply
-by $\mathbf{w}^T$. A function with zero policy-average can fit $q_\pi$ only up to its policy-average $v_\pi$, so it approximates
-$q_\pi - v_\pi = A_\pi$ (@def-rl-advantage-function).
+by $\mathbf{w}^\top$. A function with zero policy-average can fit $q_\pi$ only up to its policy-average $v_\pi$, so it approximates
+$q_\pi - v_\pi = a_\pi$ (@def-rl-advantage-function).
 :::
 ::::
 
-**Deterministic Policy Gradient (DPG):** For continuous actions, we can use a deterministic policy $\mu_{\boldsymbol{\theta}}(s)$
+**Deterministic Policy Gradient (DPG):** For continuous actions, we can use a deterministic policy $\pi_{\boldsymbol{\theta}}(s)$
 and compute its gradient from the critic's action gradient. The theorem below gives the formula, which needs no integral over
 actions.
 
@@ -3035,8 +3033,8 @@ actions.
 ::: {#thm-rl-deterministic-policy-gradient}
 #### Deterministic policy gradient
 
-$$\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) = \mathbb{E}_{s \sim d_{\mu}}[\nabla_{\boldsymbol{\theta}}
-\mu_{\boldsymbol{\theta}}(s) \nabla_a Q^{\mu}(s,a)|_{a=\mu_{\boldsymbol{\theta}}(s)}]$$
+$$\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) = \mathbb{E}_{s \sim \mu_{\pi_{\boldsymbol{\theta}}}}[\nabla_{\boldsymbol{\theta}}
+\pi_{\boldsymbol{\theta}}(s) \nabla_a q_{\pi_{\boldsymbol{\theta}}}(s,a)\big|_{a=\pi_{\boldsymbol{\theta}}(s)}]$$
 :::
 
 ::::
@@ -3051,7 +3049,7 @@ the critic's best action.
 ::: {#exm-rl-dpg-quadratic}
 #### A linear policy and a quadratic critic
 
-Let $\mu_\theta(s) = \theta s$ and $Q(s, a) = -(a - 2s)^2$. Then $\nabla_a Q = -2(a - 2s)$, and $\nabla_\theta J = \mathbb{E}[s
+Let $\pi_\theta(s) = \theta s$ and $Q(s, a) = -(a - 2s)^2$. Then $\nabla_a Q = -2(a - 2s)$, and $\nabla_\theta J = \mathbb{E}[s
 \cdot (-2)(\theta s - 2s)] = -2(\theta - 2)\mathbb{E}[s^2]$, which is zero at $\theta = 2$, the policy $a = 2s$ that maximizes $Q$
 in every state.
 :::
@@ -3108,25 +3106,25 @@ handle continuous actions.
 
 **Architecture Components:**
 
-1. **Actor:** A parameterized policy $\pi(a|s;\boldsymbol{\theta})$ that selects actions 2. **Critic:** A value function
-approximator that can be: - State-value function: $\hat{v}(s;\mathbf{w}) \approx v_{\pi}(s)$
+1. **Actor:** A parameterized policy $\pi(a \mid s;\boldsymbol{\theta})$ that selects actions 2. **Critic:** A value function
+approximator that can be: - State-value function: $\hat{v}(s, \mathbf{w}) \approx v_{\pi}(s)$
 - Action-value function:
-   $\hat{q}(s,a;\mathbf{w}) \approx q_{\pi}(s,a)$
-- Advantage function: $\hat{A}(s,a;\mathbf{w}) \approx A_{\pi}(s,a)$
+   $\hat{q}(s,a, \mathbf{w}) \approx q_{\pi}(s,a)$
+- Advantage function: $\hat{a}(s,a,\mathbf{w}) \approx a_{\pi}(s,a)$
 
 **Basic Actor-Critic Algorithm:** The simplest form uses TD(0) for the critic:
 
 **Critic Update (TD Error):**
 
-$$\delta_t = R_{t+1} + \gamma \hat{v}(S_{t+1};\mathbf{w}) - \hat{v}(S_t;\mathbf{w})$$ $$\mathbf{w} \leftarrow \mathbf{w} +
-\alpha_w \delta_t \nabla_{\mathbf{w}} \hat{v}(S_t;\mathbf{w})$$
+$$\delta_t = R_{t+1} + \gamma \hat{v}(S_{t+1}, \mathbf{w}) - \hat{v}(S_t, \mathbf{w})$$ $$\mathbf{w} \leftarrow \mathbf{w} +
+\alpha_w \delta_t \nabla_{\mathbf{w}} \hat{v}(S_t, \mathbf{w})$$
 
-The TD error serves as an estimate of the advantage: $\delta_t \approx A_{\pi}(S_t, A_t)$.
+The TD error serves as an estimate of the advantage: $\delta_t \approx a_{\pi}(S_t, A_t)$.
 
 **Actor Update (Policy Gradient):**
 
 $$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \alpha_{\theta} \delta_t \nabla_{\boldsymbol{\theta}} \log
-\pi(A_t|S_t;\boldsymbol{\theta})$$
+\pi(A_t \mid S_t;\boldsymbol{\theta})$$
 
 The TD error acts as a baseline-reduced return estimate, reducing variance compared to REINFORCE.
 
@@ -3142,22 +3140,22 @@ estimate improves
 
 **n-Step Actor-Critic:** Generalize to n-step returns for better bias-variance tradeoff:
 
-$$G_t^{(n)} = R_{t+1} + \gamma R_{t+2} + \cdots + \gamma^{n-1} R_{t+n} + \gamma^n \hat{v}(S_{t+n};\mathbf{w})$$
+$$G_t^{(n)} = R_{t+1} + \gamma R_{t+2} + \cdots + \gamma^{n-1} R_{t+n} + \gamma^n \hat{v}(S_{t+n}, \mathbf{w})$$
 
 The actor update becomes:
 
-$$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \alpha_{\theta} (G_t^{(n)} - \hat{v}(S_t;\mathbf{w}))
-\nabla_{\boldsymbol{\theta}} \log \pi(A_t|S_t;\boldsymbol{\theta})$$
+$$\boldsymbol{\theta} \leftarrow \boldsymbol{\theta} + \alpha_{\theta} (G_t^{(n)} - \hat{v}(S_t, \mathbf{w}))
+\nabla_{\boldsymbol{\theta}} \log \pi(A_t \mid S_t;\boldsymbol{\theta})$$
 
 **Advantage Actor-Critic (A2C):** A2C is a synchronous version of A3C that uses the advantage function explicitly:
 
 $$\nabla_{\boldsymbol{\theta}} J(\boldsymbol{\theta}) \approx \mathbb{E}[\nabla_{\boldsymbol{\theta}} \log
-\pi(a|s;\boldsymbol{\theta}) \hat{A}(s,a;\mathbf{w})]$$
+\pi(a \mid s;\boldsymbol{\theta}) \hat{a}(s,a,\mathbf{w})]$$
 
 **Advantage Estimation:** Several methods to estimate advantages:
 
-1. **One-step TD:** $\hat{A}(s,a) = r + \gamma V(s') - V(s)$
-2. **n-step:** $\hat{A}(s,a) = G_t^{(n)} - V(s)$
+1. **One-step TD:** $\hat{A}_t = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)$
+2. **n-step:** $\hat{A}_t = G_t^{(n)} - V(S_t)$
 3. **GAE
 (Generalized Advantage Estimation):** Exponentially weighted average of n-step advantages, defined below.
 
@@ -3170,7 +3168,7 @@ It is the estimator used by most modern policy-gradient implementations.
 
 $$\hat{A}_t^{GAE(\gamma,\lambda)} = \sum_{l=0}^\infty (\gamma\lambda)^l \delta_{t+l}$$
 
-where $\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)$.
+where $\delta_t = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)$.
 :::
 
 ::::
@@ -3189,7 +3187,7 @@ The two ends of the $\lambda$ range recover estimators already met. The example 
 #### λ = 0 and λ = 1
 
 For $\lambda = 0$ only the $l = 0$ term survives and $\hat A_t = \delta_t$, the one-step TD advantage. For $\lambda = 1$ and an
-episode ending at $T$ with $V(s_T) = 0$, $\hat A_t = \sum_{l} \gamma^l \delta_{t+l} = G_t - V(s_t)$, the Monte Carlo advantage.
+episode ending at $T$ with $V(S_T) = 0$, $\hat A_t = \sum_{l} \gamma^l \delta_{t+l} = G_t - V(S_t)$, the Monte Carlo advantage.
 :::
 ::::
 
@@ -3242,12 +3240,12 @@ Repeat: Synchronize: θ' = θ, w' = w Collect trajectory of length t_max using �
 
 **Entropy Regularization:** Add entropy bonus to encourage exploration:
 
-$$J(\boldsymbol{\theta}) = \mathbb{E}[\sum_t r_t + \beta H(\pi(\cdot|s_t;\boldsymbol{\theta}))]$$
+$$J(\boldsymbol{\theta}) = \mathbb{E}[\sum_t R_{t+1} + \beta H(\pi(\cdot \mid S_t;\boldsymbol{\theta}))]$$
 
-where $H(\pi) = -\sum_a \pi(a|s) \log \pi(a|s)$ is the policy entropy. The gradient becomes:
+where $H(\pi) = -\sum_a \pi(a \mid s) \log \pi(a \mid s)$ is the policy entropy. The gradient becomes:
 
-$$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}[\nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta}) A(s,a) + \beta
-\nabla_{\boldsymbol{\theta}} H(\pi(\cdot|s;\boldsymbol{\theta}))]$$
+$$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}[\nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta}) a_\pi(s,a) + \beta
+\nabla_{\boldsymbol{\theta}} H(\pi(\cdot \mid s;\boldsymbol{\theta}))]$$
 
 Entropy regularization prevents premature convergence to deterministic policies.
 
@@ -3264,10 +3262,10 @@ V(s) ```
 
 **Off-Policy Actor-Critic:** Standard actor-critic is on-policy, but we can make it off-policy using importance sampling:
 
-$$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}_{s,a \sim \beta}\left[\frac{\pi(a|s;\boldsymbol{\theta})}{\beta(a|s)}
-\nabla_{\boldsymbol{\theta}} \log \pi(a|s;\boldsymbol{\theta}) A(s,a)\right]$$
+$$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}_{s,a \sim b}\left[\frac{\pi(a \mid s;\boldsymbol{\theta})}{b(a \mid s)}
+\nabla_{\boldsymbol{\theta}} \log \pi(a \mid s;\boldsymbol{\theta}) a_\pi(s,a)\right]$$
 
-where $\beta$ is the behavior policy. However, importance sampling can have high variance.
+where $b$ is the behavior policy. However, importance sampling can have high variance.
 
 **Practical Considerations:**
 
@@ -3298,9 +3296,9 @@ apply. Trust-region methods limit the size of the change, either by a hard const
 
 Maximize expected return subject to KL constraint:
 
-$$\max_{\boldsymbol{\theta}} \mathbb{E}[\frac{\pi_{\boldsymbol{\theta}}(a|s)}{\pi_{\boldsymbol{\theta}_{\text{old}}}(a|s)}
-A_{\boldsymbol{\theta}_{\text{old}}}(s,a)]$$ $$\text{s.t.} \quad
-\mathbb{E}[D_{\text{KL}}(\pi_{\boldsymbol{\theta}_{\text{old}}}(\cdot|s) \| \pi_{\boldsymbol{\theta}}(\cdot|s))] \leq \delta$$
+$$\max_{\boldsymbol{\theta}} \mathbb{E}[\frac{\pi_{\boldsymbol{\theta}}(a \mid s)}{\pi_{\boldsymbol{\theta}_{\text{old}}}(a \mid s)}
+a_{\pi_{\boldsymbol{\theta}_{\text{old}}}}(s,a)]$$ $$\text{s.t.} \quad
+\mathbb{E}[D_{\mathrm{KL}}(\pi_{\boldsymbol{\theta}_{\text{old}}}(\cdot \mid s) \,\Vert\, \pi_{\boldsymbol{\theta}}(\cdot \mid s))] \leq \delta$$
 
 The constrained problem requires second-order machinery to solve. PPO replaces the constraint by a clipped objective, defined
 below.
@@ -3311,26 +3309,26 @@ below.
 
 Clipped surrogate objective:
 
-$$L^{\text{CLIP}}(\boldsymbol{\theta}) = \mathbb{E}[\min(r_t(\boldsymbol{\theta})A_t, \text{clip}(r_t(\boldsymbol{\theta}),
-1-\epsilon, 1+\epsilon)A_t)]$$
+$$J^{\text{CLIP}}(\boldsymbol{\theta}) = \mathbb{E}[\min(\rho_t(\boldsymbol{\theta})\hat{A}_t, \text{clip}(\rho_t(\boldsymbol{\theta}),
+1-\varepsilon, 1+\varepsilon)\hat{A}_t)]$$
 
-where $r_t(\boldsymbol{\theta}) = \frac{\pi_{\boldsymbol{\theta}}(a_t|s_t)}{\pi_{\boldsymbol{\theta}_{\text{old}}}(a_t|s_t)}$.
+where $\rho_t(\boldsymbol{\theta}) = \frac{\pi_{\boldsymbol{\theta}}(A_t \mid S_t)}{\pi_{\boldsymbol{\theta}_{\text{old}}}(A_t \mid S_t)}$.
 :::
 
 ::::
 
 PPO is simpler than TRPO and often performs better in practice. The minimum makes the objective pessimistic: the clipped term
-removes any incentive to move the ratio beyond $1 \pm \epsilon$ in the direction the advantage favors.
+removes any incentive to move the ratio beyond $1 \pm \varepsilon$ in the direction the advantage favors.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-For a positive advantage, the objective grows with the ratio only up to $1 + \epsilon$. The example evaluates it on both sides of
+For a positive advantage, the objective grows with the ratio only up to $1 + \varepsilon$. The example evaluates it on both sides of
 that point.
 
 ::: {#exm-rl-ppo-positive-advantage}
 #### Clipping a positive advantage
 
-With $\epsilon = 0.2$ and $A_t = 1$: for $r_t = 1.1$, $\min(1.1, 1.1) = 1.1$; for $r_t = 1.5$, $\min(1.5, 1.2) = 1.2$. Beyond
-$r_t = 1.2$ the objective is flat, so its gradient with respect to $\boldsymbol\theta$ vanishes.
+With $\varepsilon = 0.2$ and $\hat{A}_t = 1$: for $\rho_t = 1.1$, $\min(1.1, 1.1) = 1.1$; for $\rho_t = 1.5$, $\min(1.5, 1.2) = 1.2$. Beyond
+$\rho_t = 1.2$ the objective is flat, so its gradient with respect to $\boldsymbol\theta$ vanishes.
 :::
 ::::
 
@@ -3344,13 +3342,13 @@ negative case.
 ::: {#exr-rl-ppo-negative-advantage}
 #### Clipping a negative advantage
 
-With $\epsilon = 0.2$ and $A_t = -1$, evaluate $L^{\text{CLIP}}$ for $r_t = 0.5$ and $r_t = 1.5$, and say for which of the two
+With $\varepsilon = 0.2$ and $\hat{A}_t = -1$, evaluate $J^{\text{CLIP}}$ for $\rho_t = 0.5$ and $\rho_t = 1.5$, and say for which of the two
 the gradient vanishes.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $r_t = 0.5$: $\min(-0.5, -0.8) = -0.8$, the clipped term, which does not depend on $\boldsymbol\theta$, so the gradient
-vanishes: there is no incentive to lower the probability of the bad action further. For $r_t = 1.5$: $\min(-1.5, -1.2) = -1.5$,
+For $\rho_t = 0.5$: $\min(-0.5, -0.8) = -0.8$, the clipped term, which does not depend on $\boldsymbol\theta$, so the gradient
+vanishes: there is no incentive to lower the probability of the bad action further. For $\rho_t = 1.5$: $\min(-1.5, -1.2) = -1.5$,
 the unclipped term, so the gradient pushes the ratio back down.
 :::
 ::::
@@ -3359,15 +3357,15 @@ the unclipped term, so the gradient pushes the ratio back down.
 
 **Deep Deterministic Policy Gradient (DDPG):**
 
-For continuous action spaces, use deterministic policy $\mu(s;\boldsymbol{\theta})$:
+For continuous action spaces, use deterministic policy $\pi_{\boldsymbol{\theta}}(s)$:
 
-$$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}[\nabla_a Q(s,a;\mathbf{w})|_{a=\mu(s;\boldsymbol{\theta})}
-\nabla_{\boldsymbol{\theta}} \mu(s;\boldsymbol{\theta})]$$
+$$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}[\nabla_a \hat{q}(s,a,\mathbf{w})\big|_{a=\pi_{\boldsymbol{\theta}}(s)}
+\nabla_{\boldsymbol{\theta}} \pi_{\boldsymbol{\theta}}(s)]$$
 
-**Components:** - Actor: $\mu(s;\boldsymbol{\theta})$
-- Critic: $Q(s,a;\mathbf{w})$
+**Components:** - Actor: $\pi_{\boldsymbol{\theta}}(s)$
+- Critic: $\hat{q}(s,a,\mathbf{w})$
 - Target networks for both - Experience replay
-- Exploration noise: $a_t = \mu(s_t;\boldsymbol{\theta}) + \mathcal{N}_t$
+- Exploration noise: $A_t = \pi_{\boldsymbol{\theta}}(S_t) + \varepsilon_t$
 
 **Twin Delayed DDPG (TD3):** Improvements over DDPG: 1. **Clipped Double Q-Learning:** Use minimum of two critics 2. **Delayed
 Policy Updates:** Update policy less frequently than critic 3. **Target Policy Smoothing:** Add noise to target actions
@@ -3383,13 +3381,13 @@ objective itself, which changes the Bellman equations as well.
 
 Maximum entropy RL framework:
 
-$$J(\pi) = \sum_t \mathbb{E}_{(s_t,a_t) \sim \rho_\pi}[r(s_t,a_t) + \alpha \mathcal{H}(\pi(\cdot|s_t))]$$
+$$J(\pi) = \sum_t \mathbb{E}_{S_t \sim \mu_\pi,\, A_t \sim \pi(\cdot \mid S_t)}[r(S_t,A_t) + \alpha H(\pi(\cdot \mid S_t))]$$
 
-where $\mathcal{H}(\pi(\cdot|s)) = -\mathbb{E}_{a \sim \pi}[\log \pi(a|s)]$ is the entropy.
+where $H(\pi(\cdot \mid s)) = -\mathbb{E}_{a \sim \pi}[\log \pi(a \mid s)]$ is the entropy.
 
 **Soft Bellman Equation:**
 
-$$Q(s,a) = r(s,a) + \gamma \mathbb{E}_{s'}[V(s')]$$ $$V(s) = \mathbb{E}_{a \sim \pi}[Q(s,a) - \alpha \log \pi(a|s)]$$
+$$Q(s,a) = r(s,a) + \gamma \mathbb{E}_{s'}[V(s')]$$ $$V(s) = \mathbb{E}_{a \sim \pi}[Q(s,a) - \alpha \log \pi(a \mid s)]$$
 :::
 
 ::::
@@ -3405,7 +3403,7 @@ The entropy bonus is bounded, and its maximum is attained by the uniform policy.
 ::: {#exm-rl-entropy-uniform}
 #### Entropy of the uniform policy
 
-For $|\mathcal{A}| = n$ actions, the uniform policy has $\mathcal{H} = -\sum_a \frac1n \log \frac1n = \log n$, which is the
+For $|\mathcal{A}| = n$ actions, the uniform policy has $H = -\sum_a \frac1n \log \frac1n = \log n$, which is the
 maximum entropy of a distribution on $n$ points. With $n = 4$ and $\alpha = 0.1$ the bonus per step is at most $0.1 \log 4
 \approx 0.139$.
 :::
@@ -3416,7 +3414,7 @@ The exercise derives the resulting softmax policy.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 In a single state the objective of @def-rl-maximum-entropy-objective reduces to maximizing $\sum_a \pi(a) Q(a) + \alpha
-\mathcal{H}(\pi)$. The reader finds the maximizer, which is the policy SAC moves toward.
+H(\pi)$. The reader finds the maximizer, which is the policy SAC moves toward.
 
 ::: {#exr-rl-soft-greedy-policy}
 #### The soft-greedy policy
@@ -3442,7 +3440,7 @@ learning agents.
 
 Learn model of environment dynamics and use for planning.
 
-**Dyna Architecture:** 1. **Direct RL:** Learn from real experience 2. **Model Learning:** Learn model $\hat{P}(s'|s,a)$ and
+**Dyna Architecture:** 1. **Direct RL:** Learn from real experience 2. **Model Learning:** Learn model $\hat{P}(s' \mid s,a)$ and
 $\hat{R}(s,a)$
 3. **Planning:** Generate simulated experience using model
 
@@ -3462,9 +3460,9 @@ $$a_1^*, \ldots, a_H^* = \arg\max_{a_1, \ldots, a_H} \sum_{t=1}^H r(s_t, a_t)$$
 **Centralized Training, Decentralized Execution (CTDE):** - Training: Access to global information - Execution: Each agent uses
 only local observations
 
-**Multi-Agent DDPG (MADDPG):** - Centralized critic: $Q_i(\mathbf{s}, a_1, \ldots, a_N; \mathbf{w}_i)$
+**Multi-Agent DDPG (MADDPG):** - Centralized critic: $\hat{q}_i(\mathbf{s}, a_1, \ldots, a_N, \mathbf{w}_i)$
 - Decentralized actor:
-$\mu_i(s_i; \boldsymbol{\theta}_i)$
+$\pi_{\boldsymbol{\theta}_i}(s_i)$
 
 **Communication:** Agents learn to communicate via differentiable communication channels.
 
@@ -3498,9 +3496,9 @@ In all these cases, we have data but cannot easily collect more. This is the off
 #### Offline RL problem
 
 **Problem Setting:** Given a fixed dataset $\mathcal{D} = \{(s_i, a_i, r_i, s_i')\}_{i=1}^N$ collected by one or more behavior
-policies $\pi_\beta$, learn a policy $\pi$ that maximizes expected return:
+policies $b$, learn a policy $\pi$ that maximizes expected return:
 
-$$J(\pi) = \mathbb{E}_{s_0, a_t \sim \pi, s_{t+1} \sim P}\left[\sum_{t=0}^\infty \gamma^t r_t\right]$$
+$$J(\pi) = \mathbb{E}_{S_0,\, A_t \sim \pi,\, S_{t+1} \sim P}\left[\sum_{t=0}^\infty \gamma^t R_{t+1}\right]$$
 
 without any additional environment interaction during training.
 :::
@@ -3555,7 +3553,7 @@ data never constrained.
 
 **Three Key Challenges:**
 
-1. **Distributional Shift:** Learned policy $\pi$ may visit states $s \sim d^\pi$ where $d^\pi(s) \neq d^{\pi_\beta}(s)$, leading
+1. **Distributional Shift:** Learned policy $\pi$ may visit states $s \sim \mu_\pi$ where $\mu_\pi(s) \neq \mu_b(s)$, leading
 to extrapolation errors in value estimation.
 
 2. **Overestimation Bias:** Q-learning's $\max_a Q(s,a)$ operator amplifies errors for OOD actions. If we overestimate some OOD
@@ -3575,7 +3573,7 @@ OOD regions 4. **Hybrid Methods:** Combine multiple strategies
 BCQ, one of the first successful offline RL algorithms, takes a direct approach: only select actions that are likely under the
 behavior policy.
 
-**Core Idea:** If an action $a$ has low probability under $\pi_\beta(a|s)$, it's probably not in our dataset. Don't select it!
+**Core Idea:** If an action $a$ has low probability under $b(a \mid s)$, it's probably not in our dataset. Don't select it!
 
 :::: {.statement-box}
 ::: {#def-rl-batch-constraint}
@@ -3583,28 +3581,28 @@ behavior policy.
 
 Restrict learned policy to stay close to behavior policy:
 
-$$\pi^* = \arg\max_{\pi} \mathbb{E}_{s \sim \mathcal{D}, a \sim \pi}[Q(s,a)] \quad \text{s.t.} \quad D(\pi, \pi_\beta) \leq
-\epsilon$$
+$$\pi^* = \arg\max_{\pi} \mathbb{E}_{s \sim \mathcal{D}, a \sim \pi}[Q(s,a)] \quad \text{s.t.} \quad D(\pi, b) \leq
+\varepsilon$$
 
 where $D$ measures policy divergence (e.g., KL divergence, maximum mean discrepancy).
 :::
 
 ::::
 
-**BCQ for Discrete Actions:** Learn a generative model $G_\omega(s,a)$ that estimates $\pi_\beta(a|s)$, then select actions with
+**BCQ for Discrete Actions:** Learn a generative model $\hat{b}_{\boldsymbol{\omega}}(a \mid s)$ that estimates $b(a \mid s)$, then select actions with
 high probability:
 
-$$\pi(s) = \arg\max_{a: G_\omega(s,a) > \tau} Q_\theta(s,a)$$
+$$\pi(s) = \arg\max_{a: \hat{b}_{\boldsymbol{\omega}}(a \mid s) > \tau} \hat{q}(s,a,\boldsymbol{\theta})$$
 
 where $\tau$ is a threshold (e.g., $\tau = 0.1$). This filters out actions unlikely to be in the dataset.
 
 **BCQ for Continuous Actions:** Use a generative model (VAE) to sample actions similar to those in $\mathcal{D}$:
 
-1. Train VAE to model behavior policy: $a \sim G_\omega(s)$
-2. Sample $N$ actions from VAE: $\{a_i\}_{i=1}^N \sim G_\omega(s)$
+1. Train VAE to model behavior policy: $a \sim \hat{b}_{\boldsymbol{\omega}}(\cdot \mid s)$
+2. Sample $N$ actions from VAE: $\{a_i\}_{i=1}^N \sim \hat{b}_{\boldsymbol{\omega}}(\cdot \mid s)$
 3.
-Apply small perturbations: $\tilde{a}_i = a_i + \xi_\phi(s, a_i)$ where $\xi_\phi$ is a learned perturbation network 4. Select
-action with highest Q-value: $\pi(s) = \arg\max_i Q_\theta(s, \tilde{a}_i)$
+Apply small perturbations: $\tilde{a}_i = a_i + \xi_{\boldsymbol{\phi}}(s, a_i)$ where $\xi_{\boldsymbol{\phi}}$ is a learned perturbation network 4. Select
+action with highest Q-value: $\pi(s) = \arg\max_i \hat{q}(s, \tilde{a}_i, \boldsymbol{\theta})$
 
 **Intuition:** The VAE ensures we stay near the data distribution, while the perturbation network allows small improvements. It's
 like saying "do something similar to what's in the dataset, but slightly better."
@@ -3631,12 +3629,12 @@ constrained and unconstrained choices.
 ::: {#exr-rl-bcq-discrete}
 #### Discrete BCQ by hand
 
-In a state $s$ with three actions, $G_\omega(s, \cdot) = (0.6, 0.35, 0.05)$ and $Q_\theta(s, \cdot) = (3, 5, 9)$. Which action does
+In a state $s$ with three actions, $\hat{b}_{\boldsymbol{\omega}}(\cdot \mid s) = (0.6, 0.35, 0.05)$ and $\hat{q}(s, \cdot, \boldsymbol{\theta}) = (3, 5, 9)$. Which action does
 BCQ select with $\tau = 0.1$, and which would the greedy policy select?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Only $a_1$ and $a_2$ pass the threshold $G_\omega > 0.1$, and among them $Q_\theta$ is largest for $a_2$, so BCQ selects $a_2$.
+Only $a_1$ and $a_2$ pass the threshold $\hat{b}_{\boldsymbol{\omega}} > 0.1$, and among them $\hat{q}$ is largest for $a_2$, so BCQ selects $a_2$.
 The greedy policy would select $a_3$, whose high value of $9$ rests on an action that appears in about $5\%$ of the data and may
 well be an extrapolation error.
 :::
@@ -3657,8 +3655,8 @@ overestimated OOD actions.
 Minimize Q-values for OOD actions while maintaining Bellman consistency on the dataset:
 
 $$\min_Q \alpha \underbrace{\mathbb{E}_{s \sim \mathcal{D}}\left[\log \sum_a \exp(Q(s,a)) - \mathbb{E}_{a \sim
-\pi_\beta}[Q(s,a)]\right]}_{\text{Conservatism penalty}} + \underbrace{\frac{1}{2}\mathbb{E}_{(s,a,s') \sim \mathcal{D}}[(Q(s,a) -
-\mathcal{B}^\pi Q(s,a))^2]}_{\text{Bellman error}}$$
+b}[Q(s,a)]\right]}_{\text{Conservatism penalty}} + \underbrace{\frac{1}{2}\mathbb{E}_{(s,a,s') \sim \mathcal{D}}[(Q(s,a) -
+T^\pi Q(s,a))^2]}_{\text{Bellman error}}$$
 :::
 
 ::::
@@ -3666,7 +3664,7 @@ $$\min_Q \alpha \underbrace{\mathbb{E}_{s \sim \mathcal{D}}\left[\log \sum_a \ex
 **Understanding the Terms:**
 
 1. **First term:** Penalizes high Q-values for all actions (the $\log \sum_a \exp(Q(s,a))$ term) while encouraging high Q-values
-for dataset actions (the $-\mathbb{E}_{a \sim \pi_\beta}[Q(s,a)]$ term). Net effect: push down Q-values for OOD actions.
+for dataset actions (the $-\mathbb{E}_{a \sim b}[Q(s,a)]$ term). Net effect: push down Q-values for OOD actions.
 
 2. **Second term:** Standard Bellman error ensuring Q-function is accurate on the dataset (see @sec-rl-value-functions-bellman for
 Bellman equations).
@@ -3674,7 +3672,7 @@ Bellman equations).
 **Continuous Action CQL:** For continuous actions, replace the sum with an expectation over the current policy:
 
 $$\min_Q \alpha \left(\mathbb{E}_{s \sim \mathcal{D}, a \sim \pi(s)}[Q(s,a)] - \mathbb{E}_{s,a \sim \mathcal{D}}[Q(s,a)]\right) +
-\frac{1}{2}\mathbb{E}_{\mathcal{D}}[(Q - \mathcal{B}^\pi Q)^2]$$
+\frac{1}{2}\mathbb{E}_{\mathcal{D}}[(Q - T^\pi Q)^2]$$
 
 **Intuition:** CQL is like a pessimistic advisor. When you ask "should I try this new action?", it responds "probably not—stick
 with what we know works." This conservatism prevents catastrophic failures from overestimated OOD actions.
@@ -3726,7 +3724,7 @@ function $V(s)$ directly using expectile regression, avoiding the problematic ma
 
 **Expectile Regression:** Instead of learning $V(s) = \max_a Q(s,a)$ (which requires OOD queries), learn:
 
-$$V(s) \approx \mathbb{E}_{a \sim \pi_\beta}[Q(s,a)]$$
+$$V(s) \approx \mathbb{E}_{a \sim b}[Q(s,a)]$$
 
 but weighted toward high-value actions using asymmetric loss:
 
@@ -3734,7 +3732,7 @@ but weighted toward high-value actions using asymmetric loss:
 ::: {#def-rl-expectile-loss}
 #### Expectile loss
 
-$$L_\tau(u) = |\tau - \mathbb{1}_{[u < 0]}|u^2$$
+$$\ell_\tau(u) = |\tau - \mathbb 1[u < 0]|u^2$$
 
 where $\tau \in (0.5, 1)$ (typically 0.7-0.9) controls the asymmetry.
 :::
@@ -3752,14 +3750,14 @@ upward.
 ::: {#exm-rl-expectile-asymmetry}
 #### An asymmetric square
 
-With $\tau = 0.9$: $L_\tau(1) = 0.9$ and $L_\tau(-1) = 0.1$. A value $V(s)$ one unit below $Q(s, a)$ costs nine times as much as
+With $\tau = 0.9$: $\ell_\tau(1) = 0.9$ and $\ell_\tau(-1) = 0.1$. A value $V(s)$ one unit below $Q(s, a)$ costs nine times as much as
 one unit above, so the minimizing $V(s)$ lies above the mean of the $Q$-values.
 :::
 ::::
 
-**Training:** 1. Learn Q-function: $Q_\theta(s,a) \approx r + \gamma V_\psi(s')$ (standard TD learning) 2. Learn value function:
-$V_\psi(s)$ via expectile regression on $Q_\theta(s,a)$ for $(s,a) \in \mathcal{D}$
-3. Extract policy: $\pi(a|s) \propto
+**Training:** 1. Learn Q-function: $\hat{q}(s,a,\boldsymbol{\theta}) \approx r + \gamma \hat{v}(s',\boldsymbol{\psi})$ (standard TD learning) 2. Learn value function:
+$\hat{v}(s,\boldsymbol{\psi})$ via expectile regression on $\hat{q}(s,a,\boldsymbol{\theta})$ for $(s,a) \in \mathcal{D}$
+3. Extract policy: $\pi(a \mid s) \propto
 \exp\left(\frac{Q(s,a) - V(s)}{\beta}\right)$
 
 **Why This Works:** By only evaluating $Q(s,a)$ for $(s,a)$ pairs in the dataset, IQL never queries OOD actions during training.
@@ -3772,7 +3770,7 @@ distribution and compares it with the mean.
 ::: {#exr-rl-expectile-two-points}
 #### The 0.9-expectile of two values
 
-Find the $v$ minimizing $\frac12 L_\tau(0 - v) + \frac12 L_\tau(1 - v)$ for $\tau = 0.9$.
+Find the $v$ minimizing $\frac12 \ell_\tau(0 - v) + \frac12 \ell_\tau(1 - v)$ for $\tau = 0.9$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3814,7 +3812,7 @@ language, a large language model can supply knowledge the agent lacks. This sect
 
 **Maximum Entropy IRL:**
 
-$$\max_R \sum_{\tau \in \mathcal{D}} \log P(\tau|R) - \lambda \|R\|$$
+$$\max_R \sum_{\tau \in \mathcal{D}} \log p(\tau \mid R) - \lambda \|R\|$$
 
 The simplest alternative skips the reward altogether and treats imitation as supervised learning. The definition below states it.
 
@@ -3824,7 +3822,7 @@ The simplest alternative skips the reward altogether and treats imitation as sup
 
 Supervised learning from expert demonstrations:
 
-$$\min_{\boldsymbol{\theta}} \sum_{(s,a) \in \mathcal{D}} \|\pi(s;\boldsymbol{\theta}) - a\|^2$$
+$$\min_{\boldsymbol{\theta}} \sum_{(s,a) \in \mathcal{D}} \|\pi_{\boldsymbol{\theta}}(s) - a\|^2$$
 :::
 
 ::::
@@ -3838,7 +3836,7 @@ With a linear policy, behavioral cloning is ordinary least squares. The example 
 ::: {#exm-rl-bc-linear}
 #### Cloning a linear policy
 
-With $\pi(s; \theta) = \theta s$ and demonstrations $(s, a) = (1, 2), (2, 3)$, the objective $(\theta - 2)^2 + (2\theta - 3)^2$
+With $\pi_\theta(s) = \theta s$ and demonstrations $(s, a) = (1, 2), (2, 3)$, the objective $(\theta - 2)^2 + (2\theta - 3)^2$
 has derivative $2(\theta - 2) + 4(2\theta - 3) = 10\theta - 16$, so $\theta = 1.6$, and the cloned policy maps $s = 1$ to $1.6$
 and $s = 2$ to $3.2$.
 :::
@@ -3935,7 +3933,7 @@ iteration from $\pi_0$ until it stops, and give $v_*$.
 \text{stay}, B) = 2$, $\gamma = 0.9$. The trajectory earns $0, 2, 2, \ldots$, so $G_0 = 0 + \sum_{k \geq 1} 0.9^k \cdot 2 = 0.9
 \cdot \frac{2}{0.1} = 18$.
 
-(b) $\mathbf{r}_{\pi_0} = (1, 2)$ and $\mathbf{P}_{\pi_0} = I$, so $(I - 0.9 I)\mathbf{v} = \mathbf{r}$ and $\mathbf{v}_{\pi_0} =
+(b) $\mathbf{r}_{\pi_0} = (1, 2)$ and $\mathbf{P}_{\pi_0} = \mathbf{I}$, so $(\mathbf{I} - 0.9 \mathbf{I})\mathbf{v} = \mathbf{r}$ and $\mathbf{v}_{\pi_0} =
 (10, 20)$.
 
 (c) Improvement: $q_{\pi_0}(A, \text{go}) = 0.9 \cdot 20 = 18 > 10 = q_{\pi_0}(A, \text{stay})$, so $\pi_1$ goes in $A$
@@ -3954,7 +3952,7 @@ linear function approximation, and shows how an update at one state moves the es
 An episode visits $A$, then $B$, then terminates, with rewards $R_1 = 1$ and $R_2 = 2$; $\gamma = 0.9$ and $\alpha = 0.5$. (a)
 Compute the returns $G_0$, $G_1$ and the constant-$\alpha$ Monte Carlo updates of $V(A)$ and $V(B)$ from $V = 0$
 (@def-rl-first-visit-monte-carlo). (b) Compute the TD(0) updates from $V = 0$, processing the two transitions in order
-(@def-rl-td-error). (c) With features $\phi(A) = (1, 0)$, $\phi(B) = (1, 1)$ and $\mathbf{w} = 0$, apply semi-gradient TD(0) to the
+(@def-rl-td-error). (c) With features $\boldsymbol{\phi}(A) = (1, 0)$, $\boldsymbol{\phi}(B) = (1, 1)$ and $\mathbf{w} = \mathbf{0}$, apply semi-gradient TD(0) to the
 two transitions in order, and give the resulting $\hat v(A)$ and $\hat v(B)$ (@sec-advanced-rl).
 :::
 
@@ -3964,7 +3962,7 @@ two transitions in order, and give the resulting $\hat v(A)$ and $\hat v(B)$ (@s
 (b) First transition: $\delta_0 = 1 + 0.9 \cdot 0 - 0 = 1$, $V(A) = 0.5$. Second: $\delta_1 = 2 + 0 - 0 = 2$ (terminal value $0$),
 $V(B) = 1$. TD has not yet propagated $B$'s reward to $A$; Monte Carlo has.
 
-(c) First transition: $\hat v(A) = \hat v(B) = 0$, $\delta_0 = 1$, $\mathbf{w} = 0 + 0.5 \cdot 1 \cdot (1, 0) = (0.5, 0)$. Second:
+(c) First transition: $\hat v(A) = \hat v(B) = 0$, $\delta_0 = 1$, $\mathbf{w} = \mathbf{0} + 0.5 \cdot 1 \cdot (1, 0) = (0.5, 0)$. Second:
 $\hat v(B) = 0.5$, $\delta_1 = 2 - 0.5 = 1.5$, $\mathbf{w} = (0.5, 0) + 0.5 \cdot 1.5 \cdot (1, 1) = (1.25, 0.75)$. Hence $\hat
 v(A) = 1.25$ and $\hat v(B) = 2$: the update at $B$ also raised $A$ through the shared first feature.
 :::
@@ -3978,8 +3976,8 @@ objective. It combines the policy gradient theorem, baselines and the clipped ob
 A two-armed bandit pays $r_1 = 1$ and $r_2 = 0$; the policy picks arm $1$ with probability $\sigma(\theta)$, and $\theta = 0$.
 (a) Compute $J'(0)$ with @thm-rl-policy-gradient. (b) A one-step actor-critic uses the critic value $V = 0.5$ as baseline and
 step size $1$. Compute the update of $\theta$ after sampling each arm, and check that its expectation equals $J'(0)$
-(@prp-rl-baseline-unbiased). (c) After the update for arm $1$, compute the PPO ratio for arm $1$ and $L^{\text{CLIP}}$ with
-$A = 0.5$ and $\epsilon = 0.2$ (@def-rl-ppo-clipped-objective); repeat for $\theta = 1$.
+(@prp-rl-baseline-unbiased). (c) After the update for arm $1$, compute the PPO ratio for arm $1$ and $J^{\text{CLIP}}$ with
+$\hat{A}_t = 0.5$ and $\varepsilon = 0.2$ (@def-rl-ppo-clipped-objective); repeat for $\theta = 1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3989,8 +3987,8 @@ $A = 0.5$ and $\epsilon = 0.2$ (@def-rl-ppo-clipped-objective); repeat for $\the
 $-\sigma = -0.5$, update $0.25$. The expectation is $0.5 \cdot 0.25 + 0.5 \cdot 0.25 = 0.25 = J'(0)$; here the baseline $V = J$
 even makes the estimate exact.
 
-(c) After the arm-$1$ update $\theta = 0.25$ and $\sigma(0.25) \approx 0.5622$, so $r = 0.5622/0.5 \approx 1.124 \in [0.8, 1.2]$
-and $L^{\text{CLIP}} = \min(1.124 \cdot 0.5, 1.124 \cdot 0.5) \approx 0.562$. For $\theta = 1$, $\sigma(1) \approx 0.7311$, $r
-\approx 1.462 > 1.2$, and $L^{\text{CLIP}} = \min(0.731, 1.2 \cdot 0.5) = 0.6$: the clip stops further gain.
+(c) After the arm-$1$ update $\theta = 0.25$ and $\sigma(0.25) \approx 0.5622$, so $\rho_t = 0.5622/0.5 \approx 1.124 \in [0.8, 1.2]$
+and $J^{\text{CLIP}} = \min(1.124 \cdot 0.5, 1.124 \cdot 0.5) \approx 0.562$. For $\theta = 1$, $\sigma(1) \approx 0.7311$, $\rho_t
+\approx 1.462 > 1.2$, and $J^{\text{CLIP}} = \min(0.731, 1.2 \cdot 0.5) = 0.6$: the clip stops further gain.
 :::
 ::::

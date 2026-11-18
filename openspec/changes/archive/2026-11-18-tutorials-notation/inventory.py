@@ -1,0 +1,149 @@
+"""Notation inventory (design N4).
+
+Reads the written chapters of every tutorial in sidebar order and writes inventory/<tutorial>.md:
+candidate symbols with their counts, the pages that use them and the first definition block that
+names them, plus the convention phrases found on each page. The meanings are filled in by reading
+the defining statements; this script only finds candidates.
+
+Run from the repo root: .venv/bin/python openspec/changes/tutorials-notation/inventory.py
+"""
+
+import collections
+import pathlib
+import re
+
+import yaml
+
+ROOT = pathlib.Path(__file__).resolve().parents[3]
+OUT = pathlib.Path(__file__).parent / "inventory"
+TUTORIALS = [
+    "fundamentals-of-mathematics-for-physicists",
+    "fundamentals-of-theoretical-physics",
+    "kaluza-klein-theories",
+    "fundamentals-of-mathematics-for-machine-learning",
+    "fundamentals-of-machine-learning",
+]
+SKIP = {"glossary", "preface"}
+
+MATH = re.compile(r"\$\$(.+?)\$\$|\$([^$\n]+?)\$", re.S)
+GREEK = (
+    "alpha beta gamma delta epsilon varepsilon zeta eta theta vartheta iota kappa lambda mu nu xi pi varpi rho "
+    "varrho sigma varsigma tau upsilon phi varphi chi psi omega Gamma Delta Theta Lambda Xi Pi Sigma Upsilon Phi "
+    "Psi Omega"
+).split()
+FONTS = r"mathcal|mathbb|mathfrak|mathscr|mathsf|mathbf|boldsymbol|bm|mathrm|operatorname"
+ACCENTS = r"hat|widehat|bar|overline|tilde|widetilde|dot|ddot|vec|check|breve"
+ARG = r"(?:\{[^{}]*\}|\\[A-Za-z]+|[A-Za-z0-9])"
+TOKEN = re.compile(
+    rf"\\(?:{FONTS})\s*{ARG}"            # \mathcal{H}, \mathbb{E}, \operatorname{tr}
+    rf"|\\(?:{ACCENTS})\s*{ARG}"         # \hat g, \bar\psi
+    rf"|\\(?:{'|'.join(GREEK)})(?![A-Za-z])"  # Greek letters
+    r"|\\(?:partial|nabla|Box|hbar|ell|dagger|otimes|oplus|wedge|star|langle|rangle|mathop)(?![A-Za-z])"
+    r"|(?<![\\A-Za-z])[A-Za-z](?![A-Za-z])"  # single Latin letters
+)
+CONVENTIONS = {
+    "signature (+,-,-,-)": r"\(\s*\+\s*,\s*-\s*,\s*-\s*,\s*-\s*\)|\(\s*1\s*,\s*-1\s*,\s*-1\s*,\s*-1\s*\)|mostly[- ]minus",
+    "signature (-,+,+,+)": r"\(\s*-\s*,\s*\+\s*,\s*\+\s*,\s*\+\s*\)|\(\s*-1\s*,\s*1\s*,\s*1\s*,\s*1\s*\)|mostly[- ]plus",
+    "natural units": r"\\hbar\s*=\s*c\s*=\s*1|natural units",
+    "Fourier e^{-i...}": r"e\^\{-\s*i\s*(?:k|\\omega|p|\\xi)",
+    "Fourier e^{+i...}": r"e\^\{\s*i\s*(?:k|\\omega|p|\\xi)",
+    "2pi in Fourier": r"\\frac\{1\}\{\(?2\\pi\)?\^?",
+    "Riemann/curvature sign": r"R\^\{?\\?[a-z]*\}?_\{?\\?[a-z]+\\?[a-z]+\\?[a-z]+\}?\s*=",
+    "inner product antilinear in": r"antilinear in the (first|second)|linear in the (first|second)",
+    "bold vectors": r"\\(?:mathbf|boldsymbol|bm)\{[a-z]\}",
+    "expectation": r"\\mathbb\{E\}|\\operatorname\{E\}|\\mathrm\{E\}|\\langle [^\\]*\\rangle",
+}
+DEF = re.compile(r"^:{3,}\s*\{#(def-[\w-]+)", re.M)
+
+
+def chapters(tutorial):
+    cfg = yaml.safe_load((ROOT / "_quarto.yml").read_text())
+    pages = []
+
+    def walk(node):
+        if isinstance(node, dict):
+            for v in node.values():
+                walk(v)
+        elif isinstance(node, list):
+            for v in node:
+                walk(v)
+        elif isinstance(node, str) and node.startswith(tutorial + "/") and node.endswith("/index.qmd"):
+            pages.append(node)
+
+    walk(cfg.get("website", {}).get("sidebar"))
+    out = []
+    for p in pages:
+        slug = p.split("/")[1]
+        text = (ROOT / p).read_text()
+        if slug in SKIP or "This chapter is in preparation." in text:
+            continue
+        out.append((slug, text))
+    return out
+
+
+def norm(tok):
+    return re.sub(r"\s+", "", tok)
+
+
+def definitions(text):
+    """Map each def- label to the math of its block (up to the next fence at the same level)."""
+    blocks = {}
+    for m in DEF.finditer(text):
+        end = text.find("\n:::", m.end())
+        body = text[m.end(): end if end > 0 else m.end() + 3000]
+        blocks[m.group(1)] = {norm(t) for mm in MATH.finditer(body) for t in TOKEN.findall(mm.group(1) or mm.group(2))}
+    return blocks
+
+
+def main():
+    OUT.mkdir(exist_ok=True)
+    for tutorial in TUTORIALS:
+        counts = collections.Counter()
+        pages = collections.defaultdict(list)
+        first_def = {}
+        conv = collections.defaultdict(collections.Counter)
+        for slug, text in chapters(tutorial):
+            local = collections.Counter()
+            for m in MATH.finditer(text):
+                for t in TOKEN.findall(m.group(1) or m.group(2)):
+                    local[norm(t)] += 1
+            for t, n in local.items():
+                counts[t] += n
+                pages[t].append(slug)
+            for label, toks in definitions(text).items():
+                for t in toks:
+                    first_def.setdefault(t, f"{slug}#{label}")
+            for name, pat in CONVENTIONS.items():
+                n = len(re.findall(pat, text))
+                if n:
+                    conv[name][slug] = n
+        lines = [
+            f"# Notation inventory: {tutorial}",
+            "",
+            "Generated by `inventory.py`. Meaning is filled in by reading the defining statement (design N4).",
+            "",
+            "## Conventions found",
+            "",
+            "| Convention | Pages (count) |",
+            "|---|---|",
+        ]
+        for name, c in conv.items():
+            lines.append(f"| {name} | {', '.join(f'{s} ({n})' for s, n in c.items())} |")
+        lines += [
+            "",
+            "## Symbols",
+            "",
+            "| Symbol | Count | Pages | First definition block | Meaning |",
+            "|---|---|---|---|---|",
+        ]
+        for t, n in counts.most_common():
+            if n < 3 and t not in first_def:
+                continue
+            shown = t.replace("|", "\\vert ")
+            lines.append(f"| `{shown}` | {n} | {', '.join(pages[t])} | {first_def.get(t, '')} | |")
+        (OUT / f"{tutorial}.md").write_text("\n".join(lines) + "\n")
+        print(f"{tutorial}: {len(counts)} symbols, {sum(1 for t in counts if t in first_def)} in definitions")
+
+
+if __name__ == "__main__":
+    main()

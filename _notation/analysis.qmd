@@ -1,0 +1,50 @@
+### Symbols for analysis
+
+| Symbol | Meaning |
+|---|---|
+| $\varepsilon$ | small positive number, as in $\lvert x - a\rvert < \varepsilon$ and the $i\varepsilon$ prescription |
+| $\lvert z\rvert$ | absolute value or modulus of a number |
+| $z^*$ | complex conjugate |
+| $\operatorname{Re}$, $\operatorname{Im}$ | real and imaginary parts |
+| $\operatorname{Arg}$, $\operatorname{Log}$ | principal argument, principal logarithm |
+| $\operatorname{Res}_{z_0} f$ | residue of $f$ at $z_0$ |
+| $\log$ | natural logarithm; $\log_2$ is written out where a quantity is in bits |
+| $\operatorname{sgn}$ | sign function |
+| $\dot x$, $\ddot x$ | first and second derivatives with respect to time |
+| $\partial_i$ | partial derivative $\partial/\partial x^i$ |
+| $\nabla f$, $\nabla_{\mathbf x} f$ | gradient (with respect to $\mathbf x$) |
+| $\Delta = \nabla^2$ | Laplacian, $\partial_1^2 + \dots + \partial_n^2$ |
+| $J_f$ | Jacobian matrix of a map $f$ |
+| $\mathcal L$ | a Lagrangian: the Lagrangian density of a field theory, or $\mathcal L(\mathbf x, \lambda)$ of a constrained optimisation problem |
+| $\hat f(k)$ | Fourier transform, $\hat f(k) = \int f(x)\, e^{-ikx}\, dx$ |
+| $c_n$ | Fourier coefficients, $c_n = \frac{1}{2\pi}\int_0^{2\pi} f(x)\, e^{-inx}\, dx$ |
+| $f * g$ | convolution |
+| $\delta(x)$, $\delta^n(\mathbf x)$ | Dirac delta |
+| $\Theta(x)$ | Heaviside step function |
+| $\operatorname{PV}$ | Cauchy principal value of an integral or a distribution, as in $\operatorname{PV}\frac1x$ |
+| $\mathcal S(\mathbb R^n)$ | Schwartz space |
+| $\mathcal D(\Omega)$ | test functions with compact support in $\Omega$ |
+| $L^p(\Omega)$ | Lebesgue spaces |
+| $\ell^p$ | sequence spaces |
+| $H^s$ | Sobolev spaces |
+| $\mathcal H$ | Hilbert space |
+| $\mathcal H_k$ | reproducing-kernel Hilbert space of a kernel $k$ |
+| $\mathcal B(X, Y)$ | bounded linear operators from $X$ to $Y$ |
+| $\mathcal K(X, Y)$ | compact operators from $X$ to $Y$ |
+| $\sigma(T)$ | spectrum of an operator $T$ |
+| $\operatorname{ran}$, $\operatorname{ind}$ | range, Fredholm index |
+| $\Gamma(s)$ | Gamma function |
+| $\zeta(s)$ | Riemann zeta function |
+| $\operatorname{erf}$ | error function |
+| $O(\cdot)$ | Landau symbol: bounded by a constant multiple of its argument |
+
+Conventions:
+
+- **Fourier transform:** $\hat f(k) = \int f(x)\, e^{-ikx}\, dx$ with inverse
+  $f(x) = \frac{1}{2\pi}\int \hat f(k)\, e^{ikx}\, dk$, and in $\mathbb R^n$
+  $\hat f(\mathbf k) = \int f(\mathbf x)\, e^{-i\mathbf k\cdot\mathbf x}\, d^n x$ with $(2\pi)^{-n}$ on the inverse. On
+  spacetime, $f(x) = \int \frac{d^4k}{(2\pi)^4}\, \hat f(k)\, e^{-ik\cdot x}$ with $k\cdot x = k^0 t - \mathbf k\cdot\mathbf x$,
+  so a positive-frequency plane wave is $e^{-i\omega t + i\mathbf k\cdot\mathbf x}$. The unitary transform, with
+  $(2\pi)^{-1/2}$ on both sides, is a different operator and is written $U$.
+- The Laplacian $\Delta$ is negative semidefinite; the positive operator is $-\Delta$.
+- Logarithms are natural and entropies are in nats; bits appear only with an explicit $\log_2$.

@@ -1,0 +1,27 @@
+### Symbols for curvature and gravity
+
+| Symbol | Meaning |
+|---|---|
+| $\Gamma^k_{ij}$ | Christoffel symbols of the Levi-Civita connection |
+| $\nabla_i$ | covariant derivative, $\nabla_i X^k = \partial_i X^k + \Gamma^k_{ij}X^j$ |
+| $R^\rho{}_{\sigma\mu\nu}$ | Riemann tensor |
+| $R_{\sigma\nu}$, $\operatorname{Ric}$ | Ricci tensor, $R_{\sigma\nu} = R^\rho{}_{\sigma\rho\nu}$ |
+| $R$ | scalar curvature, $R = g^{\sigma\nu}R_{\sigma\nu}$ |
+| $G_{\mu\nu}$ | Einstein tensor, $R_{\mu\nu} - \tfrac12 R\, g_{\mu\nu}$ |
+| $T_{\mu\nu}$ | energy-momentum tensor |
+| $G_N$ | Newton's constant |
+| $\kappa$ | gravitational coupling, $\kappa^2 = 8\pi G_N$ |
+| $\Lambda$ | cosmological constant |
+| $e^a{}_\mu$ | vielbein (frame) |
+| $\omega_\mu{}^{ab}$ | spin connection |
+| $h_{\mu\nu}$, $\bar h_{\mu\nu}$ | metric perturbation and its trace reverse |
+
+Conventions:
+
+- $\Gamma^k_{ij} = \tfrac12 g^{kl}(\partial_i g_{lj} + \partial_j g_{li} - \partial_l g_{ij})$.
+- $R^\rho{}_{\sigma\mu\nu} = \partial_\mu \Gamma^\rho_{\nu\sigma} - \partial_\nu \Gamma^\rho_{\mu\sigma}
+  + \Gamma^\rho_{\mu\lambda} \Gamma^\lambda_{\nu\sigma} - \Gamma^\rho_{\nu\lambda} \Gamma^\lambda_{\mu\sigma}$, and
+  $R_{\sigma\nu} = R^\rho{}_{\sigma\rho\nu}$. With these signs the round unit sphere has $R = +2$, and in the signature
+  $(+, -, -, -)$ de Sitter space has $R < 0$.
+- The Einstein-Hilbert action is $S = -\frac{1}{2\kappa^2}\int d^4x\, \sqrt{-g}\, R$, so Einstein's equations read
+  $G_{\mu\nu} = \kappa^2 T_{\mu\nu}$.

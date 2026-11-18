@@ -1068,8 +1068,8 @@ exercise computes the distribution exactly with Sage's big integers.
 #### A sharp maximum
 
 Two Einstein solids with $N_A = 300$, $N_B = 200$ share $q = 100$ quanta. With Sage, compute the probability
-$P(q_A) = \Omega_A(q_A)\Omega_B(q - q_A)/\Omega(N_A + N_B, q)$, check the normalisation, and find the most probable
-value, the mean, the standard deviation and $P(50 \leq q_A \leq 70)$.
+$\mathbb P(q_A) = \Omega_A(q_A)\Omega_B(q - q_A)/\Omega(N_A + N_B, q)$, check the normalisation, and find the most probable
+value, the mean, the standard deviation and $\mathbb P(50 \leq q_A \leq 70)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1276,7 +1276,7 @@ $p_0, \dots, p_3$ at $T = 1/2, 1, 3$, and bound the probability of levels beyond
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$Z = 1/(1 - e^{-\beta})$, $\langle E\rangle = 1/(e^\beta - 1)$, and $P(n \geq 10) = e^{-10\beta}$, at most
+$Z = 1/(1 - e^{-\beta})$, $\langle E\rangle = 1/(e^\beta - 1)$, and $\mathbb P(n \geq 10) = e^{-10\beta}$, at most
 $3.6\%$ at $T = 3$:
 
 ```python
@@ -1507,7 +1507,7 @@ temperature.
 $\langle e^{sE}\rangle = \sum_ie^{sE_i}e^{-\beta E_i}/Z(\beta) = Z(\beta - s)/Z(\beta)$, and the cumulants are the
 Taylor coefficients of its logarithm in $s$; $\partial/\partial s = -\partial/\partial\beta$ gives the formula. For
 the two-level system $\kappa_1 = \epsilon q$ with $q = 1/(e^{\beta\epsilon} + 1)$, $\kappa_2 = \epsilon^2 q(1 - q)$,
-$\kappa_3 = \epsilon^3q(1 - q)(1 - 2q)$, the cumulants of a Bernoulli variable $\epsilon X$ with $P(X = 1) = q$.
+$\kappa_3 = \epsilon^3q(1 - q)(1 - 2q)$, the cumulants of a Bernoulli variable $\epsilon X$ with $\mathbb P(X = 1) = q$.
 Since $q < 1/2$ at every positive temperature, $\kappa_3 > 0$: the distribution is skewed towards the excited state
 and the third cumulant vanishes only in the limit $T \to \infty$, where $q \to 1/2$.
 :::
@@ -1565,7 +1565,7 @@ in a subvolume is Poisson. The third example derives both and recovers the ideal
 #### The classical ideal gas
 
 With $Z_N = Z_1^N/N!$ (@exm-pfn-ideal-gas), $\Xi = \sum_N(zZ_1)^N/N! = e^{zZ_1}$, so $\langle N\rangle = z\,
-\partial_z\log\Xi = zZ_1$ and $pV = T\log\Xi = \langle N\rangle T$. The probability of $N$ particles is $P(N) =
+\partial_z\log\Xi = zZ_1$ and $pV = T\log\Xi = \langle N\rangle T$. The probability of $N$ particles is $\mathbb P(N) =
 e^{-\langle N\rangle}\langle N\rangle^N/N!$, the Poisson distribution of @exm-rv-poisson-limit, with
 $\operatorname{Var}N = \langle N\rangle$ (@exr-ens-poisson).
 :::
@@ -1634,7 +1634,7 @@ checks it in Sage, summing the series for $\Xi$ and for the first two moments.
 #### The Poisson law in Sage
 
 With Sage, sum $\Xi = \sum_N(zZ_1)^N/N!$, compute $\langle N\rangle = z\,\partial_z\log\Xi$ and $pV = T\log\Xi$,
-and verify that $P(N) = e^{-\lambda}\lambda^N/N!$ is normalised with mean and variance $\lambda$.
+and verify that $\mathbb P(N) = e^{-\lambda}\lambda^N/N!$ is normalised with mean and variance $\lambda$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2765,7 +2765,7 @@ variance in Sage, and the corresponding results for a fermionic mode.
 ::: {#exr-qst-be-moments}
 #### Moments of the occupation in Sage
 
-For $P(n) = (1 - y)y^n$ with $y = e^{-\beta(\epsilon - \mu)}$, compute $\sum P$, $\langle n\rangle$ and
+For $\mathbb P(n) = (1 - y)y^n$ with $y = e^{-\beta(\epsilon - \mu)}$, compute $\sum\mathbb P$, $\langle n\rangle$ and
 $\operatorname{Var}n$ in Sage and compare with $\langle n\rangle(1 + \langle n\rangle)$; do the same for a fermionic
 mode, where $\operatorname{Var}n = \langle n\rangle(1 - \langle n\rangle)$.
 :::
@@ -3762,7 +3762,7 @@ $\dim O(n) - \dim O(n - 1)$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\partial_i\partial_jf = (2\alpha + 4b|\mathbf m|^2)\delta_{ij} + 8bm_im_j$. At $m_0^2 = -\alpha/(2b)$ the first term
-vanishes, so the Hessian is $8bm_0^2\,\mathbf e_1\mathbf e_1^T = -4\alpha\,\mathbf e_1\mathbf e_1^T$: eigenvalue $-4\alpha >
+vanishes, so the Hessian is $8bm_0^2\,\mathbf e_1\mathbf e_1^\top = -4\alpha\,\mathbf e_1\mathbf e_1^\top$: eigenvalue $-4\alpha >
 0$ in the radial direction and $0$ in the $n - 1$ tangent directions. $\dim O(n) - \dim O(n - 1) = \frac{n(n-1)}{2} -
 \frac{(n-1)(n-2)}{2} = n - 1 = \dim S^{n-1}$: one flat direction per broken generator, Goldstone's counting.
 :::
@@ -4007,7 +4007,7 @@ for $q = 3$, $L = 6$, $\beta K = 0.7$ [@boudreau2018applied, Ch. 20, Exercise 9]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$T = (e^{\beta K} - 1)\mathbb 1 + \mathbf 1\mathbf 1^T$, and $\mathbf 1\mathbf 1^T$ has eigenvalues $q$ (on $\mathbf 1$) and $0$ (on the vectors with zero sum). On an open chain the
+$T = (e^{\beta K} - 1)\,1 + \mathbf 1\mathbf 1^\top$, and $\mathbf 1\mathbf 1^\top$ has eigenvalues $q$ (on $\mathbf 1$) and $0$ (on the vectors with zero sum). On an open chain the
 bonds are independent: each bond is "equal" with probability $e^{\beta K}/(e^{\beta K} + q - 1)$, and the value at distance $r$ forgets the start
 unless all $r$ bonds transmit it, which gives the formula:
 
@@ -5145,7 +5145,7 @@ the expected number of meetings of two walks, which singles out four dimensions.
 #### Two walks meet
 
 Let two independent symmetric random walks $S^1$, $S^2$ start at the origin of $\mathbb Z^d$, $d > 2$, and let $I =
-\sum_{j, k \geq 0}\mathbf 1[S^1_j = S^2_k]$ count their intersections. Show that $\mathbb EI = (2d)^2B_0$ with the bubble
+\sum_{j, k \geq 0}\mathbb 1[S^1_j = S^2_k]$ count their intersections. Show that $\mathbb EI = (2d)^2B_0$ with the bubble
 $B_0 = \sum_xC_{0x}(0)^2$, and conclude, by writing $B_0$ as an integral over momenta with Parseval's identity, that the
 expected number of intersections is finite iff $d > 4$ [@bauerschmidt2019renormalisation, Exercise 1.5.6].
 :::

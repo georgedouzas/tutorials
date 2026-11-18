@@ -65,13 +65,13 @@ resulting explicit sample size in one concrete case, and for a direct check that
 ::: {#exr-app-log-versus-linear-sample-size}
 #### An explicit sample size
 
-Let $d = 5$ and $\epsilon = 0.1$. Use @lem-app-log-versus-linear to find an integer $m_0$ such that every $m \geq m_0$ satisfies
-$m \geq (d/\epsilon)\log(m)$, and check the inequality directly at $m = m_0$.
+Let $d = 5$ and $\varepsilon = 0.1$. Use @lem-app-log-versus-linear to find an integer $n_0$ such that every $n \geq n_0$ satisfies
+$n \geq (d/\varepsilon)\log(n)$, and check the inequality directly at $n = n_0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Take $a = d/\epsilon = 50$. The lemma says that $m \geq 2a\log(a) = 100\log 50 \approx 391.2$ implies $m \geq 50\log(m)$, so
-$m_0 = 392$ works. Directly, $50\log 392 \approx 50 \cdot 5.971 = 298.6 \leq 392$.
+Take $a = d/\varepsilon = 50$. The lemma says that $n \geq 2a\log(a) = 100\log 50 \approx 391.2$ implies $n \geq 50\log(n)$, so
+$n_0 = 392$ works. Directly, $50\log 392 \approx 50 \cdot 5.971 = 298.6 \leq 392$.
 :::
 ::::
 
@@ -132,14 +132,14 @@ turns a sub-Gaussian tail with constant $2$ into a bound on the mean absolute de
 #### Expectation from a sub-Gaussian tail
 
 Let $X$ be a random variable and $x' \in \mathbb{R}$ be a scalar and assume that there exists $a >
-0$ such that for all $t \geq 0$ we have $\mathbb{P}[|X - x'| > t] \leq 2e^{-t^2/a^2}$ [@shalev2014ml]. Then,
+0$ such that for all $t \geq 0$ we have $\mathbb{P}(|X - x'| > t) \leq 2e^{-t^2/a^2}$ [@shalev2014ml]. Then,
 $\mathbb{E}[|X - x'|] \leq 4a$.
 :::
 
 ::::
 
 *Proof.* For all $i = 0, 1, 2, \ldots$ denote $t_i = ai$. Since $t_i$ is monotonically increasing we have that $\mathbb{E}[|X -
-x'|]$ is at most $\sum_{i=1}^{\infty} t_i \mathbb{P}[|X - x'| > t_{i-1}]$. Combining this with the assumption in the lemma we get
+x'|]$ is at most $\sum_{i=1}^{\infty} t_i \mathbb{P}(|X - x'| > t_{i-1})$. Combining this with the assumption in the lemma we get
 that $\mathbb{E}[|X - x'|] \leq 2a\sum_{i=1}^{\infty} ie^{-(i-1)^2}$. The proof now follows from the inequalities
 
 $$ \sum_{i=1}^{\infty} ie^{-(i-1)^2} \leq \sum_{i=1}^{5} ie^{-(i-1)^2} + \int_5^{\infty} xe^{-(x-1)^2}dx < 1.8 + 10^{-7} < 2 $$
@@ -153,7 +153,7 @@ The Gaussian distribution is the model case of a sub-Gaussian tail, so it is the
 ::: {#exm-app-subgaussian-tail-gaussian}
 #### A centred Gaussian
 
-Let $X \sim \mathcal{N}(0, \sigma^2)$ and $x' = 0$. The Gaussian tail bound $\mathbb{P}[|X| > t] \leq 2e^{-t^2/(2\sigma^2)}$ is the
+Let $X \sim \mathcal{N}(0, \sigma^2)$ and $x' = 0$. The Gaussian tail bound $\mathbb{P}(|X| > t) \leq 2e^{-t^2/(2\sigma^2)}$ is the
 hypothesis of the lemma with $a = \sqrt{2}\sigma$, so $\mathbb{E}[|X|] \leq 4\sqrt{2}\sigma \approx 5.66\sigma$. The exact value is
 $\mathbb{E}[|X|] = \sigma\sqrt{2/\pi} \approx 0.80\sigma$.
 :::
@@ -171,7 +171,7 @@ and compare the resulting bound with $\mathbb{E}[|X|]$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $t \geq 1$ the tail is $0$. For $t \in [0, 1]$ it is $\mathbb{P}[|X| > t] = 1 - t$, and we need $1 - t \leq 2e^{-t^2}$. For
+For $t \geq 1$ the tail is $0$. For $t \in [0, 1]$ it is $\mathbb{P}(|X| > t) = 1 - t$, and we need $1 - t \leq 2e^{-t^2}$. For
 $t \geq 0.27$ we have $1 - t \leq 0.73 \leq 2e^{-1} \leq 2e^{-t^2}$; for $t < 0.27$ we have $2e^{-t^2} \geq 2e^{-0.073} > 1 \geq 1
 - t$. So the lemma applies with $a = 1$ and gives $\mathbb{E}[|X|] \leq 4$, whereas $\mathbb{E}[|X|] = 1/2$.
 :::
@@ -185,7 +185,7 @@ The next lemma handles a prefactor $2b$ and pays for it with an additive $\sqrt{
 #### Expectation from a sub-Gaussian tail with a prefactor
 
 Let $X$ be a random variable and $x' \in \mathbb{R}$ be a scalar and assume that there exists $a >
-0$ and $b \geq e$ such that for all $t \geq 0$ we have $\mathbb{P}[|X - x'| > t] \leq 2be^{-t^2/a^2}$ [@shalev2014ml]. Then,
+0$ and $b \geq e$ such that for all $t \geq 0$ we have $\mathbb{P}(|X - x'| > t) \leq 2be^{-t^2/a^2}$ [@shalev2014ml]. Then,
 $\mathbb{E}[|X - x'|] \leq a(2 + \sqrt{\log(b)})$.
 :::
 
@@ -193,11 +193,11 @@ $\mathbb{E}[|X - x'|] \leq a(2 + \sqrt{\log(b)})$.
 
 *Proof.* For all $i = 0, 1, 2, \ldots$ denote $t_i = a(i + \sqrt{\log(b)})$. Since $t_i$ is monotonically increasing we have that
 
-$$ \mathbb{E}[|X - x'|] \leq a\sqrt{\log(b)} + \sum_{i=1}^{\infty} t_i \mathbb{P}[|X - x'| > t_{i-1}] $$
+$$ \mathbb{E}[|X - x'|] \leq a\sqrt{\log(b)} + \sum_{i=1}^{\infty} t_i \mathbb{P}(|X - x'| > t_{i-1}) $$
 
 Using the assumption in the lemma we have
 
-$$ \begin{aligned} \sum_{i=1}^{\infty} t_i \mathbb{P}[|X - x'| > t_{i-1}] &\leq 2ab\sum_{i=1}^{\infty} (i +
+$$ \begin{aligned} \sum_{i=1}^{\infty} t_i \mathbb{P}(|X - x'| > t_{i-1}) &\leq 2ab\sum_{i=1}^{\infty} (i +
 \sqrt{\log(b)})e^{-(i-1+\sqrt{\log(b)})^2} \\ &\leq 2ab\int_{1+\sqrt{\log(b)}}^{\infty} xe^{-(x-1)^2}dx \\ &=
 2ab\int_{\sqrt{\log(b)}}^{\infty} (y+1)e^{-y^2}dy \\ &\leq 4ab\int_{\sqrt{\log(b)}}^{\infty} ye^{-y^2}dy \\ &=
 2ab[-e^{-y^2}]_{\sqrt{\log(b)}}^{\infty} \\ &= 2ab/b = 2a \end{aligned} $$
@@ -213,8 +213,8 @@ The typical source of the prefactor $b$ is a maximum over finitely many sub-Gaus
 ::: {#exm-app-subgaussian-tail-maximum}
 #### The maximum of $N$ sub-Gaussian variables
 
-Let $X_1, \ldots, X_N$, with $N \geq 3$, each satisfy $\mathbb{P}[|X_j| > t] \leq 2e^{-t^2/a^2}$, and let $Y = \max_j |X_j|$. By the
-union bound $\mathbb{P}[Y > t] \leq 2Ne^{-t^2/a^2}$, which is the hypothesis of the lemma with $x' = 0$ and $b = N \geq e$. Hence
+Let $X_1, \ldots, X_N$, with $N \geq 3$, each satisfy $\mathbb{P}(|X_j| > t) \leq 2e^{-t^2/a^2}$, and let $Y = \max_j |X_j|$. By the
+union bound $\mathbb{P}(Y > t) \leq 2Ne^{-t^2/a^2}$, which is the hypothesis of the lemma with $x' = 0$ and $b = N \geq e$. Hence
 $\mathbb{E}[\max_j |X_j|] \leq a(2 + \sqrt{\log N})$.
 :::
 ::::
@@ -240,39 +240,39 @@ every $t \geq 0$, and the union bound only gives $2Ne^{-t^2/a^2}$, which is larg
 ### Combinatorial Lemmas
 
 The growth function of a hypothesis class of VC dimension $d$ is bounded by a partial sum of binomial coefficients, and that sum
-must be compared with a polynomial in $m$. The next lemma gives the comparison in closed form.
+must be compared with a polynomial in $n$. The next lemma gives the comparison in closed form.
 
 :::: {.statement-box}
 ::: {#lem-app-binomial-partial-sum}
 #### Partial sums of binomial coefficients
 
-Let $m, d$ be two positive integers such that $d \leq m - 2$ [@shalev2014ml]. Then,
+Let $n, d$ be two positive integers such that $d \leq n - 2$ [@shalev2014ml]. Then,
 
-$$ \sum_{k=0}^{d} \binom{m}{k} \leq \left(\frac{em}{d}\right)^d $$
+$$ \sum_{k=0}^{d} \binom{n}{k} \leq \left(\frac{em}{d}\right)^d $$
 :::
 
 ::::
 
-*Proof.* We prove the claim by induction. For $d = 1$ the left-hand side equals $1 + m$ while the right-hand side equals $em$;
+*Proof.* We prove the claim by induction. For $d = 1$ the left-hand side equals $1 + n$ while the right-hand side equals $em$;
 hence the claim is true. Assume that the claim holds for $d$ and let us prove it for $d + 1$. By the induction assumption we have
 
-$$ \begin{aligned} \sum_{k=0}^{d+1} \binom{m}{k} &\leq \left(\frac{em}{d}\right)^d + \binom{m}{d+1} \\ &=
-\left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{em}\right)^d \frac{m(m-1)(m-2)\cdots(m-d)}{(d+1)d!}\right) \\ &\leq
-\left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(m-d)}{(d+1)d!}\right) \end{aligned} $$
+$$ \begin{aligned} \sum_{k=0}^{d+1} \binom{n}{k} &\leq \left(\frac{em}{d}\right)^d + \binom{n}{d+1} \\ &=
+\left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{em}\right)^d \frac{n(n-1)(n-2)\cdots(n-d)}{(d+1)d!}\right) \\ &\leq
+\left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(n-d)}{(d+1)d!}\right) \end{aligned} $$
 
 Using Stirling's approximation we further have that
 
-$$ \begin{aligned} &\leq \left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(m-d)}{(d+1)\sqrt{2\pi
-d}(d/e)^d}\right) \\ &= \left(\frac{em}{d}\right)^d \left(1 + \frac{m-d}{\sqrt{2\pi d}(d+1)}\right) \\ &=
-\left(\frac{em}{d}\right)^d \cdot \frac{d+1+(m-d)/\sqrt{2\pi d}}{d+1} \\ &\leq \left(\frac{em}{d}\right)^d \cdot
-\frac{d+1+(m-d)/2}{d+1} \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{d/2+1+m/2}{d+1} \\ &\leq \left(\frac{em}{d}\right)^d \cdot
-\frac{m}{d+1} \end{aligned} $$
+$$ \begin{aligned} &\leq \left(\frac{em}{d}\right)^d \left(1 + \left(\frac{d}{e}\right)^d \frac{(n-d)}{(d+1)\sqrt{2\pi
+d}(d/e)^d}\right) \\ &= \left(\frac{em}{d}\right)^d \left(1 + \frac{n-d}{\sqrt{2\pi d}(d+1)}\right) \\ &=
+\left(\frac{em}{d}\right)^d \cdot \frac{d+1+(n-d)/\sqrt{2\pi d}}{d+1} \\ &\leq \left(\frac{em}{d}\right)^d \cdot
+\frac{d+1+(n-d)/2}{d+1} \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{d/2+1+n/2}{d+1} \\ &\leq \left(\frac{em}{d}\right)^d \cdot
+\frac{n}{d+1} \end{aligned} $$
 
-where in the last inequality we used the assumption that $d \leq m - 2$. On the other hand,
+where in the last inequality we used the assumption that $d \leq n - 2$. On the other hand,
 
 $$ \begin{aligned} \left(\frac{em}{d+1}\right)^{d+1} &= \left(\frac{em}{d}\right)^d \cdot \frac{em}{d+1} \cdot
 \left(\frac{d}{d+1}\right)^d \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{em}{d+1} \cdot \frac{1}{(1+1/d)^d} \\ &\geq
-\left(\frac{em}{d}\right)^d \cdot \frac{em}{d+1} \cdot \frac{1}{e} \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{m}{d+1}
+\left(\frac{em}{d}\right)^d \cdot \frac{em}{d+1} \cdot \frac{1}{e} \\ &= \left(\frac{em}{d}\right)^d \cdot \frac{n}{d+1}
 \end{aligned} $$
 
 which proves our inductive argument. $\square$
@@ -280,11 +280,11 @@ which proves our inductive argument. $\square$
 This lemma provides the key bound on growth functions used in Sauer's lemma and VC dimension analysis.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-A small case lets both sides of @lem-app-binomial-partial-sum be computed exactly. The example takes $m = 10$ and $d = 3$, which
-satisfies the hypothesis $d \leq m - 2$.
+A small case lets both sides of @lem-app-binomial-partial-sum be computed exactly. The example takes $n = 10$ and $d = 3$, which
+satisfies the hypothesis $d \leq n - 2$.
 
 ::: {#exm-app-binomial-partial-sum-small}
-#### $m = 10$, $d = 3$
+#### $n = 10$, $d = 3$
 
 The left-hand side is $1 + 10 + 45 + 120 = 176$ and the right-hand side is $(10e/3)^3 \approx 9.06^3 \approx 744$, so the
 inequality holds with room to spare.
@@ -292,20 +292,20 @@ inequality holds with room to spare.
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Sauer's lemma bounds the growth function $\tau_{\mathcal{H}}(m)$ of a class of VC dimension $d$ by the partial binomial sum. The
-exercise compares the exact sum, its polynomial bound and the trivial bound $2^m$ in one case.
+Sauer's lemma bounds the growth function $\tau_{\mathcal{H}}(n)$ of a class of VC dimension $d$ by the partial binomial sum. The
+exercise compares the exact sum, its polynomial bound and the trivial bound $2^n$ in one case.
 
 ::: {#exr-app-binomial-partial-sum-growth}
 #### Polynomial versus exponential growth
 
-Let $d = 2$ and $m = 20$. Compute $\sum_{k=0}^{2}\binom{20}{k}$, its bound from @lem-app-binomial-partial-sum, and $2^{20}$, and
+Let $d = 2$ and $n = 20$. Compute $\sum_{k=0}^{2}\binom{20}{k}$, its bound from @lem-app-binomial-partial-sum, and $2^{20}$, and
 compare their logarithms.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The sum is $1 + 20 + 190 = 211$, with $\log 211 \approx 5.35$. The bound is $(20e/2)^2 = (10e)^2 \approx 738.9$, with logarithm
 $2\log(10e) \approx 6.61$. The trivial bound $2^{20} = 1{,}048{,}576$ has logarithm $20\log 2 \approx 13.86$. The polynomial bound
-grows like $d\log m$, the trivial one like $m$.
+grows like $d\log n$, the trivial one like $n$.
 :::
 ::::
 
@@ -360,16 +360,16 @@ The exercise uses the lemma for what it was made for: a tail bound for a sum of 
 ::: {#exr-app-cosh-gaussian-bound-rademacher}
 #### Sums of random signs
 
-Let $\sigma_1, \ldots, \sigma_m$ be independent with $\mathbb{P}[\sigma_i = 1] = \mathbb{P}[\sigma_i = -1] = 1/2$ and $S =
-\sum_i \sigma_i$. Show that $\mathbb{E}[e^{\lambda S}] \leq e^{m\lambda^2/2}$ for every $\lambda \in \mathbb{R}$, and deduce that
-$\mathbb{P}[S \geq t] \leq e^{-t^2/(2m)}$ for $t > 0$.
+Let $\sigma_1, \ldots, \sigma_n$ be independent with $\mathbb{P}(\sigma_i = 1) = \mathbb{P}(\sigma_i = -1) = 1/2$ and $S =
+\sum_i \sigma_i$. Show that $\mathbb{E}[e^{\lambda S}] \leq e^{n\lambda^2/2}$ for every $\lambda \in \mathbb{R}$, and deduce that
+$\mathbb{P}(S \geq t) \leq e^{-t^2/(2n)}$ for $t > 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By independence $\mathbb{E}[e^{\lambda S}] = \prod_i \mathbb{E}[e^{\lambda\sigma_i}] = (\cosh\lambda)^m \leq e^{m\lambda^2/2}$ by
-@lem-app-cosh-gaussian-bound. For $\lambda > 0$, Markov's inequality applied to $e^{\lambda S}$ gives $\mathbb{P}[S \geq t] =
-\mathbb{P}[e^{\lambda S} \geq e^{\lambda t}] \leq e^{-\lambda t + m\lambda^2/2}$. The exponent is minimised at $\lambda = t/m$,
-which gives $e^{-t^2/(2m)}$.
+By independence $\mathbb{E}[e^{\lambda S}] = \prod_i \mathbb{E}[e^{\lambda\sigma_i}] = (\cosh\lambda)^n \leq e^{n\lambda^2/2}$ by
+@lem-app-cosh-gaussian-bound. For $\lambda > 0$, Markov's inequality applied to $e^{\lambda S}$ gives $\mathbb{P}(S \geq t) =
+\mathbb{P}(e^{\lambda S} \geq e^{\lambda t}) \leq e^{-\lambda t + n\lambda^2/2}$. The exponent is minimised at $\lambda = t/n$,
+which gives $e^{-t^2/(2n)}$.
 :::
 ::::
 
@@ -578,12 +578,12 @@ names these subspaces, the rank, and the transpose.
 ::: {#def-app-range-null-rank}
 #### Range, null space, rank and transpose
 
-Given a matrix $A \in \mathbb{R}^{n \times d}$, the range of $A$ is the span of its columns and the null
-space of $A$ is the subspace of all vectors that satisfy $A\mathbf{u} = \mathbf{0}$. The rank of $A$ is the dimension of its
+Given a matrix $\mathbf{A} \in \mathbb{R}^{n \times d}$, the range of $\mathbf{A}$ is the span of its columns and the null
+space of $\mathbf{A}$ is the subspace of all vectors that satisfy $\mathbf{A}\mathbf{u} = \mathbf{0}$. The rank of $\mathbf{A}$ is the dimension of its
 range.
 
-The transpose of a matrix $A$, denoted $A^{\top}$, is the matrix whose $(i,j)$ entry equals the $(j,i)$ entry of $A$. We say that
-$A$ is symmetric if $A = A^{\top}$.
+The transpose of a matrix $\mathbf{A}$, denoted $\mathbf{A}^{\top}$, is the matrix whose $(i,j)$ entry equals the $(j,i)$ entry of $\mathbf{A}$. We say that
+$\mathbf{A}$ is symmetric if $\mathbf{A} = \mathbf{A}^{\top}$.
 :::
 
 ::::
@@ -595,26 +595,26 @@ $2 \times 3$ matrix, illustrating every notion of @def-app-range-null-rank.
 ::: {#exm-app-range-null-rank-proportional}
 #### A rank-one matrix
 
-Let $A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$. Every column is a multiple of $(1, 2)$, so the range is the line
+Let $\mathbf{A} = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$. Every column is a multiple of $(1, 2)$, so the range is the line
 spanned by $(1, 2)$ and the rank is $1$. The null space is the plane $u_1 + 2u_2 + 3u_3 = 0$ in $\mathbb{R}^3$, of dimension $2$.
-$A$ is not symmetric (it is not even square); $A^{\top}$ is the $3 \times 2$ matrix with rows $(1, 2)$, $(2, 4)$, $(3, 6)$.
+$\mathbf{A}$ is not symmetric (it is not even square); $\mathbf{A}^{\top}$ is the $3 \times 2$ matrix with rows $(1, 2)$, $(2, 4)$, $(3, 6)$.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The matrix $A^{\top}A$ appears in least squares and in the singular value decomposition below. The exercise shows that it is
-symmetric and has the same null space as $A$.
+The matrix $\mathbf{A}^{\top}\mathbf{A}$ appears in least squares and in the singular value decomposition below. The exercise shows that it is
+symmetric and has the same null space as $\mathbf{A}$.
 
 ::: {#exr-app-range-null-rank-gram}
-#### The null space of $A^{\top}A$
+#### The null space of $\mathbf{A}^{\top}\mathbf{A}$
 
-Let $A \in \mathbb{R}^{n \times d}$. Show that $A^{\top}A$ is symmetric and that its null space equals the null space of $A$.
+Let $\mathbf{A} \in \mathbb{R}^{n \times d}$. Show that $\mathbf{A}^{\top}\mathbf{A}$ is symmetric and that its null space equals the null space of $\mathbf{A}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(A^{\top}A)^{\top} = A^{\top}(A^{\top})^{\top} = A^{\top}A$. If $A\mathbf{u} = \mathbf{0}$ then $A^{\top}A\mathbf{u} = \mathbf{0}$.
-Conversely, if $A^{\top}A\mathbf{u} = \mathbf{0}$ then $0 = \langle \mathbf{u}, A^{\top}A\mathbf{u} \rangle = \langle A\mathbf{u},
-A\mathbf{u} \rangle = \|A\mathbf{u}\|^2$, so $A\mathbf{u} = \mathbf{0}$.
+$(\mathbf{A}^{\top}\mathbf{A})^{\top} = \mathbf{A}^{\top}(\mathbf{A}^{\top})^{\top} = \mathbf{A}^{\top}\mathbf{A}$. If $\mathbf{A}\mathbf{u} = \mathbf{0}$ then $\mathbf{A}^{\top}\mathbf{A}\mathbf{u} = \mathbf{0}$.
+Conversely, if $\mathbf{A}^{\top}\mathbf{A}\mathbf{u} = \mathbf{0}$ then $0 = \langle \mathbf{u}, \mathbf{A}^{\top}\mathbf{A}\mathbf{u} \rangle = \langle \mathbf{A}\mathbf{u},
+\mathbf{A}\mathbf{u} \rangle = \|\mathbf{A}\mathbf{u}\|^2$, so $\mathbf{A}\mathbf{u} = \mathbf{0}$.
 :::
 ::::
 
@@ -627,10 +627,10 @@ and spectral clustering. An eigenvector is a direction that a square matrix only
 ::: {#def-app-eigenvector}
 #### Eigenvalue and eigenvector
 
-Let $A \in \mathbb{R}^{d \times d}$ be a matrix. A nonzero vector $\mathbf{u}$ is an eigenvector of $A$ with a
+Let $\mathbf{A} \in \mathbb{R}^{d \times d}$ be a matrix. A nonzero vector $\mathbf{u}$ is an eigenvector of $\mathbf{A}$ with a
 corresponding eigenvalue $\lambda$ if
 
-$$ A\mathbf{u} = \lambda\mathbf{u} $$
+$$ \mathbf{A}\mathbf{u} = \lambda\mathbf{u} $$
 :::
 
 ::::
@@ -642,7 +642,7 @@ The simplest non-diagonal symmetric matrix already has two eigenvectors along th
 ::: {#exm-app-eigenvector-symmetric}
 #### A symmetric $2 \times 2$ matrix
 
-For $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, $A(1, 1) = (3, 3) = 3(1, 1)$ and $A(1, -1) = (1, -1)$, so $(1, 1)$ is an
+For $\mathbf{A} = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, $\mathbf{A}(1, 1) = (3, 3) = 3(1, 1)$ and $\mathbf{A}(1, -1) = (1, -1)$, so $(1, 1)$ is an
 eigenvector with eigenvalue $3$ and $(1, -1)$ one with eigenvalue $1$.
 :::
 ::::
@@ -654,11 +654,11 @@ this for a rotation.
 ::: {#exr-app-eigenvector-rotation}
 #### A rotation has no real eigenvector
 
-Show that $R = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ has no eigenvector in $\mathbb{R}^2$.
+Show that $\mathbf{R} = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ has no eigenvector in $\mathbb{R}^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$R\mathbf{u} = \lambda\mathbf{u}$ reads $-u_2 = \lambda u_1$ and $u_1 = \lambda u_2$. Substituting, $u_1 = -\lambda^2 u_1$, so
+$\mathbf{R}\mathbf{u} = \lambda\mathbf{u}$ reads $-u_2 = \lambda u_1$ and $u_1 = \lambda u_2$. Substituting, $u_1 = -\lambda^2 u_1$, so
 $(1 + \lambda^2)u_1 = 0$ and $u_1 = 0$; then $-u_2 = \lambda u_1 = 0$, so $u_2 = 0$ as well. Hence $\mathbf{u} = \mathbf{0}$,
 which is not an eigenvector.
 :::
@@ -671,17 +671,17 @@ decomposition states this and reads off the rank, range and null space from it.
 ::: {#thm-app-spectral-decomposition}
 #### Spectral decomposition
 
-If $A \in \mathbb{R}^{d \times d}$ is a symmetric matrix of rank $k$ [@shalev2014ml], then
+If $\mathbf{A} \in \mathbb{R}^{d \times d}$ is a symmetric matrix of rank $k$ [@shalev2014ml], then
 there exists an orthonormal basis of $\mathbb{R}^d$, $\mathbf{u}_1, \ldots, \mathbf{u}_d$, such that each $\mathbf{u}_i$ is an
-eigenvector of $A$. Furthermore, $A$ can be written as
+eigenvector of $\mathbf{A}$. Furthermore, $\mathbf{A}$ can be written as
 
-$$ A = \sum_{i=1}^{d} \lambda_i \mathbf{u}_i \mathbf{u}_i^{\top} $$
+$$ \mathbf{A} = \sum_{i=1}^{d} \lambda_i \mathbf{u}_i \mathbf{u}_i^{\top} $$
 
-where each $\lambda_i$ is the eigenvalue corresponding to the eigenvector $\mathbf{u}_i$. This can be written equivalently as $A =
-UDU^{\top}$, where the columns of $U$ are the vectors $\mathbf{u}_1, \ldots, \mathbf{u}_d$, and $D$ is a diagonal matrix with
+where each $\lambda_i$ is the eigenvalue corresponding to the eigenvector $\mathbf{u}_i$. This can be written equivalently as $\mathbf{A} =
+\mathbf{U}\mathbf{D}\mathbf{U}^{\top}$, where the columns of $\mathbf{U}$ are the vectors $\mathbf{u}_1, \ldots, \mathbf{u}_d$, and $\mathbf{D}$ is a diagonal matrix with
 $D_{i,i} = \lambda_i$ and for $i \neq j$, $D_{i,j} = 0$. Finally, the number of $\lambda_i$ which are nonzero is the rank of the
-matrix, the eigenvectors which correspond to the nonzero eigenvalues span the range of $A$, and the eigenvectors which correspond
-to zero eigenvalues span the null space of $A$.
+matrix, the eigenvectors which correspond to the nonzero eigenvalues span the range of $\mathbf{A}$, and the eigenvectors which correspond
+to zero eigenvalues span the null space of $\mathbf{A}$.
 :::
 
 ::::
@@ -698,7 +698,7 @@ The matrix of the previous example can now be reassembled from its eigenvectors.
 With $\mathbf{u}_1 = (1, 1)/\sqrt{2}$ and $\mathbf{u}_2 = (1, -1)/\sqrt{2}$,
 $$ 3\mathbf{u}_1\mathbf{u}_1^{\top} + \mathbf{u}_2\mathbf{u}_2^{\top} = \frac{3}{2}\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} +
 \frac{1}{2}\begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix} = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}. $$
-For $B = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$ the same vectors are eigenvectors with eigenvalues $2$ and $0$: $B$ has rank
+For $\mathbf{B} = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$ the same vectors are eigenvectors with eigenvalues $2$ and $0$: $\mathbf{B}$ has rank
 $1$, its range is spanned by $\mathbf{u}_1$ and its null space by $\mathbf{u}_2$.
 :::
 ::::
@@ -710,16 +710,16 @@ multiplying matrices three times.
 ::: {#exr-app-spectral-decomposition-powers}
 #### Powers of a symmetric matrix
 
-Show that $A^k = \sum_i \lambda_i^k \mathbf{u}_i\mathbf{u}_i^{\top}$ for every integer $k \geq 1$, and compute $\begin{pmatrix} 2 &
+Show that $\mathbf{A}^k = \sum_i \lambda_i^k \mathbf{u}_i\mathbf{u}_i^{\top}$ for every integer $k \geq 1$, and compute $\begin{pmatrix} 2 &
 1 \\ 1 & 2 \end{pmatrix}^3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Orthonormality gives $(\mathbf{u}_i\mathbf{u}_i^{\top})(\mathbf{u}_j\mathbf{u}_j^{\top}) = \langle \mathbf{u}_i, \mathbf{u}_j
 \rangle \mathbf{u}_i\mathbf{u}_j^{\top}$, which is $\mathbf{u}_i\mathbf{u}_i^{\top}$ if $i = j$ and $0$ otherwise; multiplying out
-$A^k$ and induction on $k$ give the formula. For the matrix above, $A^3 = \frac{27}{2}\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} +
+$\mathbf{A}^k$ and induction on $k$ give the formula. For the matrix above, $\mathbf{A}^3 = \frac{27}{2}\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix} +
 \frac{1}{2}\begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix} = \begin{pmatrix} 14 & 13 \\ 13 & 14 \end{pmatrix}$, which agrees with
-$A^2 = \begin{pmatrix} 5 & 4 \\ 4 & 5 \end{pmatrix}$ multiplied by $A$.
+$\mathbf{A}^2 = \begin{pmatrix} 5 & 4 \\ 4 & 5 \end{pmatrix}$ multiplied by $\mathbf{A}$.
 :::
 ::::
 
@@ -732,7 +732,7 @@ eigenvalues provided by the spectral decomposition.
 ::: {#def-app-positive-definite}
 #### Positive definite and semidefinite matrices
 
-A symmetric matrix $A \in \mathbb{R}^{d \times d}$ is positive definite if all its eigenvalues are positive. $A$
+A symmetric matrix $\mathbf{A} \in \mathbb{R}^{d \times d}$ is positive definite if all its eigenvalues are positive. $\mathbf{A}$
 is positive semidefinite if all its eigenvalues are nonnegative.
 :::
 
@@ -775,12 +775,12 @@ The next theorem gives two more.
 ::: {#thm-app-psd-characterizations}
 #### Characterizations of positive semidefiniteness
 
-Let $A \in \mathbb{R}^{d \times d}$ be a symmetric matrix [@shalev2014ml]. Then, the following are equivalent
-definitions of positive semidefiniteness of $A$:
+Let $\mathbf{A} \in \mathbb{R}^{d \times d}$ be a symmetric matrix [@shalev2014ml]. Then, the following are equivalent
+definitions of positive semidefiniteness of $\mathbf{A}$:
 
-1. All the eigenvalues of $A$ are nonnegative.
-2. For every vector $\mathbf{u}$, $\langle \mathbf{u}, A\mathbf{u} \rangle \geq 0$.
-3. There exists a matrix $B$ such that $A = BB^{\top}$.
+1. All the eigenvalues of $\mathbf{A}$ are nonnegative.
+2. For every vector $\mathbf{u}$, $\langle \mathbf{u}, \mathbf{A}\mathbf{u} \rangle \geq 0$.
+3. There exists a matrix $\mathbf{B}$ such that $\mathbf{A} = \mathbf{B}\mathbf{B}^{\top}$.
 :::
 
 ::::
@@ -796,8 +796,8 @@ the all-ones matrix.
 ::: {#exm-app-psd-characterizations-ones}
 #### The all-ones matrix
 
-For $A = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$: the eigenvalues are $2$ and $0$; $\langle \mathbf{u}, A\mathbf{u} \rangle
-= (u_1 + u_2)^2 \geq 0$; and $A = BB^{\top}$ with $B$ the column $(1, 1)^{\top}$.
+For $\mathbf{A} = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$: the eigenvalues are $2$ and $0$; $\langle \mathbf{u}, \mathbf{A}\mathbf{u} \rangle
+= (u_1 + u_2)^2 \geq 0$; and $\mathbf{A} = \mathbf{B}\mathbf{B}^{\top}$ with $\mathbf{B}$ the column $(1, 1)^{\top}$.
 :::
 ::::
 
@@ -808,13 +808,13 @@ characterizations.
 ::: {#exr-app-psd-characterizations-gram}
 #### Gram matrices
 
-Let $\mathbf{x}_1, \ldots, \mathbf{x}_n \in \mathbb{R}^d$ and $K_{ij} = \langle \mathbf{x}_i, \mathbf{x}_j \rangle$. Show that $K$ is
+Let $\mathbf{x}_1, \ldots, \mathbf{x}_n \in \mathbb{R}^d$ and $K_{ij} = \langle \mathbf{x}_i, \mathbf{x}_j \rangle$. Show that $\mathbf{K}$ is
 positive semidefinite using condition 3, and again using condition 2.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $X$ be the $n \times d$ matrix with rows $\mathbf{x}_i^{\top}$. Then $K = XX^{\top}$, which is condition 3 with $B = X$.
-Directly, $\langle \mathbf{u}, K\mathbf{u} \rangle = \sum_{i,j} u_i u_j \langle \mathbf{x}_i, \mathbf{x}_j \rangle = \|\sum_i u_i
+Let $\mathbf{X}$ be the $n \times d$ matrix with rows $\mathbf{x}_i^{\top}$. Then $\mathbf{K} = \mathbf{X}\mathbf{X}^{\top}$, which is condition 3 with $\mathbf{B} = \mathbf{X}$.
+Directly, $\langle \mathbf{u}, \mathbf{K}\mathbf{u} \rangle = \sum_{i,j} u_i u_j \langle \mathbf{x}_i, \mathbf{x}_j \rangle = \|\sum_i u_i
 \mathbf{x}_i\|^2 \geq 0$, which is condition 2.
 :::
 ::::
@@ -829,10 +829,10 @@ a pair of equations linking a vector in each space.
 ::: {#def-app-singular-vectors}
 #### Singular values and vectors
 
-Let $A \in \mathbb{R}^{m \times n}$ be a matrix of rank $r$. Unit vectors $\mathbf{v} \in \mathbb{R}^n$ and
-$\mathbf{u} \in \mathbb{R}^m$ are called right and left singular vectors of $A$ with corresponding singular value $\sigma > 0$ if
+Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ be a matrix of rank $r$. Unit vectors $\mathbf{v} \in \mathbb{R}^n$ and
+$\mathbf{u} \in \mathbb{R}^m$ are called right and left singular vectors of $\mathbf{A}$ with corresponding singular value $\sigma > 0$ if
 
-$$ A\mathbf{v} = \sigma\mathbf{u} \quad \text{and} \quad A^{\top}\mathbf{u} = \sigma\mathbf{v} $$
+$$ \mathbf{A}\mathbf{v} = \sigma\mathbf{u} \quad \text{and} \quad \mathbf{A}^{\top}\mathbf{u} = \sigma\mathbf{v} $$
 :::
 
 ::::
@@ -844,9 +844,9 @@ vectors need not coincide. The example checks @def-app-singular-vectors for such
 ::: {#exm-app-singular-vectors-diagonal}
 #### A diagonal matrix with a negative entry
 
-Let $A = \begin{pmatrix} 3 & 0 \\ 0 & -2 \end{pmatrix}$. With $\mathbf{v} = \mathbf{u} = \mathbf{e}_1$: $A\mathbf{e}_1 =
-3\mathbf{e}_1$ and $A^{\top}\mathbf{e}_1 = 3\mathbf{e}_1$, so $\sigma = 3$. With $\mathbf{v} = \mathbf{e}_2$, $\mathbf{u} =
--\mathbf{e}_2$: $A\mathbf{e}_2 = 2(-\mathbf{e}_2)$ and $A^{\top}(-\mathbf{e}_2) = 2\mathbf{e}_2$, so $\sigma = 2$, although $-2$ is
+Let $\mathbf{A} = \begin{pmatrix} 3 & 0 \\ 0 & -2 \end{pmatrix}$. With $\mathbf{v} = \mathbf{u} = \mathbf{e}_1$: $\mathbf{A}\mathbf{e}_1 =
+3\mathbf{e}_1$ and $\mathbf{A}^{\top}\mathbf{e}_1 = 3\mathbf{e}_1$, so $\sigma = 3$. With $\mathbf{v} = \mathbf{e}_2$, $\mathbf{u} =
+-\mathbf{e}_2$: $\mathbf{A}\mathbf{e}_2 = 2(-\mathbf{e}_2)$ and $\mathbf{A}^{\top}(-\mathbf{e}_2) = 2\mathbf{e}_2$, so $\sigma = 2$, although $-2$ is
 the eigenvalue.
 :::
 ::::
@@ -857,12 +857,12 @@ A single column vector is the simplest non-square matrix. The exercise finds its
 ::: {#exr-app-singular-vectors-column}
 #### A column vector
 
-Find a singular value and a pair of singular vectors of $A = (1, 2, 2)^{\top} \in \mathbb{R}^{3 \times 1}$.
+Find a singular value and a pair of singular vectors of $\mathbf{A} = (1, 2, 2)^{\top} \in \mathbb{R}^{3 \times 1}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The only unit vectors in $\mathbb{R}^1$ are $\pm 1$; take $\mathbf{v} = 1$. Then $A\mathbf{v} = (1, 2, 2)$ has norm $3$, so $\sigma
-= 3$ and $\mathbf{u} = (1, 2, 2)/3$. Check: $A^{\top}\mathbf{u} = (1 + 4 + 4)/3 = 3 = \sigma\mathbf{v}$.
+The only unit vectors in $\mathbb{R}^1$ are $\pm 1$; take $\mathbf{v} = 1$. Then $\mathbf{A}\mathbf{v} = (1, 2, 2)$ has norm $3$, so $\sigma
+= 3$ and $\mathbf{u} = (1, 2, 2)/3$. Check: $\mathbf{A}^{\top}\mathbf{u} = (1 + 4 + 4)/3 = 3 = \sigma\mathbf{v}$.
 :::
 ::::
 
@@ -872,16 +872,16 @@ Once enough singular triples are known, the matrix can be rebuilt from them. The
 ::: {#lem-app-svd-expansion}
 #### Expansion in singular vectors
 
-Let $A \in \mathbb{R}^{m \times n}$ be a matrix of rank $r$ [@shalev2014ml]. Assume that $\mathbf{v}_1, \ldots,
-\mathbf{v}_r$ is an orthonormal set of right singular vectors of $A$, $\mathbf{u}_1, \ldots, \mathbf{u}_r$ is an orthonormal set
-of corresponding left singular vectors of $A$, and $\sigma_1, \ldots, \sigma_r$ are the corresponding singular values. Then,
+Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ be a matrix of rank $r$ [@shalev2014ml]. Assume that $\mathbf{v}_1, \ldots,
+\mathbf{v}_r$ is an orthonormal set of right singular vectors of $\mathbf{A}$, $\mathbf{u}_1, \ldots, \mathbf{u}_r$ is an orthonormal set
+of corresponding left singular vectors of $\mathbf{A}$, and $\sigma_1, \ldots, \sigma_r$ are the corresponding singular values. Then,
 
-$$ A = \sum_{i=1}^{r} \sigma_i \mathbf{u}_i \mathbf{v}_i^{\top} $$
+$$ \mathbf{A} = \sum_{i=1}^{r} \sigma_i \mathbf{u}_i \mathbf{v}_i^{\top} $$
 
-It follows that if $U$ is a matrix whose columns are the $\mathbf{u}_i$'s, $V$ is a matrix whose columns are the $\mathbf{v}_i$'s,
-and $D$ is a diagonal matrix with $D_{i,i} = \sigma_i$, then
+It follows that if $\mathbf{U}$ is a matrix whose columns are the $\mathbf{u}_i$'s, $\mathbf{V}$ is a matrix whose columns are the $\mathbf{v}_i$'s,
+and $\boldsymbol{\Sigma}$ is a diagonal matrix with $\Sigma_{i,i} = \sigma_i$, then
 
-$$ A = UDV^{\top} $$
+$$ \mathbf{A} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{\top} $$
 :::
 
 ::::
@@ -904,39 +904,39 @@ For a rank-one matrix the expansion has a single term. The exercise finds it for
 ::: {#exr-app-svd-expansion-rank-one}
 #### A rank-one matrix
 
-Find the expansion of @lem-app-svd-expansion for $A = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}$.
+Find the expansion of @lem-app-svd-expansion for $\mathbf{A} = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$A$ has rank $1$. Take $\mathbf{v} = (1, 1)/\sqrt{2}$; then $A\mathbf{v} = (\sqrt{2}, 0)$, so $\sigma = \sqrt{2}$ and $\mathbf{u} =
-(1, 0)$, and $A^{\top}\mathbf{u} = (1, 1) = \sqrt{2}\mathbf{v}$. Hence $A = \sqrt{2}\,\mathbf{u}\mathbf{v}^{\top} = \sqrt{2} \cdot
+$\mathbf{A}$ has rank $1$. Take $\mathbf{v} = (1, 1)/\sqrt{2}$; then $\mathbf{A}\mathbf{v} = (\sqrt{2}, 0)$, so $\sigma = \sqrt{2}$ and $\mathbf{u} =
+(1, 0)$, and $\mathbf{A}^{\top}\mathbf{u} = (1, 1) = \sqrt{2}\mathbf{v}$. Hence $\mathbf{A} = \sqrt{2}\,\mathbf{u}\mathbf{v}^{\top} = \sqrt{2} \cdot
 \frac{1}{\sqrt{2}}\begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}$.
 :::
 ::::
 
-**Connection to Eigenvalues.** The singular values of $A$ are intimately related to the eigenvalues of $A^{\top}A$ and
-$AA^{\top}$. The next lemma makes the relation precise, and it is how singular values are computed in practice.
+**Connection to Eigenvalues.** The singular values of $\mathbf{A}$ are intimately related to the eigenvalues of $\mathbf{A}^{\top}\mathbf{A}$ and
+$\mathbf{A}\mathbf{A}^{\top}$. The next lemma makes the relation precise, and it is how singular values are computed in practice.
 
 :::: {.statement-box}
 ::: {#lem-app-singular-eigen}
 #### Singular vectors as eigenvectors
 
-$\mathbf{v}, \mathbf{u}$ are right and left singular vectors of $A$ with singular value $\sigma$ if and
-only if $\mathbf{v}$ is an eigenvector of $A^{\top}A$ with corresponding eigenvalue $\sigma^2$ and $\mathbf{u} =
-\sigma^{-1}A\mathbf{v}$ is an eigenvector of $AA^{\top}$ with corresponding eigenvalue $\sigma^2$ [@shalev2014ml].
+$\mathbf{v}, \mathbf{u}$ are right and left singular vectors of $\mathbf{A}$ with singular value $\sigma$ if and
+only if $\mathbf{v}$ is an eigenvector of $\mathbf{A}^{\top}\mathbf{A}$ with corresponding eigenvalue $\sigma^2$ and $\mathbf{u} =
+\sigma^{-1}\mathbf{A}\mathbf{v}$ is an eigenvector of $\mathbf{A}\mathbf{A}^{\top}$ with corresponding eigenvalue $\sigma^2$ [@shalev2014ml].
 :::
 
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The rank-one matrix of the last exercise gives a quick check of @lem-app-singular-eigen. Both products $A^{\top}A$ and
-$AA^{\top}$ are written out.
+The rank-one matrix of the last exercise gives a quick check of @lem-app-singular-eigen. Both products $\mathbf{A}^{\top}\mathbf{A}$ and
+$\mathbf{A}\mathbf{A}^{\top}$ are written out.
 
 ::: {#exm-app-singular-eigen-rank-one}
 #### Both Gram matrices of a rank-one matrix
 
-For $A = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}$, $A^{\top}A = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$ has eigenvector
-$(1, 1)/\sqrt{2}$ with eigenvalue $2 = \sigma^2$, and $AA^{\top} = \begin{pmatrix} 2 & 0 \\ 0 & 0 \end{pmatrix}$ has eigenvector
+For $\mathbf{A} = \begin{pmatrix} 1 & 1 \\ 0 & 0 \end{pmatrix}$, $\mathbf{A}^{\top}\mathbf{A} = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$ has eigenvector
+$(1, 1)/\sqrt{2}$ with eigenvalue $2 = \sigma^2$, and $\mathbf{A}\mathbf{A}^{\top} = \begin{pmatrix} 2 & 0 \\ 0 & 0 \end{pmatrix}$ has eigenvector
 $(1, 0)$ with eigenvalue $2$.
 :::
 ::::
@@ -948,33 +948,33 @@ SVD is assembled in a later example.
 ::: {#exr-app-singular-eigen-three-by-two}
 #### Singular values of a $3 \times 2$ matrix
 
-Let $A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$. Use @lem-app-singular-eigen to find its singular values and
+Let $\mathbf{A} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$. Use @lem-app-singular-eigen to find its singular values and
 singular vectors.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$A^{\top}A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$ has eigenvalues $3$ and $1$ with eigenvectors $\mathbf{v}_1 = (1,
-1)/\sqrt{2}$ and $\mathbf{v}_2 = (1, -1)/\sqrt{2}$. So $\sigma_1 = \sqrt{3}$, $\sigma_2 = 1$, $\mathbf{u}_1 = A\mathbf{v}_1/\sqrt{3}
-= (1, 1, 2)/\sqrt{6}$ and $\mathbf{u}_2 = A\mathbf{v}_2 = (1, -1, 0)/\sqrt{2}$. As a check, $AA^{\top} = \begin{pmatrix} 1 & 0 & 1
+$\mathbf{A}^{\top}\mathbf{A} = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$ has eigenvalues $3$ and $1$ with eigenvectors $\mathbf{v}_1 = (1,
+1)/\sqrt{2}$ and $\mathbf{v}_2 = (1, -1)/\sqrt{2}$. So $\sigma_1 = \sqrt{3}$, $\sigma_2 = 1$, $\mathbf{u}_1 = \mathbf{A}\mathbf{v}_1/\sqrt{3}
+= (1, 1, 2)/\sqrt{6}$ and $\mathbf{u}_2 = \mathbf{A}\mathbf{v}_2 = (1, -1, 0)/\sqrt{2}$. As a check, $\mathbf{A}\mathbf{A}^{\top} = \begin{pmatrix} 1 & 0 & 1
 \\ 0 & 1 & 1 \\ 1 & 1 & 2 \end{pmatrix}$ maps $(1, 1, 2)$ to $(3, 3, 6)$.
 :::
 ::::
 
 **Construction of Singular Vectors.** The following result shows how to construct singular vectors through optimization. Each
-vector maximises the stretch $\|A\mathbf{v}\|$ among unit vectors orthogonal to the previous ones.
+vector maximises the stretch $\|\mathbf{A}\mathbf{v}\|$ among unit vectors orthogonal to the previous ones.
 
 :::: {.statement-box}
 ::: {#lem-app-singular-vectors-variational}
 #### Variational construction of singular vectors
 
-Let $A \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml]. Define the following vectors:
+Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml]. Define the following vectors:
 
-$$ \begin{aligned} \mathbf{v}_1 &= \arg\max_{\mathbf{v} \in \mathbb{R}^n: \|\mathbf{v}\| = 1} \|A\mathbf{v}\| \\ \mathbf{v}_2 &=
+$$ \begin{aligned} \mathbf{v}_1 &= \arg\max_{\mathbf{v} \in \mathbb{R}^n: \|\mathbf{v}\| = 1} \|\mathbf{A}\mathbf{v}\| \\ \mathbf{v}_2 &=
 \arg\max_{\substack{\mathbf{v} \in \mathbb{R}^n: \|\mathbf{v}\| = 1 \\ \langle \mathbf{v}, \mathbf{v}_1 \rangle = 0}}
-\|A\mathbf{v}\| \\ &\vdots \\ \mathbf{v}_r &= \arg\max_{\substack{\mathbf{v} \in \mathbb{R}^n: \|\mathbf{v}\| = 1 \\ \forall i <
-r, \langle \mathbf{v}, \mathbf{v}_i \rangle = 0}} \|A\mathbf{v}\| \end{aligned} $$
+\|\mathbf{A}\mathbf{v}\| \\ &\vdots \\ \mathbf{v}_r &= \arg\max_{\substack{\mathbf{v} \in \mathbb{R}^n: \|\mathbf{v}\| = 1 \\ \forall i <
+r, \langle \mathbf{v}, \mathbf{v}_i \rangle = 0}} \|\mathbf{A}\mathbf{v}\| \end{aligned} $$
 
-Then, $\mathbf{v}_1, \ldots, \mathbf{v}_r$ is an orthonormal set of right singular vectors of $A$.
+Then, $\mathbf{v}_1, \ldots, \mathbf{v}_r$ is an orthonormal set of right singular vectors of $\mathbf{A}$.
 :::
 
 ::::
@@ -988,9 +988,9 @@ greedy choice picking the coordinate axes in order of their stretch.
 ::: {#exm-app-singular-vectors-variational-diagonal}
 #### A diagonal matrix
 
-For $A = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}$ and a unit vector $\mathbf{v}$, $\|A\mathbf{v}\|^2 = 9v_1^2 + 4v_2^2 = 4 +
+For $\mathbf{A} = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}$ and a unit vector $\mathbf{v}$, $\|\mathbf{A}\mathbf{v}\|^2 = 9v_1^2 + 4v_2^2 = 4 +
 5v_1^2$, maximised at $\mathbf{v}_1 = \mathbf{e}_1$ with value $3$. The only unit vectors orthogonal to it are $\pm\mathbf{e}_2$,
-giving $\mathbf{v}_2 = \mathbf{e}_2$ with $\|A\mathbf{v}_2\| = 2$.
+giving $\mathbf{v}_2 = \mathbf{e}_2$ with $\|\mathbf{A}\mathbf{v}_2\| = 2$.
 :::
 ::::
 
@@ -1001,29 +1001,29 @@ vectors.
 ::: {#exr-app-singular-vectors-variational-three-by-two}
 #### Maximising the stretch
 
-For $A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$, find $\mathbf{v}_1$ and $\mathbf{v}_2$ of
+For $\mathbf{A} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$, find $\mathbf{v}_1$ and $\mathbf{v}_2$ of
 @lem-app-singular-vectors-variational.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For a unit vector, $\|A\mathbf{v}\|^2 = v_1^2 + v_2^2 + (v_1 + v_2)^2 = 2 + 2v_1v_2$. Since $2v_1v_2 \leq v_1^2 + v_2^2 = 1$ with
-equality iff $v_1 = v_2$, the maximum $3$ is attained at $\mathbf{v}_1 = (1, 1)/\sqrt{2}$, so $\|A\mathbf{v}_1\| = \sqrt{3}$. The
-unit vectors orthogonal to it are $\pm(1, -1)/\sqrt{2}$, giving $\mathbf{v}_2 = (1, -1)/\sqrt{2}$ with $\|A\mathbf{v}_2\|^2 = 2 - 1
+For a unit vector, $\|\mathbf{A}\mathbf{v}\|^2 = v_1^2 + v_2^2 + (v_1 + v_2)^2 = 2 + 2v_1v_2$. Since $2v_1v_2 \leq v_1^2 + v_2^2 = 1$ with
+equality iff $v_1 = v_2$, the maximum $3$ is attained at $\mathbf{v}_1 = (1, 1)/\sqrt{2}$, so $\|\mathbf{A}\mathbf{v}_1\| = \sqrt{3}$. The
+unit vectors orthogonal to it are $\pm(1, -1)/\sqrt{2}$, giving $\mathbf{v}_2 = (1, -1)/\sqrt{2}$ with $\|\mathbf{A}\mathbf{v}_2\|^2 = 2 - 1
 = 1$.
 :::
 ::::
 
 The preceding lemmas combine into the existence of the decomposition for every matrix. The SVD theorem collects them and states
-how the factors relate to the eigen-decompositions of $A^{\top}A$ and $AA^{\top}$.
+how the factors relate to the eigen-decompositions of $\mathbf{A}^{\top}\mathbf{A}$ and $\mathbf{A}\mathbf{A}^{\top}$.
 
 :::: {.statement-box}
 ::: {#thm-app-svd}
 #### SVD theorem
 
-Let $A \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml]. Then $A = UDV^{\top}$ where $D$ is
-an $r \times r$ matrix with nonzero singular values of $A$ and the columns of $U, V$ are orthonormal left and right singular
-vectors of $A$. Furthermore, for all $i$, $D_{i,i}^2$ is an eigenvalue of $A^{\top}A$, the $i$-th column of $V$ is the
-corresponding eigenvector of $A^{\top}A$, and the $i$-th column of $U$ is the corresponding eigenvector of $AA^{\top}$.
+Let $\mathbf{A} \in \mathbb{R}^{m \times n}$ with rank $r$ [@shalev2014ml]. Then $\mathbf{A} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{\top}$ where $\boldsymbol{\Sigma}$ is
+an $r \times r$ matrix with nonzero singular values of $\mathbf{A}$ and the columns of $\mathbf{U}, \mathbf{V}$ are orthonormal left and right singular
+vectors of $\mathbf{A}$. Furthermore, for all $i$, $\Sigma_{i,i}^2$ is an eigenvalue of $\mathbf{A}^{\top}\mathbf{A}$, the $i$-th column of $\mathbf{V}$ is the
+corresponding eigenvector of $\mathbf{A}^{\top}\mathbf{A}$, and the $i$-th column of $\mathbf{U}$ is the corresponding eigenvector of $\mathbf{A}\mathbf{A}^{\top}$.
 :::
 
 ::::
@@ -1045,28 +1045,28 @@ example multiplies the factors of @thm-app-svd back together.
 ::: {#exm-app-svd-three-by-two}
 #### The SVD of a $3 \times 2$ matrix
 
-For $A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$ take $U = \begin{pmatrix} 1/\sqrt{6} & 1/\sqrt{2} \\ 1/\sqrt{6} &
--1/\sqrt{2} \\ 2/\sqrt{6} & 0 \end{pmatrix}$, $D = \operatorname{diag}(\sqrt{3}, 1)$ and $V = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &
+For $\mathbf{A} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$ take $\mathbf{U} = \begin{pmatrix} 1/\sqrt{6} & 1/\sqrt{2} \\ 1/\sqrt{6} &
+-1/\sqrt{2} \\ 2/\sqrt{6} & 0 \end{pmatrix}$, $\boldsymbol{\Sigma} = \operatorname{diag}(\sqrt{3}, 1)$ and $\mathbf{V} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 &
 1 \\ 1 & -1 \end{pmatrix}$. Then
-$$ UDV^{\top} = \sqrt{3}\,\mathbf{u}_1\mathbf{v}_1^{\top} + \mathbf{u}_2\mathbf{v}_2^{\top} = \frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1
-& 1 \\ 2 & 2 \end{pmatrix} + \frac{1}{2}\begin{pmatrix} 1 & -1 \\ -1 & 1 \\ 0 & 0 \end{pmatrix} = A. $$
+$$ \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{\top} = \sqrt{3}\,\mathbf{u}_1\mathbf{v}_1^{\top} + \mathbf{u}_2\mathbf{v}_2^{\top} = \frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1
+& 1 \\ 2 & 2 \end{pmatrix} + \frac{1}{2}\begin{pmatrix} 1 & -1 \\ -1 & 1 \\ 0 & 0 \end{pmatrix} = \mathbf{A}. $$
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-When $A$ has rank one, $D$ is a $1 \times 1$ matrix and the decomposition is a single outer product. The exercise computes it via
-the eigenvectors of $A^{\top}A$, as the theorem prescribes.
+When $\mathbf{A}$ has rank one, $\boldsymbol{\Sigma}$ is a $1 \times 1$ matrix and the decomposition is a single outer product. The exercise computes it via
+the eigenvectors of $\mathbf{A}^{\top}\mathbf{A}$, as the theorem prescribes.
 
 ::: {#exr-app-svd-rank-one}
 #### A rank-one SVD
 
-Compute the SVD of $A = \begin{pmatrix} 3 & 0 \\ 4 & 0 \end{pmatrix}$ in the form of @thm-app-svd.
+Compute the SVD of $\mathbf{A} = \begin{pmatrix} 3 & 0 \\ 4 & 0 \end{pmatrix}$ in the form of @thm-app-svd.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$A^{\top}A = \begin{pmatrix} 25 & 0 \\ 0 & 0 \end{pmatrix}$ has the single nonzero eigenvalue $25$ with eigenvector $\mathbf{v} =
-\mathbf{e}_1$, so $r = 1$, $D = (5)$, $V = \mathbf{e}_1$ and $U = A\mathbf{e}_1/5 = (3/5, 4/5)^{\top}$. Indeed $UDV^{\top} = 5 \cdot
-(3/5, 4/5)^{\top}(1, 0) = A$.
+$\mathbf{A}^{\top}\mathbf{A} = \begin{pmatrix} 25 & 0 \\ 0 & 0 \end{pmatrix}$ has the single nonzero eigenvalue $25$ with eigenvector $\mathbf{v} =
+\mathbf{e}_1$, so $r = 1$, $\boldsymbol{\Sigma} = (5)$, $\mathbf{V} = \mathbf{e}_1$ and $\mathbf{U} = \mathbf{A}\mathbf{e}_1/5 = (3/5, 4/5)^{\top}$. Indeed $\mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{\top} = 5 \cdot
+(3/5, 4/5)^{\top}(1, 0) = \mathbf{A}$.
 :::
 ::::
 
@@ -1079,16 +1079,16 @@ used to state approximation and convergence results.
 ::: {#def-app-matrix-norms}
 #### Matrix norms and operator norms
 
-The Frobenius norm of a matrix $A \in
+The Frobenius norm of a matrix $\mathbf{A} \in
 \mathbb{R}^{m \times n}$ is defined as
 
-$$ \|A\|_F = \sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}^2} $$
+$$ \|\mathbf{A}\|_F = \sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}^2} $$
 
 The operator norm (or spectral norm) is defined as
 
-$$ \|A\|_2 = \max_{\|\mathbf{x}\|=1} \|A\mathbf{x}\| $$
+$$ \|\mathbf{A}\|_2 = \max_{\|\mathbf{x}\|=1} \|\mathbf{A}\mathbf{x}\| $$
 
-which equals the largest singular value of $A$ [@deisenroth2020mml].
+which equals the largest singular value of $\mathbf{A}$ [@deisenroth2020mml].
 :::
 
 ::::
@@ -1100,8 +1100,8 @@ immediate. The example compares them.
 ::: {#exm-app-matrix-norms-three-by-two}
 #### Both norms of one matrix
 
-For $A = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$, $\|A\|_F = \sqrt{4} = 2$ and $\|A\|_2 = \sigma_1 = \sqrt{3}$. Note
-that $\|A\|_F^2 = 4 = 3 + 1 = \sigma_1^2 + \sigma_2^2$.
+For $\mathbf{A} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$, $\|\mathbf{A}\|_F = \sqrt{4} = 2$ and $\|\mathbf{A}\|_2 = \sigma_1 = \sqrt{3}$. Note
+that $\|\mathbf{A}\|_F^2 = 4 = 3 + 1 = \sigma_1^2 + \sigma_2^2$.
 :::
 ::::
 
@@ -1112,12 +1112,12 @@ Cauchy-Schwarz inequality.
 ::: {#exr-app-matrix-norms-comparison}
 #### Operator norm versus Frobenius norm
 
-Show that $\|A\|_2 \leq \|A\|_F$ for every $A \in \mathbb{R}^{m \times n}$.
+Show that $\|\mathbf{A}\|_2 \leq \|\mathbf{A}\|_F$ for every $\mathbf{A} \in \mathbb{R}^{m \times n}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $\mathbf{a}_i$ be the $i$-th row of $A$ and $\|\mathbf{x}\| = 1$. Then $\|A\mathbf{x}\|^2 = \sum_i \langle \mathbf{a}_i,
-\mathbf{x} \rangle^2 \leq \sum_i \|\mathbf{a}_i\|^2\|\mathbf{x}\|^2 = \|A\|_F^2$. Taking the maximum over $\mathbf{x}$ gives the
+Let $\mathbf{a}_i$ be the $i$-th row of $\mathbf{A}$ and $\|\mathbf{x}\| = 1$. Then $\|\mathbf{A}\mathbf{x}\|^2 = \sum_i \langle \mathbf{a}_i,
+\mathbf{x} \rangle^2 \leq \sum_i \|\mathbf{a}_i\|^2\|\mathbf{x}\|^2 = \|\mathbf{A}\|_F^2$. Taking the maximum over $\mathbf{x}$ gives the
 claim.
 :::
 ::::
@@ -1129,14 +1129,14 @@ below fixes both.
 ::: {#def-app-trace-determinant}
 #### Trace and determinant
 
-The trace of a square matrix $A \in \mathbb{R}^{n \times n}$ is the sum of its diagonal elements:
+The trace of a square matrix $\mathbf{A} \in \mathbb{R}^{n \times n}$ is the sum of its diagonal elements:
 
-$$ \text{tr}(A) = \sum_{i=1}^{n} a_{ii} $$
+$$ \operatorname{tr}(\mathbf{A}) = \sum_{i=1}^{n} a_{ii} $$
 :::
 
 ::::
 
-The trace has the cyclic property: $\text{tr}(ABC) = \text{tr}(CAB) = \text{tr}(BCA)$. The determinant of $A$ is the product of
+The trace has the cyclic property: $\operatorname{tr}(\mathbf{A}\mathbf{B}\mathbf{C}) = \operatorname{tr}(\mathbf{C}\mathbf{A}\mathbf{B}) = \operatorname{tr}(\mathbf{B}\mathbf{C}\mathbf{A})$. The determinant of $\mathbf{A}$ is the product of
 its eigenvalues and provides information about the volume scaling induced by the linear transformation.
 
 These linear algebra concepts form the mathematical foundation for understanding optimization algorithms, dimensionality reduction
@@ -1149,7 +1149,7 @@ The symmetric matrix used throughout this section has eigenvalues $3$ and $1$. T
 ::: {#exm-app-trace-determinant-symmetric}
 #### Trace and determinant of a symmetric matrix
 
-For $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, $\text{tr}(A) = 4 = 3 + 1$ and $\det A = 4 - 1 = 3 = 3 \cdot 1$.
+For $\mathbf{A} = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, $\operatorname{tr}(\mathbf{A}) = 4 = 3 + 1$ and $\det \mathbf{A} = 4 - 1 = 3 = 3 \cdot 1$.
 :::
 ::::
 
@@ -1160,13 +1160,13 @@ example on matrix norms.
 ::: {#exr-app-trace-determinant-frobenius}
 #### Frobenius norm and singular values
 
-Show that $\|A\|_F^2 = \text{tr}(A^{\top}A)$ and, using @thm-app-svd and the cyclic property, that $\|A\|_F^2 = \sum_i \sigma_i^2$.
+Show that $\|\mathbf{A}\|_F^2 = \operatorname{tr}(\mathbf{A}^{\top}\mathbf{A})$ and, using @thm-app-svd and the cyclic property, that $\|\mathbf{A}\|_F^2 = \sum_i \sigma_i^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The $(j, j)$ entry of $A^{\top}A$ is $\sum_i a_{ij}^2$, so $\text{tr}(A^{\top}A) = \sum_{i,j} a_{ij}^2 = \|A\|_F^2$. With $A =
-UDV^{\top}$ and $U^{\top}U = I_r$, $A^{\top}A = VD^2V^{\top}$, and $\text{tr}(VD^2V^{\top}) = \text{tr}(D^2V^{\top}V) =
-\text{tr}(D^2) = \sum_i \sigma_i^2$ since $V^{\top}V = I_r$.
+The $(j, j)$ entry of $\mathbf{A}^{\top}\mathbf{A}$ is $\sum_i a_{ij}^2$, so $\operatorname{tr}(\mathbf{A}^{\top}\mathbf{A}) = \sum_{i,j} a_{ij}^2 = \|\mathbf{A}\|_F^2$. With $\mathbf{A} =
+\mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{\top}$ and $\mathbf{U}^{\top}\mathbf{U} = \mathbf{I}_r$, $\mathbf{A}^{\top}\mathbf{A} = \mathbf{V}\boldsymbol{\Sigma}^2\mathbf{V}^{\top}$, and $\operatorname{tr}(\mathbf{V}\boldsymbol{\Sigma}^2\mathbf{V}^{\top}) = \operatorname{tr}(\boldsymbol{\Sigma}^2\mathbf{V}^{\top}\mathbf{V}) =
+\operatorname{tr}(\boldsymbol{\Sigma}^2) = \sum_i \sigma_i^2$ since $\mathbf{V}^{\top}\mathbf{V} = \mathbf{I}_r$.
 :::
 ::::
 
@@ -1177,9 +1177,9 @@ finite. These inequalities are fundamental to statistical learning theory and pr
 machine learning [@shalev2014ml; @zhao2025rl]. The results in this section are used extensively in @sec-learning-theory to derive
 PAC learning bounds and in @sec-supervised-learning to analyze the convergence of learning algorithms.
 
-Let $Z_1, \ldots, Z_m$ be an i.i.d. sequence of random variables and let $\mu$ be their mean. The strong law of large numbers
-states that when $m$ tends to infinity, the empirical average, $\frac{1}{m}\sum_{i=1}^{m} Z_i$, converges to the expected value
-$\mu$, with probability 1. Measure concentration inequalities quantify this deviation for finite $m$.
+Let $Z_1, \ldots, Z_n$ be an i.i.d. sequence of random variables and let $\mu$ be their mean. The strong law of large numbers
+states that when $n$ tends to infinity, the empirical average, $\frac{1}{n}\sum_{i=1}^{n} Z_i$, converges to the expected value
+$\mu$, with probability 1. Measure concentration inequalities quantify this deviation for finite $n$.
 
 ### Markov's Inequality
 
@@ -1190,7 +1190,7 @@ every later inequality of this section is obtained by applying it to a suitable 
 ::: {#lem-app-markov}
 #### Markov's inequality
 
-Let $Z$ be a nonnegative random variable. Then for every $a > 0$, $\mathbb{P}[Z \geq a] \leq \mathbb{E}[Z]/a$.
+Let $Z$ be a nonnegative random variable. Then for every $a > 0$, $\mathbb{P}(Z \geq a) \leq \mathbb{E}[Z]/a$.
 :::
 
 ::::
@@ -1198,16 +1198,16 @@ Let $Z$ be a nonnegative random variable. Then for every $a > 0$, $\mathbb{P}[Z 
 *Proof.* Let $Z$ be a nonnegative random
 variable. The expectation of $Z$ can be written as:
 
-$$ \mathbb{E}[Z] = \int_{x=0}^{\infty} \mathbb{P}[Z \geq x]dx $$
+$$ \mathbb{E}[Z] = \int_{x=0}^{\infty} \mathbb{P}(Z \geq x)dx $$
 
-Since $\mathbb{P}[Z \geq x]$ is monotonically nonincreasing we obtain
+Since $\mathbb{P}(Z \geq x)$ is monotonically nonincreasing we obtain
 
-$$ \forall a \geq 0, \quad \mathbb{E}[Z] \geq \int_{x=0}^{a} \mathbb{P}[Z \geq x]dx \geq \int_{x=0}^{a} \mathbb{P}[Z \geq a]dx =
-a\mathbb{P}[Z \geq a] $$
+$$ \forall a \geq 0, \quad \mathbb{E}[Z] \geq \int_{x=0}^{a} \mathbb{P}(Z \geq x)dx \geq \int_{x=0}^{a} \mathbb{P}(Z \geq a)dx =
+a\mathbb{P}(Z \geq a) $$
 
 Rearranging the inequality yields Markov's inequality:
 
-$$ \forall a \geq 0, \quad \mathbb{P}[Z \geq a] \leq \frac{\mathbb{E}[Z]}{a} $$
+$$ \forall a \geq 0, \quad \mathbb{P}(Z \geq a) \leq \frac{\mathbb{E}[Z]}{a} $$
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 An exponential variable has an explicit tail, which lets one see how far @lem-app-markov is from the truth. The comparison
@@ -1216,7 +1216,7 @@ explains why sharper inequalities are needed later.
 ::: {#exm-app-markov-exponential}
 #### An exponential variable
 
-Let $Z$ be exponential with $\mathbb{E}[Z] = 1$, so $\mathbb{P}[Z \geq a] = e^{-a}$. At $a = 3$ Markov gives $1/3$, while the true
+Let $Z$ be exponential with $\mathbb{E}[Z] = 1$, so $\mathbb{P}(Z \geq a) = e^{-a}$. At $a = 3$ Markov gives $1/3$, while the true
 value is $e^{-3} \approx 0.050$.
 :::
 ::::
@@ -1228,11 +1228,11 @@ variable for which it is an equality.
 ::: {#exr-app-markov-tight}
 #### Markov's inequality is tight
 
-Fix $a > 0$ and $p \in [0, 1]$. Find a nonnegative $Z$ with $\mathbb{P}[Z \geq a] = \mathbb{E}[Z]/a$.
+Fix $a > 0$ and $p \in [0, 1]$. Find a nonnegative $Z$ with $\mathbb{P}(Z \geq a) = \mathbb{E}[Z]/a$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $Z = a$ with probability $p$ and $Z = 0$ otherwise. Then $\mathbb{E}[Z] = ap$ and $\mathbb{P}[Z \geq a] = p = \mathbb{E}[Z]/a$.
+Let $Z = a$ with probability $p$ and $Z = 0$ otherwise. Then $\mathbb{E}[Z] = ap$ and $\mathbb{P}(Z \geq a) = p = \mathbb{E}[Z]/a$.
 :::
 ::::
 
@@ -1246,11 +1246,11 @@ large. This is the form used to show that a learner with small expected error ha
 Let $Z$ be a random variable that takes values in $[0,1]$ [@shalev2014ml].
 Assume that $\mathbb{E}[Z] = \mu$. Then, for any $a \in (0,1)$,
 
-$$ \mathbb{P}[Z > 1-a] \geq \frac{\mu - (1-a)}{a} $$
+$$ \mathbb{P}(Z > 1-a) \geq \frac{\mu - (1-a)}{a} $$
 
 This also implies that for every $a \in (0,1)$,
 
-$$ \mathbb{P}[Z > a] \geq \frac{\mu - a}{1-a} \geq \mu - a $$
+$$ \mathbb{P}(Z > a) \geq \frac{\mu - a}{1-a} \geq \mu - a $$
 :::
 
 ::::
@@ -1262,8 +1262,8 @@ are evaluated for it.
 ::: {#exm-app-markov-bounded-two-point}
 #### A two-point variable
 
-Let $Z = 1$ with probability $0.9$ and $Z = 0$ otherwise, so $\mu = 0.9$. With $a = 0.2$: $\mathbb{P}[Z > 0.8] = 0.9 \geq (0.9 -
-0.8)/0.2 = 0.5$, and $\mathbb{P}[Z > 0.2] = 0.9 \geq (0.9 - 0.2)/0.8 = 0.875 \geq 0.7$.
+Let $Z = 1$ with probability $0.9$ and $Z = 0$ otherwise, so $\mu = 0.9$. With $a = 0.2$: $\mathbb{P}(Z > 0.8) = 0.9 \geq (0.9 -
+0.8)/0.2 = 0.5$, and $\mathbb{P}(Z > 0.2) = 0.9 \geq (0.9 - 0.2)/0.8 = 0.875 \geq 0.7$.
 :::
 ::::
 
@@ -1277,10 +1277,10 @@ Prove @lem-app-markov-bounded by applying @lem-app-markov to $1 - Z$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$Y = 1 - Z$ is nonnegative with $\mathbb{E}[Y] = 1 - \mu$, so $\mathbb{P}[Z \leq 1 - a] = \mathbb{P}[Y \geq a] \leq (1 - \mu)/a$
-and $\mathbb{P}[Z > 1 - a] \geq 1 - (1 - \mu)/a = (\mu - (1 - a))/a$. Replacing $a$ by $1 - a$ gives $\mathbb{P}[Z > a] \geq (\mu -
+$Y = 1 - Z$ is nonnegative with $\mathbb{E}[Y] = 1 - \mu$, so $\mathbb{P}(Z \leq 1 - a) = \mathbb{P}(Y \geq a) \leq (1 - \mu)/a$
+and $\mathbb{P}(Z > 1 - a) \geq 1 - (1 - \mu)/a = (\mu - (1 - a))/a$. Replacing $a$ by $1 - a$ gives $\mathbb{P}(Z > a) \geq (\mu -
 a)/(1 - a)$. If $\mu \geq a$, dividing the nonnegative number $\mu - a$ by $1 - a \in (0, 1)$ can only increase it, so this is at
-least $\mu - a$. If $\mu < a$, then $\mathbb{P}[Z > a] \geq 0 > \mu - a$ trivially, so $\mathbb{P}[Z > a] \geq \mu - a$ holds in
+least $\mu - a$. If $\mu < a$, then $\mathbb{P}(Z > a) \geq 0 > \mu - a$ trivially, so $\mathbb{P}(Z > a) \geq \mu - a$ holds in
 all cases.
 :::
 ::::
@@ -1294,18 +1294,18 @@ decreases like the inverse square of the deviation.
 ::: {#lem-app-chebyshev}
 #### Chebyshev's inequality
 
-Let $Z$ be a random variable with finite variance. Then for every $a > 0$, $\mathbb{P}[|Z - \mathbb{E}[Z]| \geq a] \leq
-\text{Var}[Z]/a^2$.
+Let $Z$ be a random variable with finite variance. Then for every $a > 0$, $\mathbb{P}(|Z - \mathbb{E}[Z]| \geq a) \leq
+\operatorname{Var}(Z)/a^2$.
 :::
 
 ::::
 
 *Proof.* Applying Markov's inequality on the random variable $(Z - \mathbb{E}[Z])^2$ we obtain Chebyshev's inequality:
 
-$$ \forall a > 0, \quad \mathbb{P}[|Z - \mathbb{E}[Z]| \geq a] = \mathbb{P}[(Z - \mathbb{E}[Z])^2 \geq a^2] \leq
-\frac{\text{Var}[Z]}{a^2} $$
+$$ \forall a > 0, \quad \mathbb{P}(|Z - \mathbb{E}[Z]| \geq a) = \mathbb{P}((Z - \mathbb{E}[Z])^2 \geq a^2) \leq
+\frac{\operatorname{Var}(Z)}{a^2} $$
 
-where $\text{Var}[Z] = \mathbb{E}[(Z - \mathbb{E}[Z])^2]$ is the variance of $Z$.
+where $\operatorname{Var}(Z) = \mathbb{E}[(Z - \mathbb{E}[Z])^2]$ is the variance of $Z$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 A fair die is the simplest variable for which @lem-app-chebyshev can be compared with the exact probability. The example uses a
@@ -1314,8 +1314,8 @@ deviation that picks out the two extreme faces.
 ::: {#exm-app-chebyshev-die}
 #### A fair die
 
-For a fair die, $\mathbb{E}[Z] = 3.5$ and $\text{Var}[Z] = 35/12 \approx 2.92$. With $a = 2.5$, $\mathbb{P}[|Z - 3.5| \geq 2.5] =
-\mathbb{P}[Z \in \{1, 6\}] = 1/3$, and Chebyshev gives $2.92/6.25 \approx 0.47$.
+For a fair die, $\mathbb{E}[Z] = 3.5$ and $\operatorname{Var}(Z) = 35/12 \approx 2.92$. With $a = 2.5$, $\mathbb{P}(|Z - 3.5| \geq 2.5) =
+\mathbb{P}(Z \in \{1, 6\}) = 1/3$, and Chebyshev gives $2.92/6.25 \approx 0.47$.
 :::
 ::::
 
@@ -1326,7 +1326,7 @@ distribution. The exercise derives it and compares it with the Gaussian.
 ::: {#exr-app-chebyshev-standard-deviations}
 #### Deviations in standard deviations
 
-Let $\sigma^2 = \text{Var}[Z] > 0$. Show that $\mathbb{P}[|Z - \mathbb{E}[Z]| \geq k\sigma] \leq 1/k^2$ for $k > 0$, and compare the
+Let $\sigma^2 = \operatorname{Var}(Z) > 0$. Show that $\mathbb{P}(|Z - \mathbb{E}[Z]| \geq k\sigma) \leq 1/k^2$ for $k > 0$, and compare the
 value at $k = 2$ with the Gaussian probability $\approx 0.046$.
 :::
 
@@ -1336,26 +1336,26 @@ the Gaussian value; the price of a bound valid for all distributions with finite
 :::
 ::::
 
-Consider the random variable $\frac{1}{m}\sum_{i=1}^{m} Z_i$. Since $Z_1, \ldots, Z_m$ are i.i.d. it is easy to verify that
+Consider the random variable $\frac{1}{n}\sum_{i=1}^{n} Z_i$. Since $Z_1, \ldots, Z_n$ are i.i.d. it is easy to verify that
 
-$$ \text{Var}\left[\frac{1}{m}\sum_{i=1}^{m} Z_i\right] = \frac{\text{Var}[Z_1]}{m} $$
+$$ \operatorname{Var}\left(\frac{1}{n}\sum_{i=1}^{n} Z_i\right) = \frac{\operatorname{Var}(Z_1)}{n} $$
 
 Applied to the empirical average, Chebyshev's inequality therefore gives a confidence interval whose width shrinks like
-$1/\sqrt{m}$. The next lemma states it with confidence parameter $\delta$.
+$1/\sqrt{n}$. The next lemma states it with confidence parameter $\delta$.
 
 :::: {.statement-box}
 ::: {#lem-app-chebyshev-average}
 #### Chebyshev's bound for empirical averages
 
-Let $Z_1, \ldots, Z_m$ be a sequence of i.i.d. random variables and assume that $\mathbb{E}[Z_1] = \mu$
-and $\text{Var}[Z_1] \leq 1$ [@shalev2014ml]. Then, for any $\delta \in (0,1)$, with probability of at least $1-\delta$ we have
+Let $Z_1, \ldots, Z_n$ be a sequence of i.i.d. random variables and assume that $\mathbb{E}[Z_1] = \mu$
+and $\operatorname{Var}(Z_1) \leq 1$ [@shalev2014ml]. Then, for any $\delta \in (0,1)$, with probability of at least $1-\delta$ we have
 
-$$ \left|\frac{1}{m}\sum_{i=1}^{m} Z_i - \mu\right| \leq \sqrt{\frac{1}{\delta m}} $$
+$$ \left|\frac{1}{n}\sum_{i=1}^{n} Z_i - \mu\right| \leq \sqrt{\frac{1}{\delta n}} $$
 :::
 
 ::::
 
-The deviation between the empirical average and the mean given by Chebyshev's inequality decreases polynomially with $m$. It is
+The deviation between the empirical average and the mean given by Chebyshev's inequality decreases polynomially with $n$. It is
 possible to obtain significantly faster, exponential decrease using Chernoff's bounds and Hoeffding's inequality.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -1365,8 +1365,8 @@ is, which motivates the exponential bounds that follow.
 ::: {#exm-app-chebyshev-average-sample-size}
 #### Sample size from Chebyshev
 
-To guarantee accuracy $\epsilon = 0.01$ with confidence $1 - \delta = 0.95$ we need $\sqrt{1/(\delta m)} \leq \epsilon$, that is,
-$m \geq 1/(\delta\epsilon^2) = 1/(0.05 \cdot 10^{-4}) = 200{,}000$.
+To guarantee accuracy $\varepsilon = 0.01$ with confidence $1 - \delta = 0.95$ we need $\sqrt{1/(\delta n)} \leq \varepsilon$, that is,
+$n \geq 1/(\delta\varepsilon^2) = 1/(0.05 \cdot 10^{-4}) = 200{,}000$.
 :::
 ::::
 
@@ -1381,8 +1381,8 @@ Prove @lem-app-chebyshev-average.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The average $\bar{Z}$ has mean $\mu$ and variance $\text{Var}[Z_1]/m \leq 1/m$. By @lem-app-chebyshev with $a = \sqrt{1/(\delta
-m)}$, $\mathbb{P}[|\bar{Z} - \mu| \geq a] \leq (1/m)/(1/(\delta m)) = \delta$, so $|\bar{Z} - \mu| < a$ with probability at least $1
+The average $\bar{Z}$ has mean $\mu$ and variance $\operatorname{Var}(Z_1)/n \leq 1/n$. By @lem-app-chebyshev with $a = \sqrt{1/(\delta
+n)}$, $\mathbb{P}(|\bar{Z} - \mu| \geq a) \leq (1/n)/(1/(\delta n)) = \delta$, so $|\bar{Z} - \mu| < a$ with probability at least $1
 - \delta$.
 :::
 ::::
@@ -1390,28 +1390,28 @@ m)}$, $\mathbb{P}[|\bar{Z} - \mu| \geq a] \leq (1/m)/(1/(\delta m)) = \delta$, s
 ### Chernoff's Bounds
 
 Chernoff's bounds provide exponentially decreasing tail probabilities for sums of independent Bernoulli random variables. The first
-bounds the probability that the sum exceeds its mean by a factor $1 + \delta$.
+bounds the probability that the sum exceeds its mean by a factor $1 + \varepsilon$.
 
 :::: {.statement-box}
 ::: {#lem-app-chernoff-upper}
 #### Chernoff bound, upper tail
 
-Let $Z_1, \ldots, Z_m$ be independent Bernoulli variables where for every
-$i$, $\mathbb{P}[Z_i = 1] = p_i$ and $\mathbb{P}[Z_i = 0] = 1 - p_i$ [@shalev2014ml]. Let $p = \sum_{i=1}^{m} p_i$ and let $Z =
-\sum_{i=1}^{m} Z_i$. Then, for any $\delta > 0$,
+Let $Z_1, \ldots, Z_n$ be independent Bernoulli variables where for every
+$i$, $\mathbb{P}(Z_i = 1) = p_i$ and $\mathbb{P}(Z_i = 0) = 1 - p_i$ [@shalev2014ml]. Let $\mu = \sum_{i=1}^{n} p_i$ and let $Z =
+\sum_{i=1}^{n} Z_i$. Then, for any $\varepsilon > 0$,
 
-$$ \mathbb{P}[Z > (1+\delta)p] \leq e^{-h(\delta)p} $$
+$$ \mathbb{P}(Z > (1+\varepsilon)\mu) \leq e^{-\psi(\varepsilon)\mu} $$
 
 where
 
-$$ h(\delta) = (1+\delta)\log(1+\delta) - \delta $$
+$$ \psi(\varepsilon) = (1+\varepsilon)\log(1+\varepsilon) - \varepsilon $$
 :::
 
 ::::
 
-Using the inequality $h(a) \geq a^2/(2 + 2a/3)$ we obtain the simplified bound:
+Using the inequality $\psi(a) \geq a^2/(2 + 2a/3)$ we obtain the simplified bound:
 
-$$ \mathbb{P}[Z > (1+\delta)p] \leq e^{-p\frac{\delta^2}{2+2\delta/3}} $$
+$$ \mathbb{P}(Z > (1+\varepsilon)\mu) \leq e^{-\mu\frac{\varepsilon^2}{2+2\varepsilon/3}} $$
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example evaluates @lem-app-chernoff-upper and its simplified form for a sum of a thousand rare events. It shows that the
@@ -1420,30 +1420,30 @@ simplification costs very little.
 ::: {#exm-app-chernoff-upper-rare-events}
 #### A thousand rare events
 
-Let $m = 1000$ and $p_i = 0.1$, so $p = 100$, and take $\delta = 0.5$. Then $h(0.5) = 1.5\log 1.5 - 0.5 \approx 0.1082$ and
-$\mathbb{P}[Z > 150] \leq e^{-10.82} \approx 2.0 \times 10^{-5}$; the simplified bound gives $e^{-100 \cdot 0.25/2.333} =
+Let $n = 1000$ and $p_i = 0.1$, so $\mu = 100$, and take $\varepsilon = 0.5$. Then $\psi(0.5) = 1.5\log 1.5 - 0.5 \approx 0.1082$ and
+$\mathbb{P}(Z > 150) \leq e^{-10.82} \approx 2.0 \times 10^{-5}$; the simplified bound gives $e^{-100 \cdot 0.25/2.333} =
 e^{-10.71} \approx 2.2 \times 10^{-5}$.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The simplified bound is convenient for finding how large $p$ must be. The exercise checks the inequality on $h$ at one point and
-then solves for $p$.
+The simplified bound is convenient for finding how large $\mu$ must be. The exercise checks the inequality on $\psi$ at one point and
+then solves for $\mu$.
 
 ::: {#exr-app-chernoff-upper-required-mean}
 #### How large must the mean be?
 
-(a) Check $h(1) \geq 1/(2 + 2/3)$. (b) With $\delta = 0.1$, how large must $p$ be for the simplified bound to give $\mathbb{P}[Z >
-1.1p] \leq 0.01$?
+(a) Check $\psi(1) \geq 1/(2 + 2/3)$. (b) With $\varepsilon = 0.1$, how large must $\mu$ be for the simplified bound to give $\mathbb{P}(Z >
+1.1\mu) \leq 0.01$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $h(1) = 2\log 2 - 1 \approx 0.386 \geq 0.375$. (b) We need $p\delta^2/(2 + 2\delta/3) \geq \log 100 \approx 4.605$. Here
-$\delta^2/(2 + 2\delta/3) = 0.01/2.0667 \approx 0.004839$, so $p \geq 4.605/0.004839 \approx 951.7$, i.e. $p \geq 952$.
+(a) $\psi(1) = 2\log 2 - 1 \approx 0.386 \geq 0.375$. (b) We need $\mu\varepsilon^2/(2 + 2\varepsilon/3) \geq \log 100 \approx 4.605$. Here
+$\varepsilon^2/(2 + 2\varepsilon/3) = 0.01/2.0667 \approx 0.004839$, so $\mu \geq 4.605/0.004839 \approx 951.7$, i.e. $\mu \geq 952$.
 :::
 ::::
 
-The same method bounds the probability of falling below the mean by a factor $1 - \delta$. The next lemma shows that this lower
+The same method bounds the probability of falling below the mean by a factor $1 - \varepsilon$. The next lemma shows that this lower
 tail is at least as small as the upper one.
 
 :::: {.statement-box}
@@ -1452,7 +1452,7 @@ tail is at least as small as the upper one.
 
 Using the notation above, we also have [@shalev2014ml]
 
-$$ \mathbb{P}[Z < (1-\delta)p] \leq e^{-ph(-\delta)} \leq e^{-ph(\delta)} \leq e^{-p\frac{\delta^2}{2+2\delta/3}} $$
+$$ \mathbb{P}(Z < (1-\varepsilon)\mu) \leq e^{-\mu\psi(-\varepsilon)} \leq e^{-\mu\psi(\varepsilon)} \leq e^{-\mu\frac{\varepsilon^2}{2+2\varepsilon/3}} $$
 :::
 
 ::::
@@ -1467,26 +1467,26 @@ gives a noticeably smaller number than the upper tail did.
 ::: {#exm-app-chernoff-lower-rare-events}
 #### The lower tail for the same sum
 
-With $p = 100$ and $\delta = 0.5$, $h(-0.5) = 0.5\log 0.5 + 0.5 \approx 0.1534$, so $\mathbb{P}[Z < 50] \leq e^{-15.34} \approx 2.2
-\times 10^{-7}$, compared with $2.0 \times 10^{-5}$ for $\mathbb{P}[Z > 150]$.
+With $\mu = 100$ and $\varepsilon = 0.5$, $\psi(-0.5) = 0.5\log 0.5 + 0.5 \approx 0.1534$, so $\mathbb{P}(Z < 50) \leq e^{-15.34} \approx 2.2
+\times 10^{-7}$, compared with $2.0 \times 10^{-5}$ for $\mathbb{P}(Z > 150)$.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The middle inequality of the lemma, $h(-\delta) \geq h(\delta)$, is what makes the lower tail lighter. The exercise proves it and
+The middle inequality of the lemma, $\psi(-\varepsilon) \geq \psi(\varepsilon)$, is what makes the lower tail lighter. The exercise proves it and
 combines the two tails.
 
 ::: {#exr-app-chernoff-lower-comparison}
-#### Comparing $h(-\delta)$ and $h(\delta)$
+#### Comparing $\psi(-\varepsilon)$ and $\psi(\varepsilon)$
 
-Show that $h(-\delta) \geq h(\delta)$ for $\delta \in (0, 1)$, and deduce $\mathbb{P}[|Z - p| > \delta p] \leq
-2e^{-p\delta^2/(2 + 2\delta/3)}$.
+Show that $\psi(-\varepsilon) \geq \psi(\varepsilon)$ for $\varepsilon \in (0, 1)$, and deduce $\mathbb{P}(|Z - \mu| > \varepsilon \mu) \leq
+2e^{-\mu\varepsilon^2/(2 + 2\varepsilon/3)}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $g(\delta) = h(-\delta) - h(\delta) = 2\delta + (1 - \delta)\log(1 - \delta) - (1 + \delta)\log(1 + \delta)$. Then $g(0) = 0$ and
-$g'(\delta) = 2 - \log(1 - \delta) - 1 - \log(1 + \delta) - 1 = -\log(1 - \delta^2) \geq 0$, so $g \geq 0$ on $(0, 1)$. The event
-$|Z - p| > \delta p$ is contained in the union of $Z > (1 + \delta)p$ and $Z < (1 - \delta)p$; adding the two simplified bounds of
+Let $g(\varepsilon) = \psi(-\varepsilon) - \psi(\varepsilon) = 2\varepsilon + (1 - \varepsilon)\log(1 - \varepsilon) - (1 + \varepsilon)\log(1 + \varepsilon)$. Then $g(0) = 0$ and
+$g'(\varepsilon) = 2 - \log(1 - \varepsilon) - 1 - \log(1 + \varepsilon) - 1 = -\log(1 - \varepsilon^2) \geq 0$, so $g \geq 0$ on $(0, 1)$. The event
+$|Z - \mu| > \varepsilon \mu$ is contained in the union of $Z > (1 + \varepsilon)\mu$ and $Z < (1 - \varepsilon)\mu$; adding the two simplified bounds of
 @lem-app-chernoff-upper and @lem-app-chernoff-lower gives the claim.
 :::
 ::::
@@ -1500,19 +1500,19 @@ inequality behind most finite-class generalization bounds.
 ::: {#lem-app-hoeffding-inequality}
 #### Hoeffding's inequality
 
-Let $Z_1, \ldots, Z_m$ be a sequence of i.i.d. random variables and let
-$\bar{Z} = \frac{1}{m}\sum_{i=1}^{m} Z_i$ [@shalev2014ml]. Assume that $\mathbb{E}[\bar{Z}] = \mu$ and $\mathbb{P}[a \leq Z_i \leq
-b] = 1$ for every $i$. Then, for any $\epsilon > 0$
+Let $Z_1, \ldots, Z_n$ be a sequence of i.i.d. random variables and let
+$\bar{Z} = \frac{1}{n}\sum_{i=1}^{n} Z_i$ [@shalev2014ml]. Assume that $\mathbb{E}[\bar{Z}] = \mu$ and $\mathbb{P}(a \leq Z_i \leq
+b) = 1$ for every $i$. Then, for any $\varepsilon > 0$
 
-$$ \mathbb{P}\left[\left|\frac{1}{m}\sum_{i=1}^{m} Z_i - \mu\right| > \epsilon\right] \leq
-2\exp\left(-\frac{2m\epsilon^2}{(b-a)^2}\right) $$
+$$ \mathbb{P}\left(\left|\frac{1}{n}\sum_{i=1}^{n} Z_i - \mu\right| > \varepsilon\right) \leq
+2\exp\left(-\frac{2n\varepsilon^2}{(b-a)^2}\right) $$
 :::
 
 ::::
 
 This inequality is one of the most important tools in statistical learning theory. It provides a uniform bound that holds for all
-$\epsilon > 0$ and shows that the probability of deviation decreases exponentially with both the sample size $m$ and the square of
-the deviation $\epsilon^2$.
+$\varepsilon > 0$ and shows that the probability of deviation decreases exponentially with both the sample size $n$ and the square of
+the deviation $\varepsilon^2$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example compares @lem-app-hoeffding-inequality with Chebyshev's inequality for the same average of variables in $[0, 1]$. It
@@ -1521,25 +1521,25 @@ shows the gain of the exponential bound at a moderate sample size.
 ::: {#exm-app-hoeffding-inequality-versus-chebyshev}
 #### Hoeffding versus Chebyshev
 
-Let $Z_i \in [0, 1]$, $m = 1000$ and $\epsilon = 0.05$. Hoeffding gives $2e^{-2 \cdot 1000 \cdot 0.0025} = 2e^{-5} \approx 0.013$.
-Since $\text{Var}[Z_i] \leq 1/4$, Chebyshev gives $(1/4)/(1000 \cdot 0.0025) = 0.1$.
+Let $Z_i \in [0, 1]$, $n = 1000$ and $\varepsilon = 0.05$. Hoeffding gives $2e^{-2 \cdot 1000 \cdot 0.0025} = 2e^{-5} \approx 0.013$.
+Since $\operatorname{Var}(Z_i) \leq 1/4$, Chebyshev gives $(1/4)/(1000 \cdot 0.0025) = 0.1$.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Solving Hoeffding's bound for $m$ gives the sample size needed for a given accuracy and confidence. The exercise computes it and
+Solving Hoeffding's bound for $n$ gives the sample size needed for a given accuracy and confidence. The exercise computes it and
 compares it with the Chebyshev sample size of @exm-app-chebyshev-average-sample-size.
 
 ::: {#exr-app-hoeffding-inequality-sample-size}
 #### Sample size from Hoeffding
 
-Show that $m \geq (b - a)^2\log(2/\delta)/(2\epsilon^2)$ guarantees $|\bar{Z} - \mu| \leq \epsilon$ with probability at least $1 -
-\delta$, and evaluate it for $[a, b] = [0, 1]$, $\epsilon = 0.01$, $\delta = 0.05$.
+Show that $n \geq (b - a)^2\log(2/\delta)/(2\varepsilon^2)$ guarantees $|\bar{Z} - \mu| \leq \varepsilon$ with probability at least $1 -
+\delta$, and evaluate it for $[a, b] = [0, 1]$, $\varepsilon = 0.01$, $\delta = 0.05$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The bound $2\exp(-2m\epsilon^2/(b - a)^2) \leq \delta$ is equivalent to $m \geq (b - a)^2\log(2/\delta)/(2\epsilon^2)$. Here
-$\log 40 \approx 3.689$ and $m \geq 3.689/(2 \cdot 10^{-4}) \approx 18{,}444.4$, so $m = 18{,}445$ suffices, against $200{,}000$ from
+The bound $2\exp(-2n\varepsilon^2/(b - a)^2) \leq \delta$ is equivalent to $n \geq (b - a)^2\log(2/\delta)/(2\varepsilon^2)$. Here
+$\log 40 \approx 3.689$ and $n \geq 3.689/(2 \cdot 10^{-4}) \approx 18{,}444.4$, so $n = 18{,}445$ suffices, against $200{,}000$ from
 @lem-app-chebyshev-average.
 :::
 ::::
@@ -1580,16 +1580,16 @@ the same argument used for random signs in @exr-app-cosh-gaussian-bound-rademach
 ::: {#exr-app-hoeffding-lemma-to-inequality}
 #### From the lemma to the inequality
 
-In the setting of @lem-app-hoeffding-inequality, show that $\mathbb{P}[\bar{Z} - \mu > \epsilon] \leq \exp(-2m\epsilon^2/(b -
+In the setting of @lem-app-hoeffding-inequality, show that $\mathbb{P}(\bar{Z} - \mu > \varepsilon) \leq \exp(-2n\varepsilon^2/(b -
 a)^2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Each $X_i = (Z_i - \mu)/m$ has mean zero and lies in an interval of length $(b - a)/m$. For $\lambda > 0$, @lem-app-markov applied to
+Each $X_i = (Z_i - \mu)/n$ has mean zero and lies in an interval of length $(b - a)/n$. For $\lambda > 0$, @lem-app-markov applied to
 $e^{\lambda(\bar{Z} - \mu)}$, independence and @lem-app-hoeffding-lemma give
-$$ \mathbb{P}[\bar{Z} - \mu > \epsilon] \leq e^{-\lambda\epsilon}\prod_{i=1}^{m}\mathbb{E}[e^{\lambda X_i}] \leq
-e^{-\lambda\epsilon + \lambda^2(b - a)^2/(8m)}. $$
-Choosing $\lambda = 4m\epsilon/(b - a)^2$ makes the exponent $-4m\epsilon^2/(b - a)^2 + 2m\epsilon^2/(b - a)^2 = -2m\epsilon^2/(b -
+$$ \mathbb{P}(\bar{Z} - \mu > \varepsilon) \leq e^{-\lambda\varepsilon}\prod_{i=1}^{n}\mathbb{E}[e^{\lambda X_i}] \leq
+e^{-\lambda\varepsilon + \lambda^2(b - a)^2/(8n)}. $$
+Choosing $\lambda = 4n\varepsilon/(b - a)^2$ makes the exponent $-4n\varepsilon^2/(b - a)^2 + 2n\varepsilon^2/(b - a)^2 = -2n\varepsilon^2/(b -
 a)^2$. Applying the same argument to $-Z_i$ and adding gives the factor $2$ of the two-sided inequality.
 :::
 ::::
@@ -1618,22 +1618,22 @@ norm.
 ::: {#exr-app-int-rademacher-combination}
 #### Random linear combinations of signs
 
-Let $\sigma_1, \ldots, \sigma_m$ be independent random signs, $\mathbb{P}[\sigma_i = \pm 1] = 1/2$, and let $\mathbf{w} \in
-\mathbb{R}^m$ be nonzero.
+Let $\sigma_1, \ldots, \sigma_n$ be independent random signs, $\mathbb{P}(\sigma_i = \pm 1) = 1/2$, and let $\mathbf{w} \in
+\mathbb{R}^n$ be nonzero.
 (a) Using @lem-app-cosh-gaussian-bound, show that $\mathbb{E}[e^{\lambda\sigma_i w_i}] \leq e^{\lambda^2 w_i^2/2}$.
-(b) Using @lem-app-markov, show that $\mathbb{P}[\sum_i w_i\sigma_i \geq t] \leq e^{-\lambda t}\prod_i \mathbb{E}[e^{\lambda
+(b) Using @lem-app-markov, show that $\mathbb{P}(\sum_i w_i\sigma_i \geq t) \leq e^{-\lambda t}\prod_i \mathbb{E}[e^{\lambda
 w_i\sigma_i}]$ for $\lambda > 0$.
-(c) Express the result through the norm of @def-app-inner-product-norms: show $\mathbb{P}[\langle \mathbf{w}, \boldsymbol{\sigma}
-\rangle \geq t] \leq e^{-t^2/(2\|\mathbf{w}\|^2)}$.
+(c) Express the result through the norm of @def-app-inner-product-norms: show $\mathbb{P}(\langle \mathbf{w}, \boldsymbol{\sigma}
+\rangle \geq t) \leq e^{-t^2/(2\|\mathbf{w}\|^2)}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) $\mathbb{E}[e^{\lambda w_i\sigma_i}] = \cosh(\lambda w_i) \leq e^{\lambda^2 w_i^2/2}$ by @lem-app-cosh-gaussian-bound with $a =
 \lambda w_i$.
 (b) $e^{\lambda S}$, with $S = \sum_i w_i\sigma_i$, is nonnegative, and $S \geq t$ iff $e^{\lambda S} \geq e^{\lambda t}$. By
-@lem-app-markov and independence, $\mathbb{P}[S \geq t] \leq e^{-\lambda t}\mathbb{E}[e^{\lambda S}] = e^{-\lambda t}\prod_i
+@lem-app-markov and independence, $\mathbb{P}(S \geq t) \leq e^{-\lambda t}\mathbb{E}[e^{\lambda S}] = e^{-\lambda t}\prod_i
 \mathbb{E}[e^{\lambda w_i\sigma_i}]$.
-(c) Combining, $\mathbb{P}[\langle \mathbf{w}, \boldsymbol{\sigma} \rangle \geq t] \leq e^{-\lambda t + \lambda^2\sum_i w_i^2/2} =
+(c) Combining, $\mathbb{P}(\langle \mathbf{w}, \boldsymbol{\sigma} \rangle \geq t) \leq e^{-\lambda t + \lambda^2\sum_i w_i^2/2} =
 e^{-\lambda t + \lambda^2\|\mathbf{w}\|^2/2}$. Minimising over $\lambda$ at $\lambda = t/\|\mathbf{w}\|^2$ gives
 $e^{-t^2/(2\|\mathbf{w}\|^2)}$.
 :::
@@ -1644,28 +1644,28 @@ linear algebra and with the logarithm lemma that makes an implicit sample size e
 ::: {#exr-app-int-finite-class-sample-size}
 #### Sample size for a finite class
 
-Let $\mathcal{H}$ be a finite set of $N$ hypotheses, and let $L_S(h)$ be the average loss of $h$ on $m$ i.i.d. examples and $L_D(h)$
+Let $\mathcal{H}$ be a finite set of $N$ hypotheses, and let $L_S(h)$ be the average loss of $h$ on $n$ i.i.d. examples and $L_{\mathcal{D}}(h)$
 its expectation.
-(a) If the loss takes values in $[0, 1]$, use @lem-app-hoeffding-inequality and a union bound to show that $m \geq \log(2N/\delta)/(2\epsilon^2)$
-guarantees $|L_S(h) - L_D(h)| \leq \epsilon$ for all $h \in \mathcal{H}$ simultaneously, with probability at least $1 - \delta$.
+(a) If the loss takes values in $[0, 1]$, use @lem-app-hoeffding-inequality and a union bound to show that $n \geq \log(2N/\delta)/(2\varepsilon^2)$
+guarantees $|L_S(h) - L_{\mathcal{D}}(h)| \leq \varepsilon$ for all $h \in \mathcal{H}$ simultaneously, with probability at least $1 - \delta$.
 (b) Let the hypotheses be linear predictors $\mathbf{x} \mapsto \langle \mathbf{w}, \mathbf{x} \rangle$ with $\|\mathbf{w}\| \leq 1$,
 the inputs satisfy $\|\mathbf{x}\| \leq 1$, the labels $|y| \leq 1$, and the loss be $(\langle \mathbf{w}, \mathbf{x} \rangle - y)^2$.
 Show that the loss lies in $[0, 4]$ and restate the sample size of (a).
-(c) Suppose, back in the setting of (a), that $N = m^d$ grows with $m$. Use @lem-app-log-versus-linear-offset to give an explicit
-sufficient $m$, and evaluate it for $d = 5$, $\epsilon = 0.1$, $\delta = 0.05$.
+(c) Suppose, back in the setting of (a), that $N = n^d$ grows with $n$. Use @lem-app-log-versus-linear-offset to give an explicit
+sufficient $n$, and evaluate it for $d = 5$, $\varepsilon = 0.1$, $\delta = 0.05$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) For each $h$, @lem-app-hoeffding-inequality with $b - a = 1$ gives $\mathbb{P}[|L_S(h) - L_D(h)| > \epsilon] \leq 2e^{-2m\epsilon^2}$.
-By the union bound the probability that some $h$ fails is at most $2Ne^{-2m\epsilon^2}$, which is at most $\delta$ iff $m \geq
-\log(2N/\delta)/(2\epsilon^2)$.
+(a) For each $h$, @lem-app-hoeffding-inequality with $b - a = 1$ gives $\mathbb{P}(|L_S(h) - L_{\mathcal{D}}(h)| > \varepsilon) \leq 2e^{-2n\varepsilon^2}$.
+By the union bound the probability that some $h$ fails is at most $2Ne^{-2n\varepsilon^2}$, which is at most $\delta$ iff $n \geq
+\log(2N/\delta)/(2\varepsilon^2)$.
 (b) By the Cauchy-Schwarz inequality $|\langle \mathbf{w}, \mathbf{x} \rangle| \leq \|\mathbf{w}\|\|\mathbf{x}\| \leq 1$, so
-$|\langle \mathbf{w}, \mathbf{x} \rangle - y| \leq 2$ and the loss lies in $[0, 4]$. With $(b - a)^2 = 16$ the condition becomes $m
-\geq 16\log(2N/\delta)/(2\epsilon^2) = 8\log(2N/\delta)/\epsilon^2$.
-(c) The condition reads $m \geq a\log(m) + b$ with $a = d/(2\epsilon^2)$ and $b = \log(2/\delta)/(2\epsilon^2)$. For $d \geq 1$ and
-$\epsilon \leq 1/\sqrt{2}$ we have $a \geq 1$, and $b > 0$ for $\delta < 2$, so the lemma gives the sufficient condition $m \geq
+$|\langle \mathbf{w}, \mathbf{x} \rangle - y| \leq 2$ and the loss lies in $[0, 4]$. With $(b - a)^2 = 16$ the condition becomes $n
+\geq 16\log(2N/\delta)/(2\varepsilon^2) = 8\log(2N/\delta)/\varepsilon^2$.
+(c) The condition reads $n \geq a\log(n) + b$ with $a = d/(2\varepsilon^2)$ and $b = \log(2/\delta)/(2\varepsilon^2)$. For $d \geq 1$ and
+$\varepsilon \leq 1/\sqrt{2}$ we have $a \geq 1$, and $b > 0$ for $\delta < 2$, so the lemma gives the sufficient condition $n \geq
 4a\log(2a) + 2b$. For the given values, $a = 250$, $b = \log 40/0.02 \approx 184.4$ and $4a\log(2a) + 2b = 1000\log 500 + 368.9
-\approx 6214.6 + 368.9 = 6583.5$, so $m = 6584$ suffices. Directly, $250\log 6584 + 184.4 \approx 2198.1 + 184.4 = 2382.5 \leq
+\approx 6214.6 + 368.9 = 6583.5$, so $n = 6584$ suffices. Directly, $250\log 6584 + 184.4 \approx 2198.1 + 184.4 = 2382.5 \leq
 6584$.
 :::
 
@@ -1677,9 +1677,9 @@ variance, Chebyshev's inequality to bound the tail, and the expectation lemma fo
 
 Let $\mathbf{x}$ be a random vector in $\mathbb{R}^d$ with $\mathbb{E}[\mathbf{x}] = \mathbf{0}$ and covariance $\Sigma =
 \mathbb{E}[\mathbf{x}\mathbf{x}^{\top}]$, and let $\mathbf{u}$ be a unit vector.
-(a) Show that $\Sigma$ is positive semidefinite and, using @thm-app-spectral-decomposition, that $\text{Var}[\langle \mathbf{u},
-\mathbf{x} \rangle] = \langle \mathbf{u}, \Sigma\mathbf{u} \rangle \leq \lambda_{\max}(\Sigma)$.
-(b) Use @lem-app-chebyshev to bound $\mathbb{P}[|\langle \mathbf{u}, \mathbf{x} \rangle| \geq a]$.
+(a) Show that $\Sigma$ is positive semidefinite and, using @thm-app-spectral-decomposition, that $\operatorname{Var}(\langle \mathbf{u},
+\mathbf{x} \rangle) = \langle \mathbf{u}, \Sigma\mathbf{u} \rangle \leq \lambda_{\max}(\Sigma)$.
+(b) Use @lem-app-chebyshev to bound $\mathbb{P}(|\langle \mathbf{u}, \mathbf{x} \rangle| \geq a)$.
 (c) Now let the coordinates of $\mathbf{x}$ be independent random signs. Using @exr-app-int-rademacher-combination, show that the
 hypothesis of @lem-app-subgaussian-tail-expectation holds for $X = \langle \mathbf{u}, \mathbf{x} \rangle$, $x' = 0$, $a = \sqrt{2}$,
 and compare its conclusion with the bound $\mathbb{E}[|X|] \leq \sqrt{\mathbb{E}[X^2]}$ from (a).
@@ -1688,15 +1688,15 @@ and compare its conclusion with the bound $\mathbb{E}[|X|] \leq \sqrt{\mathbb{E}
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) $\Sigma$ is symmetric and $\langle \mathbf{v}, \Sigma\mathbf{v} \rangle = \mathbb{E}[\langle \mathbf{v}, \mathbf{x} \rangle^2]
 \geq 0$, so it is positive semidefinite by @thm-app-psd-characterizations. Since $\mathbb{E}[\langle \mathbf{u}, \mathbf{x} \rangle]
-= 0$, $\text{Var}[\langle \mathbf{u}, \mathbf{x} \rangle] = \mathbb{E}[\langle \mathbf{u}, \mathbf{x} \rangle^2] = \langle
+= 0$, $\operatorname{Var}(\langle \mathbf{u}, \mathbf{x} \rangle) = \mathbb{E}[\langle \mathbf{u}, \mathbf{x} \rangle^2] = \langle
 \mathbf{u}, \Sigma\mathbf{u} \rangle$. Writing $\Sigma = \sum_i \lambda_i\mathbf{u}_i\mathbf{u}_i^{\top}$, this equals $\sum_i
 \lambda_i\langle \mathbf{u}, \mathbf{u}_i \rangle^2 \leq \lambda_{\max}\sum_i \langle \mathbf{u}, \mathbf{u}_i \rangle^2 =
 \lambda_{\max}\|\mathbf{u}\|^2 = \lambda_{\max}$.
-(b) By @lem-app-chebyshev, $\mathbb{P}[|\langle \mathbf{u}, \mathbf{x} \rangle| \geq a] \leq \lambda_{\max}(\Sigma)/a^2$.
-(c) With random-sign coordinates, @exr-app-int-rademacher-combination with $\mathbf{w} = \mathbf{u}$ gives $\mathbb{P}[X \geq t] \leq
-e^{-t^2/2}$, and since $-\mathbf{x}$ has the same distribution as $\mathbf{x}$, also $\mathbb{P}[X \leq -t] \leq e^{-t^2/2}$. Hence
-$\mathbb{P}[|X| > t] \leq 2e^{-t^2/2} = 2e^{-t^2/a^2}$ with $a = \sqrt{2}$, and @lem-app-subgaussian-tail-expectation gives
-$\mathbb{E}[|X|] \leq 4\sqrt{2} \approx 5.66$. Here $\Sigma = I$, so (a) gives $\mathbb{E}[X^2] = 1$ and $\mathbb{E}[|X|] \leq 1$:
+(b) By @lem-app-chebyshev, $\mathbb{P}(|\langle \mathbf{u}, \mathbf{x} \rangle| \geq a) \leq \lambda_{\max}(\Sigma)/a^2$.
+(c) With random-sign coordinates, @exr-app-int-rademacher-combination with $\mathbf{w} = \mathbf{u}$ gives $\mathbb{P}(X \geq t) \leq
+e^{-t^2/2}$, and since $-\mathbf{x}$ has the same distribution as $\mathbf{x}$, also $\mathbb{P}(X \leq -t) \leq e^{-t^2/2}$. Hence
+$\mathbb{P}(|X| > t) \leq 2e^{-t^2/2} = 2e^{-t^2/a^2}$ with $a = \sqrt{2}$, and @lem-app-subgaussian-tail-expectation gives
+$\mathbb{E}[|X|] \leq 4\sqrt{2} \approx 5.66$. Here $\Sigma = \mathbf{I}$, so (a) gives $\mathbb{E}[X^2] = 1$ and $\mathbb{E}[|X|] \leq 1$:
 the lemma trades sharpness for needing only a tail bound. (For comparison, (b) gives $1/a^2$ while the exponential tail gives
 $2e^{-a^2/2}$, e.g. $0.11$ versus $0.022$ at $a = 3$.)
 :::

@@ -1615,7 +1615,7 @@ finds the orbits of the rotations of space and of the rotations about one axis.
 ::: {#exm-orbit-sphere}
 #### Orbits of rotations
 
-The orbits of $SO(3)$ on $\mathbb{R}^3$ are the spheres $|x| = r$ and the origin; the orbit of the north pole on
+The orbits of $SO(3)$ on $\mathbb{R}^3$ are the spheres $\lvert\mathbf x\rvert = r$ and the origin; the orbit of the north pole on
 $S^2$ is the whole sphere. The orbits of $SO(2)$ (rotations about $Z$) on $S^2$ are the parallels and the two
 poles, which is why fields on $S^2$ that are $SO(2)$-invariant depend only on $\theta$.
 :::
@@ -2562,8 +2562,8 @@ consequence for stabilisers.
 ::: {#exm-conjugation-rotations}
 #### Conjugate rotations
 
-In $SO(3)$ the conjugate $gR(\alpha)g^{-1}$ of a rotation by $\alpha$ about an axis $n$ is the rotation by
-$\alpha$ about the axis $g \cdot n$: conjugacy classes are labelled by the angle, and the stabilisers of two
+In $SO(3)$ the conjugate $gR(\alpha)g^{-1}$ of a rotation by $\alpha$ about an axis $\mathbf n$ is the rotation by
+$\alpha$ about the axis $g \cdot \mathbf n$: conjugacy classes are labelled by the angle, and the stabilisers of two
 points of the sphere are conjugate subgroups (@def-stabiliser).
 :::
 
@@ -2902,9 +2902,9 @@ kernel of a homomorphism to $\{\pm 1\}$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Any two transpositions are conjugate (@exm-conjugation-s3 for $n = 3$, @exr-homo-conj-classes-s4 for $n = 4$), and since
-$\{\pm 1\}$ is abelian, $\phi(ghg^{-1}) = \phi(g)\phi(h)\phi(g)^{-1} = \phi(h)$. So $\phi$ is constant, $\epsilon$, on
-transpositions. Every permutation is a product of transpositions (@exm-homo-sign-sn), so $\phi(g) = \epsilon^m$ where $m$
-is the number of factors: $\phi$ is trivial if $\epsilon = 1$ and the sign if $\epsilon = -1$. A surjective homomorphism
+$\{\pm 1\}$ is abelian, $\phi(ghg^{-1}) = \phi(g)\phi(h)\phi(g)^{-1} = \phi(h)$. So $\phi$ is constant, $s$, on
+transpositions. Every permutation is a product of transpositions (@exm-homo-sign-sn), so $\phi(g) = s^m$ where $m$
+is the number of factors: $\phi$ is trivial if $s = 1$ and the sign if $s = -1$. A surjective homomorphism
 to $\{\pm 1\}$ is therefore the sign, with kernel $A_n$.
 :::
 ::::
@@ -3690,8 +3690,8 @@ of the two factors. The example describes them for the rotations of space.
 
 On $V \otimes V$ with $\rho(g) \otimes \rho(g)$, the symmetric tensors and the antisymmetric tensors are invariant
 subspaces (@def-symmetric-tensor-field), since $g$ acts the same way on both slots; for $SO(3)$ on $\mathbb{R}^3
-\otimes \mathbb{R}^3$ the trace $\delta_{ij}$ spans a further invariant line, the decomposition $3 \otimes 3 = 1
-\oplus 3 \oplus 5$ of @sec-weights-su2.
+\otimes \mathbb{R}^3$ the trace $\delta_{ij}$ spans a further invariant line, the decomposition $\mathbf 3 \otimes \mathbf 3 = \mathbf 1
+\oplus \mathbf 3 \oplus \mathbf 5$ of @sec-weights-su2.
 :::
 ::::
 
@@ -3711,7 +3711,7 @@ invariant subspaces over the real numbers, and its invariant lines over $\mathbb
 The characteristic polynomial is $x^3 - 1 = (x - 1)(x^2 + x + 1)$. Over the reals the invariant subspaces are $0$, the
 line of $(1, 1, 1)$, the plane $x_1 + x_2 + x_3 = 0$ (the kernel of $C^2 + C + 1$) and $\mathbb{R}^3$; on the plane $C$ is
 a rotation by $120^\circ$ with no real eigenvector. Over $\mathbb{C}$ the plane splits into the eigenlines of $\omega =
-e^{2\pi i/3}$ and $\bar\omega$, spanned by $(1, \bar\omega, \omega)$ and $(1, \omega, \bar\omega)$:
+e^{2\pi i/3}$ and $\omega^*$, spanned by $(1, \omega^*, \omega)$ and $(1, \omega, \omega^*)$:
 
 ```python
 C = matrix(QQ, [[0, 0, 1], [1, 0, 0], [0, 1, 0]])      # e1 -> e2 -> e3 -> e1
@@ -3873,8 +3873,8 @@ two eigenlines of $c$. Conclude that the representation is irreducible over $\ma
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 An invariant line is mapped into itself by $c$, so it is spanned by an eigenvector; the eigenvalues of the rotation are
-$\omega = e^{2\pi i/3}$ and $\bar\omega$, with one eigenline each. From $scs^{-1} = c^{-1}$ we get $cs = sc^{-1}$, so if $cv
-= \omega v$ then $c(sv) = sc^{-1}v = \bar\omega\,sv$: $s$ maps the $\omega$-line onto the $\bar\omega$-line. Neither eigenline
+$\omega = e^{2\pi i/3}$ and $\omega^*$, with one eigenline each. From $scs^{-1} = c^{-1}$ we get $cs = sc^{-1}$, so if $cv
+= \omega v$ then $c(sv) = sc^{-1}v = \omega^*\,sv$: $s$ maps the $\omega$-line onto the $\omega^*$-line. Neither eigenline
 is invariant under $s$, so there is no invariant line, and the only invariant subspaces are $0$ and $\mathbb{C}^2$.
 :::
 
@@ -4085,9 +4085,9 @@ example also states the decomposition of the regular representation.
 ::: {#exm-sum-permutation}
 #### The permutation representation
 
-$\mathbb{R}^3$ with $S_3$ permuting coordinates is $1 \oplus 2$, trivial plus triangle (@exm-invariant-permutation);
-the regular representation of $S_3$ on the six-dimensional space of functions on $S_3$ is $1 \oplus 1' \oplus 2
-\oplus 2$, each irreducible appearing as often as its dimension.
+$\mathbb{R}^3$ with $S_3$ permuting coordinates is $\mathbf 1 \oplus \mathbf 2$, trivial plus triangle (@exm-invariant-permutation);
+the regular representation of $S_3$ on the six-dimensional space of functions on $S_3$ is $\mathbf 1 \oplus \mathbf 1' \oplus \mathbf 2
+\oplus \mathbf 2$, each irreducible appearing as often as its dimension.
 :::
 
 When an irreducible representation appears more than once in a direct sum, more matrices commute with the sum. The
@@ -4107,9 +4107,9 @@ vector representation of $SO(3)$ and the product of two spinors.
 ::: {#exm-tensor-spins}
 #### Tensor products of vectors
 
-$\mathbb{R}^3 \otimes \mathbb{R}^3$ under $SO(3)$ is the sum $1 \oplus 3 \oplus 5$ of the trace, the antisymmetric
+$\mathbb{R}^3 \otimes \mathbb{R}^3$ under $SO(3)$ is the sum $\mathbf 1 \oplus \mathbf 3 \oplus \mathbf 5$ of the trace, the antisymmetric
 tensors and the traceless symmetric tensors (@exm-invariant-tensor); the spinor product $\mathbb{C}^2 \otimes
-\mathbb{C}^2 = 1 \oplus 3$ of $SU(2)$ is the addition of two spins $\tfrac12$ (@sec-weights-su2).
+\mathbb{C}^2 = \mathbf 1 \oplus \mathbf 3$ of $SU(2)$ is the addition of two spins $\tfrac12$ (@sec-weights-su2).
 :::
 ::::
 
@@ -4127,8 +4127,8 @@ $9 = 1 + 3 + 5$ and for $n = 2$, check $4 = 1 + 3$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 A symmetric tensor is fixed by its entries with $i \le j$, of which there are $n(n+1)/2$; an antisymmetric one by its
-entries with $i < j$, $n(n-1)/2$ of them. The swap commutes with $(\rho(g) \otimes \rho(g))T = \rho(g)T\rho(g)^{\mathsf{T}}$
-because $(\rho T\rho^{\mathsf{T}})^{\mathsf{T}} = \rho T^{\mathsf{T}}\rho^{\mathsf{T}}$, so its eigenspaces, the symmetric and
+entries with $i < j$, $n(n-1)/2$ of them. The swap commutes with $(\rho(g) \otimes \rho(g))T = \rho(g)T\rho(g)^\top$
+because $(\rho T\rho^\top)^\top = \rho T^\top\rho^\top$, so its eigenspaces, the symmetric and
 antisymmetric tensors, are invariant (@exr-repn-commuting-invariant). For $n = 3$: $6 + 3 = 9$, and the six symmetric
 tensors split further into the trace and five traceless ones, $1 + 5$. For $n = 2$: $3 + 1 = 4$, the triplet and the
 singlet of two spins.
@@ -4159,15 +4159,15 @@ third exercise lets Sage decompose three representations of $S_3$ this way.
 ::: {#exr-repn-tensor-s3}
 #### Decomposing with characters
 
-With Sage's `irreducible_characters` and `scalar_product`, decompose the tensor square $2 \otimes 2$ of the triangle
+With Sage's `irreducible_characters` and `scalar_product`, decompose the tensor square $\mathbf 2 \otimes \mathbf 2$ of the triangle
 representation, the permutation representation and the regular representation of $S_3$ into irreducibles.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The scalar product $\langle \chi, \psi \rangle = \frac{1}{|G|}\sum_g \chi(g)\overline{\psi(g)}$ of a character with an
+The scalar product $\langle \chi, \psi \rangle = \frac{1}{|G|}\sum_g \chi(g)^*\psi(g)$ of a character with an
 irreducible character is the multiplicity. Sage lists the irreducible characters in the order sign, triangle, trivial.
-$\chi_2^2 = (4, 0, 1)$ gives $2 \otimes 2 = 1 \oplus 1' \oplus 2$; the permutation representation is $1 \oplus 2$; the
-regular representation, with character $(6, 0, 0)$, is $1 \oplus 1' \oplus 2 \oplus 2$:
+$\chi_2^2 = (4, 0, 1)$ gives $\mathbf 2 \otimes \mathbf 2 = \mathbf 1 \oplus \mathbf 1' \oplus \mathbf 2$; the permutation representation is $\mathbf 1 \oplus \mathbf 2$; the
+regular representation, with character $(6, 0, 0)$, is $\mathbf 1 \oplus \mathbf 1' \oplus \mathbf 2 \oplus \mathbf 2$:
 
 ```python
 G = SymmetricGroup(3)
@@ -4295,17 +4295,17 @@ The second exercise shows that the real version of the lemma fails for the rotat
 #### Schur's lemma over the reals
 
 Show that the rotations $R(\alpha)$ of $\mathbb{R}^2$ form an irreducible real representation of $SO(2)$, but that every
-matrix $aI + bJ$ with $J = R(\pi/2)$ commutes with them. Explain the discrepancy with Schur's lemma by passing to
+matrix $a\,1 + bJ$ with $J = R(\pi/2)$ commutes with them. Explain the discrepancy with Schur's lemma by passing to
 $\mathbb{C}^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 An invariant real line would be spanned by a real eigenvector of every rotation, but $R(\alpha)$ has no real eigenvector
 unless $\alpha$ is a multiple of $\pi$; so the representation is irreducible over $\mathbb{R}$. Since $SO(2)$ is abelian,
-$J$ and the identity commute with all rotations, and the commutant $\{aI + bJ\}$ is two-dimensional (it is a copy of
+$J$ and the identity commute with all rotations, and the commutant $\{a\,1 + bJ\}$ is two-dimensional (it is a copy of
 $\mathbb{C}$, with $J^2 = -1$). Over $\mathbb{C}$ the representation splits into the eigenlines of $(1, \mp i)$ with
 eigenvalues $e^{\pm i\alpha}$ (@exm-irreducible-abelian); it is reducible, so the lemma does not apply to it, and on each
-line separately $aI + bJ$ acts as the scalar $a \pm ib$.
+line separately $a\,1 + bJ$ acts as the scalar $a \pm ib$.
 :::
 
 Schur's lemma predicts the dimension of a commutant from the decomposition into irreducibles. The third exercise tests
@@ -4315,13 +4315,13 @@ the prediction on three representations of $S_3$.
 #### Commutants for $S_3$
 
 Predict from Schur's lemma the dimensions of the commutants of the triangle representation, the permutation
-representation $1 \oplus 2$ and the regular representation $1 \oplus 1' \oplus 2 \oplus 2$ of $S_3$, and check them by
+representation $\mathbf 1 \oplus \mathbf 2$ and the regular representation $\mathbf 1 \oplus \mathbf 1' \oplus \mathbf 2 \oplus \mathbf 2$ of $S_3$, and check them by
 solving the linear equations with Sage.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 An irreducible representation has commutant of dimension $1$. A sum of inequivalent irreducibles has one scalar per
-summand, so $1 \oplus 2$ gives $2$. When an irreducible appears with multiplicity $m$, the commutant contains all $m
+summand, so $\mathbf 1 \oplus \mathbf 2$ gives $2$. When an irreducible appears with multiplicity $m$, the commutant contains all $m
 \times m$ matrices acting on the copies, so the regular representation gives $1^2 + 1^2 + 2^2 = 6$:
 
 ```python
@@ -4372,20 +4372,20 @@ with $L_3$ alone, which are the matrices that commute with the rotations about t
 
 The matrices commuting with $L_3$ are $\begin{pmatrix} a & b & 0 \\ -b & a & 0 \\ 0 & 0 & c \end{pmatrix}$, a
 three-dimensional space (@exr-repn-schur-vector-solve). The subgroup $SO(2)$ acts reducibly, on the plane $\{(x, y, 0)\}$
-and the axis $\{(0, 0, z)\}$ (@exm-invariant-rotation), and the commutant has one block $aI + bJ$ for the plane, as in
+and the axis $\{(0, 0, z)\}$ (@exm-invariant-rotation), and the commutant has one block $a\,1 + bJ$ for the plane, as in
 @exr-repn-schur-real, and one scalar $c$ for the axis.
 :::
 
-A bilinear form invariant under rotations is a matrix $B$ with $R^{\mathsf{T}}BR = B$, and infinitesimally
-$L_a^{\mathsf{T}}B + BL_a = 0$. Since the $L_a$ are antisymmetric, this says that $B$ commutes with them.
+A bilinear form invariant under rotations is a matrix $B$ with $R^\top BR = B$, and infinitesimally
+$L_a^\top B + BL_a = 0$. Since the $L_a$ are antisymmetric, this says that $B$ commutes with them.
 
 ::: {#exm-repn-schur-invariant-form}
 #### The rotation-invariant inner product
 
 By the proposition, a bilinear form on $\mathbb{R}^3$ invariant under all rotations is $B = c\,1$: up to a constant, the
 dot product is the only rotation-invariant inner product on space. A similar argument on the sphere, where the
-isotropy group $SO(2)$ acts on the tangent plane at the north pole and the symmetric matrices of the form $aI + bJ$ of
-@exr-repn-schur-real are the multiples $aI$, shows that a rotation-invariant metric on $S^2$ is fixed by one constant, the
+isotropy group $SO(2)$ acts on the tangent plane at the north pole and the symmetric matrices of the form $a\,1 + bJ$ of
+@exr-repn-schur-real are the multiples $a\,1$, shows that a rotation-invariant metric on $S^2$ is fixed by one constant, the
 radius.
 :::
 
@@ -4619,8 +4619,8 @@ space of matrices commuting with $C$, and show that these are exactly the matric
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) $C^3 = 1$, so $k \mapsto C^k$ is well defined on $\mathbb{Z}_3$ and $C^{j + k} = C^jC^k$; $C$ and $C^2$ are not the
 identity, so the kernel is trivial. (b) The basis vectors form one orbit of $3$ points, each with trivial stabiliser:
-$3 \cdot 1 = 3$, and the action is free and transitive. (c) The eigenvectors $(1, 1, 1)$, $(1, \bar\omega, \omega)$ and $(1,
-\omega, \bar\omega)$ have eigenvalues $1, \omega, \bar\omega$, so the representation is the sum of the three characters
+$3 \cdot 1 = 3$, and the action is free and transitive. (c) The eigenvectors $(1, 1, 1)$, $(1, \omega^*, \omega)$ and $(1,
+\omega, \omega^*)$ have eigenvalues $1, \omega, \omega^*$, so the representation is the sum of the three characters
 $j = 0, 1, 2$, each once; it is the regular representation of $\mathbb{Z}_3$. (d) Three inequivalent one-dimensional
 summands give a commutant of dimension $3$ (@exr-repn-schur-s3): in the eigenbasis it consists of the diagonal matrices.
 The matrices $1, C, C^2$ commute with $C$ and are linearly independent (their entries occupy disjoint positions), so they

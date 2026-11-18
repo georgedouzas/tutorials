@@ -34,7 +34,7 @@ K-means is the workhorse of clustering algorithms. Developed in the 1950s, it re
 its simplicity, efficiency, and effectiveness. The algorithm's elegance lies in its iterative refinement: alternately assign
 points to clusters and update cluster centers, guaranteed to converge to a local optimum.
 
-**Problem Formulation:** Given a dataset $\mathcal{X} = \{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$ where $\mathbf{x}_i \in
+**Problem Formulation:** Given a dataset $S = \{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$ where $\mathbf{x}_i \in
 \mathbb{R}^d$, we want to partition the data into $K$ clusters. We represent this partition by:
 
 - Cluster centers $\{\boldsymbol{\mu}_1, \ldots, \boldsymbol{\mu}_K\}$ where $\boldsymbol{\mu}_k \in \mathbb{R}^d$
@@ -68,7 +68,7 @@ the objective for the natural partition shows how small $J$ becomes when centers
 ::: {#exm-uns-kmeans-objective-line}
 #### Four points on a line
 
-Take $\mathcal{X} = \{0, 2, 10, 12\} \subset \mathbb{R}$ and $K = 2$, with $C_1 = \{0, 2\}$, $C_2 = \{10, 12\}$ and centers
+Take $S = \{0, 2, 10, 12\} \subset \mathbb{R}$ and $K = 2$, with $C_1 = \{0, 2\}$, $C_2 = \{10, 12\}$ and centers
 $\mu_1 = 1$, $\mu_2 = 11$. Each point is at distance $1$ from its center, so $J = 1 + 1 + 1 + 1 = 4$.
 :::
 ::::
@@ -80,7 +80,7 @@ pays heavily in squared distances, which is what drives the algorithm towards th
 ::: {#exr-uns-kmeans-objective-bad-split}
 #### An unbalanced partition
 
-For $\mathcal{X} = \{0, 2, 10, 12\}$, let $C_1 = \{0, 2, 10\}$ and $C_2 = \{12\}$, with each center equal to the mean of its
+For $S = \{0, 2, 10, 12\}$, let $C_1 = \{0, 2, 10\}$ and $C_2 = \{12\}$, with each center equal to the mean of its
 cluster. Compute $J$ and compare it with @exm-uns-kmeans-objective-line.
 :::
 
@@ -109,7 +109,7 @@ The algorithm alternates between two steps that each decrease the objective:
 
    This is optimal for fixed assignments: the mean minimizes the sum of squared distances (see proof below).
 
-3. **Convergence:** Stop when assignments no longer change or centers move less than a threshold $\epsilon$.
+3. **Convergence:** Stop when assignments no longer change or centers move less than a threshold $\varepsilon$.
 
 The update step rests on a single fact about squared distances, which deserves to be stated on its own. It says that among all
 candidate centers for a fixed group of points, the sample mean is the one that minimizes the sum of squared distances.
@@ -131,7 +131,7 @@ $$\boldsymbol{\mu}_k^* = \arg\min_{\boldsymbol{\mu}} \sum_{i \in C_k} \|\mathbf{
 Taking the derivative with respect to $\boldsymbol{\mu}$ and setting to zero:
 
 $$\frac{\partial}{\partial \boldsymbol{\mu}} \sum_{i \in C_k} \|\mathbf{x}_i - \boldsymbol{\mu}\|^2 = \frac{\partial}{\partial
-\boldsymbol{\mu}} \sum_{i \in C_k} (\mathbf{x}_i - \boldsymbol{\mu})^T(\mathbf{x}_i - \boldsymbol{\mu}) = -2\sum_{i \in C_k}
+\boldsymbol{\mu}} \sum_{i \in C_k} (\mathbf{x}_i - \boldsymbol{\mu})^\top(\mathbf{x}_i - \boldsymbol{\mu}) = -2\sum_{i \in C_k}
 (\mathbf{x}_i - \boldsymbol{\mu}) = 0$$
 
 Solving for $\boldsymbol{\mu}$: $$\sum_{i \in C_k} \mathbf{x}_i = |C_k|\boldsymbol{\mu} \implies \boldsymbol{\mu}^* =
@@ -166,7 +166,7 @@ for every $\boldsymbol{\mu}$, and deduce that the mean is the unique minimizer.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Write $\mathbf{x}_i - \boldsymbol{\mu} = (\mathbf{x}_i - \bar{\mathbf{x}}) + (\bar{\mathbf{x}} - \boldsymbol{\mu})$ and expand the
-square. The cross term is $2(\bar{\mathbf{x}} - \boldsymbol{\mu})^T \sum_{i \in C} (\mathbf{x}_i - \bar{\mathbf{x}}) = 0$, because
+square. The cross term is $2(\bar{\mathbf{x}} - \boldsymbol{\mu})^\top \sum_{i \in C} (\mathbf{x}_i - \bar{\mathbf{x}}) = 0$, because
 the deviations from the mean sum to zero, which gives the identity. The second term is non-negative and vanishes only when
 $\boldsymbol{\mu} = \bar{\mathbf{x}}$, so the mean is the unique minimizer.
 :::
@@ -268,7 +268,7 @@ theorem below states it; its proof is a probabilistic argument beyond the scope 
 #### K-means++ guarantee
 
 K-means++ initialization ensures that the objective is $O(\log K)$-competitive with the optimal clustering in expectation:
-$\mathbb{E}[J] \leq 8(\ln K + 2)\, J_{\text{opt}}$.
+$\mathbb{E}[J] \leq 8(\log K + 2)\, J_{\text{opt}}$.
 :::
 
 ::::
@@ -414,7 +414,7 @@ $s_i = b_i/a_i - 1$ with $0 \leq b_i/a_i < 1$, so $-1 \leq s_i < 0$.
 
 3. **Convergence Criteria:** Stop when:
    - Assignments don't change
-   - Centers move less than threshold: $\max_k \|\boldsymbol{\mu}_k^{(t+1)} - \boldsymbol{\mu}_k^{(t)}\| < \epsilon$
+   - Centers move less than threshold: $\max_k \|\boldsymbol{\mu}_k^{(t+1)} - \boldsymbol{\mu}_k^{(t)}\| < \varepsilon$
    - Maximum iterations reached
 
 4. **Empty Clusters:** If a cluster becomes empty:
@@ -755,20 +755,20 @@ DBSCAN is the most widely used density-based clustering algorithm. It groups tog
 points in low-density regions as outliers.
 
 **Key Definitions:** DBSCAN first sorts every point into one of three kinds according to how many neighbours it has within a
-radius $\epsilon$. The definition below fixes these kinds, with the two parameters $\epsilon$ and MinPts that the whole algorithm
+radius $\varepsilon$. The definition below fixes these kinds, with the two parameters $\varepsilon$ and MinPts that the whole algorithm
 depends on.
 
 :::: {.statement-box}
 ::: {#def-uns-dbscan-points}
 #### Core, border and noise points
 
-1. **$\epsilon$-neighborhood:** The set of points within distance $\epsilon$ of a point $\mathbf{x}$: $$N_\epsilon(\mathbf{x}) =
-   \{\mathbf{x}' \in \mathcal{X} : d(\mathbf{x}, \mathbf{x}') \leq \epsilon\}$$
+1. **$\varepsilon$-neighborhood:** The set of points within distance $\varepsilon$ of a point $\mathbf{x}$: $$N_\varepsilon(\mathbf{x}) =
+   \{\mathbf{x}' \in S : d(\mathbf{x}, \mathbf{x}') \leq \varepsilon\}$$
 
-2. **Core point:** A point with at least MinPts neighbors in its $\epsilon$-neighborhood: $$|N_\epsilon(\mathbf{x})| \geq
+2. **Core point:** A point with at least MinPts neighbors in its $\varepsilon$-neighborhood: $$|N_\varepsilon(\mathbf{x})| \geq
    \text{MinPts}$$ Core points are in dense regions.
 
-3. **Border point:** A point that is not a core point but lies in the $\epsilon$-neighborhood of a core point. Border points are
+3. **Border point:** A point that is not a core point but lies in the $\varepsilon$-neighborhood of a core point. Border points are
 on the edge of clusters.
 
 4. **Noise point (Outlier):** A point that is neither a core point nor a border point.
@@ -783,7 +783,7 @@ and the same data return in the next two units.
 ::: {#exm-uns-dbscan-points-line}
 #### Five points on a line
 
-Take $\{0, 1, 2, 3, 10\}$, $\epsilon = 1.5$ and MinPts $= 3$ (a point counts in its own neighborhood). Then
+Take $\{0, 1, 2, 3, 10\}$, $\varepsilon = 1.5$ and MinPts $= 3$ (a point counts in its own neighborhood). Then
 $N(0) = \{0, 1\}$, $N(1) = \{0, 1, 2\}$, $N(2) = \{1, 2, 3\}$, $N(3) = \{2, 3\}$ and $N(10) = \{10\}$. The core points are $1$ and
 $2$; the points $0$ and $3$ are border points (they lie in $N(1)$ and $N(2)$); and $10$ is noise.
 :::
@@ -796,14 +796,14 @@ when the radius grows.
 ::: {#exr-uns-dbscan-points-parameters}
 #### Effect of the parameters
 
-Show that with MinPts $= 1$ every point is a core point, so there is no noise. Show also that increasing $\epsilon$ with MinPts
+Show that with MinPts $= 1$ every point is a core point, so there is no noise. Show also that increasing $\varepsilon$ with MinPts
 fixed can only enlarge the set of core points.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Since $d(\mathbf{x}, \mathbf{x}) = 0 \leq \epsilon$, every neighborhood contains its own point, so $|N_\epsilon(\mathbf{x})| \geq 1$
-and every point is core. If $\epsilon \leq \epsilon'$ then $N_\epsilon(\mathbf{x}) \subseteq N_{\epsilon'}(\mathbf{x})$, so
-$|N_\epsilon(\mathbf{x})| \geq \text{MinPts}$ implies $|N_{\epsilon'}(\mathbf{x})| \geq \text{MinPts}$.
+Since $d(\mathbf{x}, \mathbf{x}) = 0 \leq \varepsilon$, every neighborhood contains its own point, so $|N_\varepsilon(\mathbf{x})| \geq 1$
+and every point is core. If $\varepsilon \leq \varepsilon'$ then $N_\varepsilon(\mathbf{x}) \subseteq N_{\varepsilon'}(\mathbf{x})$, so
+$|N_\varepsilon(\mathbf{x})| \geq \text{MinPts}$ implies $|N_{\varepsilon'}(\mathbf{x})| \geq \text{MinPts}$.
 :::
 ::::
 
@@ -815,7 +815,7 @@ of increasing reach; only the last one is symmetric.
 #### Density-reachability and density-connectedness
 
 5. **Directly density-reachable:** Point $\mathbf{x}'$ is directly density-reachable from $\mathbf{x}$ if:
-   - $\mathbf{x}'$ is in $N_\epsilon(\mathbf{x})$
+   - $\mathbf{x}'$ is in $N_\varepsilon(\mathbf{x})$
    - $\mathbf{x}$ is a core point
 
    Note: This relation is not symmetric.
@@ -837,7 +837,7 @@ exhibits the asymmetry of direct reachability and a pair of border points that a
 ::: {#exm-uns-density-reachable-line}
 #### Reachability on a line
 
-With $\{0, 1, 2, 3, 10\}$, $\epsilon = 1.5$, MinPts $= 3$: the point $3$ is directly density-reachable from the core point $2$, but
+With $\{0, 1, 2, 3, 10\}$, $\varepsilon = 1.5$, MinPts $= 3$: the point $3$ is directly density-reachable from the core point $2$, but
 $2$ is not directly density-reachable from $3$, which is not core. The point $3$ is density-reachable from $1$ via the chain
 $1, 2, 3$, and $0$ is directly density-reachable from $1$; hence the border points $0$ and $3$ are density-connected through
 $\mathbf{o} = 1$.
@@ -918,7 +918,7 @@ anomaly-detection use of DBSCAN, where the noise points of the same definition a
 ::: {#exm-uns-dbscan-cluster-line}
 #### Clusters on a line
 
-For $\{0, 1, 2, 3, 10\}$, $\epsilon = 1.5$, MinPts $= 3$, every point density-reachable from the core point $1$ is in $\{0, 1, 2, 3\}$,
+For $\{0, 1, 2, 3, 10\}$, $\varepsilon = 1.5$, MinPts $= 3$, every point density-reachable from the core point $1$ is in $\{0, 1, 2, 3\}$,
 and all four are density-connected (@exm-uns-density-reachable-line). So DBSCAN returns one cluster $\{0, 1, 2, 3\}$ and marks $10$
 as noise.
 :::
@@ -944,14 +944,14 @@ cluster by expanding neighborhoods, as the pseudocode does.
 ::: {#exr-uns-dbscan-cluster-core}
 #### Neighbors of core points
 
-Let $C$ be a cluster and $\mathbf{x} \in C$ a core point. Show that $N_\epsilon(\mathbf{x}) \subseteq C$. Deduce that two core
-points at distance at most $\epsilon$ lie in the same cluster.
+Let $C$ be a cluster and $\mathbf{x} \in C$ a core point. Show that $N_\varepsilon(\mathbf{x}) \subseteq C$. Deduce that two core
+points at distance at most $\varepsilon$ lie in the same cluster.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Every $\mathbf{x}' \in N_\epsilon(\mathbf{x})$ is directly, hence density-, reachable from the core point $\mathbf{x}$, so
-maximality puts it in $C$. If $\mathbf{y}$ is a core point with $d(\mathbf{x}, \mathbf{y}) \leq \epsilon$, then
-$\mathbf{y} \in N_\epsilon(\mathbf{x}) \subseteq C$; any cluster containing $\mathbf{y}$ contains $\mathbf{x}$ by the same argument,
+Every $\mathbf{x}' \in N_\varepsilon(\mathbf{x})$ is directly, hence density-, reachable from the core point $\mathbf{x}$, so
+maximality puts it in $C$. If $\mathbf{y}$ is a core point with $d(\mathbf{x}, \mathbf{y}) \leq \varepsilon$, then
+$\mathbf{y} \in N_\varepsilon(\mathbf{x}) \subseteq C$; any cluster containing $\mathbf{y}$ contains $\mathbf{x}$ by the same argument,
 so the two lie in the same cluster.
 :::
 ::::
@@ -966,7 +966,7 @@ so the two lie in the same cluster.
 
 **Parameter Selection:**
 
-Choosing $\epsilon$ and MinPts is crucial:
+Choosing $\varepsilon$ and MinPts is crucial:
 
 **1. MinPts:**
 
@@ -975,13 +975,13 @@ Choosing $\epsilon$ and MinPts is crucial:
 - **Larger MinPts:** More robust to noise, but may merge clusters
 - **Smaller MinPts:** More sensitive to noise, may split clusters
 
-**2. $\epsilon$ (k-distance graph method):**
+**2. $\varepsilon$ (k-distance graph method):**
 
 1. For each point, compute distance to its $k$-th nearest neighbor (use $k$ = MinPts)
 2. Sort these distances in ascending order
 3. Plot the sorted k-distances
 4. Look for an "elbow" or sharp change in the curve
-5. Choose $\epsilon$ at the elbow point
+5. Choose $\varepsilon$ at the elbow point
 
 **Intuition:** The elbow indicates the transition from dense regions (small k-distances) to sparse regions (large k-distances).
 
@@ -996,7 +996,7 @@ Choosing $\epsilon$ and MinPts is crucial:
 
 **Disadvantages:**
 
-1. **Parameter sensitivity:** Results depend heavily on $\epsilon$ and MinPts
+1. **Parameter sensitivity:** Results depend heavily on $\varepsilon$ and MinPts
 2. **Varying densities:** Struggles with clusters of different densities
 3. **High-dimensional data:** Distance becomes less meaningful (curse of dimensionality, see @sec-dimensionality-reduction)
 4. **Border point ambiguity:** Border points may be assigned to different clusters
@@ -1005,10 +1005,10 @@ Choosing $\epsilon$ and MinPts is crucial:
 **Variants and Extensions:**
 
 **1. HDBSCAN (Hierarchical DBSCAN):** Builds hierarchy of clusters at different density levels; automatically selects optimal
-$\epsilon$ for each cluster; more robust to varying densities; uses minimum spanning tree approach.
+$\varepsilon$ for each cluster; more robust to varying densities; uses minimum spanning tree approach.
 
 **2. OPTICS (Ordering Points To Identify Clustering Structure):** Produces ordering of points representing density-based
-clustering structure; creates reachability plot showing cluster hierarchy; doesn't require explicit $\epsilon$ parameter; can
+clustering structure; creates reachability plot showing cluster hierarchy; doesn't require explicit $\varepsilon$ parameter; can
 extract clusters at multiple scales.
 
 **3. DENCLUE (DENsity-based CLUstEring):** Uses kernel density estimation; models clusters as density attractors; can handle
@@ -1022,7 +1022,7 @@ arbitrary shapes and noise.
 | Number of clusters | Automatic | Must specify | Flexible |
 | Outlier handling | Explicit | Assigns all | Assigns all |
 | Complexity | $O(n \log n)$ | $O(nkdT)$ | $O(n^2)$ |
-| Parameters | $\epsilon$, MinPts | $k$ | Linkage, cut height |
+| Parameters | $\varepsilon$, MinPts | $k$ | Linkage, cut height |
 | Varying density | Poor | Poor | Depends on linkage |
 
 **Practical Considerations:**
@@ -1048,7 +1048,7 @@ arbitrary shapes and noise.
 DBSCAN can be viewed as finding connected components in a graph:
 
 - **Nodes:** Data points
-- **Edges:** Connect points within $\epsilon$ distance
+- **Edges:** Connect points within $\varepsilon$ distance
 - **Core points:** Nodes with degree $\geq$ MinPts
 - **Clusters:** Connected components of core points
 
@@ -1074,14 +1074,14 @@ estimable.
 ::: {#def-uns-gmm}
 #### Gaussian mixture model
 
-$$p(\mathbf{x}) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$$
+$$p(\mathbf{x}) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \Sigma_k)$$
 
 where:
 
 - $\pi_k$ are mixing coefficients (weights) with $\pi_k \geq 0$ and $\sum_{k=1}^K \pi_k = 1$
 - $\boldsymbol{\mu}_k \in \mathbb{R}^d$ is the mean of component $k$
-- $\boldsymbol{\Sigma}_k \in \mathbb{R}^{d \times d}$ is the covariance matrix of component $k$
-- $\mathcal{N}(\mathbf{x}|\boldsymbol{\mu}, \boldsymbol{\Sigma})$ is the multivariate Gaussian density (see
+- $\Sigma_k \in \mathbb{R}^{d \times d}$ is the covariance matrix of component $k$
+- $\mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}, \Sigma)$ is the multivariate Gaussian density (see
 @sec-probability-statistics)
 :::
 
@@ -1090,12 +1090,12 @@ where:
 **Latent Variable Interpretation:** Introduce latent variable $z_i \in \{1, \ldots, K\}$ indicating which component generated
 $\mathbf{x}_i$:
 
-$$p(z_i = k) = \pi_k$$ $$p(\mathbf{x}_i | z_i = k) = \mathcal{N}(\mathbf{x}_i | \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$$
+$$p(z_i = k) = \pi_k$$ $$p(\mathbf{x}_i \mid z_i = k) = \mathcal{N}(\mathbf{x}_i \mid \boldsymbol{\mu}_k, \Sigma_k)$$
 
 The marginal distribution is:
 
-$$p(\mathbf{x}_i) = \sum_{k=1}^K p(z_i = k) p(\mathbf{x}_i | z_i = k) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_i |
-\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$$
+$$p(\mathbf{x}_i) = \sum_{k=1}^K p(z_i = k) p(\mathbf{x}_i \mid z_i = k) = \sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_i \mid
+\boldsymbol{\mu}_k, \Sigma_k)$$
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The simplest instance of @def-uns-gmm is a one-dimensional mixture of two unit-variance Gaussians. Evaluating its density
@@ -1122,18 +1122,18 @@ variance is $\sum_k \pi_k(\sigma_k^2 + \mu_k^2) - (\sum_k \pi_k \mu_k)^2$. Evalu
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By the law of total expectation with the latent $z$, $\mathbb{E}[x] = \sum_k \pi_k \mathbb{E}[x | z = k] = \sum_k \pi_k \mu_k$
+By the law of total expectation with the latent $z$, $\mathbb{E}[x] = \sum_k \pi_k \mathbb{E}[x \mid z = k] = \sum_k \pi_k \mu_k$
 and $\mathbb{E}[x^2] = \sum_k \pi_k (\sigma_k^2 + \mu_k^2)$; subtract the square of the mean. In the example the mean is $2$ and
 the variance is $\frac12(1 + 0) + \frac12(1 + 16) - 4 = 5$.
 :::
 ::::
 
-**Maximum Likelihood Estimation:** Given data $\mathcal{X} = \{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$, maximize the log-likelihood:
+**Maximum Likelihood Estimation:** Given data $S = \{\mathbf{x}_1, \ldots, \mathbf{x}_n\}$, maximize the log-likelihood:
 
-$$\log p(\mathcal{X} | \boldsymbol{\theta}) = \sum_{i=1}^n \log \left(\sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_i |
-\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)\right)$$
+$$\log p(S \mid \boldsymbol{\theta}) = \sum_{i=1}^n \log \left(\sum_{k=1}^K \pi_k \mathcal{N}(\mathbf{x}_i \mid
+\boldsymbol{\mu}_k, \Sigma_k)\right)$$
 
-where $\boldsymbol{\theta} = \{\pi_k, \boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k\}_{k=1}^K$ are the parameters.
+where $\boldsymbol{\theta} = \{\pi_k, \boldsymbol{\mu}_k, \Sigma_k\}_{k=1}^K$ are the parameters.
 
 Direct optimization is difficult due to the sum inside the logarithm. The Expectation-Maximization (EM) algorithm provides an
 iterative solution.
@@ -1149,9 +1149,9 @@ below gives both steps in closed form for a Gaussian mixture; the derivation fol
 
 **E-Step (Expectation):** Compute the posterior probability (responsibility) that component $k$ generated point $\mathbf{x}_i$:
 
-$$\gamma_{ik} = p(z_i = k | \mathbf{x}_i, \boldsymbol{\theta}^{(t)}) = \frac{\pi_k^{(t)} \mathcal{N}(\mathbf{x}_i |
-\boldsymbol{\mu}_k^{(t)}, \boldsymbol{\Sigma}_k^{(t)})}{\sum_{j=1}^K \pi_j^{(t)} \mathcal{N}(\mathbf{x}_i |
-\boldsymbol{\mu}_j^{(t)}, \boldsymbol{\Sigma}_j^{(t)})}$$
+$$\gamma_{ik} = p(z_i = k \mid \mathbf{x}_i, \boldsymbol{\theta}^{(t)}) = \frac{\pi_k^{(t)} \mathcal{N}(\mathbf{x}_i \mid
+\boldsymbol{\mu}_k^{(t)}, \Sigma_k^{(t)})}{\sum_{j=1}^K \pi_j^{(t)} \mathcal{N}(\mathbf{x}_i \mid
+\boldsymbol{\mu}_j^{(t)}, \Sigma_j^{(t)})}$$
 
 **M-Step (Maximization):** Update parameters to maximize the expected complete-data log-likelihood:
 
@@ -1161,32 +1161,32 @@ $$\gamma_{ik} = p(z_i = k | \mathbf{x}_i, \boldsymbol{\theta}^{(t)}) = \frac{\pi
 
 **Update means:** $$\boldsymbol{\mu}_k^{(t+1)} = \frac{1}{N_k} \sum_{i=1}^n \gamma_{ik} \mathbf{x}_i$$
 
-**Update covariances:** $$\boldsymbol{\Sigma}_k^{(t+1)} = \frac{1}{N_k} \sum_{i=1}^n \gamma_{ik} (\mathbf{x}_i -
-\boldsymbol{\mu}_k^{(t+1)})(\mathbf{x}_i - \boldsymbol{\mu}_k^{(t+1)})^T$$
+**Update covariances:** $$\Sigma_k^{(t+1)} = \frac{1}{N_k} \sum_{i=1}^n \gamma_{ik} (\mathbf{x}_i -
+\boldsymbol{\mu}_k^{(t+1)})(\mathbf{x}_i - \boldsymbol{\mu}_k^{(t+1)})^\top$$
 :::
 
 ::::
 
 The E-step follows from Bayes' theorem (see @sec-probability-statistics):
 
-$$p(z_i = k | \mathbf{x}_i) = \frac{p(\mathbf{x}_i | z_i = k) p(z_i = k)}{p(\mathbf{x}_i)} = \frac{p(\mathbf{x}_i | z_i = k) p(z_i
-= k)}{\sum_{j=1}^K p(\mathbf{x}_i | z_i = j) p(z_i = j)}$$
+$$p(z_i = k \mid \mathbf{x}_i) = \frac{p(\mathbf{x}_i \mid z_i = k) p(z_i = k)}{p(\mathbf{x}_i)} = \frac{p(\mathbf{x}_i \mid z_i = k) p(z_i
+= k)}{\sum_{j=1}^K p(\mathbf{x}_i \mid z_i = j) p(z_i = j)}$$
 
 The responsibilities satisfy $\sum_{k=1}^K \gamma_{ik} = 1$ for each $i$.
 
 **Derivation of M-Step Updates:** The M-step maximizes:
 
-$$Q(\boldsymbol{\theta}, \boldsymbol{\theta}^{(t)}) = \sum_{i=1}^n \sum_{k=1}^K \gamma_{ik} \log[\pi_k \mathcal{N}(\mathbf{x}_i |
-\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)]$$
+$$Q(\boldsymbol{\theta}, \boldsymbol{\theta}^{(t)}) = \sum_{i=1}^n \sum_{k=1}^K \gamma_{ik} \log[\pi_k \mathcal{N}(\mathbf{x}_i \mid
+\boldsymbol{\mu}_k, \Sigma_k)]$$
 
 For $\boldsymbol{\mu}_k$, taking the derivative and setting to zero:
 
-$$\frac{\partial Q}{\partial \boldsymbol{\mu}_k} = \sum_{i=1}^n \gamma_{ik} \boldsymbol{\Sigma}_k^{-1}(\mathbf{x}_i -
+$$\frac{\partial Q}{\partial \boldsymbol{\mu}_k} = \sum_{i=1}^n \gamma_{ik} \Sigma_k^{-1}(\mathbf{x}_i -
 \boldsymbol{\mu}_k) = 0$$
 
 Solving: $\boldsymbol{\mu}_k = \frac{\sum_i \gamma_{ik} \mathbf{x}_i}{\sum_i \gamma_{ik}}$
 
-Similar derivations yield the updates for $\boldsymbol{\Sigma}_k$ and $\pi_k$ (with Lagrange multiplier for the constraint $\sum_k
+Similar derivations yield the updates for $\Sigma_k$ and $\pi_k$ (with Lagrange multiplier for the constraint $\sum_k
 \pi_k = 1$).
 
 **Complete EM Algorithm:**
@@ -1252,7 +1252,7 @@ proof that follows explains why the log-likelihood cannot go down.
 #### Convergence of EM
 
 1. **Monotonic increase:** EM guarantees that the log-likelihood increases (or stays the same) at each iteration: $$\log
-   p(\mathcal{X} | \boldsymbol{\theta}^{(t+1)}) \geq \log p(\mathcal{X} | \boldsymbol{\theta}^{(t)})$$
+   p(S \mid \boldsymbol{\theta}^{(t+1)}) \geq \log p(S \mid \boldsymbol{\theta}^{(t)})$$
 
 2. **Local maximum:** EM converges to a local maximum of the likelihood, not necessarily global
 :::
@@ -1260,19 +1260,19 @@ proof that follows explains why the log-likelihood cannot go down.
 ::::
 
 For any distributions $q_i$ over $z_i$, write
-$F(q, \boldsymbol{\theta}) = \sum_i \sum_k q_i(k) \log \frac{p(\mathbf{x}_i, z_i = k | \boldsymbol{\theta})}{q_i(k)}$. Then
-$\log p(\mathcal{X} | \boldsymbol{\theta}) = F(q, \boldsymbol{\theta}) + \sum_i \mathrm{KL}(q_i \,\|\, p(z_i | \mathbf{x}_i, \boldsymbol{\theta}))$,
-so $F \leq \log p(\mathcal{X} | \boldsymbol{\theta})$, with equality when $q_i$ is the posterior. The E-step chooses
-$q_i = \gamma_{i\cdot}$, the posterior at $\boldsymbol{\theta}^{(t)}$, so $\log p(\mathcal{X} | \boldsymbol{\theta}^{(t)}) = F(\gamma, \boldsymbol{\theta}^{(t)})$.
+$F(q, \boldsymbol{\theta}) = \sum_i \sum_k q_i(k) \log \frac{p(\mathbf{x}_i, z_i = k \mid \boldsymbol{\theta})}{q_i(k)}$. Then
+$\log p(S \mid \boldsymbol{\theta}) = F(q, \boldsymbol{\theta}) + \sum_i D_{\mathrm{KL}}(q_i \,\Vert\, p(z_i \mid \mathbf{x}_i, \boldsymbol{\theta}))$,
+so $F \leq \log p(S \mid \boldsymbol{\theta})$, with equality when $q_i$ is the posterior. The E-step chooses
+$q_i = \gamma_{i\cdot}$, the posterior at $\boldsymbol{\theta}^{(t)}$, so $\log p(S \mid \boldsymbol{\theta}^{(t)}) = F(\gamma, \boldsymbol{\theta}^{(t)})$.
 The M-step maximizes $F(\gamma, \cdot)$, which differs from $Q$ only by a term independent of $\boldsymbol{\theta}$, so
 $F(\gamma, \boldsymbol{\theta}^{(t+1)}) \geq F(\gamma, \boldsymbol{\theta}^{(t)})$. Finally
-$\log p(\mathcal{X} | \boldsymbol{\theta}^{(t+1)}) \geq F(\gamma, \boldsymbol{\theta}^{(t+1)})$, and the chain of inequalities gives
+$\log p(S \mid \boldsymbol{\theta}^{(t+1)}) \geq F(\gamma, \boldsymbol{\theta}^{(t+1)})$, and the chain of inequalities gives
 monotonic increase. The same bound reappears as the ELBO of @thm-uns-elbo.
 
 **Convergence criterion:** Stop when:
 
-- Change in log-likelihood $< \epsilon$
-- Change in parameters $< \epsilon$
+- Change in log-likelihood $< \varepsilon$
+- Change in parameters $< \varepsilon$
 - Maximum iterations reached
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -1300,8 +1300,8 @@ $\mu_1 = x_1$ and $\sigma_1 \to 0$ while the second component is fixed.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Fix $\pi_1 = \pi_2 = 1/2$, $\mu_2$ and $\sigma_2 > 0$. Each point satisfies $p(x_i) \geq \frac12 \mathcal{N}(x_i | \mu_2, \sigma_2^2) > 0$,
-a bound independent of $\sigma_1$. For $x_1$ in addition $p(x_1) \geq \frac12 \mathcal{N}(x_1 | x_1, \sigma_1^2) = \frac{1}{2\sqrt{2\pi}\sigma_1}$,
+Fix $\pi_1 = \pi_2 = 1/2$, $\mu_2$ and $\sigma_2 > 0$. Each point satisfies $p(x_i) \geq \frac12 \mathcal{N}(x_i \mid \mu_2, \sigma_2^2) > 0$,
+a bound independent of $\sigma_1$. For $x_1$ in addition $p(x_1) \geq \frac12 \mathcal{N}(x_1 \mid x_1, \sigma_1^2) = \frac{1}{2\sqrt{2\pi}\sigma_1}$,
 which tends to infinity as $\sigma_1 \to 0$. Hence the sum of logs tends to $+\infty$.
 :::
 ::::
@@ -1317,10 +1317,10 @@ which tends to infinity as $\sigma_1 \to 0$. Hence the sum of logs tends to $+\i
 
 To reduce parameters and improve stability:
 
-1. **Full covariance:** $\boldsymbol{\Sigma}_k$ is unconstrained ($d(d+1)/2$ parameters per component)
-2. **Diagonal covariance:** $\boldsymbol{\Sigma}_k = \text{diag}(\sigma_{k1}^2, \ldots, \sigma_{kd}^2)$ ($d$ parameters)
-3. **Spherical covariance:** $\boldsymbol{\Sigma}_k = \sigma_k^2 \mathbf{I}$ (1 parameter)
-4. **Tied covariance:** All components share the same $\boldsymbol{\Sigma}$
+1. **Full covariance:** $\Sigma_k$ is unconstrained ($d(d+1)/2$ parameters per component)
+2. **Diagonal covariance:** $\Sigma_k = \operatorname{diag}(\sigma_{k1}^2, \ldots, \sigma_{kd}^2)$ ($d$ parameters)
+3. **Spherical covariance:** $\Sigma_k = \sigma_k^2 \mathbf{I}$ (1 parameter)
+4. **Tied covariance:** All components share the same $\Sigma$
 
 **Model Selection:** Choose the number of components $K$. More components always fit the training data at least as well, so the
 criteria below add a penalty for the number of free parameters.
@@ -1329,20 +1329,20 @@ criteria below add a penalty for the number of free parameters.
 ::: {#def-uns-bic-aic}
 #### Information criteria
 
-**1. Bayesian Information Criterion (BIC):** $$\text{BIC} = -2\log p(\mathcal{X} | \hat{\boldsymbol{\theta}}) + p \log n$$
+**1. Bayesian Information Criterion (BIC):** $$\text{BIC} = -2\log p(S \mid \hat{\boldsymbol{\theta}}) + k \log n$$
 
-**2. Akaike Information Criterion (AIC):** $$\text{AIC} = -2\log p(\mathcal{X} | \hat{\boldsymbol{\theta}}) + 2p$$
+**2. Akaike Information Criterion (AIC):** $$\text{AIC} = -2\log p(S \mid \hat{\boldsymbol{\theta}}) + 2k$$
 
-where $p$ is the number of free parameters. Choose $K$ that minimizes the criterion.
+where $k$ is the number of free parameters. Choose $K$ that minimizes the criterion.
 :::
 
 ::::
 
-For a GMM, $p$ is:
+For a GMM, $k$ is:
 
-- Full covariance: $p = K(1 + d + d(d+1)/2) - 1$
-- Diagonal: $p = K(1 + 2d) - 1$
-- Spherical: $p = K(1 + d + 1) - 1$
+- Full covariance: $k = K(1 + d + d(d+1)/2) - 1$
+- Diagonal: $k = K(1 + 2d) - 1$
+- Spherical: $k = K(1 + d + 1) - 1$
 
 Choose $K$ that minimizes BIC. AIC tends to favor more complex models than BIC.
 
@@ -1357,8 +1357,8 @@ full covariance costs even in two dimensions.
 ::: {#exm-uns-bic-parameter-count}
 #### Parameter counts
 
-For $d = 2$ and $K = 3$: full covariance gives $p = 3(1 + 2 + 3) - 1 = 17$, diagonal gives $p = 3(1 + 4) - 1 = 14$, and spherical
-gives $p = 3(1 + 2 + 1) - 1 = 11$. The $-1$ accounts for the constraint $\sum_k \pi_k = 1$.
+For $d = 2$ and $K = 3$: full covariance gives $k = 3(1 + 2 + 3) - 1 = 17$, diagonal gives $k = 3(1 + 4) - 1 = 14$, and spherical
+gives $k = 3(1 + 2 + 1) - 1 = 11$. The $-1$ accounts for the constraint $\sum_{j=1}^K \pi_j = 1$.
 :::
 ::::
 
@@ -1373,7 +1373,7 @@ Show that the BIC penalty exceeds the AIC penalty exactly when $n > e^2 \approx 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The likelihood terms are identical, so compare $p \log n$ with $2p$: for $p > 0$, $p \log n > 2p$ if and only if $\log n > 2$,
+The likelihood terms are identical, so compare $k \log n$ with $2k$: for $k > 0$, $k \log n > 2k$ if and only if $\log n > 2$,
 i.e. $n > e^2$. For any data set with $n \geq 8$ points, BIC penalizes each parameter more and so selects a $K$ no larger than AIC's.
 :::
 ::::
@@ -1382,7 +1382,7 @@ i.e. $n > e^2$. For any data set with $n \geq 8$ points, BIC penalizes each para
 
 K-means is a special case of GMM:
 
-- Set all $\boldsymbol{\Sigma}_k = \sigma^2 \mathbf{I}$ with $\sigma \to 0$
+- Set all $\Sigma_k = \sigma^2 \mathbf{I}$ with $\sigma \to 0$
 - Hard assignments: $\gamma_{ik} \in \{0, 1\}$
 - K-means objective emerges as limiting case
 
@@ -1409,7 +1409,7 @@ probabilistic interpretation.
 
 **Regularization Techniques:**
 
-1. **Add small constant to diagonal:** $\boldsymbol{\Sigma}_k + \epsilon \mathbf{I}$ to prevent singularities
+1. **Add small constant to diagonal:** $\Sigma_k + \varepsilon \mathbf{I}$ to prevent singularities
 2. **Minimum covariance:** Enforce minimum eigenvalues
 3. **Bayesian GMM:** Place priors on parameters (Dirichlet process mixture models)
 4. **Constrain covariance:** Use diagonal or spherical covariances
@@ -1469,7 +1469,7 @@ vector lies in the kernel, a fact the exercise generalizes.
 ::: {#exm-uns-laplacian-path}
 #### A path graph
 
-For the path $1 - 2 - 3$ with unit weights, $\mathbf{D} = \mathrm{diag}(1, 2, 1)$ and
+For the path $1 - 2 - 3$ with unit weights, $\mathbf{D} = \operatorname{diag}(1, 2, 1)$ and
 $$\mathbf{L} = \begin{pmatrix} 1 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 1 \end{pmatrix},$$
 whose rows sum to zero, so $\mathbf{L}\mathbf{1} = \mathbf{0}$.
 :::
@@ -1482,16 +1482,16 @@ weakly connected pieces, and zero eigenvalues count disconnected ones.
 ::: {#exr-uns-laplacian-quadratic-form}
 #### The quadratic form of the Laplacian
 
-Show that $\mathbf{f}^T\mathbf{L}\mathbf{f} = \frac12 \sum_{i,j} w_{ij}(f_i - f_j)^2$ for every $\mathbf{f}$, so that $\mathbf{L}$
+Show that $\mathbf{f}^\top\mathbf{L}\mathbf{f} = \frac12 \sum_{i,j} w_{ij}(f_i - f_j)^2$ for every $\mathbf{f}$, so that $\mathbf{L}$
 is positive semi-definite, and that the indicator vector of each connected component of the graph lies in the kernel of
 $\mathbf{L}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbf{f}^T\mathbf{L}\mathbf{f} = \sum_i D_{ii} f_i^2 - \sum_{i,j} w_{ij} f_i f_j = \frac12 \sum_{i,j} w_{ij}(f_i^2 + f_j^2 - 2 f_i f_j)$,
+$\mathbf{f}^\top\mathbf{L}\mathbf{f} = \sum_i D_{ii} f_i^2 - \sum_{i,j} w_{ij} f_i f_j = \frac12 \sum_{i,j} w_{ij}(f_i^2 + f_j^2 - 2 f_i f_j)$,
 using $\sum_i D_{ii} f_i^2 = \sum_{i,j} w_{ij} f_i^2 = \sum_{i,j} w_{ij} f_j^2$ and the symmetry of $w$. This is a sum of non-negative
 terms. If $\mathbf{f}$ is the indicator of a component $A$, then $w_{ij} = 0$ whenever exactly one of $i, j$ lies in $A$, so every
-term vanishes; since $\mathbf{L}$ is positive semi-definite, $\mathbf{f}^T\mathbf{L}\mathbf{f} = 0$ implies $\mathbf{L}\mathbf{f} = \mathbf{0}$.
+term vanishes; since $\mathbf{L}$ is positive semi-definite, $\mathbf{f}^\top\mathbf{L}\mathbf{f} = 0$ implies $\mathbf{L}\mathbf{f} = \mathbf{0}$.
 :::
 ::::
 
@@ -1507,7 +1507,7 @@ Principal Component Analysis (PCA) is a fundamental technique for dimensionality
 representation of data that captures most of the variance. PCA identifies orthogonal directions (principal components) along which
 the data varies most, providing both a method for visualization and a preprocessing step for other algorithms.
 
-**Problem Setup:** Given data $\mathbf{X} = [\mathbf{x}_1, \ldots, \mathbf{x}_n]^T \in \mathbb{R}^{n \times d}$ where each
+**Problem Setup:** Given data $\mathbf{X} = [\mathbf{x}_1, \ldots, \mathbf{x}_n]^\top \in \mathbb{R}^{n \times d}$ where each
 $\mathbf{x}_i \in \mathbb{R}^d$, find a lower-dimensional representation $\mathbf{Z} \in \mathbb{R}^{n \times k}$ with $k < d$
 that preserves as much information as possible. The definition below fixes the sample covariance and the principal components in
 terms of its eigenvectors; the theorem after it explains why these are the right directions.
@@ -1517,11 +1517,11 @@ terms of its eigenvectors; the theorem after it explains why these are the right
 #### Principal components
 
 Let $\bar{\mathbf{x}} = \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i$ be the sample mean and $\mathbf{S} = \frac{1}{n}\sum_{i=1}^n
-(\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T$ the sample covariance matrix, with eigendecomposition
-$\mathbf{S} = \mathbf{W}\boldsymbol{\Lambda}\mathbf{W}^T$, $\boldsymbol{\Lambda} = \text{diag}(\lambda_1, \ldots, \lambda_d)$ and
+(\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^\top$ the sample covariance matrix, with eigendecomposition
+$\mathbf{S} = \mathbf{W}\boldsymbol{\Lambda}\mathbf{W}^\top$, $\boldsymbol{\Lambda} = \operatorname{diag}(\lambda_1, \ldots, \lambda_d)$ and
 $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d \geq 0$. The **principal components** are the orthonormal eigenvectors
 $\mathbf{w}_1, \ldots, \mathbf{w}_d$ (the columns of $\mathbf{W}$), and the projection of $\mathbf{x}_i$ onto the first $k$ of them is
-$\mathbf{z}_i = \mathbf{W}_k^T(\mathbf{x}_i - \bar{\mathbf{x}})$ with $\mathbf{W}_k = [\mathbf{w}_1, \ldots, \mathbf{w}_k]$.
+$\mathbf{z}_i = \mathbf{W}_k^\top(\mathbf{x}_i - \bar{\mathbf{x}})$ with $\mathbf{W}_k = [\mathbf{w}_1, \ldots, \mathbf{w}_k]$.
 :::
 
 ::::
@@ -1546,14 +1546,14 @@ covariance turns out to be diagonal, as the properties listed later state.
 ::: {#exr-uns-pca-scores}
 #### Scores of the four points
 
-Compute the two-dimensional scores $\mathbf{z}_i = \mathbf{W}^T \mathbf{x}_i$ of the four points of @exm-uns-pca-four-points and their
+Compute the two-dimensional scores $\mathbf{z}_i = \mathbf{W}^\top \mathbf{x}_i$ of the four points of @exm-uns-pca-four-points and their
 covariance matrix.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $\mathbf{w}_1 = (1,1)/\sqrt2$ and $\mathbf{w}_2 = (1,-1)/\sqrt2$ the scores are $(2\sqrt2, 0)$, $(-2\sqrt2, 0)$,
 $(0, \sqrt2)$, $(0, -\sqrt2)$. Their mean is zero and their covariance is
-$\frac14 \mathrm{diag}(8 + 8, 2 + 2) = \mathrm{diag}(4, 1) = \boldsymbol{\Lambda}$.
+$\frac14 \operatorname{diag}(8 + 8, 2 + 2) = \operatorname{diag}(4, 1) = \boldsymbol{\Lambda}$.
 :::
 ::::
 
@@ -1568,25 +1568,25 @@ the principal components solve this problem one direction at a time, and the Lag
 
 For the first principal component, solve:
 
-$$\max_{\mathbf{w}_1: \|\mathbf{w}_1\|=1} \text{Var}(\mathbf{X}\mathbf{w}_1) = \max_{\mathbf{w}_1: \|\mathbf{w}_1\|=1}
-\mathbf{w}_1^T\mathbf{S}\mathbf{w}_1$$
+$$\max_{\mathbf{w}_1: \|\mathbf{w}_1\|=1} \operatorname{Var}(\mathbf{X}\mathbf{w}_1) = \max_{\mathbf{w}_1: \|\mathbf{w}_1\|=1}
+\mathbf{w}_1^\top\mathbf{S}\mathbf{w}_1$$
 
 The maximum is $\lambda_1$, attained at the eigenvector of $\mathbf{S}$ for the largest eigenvalue. For subsequent components,
 maximize variance subject to orthogonality:
 
-$$\max_{\mathbf{w}_j: \|\mathbf{w}_j\|=1, \mathbf{w}_j \perp \mathbf{w}_i \forall i<j} \mathbf{w}_j^T\mathbf{S}\mathbf{w}_j$$
+$$\max_{\mathbf{w}_j: \|\mathbf{w}_j\|=1, \mathbf{w}_j \perp \mathbf{w}_i \forall i<j} \mathbf{w}_j^\top\mathbf{S}\mathbf{w}_j$$
 
 The solution is the eigenvector corresponding to the $j$-th largest eigenvalue.
 :::
 
 ::::
 
-Here $\mathbf{S} = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^T$ is the sample
+Here $\mathbf{S} = \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i - \bar{\mathbf{x}})(\mathbf{x}_i - \bar{\mathbf{x}})^\top$ is the sample
 covariance matrix and $\bar{\mathbf{x}} = \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i$ is the sample mean.
 
 **Solution via Lagrange Multipliers:** Form the Lagrangian:
 
-$$\mathcal{L}(\mathbf{w}_1, \lambda) = \mathbf{w}_1^T\mathbf{S}\mathbf{w}_1 - \lambda(\mathbf{w}_1^T\mathbf{w}_1 - 1)$$
+$$\mathcal{L}(\mathbf{w}_1, \lambda) = \mathbf{w}_1^\top\mathbf{S}\mathbf{w}_1 - \lambda(\mathbf{w}_1^\top\mathbf{w}_1 - 1)$$
 
 Taking the derivative and setting to zero:
 
@@ -1598,7 +1598,7 @@ $$\mathbf{S}\mathbf{w}_1 = \lambda\mathbf{w}_1$$
 
 The variance along $\mathbf{w}_1$ is:
 
-$$\mathbf{w}_1^T\mathbf{S}\mathbf{w}_1 = \mathbf{w}_1^T(\lambda\mathbf{w}_1) = \lambda\mathbf{w}_1^T\mathbf{w}_1 = \lambda$$
+$$\mathbf{w}_1^\top\mathbf{S}\mathbf{w}_1 = \mathbf{w}_1^\top(\lambda\mathbf{w}_1) = \lambda\mathbf{w}_1^\top\mathbf{w}_1 = \lambda$$
 
 To maximize variance, choose $\mathbf{w}_1$ as the eigenvector corresponding to the largest eigenvalue $\lambda_1$.
 
@@ -1610,7 +1610,7 @@ coordinate axis. The comparison shows @thm-uns-pca-max-variance in numbers.
 #### Variance in two directions
 
 For $\mathbf{S} = \begin{pmatrix} 2.5 & 1.5 \\ 1.5 & 2.5 \end{pmatrix}$, the variance along $\mathbf{e}_1$ is
-$\mathbf{e}_1^T\mathbf{S}\mathbf{e}_1 = 2.5$, while along $\mathbf{w}_1 = (1,1)/\sqrt2$ it is $\frac12(2.5 + 1.5 + 1.5 + 2.5) = 4 = \lambda_1$.
+$\mathbf{e}_1^\top\mathbf{S}\mathbf{e}_1 = 2.5$, while along $\mathbf{w}_1 = (1,1)/\sqrt2$ it is $\frac12(2.5 + 1.5 + 1.5 + 2.5) = 4 = \lambda_1$.
 :::
 ::::
 
@@ -1621,12 +1621,12 @@ The exercise closes this gap with an eigenvector expansion.
 ::: {#exr-uns-pca-rayleigh-bound}
 #### The Rayleigh bound
 
-Show that $\mathbf{w}^T\mathbf{S}\mathbf{w} \leq \lambda_1$ for every unit vector $\mathbf{w}$, with equality for $\mathbf{w} = \mathbf{w}_1$.
+Show that $\mathbf{w}^\top\mathbf{S}\mathbf{w} \leq \lambda_1$ for every unit vector $\mathbf{w}$, with equality for $\mathbf{w} = \mathbf{w}_1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Expand $\mathbf{w} = \sum_j c_j \mathbf{w}_j$ in the orthonormal eigenbasis, with $\sum_j c_j^2 = 1$. Then
-$\mathbf{w}^T\mathbf{S}\mathbf{w} = \sum_j \lambda_j c_j^2 \leq \lambda_1 \sum_j c_j^2 = \lambda_1$, with equality when all the weight
+$\mathbf{w}^\top\mathbf{S}\mathbf{w} = \sum_j \lambda_j c_j^2 \leq \lambda_1 \sum_j c_j^2 = \lambda_1$, with equality when all the weight
 sits on eigenvalue $\lambda_1$, in particular for $\mathbf{w} = \mathbf{w}_1$.
 :::
 ::::
@@ -1644,7 +1644,7 @@ where $\mathbf{W}_k \in \mathbb{R}^{d \times k}$ has orthonormal columns and $\m
 
 **Solution:** The optimal $\mathbf{W}_k$ consists of the first $k$ eigenvectors of $\mathbf{S}$, and:
 
-$$\mathbf{z}_i = \mathbf{W}_k^T(\mathbf{x}_i - \bar{\mathbf{x}})$$
+$$\mathbf{z}_i = \mathbf{W}_k^\top(\mathbf{x}_i - \bar{\mathbf{x}})$$
 
 With $\tilde{\mathbf{x}}_i = \bar{\mathbf{x}} + \mathbf{W}_k\mathbf{z}_i$, the minimal mean reconstruction error is
 $\frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \sum_{j=k+1}^d \lambda_j$.
@@ -1654,10 +1654,10 @@ $\frac{1}{n}\sum_{i=1}^n \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \sum_{j=k+1
 
 **Equivalence:** These two formulations are equivalent. Maximizing variance in the projection is equivalent to minimizing
 reconstruction error. Indeed, for fixed orthonormal $\mathbf{W}_k$ the best $\mathbf{z}_i$ is the orthogonal projection
-$\mathbf{W}_k^T(\mathbf{x}_i - \bar{\mathbf{x}})$, and by Pythagoras
-$\frac1n\sum_i \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \mathrm{tr}(\mathbf{S}) - \sum_{j=1}^k \mathbf{w}_j^T\mathbf{S}\mathbf{w}_j$.
+$\mathbf{W}_k^\top(\mathbf{x}_i - \bar{\mathbf{x}})$, and by Pythagoras
+$\frac1n\sum_i \|\mathbf{x}_i - \tilde{\mathbf{x}}_i\|^2 = \operatorname{tr}(\mathbf{S}) - \sum_{j=1}^k \mathbf{w}_j^\top\mathbf{S}\mathbf{w}_j$.
 The trace is fixed, so minimizing the error is maximizing the captured variance, which @thm-uns-pca-max-variance solves with value
-$\lambda_1 + \cdots + \lambda_k$; the error is then $\mathrm{tr}(\mathbf{S}) - \sum_{j \leq k}\lambda_j = \sum_{j > k}\lambda_j$.
+$\lambda_1 + \cdots + \lambda_k$; the error is then $\operatorname{tr}(\mathbf{S}) - \sum_{j \leq k}\lambda_j = \sum_{j > k}\lambda_j$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example reconstructs the four points of @exm-uns-pca-four-points from their first principal component. Only the two points off
@@ -1679,26 +1679,26 @@ argument after @prp-uns-pca-reconstruction.
 ::: {#exr-uns-pca-total-variance}
 #### Total variance
 
-Show that $\frac1n\sum_i \|\mathbf{x}_i - \bar{\mathbf{x}}\|^2 = \mathrm{tr}(\mathbf{S}) = \sum_{j=1}^d \lambda_j$, and conclude that
+Show that $\frac1n\sum_i \|\mathbf{x}_i - \bar{\mathbf{x}}\|^2 = \operatorname{tr}(\mathbf{S}) = \sum_{j=1}^d \lambda_j$, and conclude that
 the variance of the scores plus the mean reconstruction error equals the total variance.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\|\mathbf{v}\|^2 = \mathrm{tr}(\mathbf{v}\mathbf{v}^T)$, so averaging over $i$ gives $\mathrm{tr}(\mathbf{S})$, which equals the
+$\|\mathbf{v}\|^2 = \operatorname{tr}(\mathbf{v}\mathbf{v}^\top)$, so averaging over $i$ gives $\operatorname{tr}(\mathbf{S})$, which equals the
 sum of the eigenvalues. The scores have total variance $\sum_{j \leq k}\lambda_j$ (@exr-uns-pca-scores in the case $k = d$, and in
-general $\mathrm{Cov}(\mathbf{Z}) = \boldsymbol{\Lambda}_k$), the error is $\sum_{j > k}\lambda_j$, and the two add up to
+general $\operatorname{Cov}(\mathbf{Z}) = \boldsymbol{\Lambda}_k$), the error is $\sum_{j > k}\lambda_j$, and the two add up to
 $\sum_j \lambda_j$.
 :::
 ::::
 
 **Algorithm (PCA via Eigendecomposition):**
 
-1. **Center the data:** $\tilde{\mathbf{X}} = \mathbf{X} - \mathbf{1}\bar{\mathbf{x}}^T$ where $\mathbf{1}$ is a vector of ones
+1. **Center the data:** $\tilde{\mathbf{X}} = \mathbf{X} - \mathbf{1}\bar{\mathbf{x}}^\top$ where $\mathbf{1}$ is a vector of ones
 
-2. **Compute covariance matrix:** $\mathbf{S} = \frac{1}{n}\tilde{\mathbf{X}}^T\tilde{\mathbf{X}}$
+2. **Compute covariance matrix:** $\mathbf{S} = \frac{1}{n}\tilde{\mathbf{X}}^\top\tilde{\mathbf{X}}$
 
-3. **Eigendecomposition:** Compute eigenvalues and eigenvectors: $$\mathbf{S} = \mathbf{W}\boldsymbol{\Lambda}\mathbf{W}^T$$ where
-   $\boldsymbol{\Lambda} = \text{diag}(\lambda_1, \ldots, \lambda_d)$ with $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d
+3. **Eigendecomposition:** Compute eigenvalues and eigenvectors: $$\mathbf{S} = \mathbf{W}\boldsymbol{\Lambda}\mathbf{W}^\top$$ where
+   $\boldsymbol{\Lambda} = \operatorname{diag}(\lambda_1, \ldots, \lambda_d)$ with $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_d
    \geq 0$
 
 4. **Select components:** Choose first $k$ eigenvectors: $\mathbf{W}_k = [\mathbf{w}_1, \ldots, \mathbf{w}_k]$
@@ -1714,7 +1714,7 @@ decomposition of the centered data matrix yields the principal components and th
 ::: {#prp-uns-pca-svd}
 #### PCA from the singular value decomposition
 
-Let $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ be the SVD of the centered data. Then the columns of
+Let $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top$ be the SVD of the centered data. Then the columns of
 $\mathbf{V}$ are principal components, the eigenvalues are $\lambda_j = \sigma_j^2 / n$ where $\sigma_j$ are the singular values,
 and the scores are $\mathbf{Z} = \mathbf{U}_{:,1:k}\boldsymbol{\Sigma}_{1:k,1:k} = \tilde{\mathbf{X}}\mathbf{W}_k$ with
 $\mathbf{W}_k = \mathbf{V}_{:,1:k}$.
@@ -1722,13 +1722,13 @@ $\mathbf{W}_k = \mathbf{V}_{:,1:k}$.
 
 ::::
 
-The proof is one line: $\mathbf{S} = \frac1n \tilde{\mathbf{X}}^T\tilde{\mathbf{X}} = \mathbf{V}\left(\frac1n
-\boldsymbol{\Sigma}^T\boldsymbol{\Sigma}\right)\mathbf{V}^T$, which is an eigendecomposition with eigenvectors the columns of
+The proof is one line: $\mathbf{S} = \frac1n \tilde{\mathbf{X}}^\top\tilde{\mathbf{X}} = \mathbf{V}\left(\frac1n
+\boldsymbol{\Sigma}^\top\boldsymbol{\Sigma}\right)\mathbf{V}^\top$, which is an eigendecomposition with eigenvectors the columns of
 $\mathbf{V}$ and eigenvalues $\sigma_j^2/n$.
 
-1. **Center the data:** $\tilde{\mathbf{X}} = \mathbf{X} - \mathbf{1}\bar{\mathbf{x}}^T$
+1. **Center the data:** $\tilde{\mathbf{X}} = \mathbf{X} - \mathbf{1}\bar{\mathbf{x}}^\top$
 
-2. **SVD:** Compute $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$
+2. **SVD:** Compute $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top$
    - $\mathbf{U} \in \mathbb{R}^{n \times n}$: Left singular vectors
    - $\boldsymbol{\Sigma} \in \mathbb{R}^{n \times d}$: Singular values (diagonal)
    - $\mathbf{V} \in \mathbb{R}^{d \times d}$: Right singular vectors (principal components)
@@ -1765,8 +1765,8 @@ Show that $\tilde{\mathbf{X}}\mathbf{V}_{:,1:k} = \mathbf{U}_{:,1:k}\boldsymbol{
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Multiply $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ on the right by $\mathbf{V}$ and use
-$\mathbf{V}^T\mathbf{V} = \mathbf{I}$: $\tilde{\mathbf{X}}\mathbf{V} = \mathbf{U}\boldsymbol{\Sigma}$. Because $\boldsymbol{\Sigma}$
+Multiply $\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top$ on the right by $\mathbf{V}$ and use
+$\mathbf{V}^\top\mathbf{V} = \mathbf{I}$: $\tilde{\mathbf{X}}\mathbf{V} = \mathbf{U}\boldsymbol{\Sigma}$. Because $\boldsymbol{\Sigma}$
 is diagonal, the $j$-th column of $\mathbf{U}\boldsymbol{\Sigma}$ is $\sigma_j$ times the $j$-th column of $\mathbf{U}$; keeping
 the first $k$ columns gives the claim.
 :::
@@ -1774,7 +1774,7 @@ the first $k$ columns gives the claim.
 
 **Dimensionality Reduction and Reconstruction:**
 
-**Projection (Encoding):** $$\mathbf{z}_i = \mathbf{W}_k^T(\mathbf{x}_i - \bar{\mathbf{x}}) \in \mathbb{R}^k$$
+**Projection (Encoding):** $$\mathbf{z}_i = \mathbf{W}_k^\top(\mathbf{x}_i - \bar{\mathbf{x}}) \in \mathbb{R}^k$$
 
 **Reconstruction (Decoding):** $$\tilde{\mathbf{x}}_i = \bar{\mathbf{x}} + \mathbf{W}_k\mathbf{z}_i \in \mathbb{R}^d$$
 
@@ -1842,10 +1842,10 @@ is $2.5$, and only $5$ and $3$ exceed it, so the Kaiser criterion gives $k = 2$.
 
 **Properties of PCA:**
 
-1. **Orthogonality:** Principal components are orthogonal: $\mathbf{w}_i^T\mathbf{w}_j = \delta_{ij}$
+1. **Orthogonality:** Principal components are orthogonal: $\mathbf{w}_i^\top\mathbf{w}_j = \delta_{ij}$
 
-2. **Uncorrelated Projections:** Projected data has diagonal covariance: $$\text{Cov}(\mathbf{Z}) = \boldsymbol{\Lambda}_k =
-   \text{diag}(\lambda_1, \ldots, \lambda_k)$$
+2. **Uncorrelated Projections:** Projected data has diagonal covariance: $$\operatorname{Cov}(\mathbf{Z}) = \boldsymbol{\Lambda}_k =
+   \operatorname{diag}(\lambda_1, \ldots, \lambda_k)$$
 
 3. **Optimal Linear Projection:** PCA is optimal among all linear projections for maximizing variance and minimizing
    reconstruction error
@@ -1871,19 +1871,19 @@ the correlation matrix instead of covariance matrix.
 
 **Kernel PCA (Nonlinear Extension):**
 
-For nonlinear dimensionality reduction, apply PCA in a high-dimensional feature space $\phi(\mathbf{x})$ using the kernel trick.
-The definition below states the procedure entirely in terms of the kernel matrix, so that $\phi$ never has to be computed.
+For nonlinear dimensionality reduction, apply PCA in a high-dimensional feature space $\boldsymbol{\phi}(\mathbf{x})$ using the kernel trick.
+The definition below states the procedure entirely in terms of the kernel matrix, so that $\boldsymbol{\phi}$ never has to be computed.
 
 :::: {.statement-box}
 ::: {#def-uns-kernel-pca}
 #### Kernel PCA
 
-**Kernel Matrix:** $\mathbf{K}_{ij} = k(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T\phi(\mathbf{x}_j)$
+**Kernel Matrix:** $K_{ij} = k(\mathbf{x}_i, \mathbf{x}_j) = \boldsymbol{\phi}(\mathbf{x}_i)^\top\boldsymbol{\phi}(\mathbf{x}_j)$
 
 **Centering:** Center the kernel matrix: $$\tilde{\mathbf{K}} = \mathbf{K} - \mathbf{1}_n\mathbf{K} - \mathbf{K}\mathbf{1}_n +
 \mathbf{1}_n\mathbf{K}\mathbf{1}_n$$
 
-where $\mathbf{1}_n = \frac{1}{n}\mathbf{1}\mathbf{1}^T$.
+where $\mathbf{1}_n = \frac{1}{n}\mathbf{1}\mathbf{1}^\top$.
 
 **Eigendecomposition:** Solve $\tilde{\mathbf{K}}\boldsymbol{\alpha} = \lambda\boldsymbol{\alpha}$
 
@@ -1895,7 +1895,7 @@ where $\mathbf{1}_n = \frac{1}{n}\mathbf{1}\mathbf{1}^T$.
 **Common Kernels:**
 
 - **RBF:** $k(\mathbf{x}, \mathbf{x}') = \exp(-\gamma\|\mathbf{x} - \mathbf{x}'\|^2)$
-- **Polynomial:** $k(\mathbf{x}, \mathbf{x}') = (\mathbf{x}^T\mathbf{x}' + c)^p$
+- **Polynomial:** $k(\mathbf{x}, \mathbf{x}') = (\mathbf{x}^\top\mathbf{x}' + c)^p$
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The linear kernel turns @def-uns-kernel-pca back into ordinary PCA. The example makes the relation between the two sets of
@@ -1904,8 +1904,8 @@ eigenvalues explicit.
 ::: {#exm-uns-kernel-pca-linear}
 #### The linear kernel
 
-For $k(\mathbf{x}, \mathbf{x}') = \mathbf{x}^T\mathbf{x}'$, the centered kernel matrix is $\tilde{\mathbf{K}} = \tilde{\mathbf{X}}\tilde{\mathbf{X}}^T$.
-Its nonzero eigenvalues equal those of $\tilde{\mathbf{X}}^T\tilde{\mathbf{X}} = n\mathbf{S}$, namely $n\lambda_j$, so kernel PCA with
+For $k(\mathbf{x}, \mathbf{x}') = \mathbf{x}^\top\mathbf{x}'$, the centered kernel matrix is $\tilde{\mathbf{K}} = \tilde{\mathbf{X}}\tilde{\mathbf{X}}^\top$.
+Its nonzero eigenvalues equal those of $\tilde{\mathbf{X}}^\top\tilde{\mathbf{X}} = n\mathbf{S}$, namely $n\lambda_j$, so kernel PCA with
 the linear kernel recovers the principal components of @def-uns-principal-components.
 :::
 ::::
@@ -1917,14 +1917,14 @@ of centered feature vectors.
 ::: {#exr-uns-kernel-centering}
 #### Centering in feature space
 
-With $\bar{\phi} = \frac1n\sum_l \phi(\mathbf{x}_l)$, show that $\tilde{\mathbf{K}}_{ij} = (\phi(\mathbf{x}_i) - \bar{\phi})^T(\phi(\mathbf{x}_j) - \bar{\phi})$.
+With $\bar{\boldsymbol{\phi}} = \frac1n\sum_l \boldsymbol{\phi}(\mathbf{x}_l)$, show that $\tilde{K}_{ij} = (\boldsymbol{\phi}(\mathbf{x}_i) - \bar{\boldsymbol{\phi}})^\top(\boldsymbol{\phi}(\mathbf{x}_j) - \bar{\boldsymbol{\phi}})$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Expanding the right side gives $\mathbf{K}_{ij} - \bar{\phi}^T\phi(\mathbf{x}_j) - \phi(\mathbf{x}_i)^T\bar{\phi} + \bar{\phi}^T\bar{\phi}$.
-Now $(\mathbf{1}_n\mathbf{K})_{ij} = \frac1n\sum_l \mathbf{K}_{lj} = \bar{\phi}^T\phi(\mathbf{x}_j)$,
-$(\mathbf{K}\mathbf{1}_n)_{ij} = \phi(\mathbf{x}_i)^T\bar{\phi}$ and
-$(\mathbf{1}_n\mathbf{K}\mathbf{1}_n)_{ij} = \frac{1}{n^2}\sum_{l,m}\mathbf{K}_{lm} = \bar{\phi}^T\bar{\phi}$, which are the four terms of
+Expanding the right side gives $K_{ij} - \bar{\boldsymbol{\phi}}^\top\boldsymbol{\phi}(\mathbf{x}_j) - \boldsymbol{\phi}(\mathbf{x}_i)^\top\bar{\boldsymbol{\phi}} + \bar{\boldsymbol{\phi}}^\top\bar{\boldsymbol{\phi}}$.
+Now $(\mathbf{1}_n\mathbf{K})_{ij} = \frac1n\sum_l K_{lj} = \bar{\boldsymbol{\phi}}^\top\boldsymbol{\phi}(\mathbf{x}_j)$,
+$(\mathbf{K}\mathbf{1}_n)_{ij} = \boldsymbol{\phi}(\mathbf{x}_i)^\top\bar{\boldsymbol{\phi}}$ and
+$(\mathbf{1}_n\mathbf{K}\mathbf{1}_n)_{ij} = \frac{1}{n^2}\sum_{l,m}K_{lm} = \bar{\boldsymbol{\phi}}^\top\bar{\boldsymbol{\phi}}$, which are the four terms of
 the centering formula.
 :::
 ::::
@@ -1972,10 +1972,10 @@ configuration does this.
 
 **Classical MDS:** Find configuration preserving pairwise distances.
 
-Given distance matrix $\mathbf{D}$ with $D_{ij} = d(\mathbf{x}_i, \mathbf{x}_j)$, find $\mathbf{z}_1, \ldots, \mathbf{z}_n \in
+Given distance matrix $\boldsymbol{\Delta}$ with $\delta_{ij} = d(\mathbf{x}_i, \mathbf{x}_j)$, find $\mathbf{z}_1, \ldots, \mathbf{z}_n \in
 \mathbb{R}^k$ minimizing:
 
-$$\text{Stress} = \sqrt{\sum_{i<j}(d_{ij} - \|\mathbf{z}_i - \mathbf{z}_j\|)^2}$$
+$$\text{Stress} = \sqrt{\sum_{i<j}(\delta_{ij} - \|\mathbf{z}_i - \mathbf{z}_j\|)^2}$$
 :::
 
 ::::
@@ -1991,7 +1991,7 @@ reachable in the plane, which is the case of an exact embedding.
 ::: {#exm-uns-mds-triangle-plane}
 #### An equilateral triangle in the plane
 
-If $d_{12} = d_{13} = d_{23} = 1$, the vertices of an equilateral triangle of side $1$ in $\mathbb{R}^2$ reproduce all three
+If $\delta_{12} = \delta_{13} = \delta_{23} = 1$, the vertices of an equilateral triangle of side $1$ in $\mathbb{R}^2$ reproduce all three
 distances, so the stress of @def-uns-mds-stress is $0$ for $k = 2$.
 :::
 ::::
@@ -2003,7 +2003,7 @@ exercise computes the stress of a natural attempt.
 ::: {#exr-uns-mds-triangle-line}
 #### The triangle on a line
 
-For $d_{12} = d_{13} = d_{23} = 1$ and $k = 1$, compute the stress of the configuration $z = (0, 1, 2)$.
+For $\delta_{12} = \delta_{13} = \delta_{23} = 1$ and $k = 1$, compute the stress of the configuration $z = (0, 1, 2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2040,14 +2040,14 @@ the embedded points until the two agree. The definition below gives both distrib
 
 Define similarity in high-dimensional space:
 
-$$p_{j|i} = \frac{\exp(-\|\mathbf{x}_i - \mathbf{x}_j\|^2/(2\sigma_i^2))}{\sum_{k \neq i}\exp(-\|\mathbf{x}_i -
+$$p_{j \mid i} = \frac{\exp(-\|\mathbf{x}_i - \mathbf{x}_j\|^2/(2\sigma_i^2))}{\sum_{k \neq i}\exp(-\|\mathbf{x}_i -
 \mathbf{x}_k\|^2/(2\sigma_i^2))}$$
 
-symmetrized as $p_{ij} = (p_{j|i} + p_{i|j})/(2n)$. Define similarity in low-dimensional space using t-distribution:
+symmetrized as $p_{ij} = (p_{j \mid i} + p_{i|j})/(2n)$. Define similarity in low-dimensional space using t-distribution:
 
 $$q_{ij} = \frac{(1 + \|\mathbf{z}_i - \mathbf{z}_j\|^2)^{-1}}{\sum_{k \neq l}(1 + \|\mathbf{z}_k - \mathbf{z}_l\|^2)^{-1}}$$
 
-Minimize KL divergence: $\text{KL}(P||Q) = \sum_{i,j} p_{ij}\log(p_{ij}/q_{ij})$
+Minimize KL divergence: $D_{\mathrm{KL}}(P \,\Vert\, Q) = \sum_{i,j} p_{ij}\log(p_{ij}/q_{ij})$
 :::
 
 ::::
@@ -2072,13 +2072,13 @@ distributions agree. The exercise asks for the proof.
 ::: {#exr-uns-kl-nonnegative}
 #### Gibbs' inequality
 
-Show that $\text{KL}(P||Q) \geq 0$ for probability distributions $P, Q$ on the same finite set with $q_{ij} > 0$, with equality if
+Show that $D_{\mathrm{KL}}(P \,\Vert\, Q) \geq 0$ for probability distributions $P, Q$ on the same finite set with $q_{ij} > 0$, with equality if
 and only if $P = Q$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Use $\log x \leq x - 1$, with equality only at $x = 1$. Summing over pairs with $p_{ij} > 0$,
-$-\text{KL}(P||Q) = \sum p_{ij}\log(q_{ij}/p_{ij}) \leq \sum p_{ij}(q_{ij}/p_{ij} - 1) = \sum_{p_{ij} > 0} q_{ij} - 1 \leq 0$.
+$-D_{\mathrm{KL}}(P \,\Vert\, Q) = \sum p_{ij}\log(q_{ij}/p_{ij}) \leq \sum p_{ij}(q_{ij}/p_{ij} - 1) = \sum_{p_{ij} > 0} q_{ij} - 1 \leq 0$.
 Equality forces $q_{ij} = p_{ij}$ wherever $p_{ij} > 0$ and $\sum_{p_{ij} > 0} q_{ij} = 1$, hence $P = Q$.
 :::
 ::::
@@ -2095,10 +2095,10 @@ distances up to a small factor, with a target dimension that depends on the numb
 ::: {#lem-uns-johnson-lindenstrauss}
 #### Johnson-Lindenstrauss Lemma
 
-For any $\epsilon \in (0,1)$ and set of $n$ points in $\mathbb{R}^d$, there exists a linear map
-$f: \mathbb{R}^d \to \mathbb{R}^k$ with $k = O(\epsilon^{-2}\log n)$ such that:
+For any $\varepsilon \in (0,1)$ and set of $n$ points in $\mathbb{R}^d$, there exists a linear map
+$f: \mathbb{R}^d \to \mathbb{R}^k$ with $k = O(\varepsilon^{-2}\log n)$ such that:
 
-$$(1-\epsilon)\|\mathbf{x}_i - \mathbf{x}_j\|^2 \leq \|f(\mathbf{x}_i) - f(\mathbf{x}_j)\|^2 \leq (1+\epsilon)\|\mathbf{x}_i -
+$$(1-\varepsilon)\|\mathbf{x}_i - \mathbf{x}_j\|^2 \leq \|f(\mathbf{x}_i) - f(\mathbf{x}_j)\|^2 \leq (1+\varepsilon)\|\mathbf{x}_i -
 \mathbf{x}_j\|^2$$
 :::
 
@@ -2115,8 +2115,8 @@ the original dimension $d$ never enters.
 ::: {#exm-uns-jl-dimension}
 #### How small can $k$ be?
 
-A common explicit sufficient condition (Dasgupta and Gupta) is $k \geq 4\ln n/(\epsilon^2/2 - \epsilon^3/3)$. For $n = 10^6$ points
-and $\epsilon = 0.1$ this gives $k \geq 4 \cdot 13.82/0.004667 \approx 11{,}842$, whether the points live in $\mathbb{R}^{10^5}$ or
+A common explicit sufficient condition (Dasgupta and Gupta) is $k \geq 4\log n/(\varepsilon^2/2 - \varepsilon^3/3)$. For $n = 10^6$ points
+and $\varepsilon = 0.1$ this gives $k \geq 4 \cdot 13.82/0.004667 \approx 11{,}842$, whether the points live in $\mathbb{R}^{10^5}$ or
 $\mathbb{R}^{10^9}$.
 :::
 ::::
@@ -2156,7 +2156,7 @@ general framework, of which the Gaussian mixture of @def-uns-gmm is already an i
 
 **General Framework:** Introduce latent variables $\mathbf{z}$:
 
-$$p(\mathbf{x}) = \int p(\mathbf{x}|\mathbf{z})p(\mathbf{z})d\mathbf{z}$$
+$$p(\mathbf{x}) = \int p(\mathbf{x} \mid \mathbf{z})p(\mathbf{z})d\mathbf{z}$$
 :::
 
 ::::
@@ -2168,8 +2168,8 @@ discrete, the integral becomes a sum.
 ::: {#exm-uns-latent-gmm}
 #### Mixtures as latent variable models
 
-For a GMM, $z \in \{1, \ldots, K\}$ with $p(z = k) = \pi_k$ and $p(\mathbf{x}|z = k) = \mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$;
-the integral over $\mathbf{z}$ is the sum $\sum_k \pi_k \mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \boldsymbol{\Sigma}_k)$ of
+For a GMM, $z \in \{1, \ldots, K\}$ with $p(z = k) = \pi_k$ and $p(\mathbf{x} \mid z = k) = \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \Sigma_k)$;
+the integral over $\mathbf{z}$ is the sum $\sum_k \pi_k \mathcal{N}(\mathbf{x} \mid \boldsymbol{\mu}_k, \Sigma_k)$ of
 @def-uns-gmm.
 :::
 ::::
@@ -2181,12 +2181,12 @@ observation combine through Bayes' theorem.
 ::: {#exr-uns-latent-posterior}
 #### Marginal and posterior
 
-Let $z \in \{0, 1\}$ with $p(z = 1) = 0.3$, and $x | z \sim \mathcal{N}(2z, 1)$. Compute $p(x = 0)$ and $p(z = 1 | x = 0)$.
+Let $z \in \{0, 1\}$ with $p(z = 1) = 0.3$, and $x \mid z \sim \mathcal{N}(2z, 1)$. Compute $p(x = 0)$ and $p(z = 1 \mid x = 0)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $\varphi$ the standard normal density, $p(0) = 0.7\varphi(0) + 0.3\varphi(2) = 0.7 \cdot 0.3989 + 0.3 \cdot 0.0540 \approx 0.2955$.
-Bayes' theorem gives $p(z = 1 | x = 0) = 0.3\varphi(2)/p(0) \approx 0.0162/0.2955 \approx 0.055$.
+Bayes' theorem gives $p(z = 1 \mid x = 0) = 0.3\varphi(2)/p(0) \approx 0.0162/0.2955 \approx 0.055$.
 :::
 ::::
 
@@ -2201,9 +2201,9 @@ proposition after it computes the distribution it implies for the observations.
 
 **Model:**
 
-$$\mathbf{x} = \mathbf{W}\mathbf{z} + \boldsymbol{\mu} + \boldsymbol{\epsilon}$$
+$$\mathbf{x} = \mathbf{W}\mathbf{z} + \boldsymbol{\mu} + \boldsymbol{\varepsilon}$$
 
-where $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and $\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0},
+where $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and $\boldsymbol{\varepsilon} \sim \mathcal{N}(\mathbf{0},
 \boldsymbol{\Psi})$ with $\boldsymbol{\Psi}$ diagonal.
 :::
 
@@ -2216,8 +2216,8 @@ means in such an application.
 ::: {#exm-uns-factor-analysis-scores}
 #### One factor behind two scores
 
-Let $x_1, x_2$ be a student's scores on two tests, $z$ an unobserved ability, $\mathbf{W} = (1, 1)^T$ and
-$\boldsymbol{\Psi} = \mathrm{diag}(0.5, 0.5)$. Each score is the common ability plus the test-specific noise $\epsilon_j$, with
+Let $x_1, x_2$ be a student's scores on two tests, $z$ an unobserved ability, $\mathbf{W} = (1, 1)^\top$ and
+$\boldsymbol{\Psi} = \operatorname{diag}(0.5, 0.5)$. Each score is the common ability plus the test-specific noise $\varepsilon_j$, with
 variance $0.5$; the two scores are correlated only through $z$.
 :::
 ::::
@@ -2248,15 +2248,15 @@ Integrating out $\mathbf{z}$ gives a Gaussian whose covariance has a low-rank-pl
 
 **Marginal Distribution:**
 
-$$p(\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}, \mathbf{W}\mathbf{W}^T + \boldsymbol{\Psi})$$
+$$p(\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}, \mathbf{W}\mathbf{W}^\top + \boldsymbol{\Psi})$$
 :::
 
 ::::
 
-The vector $(\mathbf{z}, \boldsymbol{\epsilon})$ is jointly Gaussian, and $\mathbf{x}$ is an affine function of it, so $\mathbf{x}$
-is Gaussian. Its mean is $\mathbf{W}\mathbb{E}[\mathbf{z}] + \boldsymbol{\mu} + \mathbb{E}[\boldsymbol{\epsilon}] = \boldsymbol{\mu}$,
-and by independence of $\mathbf{z}$ and $\boldsymbol{\epsilon}$ its covariance is
-$\mathbf{W}\,\mathrm{Cov}(\mathbf{z})\,\mathbf{W}^T + \boldsymbol{\Psi} = \mathbf{W}\mathbf{W}^T + \boldsymbol{\Psi}$.
+The vector $(\mathbf{z}, \boldsymbol{\varepsilon})$ is jointly Gaussian, and $\mathbf{x}$ is an affine function of it, so $\mathbf{x}$
+is Gaussian. Its mean is $\mathbf{W}\mathbb{E}[\mathbf{z}] + \boldsymbol{\mu} + \mathbb{E}[\boldsymbol{\varepsilon}] = \boldsymbol{\mu}$,
+and by independence of $\mathbf{z}$ and $\boldsymbol{\varepsilon}$ its covariance is
+$\mathbf{W}\,\operatorname{Cov}(\mathbf{z})\,\mathbf{W}^\top + \boldsymbol{\Psi} = \mathbf{W}\mathbf{W}^\top + \boldsymbol{\Psi}$.
 
 **Estimation:** Use EM algorithm or variational methods.
 
@@ -2269,8 +2269,8 @@ entry comes entirely from the shared factor.
 ::: {#exm-uns-factor-analysis-covariance}
 #### Covariance of the two scores
 
-With $\mathbf{W} = (1, 1)^T$ and $\boldsymbol{\Psi} = \mathrm{diag}(0.5, 0.5)$,
-$\mathbf{W}\mathbf{W}^T + \boldsymbol{\Psi} = \begin{pmatrix} 1.5 & 1 \\ 1 & 1.5 \end{pmatrix}$, so the two scores have
+With $\mathbf{W} = (1, 1)^\top$ and $\boldsymbol{\Psi} = \operatorname{diag}(0.5, 0.5)$,
+$\mathbf{W}\mathbf{W}^\top + \boldsymbol{\Psi} = \begin{pmatrix} 1.5 & 1 \\ 1 & 1.5 \end{pmatrix}$, so the two scores have
 correlation $1/1.5 = 2/3$.
 :::
 ::::
@@ -2282,12 +2282,12 @@ covariance between observations and factors.
 ::: {#exr-uns-factor-analysis-cross-covariance}
 #### Loadings as covariances
 
-Show that $\mathrm{Cov}(\mathbf{x}, \mathbf{z}) = \mathbf{W}$ in the factor analysis model.
+Show that $\operatorname{Cov}(\mathbf{x}, \mathbf{z}) = \mathbf{W}$ in the factor analysis model.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathrm{Cov}(\mathbf{x}, \mathbf{z}) = \mathbb{E}[(\mathbf{x} - \boldsymbol{\mu})\mathbf{z}^T] = \mathbf{W}\mathbb{E}[\mathbf{z}\mathbf{z}^T] + \mathbb{E}[\boldsymbol{\epsilon}\mathbf{z}^T] = \mathbf{W}\mathbf{I} + \mathbf{0} = \mathbf{W}$,
-using independence of $\boldsymbol{\epsilon}$ and $\mathbf{z}$ and $\mathbb{E}[\boldsymbol{\epsilon}] = \mathbf{0}$.
+$\operatorname{Cov}(\mathbf{x}, \mathbf{z}) = \mathbb{E}[(\mathbf{x} - \boldsymbol{\mu})\mathbf{z}^\top] = \mathbf{W}\mathbb{E}[\mathbf{z}\mathbf{z}^\top] + \mathbb{E}[\boldsymbol{\varepsilon}\mathbf{z}^\top] = \mathbf{W}\mathbf{I} + \mathbf{0} = \mathbf{W}$,
+using independence of $\boldsymbol{\varepsilon}$ and $\mathbf{z}$ and $\mathbb{E}[\boldsymbol{\varepsilon}] = \mathbf{0}$.
 :::
 ::::
 
@@ -2327,7 +2327,7 @@ With linear encoder and decoder and centered data, @def-uns-autoencoder becomes 
 
 Take $f_{\text{enc}}(\mathbf{x}) = \mathbf{A}\mathbf{x}$ and $f_{\text{dec}}(\mathbf{z}) = \mathbf{B}\mathbf{z}$ with
 $\mathbf{z} \in \mathbb{R}^k$, on centered data. The reconstruction $\mathbf{B}\mathbf{A}\mathbf{x}$ lies in a $k$-dimensional
-subspace, so $L$ is at least the PCA error $n\sum_{j > k}\lambda_j$, and this value is attained by $\mathbf{A} = \mathbf{W}_k^T$,
+subspace, so $L$ is at least the PCA error $n\sum_{j > k}\lambda_j$, and this value is attained by $\mathbf{A} = \mathbf{W}_k^\top$,
 $\mathbf{B} = \mathbf{W}_k$: the optimal linear autoencoder spans the principal subspace.
 :::
 ::::
@@ -2339,7 +2339,7 @@ answer matches the reconstruction error computed earlier.
 ::: {#exr-uns-autoencoder-loss}
 #### Loss of the PCA autoencoder
 
-With $\mathbf{w} = (1, 1)/\sqrt2$, encoder $z = \mathbf{w}^T\mathbf{x}$ and decoder $\hat{\mathbf{x}} = \mathbf{w}z$, compute $L$ for
+With $\mathbf{w} = (1, 1)/\sqrt2$, encoder $z = \mathbf{w}^\top\mathbf{x}$ and decoder $\hat{\mathbf{x}} = \mathbf{w}z$, compute $L$ for
 the points $(2, 2), (-2, -2), (1, -1), (-1, 1)$.
 :::
 
@@ -2358,9 +2358,9 @@ from below. The model is as follows.
 **Probabilistic Formulation:**
 
 - **Prior:** $p(\mathbf{z}) = \mathcal{N}(\mathbf{0}, \mathbf{I})$
-- **Decoder:** $p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\theta}}(\mathbf{z}),
+- **Decoder:** $p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\theta}}(\mathbf{z}),
 \boldsymbol{\sigma}_{\boldsymbol{\theta}}^2(\mathbf{z})\mathbf{I})$
-- **Encoder (recognition model):** $q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\phi}}(\mathbf{x}),
+- **Encoder (recognition model):** $q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x}) = \mathcal{N}(\boldsymbol{\mu}_{\boldsymbol{\phi}}(\mathbf{x}),
 \boldsymbol{\sigma}_{\boldsymbol{\phi}}^2(\mathbf{x})\mathbf{I})$
 
 Training maximizes a lower bound on the log-likelihood instead of the log-likelihood itself. The theorem below states this
@@ -2370,19 +2370,19 @@ evidence lower bound, and the proof after it identifies the gap.
 ::: {#thm-uns-elbo}
 #### Evidence Lower Bound (ELBO)
 
-$$\log p(\mathbf{x}) \geq \mathbb{E}_{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}[\log
-p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})] - D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p(\mathbf{z}))$$
+$$\log p(\mathbf{x}) \geq \mathbb{E}_{q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x})}[\log
+p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z})] - D_{\mathrm{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x}) \,\Vert\, p(\mathbf{z}))$$
 :::
 
 ::::
 
-Write $\log p(\mathbf{x}) = \log \mathbb{E}_{q}\left[\frac{p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}\right]$
+Write $\log p(\mathbf{x}) = \log \mathbb{E}_{q}\left[\frac{p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z})p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x})}\right]$
 and apply Jensen's inequality to the concave logarithm:
-$\log p(\mathbf{x}) \geq \mathbb{E}_q[\log p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})] + \mathbb{E}_q\left[\log \frac{p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}\right]$,
-and the second term is $-D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p(\mathbf{z}))$.
+$\log p(\mathbf{x}) \geq \mathbb{E}_q[\log p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z})] + \mathbb{E}_q\left[\log \frac{p(\mathbf{z})}{q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x})}\right]$,
+and the second term is $-D_{\mathrm{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x}) \,\Vert\, p(\mathbf{z}))$.
 
 **Reparameterization Trick:** Sample $\mathbf{z} = \boldsymbol{\mu}_{\boldsymbol{\phi}}(\mathbf{x}) +
-\boldsymbol{\sigma}_{\boldsymbol{\phi}}(\mathbf{x}) \odot \boldsymbol{\epsilon}$ where $\boldsymbol{\epsilon} \sim
+\boldsymbol{\sigma}_{\boldsymbol{\phi}}(\mathbf{x}) \odot \boldsymbol{\varepsilon}$ where $\boldsymbol{\varepsilon} \sim
 \mathcal{N}(\mathbf{0}, \mathbf{I})$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -2393,7 +2393,7 @@ dimension.
 #### The KL term in closed form
 
 For $q = \mathcal{N}(\mu, \sigma^2)$ and $p = \mathcal{N}(0, 1)$ in one dimension,
-$D_{\text{KL}}(q \| p) = \frac12(\mu^2 + \sigma^2 - 1 - \log\sigma^2)$. For $\mu = 1$, $\sigma = 1$ this is $\frac12$, and it
+$D_{\mathrm{KL}}(q \,\Vert\, p) = \frac12(\mu^2 + \sigma^2 - 1 - \log\sigma^2)$. For $\mu = 1$, $\sigma = 1$ this is $\frac12$, and it
 vanishes only for $\mu = 0$, $\sigma = 1$, when the encoder ignores the input.
 :::
 ::::
@@ -2405,12 +2405,12 @@ posterior, the situation the E-step of EM achieves in the proof of @thm-uns-em-m
 ::: {#exr-uns-elbo-gap}
 #### The gap of the ELBO
 
-Show that $\log p(\mathbf{x}) - \text{ELBO} = D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x}))$.
+Show that $\log p(\mathbf{x}) - \text{ELBO} = D_{\mathrm{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x}) \,\Vert\, p_{\boldsymbol{\theta}}(\mathbf{z} \mid \mathbf{x}))$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Since $p_{\boldsymbol{\theta}}(\mathbf{x}|\mathbf{z})p(\mathbf{z}) = p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x})p(\mathbf{x})$, the
-ELBO equals $\mathbb{E}_q\left[\log \frac{p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x})p(\mathbf{x})}{q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x})}\right] = \log p(\mathbf{x}) - D_{\text{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z}|\mathbf{x}) \| p_{\boldsymbol{\theta}}(\mathbf{z}|\mathbf{x}))$.
+Since $p_{\boldsymbol{\theta}}(\mathbf{x} \mid \mathbf{z})p(\mathbf{z}) = p_{\boldsymbol{\theta}}(\mathbf{z} \mid \mathbf{x})p(\mathbf{x})$, the
+ELBO equals $\mathbb{E}_q\left[\log \frac{p_{\boldsymbol{\theta}}(\mathbf{z} \mid \mathbf{x})p(\mathbf{x})}{q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x})}\right] = \log p(\mathbf{x}) - D_{\mathrm{KL}}(q_{\boldsymbol{\phi}}(\mathbf{z} \mid \mathbf{x}) \,\Vert\, p_{\boldsymbol{\theta}}(\mathbf{z} \mid \mathbf{x}))$.
 By Gibbs' inequality (@exr-uns-kl-nonnegative) the gap is non-negative and vanishes exactly when $q$ is the posterior.
 :::
 ::::
@@ -2573,12 +2573,12 @@ diagonal pairs, $J = 104/2 + 104/2 = 104$. By symmetry all four $3 + 1$ splits c
 mean is $(10/3, 2/3)$ and the sum of squares is $(100 - 100/3) + (4 - 4/3) = 208/3 \approx 69.3$. So the optimum is left/right with
 centers $(0, 1)$, $(10, 1)$ and $J = 4$.
 
-(b) The mean is $(5, 1)$ and the centered points are $(\pm 5, \pm 1)$, so $\mathbf{S} = \mathrm{diag}(25, 1)$. The principal
+(b) The mean is $(5, 1)$ and the centered points are $(\pm 5, \pm 1)$, so $\mathbf{S} = \operatorname{diag}(25, 1)$. The principal
 components are $\mathbf{e}_1$ ($\lambda_1 = 25$) and $\mathbf{e}_2$ ($\lambda_2 = 1$), and $\text{PVE}(1) = 25/26 \approx 0.96$.
 
 (c) The scores are $-5, -5, 5, 5$. K-means puts the two $-5$ in one cluster and the two $5$ in the other, with objective $0$. The
 two-dimensional residuals from the cluster centers have zero first coordinate and second coordinate $\pm 1$, which is exactly the
-component along $\mathbf{w}_2$ discarded by PCA; it contributes $\sum_i (\mathbf{w}_2^T\tilde{\mathbf{x}}_i)^2 = n\lambda_2 = 4$
+component along $\mathbf{w}_2$ discarded by PCA; it contributes $\sum_i (\mathbf{w}_2^\top\tilde{\mathbf{x}}_i)^2 = n\lambda_2 = 4$
 (@prp-uns-pca-reconstruction). Hence $4 = 0 + 4$. The decomposition holds here because the cluster centers differ only along
 $\mathbf{w}_1$.
 :::
@@ -2603,11 +2603,13 @@ gain in maximized log-likelihood that $K = 2$ needs to be preferred by BIC (@def
 (a) With equal weights and variances, $\gamma_1(x) = \frac{e^{-x^2/2}}{e^{-x^2/2} + e^{-(x-4)^2/2}}$. At $x = 2$ the two exponents
 agree, so $\gamma = (1/2, 1/2)$. At $x = 0$, $\gamma_1 = 1/(1 + e^{-8}) \approx 0.99966$ and $\gamma_2 \approx 0.00034$.
 
-(b) With $d = 1$, $p = K(1 + 1 + 1) - 1$, so $p = 2$ for $K = 1$ and $p = 5$ for $K = 2$. BIC prefers $K = 2$ when
-$-2L_2 + 5\ln 100 < -2L_1 + 2\ln 100$, that is $L_2 - L_1 > \frac32 \ln 100 \approx 6.91$.
+(b) With $d = 1$, $k = K(1 + 1 + 1) - 1$, so $k = 2$ for $K = 1$ and $k = 5$ for $K = 2$. Writing $\hat{\boldsymbol{\theta}}_K$ for
+the maximum-likelihood fit with $K$ components, BIC prefers $K = 2$ when
+$-2\log p(S \mid \hat{\boldsymbol{\theta}}_2) + 5\log 100 < -2\log p(S \mid \hat{\boldsymbol{\theta}}_1) + 2\log 100$, that is
+$\log p(S \mid \hat{\boldsymbol{\theta}}_2) - \log p(S \mid \hat{\boldsymbol{\theta}}_1) > \frac32 \log 100 \approx 6.91$.
 
 (c) For a GMM the latent variable is the component label, and the lower bound with any distribution $q_i$ over labels has gap
-$\mathrm{KL}(q_i \| p(z_i | \mathbf{x}_i))$ (@exr-uns-elbo-gap, with $q$ in place of the encoder). The E-step sets $q_i$ to the
+$D_{\mathrm{KL}}(q_i \,\Vert\, p(z_i \mid \mathbf{x}_i))$ (@exr-uns-elbo-gap, with $q$ in place of the encoder). The E-step sets $q_i$ to the
 responsibilities, which are exactly this posterior, so the gap vanishes and the bound touches the log-likelihood; the M-step then
 raises the bound, which is the proof of @thm-uns-em-monotone.
 :::
@@ -2620,7 +2622,7 @@ reduction. It shows that density-based, graph-based and single-linkage clusterin
 
 Consider the points $\{0, 1, 2, 10, 11\}$.
 
-(a) Run DBSCAN with $\epsilon = 1.5$ and MinPts $= 2$ (@def-uns-dbscan-points, @def-uns-dbscan-cluster).
+(a) Run DBSCAN with $\varepsilon = 1.5$ and MinPts $= 2$ (@def-uns-dbscan-points, @def-uns-dbscan-cluster).
 
 (b) Form the graph with $w_{ij} = 1$ when $0 < |x_i - x_j| \leq 1.5$ and $0$ otherwise, and find the kernel of its Laplacian
 (@def-uns-graph-laplacian).
@@ -2635,7 +2637,7 @@ point is core. Density-reachability links $0, 1, 2$ and links $10, 11$, giving t
 noise.
 
 (b) The edges are $0 - 1$, $1 - 2$ and $10 - 11$, so the graph has two connected components. By @exr-uns-laplacian-quadratic-form
-the indicators $(1, 1, 1, 0, 0)$ and $(0, 0, 0, 1, 1)$ lie in the kernel; conversely $\mathbf{f}^T\mathbf{L}\mathbf{f} = 0$ forces
+the indicators $(1, 1, 1, 0, 0)$ and $(0, 0, 0, 1, 1)$ lie in the kernel; conversely $\mathbf{f}^\top\mathbf{L}\mathbf{f} = 0$ forces
 $\mathbf{f}$ to be constant on each component, so the kernel is exactly their span and the zero eigenvalue has multiplicity two.
 
 (c) Single linkage merges $\{0\}, \{1\}$ and $\{10\}, \{11\}$ at height $1$, then $\{2\}$ joins $\{0, 1\}$ at height

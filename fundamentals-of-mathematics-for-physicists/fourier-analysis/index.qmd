@@ -18,7 +18,7 @@ Distributions gives a meaning to the delta function and its derivatives, to the 
 $\delta$, and to the principal value $1/x$, the objects that make the formal manipulations of the first two sections
 rigorous. Harmonic analysis on the sphere and on compact groups describes the spherical harmonics as
 eigenfunctions of the Laplacian on $S^2$ and as the spin-$l$ representations of $SU(2)$, states the Peter-Weyl
-theorem, and ends with the mode expansion of a function on a coset space $G/H$, the general setting in which a
+theorem, and ends with the mode expansion of a function on a coset space $S/R$, the general setting in which a
 field on a compact space is expanded in modes. Each definition is followed by three examples of increasing
 complexity and three exercises of increasing difficulty with hidden solutions; each section ends with a
 proposition that collects its explicit values, and the quoted theorems (Dirichlet's
@@ -207,7 +207,7 @@ and the **Fourier series** of $f$ is $\sum_{n \in \mathbb{Z}} c_n e^{inx}$, writ
 its convergence is settled. In real form $f \sim \frac{a_0}{2} + \sum_{n \geq 1}(a_n\cos nx + b_n\sin nx)$ with
 $a_n = \frac1\pi\int_0^{2\pi} f(x)\cos nx\,dx$ and $b_n = \frac1\pi\int_0^{2\pi} f(x)\sin nx\,dx$, related by $c_n =
 \tfrac12(a_n - ib_n)$ and $c_{-n} = \tfrac12(a_n + ib_n)$ for $n \geq 1$, $c_0 = a_0/2$. The coefficients are the
-inner products $c_n = \langle e^{inx}, f\rangle/2\pi$ for $\langle g, f\rangle = \int_0^{2\pi}\bar g f\,dx$, and the
+inner products $c_n = \langle e^{inx}, f\rangle/2\pi$ for $\langle g, f\rangle = \int_0^{2\pi}g^* f\,dx$, and the
 **orthogonality of the modes**
 $$
 \int_0^{2\pi} e^{inx}\,e^{-imx}\,dx = 2\pi\,\delta_{nm}
@@ -302,21 +302,20 @@ n = 6 : a_n = 0  b_n = 0  a_n = -4/(pi n^2) for odd n, 0 for even: True
 :::
 
 The complex and the real forms of the series carry the same information, and the dictionary between them is used
-silently whenever one switches. The second exercise derives the dictionary and the symmetry $c_{-n} = \bar c_n$
+silently whenever one switches. The second exercise derives the dictionary and the symmetry $c_{-n} = c_n^*$
 of real functions.
 
 ::: {#exr-fs-coefficients-complex-real}
 #### Complex and real coefficients
 
 Derive $c_n = \tfrac12(a_n - ib_n)$ and $c_{-n} = \tfrac12(a_n + ib_n)$ for $n \geq 1$, show that $f$ is real if
-and only if $c_{-n} = \bar c_n$ for all $n$, and that $f$ is even (odd) if and only if all $b_n$ (all $a_n$)
+and only if $c_{-n} = c_n^*$ for all $n$, and that $f$ is even (odd) if and only if all $b_n$ (all $a_n$)
 vanish.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $e^{-inx} = \cos nx - i\sin nx$ gives $2\pi c_n = \pi a_n - i\pi b_n$ directly, and $n \to -n$ changes the sign of
-the sine term. If $f$ is real, $\overline{c_n} = \frac1{2\pi}\int f e^{inx} = c_{-n}$; conversely $c_{-n} = \bar
-c_n$ makes $a_n = c_n + c_{-n}$ and $b_n = i(c_n - c_{-n})$ real, and then the partial sums are real, so $f$ is
+the sine term. If $f$ is real, $c_n^* = \frac1{2\pi}\int f e^{inx} = c_{-n}$; conversely $c_{-n} = c_n^*$ makes $a_n = c_n + c_{-n}$ and $b_n = i(c_n - c_{-n})$ real, and then the partial sums are real, so $f$ is
 real wherever the series converges to it (@thm-fourier-convergence). For even $f$ the integrand $f(x)\sin nx$ is
 odd over $(-\pi, \pi)$, so $b_n = 0$; for odd $f$, $f(x)\cos nx$ is odd and $a_n = 0$; conversely a series with
 only cosines (sines) is even (odd).
@@ -662,7 +661,7 @@ $$
 \frac{1}{2\pi}\int_0^{2\pi}|f(x)|^2\,dx = \sum_{n \in \mathbb{Z}}|c_n|^2, \qquad \frac1\pi\int_0^{2\pi}|f|^2\,dx =
 \frac{|a_0|^2}{2} + \sum_{n \geq 1}\bigl(|a_n|^2 + |b_n|^2\bigr),
 $$ {#eq-parseval}
-and more generally $\frac{1}{2\pi}\int_0^{2\pi}\bar f g\,dx = \sum_n\bar c_n(f)c_n(g)$. *Argument.* For a
+and more generally $\frac{1}{2\pi}\int_0^{2\pi}f^* g\,dx = \sum_nc_n(f)^*c_n(g)$. *Argument.* For a
 trigonometric polynomial $T = \sum_{|n| \leq N} t_n e^{inx}$, @eq-mode-orthogonality gives $\frac{1}{2\pi}\int|f -
 T|^2 = \frac{1}{2\pi}\int|f|^2 - \sum_{|n| \leq N}|c_n|^2 + \sum_{|n| \leq N}|c_n - t_n|^2$, so $S_N f$ is the *
 *best approximation** of $f$ in mean square among trigonometric polynomials of degree $N$, and **Bessel's
@@ -764,9 +763,8 @@ minimised exactly when $t_n = c_n$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Expanding $|f - T|^2 = |f|^2 - \bar fT - f\bar T + |T|^2$ and integrating, $\frac{1}{2\pi}\int\bar fT = \sum t_n\bar
-c_n$ by the definition of $c_n$, and $\frac{1}{2\pi}\int|T|^2 = \sum|t_n|^2$ by @eq-mode-orthogonality; so the
-error is $\frac{1}{2\pi}\int|f|^2 - \sum(t_n\bar c_n + \bar t_nc_n - |t_n|^2) = \frac{1}{2\pi}\int|f|^2 -
+Expanding $|f - T|^2 = |f|^2 - f^*T - fT^* + |T|^2$ and integrating, $\frac{1}{2\pi}\int f^*T = \sum t_nc_n^*$ by the definition of $c_n$, and $\frac{1}{2\pi}\int|T|^2 = \sum|t_n|^2$ by @eq-mode-orthogonality; so the
+error is $\frac{1}{2\pi}\int|f|^2 - \sum(t_nc_n^* + t_n^*c_n - |t_n|^2) = \frac{1}{2\pi}\int|f|^2 -
 \sum|c_n|^2 + \sum|c_n - t_n|^2$ after completing the square. The last sum is non-negative and zero only for $t_n
 = c_n$, which gives the minimality; taking $t_n = c_n$ and using that the error is non-negative gives Bessel's
 inequality.
@@ -1036,8 +1034,8 @@ function. The first example computes it and reads off the slow decay that goes w
 ::: {#exm-ft-box}
 #### The box
 
-For the **box** $\chi_a = 1$ on $[-a, a]$ and $0$ outside, $\hat\chi_a(k) = \int_{-a}^a e^{-ikx}dx = \frac{e^{-ika} -
-e^{ika}}{-ik} = \frac{2\sin ak}{k}$ (@prp-fourier-transform-values), with $\hat\chi_a(0) = 2a$ the area of the
+For the **box** $\mathbb 1_{[-a, a]} = 1$ on $[-a, a]$ and $0$ outside, $\hat{\mathbb 1}_{[-a, a]}(k) = \int_{-a}^a e^{-ikx}dx = \frac{e^{-ika} -
+e^{ika}}{-ik} = \frac{2\sin ak}{k}$ (@prp-fourier-transform-values), with $\hat{\mathbb 1}_{[-a, a]}(0) = 2a$ the area of the
 box. The transform decays only like $1/|k|$ and is not absolutely integrable, the counterpart of the $1/n$
 decay of the square wave's coefficients: a jump in $f$ costs a power of $k$ in $\hat f$.
 :::
@@ -1107,7 +1105,7 @@ exponential and locates its pole, with Sage handling the integral.
 ::: {#exr-ft-one-sided}
 #### The one-sided exponential
 
-Compute the transform of $f(x) = \theta(x)e^{-ax}$ ($a > 0$, $\theta$ the step function), show that it extends
+Compute the transform of $f(x) = \Theta(x)e^{-ax}$ ($a > 0$, $\Theta$ the step function), show that it extends
 to a holomorphic function of $k$ in the half-plane $\operatorname{Im} k < a$, which contains the whole lower
 half-plane, with a pole at $k = ia$, and check the transform and its real and imaginary parts with Sage.
 :::
@@ -1227,7 +1225,7 @@ way the non-integrable transforms are used in practice.
 ::: {#exm-ft-duality}
 #### Dual pairs
 
-From $\hat{\hat f}(x) = 2\pi f(-x)$ and the even functions of the examples: $\widehat{\sin ax/x} = \pi\chi_a(k)$
+From $\hat{\hat f}(x) = 2\pi f(-x)$ and the even functions of the examples: $\widehat{\sin ax/x} = \pi\mathbb 1_{[-a, a]}(k)$
 (the transform of the sinc is a box, of height $\pi$ on $[-a, a]$), $\widehat{1/(a^2 + x^2)} = \frac\pi a
 e^{-a|k|}$, and $\widehat{\sigma\sqrt{2\pi}e^{-\sigma^2x^2/2}} = 2\pi e^{-k^2/2\sigma^2}$, consistent with
 @eq-gaussian-transform at width $1/\sigma$. The first pair needs the extended sense of the transform, since
@@ -1371,9 +1369,9 @@ exactly.
 ::: {#exm-ft-box-box}
 #### Box times box is a triangle
 
-$(\chi_a * \chi_a)(x) = \int\chi_a(x - y)\chi_a(y)\,dy$ is the length of $[-a, a] \cap [x - a, x + a]$, which is
+$(\mathbb 1_{[-a, a]} * \mathbb 1_{[-a, a]})(x) = \int\mathbb 1_{[-a, a]}(x - y)\mathbb 1_{[-a, a]}(y)\,dy$ is the length of $[-a, a] \cap [x - a, x + a]$, which is
 $2a - |x|$ for $|x| \leq 2a$ and $0$ otherwise: the **triangle** $\Lambda_a$. By @eq-convolution-theorem its
-transform is $\hat\chi_a^2 = 4\sin^2 ak/k^2$, which direct integration confirms (@prp-fourier-transform-values);
+transform is $\hat{\mathbb 1}_{[-a, a]}^2 = 4\sin^2 ak/k^2$, which direct integration confirms (@prp-fourier-transform-values);
 the triangle is continuous with kinks, and its transform decays like $1/k^2$, one power better than the box.
 :::
 
@@ -1415,13 +1413,13 @@ convolution at a point.
 #### The triangle's transform
 
 Compute $\hat\Lambda_a(k)$ directly from the two linear pieces of the triangle with Sage, verify that it equals
-$(2\sin ak/k)^2$, and evaluate $(\chi_1 * \chi_1)(\tfrac12)$ both from the triangle formula and from the
+$(2\sin ak/k)^2$, and evaluate $(\mathbb 1_{[-1, 1]} * \mathbb 1_{[-1, 1]})(\tfrac12)$ both from the triangle formula and from the
 convolution integral.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\int_{-2a}^0(2a + x)e^{-ikx}dx + \int_0^{2a}(2a - x)e^{-ikx}dx = \frac{2 - 2\cos 2ak}{k^2} = \frac{4\sin^2
-ak}{k^2}$, and $(\chi_1 * \chi_1)(\tfrac12) = 2 - \tfrac12 = \tfrac32$, the length of $[-1, 1] \cap [-\tfrac12,
+ak}{k^2}$, and $(\mathbb 1_{[-1, 1]} * \mathbb 1_{[-1, 1]})(\tfrac12) = 2 - \tfrac12 = \tfrac32$, the length of $[-1, 1] \cap [-\tfrac12,
 \tfrac32]$:
 
 ```python
@@ -1432,7 +1430,7 @@ tri = tri.simplify_full()
 print("transform of the triangle:", tri)
 print("equals (2 sin(ak)/k)^2:", bool((tri - (2 * sin(a * k) / k) ** 2).simplify_full().trig_reduce().simplify_full() == 0))
 conv = integrate(1, y, 1 / 2 - 1, 1)
-print("(chi_1 * chi_1)(1/2) = length of [-1, 1] cap [-1/2, 3/2] =", conv, "; triangle formula 2 - 1/2 =", 2 - 1 / 2)
+print("(1_[-1,1] * 1_[-1,1])(1/2) = length of [-1, 1] cap [-1/2, 3/2] =", conv, "; triangle formula 2 - 1/2 =", 2 - 1 / 2)
 ```
 
 *Output:*
@@ -1440,7 +1438,7 @@ print("(chi_1 * chi_1)(1/2) = length of [-1, 1] cap [-1/2, 3/2] =", conv, "; tri
 ```text
 transform of the triangle: 4*sin(a*k)^2/k^2
 equals (2 sin(ak)/k)^2: True
-(chi_1 * chi_1)(1/2) = length of [-1, 1] cap [-1/2, 3/2] = 3/2 ; triangle formula 2 - 1/2 = 3/2
+(1_[-1,1] * 1_[-1,1])(1/2) = length of [-1, 1] cap [-1/2, 3/2] = 3/2 ; triangle formula 2 - 1/2 = 3/2
 ```
 :::
 
@@ -1524,13 +1522,13 @@ functions.
 If $f$ is absolutely and square integrable, then $\hat f$ is square integrable and
 $$
 \int_{-\infty}^\infty|f(x)|^2\,dx = \frac{1}{2\pi}\int_{-\infty}^\infty|\hat f(k)|^2\,dk, \qquad
-\int\bar f g\,dx = \frac{1}{2\pi}\int\bar{\hat f}\hat g\,dk .
+\int f^* g\,dx = \frac{1}{2\pi}\int\hat f^*\hat g\,dk .
 $$ {#eq-plancherel}
 The map $f \mapsto \hat f/\sqrt{2\pi}$ extends to a unitary operator on the square-integrable functions on
 $\mathbb{R}$ (the space $L^2$ of the next chapter), whose inverse is $f \mapsto \sqrt{2\pi}\,\check f$ with
 $\check f(x) = \frac{1}{2\pi}\int f(k)e^{ikx}dk$; the transform of a square-integrable $f$ that is not
-integrable is defined as the $L^2$ limit of the transforms of its truncations $f\chi_L$. *Argument.* Let $h(y) =
-\overline{f(-y)}$, so that $\hat h = \bar{\hat f}$. Then $(f * h)(0) = \int f(-y)\overline{f(-y)}dy = \int|f|^2$,
+integrable is defined as the $L^2$ limit of the transforms of its truncations $f\mathbb 1_{[-L, L]}$. *Argument.* Let $h(y) =
+f(-y)^*$, so that $\hat h = \hat f^*$. Then $(f * h)(0) = \int f(-y)f(-y)^*dy = \int|f|^2$,
 while $\widehat{f * h} = |\hat f|^2$, and inversion at $x = 0$ gives $(f * h)(0) = \frac{1}{2\pi}\int|\hat f|^2$
 (@exr-ft-plancherel-proof); the polarised form follows from $f + g$ and $f + ig$, and the extension to $L^2$
 by density.
@@ -1545,7 +1543,7 @@ The first example takes the box and obtains the integral of $\sin^2x/x^2$, one o
 ::: {#exm-ft-plancherel-box}
 #### $\int\sin^2 x/x^2 = \pi$
 
-For the box $\chi_a$, $\int|\chi_a|^2 = 2a$ and $\hat\chi_a = 2\sin ak/k$, so @eq-plancherel gives
+For the box $\mathbb 1_{[-a, a]}$, $\int|\mathbb 1_{[-a, a]}|^2 = 2a$ and $\hat{\mathbb 1}_{[-a, a]} = 2\sin ak/k$, so @eq-plancherel gives
 $\frac{1}{2\pi}\int\frac{4\sin^2 ak}{k^2}dk = 2a$ (@prp-fourier-transform-values), that is,
 $\int_{-\infty}^\infty\frac{\sin^2 ak}{k^2}dk = \pi a$, and with $a = 1$, $\int\frac{\sin^2x}{x^2}dx = \pi$, the
 same value as the Dirichlet integral $\int\frac{\sin x}{x}dx$ (@exr-ft-sinc-integrals).
@@ -1590,7 +1588,7 @@ and $\int_{-\infty}^\infty\frac{\sin^4x}{x^4}dx$, and check both with Sage.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $\chi_1$: $2 = \frac{1}{2\pi}\int\frac{4\sin^2k}{k^2}dk$, so the first integral is $\pi$. For $\Lambda_1$ with
+For $\mathbb 1_{[-1, 1]}$: $2 = \frac{1}{2\pi}\int\frac{4\sin^2k}{k^2}dk$, so the first integral is $\pi$. For $\Lambda_1$ with
 $\hat\Lambda_1 = 4\sin^2k/k^2$: $\int\Lambda_1^2 = 2\int_0^2(2 - x)^2dx = \frac{16}{3}$, so
 $\frac{1}{2\pi}\int\frac{16\sin^4k}{k^4}dk = \frac{16}{3}$ and the second integral is $\frac{2\pi}{3}$:
 
@@ -1617,17 +1615,17 @@ two explicit functions.
 ::: {#exr-ft-plancherel-proof}
 #### Completing the proof of Plancherel
 
-Show that $h(y) = \overline{f(-y)}$ has $\hat h = \bar{\hat f}$, complete the argument of @thm-plancherel, derive
-the polarised identity from the quadratic one, and apply it to $f = \chi_1$ and $g = e^{-|x|}$ to evaluate
+Show that $h(y) = f(-y)^*$ has $\hat h = \hat f^*$, complete the argument of @thm-plancherel, derive
+the polarised identity from the quadratic one, and apply it to $f = \mathbb 1_{[-1, 1]}$ and $g = e^{-|x|}$ to evaluate
 $\int_{-\infty}^\infty\frac{\sin k}{k}\frac{dk}{1 + k^2}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\hat h(k) = \int\overline{f(-y)}e^{-iky}dy = \overline{\int f(-y)e^{iky}dy} = \overline{\int f(u)e^{-iku}du} =
-\overline{\hat f(k)}$. Then $\widehat{f * h} = \hat f\hat h = |\hat f|^2$ is integrable when $\hat f$ is square
+$\hat h(k) = \int f(-y)^*e^{-iky}dy = (\int f(-y)e^{iky}dy)^* = (\int f(u)e^{-iku}du)^* =
+\hat f(k)^*$. Then $\widehat{f * h} = \hat f\hat h = |\hat f|^2$ is integrable when $\hat f$ is square
 integrable, $f * h$ is continuous, and inversion at $0$ gives $\int|f|^2 = (f * h)(0) = \frac{1}{2\pi}\int|\hat
-f|^2$. Polarisation: $\int\bar fg = \tfrac14\sum_{m=0}^3 i^m\int|f + i^mg|^2$ and the same for the transforms,
-termwise equal. For $f = \chi_1$, $g = e^{-|x|}$: $\int\chi_1e^{-|x|} = 2(1 - e^{-1})$ and $\frac{1}{2\pi}\int\frac{2\sin
+f|^2$. Polarisation: $\int f^*g = \tfrac14\sum_{m=0}^3 i^m\int|f + i^mg|^2$ and the same for the transforms,
+termwise equal. For $f = \mathbb 1_{[-1, 1]}$, $g = e^{-|x|}$: $\int\mathbb 1_{[-1, 1]}e^{-|x|} = 2(1 - e^{-1})$ and $\frac{1}{2\pi}\int\frac{2\sin
 k}{k}\cdot\frac{2}{1 + k^2}dk$, so $\int\frac{\sin k}{k(1 + k^2)}dk = \pi(1 - e^{-1})$.
 :::
 
@@ -1688,7 +1686,7 @@ $$ {#eq-uncertainty}
 with equality if and only if $f$ is a Gaussian $Ce^{-x^2/2\sigma^2}$ (times $e^{i\bar kx}$ in the uncentred case).
 *Proof.* By Plancherel and the derivative rule, $\int k^2|\hat f|^2 = \int|\widehat{f'}|^2 = 2\pi\int|f'|^2$ and
 $\int|\hat f|^2 = 2\pi\int|f|^2$, so $(\Delta k)^2 = \int|f'|^2/\int|f|^2$. Integrating by parts,
-$\int|f|^2 = \int\frac{d}{dx}(x)|f|^2 = -\int x(\bar f f' + f\bar f') = -2\operatorname{Re}\int x\bar ff'$, the
+$\int|f|^2 = \int\frac{d}{dx}(x)|f|^2 = -\int x(f^* f' + f(f')^*) = -2\operatorname{Re}\int xf^*f'$, the
 boundary term vanishing since $x|f|^2 \to 0$; by Cauchy-Schwarz $\int|f|^2 \leq 2\bigl(\int x^2|f|^2\bigr)^{1/2}\bigl(\int|f'|^2\bigr)^{1/2}$,
 which is @eq-uncertainty. Equality requires $f' = -cxf$ with $c > 0$ real, whose solutions are the Gaussians.
 :::
@@ -1726,7 +1724,7 @@ to exist. The third example shows this for the box and relates it to the hypothe
 ::: {#exm-ft-uncertainty-box}
 #### The box has infinite $\Delta k$
 
-For $\chi_a$, $\int k^2|\hat\chi_a|^2dk = \int4\sin^2ak\,dk = \infty$: the integrand does not decay at all, so
+For $\mathbb 1_{[-a, a]}$, $\int k^2|\hat{\mathbb 1}_{[-a, a]}|^2dk = \int4\sin^2ak\,dk = \infty$: the integrand does not decay at all, so
 $\Delta k = \infty$ and the inequality holds trivially. The theorem's hypothesis $f' \in L^2$ fails, the
 derivative of the box being a pair of deltas (@sec-distributions); a jump in $f$ means $\hat f \sim 1/k$, and
 $k^2/k^2$ is not integrable. Smoothing the box by convolution with a narrow Gaussian makes $\Delta k$ finite but
@@ -1750,11 +1748,11 @@ $Ce^{i\bar kx}e^{-(x - \bar x)^2/2\sigma^2}$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Plancherel applied to $f'$, whose transform is $ik\hat f$, gives $\int k^2|\hat f|^2 = 2\pi\int|f'|^2$; the
 integration by parts needs $x|f|^2 \to 0$ at infinity, which holds since $xf$ and $f$ are square integrable and
-$f$ is $C^1$ (so $x|f|^2$ is integrable with integrable derivative); Cauchy-Schwarz is $|\int x\bar ff'| \leq
+$f$ is $C^1$ (so $x|f|^2$ is integrable with integrable derivative); Cauchy-Schwarz is $|\int xf^*f'| \leq
 (\int x^2|f|^2)^{1/2}(\int|f'|^2)^{1/2}$ (@def-bilinear-form). For the uncentred case apply the centred result to
 $e^{-i\bar kx}f(x + \bar x)$, whose transform is $\hat f(k + \bar k)e^{i(k + \bar k)\bar x}$, with the same
 widths about the shifted means. Equality in Cauchy-Schwarz means $f' = \lambda xf$ with $\lambda$ a constant, and
-equality in $-2\operatorname{Re}\int x\bar ff' \leq 2|\int x\bar ff'|$ means $\lambda < 0$ real, so $f =
+equality in $-2\operatorname{Re}\int xf^*f' \leq 2|\int xf^*f'|$ means $\lambda < 0$ real, so $f =
 Ce^{-|\lambda|x^2/2}$; undoing the shift and modulation gives the stated family.
 :::
 
@@ -1830,7 +1828,7 @@ $$ {#eq-fad-dft}
 which is $N$-periodic, $F_{m + N} = F_m$, so that $F_0, \dots, F_{N - 1}$ determine it. The **discrete orthogonality**
 $\sum_{m = 0}^{N - 1}e^{2\pi im(l - n)/N} = N\delta_{ln}$ for $0 \leq l, n < N$ gives the inversion $f_n =
 \frac1N\sum_{m = 0}^{N - 1}F_me^{2\pi imn/N}$ and the **discrete Parseval identity** $\sum_n|f_n|^2 =
-\frac1N\sum_m|F_m|^2$. For real $f_n$, $F_{N - m} = \overline{F_m}$, so $F_0$ and (for even $N$) $F_{N/2} =
+\frac1N\sum_m|F_m|^2$. For real $f_n$, $F_{N - m} = F_m^*$, so $F_0$ and (for even $N$) $F_{N/2} =
 \sum_n(-1)^nf_n$ are real and about half of the $F_m$ carry the information. If $f_n = f(2\pi n/N)$ are samples of a
 trigonometric polynomial $f(x) = \sum_{|k| < N/2}c_ke^{ikx}$, then $F_m = Nc_m$ for $|m| < N/2$: the transform of the
 samples computes the Fourier coefficients of @def-fourier-coefficient exactly, the index $m$ and $m - N$ standing for
@@ -2226,9 +2224,9 @@ $\sigma$ and the products are exact numbers.
 #### Transforms of the Gaussian, the box and the exponential
 
 $\widehat{e^{-x^2/2\sigma^2}} = \sigma\sqrt{2\pi}e^{-\sigma^2k^2/2}$ and the inverse integral returns the Gaussian;
-$\hat\chi_a = 2\sin ak/k$ and $\widehat{e^{-a|x|}} = 2a/(a^2 + k^2)$; $\widehat{f'} = ik\hat f$ for the Gaussian;
-$\chi_a * \chi_a$ is the triangle $(2a - |x|)_+$, with $\int_{x - a}^a dy = 2a - x$ on $[0, 2a]$, and its
-transform is $(2\sin ak/k)^2$; Plancherel for the box, $\frac{1}{2\pi}\int4\sin^2ak/k^2\,dk = 2a = \int\chi_a^2$;
+$\hat{\mathbb 1}_{[-a, a]} = 2\sin ak/k$ and $\widehat{e^{-a|x|}} = 2a/(a^2 + k^2)$; $\widehat{f'} = ik\hat f$ for the Gaussian;
+$\mathbb 1_{[-a, a]} * \mathbb 1_{[-a, a]}$ is the triangle $(2a - |x|)_+$, with $\int_{x - a}^a dy = 2a - x$ on $[0, 2a]$, and its
+transform is $(2\sin ak/k)^2$; Plancherel for the box, $\frac{1}{2\pi}\int4\sin^2ak/k^2\,dk = 2a = \int\mathbb 1_{[-a, a]}^2$;
 $\Delta x = \sigma/\sqrt2$, $\Delta k = 1/\sigma\sqrt2$ and $\Delta x\Delta k = \tfrac12$ for the Gaussian, and
 $\Delta x\Delta k = 1/\sqrt2$ for $e^{-a|x|}$.
 :::
@@ -2256,10 +2254,10 @@ triangle from the convolution integral, transforms it piece by piece and recover
 ::: {#exm-ft-sage-convolution}
 #### The convolution rule for two boxes
 
-For $0 \leq x \leq 2a$ the boxes $[-a, a]$ and $[x - a, x + a]$ overlap in $[x - a, a]$, so $(\chi_a * \chi_a)(x) =
+For $0 \leq x \leq 2a$ the boxes $[-a, a]$ and $[x - a, x + a]$ overlap in $[x - a, a]$, so $(\mathbb 1_{[-a, a]} * \mathbb 1_{[-a, a]})(x) =
 \int_{x - a}^a dy = 2a - x$, and by evenness the convolution is the triangle $(2a - |x|)_+$. Its transform is
 $\int_{-2a}^0(2a + x)e^{-ikx}dx + \int_0^{2a}(2a - x)e^{-ikx}dx = 2\int_0^{2a}(2a - x)\cos kx\,dx = \frac{2 -
-2\cos 2ak}{k^2}$, and $2 - 2\cos 2ak = 4\sin^2ak$ turns this into $(2\sin ak/k)^2 = \hat\chi_a^2$, as
+2\cos 2ak}{k^2}$, and $2 - 2\cos 2ak = 4\sin^2ak$ turns this into $(2\sin ak/k)^2 = \hat{\mathbb 1}_{[-a, a]}^2$, as
 @eq-convolution-theorem requires.
 :::
 
@@ -2582,7 +2580,7 @@ non-tempered.
 
 Polynomials, $|x|^s$ for $s > -1$, $\log|x|$, bounded functions and periodic piecewise continuous functions are all
 tempered, since $\int|f\varphi| \leq \sup|(1 + x^2)^N\varphi|\int|f|(1 + x^2)^{-N}$ is finite for $N$ large; the
-step function $\theta$ and the sign function are tempered. $e^{x^2}$ and $e^{|x|}$ define distributions on
+step function $\Theta$ and the sign function are tempered. $e^{x^2}$ and $e^{|x|}$ define distributions on
 $\mathcal{D}$ but not tempered ones, since $\int e^{x^2}\varphi$ diverges for $\varphi = e^{-x^2/2}$ and
 $\int e^{|x|}\varphi$ diverges for $\varphi = e^{-\sqrt{1 + x^2}}$, both Schwartz functions; and $1/x$ is not
 locally integrable at $0$, so it defines no regular distribution at all, a gap that @def-principal-value fills.
@@ -2740,9 +2738,9 @@ The derivative of the step function is the delta, the identity that makes Green'
 a jump.
 
 ::: {#exm-dist-step-derivative}
-#### $\theta' = \delta$
+#### $\Theta' = \delta$
 
-$\theta'(\varphi) = -\int_0^\infty\varphi'(x)dx = \varphi(0) = \delta(\varphi)$, since $\varphi$ vanishes at
+$\Theta'(\varphi) = -\int_0^\infty\varphi'(x)dx = \varphi(0) = \delta(\varphi)$, since $\varphi$ vanishes at
 infinity (@prp-distribution-identities, with $\varphi = (1 + x)e^{-x^2}$). If $f$ is $C^1$ away from $a$ with a
 jump $J = f(a^+) - f(a^-)$, the same computation gives $f' = \{f'\} + J\delta(x - a)$, where $\{f'\}$ is the
 classical derivative away from $a$: for the square wave, $f' = 2\sum_n(-1)^n\delta(x - n\pi)$.
@@ -2754,7 +2752,7 @@ example takes $|x|$ and then the Green's function of $-d^2/dx^2$.
 ::: {#exm-dist-abs-derivative}
 #### $|x|'' = 2\delta$
 
-$|x|' = \operatorname{sgn} x = 2\theta - 1$ (no jump, so no delta), and $|x|'' = 2\theta' = 2\delta$: the kink of
+$|x|' = \operatorname{sgn} x = 2\Theta - 1$ (no jump, so no delta), and $|x|'' = 2\Theta' = 2\delta$: the kink of
 $|x|$ at $0$ has slope jump $2$. Hence $u = -\tfrac12|x - \xi|$ solves $-u'' = \delta(x - \xi)$, a fundamental
 solution of $-d^2/dx^2$ (@def-fundamental-solution), and adding the linear function that fixes the boundary values
 gives the Dirichlet Green's function of @prp-greens-laplacian, whose slope jump $-1$ at $\xi$ is this delta.
@@ -2925,7 +2923,7 @@ named.
 :::
 
 The Sokhotski-Plemelj formula is the rule for evaluating integrals with a pole displaced slightly off the real
-axis, and it is used in every propagator with an $i\epsilon$. The second example checks the two halves of the
+axis, and it is used in every propagator with an $i\varepsilon$. The second example checks the two halves of the
 formula and gives a first application.
 
 ::: {#exm-dist-pv-plemelj}
@@ -2951,7 +2949,7 @@ $\operatorname{PV}\int\frac{e^{-ikx}}{x}dx = -i\operatorname{PV}\int\frac{\sin k
 (@prp-distribution-identities), since the cosine part is odd and the Dirichlet integral $\int\frac{\sin kx}{x}dx =
 \pi\operatorname{sgn}k$ needs no principal value. By duality (@thm-fourier-inversion, extended to distributions in
 @def-distribution-transform), $\widehat{\operatorname{sgn}x} = \frac{2}{ik} = -\frac{2i}{k}$ as a principal
-value, and $\hat\theta = \pi\delta(k) + \frac{1}{ik}$ from $\theta = \tfrac12(1 + \operatorname{sgn})$, the
+value, and $\hat\Theta = \pi\delta(k) + \frac{1}{ik}$ from $\Theta = \tfrac12(1 + \operatorname{sgn})$, the
 transform of the step that appears in every retarded Green's function.
 :::
 ::::
@@ -3194,19 +3192,19 @@ obtained as limits of damped versions. The third exercise derives them this way,
 transforms, and uses the Sokhotski-Plemelj formula to combine the two pieces.
 
 ::: {#exr-dist-ft-sign}
-#### The transforms of $\operatorname{sgn}$ and $\theta$
+#### The transforms of $\operatorname{sgn}$ and $\Theta$
 
 Compute the transform of $\operatorname{sgn}(x)e^{-\varepsilon|x|}$ with Sage and let $\varepsilon \to 0$ to show
-$\widehat{\operatorname{sgn}} = -2i\operatorname{PV}\frac1k$; deduce $\hat\theta = \pi\delta(k) +
+$\widehat{\operatorname{sgn}} = -2i\operatorname{PV}\frac1k$; deduce $\hat\Theta = \pi\delta(k) +
 \frac{1}{i}\operatorname{PV}\frac1k$, and show that this equals $\lim_{\varepsilon \to 0}\frac{1}{i(k -
-i\varepsilon)}$, the transform of $\theta(x)e^{-\varepsilon x}$ of @exr-ft-one-sided.
+i\varepsilon)}$, the transform of $\Theta(x)e^{-\varepsilon x}$ of @exr-ft-one-sided.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The damped transform is $\frac{1}{\varepsilon + ik} - \frac{1}{\varepsilon - ik} = \frac{-2ik}{\varepsilon^2 +
-k^2}$, which tends to $-2i\operatorname{PV}\frac1k$ by @exm-dist-pv-plemelj. Then $\theta = \tfrac12(1 +
-\operatorname{sgn})$ gives $\hat\theta = \pi\delta(k) - i\operatorname{PV}\frac1k = \pi\delta(k) +
-\frac1i\operatorname{PV}\frac1k$. On the other hand $\widehat{\theta e^{-\varepsilon x}} = \frac{1}{\varepsilon + ik}
+k^2}$, which tends to $-2i\operatorname{PV}\frac1k$ by @exm-dist-pv-plemelj. Then $\Theta = \tfrac12(1 +
+\operatorname{sgn})$ gives $\hat\Theta = \pi\delta(k) - i\operatorname{PV}\frac1k = \pi\delta(k) +
+\frac1i\operatorname{PV}\frac1k$. On the other hand $\widehat{\Theta e^{-\varepsilon x}} = \frac{1}{\varepsilon + ik}
 = \frac{1}{i(k - i\varepsilon)}$, and the Sokhotski-Plemelj formula @eq-sokhotski-plemelj gives
 $\frac{1}{i}\bigl(\operatorname{PV}\frac1k + i\pi\delta\bigr) = \frac1i\operatorname{PV}\frac1k + \pi\delta$, the
 same distribution: the two regularisations agree, as they must:
@@ -3217,7 +3215,7 @@ assume(eps > 0); assume(k, "real")
 Fs = (integrate(exp(-eps * x) * exp(-I * k * x), x, 0, oo) - integrate(exp(eps * x) * exp(-I * k * x), x, -oo, 0)).simplify_full()
 print("transform of sgn(x) e^{-eps|x|}:", Fs, "= -2ik/(eps^2 + k^2):", bool((Fs + 2 * I * k / (eps ** 2 + k ** 2)).simplify_full() == 0))
 Ft = integrate(exp(-eps * x) * exp(-I * k * x), x, 0, oo).simplify_full()
-print("transform of theta(x) e^{-eps x}:", Ft, "; real part", Ft.real_part().simplify_full(), "with integral", integrate(Ft.real_part().simplify_full(), k, -oo, oo), "(-> pi delta); imaginary part", Ft.imag_part().simplify_full(), "(-> -PV 1/k)")
+print("transform of Theta(x) e^{-eps x}:", Ft, "; real part", Ft.real_part().simplify_full(), "with integral", integrate(Ft.real_part().simplify_full(), k, -oo, oo), "(-> pi delta); imaginary part", Ft.imag_part().simplify_full(), "(-> -PV 1/k)")
 print("consistency: 1/(eps + ik) = (1/2)(transform of 1) + (1/2)(transform of sgn) with the same damping:", bool((Ft - (eps / (eps ** 2 + k ** 2) + Fs / 2)).simplify_full() == 0))
 ```
 
@@ -3225,7 +3223,7 @@ print("consistency: 1/(eps + ik) = (1/2)(transform of 1) + (1/2)(transform of sg
 
 ```text
 transform of sgn(x) e^{-eps|x|}: -2*I*k/(epsilon^2 + k^2) = -2ik/(eps^2 + k^2): True
-transform of theta(x) e^{-eps x}: 1/(epsilon + I*k) ; real part epsilon/(epsilon^2 + k^2) with integral pi (-> pi delta); imaginary part -k/(epsilon^2 + k^2) (-> -PV 1/k)
+transform of Theta(x) e^{-eps x}: 1/(epsilon + I*k) ; real part epsilon/(epsilon^2 + k^2) with integral pi (-> pi delta); imaginary part -k/(epsilon^2 + k^2) (-> -PV 1/k)
 consistency: 1/(eps + ik) = (1/2)(transform of 1) + (1/2)(transform of sgn) with the same damping: True
 ```
 :::
@@ -3244,7 +3242,7 @@ them.
 The Gaussians $g_\varepsilon$ have unit integral; $\int g_\varepsilon\cos x = e^{-\varepsilon^2/4} \to 1$ and $\int
 g_\varepsilon(x^2 + 1) = 1 + \varepsilon^2/2 \to 1$; $\int g_\varepsilon'\sin x = -e^{-\varepsilon^2/4} \to -1$ and
 $\int xg_\varepsilon'\cos x \to -1$ (the identities $\delta'(\varphi) = -\varphi'(0)$ and $x\delta' = -\delta$);
-$-\int_0^\infty f' = f(0)$ for $f = (1 + x)e^{-x^2}$ ($\theta' = \delta$); $\frac{1}{2\pi}\int_{-L}^Le^{ikx}dk =
+$-\int_0^\infty f' = f(0)$ for $f = (1 + x)e^{-x^2}$ ($\Theta' = \delta$); $\frac{1}{2\pi}\int_{-L}^Le^{ikx}dk =
 \sin(Lx)/\pi x$ has unit integral and $\int\frac{\sin Lx}{\pi x}\cos x\,dx = 1$ exactly for $L > 1$;
 $\operatorname{PV}\int_{-1}^2dx/x = \log2$; $\int\frac{\varepsilon}{x^2 + \varepsilon^2}dx = \pi$ and $\int\frac{\sin
 kx}{x}dx = \pi\operatorname{sgn}k$.
@@ -3405,7 +3403,7 @@ eigenfunctions of $d^2/dx^2$; the sphere and the compact Lie groups are the next
 reappears with the Laplacian replaced by the Laplacian of the round metric and the harmonics by the spherical
 harmonics or the matrix coefficients of the irreducible representations. This section defines the Laplacian on
 $S^2$ and the spherical harmonics, connects them to the spin-$l$ representations of $SU(2)$ of @sec-weights-su2,
-states the Peter-Weyl theorem, and describes the mode expansion of a function on a coset space $G/H$; the figure
+states the Peter-Weyl theorem, and describes the mode expansion of a function on a coset space $S/R$; the figure
 shows the harmonics for $l \leq 3$, and the eigenvalue equations, the orthonormality and the
 representation-theoretic identities are collected in the proposition at its end.
 
@@ -3437,7 +3435,7 @@ $$
 \frac{1}{\sin^2\theta}\frac{\partial^2}{\partial\varphi^2},
 $$ {#eq-sphere-laplacian}
 the angular part of the Laplacian of $\mathbb{R}^3$: $\nabla^2 = \partial_r^2 + \frac2r\partial_r + \frac{1}{r^2}\Delta$.
-It is symmetric and non-positive for the inner product $\langle f, g\rangle = \int_{S^2}\bar fg\,d\Omega$ with
+It is symmetric and non-positive for the inner product $\langle f, g\rangle = \int_{S^2}f^*g\,d\Omega$ with
 $d\Omega = \sin\theta\,d\theta\,d\varphi$, so its eigenvalues are real and $\leq 0$ and eigenfunctions with
 different eigenvalues are orthogonal (@exr-sph-laplacian-symmetric); and it commutes with rotations, since the
 round metric is rotation invariant. The **angular momentum operators** $L_z = -i\partial_\varphi$ and $L_\pm =
@@ -3566,16 +3564,16 @@ the eigenvalues and the orthogonality of eigenfunctions.
 ::: {#exr-sph-laplacian-symmetric}
 #### Symmetry of the Laplacian
 
-Show that $\int_{S^2}\bar g\,\Delta f\,d\Omega = -\int_{S^2}\bigl(\partial_\theta\bar g\,\partial_\theta f +
-\tfrac{1}{\sin^2\theta}\partial_\varphi\bar g\,\partial_\varphi f\bigr)d\Omega = \int_{S^2}\overline{\Delta g}\,f\,d\Omega$
+Show that $\int_{S^2}g^*\,\Delta f\,d\Omega = -\int_{S^2}\bigl(\partial_\theta g^*\,\partial_\theta f +
+\tfrac{1}{\sin^2\theta}\partial_\varphi g^*\,\partial_\varphi f\bigr)d\Omega = \int_{S^2}(\Delta g)^*\,f\,d\Omega$
 for smooth $f, g$, and deduce that every eigenvalue of $\Delta$ is real and non-positive, that $0$ is an
 eigenvalue only for the constants, and that eigenfunctions with distinct eigenvalues are orthogonal.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\int\bar g\,\partial_\theta(\sin\theta\,\partial_\theta f)\,d\theta\,d\varphi = -\int\partial_\theta\bar g\,
+$\int g^*\,\partial_\theta(\sin\theta\,\partial_\theta f)\,d\theta\,d\varphi = -\int\partial_\theta g^*\,
 \sin\theta\,\partial_\theta f\,d\theta\,d\varphi$ since $\sin\theta$ vanishes at $\theta = 0, \pi$, and
-$\int\bar g\,\partial_\varphi^2f\,d\varphi = -\int\partial_\varphi\bar g\,\partial_\varphi f\,d\varphi$ by
+$\int g^*\,\partial_\varphi^2f\,d\varphi = -\int\partial_\varphi g^*\,\partial_\varphi f\,d\varphi$ by
 periodicity in $\varphi$; together with the factor $\sin\theta$ of $d\Omega$ this gives the middle expression,
 which is symmetric under exchanging $f$ and $g$ up to conjugation, hence the right side. With $g = f$ an
 eigenfunction, $\lambda\int|f|^2 = -\int(|\partial_\theta f|^2 + \tfrac{1}{\sin^2\theta}|\partial_\varphi f|^2) \leq
@@ -3601,14 +3599,14 @@ $$
 Y_{lm}(\theta, \varphi) = (-1)^m\sqrt{\frac{2l + 1}{4\pi}\frac{(l - m)!}{(l + m)!}}\;P_l^m(\cos\theta)\,e^{im\varphi},
 \qquad P_l^m(u) = (1 - u^2)^{m/2}\frac{d^m}{du^m}P_l(u) \ (m \geq 0),
 $$ {#eq-spherical-harmonic}
-with $P_l$ the Legendre polynomial of @def-legendre-polynomial, $Y_{l,-m} = (-1)^m\overline{Y_{lm}}$, and the
+with $P_l$ the Legendre polynomial of @def-legendre-polynomial, $Y_{l,-m} = (-1)^mY_{lm}^*$, and the
 **Condon-Shortley phase** $(-1)^m$ as in Sage's `spherical_harmonic`. They satisfy $\Delta Y_{lm} = -l(l + 1)Y_{lm}$,
 $L_zY_{lm} = mY_{lm}$ and $L_\pm Y_{lm} = \sqrt{(l \mp m)(l \pm m + 1)}\,Y_{l,m \pm 1}$; they are orthonormal,
-$\int_{S^2}\overline{Y_{lm}}Y_{l'm'}\,d\Omega = \delta_{ll'}\delta_{mm'}$; and they are **complete**: every
+$\int_{S^2}Y_{lm}^*Y_{l'm'}\,d\Omega = \delta_{ll'}\delta_{mm'}$; and they are **complete**: every
 square-integrable function on the sphere has the expansion
 $$
 f(\theta, \varphi) = \sum_{l \geq 0}\sum_{m = -l}^{l}f_{lm}Y_{lm}(\theta, \varphi), \qquad f_{lm} =
-\int_{S^2}\overline{Y_{lm}}\,f\,d\Omega,
+\int_{S^2}Y_{lm}^*\,f\,d\Omega,
 $$ {#eq-spherical-expansion}
 convergent in mean square, uniformly if $f$ is smooth, with Parseval's identity $\int|f|^2d\Omega =
 \sum_{lm}|f_{lm}|^2$. The $2l + 1$ harmonics of degree $l$ span the eigenspace of $-l(l + 1)$, which is the
@@ -3645,14 +3643,14 @@ Parseval: $\int|\cos^2\theta|^2\,d\Omega = 2\pi\cdot\tfrac25 = \tfrac{4\pi}{5}$ 
 terms, which is the Legendre expansion of @sec-sturm-liouville.
 :::
 
-The sum over $m$ of $Y_{lm}(\mathbf n)\overline{Y_{lm}(\mathbf n')}$ depends only on the angle between the two
+The sum over $m$ of $Y_{lm}(\mathbf n)Y_{lm}(\mathbf n')^*$ depends only on the angle between the two
 directions, which is the rotation invariance of the eigenspaces made explicit. The third example states the
 addition theorem, checks it for $l = 1$, and gives its most important application.
 
 ::: {#exm-sph-addition-theorem}
 #### The addition theorem
 
-$\sum_{m = -l}^lY_{lm}(\theta, \varphi)\overline{Y_{lm}(\theta', \varphi')} = \frac{2l + 1}{4\pi}P_l(\cos\gamma)$,
+$\sum_{m = -l}^lY_{lm}(\theta, \varphi)Y_{lm}(\theta', \varphi')^* = \frac{2l + 1}{4\pi}P_l(\cos\gamma)$,
 where $\cos\gamma = \cos\theta\cos\theta' + \sin\theta\sin\theta'\cos(\varphi - \varphi')$ is the cosine of the
 angle between the two directions; for $l = 1$ the left side is $\frac{3}{4\pi}\cos\gamma$
 (@prp-spherical-harmonics). The left side is the kernel of the orthogonal projection onto the eigenspace of $-l(l +
@@ -3710,7 +3708,7 @@ assembles these three facts into a proof.
 ::: {#exr-sph-orthonormality}
 #### Proof of orthonormality
 
-Prove $\int\overline{Y_{lm}}Y_{l'm'}d\Omega = \delta_{ll'}\delta_{mm'}$: for $m \neq m'$ from the $\varphi$
+Prove $\int Y_{lm}^*Y_{l'm'}d\Omega = \delta_{ll'}\delta_{mm'}$: for $m \neq m'$ from the $\varphi$
 integral, for $l \neq l'$ from @exr-sph-laplacian-symmetric, and for $l = l'$, $m = m'$ from $\int_{-1}^1(P_l^m)^2du
 = \frac{2}{2l + 1}\frac{(l + m)!}{(l - m)!}$ (which may be assumed) and @eq-spherical-harmonic.
 :::
@@ -3778,25 +3776,25 @@ eqs. (6.5)-(6.29)].
 
 Let $\rho$ be an integrable function on $\mathbb{R}^3$ vanishing for $|\mathbf x| > d$ (or a finite sum of point
 charges $q_a\delta^3(\mathbf x - \mathbf x_a)$ with $|\mathbf x_a| \leq d$), and $\Phi(\mathbf x) = \int\frac{\rho(\mathbf
-x')}{|\mathbf x - \mathbf x'|}d^3x'$, the solution of $\nabla^2\Phi = -4\pi\rho$ of @exr-dist-laplacian-delta. For $r =
+x')}{4\pi|\mathbf x - \mathbf x'|}d^3x'$, the solution of $\nabla^2\Phi = -\rho$ of @exr-dist-laplacian-delta. For $r =
 |\mathbf x| > d$, with $\mathbf x = r\mathbf n$,
 $$
-\Phi(\mathbf x) = \sum_{l = 0}^\infty\sum_{m = -l}^l\frac{4\pi}{2l + 1}\,q_{lm}\,\frac{Y_{lm}(\mathbf n)}{r^{l + 1}},
-\qquad q_{lm} = \int\rho(\mathbf x')\,r'^l\,\overline{Y_{lm}(\mathbf n')}\,d^3x' ,
+\Phi(\mathbf x) = \sum_{l = 0}^\infty\sum_{m = -l}^l\frac{1}{2l + 1}\,q_{lm}\,\frac{Y_{lm}(\mathbf n)}{r^{l + 1}},
+\qquad q_{lm} = \int\rho(\mathbf x')\,r'^l\,Y_{lm}(\mathbf n')^*\,d^3x' ,
 $$ {#eq-fam-multipole}
 converging absolutely and uniformly on $r \geq r_0 > d$; the numbers $q_{lm}$ are the **multipole moments** of $\rho$,
 and each term is a harmonic function for $r > 0$. In Cartesian form,
 $$
-\Phi(\mathbf x) = \frac qr + \frac{\mathbf d\cdot\mathbf n}{r^2} + \frac{Q_{ij}n_in_j}{2r^3} + O(r^{-4}), \qquad q =
+\Phi(\mathbf x) = \frac{1}{4\pi}\Bigl(\frac qr + \frac{\mathbf d\cdot\mathbf n}{r^2} + \frac{Q_{ij}n_in_j}{2r^3}\Bigr) + O(r^{-4}), \qquad q =
 \int\rho, \quad \mathbf d = \int\rho\,\mathbf x, \quad Q_{ij} = \int\rho\,(3x_ix_j - r^2\delta_{ij}) ,
 $$ {#eq-fam-cartesian}
 with $q_{00} = q/\sqrt{4\pi}$, $q_{10} = \sqrt{3/4\pi}\,d_z$, $q_{1, \pm1} = \mp\sqrt{3/8\pi}\,(d_x \mp id_y)$ and $q_{20}
 = \sqrt{5/16\pi}\,Q_{zz}$; the **quadrupole tensor** $Q_{ij}$ is symmetric and traceless, with five independent
 components like the $q_{2m}$. *Proof.* For $r' \leq d < r$, the Legendre expansion of $1/|\mathbf x - \mathbf x'|$ quoted in
 @exm-sph-addition-theorem (and proved in @exr-fa-multipole) and the addition theorem give
-$\frac{1}{|\mathbf x - \mathbf x'|} = \sum_{lm}\frac{4\pi}{2l + 1}\frac{r'^l}{r^{l + 1}}Y_{lm}(\mathbf n)\overline{Y_{lm}(\mathbf
-n')}$, and the $l$-th term is bounded by $d^l/r_0^{l + 1}$, because $\sum_m|Y_{lm}|^2 = (2l + 1)/4\pi$ and the
-Cauchy-Schwarz inequality bound the sum over $m$; integrating term by term against $\rho$ gives @eq-fam-multipole. By @eq-sphere-laplacian, $\nabla^2(R(r)Y_{lm}) = (R'' + 2R'/r - l(l + 1)R/r^2)Y_{lm}$, which vanishes for $R =
+$\frac{1}{|\mathbf x - \mathbf x'|} = \sum_{lm}\frac{4\pi}{2l + 1}\frac{r'^l}{r^{l + 1}}Y_{lm}(\mathbf n)Y_{lm}(\mathbf
+n')^*$, and the $l$-th term is bounded by $d^l/r_0^{l + 1}$, because $\sum_m|Y_{lm}|^2 = (2l + 1)/4\pi$ and the
+Cauchy-Schwarz inequality bound the sum over $m$; integrating term by term against $\rho/4\pi$ gives @eq-fam-multipole. By @eq-sphere-laplacian, $\nabla^2(R(r)Y_{lm}) = (R'' + 2R'/r - l(l + 1)R/r^2)Y_{lm}$, which vanishes for $R =
 r^{-l - 1}$ because $(l + 1)(l + 2) - 2(l + 1) = l(l + 1)$. The Cartesian form follows from $r'Y_{1m}$ and $r'^2Y_{2m}$ of @exm-sph-low-harmonics, or directly from
 the Taylor expansion $\frac{1}{|\mathbf x - \mathbf x'|} = \frac1r + \frac{\mathbf n\cdot\mathbf x'}{r^2} +
 \frac{3(\mathbf n\cdot\mathbf x')^2 - r'^2}{2r^3} + O(r^{-4})$.
@@ -3812,9 +3810,9 @@ expansion. The first example computes the moments of a dipole and of a linear qu
 
 For charges $e$ at $a\mathbf e_z$ and $-e$ at $-a\mathbf e_z$: $q = 0$, $\mathbf d = 2ea\,\mathbf e_z$, and $Q_{zz} =
 e(2a^2) - e(2a^2) = 0$; the configuration is odd under $z \mapsto -z$, so only odd $l$ occur, and $\Phi =
-2ea\cos\theta/r^2 + O(r^{-4})$, the term $l = 1$ with $q_{10} = \sqrt{3/4\pi}\,2ea$. For charges $e$ at $\pm a\mathbf
+2ea\cos\theta/(4\pi r^2) + O(r^{-4})$, the term $l = 1$ with $q_{10} = \sqrt{3/4\pi}\,2ea$. For charges $e$ at $\pm a\mathbf
 e_z$ and $-2e$ at the origin: $q = 0$, $\mathbf d = 0$, $Q_{zz} = 2e(3a^2 - a^2) = 4ea^2$ and $Q_{xx} = Q_{yy} = -2ea^2$,
-so $\Phi = \frac{ea^2(3\cos^2\theta - 1)}{r^3} + O(r^{-5})$, proportional to $Y_{20}$ and to $P_2(\cos\theta)$
+so $\Phi = \frac{ea^2(3\cos^2\theta - 1)}{4\pi r^3} + O(r^{-5})$, proportional to $Y_{20}$ and to $P_2(\cos\theta)$
 (@def-legendre-polynomial). Each new symmetric arrangement pushes the leading term one power of $1/r$ further out.
 :::
 
@@ -3843,10 +3841,10 @@ Sec. 6.1, eqs. (6.11)-(6.13)].
 
 With $\partial_ir = n_i$ and $\partial_in_j = (\delta_{ij} - n_in_j)/r$, $-\partial_i\frac{d_jn_j}{r^2} =
 \frac{3(\mathbf d\cdot\mathbf n)n_i - d_i}{r^3}$, so $-\nabla\Phi_{\mathrm{dip}} = \frac{3(\mathbf d\cdot\mathbf n)\mathbf
-n - \mathbf d}{r^3}$. On the axis, $\mathbf n = \pm\mathbf d/|\mathbf d|$, it is $2\mathbf d/r^3$, along the dipole; in the
-equatorial plane, $\mathbf n\cdot\mathbf d = 0$, it is $-\mathbf d/r^3$, opposite to it and half as strong. In
-Heaviside-Lorentz units the electrostatic potential is $\Phi/4\pi$ and in SI units $\Phi/4\pi\varepsilon_0$, so the
-electric field of a dipole is this vector divided by $4\pi$ or $4\pi\varepsilon_0$; it falls like $r^{-3}$, one power
+n - \mathbf d}{4\pi r^3}$. On the axis, $\mathbf n = \pm\mathbf d/|\mathbf d|$, it is $2\mathbf d/4\pi r^3$, along the dipole; in the
+equatorial plane, $\mathbf n\cdot\mathbf d = 0$, it is $-\mathbf d/4\pi r^3$, opposite to it and half as strong. In
+Gaussian units the electrostatic potential is $4\pi\Phi$ and in SI units $\Phi/\varepsilon_0$, so the
+electric field of a dipole is this vector multiplied by $4\pi$ or divided by $\varepsilon_0$; it falls like $r^{-3}$, one power
 faster than the Coulomb field.
 :::
 ::::
@@ -3885,9 +3883,9 @@ for name, s in (("s0 cos(theta)", s0*cos(th)), ("s0 sin(2 theta) cos(phi)", s0*s
     qlm = {(l, m): integ(s*R^l*spherical_harmonic(l, m, th, ph).conjugate()) for l in range(3) for m in range(-l, l + 1)}
     print("  nonzero q_lm:", {k: v for k, v in qlm.items() if v != 0})
 # the potential outside the second sphere is the single l = 2 term of prp-fam-multipole:
-# Phi = (4 pi/5) sum_m q_2m Y_2m/r^3 = Q_ij n_i n_j/(2 r^3) = Q_xz sin(2 theta) cos(phi)/(2 r^3)
+# Phi = (1/5) sum_m q_2m Y_2m/r^3 = Q_ij n_i n_j/(8 pi r^3) = Q_xz sin(2 theta) cos(phi)/(8 pi r^3)
 r = var('r')
-Phi = sum(4*pi/5*integ(s0*sin(2*th)*cos(ph)*R^2*spherical_harmonic(2, m, th, ph).conjugate())*spherical_harmonic(2, m, th, ph) for m in (-1, 1))/r^3
+Phi = sum(1/5*integ(s0*sin(2*th)*cos(ph)*R^2*spherical_harmonic(2, m, th, ph).conjugate())*spherical_harmonic(2, m, th, ph) for m in (-1, 1))/r^3
 print("Phi outside =", Phi.simplify_full().simplify_trig().factor())
 ```
 
@@ -3900,10 +3898,10 @@ density s0 cos(theta): q = 0, d = [0, 0, 4/3*pi*R^3*s0]
 density s0 sin(2 theta) cos(phi): q = 0, d = [0, 0, 0]
   Q = [[0, 0, 8/5*pi*R^4*s0], [0, 0, 0], [8/5*pi*R^4*s0, 0, 0]]
   nonzero q_lm: {(2, -1): 2/15*sqrt(15)*sqrt(2)*sqrt(pi)*R^4*s0, (2, 1): -2/15*sqrt(6)*sqrt(5)*sqrt(pi)*R^4*s0}
-Phi outside = 8/5*pi*R^4*s0*cos(phi)*cos(theta)*sin(theta)/r^3
+Phi outside = 2/5*R^4*s0*cos(phi)*cos(theta)*sin(theta)/r^3
 ```
 
-Outside, the expansion has the single term $\Phi = Q_{xz}n_xn_z/r^3 = \frac85\pi\sigma_0R^4\sin\theta\cos\theta\cos\varphi/r^3$,
+Outside, the expansion has the single term $\Phi = Q_{xz}n_xn_z/4\pi r^3 = \frac25\sigma_0R^4\sin\theta\cos\theta\cos\varphi/r^3$,
 exact for all $r > R$.
 :::
 
@@ -3941,7 +3939,7 @@ A density $\rho$ localised near the origin sits in an external electrostatic pot
 -\nabla\phi$ and $\nabla\cdot\mathbf E = 0$ near the origin. Expand $U = \int\rho\phi\,d^3x$ to second order and show
 $U = q\phi(0) - \mathbf d\cdot\mathbf E(0) - \frac16Q_{ij}\partial_iE_j(0) + \dots$, explaining why the trace of
 $Q_{ij}$ may be added freely. Deduce the torque $\mathbf d \times \mathbf E$ on a dipole in a uniform field, and, using
-@exm-fam-dipole-field in Heaviside-Lorentz units, the energy $U = \frac{\mathbf d_1\cdot\mathbf d_2 - 3(\mathbf
+@exm-fam-dipole-field, the energy $U = \frac{\mathbf d_1\cdot\mathbf d_2 - 3(\mathbf
 d_1\cdot\mathbf n)(\mathbf d_2\cdot\mathbf n)}{4\pi r^3}$ of two dipoles at separation $r\mathbf n$. When is it
 negative?
 :::
@@ -3976,16 +3974,16 @@ For a compact Lie group $G$ and a unitary representation $D$ of dimension $d$ on
 $G$, and the **character** is $\chi(g) = \operatorname{tr}D(g) = \sum_iD_{ii}(g)$, a function constant on
 conjugacy classes (a **class function**). The **Haar measure** $dg$ is the unique measure on $G$ invariant under
 left and right translations with $\int_Gdg = 1$; for $SU(2)$ in the Euler-angle parametrisation $g(\varphi, \theta,
-\psi) = e^{-i\varphi J_z}e^{-i\theta J_y}e^{-i\psi J_z}$ with $0 \leq \varphi < 2\pi$, $0 \leq \theta \leq \pi$, $0
+\psi) = e^{-i\varphi J_3}e^{-i\theta J_2}e^{-i\psi J_3}$ with $0 \leq \varphi < 2\pi$, $0 \leq \theta \leq \pi$, $0
 \leq \psi < 4\pi$ it is $dg = \sin\theta\,d\theta\,d\varphi\,d\psi/16\pi^2$. The **Schur orthogonality relations**
 state that for irreducible unitary representations $D^r, D^s$,
 $$
-\int_GD^r_{ij}(g)\,\overline{D^s_{kl}(g)}\,dg = \frac{\delta_{rs}\delta_{ik}\delta_{jl}}{d_r}, \qquad
-\int_G\chi_r\bar\chi_s\,dg = \delta_{rs},
+\int_GD^r_{ij}(g)\,D^s_{kl}(g)^*\,dg = \frac{\delta_{rs}\delta_{ik}\delta_{jl}}{d_r}, \qquad
+\int_G\chi_r\chi_s^*\,dg = \delta_{rs},
 $$ {#eq-schur-orthogonality}
 the counterpart of @eq-mode-orthogonality, proved from Schur's lemma (@thm-schur) by averaging $D^r(g)AD^s(g)^{-1}$
 over $G$. For $SU(2)$ the coefficients of the spin-$j$ representation are the **Wigner functions** $D^j_{mn}(\varphi,
-\theta, \psi) = e^{-im\varphi}d^j_{mn}(\theta)e^{-in\psi}$ with $d^j(\theta) = e^{-i\theta J_y}$ in the weight basis
+\theta, \psi) = e^{-im\varphi}d^j_{mn}(\theta)e^{-in\psi}$ with $d^j(\theta) = e^{-i\theta J_2}$ in the weight basis
 of @def-spin-j, and the characters are $\chi_j(\theta) = \sum_{m = -j}^je^{im\theta} = \frac{\sin((2j +
 1)\theta/2)}{\sin(\theta/2)}$ for the class of rotations by the angle $\theta$.
 :::
@@ -4012,7 +4010,7 @@ be written out and integrated by hand. The second example gives the matrix and v
 ::: {#exm-sph-su2-half}
 #### Spin $\tfrac12$
 
-With $J_z = \tfrac12\sigma_3$ and $J_y = \tfrac12\sigma_2$,
+With $J_3 = \tfrac12\sigma_3$ and $J_2 = \tfrac12\sigma_2$,
 $$
 D^{1/2}(\varphi, \theta, \psi) = \begin{pmatrix} e^{-i(\varphi + \psi)/2}\cos\tfrac\theta2 & -e^{-i(\varphi -
 \psi)/2}\sin\tfrac\theta2 \\ e^{i(\varphi - \psi)/2}\sin\tfrac\theta2 & e^{i(\varphi + \psi)/2}\cos\tfrac\theta2
@@ -4034,15 +4032,15 @@ column, and gives the characters.
 
 In the weight basis $m = 1, 0, -1$ with $J_\pm$ the matrices of @sec-weights-su2,
 $$
-d^1(\theta) = e^{-i\theta J_y} = \begin{pmatrix} \tfrac12(1 + \cos\theta) & -\tfrac{1}{\sqrt2}\sin\theta & \tfrac12(1
+d^1(\theta) = e^{-i\theta J_2} = \begin{pmatrix} \tfrac12(1 + \cos\theta) & -\tfrac{1}{\sqrt2}\sin\theta & \tfrac12(1
 - \cos\theta) \\ \tfrac{1}{\sqrt2}\sin\theta & \cos\theta & -\tfrac{1}{\sqrt2}\sin\theta \\ \tfrac12(1 - \cos\theta)
 & \tfrac{1}{\sqrt2}\sin\theta & \tfrac12(1 + \cos\theta)\end{pmatrix},
 $$
-verified by $d' = -iJ_yd$, $d(0) = 1$ (@prp-spherical-harmonics). The middle column of $D^1 = e^{-im\varphi}d^1_{mn}
+verified by $d' = -iJ_2d$, $d(0) = 1$ (@prp-spherical-harmonics). The middle column of $D^1 = e^{-im\varphi}d^1_{mn}
 e^{-in\psi}$ does not depend on $\psi$ and equals $D^1_{m0}(\varphi, \theta, \psi) = \sqrt{\tfrac{4\pi}{3}}\,
-\overline{Y_{1m}(\theta, \varphi)}$: the harmonics are matrix coefficients. The characters are $\chi_{1/2} =
+Y_{1m}(\theta, \varphi)^*$: the harmonics are matrix coefficients. The characters are $\chi_{1/2} =
 2\cos\tfrac\theta2$ and $\chi_1 = 1 + 2\cos\theta = \operatorname{tr}d^1(\theta)$, with $\chi_{1/2}^2 = \chi_0 +
-\chi_1$, the decomposition $\tfrac12\otimes\tfrac12 = 0 \oplus 1$ (@sec-branching).
+\chi_1$, the decomposition $D^{1/2}\otimes D^{1/2} = D^0 \oplus D^1$ (@sec-branching).
 :::
 ::::
 
@@ -4055,20 +4053,20 @@ measure with the volume form of the round $S^3$.
 #### The Haar measure of $SU(2)$
 
 Show that $dg = \sin\theta\,d\theta\,d\varphi\,d\psi/16\pi^2$ has total mass $1$, is invariant under left
-multiplication by $e^{-i\alpha J_z}$ (which shifts $\varphi$) and right multiplication by $e^{-i\beta J_z}$ (which
+multiplication by $e^{-i\alpha J_3}$ (which shifts $\varphi$) and right multiplication by $e^{-i\beta J_3}$ (which
 shifts $\psi$), and is proportional to the volume form of the round metric on $S^3 \cong SU(2)$; why is this
 enough to identify it with the Haar measure?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\int_0^\pi\sin\theta\,d\theta\int_0^{2\pi}d\varphi\int_0^{4\pi}d\psi = 2\cdot2\pi\cdot4\pi = 16\pi^2$. Left
-multiplication by $e^{-i\alpha J_z}$ sends $(\varphi, \theta, \psi)$ to $(\varphi + \alpha, \theta, \psi)$ and right
-multiplication by $e^{-i\beta J_z}$ to $(\varphi, \theta, \psi + \beta)$; $d\varphi$ and $d\psi$ are invariant
+multiplication by $e^{-i\alpha J_3}$ sends $(\varphi, \theta, \psi)$ to $(\varphi + \alpha, \theta, \psi)$ and right
+multiplication by $e^{-i\beta J_3}$ to $(\varphi, \theta, \psi + \beta)$; $d\varphi$ and $d\psi$ are invariant
 under shifts, and $\sin\theta\,d\theta$ does not involve them. The Euler angles are coordinates on $S^3$ in which
 the round metric is $\tfrac14(d\theta^2 + d\varphi^2 + d\psi^2 + 2\cos\theta\,d\varphi\,d\psi)$, with volume form
 $\tfrac18\sin\theta\,d\theta\,d\varphi\,d\psi$; the round metric is bi-invariant (it is the Killing form up to
 scale, @def-invariant-metric), so its volume form is bi-invariant, and the Haar measure is unique, so the two
-agree after normalisation. Invariance under the one-parameter subgroups generated by $J_z$ alone would not
+agree after normalisation. Invariance under the one-parameter subgroups generated by $J_3$ alone would not
 suffice; the bi-invariance of the metric supplies the rest.
 :::
 
@@ -4079,7 +4077,7 @@ $\tfrac12$ and spin $1$.
 ::: {#exr-sph-schur}
 #### Schur orthogonality in Sage
 
-Compute $\int D^{1/2}_{ij}\overline{D^{1/2}_{kl}}\,dg$ for all $i, j, k, l$ and $\int D^{1/2}_{ij}\overline{D^1_{kl}}\,dg$
+Compute $\int D^{1/2}_{ij}(D^{1/2}_{kl})^*\,dg$ for all $i, j, k, l$ and $\int D^{1/2}_{ij}(D^1_{kl})^*\,dg$
 for a few $(i, j, k, l)$ with Sage, and compare with @eq-schur-orthogonality.
 :::
 
@@ -4133,9 +4131,9 @@ eigenvalues $e^{\pm i\theta/2}$ of the matrix $g$); verify with Sage that the ch
 Every $g \in SU(2)$ is conjugate to $\operatorname{diag}(e^{i\theta/2}, e^{-i\theta/2})$ with $\theta \in [0,
 2\pi]$, and the Haar measure pushed forward to the angle is the Weyl measure $\frac1\pi\sin^2\tfrac\theta2\,d\theta
 = \frac{1}{2\pi}(1 - \cos\theta)d\theta$, the density of $\theta$ for a uniformly random rotation, which
-integrates to $1$. Then $\frac1\pi\int_0^{2\pi}\chi_j\bar\chi_{j'}\sin^2\tfrac\theta2\,d\theta = \delta_{jj'}$, and
-$\chi_{1/2}\chi_1 = 2\cos\tfrac\theta2(1 + 2\cos\theta) = \chi_{1/2} + \chi_{3/2}$, that is, $\tfrac12\otimes1 =
-\tfrac12\oplus\tfrac32$, whose coefficients are the integrals $\frac1\pi\int\chi_{1/2}\chi_1\bar\chi_j\sin^2\tfrac\theta2$:
+integrates to $1$. Then $\frac1\pi\int_0^{2\pi}\chi_j\chi_{j'}^*\sin^2\tfrac\theta2\,d\theta = \delta_{jj'}$, and
+$\chi_{1/2}\chi_1 = 2\cos\tfrac\theta2(1 + 2\cos\theta) = \chi_{1/2} + \chi_{3/2}$, that is, $D^{1/2}\otimes D^1 =
+D^{1/2}\oplus D^{3/2}$, whose coefficients are the integrals $\frac1\pi\int\chi_{1/2}\chi_1\chi_j^*\sin^2\tfrac\theta2$:
 
 ```python
 th = var("theta")
@@ -4191,7 +4189,7 @@ $D^n = e^{in\varphi}$, $d_n = 1$) and the expansion of functions on $SU(2)$ in W
 harmonics are the special case of functions on $SU(2)$ independent of $\psi$ (@def-coset-mode-expansion).
 *Argument.* Orthonormality is @eq-schur-orthogonality. Completeness is the content of the theorem: the convolution
 operators $f \mapsto \int k(g^{-1}h)f(h)dh$ with continuous $k$ are compact and self-adjoint for $k(g^{-1}) =
-\overline{k(g)}$, their eigenspaces are finite-dimensional and invariant under translation, hence sums of matrix
+k(g)^*$, their eigenspaces are finite-dimensional and invariant under translation, hence sums of matrix
 coefficients, and they approximate the identity as $k$ runs through an approximate identity; the spectral theorem
 of the next chapter then gives the density of the matrix coefficients.
 :::
@@ -4332,29 +4330,29 @@ the coefficients for integer j are -2(2j + 1)/(j^2 (j + 1)^2): [True, True, True
 
 ### Mode expansion on a coset space
 
-A function on a coset space $G/H$ is a function on $G$ that is constant along the cosets, and the Peter-Weyl
+A function on a coset space $S/R$ is a function on $S$ that is constant along the cosets, and the Peter-Weyl
 expansion restricted to such functions keeps only the matrix coefficients whose right index is invariant under
-$H$. The definition states this and works out what it says for the sphere, where it reproduces the spherical
+$R$. The definition states this and works out what it says for the sphere, where it reproduces the spherical
 harmonics, and records how the Laplacian acts on each mode.
 
 :::: {.statement-box}
 ::: {#def-coset-mode-expansion}
 #### Mode expansion on a coset space
 
-Let $H \subset G$ be a closed subgroup of a compact Lie group and $G/H$ the coset space (@def-coset-space). A
-function on $G/H$ is a function $f$ on $G$ with $f(gh) = f(g)$ for all $h \in H$, and the Peter-Weyl expansion of
+Let $R \subset S$ be a closed subgroup of a compact Lie group and $S/R$ the coset space (@def-coset-space). A
+function on $S/R$ is a function $f$ on $S$ with $f(gh) = f(g)$ for all $h \in R$, and the Peter-Weyl expansion of
 such an $f$ contains only the coefficients $D^r_{ij}$ whose index $j$ runs over an orthonormal basis of the
-**$H$-singlets** in $D^r$, the vectors $v$ with $D^r(h)v = v$ for all $h \in H$ (the trivial representation in the
-restriction of $D^r$ to $H$, @sec-branching): the **mode expansion on $G/H$** is
+**$R$-singlets** in $D^r$, the vectors $v$ with $D^r(h)v = v$ for all $h \in R$ (the trivial representation in the
+restriction of $D^r$ to $R$, @sec-branching): the **mode expansion on $S/R$** is
 $$
-f(gH) = \sum_rd_r\sum_{i = 1}^{d_r}\sum_{j \in \text{singlets}}\hat f^r_{ji}\,D^r_{ij}(g),
+f(gR) = \sum_rd_r\sum_{i = 1}^{d_r}\sum_{j \in \text{singlets}}\hat f^r_{ji}\,D^r_{ij}(g),
 $$ {#eq-coset-expansion}
-so each irreducible representation $r$ of $G$ contributes to the functions on $G/H$ as many copies of $r$ as the
-number $n_r$ of $H$-singlets in $r$, and the Laplacian of a $G$-invariant metric on a symmetric coset acts on the
+so each irreducible representation $r$ of $S$ contributes to the functions on $S/R$ as many copies of $r$ as the
+number $n_r$ of $R$-singlets in $r$, and the Laplacian of an $S$-invariant metric on a symmetric coset acts on the
 modes of type $r$ by minus the Casimir, $\Delta D^r_{ij} = -C_2(r)D^r_{ij}$, in the normalisation in which $C_2 =
-j(j + 1)$ for $SU(2)$. For $S^2 = SU(2)/U(1)$ with $U(1) = \{e^{-i\psi J_z}\}$, the singlets of spin $j$ are the
+j(j + 1)$ for $SU(2)$. For $S^2 = SU(2)/U(1)$ with $U(1) = \{e^{-i\psi J_3}\}$, the singlets of spin $j$ are the
 weight vectors with $n = 0$, one for every integer $j = l$ and none for half-integer $j$; the modes are $D^l_{m0}
-(\varphi, \theta, \psi) = \sqrt{4\pi/(2l + 1)}\,\overline{Y_{lm}(\theta, \varphi)}$, independent of $\psi$, and
+(\varphi, \theta, \psi) = \sqrt{4\pi/(2l + 1)}\,Y_{lm}(\theta, \varphi)^*$, independent of $\psi$, and
 @eq-coset-expansion is the expansion @eq-spherical-expansion in spherical harmonics with eigenvalues $-l(l +
 1)$.
 :::
@@ -4370,7 +4368,7 @@ and the Laplacian is the Casimir. The first example spells this out with the exp
 The functions on $SU(2)$ independent of $\psi$ are the functions on $S^2$, with $(\theta, \varphi)$ the
 spherical coordinates of the point $g\cdot\hat z$. Among the Wigner functions $D^j_{mn} = e^{-im\varphi}d^j_{mn}(\theta)
 e^{-in\psi}$, those independent of $\psi$ have $n = 0$, which exists only for integer $j = l$; for $l = 1$ the
-middle column of @exm-sph-su2-spin-one is $\sqrt{4\pi/3}\,\overline{Y_{1m}}$ (@prp-spherical-harmonics). Each $l$
+middle column of @exm-sph-su2-spin-one is $\sqrt{4\pi/3}\,Y_{1m}^*$ (@prp-spherical-harmonics). Each $l$
 appears once, with multiplicity $2l + 1$ in $m$, and $\Delta = -\mathbf L^2$ gives the eigenvalue $-l(l + 1)$:
 @eq-spherical-expansion is @eq-coset-expansion.
 :::
@@ -4382,22 +4380,22 @@ compact space.
 ::: {#exm-sph-coset-torus}
 #### The torus $T^2 = U(1) \times U(1)$
 
-With $H$ trivial, every function on $G = U(1) \times U(1)$ is a function on $G/H$, the irreducible
+With $R$ trivial, every function on $S = U(1) \times U(1)$ is a function on $S/R$, the irreducible
 representations are the characters $e^{i(n_1\varphi_1 + n_2\varphi_2)}$, all one-dimensional with one singlet
 each, and @eq-coset-expansion is the double Fourier series $f = \sum_{n_1, n_2}c_{n_1n_2}e^{i(n_1\varphi_1 +
 n_2\varphi_2)}$ with $c_{n_1n_2} = \frac{1}{4\pi^2}\int f e^{-i(n_1\varphi_1 + n_2\varphi_2)}$. For the flat metric
-$R_1^2d\varphi_1^2 + R_2^2d\varphi_2^2$ the Laplacian has eigenvalue $-(n_1^2/R_1^2 + n_2^2/R_2^2)$ on each mode,
-and the eigenvalues are no longer integers times a common scale when $R_1/R_2$ is irrational.
+$r_1^2d\varphi_1^2 + r_2^2d\varphi_2^2$ the Laplacian has eigenvalue $-(n_1^2/r_1^2 + n_2^2/r_2^2)$ on each mode,
+and the eigenvalues are no longer integers times a common scale when $r_1/r_2$ is irrational.
 :::
 
-The group itself is the coset space with $H = \{e\}$, where every representation appears with multiplicity
+The group itself is the coset space with $R = \{e\}$, where every representation appears with multiplicity
 equal to its dimension, and the three-sphere is the case worked out in detail. The third example gives its mode
 expansion and spectrum, which @exr-sph-coset-degeneracies derives.
 
 ::: {#exm-sph-coset-s3}
 #### $S^3 = SU(2)$
 
-With $H$ trivial every vector of $D^j$ is a singlet, so spin $j$ contributes $2j + 1$ copies of itself and the
+With $R$ trivial every vector of $D^j$ is a singlet, so spin $j$ contributes $2j + 1$ copies of itself and the
 modes are all the $D^j_{mn}$, $(2j + 1)^2$ of them for each $j$, including the half-integer spins absent on
 $S^2$: a function on $S^3$ may be odd under $\psi \to \psi + 2\pi$. With the round metric of the unit
 three-sphere, $\Delta D^j_{mn} = -4j(j + 1)D^j_{mn} = -n(n + 2)D^j_{mn}$ for $n = 2j$, the factor $4$ relating the
@@ -4414,13 +4412,13 @@ projective plane, where an additional reflection halves the spectrum.
 ::: {#exr-sph-coset-singlets}
 #### Counting singlets
 
-Show that the restriction of the spin-$j$ representation of $SU(2)$ to $U(1) = \{e^{-i\psi J_z}\}$ contains the
+Show that the restriction of the spin-$j$ representation of $SU(2)$ to $U(1) = \{e^{-i\psi J_3}\}$ contains the
 trivial representation once if $j$ is an integer and not at all if $j$ is a half-integer; then determine which
 $Y_{lm}$ are functions on $\mathbb{RP}^2 = S^2/\{\pm1\}$, the sphere with antipodal points identified.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$e^{-i\psi J_z}$ acts on the weight vector of weight $n$ by $e^{-in\psi}$, $\psi \in [0, 4\pi)$, and this is
+$e^{-i\psi J_3}$ acts on the weight vector of weight $n$ by $e^{-in\psi}$, $\psi \in [0, 4\pi)$, and this is
 trivial exactly when $n = 0$; the weights of spin $j$ are $j, j - 1, \dots, -j$, which contain $0$ exactly when
 $j$ is an integer, once (@def-spin-j). So the functions on $S^2$ carry every integer spin once and no
 half-integer spin, as @def-coset-mode-expansion states. The antipodal map $\mathbf n \mapsto -\mathbf n$ is
@@ -4444,7 +4442,7 @@ compare with the expansion in $Y_{1m}$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $D^1_{m0} = (-e^{-i\varphi}\sin\theta/\sqrt2,\ \cos\theta,\ e^{i\varphi}\sin\theta/\sqrt2)$ for $m = 1, 0, -1$,
 with $\int|D^1_{m0}|^2d\Omega = 4\pi/3 = 4\pi/(2l + 1)$ as Schur's relation predicts after integrating out
-$\psi$; the coefficients of $f$ in the $D^1_{m0}$ are those in the $\overline{Y_{1m}}$ times $\sqrt{3/4\pi}$:
+$\psi$; the coefficients of $f$ in the $D^1_{m0}$ are those in the $Y_{1m}^*$ times $\sqrt{3/4\pi}$:
 
 ```python
 th, ph = var("theta phi")
@@ -4480,14 +4478,14 @@ the two expansions agree: sum c_D D = sum c_Y Y = f: True
 ```
 :::
 
-The multiplicity of an eigenvalue of the Laplacian on $G/H$ is the number of singlets times the dimension, a
+The multiplicity of an eigenvalue of the Laplacian on $S/R$ is the number of singlets times the dimension, a
 form of the Frobenius reciprocity theorem; on the group itself it is the square of the dimension. The third
 exercise derives these counts and the eigenvalues on $S^3$.
 
 ::: {#exr-sph-coset-degeneracies}
-#### Degeneracies on $G/H$
+#### Degeneracies on $S/R$
 
-Show from @eq-coset-expansion that the modes of type $r$ on $G/H$ span a space of dimension $n_rd_r$, so that the
+Show from @eq-coset-expansion that the modes of type $r$ on $S/R$ span a space of dimension $n_rd_r$, so that the
 eigenvalue $-C_2(r)$ of the Laplacian has multiplicity $\sum_{r : C_2(r) = \lambda}n_rd_r$; apply this to $S^2$
 and to $S^3$, and derive the eigenvalues $-n(n + 2)$ of the round unit $S^3$ from the Casimir and the relation
 between the bi-invariant metric and the round one.
@@ -4522,8 +4520,8 @@ $Y_{11}$ have the values of @exm-sph-low-harmonics; the $Y_{lm}$ with $l \leq 2$
 mY_{lm}$ and $L_+Y_{lm} = \sqrt{(l - m)(l + m + 1)}\,Y_{l, m + 1}$ for $l \leq 2$; $r^lY_{lm}$ are the harmonic
 polynomials $z$, $x + iy$, $2z^2 - x^2 - y^2$, $z(x + iy)$, $(x + iy)^2$ up to normalisation; the harmonic
 homogeneous polynomials of degree $l \leq 6$ form a space of dimension $2l + 1$; and the addition theorem holds
-for $l = 1$. (ii) On $SU(2)$: $d^1(\theta)$ satisfies $d' = -iJ_yd$, $d(0) = 1$, is orthogonal with determinant
-$1$, and $[J_z, J_\pm] = \pm J_\pm$, $[J_+, J_-] = 2J_z$; $D^1_{m0} = \sqrt{4\pi/3}\,\overline{Y_{1m}}$; the Haar
+for $l = 1$. (ii) On $SU(2)$: $d^1(\theta)$ satisfies $d' = -iJ_2d$, $d(0) = 1$, is orthogonal with determinant
+$1$, and $[J_3, J_\pm] = \pm J_\pm$, $[J_+, J_-] = 2J_3$; $D^1_{m0} = \sqrt{4\pi/3}\,Y_{1m}^*$; the Haar
 measure has volume $1$ and $D^{1/2}$ is unitary of determinant $1$; Schur orthogonality holds for $j = \tfrac12$
 (with $\tfrac12$), for $j = 1$ (with $\tfrac13$) and between them (zero); and the characters $\chi_j$, $j \leq
 \tfrac32$, are orthonormal for the Weyl measure, with $\chi_{1/2}^2 = \chi_0 + \chi_1$ and $\chi_1 =
@@ -4559,18 +4557,18 @@ the polynomials of degree $l - 2$, of dimension $\binom{l}{2}$: the matrix of $\
 representation theory.
 :::
 
-The identity $d^1(\theta) = e^{-i\theta J_y}$ can be proved without computing a matrix exponential, through the
+The identity $d^1(\theta) = e^{-i\theta J_2}$ can be proved without computing a matrix exponential, through the
 defining differential equation and initial condition, which characterise the exponential uniquely. The third
 example does this and records the other matrix identities.
 
 ::: {#exm-sph-sage-wigner}
 #### The Wigner matrix by its differential equation
 
-$e^{-i\theta J_y}$ is the unique solution of $d' = -iJ_yd$ with $d(0) = 1$ (@def-matrix-exponential), so it
+$e^{-i\theta J_2}$ is the unique solution of $d' = -iJ_2d$ with $d(0) = 1$ (@def-matrix-exponential), so it
 suffices that the explicit $d^1(\theta)$ of @exm-sph-su2-spin-one satisfies both: $d^1(0) = 1$ is immediate, and
-differentiating the entries gives $d' + iJ_yd = 0$. The same matrix satisfies $d^1(d^1)^T = 1$ and $\det d^1 = 1$,
+differentiating the entries gives $d' + iJ_2d = 0$. The same matrix satisfies $d^1(d^1)^\top = 1$ and $\det d^1 = 1$,
 the spin-$1$ matrices satisfy their commutation relations, and assembling $D^1 = \operatorname{diag}(e^{-i\varphi}, 1, e^{i\varphi})\,d^1\,\operatorname{diag}(e^{-i\psi}, 1,
-e^{i\psi})$ gives a matrix whose middle column is $\sqrt{4\pi/3}\,\overline{Y_{1m}}$.
+e^{i\psi})$ gives a matrix whose middle column is $\sqrt{4\pi/3}\,Y_{1m}^*$.
 :::
 ::::
 
@@ -4616,23 +4614,23 @@ r^3 Y_33 = -sqrt(35/64pi) (x + iy)^3 at three points: True
 ```
 :::
 
-Sage can compute the matrix exponential of $-i\theta J_y$ directly, and the second exercise compares the result
+Sage can compute the matrix exponential of $-i\theta J_2$ directly, and the second exercise compares the result
 with the explicit $d^1$. It also asks for $d^{1/2}$ by the same method and for the half-angle structure that
 distinguishes the two.
 
 ::: {#exr-sph-wigner-exp}
-#### Matrix exponentials of $J_y$
+#### Matrix exponentials of $J_2$
 
-Compute $e^{-i\theta J_y}$ for the spin-$\tfrac12$ and the spin-$1$ matrices with Sage's matrix exponential (or
-from the series, using $J_y^2$), compare with $d^{1/2}(\theta) = \begin{pmatrix}\cos\frac\theta2 & -
+Compute $e^{-i\theta J_2}$ for the spin-$\tfrac12$ and the spin-$1$ matrices with Sage's matrix exponential (or
+from the series, using $J_2^2$), compare with $d^{1/2}(\theta) = \begin{pmatrix}\cos\frac\theta2 & -
 \sin\frac\theta2\\ \sin\frac\theta2 & \cos\frac\theta2\end{pmatrix}$ and with $d^1(\theta)$ of
 @exm-sph-su2-spin-one, and explain why spin $\tfrac12$ involves $\theta/2$ and spin $1$ involves $\theta$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For spin $\tfrac12$, $J_y = \sigma_2/2$ with $J_y^2 = \tfrac14$, so the series gives $\cos\frac\theta2 -
-2i\sin\frac\theta2J_y$; for spin $1$, $J_y^3 = J_y$, so $e^{-i\theta J_y} = 1 - iJ_y\sin\theta - J_y^2(1 -
-\cos\theta)$, which is $d^1(\theta)$. The eigenvalues of $J_y$ are $\pm\tfrac12$ in spin $\tfrac12$ and $0, \pm1$
+For spin $\tfrac12$, $J_2 = \sigma_2/2$ with $J_2^2 = \tfrac14$, so the series gives $\cos\frac\theta2 -
+2i\sin\frac\theta2J_2$; for spin $1$, $J_2^3 = J_2$, so $e^{-i\theta J_2} = 1 - iJ_2\sin\theta - J_2^2(1 -
+\cos\theta)$, which is $d^1(\theta)$. The eigenvalues of $J_2$ are $\pm\tfrac12$ in spin $\tfrac12$ and $0, \pm1$
 in spin $1$, so the exponentials contain $e^{\mp i\theta/2}$ and $e^{0}, e^{\mp i\theta}$ respectively: the
 half-angle is the double cover, $d^{1/2}(2\pi) = -1$ while $d^1(2\pi) = 1$:
 
@@ -4640,26 +4638,26 @@ half-angle is the double cover, $d^{1/2}(2\pi) = -1$ while $d^1(2\pi) = 1$:
 th = var("theta")
 sig2 = matrix(SR, [[0, -I], [I, 0]]); Jh = sig2 / 2
 dh = (cos(th / 2) * identity_matrix(2) - 2 * I * sin(th / 2) * Jh).simplify_full()
-print("spin 1/2: J_y^2 = 1/4:", bool(Jh ** 2 == identity_matrix(2) / 4), "; exp(-i theta J_y) =", dh.list())
+print("spin 1/2: J_2^2 = 1/4:", bool(Jh ** 2 == identity_matrix(2) / 4), "; exp(-i theta J_2) =", dh.list())
 print("  equals d^{1/2}(theta):", bool((dh - matrix(SR, [[cos(th / 2), -sin(th / 2)], [sin(th / 2), cos(th / 2)]])).simplify_full() == 0))
 Jp = matrix(SR, [[0, sqrt(2), 0], [0, 0, sqrt(2)], [0, 0, 0]]); Jy = (Jp - Jp.transpose()) / (2 * I)
-print("spin 1: J_y^3 = J_y:", bool((Jy ** 3 - Jy).simplify_full() == 0))
+print("spin 1: J_2^3 = J_2:", bool((Jy ** 3 - Jy).simplify_full() == 0))
 d1s = (identity_matrix(3) - I * Jy * sin(th) - Jy ** 2 * (1 - cos(th))).simplify_full()
 d1 = matrix(SR, [[(1 + cos(th)) / 2, -sin(th) / sqrt(2), (1 - cos(th)) / 2], [sin(th) / sqrt(2), cos(th), -sin(th) / sqrt(2)], [(1 - cos(th)) / 2, sin(th) / sqrt(2), (1 + cos(th)) / 2]])
-print("  1 - i J_y sin theta - J_y^2 (1 - cos theta) = d^1(theta):", bool((d1s - d1).simplify_full() == 0))
+print("  1 - i J_2 sin theta - J_2^2 (1 - cos theta) = d^1(theta):", bool((d1s - d1).simplify_full() == 0))
 ode = (d1s.derivative(th) + I * Jy * d1s).simplify_full()
-print("  it satisfies d' = -i J_y d:", ode.is_zero())
+print("  it satisfies d' = -i J_2 d:", ode.is_zero())
 print("d^{1/2}(2 pi) = -1 while d^1(2 pi) = 1:", bool(dh.subs({th: 2 * pi}) == -identity_matrix(2)) and bool(d1.subs({th: 2 * pi}) == identity_matrix(3)))
 ```
 
 *Output:*
 
 ```text
-spin 1/2: J_y^2 = 1/4: True ; exp(-i theta J_y) = [cos(1/2*theta), -sin(1/2*theta), sin(1/2*theta), cos(1/2*theta)]
+spin 1/2: J_2^2 = 1/4: True ; exp(-i theta J_2) = [cos(1/2*theta), -sin(1/2*theta), sin(1/2*theta), cos(1/2*theta)]
   equals d^{1/2}(theta): True
-spin 1: J_y^3 = J_y: True
-  1 - i J_y sin theta - J_y^2 (1 - cos theta) = d^1(theta): True
-  it satisfies d' = -i J_y d: True
+spin 1: J_2^3 = J_2: True
+  1 - i J_2 sin theta - J_2^2 (1 - cos theta) = d^1(theta): True
+  it satisfies d' = -i J_2 d: True
 d^{1/2}(2 pi) = -1 while d^1(2 pi) = 1: True
 ```
 :::
@@ -4754,7 +4752,7 @@ the Fourier transform of $1/r$.
 Prove $\frac{1}{|\mathbf x - \mathbf x'|} = \sum_{l \geq 0}\frac{r_<^l}{r_>^{l + 1}}P_l(\cos\gamma)$ with $r_< =
 \min(r, r')$, $r_> = \max(r, r')$, from the generating function $\frac{1}{\sqrt{1 - 2ut + t^2}} = \sum_lP_l(u)t^l$
 of the Legendre polynomials, rewrite it with the addition theorem as $\sum_{lm}\frac{4\pi}{2l +
-1}\frac{r_<^l}{r_>^{l + 1}}Y_{lm}(\theta, \varphi)\overline{Y_{lm}(\theta', \varphi')}$, check the expansion to $l
+1}\frac{r_<^l}{r_>^{l + 1}}Y_{lm}(\theta, \varphi)Y_{lm}(\theta', \varphi')^*$, check the expansion to $l
 \leq 3$ numerically in Sage, and explain why the same function has the Fourier representation
 $\frac{1}{|\mathbf x - \mathbf x'|} = \frac{1}{2\pi^2}\int\frac{e^{i\mathbf k\cdot(\mathbf x - \mathbf x')}}{k^2}d^3k$.
 :::
@@ -4764,7 +4762,7 @@ $|\mathbf x - \mathbf x'|^2 = r^2 + r'^2 - 2rr'\cos\gamma = r_>^2(1 - 2ut + t^2)
 r_</r_> < 1$, so $\frac{1}{|\mathbf x - \mathbf x'|} = \frac{1}{r_>}\sum_lP_l(\cos\gamma)t^l$ by the generating
 function, which converges for $t < 1$ (@def-power-series; the generating function itself follows from Rodrigues'
 formula or from the recursion of @prp-legendre-bessel). The addition theorem of @exm-sph-addition-theorem
-replaces $P_l(\cos\gamma)$ by $\frac{4\pi}{2l + 1}\sum_mY_{lm}(\mathbf n)\overline{Y_{lm}(\mathbf n')}$. The
+replaces $P_l(\cos\gamma)$ by $\frac{4\pi}{2l + 1}\sum_mY_{lm}(\mathbf n)Y_{lm}(\mathbf n')^*$. The
 Fourier form is the inverse transform of $\widehat{1/r} = 4\pi/k^2$ (@exr-dist-laplacian-delta) translated to
 $\mathbf x'$, $\frac{1}{(2\pi)^3}\int\frac{4\pi}{k^2}e^{i\mathbf k\cdot(\mathbf x - \mathbf x')}d^3k$: the two
 expansions are the harmonic analysis of the same Green's function on the sphere and on the line, respectively.

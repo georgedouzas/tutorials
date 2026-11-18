@@ -4,13 +4,13 @@ pagetitle: "Homogeneous spaces and fibre bundles"
 
 # Homogeneous spaces and fibre bundles {#sec-homogeneous-bundles}
 
-A group acting transitively on a space makes it a homogeneous space, a coset space $G/H$; the projection $G \to G/H$ is the first example of a fibre bundle, a space that looks locally like a product of a base and a fibre. The chapter has two parts: coset spaces (their construction, reductive decompositions and isotropy, and the vielbeins and metrics they inherit) and fibre bundles (vector and principal bundles, connections and their curvature, and the Hopf fibration $S^3 \to S^2$).
+A group acting transitively on a space makes it a homogeneous space, a coset space $S/R$; the projection $S \to S/R$ is the first example of a fibre bundle, a space that looks locally like a product of a base and a fibre. The chapter has two parts: coset spaces (their construction, reductive decompositions and isotropy, and the vielbeins and metrics they inherit) and fibre bundles (vector and principal bundles, connections and their curvature, and the Hopf fibration $S^3 \to S^2$).
 
 ## Coset spaces {#sec-coset-geometry}
 
-A coset space $G/H$ is a manifold on which a Lie group $G$ acts transitively, so that every point looks like every
+A coset space $S/R$ is a manifold on which a Lie group $S$ acts transitively, so that every point looks like every
 other; spheres, projective spaces, flag manifolds and Lie groups themselves are all of this kind. Their geometry is
-encoded almost entirely in the Lie algebra of $G$: the tangent space is a complement of the Lie algebra of $H$, the
+encoded almost entirely in the Lie algebra of $S$: the tangent space is a complement of the Lie algebra of $R$, the
 symmetries of the tangent space are adjoint actions, and invariant metrics, connections and curvatures become
 statements about structure constants. This chapter has three sections. Coset spaces defines homogeneous spaces, the
 coset spaces $S/R$ that realise them, the isotropy representation and the invariant metrics, with the sphere
@@ -548,19 +548,19 @@ radii.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 Invariance of an inner product under a connected group can be tested on the generators. The first exercise solves the
-infinitesimal condition $X^{\mathsf{T}}g + gX = 0$ for the isotropy generators of $S^2$ and of $S^3 = SO(4)/SO(3)$.
+infinitesimal condition $X^\top g + gX = 0$ for the isotropy generators of $S^2$ and of $S^3 = SO(4)/SO(3)$.
 
 ::: {#exr-cs-invariant-inner-sphere}
 #### Invariant inner products of the spheres
 
-Find all symmetric $2 \times 2$ matrices $g$ with $X^{\mathsf{T}}g + gX = 0$ for $X = \begin{pmatrix} 0 & -1 \\ 1 & 0
+Find all symmetric $2 \times 2$ matrices $g$ with $X^\top g + gX = 0$ for $X = \begin{pmatrix} 0 & -1 \\ 1 & 0
 \end{pmatrix}$ and check that they are invariant under the finite rotations. Then find all symmetric $3 \times 3$
 matrices invariant under the three generators $L_a$ of the vector representation of $\mathfrak{so}(3)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $g = \begin{pmatrix} a & b \\ b & c \end{pmatrix}$, $X^{\mathsf{T}}g + gX = \begin{pmatrix} 2b & c - a \\ c - a & -
-2b \end{pmatrix}$, so $b = 0$ and $a = c$: $g = a\,1$. Differentiating $R(t)^{\mathsf{T}}gR(t) = g$ at $t = 0$ gives the
+With $g = \begin{pmatrix} a & b \\ b & c \end{pmatrix}$, $X^\top g + gX = \begin{pmatrix} 2b & c - a \\ c - a & -
+2b \end{pmatrix}$, so $b = 0$ and $a = c$: $g = a\,1$. Differentiating $R(t)^\top gR(t) = g$ at $t = 0$ gives the
 infinitesimal condition, and conversely the multiples of the identity are invariant under every rotation. For
 $\mathfrak{so}(3)$ the solution is again $g = a\,1$, one radius for $S^3 = SO(4)/SO(3)$, as Schur's lemma
 (@thm-schur) predicts for an irreducible representation:
@@ -606,9 +606,9 @@ R_2^2\,g_{S^2}$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) With no isotropy condition every inner product on $\mathbb{R}^2$ is allowed: three parameters, the constant metrics
-$a\,dx^2 + 2b\,dx\,dy + c\,dy^2$ on the flat torus. (b) Write $g = \begin{pmatrix} A & B \\ B^{\mathsf{T}} & C
+$a\,dx^2 + 2b\,dx\,dy + c\,dy^2$ on the flat torus. (b) Write $g = \begin{pmatrix} A & B \\ B^\top & C
 \end{pmatrix}$ in $2 \times 2$ blocks. Invariance under the rotations $R_1(t)$ of the first plane alone gives
-$R_1^{\mathsf{T}}AR_1 = A$, so $A = R_1^2\,1$ by @exr-cs-invariant-inner-sphere, and $R_1(t)^{\mathsf{T}}B = B$ for all $t$,
+$R_1^\top AR_1 = A$, so $A = R_1^2\,1$ by @exr-cs-invariant-inner-sphere, and $R_1(t)^\top B = B$ for all $t$,
 which forces $B = 0$ (take $t = \pi$: $-B = B$). The second factor gives $C = R_2^2\,1$. The two radii are
 independent, because the two components are inequivalent representations of $SO(2) \times SO(2)$.
 :::
@@ -620,8 +620,8 @@ radii of @exm-invariant-metric-flag.
 ::: {#exr-cs-invariant-flag}
 #### Invariant metrics on the flag manifold
 
-With $Y_A = i\lambda_A$, compute the matrices $F_3, F_8$ of $\operatorname{ad}_{Y_3}, \operatorname{ad}_{Y_8}$ on
-$\mathfrak{k} = \operatorname{span}(Y_1, Y_2, Y_4, Y_5, Y_6, Y_7)$, and solve $F_i^{\mathsf{T}}g + gF_i = 0$ with Sage
+With $Y_A = i\lambda_A = -2T_A$, compute the matrices $F_3, F_8$ of $\operatorname{ad}_{Y_3}, \operatorname{ad}_{Y_8}$ on
+$\mathfrak{k} = \operatorname{span}(Y_1, Y_2, Y_4, Y_5, Y_6, Y_7)$, and solve $F_i^\top g + gF_i = 0$ with Sage
 for a symmetric $6 \times 6$ matrix $g$.
 :::
 
@@ -727,7 +727,7 @@ statements of @prp-rotations-pole and check $\det e^{tL_3} = 1$.
 $L_3^2 = \operatorname{diag}(-1, -1, 0)$ and $L_3^3 = L_3L_3^2 = -L_3$. The series splits into odd powers $L_3^{2k+1} =
 (-1)^kL_3$ and even powers $L_3^{2k} = (-1)^{k-1}L_3^2$ ($k \geq 1$), giving $1 + \sin t\,L_3 + (1 - \cos t)L_3^2 =
 \begin{pmatrix} \cos t & -\sin t & 0 \\ \sin t & \cos t & 0 \\ 0 & 0 & 1 \end{pmatrix}$. Its third column is the pole,
-its first column is $(\cos t, \sin t, 0)$, and $R^{\mathsf{T}}R = 1$ since the columns are orthonormal, so $|Rv| = |v|$;
+its first column is $(\cos t, \sin t, 0)$, and $R^\top R = 1$ since the columns are orthonormal, so $|R\mathbf v| = |\mathbf v|$;
 the determinant is $\cos^2t + \sin^2t = 1$.
 :::
 
@@ -829,8 +829,8 @@ The example also notes the degenerate case of a group regarded as a coset of the
 ::: {#exm-reductive-flag}
 #### $\mathfrak{su}(3) = \mathfrak{r} \oplus \mathfrak{k}$ for the flag manifold
 
-With the Gell-Mann basis @eq-gell-mann and $\mathfrak{r} = \operatorname{span}(\lambda_3, \lambda_8)$,
-$\mathfrak{k} = \operatorname{span}(\lambda_1, \lambda_2, \lambda_4, \lambda_5, \lambda_6, \lambda_7)$ of dimension
+With the Gell-Mann basis @eq-gell-mann and $\mathfrak{r} = \operatorname{span}(T_3, T_8)$,
+$\mathfrak{k} = \operatorname{span}(T_1, T_2, T_4, T_5, T_6, T_7)$ of dimension
 $6$; the structure constants (@exr-su3-structure) show $[\mathfrak{r}, \mathfrak{k}] \subseteq \mathfrak{k}$
 (@exr-flag-nonsymmetric). The group as a coset $S/\{e\}$ has $\mathfrak{k} = \mathfrak{s}$, trivially reductive.
 :::
@@ -851,7 +851,7 @@ examples are exactly the orthogonal ones.
 #### The Killing-orthogonal complement
 
 Compute the Killing form $\kappa(X, Y) = \operatorname{tr}(\operatorname{ad}_X\operatorname{ad}_Y)$ of $\mathfrak{so}(3)$ in
-the basis $L_a$ and of $\mathfrak{su}(3)$ in the basis $Y_A = i\lambda_A$, find the orthogonal complements of
+the basis $L_a$ and of $\mathfrak{su}(3)$ in the basis $Y_A = i\lambda_A = -2T_A$, find the orthogonal complements of
 $\operatorname{span}(L_3)$ and of $\operatorname{span}(Y_3, Y_8)$, and check $[\mathfrak{r}, \mathfrak{k}] \subseteq
 \mathfrak{k}$. Why does orthogonality imply the reductive property?
 :::
@@ -1310,15 +1310,15 @@ $\mathfrak{k}$ and the compactness of $U(1)$, which makes the eigenvalues imagin
 
 Let $Q \in \mathfrak{r}$ generate a compact $U(1)$ and let $\operatorname{ad}_Q$ act on the real space $\mathfrak{k}$. Show
 that its eigenvalues on $\mathfrak{k} \otimes \mathbb{C}$ are imaginary, $i q$ with $q$ real, and that if $v$ has
-eigenvalue $iq$ then its complex conjugate $\bar v$ has eigenvalue $-iq$.
+eigenvalue $iq$ then its complex conjugate $v^*$ has eigenvalue $-iq$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $e^{t\operatorname{ad}_Q} = \operatorname{Ad}_{e^{tQ}}$ is a compact one-parameter group of linear maps of $\mathfrak{k}$, so it
 preserves an inner product (average any inner product over the circle) and $\operatorname{ad}_Q$ is antisymmetric for
 it; the eigenvalues of a real antisymmetric matrix are imaginary. Since $\operatorname{ad}_Q$ is real,
-conjugating $\operatorname{ad}_Qv = iqv$ gives $\operatorname{ad}_Q\bar v = -iq\bar v$. For $S^2$, $v = L_1 + iL_2$ and
-$\bar v = L_1 - iL_2$ have eigenvalues $-i$ and $+i$; with a Hermitian generator such as $\lambda_3 = -iY_3$ the
+conjugating $\operatorname{ad}_Qv = iqv$ gives $\operatorname{ad}_Qv^* = -iqv^*$. For $S^2$, $v = L_1 + iL_2$ and
+$v^* = L_1 - iL_2$ have eigenvalues $-i$ and $+i$; with a Hermitian generator such as $\lambda_3 = -iY_3$ the
 eigenvalues become real, $\pm q$, as in @exm-charges-flag.
 :::
 
@@ -1805,8 +1805,8 @@ $U(2)$, obtaining the complex projective plane, and contrasts its charges with t
 ::: {#exr-cs-su3-cp2}
 #### $\mathbb{CP}^2 = SU(3)/U(2)$
 
-Take $\mathfrak{r} = \operatorname{span}(\lambda_1, \lambda_2, \lambda_3, \lambda_8)$ and $\mathfrak{k} = \operatorname{span}(\lambda_4,
-\lambda_5, \lambda_6, \lambda_7)$. Check with Sage that $\mathfrak{r}$ is a subalgebra and that the decomposition is
+Take $\mathfrak{r} = \operatorname{span}(T_1, T_2, T_3, T_8)$ and $\mathfrak{k} = \operatorname{span}(T_4,
+T_5, T_6, T_7)$. Check with Sage that $\mathfrak{r}$ is a subalgebra and that the decomposition is
 reductive and symmetric, and compute the charges of $\lambda_4 + i\lambda_5$ and $\lambda_6 + i\lambda_7$ under
 $\lambda_8$. Why does the bracket $[\lambda_1, \lambda_4] = i\lambda_7$ not spoil symmetry here?
 :::
@@ -1954,17 +1954,17 @@ exercise builds a representative for $S^n = SO(n+1)/SO(n)$ by rotating the base 
 ::: {#exr-cs-representative-sn}
 #### Great-circle representatives on $S^n$
 
-Write a point of $S^n \subset \mathbb{R}^{n+1}$ as $y = (\sin\chi\,\hat y, \cos\chi)$ with $\hat y \in S^{n-1}$ and $0 \leq \chi
-\leq \pi$, and let $L(y) = e^{\chi X}$ with $X = \sum_a \hat y_aM_{an}$. Show that $L(y)\,o = y$ for $o = e_n$, that $L$ is
+Write a point of $S^n \subset \mathbb{R}^{n+1}$ as $y = (\sin\chi\,\mathbf u, \cos\chi)$ with $\mathbf u \in S^{n-1}$ and $0 \leq \chi
+\leq \pi$, and let $L(y) = e^{\chi X}$ with $X = \sum_a u_aM_{an}$. Show that $L(y)\,o = y$ for $o = e_n$, that $L$ is
 smooth away from $\chi = \pi$, and that it has no continuous extension to $\chi = \pi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-From $M_{an}e_b = \delta_{nb}e_a - \delta_{ab}e_n$: $Xo = \sum_a\hat y_ae_a = \hat y$ and $X\hat y = -|\hat y|^2e_n = -o$, so $X$
-rotates the plane spanned by $o$ and $\hat y$ and $e^{\chi X}o = \cos\chi\,o + \sin\chi\,\hat y = y$. The product $\chi\hat y$ is
+From $M_{an}e_b = \delta_{nb}e_a - \delta_{ab}e_n$: $Xo = \sum_a u_ae_a = \mathbf u$ and $X\mathbf u = -|\mathbf u|^2e_n = -o$, so $X$
+rotates the plane spanned by $o$ and $\mathbf u$ and $e^{\chi X}o = \cos\chi\,o + \sin\chi\,\mathbf u = y$. The product $\chi\mathbf u$ is
 the vector of the first $n$ coordinates rescaled by $\chi/\sin\chi$, a smooth function of $y$ for $\chi < \pi$, so $L =
 e^{\chi X}$ is smooth there (at $\chi = 0$ it is the identity). As $\chi \to \pi$, $L(y) \to e^{\pi X}$, which acts as $-1$
-on the plane of $o$ and $\hat y$ and as $1$ on its orthogonal complement: different directions $\hat y$ give different
+on the plane of $o$ and $\mathbf u$ and as $1$ on its orthogonal complement: different directions $\mathbf u$ give different
 limits, so there is no extension to the antipode $-o$.
 :::
 ::::
@@ -2345,14 +2345,14 @@ finite invariance condition and solves it for the sphere.
 ::: {#exr-cs-metric-invariance-condition}
 #### The infinitesimal invariance condition
 
-Show that $\operatorname{Ad}_h^{\mathsf{T}}g\operatorname{Ad}_h = g$ for $h = e^{tQ_i}$ and all $t$ is equivalent to $f_{ia}{}^cg_{cb} +
+Show that $\operatorname{Ad}_h^\top g\operatorname{Ad}_h = g$ for $h = e^{tQ_i}$ and all $t$ is equivalent to $f_{ia}{}^cg_{cb} +
 f_{ib}{}^cg_{ac} = 0$, and solve this for the sphere with $f_{31}{}^2 = 1$, $f_{32}{}^1 = -1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 On $\mathfrak{k}$, $\operatorname{Ad}_{e^{tQ_i}} = e^{tF_i}$ with $(F_i)^b{}_a = f_{ia}{}^b$ (@exr-cs-structure-jacobi).
-Differentiating $e^{tF_i^{\mathsf{T}}}ge^{tF_i} = g$ at $t = 0$ gives $F_i^{\mathsf{T}}g + gF_i = 0$, whose $(a, b)$ entry is $f_{ia}{}^cg_{cb} +
-g_{ac}f_{ib}{}^c$; conversely, if the derivative vanishes, $\frac{d}{dt}(e^{tF_i^{\mathsf{T}}}ge^{tF_i}) = e^{tF_i^{\mathsf{T}}}(F_i^{\mathsf{T}}g +
+Differentiating $e^{tF_i^\top}ge^{tF_i} = g$ at $t = 0$ gives $F_i^\top g + gF_i = 0$, whose $(a, b)$ entry is $f_{ia}{}^cg_{cb} +
+g_{ac}f_{ib}{}^c$; conversely, if the derivative vanishes, $\frac{d}{dt}(e^{tF_i^\top}ge^{tF_i}) = e^{tF_i^\top}(F_i^\top g +
 gF_i)e^{tF_i} = 0$ for all $t$. For the sphere, $(a, b) = (1, 1)$ gives $2f_{31}{}^2g_{21} = 2g_{12} = 0$ and $(a, b) = (1,
 2)$ gives $f_{31}{}^2g_{22} + f_{32}{}^1g_{11} = g_{22} - g_{11} = 0$: $g_{ab} = R_0^2\delta_{ab}$, as in
 @exr-cs-invariant-inner-sphere.
@@ -2475,8 +2475,8 @@ second example puts the radius into the formulas of the proposition.
 ::: {#exm-cs-sphere-vielbein-radius}
 #### Restoring the radius
 
-With $\hat e^a = R_0e^a$ the metric is $R_0^2(d\theta^2 + \sin^2\theta\,d\varphi^2)$ and the relation $de^3 = -e^1 \wedge e^2$
-becomes $de^3 = -R_0^{-2}\,\hat e^1 \wedge \hat e^2$: in the orthonormal frame the curvature of the connection is
+With $e'^a = R_0e^a$ the metric is $R_0^2(d\theta^2 + \sin^2\theta\,d\varphi^2)$ and the relation $de^3 = -e^1 \wedge e^2$
+becomes $de^3 = -R_0^{-2}\,e'^1 \wedge e'^2$: in the orthonormal frame the curvature of the connection is
 $R_0^{-2}$ times the area form, the Gauss curvature $1/R_0^2$ (@def-gauss-curvature) and scalar curvature $2/R_0^2$
 (@exr-cs-metric-sphere-curvature).
 :::
@@ -2853,7 +2853,7 @@ two.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$a\bar b = \cos\frac{\theta}{2}\sin\frac{\theta}{2}e^{i\varphi} = \frac12\sin\theta\, e^{i\varphi}$ and $|a|^2 - |
+$ab^* = \cos\frac{\theta}{2}\sin\frac{\theta}{2}e^{i\varphi} = \frac12\sin\theta\, e^{i\varphi}$ and $|a|^2 - |
 b|^2 = \cos\theta$, so $\pi(s(\theta, \varphi)) = (\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)$. At
 $\theta = 0$, $s = (1, 0)$ for every $\varphi$, so $s$ is continuous there; at $\theta = \pi$, $s = (0,
 e^{-i\varphi})$ still depends on $\varphi$, so no continuous extension exists. The section $s' = (\cos\frac{\theta}{2}
@@ -2997,7 +2997,7 @@ winding number of this transition function around the equator $|z| = 1$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$w = \bar z/|z|^2$, so $u = x/(x^2 + y^2)$ and $v = -y/(x^2 + y^2)$. The Jacobian satisfies the Cauchy-Riemann
+$w = z^*/|z|^2$, so $u = x/(x^2 + y^2)$ and $v = -y/(x^2 + y^2)$. The Jacobian satisfies the Cauchy-Riemann
 equations, so it is multiplication by the complex derivative $dw/dz = -1/z^2$, with determinant $|z|^{-4} > 0$. On
 $z = e^{it}$ it is $-e^{-2it}$, which winds $-2$ times around the origin as $t$ runs from $0$ to $2\pi$. A
 nowhere-vanishing vector field would trivialise $TS^2$, and the winding would be removable; it is the Euler number of
@@ -3048,8 +3048,8 @@ changes the transition functions to $h_U^{-1}g_{UU'}h_{U'}$. For the Möbius ban
 If $\varphi_U$ identifies the fibre over $p$ with $F$, the new identification is $h_U(p)^{-1}\varphi_U$, and the
 composite $U' \to U$ becomes $h_U^{-1}\varphi_U\varphi_{U'}^{-1}h_{U'} = h_U^{-1}g_{UU'}h_{U'}$. For two arcs
 $U, U'$, the maps $h_U, h_{U'}$ are continuous with values in $\{\pm 1\}$ on connected arcs, hence constant, say
-$\epsilon, \epsilon'$. On each overlap component $g$ is multiplied by $\epsilon\epsilon'$, and the product over the
-two components by $(\epsilon\epsilon')^2 = 1$. It is $+1$ for the cylinder and $-1$ for the Möbius band, so no
+$s, s'$. On each overlap component $g$ is multiplied by $ss'$, and the product over the
+two components by $(ss')^2 = 1$. It is $+1$ for the cylinder and $-1$ for the Möbius band, so no
 change of trivialisations relates them.
 :::
 ::::
@@ -3618,20 +3618,20 @@ through it.
 ::: {#exr-fbun-lift-constant-field}
 #### Horizontal lift in a constant field
 
-On the trivial circle bundle over the plane with potential $A = \frac12(x\,dy - y\,dx)$ (fibre angle $\chi$, horizontal
-curves $\dot\chi = -A(\dot x)$), compute $F = dA$, the horizontal lift of the circle of radius $R$ traversed once
-counterclockwise from $\chi = 0$, and the holonomy $\chi(2\pi)$. Compare with the flux of $F$ through the disc.
+On the trivial circle bundle over the plane with potential $a = \frac12(x\,dy - y\,dx)$ (fibre angle $\chi$, horizontal
+curves $\dot\chi = -a(\dot x)$), compute $f = da$, the horizontal lift of the circle of radius $R$ traversed once
+counterclockwise from $\chi = 0$, and the holonomy $\chi(2\pi)$. Compare with the flux of $f$ through the disc.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F = dA = dx \wedge dy$, a constant field. On $x = R\cos t$, $y = R\sin t$, $A(\dot x) = \frac12R^2$, so $\chi(t) = -
-\frac12R^2t$ and $\chi(2\pi) = -\pi R^2$: minus the flux $\pi R^2$ of $F$ through the disc, as Stokes' theorem
-predicts, $\oint A = \int dA$.
+$f = da = dx \wedge dy$, a constant field. On $x = R\cos t$, $y = R\sin t$, $a(\dot x) = \frac12R^2$, so $\chi(t) = -
+\frac12R^2t$ and $\chi(2\pi) = -\pi R^2$: minus the flux $\pi R^2$ of $f$ through the disc, as Stokes' theorem
+predicts, $\oint a = \int da$.
 
 ```python
 M = Manifold(2, "R2"); X = M.chart("x y"); x, y = X[:]
-A = M.one_form(-y / 2, x / 2, name="A")
-print("F = dA =", A.exterior_derivative().display())
+A = M.one_form(-y / 2, x / 2, name="a")
+print("f = da =", A.exterior_derivative().display())
 t, R = var("t R", domain="real"); assume(R > 0)
 xc, yc = R * cos(t), R * sin(t)
 Adot = (A[0].expr().subs(x=xc, y=yc) * diff(xc, t) + A[1].expr().subs(x=xc, y=yc) * diff(yc, t)).simplify_full()
@@ -3640,16 +3640,16 @@ sol = desolve(diff(chi, t) == -Adot, chi, ics=[0, 0], ivar=t)
 print("horizontal lift: chi(t) =", sol)
 print("holonomy chi(2 pi) =", sol.subs(t=2 * pi), "; equals -pi R^2:", bool(sol.subs(t=2 * pi) == -pi * R ** 2))
 flux = integrate(integrate(1, y, -sqrt(R ** 2 - x ** 2), sqrt(R ** 2 - x ** 2)), x, -R, R)
-print("flux of F through the disc:", flux)
+print("flux of f through the disc:", flux)
 ```
 
 *Output:*
 
 ```text
-F = dA = dA = dx∧dy
+f = da = da = dx∧dy
 horizontal lift: chi(t) = -1/2*R^2*t
 holonomy chi(2 pi) = -pi*R^2 ; equals -pi R^2: True
-flux of F through the disc: pi*R^2
+flux of f through the disc: pi*R^2
 ```
 :::
 ::::
@@ -3664,8 +3664,8 @@ section produces a one-form on the base, which is the object physicists write do
 Through a local section $s$ of $P$ the connection form pulls back to a $\mathfrak{g}$-valued one-form $A =
 s^*\omega = A_\mu dx^\mu$ on the base, the **gauge potential** (or **local connection form**); horizontal lifts
 are the solutions of $\dot g = -A_\mu\dot x^\mu\,g$ along the curve, and the holonomy of a loop is the path-ordered
-exponential of $-\oint A$. In components a gauge potential is a family of matrices $A_\mu$ or, for $U(1)$, of
-real functions.
+exponential of $-\oint A$. In components a gauge potential is a family of matrices $A_\mu$ or, for $U(1)$, $A = ia$
+with a real one-form $a = a_\mu dx^\mu$.
 :::
 ::::
 
@@ -3676,9 +3676,9 @@ The example shows this in the figure that follows it, with slanted horizontal li
 ::: {#exm-potential-flat-torus}
 #### A flat connection with holonomy
 
-On the circle bundle $S^1 \times S^1 \to S^1$ the potential $A = c\,dx$ declares the slanted lines $dy = -c\,dx$
+On the circle bundle $S^1 \times S^1 \to S^1$ the potential $a = c\,dx$ declares the slanted lines $dy = -c\,dx$
 horizontal (@fig-horizontal-lift): the lift of the base loop ends at $y = -2\pi c$, a holonomy that is trivial
-only for integer $c$, although the curvature $dA$ vanishes (@exr-holonomy-torus). Holonomy sees the global
+only for integer $c$, although the curvature $da$ vanishes (@exr-holonomy-torus). Holonomy sees the global
 topology, curvature only the local geometry.
 :::
 
@@ -3689,7 +3689,7 @@ it with the potential of a magnetic monopole and explains its singularities.
 #### The Hopf potential
 
 With the section $\psi = 0$ (the representative $e^{\varphi T_3}e^{\theta T_1}$), the Hopf connection pulls back
-to $A = \cos\theta\,d\varphi$ on the sphere (@eq-sphere-vielbein), the $R$-connection of @def-r-connection; it is
+to $a = \cos\theta\,d\varphi$ on the sphere (@eq-sphere-vielbein), the $R$-connection of @def-r-connection; it is
 the potential of a magnetic monopole, singular at the poles where the section fails.
 :::
 
@@ -3707,8 +3707,8 @@ of $S^2$ are an $SO(3)$ gauge potential: Kaluza-Klein theory produces connection
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 ![A connection on the circle bundle $S^1 \times S^1$ over the circle, drawn on the unrolled torus with base angle
-$x$ and fibre angle $y$. The potential $A = c\,dx$ makes the slanted grey lines horizontal; the horizontal lift
-(red) of the base loop from $y = 0$ ends at $y = -2\pi c$: the holonomy is the integral of $-A$ around the loop,
+$x$ and fibre angle $y$. The potential $a = c\,dx$ makes the slanted grey lines horizontal; the horizontal lift
+(red) of the base loop from $y = 0$ ends at $y = -2\pi c$: the holonomy is the integral of $-a$ around the loop,
 even though the curvature vanishes. Generated by
 `figures/horizontal_lift.sage`.](figures/horizontal_lift.svg){#fig-horizontal-lift width=60%}
 
@@ -3718,7 +3718,7 @@ can be non-trivial while curvature vanishes.
 ::: {#exr-holonomy-torus}
 #### Holonomy of a flat connection
 
-For $A = c\,dx$ on the circle bundle over the circle, solve the horizontal lift equation and find the holonomy of
+For $a = c\,dx$ on the circle bundle over the circle, solve the horizontal lift equation and find the holonomy of
 the base loop; check that the curvature vanishes.
 :::
 
@@ -3726,20 +3726,20 @@ the base loop; check that the curvature vanishes.
 ```python
 T2 = Manifold(2, "T^2"); X = T2.chart("x:(0,2*pi) y:(0,2*pi)"); x, y = X[:]
 c = var("c", domain="real")
-A = T2.one_form(c, 0, name="A")                              # A = c dx
-print("curvature F = dA =", A.exterior_derivative().display(), " -> flat")
+A = T2.one_form(c, 0, name="a")                              # a = c dx
+print("curvature f = da =", A.exterior_derivative().display(), " -> flat")
 t = var("t", domain="real")
 yfun = function("yf")(t)
 sol = desolve(diff(yfun, t) == -c, yfun, ics=[0, 0], ivar=t)   # horizontal lift: dy/dt = -c dx/dt with x = t
-print("horizontal lift of x = t from y(0) = 0: y(t) =", sol, "; y(2 pi) =", sol.subs(t=2*pi), "= -integral of A around the loop:", bool(sol.subs(t=2*pi) == -integrate(c, t, 0, 2*pi)))
+print("horizontal lift of x = t from y(0) = 0: y(t) =", sol, "; y(2 pi) =", sol.subs(t=2*pi), "= -integral of a around the loop:", bool(sol.subs(t=2*pi) == -integrate(c, t, 0, 2*pi)))
 print("for c = 1/4 the holonomy is a rotation of the fibre by -pi/2; it is trivial exactly when c is an integer")
 ```
 
 *Output:*
 
 ```text
-curvature F = dA = dA = 0  -> flat
-horizontal lift of x = t from y(0) = 0: y(t) = -c*t ; y(2 pi) = -2*pi*c = -integral of A around the loop: True
+curvature f = da = da = 0  -> flat
+horizontal lift of x = t from y(0) = 0: y(t) = -c*t ; y(2 pi) = -2*pi*c = -integral of a around the loop: True
 for c = 1/4 the holonomy is a rotation of the fibre by -pi/2; it is trivial exactly when c is an integer
 ```
 :::
@@ -3758,7 +3758,7 @@ and $\psi = \varphi$ of $SU(2) \to S^2$, and compute the curvature of each poten
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $\psi = f(\theta, \varphi)$ the pullback is $df + \cos\theta\,d\varphi$: the three sections give $\cos\theta\,
 d\varphi$, $(\cos\theta - 1)\,d\varphi$ and $(\cos\theta + 1)\,d\varphi$, the potential of @exm-potential-hopf and the
-potentials $A_\pm$ of @exm-hopf-connection-monopole. They differ by $d(\pm\varphi)$, so their curvatures agree:
+potentials $a_\pm$ of @exm-hopf-connection-monopole. They differ by $d(\pm\varphi)$, so their curvatures agree:
 $-\sin\theta\,d\theta \wedge d\varphi$.
 
 ```python
@@ -3770,38 +3770,38 @@ sph = V.chart(r"t:(0,pi):\theta p:(0,2*pi):\varphi"); t, p = sph[:]
 for name, psi_of in [("psi = 0", 0), ("psi = -phi", -p), ("psi = +phi", p)]:
     s = V.diff_map(U, {(sph, E): [t, p, psi_of]}, name="s")
     A = s.pullback(s3)
-    print(f"section {name}: A = s^* sigma3 =", A.display(), "; F = dA =", A.exterior_derivative().display())
+    print(f"section {name}: a = s^* sigma3 =", A.display(), "; f = da =", A.exterior_derivative().display())
 A0 = V.one_form(0, cos(t)); Am = V.one_form(0, cos(t) - 1)
-print("A_- - A_0 = d(-phi) (a gauge transformation):", (Am - A0) == V.scalar_field(-p).differential())
+print("a_- - a_0 = d(-phi) (a gauge transformation):", (Am - A0) == V.scalar_field(-p).differential())
 ```
 
 *Output:*
 
 ```text
-section psi = 0: A = s^* sigma3 = s^*(sigma3) = cos(t) dp ; F = dA = ds^*(sigma3) = -sin(t) dt∧dp
-section psi = -phi: A = s^* sigma3 = s^*(sigma3) = (cos(t) - 1) dp ; F = dA = ds^*(sigma3) = -sin(t) dt∧dp
-section psi = +phi: A = s^* sigma3 = s^*(sigma3) = (cos(t) + 1) dp ; F = dA = ds^*(sigma3) = -sin(t) dt∧dp
-A_- - A_0 = d(-phi) (a gauge transformation): True
+section psi = 0: a = s^* sigma3 = s^*(sigma3) = cos(t) dp ; f = da = ds^*(sigma3) = -sin(t) dt∧dp
+section psi = -phi: a = s^* sigma3 = s^*(sigma3) = (cos(t) - 1) dp ; f = da = ds^*(sigma3) = -sin(t) dt∧dp
+section psi = +phi: a = s^* sigma3 = s^*(sigma3) = (cos(t) + 1) dp ; f = da = ds^*(sigma3) = -sin(t) dt∧dp
+a_- - a_0 = d(-phi) (a gauge transformation): True
 ```
 :::
 
-For $G = U(1)$ the holonomy of a loop is the phase $e^{-i\oint A}$, and different potentials for the same connection
+For $G = U(1)$ the holonomy of a loop is the phase $e^{-i\oint a}$, and different potentials for the same connection
 must give the same phase. The third exercise checks this for the monopole potentials around a parallel of the sphere.
 
 ::: {#exr-fbun-wilson-loops}
 #### Holonomy of the monopole around a parallel
 
-With $A$ real and holonomy $e^{-i\oint A}$, compute the holonomy of the parallel $\theta = \theta_0$ (traversed with
-increasing $\varphi$) for $A = \cos\theta\,d\varphi$ and $A_\pm = (\cos\theta \mp 1)\,d\varphi$, and show that the
-three phases agree. Relate $\oint A_+$ to the flux of $F = dA$ through the northern cap $\theta < \theta_0$.
+With $a$ real and holonomy $e^{-i\oint a}$, compute the holonomy of the parallel $\theta = \theta_0$ (traversed with
+increasing $\varphi$) for $a = \cos\theta\,d\varphi$ and $a_\pm = (\cos\theta \mp 1)\,d\varphi$, and show that the
+three phases agree. Relate $\oint a_+$ to the flux of $f = da$ through the northern cap $\theta < \theta_0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\oint A = 2\pi\cos\theta_0$ and $\oint A_\pm = 2\pi(\cos\theta_0 \mp 1)$. The three integrals differ by multiples of
-$2\pi$, because the potentials differ by integer multiples of $d\varphi$, so $e^{-i\oint A}$ is the same for all
-three. By Stokes, $\oint A_+ = \int_{\theta < \theta_0} F = -\int_0^{2\pi}\int_0^{\theta_0}\sin\theta\,d\theta\,
+$\oint a = 2\pi\cos\theta_0$ and $\oint a_\pm = 2\pi(\cos\theta_0 \mp 1)$. The three integrals differ by multiples of
+$2\pi$, because the potentials differ by integer multiples of $d\varphi$, so $e^{-i\oint a}$ is the same for all
+three. By Stokes, $\oint a_+ = \int_{\theta < \theta_0} f = -\int_0^{2\pi}\int_0^{\theta_0}\sin\theta\,d\theta\,
 d\varphi = 2\pi(\cos\theta_0 - 1)$, minus the area of the cap; as $\theta_0 \to 0$ it tends to $0$, as it must for a
-loop shrinking to a point where $A_+$ is regular. The same computation with $A$ fails, since $A$ is singular at the
+loop shrinking to a point where $a_+$ is regular. The same computation with $a$ fails, since $a$ is singular at the
 north pole.
 :::
 ::::
@@ -3819,7 +3819,7 @@ $$
 A \to g^{-1} A\, g + g^{-1} dg ,
 $$ {#eq-gauge-transformation}
 and the horizontal lifts and holonomies, which do not depend on the section, are unchanged. For $G = U(1)$ with
-$g = e^{i\alpha(x)}$ and $A = iA_\mu dx^\mu$ this is $A_\mu \to A_\mu + \partial_\mu\alpha$.
+$g = e^{i\alpha(x)}$ and $A = ia$, $a = a_\mu dx^\mu$ real, this is $a_\mu \to a_\mu + \partial_\mu\alpha$.
 :::
 ::::
 
@@ -3830,8 +3830,8 @@ that the field strength is unaffected, and how a shift of the fibre coordinate p
 ::: {#exm-gauge-u1}
 #### Electromagnetism
 
-$A_\mu \to A_\mu + \partial_\mu\alpha$ is the gauge freedom of the electromagnetic potential (@sec-abelian-gauge),
-and the field strength $F = dA$ is invariant since $d(d\alpha) = 0$ (@exr-u1-gauge-transformation); in Part III
+$a_\mu \to a_\mu + \partial_\mu\alpha$ is the gauge freedom of the electromagnetic potential (@sec-abelian-gauge),
+and the field strength $f = da$ is invariant since $d(d\alpha) = 0$ (@exr-u1-gauge-transformation); in Part III
 the shift of the fifth coordinate $y \to y + \alpha(x)$ produces exactly this transformation.
 :::
 
@@ -3865,14 +3865,14 @@ checks this with SageManifolds and computes where each potential is singular.
 ::: {#exr-fbun-dirac-gauge}
 #### The Dirac potentials are gauge equivalent
 
-Show that $A_+ = (\cos\theta - 1)\,d\varphi$ and $A_- = (\cos\theta + 1)\,d\varphi$ satisfy $A_+ = A_- + d\alpha$
-with $\alpha = -2\varphi$ away from the poles, that $dA_+ = dA_-$, and that $A_+$ is regular at the north pole and
-$A_-$ at the south pole (look at $A_\varphi/\sin\theta$, the component in an orthonormal frame).
+Show that $a_+ = (\cos\theta - 1)\,d\varphi$ and $a_- = (\cos\theta + 1)\,d\varphi$ satisfy $a_+ = a_- + d\alpha$
+with $\alpha = -2\varphi$ away from the poles, that $da_+ = da_-$, and that $a_+$ is regular at the north pole and
+$a_-$ at the south pole (look at $a_\varphi/\sin\theta$, the component in an orthonormal frame).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$A_+ - A_- = -2\,d\varphi = d(-2\varphi)$, a $U(1)$ gauge transformation with $g = e^{-2i\varphi}$, single-valued on
-the circle although $\alpha$ is not; hence $dA_+ = dA_- = -\sin\theta\,d\theta \wedge d\varphi$. Near $\theta = 0$,
+$a_+ - a_- = -2\,d\varphi = d(-2\varphi)$, a $U(1)$ gauge transformation with $g = e^{-2i\varphi}$, single-valued on
+the circle although $\alpha$ is not; hence $da_+ = da_- = -\sin\theta\,d\theta \wedge d\varphi$. Near $\theta = 0$,
 $(\cos\theta - 1)/\sin\theta \to 0$ while $(\cos\theta + 1)/\sin\theta \to \infty$, and the reverse near $\theta =
 \pi$, so each potential is regular on one cap only.
 
@@ -3950,13 +3950,13 @@ for the global condition under which a flat potential is of this form.
 #### Pure gauge potentials
 
 Show that $A = g^{-1}dg$ has curvature zero, directly from @eq-curvature-connection and as the gauge transform of
-$A = 0$. Is the flat potential $A = c\,dx$ on the circle bundle over the circle of @exm-potential-flat-torus of the
+$A = 0$. Is the flat potential $a = c\,dx$ on the circle bundle over the circle of @exm-potential-flat-torus of the
 form $g^{-1}dg$ with $g$ defined on the whole circle?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $dA = d(g^{-1}) \wedge dg = -g^{-1}dg\,g^{-1} \wedge dg = -A \wedge A$, so $F = dA + A \wedge A = 0$; equivalently
-$A = 0$ has $F = 0$ and $F$ transforms covariantly. For $U(1)$ with $A$ real, $A = c\,dx$ is the transform of $0$ by
+$A = 0$ has $F = 0$ and $F$ transforms covariantly. For $U(1)$, $a = c\,dx$ (that is, $A = ic\,dx$) is the transform of $0$ by
 $g = e^{icx}$, which is a function on the circle only if $c$ is an integer. For other $c$ the potential is locally but
 not globally pure gauge, and the obstruction is exactly the holonomy $e^{-2\pi ic} \neq 1$ (@exr-holonomy-torus).
 :::
@@ -3977,7 +3977,7 @@ F = dA + A \wedge A, \qquad F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu
 $$ {#eq-curvature-connection}
 which transforms as $F \to g^{-1}Fg$ under @eq-gauge-transformation and vanishes exactly when the connection is
 **flat**, that is when all horizontal lifts of contractible loops close. It satisfies the **Bianchi identity**
-$dF + A \wedge F - F \wedge A = 0$, and for $G = U(1)$ it is $F = dA$ with $dF = 0$.
+$dF + A \wedge F - F \wedge A = 0$, and for $G = U(1)$, with $A = ia$, it is $F = if$ with $f = da$ and $df = 0$.
 :::
 ::::
 
@@ -3988,8 +3988,8 @@ computes it and relates its integral to the Chern number of the last section.
 ::: {#exm-curvature-hopf}
 #### The monopole
 
-For the Hopf potential $A = \cos\theta\,d\varphi$, $F = dA = -\sin\theta\,d\theta \wedge d\varphi$, minus the area
-form of the sphere (@prp-forms-sphere): the field of a magnetic monopole with total flux $\int F = -4\pi$. The fibre
+For the Hopf potential $a = \cos\theta\,d\varphi$, $f = da = -\sin\theta\,d\theta \wedge d\varphi$, minus the area
+form of the sphere (@prp-forms-sphere): the field of a magnetic monopole with total flux $\int f = -4\pi$. The fibre
 angle $\psi$ of $\sigma^3$ has period $4\pi$; normalised to the $2\pi$-periodic angle $\psi/2$ the potential is
 $\tfrac12\cos\theta\,d\varphi$, and the flux gives the Chern number $-1$ of @sec-hopf.
 :::
@@ -4153,7 +4153,7 @@ SageManifolds and matrices. The bracket it uses is the one of the proposition.
 ::: {#exr-u1-gauge-transformation}
 #### Gauge invariance of the field strength
 
-With SageManifolds, check on the plane that $d(A + d\lambda) = dA$ for a generic potential and gauge function,
+With SageManifolds, check on the plane that $d(a + d\lambda) = da$ for a generic abelian potential $a$ and gauge function,
 and compute the curvature of the constant $SU(2)$ potential $A_x = c_1T_1$, $A_y = c_2T_2$.
 :::
 
@@ -4161,11 +4161,11 @@ and compute the curvature of the constant $SU(2)$ potential $A_x = c_1T_1$, $A_y
 ```python
 M = Manifold(2, "R^2"); X = M.chart("x y"); x, y = X[:]
 A1, A2, lam = [function(n)(x, y) for n in ["A1", "A2", "lam"]]
-A = M.one_form(A1, A2, name="A")
+A = M.one_form(A1, A2, name="a")
 L = M.scalar_field(lam, name="lambda")
 Ag = A + L.differential()
-print("F = dA =", A.exterior_derivative().display())
-print("F is gauge invariant, d(A + d lambda) = dA:", Ag.exterior_derivative() == A.exterior_derivative())
+print("f = da =", A.exterior_derivative().display())
+print("f is gauge invariant, d(a + d lambda) = da:", Ag.exterior_derivative() == A.exterior_derivative())
 s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
 T = [-I / 2 * sa for sa in s]
 c1, c2 = var("c1 c2", domain="real")
@@ -4177,8 +4177,8 @@ print("F_xy for the constant potential = [A_x, A_y] = c1 c2 [T_1, T_2] = c1 c2 T
 *Output:*
 
 ```text
-F = dA = dA = (-d(A1)/dy + d(A2)/dx) dx∧dy
-F is gauge invariant, d(A + d lambda) = dA: True
+f = da = da = (-d(A1)/dy + d(A2)/dx) dx∧dy
+f is gauge invariant, d(a + d lambda) = da: True
 F_xy for the constant potential = [A_x, A_y] = c1 c2 [T_1, T_2] = c1 c2 T_3: True
 ```
 
@@ -4262,7 +4262,7 @@ are the fibres.
 
 The **Hopf map** $\pi : S^3 \to S^2$ sends the unit vector $(a, b) \in \mathbb{C}^2$, $|a|^2 + |b|^2 = 1$, to
 $$
-\pi(a, b) = \left( 2\operatorname{Re}(a\bar b),\ 2\operatorname{Im}(a\bar b),\ |a|^2 - |b|^2 \right) \in S^2 .
+\pi(a, b) = \left( 2\operatorname{Re}(ab^*),\ 2\operatorname{Im}(ab^*),\ |a|^2 - |b|^2 \right) \in S^2 .
 $$ {#eq-hopf-map}
 It is the projection $SU(2) \to SU(2)/U(1)$ for the matrix @eq-su2-matrix: $\pi(a, b)$ is unchanged under
 $(a, b) \mapsto (ae^{it}, be^{it})$, the right action of $e^{tT_3}$ (up to the sign convention $e^{tT_3} =
@@ -4329,9 +4329,9 @@ Compute $\pi(1, 0)$, $\pi(0, 1)$, $\pi(\frac{1}{\sqrt 2}, \frac{1}{\sqrt 2})$ an
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\pi(1, 0) = (0, 0, 1)$ and $\pi(0, 1) = (0, 0, -1)$, the poles. For $a = b = \frac{1}{\sqrt 2}$, $a\bar b = \frac12$
-and $\pi = (1, 0, 0)$; for $b = \frac{i}{\sqrt 2}$, $a\bar b = -\frac{i}{2}$ and $\pi = (0, -1, 0)$. The preimage of
-$(1, 0, 0)$ requires $|a|^2 = |b|^2 = \frac12$ and $a\bar b = \frac12$, so $a = b$ with $|a| = \frac{1}{\sqrt 2}$: the
+$\pi(1, 0) = (0, 0, 1)$ and $\pi(0, 1) = (0, 0, -1)$, the poles. For $a = b = \frac{1}{\sqrt 2}$, $ab^* = \frac12$
+and $\pi = (1, 0, 0)$; for $b = \frac{i}{\sqrt 2}$, $ab^* = -\frac{i}{2}$ and $\pi = (0, -1, 0)$. The preimage of
+$(1, 0, 0)$ requires $|a|^2 = |b|^2 = \frac12$ and $ab^* = \frac12$, so $a = b$ with $|a| = \frac{1}{\sqrt 2}$: the
 circle $\{\frac{1}{\sqrt 2}(e^{it}, e^{it})\}$, the orbit of $(\frac{1}{\sqrt 2}, \frac{1}{\sqrt 2})$.
 :::
 
@@ -4342,13 +4342,13 @@ verifies this with Sage and reads the invariance under phases off the ratio.
 #### The Hopf map as a ratio
 
 Show that for $(X, Y, Z) = \pi(a, b)$ with $|a|^2 + |b|^2 = 1$ and $a \neq 0$, the stereographic coordinate from the
-south pole is $(X + iY)/(1 + Z) = \bar b/\bar a$. Conclude that $\pi(a, b)$ depends only on the complex line through
+south pole is $(X + iY)/(1 + Z) = b^*/a^*$. Conclude that $\pi(a, b)$ depends only on the complex line through
 $(a, b)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$X + iY = 2a\bar b$ and $1 + Z = |a|^2 + |b|^2 + |a|^2 - |b|^2 = 2|a|^2$, so $(X + iY)/(1 + Z) = a\bar b/(a\bar a) =
-\bar b/\bar a$. The ratio is unchanged under $(a, b) \mapsto (\lambda a, \lambda b)$ for any $\lambda \neq 0$, in
+$X + iY = 2ab^*$ and $1 + Z = |a|^2 + |b|^2 + |a|^2 - |b|^2 = 2|a|^2$, so $(X + iY)/(1 + Z) = ab^*/(aa^*) =
+b^*/a^*$. The ratio is unchanged under $(a, b) \mapsto (\lambda a, \lambda b)$ for any $\lambda \neq 0$, in
 particular under phases, so the Hopf map factors through the space of complex lines $\mathbb{CP}^1$; $b = 0$ is the
 north pole and $a = 0$ the south pole.
 
@@ -4463,8 +4463,8 @@ uses the $SU(2)$ matrix of $(a, b)$ and the Pauli matrix $\sigma_3$.
 ::: {#exm-hopf-prp-matrix}
 #### The Hopf map in matrix form
 
-For $g = \begin{pmatrix} a & -\bar b \\ b & \bar a \end{pmatrix}$, $g\sigma_3g^\dagger = \begin{pmatrix} |a|^2 - |b|^2
-& 2a\bar b \\ 2\bar ab & |b|^2 - |a|^2 \end{pmatrix} = X\sigma_1 - Y\sigma_2 + Z\sigma_3$ with $(X, Y, Z) = \pi(a,
+For $g = \begin{pmatrix} a & -b^* \\ b & a^* \end{pmatrix}$, $g\sigma_3g^\dagger = \begin{pmatrix} |a|^2 - |b|^2
+& 2ab^* \\ 2a^*b & |b|^2 - |a|^2 \end{pmatrix} = X\sigma_1 - Y\sigma_2 + Z\sigma_3$ with $(X, Y, Z) = \pi(a,
 b)$. Taking determinants, $-(X^2 + Y^2 + Z^2) = \det\sigma_3 = -1$: the image lies on the sphere. The phase
 $(ae^{it}, be^{it})$ is $g\operatorname{diag}(e^{it}, e^{-it})$, and the diagonal matrix commutes with $\sigma_3$, so
 $\pi$ is unchanged.
@@ -4476,7 +4476,7 @@ rotation of the sphere instead of invariance.
 ::: {#exm-hopf-prp-opposite-phase}
 #### Opposite phases rotate the base
 
-Under $(a, b) \mapsto (ae^{is}, be^{-is})$, $|a|^2 - |b|^2$ is unchanged and $a\bar b \mapsto e^{2is}a\bar b$, so
+Under $(a, b) \mapsto (ae^{is}, be^{-is})$, $|a|^2 - |b|^2$ is unchanged and $ab^* \mapsto e^{2is}ab^*$, so
 $\pi$ is followed by the rotation through $2s$ about the $Z$-axis: this is the left action of $e^{-2sT_3}$, which
 moves the fibres among themselves instead of along themselves. Only the fibres over the poles are mapped to
 themselves, and at $s = \pi$ the map $(a, b) \mapsto (-a, -b)$ induces the identity rotation.
@@ -4497,7 +4497,7 @@ length.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Write $v(t) = (\operatorname{Re} ae^{it}, \operatorname{Im} ae^{it}, \operatorname{Re} be^{it},
 \operatorname{Im} be^{it}) \in \mathbb{R}^4$. Then $|v(t)|^2 = |a|^2 + |b|^2 = 1$, $|\dot v|^2 = |ia|^2 + |ib|^2
-= 1$, and $v(t) \cdot v(0) = \operatorname{Re}(a\bar a e^{it}) + \operatorname{Re}(b\bar b e^{it}) = \cos t$: the
+= 1$, and $v(t) \cdot v(0) = \operatorname{Re}(aa^* e^{it}) + \operatorname{Re}(bb^* e^{it}) = \cos t$: the
 curve lies on the unit sphere, has unit speed, and the angle between $v(t)$ and $v(0)$ is $t$, so it is the
 great circle in the plane spanned by $v(0)$ and $\dot v(0)$. In Sage:
 
@@ -4580,8 +4580,8 @@ $t$, so that $\pi$ induces a bijection $S^3/U(1) \to S^2$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Equal third components and $|a|^2 + |b|^2 = 1$ give $|a'| = |a|$ and $|b'| = |b|$. If $a = 0$ then $a' = 0$ and $|b| = |
-b'| = 1$, so $b' = be^{it}$. Otherwise write $a' = ae^{it}$; then $a'\bar b' = a\bar b$ gives $ae^{it}\bar b' = a\bar
-b$, so $\bar b' = \bar be^{-it}$ and $b' = be^{it}$. Together with @prp-hopf and the surjectivity of $\pi$ (every
+b'| = 1$, so $b' = be^{it}$. Otherwise write $a' = ae^{it}$; then $a'b'^* = ab^*$ gives $ae^{it}b'^* =
+ab^*$, so $b'^* = b^*e^{-it}$ and $b' = be^{it}$. Together with @prp-hopf and the surjectivity of $\pi$ (every
 point of $S^2$ is $\pi(s(\theta, \varphi))$ for a section of @exr-fbun-hopf-local-section, or a pole), the fibres are
 exactly the orbits.
 :::
@@ -4598,7 +4598,7 @@ the earlier examples established about it, together with its potential and its c
 
 The **Hopf connection** is the connection form $\sigma^3 = d\psi + \cos\theta\,d\varphi$ on $SU(2) \to S^2$
 (@exm-connection-hopf): it restricts to $d\psi$ on the fibres and is $U(1)$-invariant. Its gauge potential in the
-section $\psi = 0$ is $A = \cos\theta\,d\varphi$ (@exm-potential-hopf) and its curvature is $F = dA = -
+section $\psi = 0$ is $a = \cos\theta\,d\varphi$ (@exm-potential-hopf) and its curvature is $f = da = -
 \sin\theta\,d\theta \wedge d\varphi$, minus the area form of the sphere (@prp-forms-sphere, @exr-hopf-curvature).
 :::
 ::::
@@ -4621,8 +4621,8 @@ explains how Dirac's description of the monopole uses them.
 ::: {#exm-hopf-connection-monopole}
 #### The Dirac monopole
 
-$A = \cos\theta\,d\varphi$ is the potential of a magnetic monopole at the centre of the sphere, singular at both
-poles where the section fails; the potentials $A_\pm = (\cos\theta \mp 1)\,d\varphi$, regular at the north and
+$a = \cos\theta\,d\varphi$ is the potential of a magnetic monopole at the centre of the sphere, singular at both
+poles where the section fails; the potentials $a_\pm = (\cos\theta \mp 1)\,d\varphi$, regular at the north and
 south pole respectively, differ from it by the gauge transformations $e^{\mp i\varphi}$ and from each other by
 $e^{2i\varphi}$, the transition function of @exm-transition-hopf. Together they are Dirac's description of the
 monopole, and its charge is quantised by the Chern number.
@@ -4683,14 +4683,14 @@ to $SU(2)$ with SageManifolds and recovers $\sigma^3$ up to a factor.
 ::: {#exr-fbun-hopf-form-c2}
 #### The connection from $\mathbb{C}^2$
 
-Let $\alpha = \operatorname{Im}(\bar a\,da + \bar b\,db) = x_1dx_2 - x_2dx_1 + x_3dx_4 - x_4dx_3$ on $\mathbb{C}^2 =
+Let $\alpha = \operatorname{Im}(a^*\,da + b^*\,db) = x_1dx_2 - x_2dx_1 + x_3dx_4 - x_4dx_3$ on $\mathbb{C}^2 =
 \mathbb{R}^4$. Pull it back to $SU(2)$ by the Euler-angle parametrisation of @exm-hopf-euler and compare with
 $\sigma^3$. What is $\alpha$ on the fibre direction $(ia, ib)$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $a = \cos\frac{\theta}{2}e^{-i(\varphi + \psi)/2}$, $\operatorname{Im}(\bar a\,da) = -\frac12\cos^2\frac{\theta}{2}
-(d\varphi + d\psi)$, and with $b = -i\sin\frac{\theta}{2}e^{i(\varphi - \psi)/2}$, $\operatorname{Im}(\bar b\,db) =
+With $a = \cos\frac{\theta}{2}e^{-i(\varphi + \psi)/2}$, $\operatorname{Im}(a^*\,da) = -\frac12\cos^2\frac{\theta}{2}
+(d\varphi + d\psi)$, and with $b = -i\sin\frac{\theta}{2}e^{i(\varphi - \psi)/2}$, $\operatorname{Im}(b^*\,db) =
 \frac12\sin^2\frac{\theta}{2}(d\varphi - d\psi)$; the sum is $-\frac12(d\psi + \cos\theta\,d\varphi) = -\frac12
 \sigma^3$. On the fibre direction $\alpha(ia, ib) = |a|^2 + |b|^2 = 1$: $\alpha$ is the connection normalised to
 the phase $t$ of $(ae^{it}, be^{it})$, while $\sigma^3$ is normalised to $\psi$, which changes by $-2t$.
@@ -4728,9 +4728,9 @@ regular potential of one hemisphere and identifies it with an area.
 ::: {#exr-fbun-hopf-holonomy-area}
 #### Holonomy is area
 
-Using the section $\psi = -\varphi$, with potential $A_+ = (\cos\theta - 1)\,d\varphi$ (@exr-fbun-hopf-potentials),
+Using the section $\psi = -\varphi$, with potential $a_+ = (\cos\theta - 1)\,d\varphi$ (@exr-fbun-hopf-potentials),
 find the change of the fibre coordinate along the horizontal lift of the parallel $\theta = \theta_0$, traversed once.
-Repeat with $\psi = \varphi$ and $A_-$, and explain why the two answers differ by $4\pi$.
+Repeat with $\psi = \varphi$ and $a_-$, and explain why the two answers differ by $4\pi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4751,8 +4751,8 @@ definition normalises it to an integer, the invariant that distinguishes circle 
 ::: {#def-chern-number}
 #### Chern number
 
-For a $U(1)$-bundle over a closed surface $M$ with connection curvature $F$, the **first Chern number** is
-$c_1 = \frac{1}{2\pi}\int_M F$ (with $A = iA_\mu dx^\mu$ and $F = dA$ real). It is an integer, independent of the
+For a $U(1)$-bundle over a closed surface $M$ with connection curvature $f$, the **first Chern number** is
+$c_1 = \frac{1}{2\pi}\int_M f$ (with $A = ia$ and $F = if$ for the real potential $a$ and $f = da$). It is an integer, independent of the
 connection, and it classifies the bundle: $c_1 = 0$ for the trivial bundle, and for a monopole it is the
 **magnetic charge** in Dirac's units.
 :::
@@ -4765,7 +4765,7 @@ winding of the transition function.
 ::: {#exm-chern-hopf}
 #### The Hopf bundle has $c_1 = -1$
 
-For $A = \cos\theta\,d\varphi$, $\int_{S^2}dA = -\int_0^{2\pi}\int_0^\pi\sin\theta\,d\theta\,d\varphi = -4\pi$. This
+For $a = \cos\theta\,d\varphi$, $\int_{S^2}da = -\int_0^{2\pi}\int_0^\pi\sin\theta\,d\theta\,d\varphi = -4\pi$. This
 potential belongs to $\sigma^3$, whose fibre angle $\psi$ has period $4\pi$ (@exm-hopf-euler); normalised to the
 $2\pi$-periodic angle $\psi/2$ the potential is $\tfrac12\cos\theta\,d\varphi$, so $c_1 = \frac{1}{2\pi}(-2\pi) = -1$ for
 the orientation of @eq-hopf-map (@prp-hopf-chern, @exr-hopf-chern). The sign flips with the orientation, and $|c_1| =
@@ -4779,7 +4779,7 @@ than about holonomy. The torus bundle with a constant potential is the case in p
 ::: {#exm-chern-trivial}
 #### Flat connections
 
-The connection $A = c\,dx$ on the trivial circle bundle over the torus has $F = 0$ and $c_1 = 0$, although its
+The connection $a = c\,dx$ on the trivial circle bundle over the torus has $f = 0$ and $c_1 = 0$, although its
 holonomy is non-trivial (@exr-holonomy-torus): the Chern number sees the bundle, not the connection.
 :::
 
@@ -4802,13 +4802,13 @@ computes their Chern numbers and the windings of their transition functions with
 ::: {#exr-fbun-chern-charge-n}
 #### Monopoles of charge $n$
 
-For $A_\pm = \frac{n}{2}(\cos\theta \mp 1)\,d\varphi$, compute $F$, $c_1 = \frac{1}{2\pi}\int F$ and the winding number
-$\frac{1}{2\pi}\oint(A_+ - A_-)$ around the equator, for $n = 1, 2, 3, -1$. For which $n$ is the transition function
+For $a_\pm = \frac{n}{2}(\cos\theta \mp 1)\,d\varphi$, compute $f$, $c_1 = \frac{1}{2\pi}\int f$ and the winding number
+$\frac{1}{2\pi}\oint(a_+ - a_-)$ around the equator, for $n = 1, 2, 3, -1$. For which $n$ is the transition function
 single-valued?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F = -\frac{n}{2}\sin\theta\,d\theta \wedge d\varphi$ on both patches, $\int F = -2\pi n$ and $c_1 = -n$. $A_+ - A_- = -
+$f = -\frac{n}{2}\sin\theta\,d\theta \wedge d\varphi$ on both patches, $\int f = -2\pi n$ and $c_1 = -n$. $a_+ - a_- = -
 n\,d\varphi = d(-n\varphi)$, with winding $-n$: the Chern number equals the winding of the transition function
 $e^{-in\varphi}$, which is single-valued on the equator exactly when $n$ is an integer. This is Dirac's quantisation.
 
@@ -4820,17 +4820,17 @@ for n in [1, 2, 3, -1]:
     F = Ap.exterior_derivative()
     c1 = integrate(integrate(F[0, 1].expr(), ph, 0, 2 * pi), th, 0, pi) / (2 * pi)
     wind = integrate((Ap - Am)[1].expr(), ph, 0, 2 * pi) / (2 * pi)
-    print(f"n = {n}: F = {F[0, 1].expr()} dth^dph, c_1 = {c1}, winding of the transition = {wind},",
+    print(f"n = {n}: f = {F[0, 1].expr()} dth^dph, c_1 = {c1}, winding of the transition = {wind},",
           "same curvature from both patches:", Ap.exterior_derivative() == Am.exterior_derivative())
 ```
 
 *Output:*
 
 ```text
-n = 1: F = -1/2*sin(th) dth^dph, c_1 = -1, winding of the transition = -1, same curvature from both patches: True
-n = 2: F = -sin(th) dth^dph, c_1 = -2, winding of the transition = -2, same curvature from both patches: True
-n = 3: F = -3/2*sin(th) dth^dph, c_1 = -3, winding of the transition = -3, same curvature from both patches: True
-n = -1: F = 1/2*sin(th) dth^dph, c_1 = 1, winding of the transition = 1, same curvature from both patches: True
+n = 1: f = -1/2*sin(th) dth^dph, c_1 = -1, winding of the transition = -1, same curvature from both patches: True
+n = 2: f = -sin(th) dth^dph, c_1 = -2, winding of the transition = -2, same curvature from both patches: True
+n = 3: f = -3/2*sin(th) dth^dph, c_1 = -3, winding of the transition = -3, same curvature from both patches: True
+n = -1: f = 1/2*sin(th) dth^dph, c_1 = 1, winding of the transition = 1, same curvature from both patches: True
 ```
 :::
 
@@ -4840,16 +4840,16 @@ proves both statements for a bundle over the sphere with Stokes' theorem.
 ::: {#exr-fbun-chern-independence}
 #### Why $c_1$ is a topological integer
 
-Let $A_N, A_S$ be potentials of a $U(1)$ connection on the northern and southern hemispheres, with $A_N - A_S = d\alpha$
-on the equator and $e^{i\alpha}$ single-valued. Show that $\int_{S^2}F = \oint_{\text{equator}}d\alpha \in
+Let $a_N, a_S$ be potentials of a $U(1)$ connection on the northern and southern hemispheres, with $a_N - a_S = d\alpha$
+on the equator and $e^{i\alpha}$ single-valued. Show that $\int_{S^2}f = \oint_{\text{equator}}d\alpha \in
 2\pi\mathbb{Z}$, and that replacing the connection by another one on the same bundle does not change it.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By Stokes, $\int_N F = \oint A_N$ and $\int_S F = -\oint A_S$ with the equator oriented as the boundary of the northern
-hemisphere, so $\int F = \oint(A_N - A_S) = \oint d\alpha$, the total change of $\alpha$ around the equator. Since
+By Stokes, $\int_N f = \oint a_N$ and $\int_S f = -\oint a_S$ with the equator oriented as the boundary of the northern
+hemisphere, so $\int f = \oint(a_N - a_S) = \oint d\alpha$, the total change of $\alpha$ around the equator. Since
 $e^{i\alpha}$ is single-valued, it is $2\pi$ times the winding number of $e^{i\alpha}$. Another connection has
-potentials $A_N + \tau$, $A_S + \tau$ with the same transition function and $\tau$ a global one-form
+potentials $a_N + \tau$, $a_S + \tau$ with the same transition function and $\tau$ a global one-form
 (@exr-fbun-connection-affine), and $\int d\tau = 0$ on a closed surface.
 :::
 
@@ -4859,14 +4859,14 @@ periodic in one direction only, and reads the Chern number off the twist.
 ::: {#exr-fbun-chern-torus}
 #### A circle bundle over the torus
 
-On the torus $[0, 2\pi]^2$ with coordinates $(x, y)$, let $A = \frac{n}{2\pi}x\,dy$ for an integer $n$. Compute $F$
-and $c_1$, and show that $A$ is periodic in $y$ but that $A(x + 2\pi, y) = A(x, y) + d(ny)$, so the gluing in $x$ is
+On the torus $[0, 2\pi]^2$ with coordinates $(x, y)$, let $a = \frac{n}{2\pi}x\,dy$ for an integer $n$. Compute $f$
+and $c_1$, and show that $a$ is periodic in $y$ but that $a(x + 2\pi, y) = a(x, y) + d(ny)$, so the gluing in $x$ is
 the transition function $e^{iny}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F = \frac{n}{2\pi}dx \wedge dy$, $\int F = \frac{n}{2\pi}(2\pi)^2 = 2\pi n$ and $c_1 = n$. The components of $A$ do
-not depend on $y$, and $A(x + 2\pi, y) - A(x, y) = n\,dy = d(ny)$, a gauge transformation by $e^{iny}$, which is
+$f = \frac{n}{2\pi}dx \wedge dy$, $\int f = \frac{n}{2\pi}(2\pi)^2 = 2\pi n$ and $c_1 = n$. The components of $a$ do
+not depend on $y$, and $a(x + 2\pi, y) - a(x, y) = n\,dy = d(ny)$, a gauge transformation by $e^{iny}$, which is
 single-valued on the circle in $y$ because $n$ is an integer and winds $n$ times around $U(1)$. For $n \neq 0$ no
 potential periodic in both directions exists, since its curvature would integrate to zero.
 :::
@@ -4892,9 +4892,9 @@ potential. The example shows that each hemisphere carries half of the total.
 ::: {#exm-hopf-chern-hemispheres}
 #### Half the flux in each hemisphere
 
-By Stokes, the flux through the northern hemisphere is $\oint A_+ = 2\pi(\cos\frac{\pi}{2} - 1) = -2\pi$, and through
-the southern one $-\oint A_- = -2\pi(\cos\frac{\pi}{2} + 1) = -2\pi$, with the equator oriented by increasing
-$\varphi$. The total $-4\pi$ is $\oint(A_+ - A_-) = \oint(-2\,d\varphi)$, the winding of the transition function
+By Stokes, the flux through the northern hemisphere is $\oint a_+ = 2\pi(\cos\frac{\pi}{2} - 1) = -2\pi$, and through
+the southern one $-\oint a_- = -2\pi(\cos\frac{\pi}{2} + 1) = -2\pi$, with the equator oriented by increasing
+$\varphi$. The total $-4\pi$ is $\oint(a_+ - a_-) = \oint(-2\,d\varphi)$, the winding of the transition function
 (@exr-fbun-hopf-chern-caps).
 :::
 
@@ -4905,7 +4905,7 @@ value.
 #### Reversing the orientation
 
 With the chart $(\theta, \varphi') = (\theta, -\varphi)$, which has the opposite orientation, the same potential is
-$A = -\cos\theta\,d\varphi'$ and $F = \sin\theta\,d\theta \wedge d\varphi'$; integrating over the positively oriented
+$a = -\cos\theta\,d\varphi'$ and $f = \sin\theta\,d\theta \wedge d\varphi'$; integrating over the positively oriented
 square of this chart gives $+4\pi$ and $c_1 = +2$. The absolute value $|c_1| = 2$ is independent of conventions, the
 sign is not.
 :::
@@ -4916,9 +4916,9 @@ makes the point by changing the radius.
 ::: {#exm-hopf-chern-area-form}
 #### The integral does not see the metric
 
-On a sphere of radius $r$ the area form is $\mathrm{vol} = r^2\sin\theta\,d\theta \wedge d\varphi$, while $F =
-d(\cos\theta\,d\varphi) = -\sin\theta\,d\theta \wedge d\varphi$ is unchanged, so $\int F = -4\pi$ for every $r$,
-although now $F = -\mathrm{vol}/r^2$. The Chern number is a property of the bundle, not of the size of the base.
+On a sphere of radius $r$ the area form is $\mathrm{vol} = r^2\sin\theta\,d\theta \wedge d\varphi$, while $f =
+d(\cos\theta\,d\varphi) = -\sin\theta\,d\theta \wedge d\varphi$ is unchanged, so $\int f = -4\pi$ for every $r$,
+although now $f = -\mathrm{vol}/r^2$. The Chern number is a property of the bundle, not of the size of the base.
 :::
 ::::
 
@@ -4929,7 +4929,7 @@ computation behind the proposition.
 ::: {#exr-hopf-chern}
 #### The Chern number with SageManifolds
 
-Define the Hopf potential $A = \cos\theta\,d\varphi$ and its normalisation $\tfrac12\cos\theta\,d\varphi$ to the
+Define the Hopf potential $a = \cos\theta\,d\varphi$ and its normalisation $\tfrac12\cos\theta\,d\varphi$ to the
 $2\pi$-periodic fibre angle as SageManifolds one-forms, compute their curvatures, integrate them over the sphere and
 find the first Chern number of the Hopf bundle and of its quotient $SO(3) \to S^2$.
 :::
@@ -4941,15 +4941,15 @@ $S^3 \to S^2$, and $c_1 = -2$ for $SO(3) \to S^2$, where $\psi$ itself has perio
 ```python
 S2 = Manifold(2, "S^2"); A = S2.open_subset("A")
 sph = A.chart(r"th:(0,pi):\theta ph:(0,2*pi):\varphi"); th, ph = sph[:]
-Apsi = A.one_form(0, cos(th), name="A_psi")                  # potential of sigma^3, fibre angle psi (period 4 pi)
-Achi = A.one_form(0, cos(th) / 2, name="A_chi")              # normalised to chi = psi/2 (period 2 pi)
-for name, form in [("A_psi = cos(theta) dphi", Apsi), ("A_chi = (1/2) cos(theta) dphi", Achi)]:
+Apsi = A.one_form(0, cos(th), name="a_psi")                  # potential of sigma^3, fibre angle psi (period 4 pi)
+Achi = A.one_form(0, cos(th) / 2, name="a_chi")              # normalised to chi = psi/2 (period 2 pi)
+for name, form in [("a_psi = cos(theta) dphi", Apsi), ("a_chi = (1/2) cos(theta) dphi", Achi)]:
     F = form.exterior_derivative()
     total = integrate(integrate(F[0, 1].expr(), ph, 0, 2*pi), th, 0, pi)
-    print(name, ": F = dA has component", F[0, 1].expr(), "; integral over S^2 =", total)
+    print(name, ": f = da has component", F[0, 1].expr(), "; integral over S^2 =", total)
 Fchi = Achi.exterior_derivative()
 c1 = integrate(integrate(Fchi[0, 1].expr(), ph, 0, 2*pi), th, 0, pi) / (2*pi)
-print("Hopf bundle S^3 -> S^2: c_1 = (1/2 pi) integral of d A_chi =", c1, "; an integer:", c1 in ZZ, "; equals -1:", bool(c1 == -1))
+print("Hopf bundle S^3 -> S^2: c_1 = (1/2 pi) integral of d a_chi =", c1, "; an integer:", c1 in ZZ, "; equals -1:", bool(c1 == -1))
 c1_so3 = integrate(integrate(Apsi.exterior_derivative()[0, 1].expr(), ph, 0, 2*pi), th, 0, pi) / (2*pi)
 print("treating psi as 2 pi-periodic (the quotient SO(3) -> S^2): c_1 =", c1_so3)
 ```
@@ -4957,9 +4957,9 @@ print("treating psi as 2 pi-periodic (the quotient SO(3) -> S^2): c_1 =", c1_so3
 *Output:*
 
 ```text
-A_psi = cos(theta) dphi : F = dA has component -sin(th) ; integral over S^2 = -4*pi
-A_chi = (1/2) cos(theta) dphi : F = dA has component -1/2*sin(th) ; integral over S^2 = -2*pi
-Hopf bundle S^3 -> S^2: c_1 = (1/2 pi) integral of d A_chi = -1 ; an integer: True ; equals -1: True
+a_psi = cos(theta) dphi : f = da has component -sin(th) ; integral over S^2 = -4*pi
+a_chi = (1/2) cos(theta) dphi : f = da has component -1/2*sin(th) ; integral over S^2 = -2*pi
+Hopf bundle S^3 -> S^2: c_1 = (1/2 pi) integral of d a_chi = -1 ; an integer: True ; equals -1: True
 treating psi as 2 pi-periodic (the quotient SO(3) -> S^2): c_1 = -2
 ```
 :::
@@ -4970,25 +4970,25 @@ both sides with Sage for every cap $\theta < \theta_0$.
 ::: {#exr-fbun-hopf-chern-caps}
 #### Flux through caps
 
-Compute $\int_{\theta < \theta_0}F$ and compare it with $\oint A_+$ along $\theta = \theta_0$; then compute the fluxes
-through both hemispheres and their sum, and check that the sum equals $\oint(A_+ - A_-)$ along the equator.
+Compute $\int_{\theta < \theta_0}f$ and compare it with $\oint a_+$ along $\theta = \theta_0$; then compute the fluxes
+through both hemispheres and their sum, and check that the sum equals $\oint(a_+ - a_-)$ along the equator.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\int_{\theta < \theta_0}F = -2\pi(1 - \cos\theta_0) = \oint A_+$. The hemispheres give $-2\pi$ each, total $-4\pi$, and
-$\oint(A_+ - A_-) = \oint -2\,d\varphi = -4\pi$. These potentials belong to the $4\pi$-periodic angle $\psi$, so the flux
+$\int_{\theta < \theta_0}f = -2\pi(1 - \cos\theta_0) = \oint a_+$. The hemispheres give $-2\pi$ each, total $-4\pi$, and
+$\oint(a_+ - a_-) = \oint -2\,d\varphi = -4\pi$. These potentials belong to the $4\pi$-periodic angle $\psi$, so the flux
 is $4\pi c_1$ and $c_1 = -1$, as in @prp-hopf-chern.
 
 ```python
 th, ph, th0 = var("th ph th0", domain="real"); assume(th0 > 0, th0 < pi)
-F = -sin(th)                                      # F = dA = -sin(theta) d theta ^ d phi
+F = -sin(th)                                      # f = da = -sin(theta) d theta ^ d phi
 north = integrate(integrate(F, ph, 0, 2 * pi), th, 0, pi / 2)
 south = integrate(integrate(F, ph, 0, 2 * pi), th, pi / 2, pi)
 loop_p = integrate((cos(th) - 1).subs(th=pi / 2), ph, 0, 2 * pi)
 loop_m = integrate((cos(th) + 1).subs(th=pi / 2), ph, 0, 2 * pi)
-print("int_north F =", north, "; oint_equator A_+ =", loop_p)
-print("int_south F =", south, "; -oint_equator A_- =", -loop_m)
-print("total:", north + south, "= oint (A_+ - A_-) =", loop_p - loop_m, "; c_1 =", (north + south) / (2 * pi))
+print("int_north f =", north, "; oint_equator a_+ =", loop_p)
+print("int_south f =", south, "; -oint_equator a_- =", -loop_m)
+print("total:", north + south, "= oint (a_+ - a_-) =", loop_p - loop_m, "; c_1 =", (north + south) / (2 * pi))
 cap = integrate(integrate(F, ph, 0, 2 * pi), th, 0, th0)
 print("flux through the cap theta < theta0:", cap.simplify_full(), "= oint A_+ on its boundary:",
       bool((cap - 2 * pi * (cos(th0) - 1)).simplify_full() == 0))
@@ -4997,9 +4997,9 @@ print("flux through the cap theta < theta0:", cap.simplify_full(), "= oint A_+ o
 *Output:*
 
 ```text
-int_north F = -2*pi ; oint_equator A_+ = -2*pi
-int_south F = -2*pi ; -oint_equator A_- = -2*pi
-total: -4*pi = oint (A_+ - A_-) = -4*pi ; c_1 = -2
+int_north f = -2*pi ; oint_equator a_+ = -2*pi
+int_south f = -2*pi ; -oint_equator a_- = -2*pi
+total: -4*pi = oint (a_+ - a_-) = -4*pi ; c_1 = -2
 flux through the cap theta < theta0: -2*pi + 2*pi*cos(th0) = oint A_+ on its boundary: True
 ```
 :::
@@ -5018,7 +5018,7 @@ that the pullback vanishes on the fibre direction.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\pi^*\mathrm{vol} = \sin\theta\,d\theta \wedge d\varphi$ on $SU(2)$, which equals $\sigma^1 \wedge \sigma^2$
 (@exr-hopf-curvature) and $-d\sigma^3$: the derivative of the connection form on the total space is the pullback of the
-curvature $F = -\mathrm{vol}$ on the base, as for every $U(1)$ connection, $d\omega = \pi^*F$. Contracting with
+curvature $f = -\mathrm{vol}$ on the base, as for every $U(1)$ connection, $d\omega = \pi^*f$. Contracting with
 $\partial_\psi$ gives zero, since the pulled-back form has no $d\psi$.
 
 ```python
@@ -5203,7 +5203,7 @@ fixes the normalisation of the connection, and with it the Chern number of the t
 
 Using @exm-hopf-euler, show that $\psi \mapsto \psi + 2\pi$ sends $(a, b)$ to $(-a, -b)$, so that $\psi$ has period
 $4\pi$ on $SU(2)$, and that the action $(a, b) \mapsto e^{it}(a, b)$ is $\psi \mapsto \psi - 2t$. With the fibre angle
-$\chi = \psi/2$ of period $2\pi$, write the connection, its potentials $A_\pm$, the transition function and the first
+$\chi = \psi/2$ of period $2\pi$, write the connection, its potentials $a_\pm$, the transition function and the first
 Chern number of $S^3 \to S^2$. Which bundle has $c_1 = -2$, the value obtained by treating $\psi$ as an angle of
 period $2\pi$?
 :::
@@ -5211,7 +5211,7 @@ period $2\pi$?
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Both $a$ and $b$ contain $e^{-i\psi/2}$, so $\psi \mapsto \psi + 2\pi$ multiplies them by $-1$ and $\psi \mapsto \psi -
 2t$ multiplies them by $e^{it}$. The connection normalised to the $2\pi$-periodic angle $\chi$ is $\frac12\sigma^3 =
-d\chi + \frac12\cos\theta\,d\varphi$ (minus the form $\alpha$ of @exr-fbun-hopf-form-c2), with potentials $A_\pm =
+d\chi + \frac12\cos\theta\,d\varphi$ (minus the form $\alpha$ of @exr-fbun-hopf-form-c2), with potentials $a_\pm =
 \frac12(\cos\theta \mp 1)\,d\varphi$ from the sections $\chi = \mp\varphi/2$, transition function $e^{-i\varphi}$ and
 curvature $-\frac12\sin\theta\,d\theta \wedge d\varphi$: $c_1 = -1$, the case $n = 1$ of @exr-fbun-chern-charge-n.
 Treating $\psi$ itself as a $2\pi$-periodic fibre angle identifies $(a, b)$ with $(-a, -b)$; the total space becomes
@@ -5236,7 +5236,7 @@ for label, k in [("S^3 -> S^2, fibre angle chi = psi/2", 1 / 2), ("SO(3) -> S^2,
     F = Ap.exterior_derivative()
     c1 = integrate(integrate(F[0, 1].expr(), p, 0, 2 * pi), t, 0, pi) / (2 * pi)
     wind = integrate((Ap - Am)[1].expr(), p, 0, 2 * pi) / (2 * pi)
-    print(f"{label}: A_+ = {Ap[1].expr()} dphi, F = {F[0, 1].expr()} dth^dph, c_1 = {c1}, transition winding = {wind}")
+    print(f"{label}: a_+ = {Ap[1].expr()} dphi, f = {F[0, 1].expr()} dth^dph, c_1 = {c1}, transition winding = {wind}")
 ```
 
 *Output:*
@@ -5245,8 +5245,8 @@ for label, k in [("S^3 -> S^2, fibre angle chi = psi/2", 1 / 2), ("SO(3) -> S^2,
 psi -> psi + 2 pi sends (a, b) to (-a, -b): True
 psi -> psi + 4 pi is the identity: True
 the right U(1) action (a, b) -> e^{it}(a, b) is psi -> psi - 2t: True
-S^3 -> S^2, fibre angle chi = psi/2: A_+ = 1/2*cos(t) - 1/2 dphi, F = -1/2*sin(t) dth^dph, c_1 = -1, transition winding = -1
-SO(3) -> S^2, fibre angle psi: A_+ = cos(t) - 1 dphi, F = -sin(t) dth^dph, c_1 = -2, transition winding = -2
+S^3 -> S^2, fibre angle chi = psi/2: a_+ = 1/2*cos(t) - 1/2 dphi, f = -1/2*sin(t) dth^dph, c_1 = -1, transition winding = -1
+SO(3) -> S^2, fibre angle psi: a_+ = cos(t) - 1 dphi, f = -sin(t) dth^dph, c_1 = -2, transition winding = -2
 ```
 :::
 
@@ -5256,18 +5256,18 @@ first section, gauge transformations and covariant derivatives from the second, 
 ::: {#exr-fbun-charged-matter}
 #### Charged fields and Dirac quantisation
 
-A field of charge $q$ is described on the two hemispheres by functions $\Psi_\pm$ with $\Psi_+ = e^{iq\alpha}\Psi_-$
-where $A_+ = A_- + d\alpha$, and its covariant derivative is $D\Psi = d\Psi - iqA\Psi$. Show that $D\Psi_+ =
-e^{iq\alpha}D\Psi_-$. For the monopole of charge $n$ of @exr-fbun-chern-charge-n, find the condition on $q$ for the
+A field of charge $q$ is described on the two hemispheres by functions $\Psi_\pm$ with $\Psi_+ = e^{-iq\alpha}\Psi_-$
+where $a_+ = a_- + d\alpha$, and its covariant derivative is $D\Psi = d\Psi + iqa\Psi$. Show that $D\Psi_+ =
+e^{-iq\alpha}D\Psi_-$. For the monopole of charge $n$ of @exr-fbun-chern-charge-n, find the condition on $q$ for the
 gluing to be well defined, and interpret $\Psi$ as a section of an associated bundle (@exm-vector-bundle-associated).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$d(e^{iq\alpha}\Psi_-) - iq(A_- + d\alpha)e^{iq\alpha}\Psi_- = e^{iq\alpha}(d\Psi_- + iq\,d\alpha\Psi_- - iqA_-\Psi_- -
-iq\,d\alpha\Psi_-) = e^{iq\alpha}D\Psi_-$, so the covariant derivative glues like the field. For charge $n$, $\alpha =
--n\varphi$ and the gluing factor $e^{-iqn\varphi}$ must be single-valued on the equator: $qn \in \mathbb{Z}$, Dirac's
+$d(e^{-iq\alpha}\Psi_-) + iq(a_- + d\alpha)e^{-iq\alpha}\Psi_- = e^{-iq\alpha}(d\Psi_- - iq\,d\alpha\Psi_- + iqa_-\Psi_- +
+iq\,d\alpha\Psi_-) = e^{-iq\alpha}D\Psi_-$, so the covariant derivative glues like the field. For charge $n$, $\alpha =
+-n\varphi$ and the gluing factor $e^{-iq\alpha} = e^{iqn\varphi}$ must be single-valued on the equator: $qn \in \mathbb{Z}$, Dirac's
 condition linking electric and magnetic charge. Then $\Psi$ is a section of the complex line bundle with transition
-function $e^{-iqn\varphi}$, associated with the monopole bundle by the representation $e^{i\beta} \mapsto e^{iq\beta}$
+function $e^{-iqn\varphi}$ ($\Psi_- = e^{-iqn\varphi}\Psi_+$), associated with the monopole bundle by the representation $e^{i\beta} \mapsto e^{iq\beta}$
 of $U(1)$; by the computation of @exr-fbun-chern-charge-n with $n$ replaced by $qn$, its Chern number is $-qn$. For $qn
 \neq 0$ every such field vanishes somewhere, since a nowhere-zero section would trivialise the line bundle (the complex
 version of @exr-fbun-vector-sections) and force its Chern number to be zero.
@@ -5287,7 +5287,7 @@ d\omega^1{}_2$. Compare $\omega^1{}_2$ with the potential of @exm-potential-hopf
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\omega^1{}_2 = -\cos\theta\,d\varphi = -A$, $d\omega^1{}_2 = \sin\theta\,d\theta \wedge d\varphi$ (Gauss curvature
+$\omega^1{}_2 = -\cos\theta\,d\varphi = -a$, $d\omega^1{}_2 = \sin\theta\,d\theta \wedge d\varphi$ (Gauss curvature
 $1$ times the area form) and $\frac{1}{2\pi}\int d\omega^1{}_2 = 2$, the Euler number of the sphere. The rotations of
 an orthonormal frame form the principal $SO(2) = U(1)$ bundle $SO(3) \to S^2$ (@exr-fbun-so3-frames), and its
 Levi-Civita connection is the Hopf connection with $\psi$ of period $2\pi$, up to the sign fixed by the orientation
@@ -5307,7 +5307,7 @@ print("d omega^1_2 =", dw.display(sph.frame()))
 print("Gauss curvature K = R_1212:", g.riemann()[0, 1, 0, 1].expr() / sin(th) ** 2)
 tot = integrate(integrate(dw[sph.frame(), 0, 1].expr(), ph, 0, 2 * pi), th, 0, pi)
 print("int d omega^1_2 =", tot, "; (1/2 pi) int =", tot / (2 * pi))
-print("compare with the Hopf connection: omega^1_2 = -cos(theta) d phi is minus the potential A = cos(theta) d phi")
+print("compare with the Hopf connection: omega^1_2 = -cos(theta) d phi is minus the potential a = cos(theta) d phi")
 ```
 
 *Output:*
@@ -5317,7 +5317,7 @@ omega^1_2 = nabla_g connection 1-form (0,1) = -cos(th) dph
 d omega^1_2 = d(nabla_g connection 1-form (0,1)) = sin(th) dth∧dph
 Gauss curvature K = R_1212: 1
 int d omega^1_2 = 4*pi ; (1/2 pi) int = 2
-compare with the Hopf connection: omega^1_2 = -cos(theta) d phi is minus the potential A = cos(theta) d phi
+compare with the Hopf connection: omega^1_2 = -cos(theta) d phi is minus the potential a = cos(theta) d phi
 ```
 :::
 ::::

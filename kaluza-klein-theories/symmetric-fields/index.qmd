@@ -50,15 +50,15 @@ gauge theory.
 ::: {#def-symmetric-gauge-field}
 #### Symmetric gauge field
 
-Let $S$ act on $M_4 \times S/R$ by its left action on the coset (@def-coset-space), with Killing vectors $\xi_A$,
+Let $S$ act on $M_4 \times S/R$ by its left action on the coset (@def-coset-space), with Killing vectors $K_A$,
 $A = 1, \dots, \dim S$. A gauge field $\hat A$ with gauge group $G$ on $M_4 \times S/R$ is **symmetric** if every
 $S$-transformation of it is a gauge transformation: for each generator there is a $G$-valued function $W_A(y)$
 with
 $$
-\mathcal{L}_{\xi_A}\hat A_\alpha = \partial_\alpha W_A - [W_A, \hat A_\alpha] ,
+\mathcal{L}_{K_A}\hat A_m = \partial_m W_A - [W_A, \hat A_m] ,
 $$ {#eq-symmetric-field}
 the infinitesimal gauge transformation @eq-gauge-transformation with parameter $W_A$ [@manolakos2016, eq. 3;
-@kubyshin2003, eq. 17]. Scalars and spinors are symmetric when $\mathcal{L}_{\xi_A}\phi = D(W_A)\phi$ in their
+@kubyshin2003, eq. 17]. Scalars and spinors are symmetric when $\mathcal{L}_{K_A}\phi = D(W_A)\phi$ in their
 representation [@manolakos2016, eqs. 2 and 4].
 :::
 ::::
@@ -70,7 +70,7 @@ first example records this case and explains why it is too restrictive on a sphe
 ::: {#exm-symmetric-invariant}
 #### Strictly invariant fields
 
-$W_A = 0$: the field is invariant under the isometries, $\mathcal{L}_{\xi_A}\hat A = 0$, which for the circle is the
+$W_A = 0$: the field is invariant under the isometries, $\mathcal{L}_{K_A}\hat A = 0$, which for the circle is the
 cylinder condition of @def-cylinder-condition. On a sphere the only strictly invariant fields are trivial, and
 the compensating gauge transformations are essential.
 :::
@@ -109,18 +109,18 @@ used in every later computation with symmetric fields.
 ::: {#exr-csd-lie-derivative}
 #### The two sides of the definition
 
-(a) Show that for a one-form $A = A_\alpha dy^\alpha$ and a vector field $\xi$, $\mathcal{L}_\xi A = d(\iota_\xi A) +
-\iota_\xi dA$ has components $\xi^\beta\partial_\beta A_\alpha + A_\beta\partial_\alpha\xi^\beta$. (b) Show that the gauge
+(a) Show that for a one-form $A = A_m dy^m$ and a vector field $\xi$, $\mathcal{L}_\xi A = d(\iota_\xi A) +
+\iota_\xi dA$ has components $\xi^n\partial_n A_m + A_n\partial_m\xi^n$. (b) Show that the gauge
 transformation $\hat A \mapsto g^{-1}\hat A g + g^{-1}dg$ with $g = e^{\epsilon W}$ changes $\hat A$ to first order by
 $\epsilon(dW - [W, \hat A])$, the right-hand side of @eq-symmetric-field.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) Cartan's formula gives $d(\xi^\beta A_\beta) = (\partial_\alpha\xi^\beta A_\beta + \xi^\beta\partial_\alpha A_\beta)dy^\alpha$ and
-$\iota_\xi dA = \xi^\beta(\partial_\beta A_\alpha - \partial_\alpha A_\beta)dy^\alpha$; the terms $\pm\xi^\beta\partial_\alpha A_\beta$ cancel and
-leave $\xi^\beta\partial_\beta A_\alpha + A_\beta\partial_\alpha\xi^\beta$. (b) With $g = 1 + \epsilon W + O(\epsilon^2)$, $g^{-1} = 1 - \epsilon W$
+(a) Cartan's formula gives $d(\xi^n A_n) = (\partial_m\xi^n A_n + \xi^n\partial_m A_n)dy^m$ and
+$\iota_\xi dA = \xi^n(\partial_n A_m - \partial_m A_n)dy^m$; the terms $\pm\xi^n\partial_m A_n$ cancel and
+leave $\xi^n\partial_n A_m + A_n\partial_m\xi^n$. (b) With $g = 1 + \epsilon W + O(\epsilon^2)$, $g^{-1} = 1 - \epsilon W$
 and $g^{-1}\hat A g = \hat A + \epsilon(\hat A W - W\hat A)$, $g^{-1}dg = \epsilon\,dW$, so $\delta\hat A = \epsilon(dW - [W, \hat A])$.
-The definition therefore says that the infinitesimal motion of the field along $\xi_A$ coincides with an infinitesimal gauge
+The definition therefore says that the infinitesimal motion of the field along $K_A$ coincides with an infinitesimal gauge
 transformation, with a parameter $W_A$ that may depend on the point.
 :::
 
@@ -130,14 +130,14 @@ Lie derivative of $A = \cos\theta\,d\varphi$ and finds the gauge parameter that 
 ::: {#exr-csd-monopole-rotation}
 #### Rotating the monopole
 
-With the Killing vectors $\xi_1 = -\sin\varphi\,\partial_\theta - \cot\theta\cos\varphi\,\partial_\varphi$, $\xi_2 = \cos\varphi\,\partial_\theta -
-\cot\theta\sin\varphi\,\partial_\varphi$, $\xi_3 = \partial_\varphi$ of the round sphere, compute $\mathcal{L}_{\xi_A}A$ for
-$A = \cos\theta\,d\varphi$ and find functions $W_A$ with $\mathcal{L}_{\xi_A}A = dW_A$. Where are the $W_A$ singular, and why
+With the Killing vectors $K_1 = -\sin\varphi\,\partial_\theta - \cot\theta\cos\varphi\,\partial_\varphi$, $K_2 = \cos\varphi\,\partial_\theta -
+\cot\theta\sin\varphi\,\partial_\varphi$, $K_3 = \partial_\varphi$ of the round sphere, compute $\mathcal{L}_{K_A}A$ for
+$A = \cos\theta\,d\varphi$ and find functions $W_A$ with $\mathcal{L}_{K_A}A = dW_A$. Where are the $W_A$ singular, and why
 is that expected?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The rotation about the axis, $\xi_3$, leaves $A$ invariant ($W_3 = 0$); the other two change it by the gradients of
+The rotation about the axis, $K_3$, leaves $A$ invariant ($W_3 = 0$); the other two change it by the gradients of
 $W_1 = -\cos\varphi/\sin\theta$ and $W_2 = -\sin\varphi/\sin\theta$. For an abelian group the commutator in @eq-symmetric-field
 vanishes, so this is exactly the symmetric-field condition. The parameters are singular at the poles, like the
 potential itself: $A$ is a potential of a monopole field, and no potential of a monopole is smooth on the whole sphere
@@ -147,7 +147,7 @@ potential itself: $A$ is a potential of a monopole field, and no potential of a 
 th, ph = var("th ph")
 A = [0, cos(th)]                                   # components (A_th, A_ph)
 F = diff(A[1], th) - diff(A[0], ph)                # dA = F dth ^ dph
-xis = {"xi_1": [-sin(ph), -cot(th) * cos(ph)], "xi_2": [cos(ph), -cot(th) * sin(ph)], "xi_3": [0, 1]}
+xis = {"K_1": [-sin(ph), -cot(th) * cos(ph)], "K_2": [cos(ph), -cot(th) * sin(ph)], "K_3": [0, 1]}
 def lie(xi):
     iA = xi[0] * A[0] + xi[1] * A[1]
     iF = [-xi[1] * F, xi[0] * F]                   # i_xi (F dth ^ dph) = F (xi^th dph - xi^ph dth)
@@ -156,19 +156,19 @@ for name, xi in xis.items():
     L = lie(xi)
     W = integrate(L[1], ph).simplify_full()        # candidate potential from the ph component
     W = (W + integrate((L[0] - diff(W, th)).simplify_full(), th)).simplify_full()
-    print(name, ": L_xi A =", L, ", W =", W)
-    print("[PASS] %s: L_xi A = dW exactly:" % name, all(bool((L[k] - diff(W, v)).simplify_full() == 0) for k, v in enumerate((th, ph))))
+    print(name, ": L_K A =", L, ", W =", W)
+    print("[PASS] %s: L_K A = dW exactly:" % name, all(bool((L[k] - diff(W, v)).simplify_full() == 0) for k, v in enumerate((th, ph))))
 ```
 
 *Output:*
 
 ```text
-xi_1 : L_xi A = [cos(ph)*cos(th)/sin(th)^2, sin(ph)/sin(th)] , W = -cos(ph)/sin(th)
-[PASS] xi_1: L_xi A = dW exactly: True
-xi_2 : L_xi A = [cos(th)*sin(ph)/sin(th)^2, -cos(ph)/sin(th)] , W = -sin(ph)/sin(th)
-[PASS] xi_2: L_xi A = dW exactly: True
-xi_3 : L_xi A = [0, 0] , W = 0
-[PASS] xi_3: L_xi A = dW exactly: True
+K_1 : L_K A = [cos(ph)*cos(th)/sin(th)^2, sin(ph)/sin(th)] , W = -cos(ph)/sin(th)
+[PASS] K_1: L_K A = dW exactly: True
+K_2 : L_K A = [cos(th)*sin(ph)/sin(th)^2, -cos(ph)/sin(th)] , W = -sin(ph)/sin(th)
+[PASS] K_2: L_K A = dW exactly: True
+K_3 : L_K A = [0, 0] , W = 0
+[PASS] K_3: L_K A = dW exactly: True
 ```
 :::
 
@@ -178,19 +178,19 @@ strength under gauge transformations and the invariance of the trace.
 ::: {#exr-csd-lagrangian-constant}
 #### Why the Lagrangian is constant
 
-Let $\hat A$ be symmetric. Show that its field strength satisfies $\mathcal{L}_{\xi_A}\hat F = -[W_A, \hat F]$, deduce
-$\mathcal{L}_{\xi_A}\operatorname{Tr}(\hat F_{MN}\hat F^{MN}) = 0$ when the $\xi_A$ are Killing vectors, and conclude that the
+Let $\hat A$ be symmetric. Show that its field strength satisfies $\mathcal{L}_{K_A}\hat F = -[W_A, \hat F]$, deduce
+$\mathcal{L}_{K_A}\operatorname{tr}(\hat F_{MN}\hat F^{MN}) = 0$ when the $K_A$ are Killing vectors, and conclude that the
 Lagrangian density is a function on $M_4$ alone.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The Lie derivative commutes with $d$, so $\mathcal{L}_\xi\hat F = d(\mathcal{L}_\xi\hat A) + [\mathcal{L}_\xi\hat A, \hat A] +
-[\hat A, \mathcal{L}_\xi\hat A]$ (in form notation, $\hat F = d\hat A + \hat A \wedge \hat A$). Substituting
-$\mathcal{L}_\xi\hat A = dW - [W, \hat A]$ and using the Jacobi identity, the terms with $dW$ cancel and the rest
+The Lie derivative commutes with $d$, so $\mathcal{L}_K\hat F = d(\mathcal{L}_K\hat A) + [\mathcal{L}_K\hat A, \hat A] +
+[\hat A, \mathcal{L}_K\hat A]$ (in form notation, $\hat F = d\hat A + \hat A \wedge \hat A$). Substituting
+$\mathcal{L}_K\hat A = dW - [W, \hat A]$ and using the Jacobi identity, the terms with $dW$ cancel and the rest
 combine into $-[W, \hat F]$: the field strength transforms covariantly, as under any gauge transformation
-(@def-nonabelian-field-strength). The trace of a commutator with a product vanishes, $\operatorname{Tr}([W, \hat F]\hat F) =
-0$, and the metric is preserved by a Killing vector, so the Lie derivative of $\operatorname{Tr}(\hat F_{MN}\hat F^{MN})$
-vanishes. A function whose derivative along all the $\xi_A$ vanishes is constant on the orbits of $S$; since $S$ acts
+(@def-nonabelian-field-strength). The trace of a commutator with a product vanishes, $\operatorname{tr}([W, \hat F]\hat F) =
+0$, and the metric is preserved by a Killing vector, so the Lie derivative of $\operatorname{tr}(\hat F_{MN}\hat F^{MN})$
+vanishes. A function whose derivative along all the $K_A$ vanishes is constant on the orbits of $S$; since $S$ acts
 transitively on $S/R$, it depends on $x \in M_4$ only.
 :::
 ::::
@@ -313,14 +313,14 @@ definition even when the isotropy group is trivial, produces fields that are not
 ::: {#exr-csd-twisted-circle}
 #### Twisted fields on the circle
 
-On $M_4 \times S^1$ take $\xi = \partial_y$ and a constant $W \in \mathfrak{g}$. Solve $\partial_y\hat A_\alpha = -[W, \hat A_\alpha]$ (the
-condition @eq-symmetric-field with $\partial_\alpha W = 0$) and state the periodicity condition on $W$. How does this relate
+On $M_4 \times S^1$ take $K = \partial_y$ and a constant $W \in \mathfrak{g}$. Solve $\partial_y\hat A_m = -[W, \hat A_m]$ (the
+condition @eq-symmetric-field with $\partial_m W = 0$) and state the periodicity condition on $W$. How does this relate
 to @exm-reduced-circle?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The solution is $\hat A_\alpha(x, y) = e^{-yW}\hat A_\alpha(x, 0)e^{yW}$, a field that rotates in the gauge algebra as one
-goes around the circle. It is single-valued if $e^{-2\pi R W}$ (with $y \sim y + 2\pi R$) commutes with all the values of
+The solution is $\hat A_m(x, y) = e^{-yW}\hat A_m(x, 0)e^{yW}$, a field that rotates in the gauge algebra as one
+goes around the circle. It is single-valued if $e^{-2\pi r W}$ (with $y \sim y + 2\pi r$) commutes with all the values of
 the field, for instance if it is central in $G$. Such twisted ansätze are allowed by the definition and are again
 consistent, but they are gauge equivalent to $y$-independent fields only when $W$ can be removed by a periodic gauge
 transformation; the choice $W = 0$ gives the zero modes of @exm-reduced-circle. On a coset with non-trivial $R$ the
@@ -379,8 +379,8 @@ representation on $\mathfrak{k}$. The third example states the result and the co
 ::: {#exm-constraints-spinors}
 #### Fermions
 
-A spinor on $M_4 \times S/R$ in a representation $F$ of $G$ reduces to four-dimensional fermions in the
-representations $h_i$ of $H$ for which $F \supset (r_i, h_i)$ and the spinor of $SO(\dim S/R)$ contains $r_i$
+A spinor on $M_4 \times S/R$ in a representation $\rho_F$ of $G$ reduces to four-dimensional fermions in the
+representations $h_i$ of $H$ for which $\rho_F \supset (r_i, h_i)$ and the spinor of $SO(\dim S/R)$ contains $r_i$
 [@manolakos2016, eqs. 7-8]; chirality in four dimensions requires Weyl fermions in a higher dimension of the form
 $4n + 2$, with the Majorana condition removing a doubling [@manolakos2016, p. 4].
 :::
@@ -510,9 +510,9 @@ complex doublet. Generated by `figures/csdr_constraints.sage`.](figures/csdr_con
 
 {{< interactive csdr_constraints 460 >}}
 
-The interactive version places the eight states of the adjoint in the plane of the two Cartan generators $T_3$ and
-$Y_n = \lambda_8/2$; hovering over a state shows its matrix unit, its $T_3$ and $Y_n$ eigenvalues, its charge under the
-embedded $U(1)$ and its electric charge $Q_{em} = T_3 + \tfrac12\tau$ of @sec-csdr-potential. The charge under the
+The interactive version places the eight states of the adjoint in the plane of the two Cartan generators $t_3$ and
+$Y_n = \lambda_8/2$; hovering over a state shows its matrix unit, its $t_3$ and $Y_n$ eigenvalues, its charge under the
+embedded $U(1)$ and its electric charge $Q_{em} = t_3 + \tfrac12\tau$ of @sec-csdr-potential. The charge under the
 embedded $U(1)$ is proportional to the vertical coordinate, so the rule reads off the doublet as the upper row.
 
 The first exercise performs the branching of the running example with Sage's character rings. It decomposes both
@@ -540,11 +540,11 @@ print("multiplicities by U(1) charge (in units where the doublet has charge 1):"
 print("[PASS] 8 -> 4 states of charge 0, 2 of charge +1, 2 of charge -1 under the embedded U(1):", {k / 3: v for k, v in charges.items()} == {0: 4, 1: 2, -1: 2})
 # the SU(2) content of the charge-0 states: weights (w1 - w2) in {2, 0, 0, -2}: a triplet and a singlet
 zero = sorted([w[0] - w[1] for w, m in wts.items() for _ in range(m) if w[0] + w[1] - 2 * w[2] == 0])
-print("[PASS] the charge-0 states form a triplet plus a singlet of SU(2) (T_3 weights -2, 0, 0, 2 in doubled units):", zero == [-2, 0, 0, 2])
+print("[PASS] the charge-0 states form a triplet plus a singlet of SU(2) (t_3 weights -2, 0, 0, 2 in doubled units):", zero == [-2, 0, 0, 2])
 # the sphere: adjoint of SU(2) under its U(1): 3 -> 0 + 2 + (-2) in doubled units, so k has charges +-1 in the normalisation of tau
 B = WeylCharacterRing("A1", style="coroots"); adj2 = B(2 * B.fundamental_weights()[1])   # highest weight 2 omega_1 (B(2) would be the scalar 2)
 w2 = sorted([w[0] - w[1] for w, m in adj2.weight_multiplicities().items() for _ in range(m)])
-print("weights of the adjoint of SU(2) (doubled T_3 eigenvalues):", w2)
+print("weights of the adjoint of SU(2) (doubled t_3 eigenvalues):", w2)
 print("[PASS] adjoint of SU(2) under U(1): charges -2, 0, 2 (doubled): k = {+-1}, matching the doublets of SU(3):", w2 == [-2, 0, 2])
 ```
 
@@ -554,8 +554,8 @@ print("[PASS] adjoint of SU(2) under U(1): charges -2, 0, 2 (doubled): k = {+-1}
 adjoint of SU(3): A2(1,1) of dimension 8
 multiplicities by U(1) charge (in units where the doublet has charge 1): {1: 2, 0: 4, -1: 2}
 [PASS] 8 -> 4 states of charge 0, 2 of charge +1, 2 of charge -1 under the embedded U(1): True
-[PASS] the charge-0 states form a triplet plus a singlet of SU(2) (T_3 weights -2, 0, 0, 2 in doubled units): True
-weights of the adjoint of SU(2) (doubled T_3 eigenvalues): [-2, 0, 2]
+[PASS] the charge-0 states form a triplet plus a singlet of SU(2) (t_3 weights -2, 0, 0, 2 in doubled units): True
+weights of the adjoint of SU(2) (doubled t_3 eigenvalues): [-2, 0, 2]
 [PASS] adjoint of SU(2) under U(1): charges -2, 0, 2 (doubled): k = {+-1}, matching the doublets of SU(3): True
 ```
 :::
@@ -589,7 +589,7 @@ phi1 = (phip + phim) / 2; phi2 = I * (phip - phim) / 2
 F12 = (ad(phi1, phi2) - Q[2]).simplify_full()
 print("F_12 =", F12)
 sig3 = diagonal_matrix(SR, [1, -1])
-print("[PASS] F_12 is proportional to (|f|^2 - 1) sigma_3, so the potential -Tr F_12^2 = (|f|^2 - 1)^2/2 has its minima at |f| = 1 (Kubyshin eqs. 36-37):",
+print("[PASS] F_12 is proportional to (|f|^2 - 1) sigma_3, so the potential -tr F_12^2 = (|f|^2 - 1)^2/2 has its minima at |f| = 1 (Kubyshin eqs. 36-37):",
       bool((F12 - F12[0, 0] * sig3).is_zero()) and bool((F12[0, 0] / (f * fb - 1)).simplify_full().is_constant()) and bool((-(F12 * F12).trace() - (f * fb - 1)^2 / 2).expand() == 0))
 ```
 
@@ -601,7 +601,7 @@ n = 2: +i eigenspace of ad(n Q_3) has free entries []
 [PASS] for n = 1 the +i eigenspace is one-dimensional (E_21 in these conventions: one complex parameter f), for n = 2 it is empty (phi = 0, a pure monopole): True
 F_12 = [-1/2*I*f*fb + 1/2*I                   0]
 [                  0  1/2*I*f*fb - 1/2*I]
-[PASS] F_12 is proportional to (|f|^2 - 1) sigma_3, so the potential -Tr F_12^2 = (|f|^2 - 1)^2/2 has its minima at |f| = 1 (Kubyshin eqs. 36-37): True
+[PASS] F_12 is proportional to (|f|^2 - 1) sigma_3, so the potential -tr F_12^2 = (|f|^2 - 1)^2/2 has its minima at |f| = 1 (Kubyshin eqs. 36-37): True
 ```
 :::
 
@@ -774,8 +774,8 @@ proposition below records the result, which @fig-csdr-constraints displays.
 #### The matching on the sphere
 
 For $G = SU(3)$ and $\tau(Q_3) = \tfrac{i}{3}\operatorname{diag}(1, 1, -2)$, the adjoint of $\mathfrak{su}(3)$ has four
-states of charge $0$ with $T_3$ weights $-1, 0, 0, 1$ (the adjoint of $SU(2) \times U(1)$), two states of charge $+1$
-with $T_3 = \pm\tfrac12$ (a doublet) and two of charge $-1$; the tangent space of $S^2$ has the charges $\pm1$; the rule of
+states of charge $0$ with $t_3$ weights $-1, 0, 0, 1$ (the adjoint of $SU(2) \times U(1)$), two states of charge $+1$
+with $t_3 = \pm\tfrac12$ (a doublet) and two of charge $-1$; the tangent space of $S^2$ has the charges $\pm1$; the rule of
 @def-csdr-rules leaves one complex doublet, four real scalars.
 :::
 ::::
@@ -787,7 +787,7 @@ The charges can be read off from the root diagram of $\mathfrak{su}(3)$. The fir
 ::: {#exm-csd-matching-roots}
 #### Charges from the root diagram
 
-The six roots of $\mathfrak{su}(3)$ form a regular hexagon in the $(T_3, Y_n)$ plane, and the charge under $\tau$ is
+The six roots of $\mathfrak{su}(3)$ form a regular hexagon in the $(t_3, Y_n)$ plane, and the charge under $\tau$ is
 $2Y_n/\sqrt3$. The two roots on the horizontal axis ($E_{12}, E_{21}$) have charge $0$ and, with the two Cartan
 generators, form the adjoint of $SU(2) \times U(1)$; the upper two roots ($E_{13}, E_{23}$) have charge $+1$, the lower two
 charge $-1$. This is the branching @eq-branching-su3 of @sec-branching.
@@ -823,7 +823,7 @@ classes at the same time.
 ::: {#exr-csd-matching-weights}
 #### Weights and charges
 
-Compute the weights $(T_3, Y_n)$ of the six root vectors $E_{ij}$ with $T_3 = \tfrac12\operatorname{diag}(1, -1, 0)$ and
+Compute the weights $(t_3, Y_n)$ of the six root vectors $E_{ij}$ with $t_3 = \tfrac12\operatorname{diag}(1, -1, 0)$ and
 $Y_n = \operatorname{diag}(1, 1, -2)/2\sqrt3$, their charges $2Y_n/\sqrt3$, and group them by charge.
 :::
 
@@ -839,10 +839,10 @@ for i in range(3):
     for j in range(3):
         if i != j:
             w = (T3[i] - T3[j], Yn[i] - Yn[j]); c = (2 * w[1] / sqrt(3)).simplify_full()
-            classes[c].append(w[0]); print("E_%d%d: weight (T_3, Y_n) =" % (i + 1, j + 1), w, ", tau-charge", c)
+            classes[c].append(w[0]); print("E_%d%d: weight (t_3, Y_n) =" % (i + 1, j + 1), w, ", tau-charge", c)
 classes[0] += [0, 0]
 print({k: sorted(v) for k, v in classes.items()})
-print("[PASS] the roots have length 1 and the charges are 0 (T_3 = -1, 0, 0, 1: a triplet and a singlet), +1 (T_3 = +-1/2) and -1 (T_3 = +-1/2):",
+print("[PASS] the roots have length 1 and the charges are 0 (t_3 = -1, 0, 0, 1: a triplet and a singlet), +1 (t_3 = +-1/2) and -1 (t_3 = +-1/2):",
       sorted(classes[0]) == [-1, 0, 0, 1] and sorted(classes[1]) == [-QQ(1)/2, QQ(1)/2] and sorted(classes[-1]) == [-QQ(1)/2, QQ(1)/2]
       and all(bool((T3[i] - T3[j])^2 + (Yn[i] - Yn[j])^2 == 1) for i in range(3) for j in range(3) if i != j))
 ```
@@ -850,14 +850,14 @@ print("[PASS] the roots have length 1 and the charges are 0 (T_3 = -1, 0, 0, 1: 
 *Output:*
 
 ```text
-E_12: weight (T_3, Y_n) = (1, 0) , tau-charge 0
-E_13: weight (T_3, Y_n) = (1/2, 1/2*sqrt(3)) , tau-charge 1
-E_21: weight (T_3, Y_n) = (-1, 0) , tau-charge 0
-E_23: weight (T_3, Y_n) = (-1/2, 1/2*sqrt(3)) , tau-charge 1
-E_31: weight (T_3, Y_n) = (-1/2, -1/2*sqrt(3)) , tau-charge -1
-E_32: weight (T_3, Y_n) = (1/2, -1/2*sqrt(3)) , tau-charge -1
+E_12: weight (t_3, Y_n) = (1, 0) , tau-charge 0
+E_13: weight (t_3, Y_n) = (1/2, 1/2*sqrt(3)) , tau-charge 1
+E_21: weight (t_3, Y_n) = (-1, 0) , tau-charge 0
+E_23: weight (t_3, Y_n) = (-1/2, 1/2*sqrt(3)) , tau-charge 1
+E_31: weight (t_3, Y_n) = (-1/2, -1/2*sqrt(3)) , tau-charge -1
+E_32: weight (t_3, Y_n) = (1/2, -1/2*sqrt(3)) , tau-charge -1
 {0: [-1, 0, 0, 1], 1: [-1/2, 1/2], -1: [-1/2, 1/2]}
-[PASS] the roots have length 1 and the charges are 0 (T_3 = -1, 0, 0, 1: a triplet and a singlet), +1 (T_3 = +-1/2) and -1 (T_3 = +-1/2): True
+[PASS] the roots have length 1 and the charges are 0 (t_3 = -1, 0, 0, 1: a triplet and a singlet), +1 (t_3 = +-1/2) and -1 (t_3 = +-1/2): True
 ```
 :::
 
@@ -868,13 +868,13 @@ the $\mathbf{3}$ is added to the model.
 #### The fundamental representation
 
 Decompose the $\mathbf{3}$ of $SU(3)$ under $SU(2) \times U(1)_\tau$ and give the charges under $\tau$ and under $Q_{em} =
-T_3 + \tfrac12\tau$ (in units of $i$).
+t_3 + \tfrac12\tau$ (in units of $i$).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\tau = \tfrac{i}{3}\operatorname{diag}(1, 1, -2)$ acts on the basis vectors $e_1, e_2, e_3$ with charges $\tfrac13, \tfrac13, -
 \tfrac23$; the $SU(2)$ block acts on $(e_1, e_2)$. So $\mathbf{3} \to (\mathbf{2}, \tfrac13) \oplus (\mathbf{1}, -\tfrac23)$.
-The electric charges $T_3 + \tfrac12\tau$ are $\tfrac12 + \tfrac16 = \tfrac23$, $-\tfrac12 + \tfrac16 = -\tfrac13$ and $0 - \tfrac13 = -
+The electric charges $t_3 + \tfrac12\tau$ are $\tfrac12 + \tfrac16 = \tfrac23$, $-\tfrac12 + \tfrac16 = -\tfrac13$ and $0 - \tfrac13 = -
 \tfrac13$: the charges of the up and down quarks, a coincidence of the $\lambda_8$ embedding.
 :::
 
@@ -891,7 +891,7 @@ which fermions survive.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 All charges are multiples of $\tfrac13$, because the entries of $\tau/i$ are, and $\pm\tfrac12$ is never a multiple of
-$\tfrac13$: no representation $F$ contains a component matching the spinor, and no fermion survives. This is a known
+$\tfrac13$: no representation $\rho_F$ contains a component matching the spinor, and no fermion survives. This is a known
 limitation of the model, which is a reduction of pure Yang-Mills theory; realistic models need a different coset or
 embedding (@exm-rules-e8).
 
@@ -1013,7 +1013,7 @@ surviving scalars.
 $t = (\tfrac12, -\tfrac12, 0)$: the charges $t_i - t_j$ are $\pm1$ for $E_{12}, E_{21}$, and $\pm\tfrac12$ for $E_{13}, E_{31},
 E_{23}, E_{32}$ ($+\tfrac12$ for $E_{13}$ and $E_{32}$, $-\tfrac12$ for $E_{31}$ and $E_{23}$). The kernel is the diagonal
 algebra, so $H = U(1) \times U(1)$, generated by $T_3$ and $\lambda_8$. The $+i$ eigenspace is $\operatorname{span}(E_{12})$:
-one complex scalar survives, charged under $T_3$ (charge $1$) and neutral under $\lambda_8$, the $SU(2)$ model of
+one complex scalar survives, charged under $\tau = -T_3$ (charge $1$) and neutral under $\lambda_8$, the $SU(2)$ model of
 @exm-rules-su2 embedded in the upper block of $SU(3)$. There is no doublet and no non-abelian factor: the hypercharge
 embedding @eq-csdr-tau is what produces the electroweak structure.
 :::
@@ -1032,7 +1032,7 @@ this compare with the period of $\exp(\alpha Q_3)$ in $SU(2)$?
 $\exp(\alpha\tau) = \operatorname{diag}(e^{i\alpha/3}, e^{i\alpha/3}, e^{-2i\alpha/3})$, unitary with determinant $1$; it is the
 identity when $\alpha/3 \in 2\pi\mathbb{Z}$, so its period is $6\pi$. In $SU(2)$, $\exp(\alpha Q_3) = \operatorname{diag}(e^{-i\alpha/2},
 e^{i\alpha/2})$ has period $4\pi$ (and $2\pi$ in $SO(3)$). The two periods do not agree: at $\alpha = 4\pi$, where
-$\exp(\alpha Q_3) = 1$, one has $\exp(4\pi\tau) = e^{4\pi i/3}\,\mathbb{1}$, a non-trivial element of the centre $\mathbb{Z}_3$ of
+$\exp(\alpha Q_3) = 1$, one has $\exp(4\pi\tau) = e^{4\pi i/3}$, a non-trivial element of the centre $\mathbb{Z}_3$ of
 $SU(3)$. So $\tau$ integrates to a group homomorphism from the isotropy $U(1)$ of $SU(2)$ only into $SU(3)/\mathbb{Z}_3$; on
 the adjoint representation, where the centre acts trivially, this is all that is needed, and the constraints, being
 infinitesimal, do not see the difference. For fields in the $\mathbf{3}$ it matters: their $\tau$-charges $\tfrac13, \tfrac13, -
@@ -1114,7 +1114,7 @@ centraliser acts.
 ::: {#exm-eigenspaces-doublet}
 #### The doublet
 
-$\mathfrak{g}_{+i}$ is the third column above the diagonal: a vector $(\Phi_1, \Phi_2)^T$ on which the $SU(2)$ block
+$\mathfrak{g}_{+i}$ is the third column above the diagonal: a vector $(\Phi_1, \Phi_2)^\top$ on which the $SU(2)$ block
 acts by matrix multiplication, a **doublet**, and the $U(1)$ by a phase; this is where the scalar fields of
 @sec-csdr-solution live.
 :::
@@ -1251,7 +1251,7 @@ of Pauli matrices.
 ::: {#exm-centraliser-generators}
 #### Its generators
 
-$T_a = \tfrac{i}{2}\sigma_a$ in the upper block ($a = 1, 2, 3$) and $\tau(Q_3)$ itself, the hypercharge: four
+$T_a = -\tfrac{i}{2}\sigma_a$ in the upper block ($a = 1, 2, 3$) and $\tau(Q_3)$ itself, the hypercharge: four
 anti-Hermitian traceless matrices commuting with $\tau$, the $\mathfrak{su}(2) \oplus \mathfrak{u}(1)$ of
 @exm-nonabelian-su2 with a $U(1)$ factor.
 :::
@@ -1335,8 +1335,8 @@ $SU(2) \times U(1) \to U(2)$, $(B, e^{i\alpha}) \mapsto e^{i\alpha}B$, is surjec
 ::: {.callout-note .solution collapse="true" title="Solution"}
 An element of $S(U(2) \times U(1))$ is $\operatorname{diag}(A, u)$ with $A \in U(2)$, $|u| = 1$ and $u\det A = 1$, so $u$ is
 determined by $A$; the map is a bijective homomorphism. Every $A \in U(2)$ is $e^{i\alpha}B$ with $e^{2i\alpha} = \det A$ and
-$B = e^{-i\alpha}A \in SU(2)$, and $e^{i\alpha}B = 1$ forces $B = e^{-i\alpha}\mathbb{1}$ with $e^{-2i\alpha} = 1$, i.e.
-$(B, e^{i\alpha}) = \pm(\mathbb{1}, 1)$. So $H \cong U(2) \cong (SU(2) \times U(1))/\mathbb{Z}_2$, which has the same Lie algebra as
+$B = e^{-i\alpha}A \in SU(2)$, and $e^{i\alpha}B = 1$ forces $B = e^{-i\alpha}$ with $e^{-2i\alpha} = 1$, i.e.
+$(B, e^{i\alpha}) = \pm(1, 1)$. So $H \cong U(2) \cong (SU(2) \times U(1))/\mathbb{Z}_2$, which has the same Lie algebra as
 $SU(2) \times U(1)$: the electroweak group of the Standard Model is also $U(2)$ in this sense.
 :::
 
@@ -1404,8 +1404,8 @@ norm with that of $T_3$, a number that will set the Weinberg angle in the next c
 ::: {#exm-csd-embedding-norm}
 #### The norm of $\tau$
 
-$\operatorname{Tr}\tau^2 = -\tfrac19(1 + 1 + 4) = -\tfrac23$, while $T_3 = \tfrac{i}{2}\operatorname{diag}(1, -1, 0)$ has
-$\operatorname{Tr}T_3^2 = -\tfrac12$. So $\tau$ is $\tfrac{2}{\sqrt3}$ times the generator $\tfrac{i}{2}\lambda_8$ normalised like
+$\operatorname{tr}\tau^2 = -\tfrac19(1 + 1 + 4) = -\tfrac23$, while $T_3 = -\tfrac{i}{2}\operatorname{diag}(1, -1, 0)$ has
+$\operatorname{tr}T_3^2 = -\tfrac12$. So $\tau$ is $\tfrac{2}{\sqrt3}$ times the generator $\tfrac{i}{2}\lambda_8$ normalised like
 $T_3$, and the charge $1$ of the doublet under $\tau$ becomes $\tfrac{\sqrt3}{2}$ under the normalised generator.
 :::
 ::::
@@ -1418,7 +1418,7 @@ and the normalisation of @exm-csd-embedding-norm.
 #### $\operatorname{ad}\tau$ on the Gell-Mann basis
 
 Compute the $8 \times 8$ matrix of $\operatorname{ad}\tau$ in the basis $i\lambda_1, \dots, i\lambda_8$ of $\mathfrak{su}(3)$, its
-eigenvalues, and $\operatorname{Tr}\tau^2$.
+eigenvalues, and $\operatorname{tr}\tau^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1439,8 +1439,8 @@ print("eigenvalues:", M.eigenvalues())
 print("[PASS] ad tau rotates (i lambda_4, i lambda_5) and (i lambda_6, i lambda_7) and kills i lambda_1,2,3,8; eigenvalues 0 (x4), +i (x2), -i (x2):",
       sorted(M.eigenvalues(), key=str) == sorted([0, 0, 0, 0, I, I, -I, -I], key=str) and all(M.column(k).is_zero() for k in (0, 1, 2, 7)))
 T3 = I / 2 * lam[2]
-print("Tr tau^2 =", (tau * tau).trace(), ", Tr T_3^2 =", (T3 * T3).trace())
-print("[PASS] tau = (2/sqrt 3) (i lambda_8 / 2) and Tr tau^2 = -2/3 = (4/3) Tr T_3^2:", bool((tau - 2 / sqrt(3) * I * lam[7] / 2).simplify_full().is_zero()) and bool((tau * tau).trace() == -2/3) and bool((tau * tau).trace() == 4/3 * (T3 * T3).trace()))
+print("tr tau^2 =", (tau * tau).trace(), ", tr T_3^2 =", (T3 * T3).trace())
+print("[PASS] tau = (2/sqrt 3) (i lambda_8 / 2) and tr tau^2 = -2/3 = (4/3) tr T_3^2:", bool((tau - 2 / sqrt(3) * I * lam[7] / 2).simplify_full().is_zero()) and bool((tau * tau).trace() == -2/3) and bool((tau * tau).trace() == 4/3 * (T3 * T3).trace()))
 ```
 
 *Output:*
@@ -1457,8 +1457,8 @@ ad tau in the basis i lambda_k:
 [ 0  0  0  0  0  0  0  0]
 eigenvalues: [-I, -I, I, I, 0, 0, 0, 0]
 [PASS] ad tau rotates (i lambda_4, i lambda_5) and (i lambda_6, i lambda_7) and kills i lambda_1,2,3,8; eigenvalues 0 (x4), +i (x2), -i (x2): True
-Tr tau^2 = -2/3 , Tr T_3^2 = -1/2
-[PASS] tau = (2/sqrt 3) (i lambda_8 / 2) and Tr tau^2 = -2/3 = (4/3) Tr T_3^2: True
+tr tau^2 = -2/3 , tr T_3^2 = -1/2
+[PASS] tau = (2/sqrt 3) (i lambda_8 / 2) and tr tau^2 = -2/3 = (4/3) tr T_3^2: True
 ```
 :::
 
@@ -1484,8 +1484,8 @@ what make $\tau$ a legitimate generator of $SU(3)$.
 ::: {#exr-csd-embedding-su3}
 #### $\tau$ is in $\mathfrak{su}(3)$
 
-Check $\tau^\dagger = -\tau$ and $\operatorname{Tr}\tau = 0$, and show that every diagonal anti-Hermitian traceless matrix is
-a real combination of $iT_3$-type and $i\lambda_8$-type matrices. Which combination is $\tau$?
+Check $\tau^\dagger = -\tau$ and $\operatorname{tr}\tau = 0$, and show that every diagonal anti-Hermitian traceless matrix is
+a real combination of $i\lambda_3$-type and $i\lambda_8$-type matrices. Which combination is $\tau$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1703,12 +1703,12 @@ general case and checks the dimension count of the rules.
 ::: {#exr-csd-int-sun}
 #### Block embeddings in $SU(n)$
 
-Let $G = SU(n)$ and $\tau = i\operatorname{diag}(a\mathbb{1}_k, (a - 1)\mathbb{1}_{n-k})$ with $a = (n - k)/n$. Show that $\tau$ is
+Let $G = SU(n)$ and $\tau = i\operatorname{diag}(a\,1_k, (a - 1)\,1_{n-k})$ with $a = (n - k)/n$. Show that $\tau$ is
 traceless, find $H$ and the surviving scalars, and check $n^2 - 1 = \dim H + 2 \cdot 2k(n - k)$ in real dimensions.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\operatorname{Tr}\tau = i(ka + (n - k)(a - 1)) = i(na - (n - k)) = 0$. The charges $t_i - t_j$ are $0$ within each block and
+$\operatorname{tr}\tau = i(ka + (n - k)(a - 1)) = i(na - (n - k)) = 0$. The charges $t_i - t_j$ are $0$ within each block and
 $\pm1$ between the blocks, so $H = S(U(k) \times U(n - k))$, of dimension $k^2 + (n - k)^2 - 1$, and the scalar is the
 upper-right $k \times (n - k)$ block, a complex bifundamental $(\mathbf{k}, \overline{\mathbf{n - k}})$ with $2k(n - k)$ real
 components. The off-diagonal blocks together have $2k(n - k)$ complex entries, i.e. real dimension $2k(n - k)$ inside

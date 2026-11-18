@@ -13,7 +13,7 @@ A field assigns a value to every point of spacetime: a number, a complex number,
 A field assigns a value to every point of spacetime: a number, a complex number, a vector, a spinor. This chapter
 introduces these field objects one by one, with their equations of motion and their symmetries, before the general
 machinery of actions in @sec-actions. It has three sections. Scalar fields defines fields and the Klein-Gordon
-equation, solves it by plane waves and reads off the dispersion relation $\omega^2 = \vec k^2 + m^2$, the first
+equation, solves it by plane waves and reads off the dispersion relation $\omega^2 = \mathbf k^2 + m^2$, the first
 appearance of mass in field theory. Complex and vector fields combines two real scalars into a complex field with a
 phase-rotation symmetry and its conserved current, and introduces the vector potential and its field strength, with
 electromagnetism as the running example. Spinor fields and gamma matrices builds the Clifford algebra in the standard
@@ -57,7 +57,7 @@ and from particle physics that assign a single real number to each point, indepe
 ::: {#exm-field-temperature}
 #### Scalar fields in physics
 
-The temperature of a room, the pressure of the air and the Newtonian gravitational potential $\Phi(\vec x)$ are
+The temperature of a room, the pressure of the air and the Newtonian gravitational potential $\Phi(\mathbf x)$ are
 real scalar fields on space; the Higgs field (@sec-higgs) and the radius of the Kaluza-Klein circle (the
 **dilaton** of Part III) are real scalar fields on spacetime.
 :::
@@ -193,7 +193,7 @@ speed of light, which is the content of the first example.
 #### The wave equation
 
 For $m = 0$ @eq-klein-gordon is the wave equation $\partial_t^2\phi = \nabla^2\phi$, solved by any function
-$f(\vec n\cdot\vec x - t)$ moving at unit speed (the speed of light) along the unit vector $\vec n$: the massless
+$f(\mathbf n\cdot\mathbf x - t)$ moving at unit speed (the speed of light) along the unit vector $\mathbf n$: the massless
 scalar propagates like light.
 :::
 
@@ -315,10 +315,10 @@ the mass vary.
 ::: {#def-plane-wave}
 #### Plane wave
 
-A **plane wave** is a field of the form $\phi = \cos(\vec k\cdot\vec x - \omega t)$ (or its complex version
-$e^{i(\vec k\cdot\vec x - \omega t)}$) with constant **wave vector** $\vec k$ and **frequency** $\omega$: constant on
-the planes $\vec k\cdot\vec x = \text{const}$ at each time, and moving along $\vec k$ at the **phase velocity**
-$\omega/|\vec k|$ (@fig-plane-wave).
+A **plane wave** is a field of the form $\phi = \cos(\mathbf k\cdot\mathbf x - \omega t)$ (or its complex version
+$e^{i(\mathbf k\cdot\mathbf x - \omega t)}$) with constant **wave vector** $\mathbf k$ and **frequency** $\omega$: constant on
+the planes $\mathbf k\cdot\mathbf x = \text{const}$ at each time, and moving along $\mathbf k$ at the **phase velocity**
+$\omega/|\mathbf k|$ (@fig-plane-wave).
 :::
 ::::
 
@@ -330,7 +330,7 @@ solution, the field-theory form of the Fourier transform (@sec-fourier-transform
 #### Superpositions
 
 Since @eq-klein-gordon is linear, sums of plane waves are solutions, and every solution is a superposition
-$\int d^3k\,[a(\vec k)e^{i(\vec k\cdot\vec x - \omega t)} + \text{c.c.}]$ with $\omega = \omega(\vec k)$: the plane waves
+$\int d^3k\,[a(\mathbf k)e^{i(\mathbf k\cdot\mathbf x - \omega t)} + \text{c.c.}]$ with $\omega = \omega(\mathbf k)$: the plane waves
 are the **modes** of the field, and in the quantum theory (@sec-quantisation) each mode is an oscillator whose
 quanta are particles.
 :::
@@ -364,11 +364,11 @@ In vector form polarisation was defined in @def-emw-polarisation; the covariant 
 ::: {#exm-cfb-polarisation}
 #### Polarisation of a plane wave
 
-A monochromatic wave along $z$ has $\vec E = \operatorname{Re}\bigl[(E_x, E_y, 0)e^{i(kz - \omega t)}\bigr]$ with complex amplitudes. If $E_x$ and $E_y$ have equal phases the tip of $\vec E$ moves on a
+A monochromatic wave along $z$ has $\mathbf E = \operatorname{Re}\bigl[(E_x, E_y, 0)e^{i(kz - \omega t)}\bigr]$ with complex amplitudes. If $E_x$ and $E_y$ have equal phases the tip of $\mathbf E$ moves on a
 segment: **linear** polarisation. If $E_y = \pm iE_x$ it moves on a circle: **circular** polarisation of helicity $\pm1$. In general it traces an ellipse. The four
 **Stokes parameters**
 $$
-I = |E_x|^2 + |E_y|^2, \quad Q = |E_x|^2 - |E_y|^2, \quad U = 2\operatorname{Re}(\bar E_xE_y), \quad V = 2\operatorname{Im}(\bar E_xE_y)
+I = |E_x|^2 + |E_y|^2, \quad Q = |E_x|^2 - |E_y|^2, \quad U = 2\operatorname{Re}(E_x^*E_y), \quad V = 2\operatorname{Im}(E_x^*E_y)
 $$
 are measurable intensities; $V/I$ is the degree of circular polarisation, and a fully polarised wave has $I^2 = Q^2 + U^2 + V^2$
 [@maggiore2023electrodynamics, Sec. 9.5].
@@ -387,10 +387,10 @@ the phase velocity. Which mass $m$ makes it a solution of the Klein-Gordon equat
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\vec k = (1, 2, 2)$ and $\omega = 3$. At $t = 0$ the wavefronts of constant phase are the planes $x + 2y + 2z =
-\text{const}$, orthogonal to $\vec k$. The wavelength is $2\pi/|\vec k| = 2\pi/3$, the period $2\pi/\omega = 2\pi/3$,
-and the phase velocity $\omega/|\vec k| = 1$. Since $\omega^2 = 9 = |\vec k|^2$, the dispersion relation
-@eq-dispersion holds with $m = 0$: it is a massless wave, moving at the speed of light along $\vec k/3$.
+$\mathbf k = (1, 2, 2)$ and $\omega = 3$. At $t = 0$ the wavefronts of constant phase are the planes $x + 2y + 2z =
+\text{const}$, orthogonal to $\mathbf k$. The wavelength is $2\pi/|\mathbf k| = 2\pi/3$, the period $2\pi/\omega = 2\pi/3$,
+and the phase velocity $\omega/|\mathbf k| = 1$. Since $\omega^2 = 9 = |\mathbf k|^2$, the dispersion relation
+@eq-dispersion holds with $m = 0$: it is a massless wave, moving at the speed of light along $\mathbf k/3$.
 :::
 
 The second exercise examines the standing wave of @exm-plane-wave-standing more closely. It locates the points
@@ -461,7 +461,7 @@ The parameters were introduced in vector form in @def-emw-polarisation and compu
 #### Stokes parameters
 
 With Sage, compute $(I, Q, U, V)$ for $(E_x, E_y) = (a, be^{i\delta})$ and check $I^2 = Q^2 + U^2 + V^2$. Evaluate them for linear polarisation along $x$ and at $45°$, for both circular
-polarisations and for $(1, 2i)/\sqrt5$. Write $\vec E$ in the circular basis $e_\pm = (1, \pm i)/\sqrt2$ and show $|c_+|^2 - |c_-|^2 = V$ [@maggiore2023electrodynamics, Sec. 9.5].
+polarisations and for $(1, 2i)/\sqrt5$. Write $\mathbf E$ in the circular basis $\mathbf e_\pm = (1, \pm i)/\sqrt2$ and show $|c_+|^2 - |c_-|^2 = V$ [@maggiore2023electrodynamics, Sec. 9.5].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -509,42 +509,42 @@ polarisation is a superposition of the two circular ones and relates them to hel
 ::: {#exr-cfb-circular-basis}
 #### Circular polarisations as a basis
 
-Show that $e_\pm = (1, \pm i, 0)/\sqrt2$ are orthonormal in $\mathbb{C}^2$, that a rotation by $\alpha$ about $z$ multiplies them by $e^{\mp i\alpha}$, and that linear polarisation along $x$ is
-$(e_+ + e_-)/\sqrt2$. Why are $\pm1$ called the helicities? [@maggiore2023electrodynamics, Sec. 9.5]
+Show that $\mathbf e_\pm = (1, \pm i, 0)/\sqrt2$ are orthonormal in $\mathbb{C}^2$, that a rotation by $\alpha$ about $z$ multiplies them by $e^{\mp i\alpha}$, and that linear polarisation along $x$ is
+$(\mathbf e_+ + \mathbf e_-)/\sqrt2$. Why are $\pm1$ called the helicities? [@maggiore2023electrodynamics, Sec. 9.5]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\bar e_+\cdot e_- = \tfrac12(1 + i\cdot i) = 0$ and $\bar e_\pm\cdot e_\pm = 1$. The rotation $R_\alpha$ maps $(1, \pm i)$ to $(\cos\alpha \mp i\sin\alpha, \sin\alpha \pm i\cos\alpha) = e^{\mp i\alpha}(1, \pm i)$.
-Hence $e_\pm$ are eigenvectors of the generator $J_z$ of rotations about the direction of motion with eigenvalues $\pm1$: the projection of the photon's spin on its
-momentum, the helicity. Adding them, $(e_+ + e_-)/\sqrt2 = (1, 0, 0)$.
+$\mathbf e_+^*\cdot\mathbf e_- = \tfrac12(1 + i\cdot i) = 0$ and $\mathbf e_\pm^*\cdot\mathbf e_\pm = 1$. The rotation $R_\alpha$ maps $(1, \pm i)$ to $(\cos\alpha \mp i\sin\alpha, \sin\alpha \pm i\cos\alpha) = e^{\mp i\alpha}(1, \pm i)$.
+Hence $\mathbf e_\pm$ are eigenvectors of the generator $J_z$ of rotations about the direction of motion with eigenvalues $\pm1$: the projection of the photon's spin on its
+momentum, the helicity. Adding them, $(\mathbf e_+ + \mathbf e_-)/\sqrt2 = (1, 0, 0)$.
 :::
 ::::
 
 Substituting a plane wave into a linear equation turns derivatives into multiplications, and the equation becomes an
-algebraic condition on $\omega$ and $\vec k$. The definition below gives this condition its name.
+algebraic condition on $\omega$ and $\mathbf k$. The definition below gives this condition its name.
 
 :::: {.statement-box}
 ::: {#def-dispersion-relation}
 #### Dispersion relation
 
-The condition on $\omega$ and $\vec k$ for a plane wave to solve a linear field equation is its **dispersion
+The condition on $\omega$ and $\mathbf k$ for a plane wave to solve a linear field equation is its **dispersion
 relation**; for the Klein-Gordon equation it is
 $$
-\omega^2 = \vec k^2 + m^2 ,
+\omega^2 = \mathbf k^2 + m^2 ,
 $$ {#eq-dispersion}
-the relativistic relation $E^2 = \vec p^2 + m^2$ between the energy $E = \hbar\omega$ and momentum $\vec p =
-\hbar\vec k$ of a particle of mass $m$ (@prp-plane-wave).
+the relativistic relation $E^2 = \mathbf p^2 + m^2$ between the energy $E = \hbar\omega$ and momentum $\mathbf p =
+\hbar\mathbf k$ of a particle of mass $m$ (@prp-plane-wave).
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The massless case is the simplest dispersion relation, a cone in the space of $(\omega, \vec k)$. The first example
+The massless case is the simplest dispersion relation, a cone in the space of $(\omega, \mathbf k)$. The first example
 names the fields that obey it.
 
 ::: {#exm-dispersion-massless}
 #### Massless fields
 
-$\omega = |\vec k|$: all modes move at the speed of light, the dashed line of @fig-plane-wave; the photon and the
+$\omega = |\mathbf k|$: all modes move at the speed of light, the dashed line of @fig-plane-wave; the photon and the
 graviton are massless, and so are the zero modes of the Kaluza-Klein towers.
 :::
 
@@ -554,7 +554,7 @@ approach to the massless line at high momentum.
 ::: {#exm-dispersion-massive}
 #### Massive fields
 
-$\omega = \sqrt{\vec k^2 + m^2} \geq m$: no mode has frequency below $m$, the rest energy; the hyperbola of
+$\omega = \sqrt{\mathbf k^2 + m^2} \geq m$: no mode has frequency below $m$, the rest energy; the hyperbola of
 @fig-plane-wave approaches the massless line at large $k$, where the mass is negligible.
 :::
 
@@ -564,7 +564,7 @@ example shows this for the circle, the central mechanism of Part III.
 ::: {#exm-dispersion-kk}
 #### A Kaluza-Klein tower
 
-For a massless field on $M_4 \times S^1$ the mode $e^{iny/R}$ obeys $\omega^2 = \vec k^2 + n^2/R^2$: from the
+For a massless field on $M_4 \times S^1$ the mode $e^{iny/R}$ obeys $\omega^2 = \mathbf k^2 + n^2/R^2$: from the
 four-dimensional point of view it is a particle of mass $|n|/R$, and the five-dimensional dispersion relation
 becomes an infinite family of four-dimensional ones, the subject of Part III.
 :::
@@ -682,15 +682,15 @@ derivatives; the complex wave $e^{i(kx - \omega t)} = \cos(\cdot) + i\sin(\cdot)
 linear with real coefficients. All three solve the equation under the same condition $\omega^2 = k^2 + m^2$.
 :::
 
-In three space dimensions a plane wave depends on position only through $\vec k\cdot\vec x$. The third example reduces
+In three space dimensions a plane wave depends on position only through $\mathbf k\cdot\mathbf x$. The third example reduces
 it to the one-dimensional statement by a rotation of axes.
 
 ::: {#exm-fld-plane-wave-3d}
 #### Three space dimensions
 
-Rotating the axes so that $\vec k = (|\vec k|, 0, 0)$, the wave $\cos(\vec k\cdot\vec x - \omega t)$ becomes
-$\cos(|\vec k|x - \omega t)$, independent of $y$ and $z$, and $\nabla^2$ reduces to $\partial_x^2$; since $\nabla^2$ is
-rotation invariant, the proposition with $k = |\vec k|$ gives @eq-dispersion in $3 + 1$ dimensions
+Rotating the axes so that $\mathbf k = (|\mathbf k|, 0, 0)$, the wave $\cos(\mathbf k\cdot\mathbf x - \omega t)$ becomes
+$\cos(|\mathbf k|x - \omega t)$, independent of $y$ and $z$, and $\nabla^2$ reduces to $\partial_x^2$; since $\nabla^2$ is
+rotation invariant, the proposition with $k = |\mathbf k|$ gives @eq-dispersion in $3 + 1$ dimensions
 (@exr-dispersion).
 :::
 
@@ -856,7 +856,7 @@ used throughout the book.
 #### Complex scalar field
 
 A **complex scalar field** is a smooth function $\phi : M \to \mathbb{C}$, equivalently a pair of real scalars,
-$\phi = (u + iv)/\sqrt2$, with **complex conjugate** $\bar\phi = (u - iv)/\sqrt2$ and modulus $|\phi|^2 = \bar\phi\phi
+$\phi = (u + iv)/\sqrt2$, with **complex conjugate** $\phi^* = (u - iv)/\sqrt2$ and modulus $|\phi|^2 = \phi^*\phi
 = \tfrac12(u^2 + v^2)$.
 :::
 ::::
@@ -868,7 +868,7 @@ notes that its real and imaginary parts are the real plane waves of the previous
 ::: {#exm-complex-wave}
 #### Complex plane waves
 
-$\phi = e^{i(\vec k\cdot\vec x - \omega t)}$ solves the Klein-Gordon equation with $\omega^2 = \vec k^2 + m^2$, like its
+$\phi = e^{i(\mathbf k\cdot\mathbf x - \omega t)}$ solves the Klein-Gordon equation with $\omega^2 = \mathbf k^2 + m^2$, like its
 real and imaginary parts; in the quantum theory (@sec-quantisation) the positive-frequency wave multiplies the
 operator that annihilates a particle and its conjugate the operator that creates an antiparticle.
 :::
@@ -903,13 +903,13 @@ mass $m$ is nothing but two real fields of the same mass.
 ::: {#exr-fld-complex-components}
 #### Complex field as two real fields
 
-With $\phi = (u + iv)/\sqrt2$, express $\partial_\mu\bar\phi\,\partial^\mu\phi$ and $|\phi|^2$ in terms of $u$ and $v$,
-and show that $\partial_\mu\bar\phi\,\partial^\mu\phi - m^2|\phi|^2$ is the sum of two real Klein-Gordon Lagrangians
+With $\phi = (u + iv)/\sqrt2$, express $\partial_\mu\phi^*\,\partial^\mu\phi$ and $|\phi|^2$ in terms of $u$ and $v$,
+and show that $\partial_\mu\phi^*\,\partial^\mu\phi - m^2|\phi|^2$ is the sum of two real Klein-Gordon Lagrangians
 $\tfrac12\partial_\mu u\,\partial^\mu u - \tfrac12m^2u^2$ and the same for $v$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_\mu\bar\phi\,\partial^\mu\phi = \tfrac12(\partial_\mu u - i\partial_\mu v)(\partial^\mu u + i\partial^\mu v) =
+$\partial_\mu\phi^*\,\partial^\mu\phi = \tfrac12(\partial_\mu u - i\partial_\mu v)(\partial^\mu u + i\partial^\mu v) =
 \tfrac12(\partial_\mu u\,\partial^\mu u + \partial_\mu v\,\partial^\mu v)$, the cross terms $\pm\tfrac{i}{2}\partial_\mu
 u\,\partial^\mu v$ cancelling, and $|\phi|^2 = \tfrac12(u^2 + v^2)$. So the complex Lagrangian is
 $\tfrac12(\partial u)^2 - \tfrac12m^2u^2 + \tfrac12(\partial v)^2 - \tfrac12m^2v^2$: the factor $1/\sqrt2$ in the
@@ -922,14 +922,14 @@ modulus, which behaves like an ordinary real field, from the phase, which enters
 ::: {#exr-fld-complex-polar}
 #### The kinetic term in polar form
 
-For $\phi = \rho e^{i\vartheta}/\sqrt2$ show that $\partial_\mu\bar\phi\,\partial^\mu\phi = \tfrac12\partial_\mu\rho\,
+For $\phi = \rho e^{i\vartheta}/\sqrt2$ show that $\partial_\mu\phi^*\,\partial^\mu\phi = \tfrac12\partial_\mu\rho\,
 \partial^\mu\rho + \tfrac12\rho^2\partial_\mu\vartheta\,\partial^\mu\vartheta$. Why does $\vartheta$ appear only through
 $\partial_\mu\vartheta$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\partial_\mu\phi = \tfrac{1}{\sqrt2}e^{i\vartheta}(\partial_\mu\rho + i\rho\,\partial_\mu\vartheta)$ and $\partial_\mu
-\bar\phi = \tfrac{1}{\sqrt2}e^{-i\vartheta}(\partial_\mu\rho - i\rho\,\partial_\mu\vartheta)$; the phases cancel in the
+\phi^* = \tfrac{1}{\sqrt2}e^{-i\vartheta}(\partial_\mu\rho - i\rho\,\partial_\mu\vartheta)$; the phases cancel in the
 product, and the cross terms $\pm i\rho\,\partial_\mu\rho\,\partial^\mu\vartheta$ cancel too, leaving the stated sum.
 The phase appears only through its derivatives because the constant shift $\vartheta \mapsto \vartheta + \alpha$ is
 the phase rotation of the next definition, a symmetry of the Lagrangian; at a vacuum with $\rho = v \neq 0$ the
@@ -951,7 +951,7 @@ show that it vanishes for all $a$ only if $m_1 = m_2$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The kinetic terms are invariant, since $(\partial u)^2 + (\partial v)^2$ is the squared length of a rotated vector. The
 mass terms change by $\tfrac12(m_1^2 - m_2^2)\sin a\,[\sin a\,(u^2 - v^2) + 2\cos a\,uv]$, which vanishes for all $a$
-and all field values only if $m_1^2 = m_2^2$. Then the Lagrangian is $\partial_\mu\bar\phi\,\partial^\mu\phi -
+and all field values only if $m_1^2 = m_2^2$. Then the Lagrangian is $\partial_\mu\phi^*\,\partial^\mu\phi -
 m^2|\phi|^2$ with $\phi = (u + iv)/\sqrt2$, and the rotation is the phase rotation:
 
 ```python
@@ -986,8 +986,8 @@ not change the physics. The definition below states this transformation and its 
 ::: {#def-phase-rotation}
 #### Phase rotation
 
-The **phase rotation** by a constant angle $\alpha$ is the transformation $\phi \mapsto e^{i\alpha}\phi$, $\bar\phi
-\mapsto e^{-i\alpha}\bar\phi$; it preserves $|\phi|^2$ and $\partial_\mu\bar\phi\,\partial^\mu\phi$ and forms the group
+The **phase rotation** by a constant angle $\alpha$ is the transformation $\phi \mapsto e^{i\alpha}\phi$, $\phi^*
+\mapsto e^{-i\alpha}\phi^*$; it preserves $|\phi|^2$ and $\partial_\mu\phi^*\,\partial^\mu\phi$ and forms the group
 $U(1)$ acting on the field (@def-group-action), a **global** $U(1)$ symmetry. In terms of $u, v$ it is the
 rotation of @exm-flow-rotation.
 :::
@@ -995,14 +995,14 @@ rotation of @exm-flow-rotation.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Invariance under the phase rotation restricts the possible Lagrangians. The first example lists which simple
-combinations of $\phi$ and $\bar\phi$ survive and which do not.
+combinations of $\phi$ and $\phi^*$ survive and which do not.
 
 ::: {#exm-phase-invariant}
 #### Invariant combinations
 
 $|\phi|^2$ and $|\partial_\mu\phi|^2$ are invariant (@prp-phase-rotation), so every Lagrangian built from them,
-such as $\partial_\mu\bar\phi\,\partial^\mu\phi - m^2|\phi|^2 - \lambda|\phi|^4$, has the global $U(1)$ symmetry; $\phi^2$
-and $\phi + \bar\phi$ are not invariant.
+such as $\partial_\mu\phi^*\,\partial^\mu\phi - m^2|\phi|^2 - \lambda|\phi|^4$, has the global $U(1)$ symmetry; $\phi^2$
+and $\phi + \phi^*$ are not invariant.
 :::
 
 Letting the angle depend on the point is a natural next step, and it fails in an instructive way. The second example
@@ -1022,8 +1022,8 @@ current of the phase rotation and its interpretation as a particle number.
 ::: {#exm-phase-charge}
 #### The charge
 
-The Noether current of the phase rotation (@sec-noether-currents), $j^\mu = i(\bar\phi\partial^\mu\phi -
-\phi\partial^\mu\bar\phi)$, is conserved; for the plane wave it is a uniform flow along the wave
+The Noether current of the phase rotation (@sec-noether-currents), $j^\mu = i(\phi^*\partial^\mu\phi -
+\phi\partial^\mu\phi^*)$, is conserved; for the plane wave it is a uniform flow along the wave
 (@fig-complex-field-phase), and its charge $\int j^0\,d^3x$ counts particles minus antiparticles.
 :::
 ::::
@@ -1042,16 +1042,16 @@ fields of different charges, which rotate by different multiples of the same ang
 ::: {#exr-fld-phase-invariants}
 #### Which terms are allowed?
 
-Which of $|\phi|^6$, $\phi^3 + \bar\phi^3$, $\bar\phi\,\partial_\mu\phi$, $\bar\phi\,\partial_\mu\phi\,\partial^\mu\phi$ are
+Which of $|\phi|^6$, $\phi^3 + \phi^{*3}$, $\phi^*\,\partial_\mu\phi$, $\phi^*\,\partial_\mu\phi\,\partial^\mu\phi$ are
 invariant under $\phi \mapsto e^{i\alpha}\phi$? If fields $\phi_1, \phi_2, \phi_3$ transform as $\phi_j \mapsto
-e^{iq_j\alpha}\phi_j$, when is $\phi_1\phi_2\bar\phi_3$ invariant?
+e^{iq_j\alpha}\phi_j$, when is $\phi_1\phi_2\phi_3^*$ invariant?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-A monomial with $a$ factors of $\phi$ or its derivatives and $b$ factors of $\bar\phi$ or its derivatives (for
+A monomial with $a$ factors of $\phi$ or its derivatives and $b$ factors of $\phi^*$ or its derivatives (for
 constant $\alpha$ derivatives transform like the fields) picks up $e^{i(a - b)\alpha}$, so it is invariant iff $a = b$.
-Thus $|\phi|^6$ ($a = b = 3$) and $\bar\phi\,\partial_\mu\phi$ ($a = b = 1$) are invariant, while $\phi^3 + \bar\phi^3$
-($a - b = \pm3$) and $\bar\phi\,\partial_\mu\phi\,\partial^\mu\phi$ ($a - b = 1$) are not. With charges the phase is
+Thus $|\phi|^6$ ($a = b = 3$) and $\phi^*\,\partial_\mu\phi$ ($a = b = 1$) are invariant, while $\phi^3 + \phi^{*3}$
+($a - b = \pm3$) and $\phi^*\,\partial_\mu\phi\,\partial^\mu\phi$ ($a - b = 1$) are not. With charges the phase is
 $e^{i(q_1 + q_2 - q_3)\alpha}$, so the term is invariant iff $q_1 + q_2 = q_3$: charge conservation at the vertex.
 :::
 
@@ -1097,15 +1097,15 @@ proves this and computes the charge density of a plane wave with Sage.
 ::: {#exr-fld-noether-current}
 #### Conservation of the $U(1)$ current
 
-In $1 + 1$ dimensions show that $\partial_\mu j^\mu = i(\bar\phi\,\Box\phi - \phi\,\Box\bar\phi)$ for $j^\mu =
-i(\bar\phi\partial^\mu\phi - \phi\partial^\mu\bar\phi)$, deduce conservation for solutions of the Klein-Gordon equation,
+In $1 + 1$ dimensions show that $\partial_\mu j^\mu = i(\phi^*\,\Box\phi - \phi\,\Box\phi^*)$ for $j^\mu =
+i(\phi^*\partial^\mu\phi - \phi\partial^\mu\phi^*)$, deduce conservation for solutions of the Klein-Gordon equation,
 check it for a superposition of two on-shell plane waves, and find $j^0$ for $\phi = a e^{-i(\omega t - kx)}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_\mu j^\mu = i(\partial_\mu\bar\phi\,\partial^\mu\phi + \bar\phi\,\Box\phi - \partial_\mu\phi\,\partial^\mu\bar\phi -
-\phi\,\Box\bar\phi)$, and the first and third terms cancel. If $\Box\phi = -m^2\phi$ (and so $\Box\bar\phi =
--m^2\bar\phi$, $m$ being real), the remaining terms give $i(-m^2\bar\phi\phi + m^2\phi\bar\phi) = 0$. For the single
+$\partial_\mu j^\mu = i(\partial_\mu\phi^*\,\partial^\mu\phi + \phi^*\,\Box\phi - \partial_\mu\phi\,\partial^\mu\phi^* -
+\phi\,\Box\phi^*)$, and the first and third terms cancel. If $\Box\phi = -m^2\phi$ (and so $\Box\phi^* =
+-m^2\phi^*$, $m$ being real), the remaining terms give $i(-m^2\phi^*\phi + m^2\phi\phi^*) = 0$. For the single
 wave $j^0 = 2\omega a^2 > 0$:
 
 ```python
@@ -1147,7 +1147,7 @@ along curves.
 
 A **vector field** $A_\mu(x)$ in the sense of field theory is a one-form (@def-one-form) on spacetime, $A =
 A_\mu dx^\mu$, with the transformation law @eq-covector-transformation under coordinate changes; its index is
-raised with the metric, $A^\mu = \eta^{\mu\nu}A_\nu$, and $A_0$ is its time component, $\vec A$ its space
+raised with the metric, $A^\mu = \eta^{\mu\nu}A_\nu$, and $A_0$ is its time component, $\mathbf A$ its space
 components.
 :::
 ::::
@@ -1159,9 +1159,9 @@ spells out the identification and the signs that the signature introduces.
 ::: {#exm-vector-electromagnetic}
 #### The electromagnetic potential
 
-$A^\mu = (\Phi, \vec A)$, that is $A_\mu = (\Phi, -\vec A)$, collects the electrostatic potential $\Phi$ and the magnetic vector potential $\vec A$;
-the electric and magnetic fields are its derivatives, $\vec E = -\nabla\Phi - \partial_t\vec A$, $\vec B = \nabla
-\times\vec A$ (@exm-vector-field-strength).
+$A^\mu = (\Phi, \mathbf A)$, that is $A_\mu = (\Phi, -\mathbf A)$, collects the electrostatic potential $\Phi$ and the magnetic vector potential $\mathbf A$;
+the electric and magnetic fields are its derivatives, $\mathbf E = -\nabla\Phi - \partial_t\mathbf A$, $\mathbf B = \nabla
+\times\mathbf A$ (@exm-vector-field-strength).
 :::
 
 A gauge field of a non-abelian group carries an extra index. The second example describes it as a collection of
@@ -1190,9 +1190,9 @@ next example shows the decomposition in Fourier space, where it is a projection.
 ::: {#exm-cfb-helmholtz}
 #### Transverse and longitudinal parts
 
-Every vector field on $\mathbb{R}^3$ decaying at infinity splits as $\vec V = \vec V_\parallel + \vec V_\perp$ with $\nabla\times\vec V_\parallel = 0$ and $\nabla\cdot\vec V_\perp = 0$. In Fourier space
-$\tilde V_\parallel = \hat k(\hat k\cdot\tilde V)$ and $\tilde V_\perp = \tilde V - \hat k(\hat k\cdot\tilde V)$, the projections on and orthogonal to $\vec k$. In position space $\vec V_\parallel = -\nabla\phi$ with
-$\nabla^2\phi = -\nabla\cdot\vec V$, which is non-local: $\vec V_\parallel(\vec x)$ depends on $\vec V$ everywhere, through the Coulomb kernel $1/(4\pi|\vec x - \vec y|)$
+Every vector field on $\mathbb{R}^3$ decaying at infinity splits as $\mathbf V = \mathbf V_\parallel + \mathbf V_\perp$ with $\nabla\times\mathbf V_\parallel = 0$ and $\nabla\cdot\mathbf V_\perp = 0$. In Fourier space
+$\hat{\mathbf V}_\parallel = \hat{\mathbf k}(\hat{\mathbf k}\cdot\hat{\mathbf V})$ and $\hat{\mathbf V}_\perp = \hat{\mathbf V} - \hat{\mathbf k}(\hat{\mathbf k}\cdot\hat{\mathbf V})$, the projections on and orthogonal to $\mathbf k$. In position space $\mathbf V_\parallel = -\nabla\phi$ with
+$\nabla^2\phi = -\nabla\cdot\mathbf V$, which is non-local: $\mathbf V_\parallel(\mathbf x)$ depends on $\mathbf V$ everywhere, through the Coulomb kernel $1/(4\pi|\mathbf x - \mathbf y|)$
 [@maggiore2023electrodynamics, Problem 11.1].
 :::
 ::::
@@ -1204,12 +1204,12 @@ of a potential and classifies it by sign.
 ::: {#exr-fld-index-lowering}
 #### Raising and lowering an index
 
-For $A^\mu = (\Phi, \vec A)$ find $A_\mu$ and $A_\mu A^\mu$. Classify $A^\mu = (2, 1, 0, 0)$, $(1, 1, 0, 0)$ and $(0, 0,
+For $A^\mu = (\Phi, \mathbf A)$ find $A_\mu$ and $A_\mu A^\mu$. Classify $A^\mu = (2, 1, 0, 0)$, $(1, 1, 0, 0)$ and $(0, 0,
 3, 4)$ as timelike, null or spacelike, and give $A_\mu$ for each.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$A_\mu = \eta_{\mu\nu}A^\nu = (\Phi, -\vec A)$ and $A_\mu A^\mu = \Phi^2 - |\vec A|^2$. For $(2, 1, 0, 0)$: $A_\mu = (2, -
+$A_\mu = \eta_{\mu\nu}A^\nu = (\Phi, -\mathbf A)$ and $A_\mu A^\mu = \Phi^2 - |\mathbf A|^2$. For $(2, 1, 0, 0)$: $A_\mu = (2, -
 1, 0, 0)$, square $3 > 0$, timelike. For $(1, 1, 0, 0)$: $A_\mu = (1, -1, 0, 0)$, square $0$, null. For $(0, 0, 3,
 4)$: $A_\mu = (0, 0, -3, -4)$, square $-25 < 0$, spacelike. In the signature $(+, -, -, -)$ timelike vectors have
 positive square.
@@ -1239,18 +1239,18 @@ exhibits this for the potential outside a thin solenoid, and computes its flux w
 ::: {#exr-fld-solenoid}
 #### The potential of a thin solenoid
 
-Let $\vec A = \frac{\Phi_B}{2\pi r}\hat e_\varphi$ outside the $z$-axis, that is $\vec A\cdot d\vec x = \frac{\Phi_B}{2\pi}
-d\varphi$. Show with Sage that $\nabla \times \vec A = 0$ for $r > 0$, that $\oint\vec A\cdot d\vec x = \Phi_B$ around
-the axis, and that $\vec A = \nabla(\Phi_B\varphi/2\pi)$ locally but not globally.
+Let $\mathbf A = \frac{\Phi_B}{2\pi r}\hat{\mathbf e}_\varphi$ outside the $z$-axis, that is $\mathbf A\cdot d\mathbf x = \frac{\Phi_B}{2\pi}
+d\varphi$. Show with Sage that $\nabla \times \mathbf A = 0$ for $r > 0$, that $\oint\mathbf A\cdot d\mathbf x = \Phi_B$ around
+the axis, and that $\mathbf A = \nabla(\Phi_B\varphi/2\pi)$ locally but not globally.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In Cartesian components $\vec A = \frac{\Phi_B}{2\pi}\big(\frac{-y}{r^2}, \frac{x}{r^2}, 0\big)$, whose curl vanishes
+In Cartesian components $\mathbf A = \frac{\Phi_B}{2\pi}\big(\frac{-y}{r^2}, \frac{x}{r^2}, 0\big)$, whose curl vanishes
 away from the axis. The line integral around a circle is $\Phi_B$, the magnetic flux confined in the solenoid
-(Stokes' theorem applied to a disc that crosses the axis). Locally $\vec A$ is the gradient of $\Phi_B\varphi/2\pi$,
-but $\varphi$ is not a single-valued function around the axis, so $\vec A$ cannot be removed by a gauge
+(Stokes' theorem applied to a disc that crosses the axis). Locally $\mathbf A$ is the gradient of $\Phi_B\varphi/2\pi$,
+but $\varphi$ is not a single-valued function around the axis, so $\mathbf A$ cannot be removed by a gauge
 transformation: a charged particle encircling the solenoid feels the flux through its phase (the Aharonov-Bohm effect),
-although $\vec B = 0$ along its path:
+although $\mathbf B = 0$ along its path:
 
 ```python
 x, y, z, P = var("x y z P", domain="real")
@@ -1282,14 +1282,14 @@ The vector-form statement is in @prp-emm-gauges and @exm-emw-pw-fourier.
 ::: {#exr-cfb-coulomb-gauge}
 #### The Coulomb gauge
 
-Show that every $A_\mu$ is gauge equivalent to one with $\nabla\cdot\vec A = 0$, that in this gauge Gauss's law gives $\nabla^2A_0 = -\rho$, so $A_0$ is fixed instantaneously by the charges,
-and that in vacuum $A_0 = 0$ and $\vec A$ satisfies the wave equation with $\vec k\cdot\vec\epsilon = 0$: two polarisations [@maggiore2023electrodynamics, Sec. 9.3].
+Show that every $A_\mu$ is gauge equivalent to one with $\nabla\cdot\mathbf A = 0$, that in this gauge Gauss's law gives $\nabla^2A_0 = -\rho$, so $A_0$ is fixed instantaneously by the charges,
+and that in vacuum $A_0 = 0$ and $\mathbf A$ satisfies the wave equation with $\mathbf k\cdot\boldsymbol\epsilon = 0$: two polarisations [@maggiore2023electrodynamics, Sec. 9.3].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Under $A_\mu \to A_\mu + \partial_\mu\lambda$, $\vec A = (A^i)$ changes by $-\nabla\lambda$, so $\nabla^2\lambda = \nabla\cdot\vec A$ makes the new $\vec A$ divergence free (@exm-cfb-helmholtz: the gauge removes
-$\vec A_\parallel$). Gauss's law $\nabla\cdot\vec E = \rho$ with $\vec E = -\nabla A_0 - \partial_t\vec A$ gives $-\nabla^2A_0 = \rho$. In vacuum with decaying fields $A_0 = 0$, and the remaining
-equations reduce to $\Box\vec A = 0$ with $\nabla\cdot\vec A = 0$; a plane wave $\vec\epsilon e^{i(\vec k\cdot\vec x - \omega t)}$ needs $\vec k\cdot\vec\epsilon = 0$, two transverse directions, as in
+Under $A_\mu \to A_\mu + \partial_\mu\lambda$, $\mathbf A = (A^i)$ changes by $-\nabla\lambda$, so $\nabla^2\lambda = \nabla\cdot\mathbf A$ makes the new $\mathbf A$ divergence free (@exm-cfb-helmholtz: the gauge removes
+$\mathbf A_\parallel$). Gauss's law $\nabla\cdot\mathbf E = \rho$ with $\mathbf E = -\nabla A_0 - \partial_t\mathbf A$ gives $-\nabla^2A_0 = \rho$. In vacuum with decaying fields $A_0 = 0$, and the remaining
+equations reduce to $\Box\mathbf A = 0$ with $\nabla\cdot\mathbf A = 0$; a plane wave $\boldsymbol\epsilon e^{i(\mathbf k\cdot\mathbf x - \omega t)}$ needs $\mathbf k\cdot\boldsymbol\epsilon = 0$, two transverse directions, as in
 @exr-em-wave.
 :::
 ::::
@@ -1309,15 +1309,15 @@ $dF = 0$, the **Bianchi identity**.
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The six independent components of an antisymmetric $4 \times 4$ tensor match the six components of $\vec E$ and
-$\vec B$. The first example identifies them, with the signs fixed by $A_i = -A^i$.
+The six independent components of an antisymmetric $4 \times 4$ tensor match the six components of $\mathbf E$ and
+$\mathbf B$. The first example identifies them, with the signs fixed by $A_i = -A^i$.
 
 ::: {#exm-vector-field-strength}
 #### Electric and magnetic fields
 
 $F_{0i} = \partial_tA_i - \partial_i A_0 = E_i$ and $F_{ij} = \partial_iA_j - \partial_jA_i = -\epsilon_{ijk}B_k$ (with $A_i = -A^i$): the six
-components of $F$ are $\vec E$ and $\vec B$, and $dF = 0$ contains the two homogeneous Maxwell equations $\nabla\cdot
-\vec B = 0$ and $\nabla\times\vec E + \partial_t\vec B = 0$.
+components of $F$ are $\mathbf E$ and $\mathbf B$, and $dF = 0$ contains the two homogeneous Maxwell equations $\nabla\cdot
+\mathbf B = 0$ and $\nabla\times\mathbf E + \partial_t\mathbf B = 0$.
 :::
 
 A plane-wave potential gives the simplest non-trivial field strength. The second example computes it and shows that
@@ -1326,8 +1326,8 @@ one polarisation produces no field at all.
 ::: {#exm-vector-plane-wave}
 #### An electromagnetic wave
 
-$A_\mu = \epsilon_\mu\cos(\vec k\cdot\vec x - \omega t)$ with a constant **polarisation** $\epsilon_\mu$ has $F_{\mu\nu} =
-(k_\mu\epsilon_\nu - k_\nu\epsilon_\mu)\sin(\vec k\cdot\vec x - \omega t)$ with $k_\mu = (\omega, -\vec k)$, so that $\vec k\cdot\vec x -
+$A_\mu = \epsilon_\mu\cos(\mathbf k\cdot\mathbf x - \omega t)$ with a constant **polarisation** $\epsilon_\mu$ has $F_{\mu\nu} =
+(k_\mu\epsilon_\nu - k_\nu\epsilon_\mu)\sin(\mathbf k\cdot\mathbf x - \omega t)$ with $k_\mu = (\omega, -\mathbf k)$, so that $\mathbf k\cdot\mathbf x -
 \omega t = -k_\mu x^\mu$: an electromagnetic
 wave, whose field strength vanishes when $\epsilon_\mu \propto k_\mu$, a pure gauge polarisation.
 :::
@@ -1350,9 +1350,9 @@ In vector form this is @exm-emm-charge-conservation; the covariant form shows th
 ::: {#exm-cfb-continuity}
 #### Maxwell's equations imply charge conservation
 
-The inhomogeneous equations are $\partial_\mu F^{\mu\nu} = j^\nu$, with $j^\nu = (\rho, \vec j)$: for $\nu = 0$ Gauss's law $\nabla\cdot\vec E = \rho$, for $\nu = i$ the Ampère-Maxwell law
-$\nabla\times\vec B - \partial_t\vec E = \vec j$. Since $F^{\mu\nu}$ is antisymmetric and $\partial_\mu\partial_\nu$ symmetric, $\partial_\nu\partial_\mu F^{\mu\nu} = 0$, hence $\partial_\nu j^\nu = \partial_t\rho + \nabla\cdot\vec j = 0$: the
-equations are inconsistent unless the source is conserved. The displacement current $\partial_t\vec E$ is exactly what this requires
+The inhomogeneous equations are $\partial_\mu F^{\mu\nu} = j^\nu$, with $j^\nu = (\rho, \mathbf j)$: for $\nu = 0$ Gauss's law $\nabla\cdot\mathbf E = \rho$, for $\nu = i$ the Ampère-Maxwell law
+$\nabla\times\mathbf B - \partial_t\mathbf E = \mathbf j$. Since $F^{\mu\nu}$ is antisymmetric and $\partial_\mu\partial_\nu$ symmetric, $\partial_\nu\partial_\mu F^{\mu\nu} = 0$, hence $\partial_\nu j^\nu = \partial_t\rho + \nabla\cdot\mathbf j = 0$: the
+equations are inconsistent unless the source is conserved. The displacement current $\partial_t\mathbf E$ is exactly what this requires
 [@maggiore2023electrodynamics, Sec. 8.3].
 :::
 
@@ -1372,14 +1372,14 @@ Under a boost the electric and magnetic fields mix, since they are components of
 transformation and its two invariants.
 
 ::: {#exm-cfb-field-boost}
-#### How $\vec E$ and $\vec B$ transform
+#### How $\mathbf E$ and $\mathbf B$ transform
 
 For a boost with velocity $v$ along $x$ ($c = 1$), $F'_{\mu\nu} = (\Lambda^{-1})^\alpha{}_\mu(\Lambda^{-1})^\beta{}_\nu F_{\alpha\beta}$ gives
 $$
 E'_x = E_x, \quad E'_y = \gamma(E_y - vB_z), \quad E'_z = \gamma(E_z + vB_y), \qquad B'_x = B_x, \quad B'_y = \gamma(B_y + vE_z), \quad B'_z = \gamma(B_z - vE_y) .
 $$
-The combinations $F_{\mu\nu}F^{\mu\nu} = 2(\vec B^2 - \vec E^2)$ and $\vec E\cdot\vec B$ (proportional to $F_{\mu\nu}\tilde F^{\mu\nu}$) are invariant. A pure electric field in one frame is seen as
-electric and magnetic in another; a field with $\vec E\cdot\vec B \neq 0$ is never purely electric or purely magnetic [@maggiore2023electrodynamics, Sec. 8.5].
+The combinations $F_{\mu\nu}F^{\mu\nu} = 2(\mathbf B^2 - \mathbf E^2)$ and $\mathbf E\cdot\mathbf B$ (proportional to $F_{\mu\nu}\tilde F^{\mu\nu}$) are invariant. A pure electric field in one frame is seen as
+electric and magnetic in another; a field with $\mathbf E\cdot\mathbf B \neq 0$ is never purely electric or purely magnetic [@maggiore2023electrodynamics, Sec. 8.5].
 The special relativity chapter gives the transformation for a boost in any direction (@prp-sr-field-transformation) and
 proves the invariants (@prp-sr-field-invariants).
 :::
@@ -1391,11 +1391,11 @@ which flattens as the speed grows.
 ::: {#exm-cfb-moving-charge}
 #### The field of a uniformly moving charge
 
-Boosting the Coulomb field of a charge $q$ at rest gives, at the vector $\vec R$ from the present position of the charge to the observer,
+Boosting the Coulomb field of a charge $q$ at rest gives, at the vector $\mathbf R$ from the present position of the charge to the observer,
 $$
-\vec E = \frac{q}{4\pi}\,\frac{1 - v^2}{\bigl(1 - v^2\sin^2\psi\bigr)^{3/2}}\,\frac{\vec R}{R^3}, \qquad \vec B = \vec v\times\vec E ,
+\mathbf E = \frac{q}{4\pi}\,\frac{1 - v^2}{\bigl(1 - v^2\sin^2\psi\bigr)^{3/2}}\,\frac{\mathbf R}{R^3}, \qquad \mathbf B = \mathbf v\times\mathbf E ,
 $$
-with $\psi$ the angle between $\vec R$ and $\vec v$. The field points from the present position, not the retarded one, and is weakened by $1 - v^2$ along the motion and
+with $\psi$ the angle between $\mathbf R$ and $\mathbf v$. The field points from the present position, not the retarded one, and is weakened by $1 - v^2$ along the motion and
 strengthened by $\gamma$ across it: for $v \to 1$ it is concentrated in a thin disc, the field of a plane wave pulse [@maggiore2023electrodynamics, Sec. 10.3].
 :::
 
@@ -1405,9 +1405,9 @@ finds the frame, which explains the drift of charges in crossed fields.
 ::: {#exm-cfb-crossed-fields}
 #### Crossed fields and the drift velocity
 
-Let $\vec E = E\hat y$ and $\vec B = B\hat z$ with $0 < E < B$, so $\vec E\cdot\vec B = 0$ and $\vec B^2 - \vec E^2 > 0$. In the frame moving with $\vec v = \vec E\times\vec B/B^2 = (E/B)\hat x$, the
+Let $\mathbf E = E\hat{\mathbf y}$ and $\mathbf B = B\hat{\mathbf z}$ with $0 < E < B$, so $\mathbf E\cdot\mathbf B = 0$ and $\mathbf B^2 - \mathbf E^2 > 0$. In the frame moving with $\mathbf v = \mathbf E\times\mathbf B/B^2 = (E/B)\hat{\mathbf x}$, the
 transformation of @exm-cfb-field-boost gives $E'_y = \gamma(E - vB) = 0$ and $B'_z = \sqrt{B^2 - E^2}$: a pure magnetic field, in which a charge moves on circles. In the
-laboratory the circles drift with $\vec v$, independently of the charge and mass: the $\vec E\times\vec B$ drift of plasma physics. For $E > B$ the field can instead be made purely
+laboratory the circles drift with $\mathbf v$, independently of the charge and mass: the $\mathbf E\times\mathbf B$ drift of plasma physics. For $E > B$ the field can instead be made purely
 electric [@maggiore2023electrodynamics, Sec. 8.5].
 :::
 ::::
@@ -1419,12 +1419,12 @@ polarisations that survive gauge invariance and the field equations gives the tw
 ::: {#exr-em-wave}
 #### An electromagnetic plane wave
 
-For $A_\mu = \epsilon_\mu\cos(\vec k\cdot\vec x - \omega t)$ compute $F_{\mu\nu}$, show that it vanishes for $\epsilon_\mu
+For $A_\mu = \epsilon_\mu\cos(\mathbf k\cdot\mathbf x - \omega t)$ compute $F_{\mu\nu}$, show that it vanishes for $\epsilon_\mu
 \propto k_\mu$, and count the physical polarisations.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_\mu A_\nu = k_\mu\epsilon_\nu\sin(\cdot)$ with $k_\mu = (\omega, -\vec k)$, since $\partial_\mu(\vec k\cdot\vec x - \omega t)
+$\partial_\mu A_\nu = k_\mu\epsilon_\nu\sin(\cdot)$ with $k_\mu = (\omega, -\mathbf k)$, since $\partial_\mu(\mathbf k\cdot\mathbf x - \omega t)
 = -k_\mu$, so $F_{\mu\nu} = (k_\mu\epsilon_\nu - k_\nu\epsilon_\mu)\sin(\cdot)$, antisymmetric and vanishing when $\epsilon \propto k$:
 that polarisation is the gauge
 transformation $A \to A + d\lambda$ with $\lambda \propto \sin(\cdot)$. Maxwell's equations require $k\cdot\epsilon = 0$
@@ -1439,13 +1439,13 @@ verifies it in full generality with Sage and decodes it into vector notation.
 #### The Bianchi identity and the homogeneous Maxwell equations
 
 For an arbitrary $A_\mu(t, x, y, z)$, verify with Sage that $\partial_\lambda F_{\mu\nu} + \partial_\mu F_{\nu\lambda} +
-\partial_\nu F_{\lambda\mu} = 0$, and that with $A_\mu = (\Phi, -\vec A)$, $E_i = F_{0i}$ and $F_{ij} = -\epsilon_{ijk}B_k$
-it states $\nabla\cdot\vec B = 0$ and $\nabla\times\vec E + \partial_t\vec B = 0$.
+\partial_\nu F_{\lambda\mu} = 0$, and that with $A_\mu = (\Phi, -\mathbf A)$, $E_i = F_{0i}$ and $F_{ij} = -\epsilon_{ijk}B_k$
+it states $\nabla\cdot\mathbf B = 0$ and $\nabla\times\mathbf E + \partial_t\mathbf B = 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Each term of the cyclic sum is a second derivative of $A$, and they cancel in pairs because partial derivatives
-commute; this is $d(dA) = 0$. The triple $(\lambda, \mu, \nu) = (1, 2, 3)$ gives $\nabla\cdot\vec B = 0$, and the triples
+commute; this is $d(dA) = 0$. The triple $(\lambda, \mu, \nu) = (1, 2, 3)$ gives $\nabla\cdot\mathbf B = 0$, and the triples
 containing $0$ give Faraday's law:
 
 ```python
@@ -1524,8 +1524,8 @@ performs it with Sage and checks the crossed-field frame.
 ::: {#exr-cfb-invariants}
 #### Invariants of the electromagnetic field
 
-With Sage, build $F_{\mu\nu}$ from $\vec E$ and $\vec B$ with the conventions of @exm-vector-field-strength, transform it by a boost along $x$, read off $\vec E'$ and $\vec B'$, check that
-$\vec B^2 - \vec E^2$ and $\vec E\cdot\vec B$ are invariant, and verify the frame of @exm-cfb-crossed-fields [@maggiore2023electrodynamics, Sec. 8.5].
+With Sage, build $F_{\mu\nu}$ from $\mathbf E$ and $\mathbf B$ with the conventions of @exm-vector-field-strength, transform it by a boost along $x$, read off $\mathbf E'$ and $\mathbf B'$, check that
+$\mathbf B^2 - \mathbf E^2$ and $\mathbf E\cdot\mathbf B$ are invariant, and verify the frame of @exm-cfb-crossed-fields [@maggiore2023electrodynamics, Sec. 8.5].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1575,7 +1575,7 @@ crossed fields in the frame v = E/B: E' = [0, 0, 0]  B'_z = sqrt(Bz^2 - Ey^2)
 ```
 
 The components along the boost are unchanged and the transverse ones mix with factor $\gamma$; both invariants are preserved, and at $v = E/B$ the crossed fields become
-$\vec E' = 0$, $B' = \sqrt{B^2 - E^2}$.
+$\mathbf E' = 0$, $B' = \sqrt{B^2 - E^2}$.
 :::
 
 A charge in a constant electric field accelerates forever but never reaches the speed of light. The next exercise solves
@@ -1584,7 +1584,7 @@ its motion exactly, the hyperbolic motion of the Rindler observer.
 ::: {#exr-cfb-constant-electric}
 #### Motion in a constant electric field
 
-A particle of mass $m$ and charge $q$ starts at rest at the origin in $\vec E = E\hat x$ ($c = 1$). Solve $d\vec p/dt = q\vec E$ with $\vec p = \gamma m\vec v$, find $v(t)$, $x(t)$ and the proper time,
+A particle of mass $m$ and charge $q$ starts at rest at the origin in $\mathbf E = E\hat{\mathbf x}$ ($c = 1$). Solve $d\mathbf p/dt = q\mathbf E$ with $\mathbf p = \gamma m\mathbf v$, find $v(t)$, $x(t)$ and the proper time,
 and show that $x(t)$ is a hyperbola in spacetime [@maggiore2023electrodynamics, Problem 8.3].
 :::
 
@@ -1600,12 +1600,12 @@ find the relativistic cyclotron frequency.
 ::: {#exr-cfb-constant-magnetic}
 #### Motion in a constant magnetic field
 
-For $m\,d(\gamma\vec v)/dt = q\vec v\times\vec B$ with constant $\vec B = B\hat z$, show that $|\vec v|$ and $\gamma$ are constant, that $v_z$ is constant, and that the transverse motion is a circle with
+For $m\,d(\gamma\mathbf v)/dt = q\mathbf v\times\mathbf B$ with constant $\mathbf B = B\hat{\mathbf z}$, show that $|\mathbf v|$ and $\gamma$ are constant, that $v_z$ is constant, and that the transverse motion is a circle with
 angular frequency $\omega = qB/(\gamma m)$ and radius $p_\perp/(qB)$ [@maggiore2023electrodynamics, Problem 8.4].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The force $q\vec v\times\vec B$ is orthogonal to $\vec v$ and does no work, so the energy $\gamma m$ is constant: $\gamma$ and $|\vec v|$ are constant. Then $\gamma m\dot{\vec v} = q\vec v\times\vec B$ is the non-relativistic equation with mass $\gamma m$: $v_z$ is constant and $(v_x, v_y)$ rotates with $\omega = qB/(\gamma m)$,
+The force $q\mathbf v\times\mathbf B$ is orthogonal to $\mathbf v$ and does no work, so the energy $\gamma m$ is constant: $\gamma$ and $|\mathbf v|$ are constant. Then $\gamma m\dot{\mathbf v} = q\mathbf v\times\mathbf B$ is the non-relativistic equation with mass $\gamma m$: $v_z$ is constant and $(v_x, v_y)$ rotates with $\omega = qB/(\gamma m)$,
 on a circle of radius $v_\perp/\omega = \gamma mv_\perp/(qB) = p_\perp/(qB)$. Fast particles circulate more slowly, which is why cyclotrons fail at relativistic energies
 and synchrotrons raise $B$ with the energy.
 :::
@@ -1618,12 +1618,12 @@ The vector-form derivation through the retarded potentials is @exr-emw-lw-field-
 #### The boosted Coulomb field
 
 A charge $q$ rests at the origin of a frame $K'$ that moves with velocity $v$ along $x$ relative to $K$. Using the transformation of @exm-cfb-field-boost (with $v \to -v$, from $K'$ to $K$),
-find $\vec E$ and $\vec B$ in $K$ at $t = 0$, and show that they take the form of @exm-cfb-moving-charge [@maggiore2023electrodynamics, Sec. 10.3].
+find $\mathbf E$ and $\mathbf B$ in $K$ at $t = 0$, and show that they take the form of @exm-cfb-moving-charge [@maggiore2023electrodynamics, Sec. 10.3].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In $K'$, $\vec E' = \tfrac{q}{4\pi}\vec r'/r'^3$ and $\vec B' = 0$. Inverting the boost: $E_x = E'_x$, $E_{y, z} = \gamma E'_{y, z}$, $\vec B = \vec v\times\vec E$. At $t = 0$, $x' = \gamma x$, $y' = y$, $z' = z$, so
-$\vec E = \tfrac{q\gamma}{4\pi}\vec R/(\gamma^2x^2 + y^2 + z^2)^{3/2}$ with $\vec R = (x, y, z)$ from the present position. Writing $x = R\cos\psi$, $\gamma^2x^2 + y^2 + z^2 = \gamma^2R^2(1 - v^2\sin^2\psi)$, and
+In $K'$, $\mathbf E' = \tfrac{q}{4\pi}\mathbf r'/r'^3$ and $\mathbf B' = 0$. Inverting the boost: $E_x = E'_x$, $E_{y, z} = \gamma E'_{y, z}$, $\mathbf B = \mathbf v\times\mathbf E$. At $t = 0$, $x' = \gamma x$, $y' = y$, $z' = z$, so
+$\mathbf E = \tfrac{q\gamma}{4\pi}\mathbf R/(\gamma^2x^2 + y^2 + z^2)^{3/2}$ with $\mathbf R = (x, y, z)$ from the present position. Writing $x = R\cos\psi$, $\gamma^2x^2 + y^2 + z^2 = \gamma^2R^2(1 - v^2\sin^2\psi)$, and
 $\gamma/\gamma^3 = 1 - v^2$ gives the stated field. It is radial from the present position although the field propagates at the speed of light, because uniform motion
 is predictable.
 :::
@@ -1680,13 +1680,13 @@ modulus and of complex conjugation.
 ::: {#exr-fld-modulus-proof}
 #### Two proofs
 
-Prove $|e^{i\alpha}\phi|^2 = |\phi|^2$ (a) from $|zw| = |z||w|$ and $|e^{i\alpha}| = 1$, (b) from $|z|^2 = \bar zz$ and
-$\overline{e^{i\alpha}} = e^{-i\alpha}$. Where is the reality of $\alpha$ used?
+Prove $|e^{i\alpha}\phi|^2 = |\phi|^2$ (a) from $|zw| = |z||w|$ and $|e^{i\alpha}| = 1$, (b) from $|z|^2 = z^*z$ and
+$(e^{i\alpha})^* = e^{-i\alpha}$. Where is the reality of $\alpha$ used?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) $|e^{i\alpha}\phi| = |e^{i\alpha}||\phi|$ and $|e^{i\alpha}|^2 = \cos^2\alpha + \sin^2\alpha = 1$. (b)
-$\overline{e^{i\alpha}\phi}\,e^{i\alpha}\phi = e^{-i\alpha}e^{i\alpha}\bar\phi\phi = \bar\phi\phi$. Both use $\alpha \in
+$(e^{i\alpha}\phi)^*\,e^{i\alpha}\phi = e^{-i\alpha}e^{i\alpha}\phi^*\phi = \phi^*\phi$. Both use $\alpha \in
 \mathbb{R}$: for complex $\alpha = a + ib$, $|e^{i\alpha}| = e^{-b} \neq 1$ unless $b = 0$, and multiplication by
 $e^{i\alpha}$ is then a rotation combined with a rescaling.
 :::
@@ -1698,15 +1698,15 @@ real-linear maps of the plane, and meets charge conjugation.
 #### All maps that preserve the modulus
 
 Which complex-linear maps $\phi \mapsto c\phi$ preserve $|\phi|^2$? Which real-linear maps of $\mathbb{C} = \mathbb{R}^2$
-do? Show that $\phi \mapsto \bar\phi$ is one of them but is not a phase rotation, and describe what it does to the
+do? Show that $\phi \mapsto \phi^*$ is one of them but is not a phase rotation, and describe what it does to the
 current $j^\mu$ of @exm-phase-charge.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $|c\phi|^2 = |c|^2|\phi|^2$, so $|c| = 1$, $c = e^{i\alpha}$: exactly the phase rotations. Real-linear maps preserving
 $u^2 + v^2$ form the orthogonal group $O(2)$, the rotations (phase rotations) and the reflections, which are
-$\phi \mapsto e^{i\alpha}\bar\phi$. Conjugation reverses the orientation of the plane, so it is not a rotation. It
-exchanges $\phi$ and $\bar\phi$ in $j^\mu = i(\bar\phi\partial^\mu\phi - \phi\partial^\mu\bar\phi)$, changing its
+$\phi \mapsto e^{i\alpha}\phi^*$. Conjugation reverses the orientation of the plane, so it is not a rotation. It
+exchanges $\phi$ and $\phi^*$ in $j^\mu = i(\phi^*\partial^\mu\phi - \phi\partial^\mu\phi^*)$, changing its
 sign: it is **charge conjugation**, exchanging particles and antiparticles.
 :::
 
@@ -1716,7 +1716,7 @@ proposition to a doublet and unitary matrices, and checks it with Sage.
 ::: {#exr-fld-modulus-doublet}
 #### Doublets and unitary rotations
 
-For a doublet $\Phi = (\phi_1, \phi_2)$ and $U = e^{i\beta}\begin{pmatrix} a & -\bar b \\ b & \bar a\end{pmatrix}$,
+For a doublet $\Phi = (\phi_1, \phi_2)$ and $U = e^{i\beta}\begin{pmatrix} a & -b^* \\ b & a^*\end{pmatrix}$,
 show with Sage that $|U\Phi|^2 = (|a|^2 + |b|^2)|\Phi|^2$, so that $U$ preserves $\Phi^\dagger\Phi$ when $|a|^2 + |b|^2 =
 1$, and that a non-unitary matrix such as $\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ does not.
 :::
@@ -1883,8 +1883,7 @@ The third exercise relates the Weyl matrices to the Dirac representation, conven
 #### The Dirac representation
 
 Show with Sage that $\gamma^0_D = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$, $\gamma^k_D = \begin{pmatrix} 0 &
-\sigma_k \\ -\sigma_k & 0 \end{pmatrix}$ satisfy the Clifford relations, and that $\gamma^\mu_D = U\gamma^\mu U^{\mathsf
-T}$ with $U = \tfrac{1}{\sqrt2}\begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}$ (in blocks). What is $\gamma_5$ there?
+\sigma_k \\ -\sigma_k & 0 \end{pmatrix}$ satisfy the Clifford relations, and that $\gamma^\mu_D = U\gamma^\mu U^\top$ with $U = \tfrac{1}{\sqrt2}\begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}$ (in blocks). What is $\gamma_5$ there?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1925,7 +1924,7 @@ definition below names these generators and the representation they integrate to
 #### Lorentz generators on spinors
 
 The matrices $S^{\mu\nu} = \tfrac14[\gamma^\mu, \gamma^\nu]$ satisfy the commutation relations of the Lorentz
-algebra $\mathfrak{so}(3, 1)$ of @def-sr-lorentz-algebra, the same brackets as its defining generators $M^{\mu\nu}$,
+algebra $\mathfrak{so}(1, 3)$ of @def-sr-lorentz-algebra, the same brackets as its defining generators $M^{\mu\nu}$,
 $$
 [S^{\mu\nu}, S^{\rho\sigma}] = \eta^{\nu\rho}S^{\mu\sigma} - \eta^{\mu\rho}S^{\nu\sigma} - \eta^{\nu\sigma}S^{\mu\rho} + \eta^{\mu\sigma}S^{\nu\rho} ,
 $$ {#eq-lorentz-spinor}
@@ -2018,7 +2017,7 @@ print("gamma_5 = i gamma^0 gamma^1 gamma^2 gamma^3 =", g5.list(), "; gamma_5^2 =
 S = [[(g[a] * g[b] - g[b] * g[a]) / 4 for b in range(4)] for a in range(4)]
 # Lorentz algebra: [S^{ab}, S^{cd}] = eta^{bc} S^{ad} - eta^{ac} S^{bd} - eta^{bd} S^{ac} + eta^{ad} S^{bc} (the same form in either signature)
 ok = all((S[a][b] * S[c][d] - S[c][d] * S[a][b]) == eta[b, c] * S[a][d] - eta[a, c] * S[b][d] - eta[b, d] * S[a][c] + eta[a, d] * S[b][c] for a in range(4) for b in range(4) for c in range(4) for d in range(4))
-print("the generators S^{mu nu} = [gamma^mu, gamma^nu]/4 satisfy the so(3,1) algebra:", ok)
+print("the generators S^{mu nu} = [gamma^mu, gamma^nu]/4 satisfy the so(1,3) algebra:", ok)
 print("S^{12} = -(i/2) diag(sigma_3, sigma_3):", S[1][2] == -I / 2 * block_matrix([[s[2], Z], [Z, s[2]]], subdivide=False), "; a rotation by 2 pi about z gives exp(2 pi S^{12}) = -1:", bool((2 * pi * S[1][2]).exp().apply_map(lambda e: e.rectform().simplify_full()) == -identity_matrix(SR, 4)))
 ```
 
@@ -2027,7 +2026,7 @@ print("S^{12} = -(i/2) diag(sigma_3, sigma_3):", S[1][2] == -I / 2 * block_matri
 ```text
 Clifford relations {gamma^mu, gamma^nu} = 2 eta^{mu nu} with eta = diag(1, -1, -1, -1): True
 gamma_5 = i gamma^0 gamma^1 gamma^2 gamma^3 = [-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] ; gamma_5^2 = 1: True ; anticommutes with all gamma^mu: True
-the generators S^{mu nu} = [gamma^mu, gamma^nu]/4 satisfy the so(3,1) algebra: True
+the generators S^{mu nu} = [gamma^mu, gamma^nu]/4 satisfy the so(1,3) algebra: True
 S^{12} = -(i/2) diag(sigma_3, sigma_3): True ; a rotation by 2 pi about z gives exp(2 pi S^{12}) = -1: True
 ```
 :::
@@ -2282,10 +2281,10 @@ derives the condition and recovers the dispersion relation of the scalar field.
 ::: {#exm-dirac-plane-wave}
 #### Plane-wave solutions
 
-$\psi = u(k)e^{i(\vec k\cdot\vec x - \omega t)} = u(k)e^{-ik_\mu x^\mu}$ with $k_\mu = (\omega, -\vec k)$ solves @eq-dirac
-when $(\gamma^\mu k_\mu - m)u = 0$, which has non-zero solutions exactly when $k^\mu k_\mu = \omega^2 - \vec k^2 = m^2$,
+$\psi = u(k)e^{i(\mathbf k\cdot\mathbf x - \omega t)} = u(k)e^{-ik_\mu x^\mu}$ with $k_\mu = (\omega, -\mathbf k)$ solves @eq-dirac
+when $(\gamma^\mu k_\mu - m)u = 0$, which has non-zero solutions exactly when $k^\mu k_\mu = \omega^2 - \mathbf k^2 = m^2$,
 the dispersion relation @eq-dispersion again, with two
-independent spinors $u$ for each $\vec k$: the two spin states.
+independent spinors $u$ for each $\mathbf k$: the two spin states.
 :::
 
 Without a mass the Dirac equation splits into two independent pieces. The second example explains why, and why this
@@ -2586,8 +2585,8 @@ from the antisymmetric field strength.
 ::: {#exm-density-complex-maxwell}
 #### Complex scalar and Maxwell field
 
-$\mathcal{L} = \partial_\mu\bar\phi\,\partial^\mu\phi - m^2\bar\phi\phi$ for the complex scalar, invariant under the phase
-rotation of @def-phase-rotation; $\mathcal{L} = -\tfrac14F_{\mu\nu}F^{\mu\nu} = \tfrac12(\vec E^2 - \vec B^2)$ for the
+$\mathcal{L} = \partial_\mu\phi^*\,\partial^\mu\phi - m^2\phi^*\phi$ for the complex scalar, invariant under the phase
+rotation of @def-phase-rotation; $\mathcal{L} = -\tfrac14F_{\mu\nu}F^{\mu\nu} = \tfrac12(\mathbf E^2 - \mathbf B^2)$ for the
 electromagnetic field [@alvarezgaume2005, eq. 4.62], built from the field strength of @def-field-strength-abelian.
 :::
 
@@ -2645,32 +2644,32 @@ instead?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_\mu\bar\phi\,\partial^\mu\phi = \tfrac12(\partial_\mu\phi_1 - i\partial_\mu\phi_2)(\partial^\mu\phi_1 +
+$\partial_\mu\phi^*\,\partial^\mu\phi = \tfrac12(\partial_\mu\phi_1 - i\partial_\mu\phi_2)(\partial^\mu\phi_1 +
 i\partial^\mu\phi_2) = \tfrac12\partial_\mu\phi_1\partial^\mu\phi_1 + \tfrac12\partial_\mu\phi_2\partial^\mu\phi_2$, the
-imaginary cross terms cancelling, and $m^2\bar\phi\phi = \tfrac12m^2(\phi_1^2 + \phi_2^2)$; so $\mathcal{L} =
+imaginary cross terms cancelling, and $m^2\phi^*\phi = \tfrac12m^2(\phi_1^2 + \phi_2^2)$; so $\mathcal{L} =
 \sum_{a = 1, 2}(\tfrac12\partial\phi_a\cdot\partial\phi_a - \tfrac12m^2\phi_a^2)$. With $\phi = u + iv$ every term is
 doubled, $\mathcal{L} = (\partial u)^2 + (\partial v)^2 - m^2(u^2 + v^2)$: the same field equations, but the fields
 are not canonically normalised, a factor that reappears as the $2$ in $j^\mu = 2(v\,\partial^\mu u - u\,
 \partial^\mu v)$ of @exm-current-u1.
 :::
 
-The identification of $-\tfrac14F_{\mu\nu}F^{\mu\nu}$ with $\tfrac12(\vec E^2 - \vec B^2)$ depends on the signature and
-on the definitions of $\vec E$ and $\vec B$ in terms of the potential. The third exercise checks it component by
+The identification of $-\tfrac14F_{\mu\nu}F^{\mu\nu}$ with $\tfrac12(\mathbf E^2 - \mathbf B^2)$ depends on the signature and
+on the definitions of $\mathbf E$ and $\mathbf B$ in terms of the potential. The third exercise checks it component by
 component in Sage.
 
 ::: {#exr-acsym-density-maxwell}
 #### The Maxwell Lagrangian in terms of fields
 
-With $A^\mu = (A^0, \vec A)$, $A_\mu = \eta_{\mu\nu}A^\nu$, $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu$,
-$\vec E = -\nabla A^0 - \partial_t\vec A$ and $\vec B = \nabla\times\vec A$, show that $F_{0i} = E^i$, $F_{ij} = -
-\epsilon_{ijk}B^k$, $F_{\mu\nu}F^{\mu\nu} = 2(\vec B^2 - \vec E^2)$ and hence $-\tfrac14F_{\mu\nu}F^{\mu\nu} =
-\tfrac12(\vec E^2 - \vec B^2)$.
+With $A^\mu = (A^0, \mathbf A)$, $A_\mu = \eta_{\mu\nu}A^\nu$, $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu$,
+$\mathbf E = -\nabla A^0 - \partial_t\mathbf A$ and $\mathbf B = \nabla\times\mathbf A$, show that $F_{0i} = E^i$, $F_{ij} = -
+\epsilon_{ijk}B^k$, $F_{\mu\nu}F^{\mu\nu} = 2(\mathbf B^2 - \mathbf E^2)$ and hence $-\tfrac14F_{\mu\nu}F^{\mu\nu} =
+\tfrac12(\mathbf E^2 - \mathbf B^2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $F_{0i} = \partial_tA_i - \partial_iA_0 = -\partial_tA^i - \partial_iA^0 = E^i$, and $F_{12} = \partial_1A_2 -
 \partial_2A_1 = -(\partial_1A^2 - \partial_2A^1) = -B^3$. Raising both indices leaves $F^{ij} = F_{ij}$ and flips
-$F^{0i} = -F_{0i}$, so $F_{\mu\nu}F^{\mu\nu} = 2\sum_iF_{0i}F^{0i} + \sum_{ij}F_{ij}F^{ij} = -2\vec E^2 + 2\vec B^2$.
+$F^{0i} = -F_{0i}$, so $F_{\mu\nu}F^{\mu\nu} = 2\sum_iF_{0i}F^{0i} + \sum_{ij}F_{ij}F^{ij} = -2\mathbf E^2 + 2\mathbf B^2$.
 The electric energy enters with the sign of a kinetic term, as $\tfrac12\dot\phi^2$ did for the scalar:
 
 ```python
@@ -2749,7 +2748,7 @@ so it lies slightly outside @def-lagrangian-density; the example explains why th
 ::: {#exm-action-gravity}
 #### The gravitational action
 
-The Einstein-Hilbert action $-\frac{1}{16\pi G}\int\sqrt{-g}\,R\,d^4x$, developed in @sec-einstein-hilbert, has the metric itself as
+The Einstein-Hilbert action $-\frac{1}{16\pi G_N}\int\sqrt{-g}\,R\,d^4x$, developed in @sec-einstein-hilbert, has the metric itself as
 the field and the scalar curvature as Lagrangian density: second derivatives of the field appear, but only
 linearly, and the Euler-Lagrange equations are still second order.
 :::
@@ -2764,7 +2763,7 @@ For a particle of mass $m$ and charge $q$ on the worldline $x^\mu(\tau)$,
 $$
 S = -m\int d\tau - q\int A_\mu\,dx^\mu + \int\Bigl(-\tfrac14F_{\mu\nu}F^{\mu\nu}\Bigr)d^4x .
 $$
-In terms of the laboratory time the particle Lagrangian is $L = -m\sqrt{1 - v^2} - q\phi + q\vec v\cdot\vec A$, using $A_\mu = (\phi, -\vec A)$. The second term is gauge invariant up to a
+In terms of the laboratory time the particle Lagrangian is $L = -m\sqrt{1 - v^2} - q\phi + q\mathbf v\cdot\mathbf A$, using $A_\mu = (\phi, -\mathbf A)$. The second term is gauge invariant up to a
 boundary term, and it equals $-\int A_\mu j^\mu d^4x$ with the current $j^\mu(x) = q\int\delta^4(x - x(\tau))\dot x^\mu\,d\tau$ of the particle, as in @exm-cfb-source-coupling
 [@maggiore2023electrodynamics, Sec. 8.6.2].
 :::
@@ -2895,14 +2894,14 @@ derives the Lorentz force in this way.
 ::: {#exr-cfb-lorentz-force}
 #### The Lorentz force from the action
 
-From $L = -m\sqrt{1 - v^2} - q\phi + q\vec v\cdot\vec A$, derive $\tfrac{d}{dt}(\gamma m\vec v) = q(\vec E + \vec v\times\vec B)$ with $\vec E = -\nabla\phi - \partial_t\vec A$ and $\vec B = \nabla\times\vec A$. What is the canonical
+From $L = -m\sqrt{1 - v^2} - q\phi + q\mathbf v\cdot\mathbf A$, derive $\tfrac{d}{dt}(\gamma m\mathbf v) = q(\mathbf E + \mathbf v\times\mathbf B)$ with $\mathbf E = -\nabla\phi - \partial_t\mathbf A$ and $\mathbf B = \nabla\times\mathbf A$. What is the canonical
 momentum, and why is it not gauge invariant? [@maggiore2023electrodynamics, Sec. 8.6]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\vec P = \partial L/\partial\vec v = \gamma m\vec v + q\vec A$ and $\partial L/\partial\vec x = -q\nabla\phi + q\nabla(\vec v\cdot\vec A)$. Since $\tfrac{d\vec A}{dt} = \partial_t\vec A + (\vec v\cdot\nabla)\vec A$, the Euler-Lagrange
-equation gives $\tfrac{d}{dt}(\gamma m\vec v) = -q\nabla\phi - q\partial_t\vec A + q\bigl(\nabla(\vec v\cdot\vec A) - (\vec v\cdot\nabla)\vec A\bigr) = q\vec E + q\vec v\times(\nabla\times\vec A)$. The canonical momentum $\gamma m\vec v + q\vec A$
-shifts by $q\nabla\lambda$ under a gauge transformation; only the kinetic momentum $\gamma m\vec v$ is physical, as in the minimal coupling $\vec p \to \vec p - q\vec A$ of
+$\mathbf P = \partial L/\partial\mathbf v = \gamma m\mathbf v + q\mathbf A$ and $\partial L/\partial\mathbf x = -q\nabla\phi + q\nabla(\mathbf v\cdot\mathbf A)$. Since $\tfrac{d\mathbf A}{dt} = \partial_t\mathbf A + (\mathbf v\cdot\nabla)\mathbf A$, the Euler-Lagrange
+equation gives $\tfrac{d}{dt}(\gamma m\mathbf v) = -q\nabla\phi - q\partial_t\mathbf A + q\bigl(\nabla(\mathbf v\cdot\mathbf A) - (\mathbf v\cdot\nabla)\mathbf A\bigr) = q\mathbf E + q\mathbf v\times(\nabla\times\mathbf A)$. The canonical momentum $\gamma m\mathbf v + q\mathbf A$
+shifts by $q\nabla\lambda$ under a gauge transformation; only the kinetic momentum $\gamma m\mathbf v$ is physical, as in the minimal coupling $\mathbf p \to \mathbf p - q\mathbf A$ of
 @exr-clm-momentum-charged.
 :::
 ::::
@@ -3125,16 +3124,16 @@ does this for the Klein-Gordon equation and reads off the speed at which wave pa
 ::: {#exr-acsym-dispersion}
 #### Plane waves and their speed
 
-Substitute $\phi = e^{-i(\omega t - \vec k\cdot\vec x)}$ into $(\Box + m^2)\phi = 0$, find the dispersion relation,
-and compute the phase velocity $\omega/|\vec k|$ and the group velocity $d\omega/d|\vec k|$. Which one is smaller than
+Substitute $\phi = e^{-i(\omega t - \mathbf k\cdot\mathbf x)}$ into $(\Box + m^2)\phi = 0$, find the dispersion relation,
+and compute the phase velocity $\omega/|\mathbf k|$ and the group velocity $d\omega/d|\mathbf k|$. Which one is smaller than
 $1$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_t^2\phi = -\omega^2\phi$ and $\nabla^2\phi = -\vec k^2\phi$, so $(\Box + m^2)\phi = (-\omega^2 + \vec k^2 +
-m^2)\phi$ and the dispersion relation is $\omega^2 = \vec k^2 + m^2$, the energy-momentum relation of a particle of
-mass $m$. The phase velocity $\omega/|\vec k| = \sqrt{1 + m^2/\vec k^2}$ exceeds $1$, while the group velocity
-$|\vec k|/\omega$ is smaller than $1$ for $m > 0$; it is the velocity of a relativistic particle of momentum $\vec k$
+$\partial_t^2\phi = -\omega^2\phi$ and $\nabla^2\phi = -\mathbf k^2\phi$, so $(\Box + m^2)\phi = (-\omega^2 + \mathbf k^2 +
+m^2)\phi$ and the dispersion relation is $\omega^2 = \mathbf k^2 + m^2$, the energy-momentum relation of a particle of
+mass $m$. The phase velocity $\omega/|\mathbf k| = \sqrt{1 + m^2/\mathbf k^2}$ exceeds $1$, while the group velocity
+$|\mathbf k|/\omega$ is smaller than $1$ for $m > 0$; it is the velocity of a relativistic particle of momentum $\mathbf k$
 and energy $\omega$, and the speed at which energy and charge travel (@exr-acsym-current-plane-wave).
 :::
 
@@ -3381,13 +3380,13 @@ it is the field version of @def-symmetry-lagrangian.
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The complex scalar depends on $\phi$ only through $\bar\phi\phi$ and $\partial\bar\phi\cdot\partial\phi$. Multiplying
+The complex scalar depends on $\phi$ only through $\phi^*\phi$ and $\partial\phi^*\cdot\partial\phi$. Multiplying
 $\phi$ by a phase leaves both unchanged, so the Lagrangian is exactly invariant.
 
 ::: {#exm-symmetry-phase}
 #### Phase rotations
 
-$\delta\phi = i\epsilon\phi$, $\delta\bar\phi = -i\epsilon\bar\phi$ leaves the complex scalar Lagrangian of
+$\delta\phi = i\epsilon\phi$, $\delta\phi^* = -i\epsilon\phi^*$ leaves the complex scalar Lagrangian of
 @exm-density-complex-maxwell invariant, $K^\mu = 0$ (@exr-complex-phase-rotation, @prp-phase-rotation): the global
 $U(1)$ symmetry.
 :::
@@ -3517,14 +3516,14 @@ summed over all field components, and its **charge** is $Q = \int d^3x\,J^0$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The phase rotation has $K^\mu = 0$, so its current is the first term of the formula alone, summed over $\phi$ and
-$\bar\phi$. The overall sign and the factor $\epsilon$ are conventions, and the example fixes the ones used below.
+$\phi^*$. The overall sign and the factor $\epsilon$ are conventions, and the example fixes the ones used below.
 
 ::: {#exm-current-u1}
 #### The $U(1)$ current of the complex scalar
 
-With $\delta\phi = i\epsilon\phi$, $\delta\bar\phi = -i\epsilon\bar\phi$ and $K^\mu = 0$, @eq-noether-current gives
-$J^\mu = i\epsilon(\partial^\mu\bar\phi\,\phi - \partial^\mu\phi\,\bar\phi)$; dropping $\epsilon$ and the sign
-convention, $j^\mu = i(\bar\phi\,\partial^\mu\phi - \phi\,\partial^\mu\bar\phi) = 2(v\,\partial^\mu u - u\,\partial^\mu v)$
+With $\delta\phi = i\epsilon\phi$, $\delta\phi^* = -i\epsilon\phi^*$ and $K^\mu = 0$, @eq-noether-current gives
+$J^\mu = i\epsilon(\partial^\mu\phi^*\,\phi - \partial^\mu\phi\,\phi^*)$; dropping $\epsilon$ and the sign
+convention, $j^\mu = i(\phi^*\,\partial^\mu\phi - \phi\,\partial^\mu\phi^*) = 2(v\,\partial^\mu u - u\,\partial^\mu v)$
 for $\phi = u + iv$ (@exr-noether-current). For a plane wave it is a uniform flow along the wave
 (@fig-complex-field-phase), and for a wave packet it is the moving charge density of @fig-noether-current-flow.
 :::
@@ -3582,19 +3581,19 @@ antiparticle.
 :::
 
 The second exercise derives the $U(1)$ current directly from @eq-noether-current, keeping track of the two fields
-$\phi$ and $\bar\phi$. Its divergence is computed without using the field equations.
+$\phi$ and $\phi^*$. Its divergence is computed without using the field equations.
 
 ::: {#exr-noether-current}
 #### The $U(1)$ current
 
 Compute the Noether current of the phase symmetry of the complex scalar from @eq-noether-current, and check that
-its divergence is $i(\bar\phi\,\Box\phi - \phi\,\Box\bar\phi)$.
+its divergence is $i(\phi^*\,\Box\phi - \phi\,\Box\phi^*)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\partial\mathcal{L}/\partial(\partial_\mu\phi) = \partial^\mu\bar\phi$ and $\partial\mathcal{L}/\partial(\partial_\mu\bar\phi)
-= \partial^\mu\phi$, $J^\mu = \partial^\mu\bar\phi\,(i\phi) + \partial^\mu\phi\,(-i\bar\phi) = -i(\bar\phi\partial^\mu\phi -
-\phi\partial^\mu\bar\phi)$, which is $j^\mu$ up to the overall sign convention; differentiating, the cross terms $\partial\bar\phi\cdot
+With $\partial\mathcal{L}/\partial(\partial_\mu\phi) = \partial^\mu\phi^*$ and $\partial\mathcal{L}/\partial(\partial_\mu\phi^*)
+= \partial^\mu\phi$, $J^\mu = \partial^\mu\phi^*\,(i\phi) + \partial^\mu\phi\,(-i\phi^*) = -i(\phi^*\partial^\mu\phi -
+\phi\partial^\mu\phi^*)$, which is $j^\mu$ up to the overall sign convention; differentiating, the cross terms $\partial\phi^*\cdot
 \partial\phi$ cancel. In Sage:
 
 ```python
@@ -3700,8 +3699,8 @@ times the change of the field. For the $U(1)$ current this is visible directly.
 ::: {#exm-conservation-u1}
 #### Conservation of the $U(1)$ current
 
-$\partial_\mu j^\mu = i(\bar\phi\,\Box\phi - \phi\,\Box\bar\phi)$, the gradient terms cancelling, and on the Klein-Gordon
-equation $\Box\phi = -m^2\phi$ this is $-im^2(\bar\phi\phi - \phi\bar\phi) = 0$ (@prp-noether-divergence): the charge
+$\partial_\mu j^\mu = i(\phi^*\,\Box\phi - \phi\,\Box\phi^*)$, the gradient terms cancelling, and on the Klein-Gordon
+equation $\Box\phi = -m^2\phi$ this is $-im^2(\phi^*\phi - \phi\phi^*) = 0$ (@prp-noether-divergence): the charge
 $Q = \int j^0$ counts particles minus antiparticles, and its gauged version in Part III is electric charge,
 quantised by the circle.
 :::
@@ -3754,12 +3753,12 @@ local version for a finite region, which is the form used in practice.
 #### Local conservation
 
 Let $V$ be a bounded region of space with boundary $\partial V$ and $Q_V(t) = \int_Vd^3x\,J^0$. Show that $dQ_V/dt = -
-\oint_{\partial V}\vec J\cdot d\vec S$ on solutions, with $\vec J = (J^1, J^2, J^3)$, and interpret the result.
+\oint_{\partial V}\mathbf J\cdot d\mathbf S$ on solutions, with $\mathbf J = (J^1, J^2, J^3)$, and interpret the result.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\partial_\mu J^\mu = 0$ reads $\partial_tJ^0 = -\nabla\cdot\vec J$, so $dQ_V/dt = -\int_V\nabla\cdot\vec J\,d^3x = -
-\oint_{\partial V}\vec J\cdot d\vec S$ by the divergence theorem (@thm-stokes). The charge in a region changes only by
+$\partial_\mu J^\mu = 0$ reads $\partial_tJ^0 = -\nabla\cdot\mathbf J$, so $dQ_V/dt = -\int_V\nabla\cdot\mathbf J\,d^3x = -
+\oint_{\partial V}\mathbf J\cdot d\mathbf S$ by the divergence theorem (@thm-stokes). The charge in a region changes only by
 the flux through its boundary: charge is not merely conserved globally but cannot disappear at one place and
 reappear at another. In @fig-noether-current-flow the density at a point grows exactly as fast as $-\partial_xj^1$ there.
 :::
@@ -3770,14 +3769,14 @@ exercise computes the divergence of the $U(1)$ current when such a term is added
 ::: {#exr-acsym-noether-broken}
 #### An explicitly broken symmetry
 
-Add $-\tfrac12\mu^2(\phi^2 + \bar\phi^2)$ to the complex scalar Lagrangian. Show that the phase rotation is no longer a
+Add $-\tfrac12\mu^2(\phi^2 + \phi^{*2})$ to the complex scalar Lagrangian. Show that the phase rotation is no longer a
 symmetry, find the field equation, and compute $\partial_\mu j^\mu$ on solutions in terms of $\phi = u + iv$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\delta(\phi^2) = 2i\epsilon\phi^2$, so the new term changes by $-i\epsilon\mu^2(\phi^2 - \bar\phi^2) \neq 0$, which is not a
-total derivative. Varying $\bar\phi$ gives $\Box\phi + m^2\phi + \mu^2\bar\phi = 0$. Then $\partial_\mu j^\mu =
-i(\bar\phi\Box\phi - \phi\Box\bar\phi) = i\mu^2(\phi^2 - \bar\phi^2) = -4\mu^2uv$, proportional to the breaking
+$\delta(\phi^2) = 2i\epsilon\phi^2$, so the new term changes by $-i\epsilon\mu^2(\phi^2 - \phi^{*2}) \neq 0$, which is not a
+total derivative. Varying $\phi^*$ gives $\Box\phi + m^2\phi + \mu^2\phi^* = 0$. Then $\partial_\mu j^\mu =
+i(\phi^*\Box\phi - \phi\Box\phi^*) = i\mu^2(\phi^2 - \phi^{*2}) = -4\mu^2uv$, proportional to the breaking
 parameter. In terms of $u$ and $v$ the new term is $-\mu^2(u^2 - v^2)$, which gives $u$ and $v$ the different masses
 $m^2 \pm \mu^2$; the non-conservation is that of @exr-acsym-div-unequal-masses.
 :::
@@ -3867,8 +3866,8 @@ the familiar energy density and Poynting vector of electromagnetism.
 ::: {#exm-emt-maxwell}
 #### The electromagnetic field
 
-$T^{\mu\nu} = F^{\mu\rho}F_\rho{}^\nu + \tfrac14\eta^{\mu\nu}F_{\rho\sigma}F^{\rho\sigma}$, with $T^{00} = \tfrac12(\vec E^2 +
-\vec B^2)$ the field energy and $T^{0i} = (\vec E\times\vec B)_i$ the Poynting vector; it is traceless,
+$T^{\mu\nu} = F^{\mu\rho}F_\rho{}^\nu + \tfrac14\eta^{\mu\nu}F_{\rho\sigma}F^{\rho\sigma}$, with $T^{00} = \tfrac12(\mathbf E^2 +
+\mathbf B^2)$ the field energy and $T^{0i} = (\mathbf E\times\mathbf B)_i$ the Poynting vector; it is traceless,
 $T^\mu{}_\mu = 0$, the signature of a massless field.
 :::
 
@@ -3878,7 +3877,7 @@ proportional to the metric, the form of a cosmological constant.
 ::: {#exm-emt-vacuum}
 #### Vacuum energy
 
-A constant potential $V = \Lambda/8\pi G$ gives $T^{\mu\nu} = \eta^{\mu\nu}V$, an energy density $T^{00} = V$ with negative pressure $T^{ii} = -V$:
+A constant potential $V = \Lambda/8\pi G_N$ gives $T^{\mu\nu} = \eta^{\mu\nu}V$, an energy density $T^{00} = V$ with negative pressure $T^{ii} = -V$:
 the cosmological constant of general relativity (@sec-einstein-equations), and the form of the energy-momentum tensor produced by the
 internal curvature of a compactification.
 :::
@@ -3890,7 +3889,7 @@ of sunlight from the energy-momentum tensor.
 ::: {#exm-cfb-radiation-pressure}
 #### Radiation pressure
 
-For a plane wave along $x$, $|\vec E| = |\vec B|$ and $T^{00} = T^{0x} = T^{xx} = u$, the energy density: the momentum flux equals the energy density. A surface that absorbs the wave at normal
+For a plane wave along $x$, $|\mathbf E| = |\mathbf B|$ and $T^{00} = T^{0x} = T^{xx} = u$, the energy density: the momentum flux equals the energy density. A surface that absorbs the wave at normal
 incidence receives the pressure $p = u = I/c$, a mirror $2I/c$. For sunlight at the Earth, $I = 1361\,\mathrm{W/m^2}$, this is $4.5\,\mu$Pa on a black surface: tiny, but the force
 that sails of a few hundred square metres use and that shapes the tails of comets [@maggiore2023electrodynamics, Sec. 8.4].
 :::
@@ -3971,18 +3970,18 @@ on the Klein-Gordon equation (Box + m^2) phi = 0 both divergences vanish: energy
 :::
 
 The claims of @exm-emt-maxwell about the electromagnetic tensor are a finite computation once $F_{\mu\nu}$ is written
-in terms of $\vec E$ and $\vec B$. The third exercise does it in Sage, including the spatial stress.
+in terms of $\mathbf E$ and $\mathbf B$. The third exercise does it in Sage, including the spatial stress.
 
 ::: {#exr-acsym-emt-maxwell}
 #### The electromagnetic energy-momentum tensor
 
 With $F_{0i} = E_i$ and $F_{ij} = -\epsilon_{ijk}B_k$ (@exr-acsym-density-maxwell), compute $T^{\mu\nu} =
-F^{\mu\rho}F_\rho{}^\nu + \tfrac14\eta^{\mu\nu}F_{\rho\sigma}F^{\rho\sigma}$, and check $T^{00} = \tfrac12(\vec E^2 + \vec
-B^2)$, $T^{0i} = (\vec E\times\vec B)_i$, the Maxwell stress $T^{ij}$, symmetry and tracelessness.
+F^{\mu\rho}F_\rho{}^\nu + \tfrac14\eta^{\mu\nu}F_{\rho\sigma}F^{\rho\sigma}$, and check $T^{00} = \tfrac12(\mathbf E^2 + \mathbf
+B^2)$, $T^{0i} = (\mathbf E\times\mathbf B)_i$, the Maxwell stress $T^{ij}$, symmetry and tracelessness.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$T^{00} = F^{0i}F_i{}^0 + \tfrac14F^2 = \vec E^2 + \tfrac12(\vec B^2 - \vec E^2)$, and $T^{0i} = -F^{0j}F_{ji} =
+$T^{00} = F^{0i}F_i{}^0 + \tfrac14F^2 = \mathbf E^2 + \tfrac12(\mathbf B^2 - \mathbf E^2)$, and $T^{0i} = -F^{0j}F_{ji} =
 \epsilon_{ijk}E_jB_k$. The trace is $\eta_{\mu\nu}T^{\mu\nu} = F^{\mu\rho}F_{\rho\mu} + F^2 = -F^2 + F^2 = 0$ in four
 dimensions; in $d$ dimensions it would be $(d/4 - 1)F^2$:
 
@@ -4214,12 +4213,12 @@ The formula was derived in vector form from the Liénard-Wiechert field in @prp-
 ::: {#exm-cfb-larmor}
 #### Larmor's formula
 
-A charge $q$ with small velocity and acceleration $\vec a$ radiates, at large distance $r$ in the direction $\hat n$, the field $\vec E = \tfrac{q}{4\pi r}\hat n\times(\hat n\times\vec a)$ evaluated at the retarded
-time, with $|\vec B| = |\vec E|$. The Poynting flux $T^{0r} = |\vec E|^2$ gives
+A charge $q$ with small velocity and acceleration $\mathbf a$ radiates, at large distance $r$ in the direction $\hat{\mathbf n}$, the field $\mathbf E = \tfrac{q}{4\pi r}\hat{\mathbf n}\times(\hat{\mathbf n}\times\mathbf a)$ evaluated at the retarded
+time, with $|\mathbf B| = |\mathbf E|$. The Poynting flux $T^{0r} = |\mathbf E|^2$ gives
 $$
 \frac{dP}{d\Omega} = \frac{q^2a^2}{16\pi^2}\sin^2\theta, \qquad P = \frac{q^2a^2}{6\pi}
 $$
-(Heaviside-Lorentz units, $c = 1$; in SI $P = q^2a^2/(6\pi\varepsilon_0c^3)$), with $\theta$ the angle from $\vec a$: no radiation along the acceleration, most at right angles
+(Heaviside-Lorentz units, $c = 1$; in SI $P = q^2a^2/(6\pi\varepsilon_0c^3)$), with $\theta$ the angle from $\mathbf a$: no radiation along the acceleration, most at right angles
 [@maggiore2023electrodynamics, Sec. 10.5].
 :::
 
@@ -4230,8 +4229,8 @@ compares the two cases, which distinguish linear accelerators from synchrotrons.
 ::: {#exm-cfb-lienard}
 #### Radiation from fast charges
 
-The Lorentz-invariant generalisation of Larmor's formula is Liénard's $P = \tfrac{q^2}{6\pi}\gamma^6\bigl(a^2 - (\vec v\times\vec a)^2\bigr)$. For $\vec a \parallel \vec v$ it is $\tfrac{q^2}{6\pi}\gamma^6a^2 =
-\tfrac{q^2}{6\pi m^2}(dp/dt)^2$, independent of $\gamma$ for a given force; for $\vec a \perp \vec v$ it is $\tfrac{q^2}{6\pi}\gamma^4a^2 = \tfrac{q^2\gamma^2}{6\pi m^2}(dp/dt)^2$, larger by $\gamma^2$. In a circular
+The Lorentz-invariant generalisation of Larmor's formula is Liénard's $P = \tfrac{q^2}{6\pi}\gamma^6\bigl(a^2 - (\mathbf v\times\mathbf a)^2\bigr)$. For $\mathbf a \parallel \mathbf v$ it is $\tfrac{q^2}{6\pi}\gamma^6a^2 =
+\tfrac{q^2}{6\pi m^2}(dp/dt)^2$, independent of $\gamma$ for a given force; for $\mathbf a \perp \mathbf v$ it is $\tfrac{q^2}{6\pi}\gamma^4a^2 = \tfrac{q^2\gamma^2}{6\pi m^2}(dp/dt)^2$, larger by $\gamma^2$. In a circular
 accelerator of radius $R$ the loss per turn grows as $\gamma^4/R$, which limits electron synchrotrons and is the source of synchrotron light
 [@maggiore2023electrodynamics, Sec. 10.6].
 :::
@@ -4245,7 +4244,7 @@ The full dipole fields and the zones were derived in vector form in @def-emw-rad
 
 For a source of size $d$ oscillating at wavelength $\lambda \gg d$, the fields at distance $r$ contain terms in $1/r^3$, $1/r^2$ and $1/r$ times powers of $r/\lambda$. In the **near
 zone** $d \ll r \ll \lambda$ the $1/r^3$ terms dominate and the field is the instantaneous static dipole field; in the **far zone** $r \gg \lambda$ the $1/r$ terms dominate, the
-fields are transverse with $|\vec E| = |\vec B|$, and the energy flux falls as $1/r^2$, so the power through a large sphere is independent of $r$; the **induction zone** $r \sim \lambda$
+fields are transverse with $|\mathbf E| = |\mathbf B|$, and the energy flux falls as $1/r^2$, so the power through a large sphere is independent of $r$; the **induction zone** $r \sim \lambda$
 interpolates [@maggiore2023electrodynamics, Sec. 11.3].
 :::
 ::::
@@ -4334,7 +4333,7 @@ The vector-form computation is @exr-emw-dip-average; here the same numbers check
 ::: {#exr-cfb-dipole-power}
 #### Radiation of an oscillating dipole
 
-For $\vec d(t) = q\ell\cos(\omega t)\hat z$ with $\ell\omega \ll c$, the far field gives $\tfrac{dP}{d\Omega} = \tfrac{\ddot d^2}{16\pi^2\varepsilon_0c^3}\sin^2\theta$ in SI units. With Sage, integrate over the sphere,
+For $\mathbf d(t) = q\ell\cos(\omega t)\hat{\mathbf z}$ with $\ell\omega \ll c$, the far field gives $\tfrac{dP}{d\Omega} = \tfrac{\ddot d^2}{16\pi^2\varepsilon_0c^3}\sin^2\theta$ in SI units. With Sage, integrate over the sphere,
 average over a period, and evaluate for an electron with $\ell = 10^{-10}\,$m, $\omega = 3 \times 10^{15}\,\mathrm s^{-1}$. What fraction of the power leaves within $30°$ of the
 equatorial plane? [@maggiore2023electrodynamics, Problem 10.1]
 :::
@@ -4375,13 +4374,13 @@ The rotating dipole of @exm-emw-dip-rotating is the vector-form version of this 
 ::: {#exr-cfb-circular-orbit}
 #### Radiation from a circular orbit
 
-A charge $q$ moves on the circle of radius $a$ in the $xy$-plane with angular frequency $\omega$, $a\omega \ll c$. With Sage, compute the time-averaged $dP/d\Omega$ from $|\hat n\times\ddot{\vec d}|^2$, show
+A charge $q$ moves on the circle of radius $a$ in the $xy$-plane with angular frequency $\omega$, $a\omega \ll c$. With Sage, compute the time-averaged $dP/d\Omega$ from $|\hat{\mathbf n}\times\ddot{\mathbf d}|^2$, show
 that it is proportional to $(1 + \cos^2\theta)/2$, integrate it, and find the polarisation seen along the axis and in the plane of the orbit
 [@maggiore2023electrodynamics, Problem 10.2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\ddot{\vec d} = -qa\omega^2(\cos\omega t, \sin\omega t, 0)$:
+$\ddot{\mathbf d} = -qa\omega^2(\cos\omega t, \sin\omega t, 0)$:
 
 ```python
 th, ph, t, q, a, w, e0, c = var('th ph t q a w e0 c'); assume(q > 0, a > 0, w > 0, e0 > 0, c > 0)
@@ -4464,7 +4463,7 @@ electron storage ring, where the losses are large.
 ::: {#exr-cfb-synchrotron-loss}
 #### Energy loss in a storage ring
 
-An electron of energy $E = \gamma mc^2$ circulates on a circle of radius $R$ with $\beta \approx 1$. Using Liénard's formula with $\vec a \perp \vec v$, show that the energy radiated per turn is
+An electron of energy $E = \gamma mc^2$ circulates on a circle of radius $R$ with $\beta \approx 1$. Using Liénard's formula with $\mathbf a \perp \mathbf v$, show that the energy radiated per turn is
 $\Delta E = e^2\gamma^4/(3\varepsilon_0R)$ in SI units, and evaluate it for $E = 100\,$GeV and $R = 3.1\,$km. Why are proton rings not limited in this way?
 [@maggiore2023electrodynamics, Sec. 10.6]
 :::
@@ -4488,8 +4487,8 @@ rotation. It shows why the charge density of a scalar field cannot be a probabil
 ::: {#exr-fld-int-current}
 #### The current of complex plane waves
 
-For $\phi = a e^{-ik_\mu x^\mu}$ on the mass shell in $3 + 1$ dimensions, compute with Sage $j^\mu = i(\bar\phi\partial^\mu\phi -
-\phi\partial^\mu\bar\phi)$ and $j_\mu j^\mu$. Do the same for the negative-frequency wave $a e^{ik_\mu x^\mu}$ and for
+For $\phi = a e^{-ik_\mu x^\mu}$ on the mass shell in $3 + 1$ dimensions, compute with Sage $j^\mu = i(\phi^*\partial^\mu\phi -
+\phi\partial^\mu\phi^*)$ and $j_\mu j^\mu$. Do the same for the negative-frequency wave $a e^{ik_\mu x^\mu}$ and for
 the superposition $a e^{-ik\cdot x} + b e^{ik\cdot x}$, and check conservation.
 :::
 
@@ -4612,10 +4611,10 @@ quartic self-interaction, through field equations, currents and energy; the seco
 ::: {#exr-acsym-complex-quartic}
 #### The complex scalar with a quartic term
 
-For $\mathcal{L} = \partial_\mu\bar\phi\,\partial^\mu\phi - m^2\bar\phi\phi - \lambda(\bar\phi\phi)^2$ in $1 + 1$ dimensions,
+For $\mathcal{L} = \partial_\mu\phi^*\,\partial^\mu\phi - m^2\phi^*\phi - \lambda(\phi^*\phi)^2$ in $1 + 1$ dimensions,
 with $\phi = u + iv$: (a) find the Euler-Lagrange expressions $E_u$, $E_v$; (b) show that the current $j^\mu$ of
-@exm-current-u1 satisfies $\partial_\mu j^\mu = vE_u - uE_v$; (c) show that $T^{\mu\nu} = \partial^\mu\bar\phi\,\partial^\nu\phi +
-\partial^\nu\bar\phi\,\partial^\mu\phi - \eta^{\mu\nu}\mathcal{L}$ satisfies $\partial_\mu T^{\mu\nu} = E_u\partial^\nu u + E_v
+@exm-current-u1 satisfies $\partial_\mu j^\mu = vE_u - uE_v$; (c) show that $T^{\mu\nu} = \partial^\mu\phi^*\,\partial^\nu\phi +
+\partial^\nu\phi^*\,\partial^\mu\phi - \eta^{\mu\nu}\mathcal{L}$ satisfies $\partial_\mu T^{\mu\nu} = E_u\partial^\nu u + E_v
 \partial^\nu v$ and $T^{tt} \geq 0$; (d) find the frequencies for which $\phi = Ae^{-i\omega t}$ is a solution, and its
 charge and energy densities.
 :::
@@ -4736,7 +4735,7 @@ $\lambda = 0$. (c) Express $E$ and $P$ in terms of $Q$ and interpret the result.
 2\pi R\sum|\dot\phi_n|^2$ and $\int|\phi'|^2 = 2\pi R\sum(n/R)^2|\phi_n|^2$: one complex oscillator per mode, with the
 frequency of the dispersion relation at $k = n/R$. (b) $j^0 = 2\omega_n|a|^2$, so $Q = 4\pi R\,\omega_n|a|^2$; $T^{tt}
 = |\dot\phi|^2 + |\phi'|^2 + m^2|\phi|^2 = |a|^2(\omega_n^2 + n^2/R^2 + m^2) = 2\omega_n^2|a|^2$, so $E = 4\pi R\,
-\omega_n^2|a|^2$; $T^{tx} = -(\dot{\bar\phi}\phi' + \bar\phi'\dot\phi) = 2\omega_n(n/R)|a|^2$, so $P = 4\pi R\,\omega_n
+\omega_n^2|a|^2$; $T^{tx} = -(\dot\phi^*\phi' + \phi'^*\dot\phi) = 2\omega_n(n/R)|a|^2$, so $P = 4\pi R\,\omega_n
 (n/R)|a|^2$. (c) Hence $E = \omega_nQ$ and $P = (n/R)Q$: per unit of charge the mode carries energy $\omega_n$ and
 momentum $n/R$, with $(E/Q)^2 - (P/Q)^2 = m^2$. The momentum around the circle comes in integer multiples of $1/R$,
 and a mode with $n \neq 0$ looks, to an observer who cannot resolve the circle, like a particle of mass $\sqrt{m^2 +

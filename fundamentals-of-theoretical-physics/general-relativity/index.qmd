@@ -248,14 +248,14 @@ variation is the second derivative of the potential, and the next exercise compu
 ::: {#exr-gr-tidal}
 #### Tidal forces
 
-Two freely falling particles at $\vec x$ and $\vec x + \vec\xi$ in a Newtonian potential $\Phi$ have relative
+Two freely falling particles at $\mathbf x$ and $\mathbf x + \boldsymbol\xi$ in a Newtonian potential $\Phi$ have relative
 acceleration $\ddot\xi^i = -(\partial_i\partial_j\Phi)\xi^j$ to first order in $\xi$. Compute the tidal matrix
-$-\partial_i\partial_j\Phi$ for $\Phi = -GM/r$ at the point $(r, 0, 0)$, and estimate the tidal acceleration across a
+$-\partial_i\partial_j\Phi$ for $\Phi = -G_NM/r$ at the point $(r, 0, 0)$, and estimate the tidal acceleration across a
 body of height $2\,$m at $400\,$km above the Earth.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The matrix is $\tfrac{GM}{r^3}\operatorname{diag}(2, -1, -1)$: stretching along the radius and compression across it,
+The matrix is $\tfrac{G_NM}{r^3}\operatorname{diag}(2, -1, -1)$: stretching along the radius and compression across it,
 with zero trace because $\nabla^2\Phi = 0$ in vacuum. In general relativity this matrix is $R^i{}_{tjt}$, the
 geodesic deviation of @exm-equivalence-elevator. Over $2\,$m in low Earth orbit the stretching is about
 $5 \times 10^{-6}\,\mathrm{m/s^2}$, imperceptible; near a stellar black hole it tears bodies apart.
@@ -309,18 +309,18 @@ Coriolis forces.
 #### Centrifugal and Coriolis forces as Christoffel symbols
 
 In Minkowski space with cylindrical coordinates, pass to a frame rotating with angular velocity $\omega$ about the $z$-axis,
-$\phi = \phi' + \omega t$. Write the metric in $(t, r, \phi', z)$, compute its non-zero Christoffel symbols, and show that in the
-non-relativistic limit $d\tau \approx dt$ the geodesic equations become $\ddot r - r\dot\phi'^2 = \omega^2r + 2\omega r\dot\phi'$ and
-$r\ddot\phi' + 2\dot r\dot\phi' = -2\omega\dot r$. Identify the forces. Where does $g_{tt}$ vanish? [@blennow2022relativity, Problem 2.115]
+$\varphi = \varphi' + \omega t$. Write the metric in $(t, r, \varphi', z)$, compute its non-zero Christoffel symbols, and show that in the
+non-relativistic limit $d\tau \approx dt$ the geodesic equations become $\ddot r - r\dot\varphi'^2 = \omega^2r + 2\omega r\dot\varphi'$ and
+$r\ddot\varphi' + 2\dot r\dot\varphi' = -2\omega\dot r$. Identify the forces. Where does $g_{tt}$ vanish? [@blennow2022relativity, Problem 2.115]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$ds^2 = (1 - \omega^2r^2)dt^2 - 2\omega r^2\,dt\,d\phi' - dr^2 - r^2d\phi'^2 - dz^2$. The non-zero symbols are $\Gamma^r_{tt} = -\omega^2r$,
-$\Gamma^r_{t\phi'} = -\omega r$, $\Gamma^r_{\phi'\phi'} = -r$, $\Gamma^{\phi'}_{tr} = \omega/r$ and $\Gamma^{\phi'}_{r\phi'} = 1/r$ (with their symmetric
-partners). The geodesic equations $\ddot x^\mu = -\Gamma^\mu_{\nu\rho}\dot x^\nu\dot x^\rho$ with $\dot t = 1$ give $\ddot r = \omega^2r + 2\omega r\dot\phi' + r\dot\phi'^2$
-and $\ddot\phi' = -2(\omega + \dot\phi')\dot r/r$, the stated equations; they are the free motion $\ddot r = r\dot\phi^2$, $(r^2\dot\phi)^\cdot = 0$ of
-the inertial frame rewritten with $\dot\phi = \dot\phi' + \omega$. The term $\omega^2r$ is the centrifugal acceleration and $2\omega r\dot\phi'$,
-$-2\omega\dot r/r$ are the components of the Coriolis acceleration $-2\vec\omega\times\vec v$. $g_{tt} = 0$ at $\omega r = 1$: beyond this
+$ds^2 = (1 - \omega^2r^2)dt^2 - 2\omega r^2\,dt\,d\varphi' - dr^2 - r^2d\varphi'^2 - dz^2$. The non-zero symbols are $\Gamma^r_{tt} = -\omega^2r$,
+$\Gamma^r_{t\varphi'} = -\omega r$, $\Gamma^r_{\varphi'\varphi'} = -r$, $\Gamma^{\varphi'}_{tr} = \omega/r$ and $\Gamma^{\varphi'}_{r\varphi'} = 1/r$ (with their symmetric
+partners). The geodesic equations $\ddot x^\mu = -\Gamma^\mu_{\nu\rho}\dot x^\nu\dot x^\rho$ with $\dot t = 1$ give $\ddot r = \omega^2r + 2\omega r\dot\varphi' + r\dot\varphi'^2$
+and $\ddot\varphi' = -2(\omega + \dot\varphi')\dot r/r$, the stated equations; they are the free motion $\ddot r = r\dot\varphi^2$, $(r^2\dot\varphi)^\cdot = 0$ of
+the inertial frame rewritten with $\dot\varphi = \dot\varphi' + \omega$. The term $\omega^2r$ is the centrifugal acceleration and $2\omega r\dot\varphi'$,
+$-2\omega\dot r/r$ are the components of the Coriolis acceleration $-2\boldsymbol\omega\times\mathbf v$. $g_{tt} = 0$ at $\omega r = 1$: beyond this
 "light cylinder" a point at rest in the rotating frame would move faster than light, and no observer can be at rest there.
 :::
 ::::
@@ -351,7 +351,7 @@ time component it reproduces at large distance.
 ::: {#exm-newtonian-point-mass}
 #### A point mass
 
-$\Phi = -GM/r$ gives $g_{tt} = 1 - 2GM/r$: the first term of the Schwarzschild metric, and the orbits of the
+$\Phi = -G_NM/r$ gives $g_{tt} = 1 - 2G_NM/r$: the first term of the Schwarzschild metric, and the orbits of the
 weak-field geodesics are Kepler's ellipses up to a slow precession of the perihelion, the first post-Newtonian
 correction (@fig-newtonian-limit).
 :::
@@ -399,8 +399,8 @@ this, and the first exercise compares it for four kinds of objects.
 ::: {#exr-gr-surface-potential}
 #### How weak is weak
 
-Evaluate $|\Phi|/c^2 = GM/(Rc^2)$ at the surface of the Earth ($GM = 3.99 \times 10^{14}\,\mathrm{m^3/s^2}$, $R = 6371\,$km),
-the Sun ($GM = 1.33 \times 10^{20}\,\mathrm{m^3/s^2}$, $R = 6.96 \times 10^5\,$km), a white dwarf ($0.6$ solar masses,
+Evaluate $|\Phi|/c^2 = G_NM/(Rc^2)$ at the surface of the Earth ($G_NM = 3.99 \times 10^{14}\,\mathrm{m^3/s^2}$, $R = 6371\,$km),
+the Sun ($G_NM = 1.33 \times 10^{20}\,\mathrm{m^3/s^2}$, $R = 6.96 \times 10^5\,$km), a white dwarf ($0.6$ solar masses,
 $R = 7000\,$km) and a neutron star ($1.4$ solar masses, $R = 12\,$km). Where does the Newtonian limit fail?
 :::
 
@@ -423,8 +423,8 @@ the Earth's rotation), over one day.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The higher potential makes the satellite clock gain $GM(1/R_E - 1/r)/c^2 \times 1\,\text{day} = 45.7\,\mu$s; its
-orbital speed, $v^2 = GM/r$, makes it lose $7.2\,\mu$s. The net gain of $38.5\,\mu$s per day would, uncorrected,
+The higher potential makes the satellite clock gain $G_NM(1/R_E - 1/r)/c^2 \times 1\,\text{day} = 45.7\,\mu$s; its
+orbital speed, $v^2 = G_NM/r$, makes it lose $7.2\,\mu$s. The net gain of $38.5\,\mu$s per day would, uncorrected,
 shift positions by about $11\,$km per day, so the satellite clocks are deliberately detuned before launch.
 
 ```python
@@ -458,7 +458,7 @@ particle, $E = 1 + \tfrac12v^2 + \Phi$ to first order in $\Phi$ and $v^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-From $d\tau^2 = (1 + 2\Phi)dt^2 - (1 - 2\Phi)d\vec x^2$, $dt/d\tau = (1 + 2\Phi - (1 - 2\Phi)v^2)^{-1/2} \approx 1 - \Phi +
+From $d\tau^2 = (1 + 2\Phi)dt^2 - (1 - 2\Phi)d\mathbf x^2$, $dt/d\tau = (1 + 2\Phi - (1 - 2\Phi)v^2)^{-1/2} \approx 1 - \Phi +
 \tfrac12v^2$. Then $E = (1 + 2\Phi)(1 - \Phi + \tfrac12v^2) \approx 1 + \Phi + \tfrac12v^2$: the rest energy plus the
 Newtonian energy per unit mass, which is therefore conserved.
 :::
@@ -527,7 +527,7 @@ spectral line as seen from the Earth, where two potentials enter.
 #### Spectral lines from the Sun
 
 A line emitted at the solar surface $R$ and received at the distance $d$ of the Earth is shifted by $\Delta\nu/\nu =
-\Phi(R) - \Phi(d) = -\tfrac{GM}{c^2}\bigl(\tfrac1R - \tfrac1d\bigr)$, to first order in $\Phi$. With $GM/c^2 = 1.49\,$km, $R = 7.8 \times 10^8\,$m and
+\Phi(R) - \Phi(d) = -\tfrac{G_NM}{c^2}\bigl(\tfrac1R - \tfrac1d\bigr)$, to first order in $\Phi$. With $G_NM/c^2 = 1.49\,$km, $R = 7.8 \times 10^8\,$m and
 $d = 1.5 \times 10^{11}\,$m this is $-1.91 \times 10^{-6} + 0.01 \times 10^{-6} = -1.90 \times 10^{-6}$: a redshift, dominated by the solar
 potential, the potential of the Sun at the Earth correcting it by half a percent [@blennow2022relativity, Problem 2.125].
 :::
@@ -593,15 +593,15 @@ deflection of a light ray computed in two ways.
 ::: {#exr-gr-nl-light}
 #### Light in a weak field
 
-A Newtonian particle passing a mass $M$ at speed $1$ and impact parameter $b$ is deflected by $2GM/b$. Using
+A Newtonian particle passing a mass $M$ at speed $1$ and impact parameter $b$ is deflected by $2G_NM/b$. Using
 @exm-gr-nl-velocity-terms, explain why the deflection of light in the weak-field metric is twice this.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For the Newtonian particle the transverse acceleration is $-\partial_\perp\Phi$ and $\int\partial_\perp\Phi\,dt = 2GM/b$
+For the Newtonian particle the transverse acceleration is $-\partial_\perp\Phi$ and $\int\partial_\perp\Phi\,dt = 2G_NM/b$
 along the straight line. For light, $\dot x^2 = 1$ and the spatial symbols contribute $\Gamma^\perp_{xx}\dot x^2 =
 \partial_\perp\Phi$ as well, an equal amount: the time and space parts of the metric bend the ray equally, and the
-total deflection is $4GM/b$. In terms of the metric, light feels $g_{tt}$ and $g_{ij}$ together, the slow particle only
+total deflection is $4G_NM/b$. In terms of the metric, light feels $g_{tt}$ and $g_{ij}$ together, the slow particle only
 $g_{tt}$. The full Schwarzschild computation is @prp-gr-schwarzschild.
 :::
 
@@ -612,12 +612,12 @@ rocket, using the book's data, and asks which one dominates.
 #### A signal from a rising rocket
 
 A spaceship rising radially at $v = 0.1\,$km/s at an altitude of $1000\,$km sends a light signal to the ground. With Sage, compute the
-gravitational and the Doppler shifts to lowest order, with $GM_\oplus = 6.67 \times 10^{-11} \times 5.98 \times 10^{24}\,\mathrm{m^3/s^2}$ and $R_\oplus =
+gravitational and the Doppler shifts to lowest order, with $G_NM_\oplus = 6.67 \times 10^{-11} \times 5.98 \times 10^{24}\,\mathrm{m^3/s^2}$ and $R_\oplus =
 6.3 \times 10^3\,$km. Which effect dominates? [@blennow2022relativity, Problem 2.126]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The light falls from $R_\oplus + h$ to $R_\oplus$ and is blueshifted by $\tfrac{GM}{c^2}\bigl(\tfrac{1}{R_\oplus} - \tfrac{1}{R_\oplus + h}\bigr)$; the source recedes, which
+The light falls from $R_\oplus + h$ to $R_\oplus$ and is blueshifted by $\tfrac{G_NM}{c^2}\bigl(\tfrac{1}{R_\oplus} - \tfrac{1}{R_\oplus + h}\bigr)$; the source recedes, which
 redshifts it by $v/c$:
 
 ```python
@@ -655,14 +655,14 @@ and the requirement of at most two derivatives leave essentially one candidate, 
 
 The **Einstein-Hilbert action** is
 $$
-S_{\mathrm{EH}}[g] = -\frac{1}{2\kappa^2}\int d^4x\,\sqrt{-g}\,R, \qquad \kappa^2 = 8\pi G,
+S_{\mathrm{EH}}[g] = -\frac{1}{2\kappa^2}\int d^4x\,\sqrt{-g}\,R, \qquad \kappa^2 = 8\pi G_N,
 $$ {#eq-einstein-hilbert}
 with $R$ the scalar curvature (@def-scalar-curvature) and $\sqrt{-g}\,d^4x$ the volume element
 (@def-volume-element); the overall sign is the one that makes the kinetic energy of the graviton positive in our
 signature $(+, -, -, -)$, in which $R$ has the opposite sign to the mostly-plus $R$ of @carroll1997
 (@sec-conventions-indices). It is the only action built from the metric alone with at most two derivatives, up to
 the addition of a constant, the cosmological term $-\tfrac{1}{\kappa^2}\int\sqrt{-g}\,\Lambda$, whose sign is the
-same in both signatures [@carroll1997, eqs. 4.54-4.55 and 4.73]. @carroll1997 writes $S = \tfrac{1}{8\pi G}S_H +
+same in both signatures [@carroll1997, eqs. 4.54-4.55 and 4.73]. @carroll1997 writes $S = \tfrac{1}{8\pi G_N}S_H +
 S_M$ with $S_H = \int\sqrt{-g}R$ [eq. 4.68] in his signature; after conversion this is a factor $2$ different from
 @eq-einstein-hilbert, compensated in his definition of the stress tensor.
 :::
@@ -712,15 +712,15 @@ dimensions and the mass scale they define.
 ::: {#exr-gr-eh-dimension}
 #### The Planck mass
 
-In units $\hbar = c = 1$, find the mass dimension of $G$ from the requirement that @eq-einstein-hilbert be
-dimensionless, define the Planck mass $M_P = G^{-1/2}$ and evaluate it in GeV using $G = 6.71 \times
-10^{-39}\,\mathrm{GeV^{-2}}$. What is the dimension of $G$ in $n$ spacetime dimensions?
+In units $\hbar = c = 1$, find the mass dimension of $G_N$ from the requirement that @eq-einstein-hilbert be
+dimensionless, define the reduced Planck mass $M_{\mathrm{Pl}} = (8\pi G_N)^{-1/2} = \kappa^{-1}$ and evaluate it in GeV using $G_N = 6.71 \times
+10^{-39}\,\mathrm{GeV^{-2}}$. What is the dimension of $G_N$ in $n$ spacetime dimensions?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$d^4x$ has mass dimension $-4$ and $R$, two derivatives of the dimensionless metric, has dimension $2$; so $1/G$
-must have dimension $2$, $[G] = -2$. Then $M_P = (6.71 \times 10^{-39})^{-1/2}\,\mathrm{GeV} = 1.22 \times 10^{19}\,
-\mathrm{GeV}$, the scale at which quantum gravity becomes strong. In $n$ dimensions $d^nx\,R$ has dimension $2 - n$,
+$d^4x$ has mass dimension $-4$ and $R$, two derivatives of the dimensionless metric, has dimension $2$; so $1/G_N$
+must have dimension $2$, $[G_N] = -2$. Then $M_{\mathrm{Pl}} = (8\pi \times 6.71 \times 10^{-39})^{-1/2}\,\mathrm{GeV} = 2.44 \times 10^{18}\,
+\mathrm{GeV}$ (without the $8\pi$, $G_N^{-1/2} = 1.22 \times 10^{19}\,\mathrm{GeV}$), the scale at which quantum gravity becomes strong. In $n$ dimensions $d^nx\,R$ has dimension $2 - n$,
 so $[G_n] = 2 - n$; this is why a higher-dimensional Newton constant is related to the four-dimensional one by a volume.
 :::
 
@@ -747,7 +747,7 @@ third exercise evaluates it on de Sitter space with SageManifolds.
 ::: {#exr-gr-eh-de-sitter-density}
 #### The action density of de Sitter space
 
-For $ds^2 = dt^2 - e^{2Ht}d\vec x^2$ in four dimensions compute $\sqrt{-g}$, $R$ and the Lagrangian density
+For $ds^2 = dt^2 - e^{2Ht}d\mathbf x^2$ in four dimensions compute $\sqrt{-g}$, $R$ and the Lagrangian density
 $\sqrt{-g}\,(R + 2\Lambda)$ of the action of @def-cosmological-constant at $\Lambda = 3H^2$.
 :::
 
@@ -783,8 +783,8 @@ the response.
 ::: {#def-metric-variation}
 #### Variation of the metric
 
-A **variation of the metric** is a one-parameter family $g_{\mu\nu} + \epsilon\,\delta g_{\mu\nu}$, equivalently
-$g^{\mu\nu} + \epsilon\,\delta g^{\mu\nu}$ with $\delta g^{\mu\nu} = -g^{\mu\rho}g^{\nu\sigma}\delta g_{\rho\sigma}$
+A **variation of the metric** is a one-parameter family $g_{\mu\nu} + \varepsilon\,\delta g_{\mu\nu}$, equivalently
+$g^{\mu\nu} + \varepsilon\,\delta g^{\mu\nu}$ with $\delta g^{\mu\nu} = -g^{\mu\rho}g^{\nu\sigma}\delta g_{\rho\sigma}$
 (because $\delta(g^{\mu\nu}g_{\nu\rho}) = 0$). Two identities govern how the action responds: for the determinant,
 $$
 \delta\sqrt{-g} = -\tfrac12\sqrt{-g}\,g_{\mu\nu}\,\delta g^{\mu\nu}
@@ -809,7 +809,7 @@ the subject of @exr-eh-variation.
 #### A diagonal metric
 
 For $g = \operatorname{diag}(g_0, g_1, g_2, g_3)$, $\sqrt{-g} = \sqrt{-g_0g_1g_2g_3}$ and varying $g^{\mu\mu} \to g^{\mu\mu} +
-\epsilon d_\mu$ gives $\tfrac{d}{d\epsilon}\sqrt{-g} = -\tfrac12\sqrt{-g}\sum_\mu g_\mu d_\mu$, which is
+\varepsilon d_\mu$ gives $\tfrac{d}{d\varepsilon}\sqrt{-g} = -\tfrac12\sqrt{-g}\sum_\mu g_\mu d_\mu$, which is
 @eq-delta-sqrt-g; the same holds for a non-diagonal metric (@exr-eh-variation).
 :::
 
@@ -845,12 +845,12 @@ symmetric matrix.
 ::: {#exr-gr-variation-inverse}
 #### Varying the inverse
 
-Show that $\delta g^{\mu\nu} = -g^{\mu\rho}g^{\nu\sigma}\delta g_{\rho\sigma}$ by differentiating $(g + \epsilon\,\delta g)^{-1}$ at
-$\epsilon = 0$, and check it for a general symmetric $3 \times 3$ matrix.
+Show that $\delta g^{\mu\nu} = -g^{\mu\rho}g^{\nu\sigma}\delta g_{\rho\sigma}$ by differentiating $(g + \varepsilon\,\delta g)^{-1}$ at
+$\varepsilon = 0$, and check it for a general symmetric $3 \times 3$ matrix.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Differentiating $(g + \epsilon\,\delta g)(g + \epsilon\,\delta g)^{-1} = 1$ gives $\delta g\,g^{-1} + g\,\delta(g^{-1}) = 0$, so
+Differentiating $(g + \varepsilon\,\delta g)(g + \varepsilon\,\delta g)^{-1} = 1$ gives $\delta g\,g^{-1} + g\,\delta(g^{-1}) = 0$, so
 $\delta(g^{-1}) = -g^{-1}\,\delta g\,g^{-1}$, which in components is the stated formula. In Sage, with all six entries of
 $g$ and of $\delta g$ symbolic:
 
@@ -881,8 +881,8 @@ the inverse metric, then on a general symmetric $2 \times 2$ metric.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $g = \operatorname{diag}(g_0, g_1, g_2, g_3)$, $g^{\mu\mu} = 1/g_\mu$; varying $g^{\mu\mu} \to g^{\mu\mu} + \epsilon
-d_\mu$ changes $g_\mu$ to $1/(1/g_\mu + \epsilon d_\mu)$, and differentiating at $\epsilon = 0$ gives
+For $g = \operatorname{diag}(g_0, g_1, g_2, g_3)$, $g^{\mu\mu} = 1/g_\mu$; varying $g^{\mu\mu} \to g^{\mu\mu} + \varepsilon
+d_\mu$ changes $g_\mu$ to $1/(1/g_\mu + \varepsilon d_\mu)$, and differentiating at $\varepsilon = 0$ gives
 $-\tfrac12\sqrt{-g}\sum_\mu g_\mu d_\mu$. For a general metric, $g_{\mu\nu}\delta g^{\mu\nu} = \operatorname{tr}(g\,\delta
 g^{-1})$. In Sage:
 
@@ -929,7 +929,7 @@ the first formula of @eq-palatini.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Under a coordinate change the Christoffel symbols @eq-christoffel transform with an inhomogeneous term
 $\tfrac{\partial x^\rho}{\partial x'^\lambda}\tfrac{\partial^2x'^\lambda}{\partial x^\mu\partial x^\nu}$ that does not depend on
-the metric; the difference of the symbols of $g + \epsilon\delta g$ and of $g$ has this term cancel, so
+the metric; the difference of the symbols of $g + \varepsilon\delta g$ and of $g$ has this term cancel, so
 $\delta\Gamma$ is a tensor. Varying @eq-riemann, $\delta R^\rho{}_{\sigma\mu\nu} = \partial_\mu\delta\Gamma^\rho_{\nu\sigma} -
 \partial_\nu\delta\Gamma^\rho_{\mu\sigma} + \delta\Gamma^\rho_{\mu\lambda}\Gamma^\lambda_{\nu\sigma} + \Gamma^\rho_{\mu\lambda}
 \delta\Gamma^\lambda_{\nu\sigma} - (\mu \leftrightarrow \nu)$; writing out $\nabla_\mu(\delta\Gamma^\rho_{\nu\sigma}) -
@@ -989,7 +989,7 @@ momentum density, the Poynting vector, follow from the same formula (@exr-gr-max
 #### The electromagnetic field
 
 For the Maxwell action @eq-maxwell-action, $T_{\mu\nu} = F_{\mu\rho}F^\rho{}_\nu + \tfrac14g_{\mu\nu}F_{\rho\sigma}F^{\rho\sigma}$,
-traceless in four dimensions, with $T_{tt} = \tfrac12(\vec E^2 + \vec B^2)$: the energy density of the field.
+traceless in four dimensions, with $T_{tt} = \tfrac12(\mathbf E^2 + \mathbf B^2)$: the energy density of the field.
 :::
 
 On large scales matter is described by a density and a pressure rather than by individual fields. The perfect fluid
@@ -1045,14 +1045,14 @@ arbitrary electric and magnetic field.
 ::: {#exr-gr-maxwell-stress}
 #### The Maxwell stress tensor in components
 
-On flat space put $F_{0i} = E_i$ and $F_{ij} = -\epsilon_{ijk}B_k$. Show that $F_{\mu\nu}F^{\mu\nu} = 2(\vec B^2 - \vec E^2)$ and
-that the tensor of @exm-stress-maxwell has $T_{00} = \tfrac12(\vec E^2 + \vec B^2)$, $T^{0i} = (\vec E \times \vec B)_i$ and zero
+On flat space put $F_{0i} = E_i$ and $F_{ij} = -\epsilon_{ijk}B_k$. Show that $F_{\mu\nu}F^{\mu\nu} = 2(\mathbf B^2 - \mathbf E^2)$ and
+that the tensor of @exm-stress-maxwell has $T_{00} = \tfrac12(\mathbf E^2 + \mathbf B^2)$, $T^{0i} = (\mathbf E \times \mathbf B)_i$ and zero
 trace.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F_{\mu\nu}F^{\mu\nu} = 2F_{0i}F^{0i} + F_{ij}F^{ij} = -2\vec E^2 + 2\vec B^2$ since raising one time and one space index
-gives a minus sign. Then $T_{00} = F_{0i}F^i{}_0 + \tfrac14F^2 = \vec E^2 + \tfrac12(\vec B^2 - \vec E^2)$, the energy
+$F_{\mu\nu}F^{\mu\nu} = 2F_{0i}F^{0i} + F_{ij}F^{ij} = -2\mathbf E^2 + 2\mathbf B^2$ since raising one time and one space index
+gives a minus sign. Then $T_{00} = F_{0i}F^i{}_0 + \tfrac14F^2 = \mathbf E^2 + \tfrac12(\mathbf B^2 - \mathbf E^2)$, the energy
 density; the mixed components give the Poynting vector, and the trace $F_{\mu\rho}F^{\rho\mu} + F^2 = -F^2 + F^2 = 0$.
 
 ```python
@@ -1090,9 +1090,9 @@ recovers the Newtonian continuity and Euler equations from it, gravity included.
 ::: {#exr-grb-newtonian-fluid}
 #### The Euler equations from $\nabla_\mu T^{\mu\nu} = 0$
 
-For the perfect fluid $T^{\mu\nu} = (\rho + p)u^\mu u^\nu - pg^{\mu\nu}$ in the weak-field metric of @def-newtonian-limit, with $u^\mu \approx (1, \vec v)$,
-$|\vec v| \ll 1$ and $p \ll \rho$, show that the $\nu = t$ component of $\nabla_\mu T^{\mu\nu} = 0$ is the continuity equation $\partial_t\rho +
-\nabla\cdot(\rho\vec v) = 0$ and the spatial components are the Euler equation $\rho(\partial_t + \vec v\cdot\nabla)\vec v = -\nabla p - \rho\nabla\Phi$
+For the perfect fluid $T^{\mu\nu} = (\rho + p)u^\mu u^\nu - pg^{\mu\nu}$ in the weak-field metric of @def-newtonian-limit, with $u^\mu \approx (1, \mathbf v)$,
+$|\mathbf v| \ll 1$ and $p \ll \rho$, show that the $\nu = t$ component of $\nabla_\mu T^{\mu\nu} = 0$ is the continuity equation $\partial_t\rho +
+\nabla\cdot(\rho\mathbf v) = 0$ and the spatial components are the Euler equation $\rho(\partial_t + \mathbf v\cdot\nabla)\mathbf v = -\nabla p - \rho\nabla\Phi$
 [@plebanski2024introduction, Sec. 12.19, Exercises 1-2].
 :::
 
@@ -1118,7 +1118,7 @@ metric,
 $$
 G_{\mu\nu} = \kappa^2T_{\mu\nu}, \qquad G_{\mu\nu} = R_{\mu\nu} - \tfrac12R\,g_{\mu\nu},
 $$ {#eq-einstein-equations}
-with $G_{\mu\nu}$ the Einstein tensor of @def-einstein-tensor and $\kappa^2 = 8\pi G$ fixed by the Newtonian limit
+with $G_{\mu\nu}$ the Einstein tensor of @def-einstein-tensor and $\kappa^2 = 8\pi G_N$ fixed by the Newtonian limit
 (@prp-eh-variation-text). Their trace, $-R = \kappa^2T$ in four dimensions, gives the **trace-reversed form**
 $R_{\mu\nu} = \kappa^2(T_{\mu\nu} - \tfrac12Tg_{\mu\nu})$.
 :::
@@ -1132,8 +1132,8 @@ $\kappa$.
 #### The Newtonian limit of the equations
 
 For static dust with $T_{tt} = \rho$, $T = \rho$, the trace-reversed equation gives $R_{tt} = \tfrac12\kappa^2\rho$;
-with $R_{tt} = \nabla^2\Phi$ in the weak-field metric this is Poisson's equation $\nabla^2\Phi = 4\pi G\rho$ exactly
-when $\kappa^2 = 8\pi G$ [@carroll1997, eqs. 4.46-4.52] (@exr-newton-constant).
+with $R_{tt} = \nabla^2\Phi$ in the weak-field metric this is Poisson's equation $\nabla^2\Phi = 4\pi G_N\rho$ exactly
+when $\kappa^2 = 8\pi G_N$ [@carroll1997, eqs. 4.46-4.52] (@exr-newton-constant).
 :::
 
 In two dimensions the Einstein tensor vanishes for every metric. The equations then say nothing at all, in line
@@ -1217,13 +1217,13 @@ trace-reversed equation with a dust source.
 #### Fixing $\kappa$
 
 Using $g_{tt} = 1 + 2\Phi$, $R_{tt} \approx \tfrac12\nabla^2h_{tt}$ and the trace-reversed Einstein equation with
-$T_{tt} = \rho$, show that Poisson's equation $\nabla^2\Phi = 4\pi G\rho$ requires $\kappa^2 = 8\pi G$.
+$T_{tt} = \rho$, show that Poisson's equation $\nabla^2\Phi = 4\pi G_N\rho$ requires $\kappa^2 = 8\pi G_N$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For static dust, $T = g^{tt}T_{tt} = \rho$ and $T_{tt} - \tfrac12Tg_{tt} \approx \tfrac12\rho$, so $R_{tt} = \tfrac12\kappa^2\rho$.
 With $h_{tt} = 2\Phi$, $R_{tt} \approx \partial_i\Gamma^i_{tt} = \tfrac12\nabla^2h_{tt} = \nabla^2\Phi$, hence $\nabla^2\Phi =
-\tfrac12\kappa^2\rho$, and comparison with Poisson's equation gives $\kappa^2 = 8\pi G$ [@carroll1997, eqs. 4.46-4.52,
+\tfrac12\kappa^2\rho$, and comparison with Poisson's equation gives $\kappa^2 = 8\pi G_N$ [@carroll1997, eqs. 4.46-4.52,
 in his signature].
 :::
 
@@ -1239,8 +1239,8 @@ $\Phi$, and show that $G_{tt} = \kappa^2\rho$ is Poisson's equation.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 To first order $R_{tt} = \nabla^2\Phi$ and $G_{tt} = 2\nabla^2\Phi$ (the spatial part of the metric contributes to
-$G_{tt}$ through $R$). With $T_{tt} = \rho$, $2\nabla^2\Phi = \kappa^2\rho = 8\pi G\rho$, which is Poisson's equation
-$\nabla^2\Phi = 4\pi G\rho$, in agreement with @exr-newton-constant.
+$G_{tt}$ through $R$). With $T_{tt} = \rho$, $2\nabla^2\Phi = \kappa^2\rho = 8\pi G_N\rho$, which is Poisson's equation
+$\nabla^2\Phi = 4\pi G_N\rho$, in agreement with @exr-newton-constant.
 
 ```python
 import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _curvature import *
@@ -1355,7 +1355,7 @@ What equation would the opposite overall sign of @eq-einstein-hilbert give, and 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\delta(S_{\mathrm{EH}} + S_M) = \int\sqrt{-g}\,\bigl(-\tfrac{1}{2\kappa^2}G_{\mu\nu} + \tfrac12T_{\mu\nu}\bigr)\delta g^{\mu\nu} = 0$ for
 all $\delta g^{\mu\nu}$ gives $G_{\mu\nu} = \kappa^2T_{\mu\nu}$. With the opposite sign one would get $G_{\mu\nu} = -
-\kappa^2T_{\mu\nu}$, whose Newtonian limit is $\nabla^2\Phi = -4\pi G\rho$: masses would repel, and the graviton would
+\kappa^2T_{\mu\nu}$, whose Newtonian limit is $\nabla^2\Phi = -4\pi G_N\rho$: masses would repel, and the graviton would
 have negative kinetic energy.
 :::
 
@@ -1383,14 +1383,14 @@ gives the Friedmann equation directly, which the third exercise checks with Sage
 ::: {#exr-gr-variation-minisuperspace}
 #### Minisuperspace
 
-On $ds^2 = N(t)^2dt^2 - a(t)^2d\vec x^2$ take $S = -\tfrac{1}{2\kappa^2}\int\sqrt{-g}\,R - \int\sqrt{-g}\,\rho$ with dust,
+On $ds^2 = N(t)^2dt^2 - a(t)^2d\mathbf x^2$ take $S = -\tfrac{1}{2\kappa^2}\int\sqrt{-g}\,R - \int\sqrt{-g}\,\rho$ with dust,
 $\rho a^3 = \rho_0$ constant. Vary with respect to the lapse $N$, set $N = 1$, and compare with
 @def-gr-friedmann-equations.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Per unit coordinate volume the Lagrangian is $L = -\tfrac{1}{2\kappa^2}Na^3R - N\rho_0$. Its Euler-Lagrange derivative
-with respect to $N$ at $N = 1$ is $3a\dot a^2/\kappa^2 - \rho_0$, so $\dot a^2/a^2 = \kappa^2\rho/3 = 8\pi G\rho/3$, the first
+with respect to $N$ at $N = 1$ is $3a\dot a^2/\kappa^2 - \rho_0$, so $\dot a^2/a^2 = \kappa^2\rho/3 = 8\pi G_N\rho/3$, the first
 Friedmann equation. The lapse is the time-time component of the metric, and its equation is the $tt$ Einstein
 equation, a constraint without second time derivatives.
 
@@ -1498,7 +1498,7 @@ compares it with the Planck scale.
 ::: {#exr-gr-lambda-value}
 #### The observed cosmological constant
 
-With $\Lambda = 1.1 \times 10^{-52}\,\mathrm{m^{-2}}$, compute $\rho_\Lambda c^2 = \Lambda c^4/(8\pi G)$ in $\mathrm{J/m^3}$ and
+With $\Lambda = 1.1 \times 10^{-52}\,\mathrm{m^{-2}}$, compute $\rho_\Lambda c^2 = \Lambda c^4/(8\pi G_N)$ in $\mathrm{J/m^3}$ and
 in $\mathrm{eV^4}$ (using $\hbar c = 1.973 \times 10^{-7}\,\mathrm{eV\,m}$), and compare with the fourth power of the reduced
 Planck mass $2.4 \times 10^{27}\,$eV.
 :::
@@ -1515,7 +1515,7 @@ print("rho_Lambda c^2 = %.2e J/m^3 = %.2e kg/m^3 times c^2" % (rho, rho/c^2))
 rho_nat = rho/eV*hbarc^3                                   # eV^4
 print("in natural units: %.2e eV^4 = (%.2e eV)^4" % (rho_nat, rho_nat^(1/4)))
 MP = 2.435e27                                              # reduced Planck mass (8 pi G)^{-1/2} in eV
-print("ratio to M_P^4 (reduced Planck mass): %.1e" % (rho_nat/MP^4))
+print("ratio to M_Pl^4 (reduced Planck mass): %.1e" % (rho_nat/MP^4))
 ```
 
 *Output:*
@@ -1523,7 +1523,7 @@ print("ratio to M_P^4 (reduced Planck mass): %.1e" % (rho_nat/MP^4))
 ```text
 rho_Lambda c^2 = 5.30e-10 J/m^3 = 5.89e-27 kg/m^3 times c^2
 in natural units: 2.54e-11 eV^4 = (2.25e-03 eV)^4
-ratio to M_P^4 (reduced Planck mass): 7.2e-121
+ratio to M_Pl^4 (reduced Planck mass): 7.2e-121
 ```
 :::
 
@@ -1534,15 +1534,15 @@ produces on a test particle near a point mass.
 #### A repulsive force
 
 Show that with a cosmological constant the trace-reversed equations read $R_{\mu\nu} = \kappa^2(T_{\mu\nu} - \tfrac12Tg_{\mu\nu}) -
-\Lambda g_{\mu\nu}$ in four dimensions, deduce $\nabla^2\Phi = 4\pi G\rho - \Lambda$, and find the potential of a point
+\Lambda g_{\mu\nu}$ in four dimensions, deduce $\nabla^2\Phi = 4\pi G_N\rho - \Lambda$, and find the potential of a point
 mass.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The trace of $G_{\mu\nu} - \Lambda g_{\mu\nu} = \kappa^2T_{\mu\nu}$ gives $R = -\kappa^2T - 4\Lambda$, and then $R_{\mu\nu} =
 \kappa^2T_{\mu\nu} + \Lambda g_{\mu\nu} + \tfrac12Rg_{\mu\nu}$ is the stated form. Its $tt$ component in the weak field is
-$\nabla^2\Phi = 4\pi G\rho - \Lambda$, solved outside a point mass by $\Phi = -GM/r - \Lambda r^2/6$: an attraction
-plus a repulsion $\Lambda r/3$ growing with distance. Indeed $g_{tt} = 1 + 2\Phi = 1 - 2GM/r - \Lambda r^2/3$ is the
+$\nabla^2\Phi = 4\pi G_N\rho - \Lambda$, solved outside a point mass by $\Phi = -G_NM/r - \Lambda r^2/6$: an attraction
+plus a repulsion $\Lambda r/3$ growing with distance. Indeed $g_{tt} = 1 + 2\Phi = 1 - 2G_NM/r - \Lambda r^2/3$ is the
 exact solution of @exr-gr-schwarzschild-de-sitter.
 :::
 ::::
@@ -1609,7 +1609,7 @@ with two times. The next example gives its global coordinates, which show its un
 #### Global anti-de Sitter space
 
 Four-dimensional anti-de Sitter space of unit radius is the quadric $U^2 + V^2 - X^2 - Y^2 - Z^2 = 1$ in the flat space with metric
-$dU^2 + dV^2 - dX^2 - dY^2 - dZ^2$. With $U = \cosh\lambda\cos\alpha$, $V = \cosh\lambda\sin\alpha$ and $(X, Y, Z) = \sinh\lambda\,\hat n$,
+$dU^2 + dV^2 - dX^2 - dY^2 - dZ^2$. With $U = \cosh\lambda\cos\alpha$, $V = \cosh\lambda\sin\alpha$ and $(X, Y, Z) = \sinh\lambda\,\hat{\mathbf n}$,
 $$
 ds^2 = \cosh^2\lambda\,d\alpha^2 - d\lambda^2 - \sinh^2\lambda\,d\Omega^2 .
 $$
@@ -1906,9 +1906,9 @@ light move on straight lines of the comoving coordinates, the expansion acting o
 ::: {#exm-grb-ds-straight}
 #### Straight comoving paths
 
-For $ds^2 = dt^2 - e^{2t/R}(dx^2 + dy^2 + dz^2)$ the metric does not depend on $\vec x$, so $e^{2t/R}\,d\vec x/d\tau = \vec p$ is constant along
-a geodesic. The direction of $d\vec x/d\tau$ is fixed: free particles and photons move on straight lines in the comoving
-coordinates. A photon sent from $x = X$ towards the origin at $t = 0$ has $dx/dt = -e^{-t/R}$ and arrives at $t = -R\ln(1 - X/R)$ if
+For $ds^2 = dt^2 - e^{2t/R}(dx^2 + dy^2 + dz^2)$ the metric does not depend on $\mathbf x$, so $e^{2t/R}\,d\mathbf x/d\tau = \mathbf p$ is constant along
+a geodesic. The direction of $d\mathbf x/d\tau$ is fixed: free particles and photons move on straight lines in the comoving
+coordinates. A photon sent from $x = X$ towards the origin at $t = 0$ has $dx/dt = -e^{-t/R}$ and arrives at $t = -R\log(1 - X/R)$ if
 $X < R$, never if $X \geq R$, the horizon of @exm-gr-ds-horizon [@blennow2022relativity, Problem 2.83].
 :::
 
@@ -1918,10 +1918,10 @@ two-dimensional de Sitter space, where the whole spacetime can be drawn.
 ::: {#exm-grb-ds2-global}
 #### Light on the two-dimensional hyperboloid
 
-On $x_0^2 - x_1^2 - x_2^2 = -1$ in three-dimensional Minkowski space, $x_0 = \sinh\tau$, $x_1 = \cosh\tau\cos\phi$, $x_2 = \cosh\tau\sin\phi$ give
-$ds^2 = d\tau^2 - \cosh^2\tau\,d\phi^2$. A light ray has $d\phi = d\tau/\cosh\tau$, so $\phi(\tau) - \phi(\tau_0) = \operatorname{gd}\tau - \operatorname{gd}\tau_0$ with the
+On $x_0^2 - x_1^2 - x_2^2 = -1$ in three-dimensional Minkowski space, $x_0 = \sinh\tau$, $x_1 = \cosh\tau\cos\varphi$, $x_2 = \cosh\tau\sin\varphi$ give
+$ds^2 = d\tau^2 - \cosh^2\tau\,d\varphi^2$. A light ray has $d\varphi = d\tau/\cosh\tau$, so $\varphi(\tau) - \varphi(\tau_0) = \operatorname{gd}\tau - \operatorname{gd}\tau_0$ with the
 Gudermannian $\operatorname{gd}\tau = 2\arctan(\tanh(\tau/2))$, which runs from $-\pi/2$ to $\pi/2$. Over the whole history of the universe a
-ray covers half the circle; sent at $x_0 = 0$ from $\phi = 0$ it reaches $\phi = \pi/2$ only as $x_0 \to \infty$, and the antipodal half
+ray covers half the circle; sent at $x_0 = 0$ from $\varphi = 0$ it reaches $\varphi = \pi/2$ only as $x_0 \to \infty$, and the antipodal half
 of the circle never receives it [@blennow2022relativity, Problem 2.79].
 :::
 ::::
@@ -1933,7 +1933,7 @@ It gives the value $\Lambda = 3H^2$ used in cosmology.
 ::: {#exr-de-sitter-4d}
 #### Four-dimensional de Sitter space
 
-Compute the Ricci tensor and scalar curvature of $ds^2 = dt^2 - e^{2Ht}d\vec x^2$ in four dimensions and find
+Compute the Ricci tensor and scalar curvature of $ds^2 = dt^2 - e^{2Ht}d\mathbf x^2$ in four dimensions and find
 $\Lambda$.
 :::
 
@@ -1965,14 +1965,14 @@ a free particle decays like $1/a$.
 ::: {#exr-gr-ds-peculiar}
 #### Peculiar velocities decay
 
-For a geodesic of $ds^2 = dt^2 - a(t)^2d\vec x^2$, show that $a^2\,dx^i/d\tau$ is constant, using that $g$ does not depend on
-$x^i$. Deduce that the momentum measured by comoving observers, $p = ma\,|d\vec x/d\tau|$, decreases as $1/a$; what does this
+For a geodesic of $ds^2 = dt^2 - a(t)^2d\mathbf x^2$, show that $a^2\,dx^i/d\tau$ is constant, using that $g$ does not depend on
+$x^i$. Deduce that the momentum measured by comoving observers, $p = ma\,|d\mathbf x/d\tau|$, decreases as $1/a$; what does this
 mean for de Sitter space?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\partial_i$ is a Killing vector, so $g(\partial_i, u) = -a^2\,dx^i/d\tau$ is conserved along geodesics (as for $E$ in
-@exr-gr-nl-energy). Hence $a\,|d\vec x/d\tau| \propto 1/a$ and $p \propto 1/a$. In de Sitter space $a = e^{Ht}$, so any
+@exr-gr-nl-energy). Hence $a\,|d\mathbf x/d\tau| \propto 1/a$ and $p \propto 1/a$. In de Sitter space $a = e^{Ht}$, so any
 initial motion relative to the comoving observers dies away exponentially, and the comoving geodesics of
 @exm-equivalence-geodesics are attractors. For light the same law is the cosmological redshift (@exr-gr-flrw-redshift).
 :::
@@ -1988,8 +1988,8 @@ flat slicing (@def-killing), while $\partial_t$ is not.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The finite transformation $t \mapsto t + c$, $\vec x \mapsto e^{-Hc}\vec x$ maps $e^{2Ht}d\vec x^2$ to $e^{2H(t + c)}e^{-2Hc}d\vec x^2$,
-an isometry; $\xi$ is its generator. SageManifolds gives $\mathcal{L}_\xi g = 0$ and $\mathcal{L}_{\partial_t}g = -2He^{2Ht}d\vec x^2 \neq
+The finite transformation $t \mapsto t + c$, $\mathbf x \mapsto e^{-Hc}\mathbf x$ maps $e^{2Ht}d\mathbf x^2$ to $e^{2H(t + c)}e^{-2Hc}d\mathbf x^2$,
+an isometry; $\xi$ is its generator. SageManifolds gives $\mathcal{L}_\xi g = 0$ and $\mathcal{L}_{\partial_t}g = -2He^{2Ht}d\mathbf x^2 \neq
 0$.
 
 ```python
@@ -2104,8 +2104,8 @@ Mercury and the bending of light. Its symmetries, the Killing vectors of the mat
 quantities that make the orbits solvable and the redshift and time delay of light exact, the last two of the four
 classical tests. A charged mass is described by the Reissner-Nordström solution of the coupled Einstein and Maxwell
 equations, the four-dimensional theory that Kaluza-Klein reduction produces. A homogeneous and isotropic universe is
-described by the FLRW metric, whose single function $a(t)$ obeys the Friedmann equations. In this section we keep $G$ explicit in the definitions and set $G = c
-= 1$ in computations, writing $m = GM$ for the mass in units of length.
+described by the FLRW metric, whose single function $a(t)$ obeys the Friedmann equations. In this section we keep $G_N$ explicit in the definitions and set $G_N = c
+= 1$ in computations, writing $m = G_NM$ for the mass in units of length.
 
 For more on this topic, see @boskoff2024journey [Ch. 9-10], @buchbinder2021introduction [Ch. 12] and @godinho2014introduction [Ch. 6].
 
@@ -2121,12 +2121,12 @@ differential equations whose solution was found by Schwarzschild in 1916.
 
 The **Schwarzschild metric** of mass $M > 0$ is
 $$
-ds^2 = \Bigl(1 - \frac{2GM}{r}\Bigr)dt^2 - \Bigl(1 - \frac{2GM}{r}\Bigr)^{-1}dr^2 - r^2\bigl(d\theta^2 + \sin^2\theta\,d\phi^2\bigr),
+ds^2 = \Bigl(1 - \frac{2G_NM}{r}\Bigr)dt^2 - \Bigl(1 - \frac{2G_NM}{r}\Bigr)^{-1}dr^2 - r^2\bigl(d\theta^2 + \sin^2\theta\,d\varphi^2\bigr),
 $$ {#eq-gr-schwarzschild}
-on $r > 2GM$, where $r$ is defined by the area $4\pi r^2$ of the spheres of constant $t$ and $r$. It is a vacuum solution,
+on $r > 2G_NM$, where $r$ is defined by the area $4\pi r^2$ of the spheres of constant $t$ and $r$. It is a vacuum solution,
 $R_{\mu\nu} = 0$ (@prp-gr-schwarzschild), and by **Birkhoff's theorem** it is the only spherically symmetric one: the
 gravitational field outside any spherical body is @eq-gr-schwarzschild [@carroll1997, ch. 7, with the overall sign of
-our signature]. The radius $r_s = 2GM$ is the **Schwarzschild radius**.
+our signature]. The radius $r_s = 2G_NM$ is the **Schwarzschild radius**.
 :::
 ::::
 
@@ -2137,8 +2137,8 @@ directly.
 ::: {#exm-gr-schw-newtonian}
 #### The Newtonian potential
 
-At large $r$, $g_{tt} = 1 - 2GM/r = 1 + 2\Phi$ with $\Phi = -GM/r$, the Newtonian potential of a point mass
-(@exm-newtonian-point-mass). The radial component $g_{rr} = -(1 + 2GM/r + \dots)$ differs from the $-(1 - 2\Phi)$ of
+At large $r$, $g_{tt} = 1 - 2G_NM/r = 1 + 2\Phi$ with $\Phi = -G_NM/r$, the Newtonian potential of a point mass
+(@exm-newtonian-point-mass). The radial component $g_{rr} = -(1 + 2G_NM/r + \dots)$ differs from the $-(1 - 2\Phi)$ of
 @prp-newtonian-limit only by the choice of radial coordinate, as @exr-gr-schw-isotropic shows.
 :::
 
@@ -2148,9 +2148,9 @@ no role in the solar system.
 ::: {#exm-gr-schw-radius}
 #### Schwarzschild radii
 
-With $GM_\odot/c^2 = 1.48\,$km, the Sun has $r_s = 2.95\,$km, far inside its radius of $696\,000\,$km where the vacuum
+With $G_NM_\odot/c^2 = 1.48\,$km, the Sun has $r_s = 2.95\,$km, far inside its radius of $696\,000\,$km where the vacuum
 solution does not apply; the Earth has $r_s = 8.9\,$mm. Only bodies compressed below $r_s$, black holes, have the
-surface $r = 2GM$ outside them.
+surface $r = 2G_NM$ outside them.
 :::
 
 Birkhoff's theorem has a striking consequence for dynamics. Whatever a spherical star does internally, its exterior
@@ -2170,7 +2170,7 @@ example gives Fronsdal's embedding into six-dimensional Minkowski space.
 ::: {#exm-grb-fronsdal}
 #### An embedding in six dimensions
 
-With $r_s = 2GM$, set $Z_1 = 2r_s\sinh\frac{t}{2r_s}f(r)$, $Z_2 = 2r_s\cosh\frac{t}{2r_s}f(r)$, $Z_3 = g(r)$ and $(Z_4, Z_5, Z_6) = r\,\hat n(\theta, \phi)$
+With $r_s = 2G_NM$, set $Z_1 = 2r_s\sinh\frac{t}{2r_s}f(r)$, $Z_2 = 2r_s\cosh\frac{t}{2r_s}f(r)$, $Z_3 = g(r)$ and $(Z_4, Z_5, Z_6) = r\,\hat{\mathbf n}(\theta, \varphi)$
 in the space with metric $dZ_1^2 - dZ_2^2 - \dots - dZ_6^2$. Then $dZ_1^2 - dZ_2^2 = f^2dt^2 - 4r_s^2f'^2dr^2$, and @eq-gr-schwarzschild is reproduced
 by $f = \sqrt{1 - r_s/r}$ and
 $$
@@ -2188,14 +2188,14 @@ to galactic masses.
 ::: {#exr-gr-schw-radius-numbers}
 #### Black holes of different masses
 
-Compute $r_s = 2GM/c^2$ for a black hole of $10$ solar masses and for Sagittarius A$^*$, the black hole at the centre of
+Compute $r_s = 2G_NM/c^2$ for a black hole of $10$ solar masses and for Sagittarius A$^*$, the black hole at the centre of
 the Galaxy, of $4.3 \times 10^6$ solar masses, and compare the latter with the radius of the Earth's orbit, $1.5 \times
 10^8\,$km. What is the mean density inside $r_s$, as a function of $M$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $r_s = 2.95\,$km per solar mass: $29.5\,$km and $1.27 \times 10^7\,$km, about $0.085$ of the Earth-Sun distance. The mean
-density $M/(\tfrac43\pi r_s^3) = 3c^6/(32\pi G^3M^2)$ decreases as $M^{-2}$: a stellar black hole is denser than a nucleus,
+density $M/(\tfrac43\pi r_s^3) = 3c^6/(32\pi G_N^3M^2)$ decreases as $M^{-2}$: a stellar black hole is denser than a nucleus,
 while one of $10^8$ solar masses has the density of water.
 :::
 
@@ -2205,14 +2205,14 @@ exercise computes one component with SageManifolds.
 ::: {#exr-gr-schw-ricci-flat}
 #### Ricci flat but curved
 
-Compute the Ricci tensor of @eq-gr-schwarzschild (with $G = 1$, $m = M$) and the component $R^r{}_{trt}$ of the Riemann
+Compute the Ricci tensor of @eq-gr-schwarzschild (with $G_N = 1$, $m = M$) and the component $R^r{}_{trt}$ of the Riemann
 tensor, and compare the latter with the radial tidal acceleration of @exr-gr-tidal.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $R_{\mu\nu} = 0$ and $R = 0$, but $R^r{}_{trt} = -2m(r - 2m)/r^4 = -\tfrac{2m}{r^3}(1 - 2m/r)$. For a particle momentarily at
 rest, $u^t = (1 - 2m/r)^{-1/2}$, and geodesic deviation in the radial direction gives $\ddot\xi^r = R^r{}_{ttr}(u^t)^2\xi^r = -
-R^r{}_{trt}(u^t)^2\xi^r = \tfrac{2m}{r^3}\xi^r$: the radial stretching $2GM/r^3$ of @exr-gr-tidal.
+R^r{}_{trt}(u^t)^2\xi^r = \tfrac{2m}{r^3}\xi^r$: the radial stretching $2G_NM/r^3$ of @exr-gr-tidal.
 
 ```python
 import os, sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from _curvature import *
@@ -2273,8 +2273,8 @@ accelerations.
 ::: {#exr-grb-frame-curvature}
 #### Curvature in the observer's frame
 
-With Sage, compute the components $R_{(abab)}$ of the Riemann tensor of @eq-gr-schwarzschild ($G = 1$, $m = M$) in the orthonormal frame
-$e_{(t)} = (1 - 2m/r)^{-1/2}\partial_t$, $e_{(r)} = (1 - 2m/r)^{1/2}\partial_r$, $e_{(\theta)} = r^{-1}\partial_\theta$, $e_{(\phi)} = (r\sin\theta)^{-1}\partial_\phi$, and check
+With Sage, compute the components $R_{(abab)}$ of the Riemann tensor of @eq-gr-schwarzschild ($G_N = 1$, $m = M$) in the orthonormal frame
+$e_{(t)} = (1 - 2m/r)^{-1/2}\partial_t$, $e_{(r)} = (1 - 2m/r)^{1/2}\partial_r$, $e_{(\theta)} = r^{-1}\partial_\theta$, $e_{(\varphi)} = (r\sin\theta)^{-1}\partial_\varphi$, and check
 the Kretschmann scalar. Are they finite at $r = 2m$? What do they mean for a falling body?
 [@plebanski2024introduction, Sec. 14.17, Exercise 7; @blennow2022relativity, Problem 2.110]
 :::
@@ -2319,22 +2319,22 @@ infinite.
 :::
 ::::
 
-The coefficient $g_{rr}$ blows up at $r = 2GM$. This is not a singularity of spacetime but of the coordinates, and the
-surface $r = 2GM$ has a physical meaning of its own: nothing that crosses it inwards can come back.
+The coefficient $g_{rr}$ blows up at $r = 2G_NM$. This is not a singularity of spacetime but of the coordinates, and the
+surface $r = 2G_NM$ has a physical meaning of its own: nothing that crosses it inwards can come back.
 
 :::: {.statement-box}
 ::: {#def-gr-event-horizon}
 #### Event horizon
 
-The **event horizon** of the Schwarzschild spacetime is the surface $r = 2GM$. In the ingoing Eddington-Finkelstein
-coordinate $v = t + r_*$, with the tortoise coordinate $r_* = r + 2GM\log|r/2GM - 1|$, the metric reads
+The **event horizon** of the Schwarzschild spacetime is the surface $r = 2G_NM$. In the ingoing Eddington-Finkelstein
+coordinate $v = t + r_*$, with the tortoise coordinate $r_* = r + 2G_NM\log|r/2G_NM - 1|$, the metric reads
 $$
-ds^2 = \Bigl(1 - \frac{2GM}{r}\Bigr)dv^2 - 2\,dv\,dr - r^2d\Omega^2,
+ds^2 = \Bigl(1 - \frac{2G_NM}{r}\Bigr)dv^2 - 2\,dv\,dr - r^2d\Omega^2,
 $$ {#eq-gr-eddington-finkelstein}
-which is regular at $r = 2GM$ and extends the spacetime to $0 < r < 2GM$. Inside the horizon every future-directed
-timelike or null curve has decreasing $r$; the region $r < 2GM$ is a **black hole**, and its boundary is the boundary of
+which is regular at $r = 2G_NM$ and extends the spacetime to $0 < r < 2G_NM$. Inside the horizon every future-directed
+timelike or null curve has decreasing $r$; the region $r < 2G_NM$ is a **black hole**, and its boundary is the boundary of
 the set of events from which signals can reach infinity [@carroll1997, ch. 7]. The curvature singularity is at
-$r = 0$, where $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma} = 48G^2M^2/r^6$ diverges (@prp-gr-schwarzschild).
+$r = 0$, where $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma} = 48G_N^2M^2/r^6$ diverges (@prp-gr-schwarzschild).
 :::
 ::::
 
@@ -2383,7 +2383,7 @@ $a^r = \Gamma^r_{tt}(u^t)^2 = m/r^2$, so the proper acceleration is
 $$
 \alpha = \sqrt{-g_{rr}}\,a^r = \frac{m}{r^2\sqrt{1 - 2m/r}} .
 $$
-For $r \gg m$ this is Newton's $GM/r^2$; it diverges at $r = 2m$, where no observer can stay at rest. The redshifted value
+For $r \gg m$ this is Newton's $G_NM/r^2$; it diverges at $r = 2m$, where no observer can stay at rest. The redshifted value
 $\sqrt{1 - 2m/r}\,\alpha \to 1/(4m)$ is the surface gravity of @exr-gr-horizon-temperature [@blennow2022relativity, Problems 2.94 and 2.100].
 :::
 
@@ -2395,7 +2395,7 @@ possible time, for a fall from rest.
 
 Radial free fall from rest at $r_0$ has $E^2 = 1 - 2m/r_0$ and $\dot r^2 = 2m/r - 2m/r_0$, solved by the cycloid $r = \tfrac{r_0}{2}(1 + \cos\eta)$,
 $\tau = \sqrt{r_0^3/8m}\,(\eta + \sin\eta)$: the singularity $\eta = \pi$ is reached after $\tau = \pi\sqrt{r_0^3/8m}$, the Newtonian free-fall time. From
-the horizon, $r_0 = 2m$, this is $\tau = \pi m = \pi GM/c^3$, about $1.5 \times 10^{-4}\,$s for ten solar masses; any other motion inside
+the horizon, $r_0 = 2m$, this is $\tau = \pi m = \pi G_NM/c^3$, about $1.5 \times 10^{-4}\,$s for ten solar masses; any other motion inside
 reaches $r = 0$ sooner, so firing a rocket only shortens the remaining time [@blennow2022relativity, Problems 2.91 and 2.96].
 :::
 ::::
@@ -2430,8 +2430,8 @@ time from $r = 2m$ to $r = 0$. Show that the coordinate time $t$ diverges near $
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The normalisation $g(u, u) = 1$ with $E = (1 - 2m/r)\dot t$ gives $\dot r^2 = E^2 - (1 - 2m/r) = 2m/r$, exactly the
 Newtonian energy equation. Then $\tau = \int_0^{2m}\sqrt{r/2m}\,dr = 4m/3$: about $66\,\mu$s for a black hole of ten solar
-masses. Near $r = 2m(1 + \epsilon)$, $|dt/dr| \approx 1/\epsilon + \tfrac32$, and with $dr = 2m\,d\epsilon$ the coordinate time grows like
-$t \approx -2m\log\epsilon \to \infty$.
+masses. Near $r = 2m(1 + \varepsilon)$, $|dt/dr| \approx 1/\varepsilon + \tfrac32$, and with $dr = 2m\,d\varepsilon$ the coordinate time grows like
+$t \approx -2m\log\varepsilon \to \infty$.
 
 ```python
 m, r, r0 = var('m r r0'); assume(m > 0, r > 0, r0 > 2*m)
@@ -2461,7 +2461,7 @@ relates it to the redshift at the horizon.
 
 The **surface gravity** $\kappa_s$ is the redshifted acceleration needed to hold a static observer at the horizon,
 $\kappa_s = \tfrac12f'(r_s)$ for $f = 1 - 2m/r$. Compute it, and evaluate Hawking's temperature $T_H = \kappa_s/2\pi$ (in units
-$\hbar = c = k_B = G = 1$, quoted, not derived here) for a black hole of one solar mass, using $T_H = 6.2 \times
+$\hbar = c = k_B = G_N = 1$, quoted, not derived here) for a black hole of one solar mass, using $T_H = 6.2 \times
 10^{-8}\,\mathrm{K}\,(M_\odot/M)$.
 :::
 
@@ -2478,7 +2478,7 @@ leaves the black-hole region, which is the content of the word horizon.
 #### No way out
 
 In the Kruskal-Szekeres coordinates $ds^2 = \tfrac{16m^2}{r}e^{(2m - r)/2m}\,du\,dv - r^2d\Omega^2$ with $uv = (2m - r)e^{(r - 2m)/2m}$ and
-$t = 2m\ln(-v/u)$ outside, show that future-directed causal curves have $\dot u \geq 0$, $\dot v \geq 0$, that $uv$ is a decreasing function of $r$,
+$t = 2m\log(-v/u)$ outside, show that future-directed causal curves have $\dot u \geq 0$, $\dot v \geq 0$, that $uv$ is a decreasing function of $r$,
 and conclude that a curve entering the region $u > 0$, $v > 0$ never returns to $r > 2m$ [@blennow2022relativity, Problems 2.107-2.108].
 :::
 
@@ -2498,10 +2498,10 @@ curvature, light cones and geodesics, and the two classic effects, the perihelio
 ::: {#prp-gr-schwarzschild}
 #### Geodesics of the Schwarzschild metric
 
-With $G = 1$ and $m = M$: (a) @eq-gr-schwarzschild is Ricci flat and its Kretschmann scalar is
+With $G_N = 1$ and $m = M$: (a) @eq-gr-schwarzschild is Ricci flat and its Kretschmann scalar is
 $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma} = 48m^2/r^6$; (b) radial light rays have $dr/dt = \pm(1 - 2m/r)$, the metric in $(v, r)$ is
 @eq-gr-eddington-finkelstein, and the outgoing slope $(1 + 2m/r)/(1 - 2m/r)$ in the $(r, v - r)$ plane is negative inside
-$r = 2m$; (c) for a geodesic in the plane $\theta = \pi/2$ with conserved $E = (1 - 2m/r)\dot t$ and $L = r^2\dot\phi$, the radial
+$r = 2m$; (c) for a geodesic in the plane $\theta = \pi/2$ with conserved $E = (1 - 2m/r)\dot t$ and $L = r^2\dot\varphi$, the radial
 equation is $\ddot r = -\tfrac12V'(r)$ with
 $$
 V(r) = \Bigl(1 - \frac{2m}{r}\Bigr)\Bigl(1 + \frac{L^2}{r^2}\Bigr), \qquad \dot r^2 = E^2 - V(r),
@@ -2514,7 +2514,7 @@ by $4m/b$ to within $5\%$ for $b = 200m$, $1000m$, $5000m$.
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-![The Schwarzschild solution ($G = 1$). Left: radial light cones in the ingoing Eddington-Finkelstein plane $(r, v -
+![The Schwarzschild solution ($G_N = 1$). Left: radial light cones in the ingoing Eddington-Finkelstein plane $(r, v -
 r)$; outside the horizon (blue) the outgoing edge points to larger $r$, at $r = 2m$ it is vertical, and inside (red) both
 edges point to smaller $r$. Centre: a bound geodesic with turning points $p/(1 \pm e)$, $p = 40m$, $e = 0.5$, over four
 revolutions (red), precessing about the ellipse with the same turning points (blue, dashed). Right: light rays with
@@ -2530,7 +2530,7 @@ proposition with the orbit of Mercury.
 ::: {#exm-gr-mercury}
 #### The perihelion of Mercury
 
-Restoring units, the advance per orbit is $6\pi GM_\odot/(c^2a(1 - e^2))$ with $a = 5.79 \times 10^{10}\,$m and $e = 0.206$:
+Restoring units, the advance per orbit is $6\pi G_NM_\odot/(c^2a(1 - e^2))$ with $a = 5.79 \times 10^{10}\,$m and $e = 0.206$:
 $5.0 \times 10^{-7}\,$rad. Mercury completes $415$ orbits per century, giving $2.1 \times 10^{-4}\,$rad $= 43''$ per
 century, the anomaly that Newtonian perturbations by the other planets could not explain.
 :::
@@ -2541,7 +2541,7 @@ value for a ray grazing the solar surface.
 ::: {#exm-gr-light-bending}
 #### Light bending by the Sun
 
-For $b = R_\odot = 6.96 \times 10^8\,$m, $4GM_\odot/(c^2R_\odot) = 4 \times 1476\,\mathrm{m}/6.96 \times 10^8\,\mathrm{m} = 8.5 \times
+For $b = R_\odot = 6.96 \times 10^8\,$m, $4G_NM_\odot/(c^2R_\odot) = 4 \times 1476\,\mathrm{m}/6.96 \times 10^8\,\mathrm{m} = 8.5 \times
 10^{-6}\,$rad $= 1.75''$, twice the Newtonian value (@exr-gr-nl-light), as confirmed by the eclipse expedition and by
 radio interferometry to better than $10^{-3}$.
 :::
@@ -2563,9 +2563,9 @@ the proper time of the orbiting body, which is not given by the same law.
 ::: {#exm-grb-kepler-exact}
 #### Kepler's third law in Schwarzschild coordinates
 
-For a circular geodesic $r = r_0$, $\ddot r = 0$ and the $r$-component of the geodesic equation reduces to $\Gamma^r_{tt}\dot t^2 + \Gamma^r_{\phi\phi}\dot\phi^2 = 0$,
-that is $(m/r_0^2)(1 - 2m/r_0)\dot t^2 = r_0(1 - 2m/r_0)\dot\phi^2$. Hence $(d\phi/dt)^2 = m/r_0^3$ exactly, and the coordinate period is
-$T = 2\pi\sqrt{r_0^3/GM}$, Kepler's law with no correction. The proper period is shorter: $d\tau^2 = (1 - 2m/r_0 - r_0^2\Omega^2)dt^2$ gives
+For a circular geodesic $r = r_0$, $\ddot r = 0$ and the $r$-component of the geodesic equation reduces to $\Gamma^r_{tt}\dot t^2 + \Gamma^r_{\varphi\varphi}\dot\varphi^2 = 0$,
+that is $(m/r_0^2)(1 - 2m/r_0)\dot t^2 = r_0(1 - 2m/r_0)\dot\varphi^2$. Hence $(d\varphi/dt)^2 = m/r_0^3$ exactly, and the coordinate period is
+$T = 2\pi\sqrt{r_0^3/G_NM}$, Kepler's law with no correction. The proper period is shorter: $d\tau^2 = (1 - 2m/r_0 - r_0^2\Omega^2)dt^2$ gives
 $\tau = T\sqrt{1 - 3m/r_0}$, real only above the photon sphere $r_0 = 3m$ [@blennow2022relativity, Problem 2.72].
 :::
 
@@ -2576,7 +2576,7 @@ impact parameter of @exr-gr-photon-sphere into a cross-section.
 #### The optical size of a black hole
 
 Light from infinity with impact parameter $b < b_c = 3\sqrt3\,m$ is captured, and light with $b > b_c$ escapes. A black hole
-therefore absorbs a beam over the area $\sigma = \pi b_c^2 = 27\pi G^2M^2/c^4$, and looks like a dark disc of radius $b_c \approx 2.6r_s$, larger
+therefore absorbs a beam over the area $\sigma = \pi b_c^2 = 27\pi G_N^2M^2/c^4$, and looks like a dark disc of radius $b_c \approx 2.6r_s$, larger
 than its horizon by the lensing of rays that pass close to it. For the black hole M87* with $M = 6.5 \times 10^9M_\odot$ at $16.8\,$Mpc this
 radius subtends about $20\,\mu$as, the scale of the shadow imaged in 2019 [@blennow2022relativity, Problem 2.76].
 :::
@@ -2658,15 +2658,15 @@ coefficient $6\pi m/p$.
 #### The perihelion advance by perturbation theory
 
 Write the orbit equation as $u'' + u = 1/p + 3mu^2$ with $p = L^2/m$ and treat $3mu^2$ as small. Show that $u = \tfrac1p(1 +
-e\cos((1 - \epsilon)\phi))$ solves it to first order in $m/p$ and in $e$, with $\epsilon = 3m/p$, and deduce the advance $6\pi m/p$
+e\cos((1 - \varepsilon)\varphi))$ solves it to first order in $m/p$ and in $e$, with $\varepsilon = 3m/p$, and deduce the advance $6\pi m/p$
 per revolution.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Substituting, $u'' + u = \tfrac1p + \tfrac ep(1 - (1 - \epsilon)^2)\cos((1 - \epsilon)\phi) \approx \tfrac1p + \tfrac{2\epsilon e}{p}\cos(\dots)$, while
-$3mu^2 \approx \tfrac{3m}{p^2}(1 + 2e\cos(\dots))$. The cosine terms match for $2\epsilon = 6m/p$, and the constant $3m/p^2$ only
-shifts $p$ slightly. Perihelia ($u$ maximal) occur at $(1 - \epsilon)\phi = 2\pi k$, i.e. every $2\pi/(1 - \epsilon) \approx 2\pi(1 +
-\epsilon)$: the advance per revolution is $2\pi\epsilon = 6\pi m/p$, the value checked numerically in @prp-gr-schwarzschild.
+Substituting, $u'' + u = \tfrac1p + \tfrac ep(1 - (1 - \varepsilon)^2)\cos((1 - \varepsilon)\varphi) \approx \tfrac1p + \tfrac{2\varepsilon e}{p}\cos(\dots)$, while
+$3mu^2 \approx \tfrac{3m}{p^2}(1 + 2e\cos(\dots))$. The cosine terms match for $2\varepsilon = 6m/p$, and the constant $3m/p^2$ only
+shifts $p$ slightly. Perihelia ($u$ maximal) occur at $(1 - \varepsilon)\varphi = 2\pi k$, i.e. every $2\pi/(1 - \varepsilon) \approx 2\pi(1 +
+\varepsilon)$: the advance per revolution is $2\pi\varepsilon = 6\pi m/p$, the value checked numerically in @prp-gr-schwarzschild.
 :::
 
 Clocks on circular orbits run differently from clocks at rest at the same radius. The next exercise compares them for
@@ -2675,14 +2675,14 @@ an orbit like that of the GPS satellites, with Sage.
 ::: {#exr-grb-orbit-vs-static}
 #### An orbiting clock and a static clock
 
-At radius $r_0$ in the Schwarzschild metric ($G = c = 1$, $r_s = 2m$) a satellite moves on a circular geodesic and a static observer hovers.
-With Sage: (a) write the satellite's four-velocity as $U = \alpha\partial_t + \beta\partial_\phi$ and find $\alpha$, $\beta$; (b) find their relative speed from
+At radius $r_0$ in the Schwarzschild metric ($G_N = c = 1$, $r_s = 2m$) a satellite moves on a circular geodesic and a static observer hovers.
+With Sage: (a) write the satellite's four-velocity as $U = \alpha\partial_t + \beta\partial_\varphi$ and find $\alpha$, $\beta$; (b) find their relative speed from
 $\gamma = g(U, V)$; (c) find the ratio of the times that their clocks show between two meetings; (d) evaluate for $r_s = 8.87\,$mm and
 $r_0 = 26\,560\,$km [@blennow2022relativity, Problems 2.99 and 2.100].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\Omega = d\phi/dt = \sqrt{m/r_0^3}$ from @exm-grb-kepler-exact, $\alpha = (1 - 3r_s/2r_0)^{-1/2}$ and $\beta = \alpha\Omega$:
+With $\Omega = d\varphi/dt = \sqrt{m/r_0^3}$ from @exm-grb-kepler-exact, $\alpha = (1 - 3r_s/2r_0)^{-1/2}$ and $\beta = \alpha\Omega$:
 
 ```python
 r0, rs = var('r0 rs'); assume(r0 > 3 * rs / 2, rs > 0)
@@ -2764,9 +2764,9 @@ the advance of @exm-gr-mercury for a circular orbit. At $r_0 = 6m$ the radial fr
 
 ### Symmetries and conserved quantities
 
-The orbits of @prp-gr-schwarzschild were found from two constants of motion, $E$ and $L$, which @exr-gr-int-particle-orbits traced back to the independence of the metric on $t$ and $\phi$. The mechanism is general. A Killing vector field (@def-killing, @sec-killing) is the generator of a continuous family of isometries, and each one gives a quantity conserved by free particles and by light, a quantity conserved by charged particles in a field that shares the symmetry, and a conserved current for any matter with a conserved stress tensor. This unit collects the three statements in one proposition, which is the tool behind the classical tests of the next unit, the charged black holes after it, and the charge of Kaluza-Klein theory. The sources are @emam2021covariant [Sec. 6.1.3], @plebanski2024introduction [Sec. 21.7] and @blennow2022relativity [Problems 2.63-2.69].
+The orbits of @prp-gr-schwarzschild were found from two constants of motion, $E$ and $L$, which @exr-gr-int-particle-orbits traced back to the independence of the metric on $t$ and $\varphi$. The mechanism is general. A Killing vector field (@def-killing, @sec-killing) is the generator of a continuous family of isometries, and each one gives a quantity conserved by free particles and by light, a quantity conserved by charged particles in a field that shares the symmetry, and a conserved current for any matter with a conserved stress tensor. This unit collects the three statements in one proposition, which is the tool behind the classical tests of the next unit, the charged black holes after it, and the charge of Kaluza-Klein theory. The sources are @emam2021covariant [Sec. 6.1.3], @plebanski2024introduction [Sec. 21.7] and @blennow2022relativity [Problems 2.63-2.69].
 
-The proof needs only Killing's equation $\nabla_\mu K_\nu + \nabla_\nu K_\mu = 0$ and the geodesic equation of @def-geodesic. The proposition fixes the sign conventions used below: in our signature the energy is $+g(\partial_t, u)$ and the angular momentum is $-g(\partial_\phi, u)$.
+The proof needs only Killing's equation $\nabla_\mu K_\nu + \nabla_\nu K_\mu = 0$ and the geodesic equation of @def-geodesic. The proposition fixes the sign conventions used below: in our signature the energy is $+g(\partial_t, u)$ and the angular momentum is $-g(\partial_\varphi, u)$.
 
 :::: {.statement-box}
 ::: {#prp-grf-killing-conserved}
@@ -2796,7 +2796,7 @@ The Schwarzschild metric has fewer symmetries than flat spacetime, and the conse
 ::: {#exm-grf-kc-schwarzschild}
 #### Energy and angular momentum in the Schwarzschild metric
 
-The components of @eq-gr-schwarzschild do not depend on $t$ and $\phi$, so $\partial_t$ and $\partial_\phi$ are Killing, with $E = g(\partial_t, u) = (1 - 2m/r)\dot t$ and $L = -g(\partial_\phi, u) = r^2\sin^2\theta\,\dot\phi$. The two other rotation generators of @prp-sphere-killing are Killing as well; their conserved quantities are the other components of the angular momentum, so its direction is fixed and the orbit stays in a plane, which a rotation takes to $\theta = \pi/2$ [@emam2021covariant, Exercise 6.10].
+The components of @eq-gr-schwarzschild do not depend on $t$ and $\varphi$, so $\partial_t$ and $\partial_\varphi$ are Killing, with $E = g(\partial_t, u) = (1 - 2m/r)\dot t$ and $L = -g(\partial_\varphi, u) = r^2\sin^2\theta\,\dot\varphi$. The two other rotation generators of @prp-sphere-killing are Killing as well; their conserved quantities are the other components of the angular momentum, so its direction is fixed and the orbit stays in a plane, which a rotation takes to $\theta = \pi/2$ [@emam2021covariant, Exercise 6.10].
 :::
 
 Part (1) of the proposition holds for null geodesics too, where the affine parameter has no physical normalisation. The ratios of conserved quantities are then the meaningful numbers.
@@ -2804,7 +2804,7 @@ Part (1) of the proposition holds for null geodesics too, where the affine param
 ::: {#exm-grf-kc-impact-parameter}
 #### The impact parameter of a light ray
 
-For a light ray the affine parameter can be rescaled, $\lambda \to c\lambda$, which multiplies $E$ and $L$ by $1/c$. Their ratio $b = L/E$ does not change: it is the impact parameter, the distance at which the ray would pass the centre if it were not bent, since for $r \to \infty$, $L/E = r^2\dot\phi/\dot t \to r^2\,d\phi/dt$, which is $b$ for a straight line. This is the $b$ of the light bending and capture results of @prp-gr-schwarzschild and @exm-grb-capture.
+For a light ray the affine parameter can be rescaled, $\lambda \to c\lambda$, which multiplies $E$ and $L$ by $1/c$. Their ratio $b = L/E$ does not change: it is the impact parameter, the distance at which the ray would pass the centre if it were not bent, since for $r \to \infty$, $L/E = r^2\dot\varphi/\dot t \to r^2\,d\varphi/dt$, which is $b$ for a straight line. This is the $b$ of the light bending and capture results of @prp-gr-schwarzschild and @exm-grb-capture.
 :::
 
 A spacetime with less symmetry still has conserved quantities if some symmetry is left. The expanding universe has no time translation, but it keeps the spatial ones, and they explain why motion relative to the expansion dies out.
@@ -2812,7 +2812,7 @@ A spacetime with less symmetry still has conserved quantities if some symmetry i
 ::: {#exm-grf-kc-flrw}
 #### Momentum in an expanding universe
 
-The flat FLRW metric $dt^2 - a(t)^2d\vec x^2$ (@def-gr-flrw-metric) has the Killing vectors $\partial_i$ but $\partial_t$ is not Killing. For a particle of mass $m$, $g(\partial_x, p) = -ma^2\dot x$ is conserved. The momentum measured by a comoving observer is $|\vec p|_{\text{phys}} = ma|\dot{\vec x}|$, so $|\vec p|_{\text{phys}} \propto 1/a$: peculiar momenta decay as the universe expands, as found for de Sitter space in @exr-gr-ds-peculiar. Energy is not conserved, because there is no timelike Killing vector.
+The flat FLRW metric $dt^2 - a(t)^2d\mathbf x^2$ (@def-gr-flrw-metric) has the Killing vectors $\partial_i$ but $\partial_t$ is not Killing. For a particle of mass $m$, $g(\partial_x, p) = -ma^2\dot x$ is conserved. The momentum measured by a comoving observer is $|\mathbf p|_{\text{phys}} = ma|\dot{\mathbf x}|$, so $|\mathbf p|_{\text{phys}} \propto 1/a$: peculiar momenta decay as the universe expands, as found for de Sitter space in @exr-gr-ds-peculiar. Energy is not conserved, because there is no timelike Killing vector.
 :::
 
 Part (2) applies to a charge in a magnetic field, where the conserved quantity is not the mechanical angular momentum. The gauge has to be chosen so that the potential, not only the field, is symmetric.
@@ -2828,7 +2828,7 @@ Part (3) turns a symmetry of spacetime into a conserved total charge of a field.
 ::: {#exm-grf-kc-field-energy}
 #### The energy and momentum of the electromagnetic field
 
-In Minkowski spacetime with the Maxwell stress tensor of @exm-stress-maxwell, $K = \partial_t$ gives $J^\mu = T^{\mu0}$ and $Q = \int T^{00}d^3x = \int\frac12(\vec E^2 + \vec B^2)\,d^3x$, and $K = \partial_i$ gives $J^0 = -T^{0i}$, so $Q = -\int(\vec E\times\vec B)_i\,d^3x$ (@exr-gr-maxwell-stress). The conservation $\partial_\mu J^\mu = 0$ for $K = \partial_t$ is Poynting's theorem in empty space (@prp-emm-poynting).
+In Minkowski spacetime with the Maxwell stress tensor of @exm-stress-maxwell, $K = \partial_t$ gives $J^\mu = T^{\mu0}$ and $Q = \int T^{00}d^3x = \int\frac12(\mathbf E^2 + \mathbf B^2)\,d^3x$, and $K = \partial_i$ gives $J^0 = -T^{0i}$, so $Q = -\int(\mathbf E\times\mathbf B)_i\,d^3x$ (@exr-gr-maxwell-stress). The conservation $\partial_\mu J^\mu = 0$ for $K = \partial_t$ is Poynting's theorem in empty space (@prp-emm-poynting).
 :::
 
 A vector field that is not Killing gives no conservation law. The radial direction of the Schwarzschild metric is the standard example, and it matches Newtonian intuition.
@@ -2860,7 +2860,7 @@ How many conserved quantities a spacetime has decides how far its geodesics can 
 ::: {#exm-grf-kc-counting}
 #### Counting first integrals
 
-Along any geodesic $g(\dot x, \dot x)$ is constant, whether or not there are Killing vectors. Minkowski and de Sitter space have ten Killing vectors, more than enough to integrate geodesics completely. The Schwarzschild metric has four, $\partial_t$ and three rotations; with $g(\dot x, \dot x)$ they reduce the motion to the single radial equation of @eq-gr-schwarzschild-potential. The rotating Kerr black hole has only two Killing vectors, $\partial_t$ and $\partial_\phi$, and its geodesics are integrable only thanks to a fourth constant found by Carter that does not come from a Killing vector [@plebanski2024introduction, Sec. 21.7].
+Along any geodesic $g(\dot x, \dot x)$ is constant, whether or not there are Killing vectors. Minkowski and de Sitter space have ten Killing vectors, more than enough to integrate geodesics completely. The Schwarzschild metric has four, $\partial_t$ and three rotations; with $g(\dot x, \dot x)$ they reduce the motion to the single radial equation of @eq-gr-schwarzschild-potential. The rotating Kerr black hole has only two Killing vectors, $\partial_t$ and $\partial_\varphi$, and its geodesics are integrable only thanks to a fourth constant found by Carter that does not come from a Killing vector [@plebanski2024introduction, Sec. 21.7].
 :::
 ::::
 
@@ -2882,11 +2882,11 @@ The second exercise applies part (1) to a curved surface, where the conservation
 ::: {#exr-grf-kc-paraboloid}
 #### Geodesics on a paraboloid
 
-The paraboloid $z = \alpha(x^2 + y^2)$ has the induced metric $(1 + 4\alpha^2r^2)dr^2 + r^2d\phi^2$. (a) Show that $\partial_\phi$ is Killing and find the conserved quantity. (b) For a geodesic of unit speed, find the smallest radius it reaches. (c) With Sage, integrate a geodesic and check the conservation [@blennow2022relativity, Problem 2.66].
+The paraboloid $z = \alpha(x^2 + y^2)$ has the induced metric $(1 + 4\alpha^2r^2)dr^2 + r^2d\varphi^2$. (a) Show that $\partial_\varphi$ is Killing and find the conserved quantity. (b) For a geodesic of unit speed, find the smallest radius it reaches. (c) With Sage, integrate a geodesic and check the conservation [@blennow2022relativity, Problem 2.66].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) The components do not depend on $\phi$, so $\partial_\phi$ is Killing and $\ell = r^2\dot\phi$ is conserved. (b) Unit speed gives $(1 + 4\alpha^2r^2)\dot r^2 + \ell^2/r^2 = 1$, so $\dot r = 0$ requires $r = |\ell|$: the geodesic comes in to $r_{\min} = |\ell|$ and goes out again, never reaching the vertex unless $\ell = 0$. (c) For $\alpha = 1$ and a geodesic starting at $r = 2$ at the angle $60°$ to the radial direction:
+(a) The components do not depend on $\varphi$, so $\partial_\varphi$ is Killing and $\ell = r^2\dot\varphi$ is conserved. (b) Unit speed gives $(1 + 4\alpha^2r^2)\dot r^2 + \ell^2/r^2 = 1$, so $\dot r = 0$ requires $r = |\ell|$: the geodesic comes in to $r_{\min} = |\ell|$ and goes out again, never reaching the vertex unless $\ell = 0$. (c) For $\alpha = 1$ and a geodesic starting at $r = 2$ at the angle $60°$ to the radial direction:
 
 ```python
 from scipy.integrate import solve_ivp
@@ -2956,11 +2956,11 @@ Part (2) applied to a static Coulomb field gives the conserved energy of a relat
 ::: {#exr-grf-kc-coulomb}
 #### The energy of a charge in a Coulomb field
 
-A charge $q$ of mass $m$ moves in Minkowski spacetime in the field of a fixed charge $Q$, with $A = \frac{Q}{4\pi r}dt$ in the units of @def-ems-electrostatic-potential. Use part (2) with $K = \partial_t$ to find the conserved energy, and show that it is $\gamma m + q\phi$.
+A charge $q$ of mass $m$ moves in Minkowski spacetime in the field of a fixed charge $Q$, with $A = \frac{Q}{4\pi r}dt$ in the units of @def-ems-electrostatic-potential. Use part (2) with $K = \partial_t$ to find the conserved energy, and show that it is $\gamma m + q\Phi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathcal{L}_{\partial_t}A = 0$ because $A$ does not depend on $t$. Then $mK_\mu u^\mu + qK^\mu A_\mu = mu^t + qA_t = \gamma m + \frac{qQ}{4\pi r}$ is constant, with $u^t = dt/d\tau = \gamma$ and $A_t = \phi = Q/4\pi r$. This is the relativistic kinetic energy, rest energy included, plus the electrostatic potential energy, the integral of @prp-sr-lorentz-force with a static field.
+$\mathcal{L}_{\partial_t}A = 0$ because $A$ does not depend on $t$. Then $mK_\mu u^\mu + qK^\mu A_\mu = mu^t + qA_t = \gamma m + \frac{qQ}{4\pi r}$ is constant, with $u^t = dt/d\tau = \gamma$ and $A_t = \Phi = Q/4\pi r$. This is the relativistic kinetic energy, rest energy included, plus the electrostatic potential energy, the integral of @prp-sr-lorentz-force with a static field.
 :::
 
 Part (3) needs the symmetry of $T^{\mu\nu}$, and the sixth exercise shows where it enters. It also recovers the conservation of angular momentum for a field.
@@ -3114,7 +3114,7 @@ $g(K, K) = r_0^2(\cos^2\theta - \sinh^2(\tau/r_0)\sin^2\theta)$ is positive near
 
 General relativity was first tested in the solar system, by four effects of the Schwarzschild field on planets and light. Two of them, the advance of the perihelion of Mercury and the bending of starlight, come from the orbit equation and are part of @prp-gr-schwarzschild (@exm-gr-mercury, @exm-gr-light-bending). The other two concern the frequency and the travel time of light: the gravitational redshift, found in the weak field in @exm-newtonian-redshift and measured on the Earth in @exm-grb-pound-rebka, and the delay of radar echoes that pass close to the Sun, predicted by Shapiro in 1964. Both follow exactly from the conserved quantities of a light ray (@prp-grf-killing-conserved), and this unit derives them. The sources are @blennow2022relativity [Problems 2.121-2.128] for the redshift and @plebanski2024introduction [Secs. 14.6 and 12.16] and @boskoff2024journey [Sec. 10.5.3] for the null orbits and the delay.
 
-![The two classical tests of this unit, with $G = c = 1$. Left: the redshift $z$ of light emitted by a static source at radius $r$ and received far away, exact (@prp-grf-redshift, blue) and to first order in $m/r$ (dashed); the two agree for a white dwarf, while for a neutron star ($r \approx 6m$) the first-order value is a quarter too small, and the exact $z$ diverges at the horizon. Right: the excess round-trip time of a radar signal from the Earth to Mars passing the Sun at closest distance $r_0$, from the exact integral of @prp-grf-shapiro (blue) and from the leading formula $4m(\ln(4r_1r_2/r_0^2) + 1)$ (dashed), which differ by less than $1\,\mu$s, against $r_0$ in solar radii; the delay falls logarithmically as the line of sight moves away from the Sun. Generated by `figures/grf_classical_tests.sage`.](figures/grf_classical_tests.svg){#fig-grf-classical-tests width=95%}
+![The two classical tests of this unit, with $G_N = c = 1$. Left: the redshift $z$ of light emitted by a static source at radius $r$ and received far away, exact (@prp-grf-redshift, blue) and to first order in $m/r$ (dashed); the two agree for a white dwarf, while for a neutron star ($r \approx 6m$) the first-order value is a quarter too small, and the exact $z$ diverges at the horizon. Right: the excess round-trip time of a radar signal from the Earth to Mars passing the Sun at closest distance $r_0$, from the exact integral of @prp-grf-shapiro (blue) and from the leading formula $4m(\log(4r_1r_2/r_0^2) + 1)$ (dashed), which differ by less than $1\,\mu$s, against $r_0$ in solar radii; the delay falls logarithmically as the line of sight moves away from the Sun. Generated by `figures/grf_classical_tests.sage`.](figures/grf_classical_tests.svg){#fig-grf-classical-tests width=95%}
 
 The redshift is a statement about two observers and one light ray. The ray carries a conserved energy, and each observer reads off a frequency by projecting the wave vector on its own four-velocity.
 
@@ -3143,7 +3143,7 @@ The first examples put numbers into the formula, starting with the Sun. For a bo
 ::: {#exm-grf-rs-sun}
 #### Light from the Sun
 
-For light from the solar surface, $R_\odot = 6.957 \times 10^8\,$m, received far away, $GM_\odot/c^2 = 1477\,$m gives $2m/R = 4.25 \times 10^{-6}$ and $z = (1 - 2m/R)^{-1/2} - 1 = 2.12296 \times 10^{-6}$, while $m/R = 2.12295 \times 10^{-6}$. The second-order term $\frac32(m/R)^2 = 7 \times 10^{-12}$ is far below any spectroscopic precision; the Sun tests only the first-order shift (@exm-grb-solar-lines).
+For light from the solar surface, $R_\odot = 6.957 \times 10^8\,$m, received far away, $G_NM_\odot/c^2 = 1477\,$m gives $2m/R = 4.25 \times 10^{-6}$ and $z = (1 - 2m/R)^{-1/2} - 1 = 2.12296 \times 10^{-6}$, while $m/R = 2.12295 \times 10^{-6}$. The second-order term $\frac32(m/R)^2 = 7 \times 10^{-12}$ is far below any spectroscopic precision; the Sun tests only the first-order shift (@exm-grb-solar-lines).
 :::
 
 White dwarfs pack a solar mass into the size of the Earth, and their redshift was the first astronomical evidence for the effect. Sirius B, the companion of the brightest star in the sky, is the standard case.
@@ -3167,7 +3167,7 @@ The Pound-Rebka experiment of @exm-grb-pound-rebka was analysed with the Newtoni
 ::: {#exm-grf-rs-tower}
 #### The Pound-Rebka tower, exactly
 
-With $m_\oplus = GM_\oplus/c^2 = 4.43\,$mm, $R_\oplus = 6371\,$km and $h = 22.5\,$m, @eq-grf-redshift for light sent down the tower gives $\omega_R/\omega_E - 1 = \sqrt{(1 - 2m/(R + h))/(1 - 2m/R)} - 1 = m\bigl(\tfrac1R - \tfrac1{R + h}\bigr) = 2.4584 \times 10^{-15}$ to the precision shown, a blueshift, equal to $gh/c^2$ with $g = GM_\oplus/R_\oplus^2$. The difference from the first-order value is of relative size $m/R \sim 10^{-9}$.
+With $m_\oplus = G_NM_\oplus/c^2 = 4.43\,$mm, $R_\oplus = 6371\,$km and $h = 22.5\,$m, @eq-grf-redshift for light sent down the tower gives $\omega_R/\omega_E - 1 = \sqrt{(1 - 2m/(R + h))/(1 - 2m/R)} - 1 = m\bigl(\tfrac1R - \tfrac1{R + h}\bigr) = 2.4584 \times 10^{-15}$ to the precision shown, a blueshift, equal to $gh/c^2$ with $g = G_NM_\oplus/R_\oplus^2$. The difference from the first-order value is of relative size $m/R \sim 10^{-9}$.
 :::
 
 Part (2) of the proposition allows moving observers, and then the Doppler shift and the gravitational shift come out of one formula. The next example has an emitter that escapes the black hole.
@@ -3183,7 +3183,7 @@ The same method treats a receiver that moves. Blennow and Ohlsson consider a spa
 ::: {#exm-grf-rs-spaceship}
 #### Starlight seen from a falling spaceship
 
-A spaceship at $r$ moves inwards with coordinate velocity $v_c = dr/dt < 0$, and receives light from a star at rest far away along the same radius, so $k = E\bigl((1 - 2m/r)^{-1}\partial_t - \partial_r\bigr)$ with $E = \omega_0$. With $u = \dot t(\partial_t + v_c\partial_r)$ and $f = 1 - 2m/r$, $\omega = g(k, u) = \omega_0\dot t(1 + v_c/f)$ and $\dot t = (f - v_c^2/f)^{-1/2}$, so $\omega/\omega_0 = (f + v_c)/\sqrt{f(f^2 - v_c^2)}$. For $GM = 10^{20}\,\mathrm{m^3/s^2}$, $r = 10^6\,$m and $v_c = -0.1$, a line at $4000\,$Å arrives at $4418\,$Å: the ship recedes from the star, and the Doppler redshift beats the gravitational blueshift [@blennow2022relativity, Problem 2.123].
+A spaceship at $r$ moves inwards with coordinate velocity $v_c = dr/dt < 0$, and receives light from a star at rest far away along the same radius, so $k = E\bigl((1 - 2m/r)^{-1}\partial_t - \partial_r\bigr)$ with $E = \omega_0$. With $u = \dot t(\partial_t + v_c\partial_r)$ and $f = 1 - 2m/r$, $\omega = g(k, u) = \omega_0\dot t(1 + v_c/f)$ and $\dot t = (f - v_c^2/f)^{-1/2}$, so $\omega/\omega_0 = (f + v_c)/\sqrt{f(f^2 - v_c^2)}$. For $G_NM = 10^{20}\,\mathrm{m^3/s^2}$, $r = 10^6\,$m and $v_c = -0.1$, a line at $4000\,$Å arrives at $4418\,$Å: the ship recedes from the star, and the Doppler redshift beats the gravitational blueshift [@blennow2022relativity, Problem 2.123].
 :::
 
 A signal from deep space received at the Earth is blueshifted, because it falls into two potential wells, that of the Sun and that of the Earth. The next example compares the two contributions.
@@ -3191,7 +3191,7 @@ A signal from deep space received at the Earth is blueshifted, because it falls 
 ::: {#exm-grf-rs-deep-space}
 #### A signal from deep space
 
-A static source far from the solar system sends light to a receiver on the Earth. To first order, $\omega_R/\omega_E - 1 = -\Phi_R/c^2$ with the potential at the receiver: the Sun contributes $GM_\odot/(c^2\cdot1\,\mathrm{AU}) = 9.6 \times 10^{-9}$ and the Earth $6.24 \times 10^7/c^2 = 6.9 \times 10^{-10}$, a total blueshift of $1.03 \times 10^{-8}$. The Earth's orbital motion is ignored; its Doppler shift is up to $10^{-4}$ and would be removed first [@blennow2022relativity, Problem 2.127].
+A static source far from the solar system sends light to a receiver on the Earth. To first order, $\omega_R/\omega_E - 1 = -\Phi_R/c^2$ with the potential at the receiver: the Sun contributes $G_NM_\odot/(c^2\cdot1\,\mathrm{AU}) = 9.6 \times 10^{-9}$ and the Earth $6.24 \times 10^7/c^2 = 6.9 \times 10^{-10}$, a total blueshift of $1.03 \times 10^{-8}$. The Earth's orbital motion is ignored; its Doppler shift is up to $10^{-4}$ and would be removed first [@blennow2022relativity, Problem 2.127].
 :::
 
 Near a black hole the blueshift of infalling light becomes large for static observers. The photon sphere is a convenient reference radius.
@@ -3357,7 +3357,7 @@ A source on a circular geodesic at radius $r$ in the Schwarzschild metric emits 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The source has $u = u^t(\partial_t + \Omega\partial_\phi)$ with $u^t = (1 - 3m/r)^{-1/2}$ (@exm-grb-kepler-exact). Then $\omega_E = g(k, u) = u^t(g(k, \partial_t) + \Omega g(k, \partial_\phi)) = u^t(E - \Omega L)$, using $L = -g(\partial_\phi, k)$, and $\omega_\infty = E$. For $b = 0$ the ratio is $\sqrt{1 - 3m/r}$: the gravitational factor $\sqrt{1 - 2m/r}$ times the transverse Doppler factor $\sqrt{1 - v^2}$ of the orbital speed. At $r = 6m$ it is $1/\sqrt2 = 0.707$.
+The source has $u = u^t(\partial_t + \Omega\partial_\varphi)$ with $u^t = (1 - 3m/r)^{-1/2}$ (@exm-grb-kepler-exact). Then $\omega_E = g(k, u) = u^t(g(k, \partial_t) + \Omega g(k, \partial_\varphi)) = u^t(E - \Omega L)$, using $L = -g(\partial_\varphi, k)$, and $\omega_\infty = E$. For $b = 0$ the ratio is $\sqrt{1 - 3m/r}$: the gravitational factor $\sqrt{1 - 2m/r}$ times the transverse Doppler factor $\sqrt{1 - v^2}$ of the orbital speed. At $r = 6m$ it is $1/\sqrt2 = 0.707$.
 :::
 
 In the Schwarzschild-de Sitter metric the norm of $\partial_t$ has a maximum. The seventh exercise shows that the static observer there is in free fall and sees every other static source blueshifted.
@@ -3456,21 +3456,21 @@ The second effect of this unit is the delay of light passing a mass. A ray passi
 ::: {#prp-grf-shapiro}
 #### The Shapiro delay
 
-In the Schwarzschild metric with $G = 1$, a light ray in the plane $\theta = \pi/2$ whose closest approach to the centre is $r_0 > 3m$ takes the coordinate time
+In the Schwarzschild metric with $G_N = 1$, a light ray in the plane $\theta = \pi/2$ whose closest approach to the centre is $r_0 > 3m$ takes the coordinate time
 $$
 t(r, r_0) = \int_{r_0}^r\frac{dr'}{(1 - 2m/r')\sqrt{1 - \dfrac{r_0^2}{r'^2}\dfrac{1 - 2m/r'}{1 - 2m/r_0}}}
 $$ {#eq-grf-shapiro-exact}
 to go from $r_0$ to $r$, and to first order in $m$
 $$
-t(r, r_0) = \sqrt{r^2 - r_0^2} + 2m\ln\frac{r + \sqrt{r^2 - r_0^2}}{r_0} + m\sqrt{\frac{r - r_0}{r + r_0}} .
+t(r, r_0) = \sqrt{r^2 - r_0^2} + 2m\log\frac{r + \sqrt{r^2 - r_0^2}}{r_0} + m\sqrt{\frac{r - r_0}{r + r_0}} .
 $$ {#eq-grf-shapiro}
 A radar signal sent from $r_1$ past the mass to a reflector at $r_2$ and back, with $r_0 \ll r_1, r_2$, takes the coordinate time $2\sqrt{r_1^2 - r_0^2} + 2\sqrt{r_2^2 - r_0^2} + \Delta t$, with the delay
 $$
-\Delta t = 4m\Bigl(\ln\frac{4r_1r_2}{r_0^2} + 1\Bigr)
+\Delta t = 4m\Bigl(\log\frac{4r_1r_2}{r_0^2} + 1\Bigr)
 $$
 to leading order in $m$ and in $r_0/r_{1,2}$.
 
-*Proof.* By @prp-grf-killing-conserved the ray has $E = (1 - 2m/r)\dot t$ and $L = r^2\dot\phi$, and $g(k, k) = 0$ gives $\dot r^2 = E^2 - (1 - 2m/r)L^2/r^2$ [@plebanski2024introduction, eq. 14.72]. At the closest approach $\dot r = 0$, so $b^2 = L^2/E^2 = r_0^2/(1 - 2m/r_0)$. Then $dr/dt = \dot r/\dot t = (1 - 2m/r)\sqrt{1 - (1 - 2m/r)b^2/r^2}$, which gives @eq-grf-shapiro-exact; the coordinate speed of light is $1 - 2m/r$ in the radial direction and smaller than $1$ in every direction [@boskoff2024journey, Sec. 10.5.3]. To first order in $m$ the square root is $\sqrt{1 - r_0^2/r^2}\,\bigl(1 - \frac{mr_0}{r(r + r_0)}\bigr)$, and the integrand is $\frac{r}{\sqrt{r^2 - r_0^2}} + \frac{2m}{\sqrt{r^2 - r_0^2}} + \frac{mr_0}{(r + r_0)\sqrt{r^2 - r_0^2}}$, whose integrals are the three terms of @eq-grf-shapiro (@exr-grf-sh-expansion). For $r \gg r_0$, $t(r, r_0) - \sqrt{r^2 - r_0^2} = 2m\ln(2r/r_0) + m + O(r_0/r)$; adding the four legs from $r_1$ and $r_2$ to $r_0$ gives $\Delta t$. $\square$
+*Proof.* By @prp-grf-killing-conserved the ray has $E = (1 - 2m/r)\dot t$ and $L = r^2\dot\varphi$, and $g(k, k) = 0$ gives $\dot r^2 = E^2 - (1 - 2m/r)L^2/r^2$ [@plebanski2024introduction, eq. 14.72]. At the closest approach $\dot r = 0$, so $b^2 = L^2/E^2 = r_0^2/(1 - 2m/r_0)$. Then $dr/dt = \dot r/\dot t = (1 - 2m/r)\sqrt{1 - (1 - 2m/r)b^2/r^2}$, which gives @eq-grf-shapiro-exact; the coordinate speed of light is $1 - 2m/r$ in the radial direction and smaller than $1$ in every direction [@boskoff2024journey, Sec. 10.5.3]. To first order in $m$ the square root is $\sqrt{1 - r_0^2/r^2}\,\bigl(1 - \frac{mr_0}{r(r + r_0)}\bigr)$, and the integrand is $\frac{r}{\sqrt{r^2 - r_0^2}} + \frac{2m}{\sqrt{r^2 - r_0^2}} + \frac{mr_0}{(r + r_0)\sqrt{r^2 - r_0^2}}$, whose integrals are the three terms of @eq-grf-shapiro (@exr-grf-sh-expansion). For $r \gg r_0$, $t(r, r_0) - \sqrt{r^2 - r_0^2} = 2m\log(2r/r_0) + m + O(r_0/r)$; adding the four legs from $r_1$ and $r_2$ to $r_0$ gives $\Delta t$. $\square$
 :::
 ::::
 
@@ -3480,7 +3480,7 @@ The first example is the measurement that confirmed the effect to a tenth of a p
 ::: {#exm-grf-sh-viking}
 #### Radar echoes from Mars
 
-For the Earth at $r_1 = 1\,$AU, Mars at $r_2 = 1.524\,$AU and a ray grazing the Sun, $r_0 = R_\odot = 6.957 \times 10^8\,$m, $\ln(4r_1r_2/r_0^2) = 12.55$ and $m/c = 4.93\,\mu$s, so $\Delta t = 4 \times 4.93\,\mu\mathrm{s} \times 13.55 = 267\,\mu$s, out of a round trip of about $42\,$min. The exact integral @eq-grf-shapiro-exact gives the same value to $0.1\,\mu$s. The Viking measurements of 1976-1977 agreed with the prediction to $0.1\%$.
+For the Earth at $r_1 = 1\,$AU, Mars at $r_2 = 1.524\,$AU and a ray grazing the Sun, $r_0 = R_\odot = 6.957 \times 10^8\,$m, $\log(4r_1r_2/r_0^2) = 12.55$ and $m/c = 4.93\,\mu$s, so $\Delta t = 4 \times 4.93\,\mu\mathrm{s} \times 13.55 = 267\,\mu$s, out of a round trip of about $42\,$min. The exact integral @eq-grf-shapiro-exact gives the same value to $0.1\,\mu$s. The Viking measurements of 1976-1977 agreed with the prediction to $0.1\%$.
 :::
 
 Venus was Shapiro's original target, and the first detections in the late 1960s used radar echoes from Venus and Mercury. The delay is smaller because Venus is closer to the Sun.
@@ -3488,7 +3488,7 @@ Venus was Shapiro's original target, and the first detections in the late 1960s 
 ::: {#exm-grf-sh-venus}
 #### Radar echoes from Venus
 
-At superior conjunction with Venus at $r_2 = 0.723\,$AU and a grazing ray, $\ln(4r_1r_2/r_0^2) = 11.80$ and $\Delta t = 252\,\mu$s. The delay depends on the planet only through $\ln r_2$, so the difference from Mars is small; what varies strongly is $r_0$, through the factor $\ln r_0^{-2}$.
+At superior conjunction with Venus at $r_2 = 0.723\,$AU and a grazing ray, $\log(4r_1r_2/r_0^2) = 11.80$ and $\Delta t = 252\,\mu$s. The delay depends on the planet only through $\log r_2$, so the difference from Mars is small; what varies strongly is $r_0$, through the factor $\log r_0^{-2}$.
 :::
 
 The proposition is stated in coordinate time, which is not what a clock on the Earth measures. The correction is not small compared with the delay, but it does not depend on $r_0$.
@@ -3504,7 +3504,7 @@ The dependence on $r_0$ is the observable part of the delay. Its size over a con
 ::: {#exm-grf-sh-variation}
 #### The delay over a conjunction
 
-As the line of sight moves from $r_0 = R_\odot$ to $r_0 = 10R_\odot$, the delay drops by $8m\ln10 = 8 \times 4.93\,\mu\mathrm{s} \times 2.30 = 91\,\mu$s (@fig-grf-classical-tests). Planetary radar resolves such changes at the microsecond level, which is why the logarithm, and with it the coefficient $4m$ that multiplies it, is measured.
+As the line of sight moves from $r_0 = R_\odot$ to $r_0 = 10R_\odot$, the delay drops by $8m\log10 = 8 \times 4.93\,\mu\mathrm{s} \times 2.30 = 91\,\mu$s (@fig-grf-classical-tests). Planetary radar resolves such changes at the microsecond level, which is why the logarithm, and with it the coefficient $4m$ that multiplies it, is measured.
 :::
 
 In a purely radial trip the Shapiro integral can be done in closed form. The coordinate speed of light $1 - 2m/r$ then accounts for the whole delay.
@@ -3512,7 +3512,7 @@ In a purely radial trip the Shapiro integral can be done in closed form. The coo
 ::: {#exm-grf-sh-radial}
 #### A radial ray
 
-For $L = 0$, $dr/dt = 1 - 2m/r$ and the time from $r_a$ to $r_b > r_a > 2m$ is $t = r_b - r_a + 2m\ln\frac{r_b - 2m}{r_a - 2m}$ [@boskoff2024journey, Sec. 10.5.3]. The excess over $r_b - r_a$ is logarithmic, like @eq-grf-shapiro with $r_0$ replaced by $r_a$, and it diverges as $r_a \to 2m$: a radial ray takes an infinite coordinate time to leave the horizon (@exm-gr-horizon-tortoise).
+For $L = 0$, $dr/dt = 1 - 2m/r$ and the time from $r_a$ to $r_b > r_a > 2m$ is $t = r_b - r_a + 2m\log\frac{r_b - 2m}{r_a - 2m}$ [@boskoff2024journey, Sec. 10.5.3]. The excess over $r_b - r_a$ is logarithmic, like @eq-grf-shapiro with $r_0$ replaced by $r_a$, and it diverges as $r_a \to 2m$: a radial ray takes an infinite coordinate time to leave the horizon (@exm-gr-horizon-tortoise).
 :::
 
 The weak-field metric of @prp-newtonian-limit gives the delay as an integral of the potential along the unbent ray. Comparing it with the proposition shows which parts of @eq-grf-shapiro depend on the coordinates.
@@ -3520,15 +3520,15 @@ The weak-field metric of @prp-newtonian-limit gives the delay as an integral of 
 ::: {#exm-grf-sh-weak-field}
 #### The delay from the weak-field metric
 
-In the metric $(1 + 2\Phi)dt^2 - (1 - 2\Phi)d\vec x^2$, a light ray has $dt = (1 - 2\Phi)|d\vec x|$ to first order, so the delay along the straight line from closest approach $r_0$ to distance $r$ is $-2\int\Phi\,dl = 2m\int_0^{\sqrt{r^2 - r_0^2}}\frac{dl}{\sqrt{l^2 + r_0^2}} = 2m\ln\frac{r + \sqrt{r^2 - r_0^2}}{r_0}$. This is the logarithm of @eq-grf-shapiro; the last term there comes from the difference between the Schwarzschild radius and the isotropic radius of the weak-field metric (@exr-gr-schw-isotropic), and changes only the constant part of the delay.
+In the metric $(1 + 2\Phi)dt^2 - (1 - 2\Phi)d\mathbf x^2$, a light ray has $dt = (1 - 2\Phi)|d\mathbf x|$ to first order, so the delay along the straight line from closest approach $r_0$ to distance $r$ is $-2\int\Phi\,dl = 2m\int_0^{\sqrt{r^2 - r_0^2}}\frac{dl}{\sqrt{l^2 + r_0^2}} = 2m\log\frac{r + \sqrt{r^2 - r_0^2}}{r_0}$. This is the logarithm of @eq-grf-shapiro; the last term there comes from the difference between the Schwarzschild radius and the isotropic radius of the weak-field metric (@exr-gr-schw-isotropic), and changes only the constant part of the delay.
 :::
 
-The delay and the bending of light come from the same orbit of the same ray. The angle that a grazing ray sweeps is the integral of $d\phi/dr$ instead of $dt/dr$.
+The delay and the bending of light come from the same orbit of the same ray. The angle that a grazing ray sweeps is the integral of $d\varphi/dr$ instead of $dt/dr$.
 
 ::: {#exm-grf-sh-bending}
 #### Delay and deflection from one orbit
 
-With $d\phi/dr = \dot\phi/\dot r = (b/r^2)/\sqrt{1 - (1 - 2m/r)b^2/r^2}$, the total angle swept from $r = \infty$ to $r_0$ and back is $\pi + 4m/r_0$ to first order, the deflection of @prp-gr-schwarzschild and @exm-gr-light-bending [@plebanski2024introduction, eq. 14.83]. The time integral of the same orbit gives @eq-grf-shapiro: a ray passing the Sun at $r_0 = R_\odot$ is bent by $1.75''$ and delayed by about $130\,\mu$s on each one-way pass between the Earth and Mars.
+With $d\varphi/dr = \dot\varphi/\dot r = (b/r^2)/\sqrt{1 - (1 - 2m/r)b^2/r^2}$, the total angle swept from $r = \infty$ to $r_0$ and back is $\pi + 4m/r_0$ to first order, the deflection of @prp-gr-schwarzschild and @exm-gr-light-bending [@plebanski2024introduction, eq. 14.83]. The time integral of the same orbit gives @eq-grf-shapiro: a ray passing the Sun at $r_0 = R_\odot$ is bent by $1.75''$ and delayed by about $130\,\mu$s on each one-way pass between the Earth and Mars.
 :::
 
 The logarithm in the delay means that every decade of distance contributes equally. The delay therefore builds up over the whole path, not only near the Sun.
@@ -3536,7 +3536,7 @@ The logarithm in the delay means that every decade of distance contributes equal
 ::: {#exm-grf-sh-decades}
 #### Where the delay accumulates
 
-For $r \gg r_0$ the one-way excess $2m\ln(2r/r_0) + m$ grows by $2m\ln10 = 4.6m$ for each factor of ten in $r$. By @eq-grf-shapiro the stretch from $r_0$ to $10r_0$ contributes $6.9m$, the next decade $4.7m$ and each further one about $4.6m$; for the Earth-Sun leg of a grazing ray, $r/r_0 = 215$, that is more than two decades. The region near the Sun is not special, in contrast to the bending, $95\%$ of which happens within $3r_0$ of the closest approach.
+For $r \gg r_0$ the one-way excess $2m\log(2r/r_0) + m$ grows by $2m\log10 = 4.6m$ for each factor of ten in $r$. By @eq-grf-shapiro the stretch from $r_0$ to $10r_0$ contributes $6.9m$, the next decade $4.7m$ and each further one about $4.6m$; for the Earth-Sun leg of a grazing ray, $r/r_0 = 215$, that is more than two decades. The region near the Sun is not special, in contrast to the bending, $95\%$ of which happens within $3r_0$ of the closest approach.
 :::
 
 Pulsar timing and spacecraft tracking measure the rate of change of the delay rather than the delay itself. The Cassini experiment of 2002 is the most precise test of this kind.
@@ -3552,7 +3552,7 @@ The Earth produces a Shapiro delay of its own, which navigation systems have to 
 ::: {#exm-grf-sh-gps}
 #### The delay of a GPS signal
 
-A signal from a GPS satellite at $r = 26\,561\,$km to a receiver directly below at $R_\oplus = 6371\,$km runs radially, and by @exm-grf-sh-radial its coordinate time exceeds $r - R_\oplus$ by $2m_\oplus\ln(r/R_\oplus) = 2 \times 4.43\,\mathrm{mm} \times 1.43 = 12.7\,$mm, or $42\,$ps. For satellites low on the horizon the path is longer and the delay reaches about $2\,$cm, a correction that precise positioning includes.
+A signal from a GPS satellite at $r = 26\,561\,$km to a receiver directly below at $R_\oplus = 6371\,$km runs radially, and by @exm-grf-sh-radial its coordinate time exceeds $r - R_\oplus$ by $2m_\oplus\log(r/R_\oplus) = 2 \times 4.43\,\mathrm{mm} \times 1.43 = 12.7\,$mm, or $42\,$ps. For satellites low on the horizon the path is longer and the delay reaches about $2\,$cm, a correction that precise positioning includes.
 :::
 ::::
 
@@ -3562,11 +3562,11 @@ The first exercise derives the radial equation used in the proof. It checks the 
 ::: {#exr-grf-sh-orbit}
 #### The equation of the ray
 
-From $E = (1 - 2m/r)\dot t$, $L = r^2\dot\phi$ and $g(k, k) = 0$, derive $dr/dt = (1 - 2m/r)\sqrt{1 - (1 - 2m/r)b^2/r^2}$, and show that $b = r_0/\sqrt{1 - 2m/r_0}$ is larger than $r_0$. Why must $r_0 > 3m$?
+From $E = (1 - 2m/r)\dot t$, $L = r^2\dot\varphi$ and $g(k, k) = 0$, derive $dr/dt = (1 - 2m/r)\sqrt{1 - (1 - 2m/r)b^2/r^2}$, and show that $b = r_0/\sqrt{1 - 2m/r_0}$ is larger than $r_0$. Why must $r_0 > 3m$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$g(k, k) = (1 - 2m/r)\dot t^2 - (1 - 2m/r)^{-1}\dot r^2 - r^2\dot\phi^2 = 0$ becomes $\dot r^2 = E^2 - (1 - 2m/r)L^2/r^2$ after multiplying by $1 - 2m/r$. Dividing by $\dot t^2 = E^2/(1 - 2m/r)^2$ gives $(dr/dt)^2 = (1 - 2m/r)^2(1 - (1 - 2m/r)b^2/r^2)$. At $r_0$ the bracket vanishes, $b^2 = r_0^2/(1 - 2m/r_0) > r_0^2$. A turning point is a minimum of $r$ only where $W = (1 - 2m/r)/r^2$ decreases, $r > 3m$; for $r_0 < 3m$ the ray would have to come out of the potential barrier of @exr-gr-photon-sphere.
+$g(k, k) = (1 - 2m/r)\dot t^2 - (1 - 2m/r)^{-1}\dot r^2 - r^2\dot\varphi^2 = 0$ becomes $\dot r^2 = E^2 - (1 - 2m/r)L^2/r^2$ after multiplying by $1 - 2m/r$. Dividing by $\dot t^2 = E^2/(1 - 2m/r)^2$ gives $(dr/dt)^2 = (1 - 2m/r)^2(1 - (1 - 2m/r)b^2/r^2)$. At $r_0$ the bracket vanishes, $b^2 = r_0^2/(1 - 2m/r_0) > r_0^2$. A turning point is a minimum of $r$ only where $W = (1 - 2m/r)/r^2$ decreases, $r > 3m$; for $r_0 < 3m$ the ray would have to come out of the potential barrier of @exr-gr-photon-sphere.
 :::
 
 The second exercise carries out the expansion to first order in $m$ with Sage. It checks each of the three terms of @eq-grf-shapiro.
@@ -3618,11 +3618,11 @@ The third exercise derives the radar delay from the one-way formula. The approxi
 ::: {#exr-grf-sh-round-trip}
 #### The radar delay
 
-Show that for $r \gg r_0$, @eq-grf-shapiro gives $t(r, r_0) = \sqrt{r^2 - r_0^2} + 2m\ln(2r/r_0) + m + O(r_0/r)$, and deduce $\Delta t = 4m(\ln(4r_1r_2/r_0^2) + 1)$.
+Show that for $r \gg r_0$, @eq-grf-shapiro gives $t(r, r_0) = \sqrt{r^2 - r_0^2} + 2m\log(2r/r_0) + m + O(r_0/r)$, and deduce $\Delta t = 4m(\log(4r_1r_2/r_0^2) + 1)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\ln\frac{r + \sqrt{r^2 - r_0^2}}{r_0} = \ln\frac{2r}{r_0} + O(r_0^2/r^2)$ and $\sqrt{(r - r_0)/(r + r_0)} = 1 + O(r_0/r)$. The round trip consists of the legs $r_1 \to r_0 \to r_2$ and back, so $\Delta t = 2\bigl(2m\ln\frac{2r_1}{r_0} + m + 2m\ln\frac{2r_2}{r_0} + m\bigr) = 4m\bigl(\ln\frac{4r_1r_2}{r_0^2} + 1\bigr)$.
+$\log\frac{r + \sqrt{r^2 - r_0^2}}{r_0} = \log\frac{2r}{r_0} + O(r_0^2/r^2)$ and $\sqrt{(r - r_0)/(r + r_0)} = 1 + O(r_0/r)$. The round trip consists of the legs $r_1 \to r_0 \to r_2$ and back, so $\Delta t = 2\bigl(2m\log\frac{2r_1}{r_0} + m + 2m\log\frac{2r_2}{r_0} + m\bigr) = 4m\bigl(\log\frac{4r_1r_2}{r_0^2} + 1\bigr)$.
 :::
 
 The fourth exercise checks the numbers of the two radar examples with Sage. It compares the exact integral with the first-order formula for the real geometry.
@@ -3672,7 +3672,7 @@ A static observer at $r_1$ sends a radial signal to a mirror at $r_2 > r_1$ and 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @exm-grf-sh-radial, $\tau = 2\sqrt{1 - 2m/r_1}\,(r_2 - r_1 + 2m\ln\frac{r_2 - 2m}{r_1 - 2m})$, which is $2(r_2 - r_1)(1 - m/r_1) + 4m\ln(r_2/r_1)$ to first order. For $r_2 = 2r_1$ half of it is $r_1 - m + 2m\ln2 = r_1 + 0.386m$. The proper distance is $r_2 - r_1 + m\ln(r_2/r_1) = r_1 + 0.693m$ to first order. The two notions of distance differ at order $m$: in a curved spacetime there is no unique distance between separated objects.
+By @exm-grf-sh-radial, $\tau = 2\sqrt{1 - 2m/r_1}\,(r_2 - r_1 + 2m\log\frac{r_2 - 2m}{r_1 - 2m})$, which is $2(r_2 - r_1)(1 - m/r_1) + 4m\log(r_2/r_1)$ to first order. For $r_2 = 2r_1$ half of it is $r_1 - m + 2m\log2 = r_1 + 0.386m$. The proper distance is $r_2 - r_1 + m\log(r_2/r_1) = r_1 + 0.693m$ to first order. The two notions of distance differ at order $m$: in a curved spacetime there is no unique distance between separated objects.
 :::
 
 Close to a black hole the first-order formula fails. The sixth exercise measures how badly with Sage, for rays that pass near the photon sphere.
@@ -3720,11 +3720,11 @@ The divergence found in the previous exercise can be made explicit by expanding 
 ::: {#exr-grf-sh-photon-sphere}
 #### The delay near the photon sphere
 
-Write $r_0 = 3m(1 + \epsilon)$ and show that near $r = r_0$ the bracket of @eq-grf-shapiro-exact is $B(r) \approx \alpha(r - r_0) + \beta(r - r_0)^2$ with $\alpha \propto \epsilon$ and $\beta > 0$ independent of $\epsilon$ at leading order. Deduce that the delay grows like $-\ln\epsilon$ as $\epsilon \to 0$.
+Write $r_0 = 3m(1 + \varepsilon)$ and show that near $r = r_0$ the bracket of @eq-grf-shapiro-exact is $B(r) \approx \alpha(r - r_0) + \beta(r - r_0)^2$ with $\alpha \propto \varepsilon$ and $\beta > 0$ independent of $\varepsilon$ at leading order. Deduce that the delay grows like $-\log\varepsilon$ as $\varepsilon \to 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$B(r) = 1 - W(r)/W(r_0)$ with $W = (1 - 2m/r)/r^2$, so $\alpha = -W'(r_0)/W(r_0)$ and $\beta = -W''(r_0)/2W(r_0)$. $W'$ vanishes at $3m$, so $W'(r_0) \approx 3mW''(3m)\epsilon$ and $\alpha \propto \epsilon$, while $W''(3m) < 0$ gives $\beta > 0$. Then $\int_{r_0}dr/\sqrt{\alpha x + \beta x^2}$ with $x = r - r_0$ behaves as $\beta^{-1/2}\ln(1/\alpha)$ for small $\alpha$, a delay of order $-\ln\epsilon$.
+$B(r) = 1 - W(r)/W(r_0)$ with $W = (1 - 2m/r)/r^2$, so $\alpha = -W'(r_0)/W(r_0)$ and $\beta = -W''(r_0)/2W(r_0)$. $W'$ vanishes at $3m$, so $W'(r_0) \approx 3mW''(3m)\varepsilon$ and $\alpha \propto \varepsilon$, while $W''(3m) < 0$ gives $\beta > 0$. Then $\int_{r_0}dr/\sqrt{\alpha x + \beta x^2}$ with $x = r - r_0$ behaves as $\beta^{-1/2}\log(1/\alpha)$ for small $\alpha$, a delay of order $-\log\varepsilon$.
 :::
 
 The weak-field calculation of @exm-grf-sh-weak-field and the Schwarzschild calculation use different radial coordinates. The eighth exercise reconciles them with Sage.
@@ -3802,19 +3802,19 @@ The coefficient $4m$ of the delay depends on the spatial part of the metric as w
 ::: {#exr-grf-sh-gamma}
 #### Weighting the spatial curvature
 
-Consider the weak-field metric $(1 + 2\Phi)dt^2 - (1 - 2\gamma\Phi)d\vec x^2$, with $\gamma = 1$ in general relativity. Show that the delay along a straight ray is multiplied by $(1 + \gamma)/2$, and find the bound on $\gamma$ that a $0.1\%$ measurement of the delay gives.
+Consider the weak-field metric $(1 + 2\Phi)dt^2 - (1 - 2\gamma\Phi)d\mathbf x^2$, with $\gamma = 1$ in general relativity. Show that the delay along a straight ray is multiplied by $(1 + \gamma)/2$, and find the bound on $\gamma$ that a $0.1\%$ measurement of the delay gives.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Null rays have $dt = \sqrt{(1 - 2\gamma\Phi)/(1 + 2\Phi)}\,|d\vec x| \approx (1 - (1 + \gamma)\Phi)|d\vec x|$, so the excess is $-(1 + \gamma)\int\Phi\,dl$, which is $\frac{1 + \gamma}{2}$ times the value for $\gamma = 1$. A $0.1\%$ agreement gives $|\gamma - 1| \lesssim 2 \times 10^{-3}$; the Cassini rate measurement sharpened this to $2.3 \times 10^{-5}$ [@plebanski2024introduction, Sec. 12.16.1]. The light deflection carries the same factor, $(1 + \gamma)/2 \times 4m/b$.
+Null rays have $dt = \sqrt{(1 - 2\gamma\Phi)/(1 + 2\Phi)}\,|d\mathbf x| \approx (1 - (1 + \gamma)\Phi)|d\mathbf x|$, so the excess is $-(1 + \gamma)\int\Phi\,dl$, which is $\frac{1 + \gamma}{2}$ times the value for $\gamma = 1$. A $0.1\%$ agreement gives $|\gamma - 1| \lesssim 2 \times 10^{-3}$; the Cassini rate measurement sharpened this to $2.3 \times 10^{-5}$ [@plebanski2024introduction, Sec. 12.16.1]. The light deflection carries the same factor, $(1 + \gamma)/2 \times 4m/b$.
 :::
 ::::
 
 ### Charged black holes
 
-An electric field carries energy, $T_{tt} = \frac12(\vec E^2 + \vec B^2)$ by @exm-stress-maxwell, so it is a source of gravity, and the gravitational field in turn changes how the electric field spreads out. The coupled system of the Einstein and Maxwell equations is the simplest field theory coupled to gravity, and the one that Kaluza-Klein theory produces from five-dimensional gravity. Its spherically symmetric solution, the Reissner-Nordström metric, is the field of a charged mass: it has two horizons instead of one, and a limit with the largest charge a black hole of given mass can carry. This unit defines the equations and the solution and then proves the properties of the solution. The source is @plebanski2024introduction [Secs. 13.1-13.5 and 14.2-14.4, 14.16], in Gaussian units with $G = 1$, which we convert to the Heaviside-Lorentz units of @sec-electromagnetism; @emam2021covariant [Sec. 8.6] gives the solution in SI units.
+An electric field carries energy, $T_{tt} = \frac12(\mathbf E^2 + \mathbf B^2)$ by @exm-stress-maxwell, so it is a source of gravity, and the gravitational field in turn changes how the electric field spreads out. The coupled system of the Einstein and Maxwell equations is the simplest field theory coupled to gravity, and the one that Kaluza-Klein theory produces from five-dimensional gravity. Its spherically symmetric solution, the Reissner-Nordström metric, is the field of a charged mass: it has two horizons instead of one, and a limit with the largest charge a black hole of given mass can carry. This unit defines the equations and the solution and then proves the properties of the solution. The source is @plebanski2024introduction [Secs. 13.1-13.5 and 14.2-14.4, 14.16], in Gaussian units with $G_N = 1$, which we convert to the Heaviside-Lorentz units of @sec-electromagnetism; @emam2021covariant [Sec. 8.6] gives the solution in SI units.
 
-![The Reissner-Nordström metric, $G = 1$, in units of $m$. Left: $f(r) = 1 - 2m/r + q^2/r^2$ for $q/m = 0$, $0.6$, $0.9$, $1$ and $1.2$; for $|q| < m$ it has two zeros, the horizons $r_\pm$, between which $f < 0$; for $|q| = m$ the zeros merge in a double zero at $r = m$, and for $|q| > m$ there is no horizon. Right: the outer and inner horizons $r_\pm = m \pm \sqrt{m^2 - q^2}$, the circular light orbit and the innermost stable circular orbit of neutral particles, as functions of $q/m$; at $q = m$ they reach $m$, $2m$ and $4m$. Generated by `figures/grf_reissner_nordstrom.sage`.](figures/grf_reissner_nordstrom.svg){#fig-grf-reissner-nordstrom width=95%}
+![The Reissner-Nordström metric, $G_N = 1$, in units of $m$. Left: $f(r) = 1 - 2m/r + q^2/r^2$ for $q/m = 0$, $0.6$, $0.9$, $1$ and $1.2$; for $|q| < m$ it has two zeros, the horizons $r_\pm$, between which $f < 0$; for $|q| = m$ the zeros merge in a double zero at $r = m$, and for $|q| > m$ there is no horizon. Right: the outer and inner horizons $r_\pm = m \pm \sqrt{m^2 - q^2}$, the circular light orbit and the innermost stable circular orbit of neutral particles, as functions of $q/m$; at $q = m$ they reach $m$, $2m$ and $4m$. Generated by `figures/grf_reissner_nordstrom.sage`.](figures/grf_reissner_nordstrom.svg){#fig-grf-reissner-nordstrom width=95%}
 
 The definition couples the Maxwell action of @eq-maxwell-action to the Einstein-Hilbert action, with the metric now dynamical. Its two halves are the Einstein equations with the electromagnetic stress tensor and the Maxwell equations on the curved spacetime.
 
@@ -3826,7 +3826,7 @@ The **Einstein-Maxwell equations** for a metric $g$ and a potential $A$ with fie
 $$
 G_{\mu\nu} = \kappa^2T_{\mu\nu}, \qquad T_{\mu\nu} = F_{\mu\rho}F^\rho{}_\nu + \tfrac14g_{\mu\nu}F_{\rho\sigma}F^{\rho\sigma}, \qquad \nabla_\mu F^{\mu\nu} = 0 ,
 $$ {#eq-grf-einstein-maxwell}
-with $\kappa^2 = 8\pi G$ (@def-einstein-equations) and the stress tensor of @exm-stress-maxwell; the other half of Maxwell's equations, $\partial_{[\lambda}F_{\mu\nu]} = 0$, holds because $F = dA$. With a current the Maxwell equation becomes $\nabla_\mu F^{\mu\nu} = j^\nu$, and $T_{\mu\nu}$ then includes the matter that carries the current [@plebanski2024introduction, Secs. 13.2-13.5, eqs. 13.6, 13.10 and 13.16, with $F_{\mu\nu}$ and the charges rescaled by $\sqrt{4\pi}$].
+with $\kappa^2 = 8\pi G_N$ (@def-einstein-equations) and the stress tensor of @exm-stress-maxwell; the other half of Maxwell's equations, $\partial_{[\lambda}F_{\mu\nu]} = 0$, holds because $F = dA$. With a current the Maxwell equation becomes $\nabla_\mu F^{\mu\nu} = j^\nu$, and $T_{\mu\nu}$ then includes the matter that carries the current [@plebanski2024introduction, Secs. 13.2-13.5, eqs. 13.6, 13.10 and 13.16, with $F_{\mu\nu}$ and the charges rescaled by $\sqrt{4\pi}$].
 :::
 ::::
 
@@ -3836,7 +3836,7 @@ On a fixed flat background the definition reduces to electromagnetism, and the f
 ::: {#exm-grf-em-flat}
 #### Maxwell's equations on flat spacetime
 
-For $g = \eta$, $\nabla_\mu F^{\mu\nu} = \partial_\mu F^{\mu\nu} = j^\nu$ with $F^{i0} = E^i$ gives Gauss's law $\nabla\cdot\vec E = \rho$ for $\nu = 0$ and the Ampère-Maxwell law for $\nu = i$, the equations of @def-emm-maxwell-equations. Neglecting $G_{\mu\nu} = \kappa^2T_{\mu\nu}$ is justified when $\kappa^2T$ is small against the curvature scales of interest: a field of $1\,$T has $T_{tt} = 4 \times 10^5\,\mathrm{J/m^3}$, and $8\pi G/c^4 \times T_{tt} = 8 \times 10^{-38}\,\mathrm{m^{-2}}$, a curvature radius of $3.5 \times 10^{18}\,$m.
+For $g = \eta$, $\nabla_\mu F^{\mu\nu} = \partial_\mu F^{\mu\nu} = j^\nu$ with $F^{i0} = E^i$ gives Gauss's law $\nabla\cdot\mathbf E = \rho$ for $\nu = 0$ and the Ampère-Maxwell law for $\nu = i$, the equations of @def-emm-maxwell-equations. Neglecting $G_{\mu\nu} = \kappa^2T_{\mu\nu}$ is justified when $\kappa^2T$ is small against the curvature scales of interest: a field of $1\,$T has $T_{tt} = 4 \times 10^5\,\mathrm{J/m^3}$, and $8\pi G_N/c^4 \times T_{tt} = 8 \times 10^{-38}\,\mathrm{m^{-2}}$, a curvature radius of $3.5 \times 10^{18}\,$m.
 :::
 
 The Maxwell stress tensor is traceless in four dimensions, and this simplifies the Einstein half. The trace-reversed form of @def-einstein-equations becomes especially short.
@@ -3860,7 +3860,7 @@ The stress tensor determines the field strength only up to a rotation. The rotat
 ::: {#exm-grf-em-duality}
 #### Duality rotations
 
-With the dual tensor ${}^*F_{\mu\nu} = \frac12\sqrt{-g}\,\epsilon_{\mu\nu\rho\sigma}F^{\rho\sigma}$, the rotation $F \to F\cos\delta + {}^*F\sin\delta$ maps $(\vec E, \vec B)$ to $(\vec E\cos\delta + \vec B\sin\delta, -\vec E\sin\delta + \vec B\cos\delta)$ up to orientation conventions, and leaves $T_{\mu\nu}$ unchanged (@exr-grf-em-duality). It also maps source-free solutions of Maxwell's equations to solutions. A black hole with electric charge $Q$ and magnetic charge $P$ therefore has the metric of one with electric charge $\sqrt{Q^2 + P^2}$ [@plebanski2024introduction, Secs. 13.3 and 14.3].
+With the dual tensor $\tilde F_{\mu\nu} = \frac12\sqrt{-g}\,\epsilon_{\mu\nu\rho\sigma}F^{\rho\sigma}$, the rotation $F \to F\cos\delta - \tilde F\sin\delta$ maps $(\mathbf E, \mathbf B)$ to $(\mathbf E\cos\delta + \mathbf B\sin\delta, -\mathbf E\sin\delta + \mathbf B\cos\delta)$, since with $\epsilon_{0123} = +1$ the dual $\tilde F$ has the fields $(-\mathbf B, \mathbf E)$, and leaves $T_{\mu\nu}$ unchanged (@exr-grf-em-duality). It also maps source-free solutions of Maxwell's equations to solutions. A black hole with electric charge $Q$ and magnetic charge $P$ therefore has the metric of one with electric charge $\sqrt{Q^2 + P^2}$ [@plebanski2024introduction, Secs. 13.3 and 14.3].
 :::
 
 The definition is written in Heaviside-Lorentz units with $c = 1$, while the sources use Gaussian or SI units. The conversion matters whenever a charge is put into a metric.
@@ -3868,7 +3868,7 @@ The definition is written in Heaviside-Lorentz units with $c = 1$, while the sou
 ::: {#exm-grf-em-units}
 #### The charge length
 
-In @eq-grf-einstein-maxwell a charge $Q$ enters the metric through the length $r_Q = \sqrt{GQ^2/4\pi}$, the analogue of the mass length $GM$. In SI units $r_Q^2 = GQ^2/(4\pi\epsilon_0c^4)$, and in Gaussian units with $G = 1$, as in @plebanski2024introduction, it is simply $e^2$. For an electron $r_Q = 1.38 \times 10^{-36}\,$m while $GM/c^2 = 6.8 \times 10^{-58}\,$m: the ratio of charge to mass, in gravitational units, is $2 \times 10^{21}$ [@emam2021covariant, eq. 8.163].
+In @eq-grf-einstein-maxwell a charge $Q$ enters the metric through the length $r_Q = \sqrt{G_NQ^2/4\pi}$, the analogue of the mass length $G_NM$. In SI units $r_Q^2 = G_NQ^2/(4\pi\epsilon_0c^4)$, and in Gaussian units with $G_N = 1$, as in @plebanski2024introduction, it is simply $e^2$. For an electron $r_Q = 1.38 \times 10^{-36}\,$m while $G_NM/c^2 = 6.8 \times 10^{-58}\,$m: the ratio of charge to mass, in gravitational units, is $2 \times 10^{21}$ [@emam2021covariant, eq. 8.163].
 :::
 
 The Einstein half of the equations can be checked against the variation of the Maxwell action. The definition takes the stress tensor from @eq-stress-tensor, and the example confirms the sign.
@@ -3876,7 +3876,7 @@ The Einstein half of the equations can be checked against the variation of the M
 ::: {#exm-grf-em-variation}
 #### The stress tensor from the action
 
-$\delta(\sqrt{-g}) = -\frac12\sqrt{-g}\,g_{\mu\nu}\delta g^{\mu\nu}$ and $\delta(g^{\mu\rho}g^{\nu\sigma}F_{\mu\nu}F_{\rho\sigma}) = 2F_{\mu\rho}F_\nu{}^\rho\,\delta g^{\mu\nu}$ give $\delta S_{\mathrm M} = \int\sqrt{-g}\,\bigl(-\frac12F_{\mu\rho}F_\nu{}^\rho + \frac18g_{\mu\nu}F^2\bigr)\delta g^{\mu\nu}$, and @eq-stress-tensor gives $T_{\mu\nu} = -F_{\mu\rho}F_\nu{}^\rho + \frac14g_{\mu\nu}F^2 = F_{\mu\rho}F^\rho{}_\nu + \frac14g_{\mu\nu}F^2$, the tensor of @eq-grf-einstein-maxwell, with $T_{tt} = \frac12(\vec E^2 + \vec B^2) \geq 0$ (@exr-grf-em-variation).
+$\delta(\sqrt{-g}) = -\frac12\sqrt{-g}\,g_{\mu\nu}\delta g^{\mu\nu}$ and $\delta(g^{\mu\rho}g^{\nu\sigma}F_{\mu\nu}F_{\rho\sigma}) = 2F_{\mu\rho}F_\nu{}^\rho\,\delta g^{\mu\nu}$ give $\delta S_{\mathrm M} = \int\sqrt{-g}\,\bigl(-\frac12F_{\mu\rho}F_\nu{}^\rho + \frac18g_{\mu\nu}F^2\bigr)\delta g^{\mu\nu}$, and @eq-stress-tensor gives $T_{\mu\nu} = -F_{\mu\rho}F_\nu{}^\rho + \frac14g_{\mu\nu}F^2 = F_{\mu\rho}F^\rho{}_\nu + \frac14g_{\mu\nu}F^2$, the tensor of @eq-grf-einstein-maxwell, with $T_{tt} = \frac12(\mathbf E^2 + \mathbf B^2) \geq 0$ (@exr-grf-em-variation).
 :::
 
 With a current the conservation of the total stress tensor has content: the field exchanges energy and momentum with the charges. The divergence of the field part is the Lorentz force density.
@@ -3884,7 +3884,7 @@ With a current the conservation of the total stress tensor has content: the fiel
 ::: {#exm-grf-em-force-density}
 #### The Lorentz force density
 
-If $\nabla_\mu F^{\mu\nu} = j^\nu$, the electromagnetic stress tensor obeys $\nabla_\mu T^{\mu\nu} = -F^\nu{}_\lambda j^\lambda$. For $\nu = 0$ on flat spacetime this is $\partial_tu + \nabla\cdot\vec S = -\vec E\cdot\vec J$, Poynting's theorem (@prp-emm-poynting). The Bianchi identity $\nabla_\mu G^{\mu\nu} = 0$ requires the total stress tensor to be conserved, so the charged matter must gain $F^\nu{}_\lambda j^\lambda$, the force density of @prp-sr-lorentz-force: the Einstein equations imply the equations of motion of the sources [@plebanski2024introduction, Sec. 13.4].
+If $\nabla_\mu F^{\mu\nu} = j^\nu$, the electromagnetic stress tensor obeys $\nabla_\mu T^{\mu\nu} = -F^\nu{}_\lambda j^\lambda$. For $\nu = 0$ on flat spacetime this is $\partial_tu + \nabla\cdot\mathbf S = -\mathbf E\cdot\mathbf J$, Poynting's theorem (@prp-emm-poynting). The Bianchi identity $\nabla_\mu G^{\mu\nu} = 0$ requires the total stress tensor to be conserved, so the charged matter must gain $F^\nu{}_\lambda j^\lambda$, the force density of @prp-sr-lorentz-force: the Einstein equations imply the equations of motion of the sources [@plebanski2024introduction, Sec. 13.4].
 :::
 
 A plane electromagnetic wave is a special source: its field invariants vanish, and its stress tensor is that of a stream of massless particles. The example writes it in terms of the wave vector.
@@ -3892,7 +3892,7 @@ A plane electromagnetic wave is a special source: its field invariants vanish, a
 ::: {#exm-grf-em-null-field}
 #### A plane wave as null dust
 
-For a plane wave along $z$ with $\vec E = E\hat x$, $\vec B = E\hat y$ and wave vector $k = \omega(1, 0, 0, 1)$, $F_{\mu\nu}F^{\mu\nu} = 2(B^2 - E^2) = 0$ and $T^{00} = T^{03} = T^{33} = E^2$, the other components vanishing: $T^{\mu\nu} = (E^2/\omega^2)k^\mu k^\nu$. This is the stress tensor of dust moving at the speed of light. Such waves source the plane-fronted gravitational waves of the theory, with $R = 0$ and $R_{\mu\nu} \propto k_\mu k_\nu$.
+For a plane wave along $z$ with $\mathbf E = E\hat{\mathbf x}$, $\mathbf B = E\hat{\mathbf y}$ and wave vector $k = \omega(1, 0, 0, 1)$, $F_{\mu\nu}F^{\mu\nu} = 2(B^2 - E^2) = 0$ and $T^{00} = T^{03} = T^{33} = E^2$, the other components vanishing: $T^{\mu\nu} = (E^2/\omega^2)k^\mu k^\nu$. This is the stress tensor of dust moving at the speed of light. Such waves source the plane-fronted gravitational waves of the theory, with $R = 0$ and $R_{\mu\nu} \propto k_\mu k_\nu$.
 :::
 
 Kaluza-Klein theory produces the Einstein-Maxwell equations from gravity alone. The example states the connection, which Part III of the Kaluza-Klein tutorial derives.
@@ -3922,7 +3922,7 @@ Derive the stress tensor of @eq-grf-einstein-maxwell from @eq-stress-tensor, usi
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F_{\mu\nu}$ does not involve the metric, so $\delta(g^{\mu\rho}g^{\nu\sigma}F_{\mu\nu}F_{\rho\sigma}) = 2\delta g^{\mu\rho}g^{\nu\sigma}F_{\mu\nu}F_{\rho\sigma} = 2F_{\mu\nu}F_\rho{}^\nu\delta g^{\mu\rho}$. Then $\delta S_{\mathrm M} = -\frac14\int\sqrt{-g}\bigl(2F_{\mu\lambda}F_\nu{}^\lambda - \frac12g_{\mu\nu}F^2\bigr)\delta g^{\mu\nu}$, and @eq-stress-tensor gives $T_{\mu\nu} = -F_{\mu\lambda}F_\nu{}^\lambda + \frac14g_{\mu\nu}F^2$. Since $F_\nu{}^\lambda = -F^\lambda{}_\nu$, this is $F_{\mu\lambda}F^\lambda{}_\nu + \frac14g_{\mu\nu}F^2$. On flat spacetime $T_{tt} = \vec E^2 + \frac14 \cdot 2(\vec B^2 - \vec E^2) = \frac12(\vec E^2 + \vec B^2)$.
+$F_{\mu\nu}$ does not involve the metric, so $\delta(g^{\mu\rho}g^{\nu\sigma}F_{\mu\nu}F_{\rho\sigma}) = 2\delta g^{\mu\rho}g^{\nu\sigma}F_{\mu\nu}F_{\rho\sigma} = 2F_{\mu\nu}F_\rho{}^\nu\delta g^{\mu\rho}$. Then $\delta S_{\mathrm M} = -\frac14\int\sqrt{-g}\bigl(2F_{\mu\lambda}F_\nu{}^\lambda - \frac12g_{\mu\nu}F^2\bigr)\delta g^{\mu\nu}$, and @eq-stress-tensor gives $T_{\mu\nu} = -F_{\mu\lambda}F_\nu{}^\lambda + \frac14g_{\mu\nu}F^2$. Since $F_\nu{}^\lambda = -F^\lambda{}_\nu$, this is $F_{\mu\lambda}F^\lambda{}_\nu + \frac14g_{\mu\nu}F^2$. On flat spacetime $T_{tt} = \mathbf E^2 + \frac14 \cdot 2(\mathbf B^2 - \mathbf E^2) = \frac12(\mathbf E^2 + \mathbf B^2)$.
 :::
 
 The second exercise varies the potential instead of the metric. It gives the curved-space Maxwell equation, as in Plebański and Krasiński.
@@ -3966,7 +3966,7 @@ In components the electromagnetic stress tensor contains the energy density, the
 ::: {#exr-grf-em-components}
 #### The spatial stress with Sage
 
-On flat spacetime with $F_{0i} = E_i$ and $F_{ij} = -\epsilon_{ijk}B_k$, compute $T_{ij}$ with Sage and compare with the Maxwell stress tensor $\sigma_{ij} = E_iE_j + B_iB_j - \frac12\delta_{ij}(\vec E^2 + \vec B^2)$ [@plebanski2024introduction, Sec. 13.7, Exercise 1].
+On flat spacetime with $F_{0i} = E_i$ and $F_{ij} = -\epsilon_{ijk}B_k$, compute $T_{ij}$ with Sage and compare with the Maxwell stress tensor $\sigma_{ij} = E_iE_j + B_iB_j - \frac12\delta_{ij}(\mathbf E^2 + \mathbf B^2)$ [@plebanski2024introduction, Sec. 13.7, Exercise 1].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4002,7 +4002,7 @@ T_ij + sigma_ij = 0 for all i, j: True
 T_11 = -1/2*B1^2 + 1/2*B2^2 + 1/2*B3^2 - 1/2*E1^2 + 1/2*E2^2 + 1/2*E3^2
 ```
 
-The momentum flux $T_{ij}$ is minus the Maxwell stress: a field pulls along its lines ($\sigma_{ii} > 0$ along $\vec E$) and pushes sideways. The temporal components were checked in @exr-gr-maxwell-stress.
+The momentum flux $T_{ij}$ is minus the Maxwell stress: a field pulls along its lines ($\sigma_{ii} > 0$ along $\mathbf E$) and pushes sideways. The temporal components were checked in @exr-gr-maxwell-stress.
 :::
 
 The duality rotation of @exm-grf-em-duality is checked most easily in components. The sixth exercise does this with Sage on flat spacetime.
@@ -4010,7 +4010,7 @@ The duality rotation of @exm-grf-em-duality is checked most easily in components
 ::: {#exr-grf-em-duality}
 #### Duality invariance with Sage
 
-With Sage, show that the rotation $\vec E \to \vec E\cos\delta + \vec B\sin\delta$, $\vec B \to -\vec E\sin\delta + \vec B\cos\delta$ leaves every component of the stress tensor unchanged, and that it changes the invariant $F_{\mu\nu}F^{\mu\nu}$ unless $\vec E\cdot\vec B$ and $\vec B^2 - \vec E^2$ vanish [@plebanski2024introduction, Sec. 13.7, Exercise 2].
+With Sage, show that the rotation $\mathbf E \to \mathbf E\cos\delta + \mathbf B\sin\delta$, $\mathbf B \to -\mathbf E\sin\delta + \mathbf B\cos\delta$ leaves every component of the stress tensor unchanged, and that it changes the invariant $F_{\mu\nu}F^{\mu\nu}$ unless $\mathbf E\cdot\mathbf B$ and $\mathbf B^2 - \mathbf E^2$ vanish [@plebanski2024introduction, Sec. 13.7, Exercise 2].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4041,7 +4041,7 @@ B^2 - E^2 after rotation: B1^2*cos(2*d) + B2^2*cos(2*d) + B3^2*cos(2*d) - E1^2*c
 E.B after rotation: B1*E1*cos(2*d) + B2*E2*cos(2*d) + B3*E3*cos(2*d) + 1/2*B1^2*sin(2*d) + 1/2*B2^2*sin(2*d) + 1/2*B3^2*sin(2*d) - 1/2*E1^2*sin(2*d) - 1/2*E2^2*sin(2*d) - 1/2*E3^2*sin(2*d)
 ```
 
-The Lagrangian $\frac12(\vec E^2 - \vec B^2)$ rotates into $\vec E\cdot\vec B$: the duality is a symmetry of the equations and of the stress tensor, not of the action.
+The Lagrangian $\frac12(\mathbf E^2 - \mathbf B^2)$ rotates into $\mathbf E\cdot\mathbf B$: the duality is a symmetry of the equations and of the stress tensor, not of the action.
 :::
 
 The Coulomb field of @exm-grf-em-divergence solves Maxwell's equations on every static spherically symmetric background of the form used below. The seventh exercise checks it.
@@ -4049,7 +4049,7 @@ The Coulomb field of @exm-grf-em-divergence solves Maxwell's equations on every 
 ::: {#exr-grf-em-coulomb}
 #### A charge on a curved background
 
-For $ds^2 = f(r)dt^2 - f(r)^{-1}dr^2 - r^2d\Omega^2$ and $A = \frac{Q}{4\pi r}dt$, compute $F_{tr}$ and $F^{tr}$, and show that $\nabla_\mu F^{\mu\nu} = 0$ for $r > 0$. What is the flux of $\vec E$ through a sphere, measured by static observers?
+For $ds^2 = f(r)dt^2 - f(r)^{-1}dr^2 - r^2d\Omega^2$ and $A = \frac{Q}{4\pi r}dt$, compute $F_{tr}$ and $F^{tr}$, and show that $\nabla_\mu F^{\mu\nu} = 0$ for $r > 0$. What is the flux of $\mathbf E$ through a sphere, measured by static observers?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4061,7 +4061,7 @@ The uniform field of @exm-grf-em-uniform needs a curved spacetime. The eighth ex
 ::: {#exr-grf-em-bertotti-robinson}
 #### The Bertotti-Robinson solution with Sage
 
-With Sage, check that $ds^2 = \ell^2(\rho^2dt^2 - \rho^{-2}d\rho^2) - \ell^2(d\theta^2 + \sin^2\theta\,d\phi^2)$ with $A = E\ell^2\rho\,dt$ solves @eq-grf-einstein-maxwell, and find $\ell$ in terms of $E$ and $\kappa$. Show that $E$ is the field measured by static observers.
+With Sage, check that $ds^2 = \ell^2(\rho^2dt^2 - \rho^{-2}d\rho^2) - \ell^2(d\theta^2 + \sin^2\theta\,d\varphi^2)$ with $A = E\ell^2\rho\,dt$ solves @eq-grf-einstein-maxwell, and find $\ell$ in terms of $E$ and $\kappa$. Show that $E$ is the field measured by static observers.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4125,11 +4125,11 @@ The last exercise checks the null-dust form of a plane wave. It also shows that 
 ::: {#exr-grf-em-null-dust}
 #### The plane wave stress tensor
 
-For $A = \frac E\omega\sin(\omega(t - z))\,dx$, up to sign conventions for the components, compute $F_{\mu\nu}$, check $F_{\mu\nu}F^{\mu\nu} = 0$ and $F_{\mu\nu}{}^*F^{\mu\nu} = 0$, and show that $T^{\mu\nu} = \frac{E^2\cos^2(\omega(t - z))}{\omega^2}k^\mu k^\nu$ with $k = \omega(1, 0, 0, 1)$.
+For $A = \frac E\omega\sin(\omega(t - z))\,dx$, up to sign conventions for the components, compute $F_{\mu\nu}$, check $F_{\mu\nu}F^{\mu\nu} = 0$ and $F_{\mu\nu}\tilde F^{\mu\nu} = 0$, and show that $T^{\mu\nu} = \frac{E^2\cos^2(\omega(t - z))}{\omega^2}k^\mu k^\nu$ with $k = \omega(1, 0, 0, 1)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F_{tx} = \partial_tA_x = E\cos u$ and $F_{zx} = -E\cos u$, $u = \omega(t - z)$, so the electric field is along $x$ and the magnetic field along $y$, both of size $E\cos u$; hence $\vec E^2 = \vec B^2$ and $\vec E\cdot\vec B = 0$, the two invariants. Then $T^{00} = \frac12(\vec E^2 + \vec B^2) = E^2\cos^2u$, $T^{0z} = |\vec E\times\vec B| = E^2\cos^2u$ and $T^{zz} = E^2\cos^2u$ by @exr-grf-em-components, the others vanishing, which is $\frac{E^2\cos^2u}{\omega^2}k^\mu k^\nu$: energy density equal to energy flux, moving at speed $1$.
+$F_{tx} = \partial_tA_x = E\cos u$ and $F_{zx} = -E\cos u$, $u = \omega(t - z)$, so the electric field is along $x$ and the magnetic field along $y$, both of size $E\cos u$; hence $\mathbf E^2 = \mathbf B^2$ and $\mathbf E\cdot\mathbf B = 0$, the two invariants. Then $T^{00} = \frac12(\mathbf E^2 + \mathbf B^2) = E^2\cos^2u$, $T^{0z} = |\mathbf E\times\mathbf B| = E^2\cos^2u$ and $T^{zz} = E^2\cos^2u$ by @exr-grf-em-components, the others vanishing, which is $\frac{E^2\cos^2u}{\omega^2}k^\mu k^\nu$: energy density equal to energy flux, moving at speed $1$.
 :::
 ::::
 
@@ -4141,9 +4141,9 @@ The Einstein-Maxwell equations are non-linear, but with spherical symmetry they 
 
 The **Reissner-Nordström metric** of mass $M$ and charge $Q$ is
 $$
-ds^2 = f(r)\,dt^2 - f(r)^{-1}dr^2 - r^2\bigl(d\theta^2 + \sin^2\theta\,d\phi^2\bigr), \qquad f(r) = 1 - \frac{2GM}{r} + \frac{GQ^2}{4\pi r^2},
+ds^2 = f(r)\,dt^2 - f(r)^{-1}dr^2 - r^2\bigl(d\theta^2 + \sin^2\theta\,d\varphi^2\bigr), \qquad f(r) = 1 - \frac{2G_NM}{r} + \frac{G_NQ^2}{4\pi r^2},
 $$ {#eq-grf-reissner-nordstrom}
-together with the potential $A = \frac{Q}{4\pi r}dt$, the Coulomb potential of @def-ems-electrostatic-potential. With $m = GM$ and $q^2 = GQ^2/4\pi$, $f = 1 - 2m/r + q^2/r^2$. It solves the Einstein-Maxwell equations (@prp-grf-reissner-nordstrom), and it is defined where $f > 0$ outside the outer zero of $f$, or for all $r > 0$ when $q^2 > m^2$ [@plebanski2024introduction, Sec. 14.4, eqs. 14.40-14.41 with $\Lambda = 0$ and $e = q$; @emam2021covariant, eq. 8.165].
+together with the potential $A = \frac{Q}{4\pi r}dt$, the Coulomb potential of @def-ems-electrostatic-potential. With $m = G_NM$ and $q^2 = G_NQ^2/4\pi$, $f = 1 - 2m/r + q^2/r^2$. It solves the Einstein-Maxwell equations (@prp-grf-reissner-nordstrom), and it is defined where $f > 0$ outside the outer zero of $f$, or for all $r > 0$ when $q^2 > m^2$ [@plebanski2024introduction, Sec. 14.4, eqs. 14.40-14.41 with $\Lambda = 0$ and $e = q$; @emam2021covariant, eq. 8.165].
 :::
 ::::
 
@@ -4161,7 +4161,7 @@ The $q^2/r^2$ term has a simple reading: part of the mass is the energy of the e
 ::: {#exm-grf-rn-field-energy}
 #### The mass inside a sphere
 
-Write $f = 1 - 2m(r)/r$ with $m(r) = m - q^2/2r$. The field energy outside the sphere of radius $r$ is $\int_r^\infty\frac12E^2\,4\pi r'^2dr' = \frac{Q^2}{8\pi r}$ for $E = Q/4\pi r'^2$, and $G$ times it is $\frac{q^2}{2r}$: the total mass $m$ is the mass inside $r$ plus the field energy outside, in this flat-space accounting.
+Write $f = 1 - 2m(r)/r$ with $m(r) = m - q^2/2r$. The field energy outside the sphere of radius $r$ is $\int_r^\infty\frac12E^2\,4\pi r'^2dr' = \frac{Q^2}{8\pi r}$ for $E = Q/4\pi r'^2$, and $G_N$ times it is $\frac{q^2}{2r}$: the total mass $m$ is the mass inside $r$ plus the field energy outside, in this flat-space accounting.
 :::
 
 The function $f$ is a quadratic polynomial divided by $r^2$, so its zeros are explicit. They are the horizons of the charged black hole.
@@ -4193,7 +4193,7 @@ The charges of astrophysical bodies are far below the extreme value. The next ex
 ::: {#exm-grf-rn-astrophysics}
 #### How much charge is a lot
 
-The extreme charge of a solar mass is $Q = M\sqrt{4\pi\epsilon_0G} = 1.7 \times 10^{20}\,$C in SI units. A proton has a charge-to-mass ratio $1.1 \times 10^{18}$ times the extreme one, so an excess of one proton per $10^{18}$ neutral atoms would bring a star to the extreme limit; long before that, the electric field would expel the excess charge. Astrophysical black holes are expected to be nearly neutral, and the Reissner-Nordström metric is mainly a theoretical laboratory.
+The extreme charge of a solar mass is $Q = M\sqrt{4\pi\epsilon_0G_N} = 1.7 \times 10^{20}\,$C in SI units. A proton has a charge-to-mass ratio $1.1 \times 10^{18}$ times the extreme one, so an excess of one proton per $10^{18}$ neutral atoms would bring a star to the extreme limit; long before that, the electric field would expel the excess charge. Astrophysical black holes are expected to be nearly neutral, and the Reissner-Nordström metric is mainly a theoretical laboratory.
 :::
 
 An electron, by contrast, has a charge far above the extreme value for its mass. The metric with the electron's parameters is a naked singularity, and that tells us where the classical theory stops.
@@ -4251,7 +4251,7 @@ Show that radial light rays have $dr/dt = \pm f(r)$, and find the tortoise coord
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$f\,dt^2 = f^{-1}dr^2$ gives $dr/dt = \pm f$. With $1/f = r^2/((r - r_+)(r - r_-)) = 1 + \frac{r_+^2}{(r_+ - r_-)(r - r_+)} - \frac{r_-^2}{(r_+ - r_-)(r - r_-)}$, $r_* = r + \frac{r_+^2}{r_+ - r_-}\ln|r - r_+| - \frac{r_-^2}{r_+ - r_-}\ln|r - r_-|$. At $r_+$, $r_* \to -\infty$ logarithmically, as for Schwarzschild (@exm-gr-horizon-tortoise); the coefficient $r_+^2/(r_+ - r_-)$ is $1/(2\kappa_+)$ with the surface gravity of @exr-grf-rn-temperature.
+$f\,dt^2 = f^{-1}dr^2$ gives $dr/dt = \pm f$. With $1/f = r^2/((r - r_+)(r - r_-)) = 1 + \frac{r_+^2}{(r_+ - r_-)(r - r_+)} - \frac{r_-^2}{(r_+ - r_-)(r - r_-)}$, $r_* = r + \frac{r_+^2}{r_+ - r_-}\log|r - r_+| - \frac{r_-^2}{r_+ - r_-}\log|r - r_-|$. At $r_+$, $r_* \to -\infty$ logarithmically, as for Schwarzschild (@exm-gr-horizon-tortoise); the coefficient $r_+^2/(r_+ - r_-)$ is $1/(2\kappa_+)$ with the surface gravity of @exr-grf-rn-temperature.
 :::
 
 The third exercise checks the circular light orbit of @exm-grf-rn-photon-sphere with Sage. It also gives the size of the shadow.
@@ -4339,11 +4339,11 @@ In the extreme field, a particle whose charge-to-mass ratio equals that of the h
 ::: {#exr-grf-rn-no-force}
 #### Floating charges with Sage
 
-For the extreme metric, $f = (1 - m/r)^2$ with $GQ^2/4\pi = m^2$, and a particle with $e/\mu = Q/M$, show with Sage that $\dot r = 0$, $\ddot r = 0$ at every $r > m$ when $\mathcal E = \mu$: the particle stays at rest anywhere. What is $e/\mu$ in units of $\sqrt G$?
+For the extreme metric, $f = (1 - m/r)^2$ with $G_NQ^2/4\pi = m^2$, and a particle with $e/\mu = Q/M$, show with Sage that $\dot r = 0$, $\ddot r = 0$ at every $r > m$ when $\mathcal E = \mu$: the particle stays at rest anywhere. What is $e/\mu$ in units of $\sqrt G_N$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\mathcal E = \mu$ and $\frac{eQ}{4\pi\mu} = \frac{Q^2}{4\pi M} = \frac{m^2}{GM} = m$, the radial equation of @exr-grf-rn-charged-particle reads $\dot r^2 = (1 - m/r)^2 - (1 - m/r)^2 = 0$ identically:
+With $\mathcal E = \mu$ and $\frac{eQ}{4\pi\mu} = \frac{Q^2}{4\pi M} = \frac{m^2}{G_NM} = m$, the radial equation of @exr-grf-rn-charged-particle reads $\dot r^2 = (1 - m/r)^2 - (1 - m/r)^2 = 0$ identically:
 
 ```python
 r, m, G = var('r m G'); assume(r > m, m > 0, G > 0)
@@ -4367,7 +4367,7 @@ rddot = (1/2) d(rdot^2)/dr = 0
 e/mu = 2*G*sqrt(pi/G) ;  (e/mu)^2 = 4*pi*G  = 4 pi G: True
 ```
 
-The gravitational attraction and the electric repulsion cancel at every distance, for $e/\mu = \sqrt{4\pi G}$, the extreme ratio. This no-force condition makes multi-centre solutions with several extreme black holes in equilibrium possible.
+The gravitational attraction and the electric repulsion cancel at every distance, for $e/\mu = \sqrt{4\pi G_N}$, the extreme ratio. This no-force condition makes multi-centre solutions with several extreme black holes in equilibrium possible.
 :::
 
 The curvature of the solution shows which of its singularities are real. The seventh exercise computes the Kretschmann scalar with Sage.
@@ -4499,12 +4499,12 @@ The definition asserted that the metric solves the Einstein-Maxwell equations. T
 ::: {#prp-grf-reissner-nordstrom}
 #### The Reissner-Nordström solution
 
-1. The metric @eq-grf-reissner-nordstrom with $A = \frac{Q}{4\pi r}dt$ solves @eq-grf-einstein-maxwell for every $M$ and $Q$, with $F_{\mu\nu}F^{\mu\nu} = -2E^2$, $E = Q/4\pi r^2$, and $T^t{}_t = T^r{}_r = -T^\theta{}_\theta = -T^\phi{}_\phi = \frac12E^2$.
+1. The metric @eq-grf-reissner-nordstrom with $A = \frac{Q}{4\pi r}dt$ solves @eq-grf-einstein-maxwell for every $M$ and $Q$, with $F_{\mu\nu}F^{\mu\nu} = -2E^2$, $E = Q/4\pi r^2$, and $T^t{}_t = T^r{}_r = -T^\theta{}_\theta = -T^\varphi{}_\varphi = \frac12E^2$.
 2. Conversely, every spherically symmetric solution of the source-free Einstein-Maxwell equations with a radial electric field is, in a region where $\partial_\mu r$ is spacelike, the metric @eq-grf-reissner-nordstrom in suitable coordinates; in particular it is static.
 3. For $q^2 < m^2$, $f$ vanishes at $r_\pm = m \pm \sqrt{m^2 - q^2}$ and is negative between them; for $q^2 = m^2$, $f = (1 - m/r)^2$; for $q^2 > m^2$, $f > 0$ for all $r > 0$.
 4. The Kretschmann scalar is $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma} = 8(6m^2r^2 - 12mq^2r + 7q^4)/r^8$, finite for $r > 0$ and divergent at $r = 0$ when $(m, q) \neq (0, 0)$.
 
-*Proof.* (2) Spherical symmetry allows $ds^2 = e^{2\nu}dt^2 - e^{2\mu}dr^2 - r^2d\Omega^2$ with $\nu, \mu$ functions of $t$ and $r$, and a field $F_{tr}$ [@plebanski2024introduction, Secs. 14.2-14.3]. Maxwell's equation gives $\partial_r(r^2e^{-\mu - \nu}F_{tr}) = 0 = \partial_t(r^2e^{-\mu - \nu}F_{tr})$, so $F_{tr} = e^{\mu + \nu}Q/(4\pi r^2)$. In the orthonormal frame the stress tensor has $T_{\hat t\hat t} = -T_{\hat r\hat r}$, so $R_{\hat t\hat t} + R_{\hat r\hat r} = 0$, which reads $(\mu + \nu)' = 0$; with $R_{\hat t\hat r} = 0$, $\mu$ is time independent, and a change of $t$ sets $\nu = -\mu$. The angular equation then reads $(re^{-2\mu})' = 1 - q^2/r^2$, whose solution is $e^{-2\mu} = 1 - 2m/r + q^2/r^2$ with an integration constant fixed by the Newtonian limit as $m = GM$ [@plebanski2024introduction, Sec. 14.4, eqs. 14.32-14.41]. (1) Substituting back, all components of @eq-grf-einstein-maxwell hold, with the field invariants above; the computation is @exr-grf-rnp-check. (3) is @exm-grf-rn-horizons. (4) is a direct computation, @exr-grf-rn-kretschmann. $\square$
+*Proof.* (2) Spherical symmetry allows $ds^2 = e^{2\nu}dt^2 - e^{2\mu}dr^2 - r^2d\Omega^2$ with $\nu, \mu$ functions of $t$ and $r$, and a field $F_{tr}$ [@plebanski2024introduction, Secs. 14.2-14.3]. Maxwell's equation gives $\partial_r(r^2e^{-\mu - \nu}F_{tr}) = 0 = \partial_t(r^2e^{-\mu - \nu}F_{tr})$, so $F_{tr} = e^{\mu + \nu}Q/(4\pi r^2)$. In the orthonormal frame the stress tensor has $T_{\hat t\hat t} = -T_{\hat r\hat r}$, so $R_{\hat t\hat t} + R_{\hat r\hat r} = 0$, which reads $(\mu + \nu)' = 0$; with $R_{\hat t\hat r} = 0$, $\mu$ is time independent, and a change of $t$ sets $\nu = -\mu$. The angular equation then reads $(re^{-2\mu})' = 1 - q^2/r^2$, whose solution is $e^{-2\mu} = 1 - 2m/r + q^2/r^2$ with an integration constant fixed by the Newtonian limit as $m = G_NM$ [@plebanski2024introduction, Sec. 14.4, eqs. 14.32-14.41]. (1) Substituting back, all components of @eq-grf-einstein-maxwell hold, with the field invariants above; the computation is @exr-grf-rnp-check. (3) is @exm-grf-rn-horizons. (4) is a direct computation, @exr-grf-rn-kretschmann. $\square$
 :::
 ::::
 
@@ -4530,7 +4530,7 @@ Part (1) can also be verified by computing only the components that matter. The 
 ::: {#exm-grf-rnp-ricci}
 #### The Ricci tensor of the solution
 
-Since $R = 0$ (@exm-grf-em-trace), the equations are $R_{\mu\nu} = \kappa^2T_{\mu\nu}$, and in the orthonormal frame of the static observers $R_{\hat t\hat t} = -R_{\hat r\hat r} = R_{\hat\theta\hat\theta} = R_{\hat\phi\hat\phi} = \kappa^2\cdot\frac12E^2 = q^2/r^4$, using $\kappa^2E^2/2 = 8\pi G\,Q^2/(32\pi^2r^4) = q^2/r^4$. The Ricci tensor falls like $r^{-4}$, faster than the Weyl curvature $m/r^3$ of the mass.
+Since $R = 0$ (@exm-grf-em-trace), the equations are $R_{\mu\nu} = \kappa^2T_{\mu\nu}$, and in the orthonormal frame of the static observers $R_{\hat t\hat t} = -R_{\hat r\hat r} = R_{\hat\theta\hat\theta} = R_{\hat\varphi\hat\varphi} = \kappa^2\cdot\frac12E^2 = q^2/r^4$, using $\kappa^2E^2/2 = 8\pi G_N\,Q^2/(32\pi^2r^4) = q^2/r^4$. The Ricci tensor falls like $r^{-4}$, faster than the Weyl curvature $m/r^3$ of the mass.
 :::
 
 Part (3) separates three cases according to the size of the charge. The next example describes the trajectory of an observer who falls through both horizons.
@@ -4562,7 +4562,7 @@ The extreme case of part (3) has a further simplification in isotropic coordinat
 ::: {#exm-grf-rnp-isotropic}
 #### The extreme metric in isotropic coordinates
 
-For $|q| = m$, put $r = \rho + m$. Then $1 - m/r = \rho/(\rho + m)$ and the metric becomes $ds^2 = U^{-2}dt^2 - U^2(d\rho^2 + \rho^2d\Omega^2)$ with $U = 1 + m/\rho$, a harmonic function of flat space. Replacing $U$ by $1 + \sum_im_i/|\vec x - \vec x_i|$ gives the Majumdar-Papapetrou solutions: several extreme black holes at rest, held in equilibrium by the no-force condition.
+For $|q| = m$, put $r = \rho + m$. Then $1 - m/r = \rho/(\rho + m)$ and the metric becomes $ds^2 = U^{-2}dt^2 - U^2(d\rho^2 + \rho^2d\Omega^2)$ with $U = 1 + m/\rho$, a harmonic function of flat space. Replacing $U$ by $1 + \sum_im_i/|\mathbf x - \mathbf x_i|$ gives the Majumdar-Papapetrou solutions: several extreme black holes at rest, held in equilibrium by the no-force condition.
 :::
 
 The proposition needs a radial electric field, but by @exm-grf-em-duality a magnetic charge gives the same metric. The example writes the magnetic solution.
@@ -4570,7 +4570,7 @@ The proposition needs a radial electric field, but by @exm-grf-em-duality a magn
 ::: {#exm-grf-rnp-magnetic}
 #### A magnetically charged black hole
 
-$F = \frac{P}{4\pi}\sin\theta\,d\theta\wedge d\phi$, the field of a magnetic monopole $P$, has the same stress tensor as the electric field with $Q = P$, so @eq-grf-reissner-nordstrom with $q^2 = G(Q^2 + P^2)/4\pi$ solves the equations with both charges [@plebanski2024introduction, Sec. 14.3]. The potential of the magnetic part cannot be chosen smooth on the whole sphere, as for a Dirac monopole.
+$F = \frac{P}{4\pi}\sin\theta\,d\theta\wedge d\varphi$, the field of a magnetic monopole $P$, has the same stress tensor as the electric field with $Q = P$, so @eq-grf-reissner-nordstrom with $q^2 = G_N(Q^2 + P^2)/4\pi$ solves the equations with both charges [@plebanski2024introduction, Sec. 14.3]. The potential of the magnetic part cannot be chosen smooth on the whole sphere, as for a Dirac monopole.
 :::
 
 For a cosmological constant, the same derivation adds a term $-\Lambda r^2/3$ to $f$. The next example records the general solution of Plebański and Krasiński.
@@ -4646,7 +4646,7 @@ For $ds^2 = e^{-2\mu}dt^2 - e^{2\mu}dr^2 - r^2d\Omega^2$ with $\mu(r)$, the orth
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By @exm-grf-rnp-ricci, $R_{\hat\theta\hat\theta} = q^2/r^4$, so $1 - (rf)' = q^2/r^2$ and $(rf)' = 1 - q^2/r^2$. Integrating, $rf = r + q^2/r - 2m$ with a constant $-2m$, so $f = 1 - 2m/r + q^2/r^2$; the Newtonian limit $f \approx 1 + 2\Phi$, $\Phi = -GM/r$, fixes $m = GM$.
+By @exm-grf-rnp-ricci, $R_{\hat\theta\hat\theta} = q^2/r^4$, so $1 - (rf)' = q^2/r^2$ and $(rf)' = 1 - q^2/r^2$. Integrating, $rf = r + q^2/r - 2m$ with a constant $-2m$, so $f = 1 - 2m/r + q^2/r^2$; the Newtonian limit $f \approx 1 + 2\Phi$, $\Phi = -G_NM/r$, fixes $m = G_NM$.
 :::
 
 The third exercise derives the Coulomb field of the proof without assuming the metric. It shows that Maxwell's equation alone fixes $F_{tr}$ up to the metric functions.
@@ -4747,7 +4747,7 @@ Show that for $r \gg m$ the metric @eq-grf-reissner-nordstrom in isotropic coord
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-To first order in $1/r$, $f = 1 - 2m/r$, the Schwarzschild expansion, and the substitution of @exr-gr-schw-isotropic brings it to $(1 - 2m/\rho)dt^2 - (1 + 2m/\rho)d\vec x^2$, the field of $\Phi = -GM/\rho$. The charge enters at order $1/r^2$, because its energy $Q^2/8\pi r$ outside a sphere of radius $r$ falls off and contributes to the mass inside large spheres only through $m(r) = m - q^2/2r$.
+To first order in $1/r$, $f = 1 - 2m/r$, the Schwarzschild expansion, and the substitution of @exr-gr-schw-isotropic brings it to $(1 - 2m/\rho)dt^2 - (1 + 2m/\rho)d\mathbf x^2$, the field of $\Phi = -G_NM/\rho$. The charge enters at order $1/r^2$, because its energy $Q^2/8\pi r$ outside a sphere of radius $r$ falls off and contributes to the mass inside large spheres only through $m(r) = m - q^2/2r$.
 :::
 
 The ninth exercise asks how the solution changes when the field is magnetic. It checks @exm-grf-rnp-magnetic for the stress tensor.
@@ -4755,11 +4755,11 @@ The ninth exercise asks how the solution changes when the field is magnetic. It 
 ::: {#exr-grf-rnp-monopole}
 #### The magnetic stress tensor
 
-For $F_{\theta\phi} = \frac{P}{4\pi}\sin\theta$ on the metric @eq-grf-reissner-nordstrom, compute $F_{\mu\nu}F^{\mu\nu}$ and $T^\mu{}_\nu$, and compare with the electric case.
+For $F_{\theta\varphi} = \frac{P}{4\pi}\sin\theta$ on the metric @eq-grf-reissner-nordstrom, compute $F_{\mu\nu}F^{\mu\nu}$ and $T^\mu{}_\nu$, and compare with the electric case.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$F^{\theta\phi} = g^{\theta\theta}g^{\phi\phi}F_{\theta\phi} = \frac{P}{4\pi r^4\sin\theta}$, so $F_{\mu\nu}F^{\mu\nu} = 2F_{\theta\phi}F^{\theta\phi} = 2B^2$ with $B = P/4\pi r^2$. Then $T^t{}_t = \frac14F^2 = \frac12B^2$, $T^r{}_r = \frac12B^2$, $T^\theta{}_\theta = F_{\theta\phi}F^{\phi\theta} + \frac12B^2 = -B^2 + \frac12B^2 = -\frac12B^2$, and the same for $\phi$: exactly the electric values with $E \to B$. The Maxwell equations hold because $\partial_\theta(\sqrt{-g}F^{\theta\phi}) = \partial_\theta(P/4\pi) = 0$.
+$F^{\theta\varphi} = g^{\theta\theta}g^{\varphi\varphi}F_{\theta\varphi} = \frac{P}{4\pi r^4\sin\theta}$, so $F_{\mu\nu}F^{\mu\nu} = 2F_{\theta\varphi}F^{\theta\varphi} = 2B^2$ with $B = P/4\pi r^2$. Then $T^t{}_t = \frac14F^2 = \frac12B^2$, $T^r{}_r = \frac12B^2$, $T^\theta{}_\theta = F_{\theta\varphi}F^{\varphi\theta} + \frac12B^2 = -B^2 + \frac12B^2 = -\frac12B^2$, and the same for $\varphi$: exactly the electric values with $E \to B$. The Maxwell equations hold because $\partial_\theta(\sqrt{-g}F^{\theta\varphi}) = \partial_\theta(P/4\pi) = 0$.
 :::
 
 The last exercise uses part (3) to classify the solutions. It compares the three cases by the number of horizons and the behaviour of light.
@@ -4787,11 +4787,11 @@ single scale factor.
 
 The **Friedmann-Lemaître-Robertson-Walker (FLRW) metric** is
 $$
-ds^2 = dt^2 - a(t)^2\Bigl(\frac{dr^2}{1 - kr^2} + r^2d\theta^2 + r^2\sin^2\theta\,d\phi^2\Bigr), \qquad k \in \{1, 0, -1\},
+ds^2 = dt^2 - a(t)^2\Bigl(\frac{dr^2}{1 - kr^2} + r^2d\theta^2 + r^2\sin^2\theta\,d\varphi^2\Bigr), \qquad k \in \{1, 0, -1\},
 $$ {#eq-gr-flrw}
 with **scale factor** $a(t) > 0$. Its spatial sections $t = \text{const}$ are maximally symmetric (@def-maximally-symmetric):
 a three-sphere for $k = 1$, flat space for $k = 0$ and hyperbolic space for $k = -1$. The curves of constant $(r, \theta,
-\phi)$ are the geodesics of **comoving** observers, whose proper time is $t$, and $H = \dot a/a$ is the **Hubble rate**
+\varphi)$ are the geodesics of **comoving** observers, whose proper time is $t$, and $H = \dot a/a$ is the **Hubble rate**
 [@carroll1997, ch. 8, with the overall sign of our signature].
 :::
 ::::
@@ -4835,7 +4835,7 @@ space in disguise, the Milne universe.
 
 In $1 + 1$ dimensions let $a = Ht$. With $T = t\cosh(Hx)$, $X = t\sinh(Hx)$, $dT^2 - dX^2 = dt^2 - t^2H^2dx^2$: the metric is the interior of the future
 light cone $T > |X|$ of Minkowski space, and the comoving observers are the straight lines through the origin, moving apart
-at constant speeds. Light obeys $H\,dx = dt/t$, so $x = H^{-1}\ln(t/t_0)$ grows without bound and there is no horizon. The same
+at constant speeds. Light obeys $H\,dx = dt/t$, so $x = H^{-1}\log(t/t_0)$ grows without bound and there is no horizon. The same
 holds in $3 + 1$ dimensions for $k = -1$ and $a = t$ [@blennow2022relativity, Problem 2.137].
 :::
 ::::
@@ -4893,14 +4893,14 @@ space.
 ::: {#exr-gr-flrw-conformal}
 #### Conformal time
 
-For $k = 0$ define the **conformal time** $\eta$ by $d\eta = dt/a$, so that $ds^2 = a(\eta)^2(d\eta^2 - d\vec x^2)$. For $a = e^{Ht}$
-find $\eta(t)$ and $a(\eta)$, and verify that $(d\eta^2 - d\vec x^2)/(H\eta)^2$ has $R_{\mu\nu} = -3H^2g_{\mu\nu}$.
+For $k = 0$ define the **conformal time** $\eta$ by $d\eta = dt/a$, so that $ds^2 = a(\eta)^2(d\eta^2 - d\mathbf x^2)$. For $a = e^{Ht}$
+find $\eta(t)$ and $a(\eta)$, and verify that $(d\eta^2 - d\mathbf x^2)/(H\eta)^2$ has $R_{\mu\nu} = -3H^2g_{\mu\nu}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\eta = -e^{-Ht}/H$, which runs over $(-\infty, 0)$ as $t$ runs over $\mathbb{R}$, and $a = -1/(H\eta)$. The metric
-$(H\eta)^{-2}(d\eta^2 - d\vec x^2)$ is conformal to Minkowski space and is again de Sitter space, with the curvature of
-@exr-de-sitter-4d. Light rays are the lines $|d\vec x| = d\eta$, so the horizon of @exm-gr-ds-horizon is the finite range
+$(H\eta)^{-2}(d\eta^2 - d\mathbf x^2)$ is conformal to Minkowski space and is again de Sitter space, with the curvature of
+@exr-de-sitter-4d. Light rays are the lines $|d\mathbf x| = d\eta$, so the horizon of @exm-gr-ds-horizon is the finite range
 of $\eta$.
 
 ```python
@@ -4926,14 +4926,14 @@ exercise proves it from the geodesic equations.
 ::: {#exr-grb-radial-null}
 #### Radial rays stay radial
 
-Write the $\theta$ and $\phi$ components of the geodesic equation of @eq-gr-flrw and show that a geodesic with $\dot\theta = \dot\phi = 0$ at one point
-has constant $\theta$ and $\phi$. Why does this not depend on where the origin $r = 0$ is put? [@plebanski2024introduction, Sec. 17.17,
+Write the $\theta$ and $\varphi$ components of the geodesic equation of @eq-gr-flrw and show that a geodesic with $\dot\theta = \dot\varphi = 0$ at one point
+has constant $\theta$ and $\varphi$. Why does this not depend on where the origin $r = 0$ is put? [@plebanski2024introduction, Sec. 17.17,
 Exercise 2]
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\ddot\theta + 2\tfrac{\dot a}{a}\dot t\dot\theta + \tfrac2r\dot r\dot\theta - \sin\theta\cos\theta\,\dot\phi^2 = 0$ and $\ddot\phi + 2\tfrac{\dot a}{a}\dot t\dot\phi + \tfrac2r\dot r\dot\phi + 2\cot\theta\,\dot\theta\dot\phi = 0$. Both
-are satisfied by constant $\theta$, $\phi$ whatever $t(\sigma)$ and $r(\sigma)$ are, and the remaining $t$ and $r$ equations then have a solution for
+$\ddot\theta + 2\tfrac{\dot a}{a}\dot t\dot\theta + \tfrac2r\dot r\dot\theta - \sin\theta\cos\theta\,\dot\varphi^2 = 0$ and $\ddot\varphi + 2\tfrac{\dot a}{a}\dot t\dot\varphi + \tfrac2r\dot r\dot\varphi + 2\cot\theta\,\dot\theta\dot\varphi = 0$. Both
+are satisfied by constant $\theta$, $\varphi$ whatever $t(\sigma)$ and $r(\sigma)$ are, and the remaining $t$ and $r$ equations then have a solution for
 the given initial data; by uniqueness of solutions of the geodesic equation it is the geodesic. Every point of an FLRW space is
 equivalent to every other (the spatial sections are homogeneous), so the origin can be put at the emitter, and "radial" means
 "through the origin" in any choice.
@@ -4945,13 +4945,13 @@ decay of peculiar momenta of @exr-gr-ds-peculiar to decide when.
 ::: {#exr-grb-circle-universe}
 #### Around a circular universe
 
-In $ds^2 = dt^2 - a(t)^2d\phi^2$ with $\phi \sim \phi + 2\pi$, an object leaves a comoving observer at $t_0$ with speed $v_0$ relative to it. Find its speed
+In $ds^2 = dt^2 - a(t)^2d\varphi^2$ with $\varphi \sim \varphi + 2\pi$, an object leaves a comoving observer at $t_0$ with speed $v_0$ relative to it. Find its speed
 $v(t)$ relative to the comoving observers and the condition for it to come back to the starting observer from the other side
 [@blennow2022relativity, Problem 2.146].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P = a^2\,d\phi/d\tau$ is conserved; the speed relative to comoving observers is $v = a\,d\phi/dt$ and $\gamma v = a\,d\phi/d\tau = P/a$, with $P =
+$P = a^2\,d\varphi/d\tau$ is conserved; the speed relative to comoving observers is $v = a\,d\varphi/dt$ and $\gamma v = a\,d\varphi/d\tau = P/a$, with $P =
 a(t_0)\gamma_0v_0$. Hence $v(t) = P/\sqrt{a^2 + P^2}$, decreasing as $a$ grows. It completes the lap iff
 $$
 \int_{t_0}^\infty\frac{P\,dt}{a\sqrt{a^2 + P^2}} \geq 2\pi .
@@ -4971,10 +4971,10 @@ two ordinary differential equations, the Friedmann equations.
 For the FLRW metric @eq-gr-flrw with a perfect fluid at rest (@exm-stress-fluid, $u = \partial_t$) of density $\rho(t)$ and
 pressure $p(t)$, the **Friedmann equations** are
 $$
-H^2 = \Bigl(\frac{\dot a}{a}\Bigr)^2 = \frac{8\pi G}{3}\rho - \frac{k}{a^2}, \qquad \frac{\ddot a}{a} = -\frac{4\pi G}{3}(\rho + 3p),
+H^2 = \Bigl(\frac{\dot a}{a}\Bigr)^2 = \frac{8\pi G_N}{3}\rho - \frac{k}{a^2}, \qquad \frac{\ddot a}{a} = -\frac{4\pi G_N}{3}(\rho + 3p),
 $$ {#eq-gr-friedmann}
 and they imply the **continuity equation** $\dot\rho + 3H(\rho + p) = 0$. For an equation of state $p = w\rho$ with
-constant $w$ this gives $\rho \propto a^{-3(1 + w)}$. The **critical density** $\rho_c = 3H^2/(8\pi G)$ is the density of a
+constant $w$ this gives $\rho \propto a^{-3(1 + w)}$. The **critical density** $\rho_c = 3H^2/(8\pi G_N)$ is the density of a
 flat universe, and $\Omega = \rho/\rho_c$ is the **density parameter** [@carroll1997, ch. 8].
 :::
 ::::
@@ -5006,7 +5006,7 @@ expansion, recovering de Sitter space.
 ::: {#exm-gr-friedmann-lambda}
 #### A cosmological constant
 
-With $\rho = \rho_\Lambda = \Lambda/(8\pi G)$ constant (@exr-gr-lambda-pressure) and $k = 0$, $H^2 = \Lambda/3$ is constant and $a =
+With $\rho = \rho_\Lambda = \Lambda/(8\pi G_N)$ constant (@exr-gr-lambda-pressure) and $k = 0$, $H^2 = \Lambda/3$ is constant and $a =
 e^{Ht}$: the vacuum solution of @exm-vacuum-de-sitter with $\Lambda = 3H^2$, now read as a cosmology. Since $\rho + 3p = -2\rho
 < 0$, $\ddot a > 0$: the expansion accelerates.
 :::
@@ -5031,7 +5031,7 @@ rate and compares it with ordinary matter.
 ::: {#exr-gr-friedmann-critical-density}
 #### The critical density
 
-Evaluate $\rho_c = 3H_0^2/(8\pi G)$ for $H_0 = 70\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ ($1\,\mathrm{Mpc} = 3.086 \times 10^{22}\,$m) in
+Evaluate $\rho_c = 3H_0^2/(8\pi G_N)$ for $H_0 = 70\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ ($1\,\mathrm{Mpc} = 3.086 \times 10^{22}\,$m) in
 $\mathrm{kg/m^3}$ and in hydrogen atoms per cubic metre ($m_H = 1.67 \times 10^{-27}\,$kg), and compare with the density of
 @exr-gr-lambda-value.
 :::
@@ -5048,12 +5048,12 @@ The three examples are special cases of a single power law. The second exercise 
 #### A general equation of state
 
 For $k = 0$ and $p = w\rho$ with $w > -1$, show that $a = t^{2/(3(1 + w))}$ solves both Friedmann equations with $\rho =
-1/(6\pi G(1 + w)^2t^2)$, and that $\rho a^{3(1 + w)}$ is constant.
+1/(6\pi G_N(1 + w)^2t^2)$, and that $\rho a^{3(1 + w)}$ is constant.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$H = \tfrac{2}{3(1 + w)t}$, so $H^2 = \tfrac{4}{9(1 + w)^2t^2} = \tfrac{8\pi G}{3}\rho$; the second equation follows similarly, and
-$\rho a^{3(1 + w)} = 1/(6\pi G(1 + w)^2)$. The cases $w = 0$ and $w = \tfrac13$ are @exm-gr-friedmann-matter and
+$H = \tfrac{2}{3(1 + w)t}$, so $H^2 = \tfrac{4}{9(1 + w)^2t^2} = \tfrac{8\pi G_N}{3}\rho$; the second equation follows similarly, and
+$\rho a^{3(1 + w)} = 1/(6\pi G_N(1 + w)^2)$. The cases $w = 0$ and $w = \tfrac13$ are @exm-gr-friedmann-matter and
 @exm-gr-friedmann-radiation; as $w \to -1$ the exponent diverges, the limit being the exponential of
 @exm-gr-friedmann-lambda.
 
@@ -5081,7 +5081,7 @@ that case in parametric form.
 ::: {#exr-gr-friedmann-closed}
 #### The closed matter universe
 
-For $k = 1$ and dust, the first Friedmann equation is $\dot a^2 + 1 = 2A/a$ with the constant $2A = \tfrac{8\pi G}{3}\rho a^3$.
+For $k = 1$ and dust, the first Friedmann equation is $\dot a^2 + 1 = 2A/a$ with the constant $2A = \tfrac{8\pi G_N}{3}\rho a^3$.
 Show that $a = A(1 - \cos\eta)$, $t = A(\eta - \sin\eta)$ solves it, and find the maximal size and the lifetime.
 :::
 
@@ -5133,7 +5133,7 @@ plotted in @fig-flrw-scale-factor.
 
 For @eq-gr-flrw the Einstein tensor is diagonal with $G_{tt} = 3(\dot a^2 + k)/a^2$ and $G_{ij} = -(2a\ddot a + \dot a^2 +
 k)\gamma_{ij}$, where $g_{ij} = -a^2\gamma_{ij}$, and $R = -6(a\ddot a + \dot a^2 + k)/a^2$. With the perfect fluid at rest,
-$G_{\mu\nu} = 8\pi GT_{\mu\nu}$ is equivalent to @eq-gr-friedmann, whose two equations imply the continuity equation. For
+$G_{\mu\nu} = 8\pi G_NT_{\mu\nu}$ is equivalent to @eq-gr-friedmann, whose two equations imply the continuity equation. For
 $k = 0$, $a \propto t^{2/3}$ ($p = 0$), $a \propto t^{1/2}$ ($p = \rho/3$) and $a \propto e^{Ht}$ ($p = -\rho$) are solutions, and with
 matter and a cosmological constant, $\Omega_m + \Omega_\Lambda = 1$,
 $$
@@ -5212,7 +5212,7 @@ cosmological constant $q = \tfrac12\Omega_m - \Omega_\Lambda$ with the density p
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Dividing the second Friedmann equation by $H^2 = 8\pi G\rho/3$: $q = \tfrac{4\pi G(\rho + 3p)}{3H^2} = \tfrac12(1 + 3w)$; matter has
+Dividing the second Friedmann equation by $H^2 = 8\pi G_N\rho/3$: $q = \tfrac{4\pi G_N(\rho + 3p)}{3H^2} = \tfrac12(1 + 3w)$; matter has
 $q = \tfrac12$, radiation $q = 1$, $\Lambda$ $q = -1$. For a mixture the contributions add with weights $\Omega_i = \rho_i/\rho_c$:
 $q = \sum_i\tfrac12(1 + 3w_i)\Omega_i = \tfrac12\Omega_m - \Omega_\Lambda$, which is $-0.55$ for $\Omega_m = 0.3$.
 :::
@@ -5256,12 +5256,12 @@ the mixture, using the conformal time of @exr-gr-flrw-conformal.
 #### Radiation and matter
 
 For $k = 0$ with radiation and dust, show that in conformal time the first Friedmann equation is $(da/d\eta)^2 = C_r +
-C_ma$ with constants $C_r = \tfrac{8\pi G}{3}\rho_ra^4$, $C_m = \tfrac{8\pi G}{3}\rho_ma^3$, and that $a = \sqrt{C_r}\,\eta +
+C_ma$ with constants $C_r = \tfrac{8\pi G_N}{3}\rho_ra^4$, $C_m = \tfrac{8\pi G_N}{3}\rho_ma^3$, and that $a = \sqrt{C_r}\,\eta +
 \tfrac14C_m\eta^2$ solves it. Recover the two power laws of the examples as limits, and find $\eta$ at equality $\rho_r = \rho_m$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\dot a = a^{-1}da/d\eta$, so $\dot a^2/a^2 = \tfrac{8\pi G}{3}(\rho_r + \rho_m)$ becomes $(da/d\eta)^2 = C_r + C_ma$, and the quadratic
+$\dot a = a^{-1}da/d\eta$, so $\dot a^2/a^2 = \tfrac{8\pi G_N}{3}(\rho_r + \rho_m)$ becomes $(da/d\eta)^2 = C_r + C_ma$, and the quadratic
 solves it identically. With $t = \int a\,d\eta = \tfrac12\sqrt{C_r}\eta^2 + \tfrac1{12}C_m\eta^3$: for small $\eta$, $a \approx
 (2\sqrt{C_r}\,t)^{1/2}$, radiation-like; for large $\eta$, $a \propto \eta^2 \propto t^{2/3}$, matter-like. Equality, $a = C_r/C_m$, is at
 $\eta = 2(\sqrt2 - 1)\sqrt{C_r}/C_m$.
@@ -5371,7 +5371,7 @@ print("(chi): G_tt equals 3(a'^2 + 1)/a^2:", bool((G[0][0] - 3 * (diff(a(t), t)^
 ```
 
 $G_{tt} = 3(\dot a^2 + k)/a^2$ and $G^r{}_r = (\dot a^2 + 2a\ddot a + k)/a^2$ are the two Friedmann equations of @def-gr-friedmann-equations once $G_{\mu\nu} =
-8\pi GT_{\mu\nu}$ is imposed with a perfect fluid at rest. The tensor must be diagonal because the spatial sections are isotropic: a
+8\pi G_NT_{\mu\nu}$ is imposed with a perfect fluid at rest. The tensor must be diagonal because the spatial sections are isotropic: a
 component $G_{ti}$ would be a preferred spatial vector, and $G_{ij} \propto g_{ij}$ is the only symmetric tensor invariant under rotations.
 :::
 ::::
@@ -5396,7 +5396,7 @@ The definition collects the linearised field equations with a source. The trace-
 $$
 \Box\bar h_{\mu\nu} = -2\kappa^2T_{\mu\nu}, \qquad \Box = \eta^{\mu\nu}\partial_\mu\partial_\nu = \partial_t^2 - \nabla^2 ,
 $$ {#eq-grf-linearised}
-with $\partial^\mu T_{\mu\nu} = 0$ at this order. The retarded solution is $\bar h_{\mu\nu}(t, \vec x) = -\frac{\kappa^2}{2\pi}\int\frac{T_{\mu\nu}(t - |\vec x - \vec x'|, \vec x')}{|\vec x - \vec x'|}d^3x'$ (@prp-emw-retarded-potentials) [@plebanski2024introduction, Sec. 12.18, eqs. 12.123-12.136; @blennow2022relativity, Problems 2.112, 2.132 and 2.134].
+with $\partial^\mu T_{\mu\nu} = 0$ at this order. The retarded solution is $\bar h_{\mu\nu}(t, \mathbf x) = -\frac{\kappa^2}{2\pi}\int\frac{T_{\mu\nu}(t - |\mathbf x - \mathbf x'|, \mathbf x')}{|\mathbf x - \mathbf x'|}d^3x'$ (@prp-emw-retarded-potentials) [@plebanski2024introduction, Sec. 12.18, eqs. 12.123-12.136; @blennow2022relativity, Problems 2.112, 2.132 and 2.134].
 :::
 ::::
 
@@ -5406,7 +5406,7 @@ The first check of the definition is the field of a mass at rest. It must reprod
 ::: {#exm-grf-lin-point-mass}
 #### The field of a mass at rest
 
-For a point mass at rest $T_{00} = M\delta^3(\vec x)$ and the other components vanish, so the retarded solution is $\bar h_{00} = -4GM/r$, $\bar h_{0i} = \bar h_{ij} = 0$. Then $\bar h = -4GM/r = -h$, and $h_{\mu\nu} = \bar h_{\mu\nu} - \frac12\eta_{\mu\nu}\bar h$ gives $h_{00} = -2GM/r$, $h_{ij} = -2GM/r\,\delta_{ij}$: the metric $(1 - 2GM/r)dt^2 - (1 + 2GM/r)d\vec x^2$, the weak-field metric of @prp-newtonian-limit with $\Phi = -GM/r$ and the expansion of the Schwarzschild metric in isotropic coordinates (@exr-gr-schw-isotropic).
+For a point mass at rest $T_{00} = M\delta^3(\mathbf x)$ and the other components vanish, so the retarded solution is $\bar h_{00} = -4G_NM/r$, $\bar h_{0i} = \bar h_{ij} = 0$. Then $\bar h = -4G_NM/r = -h$, and $h_{\mu\nu} = \bar h_{\mu\nu} - \frac12\eta_{\mu\nu}\bar h$ gives $h_{00} = -2G_NM/r$, $h_{ij} = -2G_NM/r\,\delta_{ij}$: the metric $(1 - 2G_NM/r)dt^2 - (1 + 2G_NM/r)d\mathbf x^2$, the weak-field metric of @prp-newtonian-limit with $\Phi = -G_NM/r$ and the expansion of the Schwarzschild metric in isotropic coordinates (@exr-gr-schw-isotropic).
 :::
 
 The analogy with electromagnetism is close enough to be used as a dictionary. The example lists the corresponding objects of the two theories.
@@ -5414,7 +5414,7 @@ The analogy with electromagnetism is close enough to be used as a dictionary. Th
 ::: {#exm-grf-lin-analogy}
 #### The electromagnetic analogy
 
-In the Lorenz gauge $\partial^\mu A_\mu = 0$, Maxwell's equations read $\Box A^\mu = j^\mu$ and are solved by retarded potentials (@prp-emw-retarded-potentials). In linearised gravity the potential is the symmetric tensor $\bar h_{\mu\nu}$, the source is $T_{\mu\nu}$ instead of $j_\mu$, the gauge parameter is a vector $\chi_\mu$ instead of a scalar, and the coupling $-2\kappa^2 = -16\pi G$ carries a sign that makes like charges, masses, attract. The conservation laws match as well: $\partial_\mu j^\mu = 0$ and $\partial^\mu T_{\mu\nu} = 0$ are the integrability conditions of the gauge conditions.
+In the Lorenz gauge $\partial^\mu A_\mu = 0$, Maxwell's equations read $\Box A^\mu = j^\mu$ and are solved by retarded potentials (@prp-emw-retarded-potentials). In linearised gravity the potential is the symmetric tensor $\bar h_{\mu\nu}$, the source is $T_{\mu\nu}$ instead of $j_\mu$, the gauge parameter is a vector $\chi_\mu$ instead of a scalar, and the coupling $-2\kappa^2 = -16\pi G_N$ carries a sign that makes like charges, masses, attract. The conservation laws match as well: $\partial_\mu j^\mu = 0$ and $\partial^\mu T_{\mu\nu} = 0$ are the integrability conditions of the gauge conditions.
 :::
 
 A rotating source produces off-diagonal components $h_{0i}$, which have no Newtonian counterpart. The next example computes them far from the body.
@@ -5422,7 +5422,7 @@ A rotating source produces off-diagonal components $h_{0i}$, which have no Newto
 ::: {#exm-grf-lin-rotation}
 #### The field of a rotating body
 
-For a stationary body with total momentum zero and angular momentum $\vec J$, the retarded solution far away gives $h_{0i} = \bar h_{0i} = 2G(\vec J\times\vec x)_i/r^3$, from $T_{0i} = -T^{0i}$ and $\int x^jT^{0i}d^3x = \frac12\epsilon_{kji}J^k$ for the antisymmetric part. A rotating body drags the local inertial frames with it, the Lense-Thirring effect, measured by the Gravity Probe B gyroscopes in orbit around the Earth [@plebanski2024introduction, Sec. 12.18, eqs. 12.155-12.158].
+For a stationary body with total momentum zero and angular momentum $\mathbf J$, the retarded solution far away gives $h_{0i} = \bar h_{0i} = 2G_N(\mathbf J\times\mathbf x)_i/r^3$, from $T_{0i} = -T^{0i}$ and $\int x^jT^{0i}d^3x = \frac12\epsilon_{kji}J^k$ for the antisymmetric part. A rotating body drags the local inertial frames with it, the Lense-Thirring effect, measured by the Gravity Probe B gyroscopes in orbit around the Earth [@plebanski2024introduction, Sec. 12.18, eqs. 12.155-12.158].
 :::
 
 In vacuum the equations are the wave equation, and their simplest solutions are plane waves. The example writes them and the conditions that the gauge imposes.
@@ -5438,7 +5438,7 @@ The transverse-traceless part of a wave is extracted with a projector. It is the
 ::: {#exm-grf-lin-tt-projector}
 #### The transverse-traceless projector
 
-For a wave along the unit vector $\vec n$, let $P_{ij} = \delta_{ij} - n_in_j$ and $\Lambda_{ij,kl} = P_{ik}P_{jl} - \frac12P_{ij}P_{kl}$. Then $(\Lambda S)_{ij} = \Lambda_{ij,kl}S_{kl}$ is transverse, $n_i(\Lambda S)_{ij} = 0$, and traceless, for any symmetric $S$. For $\vec n = \hat z$ it keeps $\frac12(S_{xx} - S_{yy})$ on the diagonal and $S_{xy}$ off it, the amplitudes $h_+$ and $h_\times$ of @exm-grb-gw-polarisations.
+For a wave along the unit vector $\mathbf n$, let $P_{ij} = \delta_{ij} - n_in_j$ and $\Lambda_{ij,kl} = P_{ik}P_{jl} - \frac12P_{ij}P_{kl}$. Then $(\Lambda S)_{ij} = \Lambda_{ij,kl}S_{kl}$ is transverse, $n_i(\Lambda S)_{ij} = 0$, and traceless, for any symmetric $S$. For $\mathbf n = \hat{\mathbf z}$ it keeps $\frac12(S_{xx} - S_{yy})$ on the diagonal and $S_{xy}$ off it, the amplitudes $h_+$ and $h_\times$ of @exm-grb-gw-polarisations.
 :::
 
 Free particles respond to a wave through their relative positions. The equation of geodesic deviation turns the wave into a tidal acceleration.
@@ -5454,7 +5454,7 @@ A ring of free particles shows the polarisations directly. The pattern of its de
 ::: {#exm-grf-lin-ring}
 #### A ring of test particles
 
-A ring $\vec\xi_0 = \rho(\cos\alpha, \sin\alpha)$ in the plane transverse to a plus-polarised wave $h_+ = h\cos\omega t$ becomes an ellipse with semi-axes $\rho(1 - \frac h2\cos\omega t)$ along $x$ and $\rho(1 + \frac h2\cos\omega t)$ along $y$, oscillating between the two orientations; a cross-polarised wave does the same along the diagonals. The area is unchanged to first order, because the strain is traceless (@fig-grf-gravitational-waves) [@gray2019student, App. B.3.3, Fig. B.1].
+A ring $\boldsymbol\xi_0 = \rho(\cos\alpha, \sin\alpha)$ in the plane transverse to a plus-polarised wave $h_+ = h\cos\omega t$ becomes an ellipse with semi-axes $\rho(1 - \frac h2\cos\omega t)$ along $x$ and $\rho(1 + \frac h2\cos\omega t)$ along $y$, oscillating between the two orientations; a cross-polarised wave does the same along the diagonals. The area is unchanged to first order, because the strain is traceless (@fig-grf-gravitational-waves) [@gray2019student, App. B.3.3, Fig. B.1].
 :::
 
 A perturbation that is a pure coordinate change carries no physics. The linearised curvature tells it apart from a wave.
@@ -5470,7 +5470,7 @@ The linear theory is not only a convenience for the waves that reach the Earth: 
 ::: {#exm-grf-lin-sizes}
 #### How linear is linear
 
-The waves detected by LIGO have $h \sim 10^{-21}$, so the neglected terms of order $h^2$ are $10^{-42}$. They superpose on the static field of the Earth, $2GM_\oplus/(c^2R_\oplus) = 1.4 \times 10^{-9}$, and of the Sun at the Earth, $2 \times 10^{-8}$, both also small. A strain of $10^{-21}$ changes a $4\,$km arm by $\frac12hL = 2 \times 10^{-18}\,$m (@exm-grb-gw-ruler).
+The waves detected by LIGO have $h \sim 10^{-21}$, so the neglected terms of order $h^2$ are $10^{-42}$. They superpose on the static field of the Earth, $2G_NM_\oplus/(c^2R_\oplus) = 1.4 \times 10^{-9}$, and of the Sun at the Earth, $2 \times 10^{-8}$, both also small. A strain of $10^{-21}$ changes a $4\,$km arm by $\frac12hL = 2 \times 10^{-18}\,$m (@exm-grb-gw-ruler).
 :::
 
 The wave equation predicts that gravitational waves travel at the speed of light. A single observation tested this to sixteen digits.
@@ -5617,7 +5617,7 @@ For a static sphere of radius $R$ and uniform density $\rho$, with $T_{00} = \rh
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Statically, $-\nabla^2\bar h_{00} = -2\kappa^2\rho = -16\pi G\rho$, which is Poisson's equation for $\bar h_{00} = 4\Phi$. Hence $\bar h_{00} = -4GM/r$ outside, with $M = \frac43\pi R^3\rho$, and $\bar h_{00} = -2GM(3R^2 - r^2)/R^3$ inside, continuous with its derivative at $R$. Outside, the metric is that of @exm-grf-lin-point-mass: the linear theory, like Newton's, sees only the total mass of a spherical body.
+Statically, $-\nabla^2\bar h_{00} = -2\kappa^2\rho = -16\pi G_N\rho$, which is Poisson's equation for $\bar h_{00} = 4\Phi$. Hence $\bar h_{00} = -4G_NM/r$ outside, with $M = \frac43\pi R^3\rho$, and $\bar h_{00} = -2G_NM(3R^2 - r^2)/R^3$ inside, continuous with its derivative at $R$. Outside, the metric is that of @exm-grf-lin-point-mass: the linear theory, like Newton's, sees only the total mass of a spherical body.
 :::
 
 The off-diagonal field of a rotating body is small for the Earth. The seventh exercise compares it with the Newtonian part with Sage.
@@ -5629,7 +5629,7 @@ With Sage, estimate $|h_{0i}|/|h_{00}|$ at the surface of the Earth, using @exm-
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$|h_{0i}| \sim 2GJ/(c^3R^2)$ at the equator and $|h_{00}| = 2GM/(c^2R)$, so the ratio is $J/(McR)$:
+$|h_{0i}| \sim 2G_NJ/(c^3R^2)$ at the equator and $|h_{00}| = 2G_NM/(c^2R)$, so the ratio is $J/(McR)$:
 
 ```python
 G, c = 6.674e-11, 2.99792458e8
@@ -5697,17 +5697,17 @@ A source that moves slowly emits waves whose wavelength is much larger than the 
 ::: {#prp-grf-quadrupole}
 #### The quadrupole formula
 
-Let a source of size $d$ move with speeds $v \ll 1$, and let $I_{ij}(t) = \int T^{00}(t, \vec x)x_ix_j\,d^3x$ be its second mass moment. At distance $r \gg d$ and $r \gg 1/\omega$, for the frequencies $\omega$ of the motion, the Lorenz-gauge solution of @def-grf-linearised has
+Let a source of size $d$ move with speeds $v \ll 1$, and let $I_{ij}(t) = \int T^{00}(t, \mathbf x)x_ix_j\,d^3x$ be its second mass moment. At distance $r \gg d$ and $r \gg 1/\omega$, for the frequencies $\omega$ of the motion, the Lorenz-gauge solution of @def-grf-linearised has
 $$
-\bar h_{ij}(t, \vec x) = -\frac{2G}{r}\ddot I_{ij}(t - r) + O(r^{-2}) ,
+\bar h_{ij}(t, \mathbf x) = -\frac{2G_N}{r}\ddot I_{ij}(t - r) + O(r^{-2}) ,
 $$ {#eq-grf-quadrupole}
-and the wave travelling along $\vec n = \vec x/r$ is $h^{TT}_{ij} = -\frac{2G}{r}\Lambda_{ij,kl}(\vec n)\ddot I_{kl}(t - r)$ with the projector of @exm-grf-lin-tt-projector. For two masses $m_1$, $m_2$ on a circular orbit of radius $a$ with angular velocity $\Omega$, $\Omega^2 = G(m_1 + m_2)/a^3$, seen along the orbital axis,
+and the wave travelling along $\mathbf n = \mathbf x/r$ is $h^{TT}_{ij} = -\frac{2G_N}{r}\Lambda_{ij,kl}(\mathbf n)\ddot I_{kl}(t - r)$ with the projector of @exm-grf-lin-tt-projector. For two masses $m_1$, $m_2$ on a circular orbit of radius $a$ with angular velocity $\Omega$, $\Omega^2 = G_N(m_1 + m_2)/a^3$, seen along the orbital axis,
 $$
-h_+ = \frac{4G\mu a^2\Omega^2}{r}\cos2\Omega(t - r), \qquad h_\times = \frac{4G\mu a^2\Omega^2}{r}\sin2\Omega(t - r), \qquad \mu = \frac{m_1m_2}{m_1 + m_2} ,
+h_+ = \frac{4G_N\mu a^2\Omega^2}{r}\cos2\Omega(t - r), \qquad h_\times = \frac{4G_N\mu a^2\Omega^2}{r}\sin2\Omega(t - r), \qquad \mu = \frac{m_1m_2}{m_1 + m_2} ,
 $$
-a wave of frequency $f = \Omega/\pi$ with amplitude $h_0 = 4(G\mathcal M)^{5/3}(\pi f)^{2/3}/r$, where $\mathcal M = \mu^{3/5}(m_1 + m_2)^{2/5}$ is the **chirp mass**.
+a wave of frequency $f = \Omega/\pi$ with amplitude $h_0 = 4(G_N\mathcal M)^{5/3}(\pi f)^{2/3}/r$, where $\mathcal M = \mu^{3/5}(m_1 + m_2)^{2/5}$ is the **chirp mass**.
 
-*Proof.* For $r \gg d$, $|\vec x - \vec x'| = r + O(d)$ in the denominator and $t - |\vec x - \vec x'| = t - r + O(d)$ in the time argument, where the correction changes $T$ by a relative $O(\omega d) = O(v)$. Hence $\bar h_{ij} = -\frac{4G}{r}\int T_{ij}(t - r, \vec x')d^3x'$, with $T_{ij} = T^{ij}$ for spatial indices. Conservation $\partial_\mu T^{\mu\nu} = 0$ gives $\int T^{ij}d^3x = \frac12\frac{d^2}{dt^2}\int T^{00}x^ix^jd^3x$ (@exr-grf-q-identity), which is @eq-grf-quadrupole [@blennow2022relativity, Problem 2.134; @plebanski2024introduction, eq. 12.151]. The projector removes the gauge parts, and $h^{TT} = \bar h^{TT}$ since $h$ and $\bar h$ differ by a multiple of $\eta_{\mu\nu}$, whose transverse traceless part vanishes. For the binary, in the centre-of-mass frame the relative position is $a(\cos\Omega t, \sin\Omega t, 0)$ and $I_{ij} = \mu x_ix_j$, so $I_{xx} - I_{yy} = \mu a^2\cos2\Omega t$ and $I_{xy} = \frac12\mu a^2\sin2\Omega t$. For $\vec n = \hat z$, $h_+ = -\frac Gr(\ddot I_{xx} - \ddot I_{yy})$ and $h_\times = -\frac{2G}{r}\ddot I_{xy}$, which gives the waveform; with $a^3 = G(m_1 + m_2)/\Omega^2$, $G\mu a^2\Omega^2 = (G\mathcal M)^{5/3}\Omega^{2/3}$. $\square$
+*Proof.* For $r \gg d$, $|\mathbf x - \mathbf x'| = r + O(d)$ in the denominator and $t - |\mathbf x - \mathbf x'| = t - r + O(d)$ in the time argument, where the correction changes $T$ by a relative $O(\omega d) = O(v)$. Hence $\bar h_{ij} = -\frac{4G_N}{r}\int T_{ij}(t - r, \mathbf x')d^3x'$, with $T_{ij} = T^{ij}$ for spatial indices. Conservation $\partial_\mu T^{\mu\nu} = 0$ gives $\int T^{ij}d^3x = \frac12\frac{d^2}{dt^2}\int T^{00}x^ix^jd^3x$ (@exr-grf-q-identity), which is @eq-grf-quadrupole [@blennow2022relativity, Problem 2.134; @plebanski2024introduction, eq. 12.151]. The projector removes the gauge parts, and $h^{TT} = \bar h^{TT}$ since $h$ and $\bar h$ differ by a multiple of $\eta_{\mu\nu}$, whose transverse traceless part vanishes. For the binary, in the centre-of-mass frame the relative position is $a(\cos\Omega t, \sin\Omega t, 0)$ and $I_{ij} = \mu x_ix_j$, so $I_{xx} - I_{yy} = \mu a^2\cos2\Omega t$ and $I_{xy} = \frac12\mu a^2\sin2\Omega t$. For $\mathbf n = \hat{\mathbf z}$, $h_+ = -\frac{G_N}{r}(\ddot I_{xx} - \ddot I_{yy})$ and $h_\times = -\frac{2G_N}{r}\ddot I_{xy}$, which gives the waveform; with $a^3 = G_N(m_1 + m_2)/\Omega^2$, $G_N\mu a^2\Omega^2 = (G_N\mathcal M)^{5/3}\Omega^{2/3}$. $\square$
 :::
 ::::
 
@@ -5717,7 +5717,7 @@ The first example explains why the leading gravitational radiation is quadrupola
 ::: {#exm-grf-q-no-dipole}
 #### No monopole or dipole radiation
 
-The monopole $M = \int T^{00}d^3x$ is constant, and the dipole $d^i = \int T^{00}x^id^3x$ has $\dot d^i = \int T^{0i}d^3x = P^i$, the conserved momentum, so $\ddot d^i = 0$ [@plebanski2024introduction, eqs. 12.143-12.144]. In electromagnetism the dipole $\int\rho\,\vec x$ is not conserved, because charges of both signs move independently; in gravity all masses have the same sign and the same ratio of gravitational to inertial mass, and the centre of mass moves uniformly. The first radiating moment is the quadrupole, suppressed relative to electric dipole radiation by a further power of $v^2$.
+The monopole $M = \int T^{00}d^3x$ is constant, and the dipole $d^i = \int T^{00}x^id^3x$ has $\dot d^i = \int T^{0i}d^3x = P^i$, the conserved momentum, so $\ddot d^i = 0$ [@plebanski2024introduction, eqs. 12.143-12.144]. In electromagnetism the dipole $\int\rho\,\mathbf x$ is not conserved, because charges of both signs move independently; in gravity all masses have the same sign and the same ratio of gravitational to inertial mass, and the centre of mass moves uniformly. The first radiating moment is the quadrupole, suppressed relative to electric dipole radiation by a further power of $v^2$.
 :::
 
 The Earth-Sun system is the most familiar binary of all. Its waves show how weak the effect is for ordinary bodies.
@@ -5749,7 +5749,7 @@ A rotating rod is the classic laboratory source, considered since the 1960s. The
 ::: {#exm-grf-q-rod}
 #### A rotating rod
 
-A rod of mass $M$ and length $\ell$ rotating with angular velocity $\omega$ about its centre has $I_{xx} - I_{yy} = \frac{M\ell^2}{12}\cos2\omega t$ and emits along its axis $h_+ = \frac{GM\ell^2\omega^2}{3r}\cos2\omega(t - r)$. For $M = 1000\,$t, $\ell = 20\,$m, $\omega = 10\,$s$^{-1}$, in the wave zone at $r = 10^8\,$m, restoring $c$, $h_0 = GM\ell^2\omega^2/(3c^4r) = 1.1 \times 10^{-42}$, twenty orders of magnitude below the strains of astrophysical sources.
+A rod of mass $M$ and length $\ell$ rotating with angular velocity $\omega$ about its centre has $I_{xx} - I_{yy} = \frac{M\ell^2}{12}\cos2\omega t$ and emits along its axis $h_+ = \frac{G_NM\ell^2\omega^2}{3r}\cos2\omega(t - r)$. For $M = 1000\,$t, $\ell = 20\,$m, $\omega = 10\,$s$^{-1}$, in the wave zone at $r = 10^8\,$m, restoring $c$, $h_0 = G_NM\ell^2\omega^2/(3c^4r) = 1.1 \times 10^{-42}$, twenty orders of magnitude below the strains of astrophysical sources.
 :::
 
 A spinning neutron star radiates if it is not symmetric about its axis of rotation. The example estimates the strain from a small mountain.
@@ -5757,7 +5757,7 @@ A spinning neutron star radiates if it is not symmetric about its axis of rotati
 ::: {#exm-grf-q-mountain}
 #### A mountain on a neutron star
 
-A deformation of mass $\delta M = 10^{-6}M_\odot$ on the equator of a neutron star of radius $10\,$km, spinning at $50\,$Hz, modelled as two masses $\delta M/2$ at opposite points of the equator, has $I_{xx} - I_{yy} = \delta MR^2\cos2\Omega t$ and emits $h_0 = 4G\delta MR^2\Omega^2/(c^4r)$ at $100\,$Hz. At $1\,$kpc this is $2.1 \times 10^{-26}$ [@blennow2022relativity, Problem 2.135(d), whose estimate of $10^{-26}$ uses a factor of $2$ in place of $4$].
+A deformation of mass $\delta M = 10^{-6}M_\odot$ on the equator of a neutron star of radius $10\,$km, spinning at $50\,$Hz, modelled as two masses $\delta M/2$ at opposite points of the equator, has $I_{xx} - I_{yy} = \delta MR^2\cos2\Omega t$ and emits $h_0 = 4G_N\delta MR^2\Omega^2/(c^4r)$ at $100\,$Hz. At $1\,$kpc this is $2.1 \times 10^{-26}$ [@blennow2022relativity, Problem 2.135(d), whose estimate of $10^{-26}$ uses a factor of $2$ in place of $4$].
 :::
 
 The amplitude and polarisation depend on the direction of observation. Seen in the orbital plane, a binary emits a linearly polarised wave.
@@ -5765,7 +5765,7 @@ The amplitude and polarisation depend on the direction of observation. Seen in t
 ::: {#exm-grf-q-edge-on}
 #### A binary seen edge on
 
-For $\vec n = \hat x$ in the orbital plane, the projector keeps $\frac12(\ddot I_{yy} - \ddot I_{zz})$ and $\ddot I_{yz} = 0$. With $\ddot I_{yy} = 2\mu a^2\Omega^2\cos2\Omega t$ and $I_{zz} = 0$, $h_+ = -\frac{2G\mu a^2\Omega^2}{r}\cos2\Omega(t - r)$ and $h_\times = 0$: a linearly polarised wave with half the face-on amplitude. At a general inclination $\iota$ the amplitudes are $h_0\frac{1 + \cos^2\iota}{2}$ and $h_0\cos\iota$ (@exr-grf-q-inclination, @fig-grf-gravitational-waves).
+For $\mathbf n = \hat{\mathbf x}$ in the orbital plane, the projector keeps $\frac12(\ddot I_{yy} - \ddot I_{zz})$ and $\ddot I_{yz} = 0$. With $\ddot I_{yy} = 2\mu a^2\Omega^2\cos2\Omega t$ and $I_{zz} = 0$, $h_+ = -\frac{2G_N\mu a^2\Omega^2}{r}\cos2\Omega(t - r)$ and $h_\times = 0$: a linearly polarised wave with half the face-on amplitude. At a general inclination $\iota$ the amplitudes are $h_0\frac{1 + \cos^2\iota}{2}$ and $h_0\cos\iota$ (@exr-grf-q-inclination, @fig-grf-gravitational-waves).
 :::
 
 As the binary radiates, it loses energy and its orbit shrinks. The frequency and the amplitude of the wave then rise together, which gives the signal its name.
@@ -5773,7 +5773,7 @@ As the binary radiates, it loses energy and its orbit shrinks. The frequency and
 ::: {#exm-grf-q-chirp}
 #### The chirp
 
-The orbital energy of the binary is $-Gm_1m_2/2a$, so a loss of energy to the waves decreases $a$ and increases $\Omega$, $f$ and $h_0 \propto f^{2/3}$: the signal sweeps upwards in frequency and amplitude, a chirp, until the bodies merge. The rate depends on the masses only through $\mathcal M$, which is why the chirp mass is the best measured parameter of a detected binary. The orbital decay of the Hulse-Taylor binary pulsar agrees with this energy loss [@gray2019student, App. B.3.3].
+The orbital energy of the binary is $-G_Nm_1m_2/2a$, so a loss of energy to the waves decreases $a$ and increases $\Omega$, $f$ and $h_0 \propto f^{2/3}$: the signal sweeps upwards in frequency and amplitude, a chirp, until the bodies merge. The rate depends on the masses only through $\mathcal M$, which is why the chirp mass is the best measured parameter of a detected binary. The orbital decay of the Hulse-Taylor binary pulsar agrees with this energy loss [@gray2019student, App. B.3.3].
 :::
 
 A spherically symmetric motion cannot radiate, by Birkhoff's theorem, and the quadrupole formula agrees. The last example checks this and the axisymmetric case.
@@ -5811,11 +5811,11 @@ The second exercise checks the coefficient of @eq-grf-quadrupole from the retard
 ::: {#exr-grf-q-coefficient}
 #### The coefficient and the sign
 
-Starting from the retarded solution of @def-grf-linearised with $\kappa^2 = 8\pi G$, derive @eq-grf-quadrupole, and explain why the sign is the opposite of @blennow2022relativity [eq. 2.138] and of @gray2019student, who write $+\frac2r\ddot I_{ij}$.
+Starting from the retarded solution of @def-grf-linearised with $\kappa^2 = 8\pi G_N$, derive @eq-grf-quadrupole, and explain why the sign is the opposite of @blennow2022relativity [eq. 2.138] and of @gray2019student, who write $+\frac2r\ddot I_{ij}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$-\frac{\kappa^2}{2\pi} = -4G$, so $\bar h_{ij} = -\frac{4G}{r}\int T_{ij} = -\frac{4G}{r}\cdot\frac12\ddot I_{ij}$. In our signature the spatial metric is $-\delta_{ij} + h_{ij}$, so a positive $h_{xx}$ shortens distances along $x$; with $(-, +, +, +)$ it is $\delta_{ij} + h_{ij}$, and the same physical wave has the opposite sign of $h_{ij}$. Blennow and Ohlsson use $(+, -, -, -)$ but write the wave operator with the opposite sign, $\Box\bar h = 16\pi T$, and a coefficient $+4$ in the retarded solution; the physics is the same.
+$-\frac{\kappa^2}{2\pi} = -4G_N$, so $\bar h_{ij} = -\frac{4G_N}{r}\int T_{ij} = -\frac{4G_N}{r}\cdot\frac12\ddot I_{ij}$. In our signature the spatial metric is $-\delta_{ij} + h_{ij}$, so a positive $h_{xx}$ shortens distances along $x$; in the signature $(-, +, +, +)$ of @carroll1997 it is $\delta_{ij} + h_{ij}$, and the same physical wave has the opposite sign of $h_{ij}$. Blennow and Ohlsson use $(+, -, -, -)$ but write the wave operator with the opposite sign, $\Box\bar h = 16\pi T$, and a coefficient $+4$ in the retarded solution; the physics is the same.
 :::
 
 The third exercise computes the waveform of a binary with Sage. It checks the amplitude and the chirp-mass form of the proposition.
@@ -5823,7 +5823,7 @@ The third exercise computes the waveform of a binary with Sage. It checks the am
 ::: {#exr-grf-q-binary}
 #### The binary waveform with Sage
 
-With Sage, compute $I_{ij}$ for the relative orbit $a(\cos\Omega t, \sin\Omega t, 0)$, its second derivative, and $h^{TT}_{ij}$ along $\hat z$, and check $G\mu a^2\Omega^2 = (G\mathcal M)^{5/3}\Omega^{2/3}$ for $\Omega^2 = GM/a^3$.
+With Sage, compute $I_{ij}$ for the relative orbit $a(\cos\Omega t, \sin\Omega t, 0)$, its second derivative, and $h^{TT}_{ij}$ along $\hat{\mathbf z}$, and check $G_N\mu a^2\Omega^2 = (G_N\mathcal M)^{5/3}\Omega^{2/3}$ for $\Omega^2 = G_NM/a^3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5861,7 +5861,7 @@ The fourth exercise generalises the waveform to an arbitrary inclination of the 
 ::: {#exr-grf-q-inclination}
 #### Inclination with Sage
 
-For $\vec n = (0, \sin\iota, \cos\iota)$, with Sage, compute $h_+$ and $h_\times$ in the transverse basis $\vec e_1 = (1, 0, 0)$, $\vec e_2 = (0, \cos\iota, -\sin\iota)$, and show that their amplitudes are $h_0\frac{1 + \cos^2\iota}{2}$ and $h_0\cos\iota$.
+For $\mathbf n = (0, \sin\iota, \cos\iota)$, with Sage, compute $h_+$ and $h_\times$ in the transverse basis $\mathbf e_1 = (1, 0, 0)$, $\mathbf e_2 = (0, \cos\iota, -\sin\iota)$, and show that their amplitudes are $h_0\frac{1 + \cos^2\iota}{2}$ and $h_0\cos\iota$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -5904,7 +5904,7 @@ With Sage, compute $\mathcal M$, $h_0$ and the separation $a$ for two neutron st
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $f = 2/P$ and $a^3 = GMP^2/4\pi^2$:
+With $f = 2/P$ and $a^3 = G_NMP^2/4\pi^2$:
 
 ```python
 G, c, Msun, pc = 6.674e-11, 2.99792458e8, 1.98892e30, 3.0857e16
@@ -5933,11 +5933,11 @@ The sixth exercise estimates the energy that a wave carries. It needs the energy
 ::: {#exr-grf-q-flux}
 #### The energy flux with Sage
 
-The energy flux of a plane wave is $F = \frac{c^3}{16\pi G}\langle\dot h_+^2 + \dot h_\times^2\rangle$, quoted from the theory of the effective stress tensor of a wave. With Sage, evaluate $F$ for $h_+ = 10^{-21}\cos(2\pi ft)$, $f = 200\,$Hz, and compare with the light of the full moon, about $10^{-2}\,$W/m$^2$ [@blennow2022relativity, Problem 2.136].
+The energy flux of a plane wave is $F = \frac{c^3}{16\pi G_N}\langle\dot h_+^2 + \dot h_\times^2\rangle$, quoted from the theory of the effective stress tensor of a wave. With Sage, evaluate $F$ for $h_+ = 10^{-21}\cos(2\pi ft)$, $f = 200\,$Hz, and compare with the light of the full moon, about $10^{-2}\,$W/m$^2$ [@blennow2022relativity, Problem 2.136].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\langle\dot h_+^2\rangle = \frac12h^2(2\pi f)^2$, so $F = \frac{\pi c^3f^2h^2}{8G}$:
+$\langle\dot h_+^2\rangle = \frac12h^2(2\pi f)^2$, so $F = \frac{\pi c^3f^2h^2}{8G_N}$:
 
 ```python
 G, c = 6.674e-11, 2.99792458e8
@@ -5959,7 +5959,7 @@ F = c^3/(16 pi G) <hdot^2> = 6.342e-03 W/m^2;  pi c^3 f^2 h^2/(8 G) = 6.342e-03 
 c^3/G = 4.037e+35 kg/s;  full moon ~ 1e-2 W/m^2, ratio 0.63
 ```
 
-$6 \times 10^{-3}\,$W/m$^2$, comparable to moonlight, although the strain is $10^{-21}$: the factor $c^3/G = 4 \times 10^{35}\,$kg/s is enormous, which is why spacetime is so stiff. Blennow and Ohlsson's estimate $c^3h^2f^2/8G$ omits the factor $\pi$.
+$6 \times 10^{-3}\,$W/m$^2$, comparable to moonlight, although the strain is $10^{-21}$: the factor $c^3/G_N = 4 \times 10^{35}\,$kg/s is enormous, which is why spacetime is so stiff. Blennow and Ohlsson's estimate $c^3h^2f^2/8G_N$ omits the factor $\pi$.
 :::
 
 The trace of $I_{ij}$ drops out of the wave, so the quadrupole is often written traceless. The seventh exercise shows that nothing changes.
@@ -5979,11 +5979,11 @@ Spinning neutron stars are usually described by their ellipticity. The eighth ex
 ::: {#exr-grf-q-ellipticity}
 #### Ellipticity with Sage
 
-A body spins about its $z$ axis with angular velocity $\Omega$ and principal moments of inertia $I_1 \neq I_2$. Show that the mass moments satisfy $I_{xx} - I_{yy} = I_2 - I_1$ in the body frame, and that the strain along the axis has amplitude $h_0 = 4\pi^2G\epsilon I_3f^2/(c^4r)$ with $\epsilon = (I_2 - I_1)/I_3$ and $f = \Omega/\pi$. With Sage, evaluate $h_0$ for $\epsilon = 10^{-6}$, $I_3 = 10^{38}\,$kg m$^2$, $f = 100\,$Hz at $1\,$kpc.
+A body spins about its $z$ axis with angular velocity $\Omega$ and principal moments of inertia $I_1 \neq I_2$. Show that the mass moments satisfy $I_{xx} - I_{yy} = I_2 - I_1$ in the body frame, and that the strain along the axis has amplitude $h_0 = 4\pi^2G_N\varepsilon I_3f^2/(c^4r)$ with $\varepsilon = (I_2 - I_1)/I_3$ and $f = \Omega/\pi$. With Sage, evaluate $h_0$ for $\varepsilon = 10^{-6}$, $I_3 = 10^{38}\,$kg m$^2$, $f = 100\,$Hz at $1\,$kpc.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$I_1 = \int\rho(y^2 + z^2)$ and $I_2 = \int\rho(x^2 + z^2)$, so $I_2 - I_1 = \int\rho(x^2 - y^2) = I_{xx} - I_{yy}$. Rotating at $\Omega$, $I_{xx} - I_{yy}$ in the inertial frame is $(I_2 - I_1)\cos2\Omega t$ as for the mountain, so $h_0 = 4G\Omega^2(I_2 - I_1)/(c^4r) = 4\pi^2G\epsilon I_3f^2/(c^4r)$:
+$I_1 = \int\rho(y^2 + z^2)$ and $I_2 = \int\rho(x^2 + z^2)$, so $I_2 - I_1 = \int\rho(x^2 - y^2) = I_{xx} - I_{yy}$. Rotating at $\Omega$, $I_{xx} - I_{yy}$ in the inertial frame is $(I_2 - I_1)\cos2\Omega t$ as for the mountain, so $h_0 = 4G_N\Omega^2(I_2 - I_1)/(c^4r) = 4\pi^2G_N\varepsilon I_3f^2/(c^4r)$:
 
 ```python
 G, c, pc = 6.674e-11, 2.99792458e8, 3.0857e16
@@ -6009,11 +6009,11 @@ A sphere that pulsates does not radiate, but an oscillating ellipsoid does. The 
 ::: {#exr-grf-q-oscillations}
 #### Two oscillations
 
-A homogeneous body of mass $M$ oscillates (a) radially, with $I_{xx} = I_{yy} = I_{zz} = \frac15MR(t)^2$; (b) as $I_{xx} = I_{yy} = \frac15MR^2(1 + \epsilon\cos\omega t)$, $I_{zz} = \frac15MR^2(1 - 2\epsilon\cos\omega t)$. Find the wave along $\hat x$ in each case.
+A homogeneous body of mass $M$ oscillates (a) radially, with $I_{xx} = I_{yy} = I_{zz} = \frac15MR(t)^2$; (b) as $I_{xx} = I_{yy} = \frac15MR^2(1 + \varepsilon\cos\omega t)$, $I_{zz} = \frac15MR^2(1 - 2\varepsilon\cos\omega t)$. Find the wave along $\hat{\mathbf x}$ in each case.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $I_{ij} \propto \delta_{ij}$, so $h^{TT} = 0$ (@exr-grf-q-traceless). (b) Along $\hat x$, $h_+ = -\frac Gr(\ddot I_{yy} - \ddot I_{zz}) = -\frac Gr\cdot\frac15MR^2\cdot3\epsilon(-\omega^2)\cos\omega t = \frac{3GMR^2\epsilon\omega^2}{5r}\cos\omega(t - r)$ and $h_\times = 0$: the quadrupolar oscillation radiates at its own frequency, the radial one not at all, in agreement with @exm-gr-schw-birkhoff.
+(a) $I_{ij} \propto \delta_{ij}$, so $h^{TT} = 0$ (@exr-grf-q-traceless). (b) Along $\hat{\mathbf x}$, $h_+ = -\frac{G_N}{r}(\ddot I_{yy} - \ddot I_{zz}) = -\frac{G_N}{r}\cdot\frac15MR^2\cdot3\varepsilon(-\omega^2)\cos\omega t = \frac{3G_NMR^2\varepsilon\omega^2}{5r}\cos\omega(t - r)$ and $h_\times = 0$: the quadrupolar oscillation radiates at its own frequency, the radial one not at all, in agreement with @exm-gr-schw-birkhoff.
 :::
 
 The proposition assumed slow motion. The last exercise checks the assumption for a binary entering the band of ground-based detectors.
@@ -6021,11 +6021,11 @@ The proposition assumed slow motion. The last exercise checks the assumption for
 ::: {#exr-grf-q-validity}
 #### Is the motion slow?
 
-For a circular binary, show that the orbital speed of the relative motion is $v = (\pi GMf)^{1/3}$ with $f$ the wave frequency. Evaluate it for two neutron stars of $1.4\,M_\odot$ at $f = 100\,$Hz, and for GW150914 at $f = 150\,$Hz, and comment on the size of the corrections, of relative order $v^2$.
+For a circular binary, show that the orbital speed of the relative motion is $v = (\pi G_NMf)^{1/3}$ with $f$ the wave frequency. Evaluate it for two neutron stars of $1.4\,M_\odot$ at $f = 100\,$Hz, and for GW150914 at $f = 150\,$Hz, and comment on the size of the corrections, of relative order $v^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$v = a\Omega$ and $a^3\Omega^2 = GM$ give $v^3 = GM\Omega = \pi GMf$. With $GM_\odot/c^3 = 4.93\,\mu$s: for $M = 2.8\,M_\odot$, $\pi \times 2.8 \times 4.93 \times 10^{-6} \times 100 = 4.3 \times 10^{-3}$ and $v = 0.16$; for $M = 65\,M_\odot$ at $150\,$Hz, $v^3 = 0.15$ and $v = 0.53$. The corrections of order $v^2$ are $3\%$ for the neutron stars and of order one for GW150914, where the full non-linear theory, solved numerically, is needed.
+$v = a\Omega$ and $a^3\Omega^2 = G_NM$ give $v^3 = G_NM\Omega = \pi G_NMf$. With $G_NM_\odot/c^3 = 4.93\,\mu$s: for $M = 2.8\,M_\odot$, $\pi \times 2.8 \times 4.93 \times 10^{-6} \times 100 = 4.3 \times 10^{-3}$ and $v = 0.16$; for $M = 65\,M_\odot$ at $150\,$Hz, $v^3 = 0.15$ and $v = 0.53$. The corrections of order $v^2$ are $3\%$ for the neutron stars and of order one for GW150914, where the full non-linear theory, solved numerically, is needed.
 :::
 ::::
 
@@ -6038,18 +6038,18 @@ symmetries of the Schwarzschild metric to Kepler's problem and its relativistic 
 ::: {#exr-gr-int-particle-orbits}
 #### From symmetries to orbits
 
-(a) Show that $\partial_t$ and $\partial_\phi$ are Killing vectors of @eq-gr-schwarzschild (@def-killing), and that $E =
-g(\partial_t, u)$ and $L = -g(\partial_\phi, u)$ are conserved along geodesics. (b) Use $g(u, u) = 1$ to derive
+(a) Show that $\partial_t$ and $\partial_\varphi$ are Killing vectors of @eq-gr-schwarzschild (@def-killing), and that $E =
+g(\partial_t, u)$ and $L = -g(\partial_\varphi, u)$ are conserved along geodesics. (b) Use $g(u, u) = 1$ to derive
 @eq-gr-schwarzschild-potential. (c) Write $\tfrac12(V - 1)$ as the Newtonian effective potential of
 @eq-effective-potential (per unit mass, $k = m$) plus a correction, and explain which term produces the perihelion advance
 of @exr-gr-perihelion-perturbative.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) The metric components do not depend on $t$ or $\phi$, so $\mathcal{L}_{\partial_t}g = \mathcal{L}_{\partial_\phi}g = 0$; for a Killing
+(a) The metric components do not depend on $t$ or $\varphi$, so $\mathcal{L}_{\partial_t}g = \mathcal{L}_{\partial_\varphi}g = 0$; for a Killing
 vector $\xi$ and a geodesic, $\tfrac{d}{d\tau}g(\xi, u) = \nabla_{(\mu}\xi_{\nu)}u^\mu u^\nu = 0$. Explicitly $E = (1 - 2m/r)\dot t$ and
-$L = r^2\sin^2\theta\,\dot\phi$, and a rotation puts the orbit in the plane $\theta = \pi/2$. (b) $g(u, u) = (1 - 2m/r)\dot t^2 - (1 -
-2m/r)^{-1}\dot r^2 - r^2\dot\phi^2 = 1$ becomes $E^2 - \dot r^2 = (1 - 2m/r)(1 + L^2/r^2)$ after multiplying by $1 - 2m/r$.
+$L = r^2\sin^2\theta\,\dot\varphi$, and a rotation puts the orbit in the plane $\theta = \pi/2$. (b) $g(u, u) = (1 - 2m/r)\dot t^2 - (1 -
+2m/r)^{-1}\dot r^2 - r^2\dot\varphi^2 = 1$ becomes $E^2 - \dot r^2 = (1 - 2m/r)(1 + L^2/r^2)$ after multiplying by $1 - 2m/r$.
 (c) $\tfrac12(V - 1) = -\tfrac mr + \tfrac{L^2}{2r^2} - \tfrac{mL^2}{r^3}$: Newton's $-k/r + L^2/2r^2$ plus an attractive $r^{-3}$ term.
 It is the $r^{-3}$ term that becomes $3mu^2$ in the orbit equation and spoils the closure of the Kepler ellipses; the
 energy equation $\tfrac12\dot r^2 + \tfrac12(V - 1) = \tfrac12(E^2 - 1)$ is otherwise Newton's, as in @exr-gr-nl-energy.
@@ -6079,15 +6079,15 @@ symmetric vacuum, as a cosmology and as a static spacetime with a horizon.
 ::: {#exr-gr-int-de-sitter-three-ways}
 #### De Sitter space three ways
 
-(a) Show that the vacuum equations with $\Lambda > 0$ are solved by $ds^2 = dt^2 - e^{2Ht}d\vec x^2$ with $H^2 = \Lambda/3$
+(a) Show that the vacuum equations with $\Lambda > 0$ are solved by $ds^2 = dt^2 - e^{2Ht}d\mathbf x^2$ with $H^2 = \Lambda/3$
 (@exr-de-sitter-4d). (b) Derive the same relation from the Friedmann equation with the density $\rho_\Lambda$ of
 @exr-gr-lambda-pressure. (c) Show that the static metric $(1 - H^2r^2)dt^2 - (1 - H^2r^2)^{-1}dr^2 - r^2d\Omega^2$ also has $R_{\mu\nu} = -
 3H^2g_{\mu\nu}$, and compare its horizon at $r = 1/H$ with that of @exm-gr-ds-horizon and with the Schwarzschild horizon.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) @exr-de-sitter-4d gives $R_{\mu\nu} = -3H^2g_{\mu\nu}$, i.e. $\Lambda = 3H^2$ by @exr-gr-vacuum-trace. (b) $\rho_\Lambda = \Lambda/(8\pi G)$ in
-$H^2 = 8\pi G\rho/3$ gives $H^2 = \Lambda/3$ again (@exm-gr-friedmann-lambda). (c) SageManifolds gives $R_{\mu\nu} + 3H^2g_{\mu\nu} =
+(a) @exr-de-sitter-4d gives $R_{\mu\nu} = -3H^2g_{\mu\nu}$, i.e. $\Lambda = 3H^2$ by @exr-gr-vacuum-trace. (b) $\rho_\Lambda = \Lambda/(8\pi G_N)$ in
+$H^2 = 8\pi G_N\rho/3$ gives $H^2 = \Lambda/3$ again (@exm-gr-friedmann-lambda). (c) SageManifolds gives $R_{\mu\nu} + 3H^2g_{\mu\nu} =
 0$: it is the case $m = 0$ of @exr-gr-schwarzschild-de-sitter. Here $g_{tt}$ vanishes at $r = 1/H$, the physical distance
 of @exm-gr-ds-horizon; unlike the Schwarzschild horizon it surrounds the observer, and every observer has their own.
 The three metrics are coordinate patches of the same hyperboloid (@exm-gr-ds-hyperboloid).
@@ -6126,7 +6126,7 @@ V$, what is $w$, and how does $a(t)$ behave?
 which is $-pg_{ij}$ with $p = \tfrac12\dot\phi^2 - V$. (b) SageManifolds gives $\Box\phi = g^{\mu\nu}\nabla_\mu\nabla_\nu\phi = \ddot\phi +
 3H\dot\phi$, the friction term coming from $\Gamma^i_{ti} = H$; and $\dot\rho + 3H(\rho + p) = \dot\phi(\ddot\phi + V'(\phi)) +
 3H\dot\phi^2$, as stated (@exm-gr-variation-bianchi). (c) Then $p \approx -\rho$, $w \approx -1$, and the field acts as a slowly
-varying cosmological constant: $H^2 \approx 8\pi GV/3$ and $a$ grows almost exponentially. This is **inflation**, the
+varying cosmological constant: $H^2 \approx 8\pi G_NV/3$ and $a$ grows almost exponentially. This is **inflation**, the
 accelerated expansion postulated for the very early universe.
 
 ```python

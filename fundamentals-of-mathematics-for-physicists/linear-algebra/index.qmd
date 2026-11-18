@@ -67,7 +67,7 @@ vector space, from a Lie group, which is not.
 #### Matrices
 
 The $n \times n$ real matrices form a vector space of dimension $n^2$ under entrywise operations; the
-antisymmetric matrices $A^{\mathsf{T}} = -A$ form a subspace, the Lie algebra $\mathfrak{so}(n)$ of
+antisymmetric matrices $A^\top = -A$ form a subspace, the Lie algebra $\mathfrak{so}(n)$ of
 @sec-lie-algebras. The rotation matrices $SO(n)$ do not: the sum of two rotations is not a rotation.
 :::
 
@@ -115,10 +115,10 @@ dimension, and check that the sum of two rotation matrices is not a rotation.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(A + B)^{\mathsf{T}} = A^{\mathsf{T}} + B^{\mathsf{T}} = A + B$ and $(\lambda A)^{\mathsf{T}} = \lambda A$, so
+$(A + B)^\top = A^\top + B^\top = A + B$ and $(\lambda A)^\top = \lambda A$, so
 sums and multiples of symmetric matrices are symmetric; the matrices $E_{ii}$ and $E_{ij} + E_{ji}$ ($i < j$) span
 the subspace, which has dimension $3 + 3 = 6$. Two rotations by $90^\circ$ about different axes add to a matrix
-$R$ with $R^{\mathsf{T}} R \neq 1$:
+$R$ with $R^\top R \neq 1$:
 
 ```python
 M = MatrixSpace(QQ, 3, 3)
@@ -777,7 +777,7 @@ $n^2$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 A symmetric matrix is determined by its entries on and above the diagonal, $n + (n^2 - n)/2 = n(n + 1)/2$ of
 them; an antisymmetric one by the entries strictly above the diagonal, $n(n - 1)/2$ of them. The sum is $n^2$, as
-it must be: every matrix is uniquely $\tfrac12(A + A^{\mathsf{T}}) + \tfrac12(A - A^{\mathsf{T}})$, so the space of
+it must be: every matrix is uniquely $\tfrac12(A + A^\top) + \tfrac12(A - A^\top)$, so the space of
 all matrices is the direct sum of the two subspaces (@exr-symmetric-tensors-dim computes the counts for small $n$).
 :::
 
@@ -1637,7 +1637,7 @@ section. The proposition states them; together they fix the rank and the nullity
 ::: {#prp-kernel-vector}
 #### A kernel vector
 
-For $A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$, $A(1, 1, -1)^{\mathsf{T}} = 0$, and the second row
+For $A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$, $A(1, 1, -1)^\top = 0$, and the second row
 of $A$ is twice the first.
 :::
 ::::
@@ -1651,7 +1651,7 @@ each row of $A$.
 #### The product by hand
 
 $1 \cdot 1 + 2 \cdot 1 + 3 \cdot (-1) = 0$ and $2 \cdot 1 + 4 \cdot 1 + 6 \cdot (-1) = 0$: both rows pair to zero
-with $(1, 1, -1)$, which is what $A(1, 1, -1)^{\mathsf{T}} = 0$ means row by row.
+with $(1, 1, -1)$, which is what $A(1, 1, -1)^\top = 0$ means row by row.
 :::
 
 A single kernel vector already bounds the rank, and the proportional rows pin it down. The example draws the
@@ -1738,7 +1738,7 @@ Show that $(3, 0, -1)$ is in the kernel of $A$ and that it is not a multiple of 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The two components of $A(3, 0, -1)^{\mathsf{T}}$ are $3 + 0 - 3 = 0$ and $6 + 0 - 6 = 0$. A multiple of $(1, 1, -
+The two components of $A(3, 0, -1)^\top$ are $3 + 0 - 3 = 0$ and $6 + 0 - 6 = 0$. A multiple of $(1, 1, -
 1)$ has equal first two entries, which $(3, 0, -1)$ does not, so the two kernel vectors are independent and span the
 two-dimensional kernel.
 :::
@@ -1901,7 +1901,7 @@ example records two values, a unit timelike vector and a null one, that @prp-min
 #### The Minkowski form
 
 $\eta(v, w) = v^0 w^0 - v^1 w^1 - v^2 w^2 - v^3 w^3$ on $\mathbb{R}^4$ is bilinear with components
-$\eta_{\mu\nu} = \mathrm{diag}(1, -1, -1, -1)$; $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$ and $\eta(v, v) = 0$ for
+$\eta_{\mu\nu} = \operatorname{diag}(1, -1, -1, -1)$; $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$ and $\eta(v, v) = 0$ for
 $v = (1, 1, 0, 0)$ (@prp-minkowski-values).
 :::
 
@@ -1944,8 +1944,7 @@ $B(w, v)$ for $v = (1, 3)$, $w = (2, -1)$, and decide whether $B$ is symmetric.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$B_{ij}$ is the coefficient of $v^i w^j$: $B = \begin{pmatrix} 1 & 2 \\ -1 & 0 \end{pmatrix}$. Then $B(v, w) = v^{\mathsf
-T} B w = -6$ while $B(w, v) = 15$, so $B$ is not symmetric:
+$B_{ij}$ is the coefficient of $v^i w^j$: $B = \begin{pmatrix} 1 & 2 \\ -1 & 0 \end{pmatrix}$. Then $B(v, w) = v^\top B w = -6$ while $B(w, v) = 15$, so $B$ is not symmetric:
 
 ```python
 B = matrix(QQ, [[1, 2], [-1, 0]])
@@ -1967,19 +1966,19 @@ components: B(e1, e1), B(e1, e2), B(e2, e1), B(e2, e2) = [1, 2, -1, 0]
 :::
 
 Components of a bilinear form transform with two factors of the change-of-basis matrix. The exercise derives the rule
-$B' = A^{\mathsf{T}} B A$ and applies it to the dot product in the basis $f$, producing the Gram matrix that the final
+$B' = A^\top B A$ and applies it to the dot product in the basis $f$, producing the Gram matrix that the final
 exercises return to.
 
 ::: {#exr-bilinear-change-basis}
 #### Components under a change of basis
 
 Show that under $e'_j = A^i{}_j e_i$ the components become $B'_{ij} = A^k{}_i A^l{}_j B_{kl}$, that is, $B' =
-A^{\mathsf{T}} B A$, and compute the components of the dot product of $\mathbb{R}^2$ in the basis $f$.
+A^\top B A$, and compute the components of the dot product of $\mathbb{R}^2$ in the basis $f$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $B'_{ij} = B(e'_i, e'_j) = B(A^k{}_i e_k, A^l{}_j e_l) = A^k{}_i A^l{}_j B_{kl}$ by bilinearity. For the dot
-product and $A$ the matrix with columns $f_1, f_2$, $B' = A^{\mathsf{T}} A = \begin{pmatrix} 5 & 4 \\ 4 & 5
+product and $A$ the matrix with columns $f_1, f_2$, $B' = A^\top A = \begin{pmatrix} 5 & 4 \\ 4 & 5
 \end{pmatrix}$, the Gram matrix of $f$; $|v|^2 = 41$ comes out the same from standard coordinates and from the
 $f$-coordinates $(2, 1)$:
 
@@ -2019,12 +2018,12 @@ B(v, v) - B(w, w)$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Both running forms are symmetric, since their matrices are diagonal. The example records the symmetry
-$\eta^{\mathsf{T}} = \eta$ and points ahead to metrics on manifolds, which are symmetric forms on tangent spaces.
+$\eta^\top = \eta$ and points ahead to metrics on manifolds, which are symmetric forms on tangent spaces.
 
 ::: {#exm-symmetric-dot-minkowski}
 #### Dot product and Minkowski form
 
-The dot product and the Minkowski form have diagonal, hence symmetric, matrices; $\eta^{\mathsf{T}} = \eta$
+The dot product and the Minkowski form have diagonal, hence symmetric, matrices; $\eta^\top = \eta$
 (@prp-minkowski-values). A metric on a manifold is a symmetric bilinear form on each tangent space (@sec-metric).
 :::
 
@@ -2080,8 +2079,8 @@ of @exr-bilinear-matrix.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$B = \tfrac12(B + B^{\mathsf{T}}) + \tfrac12(B - B^{\mathsf{T}})$, and if $B = S + A$ with $S$ symmetric and $A$
-antisymmetric then $B^{\mathsf{T}} = S - A$, which forces $S = \tfrac12(B + B^{\mathsf{T}})$. For $B =
+$B = \tfrac12(B + B^\top) + \tfrac12(B - B^\top)$, and if $B = S + A$ with $S$ symmetric and $A$
+antisymmetric then $B^\top = S - A$, which forces $S = \tfrac12(B + B^\top)$. For $B =
 \begin{pmatrix} 1 & 2 \\ -1 & 0 \end{pmatrix}$: $S = \begin{pmatrix} 1 & \tfrac12 \\ \tfrac12 & 0 \end{pmatrix}$ and
 $A = \begin{pmatrix} 0 & \tfrac32 \\ -\tfrac32 & 0 \end{pmatrix}$. Only $S$ contributes to the quadratic form.
 :::
@@ -2164,7 +2163,7 @@ vector that pairs to zero with everything.
 #### A degenerate form
 
 $S = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ has determinant $1 \cdot 4 - 2 \cdot 2 = 0$: the vector
-$(2, -1)$ pairs to zero with everything, $S (2, -1)^{\mathsf{T}} = 0$, so the form is degenerate and does not identify
+$(2, -1)$ pairs to zero with everything, $S (2, -1)^\top = 0$, so the form is degenerate and does not identify
 $V$ with $V^*$ (@exr-minkowski-signature).
 :::
 
@@ -2204,7 +2203,7 @@ $S$, and asks for the kernel vectors of the degenerate one.
 ::: {#exr-nondegenerate-test}
 #### Testing non-degeneracy
 
-Decide which of $\mathrm{diag}(1, -1, -1, -1)$, $\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ and
+Decide which of $\operatorname{diag}(1, -1, -1, -1)$, $\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ and
 $\begin{pmatrix} 2 & 1 & 0 \\ 1 & 2 & 1 \\ 0 & 1 & 2 \end{pmatrix}$ are non-degenerate, and find the vectors that
 pair to zero with everything for the degenerate one.
 :::
@@ -2304,7 +2303,7 @@ basis that diagonalises it.
 #### Degenerate
 
 $S = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ has signature $(1, 0, 1)$: in the basis $e'_1 = e_1$, $e'_2 = -
-2e_1 + e_2$ its matrix is $P^{\mathsf{T}} S P = \mathrm{diag}(1, 0)$ with $P = \begin{pmatrix} 1 & -2 \\ 0 & 1
+2e_1 + e_2$ its matrix is $P^\top S P = \operatorname{diag}(1, 0)$ with $P = \begin{pmatrix} 1 & -2 \\ 0 & 1
 \end{pmatrix}$, one positive direction and one null direction $(-2, 1)$ along which the form vanishes identically.
 The congruence is the product $\begin{pmatrix} 1 & 0 \\ -2 & 1 \end{pmatrix} S \begin{pmatrix} 1 & -2 \\ 0 & 1
 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$.
@@ -2319,7 +2318,7 @@ non-degeneracy and the signature of $\eta$, and then the same for the degenerate
 ::: {#exr-minkowski-signature}
 #### Symmetry, non-degeneracy, signature
 
-For $\eta = \mathrm{diag}(1, -1, -1, -1)$, compute $\eta(v, v)$ for $v = (1, 1, 0, 0)$ and $w = (1, 0, 0, 0)$, check
+For $\eta = \operatorname{diag}(1, -1, -1, -1)$, compute $\eta(v, v)$ for $v = (1, 1, 0, 0)$ and $w = (1, 0, 0, 0)$, check
 symmetry and non-degeneracy, and find the signature with Sage's `QuadraticForm`; do the same for the degenerate
 form $\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$.
 :::
@@ -2367,10 +2366,10 @@ and write down the change of basis $P$ that diagonalises each.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $Q = (x + 2y)^2$: with $x' = x + 2y$, $y' = y$ the form is $x'^2$, signature $(1, 0, 1)$; the new coordinates are
-$P^{-1}(x, y)$ with $P = \begin{pmatrix} 1 & -2 \\ 0 & 1 \end{pmatrix}$, and $P^{\mathsf{T}} S P = \mathrm{diag}(1,
+$P^{-1}(x, y)$ with $P = \begin{pmatrix} 1 & -2 \\ 0 & 1 \end{pmatrix}$, and $P^\top S P = \operatorname{diag}(1,
 0)$. $Q' = (x + 2y)^2 - y^2$: signature $(1, 1, 0)$, Lorentzian in two dimensions (the time
 direction being the one with the positive sign), with the same
-$P$ and diagonal $\mathrm{diag}(1, -1)$. Completing the square is Sylvester's algorithm, and for $Q$ it also shows
+$P$ and diagonal $\operatorname{diag}(1, -1)$. Completing the square is Sylvester's algorithm, and for $Q$ it also shows
 $Q \geq 0$.
 :::
 
@@ -2416,7 +2415,7 @@ isometries, is developed in @sec-special-relativity.
 ::: {#prp-minkowski-values}
 #### Values of the Minkowski form
 
-$\eta(v, v) = 0$ for $v = (1, 1, 0, 0)$, $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$, $\eta^{\mathsf{T}} = \eta$ and
+$\eta(v, v) = 0$ for $v = (1, 1, 0, 0)$, $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$, $\eta^\top = \eta$ and
 $\det \eta = -1$.
 :::
 ::::
@@ -2439,7 +2438,7 @@ $\eta$ and states the general rule.
 ::: {#exm-minkowski-det-hand}
 #### The determinant of a diagonal matrix
 
-$\det \mathrm{diag}(1, -1, -1, -1) = 1 \cdot (-1) \cdot (-1) \cdot (-1) = -1$: the determinant of a diagonal matrix is
+$\det \operatorname{diag}(1, -1, -1, -1) = 1 \cdot (-1) \cdot (-1) \cdot (-1) = -1$: the determinant of a diagonal matrix is
 the product of its diagonal entries, since every other term of the Leibniz expansion contains an off-diagonal zero.
 :::
 
@@ -2450,7 +2449,7 @@ say about the number of negative directions.
 #### What the sign of the determinant records
 
 $\det \eta < 0$ shows that $\eta$ is non-degenerate and that the number $q$ of negative directions is odd; it does
-not fix $q$ ($q = 1$ would give the same sign as $q = 3$): $\det \mathrm{diag}(1, -1, 1, 1) = -1$ as well. For a
+not fix $q$ ($q = 1$ would give the same sign as $q = 3$): $\det \operatorname{diag}(1, -1, 1, 1) = -1$ as well. For a
 diagonal matrix with entries $\pm 1$ the determinant is $(-1)^q$. The signature itself is found by the methods of
 @exr-signature-3x3.
 :::
@@ -2480,14 +2479,14 @@ boost.
 #### A boost preserves $\eta$
 
 Show that the boost $\Lambda = \begin{pmatrix} \cosh u & \sinh u \\ \sinh u & \cosh u \end{pmatrix} \oplus 1_2$
-satisfies $\Lambda^{\mathsf{T}} \eta \Lambda = \eta$, and check that it maps the three vectors of
+satisfies $\Lambda^\top \eta \Lambda = \eta$, and check that it maps the three vectors of
 @exr-minkowski-other-vectors to vectors of the same type.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In the $(t, x)$ block, $\Lambda^{\mathsf{T}} \mathrm{diag}(1, -1) \Lambda$ has entries $\cosh^2 u - \sinh^2 u =
+In the $(t, x)$ block, $\Lambda^\top \operatorname{diag}(1, -1) \Lambda$ has entries $\cosh^2 u - \sinh^2 u =
 1$, $\cosh u\sinh u - \sinh u\cosh u = 0$ and $\sinh^2 u - \cosh^2 u = -1$; the other block is untouched. Since
-$\eta(\Lambda v, \Lambda v) = v^{\mathsf{T}} \Lambda^{\mathsf{T}} \eta \Lambda v = \eta(v, v)$, the type of every
+$\eta(\Lambda v, \Lambda v) = v^\top \Lambda^\top \eta \Lambda v = \eta(v, v)$, the type of every
 vector is preserved:
 
 ```python
@@ -2908,7 +2907,7 @@ $e_1 \otimes e_1 + e_2 \otimes e_2$ is not elementary.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 If $w = \lambda u$, bilinearity gives $u \otimes v + \lambda u \otimes z = u \otimes (v + \lambda z)$; similarly
-for $z = \mu v$. The component matrix of $e_1 \otimes e_1 + e_2 \otimes e_2$ is $\mathrm{diag}(1, 1, 0)$ of rank
+for $z = \mu v$. The component matrix of $e_1 \otimes e_1 + e_2 \otimes e_2$ is $\operatorname{diag}(1, 1, 0)$ of rank
 $2$, while an elementary tensor has rank at most $1$ (@exr-rank-one), so it is not elementary. The rank of the
 component matrix is the smallest number of elementary terms needed.
 :::
@@ -3149,7 +3148,7 @@ explain why $\det B' = (\det A)^2 \det B$ while for a type $(1, 1)$ tensor $\det
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$B'_{ij} = B(e'_i, e'_j) = B(A^k{}_i e_k, A^l{}_j e_l) = A^k{}_i A^l{}_j B_{kl}$, that is, $B' = A^{\mathsf{T}} B A$,
+$B'_{ij} = B(e'_i, e'_j) = B(A^k{}_i e_k, A^l{}_j e_l) = A^k{}_i A^l{}_j B_{kl}$, that is, $B' = A^\top B A$,
 whose determinant is $(\det A)^2 \det B$. A type $(1, 1)$ tensor transforms as $T' = A^{-1} T A$, and $\det(A^{-1}
 T A) = \det T$; @exr-la-map-tensor checks both the trace and the determinant in the basis $f$.
 :::
@@ -3166,7 +3165,7 @@ case.
 #### Contraction
 
 The **contraction** of a type $(r, s)$ tensor over one upper and one lower index is the type $(r - 1, s - 1)$
-tensor obtained by setting the two indices equal and summing: $(\mathrm{tr}\, T)^{i_1 \dots}{}_{j_1 \dots} =
+tensor obtained by setting the two indices equal and summing: $(\operatorname{tr}\, T)^{i_1 \dots}{}_{j_1 \dots} =
 T^{k\, i_1 \dots}{}_{k\, j_1 \dots}$. It does not depend on the basis. Pairing a covector with a vector,
 $\alpha(v) = \alpha_i v^i$, is a contraction.
 :::
@@ -3181,7 +3180,7 @@ $3 \times 3$ instance, together with the general fact that the result does not d
 
 Contracting a type $(1, 1)$ tensor gives its trace $T^i{}_i$; for the tensor with components
 $\begin{pmatrix} 1 & 2 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 5 \end{pmatrix}$ the trace is $9$ in every basis
-(@exr-tensor-components): $1 + 3 + 5 = 9$, and $\mathrm{tr}(QTP) = \mathrm{tr}\, T$ whenever $QP = 1$.
+(@exr-tensor-components): $1 + 3 + 5 = 9$, and $\operatorname{tr}(QTP) = \operatorname{tr}\, T$ whenever $QP = 1$.
 :::
 
 
@@ -3209,19 +3208,19 @@ strength.
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The invariance of the trace follows from the cyclic property $\mathrm{tr}(XY) = \mathrm{tr}(YX)$. The exercise asks
+The invariance of the trace follows from the cyclic property $\operatorname{tr}(XY) = \operatorname{tr}(YX)$. The exercise asks
 for the proof and for its consequence for type $(1, 1)$ tensors.
 
 ::: {#exr-contraction-trace-invariance}
 #### The trace does not depend on the basis
 
-Prove that $\mathrm{tr}(A^{-1} T A) = \mathrm{tr}\, T$ for every invertible $A$, and conclude that the contraction of
+Prove that $\operatorname{tr}(A^{-1} T A) = \operatorname{tr}\, T$ for every invertible $A$, and conclude that the contraction of
 a type $(1, 1)$ tensor does not depend on the basis.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathrm{tr}(XY) = X^i{}_j Y^j{}_i = \mathrm{tr}(YX)$, so $\mathrm{tr}(A^{-1} (TA)) = \mathrm{tr}((TA) A^{-1}) =
-\mathrm{tr}\, T$, where the cyclic step is applied to $X = A^{-1}$, $Y = TA$ and then $A A^{-1} = 1$ is used. Since
+$\operatorname{tr}(XY) = X^i{}_j Y^j{}_i = \operatorname{tr}(YX)$, so $\operatorname{tr}(A^{-1} (TA)) = \operatorname{tr}((TA) A^{-1}) =
+\operatorname{tr}\, T$, where the cyclic step is applied to $X = A^{-1}$, $Y = TA$ and then $A A^{-1} = 1$ is used. Since
 $T' = A^{-1} T A$ is the matrix of the same type $(1, 1)$ tensor in another basis, its contraction is a well-defined
 number.
 :::
@@ -3410,7 +3409,7 @@ $|v|^2$ of $v = (5, 4)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$G = A^{\mathsf{T}} A = \begin{pmatrix} 5 & 4 \\ 4 & 5 \end{pmatrix}$ (@exr-bilinear-change-basis), positive
+$G = A^\top A = \begin{pmatrix} 5 & 4 \\ 4 & 5 \end{pmatrix}$ (@exr-bilinear-change-basis), positive
 definite with signature $(2, 0, 0)$ and $\det G = 9 = (\det A)^2$. Lowering: $v_i = G_{ij} v^j = (14, 13)$;
 raising with $G^{-1}$ returns $(2, 1)$; $v_i v^i = 28 + 13 = 41 = 5^2 + 4^2$:
 

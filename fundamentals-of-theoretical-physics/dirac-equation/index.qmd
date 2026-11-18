@@ -43,9 +43,9 @@ For more on this topic, see @aitchison2024gauge [Ch. 4], @galitski2013exploring 
 
 ### Derivation
 
-A relativistic particle has energy $E = \sqrt{\vec p^{\,2} + m^2}$, and quantum mechanics replaces $E$ by $i\partial_t$
-and $\vec p$ by $-i\nabla$. The square root of an operator is not local, so Dirac asked instead for a Hamiltonian
-linear in $\vec p$ whose square is $\vec p^{\,2} + m^2$. The figure shows the price: the spectrum has two branches.
+A relativistic particle has energy $E = \sqrt{\mathbf p^{\,2} + m^2}$, and quantum mechanics replaces $E$ by $i\partial_t$
+and $\mathbf p$ by $-i\nabla$. The square root of an operator is not local, so Dirac asked instead for a Hamiltonian
+linear in $\mathbf p$ whose square is $\mathbf p^{\,2} + m^2$. The figure shows the price: the spectrum has two branches.
 
 ![The spectrum of the free Dirac Hamiltonian: two branches $E = \pm\sqrt{p^2 + m^2}$ separated by a gap $2m$, each
 doubly degenerate (two spin states), with the light cone and the non-relativistic parabola $m + p^2/2m$ for
@@ -60,7 +60,7 @@ fixed by the requirement that the square of the Hamiltonian be the relativistic 
 
 The **Dirac equation in Hamiltonian form** for a free particle of mass $m$ is
 $$
-i\partial_t\psi = H\psi, \qquad H = \vec\alpha\cdot\vec p + \beta m = -i\alpha_k\partial_k + \beta m ,
+i\partial_t\psi = H\psi, \qquad H = \boldsymbol\alpha\cdot\mathbf p + \beta m = -i\alpha_k\partial_k + \beta m ,
 $$ {#eq-dq-hamiltonian}
 where $\psi$ takes values in $\mathbb{C}^N$ and $\alpha_1, \alpha_2, \alpha_3, \beta$ are Hermitian $N \times N$
 matrices with
@@ -81,8 +81,8 @@ from the gamma matrices of @exm-gamma-weyl.
 
 With $\gamma^0 = \begin{pmatrix} 0 & 1 \\ 1 & 0\end{pmatrix}$ and $\gamma^k = \begin{pmatrix} 0 & \sigma_k \\ -\sigma_k
 & 0\end{pmatrix}$, the matrices $\beta = \gamma^0$ and $\alpha_k = \gamma^0\gamma^k = \begin{pmatrix} -\sigma_k & 0 \\ 0 &
-\sigma_k\end{pmatrix}$ satisfy @eq-dq-alpha-beta. The Hamiltonian $H = \begin{pmatrix} -\vec\sigma\cdot\vec p & m \\ m
-& \vec\sigma\cdot\vec p\end{pmatrix}$ acts on the upper and lower two-component spinors as $\mp\vec\sigma\cdot\vec p$,
+\sigma_k\end{pmatrix}$ satisfy @eq-dq-alpha-beta. The Hamiltonian $H = \begin{pmatrix} -\boldsymbol\sigma\cdot\mathbf p & m \\ m
+& \boldsymbol\sigma\cdot\mathbf p\end{pmatrix}$ acts on the upper and lower two-component spinors as $\mp\boldsymbol\sigma\cdot\mathbf p$,
 and the mass couples them.
 :::
 
@@ -94,7 +94,7 @@ For particles at rest a diagonal $\beta$ is more convenient. The second example 
 
 $\beta = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}$ and $\alpha_k = \begin{pmatrix} 0 & \sigma_k \\ \sigma_k &
 0\end{pmatrix}$ satisfy @eq-dq-alpha-beta, since $\sigma_j\sigma_k + \sigma_k\sigma_j = 2\delta_{jk}$ and the
-off-diagonal blocks anticommute with $\beta$. At $\vec p = 0$ the Hamiltonian is $H = \beta m$: the upper components
+off-diagonal blocks anticommute with $\beta$. At $\mathbf p = 0$ the Hamiltonian is $H = \beta m$: the upper components
 have energy $+m$ and the lower ones $-m$. This is the representation of the non-relativistic limit
 (@sec-dirac-nonrelativistic).
 :::
@@ -118,8 +118,8 @@ explains the two branches of @fig-dq-dispersion.
 #### The square of the Hamiltonian
 
 $H^2 = \alpha_j\alpha_kp_jp_k + (\alpha_k\beta + \beta\alpha_k)p_km + \beta^2m^2 = \tfrac12\{\alpha_j, \alpha_k\}p_jp_k + m^2
-= (\vec p^{\,2} + m^2)1$. On a plane wave $e^{i\vec p\cdot\vec x}$ the eigenvalues of $H$ are therefore $\pm E_p$,
-$E_p = \sqrt{\vec p^{\,2} + m^2}$, and since $\operatorname{tr}H = 0$ (@prp-dq-matrix-size) each sign occurs $N/2$
+= (\mathbf p^{\,2} + m^2)1$. On a plane wave $e^{i\mathbf p\cdot\mathbf x}$ the eigenvalues of $H$ are therefore $\pm E_p$,
+$E_p = \sqrt{\mathbf p^{\,2} + m^2}$, and since $\operatorname{tr}H = 0$ (@prp-dq-matrix-size) each sign occurs $N/2$
 times. The negative branch cannot be discarded: it is needed for completeness of the eigenvectors.
 :::
 ::::
@@ -131,13 +131,13 @@ not only sufficient but necessary.
 ::: {#exr-dq-hamiltonian-square}
 #### Necessity of the relations
 
-Let $H = \alpha_kp_k + \beta m$ with constant matrices. Show that $H^2 = (\vec p^{\,2} + m^2)1$ for all $\vec p$ and
+Let $H = \alpha_kp_k + \beta m$ with constant matrices. Show that $H^2 = (\mathbf p^{\,2} + m^2)1$ for all $\mathbf p$ and
 $m$ if and only if the relations @eq-dq-alpha-beta hold.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $H^2 = \sum_k\alpha_k^2p_k^2 + \sum_{j < k}\{\alpha_j, \alpha_k\}p_jp_k + \sum_k\{\alpha_k, \beta\}p_km + \beta^2m^2$.
-This is a polynomial in $p_1, p_2, p_3, m$ with matrix coefficients, and it equals $(\vec p^{\,2} + m^2)1$ for all
+This is a polynomial in $p_1, p_2, p_3, m$ with matrix coefficients, and it equals $(\mathbf p^{\,2} + m^2)1$ for all
 values if and only if the coefficients agree monomial by monomial: $\alpha_k^2 = 1$, $\{\alpha_j, \alpha_k\} = 0$ for $j
 \neq k$, $\{\alpha_k, \beta\} = 0$ and $\beta^2 = 1$, which is @eq-dq-alpha-beta.
 :::
@@ -168,11 +168,11 @@ computer. The third exercise does this and also finds the eigenvalues of $H$ for
 #### The Weyl matrices by computer
 
 With Sage, build $\alpha_k$ and $\beta$ of @exm-dq-weyl-alpha, check @eq-dq-alpha-beta, and compute the eigenvalues of
-$H$ for $\vec p = (2, 3, 6)$ and $m = 24$.
+$H$ for $\mathbf p = (2, 3, 6)$ and $m = 24$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-All ten relations hold, and since $|\vec p| = 7$ and $\sqrt{49 + 576} = 25$ the eigenvalues are $\pm25$, each twice:
+All ten relations hold, and since $|\mathbf p| = 7$ and $\sqrt{49 + 576} = 25$ the eigenvalues are $\pm25$, each twice:
 
 ```python
 s = [matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])]
@@ -273,10 +273,10 @@ dimensions, the Weyl equations of @sec-dirac-majorana.
 ::: {#exm-dq-massless-two}
 #### Massless particles with two components
 
-For $m = 0$ the Hamiltonians $H_\pm = \pm\vec\sigma\cdot\vec p$ satisfy $H_\pm^2 = \vec p^{\,2}$ with $2 \times 2$
+For $m = 0$ the Hamiltonians $H_\pm = \pm\boldsymbol\sigma\cdot\mathbf p$ satisfy $H_\pm^2 = \mathbf p^{\,2}$ with $2 \times 2$
 matrices, since only the three $\alpha_k = \pm\sigma_k$ must anticommute. These are the two blocks of the Weyl
 Hamiltonian of @exm-dq-weyl-alpha: without mass the four-component equation splits into two two-component ones
-(@exm-dirac-massless), and the eigenvalue sign of $\vec\sigma\cdot\hat p$ is the helicity of @def-dq-helicity.
+(@exm-dirac-massless), and the eigenvalue sign of $\boldsymbol\sigma\cdot\hat{\mathbf p}$ is the helicity of @def-dq-helicity.
 :::
 ::::
 
@@ -302,7 +302,7 @@ matrix in the Pauli basis.
 ::: {#exr-dq-no-fourth}
 #### No fourth Pauli matrix
 
-Write a $2 \times 2$ matrix as $M = a_01 + \vec a\cdot\vec\sigma$. Show that $M\sigma_k + \sigma_kM = 0$ for $k = 1, 2,
+Write a $2 \times 2$ matrix as $M = a_01 + \mathbf a\cdot\boldsymbol\sigma$. Show that $M\sigma_k + \sigma_kM = 0$ for $k = 1, 2,
 3$ forces $M = 0$. Conclude that no $2 \times 2$ solution of @eq-dq-alpha-beta exists.
 :::
 
@@ -431,7 +431,7 @@ the space reflection, which is not in the identity component and which the parit
 #### Space reflection
 
 For $\Lambda = \operatorname{diag}(1, -1, -1, -1)$, $S = \gamma^0$ satisfies $S^{-1}\gamma^0S = \gamma^0$ and
-$S^{-1}\gamma^kS = -\gamma^k$, so $\psi'(t, \vec x) = \gamma^0\psi(t, -\vec x)$ solves the Dirac equation whenever $\psi$
+$S^{-1}\gamma^kS = -\gamma^k$, so $\psi'(t, \mathbf x) = \gamma^0\psi(t, -\mathbf x)$ solves the Dirac equation whenever $\psi$
 does. In the Weyl representation $\gamma^0$ exchanges the upper and lower components: a reflection exchanges left- and
 right-handed spinors, which is why a theory of one chirality alone can violate parity.
 :::
@@ -476,12 +476,12 @@ halving gives the identity, which also holds trivially for $\mu = \nu$. Then $S^
 :::
 
 A boost in an arbitrary direction mixes all components. The third exercise checks @eq-dq-covariance with Sage for a
-boost along $\hat n = (1, 2, 2)/3$.
+boost along $\hat{\mathbf n} = (1, 2, 2)/3$.
 
 ::: {#exr-dq-boost-arbitrary}
 #### A boost in a general direction
 
-For $S = \exp(w\,n_kS^{0k})$ with $\hat n = (1, 2, 2)/3$ and $w = \log 2$, compute $S^{-1}\gamma^\mu S$ with Sage and
+For $S = \exp(w\,n_kS^{0k})$ with $\hat{\mathbf n} = (1, 2, 2)/3$ and $w = \log 2$, compute $S^{-1}\gamma^\mu S$ with Sage and
 compare with the vector boost $\Lambda^0{}_0 = \cosh w$, $\Lambda^0{}_k = \Lambda^k{}_0 = n_k\sinh w$, $\Lambda^j{}_k =
 \delta_{jk} + (\cosh w - 1)n_jn_k$.
 :::
@@ -567,8 +567,8 @@ of @exr-fld-dirac-rest.
 ::: {#exm-dq-bilinear-rest}
 #### A particle at rest
 
-For $u = \sqrt m(\xi, \xi)$ with $\xi^\dagger\xi = 1$: $\Omega = 2m\xi^\dagger\xi = 2m$, $j^\mu = (2m, \vec 0)$, $N = 0$, and
-$a^\mu = (0, 2m\,\xi^\dagger\vec\sigma\xi)$: the axial vector is twice the mass times the spin direction. Moving
+For $u = \sqrt m(\xi, \xi)$ with $\xi^\dagger\xi = 1$: $\Omega = 2m\xi^\dagger\xi = 2m$, $j^\mu = (2m, \mathbf 0)$, $N = 0$, and
+$a^\mu = (0, 2m\,\xi^\dagger\boldsymbol\sigma\xi)$: the axial vector is twice the mass times the spin direction. Moving
 particles have $j^\mu = 2p^\mu$ (@exm-dq-current-plane-wave), and the axial vector becomes the boosted spin vector.
 :::
 
@@ -678,15 +678,15 @@ computes the effect on all five types.
 ::: {#exr-dq-parity-bilinears}
 #### Bilinears under reflection
 
-For $\psi'(t, \vec x) = \gamma^0\psi(t, -\vec x)$, show that $\Omega' = \Omega$, $N' = -N$, $j'^0 = j^0$, $\vec j' = -\vec j$,
-$a'^0 = -a^0$ and $\vec a' = \vec a$, all evaluated at $(t, -\vec x)$.
+For $\psi'(t, \mathbf x) = \gamma^0\psi(t, -\mathbf x)$, show that $\Omega' = \Omega$, $N' = -N$, $j'^0 = j^0$, $\mathbf j' = -\mathbf j$,
+$a'^0 = -a^0$ and $\mathbf a' = \mathbf a$, all evaluated at $(t, -\mathbf x)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\overline{\psi'} = \psi^\dagger\gamma^0\gamma^0 = \bar\psi\gamma^0$, so $\overline{\psi'}\Gamma\psi' = \bar\psi\gamma^0\Gamma\gamma^0\psi$.
 $\gamma^0 1\gamma^0 = 1$; $\gamma^0\gamma_5\gamma^0 = -\gamma_5$; $\gamma^0\gamma^0\gamma^0 = \gamma^0$ and $\gamma^0\gamma^k\gamma^0 = -\gamma^k$;
 $\gamma^0\gamma^\mu\gamma_5\gamma^0 = -\gamma^0\gamma^\mu\gamma^0\gamma_5$, which is $-\gamma^0\gamma_5$ for $\mu = 0$ and $+\gamma^k\gamma_5$ for $\mu =
-k$. A vector has odd space components, an axial vector even ones: the spin $\vec a$ of @exm-dq-bilinear-rest does not
+k$. A vector has odd space components, an axial vector even ones: the spin $\mathbf a$ of @exm-dq-bilinear-rest does not
 change under a reflection, as an angular momentum should not.
 :::
 ::::
@@ -710,7 +710,7 @@ proposition that follows it.
 #### Dirac current
 
 The **Dirac current** of a spinor field $\psi$ is $j^\mu = \bar\psi\gamma^\mu\psi$, with **density** $\rho = j^0 =
-\psi^\dagger\psi$ and **current density** $\vec j = \psi^\dagger\vec\alpha\psi$; for a particle of charge $q$ the **electric
+\psi^\dagger\psi$ and **current density** $\mathbf j = \psi^\dagger\boldsymbol\alpha\psi$; for a particle of charge $q$ the **electric
 current** is $qj^\mu$. The **charge** is $Q = \int\rho\,d^3x$.
 :::
 ::::
@@ -723,20 +723,20 @@ first example computes it from the spinors of @exr-fld-dirac-plane-wave.
 #### The current of a plane wave
 
 For $\psi = u(p)e^{-ip\cdot x}$ with the spinor of @def-dq-dirac-spinors, $j^\mu = \bar u\gamma^\mu u = 2p^\mu$: the
-density is $2E$ and the current $2\vec p$, so the velocity $\vec j/\rho = \vec p/E$ is the classical velocity of a
+density is $2E$ and the current $2\mathbf p$, so the velocity $\mathbf j/\rho = \mathbf p/E$ is the classical velocity of a
 relativistic particle. The factor $2$ comes from the normalisation $\bar uu = 2m$, chosen so that the density transforms
 as the time component of $p^\mu$.
 :::
 
-The current density $\psi^\dagger\vec\alpha\psi$ suggests that $\vec\alpha$ is a velocity operator. The second example
+The current density $\psi^\dagger\boldsymbol\alpha\psi$ suggests that $\boldsymbol\alpha$ is a velocity operator. The second example
 confirms this from the Heisenberg equation and notes how strange this operator is.
 
 ::: {#exm-dq-velocity-operator}
 #### The velocity operator
 
-$\dot{\vec x} = i[H, \vec x] = \vec\alpha$ (@exr-dq-velocity-alpha). Each $\alpha_k$ has eigenvalues $\pm1$, so a measurement
+$\dot{\mathbf x} = i[H, \mathbf x] = \boldsymbol\alpha$ (@exr-dq-velocity-alpha). Each $\alpha_k$ has eigenvalues $\pm1$, so a measurement
 of a velocity component in the Dirac representation always gives the speed of light, and the components do not commute.
-The classical velocity $\vec p/E$ appears only as an average, the rest being the trembling motion of @prp-dq-zitterbewegung
+The classical velocity $\mathbf p/E$ appears only as an average, the rest being the trembling motion of @prp-dq-zitterbewegung
 @costella1995foldy [Sec. III].
 :::
 
@@ -747,8 +747,8 @@ the two kinds of plane wave and shows why Dirac looked for a first-order equatio
 #### The Klein-Gordon density
 
 For $(\Box + m^2)\phi = 0$ the conserved current is $j^\mu = i(\phi^*\partial^\mu\phi - \phi\partial^\mu\phi^*)$, with
-density $\rho = i(\phi^*\dot\phi - \phi\dot\phi^*)$. For $\phi = e^{-iEt + i\vec p\cdot\vec x}$, $\rho = 2E > 0$; for $\phi =
-e^{+iEt + i\vec p\cdot\vec x}$, $\rho = -2E < 0$. A superposition can have a density that changes sign, so $\rho$ is not a
+density $\rho = i(\phi^*\dot\phi - \phi\dot\phi^*)$. For $\phi = e^{-iEt + i\mathbf p\cdot\mathbf x}$, $\rho = 2E > 0$; for $\phi =
+e^{+iEt + i\mathbf p\cdot\mathbf x}$, $\rho = -2E < 0$. A superposition can have a density that changes sign, so $\rho$ is not a
 probability density; the Dirac density $\psi^\dagger\psi$ is positive whatever the energy.
 :::
 ::::
@@ -760,7 +760,7 @@ i\delta_{jk}$.
 ::: {#exr-dq-velocity-alpha}
 #### Velocity from the Hamiltonian
 
-Show that $i[H, x_k] = \alpha_k$ for $H = \vec\alpha\cdot\vec p + \beta m + V(\vec x)$, and that $i[H, \alpha_k] = 2i(H\alpha_k -
+Show that $i[H, x_k] = \alpha_k$ for $H = \boldsymbol\alpha\cdot\mathbf p + \beta m + V(\mathbf x)$, and that $i[H, \alpha_k] = 2i(H\alpha_k -
 p_k)$ for $V = 0$.
 :::
 
@@ -835,14 +835,14 @@ probability density. The proposition below states them together with the causal 
 
 If $\psi$ solves the Dirac equation, free or coupled to an electromagnetic potential as in @def-dq-minimal-coupling,
 then $\partial_\mu j^\mu = 0$, so $Q = \int\psi^\dagger\psi\,d^3x$ is constant for solutions that decay at infinity.
-Moreover $\rho = \psi^\dagger\psi \geq 0$ and $|\vec j| \leq \rho$, so $j^\mu$ is a future-directed timelike or null vector
+Moreover $\rho = \psi^\dagger\psi \geq 0$ and $|\mathbf j| \leq \rho$, so $j^\mu$ is a future-directed timelike or null vector
 @zhelnorovich2019spinors [Sec. 3.2.1].
 
 *Proof.* The conjugate of $(i\gamma^\mu D_\mu - m)\psi = 0$, multiplied by $\gamma^0$ on the right, is $\bar\psi(i\gamma^\mu
 \overleftarrow{\partial_\mu} + q\gamma^\mu A_\mu + m) = 0$. Multiplying the equation by $\bar\psi$ on the left, the conjugate by
 $\psi$ on the right, and adding, the mass and potential terms cancel and $i\partial_\mu(\bar\psi\gamma^\mu\psi) = 0$
-remains. For the bound, $\hat n\cdot\vec\alpha$ has eigenvalues $\pm1$ for any unit vector $\hat n$, so $|\psi^\dagger(\hat
-n\cdot\vec\alpha)\psi| \leq \psi^\dagger\psi$; choosing $\hat n$ along $\vec j$ gives $|\vec j| \leq \rho$.
+remains. For the bound, $\hat{\mathbf n}\cdot\boldsymbol\alpha$ has eigenvalues $\pm1$ for any unit vector $\hat{\mathbf n}$, so $|\psi^\dagger(\hat{\mathbf
+n}\cdot\boldsymbol\alpha)\psi| \leq \psi^\dagger\psi$; choosing $\hat{\mathbf n}$ along $\mathbf j$ gives $|\mathbf j| \leq \rho$.
 :::
 ::::
 
@@ -877,7 +877,7 @@ the proposition to the packet of @fig-dq-packet.
 ::: {#exm-dq-causal-current}
 #### Causal propagation
 
-The local velocity $\vec j/\rho$ has magnitude at most $1$, so probability flows no faster than light. In
+The local velocity $\mathbf j/\rho$ has magnitude at most $1$, so probability flows no faster than light. In
 @fig-dq-packet the density outside the light cone of the initial packet stays negligible, and the mean position moves
 with the average group velocity $\langle p/E\rangle$, slightly below $p_0/E_0$ because the slower components of the
 packet weigh in.
@@ -921,20 +921,20 @@ so the sum is $im\bar\psi\gamma_5\psi - \bar\psi\gamma_5(-im\psi) = 2im\bar\psi\
 term is the only obstruction: for $m = 0$ the left- and right-handed currents are conserved separately.
 :::
 
-The bound $|\vec j| \leq \rho$ rests on the eigenvalues of $\hat n\cdot\vec\alpha$. The third exercise checks the bound
+The bound $|\mathbf j| \leq \rho$ rests on the eigenvalues of $\hat{\mathbf n}\cdot\boldsymbol\alpha$. The third exercise checks the bound
 numerically on random spinors with Sage, together with the equality case.
 
 ::: {#exr-dq-positivity}
 #### The current is causal
 
-With Sage, evaluate $\rho$ and $|\vec j|$ for a few hundred random spinors and check $|\vec j| \leq \rho$. Show that
-equality holds for an eigenvector of $\hat n\cdot\vec\alpha$, and that in the Weyl representation the spinor $(1, 0, 0, 0)$ is
+With Sage, evaluate $\rho$ and $|\mathbf j|$ for a few hundred random spinors and check $|\mathbf j| \leq \rho$. Show that
+equality holds for an eigenvector of $\hat{\mathbf n}\cdot\boldsymbol\alpha$, and that in the Weyl representation the spinor $(1, 0, 0, 0)$ is
 such an eigenvector. What does a massless left-handed particle moving along $-z$ have to do with it?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-In the Weyl representation $\alpha_3 = \operatorname{diag}(-1, 1, 1, -1)$, so $(1, 0, 0, 0)$ has $\alpha_3 = -1$ and $\vec j =
--\rho\hat z$: a null current, the current of a massless left-handed particle with spin up moving along $-z$ at the speed
+In the Weyl representation $\alpha_3 = \operatorname{diag}(-1, 1, 1, -1)$, so $(1, 0, 0, 0)$ has $\alpha_3 = -1$ and $\mathbf j =
+-\rho\hat{\mathbf z}$: a null current, the current of a massless left-handed particle with spin up moving along $-z$ at the speed
 of light:
 
 ```python
@@ -1070,14 +1070,14 @@ component $\sqrt{E + m}$ and the small one $p/\sqrt{E + m}$, whose ratio is $v/2
 representation: the left- and right-handed components $\sqrt{E \mp p}$. Generated by
 `figures/dq-spinors.sage`.](figures/dq-spinors.svg){#fig-dq-spinors width=90%}
 
-The definition below names the solutions. It uses the matrices $p\cdot\sigma = p_\mu\sigma^\mu = E - \vec p\cdot\vec\sigma$
-and $p\cdot\bar\sigma = E + \vec p\cdot\vec\sigma$, which are positive definite and have positive square roots.
+The definition below names the solutions. It uses the matrices $p\cdot\sigma = p_\mu\sigma^\mu = E - \mathbf p\cdot\boldsymbol\sigma$
+and $p\cdot\bar\sigma = E + \mathbf p\cdot\boldsymbol\sigma$, which are positive definite and have positive square roots.
 
 :::: {.statement-box}
 ::: {#def-dq-dirac-spinors}
 #### Dirac spinors
 
-For a momentum $\vec p$, $E = E_p = \sqrt{\vec p^{\,2} + m^2}$ and orthonormal two-component spinors $\xi^s$, $\eta^s$ ($s
+For a momentum $\mathbf p$, $E = E_p = \sqrt{\mathbf p^{\,2} + m^2}$ and orthonormal two-component spinors $\xi^s$, $\eta^s$ ($s
 = 1, 2$), the **Dirac spinors** are
 $$
 u^s(p) = \begin{pmatrix} \sqrt{p\cdot\sigma}\,\xi^s \\ \sqrt{p\cdot\bar\sigma}\,\xi^s\end{pmatrix}, \qquad v^s(p) =
@@ -1096,7 +1096,7 @@ relates them to the solutions found in @exr-fld-dirac-rest.
 ::: {#exm-dq-rest-spinors}
 #### Spinors at rest
 
-At $\vec p = 0$: $u^s = \sqrt m(\xi^s, \xi^s)$ and $v^s = \sqrt m(\eta^s, -\eta^s)$. They are the eigenvectors of $\gamma^0$
+At $\mathbf p = 0$: $u^s = \sqrt m(\xi^s, \xi^s)$ and $v^s = \sqrt m(\eta^s, -\eta^s)$. They are the eigenvectors of $\gamma^0$
 with eigenvalues $+1$ and $-1$, as required by $(m\gamma^0 \mp m)\psi = 0$. With $\xi^1 = (1, 0)$, $\xi^2 = (0, 1)$ the
 two $u$ describe spin up and spin down along $z$; the $\eta^s$ are labels whose physical meaning appears with charge
 conjugation (@exm-dq-c-plane-wave).
@@ -1120,9 +1120,9 @@ third example gives the spinors there.
 ::: {#exm-dq-dirac-rep-spinors}
 #### The Dirac representation
 
-With the change of basis $U$ of @exr-fld-gamma-dirac-rep, $u^s = \big(\sqrt{E + m}\,\xi^s, \frac{\vec\sigma\cdot\vec
-p}{\sqrt{E + m}}\xi^s\big)$. The lower ("small") component is smaller than the upper ("large") one by $|\vec p|/(E + m)
-\approx v/2$, as in the left panel of @fig-dq-spinors; this ratio reappears as $\chi \approx (\vec\sigma\cdot\vec\pi/2m)\varphi$ in
+With the change of basis $U$ of @exr-fld-gamma-dirac-rep, $u^s = \big(\sqrt{E + m}\,\xi^s, \frac{\boldsymbol\sigma\cdot\mathbf
+p}{\sqrt{E + m}}\xi^s\big)$. The lower ("small") component is smaller than the upper ("large") one by $|\mathbf p|/(E + m)
+\approx v/2$, as in the left panel of @fig-dq-spinors; this ratio reappears as $\chi \approx (\boldsymbol\sigma\cdot\boldsymbol\pi/2m)\varphi$ in
 the Pauli equation (@thm-dq-pauli-limit).
 :::
 
@@ -1133,8 +1133,8 @@ The spinors at finite momentum are the boosted rest spinors, as covariance requi
 #### Boosting the rest spinors
 
 For the boost $S$ of @exm-dq-boost-s, $S\,u^s(0) = u^s(p)$ with $p = m\sinh w$ along $z$, and in general $u^s(p) =
-S(\Lambda_p)u^s(0)$ for the pure boost $\Lambda_p$ taking $(m, \vec 0)$ to $p$. The identity $\sqrt{p\cdot\sigma} =
-\sqrt m\,e^{-w\hat p\cdot\vec\sigma/2}$ shows that @eq-dq-spinors is this boost written out, the left block being the
+S(\Lambda_p)u^s(0)$ for the pure boost $\Lambda_p$ taking $(m, \mathbf 0)$ to $p$. The identity $\sqrt{p\cdot\sigma} =
+\sqrt m\,e^{-w\hat{\mathbf p}\cdot\boldsymbol\sigma/2}$ shows that @eq-dq-spinors is this boost written out, the left block being the
 $SL(2, \mathbb{C})$ matrix of @exm-spd-spin-lorentz.
 :::
 ::::
@@ -1151,8 +1151,8 @@ Show that $(p\cdot\sigma)(p\cdot\bar\sigma) = p^2 = m^2$, and use $p\!\!\!/ = \b
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(E - \vec p\cdot\vec\sigma)(E + \vec p\cdot\vec\sigma) = E^2 - (\vec p\cdot\vec\sigma)^2 = E^2 - \vec p^{\,2} = m^2$. Both matrices are
-functions of $\vec p\cdot\vec\sigma$, so they commute, as do their square roots, and $\sqrt{p\cdot\sigma}\sqrt{p\cdot\bar\sigma} =
+$(E - \mathbf p\cdot\boldsymbol\sigma)(E + \mathbf p\cdot\boldsymbol\sigma) = E^2 - (\mathbf p\cdot\boldsymbol\sigma)^2 = E^2 - \mathbf p^{\,2} = m^2$. Both matrices are
+functions of $\mathbf p\cdot\boldsymbol\sigma$, so they commute, as do their square roots, and $\sqrt{p\cdot\sigma}\sqrt{p\cdot\bar\sigma} =
 m$. The upper row of $(p\!\!\!/ - m)u$ is $p\cdot\sigma\sqrt{p\cdot\bar\sigma}\xi - m\sqrt{p\cdot\sigma}\xi = \sqrt{p\cdot\sigma}(\sqrt{p\cdot\sigma}
 \sqrt{p\cdot\bar\sigma} - m)\xi = 0$, and the lower row likewise. For $v$ the signs of the lower block and of $m$ change
 together.
@@ -1165,8 +1165,8 @@ components of @exm-dq-dirac-rep-spinors.
 #### To the Dirac representation
 
 With Sage, apply $U = \tfrac{1}{\sqrt2}\begin{pmatrix} 1 & 1 \\ -1 & 1\end{pmatrix}$ (in $2 \times 2$ blocks) to $u^\uparrow$ for
-the momentum $\vec p = (0, 0, p)$ in rapidity form, and compare with $(\sqrt{E + m}\,\xi, \vec\sigma\cdot\vec p\,\xi/\sqrt{E +
-m})$. Check also that $U\gamma^\mu U^{\mathsf T}$ is the Dirac representation.
+the momentum $\mathbf p = (0, 0, p)$ in rapidity form, and compare with $(\sqrt{E + m}\,\xi, \boldsymbol\sigma\cdot\mathbf p\,\xi/\sqrt{E +
+m})$. Check also that $U\gamma^\mu U^\top$ is the Dirac representation.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1206,12 +1206,12 @@ does this with Sage, for both spin states.
 ::: {#exr-dq-boost-rest}
 #### Boosted rest spinors
 
-For $\hat n = (3, 0, 4)/5$ and $w = \log 2$, compute with Sage $S = \exp(w\,n_kS^{0k})$, apply it to $u^s(0)$ for $m = 1$,
-and compare with @eq-dq-spinors for $\vec p = \sinh w\,\hat n$, using $\sqrt{p\cdot\sigma} = e^{-w\hat n\cdot\vec\sigma/2}$.
+For $\hat{\mathbf n} = (3, 0, 4)/5$ and $w = \log 2$, compute with Sage $S = \exp(w\,n_kS^{0k})$, apply it to $u^s(0)$ for $m = 1$,
+and compare with @eq-dq-spinors for $\mathbf p = \sinh w\,\hat{\mathbf n}$, using $\sqrt{p\cdot\sigma} = e^{-w\hat{\mathbf n}\cdot\boldsymbol\sigma/2}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The exponentials of $\hat n\cdot\vec\sigma$ are $\cosh\tfrac w2 \mp \hat n\cdot\vec\sigma\sinh\tfrac w2$, and with $w = \log 2$ these
+The exponentials of $\hat{\mathbf n}\cdot\boldsymbol\sigma$ are $\cosh\tfrac w2 \mp \hat{\mathbf n}\cdot\boldsymbol\sigma\sinh\tfrac w2$, and with $w = \log 2$ these
 have entries in $\mathbb{Q}(\sqrt2)$, so the comparison is exact:
 
 ```python
@@ -1252,15 +1252,15 @@ relation explicit, which is the first step of the hole interpretation of @sec-kl
 ::: {#exr-dq-negative-energy-meaning}
 #### What the negative-energy solutions carry
 
-Show that $v^s(p)e^{+ip\cdot x}$ is an eigenfunction of $H$ with energy $-E_p$ and of $\vec p = -i\nabla$ with momentum
-$-\vec p$. Show that its current is $\bar v\gamma^\mu v = 2p^\mu$, so the density is still positive.
+Show that $v^s(p)e^{+ip\cdot x}$ is an eigenfunction of $H$ with energy $-E_p$ and of $\mathbf p = -i\nabla$ with momentum
+$-\mathbf p$. Show that its current is $\bar v\gamma^\mu v = 2p^\mu$, so the density is still positive.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$e^{ip\cdot x} = e^{iEt - i\vec p\cdot\vec x}$, so $i\partial_t$ gives $-E$ and $-i\nabla$ gives $-\vec p$. The current of
+$e^{ip\cdot x} = e^{iEt - i\mathbf p\cdot\mathbf x}$, so $i\partial_t$ gives $-E$ and $-i\nabla$ gives $-\mathbf p$. The current of
 $v^s$ follows as in @exm-dq-current-plane-wave: $\bar v\gamma^\mu v = 2p^\mu$ (@exr-dq-spin-sum-sage computes the
 $\mu = 0$ component $v^\dagger v = 2E$). So the solution carries negative energy and reversed momentum but positive
-probability, and its velocity $\vec j/\rho = \vec p/E$ is opposite to its momentum $-\vec p$: the group velocity of
+probability, and its velocity $\mathbf j/\rho = \mathbf p/E$ is opposite to its momentum $-\mathbf p$: the group velocity of
 the negative branch of @fig-dq-dispersion.
 :::
 
@@ -1294,7 +1294,7 @@ collects the relations used in every computation with free fermions.
 For the spinors @eq-dq-spinors with orthonormal $\xi^s$, $\eta^s$:
 $$
 \bar u^ru^s = 2m\delta^{rs}, \quad \bar v^rv^s = -2m\delta^{rs}, \quad \bar u^rv^s = 0, \quad u^{r\dagger}u^s =
-v^{r\dagger}v^s = 2E\delta^{rs}, \quad u^{r\dagger}(\vec p)v^s(-\vec p) = 0,
+v^{r\dagger}v^s = 2E\delta^{rs}, \quad u^{r\dagger}(\mathbf p)v^s(-\mathbf p) = 0,
 $$ {#eq-dq-normalisation}
 and
 $$
@@ -1316,7 +1316,7 @@ where it is transparent.
 ::: {#exm-dq-rest-sums}
 #### Completeness at rest
 
-At $\vec p = 0$, $\sum_su^s\bar u^s = m\sum_s(\xi^s, \xi^s)(\xi^{s\dagger}, \xi^{s\dagger})\gamma^0 = m\begin{pmatrix} 1 & 1 \\ 1 &
+At $\mathbf p = 0$, $\sum_su^s\bar u^s = m\sum_s(\xi^s, \xi^s)(\xi^{s\dagger}, \xi^{s\dagger})\gamma^0 = m\begin{pmatrix} 1 & 1 \\ 1 &
 1\end{pmatrix}$, which is $m(\gamma^0 + 1) = p\!\!\!/ + m$ with $p\!\!\!/ = m\gamma^0$. Similarly $\sum v\bar v = m(\gamma^0 - 1)$. The two
 matrices $\tfrac12(1 \pm \gamma^0)$ are the projectors onto the two eigenspaces of $\gamma^0$: completeness is the statement that
 these eigenspaces fill $\mathbb{C}^4$.
@@ -1341,8 +1341,8 @@ scattering of an electron by a static Coulomb field, which gives the relativisti
 #### The spin sum of Coulomb scattering
 
 A static potential couples through $\bar u(p')\gamma^0u(p)$, and summing over both spins, $\sum_{s, s'}|\bar u^{s'}(p')\gamma^0u^s(p)|^2 =
-\operatorname{tr}[(p\!\!\!/' + m)\gamma^0(p\!\!\!/ + m)\gamma^0] = 4(EE' + \vec p\cdot\vec p\,' + m^2)$. For elastic scattering by
-an angle $\theta$, $E' = E$ and $\vec p\cdot\vec p\,' = p^2\cos\theta$, so the sum is $8E^2(1 - v^2\sin^2\tfrac\theta2)$: backward
+\operatorname{tr}[(p\!\!\!/' + m)\gamma^0(p\!\!\!/ + m)\gamma^0] = 4(EE' + \mathbf p\cdot\mathbf p\,' + m^2)$. For elastic scattering by
+an angle $\theta$, $E' = E$ and $\mathbf p\cdot\mathbf p\,' = p^2\cos\theta$, so the sum is $8E^2(1 - v^2\sin^2\tfrac\theta2)$: backward
 scattering of a fast electron is suppressed because its helicity is nearly conserved (@prp-dq-chirality-helicity).
 :::
 ::::
@@ -1354,7 +1354,7 @@ momentum so that the energy is rational keeps the computation exact.
 ::: {#exr-dq-spin-sum-sage}
 #### Completeness by computer
 
-For $m = 24$ and $\vec p = (2, 3, 6)$, so $E = 25$, build $u^s$ and $v^s$ with Sage from $u^s = (p\!\!\!/ + m)u^s(0)/\sqrt{2m(E +
+For $m = 24$ and $\mathbf p = (2, 3, 6)$, so $E = 25$, build $u^s$ and $v^s$ with Sage from $u^s = (p\!\!\!/ + m)u^s(0)/\sqrt{2m(E +
 m)}$ and $v^s = (-p\!\!\!/ + m)v^s(0)/\sqrt{2m(E + m)}$, and verify @eq-dq-normalisation and @eq-dq-spin-sums.
 :::
 
@@ -1408,16 +1408,16 @@ The second exercise proves the two that are not obvious.
 ::: {#exr-dq-orthogonality}
 #### Orthogonality of $u$ and $v$
 
-Show that $\bar u^r(p)v^s(p) = 0$ and $u^{r\dagger}(\vec p)v^s(-\vec p) = 0$. Why is $u^{r\dagger}(\vec p)v^s(\vec p)$ not
+Show that $\bar u^r(p)v^s(p) = 0$ and $u^{r\dagger}(\mathbf p)v^s(-\mathbf p) = 0$. Why is $u^{r\dagger}(\mathbf p)v^s(\mathbf p)$ not
 zero in general, and why does this not matter?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\bar u^rv^s = \xi^{r\dagger}(\sqrt{p\cdot\bar\sigma}\sqrt{p\cdot\sigma} - \sqrt{p\cdot\sigma}\sqrt{p\cdot\bar\sigma})\eta^s = 0$. Replacing $\vec
-p$ by $-\vec p$ exchanges $p\cdot\sigma$ and $p\cdot\bar\sigma$, so $u^{r\dagger}(\vec p)v^s(-\vec p) = \xi^{r\dagger}(\sqrt{p\cdot\sigma}
+$\bar u^rv^s = \xi^{r\dagger}(\sqrt{p\cdot\bar\sigma}\sqrt{p\cdot\sigma} - \sqrt{p\cdot\sigma}\sqrt{p\cdot\bar\sigma})\eta^s = 0$. Replacing $\mathbf
+p$ by $-\mathbf p$ exchanges $p\cdot\sigma$ and $p\cdot\bar\sigma$, so $u^{r\dagger}(\mathbf p)v^s(-\mathbf p) = \xi^{r\dagger}(\sqrt{p\cdot\sigma}
 \sqrt{p\cdot\bar\sigma} - \sqrt{p\cdot\bar\sigma}\sqrt{p\cdot\sigma})\eta^s = 0$. The pair that shares the spatial dependence
-$e^{i\vec p\cdot\vec x}$ is $u(\vec p)e^{-iEt}$ and $v(-\vec p)e^{iEt}$, so this is the orthogonality of the two energy
-eigenvectors of $H(\vec p)$; $u(\vec p)$ and $v(\vec p)$ have different spatial dependence and are orthogonal as functions.
+$e^{i\mathbf p\cdot\mathbf x}$ is $u(\mathbf p)e^{-iEt}$ and $v(-\mathbf p)e^{iEt}$, so this is the orthogonality of the two energy
+eigenvectors of $H(\mathbf p)$; $u(\mathbf p)$ and $v(\mathbf p)$ have different spatial dependence and are orthogonal as functions.
 :::
 
 The completeness relation can be derived without square roots, from the rest frame and covariance. The third exercise
@@ -1499,8 +1499,8 @@ $$
 \Lambda_\pm(p) = \frac{\pm p\!\!\!/ + m}{2m} .
 $$ {#eq-dq-energy-projectors}
 $\Lambda_+(p)$ projects onto the span of the $u^s(p)$ and $\Lambda_-(p)$ onto the span of the $v^s(p)$; equivalently, on
-momentum-space wave functions, $\tfrac12(1 \pm H(\vec p)/E_p)$ project onto the positive- and negative-energy eigenspaces of
-$H(\vec p) = \vec\alpha\cdot\vec p + \beta m$.
+momentum-space wave functions, $\tfrac12(1 \pm H(\mathbf p)/E_p)$ project onto the positive- and negative-energy eigenspaces of
+$H(\mathbf p) = \boldsymbol\alpha\cdot\mathbf p + \beta m$.
 :::
 ::::
 
@@ -1511,7 +1511,7 @@ upper or lower components in the Dirac representation.
 ::: {#exm-dq-energy-projector-rest}
 #### Projectors at rest
 
-At $\vec p = 0$, $\Lambda_\pm = \tfrac12(1 \pm \gamma^0)$. In the Dirac representation $\gamma^0 = \operatorname{diag}(1, -1)$, so
+At $\mathbf p = 0$, $\Lambda_\pm = \tfrac12(1 \pm \gamma^0)$. In the Dirac representation $\gamma^0 = \operatorname{diag}(1, -1)$, so
 $\Lambda_+$ keeps the upper and $\Lambda_-$ the lower components; in the Weyl representation $\Lambda_+ = \tfrac12\begin{pmatrix} 1
 & 1 \\ 1 & 1\end{pmatrix}$ keeps the symmetric combinations $(\xi, \xi)$. In either case $\Lambda_+ + \Lambda_- = 1$ and
 $\Lambda_+\Lambda_- = 0$.
@@ -1523,20 +1523,20 @@ one. The second example works out the relation.
 ::: {#exm-dq-energy-projector-hamiltonian}
 #### Covariant and Hamiltonian projectors
 
-The projector onto positive energies of $H(\vec p)$ in the $\psi^\dagger\psi$ inner product is $P_+ = \sum_su^su^{s\dagger}/2E =
-\Lambda_+(p)\gamma^0m/E$. With $p\!\!\!/ = E\gamma^0 - \vec p\cdot\vec\gamma$ and $H = \gamma^0(\vec\gamma\cdot\vec p + m)$ this equals
+The projector onto positive energies of $H(\mathbf p)$ in the $\psi^\dagger\psi$ inner product is $P_+ = \sum_su^su^{s\dagger}/2E =
+\Lambda_+(p)\gamma^0m/E$. With $p\!\!\!/ = E\gamma^0 - \mathbf p\cdot\boldsymbol\gamma$ and $H = \gamma^0(\boldsymbol\gamma\cdot\mathbf p + m)$ this equals
 $\tfrac12(1 + H/E)$. The two kinds of projector agree on the spinors but are orthogonal in different inner products, $\bar\psi\chi$
 and $\psi^\dagger\chi$.
 :::
 
-The positive-energy part of a localised state is not localised, since $E_p$ is not a polynomial in $\vec p$. The third
+The positive-energy part of a localised state is not localised, since $E_p$ is not a polynomial in $\mathbf p$. The third
 example states the consequence, which is behind the Newton-Wigner position of @costella1995foldy [Sec. II].
 
 ::: {#exm-dq-projector-nonlocal}
 #### Positive energy is not local
 
 $\tfrac12(1 + H/E)$ acts in position space by convolution with a kernel built from $(-\Delta + m^2)^{-1/2}$, which decays
-like $e^{-m|\vec x|}$: projecting a state localised at a point onto positive energies spreads it over a Compton wavelength
+like $e^{-m|\mathbf x|}$: projecting a state localised at a point onto positive energies spreads it over a Compton wavelength
 $1/m$. A wave packet made only of positive energies, as in @fig-dq-packet, cannot be sharper than this without
 negative-energy components, and those cause the trembling of @fig-dq-zitterbewegung.
 :::
@@ -1566,7 +1566,7 @@ and the action on the spinors.
 ::: {#exr-dq-projector-sage}
 #### Projectors by computer
 
-With Sage, for $m = 24$ and $\vec p = (2, 3, 6)$, compute $\Lambda_\pm$, their ranks, $\Lambda_+u^s$, $\Lambda_+v^s$, and verify that
+With Sage, for $m = 24$ and $\mathbf p = (2, 3, 6)$, compute $\Lambda_\pm$, their ranks, $\Lambda_+u^s$, $\Lambda_+v^s$, and verify that
 $\tfrac12(1 + H/E)$ is a Hermitian projector of rank two that fixes $u^s$.
 :::
 
@@ -1609,7 +1609,7 @@ properties directly from $H^2 = E^2$.
 ::: {#exr-dq-hamiltonian-projector}
 #### Hamiltonian projectors
 
-Show that $P_\pm = \tfrac12(1 \pm H(\vec p)/E_p)$ are Hermitian, satisfy $P_\pm^2 = P_\pm$, $P_+P_- = 0$, $HP_\pm = \pm E_pP_\pm$,
+Show that $P_\pm = \tfrac12(1 \pm H(\mathbf p)/E_p)$ are Hermitian, satisfy $P_\pm^2 = P_\pm$, $P_+P_- = 0$, $HP_\pm = \pm E_pP_\pm$,
 and that $e^{-iHt} = e^{-iE_pt}P_+ + e^{iE_pt}P_-$.
 :::
 
@@ -1627,11 +1627,11 @@ definition below names this component, following @pal2011majorana [Sec. 4.1].
 ::: {#def-dq-helicity}
 #### Helicity
 
-The **spin operator** of the Dirac theory is $\vec S = \tfrac12\vec\Sigma$ with $\Sigma_k = \tfrac{i}{2}\epsilon_{kij}\gamma^i\gamma^j =
+The **spin operator** of the Dirac theory is $\mathbf S = \tfrac12\boldsymbol\Sigma$ with $\Sigma_k = \tfrac{i}{2}\epsilon_{kij}\gamma^i\gamma^j =
 \operatorname{diag}(\sigma_k, \sigma_k)$ in both the Weyl and the Dirac representation. The **helicity** of a state of momentum
-$\vec p \neq 0$ is the eigenvalue $h = \pm1$ of
+$\mathbf p \neq 0$ is the eigenvalue $h = \pm1$ of
 $$
-h(\vec p) = \vec\Sigma\cdot\hat p, \qquad \hat p = \vec p/|\vec p| ,
+h(\mathbf p) = \boldsymbol\Sigma\cdot\hat{\mathbf p}, \qquad \hat{\mathbf p} = \mathbf p/|\mathbf p| ,
 $$ {#eq-dq-helicity}
 twice the spin along the direction of motion; $h = +1$ is called right-helical and $h = -1$ left-helical
 @pal2011majorana [Sec. 4.1, eqs. (4.1)-(4.3)].
@@ -1645,10 +1645,10 @@ to build helicity eigenstates in general.
 ::: {#exm-dq-helicity-z}
 #### Helicity of the spinors
 
-For $\vec p$ along $+z$, $h = \Sigma_3$, so $u^\uparrow$ has $h = +1$ and $u^\downarrow$ has $h = -1$. For a general direction, choosing
-$\xi$ as an eigenvector of $\vec\sigma\cdot\hat p$ with eigenvalue $h$ makes $u(p)$ an eigenvector of $h(\vec p)$ with the
-same eigenvalue, because $\sqrt{p\cdot\sigma} = \sqrt{E - h|\vec p|}$ on such $\xi$ is a number: $u = (\sqrt{E - h|\vec
-p|}\,\xi, \sqrt{E + h|\vec p|}\,\xi)$.
+For $\mathbf p$ along $+z$, $h = \Sigma_3$, so $u^\uparrow$ has $h = +1$ and $u^\downarrow$ has $h = -1$. For a general direction, choosing
+$\xi$ as an eigenvector of $\boldsymbol\sigma\cdot\hat{\mathbf p}$ with eigenvalue $h$ makes $u(p)$ an eigenvector of $h(\mathbf p)$ with the
+same eigenvalue, because $\sqrt{p\cdot\sigma} = \sqrt{E - h|\mathbf p|}$ on such $\xi$ is a number: $u = (\sqrt{E - h|\mathbf
+p|}\,\xi, \sqrt{E + h|\mathbf p|}\,\xi)$.
 :::
 
 Helicity is conserved for a free particle but depends on the observer. The second example gives both facts, with the
@@ -1657,8 +1657,8 @@ argument of @pal2011majorana [Sec. 4.1].
 ::: {#exm-dq-helicity-frame}
 #### Conserved but not invariant
 
-$[H, \vec\Sigma\cdot\vec p] = 0$, so helicity is a constant of the free motion (@exr-dq-helicity-commute). But an observer
-moving along $\hat p$ faster than a massive particle sees its momentum reversed while its spin, a component of the
+$[H, \boldsymbol\Sigma\cdot\mathbf p] = 0$, so helicity is a constant of the free motion (@exr-dq-helicity-commute). But an observer
+moving along $\hat{\mathbf p}$ faster than a massive particle sees its momentum reversed while its spin, a component of the
 antisymmetric tensor $M^{ij}$ transverse to the boost, is unchanged: the helicity flips. Only for $m = 0$, where no observer
 overtakes the particle, is helicity Lorentz invariant.
 :::
@@ -1669,9 +1669,9 @@ form of the Hamiltonian, anticipating @prp-dq-chirality-helicity.
 ::: {#exm-dq-helicity-massless}
 #### Massless particles
 
-For $m = 0$, $H = \operatorname{diag}(-\vec\sigma\cdot\vec p, \vec\sigma\cdot\vec p)$ (@exm-dq-weyl-alpha). A positive-energy
-right-handed state $(0, \chi)$ has $\vec\sigma\cdot\vec p\chi = |\vec p|\chi$, so $h = +1$; a positive-energy left-handed state
-$(\chi, 0)$ has $-\vec\sigma\cdot\vec p\chi = |\vec p|\chi$, so $h = -1$. For massless fermions chirality is helicity, and for
+For $m = 0$, $H = \operatorname{diag}(-\boldsymbol\sigma\cdot\mathbf p, \boldsymbol\sigma\cdot\mathbf p)$ (@exm-dq-weyl-alpha). A positive-energy
+right-handed state $(0, \chi)$ has $\boldsymbol\sigma\cdot\mathbf p\chi = |\mathbf p|\chi$, so $h = +1$; a positive-energy left-handed state
+$(\chi, 0)$ has $-\boldsymbol\sigma\cdot\mathbf p\chi = |\mathbf p|\chi$, so $h = -1$. For massless fermions chirality is helicity, and for
 negative energies the relation is reversed.
 :::
 ::::
@@ -1683,15 +1683,15 @@ survives although the spin does not.
 ::: {#exr-dq-helicity-commute}
 #### What commutes with $H$
 
-For the free $H$, show that $[H, \Sigma_3] \neq 0$ when $\vec p$ is not along $z$, that $[H, \vec\Sigma\cdot\vec p] = 0$, and that
-$\vec J = \vec L + \tfrac12\vec\Sigma$ commutes with $H$ although $\vec L = \vec x \times \vec p$ does not.
+For the free $H$, show that $[H, \Sigma_3] \neq 0$ when $\mathbf p$ is not along $z$, that $[H, \boldsymbol\Sigma\cdot\mathbf p] = 0$, and that
+$\mathbf J = \mathbf L + \tfrac12\boldsymbol\Sigma$ commutes with $H$ although $\mathbf L = \mathbf x \times \mathbf p$ does not.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\Sigma_k$ commutes with $\beta$ and $[\alpha_j, \Sigma_k] = 2i\epsilon_{jkl}\alpha_l$, so $[H, \Sigma_k] = 2i\epsilon_{jkl}p_j\alpha_l = 2i(\vec
-\alpha \times \vec p)_k$, non-zero unless $\vec p \parallel \hat k$. Contracting with $p_k$ gives $(\vec\alpha \times \vec p)\cdot\vec p
-= 0$, so helicity commutes. $[H, L_k] = [\alpha_jp_j, \epsilon_{klm}x_lp_m] = -i\epsilon_{klm}\alpha_lp_m = -i(\vec\alpha \times \vec
-p)_k$, and $[H, L_k + \tfrac12\Sigma_k] = -i(\vec\alpha \times \vec p)_k + i(\vec\alpha \times \vec p)_k = 0$: only the total angular
+$\Sigma_k$ commutes with $\beta$ and $[\alpha_j, \Sigma_k] = 2i\epsilon_{jkl}\alpha_l$, so $[H, \Sigma_k] = 2i\epsilon_{jkl}p_j\alpha_l = 2i(\boldsymbol
+\alpha \times \mathbf p)_k$, non-zero unless $\mathbf p \parallel \hat{\mathbf k}$. Contracting with $p_k$ gives $(\boldsymbol\alpha \times \mathbf p)\cdot\mathbf p
+= 0$, so helicity commutes. $[H, L_k] = [\alpha_jp_j, \epsilon_{klm}x_lp_m] = -i\epsilon_{klm}\alpha_lp_m = -i(\boldsymbol\alpha \times \mathbf
+p)_k$, and $[H, L_k + \tfrac12\Sigma_k] = -i(\boldsymbol\alpha \times \mathbf p)_k + i(\boldsymbol\alpha \times \mathbf p)_k = 0$: only the total angular
 momentum is conserved, which is why the Dirac hydrogen atom is labelled by $j$.
 :::
 
@@ -1701,9 +1701,9 @@ with Sage.
 ::: {#exr-dq-helicity-eigen}
 #### A helicity eigenstate
 
-For $m = 1$ and $\vec p = (2, 2, 1)$, so $E = \sqrt{10}$ and $|\vec p| = 3$, find with Sage the eigenvector $\xi$ of
-$\vec\sigma\cdot\hat p$ with eigenvalue $+1$, build $u = (\sqrt{E - 3}\,\xi, \sqrt{E + 3}\,\xi)$, and verify $(p\!\!\!/ - m)u = 0$ and
-$h(\vec p)u = u$.
+For $m = 1$ and $\mathbf p = (2, 2, 1)$, so $E = \sqrt{10}$ and $|\mathbf p| = 3$, find with Sage the eigenvector $\xi$ of
+$\boldsymbol\sigma\cdot\hat{\mathbf p}$ with eigenvalue $+1$, build $u = (\sqrt{E - 3}\,\xi, \sqrt{E + 3}\,\xi)$, and verify $(p\!\!\!/ - m)u = 0$ and
+$h(\mathbf p)u = u$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1766,14 +1766,14 @@ it is not conserved. The proposition below relates it to helicity and gives its 
 Let $P_{L,R} = \tfrac12(1 \mp \gamma_5)$ be the chiral projectors ($\gamma_5 = \operatorname{diag}(-1, -1, 1, 1)$ in the Weyl
 representation). For a positive-energy spinor $u$ of helicity $h$,
 $$
-\frac{u^\dagger P_Ru}{u^\dagger u} = \frac{1 + hv}{2}, \qquad v = \frac{|\vec p|}{E} ,
+\frac{u^\dagger P_Ru}{u^\dagger u} = \frac{1 + hv}{2}, \qquad v = \frac{|\mathbf p|}{E} ,
 $$ {#eq-dq-chiral-fraction}
 so chirality equals helicity only in the limit $v \to 1$. Moreover $[H, \gamma_5] = 2m\beta\gamma_5$, so chirality is conserved
 only for $m = 0$; a state that is left-handed at $t = 0$ with momentum $p$ has $\langle\gamma_5\rangle(t) = -1 + \tfrac{m^2}{E^2}(1 -
 \cos 2Et)$ @pal2011majorana [Sec. 4.2].
 
-*Proof.* By @exm-dq-helicity-z, $u = (\sqrt{E - h|\vec p|}\,\xi, \sqrt{E + h|\vec p|}\,\xi)$, so the right-handed (lower) part
-has weight $E + h|\vec p|$ out of $2E$. In the Weyl representation $\alpha_k$ is block diagonal and commutes with $\gamma_5$,
+*Proof.* By @exm-dq-helicity-z, $u = (\sqrt{E - h|\mathbf p|}\,\xi, \sqrt{E + h|\mathbf p|}\,\xi)$, so the right-handed (lower) part
+has weight $E + h|\mathbf p|$ out of $2E$. In the Weyl representation $\alpha_k$ is block diagonal and commutes with $\gamma_5$,
 while $\beta$ is off-diagonal and anticommutes, so $[H, \gamma_5] = m[\beta, \gamma_5] = 2m\beta\gamma_5$. The time dependence follows
 from $e^{-iHt} = \cos Et - i(H/E)\sin Et$ (@exr-dq-hamiltonian-projector) applied to $(1, 0, 0, 0)$.
 :::
@@ -1797,9 +1797,9 @@ The second example reads the oscillation off @fig-dq-helicity.
 ::: {#exm-dq-chirality-oscillation}
 #### Chirality oscillates
 
-At $\vec p = 0$, $\langle\gamma_5\rangle(t) = -\cos 2mt$: the state $(1, 0, 0, 0) = \tfrac12[(1, 0, 1, 0) + (1, 0, -1, 0)]$ is half a
+At $\mathbf p = 0$, $\langle\gamma_5\rangle(t) = -\cos 2mt$: the state $(1, 0, 0, 0) = \tfrac12[(1, 0, 1, 0) + (1, 0, -1, 0)]$ is half a
 positive-energy and half a negative-energy rest spinor, and the relative phase $e^{2imt}$ turns left into right and back
-with period $\pi/m$. For $|\vec p| \gg m$ the amplitude $m^2/E^2$ is small, the right panel of @fig-dq-helicity.
+with period $\pi/m$. For $|\mathbf p| \gg m$ the amplitude $m^2/E^2$ is small, the right panel of @fig-dq-helicity.
 :::
 
 Helicity and chirality are separately invariant under different operations. The third example collects the
@@ -1816,7 +1816,7 @@ particles neither is a frame-independent conserved label: "left or right?" has n
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise derives the chiral fraction for a momentum along $z$. It shows where the factor $E \pm |\vec p|$ comes
+The first exercise derives the chiral fraction for a momentum along $z$. It shows where the factor $E \pm |\mathbf p|$ comes
 from.
 
 ::: {#exr-dq-chirality-fraction}
@@ -1883,7 +1883,7 @@ Using only $\gamma_5\gamma^\mu = -\gamma^\mu\gamma_5$, show that $\gamma_5$ comm
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\gamma_5\gamma^0\gamma^k = -\gamma^0\gamma_5\gamma^k = \gamma^0\gamma^k\gamma_5$: two anticommutations give a commutation. $\gamma_5\gamma^0 = -\gamma^0\gamma_5$
-directly. Hence $[\vec\alpha\cdot\vec p, \gamma_5] = 0$ and $[\beta m, \gamma_5] = m(\beta\gamma_5 - \gamma_5\beta) = 2m\beta\gamma_5$. For $m = 0$ chirality
+directly. Hence $[\boldsymbol\alpha\cdot\mathbf p, \gamma_5] = 0$ and $[\beta m, \gamma_5] = m(\beta\gamma_5 - \gamma_5\beta) = 2m\beta\gamma_5$. For $m = 0$ chirality
 is conserved, and the Dirac equation splits into the Weyl equations of @def-dq-weyl-equation.
 :::
 ::::
@@ -1897,12 +1897,12 @@ negative energies with Sage and finds the term that oscillates at twice the ener
 ::: {#exr-dq-free-interference}
 #### Interference of the two energies
 
-For $m = 24$, $\vec p = (2, 3, 6)$, let $\psi(t, \vec x) = [u^1(\vec p)e^{-iEt} + v^1(-\vec p)e^{iEt}]e^{i\vec p\cdot\vec x}$. With Sage,
+For $m = 24$, $\mathbf p = (2, 3, 6)$, let $\psi(t, \mathbf x) = [u^1(\mathbf p)e^{-iEt} + v^1(-\mathbf p)e^{iEt}]e^{i\mathbf p\cdot\mathbf x}$. With Sage,
 compute $\psi^\dagger\psi$ and $\psi^\dagger\alpha_3\psi$ as functions of $t$, and identify the terms oscillating as $\cos 2Et$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The density is constant, $\psi^\dagger\psi = 4E = 100$, because $u^\dagger(\vec p)v(-\vec p) = 0$ (@exr-dq-orthogonality). The current has no
+The density is constant, $\psi^\dagger\psi = 4E = 100$, because $u^\dagger(\mathbf p)v(-\mathbf p) = 0$ (@exr-dq-orthogonality). The current has no
 constant part: the two waves carry $+12$ and $-12$, the negative-energy wave moving against its momentum
 (@exr-dq-negative-energy-meaning). What remains is the interference term $j_3 = -\tfrac{4756}{49}\cos2Et$, oscillating at $2E = 50$: the
 trembling motion of @prp-dq-zitterbewegung, already present in a single superposition of plane waves:
@@ -1991,7 +1991,7 @@ large from the small components.
 
 ### The Pauli equation
 
-A charged particle couples to the electromagnetic potential by the minimal coupling $\vec p \to \vec p - q\vec A$ of
+A charged particle couples to the electromagnetic potential by the minimal coupling $\mathbf p \to \mathbf p - q\mathbf A$ of
 @def-emm-minimal-coupling, written covariantly as the derivative $\partial_\mu + iqA_\mu$ that the gauge-theory chapter
 develops. In a uniform magnetic field the Dirac equation can be solved exactly, and its Landau
 levels show the factor $g = 2$ directly, as the figure shows.
@@ -2001,7 +2001,7 @@ levels show the factor $g = 2$ directly, as the figure shows.
 with spin along the field and the orbital level $N - 1$ with spin against it, a degeneracy that holds only for $g = 2$.
 Generated by `figures/dq-landau.sage`.](figures/dq-landau.svg){#fig-dq-landau width=70%}
 
-The definition below couples the Dirac equation to a potential $A^\mu = (\Phi, \vec A)$. It is the relativistic form of the
+The definition below couples the Dirac equation to a potential $A^\mu = (\Phi, \mathbf A)$. It is the relativistic form of the
 minimal coupling of a classical charge (@def-emm-minimal-coupling); the gauge-theory chapter applies the same rule to
 charged scalar fields.
 
@@ -2015,9 +2015,9 @@ $$
 $$ {#eq-dq-minimal-coupling}
 or, in Hamiltonian form,
 $$
-i\partial_t\psi = \big(\vec\alpha\cdot\vec\pi + \beta m + q\Phi\big)\psi, \qquad \vec\pi = \vec p - q\vec A = -i\nabla - q\vec A ,
+i\partial_t\psi = \big(\boldsymbol\alpha\cdot\boldsymbol\pi + \beta m + q\Phi\big)\psi, \qquad \boldsymbol\pi = \mathbf p - q\mathbf A = -i\nabla - q\mathbf A ,
 $$ {#eq-dq-coupled-hamiltonian}
-where $A^\mu = (\Phi, \vec A)$, $\vec B = \nabla \times \vec A$ and $\vec E = -\nabla\Phi - \partial_t\vec A$. For the electron
+where $A^\mu = (\Phi, \mathbf A)$, $\mathbf B = \nabla \times \mathbf A$ and $\mathbf E = -\nabla\Phi - \partial_t\mathbf A$. For the electron
 $q = -e$ with $e > 0$ and $e^2 = 4\pi\alpha$.
 :::
 ::::
@@ -2030,7 +2030,7 @@ The Coulomb field of a nucleus is the potential of the hydrogen atom. The first 
 #### The Coulomb potential
 
 A nucleus of charge $Ze$ at the origin has $\Phi = Ze/(4\pi r)$, so an electron has potential energy $q\Phi = -Ze^2/(4\pi r) =
--Z\alpha/r$ and Hamiltonian $H = \vec\alpha\cdot\vec p + \beta m - Z\alpha/r$. The coupling enters only through the combination
+-Z\alpha/r$ and Hamiltonian $H = \boldsymbol\alpha\cdot\mathbf p + \beta m - Z\alpha/r$. The coupling enters only through the combination
 $q\Phi$, so a positron in the same field sees $+Z\alpha/r$, the charge-conjugate problem of @exm-dq-c-hydrogen.
 :::
 
@@ -2040,8 +2040,8 @@ for @fig-dq-landau.
 ::: {#exm-dq-uniform-b}
 #### A uniform magnetic field
 
-$\vec A = \tfrac12\vec B \times \vec x$ has $\nabla \times \vec A = \vec B$; for $\vec B = B\hat z$, $\vec A = (-By/2, Bx/2, 0)$ and
-$\vec\pi = (p_x + qBy/2, p_y - qBx/2, p_z)$. The components $\pi_x, \pi_y$ do not commute, $[\pi_x, \pi_y] = iqB$
+$\mathbf A = \tfrac12\mathbf B \times \mathbf x$ has $\nabla \times \mathbf A = \mathbf B$; for $\mathbf B = B\hat{\mathbf z}$, $\mathbf A = (-By/2, Bx/2, 0)$ and
+$\boldsymbol\pi = (p_x + qBy/2, p_y - qBx/2, p_z)$. The components $\pi_x, \pi_y$ do not commute, $[\pi_x, \pi_y] = iqB$
 (@exr-dq-pi-commutator), so $\pi_x^2 + \pi_y^2$ is an oscillator Hamiltonian with levels $|qB|(2n + 1)$: the Landau levels.
 :::
 
@@ -2052,8 +2052,8 @@ how the spinor transforms, in the convention of @def-emm-gauge-transformation.
 #### Gauge covariance
 
 Under $A_\mu \to A_\mu - \partial_\mu\lambda$ and $\psi \to e^{iq\lambda}\psi$, $D_\mu\psi \to e^{iq\lambda}D_\mu\psi$, so
-@eq-dq-minimal-coupling keeps its form and the current $\bar\psi\gamma^\mu\psi$ is unchanged. The kinetic momentum $\vec\pi$, not the
-canonical $\vec p$, is the gauge-invariant velocity variable: $i[H, \vec x] = \vec\alpha$ still, and $\vec\pi$ appears in every
+@eq-dq-minimal-coupling keeps its form and the current $\bar\psi\gamma^\mu\psi$ is unchanged. The kinetic momentum $\boldsymbol\pi$, not the
+canonical $\mathbf p$, is the gauge-invariant velocity variable: $i[H, \mathbf x] = \boldsymbol\alpha$ still, and $\boldsymbol\pi$ appears in every
 observable.
 :::
 ::::
@@ -2065,7 +2065,7 @@ only trap.
 ::: {#exr-dq-coupled-hamiltonian}
 #### The coupled Hamiltonian
 
-Multiply @eq-dq-minimal-coupling by $\gamma^0$ and use $A_\mu = (\Phi, -\vec A)$ to derive @eq-dq-coupled-hamiltonian.
+Multiply @eq-dq-minimal-coupling by $\gamma^0$ and use $A_\mu = (\Phi, -\mathbf A)$ to derive @eq-dq-coupled-hamiltonian.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2080,12 +2080,12 @@ both the Landau levels and the factor $g = 2$ rest on.
 ::: {#exr-dq-pi-commutator}
 #### Kinetic momenta do not commute
 
-Show that $[\pi_i, \pi_j] = iq\epsilon_{ijk}B_k$, and hence $\vec\pi \times \vec\pi = iq\vec B$.
+Show that $[\pi_i, \pi_j] = iq\epsilon_{ijk}B_k$, and hence $\boldsymbol\pi \times \boldsymbol\pi = iq\mathbf B$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $[\pi_i, \pi_j] = -q[p_i, A_j] - q[A_i, p_j] = -q(-i\partial_iA_j) + q(-i\partial_jA_i) = iq(\partial_iA_j - \partial_jA_i) =
-iq\epsilon_{ijk}B_k$. Then $(\vec\pi \times \vec\pi)_k = \epsilon_{kij}\pi_i\pi_j = \tfrac12\epsilon_{kij}[\pi_i, \pi_j] = \tfrac12
+iq\epsilon_{ijk}B_k$. Then $(\boldsymbol\pi \times \boldsymbol\pi)_k = \epsilon_{kij}\pi_i\pi_j = \tfrac12\epsilon_{kij}[\pi_i, \pi_j] = \tfrac12
 iq\epsilon_{kij}\epsilon_{ijl}B_l = iqB_k$.
 :::
 
@@ -2095,15 +2095,15 @@ transformation shifts the scalar potential as it should.
 ::: {#exr-dq-gauge-check}
 #### Gauge covariance of the Hamiltonian
 
-Let $\psi' = e^{iq\lambda}\psi$, $\Phi' = \Phi - \partial_t\lambda$, $\vec A' = \vec A + \nabla\lambda$. Show that if $\psi$ solves
-@eq-dq-coupled-hamiltonian with $(\Phi, \vec A)$, then $\psi'$ solves it with $(\Phi', \vec A')$.
+Let $\psi' = e^{iq\lambda}\psi$, $\Phi' = \Phi - \partial_t\lambda$, $\mathbf A' = \mathbf A + \nabla\lambda$. Show that if $\psi$ solves
+@eq-dq-coupled-hamiltonian with $(\Phi, \mathbf A)$, then $\psi'$ solves it with $(\Phi', \mathbf A')$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(\vec p - q\vec A')e^{iq\lambda}\psi = e^{iq\lambda}(\vec p + q\nabla\lambda - q\vec A - q\nabla\lambda)\psi = e^{iq\lambda}\vec\pi\psi$, and
-$i\partial_t(e^{iq\lambda}\psi) = e^{iq\lambda}(i\partial_t - q\partial_t\lambda)\psi$. So $i\partial_t\psi' = e^{iq\lambda}[\vec\alpha\cdot\vec\pi + \beta m +
-q\Phi - q\partial_t\lambda]\psi = [\vec\alpha\cdot\vec\pi' + \beta m + q\Phi']\psi'$. ($A_\mu \to A_\mu - \partial_\mu\lambda$ with $A_\mu = (\Phi,
--\vec A)$ is this transformation.)
+$(\mathbf p - q\mathbf A')e^{iq\lambda}\psi = e^{iq\lambda}(\mathbf p + q\nabla\lambda - q\mathbf A - q\nabla\lambda)\psi = e^{iq\lambda}\boldsymbol\pi\psi$, and
+$i\partial_t(e^{iq\lambda}\psi) = e^{iq\lambda}(i\partial_t - q\partial_t\lambda)\psi$. So $i\partial_t\psi' = e^{iq\lambda}[\boldsymbol\alpha\cdot\boldsymbol\pi + \beta m +
+q\Phi - q\partial_t\lambda]\psi = [\boldsymbol\alpha\cdot\boldsymbol\pi' + \beta m + q\Phi']\psi'$. ($A_\mu \to A_\mu - \partial_\mu\lambda$ with $A_\mu = (\Phi,
+-\mathbf A)$ is this transformation.)
 :::
 ::::
 
@@ -2116,11 +2116,11 @@ with an undetermined factor $g$. The definition below states it.
 
 The **Pauli equation** for a particle of charge $q$, mass $m$ and spin one-half is
 $$
-i\partial_t\varphi = \Big(\frac{\vec\pi^{\,2}}{2m} - \vec\mu\cdot\vec B + q\Phi\Big)\varphi, \qquad \vec\mu = g\frac{q}{2m}\vec S, \quad
-\vec S = \tfrac12\vec\sigma ,
+i\partial_t\varphi = \Big(\frac{\boldsymbol\pi^{\,2}}{2m} - \boldsymbol\mu\cdot\mathbf B + q\Phi\Big)\varphi, \qquad \boldsymbol\mu = g\frac{q}{2m}\mathbf S, \quad
+\mathbf S = \tfrac12\boldsymbol\sigma ,
 $$ {#eq-dq-pauli}
 for a two-component wave function $\varphi$; the dimensionless constant $g$ is the **gyromagnetic ratio**. For the
-electron, $\vec\mu = -g\mu_B\vec S$ with the Bohr magneton $\mu_B = e/2m$ @svanberg2022spectroscopy [Sec. 2.3.2, eq. (2.12)].
+electron, $\boldsymbol\mu = -g\mu_B\mathbf S$ with the Bohr magneton $\mu_B = e/2m$ @svanberg2022spectroscopy [Sec. 2.3.2, eq. (2.12)].
 :::
 ::::
 
@@ -2131,7 +2131,7 @@ splitting for a free electron in a field.
 ::: {#exm-dq-pauli-zeeman}
 #### Spin in a magnetic field
 
-For $\vec B = B\hat z$ the spin term is $-\mu_zB = g\mu_BBS_z$ for the electron, so spin up and spin down differ by $g\mu_BB$.
+For $\mathbf B = B\hat{\mathbf z}$ the spin term is $-\mu_zB = g\mu_BBS_z$ for the electron, so spin up and spin down differ by $g\mu_BB$.
 With $\mu_B = 5.788 \times 10^{-5}$ eV/T and $g = 2$, a field of $1$ T splits them by $1.16 \times 10^{-4}$ eV, a frequency of
 $28.0$ GHz. @svanberg2022spectroscopy [Sec. 2.5.1, eq. (2.23)] records $g_s = 2$ "apart from a 0.1% correction due to quantum
 electrodynamics".
@@ -2143,8 +2143,8 @@ it from the Pauli Hamiltonian by the Ehrenfest theorem.
 ::: {#exm-dq-stern-gerlach}
 #### The Stern-Gerlach force
 
-For a neutral particle with a magnetic moment ($q\Phi = 0$, $\vec\pi = \vec p$) the Heisenberg equation gives $\dot{\vec p} =
-i[H, \vec p] = \nabla(\vec\mu\cdot\vec B)$. A field gradient $\partial_zB_z$ pushes the two spin states along $\pm z$ with force
+For a neutral particle with a magnetic moment ($q\Phi = 0$, $\boldsymbol\pi = \mathbf p$) the Heisenberg equation gives $\dot{\mathbf p} =
+i[H, \mathbf p] = \nabla(\boldsymbol\mu\cdot\mathbf B)$. A field gradient $\partial_zB_z$ pushes the two spin states along $\pm z$ with force
 $\pm\tfrac g2\frac{|q|}{2m}\partial_zB_z$: a beam splits in two, which is how the half-integer spin was first seen.
 :::
 
@@ -2154,7 +2154,7 @@ compares the two, which is the principle of the most precise measurement of $g$.
 ::: {#exm-dq-spin-precession}
 #### Spin precession and cyclotron motion
 
-From @eq-dq-pauli, $\dot{\vec S} = i[H, \vec S] = \vec\mu \times \vec B$, a precession with angular frequency $\omega_s =
+From @eq-dq-pauli, $\dot{\mathbf S} = i[H, \mathbf S] = \boldsymbol\mu \times \mathbf B$, a precession with angular frequency $\omega_s =
 g|q|B/2m$; the orbit has $\omega_c = |q|B/m$. For $g = 2$ the two coincide and the spin keeps its angle to the velocity. The
 difference $\omega_a = \omega_s - \omega_c = (g/2 - 1)\omega_c$ is what @fan2023electron measure in a single-electron cyclotron:
 $g/2 = 1.001\,159\,652\,180\,59(13)$, with the Dirac value $1$ as the first term of the prediction.
@@ -2168,13 +2168,13 @@ field moves.
 ::: {#exr-dq-precession}
 #### Larmor precession
 
-Show that $H = -\vec\mu\cdot\vec B$ with $\vec\mu = \gamma\vec S$ and constant $\vec B = B\hat z$ gives $\dot{\vec S} = \gamma\vec S \times
-\vec B$, and solve it for $\langle\vec S\rangle(0) = \tfrac12\hat x$.
+Show that $H = -\boldsymbol\mu\cdot\mathbf B$ with $\boldsymbol\mu = \gamma\mathbf S$ and constant $\mathbf B = B\hat{\mathbf z}$ gives $\dot{\mathbf S} = \gamma\mathbf S \times
+\mathbf B$, and solve it for $\langle\mathbf S\rangle(0) = \tfrac12\hat{\mathbf x}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$i[H, S_k] = -i\gamma B[S_z, S_k] = -i\gamma B\,i\epsilon_{zkl}S_l = \gamma B\epsilon_{zkl}S_l$, which is $\gamma(\vec S \times \vec B)_k =
-\gamma\epsilon_{klz}S_lB$. So $\dot S_x = \gamma BS_y$, $\dot S_y = -\gamma BS_x$, $\dot S_z = 0$, and $\langle\vec S\rangle(t) =
+$i[H, S_k] = -i\gamma B[S_z, S_k] = -i\gamma B\,i\epsilon_{zkl}S_l = \gamma B\epsilon_{zkl}S_l$, which is $\gamma(\mathbf S \times \mathbf B)_k =
+\gamma\epsilon_{klz}S_lB$. So $\dot S_x = \gamma BS_y$, $\dot S_y = -\gamma BS_x$, $\dot S_z = 0$, and $\langle\mathbf S\rangle(t) =
 \tfrac12(\cos\gamma Bt, -\sin\gamma Bt, 0)$: precession at $\omega = |\gamma|B$, with $\gamma = gq/2m$.
 :::
 
@@ -2185,7 +2185,7 @@ combine. The second exercise computes the Landé factors of the lowest hydrogen 
 ::: {#exr-dq-lande}
 #### Landé factors
 
-The magnetic moment of a level $|l, s, j\rangle$ projected on $\vec J$ has $g_J = g_l\frac{j(j + 1) - s(s + 1) + l(l + 1)}{2j(j +
+The magnetic moment of a level $|l, s, j\rangle$ projected on $\mathbf J$ has $g_J = g_l\frac{j(j + 1) - s(s + 1) + l(l + 1)}{2j(j +
 1)} + g_s\frac{j(j + 1) + s(s + 1) - l(l + 1)}{2j(j + 1)}$. With Sage, evaluate it for $S_{1/2}$, $P_{1/2}$, $P_{3/2}$,
 $D_{3/2}$, $D_{5/2}$ with $g_s = 2$, and again with the measured $g_s$ of @fan2023electron.
 :::
@@ -2257,16 +2257,16 @@ $g = 2$, because of an identity of the Pauli matrices.
 Write a solution of @eq-dq-coupled-hamiltonian in the Dirac representation as $\psi = e^{-imt}(\varphi, \chi)$. If the
 fields and the kinetic energy are small compared with $m$, so that $|i\partial_t\chi - q\Phi\chi| \ll 2m|\chi|$, then
 $$
-\chi \approx \frac{\vec\sigma\cdot\vec\pi}{2m}\varphi ,
+\chi \approx \frac{\boldsymbol\sigma\cdot\boldsymbol\pi}{2m}\varphi ,
 $$ {#eq-dq-small-component}
 and $\varphi$ satisfies the Pauli equation @eq-dq-pauli with $g = 2$.
 
-*Proof.* In the Dirac representation the two rows of @eq-dq-coupled-hamiltonian are $i\partial_t\varphi = \vec\sigma\cdot\vec\pi\chi +
-q\Phi\varphi$ and $i\partial_t\chi = \vec\sigma\cdot\vec\pi\varphi + (q\Phi - 2m)\chi$, after removing the rest energy with
+*Proof.* In the Dirac representation the two rows of @eq-dq-coupled-hamiltonian are $i\partial_t\varphi = \boldsymbol\sigma\cdot\boldsymbol\pi\chi +
+q\Phi\varphi$ and $i\partial_t\chi = \boldsymbol\sigma\cdot\boldsymbol\pi\varphi + (q\Phi - 2m)\chi$, after removing the rest energy with
 $e^{-imt}$. Under the hypothesis the second row gives @eq-dq-small-component, and the first becomes $i\partial_t\varphi =
-[(\vec\sigma\cdot\vec\pi)^2/2m + q\Phi]\varphi$. By $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$, $(\vec\sigma\cdot\vec\pi)^2 =
-\vec\pi^{\,2} + i\vec\sigma\cdot(\vec\pi \times \vec\pi) = \vec\pi^{\,2} - q\vec\sigma\cdot\vec B$ (@exr-dq-pi-commutator), and
-$-\frac{q}{2m}\vec\sigma\cdot\vec B = -2\frac{q}{2m}\vec S\cdot\vec B$ is the term $-\vec\mu\cdot\vec B$ with $g = 2$.
+[(\boldsymbol\sigma\cdot\boldsymbol\pi)^2/2m + q\Phi]\varphi$. By $\sigma_i\sigma_j = \delta_{ij} + i\epsilon_{ijk}\sigma_k$, $(\boldsymbol\sigma\cdot\boldsymbol\pi)^2 =
+\boldsymbol\pi^{\,2} + i\boldsymbol\sigma\cdot(\boldsymbol\pi \times \boldsymbol\pi) = \boldsymbol\pi^{\,2} - q\boldsymbol\sigma\cdot\mathbf B$ (@exr-dq-pi-commutator), and
+$-\frac{q}{2m}\boldsymbol\sigma\cdot\mathbf B = -2\frac{q}{2m}\mathbf S\cdot\mathbf B$ is the term $-\boldsymbol\mu\cdot\mathbf B$ with $g = 2$.
 :::
 ::::
 
@@ -2277,9 +2277,9 @@ factor two needs no input from experiment.
 ::: {#exm-dq-sigma-pi-square}
 #### Where $g = 2$ comes from
 
-$(\vec\sigma\cdot\vec\pi)^2 = \vec\pi^{\,2} - q\vec\sigma\cdot\vec B$ holds for any potential. A Schrödinger particle with spin would
-have the kinetic energy $\vec\pi^{\,2}/2m$, and one could add a magnetic moment with any $g$; but $(\vec\sigma\cdot\vec\pi)^2/2m$, which
-is equal to $\vec\pi^{\,2}/2m$ when $\vec B = 0$, comes with $g = 2$ built in. The Dirac equation forces this second form,
+$(\boldsymbol\sigma\cdot\boldsymbol\pi)^2 = \boldsymbol\pi^{\,2} - q\boldsymbol\sigma\cdot\mathbf B$ holds for any potential. A Schrödinger particle with spin would
+have the kinetic energy $\boldsymbol\pi^{\,2}/2m$, and one could add a magnetic moment with any $g$; but $(\boldsymbol\sigma\cdot\boldsymbol\pi)^2/2m$, which
+is equal to $\boldsymbol\pi^{\,2}/2m$ when $\mathbf B = 0$, comes with $g = 2$ built in. The Dirac equation forces this second form,
 because its square must be the Klein-Gordon operator.
 :::
 
@@ -2289,7 +2289,7 @@ controls the size of the relativistic corrections.
 ::: {#exm-dq-small-components}
 #### How small the small component is
 
-For a free spinor, $|\chi|/|\varphi| = |\vec p|/(E + m) \approx v/2$ (@exm-dq-dirac-rep-spinors). In hydrogen the typical
+For a free spinor, $|\chi|/|\varphi| = |\mathbf p|/(E + m) \approx v/2$ (@exm-dq-dirac-rep-spinors). In hydrogen the typical
 velocity is $Z\alpha$, so $\chi \sim Z\alpha\varphi/2$ and its weight in the density is of order $(Z\alpha)^2/4 \approx 1.3 \times
 10^{-5}$ for $Z = 1$: relativistic corrections are of relative order $(Z\alpha)^2$, which is why the fine structure is small.
 For the exact ground state, $F/G = (1 - \gamma)/Z\alpha \approx Z\alpha/2$ (@exm-dq-ground-state).
@@ -2301,8 +2301,8 @@ Landau levels of @fig-dq-landau and compares them with the Pauli levels.
 ::: {#exm-dq-landau}
 #### Relativistic Landau levels
 
-For $\Phi = 0$ and static $\vec B$, $H^2 = (\vec\alpha\cdot\vec\pi)^2 + m^2 = \operatorname{diag}((\vec\sigma\cdot\vec\pi)^2, (\vec\sigma\cdot
-\vec\pi)^2) + m^2$. For $\vec B = B\hat z$, $(\vec\sigma\cdot\vec\pi)^2 = \pi_x^2 + \pi_y^2 + p_z^2 - qB\sigma_3$ has eigenvalues
+For $\Phi = 0$ and static $\mathbf B$, $H^2 = (\boldsymbol\alpha\cdot\boldsymbol\pi)^2 + m^2 = \operatorname{diag}((\boldsymbol\sigma\cdot\boldsymbol\pi)^2, (\boldsymbol\sigma\cdot
+\boldsymbol\pi)^2) + m^2$. For $\mathbf B = B\hat{\mathbf z}$, $(\boldsymbol\sigma\cdot\boldsymbol\pi)^2 = \pi_x^2 + \pi_y^2 + p_z^2 - qB\sigma_3$ has eigenvalues
 $|qB|(2n + 1) \mp |qB| + p_z^2$, so $E^2 = m^2 + p_z^2 + 2N|qB|$, $N = 0, 1, \dots$. For $|qB| \ll m^2$, $E \approx m +
 p_z^2/2m + N|qB|/m$: the Pauli levels with $g = 2$, in which the spin energy $\pm|qB|/2m$ exactly fills the gap between orbital
 levels.
@@ -2323,7 +2323,7 @@ when the energy measured from $m$ and $q\Phi$ are small compared with $2m$.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 With $\psi = e^{-imt}(\varphi, \chi)$, $i\partial_t\psi = e^{-imt}(m + i\partial_t)(\varphi, \chi)$, and the Hamiltonian gives
-$(\vec\sigma\cdot\vec\pi\chi + m\varphi + q\Phi\varphi, \vec\sigma\cdot\vec\pi\varphi - m\chi + q\Phi\chi)$; subtracting $m$ gives the two rows. If
+$(\boldsymbol\sigma\cdot\boldsymbol\pi\chi + m\varphi + q\Phi\varphi, \boldsymbol\sigma\cdot\boldsymbol\pi\varphi - m\chi + q\Phi\chi)$; subtracting $m$ gives the two rows. If
 $\chi$ oscillates like $e^{-i\epsilon t}$ with $|\epsilon| \ll m$ (the non-relativistic energy) and $|q\Phi| \ll m$, then
 $(i\partial_t - q\Phi)\chi$ is of order $(\epsilon - q\Phi)\chi$, negligible against $2m\chi$.
 :::
@@ -2332,10 +2332,10 @@ The identity of @exm-dq-sigma-pi-square can be checked on arbitrary functions wi
 second exercise does this in the symmetric gauge.
 
 ::: {#exr-dq-landau-sage}
-#### $(\vec\sigma\cdot\vec\pi)^2$ by computer
+#### $(\boldsymbol\sigma\cdot\boldsymbol\pi)^2$ by computer
 
-With Sage, apply $\vec\sigma\cdot\vec\pi$ twice to a two-component function $(f_1, f_2)(x, y, z)$ with $\vec A = (-By/2, Bx/2, 0)$ and
-verify $(\vec\sigma\cdot\vec\pi)^2 = \vec\pi^{\,2} - qB\sigma_3$.
+With Sage, apply $\boldsymbol\sigma\cdot\boldsymbol\pi$ twice to a two-component function $(f_1, f_2)(x, y, z)$ with $\mathbf A = (-By/2, Bx/2, 0)$ and
+verify $(\boldsymbol\sigma\cdot\boldsymbol\pi)^2 = \boldsymbol\pi^{\,2} - qB\sigma_3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2371,16 +2371,16 @@ third exercise performs this, which is how $g = 2$ is usually seen in field theo
 #### Squaring the coupled Dirac operator
 
 Show that $(\gamma^\mu D_\mu)^2 = D^\mu D_\mu + iqS^{\mu\nu}F_{\mu\nu}$, with $S^{\mu\nu} = \tfrac14[\gamma^\mu, \gamma^\nu]$ and $F_{\mu\nu} =
-\partial_\mu A_\nu - \partial_\nu A_\mu$, and that for a static magnetic field the extra term is $-q\vec\Sigma\cdot\vec B$. Deduce
-that solutions satisfy $(D^\mu D_\mu + m^2 - q\vec\Sigma\cdot\vec B)\psi = 0$ when $\vec E = 0$.
+\partial_\mu A_\nu - \partial_\nu A_\mu$, and that for a static magnetic field the extra term is $-q\boldsymbol\Sigma\cdot\mathbf B$. Deduce
+that solutions satisfy $(D^\mu D_\mu + m^2 - q\boldsymbol\Sigma\cdot\mathbf B)\psi = 0$ when $\mathbf E = 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\gamma^\mu\gamma^\nu = \eta^{\mu\nu} + 2S^{\mu\nu}$, so $\gamma^\mu\gamma^\nu D_\mu D_\nu = D^2 + S^{\mu\nu}[D_\mu, D_\nu] = D^2 +
 iqS^{\mu\nu}F_{\mu\nu}$. With $S^{12} = -\tfrac{i}{2}\Sigma_3$ and $F_{12} = \partial_1A_2 - \partial_2A_1 = -B_3$ (lower indices
 $A_k = -A^k$), the $(12)$ and $(21)$ terms give $iq\cdot2\cdot(-\tfrac{i}{2}\Sigma_3)(-B_3) = -q\Sigma_3B_3$, and cyclically. The Dirac
-equation gives $(i\gamma^\mu D_\mu)^2\psi = m^2\psi$, i.e. $(D^\mu D_\mu + m^2 - q\vec\Sigma\cdot\vec B)\psi = 0$. Since $D_k = i\pi_k$,
-$D^\mu D_\mu = \partial_t^2 + \vec\pi^{\,2}$, and for $\psi \propto e^{-iEt}$ this is $E^2 = m^2 + \vec\pi^{\,2} - q\vec\Sigma\cdot\vec B$, the $g =
+equation gives $(i\gamma^\mu D_\mu)^2\psi = m^2\psi$, i.e. $(D^\mu D_\mu + m^2 - q\boldsymbol\Sigma\cdot\mathbf B)\psi = 0$. Since $D_k = i\pi_k$,
+$D^\mu D_\mu = \partial_t^2 + \boldsymbol\pi^{\,2}$, and for $\psi \propto e^{-iEt}$ this is $E^2 = m^2 + \boldsymbol\pi^{\,2} - q\boldsymbol\Sigma\cdot\mathbf B$, the $g =
 2$ spectrum of @exm-dq-landau.
 :::
 ::::
@@ -2393,7 +2393,7 @@ components. For a free particle this can be done exactly, as the figure shows.
 
 ![The free Foldy-Wouthuysen transformation ($m = 1$). Left: the exact energy $\sqrt{p^2 + m^2}$ and the first two
 corrections of its expansion, $m + p^2/2m$ and $-p^4/8m^3$. Right: the angle $\theta(p) = \tfrac12\arctan(p/m)$ of the exact
-transformation $U = \exp(\beta\vec\alpha\cdot\hat p\,\theta)$, which tends to $\pi/4$ for ultrarelativistic momenta. Generated by
+transformation $U = \exp(\beta\boldsymbol\alpha\cdot\hat{\mathbf p}\,\theta)$, which tends to $\pi/4$ for ultrarelativistic momenta. Generated by
 `figures/dq-foldy.sage`.](figures/dq-foldy.svg){#fig-dq-foldy width=95%}
 
 The transformation acts on the two kinds of operators differently. The definition below names them, with respect to
@@ -2407,7 +2407,7 @@ An operator on four-component wave functions is **even** if it commutes with $\b
 $\beta$; every operator is the sum of its even part $\tfrac12(A + \beta A\beta)$ and its odd part $\tfrac12(A - \beta A\beta)$. In the
 Dirac representation even operators are block diagonal and odd ones block off-diagonal. The coupled Hamiltonian
 @eq-dq-coupled-hamiltonian is $H = \beta m + \mathcal{E} + \mathcal{O}$ with the even $\mathcal{E} = q\Phi$ and the odd $\mathcal{O} =
-\vec\alpha\cdot\vec\pi$ @costella1995foldy [Sec. III].
+\boldsymbol\alpha\cdot\boldsymbol\pi$ @costella1995foldy [Sec. III].
 :::
 ::::
 
@@ -2418,8 +2418,8 @@ of the Hamiltonian is the Pauli kinetic energy.
 ::: {#exm-dq-even-odd-free}
 #### The square of the odd part
 
-$\mathcal{O}^2 = (\vec\alpha\cdot\vec\pi)^2 = \operatorname{diag}((\vec\sigma\cdot\vec\pi)^2, (\vec\sigma\cdot\vec\pi)^2)$ is even, and
-$\beta\mathcal{O} = -\mathcal{O}\beta$. The free Hamiltonian $\beta m + \vec\alpha\cdot\vec p$ has an even mass term and an odd kinetic term:
+$\mathcal{O}^2 = (\boldsymbol\alpha\cdot\boldsymbol\pi)^2 = \operatorname{diag}((\boldsymbol\sigma\cdot\boldsymbol\pi)^2, (\boldsymbol\sigma\cdot\boldsymbol\pi)^2)$ is even, and
+$\beta\mathcal{O} = -\mathcal{O}\beta$. The free Hamiltonian $\beta m + \boldsymbol\alpha\cdot\mathbf p$ has an even mass term and an odd kinetic term:
 the kinetic term is what couples the large and small components, and removing it to a given order is the goal of the
 transformation.
 :::
@@ -2430,10 +2430,10 @@ elements between energy eigenstates.
 ::: {#exm-dq-velocity-odd}
 #### The velocity is odd
 
-$\vec\alpha$ anticommutes with $\beta$, so in the Dirac representation it connects upper with lower components. For a free
-particle it connects positive with negative energies as well, apart from its mean value $\vec p/H$: this is the origin of
-the oscillating term in $\vec x(t)$ (@prp-dq-zitterbewegung). In the Foldy-Wouthuysen representation the velocity becomes
-the even operator $\beta\vec p/E_p$ @costella1995foldy [eq. (2)].
+$\boldsymbol\alpha$ anticommutes with $\beta$, so in the Dirac representation it connects upper with lower components. For a free
+particle it connects positive with negative energies as well, apart from its mean value $\mathbf p/H$: this is the origin of
+the oscillating term in $\mathbf x(t)$ (@prp-dq-zitterbewegung). In the Foldy-Wouthuysen representation the velocity becomes
+the even operator $\beta\mathbf p/E_p$ @costella1995foldy [eq. (2)].
 :::
 
 Chirality is odd in the Dirac representation. The third example notes this, which explains why the
@@ -2537,23 +2537,23 @@ A **Foldy-Wouthuysen transformation** is a unitary $U = e^{iS}$, with $S$ Hermit
 $$
 H' = e^{iS}(H - i\partial_t)e^{-iS}
 $$ {#eq-dq-fw}
-is even, exactly or to a given order in $1/m$. For the free Hamiltonian $H = \vec\alpha\cdot\vec p + \beta m$ the exact
-transformation is $U = \exp(\beta\vec\alpha\cdot\hat p\,\theta)$ with $\tan2\theta = |\vec p|/m$, and it gives $H' = \beta\sqrt{\vec
+is even, exactly or to a given order in $1/m$. For the free Hamiltonian $H = \boldsymbol\alpha\cdot\mathbf p + \beta m$ the exact
+transformation is $U = \exp(\beta\boldsymbol\alpha\cdot\hat{\mathbf p}\,\theta)$ with $\tan2\theta = |\mathbf p|/m$, and it gives $H' = \beta\sqrt{\mathbf
 p^{\,2} + m^2}$ @costella1995foldy [eq. (1)].
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The free transformation can be verified in a few lines because $\beta\vec\alpha\cdot\hat p$ squares to $-1$. The first
+The free transformation can be verified in a few lines because $\beta\boldsymbol\alpha\cdot\hat{\mathbf p}$ squares to $-1$. The first
 example carries it out.
 
 ::: {#exm-dq-fw-free}
 #### The free transformation
 
-$(\beta\vec\alpha\cdot\hat p)^2 = -\beta^2(\vec\alpha\cdot\hat p)^2 = -1$, so $U = \cos\theta + \beta\vec\alpha\cdot\hat p\sin\theta$. Since
-$\beta\vec\alpha\cdot\hat p$ anticommutes with $H$, $UHU^\dagger = U^2H = (\cos2\theta + \beta\vec\alpha\cdot\hat p\sin2\theta)(\vec\alpha\cdot\vec p +
-\beta m)$, whose odd part $\vec\alpha\cdot\hat p(|\vec p|\cos2\theta - m\sin2\theta)$ vanishes for $\tan2\theta = |\vec p|/m$, leaving
-$\beta(m\cos2\theta + |\vec p|\sin2\theta) = \beta E_p$, the right panel of @fig-dq-foldy.
+$(\beta\boldsymbol\alpha\cdot\hat{\mathbf p})^2 = -\beta^2(\boldsymbol\alpha\cdot\hat{\mathbf p})^2 = -1$, so $U = \cos\theta + \beta\boldsymbol\alpha\cdot\hat{\mathbf p}\sin\theta$. Since
+$\beta\boldsymbol\alpha\cdot\hat{\mathbf p}$ anticommutes with $H$, $UHU^\dagger = U^2H = (\cos2\theta + \beta\boldsymbol\alpha\cdot\hat{\mathbf p}\sin2\theta)(\boldsymbol\alpha\cdot\mathbf p +
+\beta m)$, whose odd part $\boldsymbol\alpha\cdot\hat{\mathbf p}(|\mathbf p|\cos2\theta - m\sin2\theta)$ vanishes for $\tan2\theta = |\mathbf p|/m$, leaving
+$\beta(m\cos2\theta + |\mathbf p|\sin2\theta) = \beta E_p$, the right panel of @fig-dq-foldy.
 :::
 
 With fields present there is no exact transformation, but one can remove the odd part order by order. The second
@@ -2564,7 +2564,7 @@ example performs the first step, which already gives the Pauli Hamiltonian.
 
 With $S = -i\beta\mathcal{O}/2m$, $H' = H + i[S, H] + \tfrac{i^2}{2}[S, [S, H]] + \dots$ and $i[S, \beta m] = \tfrac{1}{2m}[\beta\mathcal{O},
 \beta m] = -\mathcal{O}$ cancels the odd part, while $\tfrac{i^2}{2}[S, [S, \beta m]] = \beta\mathcal{O}^2/2m$ adds the even kinetic term:
-$H' = \beta m + \beta\mathcal{O}^2/2m + \mathcal{E} + O(1/m)$-odd terms. The upper block $m + (\vec\sigma\cdot\vec\pi)^2/2m + q\Phi$ is
+$H' = \beta m + \beta\mathcal{O}^2/2m + \mathcal{E} + O(1/m)$-odd terms. The upper block $m + (\boldsymbol\sigma\cdot\boldsymbol\pi)^2/2m + q\Phi$ is
 the Pauli Hamiltonian of @thm-dq-pauli-limit.
 :::
 
@@ -2574,8 +2574,8 @@ property that @costella1995foldy [Sec. III] single out.
 ::: {#exm-dq-fw-velocity}
 #### Classical velocity
 
-For $H' = \beta E_p$ the velocity is $i[H', \vec x] = \beta\vec p/E_p$, with a continuum of eigenvalues in $(-1, 1)$ and no
-oscillation: in the Foldy-Wouthuysen representation $\vec x$ is the Newton-Wigner position, and spin and orbital angular
+For $H' = \beta E_p$ the velocity is $i[H', \mathbf x] = \beta\mathbf p/E_p$, with a continuum of eigenvalues in $(-1, 1)$ and no
+oscillation: in the Foldy-Wouthuysen representation $\mathbf x$ is the Newton-Wigner position, and spin and orbital angular
 momentum are separately conserved. The price is that minimal coupling is no longer simple: the electron acquires a
 magnetic moment and a Darwin term @costella1995foldy [Secs. IV-V].
 :::
@@ -2588,7 +2588,7 @@ $\tan2\theta = p/m$.
 ::: {#exr-dq-fw-free-sage}
 #### The free transformation by computer
 
-With Sage, in the Dirac representation and for $\vec p = (0, 0, p)$, compute $UHU^\dagger$ with $U = \cos\theta + \beta\alpha_3\sin\theta$
+With Sage, in the Dirac representation and for $\mathbf p = (0, 0, p)$, compute $UHU^\dagger$ with $U = \cos\theta + \beta\alpha_3\sin\theta$
 and find the $\theta$ that removes the odd part; check $UHU^\dagger = \beta\sqrt{p^2 + m^2}$ for $p = 3$, $m = 4$.
 :::
 
@@ -2626,28 +2626,28 @@ behaviour shown in @fig-dq-foldy.
 ::: {#exr-dq-fw-angle}
 #### The angle
 
-From @exm-dq-fw-free, show that $\tan2\theta = |\vec p|/m$, that $\theta \approx |\vec p|/2m$ for slow particles, and that $\theta \to
-\pi/4$ as $|\vec p| \to \infty$. What is $S$ to first order, and how does it compare with @exm-dq-fw-first-step?
+From @exm-dq-fw-free, show that $\tan2\theta = |\mathbf p|/m$, that $\theta \approx |\mathbf p|/2m$ for slow particles, and that $\theta \to
+\pi/4$ as $|\mathbf p| \to \infty$. What is $S$ to first order, and how does it compare with @exm-dq-fw-first-step?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The odd part vanishes when $|\vec p|\cos2\theta = m\sin2\theta$. For small $|\vec p|/m$, $2\theta \approx |\vec p|/m$; for large,
-$2\theta \to \pi/2$. To first order $U \approx 1 + \beta\vec\alpha\cdot\vec p/2m = e^{iS}$ with $S = -i\beta\vec\alpha\cdot\vec p/2m$, which is the
-$S = -i\beta\mathcal{O}/2m$ of the first step for $\vec A = 0$.
+The odd part vanishes when $|\mathbf p|\cos2\theta = m\sin2\theta$. For small $|\mathbf p|/m$, $2\theta \approx |\mathbf p|/m$; for large,
+$2\theta \to \pi/2$. To first order $U \approx 1 + \beta\boldsymbol\alpha\cdot\mathbf p/2m = e^{iS}$ with $S = -i\beta\boldsymbol\alpha\cdot\mathbf p/2m$, which is the
+$S = -i\beta\mathcal{O}/2m$ of the first step for $\mathbf A = 0$.
 :::
 
-The transformed position operator differs from $\vec x$, which is the content of the Newton-Wigner construction. The
+The transformed position operator differs from $\mathbf x$, which is the content of the Newton-Wigner construction. The
 third exercise computes the difference to first order.
 
 ::: {#exr-dq-fw-position}
 #### The mean position
 
-With $U \approx 1 + \beta\vec\alpha\cdot\vec p/2m$, show that $U^\dagger\vec xU \approx \vec x + \frac{i\beta\vec\alpha}{2m}$ to first order. Why does
+With $U \approx 1 + \beta\boldsymbol\alpha\cdot\mathbf p/2m$, show that $U^\dagger\mathbf xU \approx \mathbf x + \frac{i\beta\boldsymbol\alpha}{2m}$ to first order. Why does
 this displacement, of the order of the Compton wavelength, matter for the Darwin term of @thm-dq-fw-hamiltonian?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$U^\dagger\vec xU \approx \vec x + [\vec x, \beta\vec\alpha\cdot\vec p]/2m = \vec x + \beta\alpha_k[\vec x, p_k]/2m = \vec x + i\beta\vec\alpha/2m$.
+$U^\dagger\mathbf xU \approx \mathbf x + [\mathbf x, \beta\boldsymbol\alpha\cdot\mathbf p]/2m = \mathbf x + \beta\alpha_k[\mathbf x, p_k]/2m = \mathbf x + i\beta\boldsymbol\alpha/2m$.
 The operator that is "the position" in one representation is smeared over a distance $1/2m$ in the other; a potential
 felt at the smeared position has, to second order, an extra term $\tfrac16\langle\delta x^2\rangle\nabla^2V$, which is the Darwin
 term $\nabla^2V/8m^2$, the "charge radius" of @costella1995foldy [Sec. V].
@@ -2661,25 +2661,25 @@ hydrogen. The theorem below states it.
 ::: {#thm-dq-fw-hamiltonian}
 #### The Foldy-Wouthuysen Hamiltonian
 
-For $H = \beta m + \mathcal{E} + \mathcal{O}$ with $\mathcal{E} = q\Phi$ and $\mathcal{O} = \vec\alpha\cdot\vec\pi$, three successive
+For $H = \beta m + \mathcal{E} + \mathcal{O}$ with $\mathcal{E} = q\Phi$ and $\mathcal{O} = \boldsymbol\alpha\cdot\boldsymbol\pi$, three successive
 transformations of the form @eq-dq-fw give, up to terms of order $1/m^3$,
 $$
 H_{\mathrm{FW}} = \beta\Big(m + \frac{\mathcal{O}^2}{2m} - \frac{\mathcal{O}^4}{8m^3}\Big) + \mathcal{E} - \frac{1}{8m^2}[\mathcal{O},
 [\mathcal{O}, \mathcal{E}]] - \frac{i}{8m^2}[\mathcal{O}, \dot{\mathcal{O}}] .
 $$ {#eq-dq-fw-hamiltonian}
-For a static potential energy $V(\vec x) = q\Phi$ and $\vec A = 0$ the upper block is
+For a static potential energy $V(\mathbf x) = q\Phi$ and $\mathbf A = 0$ the upper block is
 $$
-H_{\mathrm{FW}}^{+} = m + \frac{\vec p^{\,2}}{2m} - \frac{\vec p^{\,4}}{8m^3} + V + \frac{1}{4m^2}\vec\sigma\cdot(\nabla V \times \vec p)
+H_{\mathrm{FW}}^{+} = m + \frac{\mathbf p^{\,2}}{2m} - \frac{\mathbf p^{\,4}}{8m^3} + V + \frac{1}{4m^2}\boldsymbol\sigma\cdot(\nabla V \times \mathbf p)
 + \frac{1}{8m^2}\nabla^2V ,
 $$ {#eq-dq-fw-static}
-and for a central $V(r)$ the spin-orbit term is $\frac{1}{2m^2r}\frac{dV}{dr}\vec S\cdot\vec L$. In the Coulomb case these are
+and for a central $V(r)$ the spin-orbit term is $\frac{1}{2m^2r}\frac{dV}{dr}\mathbf S\cdot\mathbf L$. In the Coulomb case these are
 the infinite-mass limit of the Breit potential of @eides2001hydrogen [eq. (35)].
 
 *Proof sketch.* Each step uses $S = -i\beta\mathcal{O}_n/2m$ for the current odd part $\mathcal{O}_n$; expanding $e^{iS}He^{-iS}$ by the
 Baker-Campbell-Hausdorff series and $e^{iS}(-i\partial_t)e^{-iS} = -i\partial_t - \dot S + \dots$, the odd terms of order $m^0$ and
 $m^{-1}$ are removed and the even terms collected, which gives @eq-dq-fw-hamiltonian (@costella1995foldy [Sec. III] describe the
-procedure and its validity). For the static case $[\mathcal{O}, V] = -i\vec\alpha\cdot\nabla V$ and $[\mathcal{O}, [\mathcal{O}, V]] =
--\nabla^2V - 2\vec\Sigma\cdot(\nabla V \times \vec p)$ (@exr-dq-double-commutator), and $\mathcal{O}^2 = \vec p^{\,2}$.
+procedure and its validity). For the static case $[\mathcal{O}, V] = -i\boldsymbol\alpha\cdot\nabla V$ and $[\mathcal{O}, [\mathcal{O}, V]] =
+-\nabla^2V - 2\boldsymbol\Sigma\cdot(\nabla V \times \mathbf p)$ (@exr-dq-double-commutator), and $\mathcal{O}^2 = \mathbf p^{\,2}$.
 :::
 ::::
 
@@ -2690,9 +2690,9 @@ For hydrogen the three corrections have names and sizes. The first example lists
 ::: {#exm-dq-fw-hydrogen-terms}
 #### The three corrections in hydrogen
 
-With $V = -Z\alpha/r$: the **relativistic kinetic correction** $-\vec p^{\,4}/8m^3$; the **spin-orbit coupling**
-$\frac{Z\alpha}{2m^2r^3}\vec S\cdot\vec L$, since $\frac1r\frac{dV}{dr} = Z\alpha/r^3$; and the **Darwin term** $\frac{1}{8m^2}\nabla^2V =
-\frac{\pi Z\alpha}{2m^2}\delta^3(\vec x)$, since $\nabla^2(1/r) = -4\pi\delta^3$. Each is of order $m(Z\alpha)^4$, smaller than the Bohr
+With $V = -Z\alpha/r$: the **relativistic kinetic correction** $-\mathbf p^{\,4}/8m^3$; the **spin-orbit coupling**
+$\frac{Z\alpha}{2m^2r^3}\mathbf S\cdot\mathbf L$, since $\frac1r\frac{dV}{dr} = Z\alpha/r^3$; and the **Darwin term** $\frac{1}{8m^2}\nabla^2V =
+\frac{\pi Z\alpha}{2m^2}\delta^3(\mathbf x)$, since $\nabla^2(1/r) = -4\pi\delta^3$. Each is of order $m(Z\alpha)^4$, smaller than the Bohr
 energies by $(Z\alpha)^2$.
 :::
 
@@ -2725,20 +2725,20 @@ against the Darwin term for $l = 0$, which is why $2S_{1/2}$ and $2P_{1/2}$ stay
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The first exercise reduces the spin-orbit term for a central potential. It is the step from @eq-dq-fw-static to the
-familiar $\vec S\cdot\vec L$ form.
+familiar $\mathbf S\cdot\mathbf L$ form.
 
 ::: {#exr-dq-spin-orbit-reduction}
 #### The spin-orbit term
 
-For $V = V(r)$ show that $\nabla V \times \vec p = \frac1r\frac{dV}{dr}\vec L$ and hence $\frac{1}{4m^2}\vec\sigma\cdot(\nabla V \times \vec p) =
-\frac{1}{2m^2r}\frac{dV}{dr}\vec S\cdot\vec L$. Check the Coulomb case against @eides2001hydrogen [eq. (35)] at $M \to \infty$.
+For $V = V(r)$ show that $\nabla V \times \mathbf p = \frac1r\frac{dV}{dr}\mathbf L$ and hence $\frac{1}{4m^2}\boldsymbol\sigma\cdot(\nabla V \times \mathbf p) =
+\frac{1}{2m^2r}\frac{dV}{dr}\mathbf S\cdot\mathbf L$. Check the Coulomb case against @eides2001hydrogen [eq. (35)] at $M \to \infty$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\nabla V = V'(r)\vec x/r$, so $\nabla V \times \vec p = (V'/r)\vec x \times \vec p = (V'/r)\vec L$, the factor $V'/r$ commuting with
-$\vec L$. With $\vec S = \vec\sigma/2$ the coefficient becomes $1/(2m^2)$. For $V = -Z\alpha/r$, $V'/r = Z\alpha/r^3$ and the term is
-$\frac{Z\alpha}{4m^2r^3}\vec L\cdot\vec\sigma$, which is the last term of eq. (35) of @eides2001hydrogen at $M \to \infty$ (with $[\vec r
-\times \vec p]\cdot\vec\sigma = \vec L\cdot\vec\sigma$).
+$\nabla V = V'(r)\mathbf x/r$, so $\nabla V \times \mathbf p = (V'/r)\mathbf x \times \mathbf p = (V'/r)\mathbf L$, the factor $V'/r$ commuting with
+$\mathbf L$. With $\mathbf S = \boldsymbol\sigma/2$ the coefficient becomes $1/(2m^2)$. For $V = -Z\alpha/r$, $V'/r = Z\alpha/r^3$ and the term is
+$\frac{Z\alpha}{4m^2r^3}\mathbf L\cdot\boldsymbol\sigma$, which is the last term of eq. (35) of @eides2001hydrogen at $M \to \infty$ (with $[\mathbf r
+\times \mathbf p]\cdot\boldsymbol\sigma = \mathbf L\cdot\boldsymbol\sigma$).
 :::
 
 The Darwin term needs the value of the wave function at the origin. The second exercise computes it for the $s$
@@ -2764,7 +2764,7 @@ exercise performs it with Sage for all levels with $n \leq 4$.
 #### Summing the three corrections
 
 Using $\langle1/r\rangle = mZ\alpha/n^2$, $\langle1/r^2\rangle = (mZ\alpha)^2/n^3(l + \frac12)$, $\langle1/r^3\rangle = (mZ\alpha)^3/n^3l(l +
-\frac12)(l + 1)$ for $l \geq 1$, $\langle\vec p^{\,4}\rangle = 4m^2\langle(E_n - V)^2\rangle$ and $\vec S\cdot\vec L = \tfrac12[j(j + 1) - l(l + 1) -
+\frac12)(l + 1)$ for $l \geq 1$, $\langle\mathbf p^{\,4}\rangle = 4m^2\langle(E_n - V)^2\rangle$ and $\mathbf S\cdot\mathbf L = \tfrac12[j(j + 1) - l(l + 1) -
 \tfrac34]$, compute with Sage the sum of the three shifts for every $(n, l, j)$ with $n \leq 4$ and compare with
 @eq-dq-fine-structure-first-order. ( $\langle1/r\rangle$ is @cini2023quantum [Sec. 11.3, Problem 3].)
 :::
@@ -2825,16 +2825,16 @@ it.
 ::: {#exr-dq-double-commutator}
 #### The double commutator
 
-For $\mathcal{O} = \vec\alpha\cdot\vec p$ and a function $V(\vec x)$, show that $[\mathcal{O}, V] = -i\vec\alpha\cdot\nabla V$ and
-$[\mathcal{O}, [\mathcal{O}, V]] = -\nabla^2V - 2\vec\Sigma\cdot(\nabla V \times \vec p)$, using $\alpha_i\alpha_j = \delta_{ij} +
+For $\mathcal{O} = \boldsymbol\alpha\cdot\mathbf p$ and a function $V(\mathbf x)$, show that $[\mathcal{O}, V] = -i\boldsymbol\alpha\cdot\nabla V$ and
+$[\mathcal{O}, [\mathcal{O}, V]] = -\nabla^2V - 2\boldsymbol\Sigma\cdot(\nabla V \times \mathbf p)$, using $\alpha_i\alpha_j = \delta_{ij} +
 i\epsilon_{ijk}\Sigma_k$. Deduce the last two terms of @eq-dq-fw-static.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $[p_i, V] = -i\partial_iV$, so $[\mathcal{O}, V] = -i\alpha_i\partial_iV$. Then $[\alpha_jp_j, -i\alpha_i\partial_iV] = -i\alpha_j\alpha_i[p_j,
 \partial_iV] - i[\alpha_j, \alpha_i](\partial_iV)p_j = -\alpha_j\alpha_i\partial_j\partial_iV - i\cdot2i\epsilon_{jik}\Sigma_k(\partial_iV)p_j$. The first
-term is $-\nabla^2V$ by symmetry; the second is $2\epsilon_{jik}\Sigma_k\partial_iVp_j = -2\vec\Sigma\cdot(\nabla V \times \vec p)$. Multiplying
-by $-1/8m^2$ gives $\frac{1}{8m^2}\nabla^2V + \frac{1}{4m^2}\vec\Sigma\cdot(\nabla V \times \vec p)$, the Darwin and spin-orbit terms.
+term is $-\nabla^2V$ by symmetry; the second is $2\epsilon_{jik}\Sigma_k\partial_iVp_j = -2\boldsymbol\Sigma\cdot(\nabla V \times \mathbf p)$. Multiplying
+by $-1/8m^2$ gives $\frac{1}{8m^2}\nabla^2V + \frac{1}{4m^2}\boldsymbol\Sigma\cdot(\nabla V \times \mathbf p)$, the Darwin and spin-orbit terms.
 :::
 ::::
 
@@ -2847,16 +2847,16 @@ the naive estimate from the magnetic field seen in the electron's rest frame.
 ::: {#exr-dq-thomas}
 #### The Thomas factor
 
-An electron moving with velocity $\vec v$ through an electric field $\vec E$ sees, to first order, the magnetic field $\vec B'
-= -\vec v \times \vec E$. Show that $-\vec\mu\cdot\vec B'$ with $g = 2$ is $-\frac{q}{m^2}\vec S\cdot(\vec E \times \vec p)$, twice the
+An electron moving with velocity $\mathbf v$ through an electric field $\mathbf E$ sees, to first order, the magnetic field $\mathbf B'
+= -\mathbf v \times \mathbf E$. Show that $-\boldsymbol\mu\cdot\mathbf B'$ with $g = 2$ is $-\frac{q}{m^2}\mathbf S\cdot(\mathbf E \times \mathbf p)$, twice the
 spin-orbit term of @thm-dq-fw-hamiltonian. (The factor $\tfrac12$ is the Thomas precession of @prp-sr-thomas and @exm-sr-thomas-hydrogen,
 which the Dirac equation contains automatically.)
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$-\vec\mu\cdot\vec B' = \frac{q}{m}\vec S\cdot(\vec v \times \vec E) = \frac{q}{m^2}\vec S\cdot(\vec p \times \vec E) = -\frac{q}{m^2}\vec
-S\cdot(\vec E \times \vec p)$. With $\nabla V = -q\vec E$, the term of @eq-dq-fw-static is $\frac{1}{4m^2}\vec\sigma\cdot(-q\vec E \times \vec p) =
--\frac{q}{2m^2}\vec S\cdot(\vec E \times \vec p)$, half the naive value. The rest frame of the electron is accelerated, and the
+$-\boldsymbol\mu\cdot\mathbf B' = \frac{q}{m}\mathbf S\cdot(\mathbf v \times \mathbf E) = \frac{q}{m^2}\mathbf S\cdot(\mathbf p \times \mathbf E) = -\frac{q}{m^2}\mathbf
+S\cdot(\mathbf E \times \mathbf p)$. With $\nabla V = -q\mathbf E$, the term of @eq-dq-fw-static is $\frac{1}{4m^2}\boldsymbol\sigma\cdot(-q\mathbf E \times \mathbf p) =
+-\frac{q}{2m^2}\mathbf S\cdot(\mathbf E \times \mathbf p)$, half the naive value. The rest frame of the electron is accelerated, and the
 rotation of its axes (Thomas precession) subtracts half the magnetic precession.
 :::
 
@@ -2867,7 +2867,7 @@ Sage that the correction is the $-\mathcal{O}^4/8m^3$ term of @eq-dq-fw-hamilton
 #### Landau levels to second order
 
 Expand $E_N = \sqrt{m^2 + 2N|qB|}$ to second order in $|qB|$ with Sage, and show that the second-order term equals $-\langle\mathcal{O}^4
-\rangle/8m^3$ with $\mathcal{O}^2 = (\vec\sigma\cdot\vec\pi)^2 = 2N|qB|$ on the level $N$ ($p_z = 0$).
+\rangle/8m^3$ with $\mathcal{O}^2 = (\boldsymbol\sigma\cdot\boldsymbol\pi)^2 = 2N|qB|$ on the level $N$ ($p_z = 0$).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2897,7 +2897,7 @@ hydrogen from the Foldy-Wouthuysen Hamiltonian and compares with the splitting f
 ::: {#exr-dq-svanberg-zeta}
 #### The spin-orbit constant
 
-@svanberg2022spectroscopy [Sec. 2.3.2, eqs. (2.13)-(2.16)] writes the spin-orbit energy as $\zeta\,\vec l\cdot\vec s$ with splitting
+@svanberg2022spectroscopy [Sec. 2.3.2, eqs. (2.13)-(2.16)] writes the spin-orbit energy as $\zeta\,\mathbf l\cdot\mathbf s$ with splitting
 $\Delta E = \zeta(l + \frac12)$. Compute $\zeta_{nl}$ for hydrogen from the spin-orbit term and show that $\Delta E$ for $2P$ is $m\alpha^4/32$,
 equal to the full fine-structure splitting of @eq-dq-fine-structure-first-order. Why does the spin-orbit term alone give the whole
 splitting between $2P_{1/2}$ and $2P_{3/2}$?
@@ -2922,8 +2922,8 @@ spectrum and its corrections are those reviewed by @eides2001hydrogen [Secs. II 
 
 ### Separation in spherical coordinates
 
-In a central potential the orbital angular momentum $\vec L$ is not conserved (@exr-dq-helicity-commute), but $\vec J =
-\vec L + \vec S$ and a sign that plays the role of $l$ are. The figure shows the result that the separation leads to,
+In a central potential the orbital angular momentum $\mathbf L$ is not conserved (@exr-dq-helicity-commute), but $\mathbf J =
+\mathbf L + \mathbf S$ and a sign that plays the role of $l$ are. The figure shows the result that the separation leads to,
 the radial density of the ground state, which the relativistic equation pulls towards the nucleus.
 
 ![The radial density $G^2 + F^2$ of the Dirac ground state $1S_{1/2}$ in the potential $-Z\alpha/r$, in units of the Bohr radius
@@ -2932,15 +2932,15 @@ indistinguishable; for heavy ions the relativistic state contracts and its densi
 2}$ ($\gamma = \sqrt{1 - (Z\alpha)^2}$). Generated by `figures/dq-radial.sage`.](figures/dq-radial.svg){#fig-dq-radial
 width=70%}
 
-The operator that replaces $\vec L^2$ in the Dirac theory combines the spin-orbit operator with $\beta$. The definition
+The operator that replaces $\mathbf L^2$ in the Dirac theory combines the spin-orbit operator with $\beta$. The definition
 below introduces it and its eigenvalues.
 
 :::: {.statement-box}
 ::: {#def-dq-k-operator}
 #### Dirac's operator $K$
 
-**Dirac's operator** is $K = \beta(\vec\Sigma\cdot\vec L + 1)$. It commutes with $\vec J$ and with every Hamiltonian
-$\vec\alpha\cdot\vec p + \beta m + V(r)$ with a central potential, and $K^2 = \vec J^2 + \tfrac14$, so its eigenvalues are
+**Dirac's operator** is $K = \beta(\boldsymbol\Sigma\cdot\mathbf L + 1)$. It commutes with $\mathbf J$ and with every Hamiltonian
+$\boldsymbol\alpha\cdot\mathbf p + \beta m + V(r)$ with a central potential, and $K^2 = \mathbf J^2 + \tfrac14$, so its eigenvalues are
 $$
 \kappa = \pm\big(j + \tfrac12\big), \qquad j = \tfrac12, \tfrac32, \dots
 $$ {#eq-dq-kappa}
@@ -2966,9 +2966,9 @@ absolute value. The second example derives this from the algebra of the Pauli ma
 ::: {#exm-dq-k-square}
 #### The square of $K$
 
-$(\vec\sigma\cdot\vec L)^2 = \vec L^2 + i\vec\sigma\cdot(\vec L \times \vec L) = \vec L^2 - \vec\sigma\cdot\vec L$, using $\vec L \times \vec L =
-i\vec L$. Hence $(\vec\sigma\cdot\vec L + 1)^2 = \vec L^2 + \vec\sigma\cdot\vec L + 1 = (\vec L + \tfrac12\vec\sigma)^2 + \tfrac14 = \vec J^2 +
-\tfrac14$, and since $\beta$ commutes with $\vec\Sigma\cdot\vec L$, $K^2 = \vec J^2 + \tfrac14$, with eigenvalues $j(j + 1) + \tfrac14 = (j +
+$(\boldsymbol\sigma\cdot\mathbf L)^2 = \mathbf L^2 + i\boldsymbol\sigma\cdot(\mathbf L \times \mathbf L) = \mathbf L^2 - \boldsymbol\sigma\cdot\mathbf L$, using $\mathbf L \times \mathbf L =
+i\mathbf L$. Hence $(\boldsymbol\sigma\cdot\mathbf L + 1)^2 = \mathbf L^2 + \boldsymbol\sigma\cdot\mathbf L + 1 = (\mathbf L + \tfrac12\boldsymbol\sigma)^2 + \tfrac14 = \mathbf J^2 +
+\tfrac14$, and since $\beta$ commutes with $\boldsymbol\Sigma\cdot\mathbf L$, $K^2 = \mathbf J^2 + \tfrac14$, with eigenvalues $j(j + 1) + \tfrac14 = (j +
 \tfrac12)^2$.
 :::
 
@@ -2978,70 +2978,70 @@ that $\kappa$ is the relativistic version of the spin-orbit quantum number.
 ::: {#exm-dq-k-nonrelativistic}
 #### $K$ and the spin-orbit coupling
 
-On the upper components $K = \vec\sigma\cdot\vec L + 1 = 2\vec S\cdot\vec L + 1$, so the spin-orbit term of @exm-dq-fw-hydrogen-terms is
-$\frac{Z\alpha}{4m^2r^3}(K - 1)$ on them. For $j = l + \frac12$, $2\vec S\cdot\vec L = l$ and $\kappa = l + 1$; for $j = l - \frac12$, $2\vec S\cdot\vec L
-= -(l + 1)$ and $\kappa = -l$. In the Dirac theory $K$, not $\vec L^2$, labels the states, and $l$ is recovered from $\kappa$ and the
+On the upper components $K = \boldsymbol\sigma\cdot\mathbf L + 1 = 2\mathbf S\cdot\mathbf L + 1$, so the spin-orbit term of @exm-dq-fw-hydrogen-terms is
+$\frac{Z\alpha}{4m^2r^3}(K - 1)$ on them. For $j = l + \frac12$, $2\mathbf S\cdot\mathbf L = l$ and $\kappa = l + 1$; for $j = l - \frac12$, $2\mathbf S\cdot\mathbf L
+= -(l + 1)$ and $\kappa = -l$. In the Dirac theory $K$, not $\mathbf L^2$, labels the states, and $l$ is recovered from $\kappa$ and the
 choice of component.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise proves that $K$ is conserved. The key fact is that $\vec\Sigma\cdot\vec L + 1$ anticommutes with
-$\vec\alpha\cdot\vec p$ while $\beta$ anticommutes with it too.
+The first exercise proves that $K$ is conserved. The key fact is that $\boldsymbol\Sigma\cdot\mathbf L + 1$ anticommutes with
+$\boldsymbol\alpha\cdot\mathbf p$ while $\beta$ anticommutes with it too.
 
 ::: {#exr-dq-k-commutes}
 #### $K$ commutes with $H$
 
-Show that $\vec\alpha\cdot\vec p$ anticommutes with $\vec\Sigma\cdot\vec L + 1$ (use $\vec\alpha = \gamma_5\vec\Sigma$ in the Dirac representation
-and $\{\vec\sigma\cdot\vec p, \vec\sigma\cdot\vec L + 1\} = 0$), and deduce $[K, H] = 0$ for $H = \vec\alpha\cdot\vec p + \beta m + V(r)$.
+Show that $\boldsymbol\alpha\cdot\mathbf p$ anticommutes with $\boldsymbol\Sigma\cdot\mathbf L + 1$ (use $\boldsymbol\alpha = \gamma_5\boldsymbol\Sigma$ in the Dirac representation
+and $\{\boldsymbol\sigma\cdot\mathbf p, \boldsymbol\sigma\cdot\mathbf L + 1\} = 0$), and deduce $[K, H] = 0$ for $H = \boldsymbol\alpha\cdot\mathbf p + \beta m + V(r)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(\vec\sigma\cdot\vec p)(\vec\sigma\cdot\vec L) = \vec p\cdot\vec L + i\vec\sigma\cdot(\vec p \times \vec L)$ and $(\vec\sigma\cdot\vec L)(\vec\sigma\cdot\vec p)
-= \vec L\cdot\vec p + i\vec\sigma\cdot(\vec L \times \vec p)$; $\vec p\cdot\vec L = \vec L\cdot\vec p = 0$ and $\vec p \times \vec L + \vec L \times
-\vec p = 2i\vec p$, so the anticommutator is $-2\vec\sigma\cdot\vec p$, and adding $\{\vec\sigma\cdot\vec p, 1\} = 2\vec\sigma\cdot\vec p$ gives zero.
-Since $\gamma_5$ commutes with $\vec\Sigma$, the same holds for $\vec\alpha\cdot\vec p = \gamma_5\vec\Sigma\cdot\vec p$. Then $K\vec\alpha\cdot\vec p = \beta(\vec\Sigma\cdot
-\vec L + 1)\vec\alpha\cdot\vec p = -\beta\vec\alpha\cdot\vec p(\vec\Sigma\cdot\vec L + 1) = \vec\alpha\cdot\vec p\,K$; $\beta m$ and $V(r)$ commute with
-$K$ because $\vec L$ commutes with functions of $r$.
+$(\boldsymbol\sigma\cdot\mathbf p)(\boldsymbol\sigma\cdot\mathbf L) = \mathbf p\cdot\mathbf L + i\boldsymbol\sigma\cdot(\mathbf p \times \mathbf L)$ and $(\boldsymbol\sigma\cdot\mathbf L)(\boldsymbol\sigma\cdot\mathbf p)
+= \mathbf L\cdot\mathbf p + i\boldsymbol\sigma\cdot(\mathbf L \times \mathbf p)$; $\mathbf p\cdot\mathbf L = \mathbf L\cdot\mathbf p = 0$ and $\mathbf p \times \mathbf L + \mathbf L \times
+\mathbf p = 2i\mathbf p$, so the anticommutator is $-2\boldsymbol\sigma\cdot\mathbf p$, and adding $\{\boldsymbol\sigma\cdot\mathbf p, 1\} = 2\boldsymbol\sigma\cdot\mathbf p$ gives zero.
+Since $\gamma_5$ commutes with $\boldsymbol\Sigma$, the same holds for $\boldsymbol\alpha\cdot\mathbf p = \gamma_5\boldsymbol\Sigma\cdot\mathbf p$. Then $K\boldsymbol\alpha\cdot\mathbf p = \beta(\boldsymbol\Sigma\cdot
+\mathbf L + 1)\boldsymbol\alpha\cdot\mathbf p = -\beta\boldsymbol\alpha\cdot\mathbf p(\boldsymbol\Sigma\cdot\mathbf L + 1) = \boldsymbol\alpha\cdot\mathbf p\,K$; $\beta m$ and $V(r)$ commute with
+$K$ because $\mathbf L$ commutes with functions of $r$.
 :::
 
-The eigenvalues of $\vec\sigma\cdot\vec L$ on the coupled states follow from $\vec J^2$. The second exercise computes them,
+The eigenvalues of $\boldsymbol\sigma\cdot\mathbf L$ on the coupled states follow from $\mathbf J^2$. The second exercise computes them,
 which gives the relation between $\kappa$, $j$ and $l$.
 
 ::: {#exr-dq-k-eigenvalues}
-#### Eigenvalues of $\vec\sigma\cdot\vec L$
+#### Eigenvalues of $\boldsymbol\sigma\cdot\mathbf L$
 
-Show that on a state with $\vec L^2 = l(l + 1)$ and $\vec J^2 = j(j + 1)$, $\vec\sigma\cdot\vec L = j(j + 1) - l(l + 1) - \tfrac34$, which is
+Show that on a state with $\mathbf L^2 = l(l + 1)$ and $\mathbf J^2 = j(j + 1)$, $\boldsymbol\sigma\cdot\mathbf L = j(j + 1) - l(l + 1) - \tfrac34$, which is
 $l$ for $j = l + \frac12$ and $-(l + 1)$ for $j = l - \frac12$. Deduce the relation between $\kappa$ and $l$ of @def-dq-k-operator.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\vec J^2 = \vec L^2 + \vec L\cdot\vec\sigma + \tfrac34$, so $\vec\sigma\cdot\vec L = \vec J^2 - \vec L^2 - \tfrac34$. For $j = l + \frac12$: $(l +
+$\mathbf J^2 = \mathbf L^2 + \mathbf L\cdot\boldsymbol\sigma + \tfrac34$, so $\boldsymbol\sigma\cdot\mathbf L = \mathbf J^2 - \mathbf L^2 - \tfrac34$. For $j = l + \frac12$: $(l +
 \frac12)(l + \frac32) - l(l + 1) - \frac34 = l$; for $j = l - \frac12$: $(l - \frac12)(l + \frac12) - l(l + 1) - \frac34 = -l - 1$. With $\beta = +1$
 on the upper components, $\kappa = l + 1$ or $\kappa = -l$, as stated.
 :::
 
-The lower component has the other orbital angular momentum, because $\vec\sigma\cdot\hat r$ changes $l$ by one. The third
+The lower component has the other orbital angular momentum, because $\boldsymbol\sigma\cdot\hat{\mathbf r}$ changes $l$ by one. The third
 exercise shows this from parity.
 
 ::: {#exr-dq-lower-l}
 #### The orbital angular momentum of the lower components
 
-On the lower components $K = -(\vec\sigma\cdot\vec L + 1)$. Show that if the upper components have $\vec\sigma\cdot\vec L + 1 = \kappa$,
-the lower ones have $\vec\sigma\cdot\vec L + 1 = -\kappa$, and that this forces $l' = 2j - l$. Why must $l$ and $l'$ differ by one
+On the lower components $K = -(\boldsymbol\sigma\cdot\mathbf L + 1)$. Show that if the upper components have $\boldsymbol\sigma\cdot\mathbf L + 1 = \kappa$,
+the lower ones have $\boldsymbol\sigma\cdot\mathbf L + 1 = -\kappa$, and that this forces $l' = 2j - l$. Why must $l$ and $l'$ differ by one
 for a parity eigenstate?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$K\psi = \kappa\psi$ means $(\vec\sigma\cdot\vec L + 1)\varphi = \kappa\varphi$ and $-(\vec\sigma\cdot\vec L + 1)\chi = \kappa\chi$. By
-@exr-dq-k-eigenvalues, $\vec\sigma\cdot\vec L + 1 = -\kappa$ with $\kappa = l + 1$ means $j = l' - \frac12$ with $l' = l + 1 = 2j - l$, and with
-$\kappa = -l$ it means $j = l' + \frac12$ with $l' = l - 1 = 2j - l$. Parity acts as $\gamma^0 = \beta$ times $\vec x \to -\vec x$
+$K\psi = \kappa\psi$ means $(\boldsymbol\sigma\cdot\mathbf L + 1)\varphi = \kappa\varphi$ and $-(\boldsymbol\sigma\cdot\mathbf L + 1)\chi = \kappa\chi$. By
+@exr-dq-k-eigenvalues, $\boldsymbol\sigma\cdot\mathbf L + 1 = -\kappa$ with $\kappa = l + 1$ means $j = l' - \frac12$ with $l' = l + 1 = 2j - l$, and with
+$\kappa = -l$ it means $j = l' + \frac12$ with $l' = l - 1 = 2j - l$. Parity acts as $\gamma^0 = \beta$ times $\mathbf x \to -\mathbf x$
 (@def-dq-parity), giving $(-1)^l$ on the upper and $-(-1)^{l'}$ on the lower components; these agree only if $l$ and $l'$ have
 opposite parity.
 :::
 ::::
 
-The angular parts of the eigenstates are the eigenfunctions of $\vec J^2$, $J_z$ and $\vec L^2$ on two-component wave
+The angular parts of the eigenstates are the eigenfunctions of $\mathbf J^2$, $J_z$ and $\mathbf L^2$ on two-component wave
 functions. The definition below writes them with the Clebsch-Gordan coefficients of @eq-qm-clebsch-gordan.
 
 :::: {.statement-box}
@@ -3066,19 +3066,19 @@ For $l = 0$ only $j = \frac12$ occurs, and the harmonic is a constant spinor. Th
 #### The $s_{1/2}$ harmonics
 
 $\Omega_{\frac12, 0, \frac12} = Y_0^0\chi_{1/2} = \frac{1}{\sqrt{4\pi}}(1, 0)$ and $\Omega_{\frac12, 0, -\frac12} = \frac{1}{\sqrt{4\pi}}(0, 1)$: spin up
-and spin down, with no angular dependence. They are eigenfunctions of $\vec\sigma\cdot\vec L$ with eigenvalue $0 = l$, as
+and spin down, with no angular dependence. They are eigenfunctions of $\boldsymbol\sigma\cdot\mathbf L$ with eigenvalue $0 = l$, as
 @exr-dq-k-eigenvalues requires for $j = l + \frac12$.
 :::
 
 The $p_{1/2}$ harmonics have angular dependence in each component, but not in their total density. The second example
-computes them and finds that they are obtained from the $s_{1/2}$ ones by $\vec\sigma\cdot\hat r$.
+computes them and finds that they are obtained from the $s_{1/2}$ ones by $\boldsymbol\sigma\cdot\hat{\mathbf r}$.
 
 ::: {#exm-dq-harmonic-p}
 #### The $p_{1/2}$ harmonics
 
 With $Y_1^0 = \sqrt{3/4\pi}\cos\theta$ and $Y_1^1 = -\sqrt{3/8\pi}\sin\theta e^{i\phi}$, $\Omega_{\frac12, 1, \frac12} = \frac{1}{\sqrt3}(-Y_1^0,
-\sqrt2Y_1^1) = -\frac{1}{\sqrt{4\pi}}(\cos\theta, \sin\theta e^{i\phi})$. Since $\vec\sigma\cdot\hat r(1, 0) = (\cos\theta, \sin\theta e^{i\phi})$,
-$\Omega_{\frac12, 1, \frac12} = -\vec\sigma\cdot\hat r\,\Omega_{\frac12, 0, \frac12}$: the operator $\sigma_r = \vec\sigma\cdot\hat r$ exchanges $l =
+\sqrt2Y_1^1) = -\frac{1}{\sqrt{4\pi}}(\cos\theta, \sin\theta e^{i\phi})$. Since $\boldsymbol\sigma\cdot\hat{\mathbf r}(1, 0) = (\cos\theta, \sin\theta e^{i\phi})$,
+$\Omega_{\frac12, 1, \frac12} = -\boldsymbol\sigma\cdot\hat{\mathbf r}\,\Omega_{\frac12, 0, \frac12}$: the operator $\sigma_r = \boldsymbol\sigma\cdot\hat{\mathbf r}$ exchanges $l =
 j \mp \frac12$ at fixed $j, m$.
 :::
 
@@ -3095,19 +3095,19 @@ the $P_{3/2}$, $m = \frac32$ state is concentrated near the equator. A $j = \fra
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise checks the eigenvalues of $\vec\sigma\cdot\vec L$ on the explicit harmonics. It is done with Sage, using
+The first exercise checks the eigenvalues of $\boldsymbol\sigma\cdot\mathbf L$ on the explicit harmonics. It is done with Sage, using
 the differential operators $L_\pm$, $L_z$ in spherical coordinates.
 
 ::: {#exr-dq-harmonic-eigen}
 #### Eigenvalues on the explicit harmonics
 
-With Sage, build $\Omega_{jlm}$ for $l = 1$ and all $j$, $m$ from @eq-dq-spinor-harmonic, apply $\vec\sigma\cdot\vec L = \sigma_3L_z +
+With Sage, build $\Omega_{jlm}$ for $l = 1$ and all $j$, $m$ from @eq-dq-spinor-harmonic, apply $\boldsymbol\sigma\cdot\mathbf L = \sigma_3L_z +
 \tfrac12(\sigma_+L_- + \sigma_-L_+)$ with $L_z = -i\partial_\phi$, $L_\pm = e^{\pm i\phi}(\pm\partial_\theta + i\cot\theta\,\partial_\phi)$, and check the
 eigenvalues $1$ for $j = \frac32$ and $-2$ for $j = \frac12$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Here $\sigma_\pm = \sigma_1 \pm i\sigma_2$, so $\vec\sigma\cdot\vec L = \sigma_3L_z + \tfrac12(\sigma_+L_- + \sigma_-L_+)$. Sage's spherical harmonics include the
+Here $\sigma_\pm = \sigma_1 \pm i\sigma_2$, so $\boldsymbol\sigma\cdot\mathbf L = \sigma_3L_z + \tfrac12(\sigma_+L_- + \sigma_-L_+)$. Sage's spherical harmonics include the
 Condon-Shortley phase, matching @eq-dq-spinor-harmonic:
 
 ```python
@@ -3145,20 +3145,20 @@ Omega_{1/2,1,1/2} = [-1/2*cos(theta)/sqrt(pi), -1/2*e^(I*phi)*sin(theta)/sqrt(pi
 ```
 :::
 
-The operator $\sigma_r$ is the angular part of $\vec\sigma\cdot\vec p$, and it maps each harmonic to its partner. The second
+The operator $\sigma_r$ is the angular part of $\boldsymbol\sigma\cdot\mathbf p$, and it maps each harmonic to its partner. The second
 exercise proves its two key properties.
 
 ::: {#exr-dq-sigma-r}
 #### The operator $\sigma_r$
 
-Show that $\sigma_r = \vec\sigma\cdot\hat r$ satisfies $\sigma_r^2 = 1$ and anticommutes with $\vec\sigma\cdot\vec L + 1$, and that $\vec\sigma\cdot\vec p
-= \sigma_r\big(-i\partial_r + \frac{i}{r}\vec\sigma\cdot\vec L\big)$.
+Show that $\sigma_r = \boldsymbol\sigma\cdot\hat{\mathbf r}$ satisfies $\sigma_r^2 = 1$ and anticommutes with $\boldsymbol\sigma\cdot\mathbf L + 1$, and that $\boldsymbol\sigma\cdot\mathbf p
+= \sigma_r\big(-i\partial_r + \frac{i}{r}\boldsymbol\sigma\cdot\mathbf L\big)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(\vec\sigma\cdot\hat r)^2 = \hat r^2 = 1$. For the anticommutator, the computation of @exr-dq-k-commutes with $\vec p$ replaced by
-$\hat r$ applies: $\hat r\cdot\vec L = 0$ and $\hat r \times \vec L + \vec L \times \hat r = 2i\hat r$ (both hold for any vector operator
-built from $\vec x$). Finally $\sigma_r\vec\sigma\cdot\vec p = \hat r\cdot\vec p + i\vec\sigma\cdot(\hat r \times \vec p) = -i\partial_r + \frac{i}{r}\vec\sigma\cdot\vec L$,
+$(\boldsymbol\sigma\cdot\hat{\mathbf r})^2 = \hat{\mathbf r}^2 = 1$. For the anticommutator, the computation of @exr-dq-k-commutes with $\mathbf p$ replaced by
+$\hat{\mathbf r}$ applies: $\hat{\mathbf r}\cdot\mathbf L = 0$ and $\hat{\mathbf r} \times \mathbf L + \mathbf L \times \hat{\mathbf r} = 2i\hat{\mathbf r}$ (both hold for any vector operator
+built from $\mathbf x$). Finally $\sigma_r\boldsymbol\sigma\cdot\mathbf p = \hat{\mathbf r}\cdot\mathbf p + i\boldsymbol\sigma\cdot(\hat{\mathbf r} \times \mathbf p) = -i\partial_r + \frac{i}{r}\boldsymbol\sigma\cdot\mathbf L$,
 and multiplying by $\sigma_r$ gives the formula.
 :::
 
@@ -3192,17 +3192,17 @@ For a central potential $V(r)$, the Dirac Hamiltonian has eigenstates of the for
 $$
 \psi = \frac1r\begin{pmatrix} G(r)\,\Omega_{\kappa m} \\ iF(r)\,\sigma_r\Omega_{\kappa m}\end{pmatrix}
 $$ {#eq-dq-radial-ansatz}
-in the Dirac representation, where $\Omega_{\kappa m}$ is the spinor harmonic with $(\vec\sigma\cdot\vec L + 1)\Omega_{\kappa m} = \kappa\Omega_{\kappa m}$,
+in the Dirac representation, where $\Omega_{\kappa m}$ is the spinor harmonic with $(\boldsymbol\sigma\cdot\mathbf L + 1)\Omega_{\kappa m} = \kappa\Omega_{\kappa m}$,
 and the energy equation $H\psi = E\psi$ is equivalent to
 $$
 G' - \frac{\kappa}{r}G = -(E - V + m)F, \qquad F' + \frac{\kappa}{r}F = (E - V - m)G ,
 $$ {#eq-dq-radial}
 with normalisation $\int_0^\infty(G^2 + F^2)\,dr = 1$ @zhelnorovich2019spinors [Sec. 5.11.2].
 
-*Proof.* The rows of $H\psi = E\psi$ are $(E - V - m)\varphi = \vec\sigma\cdot\vec p\chi$ and $(E - V + m)\chi = \vec\sigma\cdot\vec p\varphi$. Use
-$\vec\sigma\cdot\vec p = \sigma_r(-i\partial_r + \frac ir\vec\sigma\cdot\vec L)$ (@exr-dq-sigma-r): on $\varphi = \frac Gr\Omega$, $\vec\sigma\cdot\vec L =
-\kappa - 1$, which gives $\vec\sigma\cdot\vec p\varphi = -\frac ir(G' - \frac\kappa rG)\sigma_r\Omega$. On $\chi = \frac{iF}{r}\sigma_r\Omega$,
-$\vec\sigma\cdot\vec L = -\kappa - 1$ and $\sigma_r^2 = 1$ give $\vec\sigma\cdot\vec p\chi = \frac1r(F' + \frac\kappa rF)\Omega$. Comparing coefficients of
+*Proof.* The rows of $H\psi = E\psi$ are $(E - V - m)\varphi = \boldsymbol\sigma\cdot\mathbf p\chi$ and $(E - V + m)\chi = \boldsymbol\sigma\cdot\mathbf p\varphi$. Use
+$\boldsymbol\sigma\cdot\mathbf p = \sigma_r(-i\partial_r + \frac ir\boldsymbol\sigma\cdot\mathbf L)$ (@exr-dq-sigma-r): on $\varphi = \frac Gr\Omega$, $\boldsymbol\sigma\cdot\mathbf L =
+\kappa - 1$, which gives $\boldsymbol\sigma\cdot\mathbf p\varphi = -\frac ir(G' - \frac\kappa rG)\sigma_r\Omega$. On $\chi = \frac{iF}{r}\sigma_r\Omega$,
+$\boldsymbol\sigma\cdot\mathbf L = -\kappa - 1$ and $\sigma_r^2 = 1$ give $\boldsymbol\sigma\cdot\mathbf p\chi = \frac1r(F' + \frac\kappa rF)\Omega$. Comparing coefficients of
 $\Omega$ and $\sigma_r\Omega$ gives @eq-dq-radial.
 :::
 ::::
@@ -3248,18 +3248,18 @@ levels in @thm-dq-dirac-levels.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The first exercise derives the radial equations from the identity of @exr-dq-sigma-r. The computation of the action
-of $\vec\sigma\cdot\vec p$ on the two components is the whole content.
+of $\boldsymbol\sigma\cdot\mathbf p$ on the two components is the whole content.
 
 ::: {#exr-dq-separation-derivation}
 #### Deriving the radial equations
 
-Carry out the two computations in the proof of @prp-dq-radial-equations: show that $\vec\sigma\cdot\vec p\big(\frac Gr\Omega\big) =
--\frac ir\big(G' - \frac\kappa rG\big)\sigma_r\Omega$ and $\vec\sigma\cdot\vec p\big(\frac{iF}{r}\sigma_r\Omega\big) = \frac1r\big(F' + \frac\kappa rF\big)\Omega$.
+Carry out the two computations in the proof of @prp-dq-radial-equations: show that $\boldsymbol\sigma\cdot\mathbf p\big(\frac Gr\Omega\big) =
+-\frac ir\big(G' - \frac\kappa rG\big)\sigma_r\Omega$ and $\boldsymbol\sigma\cdot\mathbf p\big(\frac{iF}{r}\sigma_r\Omega\big) = \frac1r\big(F' + \frac\kappa rF\big)\Omega$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 For the first: $\sigma_r(-i\partial_r + \frac ir(\kappa - 1))\frac Gr\Omega = -i\sigma_r\Omega[(\frac Gr)' - \frac{\kappa - 1}{r^2}G] = -\frac ir\sigma_r\Omega(G' -
-\frac\kappa rG)$, since $(\frac Gr)' = \frac{G'}{r} - \frac{G}{r^2}$. For the second, $\vec\sigma\cdot\vec L$ acts on $\sigma_r\Omega$ with eigenvalue $-\kappa -
+\frac\kappa rG)$, since $(\frac Gr)' = \frac{G'}{r} - \frac{G}{r^2}$. For the second, $\boldsymbol\sigma\cdot\mathbf L$ acts on $\sigma_r\Omega$ with eigenvalue $-\kappa -
 1$, so $\sigma_r(-i\partial_r + \frac ir(-\kappa - 1))\frac{iF}{r}\sigma_r\Omega = \sigma_r^2\Omega[(\frac Fr)' + \frac{\kappa + 1}{r^2}F] = \frac1r(F' + \frac\kappa
 rF)\Omega$, the radial derivative commuting with $\sigma_r$.
 :::
@@ -3377,11 +3377,11 @@ fine structure of hydrogen.
 ::: {#thm-dq-dirac-levels}
 #### The Dirac energy levels
 
-The bound states of $H = \vec\alpha\cdot\vec p + \beta m - Z\alpha/r$ with $Z\alpha < 1$ have energies
+The bound states of $H = \boldsymbol\alpha\cdot\mathbf p + \beta m - Z\alpha/r$ with $Z\alpha < 1$ have energies
 $$
 E_{n_r\kappa} = m\Big[1 + \frac{(Z\alpha)^2}{(n_r + \gamma_\kappa)^2}\Big]^{-1/2}, \qquad \gamma_\kappa = \sqrt{\kappa^2 - (Z\alpha)^2} ,
 $$ {#eq-dq-dirac-levels}
-with $n_r = 0, 1, 2, \dots$ for $\kappa > 0$ and $n_r = 1, 2, \dots$ for $\kappa < 0$ (in the convention $K = \beta(\vec\Sigma\cdot\vec L + 1)$
+with $n_r = 0, 1, 2, \dots$ for $\kappa > 0$ and $n_r = 1, 2, \dots$ for $\kappa < 0$ (in the convention $K = \beta(\boldsymbol\Sigma\cdot\mathbf L + 1)$
 of @def-dq-k-operator, the nodeless states $n_r = 0$ exist only for $\kappa > 0$). With the principal
 quantum number $n = n_r + |\kappa|$ and $j = |\kappa| - \frac12$,
 $$
@@ -3590,7 +3590,7 @@ example gives the measured splitting and the order of magnitude of its quantum-e
 
 The $2S_{1/2}$ level lies above $2P_{1/2}$ by $1\,057\,845(3)$ kHz, the classic Lamb shift measured since 1947 (@eides2001hydrogen
 [Sec. XXXIX.D, Table XX]). The Dirac equation predicts zero. The electron's coupling to virtual photons smears its charge
-over a radius $\langle r^2\rangle \approx \frac{2}{m^2\pi}\alpha\ln(Z\alpha)^{-2}$, raising the $S$ levels by about $\frac{4m(Z\alpha)^4\alpha}{3\pi n^3}\ln(Z\alpha)^{-2}
+over a radius $\langle r^2\rangle \approx \frac{2}{m^2\pi}\alpha\log(Z\alpha)^{-2}$, raising the $S$ levels by about $\frac{4m(Z\alpha)^4\alpha}{3\pi n^3}\log(Z\alpha)^{-2}
 \approx 1330$ MHz at $n = 2$, and vacuum polarisation lowers them by about $30$ MHz @eides2001hydrogen [Sec. V, eqs. (28)-(32)].
 :::
 
@@ -3721,12 +3721,12 @@ vacuum-polarisation companion.
 ::: {#exr-dq-lamb-estimate}
 #### Estimating the Lamb shift
 
-Evaluate $\Delta E = \frac{4m(Z\alpha)^4\alpha}{3\pi n^3}\ln(Z\alpha)^{-2}$ and $\Delta E_{\mathrm{VP}} = -\frac{4m(Z\alpha)^4\alpha}{15\pi n^3}$ for $n = 2$, $Z = 1$,
+Evaluate $\Delta E = \frac{4m(Z\alpha)^4\alpha}{3\pi n^3}\log(Z\alpha)^{-2}$ and $\Delta E_{\mathrm{VP}} = -\frac{4m(Z\alpha)^4\alpha}{15\pi n^3}$ for $n = 2$, $Z = 1$,
 in MHz, and compare their sum with the measured $1057.8$ MHz.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$m\alpha^5 = 1.057 \times 10^{-5}$ eV $= 2.557$ GHz and $\ln\alpha^{-2} = 9.84$, so $\Delta E = \frac{4 \cdot 2557 \cdot 9.84}{3\pi \cdot 8}$ MHz $= 1335$ MHz
+$m\alpha^5 = 1.057 \times 10^{-5}$ eV $= 2.557$ GHz and $\log\alpha^{-2} = 9.84$, so $\Delta E = \frac{4 \cdot 2557 \cdot 9.84}{3\pi \cdot 8}$ MHz $= 1335$ MHz
 and $\Delta E_{\mathrm{VP}} = -\frac{4 \cdot 2557}{15\pi \cdot 8}$ MHz $= -27$ MHz. Their sum, $1308$ MHz, is $24\%$ above the measured value; the
 crude estimate gets the logarithm right but not the constant under it @eides2001hydrogen [Sec. V].
 
@@ -3858,8 +3858,8 @@ For more on this topic, see @pal2015introductory [Ch. 6, Ch. 7] and @shankar2017
 The Dirac equation for a particle of charge $q$ and the equation for charge $-q$ are related by complex conjugation and
 a matrix. The figure summarises the effect of the three discrete operations on the observables of a particle.
 
-![Charge conjugation $C$, parity $P$ and time reversal $T$ acting on a particle of charge $q$, momentum $\vec p$ (red) and
-spin $\vec s$ (green): $C$ flips the charge only, $P$ flips the momentum but not the spin and so reverses the helicity, $T$ flips
+![Charge conjugation $C$, parity $P$ and time reversal $T$ acting on a particle of charge $q$, momentum $\mathbf p$ (red) and
+spin $\mathbf s$ (green): $C$ flips the charge only, $P$ flips the momentum but not the spin and so reverses the helicity, $T$ flips
 both and keeps the helicity. Generated by `figures/dq-discrete.sage`.](figures/dq-discrete.svg){#fig-dq-discrete width=95%}
 
 The definition below uses the charge-conjugation matrix of @def-charge-conjugation-matrix in the form found for four
@@ -3869,10 +3869,10 @@ dimensions in @exm-spd-charge-four.
 ::: {#def-dq-charge-conjugate}
 #### Charge-conjugate spinor
 
-With $C = i\gamma^2\gamma^0$, which satisfies $C\gamma^\mu C^{-1} = -(\gamma^\mu)^{\mathsf T}$ and $C^{\mathsf T} = -C$, the **charge conjugate**
+With $C = i\gamma^2\gamma^0$, which satisfies $C\gamma^\mu C^{-1} = -(\gamma^\mu)^\top$ and $C^\top = -C$, the **charge conjugate**
 of a spinor $\psi$ is
 $$
-\psi^c = C\bar\psi^{\mathsf T} = i\gamma^2\psi^* .
+\psi^c = C\bar\psi^\top = i\gamma^2\psi^* .
 $$ {#eq-dq-charge-conjugate}
 In the Weyl representation, with $\psi = (\psi_L, \psi_R)$, $\psi^c = (i\sigma_2\psi_R^*, -i\sigma_2\psi_L^*)$. Up to a phase this is the
 Lorentz-covariant conjugate $\hat\psi = \gamma^0C\psi^*$ of @pal2011majorana [Sec. 3, eqs. (3.16), (3.26)].
@@ -3923,7 +3923,7 @@ the involution and the bilinear identities.
 ::: {#exr-dq-c-properties}
 #### Properties of $C$ by computer
 
-With Sage, in the Weyl representation, verify $C\gamma^\mu C^{-1} = -(\gamma^\mu)^{\mathsf T}$, $C^{\mathsf T} = -C$, $C^\dagger = C^{-1}$, $(\psi^c)^c =
+With Sage, in the Weyl representation, verify $C\gamma^\mu C^{-1} = -(\gamma^\mu)^\top$, $C^\top = -C$, $C^\dagger = C^{-1}$, $(\psi^c)^c =
 \psi$, $\overline{\psi^c}\psi^c = -\bar\psi\psi$ and $\overline{\psi^c}\gamma^\mu\psi^c = \bar\psi\gamma^\mu\psi$ for a spinor with symbolic components.
 :::
 
@@ -3989,7 +3989,7 @@ the Dirac representation with the same matrix, and write it in $2 \times 2$ bloc
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 If $\psi_D = U\psi_W$ with $U$ real, then $\psi_D^* = U\psi_W^*$ and $(\psi^c)_D = U i\gamma^2_W\psi_W^* = (Ui\gamma^2_WU^{-1})\psi_D^* = i\gamma^2_D\psi_D^*$,
-and $\gamma^2_D = U\gamma^2_WU^{\mathsf T} = \gamma^2_W$ because $\gamma^k$ is the same in both representations. In blocks, $i\gamma^2 = \begin{pmatrix} 0 &
+and $\gamma^2_D = U\gamma^2_WU^\top = \gamma^2_W$ because $\gamma^k$ is the same in both representations. In blocks, $i\gamma^2 = \begin{pmatrix} 0 &
 i\sigma_2 \\ -i\sigma_2 & 0\end{pmatrix}$, so $\psi^c = (i\sigma_2\chi^*, -i\sigma_2\varphi^*)$ for $\psi = (\varphi, \chi)$: the conjugate of a large
 component becomes a small component, as it must, since conjugation exchanges positive and negative energies.
 :::
@@ -4011,7 +4011,7 @@ x}$ with $\eta^s = i\sigma_2\xi^{s*}$ @pal2011majorana [eqs. (3.23)-(3.24)].
 $(i\gamma^2)\gamma^{\mu*}(i\gamma^2)^{-1} = -\gamma^\mu$ (true for all four $\mu$ in the Weyl representation, where only $\gamma^2$ is imaginary and
 it anticommutes with the other three) gives $(i\gamma^\mu(\partial_\mu - iqA_\mu) - m)\psi^c = 0$. A stationary state $\psi e^{-iEt}$
 maps to $\psi^ce^{+iEt}$, an eigenstate of $H_{-q}$ with energy $-E$. For the spinors, $(\sqrt{p\cdot\sigma})^* = \sigma_2\sqrt{p\cdot\bar\sigma}\sigma_2$
-because $\sigma_2\vec\sigma^*\sigma_2 = -\vec\sigma$, and inserting this in $i\gamma^2u^*$ gives @eq-dq-spinors for $v$ with $\eta = i\sigma_2\xi^*$.
+because $\sigma_2\boldsymbol\sigma^*\sigma_2 = -\boldsymbol\sigma$, and inserting this in $i\gamma^2u^*$ gives @eq-dq-spinors for $v$ with $\eta = i\sigma_2\xi^*$.
 :::
 ::::
 
@@ -4075,7 +4075,7 @@ with Sage for a moving particle.
 ::: {#exr-dq-c-uv}
 #### From $u$ to $v$ by computer
 
-With Sage, for $m = 1$ and $\vec p = (0, 0, \sinh w)$, compute $i\gamma^2(u^s)^*$ for both spins and compare with $v^s$ of @eq-dq-spinors with
+With Sage, for $m = 1$ and $\mathbf p = (0, 0, \sinh w)$, compute $i\gamma^2(u^s)^*$ for both spins and compare with $v^s$ of @eq-dq-spinors with
 $\eta^s = i\sigma_2\xi^{s*}$.
 :::
 
@@ -4118,7 +4118,7 @@ Let $\mathcal{C}\psi = i\gamma^2\psi^*$. Show that $\mathcal{C}$ is antilinear, 
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathcal{C}(a\psi) = a^*\mathcal{C}\psi$; $(i\gamma^2\psi^*)^\dagger(i\gamma^2\psi^*) = \psi^{\mathsf T}(i\gamma^2)^\dagger(i\gamma^2)\psi^* = \psi^\dagger\psi$ since $i\gamma^2$ is
+$\mathcal{C}(a\psi) = a^*\mathcal{C}\psi$; $(i\gamma^2\psi^*)^\dagger(i\gamma^2\psi^*) = \psi^\top(i\gamma^2)^\dagger(i\gamma^2)\psi^* = \psi^\dagger\psi$ since $i\gamma^2$ is
 unitary. From the proof, $\mathcal{C}$ maps solutions of $i\partial_t\psi = H_q\psi$ to solutions of $i\partial_t\psi = H_{-q}\psi$, and
 complex conjugation reverses $i\partial_t$, so $\mathcal{C}H_q = -H_{-q}\mathcal{C}$. An eigenvector of $H_q$ with eigenvalue $E$ maps to one
 of $H_{-q}$ with $-E$, and generalised eigenvectors likewise, so the continuous spectrum $(-\infty, -m] \cup [m, \infty)$, symmetric
@@ -4133,8 +4133,8 @@ definition below makes it an operation on solutions.
 ::: {#def-dq-parity}
 #### Parity transformation
 
-The **parity transformation** of a spinor field is $\psi_P(t, \vec x) = \eta_P\gamma^0\psi(t, -\vec x)$ with a phase $\eta_P$. If $\psi$
-solves the Dirac equation in the potential $(\Phi, \vec A)(t, \vec x)$, then $\psi_P$ solves it in $(\Phi, -\vec A)(t, -\vec x)$; in
+The **parity transformation** of a spinor field is $\psi_P(t, \mathbf x) = \eta_P\gamma^0\psi(t, -\mathbf x)$ with a phase $\eta_P$. If $\psi$
+solves the Dirac equation in the potential $(\Phi, \mathbf A)(t, \mathbf x)$, then $\psi_P$ solves it in $(\Phi, -\mathbf A)(t, -\mathbf x)$; in
 particular the free equation and the Coulomb problem are parity invariant.
 :::
 ::::
@@ -4169,7 +4169,7 @@ from the orbital angular momentum of the large component.
 ::: {#exm-dq-parity-hydrogen}
 #### Parity of the hydrogen states
 
-Under $\vec x \to -\vec x$, $Y_l^m \to (-1)^lY_l^m$ and $\sigma_r \to -\sigma_r$. For @eq-dq-radial-ansatz the upper components acquire $(-1)^l$ from the reflection; the lower ones, of orbital
+Under $\mathbf x \to -\mathbf x$, $Y_l^m \to (-1)^lY_l^m$ and $\sigma_r \to -\sigma_r$. For @eq-dq-radial-ansatz the upper components acquire $(-1)^l$ from the reflection; the lower ones, of orbital
 angular momentum $l' = l \pm 1$, acquire $(-1)^{l'} = -(-1)^l$ from the reflection and $-1$ from $\gamma^0 = \beta$, so $\psi_P = (-1)^l\psi$.
 So $2S_{1/2}$ is even and $2P_{1/2}$ odd; being degenerate (@exm-dq-degeneracy), they mix linearly in a weak electric
 field, the linear Stark effect of $n = 2$.
@@ -4183,15 +4183,15 @@ of the potential under reflection.
 ::: {#exr-dq-parity-proof}
 #### Parity invariance
 
-Show that if $\psi$ solves $(i\gamma^\mu D_\mu - m)\psi = 0$ in the potential $A_\mu(t, \vec x) = (\Phi, -\vec A)$, then $\psi_P$ solves it in
-$A^P_\mu(t, \vec x) = (\Phi(t, -\vec x), \vec A(t, -\vec x))$, i.e. with $\vec A^P(t, \vec x) = -\vec A(t, -\vec x)$.
+Show that if $\psi$ solves $(i\gamma^\mu D_\mu - m)\psi = 0$ in the potential $A_\mu(t, \mathbf x) = (\Phi, -\mathbf A)$, then $\psi_P$ solves it in
+$A^P_\mu(t, \mathbf x) = (\Phi(t, -\mathbf x), \mathbf A(t, -\mathbf x))$, i.e. with $\mathbf A^P(t, \mathbf x) = -\mathbf A(t, -\mathbf x)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $\vec x' = -\vec x$, $\partial_k = -\partial'_k$. Multiply the equation at $(t, -\vec x)$ by $\gamma^0$ and use $\gamma^0\gamma^0 = \gamma^0\gamma^0$, $\gamma^0\gamma^k =
+With $\mathbf x' = -\mathbf x$, $\partial_k = -\partial'_k$. Multiply the equation at $(t, -\mathbf x)$ by $\gamma^0$ and use $\gamma^0\gamma^0 = \gamma^0\gamma^0$, $\gamma^0\gamma^k =
 -\gamma^k\gamma^0$: $\gamma^0(i\gamma^0D_0 + i\gamma^kD_k - m)\psi = (i\gamma^0D_0 - i\gamma^kD_k - m)\gamma^0\psi$. The minus sign in front of $\gamma^kD_k$ is
-absorbed by $\partial_k \to -\partial_k$ provided $A_k \to -A_k$, i.e. $\vec A^P(t, \vec x) = -\vec A(t, -\vec x)$, while $\Phi^P(t, \vec x) = \Phi(t,
--\vec x)$. The Coulomb potential is even and has $\vec A = 0$, so it is invariant.
+absorbed by $\partial_k \to -\partial_k$ provided $A_k \to -A_k$, i.e. $\mathbf A^P(t, \mathbf x) = -\mathbf A(t, -\mathbf x)$, while $\Phi^P(t, \mathbf x) = \Phi(t,
+-\mathbf x)$. The Coulomb potential is even and has $\mathbf A = 0$, so it is invariant.
 :::
 
 Bilinears of definite parity determine which interactions conserve parity. The second exercise computes with Sage the
@@ -4240,13 +4240,13 @@ map it into itself.
 ::: {#exr-dq-parity-weyl}
 #### The Weyl equation is not parity invariant
 
-Show that if $\psi_L(t, \vec x)$ solves $i\bar\sigma^\mu\partial_\mu\psi_L = 0$, then $\psi_L(t, -\vec x)$ solves $i\sigma^\mu\partial_\mu\chi = 0$, the
+Show that if $\psi_L(t, \mathbf x)$ solves $i\bar\sigma^\mu\partial_\mu\psi_L = 0$, then $\psi_L(t, -\mathbf x)$ solves $i\sigma^\mu\partial_\mu\chi = 0$, the
 right-handed equation, and not the left-handed one.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\bar\sigma^\mu\partial_\mu = \partial_t - \vec\sigma\cdot\nabla$. For $\chi(t, \vec x) = \psi_L(t, -\vec x)$, $\nabla\chi = -(\nabla\psi_L)(t, -\vec x)$,
-so $(\partial_t + \vec\sigma\cdot\nabla)\chi = [(\partial_t - \vec\sigma\cdot\nabla)\psi_L](t, -\vec x) = 0$, which is $\sigma^\mu\partial_\mu\chi = 0$. The
+$\bar\sigma^\mu\partial_\mu = \partial_t - \boldsymbol\sigma\cdot\nabla$. For $\chi(t, \mathbf x) = \psi_L(t, -\mathbf x)$, $\nabla\chi = -(\nabla\psi_L)(t, -\mathbf x)$,
+so $(\partial_t + \boldsymbol\sigma\cdot\nabla)\chi = [(\partial_t - \boldsymbol\sigma\cdot\nabla)\psi_L](t, -\mathbf x) = 0$, which is $\sigma^\mu\partial_\mu\chi = 0$. The
 reflected left-handed solution solves the right-handed equation; a theory without right-handed fields has no room for it.
 :::
 ::::
@@ -4258,9 +4258,9 @@ definition below gives it for the Dirac equation.
 ::: {#def-dq-time-reversal}
 #### Time reversal
 
-The **time reversal** of a spinor field is $\psi_T(t, \vec x) = \eta_TT\psi^*(-t, \vec x)$ with $T = i\gamma^1\gamma^3$ and a phase $\eta_T$. The
+The **time reversal** of a spinor field is $\psi_T(t, \mathbf x) = \eta_TT\psi^*(-t, \mathbf x)$ with $T = i\gamma^1\gamma^3$ and a phase $\eta_T$. The
 matrix satisfies $T(\gamma^0)^*T^{-1} = \gamma^0$ and $T(\gamma^k)^*T^{-1} = -\gamma^k$, so that $\psi_T$ solves the Dirac equation whenever $\psi$ does,
-in the time-reversed potential $(\Phi, -\vec A)(-t, \vec x)$.
+in the time-reversed potential $(\Phi, -\mathbf A)(-t, \mathbf x)$.
 :::
 ::::
 
@@ -4271,8 +4271,8 @@ complex conjugation flips the momentum.
 ::: {#exm-dq-t-matrix}
 #### The time-reversal matrix
 
-$T = i\gamma^1\gamma^3 = \operatorname{diag}(-\sigma_2, -\sigma_2)$. On a plane wave $u(p)e^{-ip\cdot x}$ it gives $Tu(p)^*e^{-iEt - i\vec p\cdot\vec x}$, a positive-energy solution of momentum $-\vec
-p$, and $Tu(p)^*$ is the spinor @eq-dq-spinors of momentum $-\vec p$ with two-spinor $-\sigma_2\xi^*$, orthogonal to $\xi$. Momentum and spin both
+$T = i\gamma^1\gamma^3 = \operatorname{diag}(-\sigma_2, -\sigma_2)$. On a plane wave $u(p)e^{-ip\cdot x}$ it gives $Tu(p)^*e^{-iEt - i\mathbf p\cdot\mathbf x}$, a positive-energy solution of momentum $-\mathbf
+p$, and $Tu(p)^*$ is the spinor @eq-dq-spinors of momentum $-\mathbf p$ with two-spinor $-\sigma_2\xi^*$, orthogonal to $\xi$. Momentum and spin both
 reverse, so helicity is kept, and since $T$ is block diagonal, chirality is kept as well (@fig-dq-discrete).
 :::
 
@@ -4305,16 +4305,16 @@ The first exercise proves that $\psi_T$ solves the equation. It is the time anal
 ::: {#exr-dq-t-proof}
 #### Time-reversal invariance
 
-Using $T(\gamma^0)^*T^{-1} = \gamma^0$ and $T(\gamma^k)^*T^{-1} = -\gamma^k$, show that $\psi_T(t, \vec x) = T\psi^*(-t, \vec x)$ solves the free Dirac
+Using $T(\gamma^0)^*T^{-1} = \gamma^0$ and $T(\gamma^k)^*T^{-1} = -\gamma^k$, show that $\psi_T(t, \mathbf x) = T\psi^*(-t, \mathbf x)$ solves the free Dirac
 equation if $\psi$ does. What happens to a potential $q\Phi$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Conjugate the equation at $(-t, \vec x)$: $(-i\gamma^{0*}\partial_{t}' - i\gamma^{k*}\partial_k - m)\psi^*(-t, \vec x) = 0$ with $\partial_t'$ the derivative
-in the first slot; as a function of $t$, $\partial_t\psi^*(-t) = -(\partial_t'\psi^*)(-t)$. So $(i\gamma^{0*}\partial_t - i\gamma^{k*}\partial_k - m)\psi^*(-t, \vec
+Conjugate the equation at $(-t, \mathbf x)$: $(-i\gamma^{0*}\partial_{t}' - i\gamma^{k*}\partial_k - m)\psi^*(-t, \mathbf x) = 0$ with $\partial_t'$ the derivative
+in the first slot; as a function of $t$, $\partial_t\psi^*(-t) = -(\partial_t'\psi^*)(-t)$. So $(i\gamma^{0*}\partial_t - i\gamma^{k*}\partial_k - m)\psi^*(-t, \mathbf
 x) = 0$; multiplying by $T$ turns $\gamma^{0*}$ into $\gamma^0$ and $-\gamma^{k*}$ into $\gamma^k$, giving $(i\gamma^\mu\partial_\mu - m)\psi_T = 0$. A real
 potential $q\Phi$ is unchanged by conjugation, so it must be even in $t$: static potentials, like the Coulomb one, are
-time-reversal invariant, while $\vec A$ must change sign.
+time-reversal invariant, while $\mathbf A$ must change sign.
 :::
 
 The matrix identities of the definition and the sign $TT^* = -1$ are finite checks. The second exercise performs them with
@@ -4361,7 +4361,7 @@ orders give the same matrix up to a phase.
 #### The order of $C$, $P$, $T$
 
 With Sage, compute the matrix of the antilinear-linear-antilinear composition for each of the six orders of $C\psi = i\gamma^2\psi^*$,
-$P\psi = \gamma^0\psi$ (with $\vec x \to -\vec x$) and $T\psi = i\gamma^1\gamma^3\psi^*$ (with $t \to -t$), and show that each is a multiple of $\gamma_5$.
+$P\psi = \gamma^0\psi$ (with $\mathbf x \to -\mathbf x$) and $T\psi = i\gamma^1\gamma^3\psi^*$ (with $t \to -t$), and show that each is a multiple of $\gamma_5$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -4419,11 +4419,11 @@ the Weyl equations of @zhelnorovich2019spinors [Sec. 5.7].
 #### Weyl equation
 
 In the Weyl representation the Dirac equation for $\psi = (\psi_L, \psi_R)$ reads $i\bar\sigma^\mu\partial_\mu\psi_L = m\psi_R$, $i\sigma^\mu\partial_\mu\psi_R =
-m\psi_L$, with $\sigma^\mu = (1, \vec\sigma)$ and $\bar\sigma^\mu = (1, -\vec\sigma)$. For $m = 0$ these decouple into the **Weyl equations**
+m\psi_L$, with $\sigma^\mu = (1, \boldsymbol\sigma)$ and $\bar\sigma^\mu = (1, -\boldsymbol\sigma)$. For $m = 0$ these decouple into the **Weyl equations**
 $$
 i\bar\sigma^\mu\partial_\mu\psi_L = 0, \qquad i\sigma^\mu\partial_\mu\psi_R = 0 ,
 $$ {#eq-dq-weyl}
-equivalently $i\partial_t\psi_L = -\vec\sigma\cdot\vec p\,\psi_L$ and $i\partial_t\psi_R = \vec\sigma\cdot\vec p\,\psi_R$. A **Weyl fermion** is a solution of one
+equivalently $i\partial_t\psi_L = -\boldsymbol\sigma\cdot\mathbf p\,\psi_L$ and $i\partial_t\psi_R = \boldsymbol\sigma\cdot\mathbf p\,\psi_R$. A **Weyl fermion** is a solution of one
 of them; its two components transform under the left- or right-handed representation of $SL(2, \mathbb{C})$ of
 @def-weyl-representation @zhelnorovich2019spinors [Sec. 5.7, eqs. (5.79)-(5.81)], @pal2011majorana [Sec. 5].
 :::
@@ -4436,8 +4436,8 @@ of @exm-dq-helicity-massless.
 ::: {#exm-dq-weyl-plane}
 #### Helicity of Weyl particles
 
-For $\psi_R = \chi e^{-iEt + i\vec p\cdot\vec x}$ the equation gives $E\chi = \vec\sigma\cdot\vec p\chi$, so positive energy $E = |\vec p|$ requires
-$\vec\sigma\cdot\hat p\chi = \chi$: helicity $+1$. For $\psi_L$, $E\chi = -\vec\sigma\cdot\vec p\chi$ and positive energy requires helicity $-1$. The
+For $\psi_R = \chi e^{-iEt + i\mathbf p\cdot\mathbf x}$ the equation gives $E\chi = \boldsymbol\sigma\cdot\mathbf p\chi$, so positive energy $E = |\mathbf p|$ requires
+$\boldsymbol\sigma\cdot\hat{\mathbf p}\chi = \chi$: helicity $+1$. For $\psi_L$, $E\chi = -\boldsymbol\sigma\cdot\mathbf p\chi$ and positive energy requires helicity $-1$. The
 neutrinos observed in weak decays are left-handed, with helicity $-1$, and their antiparticles have helicity $+1$.
 :::
 
@@ -4447,8 +4447,8 @@ interpretation, which gives the antiparticle of a left-handed Weyl fermion.
 ::: {#exm-dq-weyl-negative}
 #### The antiparticle of a Weyl fermion
 
-For $\psi_L$ with energy $-|\vec p|$: $-|\vec p|\chi = -\vec\sigma\cdot\vec p\chi$, so $\vec\sigma\cdot\hat p\chi = \chi$. As a hole (@def-dq-dirac-sea), the
-missing state of momentum $\vec p$ and spin along $\hat p$ appears as an antiparticle of momentum $-\vec p$ and spin along $-\hat p$:
+For $\psi_L$ with energy $-|\mathbf p|$: $-|\mathbf p|\chi = -\boldsymbol\sigma\cdot\mathbf p\chi$, so $\boldsymbol\sigma\cdot\hat{\mathbf p}\chi = \chi$. As a hole (@def-dq-dirac-sea), the
+missing state of momentum $\mathbf p$ and spin along $\hat{\mathbf p}$ appears as an antiparticle of momentum $-\mathbf p$ and spin along $-\hat{\mathbf p}$:
 helicity $+1$. A left-handed Weyl field thus describes a particle of helicity $-1$ and an antiparticle of helicity $+1$, two
 states instead of the four of a Dirac field.
 :::
@@ -4461,7 +4461,7 @@ the vector current of @exr-fld-weyl-components.
 
 $j_L^\mu = \psi_L^\dagger\bar\sigma^\mu\psi_L$ and $j_R^\mu = \psi_R^\dagger\sigma^\mu\psi_R$ are conserved separately when $m = 0$; their sum is $j^\mu =
 \bar\psi\gamma^\mu\psi$ and their difference the axial current $a^\mu$ (@exr-dq-axial-current). For a single Weyl field the current is
-null: $j^0 = |\vec j|$ for every plane wave, since the particle moves at the speed of light (@exr-dq-positivity).
+null: $j^0 = |\mathbf j|$ for every plane wave, since the particle moves at the speed of light (@exr-dq-positivity).
 :::
 ::::
 
@@ -4477,8 +4477,8 @@ Hamiltonian forms.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $i\gamma^\mu\partial_\mu(\psi_L, \psi_R) = (i\sigma^\mu\partial_\mu\psi_R, i\bar\sigma^\mu\partial_\mu\psi_L)$, and equating with $m(\psi_L, \psi_R)$ gives the
-pair. For $m = 0$, $i\bar\sigma^\mu\partial_\mu\psi_L = i\partial_t\psi_L - i\vec\sigma\cdot\nabla\psi_L = 0$, i.e. $i\partial_t\psi_L = i\vec\sigma\cdot\nabla\psi_L
-= -\vec\sigma\cdot\vec p\psi_L$; likewise $i\partial_t\psi_R = \vec\sigma\cdot\vec p\psi_R$, the two blocks of @exm-dq-weyl-alpha.
+pair. For $m = 0$, $i\bar\sigma^\mu\partial_\mu\psi_L = i\partial_t\psi_L - i\boldsymbol\sigma\cdot\nabla\psi_L = 0$, i.e. $i\partial_t\psi_L = i\boldsymbol\sigma\cdot\nabla\psi_L
+= -\boldsymbol\sigma\cdot\mathbf p\psi_L$; likewise $i\partial_t\psi_R = \boldsymbol\sigma\cdot\mathbf p\psi_R$, the two blocks of @exm-dq-weyl-alpha.
 :::
 
 The square of the Weyl operator is the wave operator, as the square of the Dirac operator is the Klein-Gordon operator. The
@@ -4492,7 +4492,7 @@ $(\Box + m^2)\psi_L = 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(\partial_t + \vec\sigma\cdot\nabla)(\partial_t - \vec\sigma\cdot\nabla) = \partial_t^2 - (\vec\sigma\cdot\nabla)^2 = \partial_t^2 - \nabla^2 = \Box$, and the other
+$(\partial_t + \boldsymbol\sigma\cdot\nabla)(\partial_t - \boldsymbol\sigma\cdot\nabla) = \partial_t^2 - (\boldsymbol\sigma\cdot\nabla)^2 = \partial_t^2 - \nabla^2 = \Box$, and the other
 order is the same. With mass, $i\sigma^\mu\partial_\mu(i\bar\sigma^\nu\partial_\nu\psi_L) = i\sigma^\mu\partial_\mu(m\psi_R) = m^2\psi_L$, so $-\Box\psi_L =
 m^2\psi_L$.
 :::
@@ -4734,13 +4734,13 @@ physical mass of the particle.
 ::: {#exr-dq-majorana-kg}
 #### The Majorana mass is a mass
 
-From @eq-dq-majorana-equation and its conjugate, show $(\Box + m^2)\chi = 0$. Use $\sigma_2\vec\sigma^*\sigma_2 = -\vec\sigma$.
+From @eq-dq-majorana-equation and its conjugate, show $(\Box + m^2)\chi = 0$. Use $\sigma_2\boldsymbol\sigma^*\sigma_2 = -\boldsymbol\sigma$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 Write @eq-dq-majorana-equation as $i\bar\sigma^\mu\partial_\mu\chi = m\psi_R$ with $\psi_R = -i\sigma_2\chi^*$. Its complex conjugate,
 multiplied by $-i\sigma_2$, is $i\sigma^\mu\partial_\mu\psi_R = m\chi$ (proof of @prp-dq-majorana-equation; $\sigma_2\bar\sigma^{\mu*}\sigma_2 = \sigma^\mu$
-follows from $\sigma_2\vec\sigma^*\sigma_2 = -\vec\sigma$). Then $i\sigma^\nu\partial_\nu(i\bar\sigma^\mu\partial_\mu\chi) =
+follows from $\sigma_2\boldsymbol\sigma^*\sigma_2 = -\boldsymbol\sigma$). Then $i\sigma^\nu\partial_\nu(i\bar\sigma^\mu\partial_\mu\chi) =
 m\,i\sigma^\nu\partial_\nu\psi_R = m^2\chi$, and $(\sigma\cdot\partial)(\bar\sigma\cdot\partial) = \Box$ (@exr-dq-weyl-kg) gives $-\Box\chi = m^2\chi$.
 :::
 
@@ -4821,7 +4821,7 @@ Weyl field, which @pal2011majorana [Sec. 7] single out as the symmetry that a We
 ::: {#exr-dq-cp-weyl}
 #### $CP$ of a left-handed fermion
 
-Show that $\psi \to \gamma^0\psi^c(t, -\vec x)$ maps left-handed spinors to left-handed spinors, so that a theory with only left-handed fields
+Show that $\psi \to \gamma^0\psi^c(t, -\mathbf x)$ maps left-handed spinors to left-handed spinors, so that a theory with only left-handed fields
 can be $CP$ invariant although it violates $C$ and $P$ separately. What does it do to the helicity of the particle state?
 :::
 
@@ -4929,7 +4929,7 @@ F\begin{pmatrix} 1 \\ \frac{q}{E - V + m}\end{pmatrix}e^{iqx}, & x > 0, \end{cas
 $$ {#eq-dq-klein-solution}
 with $k = \sqrt{E^2 - m^2}$, $q^2 = (E - V)^2 - m^2$, continuous at $x = 0$, the sign or branch of $q$ being chosen so that the
 transmitted wave carries current away from the step or decays. The **reflection** and **transmission coefficients** are the ratios
-$R = -j_{\mathrm{ref}}/j_{\mathrm{inc}}$ and $T = j_{\mathrm{tr}}/j_{\mathrm{inc}}$ of the currents $j = \psi^\dagger\sigma_1\psi$.
+$R = -j_{\mathrm{ref}}/j_{\mathrm{inc}}$ and $T = j_{\operatorname{tr}}/j_{\mathrm{inc}}$ of the currents $j = \psi^\dagger\sigma_1\psi$.
 :::
 ::::
 
@@ -5255,8 +5255,8 @@ The definition below states Dirac's hole theory. It is the bridge between the on
 
 The **Dirac sea** is the state of the many-electron system in which every negative-energy one-particle state is occupied, once by
 the Pauli principle, and every positive-energy state is empty; it is declared to be the vacuum, with zero energy and charge. A
-**hole**, the absence of an electron of energy $-E$, momentum $-\vec p$, spin $-\vec s$ and charge $q = -e$, is an excitation of energy
-$+E$, momentum $\vec p$, spin $\vec s$ and charge $+e$: a **positron**.
+**hole**, the absence of an electron of energy $-E$, momentum $-\mathbf p$, spin $-\mathbf s$ and charge $q = -e$, is an excitation of energy
+$+E$, momentum $\mathbf p$, spin $\mathbf s$ and charge $+e$: a **positron**.
 :::
 ::::
 
@@ -5267,7 +5267,7 @@ relates them to the charge conjugation of @prp-dq-charge-conjugation.
 ::: {#exm-dq-hole-numbers}
 #### The quantum numbers of a hole
 
-Removing a state of energy $-E$ raises the energy of the sea by $E > 0$; removing momentum $-\vec p$ and charge $-e$ adds $\vec p$ and $+e$.
+Removing a state of energy $-E$ raises the energy of the sea by $E > 0$; removing momentum $-\mathbf p$ and charge $-e$ adds $\mathbf p$ and $+e$.
 The wave function of the missing electron is $v(p)e^{ip\cdot x}$, and its charge conjugate is $u(p)e^{-ip\cdot x}$ with charge $+e$
 (@prp-dq-charge-conjugation): the hole is described by the conjugate spinor, a positive-energy particle of opposite charge, as in
 @exm-dq-c-plane-wave.
@@ -5304,14 +5304,14 @@ meaningful.
 ::: {#exr-dq-hole-charge}
 #### The charge of the sea
 
-In a box of volume $L^3$, with momenta $\vec p \in (2\pi/L)\mathbb{Z}^3$ and $|\vec p| \leq \Lambda$, compute the charge and energy of the filled sea. Show
-that both diverge as $\Lambda \to \infty$, and that redefining the vacuum to have zero charge and energy leaves the charges and energies of
+In a box of volume $L^3$, with momenta $\mathbf p \in (2\pi/L)\mathbb{Z}^3$ and $|\mathbf p| \leq \Lambda_{\mathrm{UV}}$, compute the charge and energy of the filled sea. Show
+that both diverge as $\Lambda_{\mathrm{UV}} \to \infty$, and that redefining the vacuum to have zero charge and energy leaves the charges and energies of
 holes and electrons finite.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-There are $2$ spin states per momentum and about $L^3\frac{4\pi\Lambda^3}{3(2\pi)^3}$ momenta, so the sea has charge $-e\cdot\frac{L^3\Lambda^3}{3\pi^2}$ and energy
-$-\sum2E_p \approx -\frac{L^3\Lambda^4}{4\pi^2}$, both divergent. Subtracting these constants (normal ordering, in the field theory developed in
+There are $2$ spin states per momentum and about $L^3\frac{4\pi\Lambda_{\mathrm{UV}}^3}{3(2\pi)^3}$ momenta, so the sea has charge $-e\cdot\frac{L^3\Lambda_{\mathrm{UV}}^3}{3\pi^2}$ and energy
+$-\sum2E_p \approx -\frac{L^3\Lambda_{\mathrm{UV}}^4}{4\pi^2}$, both divergent. Subtracting these constants (normal ordering, in the field theory developed in
 @sec-quantum-field-theory) defines the vacuum; adding an electron changes the charge by $-e$, removing one by $+e$, and the energies by
 $+E_p$ in both cases.
 :::
@@ -5356,17 +5356,17 @@ Heisenberg equations of the free particle exactly, after Schrödinger's analysis
 ::: {#prp-dq-zitterbewegung}
 #### Zitterbewegung
 
-For the free Hamiltonian $H = \vec\alpha\cdot\vec p + \beta m$, the Heisenberg operators are
+For the free Hamiltonian $H = \boldsymbol\alpha\cdot\mathbf p + \beta m$, the Heisenberg operators are
 $$
-\vec\alpha(t) = \vec pH^{-1} + e^{2iHt}\vec\eta, \qquad \vec x(t) = \vec x(0) + \vec pH^{-1}t + \frac{1}{2i}\big(e^{2iHt} - 1\big)H^{-1}\vec\eta ,
+\boldsymbol\alpha(t) = \mathbf pH^{-1} + e^{2iHt}\boldsymbol\eta, \qquad \mathbf x(t) = \mathbf x(0) + \mathbf pH^{-1}t + \frac{1}{2i}\big(e^{2iHt} - 1\big)H^{-1}\boldsymbol\eta ,
 $$ {#eq-dq-zitterbewegung}
-with $\vec\eta = \vec\alpha(0) - \vec pH^{-1}$. The operator $\vec\eta$ anticommutes with $H$, so it has no matrix elements between states of the
-same energy sign: the term $e^{2iHt}\vec\eta$ is an oscillation at angular frequency $2E_p \geq 2m$ with amplitude of order $1/2E_p$, present only
+with $\boldsymbol\eta = \boldsymbol\alpha(0) - \mathbf pH^{-1}$. The operator $\boldsymbol\eta$ anticommutes with $H$, so it has no matrix elements between states of the
+same energy sign: the term $e^{2iHt}\boldsymbol\eta$ is an oscillation at angular frequency $2E_p \geq 2m$ with amplitude of order $1/2E_p$, present only
 in states that mix both signs of energy @costella1995foldy [Sec. III].
 
-*Proof.* By @exr-dq-velocity-alpha, $\dot{\vec x} = \vec\alpha$ and $\dot{\vec\alpha} = 2i(H\vec\alpha - \vec p)$, i.e. $\frac{d}{dt}(\vec\alpha - \vec pH^{-1}) =
-2iH(\vec\alpha - \vec pH^{-1})$, since $H$ and $\vec p$ are constant and commute. Hence $\vec\alpha(t) - \vec pH^{-1} = e^{2iHt}\vec\eta$; integrating gives
-$\vec x(t)$. Finally $\{H, \vec\alpha\} = 2\vec p$ (@exr-dq-velocity-alpha), so $\{H, \vec\eta\} = 2\vec p - 2\vec p = 0$.
+*Proof.* By @exr-dq-velocity-alpha, $\dot{\mathbf x} = \boldsymbol\alpha$ and $\dot{\boldsymbol\alpha} = 2i(H\boldsymbol\alpha - \mathbf p)$, i.e. $\frac{d}{dt}(\boldsymbol\alpha - \mathbf pH^{-1}) =
+2iH(\boldsymbol\alpha - \mathbf pH^{-1})$, since $H$ and $\mathbf p$ are constant and commute. Hence $\boldsymbol\alpha(t) - \mathbf pH^{-1} = e^{2iHt}\boldsymbol\eta$; integrating gives
+$\mathbf x(t)$. Finally $\{H, \boldsymbol\alpha\} = 2\mathbf p$ (@exr-dq-velocity-alpha), so $\{H, \boldsymbol\eta\} = 2\mathbf p - 2\mathbf p = 0$.
 :::
 ::::
 
@@ -5381,14 +5381,14 @@ reduced Compton wavelength. Both are far beyond direct observation; their trace 
 this distance (@exm-dq-darwin-smearing).
 :::
 
-A state made only of positive energies does not tremble. The second example shows this from the anticommutation of $\vec\eta$ with $H$,
+A state made only of positive energies does not tremble. The second example shows this from the anticommutation of $\boldsymbol\eta$ with $H$,
 which is the content of the dashed curve of @fig-dq-zitterbewegung.
 
 ::: {#exm-dq-zitter-positive}
 #### No trembling at positive energy
 
-If $P_+$ projects on positive energies, $\vec\eta P_+ = P_-\vec\eta$ because $\vec\eta H = -H\vec\eta$, so $P_+\vec\eta P_+ = P_+P_-\vec\eta = 0$. In a positive-energy
-state the oscillating term has zero expectation, and $\langle\vec x(t)\rangle = \langle\vec x(0)\rangle + \langle\vec p/E_p\rangle t$, the classical motion. The trembling
+If $P_+$ projects on positive energies, $\boldsymbol\eta P_+ = P_-\boldsymbol\eta$ because $\boldsymbol\eta H = -H\boldsymbol\eta$, so $P_+\boldsymbol\eta P_+ = P_+P_-\boldsymbol\eta = 0$. In a positive-energy
+state the oscillating term has zero expectation, and $\langle\mathbf x(t)\rangle = \langle\mathbf x(0)\rangle + \langle\mathbf p/E_p\rangle t$, the classical motion. The trembling
 is an interference effect between the two branches of @fig-dq-dispersion.
 :::
 
@@ -5398,26 +5398,26 @@ which is the interpretation of @costella1995foldy [Secs. II-III].
 ::: {#exm-dq-zitter-fw}
 #### The Newton-Wigner position
 
-The Foldy-Wouthuysen transformation of @def-dq-fw-transformation maps $H$ to $\beta E_p$, and the operator that is $\vec x$ in the new representation has
-velocity $\beta\vec p/E_p$ with no oscillation (@exm-dq-fw-velocity). In the Dirac representation this operator is the Newton-Wigner position, the mean
-of $\vec x$ over the trembling: the Zitterbewegung belongs to the Dirac position operator, not to the particle.
+The Foldy-Wouthuysen transformation of @def-dq-fw-transformation maps $H$ to $\beta E_p$, and the operator that is $\mathbf x$ in the new representation has
+velocity $\beta\mathbf p/E_p$ with no oscillation (@exm-dq-fw-velocity). In the Dirac representation this operator is the Newton-Wigner position, the mean
+of $\mathbf x$ over the trembling: the Zitterbewegung belongs to the Dirac position operator, not to the particle.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise derives the formula for $\vec x(t)$ by integrating the velocity. The order of operators matters only through
-the fact that $H$ and $\vec p$ commute.
+The first exercise derives the formula for $\mathbf x(t)$ by integrating the velocity. The order of operators matters only through
+the fact that $H$ and $\mathbf p$ commute.
 
 ::: {#exr-dq-zitter-derive}
 #### Integrating the velocity
 
-From $\vec\alpha(t) = \vec pH^{-1} + e^{2iHt}\vec\eta$, integrate $\dot{\vec x} = \vec\alpha$ to obtain @eq-dq-zitterbewegung, and check that $\vec x(t)$ satisfies
-$\vec x(0) = \vec x$ at $t = 0$.
+From $\boldsymbol\alpha(t) = \mathbf pH^{-1} + e^{2iHt}\boldsymbol\eta$, integrate $\dot{\mathbf x} = \boldsymbol\alpha$ to obtain @eq-dq-zitterbewegung, and check that $\mathbf x(t)$ satisfies
+$\mathbf x(0) = \mathbf x$ at $t = 0$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\int_0^te^{2iHs}ds = \frac{1}{2iH}(e^{2iHt} - 1)$ because $H$ is a constant operator, invertible since $H^2 = E_p^2 \geq m^2$. So $\vec x(t) = \vec x(0) + \vec
-pH^{-1}t + \frac{1}{2i}(e^{2iHt} - 1)H^{-1}\vec\eta$, which equals $\vec x(0)$ at $t = 0$. ($H^{-1}$ and $e^{2iHt}$ commute, so their order is immaterial.)
+$\int_0^te^{2iHs}ds = \frac{1}{2iH}(e^{2iHt} - 1)$ because $H$ is a constant operator, invertible since $H^2 = E_p^2 \geq m^2$. So $\mathbf x(t) = \mathbf x(0) + \mathbf
+pH^{-1}t + \frac{1}{2i}(e^{2iHt} - 1)H^{-1}\boldsymbol\eta$, which equals $\mathbf x(0)$ at $t = 0$. ($H^{-1}$ and $e^{2iHt}$ commute, so their order is immaterial.)
 :::
 
 In one dimension the operators are two-by-two matrices at fixed momentum. The second exercise verifies the velocity formula with
@@ -5459,20 +5459,20 @@ eigenvalues of p H^-1: [-p/sqrt(m^2 + p^2), p/sqrt(m^2 + p^2)]
 ```
 :::
 
-The vanishing of the oscillating term at positive energy is a statement about $\vec\eta$ alone. The third exercise proves it and
+The vanishing of the oscillating term at positive energy is a statement about $\boldsymbol\eta$ alone. The third exercise proves it and
 computes the size of the matrix elements between the two signs.
 
 ::: {#exr-dq-eta-odd}
 #### The interference term
 
-Show that $\vec\eta H = -H\vec\eta$ and $P_+\vec\eta P_+ = 0$. For $\vec p = 0$ show that $\vec\eta = \vec\alpha$ and that $\vec\alpha$ maps the rest spinors $u^s(0)$
+Show that $\boldsymbol\eta H = -H\boldsymbol\eta$ and $P_+\boldsymbol\eta P_+ = 0$. For $\mathbf p = 0$ show that $\boldsymbol\eta = \boldsymbol\alpha$ and that $\boldsymbol\alpha$ maps the rest spinors $u^s(0)$
 into the span of the $v^s(0)$. What is then the amplitude of the trembling of a state $(u + v)/\sqrt2$ at rest?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\{H, \vec\eta\} = 0$ from the proof; then $P_\pm = \frac12(1 \pm H/E)$ give $\vec\eta P_+ = P_-\vec\eta$ and $P_+\vec\eta P_+ = 0$. At $\vec p = 0$, $\vec\eta = \vec\alpha$ and
-$H = \beta m$; $\vec\alpha$ anticommutes with $\beta$, so it maps the $\beta = +1$ eigenspace (the $u(0)$) to the $\beta = -1$ eigenspace (the $v(0)$). For $(u +
-v)/\sqrt2$ the oscillating term of @eq-dq-zitterbewegung has amplitude $|H^{-1}\vec\eta|/2 \sim 1/2m$, the scale of @exm-dq-zitter-amplitude.
+$\{H, \boldsymbol\eta\} = 0$ from the proof; then $P_\pm = \frac12(1 \pm H/E)$ give $\boldsymbol\eta P_+ = P_-\boldsymbol\eta$ and $P_+\boldsymbol\eta P_+ = 0$. At $\mathbf p = 0$, $\boldsymbol\eta = \boldsymbol\alpha$ and
+$H = \beta m$; $\boldsymbol\alpha$ anticommutes with $\beta$, so it maps the $\beta = +1$ eigenspace (the $u(0)$) to the $\beta = -1$ eigenspace (the $v(0)$). For $(u +
+v)/\sqrt2$ the oscillating term of @eq-dq-zitterbewegung has amplitude $|H^{-1}\boldsymbol\eta|/2 \sim 1/2m$, the scale of @exm-dq-zitter-amplitude.
 :::
 ::::
 
@@ -5536,12 +5536,12 @@ units.
 ::: {#exr-dq-schwinger-field}
 #### The critical field
 
-In ordinary units Sauter's exponent is $\pi m^2c^3/(e\hbar\mathcal{E})$ for a field $\mathcal{E}$. Compute the critical field $\mathcal{E}_c = m^2c^3/e\hbar$ for electrons
+In ordinary units Sauter's exponent is $\pi m^2c^3/(e\hbar E)$ for a field $E$. Compute the critical field $E_c = m^2c^3/e\hbar$ for electrons
 and compare it with the field at the Bohr radius of hydrogen.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathcal{E}_c = \frac{(9.109 \times 10^{-31})^2(2.998 \times 10^8)^3}{1.602 \times 10^{-19} \cdot 1.055 \times 10^{-34}} = 1.32 \times 10^{18}$ V/m. At the Bohr radius $a_0 =
+$E_c = \frac{(9.109 \times 10^{-31})^2(2.998 \times 10^8)^3}{1.602 \times 10^{-19} \cdot 1.055 \times 10^{-34}} = 1.32 \times 10^{18}$ V/m. At the Bohr radius $a_0 =
 5.29 \times 10^{-11}$ m the proton's field is $e/4\pi\epsilon_0a_0^2 = 5.1 \times 10^{11}$ V/m, smaller by the factor $2.6 \times 10^6 = 1/\alpha^3$: atoms are far
 from supercritical, which is why the Dirac equation describes hydrogen so well @calogeracos1999klein [Sec. I.D].
 

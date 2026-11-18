@@ -1,0 +1,76 @@
+---
+pagetitle: "Notation"
+---
+
+# Notation {#sec-fundamentals-of-mathematics-for-physicists-notation}
+
+This page fixes the notation of the whole tutorial. The tables are shared with the other tutorials of the site, so a
+symbol means the same thing here as in [Fundamentals of Theoretical Physics](../../fundamentals-of-theoretical-physics/index.qmd)
+and [Kaluza-Klein Theories](../../kaluza-klein-theories/index.qmd). The chapters follow this notation, including its sign and
+normalisation conventions, whatever notation their sources use; where a chapter quotes a source's convention, it says
+so and names the source. The last section lists what is particular to this tutorial.
+
+## Sets and logic
+
+{{< include ../../_notation/sets-logic.qmd >}}
+
+## Linear algebra
+
+{{< include ../../_notation/linear-algebra.qmd >}}
+
+## Analysis
+
+{{< include ../../_notation/analysis.qmd >}}
+
+## Probability and statistics
+
+{{< include ../../_notation/probability-statistics.qmd >}}
+
+## Geometry and spacetime
+
+{{< include ../../_notation/geometry-spacetime.qmd >}}
+
+## Curvature and gravity
+
+{{< include ../../_notation/curvature-gravity.qmd >}}
+
+## Groups and algebras
+
+{{< include ../../_notation/groups-algebras.qmd >}}
+
+## Fields and particles
+
+{{< include ../../_notation/fields-particles.qmd >}}
+
+## Units
+
+{{< include ../../_notation/units.qmd >}}
+
+## Conventions specific to this tutorial
+
+These symbols are used only in this tutorial, or depart from the shared tables for a stated reason.
+
+| Symbol | Meaning |
+|---|---|
+| $A$, $\gamma^\mu$, $\Lambda^\mu{}_\nu$ | matrices are written plain, as in the physics literature, since their entries carry indices; the identity matrix is $1$ |
+| $\varphi_X(t) = \mathbb E\, e^{itX}$ | characteristic function of a random variable; the probabilists' sign $+i$ is the opposite of the Fourier transform, so $\varphi_X(t) = \hat p_X(-t)$ for a density $p_X$ |
+| $\Phi(x)$ | distribution function of the standard normal law (probability chapter only) |
+| $U$ | unitary Fourier transform $f \mapsto (2\pi)^{-1/2}\hat f$; Plancherel reads $\lVert\hat f\rVert^2 = 2\pi\lVert f\rVert^2$ |
+| $\log z$, $\ln x$ | in complex analysis, $\log z$ is the multivalued logarithm and $\ln x$ the real logarithm of $x > 0$; elsewhere $\log$ is the natural logarithm |
+| $J : X \to X^{**}$ | canonical isometry of a normed space into its bidual, $(Jx)(\varphi) = \varphi(x)$ |
+| $G(x, x')$ | Green's function of a linear operator $L$, $LG = \delta$ |
+| $H$ | Hamiltonian; a subgroup of a group $G$ in group theory |
+| $D$ | Dirac operator on a spin manifold, $D^2 = -\Delta$ on flat space |
+| $S \times_R V_\tau$ | homogeneous spinor bundle of a coset $S/R$: $V_\tau$ is the spinor space of $\mathfrak k$, on which $R$ acts by the lift $\tau$ of the isotropy representation |
+| $C_2(\mathfrak s, \lambda)$ | quadratic Casimir of $\mathfrak s$ in the representation $\lambda$; written with the Lie algebra, so that the isotropy group $R$ is not confused with the scalar curvature $R$ |
+| $\nabla^*\nabla$, $\bar\partial^*$ | connection Laplacian and the adjoint of $\bar\partial$: standard names kept with a star, although the Hilbert-space adjoint is otherwise written $\dagger$ |
+| $\hat A(M)$ | $\hat A$-genus of a manifold |
+| $\operatorname{ch}(E)$ | Chern character, $\operatorname{tr}\exp(-iF/2\pi)$ with anti-Hermitian $F$ |
+| $c_1$ | first Chern number of a $U(1)$ bundle, $c_1 = \frac{1}{2\pi}\int f$ |
+| $(p, q)$ | label of an irreducible representation of $SU(3)$ |
+
+- **Fourier variable:** the transform variable is $k$ in every chapter.
+- **Units:** this tutorial sets $\hbar = 1$ or $c = 1$ only in the passages that say so. Electrostatic examples use
+  Heaviside-Lorentz units, as in the shared table.
+- **Hats:** besides the Fourier transform $\hat f$ and an estimator $\hat\theta$, a hat marks an omitted index in
+  $dx^1\wedge\dots\wedge\widehat{dx^i}\wedge\dots\wedge dx^n$, which is standard.

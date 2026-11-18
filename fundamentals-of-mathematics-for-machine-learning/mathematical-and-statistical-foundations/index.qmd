@@ -9,7 +9,7 @@ foundational concepts is essential for comprehending the machine learning algori
 will cover key topics in linear algebra, probability and statistics, optimization, and information theory, with a focus on
 providing the formal definitions and mathematical rigor necessary for a deep understanding of the field.
 
-Notation fixes the symbols used throughout. Linear Algebra and Geometry defines systems of linear equations, vector spaces,
+The symbols follow the notation of the tutorial (@sec-notation). Linear Algebra and Geometry defines systems of linear equations, vector spaces,
 linear independence, span, bases and rank; Inner Products, Norms and Orthogonality adds lengths, angles and projections; Matrix
 Decompositions treats eigenvalues, the eigendecomposition, the SVD and the Bellman equation. Probability and Statistics sets up
 probability spaces, random variables, the sum and product rules and Bayes' theorem; Discrete Random Variables works through
@@ -21,72 +21,6 @@ Constrained Optimization covers convexity and Lagrange multipliers. Information 
 divergence, mutual information and the maximum likelihood and MAP estimates, and Cross-Entropy and Entropy Regularization closes
 with the losses used to train classifiers and policies. Every statement is followed by a fold of examples and a fold of
 exercises with hidden solutions, and the chapter ends with three integrative exercises.
-
-## Notation {#sec-notation}
-
-To ensure clarity and consistency, we will adopt the following notational conventions throughout this chapter and the remainder of
-these tutorials. This list is a consolidation of notations used in the primary reference textbooks.
-
-For more on this topic, see @bishop2024deeplearning [Preface], @deisenroth2020mml [Table of Symbols], @james2023statistical [Ch. 1], @shalev2014ml [Ch. 1], @theodoridis2025ml [Notation] and @zhao2025rl [Symbols].
-
-### General Mathematical Notation
-
-- Scalars: Lowercase letters e.g., $a, b, c, \alpha, \beta, \gamma$.
-- Sets: Calligraphic uppercase letters e.g., $\mathcal{X}, \mathcal{Y}, \mathcal{H}$.
-- Sets membership: $a \in \mathcal{A}$.
-- $\mathbb{R}$: Set of real numbers.
-- $\mathbb{C}$: Set of complex numbers.
-- $\mathbb{Z}$: Set of integers.
-- $\mathbb{N}$: Set of natural numbers.
-- Indicator function: $\mathbb{1}_{\cdot}$ with value 1 if its argument is true, and 0 otherwise.
-- Argument minimum and maximum functions: $\arg\min_x f(x)$ and $\arg\max_x f(x)$, respectively.
-- Logarithms: $\log$ is the natural logarithm (base $e$), unless otherwise specified.
-
-### Linear Algebra
-
-- Vectors: Old lowercase letters e.g. $\mathbf{x}, \mathbf{y}, \mathbf{w}$. Vectors are assumed to be column vectors unless
-  otherwise specified. The $i$-th element of a vector $\mathbf{x}$ is denoted by $x_i$.
-- Matrices: Bold uppercase letters e.g. $\mathbf{A}, \mathbf{B}, \mathbf{X}$. The element in the $i$-th row and $j$-th column
-  of matrix $\mathbf{A}$ is denoted $A_{ij}$ or $a_{ij}$.
-- Transpose of a matrix or vector: $\mathbf{A}^T$.
-- Inverse of a square matrix: $\mathbf{A}^{-1}$.
-- Identity matrix: $\mathbf{I}$.
-- Inner product (or dot product) of two vectors $\mathbf{x}$ and $\mathbf{y}$: $\langle\mathbf{x}, \mathbf{y}\rangle$ or
-  $\mathbf{x}^T\mathbf{y}$.
-- Euclidean $\ell_2$ norm: $\|\mathbf{x}\|$ or $\|\mathbf{x}\|_2$.
-- $\ell_p$ norm: $\|\mathbf{x}\|_p$.
-- Trace of a square matrix $\mathbf{A}$: $\text{tr}(\mathbf{A})$.
-- Determinant of square matrix $\mathbf{A}$: $\det(\mathbf{A})$ or $|\mathbf{A}|$.
-- Rank of matrix $\mathbf{A}$: $\text{rk}(\mathbf{A})$.
-- Span of a set of vectors: $\text{span}[\cdot]$.
-
-### Probability & Statistics
-
-- Random variables: Uppercase letters e.g. $X, Y$.
-- Random vectors: Bold uppercase letters e.g. $\mathbf{X}, \mathbf{Y}$).
-- Probability of an event $A$: $P(A)$.
-- Conditional probability of event $A$ given event $B$: $P(A|B)$.
-- Probability Mass Function (PMF) for a discrete random variable: $p(x)$.
-- Probability Density Function (PDF) for a continuous random variable: $p(x)$.
-- Expected value of a random variable $X$: $\mathbb{E}[X]$.
-- Variance of a random variable $X$: $\text{Var}(X)$.
-- Covariance of two random variables $X$ and $Y$: $\text{Cov}(X, Y)$.
-- Sampling $x$ from a distribution $\mathcal{D}$: $x \sim \mathcal{D}$.
-
-### Machine Learning
-
-- Number of data points or observations: $n$.
-- Number of features or dimensions: $p$ or $d$.
-- Matrix of observations: $\mathbf{X}$.
-- Feature vector for the $i$-th observation$: \mathbf{x}_i$.
-- Response or label for the $i$-th observation: $y_i$.
-- Vector of all $n$ response values: $\mathbf{y}$.
-- Hypothesis class: $\mathcal{H}$.
-- Hypothesis or predictor: $h$.
-- Vector of model parameters: $\boldsymbol{\theta}$ or $\mathbf{w}$.
-- Loss function: $\ell(h, z)$.
-- True error or risk: $L_{\mathcal{D}}(h)$.
-- Empirical error or risk: $L_{S}(h)$.
 
 ## Linear Algebra and Geometry {#sec-linear-algebra}
 
@@ -210,7 +144,7 @@ and find all solutions.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Here $\mathbf{A} = \begin{bmatrix} 1 & 2 & -1 \\ 0 & 3 & 1 \end{bmatrix}$ and $\mathbf{b} = (0, 4)^T$. For $(-1, 1, 1)$:
+Here $\mathbf{A} = \begin{bmatrix} 1 & 2 & -1 \\ 0 & 3 & 1 \end{bmatrix}$ and $\mathbf{b} = (0, 4)^\top$. For $(-1, 1, 1)$:
 $-1 + 2 - 1 = 0$ and $3 + 1 = 4$. In general set $x_3 = t$; the second equation gives $x_2 = (4 - t)/3$, and the first
 gives $x_1 = -2x_2 + t = (5t - 8)/3$. The solutions form the line $\{((5t - 8)/3, (4 - t)/3, t) : t \in \mathbb{R}\}$, and
 $t = 1$ recovers $(-1, 1, 1)$.
@@ -288,14 +222,14 @@ addition also fails: $(0, 1)$ and $(1, 3)$ lie on the line, but their sum $(1, 4
 ### Linear Independence and Span
 
 These concepts [@deisenroth2020mml] are central to understanding the structure of vector spaces. A vector $\mathbf{v}$ is a linear
-combination of a set of vectors ${\mathbf{x}_1, \dots, \mathbf{x}_k}$ if it can be expressed as a sum of scalar multiples of these
+combination of a set of vectors $\{\mathbf{x}_1, \dots, \mathbf{x}_k\}$ if it can be expressed as a sum of scalar multiples of these
 vectors: $\mathbf{v} = \sum_{i=1}^k \lambda_i \mathbf{x}_i$, where $\lambda_i$ are scalars.
 
 :::: {.statement-box}
 ::: {#def-linear-independence}
 #### Linear Independence
 
-A set of vectors ${\mathbf{x}_1, \dots, \mathbf{x}_k}$ is linearly independent if the only solution to the equation $\sum_{i=1}^k
+A set of vectors $\{\mathbf{x}_1, \dots, \mathbf{x}_k\}$ is linearly independent if the only solution to the equation $\sum_{i=1}^k
 \lambda_i \mathbf{x}_i = \mathbf{0}$ is $\lambda_1 = \dots = \lambda_k = 0$. If there is any non-trivial solution (where at least
 one $\lambda_i \neq 0$), the vectors are linearly dependent. In a set of linearly dependent vectors, at least one vector can be
 expressed as a linear combination of the others.
@@ -345,7 +279,7 @@ always a subspace.
 ::: {#def-span}
 #### Span of Vectors
 
-The span of a set of vectors ${\mathbf{x}_1, \dots, \mathbf{x}_k}$ is the set of all possible linear combinations of these
+The span of a set of vectors $\{\mathbf{x}_1, \dots, \mathbf{x}_k\}$ is the set of all possible linear combinations of these
 vectors. The span forms a subspace of the original vector space.
 :::
 
@@ -461,7 +395,7 @@ A data matrix whose second feature is a multiple of the first carries only one d
 #### A rank-one matrix
 
 For $\mathbf{A} = \begin{bmatrix} 1 & 2 \\ 2 & 4 \\ 3 & 6 \end{bmatrix}$ the second column is twice the first, so the column
-space is the line spanned by $(1, 2, 3)$ and $\text{rk}(\mathbf{A}) = 1$. The maximum possible rank of a $3 \times 2$ matrix is
+space is the line spanned by $(1, 2, 3)$ and $\operatorname{rank}(\mathbf{A}) = 1$. The maximum possible rank of a $3 \times 2$ matrix is
 $2$, so $\mathbf{A}$ does not have full rank.
 :::
 ::::
@@ -481,7 +415,7 @@ Find the rank of $\mathbf{A} = \begin{bmatrix} 1 & 0 & 1 \\ 0 & 1 & 1 \\ 1 & 1 &
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The third column is the sum of the first two, so the column space is spanned by the first two columns. These are independent
-(neither is a multiple of the other), so $\text{rk}(\mathbf{A}) = 2$. The maximum possible rank is $3$, so $\mathbf{A}$ does not
+(neither is a multiple of the other), so $\operatorname{rank}(\mathbf{A}) = 2$. The maximum possible rank is $3$, so $\mathbf{A}$ does not
 have full rank; in particular it is not invertible.
 :::
 ::::
@@ -511,7 +445,7 @@ $\alpha$:
 
 ::::
 
-The most common inner product is the dot product, defined as $\langle\mathbf{x}, \mathbf{y}\rangle = \mathbf{x}^T\mathbf{y} =
+The most common inner product is the dot product, defined as $\langle\mathbf{x}, \mathbf{y}\rangle = \mathbf{x}^\top\mathbf{y} =
 \sum_i x_i y_i$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -521,7 +455,7 @@ coordinates differently still satisfies all three properties.
 ::: {#exm-msf-inner-product-dot-weighted}
 #### The dot product and a weighted inner product
 
-For $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, -1)$, $\mathbf{x}^T\mathbf{y} = 3 - 2 = 1$. The weighted form
+For $\mathbf{x} = (1, 2)$ and $\mathbf{y} = (3, -1)$, $\mathbf{x}^\top\mathbf{y} = 3 - 2 = 1$. The weighted form
 $\langle\mathbf{x}, \mathbf{y}\rangle_w = 2x_1y_1 + x_2y_2$ is also an inner product on $\mathbb{R}^2$: it is symmetric, linear
 in the first argument, and $\langle\mathbf{x}, \mathbf{x}\rangle_w = 2x_1^2 + x_2^2 > 0$ unless $\mathbf{x} = \mathbf{0}$. For
 the same vectors it gives $2 \cdot 3 - 2 = 4$.
@@ -642,13 +576,13 @@ Euclidean norms would be $\sqrt{2}$ and $\sqrt{5}$.
 :::
 ::::
 
-The angle $\theta$ between two vectors can be defined using the inner product.
+The angle $\varphi$ between two vectors can be defined using the inner product.
 
 :::: {.statement-box}
 ::: {#def-vectors-angle}
 #### Angle Between Vectors
 
-$\cos(\theta) = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\| \|\mathbf{y}\|}$.
+$\cos(\varphi) = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\| \|\mathbf{y}\|}$.
 :::
 
 ::::
@@ -662,7 +596,7 @@ The first coordinate axis and the diagonal of the plane meet at $45^\circ$. The 
 ::: {#exm-msf-angle-diagonal}
 #### Axis and diagonal
 
-For $\mathbf{x} = (1, 0)$ and $\mathbf{y} = (1, 1)$, $\cos\theta = 1/(1 \cdot \sqrt{2})$, so $\theta = \pi/4$.
+For $\mathbf{x} = (1, 0)$ and $\mathbf{y} = (1, 1)$, $\cos\varphi = 1/(1 \cdot \sqrt{2})$, so $\varphi = \pi/4$.
 :::
 ::::
 
@@ -679,8 +613,8 @@ Find the angle between $(1, 2, 2)$ and $(2, -2, 1)$, and between $(1, 1, 0)$ and
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(1, 2, 2)^T(2, -2, 1) = 2 - 4 + 2 = 0$, so $\cos\theta = 0$ and $\theta = \pi/2$. For the second pair the inner product is $1$
-and both norms are $\sqrt{2}$, so $\cos\theta = 1/2$ and $\theta = \pi/3$.
+$(1, 2, 2)^\top(2, -2, 1) = 2 - 4 + 2 = 0$, so $\cos\varphi = 0$ and $\varphi = \pi/2$. For the second pair the inner product is $1$
+and both norms are $\sqrt{2}$, so $\cos\varphi = 1/2$ and $\varphi = \pi/3$.
 :::
 ::::
 
@@ -787,9 +721,9 @@ orthonormal basis of $\mathbb{R}^3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Both have norm $\frac{1}{3}\sqrt{9} = 1$, and $(1, 2, 2)^T(2, -2, 1) = 0$ (@exr-msf-angle-space). The cross product
+Both have norm $\frac{1}{3}\sqrt{9} = 1$, and $(1, 2, 2)^\top(2, -2, 1) = 0$ (@exr-msf-angle-space). The cross product
 $(1, 2, 2) \times (2, -2, 1) = (6, 3, -6)$ is orthogonal to both; normalising gives $\frac{1}{3}(2, 1, -2)$. Check:
-$(1, 2, 2)^T(2, 1, -2) = 0$ and $(2, -2, 1)^T(2, 1, -2) = 0$.
+$(1, 2, 2)^\top(2, 1, -2) = 0$ and $(2, -2, 1)^\top(2, 1, -2) = 0$.
 :::
 ::::
 
@@ -801,10 +735,10 @@ orthogonal projection.
 #### Orthogonal Projection
 
 The orthogonal projection of a vector $\mathbf{y}$ onto a subspace $\mathcal{U}$ is the vector in $\mathcal{U}$ that is closest to
-$\mathbf{y}$. If ${\mathbf{u}_1, \dots, \mathbf{u}_n}$ is an orthonormal basis for $\mathcal{U}$, the projection of $\mathbf{y}$
+$\mathbf{y}$. If $\{\mathbf{u}_1, \dots, \mathbf{u}_n\}$ is an orthonormal basis for $\mathcal{U}$, the projection of $\mathbf{y}$
 onto $\mathcal{U}$ is given by:
 
-$$ \text{proj}_{\mathcal{U}}(\mathbf{y}) = \sum_{i=1}^n \langle \mathbf{y}, \mathbf{u}_i \rangle \mathbf{u}_i $$
+$$ \operatorname{proj}_{\mathcal{U}}(\mathbf{y}) = \sum_{i=1}^n \langle \mathbf{y}, \mathbf{u}_i \rangle \mathbf{u}_i $$
 :::
 
 ::::
@@ -819,7 +753,7 @@ subspace and discards the rest.
 ::: {#exm-msf-projection-plane-line}
 #### Projecting onto a plane and a line
 
-Onto $\mathcal{U} = \text{span}[\mathbf{e}_1, \mathbf{e}_2] \subset \mathbb{R}^3$, $\mathbf{y} = (1, 2, 3)$ projects to
+Onto $\mathcal{U} = \operatorname{span}[\mathbf{e}_1, \mathbf{e}_2] \subset \mathbb{R}^3$, $\mathbf{y} = (1, 2, 3)$ projects to
 $(1, 2, 0)$. Onto the line spanned by $\mathbf{u} = (1, 1)/\sqrt{2}$, $\mathbf{y} = (3, 1)$ projects to
 $\langle\mathbf{y}, \mathbf{u}\rangle\mathbf{u} = \frac{4}{\sqrt{2}} \cdot \frac{(1, 1)}{\sqrt{2}} = (2, 2)$.
 :::
@@ -835,13 +769,13 @@ best constant fit to the data.
 ::: {#exr-msf-projection-mean}
 #### Projection onto the constants
 
-Project $\mathbf{y} = (1, 2, 3)$ onto the line spanned by $(1, 1, 1)$, and check that $\mathbf{y} - \text{proj}(\mathbf{y})$ is
+Project $\mathbf{y} = (1, 2, 3)$ onto the line spanned by $(1, 1, 1)$, and check that $\mathbf{y} - \operatorname{proj}(\mathbf{y})$ is
 orthogonal to $(1, 1, 1)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 An orthonormal basis of the line is $\mathbf{u} = (1, 1, 1)/\sqrt{3}$. Then $\langle\mathbf{y}, \mathbf{u}\rangle = 6/\sqrt{3}$
-and $\text{proj}(\mathbf{y}) = \frac{6}{3}(1, 1, 1) = (2, 2, 2)$, the mean of the entries in every coordinate. The residual
+and $\operatorname{proj}(\mathbf{y}) = \frac{6}{3}(1, 1, 1) = (2, 2, 2)$, the mean of the entries in every coordinate. The residual
 $(-1, 0, 1)$ has inner product $-1 + 0 + 1 = 0$ with $(1, 1, 1)$.
 :::
 ::::
@@ -878,9 +812,9 @@ diagonals. The example shows both cases.
 ::: {#exm-msf-eigen-diagonal-symmetric}
 #### A diagonal and a symmetric matrix
 
-For $\mathbf{A} = \text{diag}(2, 3)$, $\mathbf{e}_1$ has eigenvalue $2$ and $\mathbf{e}_2$ has eigenvalue $3$. For
-$\mathbf{A} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$, $\mathbf{A}(1, 1)^T = (3, 3)^T$ and $\mathbf{A}(1, -1)^T =
-(1, -1)^T$, so $(1, 1)$ has eigenvalue $3$ and $(1, -1)$ has eigenvalue $1$.
+For $\mathbf{A} = \operatorname{diag}(2, 3)$, $\mathbf{e}_1$ has eigenvalue $2$ and $\mathbf{e}_2$ has eigenvalue $3$. For
+$\mathbf{A} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$, $\mathbf{A}(1, 1)^\top = (3, 3)^\top$ and $\mathbf{A}(1, -1)^\top =
+(1, -1)^\top$, so $(1, 1)$ has eigenvalue $3$ and $(1, -1)$ has eigenvalue $1$.
 :::
 ::::
 
@@ -900,7 +834,7 @@ Find the eigenvalues and eigenvectors of $\mathbf{A} = \begin{bmatrix} 4 & 1 \\ 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\det(\mathbf{A} - \lambda\mathbf{I}) = (4 - \lambda)(3 - \lambda) - 2 = \lambda^2 - 7\lambda + 10 = (\lambda - 5)(\lambda - 2)$.
 For $\lambda = 5$, $(\mathbf{A} - 5\mathbf{I})\mathbf{v} = \mathbf{0}$ reads $-v_1 + v_2 = 0$, so $\mathbf{v} = (1, 1)$. For
-$\lambda = 2$, $2v_1 + v_2 = 0$, so $\mathbf{v} = (1, -2)$; check: $\mathbf{A}(1, -2)^T = (2, -4)^T = 2(1, -2)^T$.
+$\lambda = 2$, $2v_1 + v_2 = 0$, so $\mathbf{v} = (1, -2)$; check: $\mathbf{A}(1, -2)^\top = (2, -4)^\top = 2(1, -2)^\top$.
 :::
 ::::
 
@@ -914,7 +848,7 @@ If a matrix $\mathbf{A}$ is symmetric, it can be decomposed as:
 
 For a symmetric matrix $\mathbf{A}$:
 
-$$ \mathbf{A} = \mathbf{PDP}^T $$
+$$ \mathbf{A} = \mathbf{PDP}^\top $$
 
 where $\mathbf{P}$ is an orthogonal matrix whose columns are the eigenvectors of $\mathbf{A}$, and $\mathbf{D}$ is a diagonal matrix whose diagonal entries are the corresponding eigenvalues.
 :::
@@ -926,18 +860,18 @@ This decomposition is fundamental to Principal Component Analysis
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The symmetric matrix of @exm-msf-eigen-diagonal-symmetric has orthogonal eigenvectors $(1, 1)$ and $(1, -1)$. Normalising
-them gives $\mathbf{P}$, and the product $\mathbf{PDP}^T$ can be checked by hand.
+them gives $\mathbf{P}$, and the product $\mathbf{PDP}^\top$ can be checked by hand.
 
 ::: {#exm-msf-eigendecomposition-two}
 #### Diagonalising a symmetric $2 \times 2$ matrix
 
-With $\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \text{diag}(3, 1)$,
-$$ \mathbf{PDP}^T = \frac{1}{2}\begin{bmatrix} 3 & 1 \\ 3 & -1 \end{bmatrix}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} =
+With $\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \operatorname{diag}(3, 1)$,
+$$ \mathbf{PDP}^\top = \frac{1}{2}\begin{bmatrix} 3 & 1 \\ 3 & -1 \end{bmatrix}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} =
 \frac{1}{2}\begin{bmatrix} 4 & 2 \\ 2 & 4 \end{bmatrix} = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}. $$
 :::
 ::::
 
-The decomposition turns matrix functions into functions of numbers, since $\mathbf{A}^{-1} = \mathbf{PD}^{-1}\mathbf{P}^T$
+The decomposition turns matrix functions into functions of numbers, since $\mathbf{A}^{-1} = \mathbf{PD}^{-1}\mathbf{P}^\top$
 when no eigenvalue vanishes. The exercise uses this to invert a matrix.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
@@ -951,9 +885,9 @@ $\mathbf{A}^{-1}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbf{A}(1, 1)^T = 2(1, 1)^T$ and $\mathbf{A}(1, -1)^T = 4(1, -1)^T$, so $\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 &
-1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \text{diag}(2, 4)$. Then
-$\mathbf{A}^{-1} = \frac{1}{2}\mathbf{u}_1\mathbf{u}_1^T + \frac{1}{4}\mathbf{u}_2\mathbf{u}_2^T = \frac{1}{4}\begin{bmatrix}
+$\mathbf{A}(1, 1)^\top = 2(1, 1)^\top$ and $\mathbf{A}(1, -1)^\top = 4(1, -1)^\top$, so $\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 &
+1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \operatorname{diag}(2, 4)$. Then
+$\mathbf{A}^{-1} = \frac{1}{2}\mathbf{u}_1\mathbf{u}_1^\top + \frac{1}{4}\mathbf{u}_2\mathbf{u}_2^\top = \frac{1}{4}\begin{bmatrix}
 1 & 1 \\ 1 & 1 \end{bmatrix} + \frac{1}{8}\begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} = \frac{1}{8}\begin{bmatrix} 3 & 1
 \\ 1 & 3 \end{bmatrix}$, and $\mathbf{A}\mathbf{A}^{-1} = \frac{1}{8}\begin{bmatrix} 8 & 0 \\ 0 & 8 \end{bmatrix} = \mathbf{I}$.
 :::
@@ -968,15 +902,15 @@ decomposition removes both restrictions.
 
 The SVD is a generalization of the eigendecomposition to any $m \times n$ matrix $\mathbf{A}$. It is given by:
 
-$$ \mathbf{A} = \mathbf{U\Sigma V}^T $$
+$$ \mathbf{A} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top $$
 :::
 
 ::::
 
-where $\mathbf{U}$ is an $m \times m$ orthogonal matrix, $\mathbf{\Sigma}$ is an $m \times n$ rectangular diagonal matrix of
+where $\mathbf{U}$ is an $m \times m$ orthogonal matrix, $\boldsymbol{\Sigma}$ is an $m \times n$ rectangular diagonal matrix of
 singular values, and $\mathbf{V}$ is an $n \times n$ orthogonal matrix. The columns of $\mathbf{U}$ are the left-singular vectors,
 and the columns of $\mathbf{V}$ are the right-singular vectors. The SVD provides a complete geometric characterization of a linear
-transformation: it decomposes the transformation into a rotation ($\mathbf{V}^T$), a scaling along the axes ($\mathbf{\Sigma}$),
+transformation: it decomposes the transformation into a rotation ($\mathbf{V}^\top$), a scaling along the axes ($\boldsymbol{\Sigma}$),
 and another rotation ($\mathbf{U}$) [@deisenroth2020mml].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -986,17 +920,17 @@ A single column is the smallest rectangular matrix. Its SVD has one singular val
 #### SVD of a column vector
 
 For $\mathbf{A} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}$ ($m = 2$, $n = 1$), take $\mathbf{U} = \frac{1}{\sqrt{2}}\begin{bmatrix}
-1 & -1 \\ 1 & 1 \end{bmatrix}$, $\mathbf{\Sigma} = \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix}$ and $\mathbf{V} = [1]$. Then
-$\mathbf{U\Sigma V}^T = \frac{1}{\sqrt{2}}\begin{bmatrix} \sqrt{2} \\ \sqrt{2} \end{bmatrix} = \mathbf{A}$, and the singular value
+1 & -1 \\ 1 & 1 \end{bmatrix}$, $\boldsymbol{\Sigma} = \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix}$ and $\mathbf{V} = [1]$. Then
+$\mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top = \frac{1}{\sqrt{2}}\begin{bmatrix} \sqrt{2} \\ \sqrt{2} \end{bmatrix} = \mathbf{A}$, and the singular value
 $\sqrt{2}$ is $\|\mathbf{A}\|$.
 :::
 ::::
 
-The singular values are the square roots of the eigenvalues of $\mathbf{A}^T\mathbf{A}$, which gives a way to compute them.
+The singular values are the square roots of the eigenvalues of $\mathbf{A}^\top\mathbf{A}$, which gives a way to compute them.
 The exercise applies this recipe to a rank-one matrix.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The reader computes $\mathbf{A}^T\mathbf{A}$, reads off the singular values, and builds $\mathbf{U}$ from
+The reader computes $\mathbf{A}^\top\mathbf{A}$, reads off the singular values, and builds $\mathbf{U}$ from
 $\mathbf{u}_i = \mathbf{A}\mathbf{v}_i/\sigma_i$. One singular value is zero, reflecting the rank.
 
 ::: {#exr-msf-svd-rank-one}
@@ -1006,10 +940,10 @@ Find an SVD of $\mathbf{A} = \begin{bmatrix} 3 & 0 \\ 4 & 0 \end{bmatrix}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbf{A}^T\mathbf{A} = \text{diag}(25, 0)$, so the singular values are $5$ and $0$ with $\mathbf{V} = \mathbf{I}$. Then
+$\mathbf{A}^\top\mathbf{A} = \operatorname{diag}(25, 0)$, so the singular values are $5$ and $0$ with $\mathbf{V} = \mathbf{I}$. Then
 $\mathbf{u}_1 = \mathbf{A}\mathbf{e}_1/5 = (3, 4)/5$, and $\mathbf{u}_2 = (-4, 3)/5$ completes an orthonormal basis. With
-$\mathbf{U} = \frac{1}{5}\begin{bmatrix} 3 & -4 \\ 4 & 3 \end{bmatrix}$ and $\mathbf{\Sigma} = \text{diag}(5, 0)$,
-$\mathbf{U\Sigma V}^T = \begin{bmatrix} 3 & 0 \\ 4 & 0 \end{bmatrix}$. One non-zero singular value means rank one.
+$\mathbf{U} = \frac{1}{5}\begin{bmatrix} 3 & -4 \\ 4 & 3 \end{bmatrix}$ and $\boldsymbol{\Sigma} = \operatorname{diag}(5, 0)$,
+$\mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^\top = \begin{bmatrix} 3 & 0 \\ 4 & 0 \end{bmatrix}$. One non-zero singular value means rank one.
 :::
 ::::
 
@@ -1031,12 +965,12 @@ $$ v_\pi(s) = \mathbb{E}_\pi[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s] $$
 
 This can be written as a system of linear equations, one for each state. In matrix-vector form, this is:
 
-$$ \mathbf{v}_\pi = \mathbf{r}_\pi + \gamma P_\pi \mathbf{v}_\pi $$
+$$ \mathbf{v}_\pi = \mathbf{r}_\pi + \gamma \mathbf{P}_\pi \mathbf{v}_\pi $$
 
-where $\mathbf{v}_\pi$ is the vector of state values, $\mathbf{r}_\pi$ is the vector of expected immediate rewards, and $P_\pi$ is
+where $\mathbf{v}_\pi$ is the vector of state values, $\mathbf{r}_\pi$ is the vector of expected immediate rewards, and $\mathbf{P}_\pi$ is
 the state transition probability matrix. The solution is given by:
 
-$$ \mathbf{v}_\pi = (I - \gamma P_\pi)^{-1} \mathbf{r}_\pi $$
+$$ \mathbf{v}_\pi = (\mathbf{I} - \gamma \mathbf{P}_\pi)^{-1} \mathbf{r}_\pi $$
 
 This demonstrates how linear algebra is used to solve for the value function in reinforcement learning [@zhao2025rl].
 
@@ -1047,8 +981,8 @@ values, and the recursion confirms them.
 ::: {#exm-msf-bellman-two-states}
 #### Two alternating states
 
-Let the policy move $s_1 \to s_2 \to s_1 \to \cdots$, so $P_\pi = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$, with
-$\mathbf{r}_\pi = (1, 0)$ and $\gamma = 0.5$. Then $I - \gamma P_\pi = \begin{bmatrix} 1 & -0.5 \\ -0.5 & 1 \end{bmatrix}$ has
+Let the policy move $s_1 \to s_2 \to s_1 \to \cdots$, so $\mathbf{P}_\pi = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}$, with
+$\mathbf{r}_\pi = (1, 0)$ and $\gamma = 0.5$. Then $\mathbf{I} - \gamma \mathbf{P}_\pi = \begin{bmatrix} 1 & -0.5 \\ -0.5 & 1 \end{bmatrix}$ has
 determinant $0.75$, and $\mathbf{v}_\pi = \frac{1}{0.75}\begin{bmatrix} 1 & 0.5 \\ 0.5 & 1 \end{bmatrix}\begin{bmatrix} 1 \\ 0
 \end{bmatrix} = (4/3, 2/3)$. Check: $v(s_1) = 1 + 0.5 \cdot 2/3 = 4/3$ and $v(s_2) = 0 + 0.5 \cdot 4/3 = 2/3$.
 :::
@@ -1065,12 +999,12 @@ value.
 #### Solving small Bellman equations
 
 (a) A single state loops to itself with reward $r$ per step; find $v_\pi$ for $0 \le \gamma < 1$. (b) Two states with
-$P_\pi = \begin{bmatrix} 1/2 & 1/2 \\ 1/2 & 1/2 \end{bmatrix}$, $\mathbf{r}_\pi = (2, 0)$ and $\gamma = 0.5$: find
+$\mathbf{P}_\pi = \begin{bmatrix} 1/2 & 1/2 \\ 1/2 & 1/2 \end{bmatrix}$, $\mathbf{r}_\pi = (2, 0)$ and $\gamma = 0.5$: find
 $\mathbf{v}_\pi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $v = r + \gamma v$ gives $v = r/(1 - \gamma)$. (b) Let $m = (v_1 + v_2)/2$; then $P_\pi\mathbf{v}_\pi = (m, m)$ and
+(a) $v = r + \gamma v$ gives $v = r/(1 - \gamma)$. (b) Let $m = (v_1 + v_2)/2$; then $\mathbf{P}_\pi\mathbf{v}_\pi = (m, m)$ and
 $v_1 = 2 + 0.5m$, $v_2 = 0.5m$. Averaging gives $m = 1 + 0.5m$, so $m = 2$, $v_1 = 3$ and $v_2 = 1$; indeed $(3 + 1)/2 = 2$.
 :::
 ::::
@@ -1094,18 +1028,18 @@ collects the possible outcomes, the events to which a probability is assigned, a
 ::: {#def-msf-probability-space}
 #### Probability Space
 
-A probability space $(S, F, P)$ is defined as follows:
+A probability space $(\Omega, \mathcal{F}, \mathbb{P})$ is defined as follows:
 
-- Sample space $S$
+- Sample space $\Omega$
     - Set of possible outcomes
-- Sigma-algebra $F$
-    - $A \in F \Rightarrow A^c \in F$
-    - $\{A_i\}_{i=1}^{\infty} \subseteq F \Rightarrow \bigcup_{i=1}^{\infty} A_i \in F$
-- Probability measure $P$
-    - $P: F \rightarrow \mathbb{R}$
-        - Non-negativity $P(A) \geq 0$ for all $A \in F$
-        - Normalization $P(S) = 1$
-        - Countable additivity $P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$, $A_i$ disjoint
+- Sigma-algebra $\mathcal{F}$
+    - $A \in \mathcal{F} \Rightarrow A^c \in \mathcal{F}$
+    - $\{A_i\}_{i=1}^{\infty} \subseteq \mathcal{F} \Rightarrow \bigcup_{i=1}^{\infty} A_i \in \mathcal{F}$
+- Probability measure $\mathbb{P}$
+    - $\mathbb{P}: \mathcal{F} \rightarrow \mathbb{R}$
+        - Non-negativity $\mathbb{P}(A) \geq 0$ for all $A \in \mathcal{F}$
+        - Normalization $\mathbb{P}(\Omega) = 1$
+        - Countable additivity $\mathbb{P}\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} \mathbb{P}(A_i)$, $A_i$ disjoint
 :::
 
 ::::
@@ -1120,9 +1054,9 @@ each face.
 ::: {#exm-msf-die-probability-space}
 #### The fair die
 
-- Sample space $S = \{1, 2, 3, 4, 5, 6\}$
-- Sigma-algebra $F = \{\emptyset, \{1\}, \{2\}, \dots, S\}$
-- Probability measure $P(\{i\}) = \frac{1}{6}$ for each $i \in S$
+- Sample space $\Omega = \{1, 2, 3, 4, 5, 6\}$
+- Sigma-algebra $\mathcal{F} = \{\emptyset, \{1\}, \{2\}, \dots, \Omega\}$
+- Probability measure $\mathbb{P}(\{i\}) = \frac{1}{6}$ for each $i \in \Omega$
 :::
 ::::
 
@@ -1131,33 +1065,33 @@ finite example.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The reader builds the probability space of two coin tosses and computes an event probability by additivity. The second part
-derives $P(\emptyset) = 0$ from the axioms alone.
+derives $\mathbb{P}(\emptyset) = 0$ from the axioms alone.
 
 ::: {#exr-msf-probability-space-coins}
 #### Two coin tosses
 
 (a) Write down a probability space for two tosses of a fair coin and compute the probability of at least one head. (b) Show
-from the axioms that $P(\emptyset) = 0$ in any probability space.
+from the axioms that $\mathbb{P}(\emptyset) = 0$ in any probability space.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $S = \{HH, HT, TH, TT\}$, $F$ the set of all subsets of $S$, and $P(\{\omega\}) = 1/4$ for each outcome. The event "at
+(a) $\Omega = \{HH, HT, TH, TT\}$, $\mathcal{F}$ the set of all subsets of $\Omega$, and $\mathbb{P}(\{\omega\}) = 1/4$ for each outcome. The event "at
 least one head" is the disjoint union $\{HH\} \cup \{HT\} \cup \{TH\}$, so its probability is $3/4$. (b) Write
-$S = S \cup \emptyset \cup \emptyset \cup \cdots$, a union of disjoint sets. Countable additivity gives
-$P(S) = P(S) + \sum_{i \ge 2} P(\emptyset)$, so the non-negative terms $P(\emptyset)$ sum to $0$, hence $P(\emptyset) = 0$.
+$\Omega = \Omega \cup \emptyset \cup \emptyset \cup \cdots$, a union of disjoint sets. Countable additivity gives
+$\mathbb{P}(\Omega) = \mathbb{P}(\Omega) + \sum_{i \ge 2} \mathbb{P}(\emptyset)$, so the non-negative terms $\mathbb{P}(\emptyset)$ sum to $0$, hence $\mathbb{P}(\emptyset) = 0$.
 :::
 ::::
 
 Outcomes such as die faces are rarely used directly; one measures numbers attached to them. A random variable is such a
-numerical measurement, required to be compatible with the events of $F$.
+numerical measurement, required to be compatible with the events of $\mathcal{F}$.
 
 :::: {.statement-box}
 ::: {#def-msf-random-variable}
 #### Random Variable
 
-A random variable $X$ is a function $X: S \to \mathbb{R}$ such that $\forall x \in \mathbb{R}$:
+A random variable $X$ is a function $X: \Omega \to \mathbb{R}$ such that $\forall x \in \mathbb{R}$:
 
-$$X^{-1}((-\infty, x]) \in F$$
+$$X^{-1}((-\infty, x]) \in \mathcal{F}$$
 :::
 
 ::::
@@ -1172,13 +1106,13 @@ example. All later examples on the die refer to them.
 ::: {#exm-msf-die-random-variables}
 #### Three random variables on the die
 
-- $X(s) = s$
-- $Y(s) = \begin{cases} 1, & \text{if } s \text{ is even} \\ 0, & \text{if } s \text{ is odd} \end{cases}$
-- $Z(s) = \begin{cases} 1, & \text{if } s \leq 3 \\ 0, & \text{if } s > 3 \end{cases}$
+- $X(\omega) = \omega$
+- $Y(\omega) = \begin{cases} 1, & \text{if } \omega \text{ is even} \\ 0, & \text{if } \omega \text{ is odd} \end{cases}$
+- $Z(\omega) = \begin{cases} 1, & \text{if } \omega \leq 3 \\ 0, & \text{if } \omega > 3 \end{cases}$
 :::
 ::::
 
-The measurability condition only bites when $F$ is smaller than the set of all subsets. The exercise shows a coarse
+The measurability condition only bites when $\mathcal{F}$ is smaller than the set of all subsets. The exercise shows a coarse
 sigma-algebra on which some functions fail to be random variables.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
@@ -1188,12 +1122,12 @@ variables.
 ::: {#exr-msf-random-variable-coarse}
 #### A coarse sigma-algebra
 
-On $S = \{1, \dots, 6\}$ take $F = \{\emptyset, \{1, 3, 5\}, \{2, 4, 6\}, S\}$. Show that $Y$ is a random variable but $X$ is not.
+On $\Omega = \{1, \dots, 6\}$ take $\mathcal{F} = \{\emptyset, \{1, 3, 5\}, \{2, 4, 6\}, \Omega\}$. Show that $Y$ is a random variable but $X$ is not.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$Y^{-1}((-\infty, x])$ is $\emptyset$ for $x < 0$, $\{1, 3, 5\}$ for $0 \le x < 1$ and $S$ for $x \ge 1$, all in $F$. But
-$X^{-1}((-\infty, 1]) = \{1\} \notin F$, so $X$ is not a random variable with respect to this $F$.
+$Y^{-1}((-\infty, x])$ is $\emptyset$ for $x < 0$, $\{1, 3, 5\}$ for $0 \le x < 1$ and $\Omega$ for $x \ge 1$, all in $\mathcal{F}$. But
+$X^{-1}((-\infty, 1]) = \{1\} \notin \mathcal{F}$, so $X$ is not a random variable with respect to this $\mathcal{F}$.
 :::
 ::::
 
@@ -1208,13 +1142,13 @@ sum rule and the product rule.
 
 For any two events $A$ and $B$, the probability that either $A$ or $B$ will occur is given by:
 
-$$ P(A \cup B) = P(A) + P(B) - P(A \cap B) $$
+$$ \mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B) $$
 
-If the events are mutually exclusive, then $P(A \cap B) = 0$, and the rule simplifies to $P(A \cup B) = P(A) + P(B)$. For a
+If the events are mutually exclusive, then $\mathbb{P}(A \cap B) = 0$, and the rule simplifies to $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$. For a
 random variable $X$, the sum rule allows us to compute its marginal probability by summing (or integrating) over all possible
 values of another variable $Y$:
 
-$$ P(X) = \sum_Y P(X, Y) \quad \text{(for discrete Y)} $$$$ p(x) = \int p(x, y) dy \quad \text{(for continuous Y)} $$
+$$ p(x) = \sum_y p(x, y) \quad \text{(for discrete Y)} $$$$ p(x) = \int p(x, y) dy \quad \text{(for continuous Y)} $$
 :::
 
 ::::
@@ -1229,8 +1163,8 @@ probabilities of $X$ and $Y$ recovers the probability of an even face.
 ::: {#exm-msf-sum-rule-die}
 #### Union and marginal on the die
 
-With $A = \{Y = 1\} = \{2, 4, 6\}$ and $B = \{Z = 1\} = \{1, 2, 3\}$, $P(A \cup B) = \frac{1}{2} + \frac{1}{2} - \frac{1}{6} =
-\frac{5}{6}$, which matches $A \cup B = \{1, 2, 3, 4, 6\}$. Marginalising, $P(Y = 1) = \sum_x P(X = x, Y = 1) = 3 \cdot
+With $A = \{Y = 1\} = \{2, 4, 6\}$ and $B = \{Z = 1\} = \{1, 2, 3\}$, $\mathbb{P}(A \cup B) = \frac{1}{2} + \frac{1}{2} - \frac{1}{6} =
+\frac{5}{6}$, which matches $A \cup B = \{1, 2, 3, 4, 6\}$. Marginalising, $\mathbb{P}(Y = 1) = \sum_x \mathbb{P}(X = x, Y = 1) = 3 \cdot
 \frac{1}{6} = \frac{1}{2}$.
 :::
 ::::
@@ -1239,24 +1173,24 @@ Inclusion-exclusion can be run backwards to find an intersection. The exercise d
 density.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The reader first recovers $P(A \cap B)$ from the other three probabilities. The second part integrates out one variable of a
+The reader first recovers $\mathbb{P}(A \cap B)$ from the other three probabilities. The second part integrates out one variable of a
 uniform density on the square.
 
 ::: {#exr-msf-sum-rule-backwards}
 #### Using the sum rule in both directions
 
-(a) If $P(A) = 0.5$, $P(B) = 0.4$ and $P(A \cup B) = 0.7$, find $P(A \cap B)$; are $A$ and $B$ mutually exclusive? (b) If
+(a) If $\mathbb{P}(A) = 0.5$, $\mathbb{P}(B) = 0.4$ and $\mathbb{P}(A \cup B) = 0.7$, find $\mathbb{P}(A \cap B)$; are $A$ and $B$ mutually exclusive? (b) If
 $p(x, y) = 1$ on $[0, 1]^2$, find $p(x)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $P(A \cap B) = 0.5 + 0.4 - 0.7 = 0.2 \neq 0$, so they are not mutually exclusive. (b) $p(x) = \int_0^1 1 \, dy = 1$ for
+(a) $\mathbb{P}(A \cap B) = 0.5 + 0.4 - 0.7 = 0.2 \neq 0$, so they are not mutually exclusive. (b) $p(x) = \int_0^1 1 \, dy = 1$ for
 $x \in [0, 1]$: the marginal is uniform.
 :::
 ::::
 
 The second fundamental rule relates joint and conditional probabilities. It is also the definition of the conditional
-probability $P(A|B)$ when $P(B) > 0$.
+probability $\mathbb{P}(A|B)$ when $\mathbb{P}(B) > 0$.
 
 :::: {.statement-box}
 ::: {#def-msf-product-rule}
@@ -1264,9 +1198,9 @@ probability $P(A|B)$ when $P(B) > 0$.
 
 The joint probability of two events $A$ and $B$ occurring is given by:
 
-$$ P(A \cap B) = P(A|B)P(B) = P(B|A)P(A) $$
+$$ \mathbb{P}(A \cap B) = \mathbb{P}(A|B)\mathbb{P}(B) = \mathbb{P}(B|A)\mathbb{P}(A) $$
 
-where $P(A|B)$ is the conditional probability of $A$ given that $B$ has occurred.
+where $\mathbb{P}(A|B)$ is the conditional probability of $A$ given that $B$ has occurred.
 :::
 
 ::::
@@ -1281,8 +1215,8 @@ then recovers the joint probability.
 ::: {#exm-msf-product-rule-die}
 #### Even and low faces
 
-Given $B = \{1, 2, 3\}$, only the face $2$ is even, so $P(A|B) = \frac{1}{3}$ for $A = \{2, 4, 6\}$. The product rule gives
-$P(A \cap B) = \frac{1}{3} \cdot \frac{1}{2} = \frac{1}{6}$, the probability of the face $2$.
+Given $B = \{1, 2, 3\}$, only the face $2$ is even, so $\mathbb{P}(A|B) = \frac{1}{3}$ for $A = \{2, 4, 6\}$. The product rule gives
+$\mathbb{P}(A \cap B) = \frac{1}{3} \cdot \frac{1}{2} = \frac{1}{6}$, the probability of the face $2$.
 :::
 ::::
 
@@ -1299,8 +1233,8 @@ Two cards are drawn without replacement from a standard 52-card deck. What is th
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$P(\text{first ace}) = 4/52$ and $P(\text{second ace} \mid \text{first ace}) = 3/51$, so
-$P(\text{both}) = \frac{4}{52} \cdot \frac{3}{51} = \frac{1}{221}$.
+$\mathbb{P}(\text{first ace}) = 4/52$ and $\mathbb{P}(\text{second ace} \mid \text{first ace}) = 3/51$, so
+$\mathbb{P}(\text{both}) = \frac{4}{52} \cdot \frac{3}{51} = \frac{1}{221}$.
 :::
 ::::
 
@@ -1313,23 +1247,23 @@ beliefs about a hypothesis in light of new evidence:
 ::: {#thm-msf-bayes}
 #### Bayes' Theorem
 
-For a hypothesis $H$ and evidence $E$ with $P(E) > 0$,
+For a hypothesis $A$ and evidence $B$ with $\mathbb{P}(B) > 0$,
 
-$$ P(H|E) = \frac{P(E|H)P(H)}{P(E)} $$
+$$ \mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)} $$
 :::
 
 ::::
 
-The proof is one line: by @def-msf-product-rule, $P(H|E)P(E) = P(H \cap E) = P(E|H)P(H)$, and dividing by $P(E) > 0$ gives
+The proof is one line: by @def-msf-product-rule, $\mathbb{P}(A|B)\mathbb{P}(B) = \mathbb{P}(A \cap B) = \mathbb{P}(B|A)\mathbb{P}(A)$, and dividing by $\mathbb{P}(B) > 0$ gives
 the formula.
 
 In this formula:
 
-- $H$ represents a hypothesis, and $E$ represents the evidence.
-- $P(H)$ is the prior probability of the hypothesis, which is our belief before observing the evidence.
-- $P(H|E)$ is the posterior probability, which is our updated belief after observing the evidence.
-- $P(E|H)$ is the likelihood, which is the probability of observing the evidence given that the hypothesis is true.
-- $P(E)$ is the marginal likelihood or evidence, which is the total probability of observing the evidence. It acts as a
+- $A$ represents a hypothesis, and $B$ represents the evidence.
+- $\mathbb{P}(A)$ is the prior probability of the hypothesis, which is our belief before observing the evidence.
+- $\mathbb{P}(A|B)$ is the posterior probability, which is our updated belief after observing the evidence.
+- $\mathbb{P}(B|A)$ is the likelihood, which is the probability of observing the evidence given that the hypothesis is true.
+- $\mathbb{P}(B)$ is the marginal likelihood or evidence, which is the total probability of observing the evidence. It acts as a
 normalization constant.
 
 Bayes' theorem is central to Bayesian inference, where we treat model parameters as random variables and update their
@@ -1342,8 +1276,8 @@ the sum and product rules.
 ::: {#exm-msf-bayes-diagnostic}
 #### A diagnostic test
 
-A condition has prevalence $P(H) = 0.01$; a test detects it with $P(E|H) = 0.99$ and gives a false positive with
-$P(E|H^c) = 0.05$. Then $P(E) = 0.99 \cdot 0.01 + 0.05 \cdot 0.99 = 0.0594$ and $P(H|E) = 0.0099/0.0594 \approx 0.167$: a positive
+A condition has prevalence $\mathbb{P}(A) = 0.01$; a test detects it with $\mathbb{P}(B|A) = 0.99$ and gives a false positive with
+$\mathbb{P}(B|A^c) = 0.05$. Then $\mathbb{P}(B) = 0.99 \cdot 0.01 + 0.05 \cdot 0.99 = 0.0594$ and $\mathbb{P}(A|B) = 0.0099/0.0594 \approx 0.167$: a positive
 test raises the probability from $1\%$ to about $17\%$.
 :::
 ::::
@@ -1357,13 +1291,13 @@ The reader inverts a conditional probability twice. In both parts the evidence m
 ::: {#exr-msf-bayes-spam}
 #### Inverting conditional probabilities
 
-(a) On the die, find $P(Z = 1 \mid Y = 1)$ with Bayes' theorem. (b) If $P(\text{spam}) = 0.3$, a word appears in spam with
-probability $0.6$ and in other email with probability $0.1$, find $P(\text{spam} \mid \text{word})$.
+(a) On the die, find $\mathbb{P}(Z = 1 \mid Y = 1)$ with Bayes' theorem. (b) If $\mathbb{P}(\text{spam}) = 0.3$, a word appears in spam with
+probability $0.6$ and in other email with probability $0.1$, find $\mathbb{P}(\text{spam} \mid \text{word})$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $P(Z = 1 | Y = 1) = P(Y = 1 | Z = 1)P(Z = 1)/P(Y = 1) = \frac{1}{3} \cdot \frac{1}{2} / \frac{1}{2} = \frac{1}{3}$. (b)
-$P(\text{word}) = 0.6 \cdot 0.3 + 0.1 \cdot 0.7 = 0.25$, so $P(\text{spam} | \text{word}) = 0.18/0.25 = 0.72$.
+(a) $\mathbb{P}(Z = 1 | Y = 1) = \mathbb{P}(Y = 1 | Z = 1)\mathbb{P}(Z = 1)/\mathbb{P}(Y = 1) = \frac{1}{3} \cdot \frac{1}{2} / \frac{1}{2} = \frac{1}{3}$. (b)
+$\mathbb{P}(\text{word}) = 0.6 \cdot 0.3 + 0.1 \cdot 0.7 = 0.25$, so $\mathbb{P}(\text{spam} | \text{word}) = 0.18/0.25 = 0.72$.
 :::
 ::::
 
@@ -1383,7 +1317,7 @@ The basic table lists the probability of each value of a single random variable.
 
 The probability mass function (PMF) of a discrete random variable $X$ is a function $p_X: \mathbb{R} \to [0, 1]$ such that
 
-$$p_X(x) = P(X = x)$$
+$$p_X(x) = \mathbb{P}(X = x)$$
 :::
 
 ::::
@@ -1430,7 +1364,7 @@ joint PMF.
 
 The joint PMF of two discrete random variables $X$ and $Y$ is
 
-$$p_{X,Y}(x, y) = P(X = x, Y = y)$$
+$$p_{X,Y}(x, y) = \mathbb{P}(X = x, Y = y)$$
 :::
 
 ::::
@@ -1460,8 +1394,8 @@ Find the joint PMF of $(Y, Z)$ on the die.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$p_{Y,Z}(1, 1) = P(\{2\}) = \frac{1}{6}$, $p_{Y,Z}(1, 0) = P(\{4, 6\}) = \frac{1}{3}$, $p_{Y,Z}(0, 1) = P(\{1, 3\}) =
-\frac{1}{3}$ and $p_{Y,Z}(0, 0) = P(\{5\}) = \frac{1}{6}$. The four values sum to $1$.
+$p_{Y,Z}(1, 1) = \mathbb{P}(\{2\}) = \frac{1}{6}$, $p_{Y,Z}(1, 0) = \mathbb{P}(\{4, 6\}) = \frac{1}{3}$, $p_{Y,Z}(0, 1) = \mathbb{P}(\{1, 3\}) =
+\frac{1}{3}$ and $p_{Y,Z}(0, 0) = \mathbb{P}(\{5\}) = \frac{1}{6}$. The four values sum to $1$.
 :::
 ::::
 
@@ -1594,14 +1528,14 @@ conditionally independent but not independent.
 ::: {#exr-msf-conditional-independence-mixture}
 #### A hidden coin
 
-Let $P(Z = 0) = P(Z = 1) = \frac{1}{2}$; given $Z = z$, the tosses $X, Y \in \{0, 1\}$ are independent with $P(X = 1 | Z = z) =
-P(Y = 1 | Z = z) = q_z$, where $q_0 = 0.9$ and $q_1 = 0.1$. Show that $X$ and $Y$ are conditionally independent given $Z$ but
+Let $\mathbb{P}(Z = 0) = \mathbb{P}(Z = 1) = \frac{1}{2}$; given $Z = z$, the tosses $X, Y \in \{0, 1\}$ are independent with $\mathbb{P}(X = 1 | Z = z) =
+\mathbb{P}(Y = 1 | Z = z) = q_z$, where $q_0 = 0.9$ and $q_1 = 0.1$. Show that $X$ and $Y$ are conditionally independent given $Z$ but
 not independent.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-By construction $p_{Y|X,Z}(y | x, z) = p_{Y|Z}(y | z)$. Unconditionally, $P(X = 1) = P(Y = 1) = \frac{1}{2}(0.9 + 0.1) = 0.5$,
-but $P(X = 1, Y = 1) = \frac{1}{2}(0.81 + 0.01) = 0.41 \neq 0.25$. Seeing one head makes the head-biased coin more likely, and
+By construction $p_{Y|X,Z}(y | x, z) = p_{Y|Z}(y | z)$. Unconditionally, $\mathbb{P}(X = 1) = \mathbb{P}(Y = 1) = \frac{1}{2}(0.9 + 0.1) = 0.5$,
+but $\mathbb{P}(X = 1, Y = 1) = \frac{1}{2}(0.81 + 0.01) = 0.41 \neq 0.25$. Seeing one head makes the head-biased coin more likely, and
 hence a second head more likely.
 :::
 ::::
@@ -1722,13 +1656,13 @@ this random variable:
 
 The Bernoulli distribution for a binary random variable $x \in \{0,1\}$ with success probability $p$:
 
-$$ \text{Bern}(x|p) = p^x (1-p)^{1-x} $$
+$$ \operatorname{Bern}(x|p) = p^x (1-p)^{1-x} $$
 :::
 
 ::::
 
 The Bernoulli distribution has
-mean $\mathbb{E}[x] = p$ and variance $\text{Var}(x) = p(1-p)$. In machine learning, Bernoulli distributions appear in binary
+mean $\mathbb{E}[X] = p$ and variance $\operatorname{Var}(X) = p(1-p)$. In machine learning, Bernoulli distributions appear in binary
 classification problems and as building blocks for more complex models like naive Bayes classifiers.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -1737,7 +1671,7 @@ The example evaluates the formula for the spam probability $p = 0.3$. The expone
 ::: {#exm-msf-bernoulli-spam}
 #### Spam as a Bernoulli variable
 
-With $p = 0.3$, $\text{Bern}(1|0.3) = 0.3$ and $\text{Bern}(0|0.3) = 0.7$. The mean is $0.3$ and the variance
+With $p = 0.3$, $\operatorname{Bern}(1|0.3) = 0.3$ and $\operatorname{Bern}(0|0.3) = 0.7$. The mean is $0.3$ and the variance
 $0.3 \cdot 0.7 = 0.21$.
 :::
 ::::
@@ -1746,18 +1680,18 @@ The mean and variance quoted above follow directly from the definition of expect
 them.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The reader computes $\mathbb{E}[x]$ and $\mathbb{E}[x^2]$ from the two-point distribution. The variance then follows from
+The reader computes $\mathbb{E}[X]$ and $\mathbb{E}[X^2]$ from the two-point distribution. The variance then follows from
 @def-variance.
 
 ::: {#exr-msf-bernoulli-moments}
 #### Moments of a Bernoulli variable
 
-Show that $\mathbb{E}[x] = p$ and $\text{Var}(x) = p(1 - p)$, and find the $p$ that maximises the variance.
+Show that $\mathbb{E}[X] = p$ and $\operatorname{Var}(X) = p(1 - p)$, and find the $p$ that maximises the variance.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\mathbb{E}[x] = 0 \cdot (1 - p) + 1 \cdot p = p$ and, since $x^2 = x$, $\mathbb{E}[x^2] = p$. So
-$\text{Var}(x) = p - p^2 = p(1 - p)$, a downward parabola with maximum $\frac{1}{4}$ at $p = \frac{1}{2}$.
+$\mathbb{E}[X] = 0 \cdot (1 - p) + 1 \cdot p = p$ and, since $X^2 = X$, $\mathbb{E}[X^2] = p$. So
+$\operatorname{Var}(X) = p - p^2 = p(1 - p)$, a downward parabola with maximum $\frac{1}{4}$ at $p = \frac{1}{2}$.
 :::
 ::::
 
@@ -1770,7 +1704,7 @@ example, if we send 10 emails and each has a 0.3 probability of being spam, the 
 
 The binomial distribution for $k$ successes in $n$ independent Bernoulli trials with success probability $p$:
 
-$$ \text{Bin}(k|n, p) = \binom{n}{k} p^k (1-p)^{n-k} $$
+$$ \operatorname{Bin}(k|n, p) = \binom{n}{k} p^k (1-p)^{n-k} $$
 
 where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$.
 :::
@@ -1805,7 +1739,7 @@ With $n = 10$ and $p = 0.3$, find the probability of no spam, of at least one sp
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\text{Bin}(0|10, 0.3) = 0.7^{10} \approx 0.0282$, so $P(k \ge 1) \approx 0.9718$. The mean is $np = 3$ and the variance
+$\operatorname{Bin}(0|10, 0.3) = 0.7^{10} \approx 0.0282$, so $\mathbb{P}(k \ge 1) \approx 0.9718$. The mean is $np = 3$ and the variance
 $np(1 - p) = 2.1$.
 :::
 ::::
@@ -1855,11 +1789,11 @@ density at its maximum.
 ::: {#exr-msf-gaussian-tail}
 #### Tall people
 
-For heights $\sim \mathcal{N}(170, 100)$, estimate $P(\text{height} > 190)$, and find the maximum value of the density.
+For heights $\sim \mathcal{N}(170, 100)$, estimate $\mathbb{P}(\text{height} > 190)$, and find the maximum value of the density.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(190 - 170)/10 = 2$, so the probability is $P(Z > 2) \approx 0.0228$ for a standard normal $Z$. The density is largest at
+$(190 - 170)/10 = 2$, so the probability is $\mathbb{P}(Z > 2) \approx 0.0228$ for a standard normal $Z$. The density is largest at
 $x = \mu$, where it equals $1/\sqrt{2\pi \cdot 100} = 1/(10\sqrt{2\pi}) \approx 0.0399$ per cm.
 :::
 ::::
@@ -1872,7 +1806,7 @@ For multivariate data, such as feature vectors $\mathbf{x} \in \mathbb{R}^d$, we
 
 The multivariate Gaussian distribution with mean vector $\boldsymbol{\mu} \in \mathbb{R}^d$ and covariance matrix $\Sigma \in \mathbb{R}^{d \times d}$:
 
-$$ \mathcal{N}(\mathbf{x} | \boldsymbol{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d |\Sigma|}} e^{-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})} $$
+$$ \mathcal{N}(\mathbf{x} | \boldsymbol{\mu}, \Sigma) = \frac{1}{\sqrt{(2\pi)^d |\Sigma|}} e^{-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})} $$
 :::
 
 ::::
@@ -1904,13 +1838,13 @@ into a sum, so the density splits into a product.
 ::: {#exr-msf-gaussian-diagonal}
 #### Diagonal covariance
 
-Show that for $\Sigma = \text{diag}(\sigma_1^2, \sigma_2^2)$, $\mathcal{N}(\mathbf{x} | \boldsymbol{\mu}, \Sigma) =
+Show that for $\Sigma = \operatorname{diag}(\sigma_1^2, \sigma_2^2)$, $\mathcal{N}(\mathbf{x} | \boldsymbol{\mu}, \Sigma) =
 \mathcal{N}(x_1 | \mu_1, \sigma_1^2)\,\mathcal{N}(x_2 | \mu_2, \sigma_2^2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $|\Sigma| = \sigma_1^2\sigma_2^2$, so $\sqrt{(2\pi)^2|\Sigma|} = \sqrt{2\pi\sigma_1^2}\sqrt{2\pi\sigma_2^2}$. Also
-$\Sigma^{-1} = \text{diag}(1/\sigma_1^2, 1/\sigma_2^2)$, so $(\mathbf{x} - \boldsymbol{\mu})^T\Sigma^{-1}(\mathbf{x} -
+$\Sigma^{-1} = \operatorname{diag}(1/\sigma_1^2, 1/\sigma_2^2)$, so $(\mathbf{x} - \boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x} -
 \boldsymbol{\mu}) = (x_1 - \mu_1)^2/\sigma_1^2 + (x_2 - \mu_2)^2/\sigma_2^2$, and the exponential of the sum is the product of the
 exponentials. Grouping the factors gives the two univariate densities.
 :::
@@ -1928,7 +1862,7 @@ times: the counts of each face follow a multinomial distribution. If we roll the
 
 The multinomial distribution for counts $(x_1, \ldots, x_k)$ of $k$ outcomes in $n$ trials with probabilities $(p_1, \ldots, p_k)$:
 
-$$ \text{Mult}(x_1, \ldots, x_k | n, p_1, \ldots, p_k) = \frac{n!}{x_1! \cdots x_k!} p_1^{x_1} \cdots p_k^{x_k} $$
+$$ \operatorname{Mult}(x_1, \ldots, x_k | n, p_1, \ldots, p_k) = \frac{n!}{x_1! \cdots x_k!} p_1^{x_1} \cdots p_k^{x_k} $$
 
 where $\sum_{i=1}^k x_i = n$ and $\sum_{i=1}^k p_i = 1$.
 :::
@@ -1945,7 +1879,7 @@ A small number of rolls keeps the factorials manageable. The example asks for th
 #### Three rolls, three faces
 
 The probability that three rolls of a fair die show the faces $1$, $2$ and $3$ once each, in any order, is
-$\text{Mult}(1, 1, 1, 0, 0, 0 | 3, \tfrac{1}{6}, \dots, \tfrac{1}{6}) = \frac{3!}{1!\,1!\,1!}\left(\tfrac{1}{6}\right)^3 =
+$\operatorname{Mult}(1, 1, 1, 0, 0, 0 | 3, \tfrac{1}{6}, \dots, \tfrac{1}{6}) = \frac{3!}{1!\,1!\,1!}\left(\tfrac{1}{6}\right)^3 =
 \frac{6}{216} = \frac{1}{36}$.
 :::
 ::::
@@ -1962,8 +1896,8 @@ Show that for $k = 2$ the multinomial distribution reduces to the binomial distr
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $x_2 = n - x_1$ and $p_2 = 1 - p_1$, $\text{Mult}(x_1, x_2 | n, p_1, p_2) = \frac{n!}{x_1!(n - x_1)!}p_1^{x_1}(1 -
-p_1)^{n - x_1} = \text{Bin}(x_1 | n, p_1)$.
+With $x_2 = n - x_1$ and $p_2 = 1 - p_1$, $\operatorname{Mult}(x_1, x_2 | n, p_1, p_2) = \frac{n!}{x_1!(n - x_1)!}p_1^{x_1}(1 -
+p_1)^{n - x_1} = \operatorname{Bin}(x_1 | n, p_1)$.
 :::
 ::::
 
@@ -2016,8 +1950,8 @@ For the simple random walk of @exm-msf-stochastic-process-walk, find the PMF, me
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The step pairs $(+1, +1)$, $(+1, -1)$, $(-1, +1)$, $(-1, -1)$ each have probability $\frac{1}{4}$, so $P(S_2 = 2) = \frac{1}{4}$,
-$P(S_2 = 0) = \frac{1}{2}$, $P(S_2 = -2) = \frac{1}{4}$. Then $\mathbb{E}[S_2] = 0$ and $\text{Var}(S_2) = \mathbb{E}[S_2^2] =
+The step pairs $(+1, +1)$, $(+1, -1)$, $(-1, +1)$, $(-1, -1)$ each have probability $\frac{1}{4}$, so $\mathbb{P}(S_2 = 2) = \frac{1}{4}$,
+$\mathbb{P}(S_2 = 0) = \frac{1}{2}$, $\mathbb{P}(S_2 = -2) = \frac{1}{4}$. Then $\mathbb{E}[S_2] = 0$ and $\operatorname{Var}(S_2) = \mathbb{E}[S_2^2] =
 \frac{1}{4} \cdot 4 + \frac{1}{4} \cdot 4 = 2$.
 :::
 ::::
@@ -2032,7 +1966,7 @@ S_2, \ldots$:
 ::: {#def-markov-property}
 #### Markov Property
 
-$$ P(S_{t+1} | S_t, S_{t-1}, \ldots, S_0) = P(S_{t+1} | S_t) $$
+$$ \mathbb{P}(S_{t+1} | S_t, S_{t-1}, \ldots, S_0) = \mathbb{P}(S_{t+1} | S_t) $$
 :::
 
 ::::
@@ -2078,8 +2012,8 @@ Show that the simple random walk of @exm-msf-stochastic-process-walk has the Mar
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $S_{t+1} = S_t + \xi_{t+1}$, and $\xi_{t+1}$ is independent of $\xi_1, \dots, \xi_t$, hence of $S_0, \dots, S_t$. So
-$P(S_{t+1} = s' | S_t = s, S_{t-1}, \ldots, S_0) = P(\xi_{t+1} = s' - s)$, which depends only on $s$; this equals
-$P(S_{t+1} = s' | S_t = s)$.
+$\mathbb{P}(S_{t+1} = s' | S_t = s, S_{t-1}, \ldots, S_0) = \mathbb{P}(\xi_{t+1} = s' - s)$, which depends only on $s$; this equals
+$\mathbb{P}(S_{t+1} = s' | S_t = s)$.
 :::
 ::::
 
@@ -2171,9 +2105,9 @@ die many times: while any single roll is unpredictable, the average value conver
 ::: {#def-expected-value}
 #### Expected Value
 
-For a discrete random variable $X$ taking values $x_1, x_2, \ldots$ with probabilities $P(x_i)$:
+For a discrete random variable $X$ taking values $x_1, x_2, \ldots$ with probabilities $p(x_i)$:
 
-$$ \mathbb{E}[X] = \sum_i x_i P(x_i) $$
+$$ \mathbb{E}[X] = \sum_i x_i p(x_i) $$
 
 For a continuous random variable with probability density function $p(x)$:
 
@@ -2205,7 +2139,7 @@ The reader computes one continuous and one discrete expectation. Both are needed
 ::: {#exr-msf-expected-value-uniform}
 #### Two expectations
 
-Compute $\mathbb{E}[X]$ for $X$ uniform on $[0, 1]$ (density $p(x) = 1$) and for $X \sim \text{Bern}(p)$.
+Compute $\mathbb{E}[X]$ for $X$ uniform on $[0, 1]$ (density $p(x) = 1$) and for $X \sim \operatorname{Bern}(p)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2248,11 +2182,11 @@ The reader expresses a binomial count as a sum of Bernoulli variables. The secon
 ::: {#exr-msf-linearity-binomial}
 #### The binomial mean by linearity
 
-(a) Show that $k \sim \text{Bin}(n, p)$ has mean $np$. (b) Compute $\mathbb{E}[X - 2Y]$ on the die.
+(a) Show that $k \sim \operatorname{Bin}(n, p)$ has mean $np$. (b) Compute $\mathbb{E}[X - 2Y]$ on the die.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $k = x_1 + \cdots + x_n$ with $x_i \sim \text{Bern}(p)$, so $\mathbb{E}[k] = \sum_i \mathbb{E}[x_i] = np$. (b)
+(a) $k = X_1 + \cdots + X_n$ with $X_i \sim \operatorname{Bern}(p)$, so $\mathbb{E}[k] = \sum_i \mathbb{E}[X_i] = np$. (b)
 $\mathbb{E}[X] - 2\mathbb{E}[Y] = 3.5 - 2 \cdot 0.5 = 2.5$.
 :::
 ::::
@@ -2268,7 +2202,7 @@ variance has values that are typically far from the mean, while low variance ind
 
 The variance is defined as the expected squared deviation from the mean:
 
-$$ \text{Var}(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 $$
+$$ \operatorname{Var}(X) = \mathbb{E}[(X - \mathbb{E}[X])^2] = \mathbb{E}[X^2] - (\mathbb{E}[X])^2 $$
 :::
 
 ::::
@@ -2283,7 +2217,7 @@ The shortcut formula needs only $\mathbb{E}[X^2]$ and $\mathbb{E}[X]$. The examp
 #### Variance of the die
 
 For our die example, $\mathbb{E}[X^2] = 1^2 \cdot \frac{1}{6} + 2^2 \cdot \frac{1}{6} + \cdots + 6^2 \cdot \frac{1}{6} = 15.17$,
-so $\text{Var}(X) = 15.17 - 3.5^2 = 2.92$. The standard deviation $\sigma = \sqrt{\text{Var}(X)} \approx 1.71$ provides a measure
+so $\operatorname{Var}(X) = 15.17 - 3.5^2 = 2.92$. The standard deviation $\sigma = \sqrt{\operatorname{Var}(X)} \approx 1.71$ provides a measure
 of spread in the same units as $X$.
 :::
 ::::
@@ -2296,12 +2230,12 @@ The reader uses linearity of expectation inside the definition of variance. The 
 ::: {#exr-msf-variance-affine}
 #### Variance of an affine transformation
 
-Show that $\text{Var}(aX + b) = a^2\text{Var}(X)$ and compute $\text{Var}(2X + 1)$ for the die.
+Show that $\operatorname{Var}(aX + b) = a^2\operatorname{Var}(X)$ and compute $\operatorname{Var}(2X + 1)$ for the die.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $\mathbb{E}[aX + b] = a\mathbb{E}[X] + b$, so $aX + b - \mathbb{E}[aX + b] = a(X - \mathbb{E}[X])$, and squaring and taking
-expectations gives $a^2\text{Var}(X)$. For the die, $\text{Var}(X) = \frac{35}{12}$, so $\text{Var}(2X + 1) = \frac{35}{3} \approx
+expectations gives $a^2\operatorname{Var}(X)$. For the die, $\operatorname{Var}(X) = \frac{35}{12}$, so $\operatorname{Var}(2X + 1) = \frac{35}{3} \approx
 11.67$.
 :::
 ::::
@@ -2317,7 +2251,7 @@ The covariance measures how two random variables vary together. If $X$ and $Y$ t
 covariance is positive. If one tends to be large when the other is small, the covariance is negative. If they vary independently,
 the covariance is zero (though zero covariance doesn't guarantee independence).
 
-$$ \text{Cov}(X, Y) = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])] = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] $$
+$$ \operatorname{Cov}(X, Y) = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])] = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y] $$
 :::
 
 ::::
@@ -2341,7 +2275,7 @@ example computes the covariance exactly.
 ::: {#exm-msf-covariance-die}
 #### Face and parity
 
-For the die example, $\text{Cov}(X, Y)=\sum_{x,y} p_{X, Y}(x, y) xy - \mathbb{E}[X] \mathbb{E}[Y] = 0.25$.
+For the die example, $\operatorname{Cov}(X, Y)=\sum_{x,y} p_{X, Y}(x, y) xy - \mathbb{E}[X] \mathbb{E}[Y] = 0.25$.
 :::
 ::::
 
@@ -2355,8 +2289,8 @@ dependent variables.
 ::: {#exr-msf-covariance-uncorrelated}
 #### Uncorrelated but dependent
 
-(a) Show that $\text{Cov}(X, X) = \text{Var}(X)$. (b) Let $X$ be uniform on $\{-1, 0, 1\}$ and $Y = X^2$. Show that
-$\text{Cov}(X, Y) = 0$ but $X$ and $Y$ are not independent.
+(a) Show that $\operatorname{Cov}(X, X) = \operatorname{Var}(X)$. (b) Let $X$ be uniform on $\{-1, 0, 1\}$ and $Y = X^2$. Show that
+$\operatorname{Cov}(X, Y) = 0$ but $X$ and $Y$ are not independent.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2371,10 +2305,10 @@ Collecting the covariances of all pairs of coordinates of a random vector gives 
 ::: {#def-msf-covariance-matrix}
 #### Covariance Matrix
 
-The covariance matrix $\Sigma$ for a random vector $\mathbf{X} = [X_1, \ldots, X_d]^T$ has entries $\Sigma_{ij} =
-\text{Cov}(X_i, X_j)$. In matrix form, the covariance matrix of a random vector $\vec{X}$ is
+The covariance matrix $\Sigma$ for a random vector $\mathbf{x} = [X_1, \ldots, X_d]^\top$ has entries $\Sigma_{ij} =
+\operatorname{Cov}(X_i, X_j)$. In matrix form, the covariance matrix of $\mathbf{x}$ is
 
-$$\Sigma=\mathbb{E} \left[(\vec{X}- \bar{\vec{X}})(\vec{X}-\bar{\vec{X}})^T\right] \in \mathbb{R}^{n \times n}$$
+$$\Sigma=\mathbb{E} \left[(\mathbf{x}- \mathbb{E}[\mathbf{x}])(\mathbf{x}-\mathbb{E}[\mathbf{x}])^\top\right] \in \mathbb{R}^{d \times d}$$
 :::
 
 ::::
@@ -2392,8 +2326,8 @@ entries the covariances.
 The covariance
 matrix of the random vector $(X, Y, Z)$ is
 
-$$\Sigma = \begin{pmatrix} \text{Var}(X) & \text{Cov}(X, Y) & \text{Cov}(X, Z) \\ \text{Cov}(Y, X) & \text{Var}(Y) &
-\text{Cov}(Y, Z) \\ \text{Cov}(Z, X) & \text{Cov}(Z, Y) & \text{Var}(Z) \end{pmatrix} = \begin{pmatrix} 2.92 & 0.25 & -0.75 \\
+$$\Sigma = \begin{pmatrix} \operatorname{Var}(X) & \operatorname{Cov}(X, Y) & \operatorname{Cov}(X, Z) \\ \operatorname{Cov}(Y, X) & \operatorname{Var}(Y) &
+\operatorname{Cov}(Y, Z) \\ \operatorname{Cov}(Z, X) & \operatorname{Cov}(Z, Y) & \operatorname{Var}(Z) \end{pmatrix} = \begin{pmatrix} 2.92 & 0.25 & -0.75 \\
 0.25 & 0.25 & -\frac{1}{12} \\ -0.75 & -\frac{1}{12} & 0.25 \end{pmatrix}$$
 :::
 ::::
@@ -2402,20 +2336,20 @@ Every covariance matrix is symmetric and positive semidefinite, which is why the
 asks for the proof.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The reader relates the quadratic form $\mathbf{u}^T\Sigma\mathbf{u}$ to the variance of a scalar random variable. Non-negativity
+The reader relates the quadratic form $\mathbf{u}^\top\Sigma\mathbf{u}$ to the variance of a scalar random variable. Non-negativity
 of variance does the rest.
 
 ::: {#exr-msf-covariance-matrix-psd}
 #### Covariance matrices are positive semidefinite
 
-Show that $\Sigma$ is symmetric and that $\mathbf{u}^T\Sigma\mathbf{u} = \text{Var}(\mathbf{u}^T\mathbf{X}) \ge 0$ for every
+Show that $\Sigma$ is symmetric and that $\mathbf{u}^\top\Sigma\mathbf{u} = \operatorname{Var}(\mathbf{u}^\top\mathbf{x}) \ge 0$ for every
 $\mathbf{u} \in \mathbb{R}^d$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\text{Cov}(X_i, X_j) = \text{Cov}(X_j, X_i)$ gives symmetry. With $\mathbf{m} = \mathbb{E}[\mathbf{X}]$,
-$\mathbf{u}^T\Sigma\mathbf{u} = \mathbb{E}[\mathbf{u}^T(\mathbf{X} - \mathbf{m})(\mathbf{X} - \mathbf{m})^T\mathbf{u}] =
-\mathbb{E}[(\mathbf{u}^T\mathbf{X} - \mathbf{u}^T\mathbf{m})^2] = \text{Var}(\mathbf{u}^T\mathbf{X}) \ge 0$.
+$\operatorname{Cov}(X_i, X_j) = \operatorname{Cov}(X_j, X_i)$ gives symmetry. With $\boldsymbol{\mu} = \mathbb{E}[\mathbf{x}]$,
+$\mathbf{u}^\top\Sigma\mathbf{u} = \mathbb{E}[\mathbf{u}^\top(\mathbf{x} - \boldsymbol{\mu})(\mathbf{x} - \boldsymbol{\mu})^\top\mathbf{u}] =
+\mathbb{E}[(\mathbf{u}^\top\mathbf{x} - \mathbf{u}^\top\boldsymbol{\mu})^2] = \operatorname{Var}(\mathbf{u}^\top\mathbf{x}) \ge 0$.
 :::
 ::::
 
@@ -2512,8 +2446,8 @@ expectations are $3.5$ and $7$ (@exm-msf-linearity-two-dice), so the expected to
 ### Bias-Variance Decomposition
 
 Bias-Variance Decomposition. One of the most important concepts in machine learning is the bias-variance decomposition, which
-explains why models fail to generalize. Consider a regression problem where we want to predict $y = f(x) + \epsilon$, where $f(x)$
-is the true function and $\epsilon$ is irreducible noise with $\mathbb{E}[\epsilon] = 0$ and $\text{Var}(\epsilon) = \sigma^2$.
+explains why models fail to generalize. Consider a regression problem where we want to predict $y = f(x) + \varepsilon$, where $f(x)$
+is the true function and $\varepsilon$ is irreducible noise with $\mathbb{E}[\varepsilon] = 0$ and $\operatorname{Var}(\varepsilon) = \sigma^2$.
 
 Suppose we train a model $\hat{f}(x)$ on a training set. If we could repeat this process with many different training sets drawn
 from the same distribution, the expected squared error at a point $x$ decomposes as:
@@ -2522,7 +2456,7 @@ from the same distribution, the expected squared error at a point $x$ decomposes
 ::: {#thm-msf-bias-variance}
 #### Bias-Variance Decomposition
 
-If the noise $\epsilon$ at $x$ is independent of the training set, then
+If the noise $\varepsilon$ at $x$ is independent of the training set, then
 
 $$ \mathbb{E}[(y - \hat{f}(x))^2] = \underbrace{(f(x) - \mathbb{E}[\hat{f}(x)])^2}_{\text{Bias}^2} +
 \underbrace{\mathbb{E}[(\hat{f}(x) - \mathbb{E}[\hat{f}(x)])^2]}_{\text{Variance}} + \underbrace{\sigma^2}_{\text{Irreducible
@@ -2531,11 +2465,11 @@ Error}} $$
 
 ::::
 
-Proof: write $m = \mathbb{E}[\hat{f}(x)]$, so that $y - \hat{f}(x) = (f(x) - m) + (m - \hat{f}(x)) + \epsilon$. Squaring gives the
+Proof: write $m = \mathbb{E}[\hat{f}(x)]$, so that $y - \hat{f}(x) = (f(x) - m) + (m - \hat{f}(x)) + \varepsilon$. Squaring gives the
 three squares plus three cross terms. The term $f(x) - m$ is a constant, and $\mathbb{E}[m - \hat{f}(x)] = 0$ and
-$\mathbb{E}[\epsilon] = 0$, so the cross terms with $f(x) - m$ have zero expectation; the cross term
-$2\,\mathbb{E}[(m - \hat{f}(x))\epsilon]$ factorises by independence into $2\,\mathbb{E}[m - \hat{f}(x)]\,\mathbb{E}[\epsilon] = 0$.
-What remains is $(f(x) - m)^2 + \mathbb{E}[(\hat{f}(x) - m)^2] + \mathbb{E}[\epsilon^2]$, and $\mathbb{E}[\epsilon^2] = \sigma^2$.
+$\mathbb{E}[\varepsilon] = 0$, so the cross terms with $f(x) - m$ have zero expectation; the cross term
+$2\,\mathbb{E}[(m - \hat{f}(x))\varepsilon]$ factorises by independence into $2\,\mathbb{E}[m - \hat{f}(x)]\,\mathbb{E}[\varepsilon] = 0$.
+What remains is $(f(x) - m)^2 + \mathbb{E}[(\hat{f}(x) - m)^2] + \mathbb{E}[\varepsilon^2]$, and $\mathbb{E}[\varepsilon^2] = \sigma^2$.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The example reads each of the three terms for a model that is too simple for the data. A linear fit to a quadratic truth has
@@ -2569,14 +2503,14 @@ bias.
 ::: {#exr-msf-bias-variance-sample-mean}
 #### A constant and a sample mean
 
-Let $f(x) = \mu$ be constant and the training set be $y_i = \mu + \epsilon_i$, $i = 1, \dots, n$, with independent noise of
+Let $f(x) = \mu$ be constant and the training set be $y_i = \mu + \varepsilon_i$, $i = 1, \dots, n$, with independent noise of
 variance $\sigma^2$. Compute bias, variance and expected error for (a) $\hat{f} = c$, a fixed number, and (b)
 $\hat{f} = \bar{y} = \frac{1}{n}\sum_i y_i$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 (a) $\mathbb{E}[\hat{f}] = c$, so the bias$^2$ is $(\mu - c)^2$, the variance $0$, and the expected error
-$(\mu - c)^2 + \sigma^2$. (b) $\mathbb{E}[\bar{y}] = \mu$, so the bias is $0$; $\text{Var}(\bar{y}) = \sigma^2/n$ by independence
+$(\mu - c)^2 + \sigma^2$. (b) $\mathbb{E}[\bar{y}] = \mu$, so the bias is $0$; $\operatorname{Var}(\bar{y}) = \sigma^2/n$ by independence
 and @exr-msf-variance-affine; the expected error at a new point is $\sigma^2/n + \sigma^2$.
 :::
 ::::
@@ -2778,18 +2712,18 @@ updating value functions and policies.
 
 The general form of a stochastic approximation algorithm is:
 
-$$ \mathbf{w}_{k+1} = \mathbf{w}_k - \alpha_k \hat{g}(\mathbf{w}_k) $$
+$$ \mathbf{w}_{k+1} = \mathbf{w}_k - \eta_k \hat{g}(\mathbf{w}_k) $$
 
-where $\hat{g}(\mathbf{w}_k)$ is a noisy estimate of the gradient of the objective function, and $\{\alpha_k\}$ is a sequence of
+where $\hat{g}(\mathbf{w}_k)$ is a noisy estimate of the gradient of the objective function, and $\{\eta_k\}$ is a sequence of
 step sizes. For the algorithm to converge, the step sizes must satisfy the Robbins-Monro conditions:
 
 :::: {.statement-box}
 ::: {#def-msf-robbins-monro}
 #### Robbins-Monro Conditions
 
-A sequence of step sizes $\{\alpha_k\}$ satisfies the Robbins-Monro conditions if
+A sequence of step sizes $\{\eta_k\}$ satisfies the Robbins-Monro conditions if
 
-$$ \sum_{k=1}^\infty \alpha_k = \infty \quad \text{and} \quad \sum_{k=1}^\infty \alpha_k^2 < \infty $$
+$$ \sum_{k=1}^\infty \eta_k = \infty \quad \text{and} \quad \sum_{k=1}^\infty \eta_k^2 < \infty $$
 :::
 
 ::::
@@ -2802,16 +2736,16 @@ stochastic approximation is used in algorithms like Temporal-Difference (TD) lea
 noisy returns from the environment [@zhao2025rl; @theodoridis2025ml].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The step sizes $\alpha_k = 1/k$ are the standard choice that satisfies both conditions. With them, stochastic approximation
+The step sizes $\eta_k = 1/k$ are the standard choice that satisfies both conditions. With them, stochastic approximation
 computes a running mean.
 
 ::: {#exm-msf-robbins-monro-running-mean}
 #### The running mean
 
-$\alpha_k = 1/k$ satisfies the conditions, since $\sum_k 1/k$ diverges and $\sum_k 1/k^2 = \pi^2/6$. With
+$\eta_k = 1/k$ satisfies the conditions, since $\sum_k 1/k$ diverges and $\sum_k 1/k^2 = \pi^2/6$. With
 $\hat{g}(w_k) = w_k - x_k$ for observations $x_1, x_2, \dots$, the update $w_{k+1} = w_k - \frac{1}{k}(w_k - x_k)$ gives
 $w_2 = x_1$, $w_3 = \frac{1}{2}(x_1 + x_2)$ and in general $w_{k+1} = \frac{1}{k}\sum_{j \le k} x_j$. A constant step violates the
-second condition, and $\alpha_k = 1/k^2$ violates the first.
+second condition, and $\eta_k = 1/k^2$ violates the first.
 :::
 ::::
 
@@ -2823,7 +2757,7 @@ The reader applies the $p$-series test to both sums. The admissible exponents fo
 ::: {#exr-msf-robbins-monro-power}
 #### Power-law step sizes
 
-For which $p > 0$ does $\alpha_k = 1/k^p$ satisfy the Robbins-Monro conditions?
+For which $p > 0$ does $\eta_k = 1/k^p$ satisfy the Robbins-Monro conditions?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -2864,8 +2798,8 @@ linear.
 
 If $\|\mathbf{x}\| \le 1$ and $\|\mathbf{y}\| \le 1$, the triangle inequality and homogeneity give
 $\|\alpha\mathbf{x} + (1 - \alpha)\mathbf{y}\| \le \alpha\|\mathbf{x}\| + (1 - \alpha)\|\mathbf{y}\| \le 1$: the unit ball is
-convex. If $\mathbf{a}^T\mathbf{x} \le b$ and $\mathbf{a}^T\mathbf{y} \le b$, then
-$\mathbf{a}^T(\alpha\mathbf{x} + (1 - \alpha)\mathbf{y}) \le b$: the half-space is convex.
+convex. If $\mathbf{a}^\top\mathbf{x} \le b$ and $\mathbf{a}^\top\mathbf{y} \le b$, then
+$\mathbf{a}^\top(\alpha\mathbf{x} + (1 - \alpha)\mathbf{y}) \le b$: the half-space is convex.
 :::
 ::::
 
@@ -3063,14 +2997,15 @@ amount of information needed to specify the state of a random variable.
 ::: {#def-msf-entropy}
 #### Shannon Entropy
 
-For a discrete random variable $X$ with probability mass function $P(x)$, the Shannon entropy is defined as:
+For a discrete random variable $X$ with probability mass function $p(x)$, the Shannon entropy is defined as:
 
-$$ H(X) = -\sum_{i=1}^n P(x_i) \log_2 P(x_i) $$
+$$ H(X) = -\sum_{i=1}^n p(x_i) \log p(x_i) $$
 :::
 
 ::::
 
-The logarithm is typically base 2, in which case the entropy is measured in bits. A distribution that is sharply peaked around a
+The logarithm is the natural logarithm, so the entropy is measured in nats. With $\log_2$ in place of $\log$ it is measured in
+bits; the entropy in bits is the entropy in nats divided by $\log 2$. A distribution that is sharply peaked around a
 few values will have a low entropy, while a distribution that is spread more evenly across many values will have a higher entropy.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -3080,8 +3015,9 @@ ordered accordingly.
 ::: {#exm-msf-entropy-coin-die}
 #### Coin, die and spam
 
-A fair coin has $H = -2 \cdot \frac{1}{2}\log_2\frac{1}{2} = 1$ bit, a fair die $H = \log_2 6 \approx 2.585$ bits, and
-$\text{Bern}(0.3)$ has $H = -0.3\log_2 0.3 - 0.7\log_2 0.7 \approx 0.881$ bits, less than the fair coin because it is less
+Measured in bits, with $\log_2$ in place of $\log$: a fair coin has $H = -2 \cdot \frac{1}{2}\log_2\frac{1}{2} = 1$ bit
+($\log 2 \approx 0.693$ nats), a fair die $H = \log_2 6 \approx 2.585$ bits, and $\operatorname{Bern}(0.3)$ has
+$H = -0.3\log_2 0.3 - 0.7\log_2 0.7 \approx 0.881$ bits, less than the fair coin because it is less
 uncertain.
 :::
 ::::
@@ -3101,9 +3037,9 @@ $(\frac{1}{2}, \frac{1}{4}, \frac{1}{4})$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-A constant has $P = 1$ on one value, and $1 \cdot \log_2 1 = 0$, so $H = 0$. The uniform variable has
-$H = -n \cdot \frac{1}{n}\log_2\frac{1}{n} = \log_2 n$. The third has $H = \frac{1}{2} \cdot 1 + \frac{1}{4} \cdot 2 +
-\frac{1}{4} \cdot 2 = 1.5$ bits.
+A constant has $p = 1$ on one value, and $1 \cdot \log 1 = 0$, so $H = 0$. The uniform variable has
+$H = -n \cdot \frac{1}{n}\log\frac{1}{n} = \log n$. In bits, the third has $H = \frac{1}{2}\log_2 2 + \frac{1}{4}\log_2 4 +
+\frac{1}{4}\log_2 4 = 1.5$ bits.
 :::
 ::::
 
@@ -3116,7 +3052,7 @@ entropy.
 
 For a continuous random variable with probability density function $p(x)$, the differential entropy is:
 
-$$ h(X) = -\int p(x) \log_2 p(x) dx $$
+$$ H(X) = -\int p(x) \log p(x) dx $$
 :::
 
 ::::
@@ -3131,25 +3067,25 @@ negative.
 ::: {#exm-msf-differential-entropy-uniform}
 #### Uniform on an interval
 
-For $p(x) = 1/a$ on $[0, a]$, $h(X) = -\int_0^a \frac{1}{a}\log_2\frac{1}{a}\,dx = \log_2 a$. For $a = \frac{1}{2}$ this is
-$-1$ bit: a density concentrated on a short interval has negative differential entropy.
+For $p(x) = 1/a$ on $[0, a]$, $H(X) = -\int_0^a \frac{1}{a}\log\frac{1}{a}\,dx = \log a$. For $a = \frac{1}{2}$ this is
+$-\log 2 \approx -0.693$ nats, or $-1$ bit: a density concentrated on a short interval has negative differential entropy.
 :::
 ::::
 
 The Gaussian's entropy is the benchmark mentioned above. The exercise derives its closed form.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The reader takes the expectation of $-\log_2$ of the Gaussian density. Only the variance of $X$ is needed.
+The reader takes the expectation of $-\log$ of the Gaussian density. Only the variance of $X$ is needed.
 
 ::: {#exr-msf-differential-entropy-gaussian}
 #### Entropy of a Gaussian
 
-Show that $X \sim \mathcal{N}(\mu, \sigma^2)$ has $h(X) = \frac{1}{2}\log_2(2\pi e\sigma^2)$.
+Show that $X \sim \mathcal{N}(\mu, \sigma^2)$ has $H(X) = \frac{1}{2}\log(2\pi e\sigma^2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$-\log_2 p(x) = \frac{1}{2}\log_2(2\pi\sigma^2) + \frac{(x - \mu)^2}{2\sigma^2}\log_2 e$. Taking expectations, with
-$\mathbb{E}[(X - \mu)^2] = \sigma^2$, gives $\frac{1}{2}\log_2(2\pi\sigma^2) + \frac{1}{2}\log_2 e = \frac{1}{2}\log_2(2\pi
+$-\log p(x) = \frac{1}{2}\log(2\pi\sigma^2) + \frac{(x - \mu)^2}{2\sigma^2}$. Taking expectations, with
+$\mathbb{E}[(X - \mu)^2] = \sigma^2$, gives $\frac{1}{2}\log(2\pi\sigma^2) + \frac{1}{2} = \frac{1}{2}\log(2\pi
 e\sigma^2)$.
 :::
 ::::
@@ -3163,20 +3099,20 @@ from a second, expected probability distribution.
 ::: {#def-msf-kl-divergence}
 #### Kullback-Leibler Divergence
 
-For two discrete probability distributions $P$ and $Q$, the KL divergence is
+For two discrete probability distributions $p$ and $q$, the KL divergence is
 defined as:
 
-$$ D_{KL}(P || Q) = \sum_{i} P(i) \log\left(\frac{P(i)}{Q(i)}\right) $$
+$$ D_{\mathrm{KL}}(p \,\Vert\, q) = \sum_{i} p(i) \log\left(\frac{p(i)}{q(i)}\right) $$
 
 For continuous distributions $p(x)$ and $q(x)$, it is:
 
-$$ D_{KL}(p || q) = \int_{-\infty}^{\infty} p(x) \log\left(\frac{p(x)}{q(x)}\right) dx $$
+$$ D_{\mathrm{KL}}(p \,\Vert\, q) = \int_{-\infty}^{\infty} p(x) \log\left(\frac{p(x)}{q(x)}\right) dx $$
 :::
 
 ::::
 
-The KL divergence is always non-negative ($D_{KL}(P || Q) \ge 0$) and is zero if and only if $P$ and $Q$ are the same
-distribution. However, it is not a true distance metric because it is not symmetric, i.e., $D_{KL}(P || Q) \neq D_{KL}(Q || P)$.
+The KL divergence is always non-negative ($D_{\mathrm{KL}}(p \,\Vert\, q) \ge 0$) and is zero if and only if $p$ and $q$ are the same
+distribution. However, it is not a true distance metric because it is not symmetric, i.e., $D_{\mathrm{KL}}(p \,\Vert\, q) \neq D_{\mathrm{KL}}(q \,\Vert\, p)$.
 In machine learning, the KL divergence is often used as a loss function to measure the dissimilarity between a model's predicted
 distribution and the true data distribution [@bishop2024deeplearning].
 
@@ -3186,8 +3122,8 @@ Two Bernoulli distributions are enough to see the asymmetry. The example compute
 ::: {#exm-msf-kl-bernoulli}
 #### Two coins
 
-For $P = \text{Bern}(0.5)$ and $Q = \text{Bern}(0.3)$: $D_{KL}(P || Q) = 0.5\log\frac{0.5}{0.3} + 0.5\log\frac{0.5}{0.7} \approx
-0.0872$, while $D_{KL}(Q || P) = 0.3\log\frac{0.3}{0.5} + 0.7\log\frac{0.7}{0.5} \approx 0.0823$. Both are positive, and they
+For $p = \operatorname{Bern}(0.5)$ and $q = \operatorname{Bern}(0.3)$: $D_{\mathrm{KL}}(p \,\Vert\, q) = 0.5\log\frac{0.5}{0.3} + 0.5\log\frac{0.5}{0.7} \approx
+0.0872$, while $D_{\mathrm{KL}}(q \,\Vert\, p) = 0.3\log\frac{0.3}{0.5} + 0.7\log\frac{0.7}{0.5} \approx 0.0823$. Both are positive, and they
 differ.
 :::
 ::::
@@ -3201,7 +3137,7 @@ needed.
 ::: {#exr-msf-kl-gaussians}
 #### KL divergence between Gaussians
 
-Show that $D_{KL}(\mathcal{N}(\mu_1, \sigma^2) || \mathcal{N}(\mu_2, \sigma^2)) = \frac{(\mu_1 - \mu_2)^2}{2\sigma^2}$.
+Show that $D_{\mathrm{KL}}(\mathcal{N}(\mu_1, \sigma^2) \,\Vert\, \mathcal{N}(\mu_2, \sigma^2)) = \frac{(\mu_1 - \mu_2)^2}{2\sigma^2}$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3217,7 +3153,7 @@ Mutual information measures the mutual dependence between two random variables. 
 about one random variable through observing the other random variable. The mutual information of two random variables $X$ and $Y$
 is the KL divergence between their joint distribution and the product of their marginal distributions:
 
-$$ I(X; Y) = D_{KL}(P(x,y) || P(x)P(y)) = \sum_{x,y} P(x,y) \log\left(\frac{P(x,y)}{P(x)P(y)}\right) $$
+$$ I(X; Y) = D_{\mathrm{KL}}(p(x,y) \,\Vert\, p(x)p(y)) = \sum_{x,y} p(x,y) \log\left(\frac{p(x,y)}{p(x)p(y)}\right) $$
 
 It can also be expressed in terms of entropy:
 
@@ -3242,7 +3178,7 @@ When one variable determines the other, all the uncertainty of the second is rem
 ::: {#exm-msf-mutual-information-parity}
 #### Face and parity
 
-$H(Y) = 1$ bit, and $H(Y|X) = 0$ because $Y$ is a function of $X$. So $I(X; Y) = 1 - 0 = 1$ bit: the face tells everything about
+In bits, $H(Y) = \log_2 2 = 1$ bit, and $H(Y|X) = 0$ because $Y$ is a function of $X$. So $I(X; Y) = 1 - 0 = 1$ bit: the face tells everything about
 the parity.
 :::
 ::::
@@ -3260,7 +3196,7 @@ Compute $I(Y; Z)$ in bits for the die, and state $I(U; V)$ for the two independe
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Both marginals are uniform, so $P(y)P(z) = \frac{1}{4}$. Then $I(Y; Z) = 2 \cdot \frac{1}{6}\log_2\frac{1/6}{1/4} + 2 \cdot
+Both marginals are uniform, so $p_Y(y)p_Z(z) = \frac{1}{4}$. Then $I(Y; Z) = 2 \cdot \frac{1}{6}\log_2\frac{1/6}{1/4} + 2 \cdot
 \frac{1}{3}\log_2\frac{1/3}{1/4} = \frac{1}{3}\log_2\frac{2}{3} + \frac{2}{3}\log_2\frac{4}{3} \approx -0.195 + 0.277 = 0.082$
 bits. For independent coins every log-ratio is $\log_2 1 = 0$, so $I(U; V) = 0$.
 :::
@@ -3269,10 +3205,10 @@ bits. For independent coins every log-ratio is $\log_2 1 = 0$, so $I(U; V) = 0$.
 ### Maximum Likelihood Estimation
 
 Maximum Likelihood Estimation (MLE) is a method for estimating the parameters of a statistical model. Given a set of i.i.d.
-(independent and identically distributed) data points $D = \{x_1, \dots, x_n\}$ drawn from a distribution $P(x|\theta)$
+(independent and identically distributed) data points $S = \{x_1, \dots, x_n\}$ drawn from a distribution $p(x|\theta)$
 parameterized by $\theta$, the likelihood function is the probability of observing the data as a function of the parameters:
 
-$$ L(\theta | D) = P(D | \theta) = \prod_{i=1}^n P(x_i | \theta) $$
+$$ p(S | \theta) = \prod_{i=1}^n p(x_i | \theta) $$
 
 The principle of Maximum Likelihood Estimation is to choose the parameters $\theta$ that maximize the likelihood function. This is
 equivalent to finding the parameters that make the observed data most probable.
@@ -3286,7 +3222,7 @@ does not change the location of the maximum.
 
 The Maximum Likelihood Estimate (MLE) of $\theta$ is therefore given by:
 
-$$ \hat{\theta}_{MLE} = \arg\max_{\theta} \log L(\theta | D) = \arg\max_{\theta} \sum_{i=1}^n \log P(x_i | \theta) $$
+$$ \hat{\theta}_{\mathrm{MLE}} = \arg\max_{\theta} \log p(S | \theta) = \arg\max_{\theta} \sum_{i=1}^n \log p(x_i | \theta) $$
 :::
 
 ::::
@@ -3301,8 +3237,8 @@ log-likelihood.
 ::: {#exm-msf-mle-bernoulli}
 #### Estimating a coin's bias
 
-With $k$ heads in $n$ independent $\text{Bern}(p)$ tosses, $\log L(p) = k\log p + (n - k)\log(1 - p)$. Setting the derivative
-$k/p - (n - k)/(1 - p)$ to zero gives $\hat{p}_{MLE} = k/n$; for $7$ heads in $10$ tosses, $\hat{p} = 0.7$.
+With $k$ heads in $n$ independent $\operatorname{Bern}(p)$ tosses, the log-likelihood is $k\log p + (n - k)\log(1 - p)$. Setting the derivative
+$k/p - (n - k)/(1 - p)$ to zero gives $\hat{p}_{\mathrm{MLE}} = k/n$; for $7$ heads in $10$ tosses, $\hat{p} = 0.7$.
 :::
 ::::
 
@@ -3315,12 +3251,12 @@ The reader writes the Gaussian log-likelihood, drops the constant terms, and dif
 ::: {#exr-msf-mle-gaussian-mean}
 #### The mean of a Gaussian
 
-Find $\hat{\mu}_{MLE}$ for i.i.d. data from $\mathcal{N}(\mu, \sigma^2)$ with $\sigma^2$ known, and evaluate it on $(2, 4, 9)$.
+Find $\hat{\mu}_{\mathrm{MLE}}$ for i.i.d. data from $\mathcal{N}(\mu, \sigma^2)$ with $\sigma^2$ known, and evaluate it on $(2, 4, 9)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\log L(\mu) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_i (x_i - \mu)^2$. Its derivative
-$\frac{1}{\sigma^2}\sum_i (x_i - \mu)$ vanishes at $\hat{\mu} = \frac{1}{n}\sum_i x_i$, which is a maximum since $\log L$ is a
+$\log p(S | \mu) = -\frac{n}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}\sum_i (x_i - \mu)^2$. Its derivative
+$\frac{1}{\sigma^2}\sum_i (x_i - \mu)$ vanishes at $\hat{\mu} = \frac{1}{n}\sum_i x_i$, which is a maximum since $\log p(S | \mu)$ is a
 downward parabola. For $(2, 4, 9)$, $\hat{\mu} = 5$.
 :::
 ::::
@@ -3330,7 +3266,7 @@ downward parabola. For $(2, 4, 9)$, $\hat{\mu} = 5$.
 Maximum A Posteriori (MAP) estimation is a Bayesian alternative to MLE that incorporates prior knowledge about the parameters.
 Using Bayes' theorem, the posterior distribution of the parameters given the data is:
 
-$$ P(\theta | D) = \frac{P(D | \theta) P(\theta)}{P(D)} $$
+$$ p(\theta | S) = \frac{p(S | \theta) p(\theta)}{p(S)} $$
 
 :::: {.statement-box}
 ::: {#def-msf-map-estimation}
@@ -3338,16 +3274,16 @@ $$ P(\theta | D) = \frac{P(D | \theta) P(\theta)}{P(D)} $$
 
 The MAP estimate is the mode of the posterior distribution:
 
-$$ \hat{\theta}_{MAP} = \arg\max_{\theta} P(\theta | D) = \arg\max_{\theta} P(D | \theta) P(\theta) $$
+$$ \hat{\theta}_{\mathrm{MAP}} = \arg\max_{\theta} p(\theta | S) = \arg\max_{\theta} p(S | \theta) p(\theta) $$
 :::
 
 ::::
 
-Since the denominator $P(D)$ does not depend on $\theta$, it can be ignored in the optimization. Taking logarithms, we get:
+Since the denominator $p(S)$ does not depend on $\theta$, it can be ignored in the optimization. Taking logarithms, we get:
 
-$$ \hat{\theta}_{MAP} = \arg\max_{\theta} [\log P(D | \theta) + \log P(\theta)] $$
+$$ \hat{\theta}_{\mathrm{MAP}} = \arg\max_{\theta} [\log p(S | \theta) + \log p(\theta)] $$
 
-The MAP estimate reduces to the MLE when the prior $P(\theta)$ is uniform (i.e., when we have no prior preference for any
+The MAP estimate reduces to the MLE when the prior $p(\theta)$ is uniform (i.e., when we have no prior preference for any
 particular parameter value). The prior allows us to incorporate domain knowledge or regularization into the estimation process.
 For example, a Gaussian prior on the parameters corresponds to $\ell_2$ regularization, while a Laplace prior corresponds to
 $\ell_1$ regularization [@bishop2024deeplearning; @deisenroth2020mml].
@@ -3359,9 +3295,9 @@ MLE of @exm-msf-mle-bernoulli.
 ::: {#exm-msf-map-beta}
 #### A coin with a Beta prior
 
-With prior density $P(p) \propto p^{a - 1}(1 - p)^{b - 1}$ and $k$ heads in $n$ tosses, the log-posterior is
-$(k + a - 1)\log p + (n - k + b - 1)\log(1 - p)$ up to a constant, maximised at $\hat{p}_{MAP} = \frac{k + a - 1}{n + a + b - 2}$.
-For $a = b = 2$ and $7$ heads in $10$ tosses, $\hat{p}_{MAP} = 8/12 = 2/3$, pulled from $0.7$ toward $\frac{1}{2}$.
+With a prior density proportional to $p^{a - 1}(1 - p)^{b - 1}$ and $k$ heads in $n$ tosses, the log-posterior is
+$(k + a - 1)\log p + (n - k + b - 1)\log(1 - p)$ up to a constant, maximised at $\hat{p}_{\mathrm{MAP}} = \frac{k + a - 1}{n + a + b - 2}$.
+For $a = b = 2$ and $7$ heads in $10$ tosses, $\hat{p}_{\mathrm{MAP}} = 8/12 = 2/3$, pulled from $0.7$ toward $\frac{1}{2}$.
 :::
 ::::
 
@@ -3375,14 +3311,14 @@ objective.
 ::: {#exr-msf-map-ridge}
 #### Gaussian prior and ridge regression
 
-Let $y_i \sim \mathcal{N}(wx_i, \sigma^2)$ independently and $w \sim \mathcal{N}(0, \tau^2)$. Show that $\hat{w}_{MAP}$ minimises
+Let $y_i \sim \mathcal{N}(wx_i, \sigma^2)$ independently and $w \sim \mathcal{N}(0, \tau^2)$. Show that $\hat{w}_{\mathrm{MAP}}$ minimises
 $\sum_i (y_i - wx_i)^2 + \lambda w^2$ with $\lambda = \sigma^2/\tau^2$, and find it.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Up to constants, $-\log P(D | w) - \log P(w) = \frac{1}{2\sigma^2}\sum_i (y_i - wx_i)^2 + \frac{w^2}{2\tau^2}$; multiplying by
+Up to constants, $-\log p(S | w) - \log p(w) = \frac{1}{2\sigma^2}\sum_i (y_i - wx_i)^2 + \frac{w^2}{2\tau^2}$; multiplying by
 $2\sigma^2$ gives the stated objective. Setting its derivative $-2\sum_i x_i(y_i - wx_i) + 2\lambda w$ to zero gives
-$\hat{w}_{MAP} = \frac{\sum_i x_iy_i}{\sum_i x_i^2 + \lambda}$, which shrinks the least squares estimate toward $0$.
+$\hat{w}_{\mathrm{MAP}} = \frac{\sum_i x_iy_i}{\sum_i x_i^2 + \lambda}$, which shrinks the least squares estimate toward $0$.
 :::
 ::::
 
@@ -3394,32 +3330,32 @@ and policy entropy is the bonus that encourages exploration in reinforcement lea
 ### Cross-Entropy
 
 Cross-entropy is a measure from information theory that quantifies the difference between two probability distributions. It is
-widely used as a loss function in classification tasks. For two discrete probability distributions $P$ and $Q$, the cross-entropy
+widely used as a loss function in classification tasks. For two discrete probability distributions $p$ and $q$, the cross-entropy
 is defined as:
 
 :::: {.statement-box}
 ::: {#def-cross-entropy-discrete}
 #### Cross-Entropy (Discrete)
 
-$$ H(P, Q) = -\sum_{i} P(i) \log Q(i) $$
+$$ H(p, q) = -\sum_{i} p(i) \log q(i) $$
 :::
 
 ::::
 
-Cross-entropy is the average surprise, measured with $Q$, of outcomes that actually follow $P$. The example evaluates it for a
+Cross-entropy is the average surprise, measured with $q$, of outcomes that actually follow $p$. The example evaluates it for a
 one-hot target.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-When $P$ is one-hot, only one term of the sum survives. This is the situation of a labelled training example.
+When $p$ is one-hot, only one term of the sum survives. This is the situation of a labelled training example.
 
 ::: {#exm-msf-cross-entropy-one-hot}
 #### A one-hot target
 
-For $P = (1, 0)$ and a prediction $Q = (0.8, 0.2)$, $H(P, Q) = -\log 0.8 \approx 0.223$ nats.
+For $p = (1, 0)$ and a prediction $q = (0.8, 0.2)$, $H(p, q) = -\log 0.8 \approx 0.223$ nats.
 :::
 ::::
 
-With a non-degenerate $P$, every outcome contributes. The exercise computes such a cross-entropy in bits.
+With a non-degenerate $p$, every outcome contributes. The exercise computes such a cross-entropy in bits.
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
 The reader evaluates the formula for a fair coin predicted by a biased model. The answer exceeds the entropy of the fair coin.
@@ -3427,12 +3363,12 @@ The reader evaluates the formula for a fair coin predicted by a biased model. Th
 ::: {#exr-msf-cross-entropy-bits}
 #### A fair coin, a biased model
 
-Compute $H(P, Q)$ in bits for $P = (\frac{1}{2}, \frac{1}{2})$ and $Q = (\frac{1}{4}, \frac{3}{4})$.
+Compute $H(p, q)$ in bits for $p = (\frac{1}{2}, \frac{1}{2})$ and $q = (\frac{1}{4}, \frac{3}{4})$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$H(P, Q) = -\frac{1}{2}\log_2\frac{1}{4} - \frac{1}{2}\log_2\frac{3}{4} = 1 + \frac{1}{2}\log_2\frac{4}{3} \approx 1.208$ bits,
-more than $H(P) = 1$ bit.
+$H(p, q) = -\frac{1}{2}\log_2\frac{1}{4} - \frac{1}{2}\log_2\frac{3}{4} = 1 + \frac{1}{2}\log_2\frac{4}{3} \approx 1.208$ bits,
+more than $H(p) = 1$ bit.
 :::
 ::::
 
@@ -3451,7 +3387,7 @@ The continuous version replaces the sum by an integral, just as differential ent
 differential entropy, measured in nats.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The standard Gaussian against itself gives the differential entropy of @exr-msf-differential-entropy-gaussian, now in nats. This is
+The standard Gaussian against itself gives the differential entropy of @exr-msf-differential-entropy-gaussian, in nats. This is
 the smallest cross-entropy any $q$ can achieve for this $p$.
 
 ::: {#exm-msf-cross-entropy-gaussian-self}
@@ -3480,22 +3416,22 @@ $\mathbb{E}[(x - \mu_2)^2] = \sigma^2 + (\mu_1 - \mu_2)^2$. So $H(p, q) = \frac{
 :::
 ::::
 
-The two exercises above both found the entropy of $P$ plus an excess equal to the KL divergence. The cross-entropy can be
+The two exercises above both found the entropy of $p$ plus an excess equal to the KL divergence. The cross-entropy can be
 decomposed as:
 
 :::: {.statement-box}
 ::: {#prp-msf-cross-entropy-decomposition}
 #### Cross-Entropy Decomposition
 
-$$ H(P, Q) = H(P) + D_{KL}(P || Q) $$
+$$ H(p, q) = H(p) + D_{\mathrm{KL}}(p \,\Vert\, q) $$
 :::
 
 ::::
 
-where $H(P)$ is the entropy of $P$ and $D_{KL}(P || Q)$ is the KL divergence from $P$ to $Q$. Proof: $-\sum_i P(i)\log Q(i) =
--\sum_i P(i)\log P(i) + \sum_i P(i)\log\frac{P(i)}{Q(i)}$, which is $H(P) + D_{KL}(P || Q)$ (with the same logarithm base
-throughout). Since $H(P)$ is constant with
-respect to $Q$, minimizing the cross-entropy is equivalent to minimizing the KL divergence.
+where $H(p)$ is the entropy of $p$ and $D_{\mathrm{KL}}(p \,\Vert\, q)$ is the KL divergence from $p$ to $q$. Proof: $-\sum_i p(i)\log q(i) =
+-\sum_i p(i)\log p(i) + \sum_i p(i)\log\frac{p(i)}{q(i)}$, which is $H(p) + D_{\mathrm{KL}}(p \,\Vert\, q)$ (all three in nats, or all
+three in bits with $\log_2$ throughout). Since $H(p)$ is constant with
+respect to $q$, minimizing the cross-entropy is equivalent to minimizing the KL divergence.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The two coins of @exm-msf-kl-bernoulli make the decomposition concrete. All three quantities are computed in nats.
@@ -3503,8 +3439,8 @@ The two coins of @exm-msf-kl-bernoulli make the decomposition concrete. All thre
 ::: {#exm-msf-cross-entropy-decomposition-coins}
 #### Two coins again
 
-For $P = \text{Bern}(0.5)$, $Q = \text{Bern}(0.3)$: $H(P) = \log 2 \approx 0.6931$, $H(P, Q) = -0.5\log 0.3 - 0.5\log 0.7 \approx
-0.7803$, and their difference $0.0872$ is $D_{KL}(P || Q)$.
+For $p = \operatorname{Bern}(0.5)$, $q = \operatorname{Bern}(0.3)$: $H(p) = \log 2 \approx 0.6931$, $H(p, q) = -0.5\log 0.3 - 0.5\log 0.7 \approx
+0.7803$, and their difference $0.0872$ is $D_{\mathrm{KL}}(p \,\Vert\, q)$.
 :::
 ::::
 
@@ -3518,24 +3454,24 @@ divergence.
 ::: {#exr-msf-cross-entropy-one-hot-kl}
 #### One-hot targets
 
-For a label $y = 1$ and a prediction $\hat{y} = 0.9$, compute the binary cross-entropy loss, and show that for one-hot $P$,
-$H(P, Q) = D_{KL}(P || Q)$.
+For a label $y = 1$ and a prediction $\hat{y} = 0.9$, compute the binary cross-entropy loss, and show that for one-hot $p$,
+$H(p, q) = D_{\mathrm{KL}}(p \,\Vert\, q)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$L = -\log 0.9 \approx 0.105$ nats. A one-hot $P$ has $H(P) = -1 \cdot \log 1 = 0$, so by @prp-msf-cross-entropy-decomposition
-$H(P, Q) = D_{KL}(P || Q)$.
+$\ell(0.9, 1) = -\log 0.9 \approx 0.105$ nats. A one-hot $p$ has $H(p) = -1 \cdot \log 1 = 0$, so by @prp-msf-cross-entropy-decomposition
+$H(p, q) = D_{\mathrm{KL}}(p \,\Vert\, q)$.
 :::
 ::::
 
 In machine learning, particularly in classification problems, we often use cross-entropy as a loss function. For a binary
 classification problem with true labels $y \in \{0, 1\}$ and predicted probabilities $\hat{y}$, the binary cross-entropy loss is:
 
-$$ L = -[y \log \hat{y} + (1-y) \log(1-\hat{y})] $$
+$$ \ell(\hat{y}, y) = -[y \log \hat{y} + (1-y) \log(1-\hat{y})] $$
 
 For multi-class classification with $K$ classes, the categorical cross-entropy is:
 
-$$ L = -\sum_{k=1}^K y_k \log \hat{y}_k $$
+$$ \ell(\hat{\mathbf{y}}, \mathbf{y}) = -\sum_{k=1}^K y_k \log \hat{y}_k $$
 
 where $y_k$ is 1 if the true class is $k$ and 0 otherwise (one-hot encoding), and $\hat{y}_k$ is the predicted probability for
 class $k$. Cross-entropy loss encourages the model to assign high probability to the correct class [@bishop2024deeplearning;
@@ -3586,7 +3522,7 @@ Show that $H(\pi(\cdot|s)) \le \log|\mathcal{A}|$, with equality for the uniform
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-With $U(a) = 1/|\mathcal{A}|$, $D_{KL}(\pi || U) = \sum_a \pi(a|s)\log(\pi(a|s)|\mathcal{A}|) = \log|\mathcal{A}| -
+With $U(a) = 1/|\mathcal{A}|$, $D_{\mathrm{KL}}(\pi \,\Vert\, U) = \sum_a \pi(a|s)\log(\pi(a|s)|\mathcal{A}|) = \log|\mathcal{A}| -
 H(\pi(\cdot|s))$. Since the KL divergence is non-negative and vanishes only for $\pi = U$, the bound holds with equality exactly
 for the uniform policy.
 :::
@@ -3599,7 +3535,7 @@ bonus to the objective function, encouraging the agent to explore more:
 ::: {#def-entropy-regularization}
 #### Entropy Regularization
 
-$$ J(\pi) = \mathbb{E}_{\tau \sim \pi}\left[\sum_{t=0}^\infty \gamma^t (R_t + \alpha H(\pi(\cdot|S_t)))\right] $$
+$$ J(\pi) = \mathbb{E}_{\tau \sim \pi}\left[\sum_{t=0}^\infty \gamma^t (R_{t+1} + \alpha H(\pi(\cdot|S_t)))\right] $$
 
 where $\alpha$ is a temperature parameter that controls the strength of the entropy regularization.
 :::
@@ -3653,15 +3589,15 @@ likelihood, certifies the answer by convexity, and then reaches it by gradient d
 ::: {#exr-msf-int-1}
 #### Fitting a Gaussian mean three ways
 
-Data $x = (1, 2, 6)$ are modelled as i.i.d. $\mathcal{N}(\mu, 1)$. (a) Write the negative log-likelihood $\ell(\mu)$ and find
-$\hat{\mu}_{MLE}$ (Information Theory and Inference). (b) Show that $\ell$ is convex and conclude that $\hat{\mu}_{MLE}$ is its
-global minimum (Convex and Constrained Optimization). (c) Run gradient descent on $\ell$ from $\mu_0 = 0$ with $\eta = 0.2$ for two
+Data $x = (1, 2, 6)$ are modelled as i.i.d. $\mathcal{N}(\mu, 1)$. (a) Write the negative log-likelihood $L(\mu)$ and find
+$\hat{\mu}_{\mathrm{MLE}}$ (Information Theory and Inference). (b) Show that $L$ is convex and conclude that $\hat{\mu}_{\mathrm{MLE}}$ is its
+global minimum (Convex and Constrained Optimization). (c) Run gradient descent on $L$ from $\mu_0 = 0$ with $\eta = 0.2$ for two
 steps, and find the learning rates for which it converges (Optimization Foundations).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $\ell(\mu) = \frac{3}{2}\log(2\pi) + \frac{1}{2}\sum_i (x_i - \mu)^2$, and $\ell'(\mu) = 3\mu - 9 = 0$ gives
-$\hat{\mu}_{MLE} = 3$, the sample mean (@exr-msf-mle-gaussian-mean). (b) Each $(x_i - \mu)^2$ is convex
+(a) $L(\mu) = \frac{3}{2}\log(2\pi) + \frac{1}{2}\sum_i (x_i - \mu)^2$, and $L'(\mu) = 3\mu - 9 = 0$ gives
+$\hat{\mu}_{\mathrm{MLE}} = 3$, the sample mean (@exr-msf-mle-gaussian-mean). (b) Each $(x_i - \mu)^2$ is convex
 (@exm-msf-convex-function-square) and sums of convex functions are convex, so by @prp-msf-convex-local-global the stationary point
 $\mu = 3$ is the global minimum. (c) The update is $\mu_{t+1} = \mu_t - \eta(3\mu_t - 9)$, i.e. $\mu_{t+1} - 3 = (1 - 3\eta)(\mu_t -
 3)$. With $\eta = 0.2$ the factor is $0.4$: $\mu_1 = 1.8$, $\mu_2 = 2.52$. Convergence holds exactly when $|1 - 3\eta| < 1$, i.e.
@@ -3674,19 +3610,19 @@ It combines Bayes' theorem, mutual information and the cross-entropy decompositi
 ::: {#exr-msf-int-2}
 #### What parity reveals about a die
 
-Let $X$ be the face of a fair die and $Y$ its parity indicator. (a) Use Bayes' theorem to find $P(X = x \mid Y = 1)$, and compute
+Let $X$ be the face of a fair die and $Y$ its parity indicator. (a) Use Bayes' theorem to find $\mathbb{P}(X = x \mid Y = 1)$, and compute
 $H(X \mid Y = 1)$ (Probability and Statistics). (b) Compute $I(X; Y) = H(X) - H(X|Y)$ and compare with $H(Y) - H(Y|X)$
-(Information Theory and Inference). (c) A model ignores the parity and predicts $Q$ uniform on $\{1, \dots, 6\}$ even when $Y = 1$
-is known. Compute $H(P, Q)$ for $P = p_{X|Y}(\cdot \mid 1)$ and check @prp-msf-cross-entropy-decomposition (Cross-Entropy and
+(Information Theory and Inference). (c) A model ignores the parity and predicts $q$ uniform on $\{1, \dots, 6\}$ even when $Y = 1$
+is known. Compute $H(p, q)$ for $p = p_{X|Y}(\cdot \mid 1)$ and check @prp-msf-cross-entropy-decomposition (Cross-Entropy and
 Entropy Regularization).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $P(X = x | Y = 1) = P(Y = 1 | X = x)P(X = x)/P(Y = 1)$, which is $\frac{1 \cdot 1/6}{1/2} = \frac{1}{3}$ for even $x$ and $0$
+(a) $\mathbb{P}(X = x | Y = 1) = \mathbb{P}(Y = 1 | X = x)\mathbb{P}(X = x)/\mathbb{P}(Y = 1)$, which is $\frac{1 \cdot 1/6}{1/2} = \frac{1}{3}$ for even $x$ and $0$
 for odd $x$, as in @exm-msf-chain-rule-die. This is uniform on three faces, so $H(X | Y = 1) = \log_2 3$; by symmetry
 $H(X | Y = 0) = \log_2 3$ too, so $H(X|Y) = \log_2 3$. (b) $I(X; Y) = \log_2 6 - \log_2 3 = 1$ bit, which equals
-$H(Y) - H(Y|X) = 1 - 0$ (@exm-msf-mutual-information-parity). (c) $H(P, Q) = -\sum_{x \text{ even}} \frac{1}{3}\log_2\frac{1}{6} =
-\log_2 6$ bits, while $H(P) = \log_2 3$ and $D_{KL}(P || Q) = \sum_{x \text{ even}} \frac{1}{3}\log_2\frac{1/3}{1/6} = 1$ bit;
+$H(Y) - H(Y|X) = 1 - 0$ (@exm-msf-mutual-information-parity). (c) $H(p, q) = -\sum_{x \text{ even}} \frac{1}{3}\log_2\frac{1}{6} =
+\log_2 6$ bits, while $H(p) = \log_2 3$ and $D_{\mathrm{KL}}(p \,\Vert\, q) = \sum_{x \text{ even}} \frac{1}{3}\log_2\frac{1/3}{1/6} = 1$ bit;
 indeed $\log_2 6 = \log_2 3 + 1$. The bit wasted by ignoring the parity is exactly the mutual information.
 :::
 
@@ -3697,21 +3633,21 @@ statistical concepts, the eigendecomposition and projections onto unit vectors.
 #### A small principal component analysis
 
 Let $Y$ and $Z$ be the parity and low-face indicators of the die. (a) Compute the covariance matrix $\Sigma$ of $(Y, Z)$
-(Statistical Concepts). (b) Find the eigendecomposition $\Sigma = \mathbf{PDP}^T$ and check that $\Sigma$ is positive
-semidefinite (Matrix Decompositions). (c) For a unit vector $\mathbf{u}$, $\text{Var}(\mathbf{u}^T(Y, Z)) = \mathbf{u}^T\Sigma
+(Statistical Concepts). (b) Find the eigendecomposition $\Sigma = \mathbf{PDP}^\top$ and check that $\Sigma$ is positive
+semidefinite (Matrix Decompositions). (c) For a unit vector $\mathbf{u}$, $\operatorname{Var}(\mathbf{u}^\top(Y, Z)) = \mathbf{u}^\top\Sigma
 \mathbf{u}$ (@exr-msf-covariance-matrix-psd). Find the direction of largest variance and check the answer by computing
-$\text{Var}(Y - Z)$ directly (Inner Products, Norms and Orthogonality).
+$\operatorname{Var}(Y - Z)$ directly (Inner Products, Norms and Orthogonality).
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-(a) $\text{Var}(Y) = \text{Var}(Z) = \frac{1}{4}$ and $\text{Cov}(Y, Z) = \frac{1}{6} - \frac{1}{4} = -\frac{1}{12}$ (from
+(a) $\operatorname{Var}(Y) = \operatorname{Var}(Z) = \frac{1}{4}$ and $\operatorname{Cov}(Y, Z) = \frac{1}{6} - \frac{1}{4} = -\frac{1}{12}$ (from
 @exr-msf-joint-pmf-yz), so $\Sigma = \begin{bmatrix} 1/4 & -1/12 \\ -1/12 & 1/4 \end{bmatrix}$, as in
-@exm-msf-covariance-matrix-die. (b) $\Sigma(1, 1)^T = \frac{1}{6}(1, 1)^T$ and $\Sigma(1, -1)^T = \frac{1}{3}(1, -1)^T$, so
-$\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \text{diag}(\frac{1}{6},
+@exm-msf-covariance-matrix-die. (b) $\Sigma(1, 1)^\top = \frac{1}{6}(1, 1)^\top$ and $\Sigma(1, -1)^\top = \frac{1}{3}(1, -1)^\top$, so
+$\mathbf{P} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ and $\mathbf{D} = \operatorname{diag}(\frac{1}{6},
 \frac{1}{3})$; both eigenvalues are positive, so $\Sigma$ is positive (semi)definite. (c) Writing $\mathbf{u} = c_1\mathbf{p}_1 +
-c_2\mathbf{p}_2$ in the orthonormal eigenbasis with $c_1^2 + c_2^2 = 1$ gives $\mathbf{u}^T\Sigma\mathbf{u} = \frac{1}{6}c_1^2 +
+c_2\mathbf{p}_2$ in the orthonormal eigenbasis with $c_1^2 + c_2^2 = 1$ gives $\mathbf{u}^\top\Sigma\mathbf{u} = \frac{1}{6}c_1^2 +
 \frac{1}{3}c_2^2 \le \frac{1}{3}$, with equality for $\mathbf{u} = \mathbf{p}_2 = (1, -1)/\sqrt{2}$. Directly,
-$\text{Var}(Y - Z) = \frac{1}{4} + \frac{1}{4} + 2 \cdot \frac{1}{12} = \frac{2}{3} = 2 \cdot \frac{1}{3}$, consistent with
-$\mathbf{u} = (1, -1)/\sqrt{2}$ since $\text{Var}(\mathbf{u}^T(Y, Z)) = \frac{1}{2}\text{Var}(Y - Z)$.
+$\operatorname{Var}(Y - Z) = \frac{1}{4} + \frac{1}{4} + 2 \cdot \frac{1}{12} = \frac{2}{3} = 2 \cdot \frac{1}{3}$, consistent with
+$\mathbf{u} = (1, -1)/\sqrt{2}$ since $\operatorname{Var}(\mathbf{u}^\top(Y, Z)) = \frac{1}{2}\operatorname{Var}(Y - Z)$.
 :::
 ::::

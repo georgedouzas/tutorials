@@ -1,0 +1,38 @@
+### Symbols for fields and particles
+
+| Symbol | Meaning |
+|---|---|
+| $\phi$ | scalar field |
+| $\psi$ | Dirac spinor |
+| $\bar\psi = \psi^\dagger\gamma^0$ | Dirac adjoint |
+| $\gamma^\mu$ | Dirac matrices, $\{\gamma^\mu, \gamma^\nu\} = 2\eta^{\mu\nu}$ |
+| $\gamma_5 = i\gamma^0\gamma^1\gamma^2\gamma^3$ | chirality matrix |
+| $\sigma^\mu$, $\bar\sigma^\mu$ | $\sigma^\mu = (1, \boldsymbol\sigma)$, $\bar\sigma^\mu = (1, -\boldsymbol\sigma)$ |
+| $A_\mu$ | gauge potential |
+| $A^\mu = (\Phi, \mathbf A)$ | electromagnetic potential: scalar potential $\Phi$, vector potential $\mathbf A$ |
+| $\mathbf E$, $\mathbf B$ | electric and magnetic fields, $E^i = F_{0i}$ |
+| $F_{\mu\nu}$ | field strength |
+| $\tilde F^{\mu\nu}$ | dual field strength, $\tfrac12\epsilon^{\mu\nu\rho\sigma}F_{\rho\sigma}$ |
+| $A = A_\mu\, dx^\mu$ | Lie-algebra-valued gauge potential, anti-Hermitian |
+| $F = dA + A\wedge A$ | its curvature |
+| $a$, $f = da$ | real potential and field strength of a $U(1)$ bundle, $A = ia$, $F = if$ |
+| $D_\mu$ | covariant derivative |
+| $q$ | electric charge of a field |
+| $g$ | gauge coupling |
+| $S$ | action |
+| $\mathscr H$ | Hamiltonian density |
+| $a_{\mathbf k}$, $a_{\mathbf k}^\dagger$ | annihilation and creation operators of the mode $\mathbf k$ |
+| $\mathcal P$ | path ordering |
+
+Conventions:
+
+- The covariant derivative of a field of charge $q$ is $D_\mu = \partial_\mu + iqA_\mu$. With a non-abelian
+  anti-Hermitian potential it is $D_\mu = \partial_\mu + A_\mu$; the two agree for $A_\mu \to iqA_\mu$. A gauge
+  transformation acts as $A \to g^{-1}Ag + g^{-1}dg$, and $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu + [A_\mu, A_\nu]$.
+- The Yang-Mills action is $S = \frac{1}{2g^2}\int \sqrt{\lvert g\rvert}\, \operatorname{tr}(F_{\mu\nu}F^{\mu\nu})$ with the
+  trace in the fundamental representation; with $\operatorname{tr}(T_aT_b) = -\tfrac12\delta_{ab}$ it is
+  $-\frac{1}{4g^2}\int\sqrt{\lvert g\rvert}\, F^a_{\mu\nu}F^{a\,\mu\nu}$.
+- In the signature $(+, -, -, -)$: the Klein-Gordon equation is $(\Box + m^2)\phi = 0$, the scalar Lagrangian is
+  $\tfrac12\partial_\mu\phi\,\partial^\mu\phi - V(\phi)$, the Maxwell Lagrangian is $-\tfrac14F_{\mu\nu}F^{\mu\nu}$, and the
+  Dirac equation is $(i\gamma^\mu\partial_\mu - m)\psi = 0$ with $(\gamma^0)^2 = 1$ and $(\gamma^i)^2 = -1$.
+- The Lagrangian density is $\mathcal L$, the Hamiltonian density $\mathscr H$, and the action $S = \int d^4x\, \mathcal L$.

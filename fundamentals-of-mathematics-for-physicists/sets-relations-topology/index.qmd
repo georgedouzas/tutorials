@@ -77,7 +77,7 @@ conditions.
 The circle $S^1 = \{(X, Y) \in \mathbb{R}^2 : X^2 + Y^2 = 1\}$ and the sphere $S^2 = \{(X, Y, Z) \in \mathbb{R}^3 :
 X^2 + Y^2 + Z^2 = 1\}$ are subsets of $\mathbb{R}^2$ and $\mathbb{R}^3$ cut out by one equation; the set $SO(3)$ of
 rotations of space is a subset of the set of all $3 \times 3$ real matrices, cut out by the conditions
-$R^{\mathsf{T}} R = 1$ and $\det R = 1$.
+$R^\top R = 1$ and $\det R = 1$.
 :::
 ::::
 
@@ -749,7 +749,7 @@ the chart that reads off the angle of a point.
 #### Rotations
 
 A rotation by the angle $\alpha$ about an axis is a bijection of space whose inverse is the rotation by $-\alpha$
-about the same axis; as a matrix, $R^{-1} = R^{\mathsf{T}}$. The inverse of the coordinate bijection of
+about the same axis; as a matrix, $R^{-1} = R^\top$. The inverse of the coordinate bijection of
 @exm-bijection-chart sends a point of the circle to its angle in $(0, 2\pi)$, which is the chart itself.
 :::
 ::::
@@ -808,7 +808,7 @@ functions, and Sage does it symbolically.
 ::: {#exr-inverse-rotation-matrix}
 #### The inverse of a rotation is its transpose
 
-For the rotation matrix $R(\alpha)$ about the $Z$-axis, verify $R(\alpha)^{-1} = R(-\alpha) = R(\alpha)^{\mathsf{T}}$.
+For the rotation matrix $R(\alpha)$ about the $Z$-axis, verify $R(\alpha)^{-1} = R(-\alpha) = R(\alpha)^\top$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1792,7 +1792,7 @@ open ball is the unit of room. Closed sets are then the complements, the regions
 ::: {#def-open-set}
 #### Open set in $\mathbb{R}^n$
 
-The **open ball** of radius $\epsilon$ around $p \in \mathbb{R}^n$ is $B_\epsilon(p) = \{x : |x - p| < \epsilon\}$.
+The **open ball** of radius $\varepsilon$ around $p \in \mathbb{R}^n$ is $B_\varepsilon(p) = \{x : |x - p| < \varepsilon\}$.
 A subset $V \subseteq \mathbb{R}^n$ is **open** if around every one of its points some open ball is contained in
 $V$; a subset is **closed** if its complement is open.
 :::
@@ -1888,12 +1888,12 @@ boundary, which explains why boundary points are excluded in @fig-open-sets.
 ::: {#exr-open-ball-is-open}
 #### Open balls are open
 
-Prove that $B_\epsilon(p)$ is an open set: around every $x \in B_\epsilon(p)$ find a ball contained in $B_\epsilon(p)$.
+Prove that $B_\varepsilon(p)$ is an open set: around every $x \in B_\varepsilon(p)$ find a ball contained in $B_\varepsilon(p)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Let $x \in B_\epsilon(p)$ and $\delta = \epsilon - |x - p| > 0$. For $y \in B_\delta(x)$ the triangle inequality gives
-$|y - p| \leq |y - x| + |x - p| < \delta + |x - p| = \epsilon$, so $B_\delta(x) \subseteq B_\epsilon(p)$. The radius
+Let $x \in B_\varepsilon(p)$ and $\delta = \varepsilon - |x - p| > 0$. For $y \in B_\delta(x)$ the triangle inequality gives
+$|y - p| \leq |y - x| + |x - p| < \delta + |x - p| = \varepsilon$, so $B_\delta(x) \subseteq B_\varepsilon(p)$. The radius
 $\delta$ shrinks as $x$ approaches the boundary, which is why the boundary points themselves are excluded
 (@fig-open-sets).
 :::
@@ -2163,14 +2163,14 @@ an arc of the circle is the same whether the arc is viewed inside the circle or 
 With open sets available on both sides, a map between topological spaces can be called continuous without any
 mention of distances. The definition asks that open sets pull back to open sets, and the picture is that points
 close to a given point are sent close to its image; for subsets of coordinate spaces this is the familiar
-$\epsilon$-$\delta$ condition.
+$\varepsilon$-$\delta$ condition.
 
 :::: {.statement-box}
 ::: {#def-continuous-map}
 #### Continuous map
 
 A map $f : X \to Y$ between topological spaces is **continuous** if the preimage $f^{-1}(V)$ of every open set
-$V \subseteq Y$ is open in $X$. For maps between subsets of $\mathbb{R}^n$ this is the $\epsilon$-$\delta$
+$V \subseteq Y$ is open in $X$. For maps between subsets of $\mathbb{R}^n$ this is the $\varepsilon$-$\delta$
 definition: points close to $p$ are sent close to $f(p)$.
 :::
 ::::
@@ -2487,9 +2487,9 @@ identification is not.
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $[\varphi] \mapsto (\cos\varphi, \sin\varphi)$ is a continuous bijection from the quotient onto the circle; an
-open set of the quotient containing $[0]$ has preimage containing $[0, \epsilon) \cup (2\pi - \epsilon, 2\pi]$,
+open set of the quotient containing $[0]$ has preimage containing $[0, \varepsilon) \cup (2\pi - \varepsilon, 2\pi]$,
 whose image is an open arc around $(1, 0)$, so the inverse is continuous. On $[0, 2\pi)$ the same map is a
-continuous bijection but $[0, \epsilon)$ is open while its image, a half-open arc, is not open in the circle.
+continuous bijection but $[0, \varepsilon)$ is open while its image, a half-open arc, is not open in the circle.
 :::
 
 The exercise asks for a description of which sets of classes are open in the quotient of the line by full turns, in
@@ -2823,7 +2823,7 @@ Take two copies of $\mathbb{R}$ and identify $x \sim x'$ for all $x \neq 0$. Sho
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The two origins $0$ and $0'$ are distinct points of the quotient; a neighbourhood of either contains the image of
-an interval $(-\epsilon, \epsilon)$ minus the origin, so any two neighbourhoods meet. The space is locally like
+an interval $(-\varepsilon, \varepsilon)$ minus the origin, so any two neighbourhoods meet. The space is locally like
 $\mathbb{R}$ everywhere but is not a manifold: this is why @def-manifold requires the Hausdorff property
 separately.
 :::
@@ -2899,7 +2899,7 @@ explain why the same cover cannot be used for $[0, 1]$.
 ::: {.callout-note .solution collapse="true" title="Solution"}
 The sets $U_n = (1/n, 1)$, $n \geq 2$, cover $(0, 1)$, but any finite subfamily is contained in $(1/N, 1)$ for its
 largest $N$ and misses $(0, 1/N]$. For $[0, 1]$ the family does not cover the points $0$ and $1$; open sets
-containing them contain $(-\epsilon, \epsilon)$ and $(1 - \epsilon, 1 + \epsilon)$, and together with finitely many
+containing them contain $(-\varepsilon, \varepsilon)$ and $(1 - \varepsilon, 1 + \varepsilon)$, and together with finitely many
 $U_n$ they cover $[0, 1]$, which is the Heine-Borel conclusion.
 :::
 
@@ -3348,7 +3348,7 @@ not compact.
 The quotient map restricted to the compact interval $[0, 2\pi]$ is still surjective and continuous, and a
 continuous image of a compact space is compact (a cover of the image pulls back to a cover of the interval with a
 finite subcover). Hausdorff: two distinct classes have representatives $\varphi < \varphi'$ in $[0, 2\pi)$ at
-distance $d$, and the images of $\epsilon$-intervals around them with $\epsilon < \min(d, 2\pi - d)/2$ are
+distance $d$, and the images of $\varepsilon$-intervals around them with $\varepsilon < \min(d, 2\pi - d)/2$ are
 disjoint open sets of the quotient. Alternatively, the quotient is homeomorphic to the circle (@exm-quotient-circle-top),
 which is compact and Hausdorff as a closed bounded subspace of the plane.
 :::
