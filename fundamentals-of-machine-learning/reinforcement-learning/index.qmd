@@ -1741,6 +1741,8 @@ Repeat forever: Generate episode following π G ← 0 For each step t = T-1, T-2
 A fixed $\varepsilon$ explores forever but never becomes greedy, so the policy it learns is only the best $\varepsilon$-soft one. The
 GLIE conditions say how $\varepsilon$ must decay for convergence to an optimal policy
 [@suttonReinforcementLearningIntroduction2018, Sec. 6.4, p. 129].
+For the GLIE conditions and SARSA's convergence under them, see
+@murphy2023probabilistic [Sec. 35.2.4, p. 1153].
 
 :::: {.statement-box}
 ::: {#def-rl-glie}
@@ -3420,7 +3422,8 @@ $$\nabla_{\boldsymbol{\theta}} J \approx \mathbb{E}[\nabla_a \hat{q}(s,a,\mathbf
 - Target networks for both - Experience replay
 - Exploration noise: $A_t = \pi_{\boldsymbol{\theta}}(S_t) + \varepsilon_t$
 
-**Twin Delayed DDPG (TD3):** Improvements over DDPG: 1. **Clipped Double Q-Learning:** Use minimum of two critics 2. **Delayed
+**Twin Delayed DDPG (TD3)**
+[@murphy2023probabilistic, Sec. 35.3.5, p. 1163]: Improvements over DDPG: 1. **Clipped Double Q-Learning:** Use minimum of two critics 2. **Delayed
 Policy Updates:** Update policy less frequently than critic 3. **Target Policy Smoothing:** Add noise to target actions
 
 ### Soft Actor-Critic (SAC)
@@ -3502,14 +3505,16 @@ For more on this topic, see @suttonReinforcementLearningIntroduction2018 [Secs. 
 $\hat{R}(s,a)$
 3. **Planning:** Generate simulated experience using model
 
-**Model-Predictive Control (MPC):** 1. Learn dynamics model $f(s,a)$
+**Model-Predictive Control (MPC)**
+[@murphy2023probabilistic, Sec. 35.4.1, eq. 35.46, p. 1164]: 1. Learn dynamics model $f(s,a)$
 2. At each step, optimize action sequence:
 
 $$a_1^*, \ldots, a_H^* = \arg\max_{a_1, \ldots, a_H} \sum_{t=1}^H r(s_t, a_t)$$
 
 3. Execute first action $a_1^*$, replan at next step
 
-**World Models:** Learn compact latent representation of environment for planning.
+**World Models:** Learn compact latent representation of environment for planning
+[@murphy2023probabilistic, Sec. 35.4.5.1, p. 1168].
 
 ### Multi-Agent RL
 

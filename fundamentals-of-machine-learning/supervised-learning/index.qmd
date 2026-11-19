@@ -1233,6 +1233,7 @@ y_i(\mathbf{w}^\top\mathbf{x}_i + w_0) = 1$. This gives the canonical form:
 #### Hard-margin SVM
 
 For linearly separable data, the **hard-margin SVM** is the solution of the canonical problem
+[@mohri2018foundations, Sec. 5.2.1, eq. 5.7, p. 82]
 $$\min_{\mathbf{w}, w_0} \frac{1}{2}\|\mathbf{w}\|^2 \quad \text{s.t.} \quad y_i(\mathbf{w}^\top\mathbf{x}_i + w_0) \geq 1, \forall
 i$$
 
@@ -1292,6 +1293,7 @@ would overfit). The soft-margin SVM introduces slack variables $\xi_i \geq 0$ th
 #### Soft-margin SVM
 
 For $C > 0$, the **soft-margin SVM** solves
+[@mohri2018foundations, Sec. 5.3.1, eq. 5.24 with $p = 1$, p. 88]
 $$\min_{\mathbf{w}, w_0, \boldsymbol{\xi}} \frac{1}{2}\|\mathbf{w}\|^2 + C\sum_{i=1}^n \xi_i$$ $$\text{s.t.} \quad
 y_i(\mathbf{w}^\top\mathbf{x}_i + w_0) \geq 1 - \xi_i, \quad \xi_i \geq 0, \quad \forall i$$
 
@@ -1363,6 +1365,7 @@ first and derived afterwards; it is the form in which kernels enter.
 #### Dual of the soft-margin SVM
 
 The dual problem of @def-sup-soft-margin-svm is
+[@mohri2018foundations, Sec. 5.3.3, eqs. 5.26, 5.33, pp. 90-91]
 $$\max_{\boldsymbol{\alpha}} \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i,j=1}^n \alpha_i\alpha_j y_i y_j
 \mathbf{x}_i^\top\mathbf{x}_j$$ $$\text{s.t.} \quad 0 \leq \alpha_i \leq C, \quad \sum_{i=1}^n \alpha_i y_i = 0$$
 
@@ -1520,7 +1523,8 @@ distance $\sqrt{2}$.
 ::::
 
 Not every symmetric function of two points is an inner product of features. Mercer's theorem gives a test that uses
-only kernel values on finite sets of points.
+only kernel values on finite sets of points
+[@mohri2018foundations, Def. 6.3, Thm. 6.8, pp. 108-110].
 
 :::: {.statement-box}
 ::: {#thm-sup-mercer}
@@ -1537,6 +1541,7 @@ The proof, which constructs the feature space from the kernel, is not given here
 
 **Kernel Properties:** - **Closure under addition:** $k_1 + k_2$ is a kernel - **Closure under multiplication:** $k_1 \cdot k_2$
 is a kernel - **Closure under scaling:** $ck$ is a kernel for $c > 0$
+[@mohri2018foundations, Thm. 6.10, p. 115]
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The criterion can be applied to a two-point set, where the kernel matrix is $2 \times 2$. The example shows one function
@@ -2189,7 +2194,8 @@ The weighted error of $G_m$ is therefore $(1 - \text{err}_m)/(2(1 - \text{err}_m
 ::::
 
 The exponential loss explains why AdaBoost drives the training error down so fast. The next theorem bounds the training
-error by a product over rounds [@shalev2014ml, Thm. 10.2; @hastie2009elements, Sec. 10.4].
+error by a product over rounds [@shalev2014ml, Thm. 10.2; @hastie2009elements, Sec. 10.4]
+[@mohri2018foundations, Sec. 7.2.1, Thm. 7.2, p. 149].
 
 **Training Error Bound:**
 

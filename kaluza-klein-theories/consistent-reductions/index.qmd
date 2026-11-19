@@ -1069,8 +1069,8 @@ $$
 \operatorname{tr}\operatorname{ad}(T_a) = f_{ab}{}^b = 0 \qquad\text{for every } a .
 $$ {#eq-vcr-unimodular}
 For a unimodular group the volume form $\sigma^1 \wedge \dots \wedge \sigma^d$ is invariant under right as well as left
-translations. Unimodularity is necessary for the group-manifold reduction to follow from a reduced action and for the
-existence of a compact quotient $G/\Gamma$; for a non-unimodular algebra the reduced field equations are still
+translations [@milnor1976curvatures, Lemma 6.3, pp. 317-318]. Unimodularity is necessary for the group-manifold reduction to follow from a reduced action and for the
+existence of a compact quotient $G/\Gamma$ [@milnor1976curvatures, Lemma 6.2, p. 317]; for a non-unimodular algebra the reduced field equations are still
 consistent but do not follow from an action [@hull2005, eq. 4.6 and Sec. 4.1; @kaloper1999, eq. 64].
 :::
 ::::
@@ -1216,7 +1216,8 @@ a^2/(n_2n_3)$ is unchanged by these rescalings, so each is a one-parameter famil
 
 Type III is the case $a = 1$ of $\mathrm{VI}_h$, and $a > 0$ in $\mathrm{VI}_h$ and $\mathrm{VII}_h$. Since
 $\operatorname{tr}\operatorname{ad}(T_b) = f_{bd}{}^d = 2a_b$, the algebra is unimodular exactly when $a = 0$: the six
-types of the first group (**class A**) are the unimodular three-dimensional algebras, the others (class B) are not.
+types of the first group (**class A**) are the unimodular three-dimensional algebras, the others (class B) are not
+[@milnor1976curvatures, Sec. 4, eq. 4.2 and the table, pp. 305-307].
 :::
 ::::
 
@@ -1275,7 +1276,8 @@ By @def-vcr-unimodular only class A algebras give a reduced action and a compact
 torus; type II is the nilmanifold of @exm-vcr-gm-heisenberg, a torus twisted by a parabolic element of $SL(2,
 \mathbb{Z})$; $\mathrm{VII}_0$ gives the tori twisted by an elliptic element, a rotation of finite order; $\mathrm{VI}_0$, in
 which $\operatorname{ad}(T_3)$ has the real eigenvalues $\pm1$ (@exr-vcr-bc-sol), gives the tori twisted by a hyperbolic
-element [@hull2005, Sec. 3]; type IX is $S^3 = SU(2)$ and type VIII has compact quotients of $SL(2, \mathbb{R})$. The
+element [@hull2005, Sec. 3]; type IX is $S^3 = SU(2)$ and type VIII has compact quotients of $SL(2, \mathbb{R})$
+[@milnor1976curvatures, Remark 4.9, p. 309]. The
 class B algebras, such as type V of the open universe, have no compact quotient.
 :::
 ::::
@@ -1413,6 +1415,7 @@ checks this on $SU(2)$ and on the nilmanifold, and contrasts it with the Killing
 (i) The forms of @eq-su2-forms satisfy $d\sigma_a = -\tfrac12\epsilon_{abc}\sigma_b \wedge \sigma_c$. (ii) The
 left-invariant metric $\sum_aa_a^2\sigma_a^2$ on $SU(2)$ has constant frame components of the Ricci tensor, diagonal,
 with $\operatorname{Ric}(e_3, e_3) = (a_3^4 - (a_1^2 - a_2^2)^2)/(2a_1^2a_2^2)$ and cyclic, and scalar curvature
+[@milnor1976curvatures, Sec. 4, eq. 4.2 and Thm. 4.3, pp. 305-306]
 $$
 R = \frac{2a_1^2a_2^2 + 2a_2^2a_3^2 + 2a_3^2a_1^2 - a_1^4 - a_2^4 - a_3^4}{2a_1^2a_2^2a_3^2} ,
 $$ {#eq-vcr-bianchi-ix-curvature}
@@ -1447,7 +1450,7 @@ With $a_1 = a_2 = a$, $a_3 = b$, @eq-vcr-bianchi-ix-curvature becomes $R = (4a^2
 2a$, zero for $b = 2a$ and negative beyond (@exr-vcr-lic-berger-sage). The fibre direction $e_3$ has
 $\operatorname{Ric}(e_3, e_3) = b^4/(2a^4) > 0$ at all squashings, while the base directions have $(2a^2 - b^2)/(2a^2)$,
 negative for $b > \sqrt2a$: a stretched Hopf fibre gives the sign pattern of the nilmanifold
-(@exr-vcr-lic-heis-curvature).
+(@exr-vcr-lic-heis-curvature) [@milnor1976curvatures, Thm. 4.3 and Cor. 4.5, pp. 305-308].
 :::
 
 In the reduced theory the scalars $a_a$ are fields, and the curvature is their potential. The example identifies the
@@ -1478,7 +1481,7 @@ constant frame components, and conclude that every frame component of the curvat
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $de^a = L^a{}_bd\sigma^b = -\tfrac12L^a{}_bf_{cd}{}^b\sigma^c \wedge \sigma^d$, and substituting $\sigma = L^{-1}e$
-gives constant $C$. The torsion-free metric connection is unique, and the Koszul formula gives its frame components $\omega_{abc}$ as a
+gives constant $C$. The torsion-free metric connection is unique, and the Koszul formula [@milnor1976curvatures, Sec. 5, eq. 5.3, p. 310] gives its frame components $\omega_{abc}$ as a
 fixed linear combination of the $C_{abc}$ (indices lowered with $\delta$), so they are constants;
 $\Omega^a{}_b = d\omega^a{}_b + \omega^a{}_c \wedge \omega^c{}_b$ then contains $d\omega = \omega_{\cdot\cdot c}de^c$,
 again constant in the frame. Hence $\operatorname{Ric}(e_a, e_b)$ and $R$ are constants, quadratic in $C$.
@@ -1537,7 +1540,7 @@ What is the sign of the potential $-R$, and does it have a stationary point in $
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 $R = -\tfrac12m^2$ with frame Ricci matrix $\operatorname{diag}(-\tfrac12, \tfrac12, -\tfrac12)m^2$, independent of
-$y$ as the proposition predicts. The potential $-R = \tfrac12m^2$ is positive and, once the moduli $\gamma_{ab}$ are restored, it scales like an inverse
+$y$ as the proposition predicts [@milnor1976curvatures, Cor. 4.6, p. 308]. The potential $-R = \tfrac12m^2$ is positive and, once the moduli $\gamma_{ab}$ are restored, it scales like an inverse
 power of the sizes of the base: it has no stationary point at non-zero twist and pushes the moduli towards a large
 base:
 

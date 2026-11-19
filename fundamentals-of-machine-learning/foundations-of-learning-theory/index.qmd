@@ -2338,8 +2338,10 @@ Fix $\varepsilon$ and any $\delta > 0$. For $n \ge m_{\mathcal{H}}(\varepsilon, 
 :::
 ::::
 
-Universal Learning: Some algorithms can learn any learnable concept class without knowing the class in advance. The SRM principle
-with appropriate complexity penalties achieves universal learning.
+Universal Learning: Some algorithms can learn without knowing the class in advance. When the hypothesis set is a countable union
+of classes of finite complexity, the SRM principle with appropriate complexity penalties does as well as an oracle that knows the
+best class [@mohri2018foundations, Sec. 4.3, Thm. 4.2, pp. 66-67]; not every hypothesis set decomposes this way
+[@mohri2018foundations, Sec. 4.3, p. 68].
 
 ## Multiple Testing and Error Control {#sec-multiple-testing}
 
@@ -3166,7 +3168,8 @@ recovers the angle $t$ as a single coordinate.
 
 ### Theoretical Perspectives on Representation
 
-Information-Theoretic View: Good representations should:
+Information-Theoretic View: Good representations should
+[@murphy2023probabilistic, Sec. 5.6.1, eq. 5.165, p. 252]:
 
 1. Preserve task-relevant information: $I(Y; \phi(X)) \approx I(Y; X)$
 2. Compress irrelevant information: Minimize $I(\phi(X); X)$ subject to task performance
@@ -3182,6 +3185,7 @@ Causal View: Representations should capture:
 1. Causal factors: Variables that causally influence the target
 2. Invariant features: Stable across different environments
 3. Disentangled factors: Independent generative factors
+   [@murphy2023probabilistic, Sec. 21.3.1.1, eq. 21.25, p. 798]
 
 ### Evaluation of Representations
 

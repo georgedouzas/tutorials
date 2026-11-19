@@ -548,6 +548,11 @@ works already have a note):
   manton1979: no PDF, no reading note; their use in this chapter (introduction; sec-csdr-embedding) cannot be mapped
   to pages.
 
+#### Gaps filled (2026-11-19)
+- `kobayashi1963foundations` [Ch. II, Thms. 11.5 and 11.7, pp. 106-110]: `exm-reduced-wang` (Wang's theorem; Kubyshin p. 7 cites KN as [21]; previously not proposed under A5). Supports the coset part (the R-equivariant map k → g); the M₄ part and the centraliser stay with Kubyshin. Pages read: KN I pp. 103-112.
+- `kobayashi1963foundations` [Ch. II, Prop. 11.3 (2), p. 105] and [Ch. II, Prop. 11.3 (1), p. 105]: constraints 2 and 3 of `def-csdr-constraints`. Pages read: KN I pp. 105-106.
+Still open: the "27 of E₆" at `exm-rules-e8` and a readable source for the Manton SU(3)/S² model (`sec-csdr-embedding`).
+
 ### four-dimensional-theory
 
 | Section (sec-id) | Works cited with locators | Pages verified | Verdict | Gap | Resolution |
@@ -589,6 +594,10 @@ Reading-note additions (drafts in `scratchpad/notes3/four-dimensional-theory__<I
 - dolan2003 (K8VM6ANY): Sec. 2, example S^2, eqs. (22)-(32), pp. 6-8.
 - kapetanakis1992 (CHH4FXQE), no reading note yet: Identity (Phys. Rept. 219 (1992) 4-76, no PDF); Structure not available; cited without locator in four places.
 - manton1979 (6R9V96TW), no reading note yet: Identity (Nucl. Phys. B 158 (1979) 141-153, no PDF); Structure not available; cited without locator in three places.
+
+#### Gaps filled (2026-11-19)
+- `kobayashi1963foundations` [Ch. II, Thm. 11.7 (1), pp. 109-110]: `def-csd-equivariance-equations` (Wang's theorem for the SU(2)-invariant connection), co-cited with Rudolph Part II. Pages read: KN I pp. 109-110.
+- `kobayashi1963foundations` [Ch. II, Thm. 11.7 (2), pp. 109-110]: `def-csd-internal-field-strength`, eq-csd-f12. KN's 2Ω(X, Y) = [Λ(X), Λ(Y)] − Λ([X, Y]_m) − λ([X, Y]_j) is F₁₂ = [φ₁, φ₂] − τ after KN's factor ½ (F = 2Ω). Pages read: KN I pp. 109-110.
 
 ### consistent-reductions
 
@@ -654,6 +663,16 @@ Reading-note additions (drafts in
 - `chatzistavrakidis2010orb` (6UBJJ7CF): Sec. 1, pp. 2-3; Sec. 3, eqs. 14, 29-30, 33, pp. 8-10; Sec. 4, p. 11.
 - `Witten:1983ux` (NI5XEC45): no PDF; cited in exr-vcr-sc-lambda (no chiral fermions on smooth internal spaces), page
   not mappable. No reading note exists; Identity only.
+
+#### Gaps filled (2026-11-19)
+- `milnor1976curvatures` [Sec. 4, eq. 4.2 and Thm. 4.3, pp. 305-306]: `prp-vcr-left-invariant-curvature` (ii), the Bianchi IX curvature, previously an adapted block without source. Checked after conversion (λ_a = a_a²/(a₁a₂a₃), e_a dual to σ_a): Ric(e₃, e₃) and eq-vcr-bianchi-ix-curvature agree. Pages read: Milnor pp. 305-306.
+- `milnor1976curvatures` [Thm. 4.3 and Cor. 4.5, pp. 305-308]: `exm-vcr-lic-berger`. Pages read: pp. 305-308.
+- `milnor1976curvatures` [Cor. 4.6, p. 308]: solution of `exr-vcr-lic-heis-curvature` (R = −m²/2, Ricci diag(−½, ½, −½)m²; agrees). Pages read: p. 308.
+- `milnor1976curvatures` [Sec. 5, eq. 5.3, p. 310]: Koszul formula in the solution of `exr-vcr-lic-frame`. Pages read: p. 310.
+- `milnor1976curvatures` [Lemma 6.3, pp. 317-318] and [Lemma 6.2, p. 317]: `def-vcr-unimodular`. Pages read: pp. 317-319.
+- `milnor1976curvatures` [Sec. 4, eq. 4.2 and the table, pp. 305-307]: class A of `prp-vcr-bianchi-classification`. Pages read: pp. 305-307.
+- `milnor1976curvatures` [Remark 4.9, p. 309]: compact quotients in `exm-vcr-bc-class-a`. Pages read: p. 309.
+Still open: `prp-vcr-torus-spectrum`, `prp-vcr-twisted-spectrum` and `exm-vcr-frg-newton` (outside the new works).
 
 ### compactifications
 

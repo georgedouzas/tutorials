@@ -516,7 +516,8 @@ constrained by the isotropy representation.
 #### Invariant metric
 
 A metric $g$ on $S/R$ is **$S$-invariant** if every $h \in S$ acts as an isometry (@def-isometry). Such a metric
-is determined by its value at $o$, an inner product on $T_o(S/R)$ invariant under the isotropy representation;
+is determined by its value at $o$, an inner product on $T_o(S/R)$ invariant under the isotropy representation
+[@kobayashi1969foundations, Ch. X, Prop. 3.1, p. 200];
 when the isotropy representation is irreducible, the invariant inner product is unique up to a scale, so the
 invariant metric has a single **radius**, and in general there is one radius per irreducible component.
 :::
@@ -800,7 +801,7 @@ isotropy algebra.
 
 Let $\mathfrak{s}$ and $\mathfrak{r}$ be the Lie algebras of $S$ and $R$. A **reductive decomposition** is a
 vector space splitting $\mathfrak{s} = \mathfrak{r} \oplus \mathfrak{k}$ with $[\mathfrak{r}, \mathfrak{k}]
-\subseteq \mathfrak{k}$; then $\mathfrak{k}$ is identified with the tangent space $T_o(S/R)$, by $X \mapsto
+\subseteq \mathfrak{k}$ [@kobayashi1969foundations, Ch. X, Sec. 2, p. 190]; then $\mathfrak{k}$ is identified with the tangent space $T_o(S/R)$, by $X \mapsto
 \frac{d}{dt}e^{tX} \cdot o$, and the isotropy representation (@def-isotropy-representation) is the adjoint action
 of $R$ on $\mathfrak{k}$. Every coset of a compact group is reductive: take $\mathfrak{k}$ orthogonal to
 $\mathfrak{r}$ for the Killing form (@def-killing-form) [@dolan2003, App. A, eqs. 74-75].
@@ -1110,7 +1111,8 @@ reflection through the point $o$; the definition below names them.
 
 A reductive coset is **symmetric** if $[\mathfrak{k}, \mathfrak{k}] \subseteq \mathfrak{r}$, that is $f_{ab}{}^c = 0$
 [@chatzistavrakidis2007consistency, eq. 2.4; @manolakos2016, footnote 1; @dolan2003, App. A, eq. 75]; equivalently the map $X \mapsto X$ on
-$\mathfrak{r}$, $X \mapsto -X$ on $\mathfrak{k}$ is a Lie algebra automorphism, the **symmetry** of the coset. Every
+$\mathfrak{r}$, $X \mapsto -X$ on $\mathfrak{k}$ is a Lie algebra automorphism, the **symmetry** of the coset
+[@kobayashi1969foundations, Ch. XI, Prop. 2.1 and Remark, pp. 226-227]. Every
 coset of a compact group is reductive, but not every one is symmetric.
 :::
 ::::
@@ -2172,7 +2174,7 @@ one-form on $S/R$ which under a change of representative transforms as a gauge p
 h^{-1}(e^iQ_i)h + h^{-1}dh$: it is the connection of the principal $R$-bundle $S \to S/R$ (@sec-connections), and
 by the Maurer-Cartan equation its curvature is $de^i + \tfrac12 f_{jk}{}^i e^j \wedge e^k = -\tfrac12
 f_{ab}{}^i\,e^a \wedge e^b$
-[@rudolph2017differential, Example 1.3.19 and Remark 1.9.14 (4)].
+[@rudolph2017differential, Example 1.3.19 and Remark 1.9.14 (4); @kobayashi1963foundations, Ch. II, Thm. 11.1, pp. 103-104].
 :::
 ::::
 
@@ -3520,7 +3522,7 @@ equivalently a $\mathfrak{g}$-valued one-form $\omega$ on $P$ (the **connection 
 Maurer-Cartan form on each fibre and transforms by $\operatorname{Ad}_{g^{-1}}$ under the action, the horizontal
 vectors being its kernel. A curve in $M$ has a unique **horizontal lift** through each point of the fibre over
 its start
-[@rudolph2017differential, Defs. 1.3.2 and 1.3.4, Props. 1.3.5 and 1.7.2].
+[@rudolph2017differential, Defs. 1.3.2 and 1.3.4, Props. 1.3.5 and 1.7.2; @kobayashi1963foundations, Ch. II, Sec. 1, Prop. 1.1, pp. 63-64; Sec. 3, Prop. 3.1, p. 69].
 :::
 ::::
 
@@ -3544,7 +3546,8 @@ connection form and the horizontal planes, which are used throughout the last se
 
 On $SU(2) \to S^2$ the left-invariant form $\sigma^3 = d\psi + \cos\theta\,d\varphi$ restricts to $d\psi$ on each
 fibre and is invariant under the right $U(1)$ action: it is a connection form, the **Hopf connection**, whose
-horizontal subspaces are spanned by the dual vectors of $\sigma^1, \sigma^2$ (@sec-hopf).
+horizontal subspaces are spanned by the dual vectors of $\sigma^1, \sigma^2$ (@sec-hopf)
+[@kobayashi1963foundations, Ch. II, Thm. 11.1, pp. 103-104].
 :::
 
 Parallel transport of tangent vectors on a Riemannian manifold is itself a horizontal lift. The third example places
@@ -3555,7 +3558,8 @@ the Levi-Civita connection inside the general definition, on the bundle of ortho
 
 On the orthonormal frame bundle of a Riemannian manifold the Levi-Civita connection is a connection in this
 sense: parallel transport (@def-parallel-transport) is the horizontal lift, and the holonomy around a loop is the
-rotation of @exr-parallel-transport. The Christoffel symbols are its gauge potential in the coordinate frame.
+rotation of @exr-parallel-transport. The Christoffel symbols are its gauge potential in the coordinate frame
+[@kobayashi1963foundations, Ch. IV, Sec. 2, Thm. 2.2, p. 158].
 :::
 ::::
 
@@ -3834,7 +3838,7 @@ $$
 A \to g^{-1} A\, g + g^{-1} dg ,
 $$ {#eq-gauge-transformation}
 and the horizontal lifts and holonomies, which do not depend on the section, are unchanged. For $G = U(1)$ with
-$g = e^{i\alpha(x)}$ and $A = ia$, $a = a_\mu dx^\mu$ real, this is $a_\mu \to a_\mu + \partial_\mu\alpha$ [@hamilton2017mathematical, Thm. 5.4.2; @rudolph2017differential, Cor. 1.3.12, eq. (1.3.15)].
+$g = e^{i\alpha(x)}$ and $A = ia$, $a = a_\mu dx^\mu$ real, this is $a_\mu \to a_\mu + \partial_\mu\alpha$ [@hamilton2017mathematical, Thm. 5.4.2; @rudolph2017differential, Cor. 1.3.12, eq. (1.3.15); @kobayashi1963foundations, Ch. II, Prop. 1.4, p. 66].
 :::
 ::::
 
@@ -3992,7 +3996,7 @@ F = dA + A \wedge A, \qquad F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu
 $$ {#eq-curvature-connection}
 which transforms as $F \to g^{-1}Fg$ under @eq-gauge-transformation and vanishes exactly when the connection is
 **flat**, that is when all horizontal lifts of contractible loops close. It satisfies the **Bianchi identity**
-$dF + A \wedge F - F \wedge A = 0$, and for $G = U(1)$, with $A = ia$, it is $F = if$ with $f = da$ and $df = 0$ [@hamilton2017mathematical, Secs. 5.5-5.6, Cor. 5.6.4; @rudolph2017differential, Def. 1.4.6, Props. 1.4.9 and 1.4.11].
+$dF + A \wedge F - F \wedge A = 0$, and for $G = U(1)$, with $A = ia$, it is $F = if$ with $f = da$ and $df = 0$ [@hamilton2017mathematical, Secs. 5.5-5.6, Cor. 5.6.4; @rudolph2017differential, Def. 1.4.6, Props. 1.4.9 and 1.4.11; @kobayashi1963foundations, Ch. II, Thms. 5.2 and 5.4, pp. 77-78].
 :::
 ::::
 

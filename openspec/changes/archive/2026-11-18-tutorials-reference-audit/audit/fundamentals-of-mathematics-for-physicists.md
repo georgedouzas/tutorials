@@ -458,6 +458,9 @@ needs a new full note; the others need an h2 section appended.
     - Secs. 6.2, 6.7, pp. 158-162, 177-178;
     - Secs. 6.4-6.5, pp. 163-175.
 
+Gaps filled (2026-11-19): none. The record has no open gap in this chapter, and Reed-Simon Vol. I Chs. I-V would only
+duplicate supported citations; no citation added.
+
 ### linear-algebra
 
 Task 5.2. PDFs read with `pdftotext`. Page offsets (PDF − printed): Axler 20, Scott 12, Lee 15, Gourgoulhon 31 (Ch. 1)
@@ -513,6 +516,11 @@ note, so its draft is the h2 section only. `sagemath` gets a full minimal note: 
 - `keskivakkuri2022mathematical` (NGJFKLIL): Sec. 3.6 pp. 73-75 and 79-87.
 - `carroll1997` (8XG4E67X): Ch. 1 pp. 10-18, eqs. 1.55-1.61.
 - `sagemath` (SWN4REIN): `exm-sage-matrices`; no pages.
+
+#### Gaps filled (2026-11-19)
+
+None. The record has no open gap in this chapter; Riley-Hobson-Bence and Reed-Simon Vol. I would only duplicate
+supported citations, so none was added.
 
 ### real-analysis
 
@@ -617,6 +625,18 @@ get full drafts (Identity, Structure, chapter section); the others get the h2 se
 - `ventreCalculusLinearAlgebra2023` (KEJW2JYI, new note): Sec. 6.7 pp. 95-96; Chs. 18-21 pp. 291-383; Ch. 22 pp. 389-421. Identity: Aldo G. S. Ventre, *Calculus and Linear Algebra: Fundamentals and Applications*, Springer Cham, 2023, PDF YRPT9JV7 (530 pages).
 - `miklavcicIllustrativeGuideMultivariable2020` (PRFT4NVT, new note): Secs. 2.3-2.8 (PDF 75-150), Sec. 2.7 Leibniz integral rule (PDF 134-136), Secs. 4.1-4.5 and 4.8 (PDF 225-257, 266-268). Identity: Stanley J. Miklavcic, *An Illustrative Guide to Multivariable and Vector Calculus*, Springer Cham, 2020, PDF 649XE3G5 (392 pages, no printed page numbers).
 - `sagemath` (SWN4REIN): "Calculus in SageMath" unit and the chapter's Sage code; no pages.
+
+#### Gaps filled (2026-11-19)
+
+- `abbott2015understanding` [Sec. 8.3, Exercises 8.3.1-8.3.4, pp. 265-266]: `exr-ra-wallis` (exercise lead), the exercise's route step by step (b_n, reduction formula, b_2n/b_2n+1 -> 1, Wallis's product). Pages read: pp. 264-269 (PDF 273-278). Wallis gap closed.
+- `riley2006mathematical` [Sec. 18.12.1, eqs. (18.159)-(18.160), pp. 637-638]: `exr-ra-stirling` (exercise lead), n! ~ sqrt(2 pi n) n^n e^(-n). Pages read: pp. 636-638 (PDF 666-668). The sum-integral squeeze of the exercise is the text's own. Stirling gap closed.
+- `abbott2015understanding` [Thm. 8.4.6, p. 276; Exercise 8.4.16 and Thm. 8.4.9, p. 277]: `thm-differentiation-under-integral` (subsection lead), including the domination clause for improper integrals that had no source (M-test for improper integrals, then F' = int f_x under uniform convergence). Pages read: pp. 275-278 (PDF 284-287).
+- `abbott2015understanding` [Def. 6.2.3, Thm. 6.2.6, pp. 177-178; Thm. 7.4.4, p. 231; Thms. 6.5.2 and 6.5.5, pp. 192-194]: `def-uniform-convergence` (subsection lead). Pages read: PDF 187-189, 202-204, 240.
+- `abbott2015understanding` [Secs. 7.2-7.4, Def. 7.2.7, Thms. 7.2.9, 7.3.2, 7.4.1-7.4.2, pp. 218-230]: `sec-riemann-integral` section line, `def-riemann-integral` (U(f) = L(f), continuous and finitely-discontinuous functions integrable, linearity, monotonicity, additivity). Pages read: pp. 218-230 (PDF 227-239).
+- `abbott2015understanding` [Thm. 7.5.1, pp. 234-235]: `thm-fundamental-theorem` (subsection lead). Pages read: PDF 243-244.
+- `abbott2015understanding` [Sec. 8.3, Exercise 8.3.13, pp. 264-269]: `exm-series-basel` (Euler's value pi^2/6). Pages read: PDF 273-278.
+- Not cited: uniform continuity (Abbott Sec. 4.4) has no unit in the chapter. Stein-Shakarchi Ch. 6 Exercise 3 (Wallis in Gamma form) not needed.
+- Reading notes: `scratchpad/notes9/real-analysis__MCGGEJBA.html`, `real-analysis__GSMCY642.html` (h2 only; full notes in the complex-analysis files).
 
 ### complex-analysis
 
@@ -771,6 +791,19 @@ for the four works that already have a note).
   18.15 (pp. 306-307), 24.9 (p. 390), 24.13 (p. 393), 24.19 (p. 398).
 - **`hennScatteringAmplitudesGauge2014`** (ZM7YN7FX, new note). Same chapter: Sec. 3.2 pp. 82-84, Fig. 3.1, eqs. 3.1-3.4.
 
+#### Gaps filled (2026-11-19)
+
+The owner added `ash2007complex` and `stein2003complex`, closing the open "Proposed new references" row (Ash-Novinger) in substance: Ash-Novinger has no Gamma function and no functional equation, so Stein-Shakarchi carries most of the zeta and Gamma material.
+
+- `stein2003complex` [Ch. 6, Prop. 2.1, Thms. 2.3-2.4 and Cor. 2.6, pp. 168-172]: `def-zeta-function` (subsection lead): series holomorphic on Re s > 1, continuation with a single simple pole of residue 1 at s = 1, functional equation in the form xi(s) = xi(1 - s). The chapter's form is equivalent via reflection and duplication; checked numerically in Sage at three points. Pages read: PDF 187-199.
+- `stein2003complex` [Ch. 7, Sec. 1, pp. 182-184]: Euler product, and the zeros at -2, -4, ... (subsection lead). Pages read: PDF 200-203.
+- `ash2007complex` [Secs. 7.1.1-7.1.2, pp. 7-2 to 7-4]: Euler product; continuation to Re z > 0 with residue 1 at z = 1 (subsection lead). Pages read: PDF 1-4, 151-154.
+- `stein2003complex` [Ch. 6, Problem 4, p. 180] and `abbott2015understanding` [Sec. 8.3, Exercise 8.3.13, pp. 264-269]: `exm-zeta-even` (zeta(2k) Bernoulli formula; zeta(2) = pi^2/6). Pages read: PDF 199; Abbott PDF 273-278.
+- `stein2003complex` [Ch. 6, Prop. 1.1, Lemma 1.2 and Thms. 1.3-1.6, pp. 160-165]: `def-gamma-function` (subsection lead): integral, recursion, continuation with residues (-1)^n/n!, reflection, no zeros. Pages read: PDF 178-186.
+- `riley2006mathematical` [Sec. 18.12.2, eqs. (18.162)-(18.165), pp. 638-639] and `stein2003complex` [Ch. 6, Exercise 7, pp. 175-176]: `def-beta-function` (subsection lead). Pages read: RHB PDF 665-669; Stein PDF 194-195.
+- Still open: zeta(0) = -1/2, zeta(-1) = -1/12 and the alternating-series continuation of `exm-zeta-continuation` (neither book states them).
+- Reading notes: full notes `scratchpad/notes9/complex-analysis__TXJ8I2YD.html`, `__6HYECW3R.html`, `__MCGGEJBA.html`, `__GSMCY642.html`.
+
 ### differential-equations
 
 Task 5.5. Page numbers are printed pages; PDF offsets are under "Reading-note additions". All PDFs were read with
@@ -846,6 +879,15 @@ All cited works except `sagemath` already have a reading note (`audit/entries.md
 - `picard2020primer` (3IN8XYZK): Sec. 2.1 pp. 32-35, Sec. 2.1.1 eqs. (2.1.7)-(2.1.8) pp. 35-36, Sec. 2.1.2 eqs. (2.1.9)-(2.1.12) pp. 37-38.
 - `sagemath` (SWN4REIN): tool citation in sec-odes (symbolic solution of a linear first-order equation); Sage runs in most solutions.
 - `williams2023introduction` (Z7ZJZZWK): Sec. 6.2.5 eq. (6.2.149) p. 394; Sec. 6.2.6 eqs. (6.2.151)-(6.2.162), pp. 394-398.
+
+#### Gaps filled (2026-11-19)
+
+- `riley2006mathematical` [Sec. 16.1, eqs. (16.3)-(16.4), pp. 531-532]: `prp-wronskian` (subsection lead): W' = -PW and W = C exp(-int P). This closes the "Abel's identity is not in the source" gap of `das2023quantum` Sec. 7.1.2. Pages read: PDF 561-562.
+- `riley2006mathematical` [Ch. 15, eq. (15.6), p. 491]: `exr-wr-smooth` (exercise lead): a vanishing Wronskian alone does not guarantee dependence. Pages read: PDF 521-522.
+- `riley2006mathematical` [Sec. 16.4.2, eqs. (16.31)-(16.32), pp. 545-548]: `thm-frobenius-method` (subsection lead): the logarithmic second solutions for equal roots and for roots differing by an integer (c possibly zero), which `das2023quantum` does not give. Pages read: PDF 575-578.
+- `riley2006mathematical` [Sec. 16.4.1, eq. (16.25), p. 544]: `exr-frob-legendre-second` (exercise lead): the Wronskian method for a second solution. Pages read: PDF 574-575.
+- Still open: Jacobi and SOR rates rho_J^2 and the optimal omega, the discrete maximum principle, the leapfrog amplification factors (`foulaadvand2023computational` in part; RHB Ch. 27 has Gauss-Seidel for linear systems only).
+- Reading note: `scratchpad/notes9/differential-equations__GSMCY642.html` (h2).
 
 ### fourier-analysis
 
@@ -927,6 +969,12 @@ draft is the h2 section only.
 - mukunda2022continuous (2UYSHY8B): Secs. 3.3.4-3.3.5, eqs. (3.48)-(3.55), pp. 64-66 (PDF 83-85); Sec. 7.2.1, eqs.
   (7.45)-(7.47), pp. 170-171 (PDF 189-190); Sec. 7.2.2, p. 173 (PDF 192); Sec. 7.3.2, eqs. (7.75)-(7.77),
   pp. 177-179 (PDF 196-198).
+
+#### Gaps filled (2026-11-19)
+
+- `riley2006mathematical` [Sec. 24.13.2, eqs. (24.69)-(24.73), pp. 864-865]: principal-value subsection lead (`def-principal-value`, `exm-dist-pv-rational`, `exm-dist-pv-transform`): the principal value with a symmetric interval removed, and P int e^(imx)/(x - a) dx = i pi e^(ima), m > 0; with a = 0, m = -k it is the chapter's -i pi sgn k. Pages read: pp. 863-865 (PDF 893-895). Gap narrowed.
+- Still open: PV 1/x as a tempered distribution and the Sokhotski-Plemelj formula.
+- Reading note: `scratchpad/notes9/fourier-analysis__GSMCY642.html` (h2).
 
 ### hilbert-spaces-operators
 
@@ -1046,6 +1094,49 @@ a reading note, so those drafts are the h2 section only; Steeb & Hardy gets a fu
 - steebProblemsSolutionsQuantum2018 (G2TILKMZ, new note): Identity (World Scientific 2018, 4th ed., attachment
   58QRNSS4, 554 pp., printed = PDF − 15); Structure (Part I; Ch. 3 Matrix Properties p. 65); Ch. 3, Problem 13, p. 78.
 
+#### Gaps filled (2026-11-19)
+
+New works `hall2013quantum` (UYSG62JH, PDF CQVMPCGU, printed = PDF − 17) and `reed1980methods` (8JDD4TYB, PDF
+LIM2HN62; Vol. I PDF = printed + 14 to 16, Vol. II starts at PDF 423). Citations only; no statement changed.
+- `reed1980methods` [Vol. I, Thm. IV.10, p. 102], `thm-stone-weierstrass`; read p. 102 (Thms. IV.9-IV.10).
+- `reed1980methods` [Vol. I, remark after Thm. IV.10, p. 102], `exm-fan-stone-weierstrass-fails`; read p. 102. Fills the
+  gap left by the removal of Arcozzi Sec. 1.4 **in part**: the disc algebra is a closed point-separating subalgebra
+  with 1, not C(D), not closed under conjugation; the bound ‖z* − p‖ ≥ 1 is not stated there.
+- `reed1980methods` [Vol. I, Thm. VI.6, p. 192, and Problem VI.11, p. 217], `thm-spectral-radius-formula`; read pp.
+  192, 217. Fills the "= inf" remark (Problem VI.11: lim = inf_n ‖T^n‖^(1/n)).
+- `reed1980methods` [Vol. I, proof of Thm. VI.6, p. 192], `exr-fan-norm-radius`; read p. 192.
+- `hall2013quantum` [Sec. 10.3, Thm. 10.20, Prop. 10.21, Thm. 10.23, pp. 213-216] and `reed1980methods` [Vol. I, Thm.
+  VII.1, pp. 222-223, Problem VII.3, p. 246], `thm-continuous-functional-calculus`; read Hall pp. 213-218, RS pp.
+  222-223, 246. Fills the normal-case remark (‖A‖ = r(A) for normal A, calculus for normal operators), for operators
+  on a Hilbert space; the abstract C*-algebra form stays with Landsman.
+- `reed1980methods` [Vol. I, Thms. VII.1, VII.2, VIII.8, pp. 222-225, 266] and `hall2013quantum` [Prop. 10.14, Thm.
+  10.15, pp. 208-209], `def-functional-calculus` (general spectral theorem and Stone's theorem, both "quoted"); read
+  RS pp. 222-225, 265-266; Hall pp. 207-209.
+- `hall2013quantum` [Defs. 9.1, 9.2, 9.5, pp. 170-172; Thm. 9.17, p. 177; Thm. 10.4, p. 205; Prop. 10.14, pp. 208-209]
+  and `reed1980methods` [Vol. I, Secs. VIII.1-VIII.2, pp. 252-256; Thms. VIII.5, VIII.7, pp. 262-265],
+  `def-unbounded-operator` (spectral theorem and functional calculus "quoted"); read Hall pp. 170-172, 177, 205-209;
+  RS pp. 252-257, 262, 265.
+- `hall2013quantum` [Prop. 9.29, p. 184; Prop. 9.32 and remarks, pp. 186-187], `exm-ub-derivative-domain`; read pp.
+  184-187.
+- `hall2013quantum` [Prop. 9.30, Cor. 9.31, pp. 185-186], `exm-ub-multiplication-domain`; read pp. 185-186.
+- `hall2013quantum` [Cor. 9.31, Prop. 9.32, p. 186; Cor. 12.5, p. 243], `def-canonical-commutation-relation`; read pp.
+  186-187, 241-243 (ħ = 1).
+- `reed1980methods` [Vol. I, Sec. VIII.2, p. 256; Vol. II, Sec. X.1, Thm. X.2 and corollary, pp. 138-141],
+  `def-self-adjoint-extension` (von Neumann's criterion, "quoted"); read Vol. I p. 256, Vol. II pp. 138-141.
+- `reed1980methods` [Vol. II, Sec. X.1, Example 1, pp. 141-143], `exm-sae-periodic`; read pp. 141-143.
+- `reed1980methods` [Vol. II, Sec. X.1, Example 2, p. 144], `exm-sae-half-line` (half-line Laplacian, ψ'(0) + aψ(0) =
+  0, i.e. κ = −a); read p. 144.
+
+Still open: Weyl's law stays with `ivrii2016weyl` (Reed-Simon Vol. IV, which has it, is not in the scan; Hall does not
+treat it); the heat-trace (Tauberian) route of `exr-hta-weyl-law` still has no source; the inequality ‖z* − p‖ ≥ 1.
+
+Disagreement (text not changed): `exm-sae-periodic` says ker(A† ∓ i) is spanned by e^(±x) for A = −i d/dx. Reed-Simon
+Vol. II Example X.1 (T = i d/dx, K_+ = span e^x) converts to ker(p† − i) = span e^(−x), as a direct check
+(−i f' = i f ⇒ f = e^(−x)) and the chapter's own `exm-sae-half-line` also give. The deficiency indices (1, 1) and the
+extension family are unaffected.
+
+Reading notes: `scratchpad/notes9/hilbert-spaces-operators__UYSG62JH.html` and `__8JDD4TYB.html` (full notes).
+
 ### probability
 
 Task 5.8. PDFs read with `pdftotext` from `~/Zotero/storage/<zoteropdf>/`. Pages are printed pages; page offsets
@@ -1130,6 +1221,17 @@ draft is the h2 section only.
   Secs. 6.2-6.3, pp. 247-262; Sec. 6.6.1, Table 6.2, p. 276; Secs. 11.3-11.4.1, pp. 490-499.
 - boudreau2018applied (Q3K6KQG8): Secs. 7.2.7-7.2.9, pp. 207-212; Secs. 7.4-7.4.1, eq. (7.7), pp. 216-221.
 
+#### Gaps filled (2026-11-19)
+
+- `kallenberg2021foundations` [Ch. 1, p. 10]: `def-sample-space` (subsection lead): sigma-fields, generated sigma-fields, Borel sets. Pages read: PDF 18-19.
+- `kallenberg2021foundations` [Ch. 1, p. 18; Ch. 4, p. 81]: `def-probability-measure` (subsection lead): countably additive measure, probability space as a normalized measure space. Pages read: PDF 27, 88-89.
+- `kallenberg2021foundations` [Lemma 5.2, p. 102; Lemma 5.7, p. 105; Thm. 6.3, p. 128]: `def-convergence-in-probability` (subsection lead): a.s. implies in probability implies in distribution; Lévy's continuity theorem. Pages read: PDF 108-111, 133.
+- `kallenberg2021foundations` [Thm. 5.23, p. 113; Cor. 4.14, p. 90]: `thm-strong-law-large-numbers` (lead), including the converse stated without proof. Pages read: PDF 97, 119-120.
+- `kallenberg2021foundations` [Thm. 6.3, p. 128; Thm. 6.10, p. 132]: `thm-central-limit-theorem` (subsection lead): the continuity theorem the chapter does not prove, and the CLT by the same characteristic-function expansion. Pages read: PDF 133, 137.
+- `kallenberg2021foundations` [Thm. 4.18, p. 92]: `exr-lt-converse-slln` (exercise lead): second Borel-Cantelli lemma. Pages read: PDF 99.
+- `riley2006mathematical` [Sec. 15.1.4, pp. 499-500]: `exr-pr-gamblers-ruin` (exercise lead): solving the second-order linear recurrence by its characteristic equation. Pages read: PDF 526-530. Gap narrowed only: no new work states the ruin probability (Kallenberg and RHB searched).
+- Reading notes: `scratchpad/notes9/probability__UCFQEEAW.html`, `probability__GSMCY642.html` (h2). A full Kallenberg note already exists in notes9 (`mathematical-and-statistical-foundations__UCFQEEAW.html`, another chapter), so none was duplicated; its "printed = PDF - 9" holds only in Chs. 1-3 (7 in Ch. 4, 6 in Ch. 5, 5 in Ch. 6).
+
 ### differential-geometry
 
 Task 5.9. PDFs read with `pdftotext`. Page offsets (PDF − printed): Lee 15, Godinho 11 (10 from Ch. 3), Torres del
@@ -1202,6 +1304,9 @@ draft is the h2 section only.
 - gadea2013analysis (QN39H3US): Ch. 1 and Ch. 2 (contents).
 - rudolph2013differential (45BKP4LD): Ch. 1, Ch. 3, Ch. 4 (contents).
 - sagemath (SWN4REIN): SageManifolds computations of the chapter; no pages.
+
+#### Gaps filled (2026-11-19)
+- `kobayashi1969foundations` [Ch. VII, Thms. 7.1-7.2, pp. 47-52]: lead of `exr-sff-codazzi`, the Bonnet clause ("together with Gauss's equation are the conditions for a pair (g, h) to come from a surface"), uncited since M5. Pages read: KN II pp. 47-52 (Sec. VII.7, Thms. 7.1-7.2 and the remark crediting Bonnet for n = 2). KN's Gauss equation R(X, Y)Z = g(AY, Z)AX − g(AX, Z)AY and Codazzi equation agree with `eq-gauss-equation` and the exercise.
 
 ### group-theory
 
@@ -1466,6 +1571,17 @@ note, so each draft is the h2 section only.
 - nastase2019classical (5AXU4FWL): Ch. 27, Secs. 27.2-27.3, eqs. (27.26)-(27.54), pp. 247-251 (PDF 267-271).
 - dolan2003 (K8VM6ANY): App. A, eqs. (74)-(83), pp. 17-18; App. C, eqs. (110)-(113), pp. 22-23.
 
+#### Gaps filled (2026-11-19)
+No recorded gap of this chapter is in Kobayashi-Nomizu's scope (the open item, "three-generation" at `exm-coset-list`, is not). KN was added where it supports sections whose principal-bundle and coset statements rested on one or two sources:
+- `kobayashi1969foundations` [Ch. X, Prop. 3.1, p. 200]: `def-invariant-metric`. Pages read: KN II p. 200.
+- `kobayashi1969foundations` [Ch. X, Sec. 2, p. 190]: `def-reductive-decomposition`. Pages read: KN II p. 190. Note: KN require ad(H)m ⊂ m and derive [h, m] ⊂ m, which is equivalent only for connected H; the chapter states the Lie-algebra condition (see the report; text not changed).
+- `kobayashi1969foundations` [Ch. XI, Prop. 2.1 and Remark, pp. 226-227]: `def-symmetric-coset`. Pages read: KN II pp. 225-227.
+- `kobayashi1963foundations` [Ch. II, Thm. 11.1, pp. 103-104]: `def-r-connection` (also supplies the Ad-rotation that chatzistavrakidis2007consistency eqs. 2.1-2.3 did not state; curvature −[X, Y]_r after KN's factor ½) and `exm-connection-hopf`. Pages read: KN I pp. 103-104.
+- `kobayashi1963foundations` [Ch. II, Sec. 1, Prop. 1.1, pp. 63-64; Sec. 3, Prop. 3.1, p. 69]: `def-bundle-connection`. Pages read: KN I pp. 63-69.
+- `kobayashi1963foundations` [Ch. II, Prop. 1.4, p. 66]: `def-gauge-transformation`. Pages read: KN I pp. 65-66.
+- `kobayashi1963foundations` [Ch. II, Thms. 5.2 and 5.4, pp. 77-78]: `def-curvature-connection`. Pages read: KN I pp. 63-64, 75-78.
+- `kobayashi1963foundations` [Ch. IV, Sec. 2, Thm. 2.2, p. 158]: `exm-connection-levi-civita`. Pages read: KN I pp. 158-159.
+
 ### spinors-dirac-operator
 
 Task 5.13. PDFs read with `pdftotext` from `~/Zotero/storage/<zoteropdf>/`. Page offsets (printed − PDF): Trautman
@@ -1566,6 +1682,12 @@ reading note).
 - derezinski2022mathematics (QXAFEK2G): Ch. 15, pp. 368-385.
 - Witten:1983ux (NI5XEC45): no PDF; cited without locator in `sec-chirality-problem`.
 
+#### Gaps filled (2026-11-19)
+The open items of this chapter (the Weyl-group clause of the generations exercise; `Witten:1983ux` without PDF) are outside the new works. Added where KN supports the text:
+- `kobayashi1963foundations` [Ch. II, Example 5.2, p. 76]: `def-homogeneous-spinor-bundle` (sections as equivariant functions ψ(gh) = τ(h)⁻¹ψ(g)). Pages read: KN I pp. 75-77.
+- `kobayashi1969foundations` [Ch. XI, Thm. 3.3, p. 232]: solution of `exr-spd-casimir-laplacian` ("the canonical connection of a symmetric space is the Levi-Civita one"). Pages read: KN II pp. 230-232.
+Not cited: KN II Ch. X Thm. 2.6 for the torsion of the canonical connection at `exm-spd-nearly-kahler`, since the sign of T^α = ½f^α_βγ e^β∧e^γ depends on the index raising and was not settled.
+
 ## Proposed new references
 
 | Reference | Tags | Collection | PDF source | Sections | Owner decision |
@@ -1575,3 +1697,7 @@ reading note).
 
 | Location | Text | Source (converted) | Page | Owner decision |
 |---|---|---|---|---|
+
+## Owner decisions on the 2026-11-19 gap round
+
+- hilbert-spaces-operators, `exm-sae-periodic`: ker(A† ∓ i) is spanned by e^(∓x) (was e^(±x)), per Reed-Simon Vol. II Sec. X.1 Example 1. Fixed (owner, 2026-11-19).

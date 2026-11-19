@@ -1023,7 +1023,8 @@ For more on this topic, see @aggarwalProbabilityStatisticsMachine2024 [Secs. 3.2
 The following definitions use one running example, a roll of a fair die [@zhao2025rl, App. B, pp. 243-245].
 
 A random experiment is a process that produces an unpredictable outcome, such as rolling a fair die. A probability space
-collects the possible outcomes, the events to which a probability is assigned, and the probabilities themselves.
+collects the possible outcomes, the events to which a probability is assigned, and the probabilities themselves
+[@kallenberg2021foundations, Ch. 1, pp. 10, 18; Ch. 4, pp. 81-82].
 
 :::: {.statement-box}
 ::: {#def-msf-probability-space}
@@ -1034,6 +1035,7 @@ A probability space $(\Omega, \mathcal{F}, \mathbb{P})$ is defined as follows:
 - Sample space $\Omega$
     - Set of possible outcomes
 - Sigma-algebra $\mathcal{F}$
+    - $\mathcal{F}$ is a non-empty collection of subsets of $\Omega$ (hence $\Omega, \emptyset \in \mathcal{F}$)
     - $A \in \mathcal{F} \Rightarrow A^c \in \mathcal{F}$
     - $\{A_i\}_{i=1}^{\infty} \subseteq \mathcal{F} \Rightarrow \bigcup_{i=1}^{\infty} A_i \in \mathcal{F}$
 - Probability measure $\mathbb{P}$
@@ -1084,7 +1086,8 @@ $\mathbb{P}(\Omega) = \mathbb{P}(\Omega) + \sum_{i \ge 2} \mathbb{P}(\emptyset)$
 ::::
 
 Outcomes such as die faces are rarely used directly; one measures numbers attached to them. A random variable is such a
-numerical measurement, required to be compatible with the events of $\mathcal{F}$.
+numerical measurement, required to be compatible with the events of $\mathcal{F}$
+[@kallenberg2021foundations, Lemma 1.4, p. 13; p. 36; Ch. 4, p. 81].
 
 :::: {.statement-box}
 ::: {#def-msf-random-variable}

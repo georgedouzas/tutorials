@@ -21,7 +21,7 @@ import urllib.request
 
 import yaml
 
-ROOT = pathlib.Path(__file__).resolve().parents[4]
+ROOT = pathlib.Path(__file__).resolve().parents[5]
 OUT = pathlib.Path(__file__).parent
 ZOTERO = pathlib.Path.home() / "Zotero" / "zotero.sqlite"
 TUTORIALS = [

@@ -327,6 +327,19 @@ Reading-note additions:
   Springer, 2018; PDF 368 pp., offset +7. Structure: Ch. 2 Statistical Learning Theory PDF 82-134 (Sec. 2.4 shattering
   coefficient PDF 117, Sec. 2.6 VC dimension PDF 125); Ch. 3 PDF 136-.
 
+**Gaps filled (2026-11-19).** New works read with `pdftotext`; printed pages (Mohri = PDF − 17, Murphy 2023 = PDF − 34).
+
+- `mohri2018foundations`, Sec. 4.3, Thm. 4.2, pp. 66-67 -> the "Universal Learning" sentence after `exr-flt-pac-consistent`
+  (`sec-nonuniform-learning`). Supported in part: SRM matches the oracle choice of class within a countable union of classes
+  with converging Rademacher complexity; p. 68 notes that not every class decomposes so. Pages read: PDF 81-85.
+- `murphy2023probabilistic`, Sec. 5.6.1, eq. 5.165, p. 252 -> "Information-Theoretic View" list (`sec-representation`).
+  Pages read: PDF 286-287.
+- `murphy2023probabilistic`, Sec. 21.3.1.1, eq. 21.25, p. 798 -> "Disentangled factors" item (Causal View). Pages read: PDF
+  832-833.
+
+Still open: decision lists, sparse polynomials and Gaussian-mixture hardness (`sec-computational-complexity`); the Causal View
+items 1-2, linear probing and the disentanglement metrics MIG, SAP, DCI (none of the new works treats them).
+
 ### supervised-learning
 
 Pages are printed pages unless marked "PDF". Offsets (printed = PDF − n): James 18, Shalev-Shwartz 18, Deisenroth 6,
@@ -514,6 +527,19 @@ Gaps still uncited in this chapter after this round: none from the proposals. Ou
   Ch. 13 (foundation models, multimodal LLMs pp. 401-412). Identity: Mall, *Deep Learning at Scale*, O'Reilly 2024;
   printed = PDF − 20. Structure (printed, from contents): Ch. 11 Scaling experiments 349; Ch. 12 Efficient fine-tuning
   of large models 391; Ch. 13 Foundation models 401; index 413 (earlier chapters not extracted).
+
+**Gaps filled (2026-11-19).** No recorded gap was filled; the new work strengthens blocks that were covered only at section
+level. `mohri2018foundations` (printed = PDF − 17):
+
+- Sec. 5.2.1, eq. 5.7, p. 82 -> `def-sup-hard-margin-svm`; Sec. 5.3.1, eq. 5.24 (p = 1), p. 88 -> `def-sup-soft-margin-svm`;
+  Sec. 5.3.3, eqs. 5.26, 5.33, pp. 90-91 -> `prp-sup-svm-dual`. Pages read: PDF 98-99, 105-108.
+- Def. 6.3, Thm. 6.8, pp. 108-110 -> lead-in of `thm-sup-mercer`; Thm. 6.10, p. 115 -> Kernel Properties. Pages read: PDF
+  124-132.
+- Sec. 7.2.1, Thm. 7.2, p. 149 -> lead-in of `thm-sup-adaboost-training-error` (same proof, Z_t = 2√(ε_t(1 − ε_t))). Pages read:
+  PDF 166-167.
+
+Still open: the GPT-3 training-cost figures and the scaling exponent α ≈ 0.076 (Murphy 2023, p. 825, gives only the 175B
+parameter count; neither Murphy volume has a scaling-law section).
 
 ### unsupervised-learning
 
@@ -705,6 +731,15 @@ paragraph.
   note. Identity: *Linear Algebra and Optimization for Machine Learning: A Textbook*, C. C. Aggarwal, Springer 2020, PDF
   offset +14. Structure (PDF pages): Ch. 3 p. 111, 4 p. 155, 5 p. 219, 6 p. 269, 7 p. 313, 8 p. 353, 9 p. 393, 10 p. 425, 11 p.
   461. Chs. 1–2 start at PDF pp. 15 and 55 (approximate).
+
+**Gaps filled (2026-11-19).** `murphy2022probabilistic` (printed = PDF − 30):
+
+- Sec. 21.3.7.3, p. 728 -> `def-uns-silhouette` and the interpretation list after it (`sec-clustering`). Pages read: PDF
+  757-758.
+- Sec. 20.4.10.6, p. 705 -> UMAP paragraph (`sec-dimensionality-reduction`); supports the second sentence (faster than t-SNE,
+  better global structure), not "based on Riemannian geometry and algebraic topology". Pages read: PDF 731, 735-736.
+
+Still open: only that first UMAP sentence.
 
 ### reinforcement-learning
 
@@ -1043,6 +1078,18 @@ All for chapter `fundamentals-of-machine-learning/reinforcement-learning`.
     adaptation (4.2 instruction tuning 136, 4.5 prompting 166); 5 alignment and RLHF (5.4 RLHF 189, 5.6 tutorial 213); 9
     multimodal (9.3.5 multimodal RLHF 395).
 
+**Gaps filled (2026-11-19).** `murphy2023probabilistic` (printed = PDF − 34):
+
+- Sec. 35.2.4, p. 1153 -> `def-rl-glie` lead-in (`sec-rl-monte-carlo`). Pages read: PDF 1186-1187.
+- Sec. 35.3.5, p. 1163 -> TD3 paragraph (`sec-rl-actor-critic`). Supported in part: only the name and clipped double
+  Q-learning; delayed policy updates and target policy smoothing are not described (Fujimoto et al. 2018 not in the
+  library). Pages read: PDF 1196-1197.
+- Sec. 35.4.1, eq. 35.46, p. 1164 -> MPC paragraph (`sec-rl-model-based-multi-agent`); Murphy adds a terminal value
+  V̂(s_{t+H}), the chapter has V̂ = 0. Pages read: PDF 1198-1199.
+- Sec. 35.4.5.1, p. 1168 -> World Models sentence. Pages read: PDF 1202-1203.
+
+Still open: TD3 items 2-3, the LLM-enhanced-RL taxonomy (Cao et al., no PDF), BCQ/CQL/IQL primary sources (optional).
+
 ## Proposed new references
 
 Consolidated after the owner decisions and the semantic pass (2026-11-18). Covered and removed: Bai et al. 2022 (Constitutional
@@ -1091,3 +1138,7 @@ AI) → `kamathLargeLanguageModels2024` Sec. 5.5.1; Ouyang 2022 and Rafailov 202
 | reinforcement-learning | 20 | 6 | 0 | 0 |
 
 Every chapter meets A10. Rendered without warnings; harvest.py reports no problems.
+
+## Owner decisions on the 2026-11-19 gap round
+
+- foundations-of-learning-theory, Universal Learning: narrowed to hypothesis sets that are countable unions of finite-complexity classes, citing Mohri Sec. 4.3, Thm. 4.2 and p. 68. Fixed (owner, 2026-11-19).

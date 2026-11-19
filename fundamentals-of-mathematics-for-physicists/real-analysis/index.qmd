@@ -758,6 +758,7 @@ The partial sums increase and are bounded by $2$ (compare $1/k^2 \leq 1/(k(k-1))
 sum), so the series converges by @thm-monotone-convergence; Euler found the sum $\pi^2/6$, and Sage returns it
 exactly (@prp-series-values, @fig-series-partial-sums, green). The convergence is slow: the tail after $N$ terms is
 about $1/N$ (@exr-basel-numeric).
+For a proof of Euler's value, see @abbott2015understanding [Sec. 8.3, Exercise 8.3.13, pp. 264-269].
 :::
 ::::
 
@@ -2228,6 +2229,7 @@ proves the fundamental theorem, treats improper integrals, and computes the Gaus
 For antiderivatives and indefinite integrals, see @radozycki2020solving [Ch. 14].
 For the Riemann and definite integral, the fundamental theorem and improper integrals, see @radozycki2020solvingII [Ch. 1, pp. 1-2; Ch. 2, pp. 53-61].
 For the Riemann integral, the fundamental theorem and improper integrals, see @karpfingerCalculusLinearAlgebra2022 [Ch. 30, pp. 321-333; Ch. 32, pp. 347-352] and @ventreCalculusLinearAlgebra2023 [Ch. 22, pp. 389-421].
+For the integral as $U(f) = L(f)$, the integrability of continuous functions and of functions with finitely many discontinuities, and the properties of the integral, see @abbott2015understanding [Secs. 7.2-7.4, Def. 7.2.7, Thms. 7.2.9, 7.3.2, 7.4.1-7.4.2, pp. 218-230].
 
 ### The integral as a limit of sums
 
@@ -2530,6 +2532,7 @@ x^2 + 3*x + 2
 The two halves of the section, the integral as a limit of sums and the antiderivative, are connected by the
 fundamental theorem, which is why both are called integration. The theorem below states both directions and proves
 them from continuity and the mean value theorem. For the statement, see [@radozycki2020solvingII, Ch. 1, eqs. (1.0.1)-(1.0.5), pp. 1-2].
+For a proof of both parts, see [@abbott2015understanding, Thm. 7.5.1, pp. 234-235].
 
 :::: {.statement-box}
 ::: {#thm-fundamental-theorem}
@@ -4029,6 +4032,7 @@ A sequence of functions can converge at every point while its graphs stay far fr
 distinction between pointwise and uniform convergence is what decides whether limits commute with integrals and
 with continuity. The figure shows the two behaviours side by side.
 For more on this topic, see @gasinski2014exercises [Sec. 1.1.7, pp. 16-17], @lee2013introduction [App. C, Thm. C.31 and Prop. C.32, pp. 656-657] and @radozycki2020solving [Secs. 15.1-15.3, pp. 343-357].
+For the continuous limit theorem, the exchange of limit and integral and the uniform convergence of power series on compact sets, see @abbott2015understanding [Def. 6.2.3, Thm. 6.2.6, pp. 177-178; Thm. 7.4.4, p. 231; Thms. 6.5.2 and 6.5.5, pp. 192-194].
 
 ![Pointwise versus uniform convergence. Left: $x^n$ on $[0, 1]$ converges pointwise to the function that is $0$
 for $x < 1$ and $1$ at $x = 1$, but the maximal distance to the limit stays $1$. Right: $\sin(nx)/n$ converges
@@ -4159,6 +4163,7 @@ An integral depending on a parameter can be differentiated by differentiating th
 condition; the rule generates families of integrals from one and is Feynman's favourite trick. The theorem below
 states it, and the Gaussian moments are its first application.
 For more on this topic, see @lee2013introduction [App. C, Thm. C.14, p. 648] and @miklavcicIllustrativeGuideMultivariable2020 [Sec. 2.7, The Leibniz integral rule].
+For the rule on a rectangle and its extension to improper integrals under a dominating integrable bound, see @abbott2015understanding [Thm. 8.4.6, p. 276; Exercise 8.4.16 and Thm. 8.4.9, p. 277].
 
 :::: {.statement-box}
 ::: {#thm-differentiation-under-integral}
@@ -4391,6 +4396,7 @@ For the exponential series and the product of absolutely convergent series, see 
 
 Sums of logarithms are squeezed between integrals of the logarithm, and the squeeze gives the growth of $n!$: the
 first exercise derives Stirling's formula up to its constant and checks the constant numerically.
+For Stirling's approximation $n! \approx \sqrt{2\pi n}\,n^ne^{-n}$, see @riley2006mathematical [Sec. 18.12.1, eqs. (18.159)-(18.160), pp. 637-638].
 
 ::: {#exr-ra-stirling}
 #### Stirling's formula
@@ -4467,6 +4473,7 @@ so E(1)^2 = sum 2^n/n! = E(2) = e^2: True
 
 The integrals $I_n = \int_0^{\pi/2}\sin^n x\,dx$ satisfy a reduction formula, decrease in $n$, and their ratios
 converge to $1$; combining these facts gives Wallis's product for $\pi/2$. The last exercise carries this out.
+The same route is set out in @abbott2015understanding [Sec. 8.3, Exercises 8.3.1-8.3.4, pp. 265-266].
 
 ::: {#exr-ra-wallis}
 #### Wallis's product

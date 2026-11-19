@@ -271,6 +271,16 @@ of the infinity norm is a square, l1 unit ball diamond"). Found: `prudencioSurve
   - The Haarnoja gap for `def-entropy-regularization` is closed.
 
 
+**Gaps filled (2026-11-19).** `kallenberg2021foundations` (printed = PDF − 9):
+
+- Ch. 1, pp. 10, 18; Ch. 4, pp. 81-82 -> lead-in of `def-msf-probability-space` (σ-field, measure, probability space).
+- Lemma 1.4, p. 13; p. 36; Ch. 4, p. 81 -> lead-in of `def-msf-random-variable` (measurable function; generating class; the
+  intervals (−∞, a] generate the Borel σ-field). Pages read: PDF 19-22, 27, 45, 88-90.
+- Convention note (not changed): Kallenberg's σ-field is non-empty by definition; the chapter's σ-algebra lists only closure
+  under complements and countable unions.
+
+Still open: the l-infinity unit square (Mohri App. A.1.1, p. 409, defines the norm but not the shape of its ball).
+
 ### appendices-and-technical-background
 
 Task 2.2. Page numbers are printed pages; PDF offsets are given under "Reading-note additions". Every cited page was read in
@@ -399,6 +409,9 @@ locator) pair: 21 supported (two of them carry the disagreements below), 2 unsup
     Sense) Sequences 278-292; 7 Martingale Sequences 293-337; 8 Markov Chains 338-366; App. A Review of Fundamental Concepts
     367-414; References 415; Author Index 420; Subject Index 423.
 
+**Gaps filled (2026-11-19).** None: the record lists no open gap, and Mohri App. D and Kallenberg Chs. 4-5 only duplicate what
+SSBD, Baldi, Capinski and Shiryaev already support, so nothing was added.
+
 ## Proposed new references
 
 | Reference | Tags | Collection | PDF source | Sections | Owner decision |
@@ -417,3 +430,7 @@ locator) pair: 21 supported (two of them carry the disagreements below), 2 unsup
 | appendices-and-technical-background | 8 | 8 | 0 | 0 |
 
 Every chapter meets A10. Rendered without warnings; harvest.py reports no problems.
+
+## Owner decisions on the 2026-11-19 gap round
+
+- mathematical-and-statistical-foundations, `def-msf-probability-space`: the sigma-algebra is a non-empty collection of subsets (so Ω, ∅ ∈ 𝓕), as in Kallenberg p. 10. Fixed (owner, 2026-11-19).

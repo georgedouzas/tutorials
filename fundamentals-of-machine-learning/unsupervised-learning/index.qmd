@@ -335,7 +335,9 @@ other one. Its definition is stated here because it is used again for hierarchic
 ::: {#def-uns-silhouette}
 #### Silhouette coefficient
 
-For each point $i$, the **silhouette** is $$s_i = \frac{b_i - a_i}{\max(a_i, b_i)}$$ where:
+For each point $i$, the **silhouette**
+[@murphy2022probabilistic, Sec. 21.3.7.3, p. 728]
+is $$s_i = \frac{b_i - a_i}{\max(a_i, b_i)}$$ where:
 
 - $a_i$: Average distance to points in same cluster
 - $b_i$: Average distance to points in nearest other cluster
@@ -343,7 +345,8 @@ For each point $i$, the **silhouette** is $$s_i = \frac{b_i - a_i}{\max(a_i, b_i
 
 ::::
 
-The silhouette coefficient ranges from -1 to 1:
+The silhouette coefficient ranges from -1 to 1
+[@murphy2022probabilistic, Sec. 21.3.7.3, p. 728]:
 
 - $s_i \approx 1$: Well clustered
 - $s_i \approx 0$: On cluster boundary
@@ -2116,7 +2119,8 @@ Equality forces $q_{ij} = p_{ij}$ wherever $p_{ij} > 0$ and $\sum_{p_{ij} > 0} q
 ::::
 
 **UMAP (Uniform Manifold Approximation and Projection):** Based on Riemannian geometry and algebraic topology. Often faster than
-t-SNE with better global structure preservation.
+t-SNE with better global structure preservation
+[@murphy2022probabilistic, Sec. 20.4.10.6, p. 705].
 
 ### Random Projections
 
