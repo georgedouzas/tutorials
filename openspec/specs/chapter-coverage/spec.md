@@ -49,9 +49,9 @@ statements, examples or exercises.
 - **THEN** the page shows the chapter title and says it is in preparation, and the site renders without warnings
 
 ### Requirement: Planned chapters are listed in reading order
-Every placeholder chapter SHALL be listed on its tutorial's landing page and in the sidebar at its place in the
-reading order, together with the written chapters.
+Every placeholder chapter SHALL be listed in its tutorial's sidebar at its place in the reading order, together with
+the written chapters, and marked there as planned.
 
 #### Scenario: Reader opens the landing page
 - **WHEN** a reader opens a tutorial's landing page
-- **THEN** the chapter list shows written and planned chapters in reading order, and the sidebar lists the same chapters in the same order
+- **THEN** the sidebar lists written and planned chapters in reading order, and each planned chapter carries a "planned" mark

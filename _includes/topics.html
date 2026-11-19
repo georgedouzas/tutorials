@@ -1,127 +1,92 @@
 <!--
-Topic chips at the top of the home page's sidebar. Selecting chips filters the tutorial cards; a card shows when it has any selected topic. The selection lives in the URL hash (#topics=A,B), so it
-survives reloads and can be linked. Other pages show their own tutorial's sidebar without the chips.
-The topics in the title block of a tutorial's first page (its `categories`) become the same chips, as links.
-Chips appear in the data-topics order below; keep it in sync with the `categories` of each tutorial's index.qmd.
+Topics (openspec/changes/site-polish). Each tutorial's `categories` are its topics.
+- Home page: a row of topic chips above the two tracks. Selecting chips shows the tutorials that have any selected
+  topic and hides a track with none left. The selection lives in the URL hash (#topics=A,B), so it survives reloads
+  and can be linked. The chips are built from the cards, so a new topic needs no edit here.
+- A tutorial's landing page: the topics in its title block link to the home page filtered by that topic.
 -->
-<div id="topic-chips" class="topic-chips" data-topics="Mathematics,Physics,Mathematical Physics,Machine Learning,Topology,Linear Algebra,Analysis,Differential Equations,Fourier Analysis,Functional Analysis,Probability,Statistics,Optimization,Information Theory,Differential Geometry,Group Theory,Classical Mechanics,Electromagnetism,Special Relativity,General Relativity,Statistical Mechanics,Quantum Mechanics,Quantum Field Theory,Gauge Theories,Supersymmetry,Supergravity,Kaluza-Klein,Extra Dimensions,Statistical Learning Theory,Supervised Learning,Unsupervised Learning,Reinforcement Learning" hidden>
-  <div class="topic-chips-title">Topics</div>
-  <div class="topic-chips-list" role="group" aria-label="Filter tutorials by topic"></div>
-</div>
-
-<style>
-  .topic-chips { padding: 0.5rem 0 0.75rem; }
-  .topic-chips-title {
-    font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
-    opacity: 0.7; margin-bottom: 0.4rem;
-  }
-  .topic-chips-list,
-  .quarto-title .quarto-categories { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-  .topic-chip {
-    font-family: var(--site-font-sans, inherit);
-    font-size: 0.8rem; line-height: 1.2; padding: 0.25rem 0.65rem; border-radius: 999px; cursor: pointer;
-    border: 1px solid var(--site-border, #dee2e6); background: transparent; color: var(--site-text, inherit);
-    text-decoration: none; transition: background-color 0.15s, border-color 0.15s, color 0.15s;
-  }
-  .topic-chip:hover { border-color: var(--site-accent, #1d5b99); color: var(--site-accent, inherit); text-decoration: none; }
-  .topic-chip[aria-pressed="true"] {
-    background: var(--site-accent, #1d5b99); border-color: var(--site-accent, #1d5b99); color: var(--site-bg, #fff);
-  }
-  .topic-chip:focus-visible { outline: 2px solid var(--site-accent, #1d5b99); outline-offset: 2px; }
-  .quarto-title .quarto-categories { margin-top: 0.75rem; }
-  .topic-chips-clear {
-    font-size: 0.75rem; border: 0; background: none; padding: 0.25rem 0.3rem; color: inherit; opacity: 0.7;
-    text-decoration: underline; cursor: pointer;
-  }
-</style>
-
 <script>
 (() => {
-  const box = document.getElementById("topic-chips");
-  const sidebar = document.getElementById("quarto-sidebar");
-  if (!box || !sidebar) return;
-
+  const BROAD = ["Mathematics", "Physics", "Machine Learning"]; // shown first, in this order
   const decode = (b64) => { try { return decodeURIComponent(atob(b64)); } catch { return ""; } };
-  const cards = [...document.querySelectorAll(".quarto-listing [data-categories]")];
-  const cardTopics = cards.map((c) => decode(c.getAttribute("data-categories")).split(",").filter(Boolean));
-  const isHome = cards.length > 0;
-  if (isHome) {
-    sidebar.prepend(box);
-    box.hidden = false;
-  }
-
-  // fixed order from data-topics, plus any topic a card has that is missing there
-  const topics = [...new Set([...box.dataset.topics.split(","), ...cardTopics.flat()])];
-
-  // the navbar title links to the home page with the right relative path from any page
   const brand = document.querySelector("a.navbar-brand");
   const homeUrl = (brand && brand.getAttribute("href")) || "index.html";
 
-  // a tutorial's first page lists its topics in the title block: make them chips linking to the filtered home page
+  // Landing pages: title-block topics become links to the filtered home page.
   document.querySelectorAll(".quarto-title .quarto-categories .quarto-category").forEach((el) => {
     const t = el.textContent.trim();
     const a = document.createElement("a");
-    a.className = "topic-chip";
+    a.className = "topic-link";
     a.textContent = t;
+    a.title = `Tutorials on ${t}`;
     a.href = `${homeUrl}#topics=${encodeURIComponent(t)}`;
     el.replaceWith(a);
   });
 
-  const readHash = () => {
-    const m = location.hash.match(/(?:^#|&)topics=([^&]*)/);
-    return new Set(m ? m[1].split(",").map(decodeURIComponent).filter(Boolean) : []);
-  };
-  const writeHash = (sel) => {
-    const v = [...sel].map(encodeURIComponent).join(",");
-    history.replaceState(null, "", v ? `#topics=${v}` : location.pathname + location.search);
-  };
+  if (!document.body.classList.contains("home")) return;
+  const cards = [...document.querySelectorAll(".quarto-listing [data-categories]")];
+  if (!cards.length) return;
+  const cardTopics = cards.map((c) => decode(c.getAttribute("data-categories")).split(",").filter(Boolean));
+  const all = [...new Set(cardTopics.flat())];
+  const topics = [...BROAD.filter((t) => all.includes(t)), ...all.filter((t) => !BROAD.includes(t))];
 
-  const list = box.querySelector(".topic-chips-list");
+  const box = document.createElement("div");
+  box.className = "topic-filter";
+  box.innerHTML = `<div class="topic-filter-head"><span class="topic-filter-title">Filter by topic</span>
+    <button type="button" class="topic-filter-clear" hidden>Clear</button>
+    <span class="topic-filter-count" aria-live="polite"></span></div>
+    <div class="topic-filter-list" role="group" aria-label="Filter tutorials by topic"></div>`;
+  const firstTrack = document.querySelector("#quarto-document-content section.level2");
+  (firstTrack ? firstTrack.parentNode : document.querySelector("#quarto-document-content"))
+    .insertBefore(box, firstTrack || null);
+
+  const list = box.querySelector(".topic-filter-list");
+  const clear = box.querySelector(".topic-filter-clear");
+  const count = box.querySelector(".topic-filter-count");
   const chips = topics.map((t) => {
     const b = document.createElement("button");
     b.type = "button";
-    b.className = "topic-chip";
+    b.className = "topic-chip" + (BROAD.includes(t) ? " topic-chip-broad" : "");
     b.textContent = t;
     b.dataset.topic = t;
     b.setAttribute("aria-pressed", "false");
     list.appendChild(b);
     return b;
   });
-  const clear = document.createElement("button");
-  clear.type = "button";
-  clear.className = "topic-chips-clear";
-  clear.textContent = "Clear";
-  clear.hidden = true;
-  list.appendChild(clear);
 
+  const readHash = () => {
+    const m = location.hash.match(/(?:^#|&)(?:topics|category)=([^&]*)/); // Quarto's own #category= links too
+    return new Set(m ? m[1].split(",").map(decodeURIComponent).filter(Boolean) : []);
+  };
+  const writeHash = (sel) => {
+    const v = [...sel].map(encodeURIComponent).join(",");
+    history.replaceState(null, "", v ? `#topics=${v}` : location.pathname + location.search);
+  };
   const apply = (sel) => {
     chips.forEach((b) => b.setAttribute("aria-pressed", String(sel.has(b.dataset.topic))));
     clear.hidden = sel.size === 0;
+    let shown = 0;
     cards.forEach((card, i) => {
       const show = sel.size === 0 || cardTopics[i].some((t) => sel.has(t));
       card.style.display = show ? "" : "none";
+      shown += show;
     });
+    // hide a track that has no tutorial left
+    document.querySelectorAll("#quarto-document-content section.level2").forEach((sec) => {
+      const own = [...sec.querySelectorAll(".quarto-listing [data-categories]")];
+      if (own.length) sec.hidden = !own.some((c) => c.style.display !== "none");
+    });
+    count.textContent = sel.size ? `${shown} of ${cards.length} tutorials` : "";
   };
 
-  if (isHome) {
-    apply(readHash());
-    window.addEventListener("hashchange", () => apply(readHash()));
-  }
-
+  apply(readHash());
+  window.addEventListener("hashchange", () => apply(readHash()));
+  clear.addEventListener("click", () => { writeHash(new Set()); apply(new Set()); });
   list.addEventListener("click", (e) => {
     const chip = e.target.closest(".topic-chip");
-    if (e.target === clear) {
-      writeHash(new Set());
-      apply(new Set());
-      return;
-    }
     if (!chip) return;
-    const t = chip.dataset.topic;
-    if (!isHome) {
-      location.href = `${homeUrl}#topics=${encodeURIComponent(t)}`;
-      return;
-    }
     const sel = readHash();
+    const t = chip.dataset.topic;
     sel.has(t) ? sel.delete(t) : sel.add(t);
     writeHash(sel);
     apply(sel);

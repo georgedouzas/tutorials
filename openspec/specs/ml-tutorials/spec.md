@@ -21,7 +21,7 @@ Fundamentals of Machine Learning SHALL contain these chapters: Foundations of Le
 
 #### Scenario: Reader opens the tutorial
 - **WHEN** a reader opens the tutorial's landing page
-- **THEN** it lists those four chapters and the approved chapters in reading order, and each link opens the right chapter
+- **THEN** its sidebar lists those four chapters and the approved chapters in reading order, and each link opens the right chapter
 
 #### Scenario: Reader looks for LLM-enhanced reinforcement learning
 - **WHEN** a reader opens the Reinforcement Learning chapter
@@ -32,7 +32,7 @@ Fundamentals of Mathematics for Machine Learning SHALL contain the chapters Math
 
 #### Scenario: Reader opens the tutorial
 - **WHEN** a reader opens the tutorial's landing page
-- **THEN** it lists those two chapters and the approved chapters in reading order, and each link opens the right chapter
+- **THEN** its sidebar lists those two chapters and the approved chapters in reading order, and each link opens the right chapter
 
 ### Requirement: Nothing omitted from chapters
 Published chapters SHALL keep their full text, equations, definitions, figures, code and code output. The only wording changes SHALL be replacing references to a "thesis", adding citations, what is needed to make links work, and, where a draft is merged into a chapter that already covers its topic, the connecting sentences and the removal of statements the chapter already makes.

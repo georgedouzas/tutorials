@@ -479,7 +479,8 @@ nav[role="doc-toc"] {
 }
 
 .listing-category,
-.quarto-category {
+.quarto-category,
+.topic-link {
   border: 1px solid var(--site-border);
   padding: 0.1rem 0.45rem;
   border-radius: 4px;
@@ -811,74 +812,6 @@ pre code {
 
 /* ------------------------------------------------------------------ Landing pages */
 
-// A tutorial's chapter list: one card per chapter (the Markdown list is inside ::: {.chapter-list}).
-.chapter-list > ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
-  gap: 0.6rem;
-  margin: 1rem 0 2rem;
-  padding: 0;
-  list-style: none;
-
-  > li {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0.35rem;
-    margin: 0;
-    padding: 0.75rem 0.95rem;
-    border: 1px solid var(--site-border);
-    border-radius: 8px;
-    background: var(--site-bg);
-    line-height: 1.3;
-    text-align: left;
-    hyphens: none;
-    transition: border-color 0.15s ease, background 0.15s ease;
-
-    &:hover {
-      border-color: var(--site-accent);
-      background: var(--site-surface);
-    }
-
-    > a {
-      color: var(--site-text);
-      font-weight: 500;
-
-      // The whole card is the link.
-      &::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-      }
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
-    &:has(.chapter-badge) > a {
-      color: var(--site-muted);
-    }
-  }
-}
-
-.chapter-badge {
-  flex: none;
-  padding: 0.1rem 0.5rem;
-  border: 1px solid var(--site-border);
-  border-radius: 999px;
-  background: var(--site-surface);
-  color: var(--site-muted);
-  font-family: var(--site-font-sans);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
 // The home page's tutorial cards: one shape for every cover.
 .quarto-listing .quarto-grid-item.card {
   overflow: hidden;
@@ -932,4 +865,233 @@ pre code {
   margin: 0 0 0.35rem;
   padding: 0;
   border: 0;
+}
+
+/* ------------------------------------------------------------------ Site polish (openspec/changes/site-polish) */
+
+// Landing pages: categories as plain chips in the title block.
+.quarto-title .quarto-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+// Home page: no sidebar, one centred column holding the two reading tracks.
+body.home {
+  main.content,
+  #title-block-header {
+    width: 100%;
+    max-width: 68rem;
+    margin-inline: auto;
+  }
+
+  #quarto-document-content {
+    h2 {
+      margin-top: 2.25rem;
+    }
+
+    h2 + p {
+      margin-bottom: 0.25rem;
+      color: var(--site-muted);
+      font-family: var(--site-font-sans);
+      font-size: 0.95rem;
+    }
+
+    p {
+      text-align: left;
+    }
+  }
+
+  .quarto-listing {
+    margin-top: 0.75rem;
+  }
+}
+
+// Notation tables: the symbol column takes only the width its symbols need.
+body.notation-page main table {
+  display: table;
+  width: 100%;
+
+  // Pandoc's equal colgroup widths are dropped: the browser sizes each column by its content.
+  col {
+    width: auto !important;
+  }
+
+  td:first-child,
+  th:first-child {
+    padding-right: 1.25rem;
+  }
+
+  td:last-child {
+    text-align: left;
+  }
+}
+
+// Phones: justified text leaves gaps in a narrow column.
+@media (max-width: 767.98px) {
+  main p,
+  main li {
+    text-align: left;
+  }
+}
+
+// Wide screens: centre the sidebar, text and table of contents as a group.
+@media (min-width: 1600px) {
+  #quarto-content.page-columns {
+    max-width: 1500px;
+    margin-inline: auto;
+  }
+}
+
+.nav-footer {
+  border-top: 1px solid var(--site-border);
+  color: var(--site-muted);
+  font-size: 0.85rem;
+}
+
+// The page title (its single level-1 heading) is not an entry of "On this page": the list starts at the parts.
+nav[role="doc-toc"] > ul > li:only-child {
+  > a:has(+ ul) {
+    display: none;
+  }
+
+  > ul {
+    display: block !important;
+    padding-left: 0;
+  }
+}
+
+// Topics: the home page's filter chips and the linked topics on a landing page.
+.topic-filter {
+  margin: 1.5rem 0 0.5rem;
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--site-border);
+  border-radius: 10px;
+  background: var(--site-surface);
+  font-family: var(--site-font-sans);
+}
+
+.topic-filter-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.topic-filter-title {
+  color: var(--site-text);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.topic-filter-count {
+  margin-left: auto;
+  color: var(--site-muted);
+  font-size: 0.8rem;
+}
+
+.topic-filter-clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--site-accent);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.topic-filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.topic-chip {
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--site-border);
+  border-radius: 999px;
+  background: var(--site-bg);
+  color: var(--site-text);
+  font-family: var(--site-font-sans);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    border-color: var(--site-accent);
+    color: var(--site-accent);
+  }
+
+  &[aria-pressed="true"] {
+    border-color: var(--site-accent);
+    background: var(--site-accent);
+    color: var(--site-bg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--site-accent);
+    outline-offset: 2px;
+  }
+}
+
+.topic-chip-broad {
+  font-weight: 600;
+}
+
+a.topic-link {
+  text-decoration: none;
+
+  &:hover {
+    border-color: var(--site-accent);
+    color: var(--site-accent) !important;
+  }
+}
+
+// Planned chapters in a sidebar.
+.sidebar-badge {
+  margin-left: 0.3rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--site-border);
+  border-radius: 999px;
+  color: var(--site-muted);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: 0.1em;
+}
+
+// A landing page's pointer to the first page of the tutorial.
+.start-reading {
+  margin: 1.5rem 0 2rem;
+  padding: 0.9rem 1.1rem;
+  border-left: 3px solid var(--site-accent);
+  border-radius: 0 6px 6px 0;
+  background: var(--site-surface);
+  font-family: var(--site-font-sans);
+  font-size: 0.95rem;
+
+  p {
+    margin: 0;
+    text-align: left;
+    hyphens: none;
+  }
+
+  a:last-child {
+    display: inline-block;
+    margin-left: 0.25rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+// The sidebar's first entry leads back to the home page; the arrow is drawn here so the page navigation shows the
+// plain text "All tutorials".
+#quarto-sidebar .sidebar-menu-container > ul > li:first-child > .sidebar-item-container > a .menu-text::before {
+  content: "← ";
 }

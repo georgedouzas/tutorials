@@ -10,34 +10,25 @@ website:
     location: navbar
     type: overlay
   navbar:
-    left:
-      - text: "Tutorials"
-        menu:
-          - fundamentals-of-mathematics-for-physicists/index.qmd
-          - fundamentals-of-theoretical-physics/index.qmd
-          - kaluza-klein-theories/index.qmd
-          - fundamentals-of-mathematics-for-machine-learning/index.qmd
-          - fundamentals-of-machine-learning/index.qmd
     right:
       - icon: github
         href: https://github.com/georgedouzas/tutorials
         aria-label: GitHub
-  # One sidebar per tutorial (id = its folder), selected by the folder's _metadata.yml; the home page uses "tutorials".
+  page-footer:
+    left: "Tutorials"
+    right:
+      - icon: github
+        href: https://github.com/georgedouzas/tutorials
+        aria-label: GitHub
+  # One sidebar per tutorial (id = its folder), selected by the folder's _metadata.yml; the home page has none.
   # _filters/harvest.py reads every page listed here.
   sidebar:
-    - id: tutorials
-      title: "Tutorials"
-      style: docked
-      contents:
-        - fundamentals-of-mathematics-for-physicists/index.qmd
-        - fundamentals-of-theoretical-physics/index.qmd
-        - kaluza-klein-theories/index.qmd
-        - fundamentals-of-mathematics-for-machine-learning/index.qmd
-        - fundamentals-of-machine-learning/index.qmd
     - id: fundamentals-of-mathematics-for-physicists
       title: "Fundamentals of Mathematics for Physicists"
       style: docked
       contents:
+        - text: "All tutorials"
+          href: index.qmd
         - section: "Fundamentals of Mathematics for Physicists"
           href: fundamentals-of-mathematics-for-physicists/index.qmd
           contents:
@@ -47,7 +38,8 @@ website:
             - fundamentals-of-mathematics-for-physicists/real-analysis/index.qmd
             - fundamentals-of-mathematics-for-physicists/complex-analysis/index.qmd
             - fundamentals-of-mathematics-for-physicists/differential-equations/index.qmd
-            - fundamentals-of-mathematics-for-physicists/calculus-of-variations/index.qmd
+            - text: 'Calculus of variations <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-physicists/calculus-of-variations/index.qmd
             - fundamentals-of-mathematics-for-physicists/fourier-analysis/index.qmd
             - fundamentals-of-mathematics-for-physicists/hilbert-spaces-operators/index.qmd
             - fundamentals-of-mathematics-for-physicists/probability/index.qmd
@@ -55,13 +47,16 @@ website:
             - fundamentals-of-mathematics-for-physicists/group-theory/index.qmd
             - fundamentals-of-mathematics-for-physicists/lie-groups-algebras/index.qmd
             - fundamentals-of-mathematics-for-physicists/homogeneous-spaces-bundles/index.qmd
-            - fundamentals-of-mathematics-for-physicists/homotopy-cohomology/index.qmd
+            - text: 'Homotopy and cohomology <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-physicists/homotopy-cohomology/index.qmd
             - fundamentals-of-mathematics-for-physicists/spinors-dirac-operator/index.qmd
             - fundamentals-of-mathematics-for-physicists/glossary/index.qmd
     - id: fundamentals-of-theoretical-physics
       title: "Fundamentals of Theoretical Physics"
       style: docked
       contents:
+        - text: "All tutorials"
+          href: index.qmd
         - section: "Fundamentals of Theoretical Physics"
           href: fundamentals-of-theoretical-physics/index.qmd
           contents:
@@ -70,22 +65,27 @@ website:
             - fundamentals-of-theoretical-physics/electromagnetism/index.qmd
             - fundamentals-of-theoretical-physics/special-relativity/index.qmd
             - fundamentals-of-theoretical-physics/thermodynamics-statistical-mechanics/index.qmd
-            - fundamentals-of-theoretical-physics/nonequilibrium-statistical-mechanics/index.qmd
+            - text: 'Fluctuations and non-equilibrium statistical mechanics <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-theoretical-physics/nonequilibrium-statistical-mechanics/index.qmd
             - fundamentals-of-theoretical-physics/quantum-mechanics/index.qmd
             - fundamentals-of-theoretical-physics/classical-field-theory/index.qmd
             - fundamentals-of-theoretical-physics/dirac-equation/index.qmd
             - fundamentals-of-theoretical-physics/quantum-field-theory/index.qmd
             - fundamentals-of-theoretical-physics/gauge-theories/index.qmd
             - fundamentals-of-theoretical-physics/renormalisation/index.qmd
-            - fundamentals-of-theoretical-physics/particle-physics/index.qmd
+            - text: 'Particle physics <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-theoretical-physics/particle-physics/index.qmd
             - fundamentals-of-theoretical-physics/general-relativity/index.qmd
-            - fundamentals-of-theoretical-physics/cosmology/index.qmd
+            - text: 'Cosmology <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-theoretical-physics/cosmology/index.qmd
             - fundamentals-of-theoretical-physics/supersymmetry-supergravity/index.qmd
             - fundamentals-of-theoretical-physics/glossary/index.qmd
     - id: kaluza-klein-theories
       title: "Kaluza-Klein Theories"
       style: docked
       contents:
+        - text: "All tutorials"
+          href: index.qmd
         - section: "Kaluza-Klein Theories"
           href: kaluza-klein-theories/index.qmd
           contents:
@@ -99,28 +99,39 @@ website:
             - kaluza-klein-theories/four-dimensional-theory/index.qmd
             - kaluza-klein-theories/consistent-reductions/index.qmd
             - kaluza-klein-theories/compactifications/index.qmd
-            - kaluza-klein-theories/gauge-higgs-unification/index.qmd
+            - text: 'Wilson lines and gauge-Higgs unification <span class="sidebar-badge">planned</span>'
+              href: kaluza-klein-theories/gauge-higgs-unification/index.qmd
             - kaluza-klein-theories/glossary/index.qmd
     - id: fundamentals-of-mathematics-for-machine-learning
       title: "Fundamentals of Mathematics for Machine Learning"
       style: docked
       contents:
+        - text: "All tutorials"
+          href: index.qmd
         - section: "Fundamentals of Mathematics for Machine Learning"
           href: fundamentals-of-mathematics-for-machine-learning/index.qmd
           contents:
             - fundamentals-of-mathematics-for-machine-learning/notation/index.qmd
             - fundamentals-of-mathematics-for-machine-learning/mathematical-and-statistical-foundations/index.qmd
-            - fundamentals-of-mathematics-for-machine-learning/matrix-factorizations-and-linear-systems/index.qmd
-            - fundamentals-of-mathematics-for-machine-learning/vector-calculus-and-automatic-differentiation/index.qmd
-            - fundamentals-of-mathematics-for-machine-learning/continuous-random-variables-and-exponential-families/index.qmd
-            - fundamentals-of-mathematics-for-machine-learning/statistical-inference-and-limit-theorems/index.qmd
-            - fundamentals-of-mathematics-for-machine-learning/gradient-based-optimization-methods/index.qmd
-            - fundamentals-of-mathematics-for-machine-learning/constrained-optimization-and-duality/index.qmd
+            - text: 'Matrix factorizations and linear systems <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-machine-learning/matrix-factorizations-and-linear-systems/index.qmd
+            - text: 'Vector calculus and automatic differentiation <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-machine-learning/vector-calculus-and-automatic-differentiation/index.qmd
+            - text: 'Continuous random variables and exponential families <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-machine-learning/continuous-random-variables-and-exponential-families/index.qmd
+            - text: 'Statistical inference and limit theorems <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-machine-learning/statistical-inference-and-limit-theorems/index.qmd
+            - text: 'Gradient-based optimization methods <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-machine-learning/gradient-based-optimization-methods/index.qmd
+            - text: 'Constrained optimization and duality <span class="sidebar-badge">planned</span>'
+              href: fundamentals-of-mathematics-for-machine-learning/constrained-optimization-and-duality/index.qmd
             - fundamentals-of-mathematics-for-machine-learning/appendices-and-technical-background/index.qmd
     - id: fundamentals-of-machine-learning
       title: "Fundamentals of Machine Learning"
       style: docked
       contents:
+        - text: "All tutorials"
+          href: index.qmd
         - section: "Fundamentals of Machine Learning"
           href: fundamentals-of-machine-learning/index.qmd
           contents:

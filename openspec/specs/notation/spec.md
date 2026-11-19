@@ -7,13 +7,13 @@ symbol means the same thing wherever it appears, whatever the source a chapter w
 ## Requirements
 
 ### Requirement: Every tutorial opens with its notation
-Every tutorial SHALL have a notation page listed before its first subject chapter, on its landing page and in the sidebar;
-only a preface MAY precede it.
+Every tutorial SHALL have a notation page listed in the sidebar before its first subject chapter; only a preface MAY
+precede it.
 The page SHALL give every symbol and convention the tutorial's chapters use, each with its meaning.
 
 #### Scenario: Reader opens a tutorial
 - **WHEN** a reader opens a tutorial's landing page
-- **THEN** the notation page comes before every subject chapter in the chapter list, and in the same place in the sidebar
+- **THEN** the notation page comes before every subject chapter in the sidebar
 
 #### Scenario: Reader meets an unfamiliar symbol
 - **WHEN** a reader meets a symbol in a written chapter
