@@ -20,8 +20,15 @@ Layout (as in Fundamentals of Mathematics for Physicists):
 Statements (def-, thm-, prp-, lem-, cor-):
 - One notion per definition. Use only terms defined earlier, or cross-reference them.
 - Each sits in a statement box.
-- Each is followed by one Examples box with at least ten examples of increasing complexity, then one Exercises box
-  with at least ten exercises of increasing difficulty, each with a collapsed solution. Ten is a minimum.
+- Each is followed by one Examples box with exactly ten examples of increasing complexity, then one Exercises box
+  with exactly ten exercises of increasing difficulty, each with a collapsed solution. Ten, not more.
+- Every solution has two tabs: "Proof" (the theoretical solution) and "SageMath" (code in a {.python .sage} block
+  and its real output in a {.text .sage-output} block). For an exercise that asks for a proof, the SageMath tab
+  checks the claim on a named concrete case and says it is a check, not a proof. Record the outputs with
+  `python3 _filters/check_content.py <tutorial> <chapter> --update` and review the diff.
+- Figures: each is drawn by a SageMath script figures/<name>.sage that starts with
+  load("../../_filters/figstyle.sage") and saves with save_figure / save_threejs / save_plotly. A caption says in
+  at most two sentences what the figure shows; it never names a script, a file, SageMath or another tool.
 - Examples include a figure where the object can be drawn, and an interactive version for a surface or a
   vector field.
 
@@ -177,7 +184,23 @@ Start with a direct check of the statement.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the second exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -190,18 +213,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution: theoretical, computational, or both. A computation shows its code and the output it
-actually produced:>
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
 <code>
 ```
 
-*Output:*
-
-```text
-<output>
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
 ```
+::::
 :::
 
 <Two sentences or more introducing the third exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -214,7 +242,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the fourth exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -227,7 +271,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the fifth exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -240,7 +300,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the sixth exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -253,7 +329,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the seventh exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -266,7 +358,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the eighth exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -279,7 +387,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the ninth exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -292,7 +416,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the tenth exercise on @def-<notion-slug>: what the reader computes or proves.
@@ -305,7 +445,23 @@ End with the hardest exercise.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 ::::
 
@@ -430,7 +586,23 @@ Start with a direct check of the statement.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the second exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -443,18 +615,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution: theoretical, computational, or both. A computation shows its code and the output it
-actually produced:>
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
 <code>
 ```
 
-*Output:*
-
-```text
-<output>
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
 ```
+::::
 :::
 
 <Two sentences or more introducing the third exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -467,7 +644,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the fourth exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -480,7 +673,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the fifth exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -493,7 +702,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the sixth exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -506,7 +731,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the seventh exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -519,7 +760,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the eighth exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -532,7 +789,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the ninth exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -545,7 +818,23 @@ Each exercise is a step harder than the previous one.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the tenth exercise on @thm-<result-slug>: what the reader computes or proves.
@@ -558,7 +847,23 @@ End with the hardest exercise.>
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-<Complete solution.>
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+<Complete theoretical solution.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 ::::
 
@@ -606,7 +911,23 @@ example shows code and the output it actually produced, inline. -->
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
 <Complete solution, part by part, citing the statements it uses.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the second integrative exercise and the sections it combines.>
@@ -618,7 +939,23 @@ example shows code and the output it actually produced, inline. -->
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
 <Complete solution, part by part, citing the statements it uses.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 
 <Two sentences or more introducing the third integrative exercise and the sections it combines.>
@@ -630,6 +967,22 @@ example shows code and the output it actually produced, inline. -->
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
 <Complete solution, part by part, citing the statements it uses.>
+
+## SageMath
+
+<One sentence: what the code computes; for a proof exercise, "Check on <instance>:" and which concrete case it checks.>
+
+```{.python .sage}
+<code>
+```
+
+```{.text .sage-output}
+<the output this code printed, written by check_content.py --update>
+```
+::::
 :::
 ::::

@@ -14,6 +14,8 @@ $site-accent: #1d5b99 !default;
 $site-statement: #a33a2c !default;
 $site-example: #2b7448 !default;
 $site-exercise: #6247a8 !default;
+// SageMath solutions (openspec/changes/maths-physicists-content, design M3).
+$site-sage: #0f6b62 !default;
 // Figures are drawn for a light page; in dark mode they sit on this card.
 $site-figure-card: transparent !default;
 
@@ -56,6 +58,7 @@ $code-bg: $site-surface !default;
   --site-statement: #{$site-statement};
   --site-example: #{$site-example};
   --site-exercise: #{$site-exercise};
+  --site-sage: #{$site-sage};
   --site-figure-card: #{$site-figure-card};
   // Written out, since interpolating the Sass lists would drop the quotes that "Source Serif 4" needs.
   --site-font-serif: "Iowan Old Style", "Charter", "Source Serif Pro", "Source Serif 4", ui-serif, Georgia, serif;
@@ -64,6 +67,7 @@ $code-bg: $site-surface !default;
   --site-statement-tint: color-mix(in srgb, var(--site-statement) 7%, var(--site-bg));
   --site-example-tint: color-mix(in srgb, var(--site-example) 6%, var(--site-bg));
   --site-exercise-tint: color-mix(in srgb, var(--site-exercise) 6%, var(--site-bg));
+  --site-sage-tint: color-mix(in srgb, var(--site-sage) 8%, var(--site-bg));
 }
 
 body {
@@ -1151,5 +1155,94 @@ nav[role="doc-toc"] > ul > li:only-child {
     text-overflow: ellipsis;
     white-space: nowrap;
     vertical-align: bottom;
+  }
+}
+
+/* ------------------------------------------------------------------ Solution tabs */
+// Every exercise solution of a raised chapter has two tabs (openspec/changes/maths-physicists-content, design M3):
+// "Proof" and "SageMath", two tabs of the same style; the SageMath pane shows its code and output labelled.
+.panel-tabset.solution-tabs {
+  margin: 0.2rem 0 0.4rem;
+
+  > .nav-tabs {
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--site-border);
+    font-family: var(--site-font-sans);
+
+    .nav-link {
+      padding: 0.2rem 0.75rem;
+      border: 1px solid transparent;
+      border-bottom: 0;
+      border-radius: 6px 6px 0 0;
+      color: var(--site-muted);
+      font-size: 0.85rem;
+      font-weight: 650;
+      text-decoration: none;
+
+      &.active {
+        border-color: var(--site-border);
+        background: var(--site-bg);
+        color: var(--site-text);
+      }
+    }
+  }
+
+  > .tab-content {
+    padding: 0.6rem 0 0.2rem;
+    border: 0;
+
+  }
+
+  // Code and its output, each labelled.
+  div.sourceCode:has(pre.sage),
+  pre.sage-output {
+    position: relative;
+    margin: 0.5rem 0;
+    border: 1px solid color-mix(in srgb, var(--site-sage) 30%, var(--site-border));
+    border-radius: 6px;
+  }
+
+  div.sourceCode:has(pre.sage) {
+    background: var(--site-bg);
+
+    pre.sage {
+      background: transparent;
+    }
+
+    &::before {
+      content: "sage";
+    }
+  }
+
+  pre.sage-output {
+    padding: 0.55rem 0.75rem;
+    background: color-mix(in srgb, var(--site-sage) 4%, var(--site-surface));
+    color: var(--site-text);
+    font-size: 0.85em;
+
+    &::before {
+      content: "output";
+    }
+  }
+
+  div.sourceCode:has(pre.sage)::before,
+  pre.sage-output::before {
+    display: block;
+    width: fit-content;
+    margin: 0 0 0.25rem;
+    padding: 0 0.4rem;
+    border-radius: 0 0 4px 0;
+    background: var(--site-sage);
+    color: var(--site-bg);
+    font-family: var(--site-font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.15rem;
+    text-transform: uppercase;
+  }
+
+  pre.sage-output::before {
+    margin: -0.55rem 0 0.35rem -0.75rem;
   }
 }
