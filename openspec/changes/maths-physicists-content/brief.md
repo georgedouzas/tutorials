@@ -96,10 +96,15 @@ Every exercise solution has exactly this form (design M3):
   code or output blocks.
 - **Labels.** Labels are descriptive, number-free slugs, unique across the tutorial: `exm-<topic>-<what>`,
   `exr-<topic>-<what>`. Check uniqueness with `grep -rn "{#<label>}" fundamentals-of-mathematics-for-physicists/`.
-- **References.** Use earlier statements by cross-reference (`@def-...`, `@thm-...`). Never use a notion before it is
-  defined in this chapter or an earlier chapter of the sidebar order. A statement or proof never uses a later result
-  as a step; a remark, example or exercise may link forward for a familiar fact and say where it is proved (design
-  M11). If a proof needs a special case of a later theorem, prove the case and name the later theorem.
+- **References.**
+  - Use earlier statements by cross-reference (`@def-...`, `@thm-...`).
+  - **No forward references** (design M11). Nothing may use, mention or link to a notion, result, example, exercise or
+    section that comes later in this chapter or in a later chapter of the sidebar order. A link to another tutorial is
+    the only exception.
+  - If an item needs a later notion, rewrite it or replace it with one that does not.
+  - If a proof needs a special case of a later theorem, prove the case where it is needed, without naming the later
+    theorem.
+  - The checker reports forward references. Your part must have none.
 
 ## Figures
 

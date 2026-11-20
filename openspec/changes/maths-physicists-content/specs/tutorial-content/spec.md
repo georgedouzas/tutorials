@@ -101,3 +101,19 @@ Calculus of variations and Homotopy and cohomology, SHALL be written in full.
 #### Scenario: A further gap found while raising a chapter
 - **WHEN** a chapter's mapped textbooks treat a topic in the chapter's subject that the chapter lacks and later chapters or tutorials use
 - **THEN** the topic is added as a unit or section, or recorded in the coverage record with the reason it is left out
+
+### Requirement: The mathematics tutorial has no forward references
+In Fundamentals of Mathematics for Physicists no statement, proof, example, exercise, solution or remark SHALL use,
+mention or link to anything defined later in the tutorial, later in the same chapter or in a later chapter of the
+sidebar order. A link to another tutorial SHALL be the only exception. Two kinds of link SHALL NOT count as forward:
+the chapter introduction's list of the chapter's own sections, and a figure, equation or table named a few lines
+before it appears.
+
+#### Scenario: A forward link in a raised chapter
+- **WHEN** the content checker inspects a raised chapter and finds an `@` reference to a label defined later in the tutorial
+- **THEN** it reports the reference, unless it is one of the two allowed kinds
+
+#### Scenario: A link to another tutorial
+- **WHEN** a chapter links to a definition in Fundamentals of Theoretical Physics
+- **THEN** the checker does not report it
+

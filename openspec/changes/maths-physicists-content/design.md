@@ -274,14 +274,18 @@ element of a space with no chosen basis stay plain ($v \in V$, $T: V \to W$). A 
 are told apart this way. Named matrices of physics keep their own symbols: $\eta$, $\Lambda$, $\sigma_a$,
 $\gamma^\mu$, $g$, $\rho$, $\boldsymbol\Sigma$. Each chapter is converted when it is raised.
 
-**Forward references.** A statement or a proof never uses a later result as a step. A remark, an example or an
-exercise may link forward to a later section for a familiar fact (a $2 \times 2$ determinant, a trace), saying that
-the fact is proved there. The determinant stays after multilinear maps, because it is built from alternating forms;
-the earlier sections link forward to it.
+**No forward references.** Nothing in the tutorial uses or links to anything defined later in the tutorial: not a
+statement, a proof, an example, an exercise, a solution or a remark. A link to another tutorial is the only exception.
+An item that would need a later notion is rewritten or replaced. Two kinds of link are not counted as forward:
+- the chapter introduction's list of the chapter's own sections;
+- a figure, equation or table named a few lines before it appears.
+
+The checker reports every other forward `@` reference in a raised chapter. Linear algebra is cleaned at once. Every
+other chapter is cleaned when it is raised. The determinant stays after multilinear maps, because it is built from
+alternating forms; the earlier sections no longer use or mention it.
 
 **Overlaps between chapters.** When a proof needs a special case of a theorem proved in a later chapter, the special
-case is proved where it is needed, and a remark names the later theorem. The proof of the singular value decomposition
-keeps its orthonormal eigenbasis for real symmetric matrices and points to @thm-spectral-theorem-hermitian.
+case is proved where it is needed, without naming the later theorem. The later chapter may point back to it.
 
 **New symbols.** New symbols go into the shared notation tables (`_notation/`) as each chapter is raised. A symbol used
 only inside one proof, such as $\omega_e$ in the construction of the determinant, stays local.

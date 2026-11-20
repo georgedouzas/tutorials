@@ -101,15 +101,15 @@ $\mathbb{R}^n \subset \mathbb{C}^n$ form a subspace of the real space but not of
 :::
 
 Vectors need not be columns. Square matrices add and rescale entrywise just as well, and applying the subspace test to
-antisymmetric matrices on the one hand and to rotation matrices on the other separates a Lie algebra, which is a
-vector space, from a Lie group, which is not.
+antisymmetric matrices on the one hand and to rotation matrices on the other separates a set of matrices that is a
+vector space from one that is not.
 
 ::: {#exm-vs-matrices}
 #### Matrices
 
 The $n \times n$ real matrices form a vector space of dimension $n^2$ under entrywise operations; the
-antisymmetric matrices $\mathbf A^\top = -\mathbf A$ form a subspace, the Lie algebra $\mathfrak{so}(n)$ of
-@sec-lie-algebras. The rotation matrices $SO(n)$ do not: the sum of two rotations is not a rotation.
+antisymmetric matrices $\mathbf A^\top = -\mathbf A$ form a subspace, closed also under the commutator $\mathbf A \mathbf B -
+\mathbf B \mathbf A$. The rotation matrices do not: the sum of two rotations is not a rotation.
 :::
 
 The next instance has no finite list of coordinates at all. Functions on a set are added pointwise, so they form a
@@ -133,7 +133,7 @@ the subspace property is the superposition principle, and an external force dest
 The functions $x(t)$ with $\ddot x + \omega^2 x = 0$ form a subspace of the functions of $t$: the equation is
 unchanged when solutions are added or rescaled, which is the superposition principle. The solutions of the forced
 equation $\ddot x + \omega^2 x = F\cos\Omega t$ with $F \neq 0$ do not; the difference of two of them solves the free
-equation (@exr-vs-oscillator).
+equation.
 :::
 
 In quantum mechanics the observables of a two-level system, such as a spin $\tfrac12$, are the Hermitian $2 \times 2$
@@ -168,7 +168,7 @@ become a vector space once multiplication plays the part of addition and powers 
 #### An unusual vector space
 
 On $V = (0, \infty)$ define $x \oplus y = xy$ and $\lambda \odot x = x^\lambda$. All the rules hold, with zero vector
-$1$ and negative $1/x$ (@exr-vs-positive-reals). The map $x \mapsto \ln x$ turns $\oplus$ into $+$ and $\odot$ into
+$1$ and negative $1/x$. The map $x \mapsto \ln x$ turns $\oplus$ into $+$ and $\odot$ into
 ordinary scaling, so this space is $\mathbb{R}$ in disguise.
 :::
 ::::
@@ -291,15 +291,15 @@ print("A, B symmetric:", A.is_symmetric(), B.is_symmetric(), "; A + B and 3A sym
 sym_space = span([vector(QQ, (m + m.transpose()).list()) for m in M.basis()], QQ)
 print("dimension of the symmetric 3 x 3 matrices:", sym_space.dimension(), "= 3 * 4 / 2")
 R1 = matrix(QQ, [[0, -1, 0], [1, 0, 0], [0, 0, 1]]); R2 = matrix(QQ, [[1, 0, 0], [0, 0, -1], [0, 1, 0]])
-print("R1, R2 rotations (R^T R = 1, det 1):", R1.transpose() * R1 == 1 and R1.det() == 1, R2.transpose() * R2 == 1 and R2.det() == 1)
-print("R1 + R2 is a rotation:", (R1 + R2).transpose() * (R1 + R2) == 1, " (so SO(3) is not a subspace)")
+print("R1, R2 rotations (R^T R = 1):", R1.transpose() * R1 == 1, R2.transpose() * R2 == 1)
+print("R1 + R2 is a rotation:", (R1 + R2).transpose() * (R1 + R2) == 1, " (so the rotations are not a subspace)")
 ```
 
 ```{.text .sage-output}
 A, B symmetric: True True ; A + B and 3A symmetric: True True
 dimension of the symmetric 3 x 3 matrices: 6 = 3 * 4 / 2
-R1, R2 rotations (R^T R = 1, det 1): True True
-R1 + R2 is a rotation: False  (so SO(3) is not a subspace)
+R1, R2 rotations (R^T R = 1): True True
+R1 + R2 is a rotation: False  (so the rotations are not a subspace)
 ```
 ::::
 :::
@@ -665,7 +665,7 @@ will make precise in the next section.
 ::: {#exm-combination-matrices}
 #### Antisymmetric matrices
 
-$a L_1 + b L_2 + c L_3$, with the three generators $L_a$ of @sec-lie-algebras and real $a, b, c$, is a linear
+$a L_1 + b L_2 + c L_3$, with the three generators $(L_a)_{bc} = -\epsilon_{abc}$ of rotations and real $a, b, c$, is a linear
 combination; it is the general antisymmetric $3 \times 3$ matrix.
 :::
 
@@ -678,28 +678,30 @@ is a real combination of the identity and the three Pauli matrices, and the exam
 With $\sigma_1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$, $\sigma_2 = \begin{pmatrix} 0 & -i \\ i & 0
 \end{pmatrix}$ and $\sigma_3 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$, the matrix $\begin{pmatrix} 2 & 1 - i \\
 1 + i & 0 \end{pmatrix} = \mathbf I + \sigma_1 + \sigma_2 + \sigma_3$ is a linear combination of $\mathbf I, \sigma_1, \sigma_2,
-\sigma_3$ with real coefficients (@exr-combination-pauli).
+\sigma_3$ with real coefficients.
 :::
 
-Functions can be combined with coefficients exactly as columns can. Fourier series, sums of cosines and sines with
-numerical coefficients, are the most important instance for physics, and they show that the candidate vectors may be
+Functions can be combined with coefficients exactly as columns can. Trigonometric polynomials, finite sums of cosines
+and sines with numerical coefficients, are the most important instance for physics, and they show that the candidate vectors may be
 infinitely many as long as only finitely many coefficients are non-zero.
 
 ::: {#exm-combination-fourier}
-#### Fourier modes
+#### Trigonometric modes
 
 $a\cos\varphi + b\sin\varphi$ is a linear combination of the two functions $\cos\varphi$ and $\sin\varphi$; a
-finite Fourier series $\sum_n (a_n \cos n\varphi + b_n \sin n\varphi)$ is a linear combination of modes.
+trigonometric polynomial $\sum_n (a_n \cos n\varphi + b_n \sin n\varphi)$ is a linear combination of modes.
 :::
 
-The motion of a harmonic oscillator is the Fourier example with time in place of the angle. Its coefficients carry
+The motion of a harmonic oscillator is the trigonometric example with time in place of the angle. Its coefficients carry
 the initial data, so a linear combination here is a whole family of motions.
 
 ::: {#exm-combination-oscillator}
 #### Oscillator motions
 
 Every solution of $\ddot x + \omega^2 x = 0$ is the linear combination $x(t) = A\cos\omega t + B\sin\omega t$ of two
-solutions, with $A = x(0)$ and $B = \dot x(0)/\omega$ (@exr-combination-oscillator). The motion $\cos(\omega t +
+solutions, with $A = x(0)$ and $B = \dot x(0)/\omega$. Indeed, the difference $y$ of $x$ and this combination solves the
+equation with $y(0) = \dot y(0) = 0$, and $E = \dot y^2 + \omega^2 y^2$ has $\dot E = 2\dot y(\ddot y + \omega^2 y) = 0$,
+so $E$ stays $0$ and $y = 0$. The motion $\cos(\omega t +
 \varphi_0) = \cos\varphi_0 \cos\omega t - \sin\varphi_0 \sin\omega t$ with a phase is one of them.
 :::
 
@@ -852,7 +854,7 @@ check: (5, 9, 2)
 
 For functions the same question is not a system of equations but an identity to be recognised. Here the double-angle
 and triple-angle formulas of trigonometry are reread as statements that a power of a cosine or sine is a weighted sum
-of a few Fourier modes.
+of a few trigonometric modes.
 
 ::: {#exr-combination-fourier}
 #### A trigonometric identity as a combination
@@ -1164,9 +1166,8 @@ nothing, a first hint of the notion of dependence.
 ::: {#exm-span-plane}
 #### A plane in $\mathbb{R}^3$
 
-The span of $v_1 = (1, 2, 0)$ and $v_2 = (0, 1, 1)$ is a plane through the origin, the plane $2x - y + z = 0$ of
-@exr-span-membership; $v_3 = (1, 3, 1) = v_1 + v_2$ lies in it, so adding $v_3$ does not enlarge the span
-(@exr-span-dimension), while $(1, 1, 1)$ lies off it (@fig-span-plane).
+The span of $v_1 = (1, 2, 0)$ and $v_2 = (0, 1, 1)$ is a plane through the origin, the plane $2x - y + z = 0$;
+$v_3 = (1, 3, 1) = v_1 + v_2$ lies in it, so adding $v_3$ does not enlarge the span, while $(1, 1, 1)$ lies off it (@fig-span-plane).
 
 ![The plane spanned by $v_1 = (1, 2, 0)$ and $v_2 = (0, 1, 1)$, with $v_3 = v_1 + v_2$ in it and $(1, 1, 1)$ off it.
 The dashed segment joins $(1, 1, 1)$ to the nearest point of the plane.](figures/span_plane.svg){#fig-span-plane width=60%}
@@ -1185,37 +1186,37 @@ x, x^2, \dots$, the set of all finite combinations, is the space of all polynomi
 (@exm-combination-infinite).
 :::
 
-The matrix example of the previous section can now be rephrased: the whole Lie algebra $\mathfrak{so}(3)$ is the span
-of three matrices. This is how a Lie algebra is usually presented, by a finite list of generators whose weighted sums
-exhaust it.
+The matrix example of the previous section can now be rephrased: the whole space of antisymmetric $3 \times 3$
+matrices is the span of three matrices. This is how such a space of matrices is usually presented, by a finite list of
+generators whose weighted sums exhaust it.
 
 ::: {#exm-span-pauli}
 #### Antisymmetric matrices
 
 Every antisymmetric $3 \times 3$ matrix is a linear combination $a L_1 + b L_2 + c L_3$ of the three generators
-$L_a$ of @sec-lie-algebras, so $\mathfrak{so}(3)$ is the span of $L_1, L_2, L_3$.
+$L_a$ of @exm-combination-matrices, so the antisymmetric matrices are the span of $L_1, L_2, L_3$.
 :::
 
 For a spin $\tfrac12$ the same presentation uses the Pauli matrices. Their real span with the identity gives the
-observables, and the real span of $i\sigma_a$ gives the Lie algebra of $SU(2)$.
+observables, and the real span of $i\sigma_a$ gives the anti-Hermitian matrices with zero diagonal sum.
 
 ::: {#exm-span-su2}
-#### Pauli matrices and $\mathfrak{su}(2)$
+#### Pauli matrices and their real span
 
 By @exr-combination-pauli the real span of $\mathbf I, \sigma_1, \sigma_2, \sigma_3$ is the space of Hermitian $2 \times 2$
 matrices. The real span of $i\sigma_1, i\sigma_2, i\sigma_3$ is the space of anti-Hermitian matrices with $X_{11} +
-X_{22} = 0$, the Lie algebra $\mathfrak{su}(2)$ (@exr-span-su2).
+X_{22} = 0$.
 :::
 
 For functions the span of finitely many modes is finite-dimensional, while the span of all of them is not. Both cases
 are shown on the circle, and they prepare the count of modes carried out in the section on dimension.
 
 ::: {#exm-span-functions}
-#### Fourier modes
+#### Trigonometric modes
 
 The span of $\cos\varphi$ and $\sin\varphi$ in the functions on the circle is the two-dimensional space of first
-Fourier modes $a\cos\varphi + b\sin\varphi$; the span of all $\cos n\varphi$, $\sin n\varphi$ is the
-infinite-dimensional space of finite Fourier series.
+modes $a\cos\varphi + b\sin\varphi$; the span of all $\cos n\varphi$, $\sin n\varphi$ is the
+infinite-dimensional space of trigonometric polynomials.
 :::
 
 The solution space of a linear equation is usually described as a span. For the harmonic oscillator two different
@@ -1225,8 +1226,7 @@ families span it, one real and one complex.
 #### The oscillator's solutions
 
 By @exm-combination-oscillator the solutions of $\ddot x + \omega^2 x = 0$ form the span of $\cos\omega t$ and
-$\sin\omega t$. Over $\mathbb{C}$ the same space is the span of $e^{i\omega t}$ and $e^{-i\omega t}$
-(@exr-span-oscillator).
+$\sin\omega t$. Over $\mathbb{C}$ the same space is the span of $e^{i\omega t}$ and $e^{-i\omega t}$.
 :::
 
 Spans in Minkowski space need not consist of vectors of the same kind as the generators. Two null vectors span a plane
@@ -1248,7 +1248,7 @@ lines is not a span, while the span of the union is a plane.
 
 The union of the $x$-axis and the $y$-axis of $\mathbb{R}^2$ is not a subspace (@exr-vs-subspace-check), so it is not
 the span of anything. The span of the union is all of $\mathbb{R}^2$: it is the set of sums of a point on one axis and
-a point on the other (@exr-span-union-sum).
+a point on the other.
 :::
 ::::
 
@@ -1486,8 +1486,8 @@ span(w) == span(v): True ; span(differences) == span(v): True
 ::::
 :::
 
-The Lie algebra of $SU(2)$ was described in @exm-span-su2 as a span. The exercise proves the description by matching
-the entries of a general traceless anti-Hermitian matrix.
+The real span of $i\sigma_1, i\sigma_2, i\sigma_3$ was described in @exm-span-su2. The exercise proves the description
+by matching the entries of a general anti-Hermitian matrix with zero diagonal sum.
 
 ::: {#exr-span-su2}
 #### The span of $i\sigma_1, i\sigma_2, i\sigma_3$
@@ -1676,7 +1676,7 @@ proportional vectors.
 #### Two vectors in the plane
 
 $f_1 = (2, 1)$ and $f_2 = (1, 2)$ are independent, since $\lambda f_1 + \mu f_2 = (2\lambda + \mu, \lambda + 2\mu)$
-vanishes only for $\lambda = \mu = 0$ (@fig-basis-change): from $2\lambda + \mu = 0$ and $\lambda + 2\mu = 0$,
+vanishes only for $\lambda = \mu = 0$: from $2\lambda + \mu = 0$ and $\lambda + 2\mu = 0$,
 $3\lambda = 2(2\lambda + \mu) - (\lambda + 2\mu) = 0$ and likewise $3\mu = 0$. The vectors $(2, 1)$ and $(4, 2)$ are
 dependent, since $2 \cdot (2, 1) - (4, 2) = 0$.
 :::
@@ -1689,7 +1689,7 @@ third vector added nothing to the span.
 #### In $\mathbb{R}^3$
 
 $(1, 2, 0)$, $(0, 1, 1)$, $(0, 0, 1)$ are independent; $(1, 2, 0)$, $(0, 1, 1)$, $(1, 3, 1)$ are dependent, with
-the relation $v_1 + v_2 - v_3 = 0$ that Sage finds in @exr-span-dimension.
+the relation $v_1 + v_2 - v_3 = 0$.
 :::
 
 Polynomials give the first infinite independent family. The argument is that a non-zero polynomial has only finitely
@@ -1722,7 +1722,7 @@ independence is what makes the general solution well defined. The example states
 
 $e^{x}$, $e^{2x}$, $e^{3x}$ are independent: dividing a vanishing combination $a e^x + b e^{2x} + c e^{3x}$ by
 $e^{3x}$ and letting $x \to \infty$ gives $c = 0$, and then $b = 0$ and $a = 0$ in the same way. In general,
-exponentials with distinct rates are independent (@exr-independence-exponentials).
+exponentials with distinct rates are independent.
 :::
 
 The Pauli matrices and the identity are independent, which is why the coefficients of @exr-combination-pauli were
@@ -1733,7 +1733,7 @@ unique. The example records the fact for spin $\tfrac12$.
 
 $\mathbf I, \sigma_1, \sigma_2, \sigma_3$ are independent in the complex $2 \times 2$ matrices: $a_0 \mathbf I + a_1\sigma_1 +
 a_2\sigma_2 + a_3\sigma_3$ has diagonal $a_0 \pm a_3$ and off-diagonal entries $a_1 \mp i a_2$, which all vanish only
-when every $a_\mu = 0$ (@exr-independence-pauli).
+when every $a_\mu = 0$.
 :::
 
 The oscillator's two basic motions are independent, and a third motion is always a combination of them. The example
@@ -1831,19 +1831,19 @@ $a + b = 0$, $a - b = 0$, $a + c = 0$, so $a = b = c = 0$. For the second family
 
 ## SageMath
 
-Sage builds the matrix of values of $1, \cos\varphi, \sin\varphi$ at the three points, whose non-zero determinant
-forces $a = b = c = 0$, and checks the relation of the second family.
+Sage builds the matrix of values of $1, \cos\varphi, \sin\varphi$ at the three points, whose rank $3$ forces
+$a = b = c = 0$, and checks the relation of the second family.
 
 ```{.python .sage}
 p = var("phi")
 fs = [SR(1), cos(p), sin(p)]
 E = matrix(SR, [[f.subs(phi=x0) for f in fs] for x0 in (0, pi, pi / 2)])
-print("values at 0, pi, pi/2:", E.rows(), "; determinant:", E.det())
+print("values at 0, pi, pi/2:", E.rows(), "; rank:", E.rank())
 print("1 - cos^2 - sin^2 =", (1 - cos(p)^2 - sin(p)^2).simplify_trig())
 ```
 
 ```{.text .sage-output}
-values at 0, pi, pi/2: [(1, 1, 0), (1, -1, 0), (1, 0, 1)] ; determinant: -2
+values at 0, pi, pi/2: [(1, 1, 0), (1, -1, 0), (1, 0, 1)] ; rank: 3
 1 - cos^2 - sin^2 = 0
 ```
 ::::
@@ -1863,39 +1863,40 @@ relation in that case.
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-The first two vectors are independent (@exr-independence-one-two), so by @exr-independence-extend the three are
-dependent exactly when $(7, 3, c)$ lies in the span of the first two. Solving $a(2, 3, 1) + b(1, -1, 2) = (7, 3, c)$
+The first two vectors are independent (@exr-independence-one-two). In a non-trivial relation
+$a(2, 3, 1) + b(1, -1, 2) + d(7, 3, c) = 0$ the coefficient $d$ is therefore non-zero, and dividing by it puts $(7, 3, c)$ in the span of the first
+two; conversely, $(7, 3, c) = a(2, 3, 1) + b(1, -1, 2)$ is itself a non-trivial relation. So the three are dependent
+exactly when $(7, 3, c)$ lies in the span of the first two. Solving $a(2, 3, 1) + b(1, -1, 2) = (7, 3, c)$
 in the first two coordinates gives $2a + b = 7$, $3a - b = 3$, so $a = 2$, $b = 3$, and the third coordinate is then $a
 + 2b = 8$. Hence the family is dependent exactly when $c = 8$, with the relation $2(2, 3, 1) + 3(1, -1, 2) - (7, 3, 8)
 = 0$.
 
 ## SageMath
 
-Sage computes the determinant of the matrix with these columns as a function of $c$, and the relation at $c = 8$.
+Sage solves $a(2, 3, 1) + b(1, -1, 2) = (7, 3, c)$ for $a$, $b$ and $c$, and finds the relation at $c = 8$.
 
 ```{.python .sage}
-c = var("c")
-M = matrix(SR, [[2, 1, 7], [3, -1, 3], [1, 2, c]])
-print("determinant:", M.det(), "; it vanishes for", solve(M.det() == 0, c)[0])
+a, b, c = var("a b c")
+print("solution:", solve([2 * a + b == 7, 3 * a - b == 3, a + 2 * b == c], a, b, c)[0])
 rel = (QQ^3).linear_dependence([vector(QQ, [2, 3, 1]), vector(QQ, [1, -1, 2]), vector(QQ, [7, 3, 8])])[0]
 print("relation at c = 8, coefficients:", 2 * rel)
 ```
 
 ```{.text .sage-output}
-determinant: -5*c + 40 ; it vanishes for c == 8
+solution: [a == 2, b == 3, c == 8]
 relation at c = 8, coefficients: (2, 3, -1)
 ```
 ::::
 :::
 
-When there are as many vectors as coordinates, a single number decides the matter: the determinant of the matrix with
-the vectors as columns. The test is applied to two families in $\mathbb{R}^4$, and Sage is asked for the dependence
-relation in the case where the determinant vanishes.
+A vanishing combination of vectors of $\mathbb{R}^n$ is a homogeneous linear system for its coefficients, and
+elimination decides whether it has a non-zero solution. The test is applied to two families in $\mathbb{R}^4$, and Sage
+is asked for the dependence relation in the case where one exists.
 
 ::: {#exr-independence-determinant}
-#### Independence by a determinant
+#### Independence by elimination
 
-Use the determinant to decide whether $(1, 0, 1, 0)$, $(0, 1, 0, 1)$, $(1, 1, 0, 0)$, $(0, 0, 1, -1)$ are
+Use elimination to decide whether $(1, 0, 1, 0)$, $(0, 1, 0, 1)$, $(1, 1, 0, 0)$, $(0, 0, 1, -1)$ are
 independent in $\mathbb{R}^4$, and whether the family with the last vector replaced by $(0, 0, 1, 1)$ is; find the
 dependence relation when there is one.
 :::
@@ -1904,29 +1905,29 @@ dependence relation when there is one.
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-$n$ vectors of $\mathbb{R}^n$ are independent exactly when the matrix with these columns has non-zero determinant
-(its kernel is then $\{0\}$; @thm-determinant-invertible). Expanding along the rows, the first family has determinant $2$, so it is independent.
-The second has determinant $0$: indeed $v_1 + v_2 = (1, 1, 1, 1) = v_3 + v_4$, which is the relation $v_1 + v_2 - v_3
-- v_4 = 0$.
+Write $a v_1 + b v_2 + c v_3 + d v_4 = 0$. For the first family the four coordinates read $a + c = 0$, $b + c = 0$,
+$a + d = 0$ and $b - d = 0$. The first three give $c = -a$, $b = a$ and $d = -a$, and the fourth then reads $2a = 0$; so
+all four coefficients vanish and the family is independent. For the second family the fourth equation becomes $b + d =
+0$, which $b = a$, $d = -a$ satisfy for every $a$. Taking $a = 1$ gives the relation $v_1 + v_2 - v_3 - v_4 = 0$: indeed
+$v_1 + v_2 = (1, 1, 1, 1) = v_3 + v_4$.
 
 ## SageMath
 
-Sage computes both determinants and lists the dependence relations.
+Sage tests both families for independence and lists the dependence relations.
 
 ```{.python .sage}
 V = QQ ^ 4
 F = [vector(QQ, [1, 0, 1, 0]), vector(QQ, [0, 1, 0, 1]), vector(QQ, [1, 1, 0, 0]), vector(QQ, [0, 0, 1, -1])]
 G = [vector(QQ, [1, 0, 1, 0]), vector(QQ, [0, 1, 0, 1]), vector(QQ, [1, 1, 0, 0]), vector(QQ, [0, 0, 1, 1])]
 for name, fam in [("F", F), ("G", G)]:
-    d = matrix(QQ, fam).transpose().det()
-    print(name + ": determinant", d, "; independent:", V.linear_dependence(fam) == [], "; dependence relations:", V.linear_dependence(fam))
+    print(name + ": independent:", V.linear_dependence(fam) == [], "; dependence relations:", V.linear_dependence(fam))
 ```
 
 ```{.text .sage-output}
-F: determinant 2 ; independent: True ; dependence relations: [
+F: independent: True ; dependence relations: [
 
 ]
-G: determinant 0 ; independent: False ; dependence relations: [
+G: independent: False ; dependence relations: [
 (1, 1, -1, -1)
 ]
 ```
@@ -2027,8 +2028,7 @@ independent.
 
 Suppose $\lambda^i v_i + \mu v = 0$. If $\mu \neq 0$, then $v = -\mu^{-1}\lambda^i v_i$ lies in the span,
 contradicting the hypothesis; so $\mu = 0$, and then $\lambda^i v_i = 0$ forces every $\lambda^i = 0$ by the
-independence of the $v_i$. Repeating the step builds a basis from any independent family, the argument behind
-@def-basis.
+independence of the $v_i$. Repeating the step enlarges an independent family one vector at a time.
 
 ## SageMath
 
@@ -2143,18 +2143,18 @@ equation then gives $c_k = 0$.
 
 ## SageMath
 
-Check on $e^x, e^{2x}, e^{3x}$: a vanishing combination and its first two derivatives give a linear system whose
-determinant, the Wronskian, is non-zero.
+Check on $e^x, e^{2x}, e^{3x}$: a vanishing combination and its first two derivatives, evaluated at $x = 0$, give a
+linear system for the coefficients whose only solution is zero.
 
 ```{.python .sage}
 x = var("x")
 fs = [exp(x), exp(2 * x), exp(3 * x)]
-W = matrix(SR, [[diff(f, x, k) for f in fs] for k in range(3)])
-print("Wronskian:", W.det().simplify_full(), "; at x = 0:", W.det().subs(x=0))
+W = matrix(QQ, [[diff(f, x, k).subs(x=0) for f in fs] for k in range(3)])
+print("system at x = 0:", W.rows(), "; rank:", W.rank(), "; solutions:", W.right_kernel().dimension())
 ```
 
 ```{.text .sage-output}
-Wronskian: 2*e^(6*x) ; at x = 0: 2
+system at x = 0: [(1, 1, 1), (1, 2, 3), (1, 4, 9)] ; rank: 3 ; solutions: 0
 ```
 ::::
 :::
@@ -2199,7 +2199,7 @@ its standard entries, and draws the moral that a change of coordinates is nothin
 #### A different basis of the plane
 
 $f_1 = (2, 1)$, $f_2 = (1, 2)$ is a basis of $\mathbb{R}^2$, and $v = (5, 4) = 2 f_1 + 1 f_2$ has coordinates
-$(2, 1)$ in it (@fig-basis-change, @prp-coordinates-f). The same vector has different coordinates in different bases;
+$(2, 1)$ in it (@fig-basis-change). The same vector has different coordinates in different bases;
 this is the whole content of "coordinate transformations". In the interactive figure, hovering a node of the blue
 grid shows both sets of coordinates.
 :::
@@ -2226,14 +2226,14 @@ of $p$ are its coefficients. So is $1, x + 1, (x + 1)^2$ (@exr-span-polynomials)
 $p(-1)$, $p'(-1)$ and $\tfrac12 p''(-1)$, the Taylor coefficients at $x = -1$.
 :::
 
-The generators of $\mathfrak{so}(3)$ and the Fourier modes of order at most one were already seen to span their
-spaces. Adding independence makes them bases, and both return in the dimension counts below.
+The generators $L_a$ of the antisymmetric matrices and the trigonometric modes of order at most one were already seen
+to span their spaces. Adding independence makes them bases, and both return in the dimension counts below.
 
 ::: {#exm-basis-so3}
-#### Bases of $\mathfrak{so}(3)$ and of the Fourier modes
+#### Bases of antisymmetric matrices and of trigonometric modes
 
 $L_1, L_2, L_3$ is a basis of the antisymmetric $3 \times 3$ matrices; $1, \cos\varphi, \sin\varphi$ is a basis of
-the span of the Fourier modes of order at most one.
+the span of the trigonometric modes of order at most one.
 :::
 
 For a spin $\tfrac12$ the Pauli matrices with the identity form a basis of all $2 \times 2$ matrices over
@@ -2279,7 +2279,7 @@ coordinates used for waves moving in the two directions.
 
 In the $(t, x)$-plane, $n_+ = (1, 1)$ and $n_- = (1, -1)$ form a basis of null vectors: $(t, x) = \tfrac{t + x}{2}\,n_+
 + \tfrac{t - x}{2}\,n_-$, and $a n_+ + b n_- = (a + b, a - b)$ vanishes only if $a = b = 0$. The coordinates $\tfrac12(t
-\pm x)$ are constant along the light rays $x = \mp t + \text{const}$ (@exr-basis-light-cone).
+\pm x)$ are constant along the light rays $x = \mp t + \text{const}$.
 :::
 
 The definition asks for a finite family, and the last example shows what happens beyond it. Allowing infinite families
@@ -2296,8 +2296,8 @@ with a $1$ in place $k$ and $0$ elsewhere are independent but do not span the sp
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-Checking that three vectors of $\mathbb{R}^3$ form a basis, and then computing coordinates in it, is a determinant
-followed by a linear system. The exercise carries out both steps for a basis $b$ that the section on the dual basis
+Checking that three vectors of $\mathbb{R}^3$ form a basis, and computing coordinates in it, is one linear system
+solved for a general right-hand side. The exercise carries out both steps for a basis $b$ that the section on the dual basis
 will take up again.
 
 ::: {#exr-basis-coordinates}
@@ -2311,21 +2311,22 @@ coordinates of $(2, 3, 4)$ in it.
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-The matrix $\mathbf C$ with columns $b_j$ has determinant $2 \neq 0$, so $\mathbf C\lambda = \mathbf w$ has exactly one solution for every
-$\mathbf w$ (@thm-determinant-invertible): the three vectors span, and the only combination giving $0$ is the trivial one, so they are independent. The
-coordinates solve $\lambda^1 + \lambda^3 = 2$, $\lambda^1 + \lambda^2 = 3$, $\lambda^2 + \lambda^3 = 4$; adding the
-three equations gives $\lambda^1 + \lambda^2 + \lambda^3 = \tfrac92$, so $(\lambda^1, \lambda^2, \lambda^3) =
-(\tfrac12, \tfrac52, \tfrac32)$.
+For $\mathbf w = (w_1, w_2, w_3)$, $\lambda^j b_j = \mathbf w$ reads $\lambda^1 + \lambda^3 = w_1$, $\lambda^1 + \lambda^2 = w_2$,
+$\lambda^2 + \lambda^3 = w_3$. Adding the three equations gives $\lambda^1 + \lambda^2 + \lambda^3 = \tfrac12(w_1 + w_2 +
+w_3)$, and subtracting each equation from this sum gives $\lambda^2 = \tfrac12(-w_1 + w_2 + w_3)$, $\lambda^3 =
+\tfrac12(w_1 - w_2 + w_3)$ and $\lambda^1 = \tfrac12(w_1 + w_2 - w_3)$. So every $\mathbf w$ has exactly one expansion: the
+three vectors span, and for $\mathbf w = \mathbf 0$ the only combination is the trivial one, so they are independent. For
+$(2, 3, 4)$ the coordinates are $(\lambda^1, \lambda^2, \lambda^3) = (\tfrac12, \tfrac52, \tfrac32)$.
 
 ## SageMath
 
-Sage computes the determinant, checks the basis, and finds the coordinates in two ways.
+Sage checks the basis and finds the coordinates in two ways.
 
 ```{.python .sage}
 V = QQ ^ 3
 b = [vector(QQ, [1, 1, 0]), vector(QQ, [0, 1, 1]), vector(QQ, [1, 0, 1])]
 C = matrix(QQ, b).transpose()
-print("determinant of the matrix of columns b1, b2, b3:", C.det(), "; basis of Q^3:", V.span(b) == V and V.linear_dependence(b) == [])
+print("basis of Q^3:", V.span(b) == V and V.linear_dependence(b) == [])
 w = vector(QQ, [2, 3, 4])
 coords = V.span_of_basis(b).coordinates(w)
 print("coordinates of (2, 3, 4):", coords, "; check:", sum(c * v for c, v in zip(coords, b)) == w)
@@ -2333,7 +2334,7 @@ print("the same from the inverse matrix C^-1 w:", C.inverse() * w)
 ```
 
 ```{.text .sage-output}
-determinant of the matrix of columns b1, b2, b3: 2 ; basis of Q^3: True
+basis of Q^3: True
 coordinates of (2, 3, 4): [1/2, 5/2, 3/2] ; check: True
 the same from the inverse matrix C^-1 w: (1/2, 5/2, 3/2)
 ```
@@ -2448,11 +2449,11 @@ p(1))$.
 R.<x> = QQ[]
 l0, l1, p = 1 - x, x, 3 * x + 2
 C = matrix(QQ, [l0.padded_list(2), l1.padded_list(2)]).transpose()
-print("det of the coefficient matrix:", C.det(), "; coordinates of p:", C.solve_right(vector(QQ, p.padded_list(2))), "; (p(0), p(1)) =", (p(0), p(1)))
+print("rank of the coefficient matrix:", C.rank(), "; coordinates of p:", C.solve_right(vector(QQ, p.padded_list(2))), "; (p(0), p(1)) =", (p(0), p(1)))
 ```
 
 ```{.text .sage-output}
-det of the coefficient matrix: 1 ; coordinates of p: (2, 5) ; (p(0), p(1)) = (2, 5)
+rank of the coefficient matrix: 2 ; coordinates of p: (2, 5) ; (p(0), p(1)) = (2, 5)
 ```
 ::::
 :::
@@ -2631,13 +2632,13 @@ Sage solves for the coordinates in $\overline{\mathbb{Q}}^2$ and prints them exa
 i = QQbar(I); r = QQbar(2).sqrt()
 up, dn = vector(QQbar, [1, 0]), vector(QQbar, [0, 1])
 X = matrix(QQbar, [(up + dn) / r, (up - dn) / r]).transpose()
-print("determinant of (+x, -x):", X.det().radical_expression())
+print("rank of (+x, -x):", X.rank())
 c = X.solve_right((up + i * dn) / r)
 print("coordinates of +y:", [ci.radical_expression() for ci in c])
 ```
 
 ```{.text .sage-output}
-determinant of (+x, -x): -1
+rank of (+x, -x): 2
 coordinates of +y: [1/2*I + 1/2, -1/2*I + 1/2]
 ```
 ::::
@@ -2711,12 +2712,12 @@ a plane through the origin, spanned by two independent vectors, has dimension $2
 :::
 
 $\mathbb{R}^n$ and the spaces of matrices are the first dimensions to know by heart. The example lists them, including
-the count $n(n-1)/2$ for antisymmetric matrices, which is the dimension of the Lie algebra of the rotation group.
+the count $n(n-1)/2$ for antisymmetric matrices, the number of independent generators of rotations.
 
 ::: {#exm-dimension-rn}
 #### Coordinate spaces
 
-$\dim \mathbb{R}^n = n$ (@prp-dimensions); the $n \times n$ matrices have dimension $n^2$ and the antisymmetric
+$\dim \mathbb{R}^n = n$, counted by the standard basis; the $n \times n$ matrices have dimension $n^2$ and the antisymmetric
 ones $n(n-1)/2$, which is $3$ for $n = 3$ and $6$ for $n = 4$.
 :::
 
@@ -2738,7 +2739,7 @@ to the dependent triple of $\mathbb{R}^3$, whose span is only a plane.
 #### Dimension of a span
 
 The span of $(1, 2, 0)$, $(0, 1, 1)$, $(1, 3, 1)$ has dimension $2$, not $3$, because of the dependence relation
-(@exr-span-dimension); the dimension of a span is the number of independent vectors among the generators.
+$(1, 2, 0) + (0, 1, 1) - (1, 3, 1) = 0$; the dimension of a span is the number of independent vectors among the generators.
 :::
 
 A subspace cannot have more independent directions than the space around it. The example states the bound and the
@@ -2763,16 +2764,15 @@ vector space, with basis $\mathbf e_1, i\mathbf e_1, \dots, \mathbf e_n, i\mathb
 is a complex line and a real plane.
 :::
 
-The third example collects several counts that come back throughout the lectures. Tangent spaces, the Lie algebra of
-$SO(n)$ and the space of symmetric $4 \times 4$ matrices, where a spacetime metric at a point lives, all have counts
-the reader should recognise on sight.
+The third example collects several counts that come back throughout the lectures. The states of a spin, the
+generators of rotations and the space of symmetric $4 \times 4$ matrices all have counts the reader should recognise on sight.
 
 ::: {#exm-dimension-tangent}
 #### Dimensions that recur
 
-The tangent space of an $n$-dimensional manifold has dimension $n$ (@sec-tangent-vectors); the Lie algebra of $SO(n)$
-has dimension $n(n-1)/2$; the space of symmetric $4 \times 4$ matrices, where a metric at a point lives, has
-dimension $10$.
+The states of a spin $s$ form a space of dimension $2s + 1$; the generators of rotations in $n$ dimensions, the
+antisymmetric $n \times n$ matrices, form a space of dimension $n(n-1)/2$; the space of symmetric $4 \times 4$
+matrices has dimension $10$.
 :::
 
 The spaces built from the Pauli matrices have dimensions that count the parameters of a spin $\tfrac12$. The example
@@ -2782,7 +2782,8 @@ lists them, with the general count for Hermitian matrices.
 #### Spin matrices
 
 The Hermitian $2 \times 2$ matrices have real dimension $4$ (basis $\mathbf I, \sigma_1, \sigma_2, \sigma_3$) and
-$\mathfrak{su}(2)$ has real dimension $3$ (basis $i\sigma_1, i\sigma_2, i\sigma_3$, @exr-span-su2). The complex $2
+the anti-Hermitian ones with zero diagonal sum have real dimension $3$ (basis $i\sigma_1, i\sigma_2, i\sigma_3$,
+@exr-span-su2). The complex $2
 \times 2$ matrices have complex dimension $4$ (@exm-basis-pauli). The Hermitian $n \times n$ matrices have real
 dimension $n + 2 \cdot \tfrac{n(n - 1)}{2} = n^2$: $n$ real diagonal entries and two real numbers for each entry above
 the diagonal.
@@ -2796,7 +2797,7 @@ count.
 
 The bound states of the hydrogen atom with principal quantum number $n$, ignoring spin, form a space with a basis
 labelled by $l = 0, \dots, n - 1$ and $m = -l, \dots, l$. Its dimension, the degeneracy of the level, is
-$\sum_{l=0}^{n-1}(2l + 1) = n^2$ (@exr-dimension-hydrogen): $1$ for the ground state, $4$ for $n = 2$.
+$\sum_{l=0}^{n-1}(2l + 1) = n^2$: $1$ for the ground state, $4$ for $n = 2$.
 :::
 
 Most function spaces of physics are infinite-dimensional. The last example gives the criterion: a space is
@@ -2913,7 +2914,7 @@ A symmetric matrix is determined by its entries on and above the diagonal, and t
 \mathbf E_{ji}$ ($i < j$) form a basis; there are $n + (n^2 - n)/2 = n(n + 1)/2$ of them. An antisymmetric one is determined by
 the entries strictly above the diagonal, with basis $\mathbf E_{ij} - \mathbf E_{ji}$ ($i < j$), so its dimension is $n(n - 1)/2$. The
 sum is $n^2$, as it must be: every matrix is uniquely $\tfrac12(\mathbf A + \mathbf A^\top) + \tfrac12(\mathbf A - \mathbf A^\top)$, so the space of
-all matrices is the direct sum of the two subspaces (@exr-symmetric-tensors-dim computes the counts for small $n$).
+all matrices is the direct sum of the two subspaces.
 
 ## SageMath
 
@@ -2942,7 +2943,7 @@ exercise contrasts the count $2N + 1$ for sines and cosines with the count for p
 the even modes.
 
 ::: {#exr-dimension-fourier}
-#### Fourier modes of bounded order
+#### Trigonometric modes of bounded order
 
 Find the dimension of the span of $1, \cos\varphi, \sin\varphi, \dots, \cos N\varphi, \sin N\varphi$, and of the
 span of $\cos^k\varphi$ for $k = 0, \dots, N$.
@@ -2952,8 +2953,8 @@ span of $\cos^k\varphi$ for $k = 0, \dots, N$.
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-The $2N + 1$ modes are independent (a vanishing combination has zero Fourier coefficients, by integrating against
-each mode as in @exr-functional-integration), so the dimension is $2N + 1$. The powers $\cos^k\varphi$, $k \leq N$,
+The $2N + 1$ modes are independent (integrating a vanishing combination against
+each mode over a period shows that each coefficient is zero), so the dimension is $2N + 1$. The powers $\cos^k\varphi$, $k \leq N$,
 are also independent (a vanishing polynomial in $\cos\varphi$ of degree $\leq N$ vanishes for every value of
 $\cos\varphi$ in $[-1, 1]$, so it has infinitely many roots and is zero), so that span has dimension $N + 1$. Each
 $\cos^k\varphi$ is a combination of $1, \cos\varphi, \dots, \cos k\varphi$ (as in @exr-combination-fourier), so the
@@ -2962,20 +2963,20 @@ span lies in the $(N + 1)$-dimensional span of the even modes, and by @exm-dimen
 ## SageMath
 
 Check for $N = 2$: Sage computes the matrix $G_{jk} = \int_0^{2\pi} f_j f_k\, d\varphi$ for each family; a vanishing
-combination $c^k f_k = 0$ would give $\mathbf G \mathbf c = \mathbf 0$, so a non-zero determinant shows independence.
+combination $c^k f_k = 0$ would give $\mathbf G \mathbf c = \mathbf 0$, so full rank shows independence.
 
 ```{.python .sage}
 p = var("phi")
 gram = lambda fs: matrix(SR, [[integrate(f * g, p, 0, 2 * pi) for g in fs] for f in fs])
 modes = [SR(1), cos(p), sin(p), cos(2 * p), sin(2 * p)]
-print("modes: det G =", gram(modes).det(), "-> dimension", len(modes))
+print("modes: rank G =", gram(modes).rank(), "-> dimension", len(modes))
 powers = [cos(p)^k for k in range(3)]
-print("cos^k, k <= 2: det G =", gram(powers).det(), "-> dimension", len(powers), "; cos^2 =", (cos(p)^2).trig_reduce())
+print("cos^k, k <= 2: rank G =", gram(powers).rank(), "-> dimension", len(powers), "; cos^2 =", (cos(p)^2).trig_reduce())
 ```
 
 ```{.text .sage-output}
-modes: det G = 2*pi^5 -> dimension 5
-cos^k, k <= 2: det G = 1/2*pi^3 -> dimension 3 ; cos^2 = 1/2*cos(2*phi) + 1/2
+modes: rank G = 5 -> dimension 5
+cos^k, k <= 2: rank G = 3 -> dimension 3 ; cos^2 = 1/2*cos(2*phi) + 1/2
 ```
 ::::
 :::
@@ -3280,14 +3281,16 @@ The symmetric $3 \times 3$ matrices have dimension $6$ and the antisymmetric one
 and $6 + 3 = 9$: every matrix is uniquely the sum of a symmetric and an antisymmetric one.
 :::
 
-A single linear condition on a space of matrices lowers its dimension by one. The trace is such a condition, and
-the matrices it annihilates form the Lie algebra of the special linear group.
+A single linear condition on a space of matrices lowers its dimension by one. The vanishing of the sum of the
+diagonal entries is such a condition, and the example counts the matrices that satisfy it.
 
 ::: {#exm-dim-sage}
-#### Traceless matrices
+#### Matrices with zero diagonal sum
 
-The trace $\mathbf A \mapsto A_{11} + A_{22} + A_{33}$ is a non-zero linear functional on the $3 \times 3$ matrices, so its
-kernel, the traceless matrices, has dimension $9 - 1 = 8$ by rank-nullity (@def-linear-map).
+A $3 \times 3$ matrix has zero diagonal sum, $A_{11} + A_{22} + A_{33} = 0$, exactly when $A_{33} = -A_{11} - A_{22}$, so
+its other eight entries can be chosen freely and determine it. These matrices form a subspace of dimension
+$9 - 1 = 8$, with basis the six $\mathbf E_{ij}$, $i \neq j$, together with $\mathbf E_{11} - \mathbf E_{33}$ and
+$\mathbf E_{22} - \mathbf E_{33}$.
 :::
 
 In mechanics the symmetric part of the count is the number of components of the inertia tensor. The example reads the
@@ -3297,30 +3300,30 @@ six dimensions as six numbers that describe how a rigid body resists rotation.
 #### The inertia tensor
 
 The inertia tensor $I_{ij} = \sum_k m_k(\lvert x_k\rvert^2\delta_{ij} - x_k^i x_k^j)$ of a rigid body is a symmetric $3
-\times 3$ matrix, so it has $6$ independent components. In axes adapted to the body it becomes diagonal, and the six
-numbers are traded for three principal moments and the three angles of the axes.
+\times 3$ matrix, so it has $6$ independent components: three moments $I_{11}, I_{22}, I_{33}$ about the coordinate axes
+and three products of inertia $I_{12}, I_{13}, I_{23}$.
 :::
 
-In four-dimensional spacetime the same counts give the components of the electromagnetic field and of the metric. The
-example adds the $4 \times 4$ analogues of the proposition.
+In four-dimensional spacetime the same counts give the components of the electromagnetic field. The example adds the
+$4 \times 4$ analogues of the proposition.
 
 ::: {#exm-dim-maxwell}
-#### Field strength and metric
+#### Field strength
 
 The $4 \times 4$ real matrices have dimension $16$. The antisymmetric ones, where the field strength $F_{\mu\nu}$
-lives, have dimension $6$: the three components of $\mathbf E$ and the three of $\mathbf B$. The symmetric ones, where a
-metric $g_{\mu\nu}$ at a point lives, have dimension $10$, and $6 + 10 = 16$.
+lives, have dimension $6$: the three components of $\mathbf E$ and the three of $\mathbf B$. The symmetric ones have
+dimension $10$, and $6 + 10 = 16$.
 :::
 
 Complex matrices of size three carry the symmetry of the strong interaction. Their dimensions over $\mathbb{R}$ count
-the generators of $SU(3)$.
+the gluons.
 
 ::: {#exm-dim-gell-mann}
-#### Complex $3 \times 3$ matrices and $\mathfrak{su}(3)$
+#### Complex $3 \times 3$ matrices and the Gell-Mann matrices
 
 The complex $3 \times 3$ matrices have complex dimension $9$ and real dimension $18$. The Hermitian ones form a real
-space of dimension $3^2 = 9$ (@exm-dimension-su2), and the traceless Hermitian ones, spanned by the eight Gell-Mann
-matrices, a space of dimension $8$, one dimension for each gluon (@exr-dim-hermitian-3).
+space of dimension $3^2 = 9$ (@exm-dimension-su2), and the Hermitian ones with zero diagonal sum, spanned by the
+eight Gell-Mann matrices, a space of dimension $8$, one dimension for each gluon.
 :::
 
 The last example marks the limit of the proposition. A subset of the nine-dimensional space of matrices that is not a
@@ -3330,8 +3333,8 @@ subspace has no dimension in the sense of @def-dimension, however natural the se
 #### Sets of matrices without a dimension
 
 The invertible $3 \times 3$ matrices are not a subspace: $\mathbf I$ and $-\mathbf I$ are invertible and their sum $\mathbf 0$ is not. Neither
-is $SO(3)$ (@exm-vs-matrices). Such sets are described by a number of parameters instead, three angles for $SO(3)$,
-which is their dimension as manifolds (@sec-manifolds), a different notion.
+is the set of rotation matrices (@exm-vs-matrices). Such sets are described by a number of parameters instead, three
+angles for the rotations, a different notion of dimension.
 :::
 ::::
 
@@ -3453,14 +3456,14 @@ dimension: 2
 :::
 
 Linear conditions on the nine entries of a matrix cut out subspaces whose dimensions can be counted from a basis. The
-exercise asks for four of them; the last, symmetric and traceless, is where the quadrupole moment of a charge
+exercise asks for four of them; the last, symmetric with zero diagonal sum, is where the quadrupole moment of a charge
 distribution lives.
 
 ::: {#exr-dim-diagonal-traceless}
 #### Four subspaces of the $3 \times 3$ matrices
 
-Find the dimensions of the diagonal, the upper triangular, the traceless, and the symmetric traceless $3 \times 3$
-matrices.
+Find the dimensions of the diagonal, the upper triangular, the zero-diagonal-sum ($A_{11} + A_{22} + A_{33} = 0$), and
+the symmetric zero-diagonal-sum $3 \times 3$ matrices.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3468,9 +3471,9 @@ matrices.
 ## Proof
 
 The diagonal matrices have the basis $\mathbf E_{11}, \mathbf E_{22}, \mathbf E_{33}$: dimension $3$. The upper triangular ones have the basis
-$\mathbf E_{ij}$, $i \leq j$: dimension $6$. A traceless matrix is $\sum_{i \neq j} A_{ij} \mathbf E_{ij} + A_{11}(\mathbf E_{11} - \mathbf E_{33}) +
+$\mathbf E_{ij}$, $i \leq j$: dimension $6$. A matrix with zero diagonal sum is $\sum_{i \neq j} A_{ij} \mathbf E_{ij} + A_{11}(\mathbf E_{11} - \mathbf E_{33}) +
 A_{22}(\mathbf E_{22} - \mathbf E_{33})$, since $A_{33} = -A_{11} - A_{22}$; the eight matrices are independent, so the dimension is
-$8$. A symmetric traceless matrix is $\sum_{i < j} A_{ij}(\mathbf E_{ij} + \mathbf E_{ji}) + A_{11}(\mathbf E_{11} - \mathbf E_{33}) + A_{22}(\mathbf E_{22} -
+$8$. A symmetric one with zero diagonal sum is $\sum_{i < j} A_{ij}(\mathbf E_{ij} + \mathbf E_{ji}) + A_{11}(\mathbf E_{11} - \mathbf E_{33}) + A_{22}(\mathbf E_{22} -
 \mathbf E_{33})$: dimension $5$, the five independent components of a quadrupole moment.
 
 ## SageMath
@@ -3482,14 +3485,14 @@ idx = [(i, j) for i in range(3) for j in range(3)]
 unit = lambda i, j: [1 if (a, b) == (i, j) else 0 for a, b in idx]
 off = [unit(i, j) for i, j in idx if i != j]
 lower = [unit(i, j) for i, j in idx if i > j]
-trace = [[1 if a == b else 0 for a, b in idx]]
+diag_sum = [[1 if a == b else 0 for a, b in idx]]
 sym = [[(1 if (a, b) == (i, j) else 0) - (1 if (a, b) == (j, i) else 0) for a, b in idx] for i, j in idx if i < j]
 dim = lambda rows: matrix(QQ, rows).right_kernel().dimension()
-print("diagonal:", dim(off), "; upper triangular:", dim(lower), "; traceless:", dim(trace), "; symmetric traceless:", dim(sym + trace))
+print("diagonal:", dim(off), "; upper triangular:", dim(lower), "; zero diagonal sum:", dim(diag_sum), "; symmetric, zero diagonal sum:", dim(sym + diag_sum))
 ```
 
 ```{.text .sage-output}
-diagonal: 3 ; upper triangular: 6 ; traceless: 8 ; symmetric traceless: 5
+diagonal: 3 ; upper triangular: 6 ; zero diagonal sum: 8 ; symmetric, zero diagonal sum: 5
 ```
 ::::
 :::
@@ -3647,14 +3650,14 @@ U cap W: the line through (1, 1/2, -3/2) of dimension 1 ; U cap U has dimension 
 :::
 
 Complex matrices split into Hermitian and anti-Hermitian parts, as real ones split by symmetry. The exercise counts
-the real dimensions for size three, which gives the eight generators of $\mathfrak{su}(3)$ of @exm-dim-gell-mann.
+the real dimensions for size three, which gives the eight Gell-Mann matrices of @exm-dim-gell-mann.
 
 ::: {#exr-dim-hermitian-3}
 #### Hermitian $3 \times 3$ matrices
 
 Show that the Hermitian $3 \times 3$ matrices form a real vector space of dimension $9$, that every complex $3 \times 3$
-matrix is uniquely a Hermitian matrix plus $i$ times a Hermitian matrix, and that the traceless Hermitian matrices have
-dimension $8$.
+matrix is uniquely a Hermitian matrix plus $i$ times a Hermitian matrix, and that the Hermitian matrices with zero
+diagonal sum have dimension $8$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -3665,14 +3668,14 @@ A Hermitian matrix has three real diagonal entries and three complex entries abo
 below; the matrices $\mathbf E_{jj}$, $\mathbf E_{jk} + \mathbf E_{kj}$ and $i(\mathbf E_{jk} - \mathbf E_{kj})$, $j < k$, form a real basis of $3 + 3 + 3 = 9$
 elements. Every $\mathbf A$ equals $\mathbf H + i\mathbf K$ with $\mathbf H = \tfrac12(\mathbf A + \mathbf A^\dagger)$ and $\mathbf K = \tfrac1{2i}(\mathbf A - \mathbf A^\dagger)$, both
 Hermitian; if $\mathbf H + i\mathbf K = \mathbf 0$ with $\mathbf H, \mathbf K$ Hermitian, then taking $\dagger$ gives $\mathbf H - i\mathbf K = \mathbf 0$, so $\mathbf H = \mathbf K = \mathbf 0$. This matches
-the real dimension $18 = 9 + 9$ of the complex matrices. The trace is real on Hermitian matrices, and the condition
-$\operatorname{tr} \mathbf H = 0$ removes one diagonal direction ($\mathbf E_{11} - \mathbf E_{33}$ and $\mathbf E_{22} - \mathbf E_{33}$ replace the three
+the real dimension $18 = 9 + 9$ of the complex matrices. The diagonal entries of a Hermitian matrix are real, and the
+condition $H_{11} + H_{22} + H_{33} = 0$ removes one diagonal direction ($\mathbf E_{11} - \mathbf E_{33}$ and $\mathbf E_{22} - \mathbf E_{33}$ replace the three
 $\mathbf E_{jj}$), leaving dimension $8$.
 
 ## SageMath
 
 Sage writes a complex matrix as $18$ real numbers and computes the real dimensions of the solutions of $\mathbf A = \mathbf A^\dagger$,
-and of $\mathbf A = \mathbf A^\dagger$ with zero trace.
+and of $\mathbf A = \mathbf A^\dagger$ with zero diagonal sum.
 
 ```{.python .sage}
 i = QQbar(I)
@@ -3680,12 +3683,12 @@ E = list(MatrixSpace(QQbar, 3).basis())
 basis = E + [i * e for e in E]                                   # a real basis of the complex 3 x 3 matrices
 realvec = lambda A: [QQ(z.real()) for z in A.list()] + [QQ(z.imag()) for z in A.list()]
 herm = matrix(QQ, [realvec(A - A.conjugate_transpose()) for A in basis]).transpose()
-tr = matrix(QQ, [[QQ(A.trace().real()) for A in basis], [QQ(A.trace().imag()) for A in basis]])
-print("Hermitian:", herm.right_kernel().dimension(), "; traceless Hermitian:", herm.stack(tr).right_kernel().dimension(), "; all:", len(basis))
+ds = matrix(QQ, [[QQ(sum(A.diagonal()).real()) for A in basis], [QQ(sum(A.diagonal()).imag()) for A in basis]])
+print("Hermitian:", herm.right_kernel().dimension(), "; Hermitian, zero diagonal sum:", herm.stack(ds).right_kernel().dimension(), "; all:", len(basis))
 ```
 
 ```{.text .sage-output}
-Hermitian: 9 ; traceless Hermitian: 8 ; all: 18
+Hermitian: 9 ; Hermitian, zero diagonal sum: 8 ; all: 18
 ```
 ::::
 :::
@@ -3773,15 +3776,15 @@ $a f_1 + b f_2 = (5, 4)$ means $2a + b = 5$ and $a + 2b = 4$; subtracting twice 
 $-3b = -3$, so $b = 1$ and $a = 2$.
 :::
 
-A solution found by any method can be checked by substituting it back, and the determinant of the system decides
-whether it is the only one. The next example does both for the coordinates of $(5, 4)$.
+A solution found by any method can be checked by substituting it back, and elimination shows whether it is the
+only one. The next example does both for the coordinates of $(5, 4)$.
 
 ::: {#exm-coords-witness}
 #### Checking the coordinates
 
 Substituting $a = 2$, $b = 1$ gives $2 \cdot 2 + 1 = 5$ and $2 + 2 \cdot 1 = 4$, so $2 f_1 + f_2 = (5, 4)$. The
-solution is unique because the matrix of the system, with columns $f_1, f_2$, has determinant $2 \cdot 2 - 1 \cdot 1
-= 3 \neq 0$.
+solution is unique: subtracting twice the second equation $a + 2b = 4$ from the first $2a + b = 5$ gives $-3b = -3$,
+which fixes $b = 1$ and then $a = 2$.
 :::
 
 The next reading of the same coordinates is geometric. Counting blue grid lines from the origin to the tip of $v$ in
@@ -3794,15 +3797,17 @@ In @fig-basis-change the tip of $v$ sits two blue lines along $f_1$ and one alon
 coordinates are read off the grid of the basis, exactly as $(5, 4)$ is read off the grey grid.
 :::
 
-Cramer's rule gives each coordinate as a ratio of two determinants. The example applies it to the proposition, and it
-shows why the determinant $3$ appears in every denominator.
+The same elimination works for every vector at once, and gives each coordinate as a formula in the entries. The
+example solves the system for a general right-hand side, and it shows why the factor $\tfrac13$ appears in both
+coordinates.
 
-::: {#exm-coords-cramer}
-#### Cramer's rule
+::: {#exm-coords-general}
+#### Coordinates of a general vector
 
-Replacing the first column of $F = (f_1\ f_2)$ by $(5, 4)$ gives the determinant $5 \cdot 2 - 1 \cdot 4 = 6$, and
-replacing the second gives $2 \cdot 4 - 5 \cdot 1 = 3$. Dividing by $\det F = 3$, the coordinates are $a = 6/3 = 2$
-and $b = 3/3 = 1$ (@exr-det-cramer).
+Write $(x, y) = a f_1 + b f_2$, that is $2a + b = x$ and $a + 2b = y$. Twice the first equation minus the second gives
+$3a = 2x - y$, and twice the second minus the first gives $3b = 2y - x$. So $a = \tfrac13(2x - y)$ and $b =
+\tfrac13(2y - x)$ for every $(x, y)$; for $(5, 4)$ this is $a = 6/3 = 2$ and $b = 3/3 = 1$. The $3$ is what is left of the
+coefficients after the elimination, $2 \cdot 2 - 1 \cdot 1$.
 :::
 
 Sage finds coordinates in two ways, by solving the system and by asking the span for coordinates in a chosen basis.
@@ -3840,7 +3845,7 @@ displacement in the mode vectors is a coordinate computation like the one of the
 #### Normal-mode coordinates
 
 For two equal masses between two walls, joined to the walls and to each other by equal springs, the normal modes are
-$(1, 1)$ and $(1, -1)$ (@exr-coords-oscillator-modes). The displacement $(5, 4)$ has mode coordinates $(\tfrac92,
+$(1, 1)$ and $(1, -1)$. The displacement $(5, 4)$ has mode coordinates $(\tfrac92,
 \tfrac12)$: $(5, 4) = \tfrac92(1, 1) + \tfrac12(1, -1)$, so the in-phase mode carries most of it.
 :::
 
@@ -3914,8 +3919,7 @@ Find the coordinates of $(1, 5)$ and of $(-1, 1)$ in the basis $f$.
 
 For $(1, 5)$ the system is $2a + b = 1$, $a + 2b = 5$; subtracting twice the second from the first gives $-3b = -9$,
 so $b = 3$ and $a = -1$: $(1, 5) = -f_1 + 3f_2$. For $(-1, 1)$, $2a + b = -1$ and $a + 2b = 1$ give $b = 1$, $a = -1$:
-$(-1, 1) = -f_1 + f_2$. In general the coordinates are $\mathbf F^{-1} \mathbf v$, with $\mathbf F$ the matrix of columns $f_1, f_2$
-(@exr-coords-inverse-matrix).
+$(-1, 1) = -f_1 + f_2$. In general the coordinates are $\mathbf F^{-1} \mathbf v$, with $\mathbf F$ the matrix of columns $f_1, f_2$.
 
 ## SageMath
 
@@ -3938,7 +3942,7 @@ v = (5, 4) : coordinates (2, 1) ; check True
 :::
 
 The inverse-matrix formula for coordinates deserves both a proof and a worked instance. The exercise asks for both,
-and the inverse for the basis $f$ turns out to carry the dual basis of the next section in its rows.
+and the rows of the inverse for the basis $f$ turn out to compute the two coordinates one at a time.
 
 ::: {#exr-coords-inverse-matrix}
 #### Coordinates by the inverse matrix
@@ -3953,8 +3957,8 @@ matrix with columns $f_j$, and compute $\mathbf F^{-1}$ for $f = ((2, 1), (1, 2)
 
 $\mathbf v = \lambda^j f_j$ is the matrix product $\mathbf v = \mathbf F\lambda$. Since the columns of $\mathbf F$ form a basis, $\mathbf F\lambda = \mathbf w$ has
 exactly one solution for every $\mathbf w$ (@exr-basis-unique-coordinates), so $\mathbf F$ is invertible and $\lambda = \mathbf F^{-1} \mathbf v$. For
-$\mathbf F = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, $\det \mathbf F = 3$ and $\mathbf F^{-1} = \tfrac13 \begin{pmatrix} 2 & -1 \\ -1 & 2
-\end{pmatrix}$, whose rows are the dual basis of @exm-dual-f; $\mathbf F^{-1}(5, 4) = \tfrac13(6, 3) = (2, 1)$.
+$\mathbf F = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, $\mathbf F^{-1} = \tfrac13 \begin{pmatrix} 2 & -1 \\ -1 & 2
+\end{pmatrix}$, as multiplying out confirms; its first row gives the first coordinate and its second row the second, and $\mathbf F^{-1}(5, 4) = \tfrac13(6, 3) = (2, 1)$.
 
 ## SageMath
 
@@ -4006,7 +4010,7 @@ number of solutions: 1 ; a = 2/3*x - 1/3*y , b = -1/3*x + 2/3*y ; at (5, 4): 2 1
 :::
 
 Every basis of the plane has a formula like that of the previous exercise. The exercise derives it from the four
-entries of the basis vectors and shows what goes wrong when the determinant vanishes.
+entries of the basis vectors and shows what goes wrong when the number $ps - qr$ built from them vanishes.
 
 ::: {#exr-coords-general-2d}
 #### Coordinates in any basis of the plane
@@ -4047,7 +4051,8 @@ for f at (5, 4): 2 1
 :::
 
 Not every vector with integer entries has integer coordinates in a skewed basis. The exercise finds which ones do, and
-the answer, one in three, is the determinant of $F$ seen as a counting rule.
+the answer, one in three, is the number $2 \cdot 2 - 1 \cdot 1 = 3$ built from the entries of $f$, seen as a counting
+rule.
 
 ::: {#exr-coords-lattice}
 #### Integer coordinates
@@ -4062,7 +4067,8 @@ divisible by $3$.
 
 By @exr-coords-uniqueness the coordinates are $a = \tfrac13(2x - y)$ and $b = \tfrac13(2y - x)$. If they are integers,
 so is $a + b = \tfrac13(x + y)$. Conversely, if $x + y = 3k$, then $2x - y = 3x - (x + y) = 3(x - k)$, so $a = x - k$ is
-an integer, and $b = k - a$ is one too. Among the integer points one in three passes the test, matching $\det F = 3$:
+an integer, and $b = k - a$ is one too. Among the integer points one in three passes the test, matching $ad - bc = 2
+\cdot 2 - 1 \cdot 1 = 3$ for the entries of $\mathbf F$:
 each cell of the blue grid of @fig-basis-change has three times the area of a grey one.
 
 ## SageMath
@@ -4289,7 +4295,7 @@ in the propositions at the end of the section.
 
 $\mathbf A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$ defines $\mathbf x \mapsto \mathbf A \mathbf x$ from $\mathbb{R}^3$ to
 $\mathbb{R}^2$; its image is the line spanned by $(1, 2)$ (rank $1$) and its kernel is a plane (nullity $2$),
-containing $(1, 1, -1)$ (@prp-kernel-vector, @exr-kernel-image).
+containing $(1, 1, -1)$.
 :::
 
 What a linear map does to the plane is best seen on a grid. The shear below keeps the origin, sends lines to lines and
@@ -4314,21 +4320,22 @@ the derivative.
 ::: {#exm-linear-rotation}
 #### Rotations and derivatives
 
-A rotation $R \in SO(3)$ is a linear bijection of $\mathbb{R}^3$ with kernel $\{0\}$. The derivative $f \mapsto f'$
+A rotation $\mathbf R$ of $\mathbb{R}^3$ is a linear bijection of $\mathbb{R}^3$ with kernel $\{0\}$. The derivative $f \mapsto f'$
 is a linear map of the polynomials of degree at most $2$ to those of degree at most $1$, with kernel the constants
-and rank $2$ (@exr-matrix-of-derivative).
+and rank $2$.
 :::
 
 Composing two linear maps multiplies their matrices, $(ML)^i{}_k = M^i{}_j L^j{}_k$, and a computer algebra system
 does the bookkeeping. The example below uses SageMath [@sagemath] to compose a map $\mathbb{R}^3 \to \mathbb{R}^2$
-with a map $\mathbb{R}^2 \to \mathbb{R}^3$, and to find the vectors that a diagonal map only rescales.
+with a map $\mathbb{R}^2 \to \mathbb{R}^3$, and to find the vectors that the composite sends to zero.
 
 ::: {#exm-sage-matrices}
-#### Matrix products and eigenvectors in SageMath
+#### Matrix products in SageMath
 
 The product of a $3 \times 2$ and a $2 \times 3$ matrix is $3 \times 3$: it is the matrix of the composite map
-$\mathbb{R}^3 \to \mathbb{R}^2 \to \mathbb{R}^3$. For $\mathbf C = \operatorname{diag}(1, 2)$ the vectors with $\mathbf C \mathbf v = \lambda \mathbf v$,
-which Sage calls eigenvectors, are the multiples of the standard basis vectors, with $\lambda = 1$ and $\lambda = 2$.
+$\mathbb{R}^3 \to \mathbb{R}^2 \to \mathbb{R}^3$. The composite sends $(1, -2, 1)$ to zero, since $\mathbf B$ already does:
+$7 - 16 + 9 = 0$ and $9 - 20 + 11 = 0$. Its kernel is the line through $(1, -2, 1)$, because $\mathbf A$ sends only $\mathbf 0$ to
+zero.
 
 ```{.python .sage}
 A = Matrix([[1, 2], [3, 4], [5, 6]])
@@ -4338,14 +4345,11 @@ B = Matrix([[7, 8, 9], [9, 10, 11]])
 print(B)
 # Matrix multiplication
 print(A * B)
-# Define matrix C
-C = Matrix([[1, 0], [0, 2]])
-print(C)
-# Eigenvalue equation
-print(C.eigenvectors_right())
-# Validation of eigenvalue equation
-for eigenvalue, (eigenvector, *_), _ in C.eigenvectors_right():
-    print(eigenvector, eigenvalue, C * eigenvector == eigenvalue * eigenvector)
+# Kernel of the composite
+print((A * B).right_kernel().basis())
+# Validation
+v = vector([1, -2, 1])
+print(v, B * v, A * B * v)
 ```
 
 ```{.text .sage-output}
@@ -4357,15 +4361,10 @@ for eigenvalue, (eigenvector, *_), _ in C.eigenvectors_right():
 [ 25  28  31]
 [ 57  64  71]
 [ 89 100 111]
-[1 0]
-[0 2]
-[(2, [
-(0, 1)
-], 1), (1, [
-(1, 0)
-], 1)]
-(0, 1) 2 True
-(1, 0) 1 True
+[
+(1, -2, 1)
+]
+(1, -2, 1) (0, 0) (0, 0, 0)
 ```
 :::
 
@@ -4411,13 +4410,13 @@ plane of the motion.
 
 For $\omega = (0, 0, \Omega)$ with $\Omega \neq 0$, the map $r \mapsto \omega \times r = (-\Omega y, \Omega x, 0)$ has
 the antisymmetric matrix $\begin{pmatrix} 0 & -\Omega & 0 \\ \Omega & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$, an element
-of $\mathfrak{so}(3)$ (@exm-vs-matrices). Its kernel is the axis, the $z$-axis of points that do not move, and its image
+of the antisymmetric matrices (@exm-vs-matrices). Its kernel is the axis, the $z$-axis of points that do not move, and its image
 is the $xy$-plane of possible velocities: $1 + 2 = 3$.
 :::
 
 In infinite dimension rank-nullity says nothing, and two familiar maps on the polynomials show what can then happen.
-On a finite-dimensional space a map $V \to V$ is injective exactly when it is surjective (@exr-linear-dimension-bounds),
-and both maps below break this.
+On a finite-dimensional space a map $V \to V$ is injective exactly when it is surjective, since by rank-nullity a
+kernel $\{0\}$ means an image of dimension $\dim V$, and both maps below break this.
 
 ::: {#exm-linear-infinite}
 #### Derivative and multiplication by $x$
@@ -4951,16 +4950,17 @@ Every linear functional on $\mathbb{R}^n$ is $v \mapsto a_i v^i$ for a unique ro
 vectors, rows are covectors. The pairing $a_i v^i$ is the matrix product of a row with a column.
 :::
 
-On a space of matrices the most important functional is the trace, the sum of the diagonal entries. The example
-records its kernel, the traceless matrices, which reappear as the Lie algebra of the special linear group.
+On a space of matrices an important functional is the sum of the diagonal entries. The example records its kernel,
+the matrices with zero diagonal sum, and recovers a count made earlier with a basis.
 
 ::: {#exm-functional-trace}
-#### The trace
+#### The sum of the diagonal entries
 
-$\operatorname{tr} \mathbf A = A_{11} + \dots + A_{nn}$ is a linear functional on the $n \times n$ matrices, since the
+$\mathbf A \mapsto A_{11} + \dots + A_{nn}$ is a linear functional on the $n \times n$ matrices, since the
 diagonal entries of $\mathbf A + \mathbf B$ and $\lambda \mathbf A$ are those of $\mathbf A$ and $\mathbf B$ added and rescaled. It is not zero, as
-$\operatorname{tr} \mathbf E_{11} = 1$, so its kernel, the traceless matrices, has dimension $n^2 - 1$
-(@exr-functional-surjective); for $n = 3$ this is the count $8$ of @exm-dim-sage.
+it takes the value $1$ on $\mathbf E_{11}$, so it takes every value $\lambda$, on $\lambda \mathbf E_{11}$, and by
+rank-nullity its kernel, the matrices with zero diagonal sum, has dimension $n^2 - 1$; for $n = 3$ this is the count
+$8$ of @exm-dim-sage.
 :::
 
 On function spaces the natural functionals are evaluation at a point, differentiation at a point and integration over
@@ -5128,9 +5128,8 @@ alpha(p) = 3 ; alpha(p + k) for the kernel basis vectors k: [3, 3]
 ::::
 :::
 
-Integration over the circle is a functional on the Fourier modes, and its row is particularly simple. The exercise
-evaluates it on a few modes, checks linearity, and finds that every non-constant mode lies in its kernel, the fact
-behind the orthogonality of Fourier modes.
+Integration over the circle is a functional on the trigonometric modes, and its row is particularly simple. The
+exercise evaluates it on a few modes, checks linearity, and finds that every non-constant mode lies in its kernel.
 
 ::: {#exr-functional-integration}
 #### The integral as a functional
@@ -5271,18 +5270,18 @@ then $\alpha(t v / \alpha(v)) = t$ for every $t$. In the second case the rank is
 
 ## SageMath
 
-Check on the trace of the $3 \times 3$ matrices and on the row $(1, 2, 3)$:
+Check on the sum of the diagonal entries of the $3 \times 3$ matrices and on the row $(1, 2, 3)$:
 
 ```{.python .sage}
 Es = [matrix(QQ, 3, 3, {(i, j): 1}) for i in range(3) for j in range(3)]
-tr_row = matrix(QQ, [[E.trace() for E in Es]])
-print("trace on 3 x 3 matrices: rank", tr_row.rank(), ", kernel dimension", tr_row.right_kernel().dimension())
+ds_row = matrix(QQ, [[sum(E.diagonal()) for E in Es]])
+print("diagonal sum on 3 x 3 matrices: rank", ds_row.rank(), ", kernel dimension", ds_row.right_kernel().dimension())
 alpha, v, t = vector(QQ, [1, 2, 3]), vector(QQ, [1, 0, 0]), QQ(-7/2)
 print("alpha(t v / alpha(v)) for t = -7/2:", alpha * (t * v / (alpha * v)))
 ```
 
 ```{.text .sage-output}
-trace on 3 x 3 matrices: rank 1 , kernel dimension 8
+diagonal sum on 3 x 3 matrices: rank 1 , kernel dimension 8
 alpha(t v / alpha(v)) for t = -7/2: -7/2
 ```
 ::::
@@ -5512,14 +5511,15 @@ $p$ of degree at most $2$.
 :::
 
 Square matrices form a space of dimension $n^2$, and its dual can be described by matrices too. The example uses the
-trace, the sum of the diagonal entries, to turn each matrix $\mathbf B$ into a functional.
+sum of the diagonal entries of a product to turn each matrix $\mathbf B$ into a functional.
 
 ::: {#exm-dual-space-matrices}
 #### Functionals on matrices
 
-On the $n \times n$ matrices, every $\mathbf B$ defines the functional $\mathbf A \mapsto \operatorname{tr}(\mathbf B \mathbf A) = \sum_{i, j} B_{ij}
-A_{ji}$, where $\operatorname{tr}$ is the sum of the diagonal entries. The trace itself is $\mathbf B = \mathbf I$, and $\mathbf A \mapsto
-A_{12}$ is $\mathbf B = \mathbf E_{21}$. Every functional arises in this way from exactly one $\mathbf B$ (@exr-dual-space-trace-pairing), so
+On the $n \times n$ matrices, every $\mathbf B$ defines the functional $\mathbf A \mapsto \sum_i (\mathbf B \mathbf A)_{ii} = \sum_{i, j} B_{ij}
+A_{ji}$, the sum of the diagonal entries of $\mathbf B \mathbf A$. The sum of the diagonal entries of $\mathbf A$ itself is $\mathbf B = \mathbf I$, and
+$\mathbf A \mapsto A_{12}$ is $\mathbf B = \mathbf E_{21}$. Every functional $\alpha$ arises in this way from exactly one $\mathbf B$, namely
+$B_{ij} = \alpha(\mathbf E_{ji})$, since $\sum_{k, l} B_{kl} (\mathbf E_{ji})_{lk} = B_{ij}$ and both functionals are linear and agree on the matrices $\mathbf E_{ji}$; so
 the dual has dimension $n^2$, as the definition requires.
 :::
 
@@ -5555,7 +5555,7 @@ vector acts on covectors, which is the reason vectors and covectors can be treat
 #### The double dual
 
 The dual of $V^*$ is $V$ again for finite-dimensional $V$: a vector $v$ acts on covectors by $\alpha \mapsto
-\alpha(v)$, and every linear functional on $V^*$ is of this form (@exr-dual-double). In components, $v(\alpha) =
+\alpha(v)$, and every linear functional on $V^*$ is of this form. In components, $v(\alpha) =
 \alpha(v) = \alpha_i v^i$, a formula symmetric in the two kinds of object [@carroll1997, Ch. 1, eq. (1.36)],
 [@lee2013introduction, Prop. 11.8].
 :::
@@ -5776,7 +5776,7 @@ V \to \mathbb{R}$; it is linear, since the coordinates of $v + \lambda w$ are $v
 \delta^i_j$. The $e^i$ span $V^*$: for a covector $\alpha$, $\alpha(v) = \alpha(v^j e_j) = v^j\alpha(e_j) = \alpha(e_j)
 e^j(v)$ for every $v$, so $\alpha = \alpha(e_j) e^j$. They are independent: if $\lambda_i e^i = 0$, evaluating at $e_j$
 gives $\lambda_j = 0$. So $V^*$ has a basis of $n$ elements, and $\dim V^* = n$ [@lee2013introduction, Prop. 11.1],
-[@keskivakkuri2022mathematical, Sec. 3.6, Lemmas 3.11-3.12]. This is the dual basis of @def-dual-basis.
+[@keskivakkuri2022mathematical, Sec. 3.6, Lemmas 3.11-3.12].
 
 ## SageMath
 
@@ -5933,13 +5933,13 @@ U^0 and W^0 have dimension 2 2
 ::::
 :::
 
-The trace pairs two matrices into a number, and this pairing identifies the dual of the matrices with the matrices
-themselves. The exercise proves the claim of @exm-dual-space-matrices and finds the matrix of one functional.
+The sum of the diagonal entries of a product pairs two matrices into a number, and this pairing identifies the dual of
+the matrices with the matrices themselves. The exercise proves the claim of @exm-dual-space-matrices and finds the matrix of one functional.
 
 ::: {#exr-dual-space-trace-pairing}
-#### Functionals on matrices as traces
+#### Functionals on matrices as pairings
 
-Show that every linear functional $\alpha$ on the $n \times n$ matrices is $\mathbf A \mapsto \operatorname{tr}(\mathbf B \mathbf A)$ for exactly
+Show that every linear functional $\alpha$ on the $n \times n$ matrices is $\mathbf A \mapsto \sum_i (\mathbf B \mathbf A)_{ii}$ for exactly
 one matrix $\mathbf B$, and find $\mathbf B$ for $\alpha(\mathbf A) = A_{12} + 3A_{21}$ on the $2 \times 2$ matrices.
 :::
 
@@ -5947,16 +5947,16 @@ one matrix $\mathbf B$, and find $\mathbf B$ for $\alpha(\mathbf A) = A_{12} + 3
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-$\operatorname{tr}(\mathbf B \mathbf A) = \sum_i (\mathbf B \mathbf A)_{ii} = \sum_{i, j} B_{ij} A_{ji}$ is linear in $\mathbf A$, and on the matrix unit
+$\sum_i (\mathbf B \mathbf A)_{ii} = \sum_{i, j} B_{ij} A_{ji}$ is linear in $\mathbf A$, and on the matrix unit
 $\mathbf E_{kl}$ it takes the value $B_{lk}$. A functional is determined by its values on the basis $\mathbf E_{kl}$
-(@exr-functional-rows), so $\alpha(\mathbf A) = \operatorname{tr}(\mathbf B \mathbf A)$ holds exactly when $B_{lk} = \alpha(\mathbf E_{kl})$ for all
+(@exr-functional-rows), so $\alpha(\mathbf A) = \sum_i (\mathbf B \mathbf A)_{ii}$ holds exactly when $B_{lk} = \alpha(\mathbf E_{kl})$ for all
 $k, l$: the matrix $\mathbf B$ exists and is unique. For $\alpha(\mathbf A) = A_{12} + 3A_{21}$, $\alpha(\mathbf E_{12}) = 1$ and
 $\alpha(\mathbf E_{21}) = 3$, so $B_{21} = 1$, $B_{12} = 3$ and $\mathbf B = \begin{pmatrix} 0 & 3 \\ 1 & 0 \end{pmatrix}$.
 
 ## SageMath
 
-Sage builds $\mathbf B$ from the values $\alpha(\mathbf E_{kl})$ and compares $\operatorname{tr}(\mathbf B \mathbf A)$ with $\alpha(\mathbf A)$ on a symbolic
-matrix.
+Sage builds $\mathbf B$ from the values $\alpha(\mathbf E_{kl})$ and compares $\sum_i (\mathbf B \mathbf A)_{ii}$ with $\alpha(\mathbf A)$ on a
+symbolic matrix.
 
 ```{.python .sage}
 a11, a12, a21, a22 = var("a11 a12 a21 a22")
@@ -5964,11 +5964,11 @@ alpha = lambda A: A[0, 1] + 3 * A[1, 0]
 E = lambda k, l: matrix(QQ, 2, 2, {(k, l): 1})
 B = matrix(QQ, 2, 2, lambda l, k: alpha(E(k, l)))       # B_lk = alpha(E_kl)
 A = matrix(SR, [[a11, a12], [a21, a22]])
-print("B =", B.rows(), "; tr(BA) =", (B * A).trace(), "; alpha(A) =", alpha(A))
+print("B =", B.rows(), "; sum of diagonal of BA =", sum((B * A).diagonal()), "; alpha(A) =", alpha(A))
 ```
 
 ```{.text .sage-output}
-B = [(0, 3), (1, 0)] ; tr(BA) = a12 + 3*a21 ; alpha(A) = a12 + 3*a21
+B = [(0, 3), (1, 0)] ; sum of diagonal of BA = a12 + 3*a21 ; alpha(A) = a12 + 3*a21
 ```
 ::::
 :::
@@ -6044,13 +6044,13 @@ coordinate of $x$: $x = \tfrac{x}{3}\, e_1$. Stretching the basis vector shrinks
 :::
 
 For the standard basis the dual basis consists of the coordinate functionals, and evaluating one of them on a vector
-picks out an entry. The example gives the single evaluation that @prp-dual-basis records.
+picks out an entry. The example evaluates one of them on a vector.
 
 ::: {#exm-dual-standard}
 #### The standard dual basis
 
 For the standard basis of $\mathbb{R}^3$, $e^i$ is the $i$-th coordinate functional, the row with a $1$ in place $i$, so
-$e^2(5, 7, 9) = 7$ (@prp-dual-basis) [@lee2013introduction, p. 273].
+$e^2(5, 7, 9) = 7$ [@lee2013introduction, p. 273].
 :::
 
 For the skewed basis $f$ the dual basis is less obvious: its elements are the rows of the inverse matrix. The example
@@ -6060,8 +6060,7 @@ writes them down and shows that applying them to $(5, 4)$ returns the coordinate
 #### Dual basis of $f_1 = (2, 1)$, $f_2 = (1, 2)$
 
 The dual basis is $f^1 = \tfrac13(2, -1)$, $f^2 = \tfrac13(-1, 2)$ as rows, the rows of the inverse of the matrix
-with columns $f_1, f_2$; $f^1(5, 4) = 2$ and $f^2(5, 4) = 1$ are the coordinates found in @fig-basis-change
-(@exr-dual-basis, @prp-dual-basis).
+with columns $f_1, f_2$; $f^1(5, 4) = 2$ and $f^2(5, 4) = 1$ are the coordinates found in @fig-basis-change.
 :::
 
 A covector on the plane is drawn as its family of level lines, as in @fig-level-sets. The example draws $f^1$ this way,
@@ -6091,15 +6090,14 @@ delta, for example $e^2(x^2) = \tfrac12 \cdot 2 = 1$ and $e^1(x^2) = 0$.
 
 The observables of a spin $\tfrac12$ are the Hermitian $2 \times 2$ matrices, a real space of dimension $4$ with the
 basis $\mathbf I, \sigma_1, \sigma_2, \sigma_3$ (@exm-vs-hermitian). The example gives its dual basis, which extracts the
-components of an observable with a trace.
+components of an observable with a sum of diagonal entries.
 
 ::: {#exm-dual-basis-pauli}
 #### Components of a spin observable
 
-Write $\sigma_0 = \mathbf I$. The products $\sigma_j\sigma_k$ have trace $2$ for $j = k$ and $0$ for $j \neq k$, where the trace is
-the sum of the diagonal entries. So the functionals $\sigma^k(\mathbf H) = \tfrac12\operatorname{tr}(\sigma_k \mathbf H)$ satisfy
-$\sigma^k(\sigma_j) = \delta^k_j$: they are the dual basis, and every Hermitian $\mathbf H$ is $\mathbf H = \sigma^k(\mathbf H)\,\sigma_k$
-(@exr-dual-basis-pauli).
+Write $\sigma_0 = \mathbf I$. The diagonal entries of the product $\sigma_j\sigma_k$ add up to $2$ for $j = k$ and to $0$ for
+$j \neq k$. So the functionals $\sigma^k(\mathbf H) = \tfrac12\sum_a (\sigma_k \mathbf H)_{aa}$ satisfy
+$\sigma^k(\sigma_j) = \delta^k_j$: they are the dual basis, and every Hermitian $\mathbf H$ is $\mathbf H = \sigma^k(\mathbf H)\,\sigma_k$.
 :::
 
 In the bra-ket notation the dual basis of a basis of kets is a family of bras. The example finds it for the two spin
@@ -6125,8 +6123,7 @@ The example writes the new basis and its dual basis, which transforms with the o
 
 With $\gamma = 1/\sqrt{1 - \beta^2}$, the moving observer's time and space axes are $e'_0 = \gamma(e_0 + \beta e_1)$ and
 $e'_1 = \gamma(\beta e_0 + e_1)$. The dual basis is $e'^0 = \gamma(e^0 - \beta e^1)$, $e'^1 = \gamma(e^1 - \beta e^0)$:
-for example $e'^0(e'_0) = \gamma^2(1 - \beta^2) = 1$ and $e'^0(e'_1) = \gamma^2(\beta - \beta) = 0$
-(@exr-dual-basis-boost-doppler).
+for example $e'^0(e'_0) = \gamma^2(1 - \beta^2) = 1$ and $e'^0(e'_1) = \gamma^2(\beta - \beta) = 0$.
 :::
 
 The notation $e^1$ suggests that the first dual covector depends only on $e_1$. The example shows that it depends on the
@@ -6433,13 +6430,14 @@ v' = A^-1 v = (2, 1) ; alpha' = alpha A = (5, 4) ; pairing: 14 = 14
 ::::
 :::
 
-The claim of @exm-dual-basis-pauli rests on four traces, and it can be used to decompose any observable. The exercise
+The claim of @exm-dual-basis-pauli rests on sums of diagonal entries of products, and it can be used to decompose any
+observable. The exercise
 proves the dual-basis property and computes the components of one Hermitian matrix.
 
 ::: {#exr-dual-basis-pauli}
 #### Components in the Pauli basis
 
-With $\sigma_0 = \mathbf I$ and $\sigma^k(\mathbf H) = \tfrac12\operatorname{tr}(\sigma_k \mathbf H)$, show that $\sigma^k(\sigma_j) =
+With $\sigma_0 = \mathbf I$ and $\sigma^k(\mathbf H) = \tfrac12\sum_a (\sigma_k \mathbf H)_{aa}$, show that $\sigma^k(\sigma_j) =
 \delta^k_j$ for $j, k = 0, 1, 2, 3$, and write $\mathbf H = \begin{pmatrix} 2 & 1 - i \\ 1 + i & 0 \end{pmatrix}$ as $h^k
 \sigma_k$.
 :::
@@ -6448,32 +6446,34 @@ With $\sigma_0 = \mathbf I$ and $\sigma^k(\mathbf H) = \tfrac12\operatorname{tr}
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-Each $\sigma_k$ squares to $\mathbf I$, of trace $2$, so $\sigma^k(\sigma_k) = 1$. For $j \neq k$ among $1, 2, 3$, $\sigma_1
-\sigma_2 = i\sigma_3$, $\sigma_2\sigma_3 = i\sigma_1$, $\sigma_3\sigma_1 = i\sigma_2$ and the products in the other order
-are their negatives; each $\sigma_k$ with $k \geq 1$ has trace $0$, so these products are traceless. Products with
-$\sigma_0 = \mathbf I$ are $\sigma_k$ itself, traceless for $k \neq 0$. So $\tfrac12\operatorname{tr}(\sigma_k\sigma_j) =
-\delta_{kj}$; the $\sigma^k$ are real-valued and real-linear on Hermitian matrices (the trace of a Hermitian matrix is
-real, and $\sigma_k \mathbf H$ has the real trace $\sum_{a, b}(\sigma_k)_{ab}H_{ba}$ because $H_{ba} = H_{ab}^*$), so they are
-the dual basis. For the given $\mathbf H$, $\operatorname{tr} \mathbf H = 2$, $\operatorname{tr}(\sigma_1 \mathbf H) = (1 + i) + (1 - i) = 2$,
-$\operatorname{tr}(\sigma_2 \mathbf H) = (1 - i) + (1 + i) = 2$ and $\operatorname{tr}(\sigma_3 \mathbf H) = 2 - 0 = 2$, so $h^k = 1$ for
+Each $\sigma_k$ squares to $\mathbf I$, whose diagonal entries add up to $2$, so $\sigma^k(\sigma_k) = 1$. For $j \neq k$
+among $1, 2, 3$, $\sigma_1 \sigma_2 = i\sigma_3$, $\sigma_2\sigma_3 = i\sigma_1$, $\sigma_3\sigma_1 = i\sigma_2$ and the
+products in the other order are their negatives; the diagonal entries of each $\sigma_k$ with $k \geq 1$ add up to $0$,
+so those of these products do too. Products with $\sigma_0 = \mathbf I$ are $\sigma_k$ itself, of zero diagonal sum for $k \neq
+0$. So $\tfrac12\sum_a(\sigma_k\sigma_j)_{aa} = \delta_{kj}$; the $\sigma^k$ are real-valued and real-linear on Hermitian
+matrices ($\sum_a (\sigma_k \mathbf H)_{aa} = \sum_{a, b}(\sigma_k)_{ab}H_{ba}$ is real because $H_{ba} = H_{ab}^*$ and
+$\sigma_k$ is Hermitian too), so they are the dual basis. For the given $\mathbf H$, $H_{11} + H_{22} = 2$, $\sum_a (\sigma_1
+\mathbf H)_{aa} = (1 + i) + (1 - i) = 2$, $\sum_a (\sigma_2 \mathbf H)_{aa} = (1 - i) + (1 + i) = 2$ and $\sum_a (\sigma_3
+\mathbf H)_{aa} = 2 - 0 = 2$, so $h^k = 1$ for
 all $k$ and $\mathbf H = \mathbf I + \sigma_1 + \sigma_2 + \sigma_3$.
 
 ## SageMath
 
-Sage computes the table $\tfrac12\operatorname{tr}(\sigma_k\sigma_j)$ and the four components of $\mathbf H$, over
+Sage computes the table $\tfrac12\sum_a(\sigma_k\sigma_j)_{aa}$ and the four components of $\mathbf H$, over
 $\overline{\mathbb{Q}}$.
 
 ```{.python .sage}
 i = QQbar(I)
 s = [identity_matrix(QQbar, 2), matrix(QQbar, [[0, 1], [1, 0]]), matrix(QQbar, [[0, -i], [i, 0]]), matrix(QQbar, [[1, 0], [0, -1]])]
-print("tr(s_k s_j)/2:", [[(s[k] * s[j]).trace() / 2 for j in range(4)] for k in range(4)])
+ds = lambda M: sum(M.diagonal())                              # sum of the diagonal entries
+print("ds(s_k s_j)/2:", [[ds(s[k] * s[j]) / 2 for j in range(4)] for k in range(4)])
 H = matrix(QQbar, [[2, 1 - i], [1 + i, 0]])
-h = [(s[k] * H).trace() / 2 for k in range(4)]
+h = [ds(s[k] * H) / 2 for k in range(4)]
 print("h^k =", h, "; H == h^k s_k:", H == sum(h[k] * s[k] for k in range(4)))
 ```
 
 ```{.text .sage-output}
-tr(s_k s_j)/2: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+ds(s_k s_j)/2: [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
 h^k = [1, 1, 1, 1] ; H == h^k s_k: True
 ```
 ::::
@@ -7617,7 +7617,7 @@ coordinates of (5, 4): (3/2, 1/2) ; components of alpha: (9, 1) ; pairing: 14 = 
 
 A bilinear form assigns a number to two vectors, linearly in each. This section treats bilinear forms on a fixed
 vector space, their symmetry, non-degeneracy and signature, with the Euclidean dot product and the Minkowski form
-of special relativity as the running examples; the light cone of @fig-minkowski-cone is the picture to keep in mind.
+of special relativity as the running examples; the light cone is the picture to keep in mind.
 Four definitions and one proposition on the values of the Minkowski form; a degenerate form on the plane serves as
 the counterexample throughout.
 
@@ -7671,17 +7671,17 @@ correspond one to one [@axler2024linear, Example 9.2 and result 9.5].
 For an $n \times n$ matrix $\mathbf A$, $B_{\mathbf A}(\mathbf v, \mathbf w) = \mathbf v^\top \mathbf A \mathbf w = A_{ij} v^i w^j$ is bilinear on $\mathbb{R}^n$, and $B_{\mathbf A}(\mathbf e_i,
 \mathbf e_j) = A_{ij}$. For $\mathbf A = \begin{pmatrix} 1 & 2 \\ 0 & -1 \end{pmatrix}$, $B_{\mathbf A}(\mathbf v, \mathbf w) = v^1 w^1 + 2 v^1 w^2 - v^2 w^2$.
 Conversely every bilinear form is $B_{\mathbf A}$ for its own matrix of components, so the forms on an $n$-dimensional space
-make up a space of dimension $n^2$ (@exr-bilinear-space-dim).
+make up a space of dimension $n^2$.
 :::
 
 Not every such form is symmetric, and the next example shows two ways to build one that is not. A product of two
-covectors has rank one, and the $2 \times 2$ determinant changes sign when its arguments are swapped.
+covectors has rank one, and the signed area $v^1 w^2 - v^2 w^1$ changes sign when its arguments are swapped.
 
 ::: {#exm-bilinear-general}
 #### Products of functionals and antisymmetric forms
 
 For covectors $\alpha, \beta$, $B(v, w) = \alpha(v)\beta(w)$ is bilinear with components $\alpha_i \beta_j$; the
-determinant $B(v, w) = v^1 w^2 - v^2 w^1$ on $\mathbb{R}^2$ is bilinear with $B(w, v) = -B(v, w)$. Bilinear forms
+signed area $B(v, w) = v^1 w^2 - v^2 w^1$ on $\mathbb{R}^2$ is bilinear with $B(w, v) = -B(v, w)$. Bilinear forms
 need not be symmetric.
 :::
 
@@ -7714,25 +7714,26 @@ $$
 :::
 
 The next instance is the one special relativity is built on, with one positive sign and three negative ones. The
-example records two values, a unit timelike vector and a null one, that @prp-minkowski-values collects.
+example records two values, one equal to $1$ and one equal to $0$.
 
 ::: {#exm-bilinear-minkowski}
 #### The Minkowski form
 
 $\eta(v, w) = v^0 w^0 - v^1 w^1 - v^2 w^2 - v^3 w^3$ on $\mathbb{R}^4$ is bilinear with components
 $\eta_{\mu\nu} = \operatorname{diag}(1, -1, -1, -1)$; $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$ and $\eta(v, v) = 0$ for
-$v = (1, 1, 0, 0)$ (@prp-minkowski-values).
+$v = (1, 1, 0, 0)$.
 :::
 
-The observables of a spin $\tfrac12$ are the Hermitian $2 \times 2$ matrices, the real space of @exm-vs-hermitian. A
-trace of a product pairs two of them, and in the Pauli basis its components are those of the dot product.
+The observables of a spin $\tfrac12$ are the Hermitian $2 \times 2$ matrices, the real space of @exm-vs-hermitian. The
+sum of the diagonal entries of a product pairs two of them, and in the Pauli basis its components are those of the dot product.
 
 ::: {#exm-bilinear-trace}
 #### Pairing spin observables
 
-On the Hermitian $2 \times 2$ matrices, $B(\mathbf H, \mathbf K) = \tfrac12 \operatorname{tr}(\mathbf H \mathbf K)$ is real and bilinear over
-$\mathbb{R}$, since the trace is linear. In the basis $\sigma_0 = \mathbf I, \sigma_1, \sigma_2, \sigma_3$ its components are
-$\tfrac12\operatorname{tr}(\sigma_j \sigma_k) = \delta_{jk}$ (@exm-dual-basis-pauli), so in components $B(\mathbf H, \mathbf K) = h^0 k^0 +
+On the Hermitian $2 \times 2$ matrices, $B(\mathbf H, \mathbf K) = \tfrac12 \sum_{a, b} H_{ab} K_{ba}$, half the sum of the
+diagonal entries of $\mathbf H \mathbf K$, is real and bilinear over $\mathbb{R}$, since each term is a product of an entry of
+$\mathbf H$ and one of $\mathbf K$. In the basis $\sigma_0 = \mathbf I, \sigma_1, \sigma_2, \sigma_3$ its components are
+$\tfrac12\sum_a(\sigma_j \sigma_k)_{aa} = \delta_{jk}$ (@exm-dual-basis-pauli), so in components $B(\mathbf H, \mathbf K) = h^0 k^0 +
 h^1 k^1 + h^2 k^2 + h^3 k^3$ [@axler2024linear, Example 9.10].
 :::
 
@@ -7746,7 +7747,7 @@ Remark 6.15].
 On the phase plane with points $u = (x, p)$, $\omega(u, u') = x p' - p x'$ is bilinear, with components
 $\omega_{ij} = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$ in the basis $e_x, e_p$. Its value is the signed area of
 the parallelogram spanned by $u$ and $u'$: $\omega(e_x, e_p) = 1$, and $\omega(u, u) = 0$ for every $u$. The time
-evolution $U_t$ of the oscillator preserves it (@exr-bilinear-operator).
+evolution $U_t$ of the oscillator preserves it.
 :::
 
 Some natural ways of producing a number from two vectors fail one of the two linearity conditions. The last example
@@ -8212,8 +8213,7 @@ Both running forms are symmetric, since their matrices are diagonal. The example
 ::: {#exm-symmetric-dot-minkowski}
 #### Dot product and Minkowski form
 
-The dot product and the Minkowski form have diagonal, hence symmetric, matrices; $\eta^\top = \eta$
-(@prp-minkowski-values). Their quadratic forms are the squared length $|v|^2 = (v^1)^2 + \dots + (v^n)^2$ and the
+The dot product and the Minkowski form have diagonal, hence symmetric, matrices; $\eta^\top = \eta$. Their quadratic forms are the squared length $|v|^2 = (v^1)^2 + \dots + (v^n)^2$ and the
 interval $\eta(v, v) = (v^0)^2 - (v^1)^2 - (v^2)^2 - (v^3)^2$.
 :::
 
@@ -8255,15 +8255,15 @@ The dot product has the symmetric matrix $\mathbf I$ in the standard basis and t
 symmetric.
 :::
 
-Matrices themselves carry a symmetric form, built from the trace of a product. The example computes its quadratic
+Matrices themselves carry a symmetric form, built from the diagonal entries of a product. The example computes its quadratic
 form on $2 \times 2$ real matrices and finds that it takes both signs [@axler2024linear, Example 9.10].
 
 ::: {#exm-symmetric-trace-form}
-#### The trace form on matrices
+#### A symmetric form on matrices
 
-On the real $2 \times 2$ matrices, $B(\mathbf X, \mathbf Y) = \operatorname{tr}(\mathbf X \mathbf Y)$ is bilinear and symmetric, since
-$\operatorname{tr}(\mathbf X \mathbf Y) = \sum_{i, j} X_{ij} Y_{ji} = \operatorname{tr}(\mathbf Y \mathbf X)$. For $\mathbf X = \begin{pmatrix} a & b \\ c & d
-\end{pmatrix}$ its quadratic form is $\operatorname{tr}(\mathbf X^2) = a^2 + 2bc + d^2$: it is $2$ on the identity and $-2$ on
+On the real $2 \times 2$ matrices, $B(\mathbf X, \mathbf Y) = \sum_i (\mathbf X \mathbf Y)_{ii} = \sum_{i, j} X_{ij} Y_{ji}$ is bilinear and
+symmetric, since exchanging $\mathbf X$ and $\mathbf Y$ only renames $i$ and $j$. For $\mathbf X = \begin{pmatrix} a & b \\ c & d
+\end{pmatrix}$ its quadratic form is $B(\mathbf X, \mathbf X) = a^2 + 2bc + d^2$: it is $2$ on the identity and $-2$ on
 the rotation generator $\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.
 :::
 
@@ -8279,17 +8279,18 @@ potential energy $V(x_1, x_2) = \tfrac12 k x_1^2 + \tfrac12 k x_2^2 + \tfrac12 k
 $-k' x_1 x_2$ splits into the two off-diagonal entries. The force on mass $i$ is $-(\mathbf K \mathbf x)_i$.
 :::
 
-The determinant of a Hermitian $2 \times 2$ matrix is a quadratic form, and polarising it produces the Minkowski
-form. The example works this out in the Pauli basis, which is how a spin $\tfrac12$ sees spacetime.
+The product of the diagonal entries of a Hermitian $2 \times 2$ matrix minus the product of its off-diagonal entries is
+a quadratic form, and polarising it produces the Minkowski form. The example works this out in the Pauli basis, which is how a spin $\tfrac12$ sees spacetime.
 
 ::: {#exm-symmetric-det-pauli}
-#### The determinant of a spin observable
+#### A quadratic form on spin observables
 
 For $\mathbf H = h^0 + h^1\sigma_1 + h^2\sigma_2 + h^3\sigma_3 = \begin{pmatrix} h^0 + h^3 & h^1 - i h^2 \\ h^1 + i h^2 & h^0 -
-h^3 \end{pmatrix}$, $\det \mathbf H = (h^0)^2 - (h^1)^2 - (h^2)^2 - (h^3)^2$: a quadratic form on the Hermitian matrices. Since
-$\det \mathbf X = \tfrac12((\operatorname{tr}\mathbf X)^2 - \operatorname{tr}(\mathbf X^2))$ for $2 \times 2$ matrices (@exr-trcyc-det-from-traces), polarisation gives the
-symmetric form $B(\mathbf H, \mathbf K) = \tfrac12(\operatorname{tr}\mathbf H \operatorname{tr}\mathbf K - \operatorname{tr}(\mathbf H \mathbf K))$, whose components in
-the basis $\mathbf I, \sigma_1, \sigma_2, \sigma_3$ are $\eta_{\mu\nu}$ (@exr-minkowski-pauli).
+h^3 \end{pmatrix}$, $Q(\mathbf H) = H_{11}H_{22} - H_{12}H_{21} = (h^0)^2 - (h^3)^2 - ((h^1)^2 + (h^2)^2)$, that is
+$Q(\mathbf H) = (h^0)^2 - (h^1)^2 - (h^2)^2 - (h^3)^2$: a quadratic form on the Hermitian matrices, equal to $\eta(h, h)$ for
+the coordinates $h^\mu$ in the basis $\mathbf I, \sigma_1, \sigma_2, \sigma_3$. Polarisation gives the symmetric form
+$B(\mathbf H, \mathbf K) = \tfrac12(Q(\mathbf H + \mathbf K) - Q(\mathbf H) - Q(\mathbf K))$, whose components in that basis are
+$\eta_{\mu\nu}$.
 :::
 
 At the opposite extreme stand the forms that change sign when their arguments are exchanged, whose quadratic form
@@ -8298,7 +8299,7 @@ vanishes identically. The example names the instances met so far and the field s
 ::: {#exm-symmetric-not}
 #### Antisymmetric forms
 
-The determinant form $v^1 w^2 - v^2 w^1$ is antisymmetric, not symmetric, and its quadratic form is identically
+The signed-area form $v^1 w^2 - v^2 w^1$ is antisymmetric, not symmetric, and its quadratic form is identically
 zero; so is the phase-space form $\omega$ of @exm-bilinear-symplectic. The field strength $F_{\mu\nu}$ of
 electromagnetism is an antisymmetric bilinear form on $\mathbb{R}^4$.
 :::
@@ -8311,7 +8312,7 @@ not a subspace, and that it cannot recover a form that is not symmetric [@axler2
 
 For $Q(x, y) = x^2 - y^2$ the zero set is the pair of lines $y = \pm x$, not a subspace: $(1, 1)$ and $(1, -1)$ lie on
 it, but their sum $(2, 0)$ has $Q = 4$. And the two forms $v^1 w^2$ and $v^2 w^1$ have the same quadratic form $xy$,
-so a quadratic form determines only the symmetric part of a bilinear form (@exr-symmetric-decompose).
+so a quadratic form determines only the symmetric part of a bilinear form.
 :::
 ::::
 
@@ -8738,7 +8739,7 @@ matrix of rho: [(0, 0), (0, -1/5)] ; symmetric: True
 {{< interactive minkowski_cone 520 >}}
 
 A form may have directions that pair to zero with everything, and when it has none it identifies vectors with
-covectors. The definition names this property, gives the determinant test, and introduces the lowering and raising of
+covectors. The definition names this property, gives the matrix test, and introduces the lowering and raising of
 indices; the light cone above is the picture for the Minkowski form.
 
 :::: {.statement-box}
@@ -8746,13 +8747,13 @@ indices; the light cone above is the picture for the Minkowski form.
 #### Non-degenerate bilinear form
 
 A bilinear form is **non-degenerate** if $B(v, w) = 0$ for all $w$ forces $v = 0$; equivalently its matrix
-$B_{ij}$ is invertible, $\det B \neq 0$. A non-degenerate form identifies $V$ with $V^*$ by $v \mapsto B(v, \cdot)$,
+$B_{ij}$ is invertible. A non-degenerate form identifies $V$ with $V^*$ by $v \mapsto B(v, \cdot)$,
 which in components is **lowering an index**, $v_i = B_{ij} v^j$; the inverse matrix $B^{ij}$ **raises** it.
 :::
 ::::
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-On the line the matrix is one number, and the determinant test asks only whether it vanishes. The first example
+On the line the matrix is one number, and the matrix test asks only whether it vanishes. The first example
 settles non-degeneracy for all the forms of @exm-bilinear-line at once.
 
 ::: {#exm-nondegenerate-line}
@@ -8763,25 +8764,25 @@ the index sends $x$ to the functional $y \mapsto cxy$, the number $cx$, and rais
 pairs to zero with everything.
 :::
 
-Both running forms pass the determinant test. The example stresses that non-degeneracy allows null vectors: $\eta$
-vanishes on $(1, 1, 0, 0)$ and yet $\det\eta = -1 \neq 0$.
+Both running forms pass the test. The example stresses that non-degeneracy allows null vectors: $\eta$
+vanishes on $(1, 1, 0, 0)$ and yet no non-zero vector pairs to zero with everything.
 
 ::: {#exm-nondegenerate-minkowski}
 #### Minkowski and Euclidean forms
 
-$\det \eta = -1 \neq 0$ (@prp-minkowski-values) and $\det \delta = 1$: both are non-degenerate, although
+$\eta$ and $\delta$ are diagonal with entries $\pm 1$, so each is its own inverse: both are non-degenerate, although
 $\eta(v, v) = 0$ for the non-zero null vector $(1, 1, 0, 0)$. Non-degeneracy does not require $B(v, v) \neq 0$.
 :::
 
-The matrix $\mathbf S$ of @exm-symmetric-quadratic fails the test. Its determinant vanishes, and the example exhibits the
+The matrix $\mathbf S$ of @exm-symmetric-quadratic fails the test. It is not invertible, and the example exhibits the
 vector that pairs to zero with everything.
 
 ::: {#exm-degenerate}
 #### A degenerate form
 
-$\mathbf S = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ has determinant $1 \cdot 4 - 2 \cdot 2 = 0$: the vector
+$\mathbf S = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ has second row twice the first, so it is not invertible: the vector
 $(2, -1)$ pairs to zero with everything, $\mathbf S (2, -1)^\top = \mathbf 0$, so the form is degenerate and does not identify
-$V$ with $V^*$ (@exr-nondegenerate-test).
+$V$ with $V^*$.
 :::
 
 An antisymmetric form vanishes on every pair $(v, v)$, and can still be non-degenerate. The example checks this for the
@@ -8791,7 +8792,7 @@ phase-space form, which is the defining property of a symplectic form [@knauf201
 #### Phase space is non-degenerate
 
 The form $\omega(u, u') = x p' - p x'$ of @exm-bilinear-symplectic has matrix $\begin{pmatrix} 0 & 1 \\ -1 & 0
-\end{pmatrix}$ of determinant $1$, so it is non-degenerate, although $\omega(u, u) = 0$ for every $u$. Lowering the index
+\end{pmatrix}$, whose square is $-\mathbf I$, so it is invertible and the form is non-degenerate, although $\omega(u, u) = 0$ for every $u$. Lowering the index
 sends $u = (x, p)$ to the covector $\omega(u, \cdot)$ with components $(\omega(u, e_x), \omega(u, e_p)) = (-p, x)$.
 :::
 
@@ -8838,7 +8839,7 @@ restricts to a form on it. The example computes its matrix and finds where it de
 At the point $(\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)$ of $S^2$ the vectors $u_\theta =
 (\cos\theta\cos\varphi, \cos\theta\sin\varphi, -\sin\theta)$ and $u_\varphi = (-\sin\theta\sin\varphi,
 \sin\theta\cos\varphi, 0)$ point along increasing $\theta$ and $\varphi$. Their dot products give the matrix
-$\operatorname{diag}(1, \sin^2\theta)$, of determinant $\sin^2\theta$: non-degenerate away from the poles, and degenerate
+$\operatorname{diag}(1, \sin^2\theta)$, with both diagonal entries non-zero away from the poles: non-degenerate there, and degenerate
 at $\theta = 0$, where $u_\varphi = 0$ and the two vectors are no longer a basis of the plane.
 :::
 
@@ -8882,7 +8883,7 @@ $v_\mu v^\mu$. Is $v$ timelike, spacelike or null?
 
 $v_\mu = \eta_{\mu\nu} v^\nu = (2, -1, 0, -3)$. Since $\eta^{-1} = \eta$ (a diagonal matrix with entries $\pm 1$ is its
 own inverse), raising gives back $(2, 1, 0, 3)$. Then $v_\mu v^\mu = \eta(v, v) = 4 - 1 - 0 - 9 = -6 < 0$, so $v$ is
-spacelike (@exm-signature-minkowski).
+spacelike: it lies in the region $\eta < 0$ of @fig-minkowski-cone.
 
 ## SageMath
 
@@ -8901,8 +8902,8 @@ v_mu = (2, -1, 0, -3) ; raised again: (2, 1, 0, 3) ; v_mu v^mu = -6
 ::::
 :::
 
-The determinant test applies to any symmetric matrix. The exercise runs it on three forms, including the degenerate
-$\mathbf S$, and asks for the kernel vectors of the degenerate one.
+Non-degeneracy of a matrix form is decided by solving $\mathbf S \mathbf v = \mathbf 0$. The exercise runs this test on three forms,
+including the degenerate $\mathbf S$, and asks for the kernel vectors of the degenerate one.
 
 ::: {#exr-nondegenerate-test}
 #### Testing non-degeneracy
@@ -8916,27 +8917,29 @@ pair to zero with everything for the degenerate one.
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-The determinants are $-1$, $0$ and $2(4 - 1) - 1(2 - 0) = 4$, so the first and third are non-degenerate. For the second,
-$\mathbf v$ pairs to zero with everything when $\mathbf S \mathbf v = \mathbf 0$, that is $v^1 + 2v^2 = 0$: the line through $(2, -1)$. Indeed $(2, -1)
+A vector $\mathbf v$ pairs to zero with everything exactly when $\mathbf S \mathbf v = \mathbf 0$. For the diagonal matrix this reads $v^0 =
+-v^1 = -v^2 = -v^3 = 0$. For the third, $2v^1 + v^2 = 0$, $v^1 + 2v^2 + v^3 = 0$, $v^2 + 2v^3 = 0$ give $v^2 = -2v^1 =
+-2v^3$, and then the middle equation is $-2v^1 = 0$, so $\mathbf v = \mathbf 0$. So the first and third are non-degenerate. For the
+second, $\mathbf v$ pairs to zero with everything when $\mathbf S \mathbf v = \mathbf 0$, that is $v^1 + 2v^2 = 0$: the line through $(2, -1)$. Indeed $(2, -1)
 \cdot \mathbf S \mathbf e_1 = 2 - 2 = 0$ and $(2, -1) \cdot \mathbf S \mathbf e_2 = 4 - 4 = 0$.
 
 ## SageMath
 
-Sage computes the three determinants and the kernel of the degenerate matrix.
+Sage computes the three kernels and the kernel vectors of the degenerate matrix.
 
 ```{.python .sage}
 mats = {"diag(1, -1, -1, -1)": diagonal_matrix(QQ, [1, -1, -1, -1]), "[[1, 2], [2, 4]]": matrix(QQ, [[1, 2], [2, 4]]),
         "[[2, 1, 0], [1, 2, 1], [0, 1, 2]]": matrix(QQ, [[2, 1, 0], [1, 2, 1], [0, 1, 2]])}
 for name, B in mats.items():
-    print(name, ": det =", B.det(), "; non-degenerate:", B.det() != 0)
+    print(name, ": kernel dimension", B.right_kernel().dimension(), "; non-degenerate:", B.right_kernel().dimension() == 0)
 S = mats["[[1, 2], [2, 4]]"]; k = vector(QQ, [2, -1])
 print("kernel of S:", S.right_kernel().basis(), "; (2, -1) pairs with e1, e2 to", [k * S * e for e in identity_matrix(QQ, 2).rows()])
 ```
 
 ```{.text .sage-output}
-diag(1, -1, -1, -1) : det = -1 ; non-degenerate: True
-[[1, 2], [2, 4]] : det = 0 ; non-degenerate: False
-[[2, 1, 0], [1, 2, 1], [0, 1, 2]] : det = 4 ; non-degenerate: True
+diag(1, -1, -1, -1) : kernel dimension 0 ; non-degenerate: True
+[[1, 2], [2, 4]] : kernel dimension 1 ; non-degenerate: False
+[[2, 1, 0], [1, 2, 1], [0, 1, 2]] : kernel dimension 0 ; non-degenerate: True
 kernel of S: [
 (1, -1/2)
 ] ; (2, -1) pairs with e1, e2 to [0, 0]
@@ -8944,8 +8947,8 @@ kernel of S: [
 ::::
 :::
 
-A form with a parameter is degenerate only for special values of it, where the determinant vanishes. The exercise
-finds that value for a $3 \times 3$ form and the direction that becomes invisible to the form.
+A form with a parameter is degenerate only for special values of it, where $\mathbf B \mathbf v = \mathbf 0$ acquires a non-zero
+solution. The exercise finds that value for a $3 \times 3$ form and the direction that becomes invisible to the form.
 
 ::: {#exr-nondegenerate-parameter}
 #### A degenerate value
@@ -8958,23 +8961,23 @@ the vectors that pair to zero with everything for that value.
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-Expanding along the first row, $\det = 1 \cdot (c - 1) - 1 \cdot (1 - 0) = c - 2$, so the form is degenerate exactly for
-$c = 2$. Then $\mathbf B \mathbf v = \mathbf 0$ reads $v^1 + v^2 = 0$, $v^1 + 2v^2 + v^3 = 0$, $v^2 + v^3 = 0$, with solutions the multiples of $(1,
--1, 1)$.
+$\mathbf B \mathbf v = \mathbf 0$ reads $v^1 + v^2 = 0$, $v^1 + c v^2 + v^3 = 0$, $v^2 + v^3 = 0$. The first and third give $v^2 =
+-v^1$ and $v^3 = v^1$, and the middle one becomes $(2 - c) v^1 = 0$. So for $c \neq 2$ only $\mathbf v = \mathbf 0$ solves it, and the
+form is degenerate exactly for $c = 2$, with kernel vectors the multiples of $(1, -1, 1)$.
 
 ## SageMath
 
-Sage computes the determinant as a polynomial in $c$ and the kernel at its root.
+Sage applies the matrix to $(1, -1, 1)$ for a symbolic $c$, and computes the kernel at $c = 2$ and at another value.
 
 ```{.python .sage}
 c = polygen(QQ, "c")
 B = matrix(c.parent(), [[1, 1, 0], [1, c, 1], [0, 1, 1]])
-print("det =", B.det(), "; root:", B.det().roots())
+print("B (1, -1, 1) =", B * vector([1, -1, 1]), "; kernel dimension at c = 5:", B.subs(c=5).change_ring(QQ).right_kernel().dimension())
 print("kernel at c = 2:", B.subs(c=2).change_ring(QQ).right_kernel().basis())
 ```
 
 ```{.text .sage-output}
-det = c - 2 ; root: [(2, 1)]
+B (1, -1, 1) = (0, -c + 2, 0) ; kernel dimension at c = 5: 0
 kernel at c = 2: [
 (1, -1, 1)
 ]
@@ -8996,8 +8999,8 @@ $g^{ij}$, the raised vector $g^{ij} v_j$, and $v_i v^i$. Compare $v_i v^i$ with 
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-$v_1 = 2 \cdot 1 + 1 \cdot 2 = 4$ and $v_2 = 1 \cdot 1 + 1 \cdot 2 = 3$. Since $\det g = 1$, $g^{ij} = \begin{pmatrix} 1 &
--1 \\ -1 & 2 \end{pmatrix}$, and $g^{ij} v_j = (4 - 3, -4 + 6) = (1, 2) = v$. Finally $v_i v^i = 4 + 6 = 10$, and $g(v, v)
+$v_1 = 2 \cdot 1 + 1 \cdot 2 = 4$ and $v_2 = 1 \cdot 1 + 1 \cdot 2 = 3$. Multiplying out shows that $g^{ij} = \begin{pmatrix} 1 &
+-1 \\ -1 & 2 \end{pmatrix}$ satisfies $g^{ij} g_{jk} = \delta^i_k$, and $g^{ij} v_j = (4 - 3, -4 + 6) = (1, 2) = v$. Finally $v_i v^i = 4 + 6 = 10$, and $g(v, v)
 = 2 + 2 \cdot 2 + 4 = 10$: $v_i v^i = g_{ij} v^i v^j$ by definition of $v_i$.
 
 ## SageMath
@@ -9034,7 +9037,7 @@ Linearity in the second argument makes each $B(v, \cdot)$ a functional, and line
 B(v, \cdot)$ linear. Its kernel is $\{v : B(v, w) = 0 \ \forall w\}$, which is $\{0\}$ exactly when $B$ is non-degenerate,
 and a linear map is injective exactly when its kernel is $\{0\}$ (@exr-linear-injective-kernel). An injective linear map
 between spaces of equal finite dimension ($\dim V^* = \dim V$, @def-dual-basis) is surjective by rank-nullity
-(@def-linear-map). In components the map is $v^j \mapsto B_{ij} v^j$, invertible when $\det B \neq 0$, with inverse
+(@def-linear-map). In components the map is $v^j \mapsto B_{ij} v^j$, invertible when $B$ is non-degenerate, with inverse
 $B^{ij}$.
 
 ## SageMath
@@ -9059,7 +9062,7 @@ proves that they agree, following the argument of Gourgoulhon for the metric of 
 1.3.2].
 
 ::: {#exr-nondegenerate-det-proof}
-#### The determinant test
+#### The matrix test
 
 Prove that $B$ is non-degenerate if and only if its matrix $B_{ij}$ in some basis is invertible.
 :::
@@ -9072,7 +9075,7 @@ In a basis, $B(v, w) = v^i B_{ij} w^j$. The vector $v$ pairs to zero with every 
 $j$ (take $w = e_j$, and conversely use linearity in $w$), that is, when $\mathbf B^\top \mathbf v = \mathbf 0$ as a column. So $B$ is
 non-degenerate exactly when the kernel of the matrix $\mathbf B^\top$ is $\{\mathbf 0\}$, which for a square matrix means that $\mathbf B^\top$
 is invertible (@exr-linear-injective-kernel, rank-nullity in @def-linear-map). A matrix is invertible exactly when its
-transpose is, with $(\mathbf B^\top)^{-1} = (\mathbf B^{-1})^\top$, and exactly when its determinant is non-zero (@thm-determinant-invertible).
+transpose is, with $(\mathbf B^\top)^{-1} = (\mathbf B^{-1})^\top$.
 
 ## SageMath
 
@@ -9093,42 +9096,49 @@ for B in [diagonal_matrix(QQ, [1, -1, -1, -1]), matrix(QQ, [[1, 2], [2, 4]]), ma
 ::::
 :::
 
-The determinant of the matrix changes with the basis, so the test needs a word of justification. The exercise shows
-that the determinant is multiplied by a positive number, and in particular that its vanishing and its sign do not
-depend on the basis.
+The matrix of the form changes with the basis, so the test needs a word of justification. The exercise shows that the
+new matrix is invertible exactly when the old one is, so that the test gives the same answer in every basis.
 
 ::: {#exr-nondegenerate-basis-independent}
 #### The test does not depend on the basis
 
-Show that $\det(\mathbf A^\top \mathbf B \mathbf A) = (\det \mathbf A)^2 \det \mathbf B$ for the change of basis of @exr-bilinear-change-basis, so that $\det \mathbf B
-\neq 0$ in one basis exactly when it holds in every basis, and the sign of $\det \mathbf B$ is the same in all bases. Check it for
-the dot product in the basis $f$.
+Show that $\mathbf A^\top \mathbf B \mathbf A$ is invertible exactly when $\mathbf B$ is, for the change of basis $\mathbf A$ of
+@exr-bilinear-change-basis, so that the matrix test of @def-nondegenerate gives the same answer in every basis. Check it
+for the dot product in the basis $f$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-The determinant is multiplicative and $\det \mathbf A^\top = \det \mathbf A$ (@thm-determinant-product, @thm-determinant-transpose), so $\det(\mathbf A^\top \mathbf B \mathbf A) = \det \mathbf A \det \mathbf B \det \mathbf A = (\det \mathbf A)^2 \det
-\mathbf B$. A change of basis is invertible, so $(\det \mathbf A)^2 > 0$: $\det \mathbf B' $ vanishes exactly when $\det \mathbf B$ does and has the same
-sign. For the dot product and $\mathbf A$ with columns $f_1, f_2$, $\det \mathbf A = 3$ and $\det \mathbf G = 25 - 16 = 9 = 3^2 \cdot 1$.
+A change of basis $\mathbf A$ is invertible, and so is $\mathbf A^\top$, with inverse $(\mathbf A^{-1})^\top$. If $\mathbf B$ is invertible,
+then $\mathbf B' = \mathbf A^\top \mathbf B \mathbf A$ has the inverse $\mathbf A^{-1}\mathbf B^{-1}(\mathbf A^\top)^{-1}$, as multiplying out shows.
+Conversely $\mathbf B = (\mathbf A^\top)^{-1}\mathbf B'\mathbf A^{-1}$ has the same shape, with the invertible $\mathbf A^{-1}$ in place of
+$\mathbf A$, so the same argument shows that $\mathbf B$ is invertible when $\mathbf B'$ is. For the dot product and $\mathbf A$ with
+columns $f_1, f_2$, $\mathbf G = \mathbf A^\top \mathbf A = \begin{pmatrix} 5 & 4 \\ 4 & 5 \end{pmatrix}$, and multiplying out shows
+that its inverse is $\tfrac19\begin{pmatrix} 5 & -4 \\ -4 & 5 \end{pmatrix}$.
 
 ## SageMath
 
-Check on the dot product and the basis $f$, and on $\eta$ with a random invertible change of basis.
+Check on the dot product and the basis $f$, on $\eta$ with a random invertible change of basis, and on the degenerate
+$\mathbf S$ of @exm-degenerate.
 
 ```{.python .sage}
 set_random_seed(4)
 A = matrix(QQ, [[2, 1], [1, 2]]).transpose()
-print("det A =", A.det(), "; det(A^T A) =", (A.transpose() * A).det())
+G = A.transpose() * A
+print("G = A^T A =", G.rows(), "; invertible:", G.is_invertible(), "; G^-1 =", G.inverse().rows())
 eta = diagonal_matrix(QQ, [1, -1, -1, -1])
 P = random_matrix(ZZ, 4, 4, algorithm="unimodular").change_ring(QQ) * diagonal_matrix(QQ, [1, 2, 1, 3])
-print("det P =", P.det(), "; det(P^T eta P) =", (P.transpose() * eta * P).det(), "= (det P)^2 det eta:", (P.transpose() * eta * P).det() == P.det()^2 * eta.det())
+S = matrix(QQ, [[1, 2], [2, 4]])
+print("P invertible:", P.is_invertible(), "; P^T eta P invertible:", (P.transpose() * eta * P).is_invertible())
+print("S invertible:", S.is_invertible(), "; A^T S A invertible:", (A.transpose() * S * A).is_invertible())
 ```
 
 ```{.text .sage-output}
-det A = 3 ; det(A^T A) = 9
-det P = 6 ; det(P^T eta P) = -36 = (det P)^2 det eta: True
+G = A^T A = [(5, 4), (4, 5)] ; invertible: True ; G^-1 = [(5/9, -4/9), (-4/9, 5/9)]
+P invertible: True ; P^T eta P invertible: True
+S invertible: False ; A^T S A invertible: False
 ```
 ::::
 :::
@@ -9150,7 +9160,8 @@ conditions for the form of @exr-bilinear-matrix.
 By @exr-nondegenerate-iso the map $v \mapsto B(v, \cdot)$ is an isomorphism $V \to V^*$, so every covector $\alpha$ is
 $B(v, \cdot)$ for some $v$. If $B(v, w) = 0$ for all $v$, then $\alpha(w) = 0$ for every $\alpha \in V^*$. A vector on
 which every covector vanishes is $0$ (@exr-dual-double), so $w = 0$. For $\mathbf B = \begin{pmatrix} 1 & 2 \\ -1 & 0
-\end{pmatrix}$, $\det \mathbf B = 2 \neq 0$, and both $\mathbf B \mathbf w = \mathbf 0$ and $\mathbf B^\top \mathbf v = \mathbf 0$ have only the zero solution.
+\end{pmatrix}$, $\mathbf B \mathbf w = \mathbf 0$ reads $w^1 + 2w^2 = 0$, $-w^1 = 0$ and $\mathbf B^\top \mathbf v = \mathbf 0$ reads $v^1 - v^2 = 0$,
+$2v^1 = 0$: both have only the zero solution.
 
 ## SageMath
 
@@ -9188,37 +9199,44 @@ zero with everything for $B(v, w) = v^1 w^2 - v^2 w^1 + v^1 w^3 - v^3 w^1$ on $\
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-An antisymmetric form has $\mathbf B^\top = -\mathbf B$. Then $\det \mathbf B = \det \mathbf B^\top = \det(-\mathbf B) = (-1)^n \det \mathbf B = -\det \mathbf B$ for odd $n$ (@thm-determinant-transpose), so
-$\det \mathbf B = 0$ and $B$ is degenerate (@def-nondegenerate). For the given form, $\mathbf B = \begin{pmatrix} 0 & 1 & 1 \\ -1 & 0 & 0
+Suppose that $B$ is antisymmetric and non-degenerate on $V$, with $\dim V = n \geq 1$ (@def-nondegenerate). Take $v \neq
+0$; some $w$ has $B(v, w) \neq 0$, and rescaling $w$ makes $B(v, w) = 1$, so $B(w, v) = -1$. Since $B(v, v) = 0$, $w$ is
+not a multiple of $v$, and $P = \operatorname{span}(v, w)$ has dimension $2$. Let $U$ be the subspace of the $u$ with
+$B(u, v) = B(u, w) = 0$. Every $x$ is $p + (x - p)$ with $p = B(x, w)\,v - B(x, v)\,w \in P$, and $B(p, v) = B(x, v)$,
+$B(p, w) = B(x, w)$, so $x - p \in U$; and $av + bw \in U$ forces $-b = B(av + bw, v) = 0$ and $a = B(av + bw, w) = 0$. So
+$V = P \oplus U$ and $\dim U = n - 2$. The restriction of $B$ to $U$ is antisymmetric and still non-degenerate: a $u \in
+U$ that pairs to zero with all of $U$ also pairs to zero with $v$ and $w$, hence with all of $V$, so $u = 0$. Each step
+lowers the dimension by $2$; for odd $n$ the steps reach a space of dimension $1$, where $B(x, y) = cxy$ with $c =
+B(1, 1) = 0$ by antisymmetry, a degenerate form. This contradiction shows that $B$ is degenerate. For the given form, $\mathbf B = \begin{pmatrix} 0 & 1 & 1 \\ -1 & 0 & 0
 \\ -1 & 0 & 0 \end{pmatrix}$, and $\mathbf B \mathbf v = \mathbf 0$ reads $v^2 + v^3 = 0$, $-v^1 = 0$: the multiples of $(0, 1, -1)$.
 
 ## SageMath
 
-Sage computes the determinant and kernel of the example and the determinants of random antisymmetric matrices of
-sizes $3$ and $5$.
+Sage computes the kernel of the example and the kernel dimensions of random antisymmetric matrices of sizes $3$ and
+$5$.
 
 ```{.python .sage}
 set_random_seed(6)
 B = matrix(QQ, [[0, 1, 1], [-1, 0, 0], [-1, 0, 0]])
-print("det =", B.det(), "; kernel:", B.right_kernel().basis())
+print("kernel:", B.right_kernel().basis())
 for n in [3, 5]:
     M = random_matrix(ZZ, n, n); A = M - M.transpose()
-    print("random antisymmetric", n, "x", n, ": det =", A.det())
+    print("random antisymmetric", n, "x", n, ": kernel dimension", A.right_kernel().dimension())
 ```
 
 ```{.text .sage-output}
-det = 0 ; kernel: [
+kernel: [
 (0, 1, -1)
 ]
-random antisymmetric 3 x 3 : det = 0
-random antisymmetric 5 x 5 : det = 0
+random antisymmetric 3 x 3 : kernel dimension 1
+random antisymmetric 5 x 5 : kernel dimension 1
 ```
 ::::
 :::
 
 The vectors that pair to zero with a fixed vector $u$ form a subspace, and when $B(u, u) \neq 0$ it complements the line
-of $u$. The last exercise proves this and tests it on $\eta$ with a timelike and a null vector, preparing the proof of
-@def-signature [@axler2024linear, proof of result 9.12], [@knauf2018mathematical, proof of Thm. 6.13].
+of $u$. The last exercise proves this and tests it on $\eta$ with a timelike and a null vector
+[@axler2024linear, proof of result 9.12], [@knauf2018mathematical, proof of Thm. 6.13].
 
 ::: {#exr-nondegenerate-orthogonal-complement}
 #### The complement of a vector
@@ -9360,7 +9378,7 @@ figure.
 ::: {#exm-signature-minkowski}
 #### Lorentzian
 
-$\eta$ has signature $(1, 3, 0)$ (@exr-minkowski-signature, @fig-minkowski-cone): vectors with $\eta(v, v) > 0$ are
+$\eta$ has signature $(1, 3, 0)$ (@fig-minkowski-cone): vectors with $\eta(v, v) > 0$ are
 **timelike**, $< 0$ **spacelike**, $= 0$ **null**. The interactive figure shows the light cone of $t^2 - x^2 - y^2$
 with the two hyperboloids of unit timelike and unit spacelike vectors.
 :::
@@ -9456,7 +9474,7 @@ diag [2, -1, -1, -1] : signature (1, 3, 0)
 :::
 
 Sage's `QuadraticForm` computes signatures directly. The exercise asks for the values, the symmetry, the
-non-degeneracy and the signature of $\eta$, and then the same for the degenerate $S$, whose determinant vanishes.
+non-degeneracy and the signature of $\eta$, and then the same for the degenerate $S$, which has a kernel.
 
 ::: {#exr-minkowski-signature}
 #### Symmetry, non-degeneracy, signature
@@ -9471,8 +9489,8 @@ form $\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$.
 ## Proof
 
 $\eta(v, v) = 1 - 1 = 0$, so $v$ is null, and $\eta(w, w) = 1$, so $w$ is timelike. $\eta$ is diagonal, hence symmetric,
-with $\det\eta = -1 \neq 0$, hence non-degenerate; it is already diagonal with one entry $+1$ and three $-1$, so its
-signature is $(1, 3, 0)$. The second form is symmetric with determinant $0$ and a one-dimensional kernel spanned by $(2,
+with non-zero diagonal entries, so $\eta \mathbf v = \mathbf 0$ forces $\mathbf v = \mathbf 0$ and it is non-degenerate; it is already diagonal with one entry $+1$ and three $-1$, so its
+signature is $(1, 3, 0)$. The second form is symmetric with a one-dimensional kernel spanned by $(2,
 -1)$, and by @exm-signature-degenerate its signature is $(1, 0, 1)$.
 
 ## SageMath
@@ -9483,17 +9501,17 @@ Sage evaluates the values and computes both signatures.
 eta = diagonal_matrix(QQ, [1, -1, -1, -1])
 v, w = vector(QQ, [1, 1, 0, 0]), vector(QQ, [1, 0, 0, 0])
 print("eta(v, v) =", v * eta * v, "; eta(w, w) =", w * eta * w)
-print("symmetric:", eta.is_symmetric(), "; non-degenerate (det != 0):", eta.det() != 0)
+print("symmetric:", eta.is_symmetric(), "; non-degenerate (kernel 0):", eta.right_kernel().dimension() == 0)
 print("signature of eta:", QuadraticForm(QQ, 2 * eta).signature_vector())
 S = matrix(QQ, [[1, 2], [2, 4]])
-print("S: det =", S.det(), "; kernel:", S.right_kernel().basis(), "; signature:", QuadraticForm(QQ, 2 * S).signature_vector())
+print("S: kernel:", S.right_kernel().basis(), "; signature:", QuadraticForm(QQ, 2 * S).signature_vector())
 ```
 
 ```{.text .sage-output}
 eta(v, v) = 0 ; eta(w, w) = 1
-symmetric: True ; non-degenerate (det != 0): True
+symmetric: True ; non-degenerate (kernel 0): True
 signature of eta: (1, 3, 0)
-S: det = 0 ; kernel: [
+S: kernel: [
 (1, -1/2)
 ] ; signature: (1, 0, 1)
 ```
@@ -9646,14 +9664,14 @@ signature: (1, 2, 0)
 ::::
 :::
 
-In two dimensions the signature can be read from the determinant and one diagonal entry. The exercise proves the
+In two dimensions the signature can be read from the number $ac - b^2$ and one diagonal entry. The exercise proves the
 criterion by completing the square and applies it to the oscillator energy of @exm-signature-oscillator.
 
 ::: {#exr-signature-two-by-two}
 #### Signatures of $2 \times 2$ forms
 
-For $\mathbf S = \begin{pmatrix} a & b \\ b & c \end{pmatrix}$, prove: if $\det \mathbf S < 0$ the signature is $(1, 1, 0)$; if $\det \mathbf S > 0$ it
-is $(2, 0, 0)$ for $a > 0$ and $(0, 2, 0)$ for $a < 0$; if $\det \mathbf S = 0$ the form is degenerate. Apply it to $\begin{pmatrix}
+For $\mathbf S = \begin{pmatrix} a & b \\ b & c \end{pmatrix}$ let $d = ac - b^2$. Prove: if $d < 0$ the signature is $(1, 1, 0)$; if $d > 0$ it
+is $(2, 0, 0)$ for $a > 0$ and $(0, 2, 0)$ for $a < 0$; if $d = 0$ the form is degenerate. Apply it to $\begin{pmatrix}
 2 & 3 \\ 3 & 4 \end{pmatrix}$ and to $\operatorname{diag}(\tfrac12 k, \tfrac1{2m})$ with $k, m > 0$.
 :::
 
@@ -9661,13 +9679,14 @@ is $(2, 0, 0)$ for $a > 0$ and $(0, 2, 0)$ for $a < 0$; if $\det \mathbf S = 0$ 
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-If $a \neq 0$: $ax^2 + 2bxy + cy^2 = a(x + \tfrac{b}{a} y)^2 + \tfrac{\det \mathbf S}{a} y^2$, so in the basis $e_1$, $e_2 -
-\tfrac{b}{a} e_1$ the matrix is $\operatorname{diag}(a, \det \mathbf S / a)$. Its two entries have opposite signs when $\det \mathbf S <
-0$, giving $(1, 1, 0)$; for $\det \mathbf S > 0$ both have the sign of $a$; for $\det \mathbf S = 0$ one is $0$. If $a = 0$ and $c \neq 0$,
-exchange the roles of $x$ and $y$; $\det \mathbf S > 0$ is then impossible ($\det \mathbf S = -b^2$), and the criterion follows in the same
-way. If $a = c = 0$ and $b \neq 0$, the form is $2bxy$ with $\det \mathbf S = -b^2 < 0$ and signature $(1, 1, 0)$ by
-@exm-signature-xy. Degeneracy when $\det \mathbf S = 0$ is @def-nondegenerate. For $\begin{pmatrix} 2 & 3 \\ 3 & 4 \end{pmatrix}$,
-$\det = -1$: $(1, 1, 0)$. For the oscillator, $\det = k/(4m) > 0$ and $a = k/2 > 0$: $(2, 0, 0)$.
+If $a \neq 0$: $ax^2 + 2bxy + cy^2 = a(x + \tfrac{b}{a} y)^2 + \tfrac{d}{a} y^2$, so in the basis $e_1$, $e_2 -
+\tfrac{b}{a} e_1$ the matrix is $\operatorname{diag}(a, d / a)$. Its two entries have opposite signs when $d <
+0$, giving $(1, 1, 0)$; for $d > 0$ both have the sign of $a$; for $d = 0$ one is $0$. If $a = 0$ and $c \neq 0$,
+exchange the roles of $x$ and $y$; $d > 0$ is then impossible ($d = -b^2$), and the criterion follows in the same
+way. If $a = c = 0$ and $b \neq 0$, the form is $2bxy$ with $d = -b^2 < 0$ and signature $(1, 1, 0)$ by
+@exm-signature-xy. When $d = 0$ a diagonal entry of the diagonal form is $0$, so the form is degenerate
+(@def-nondegenerate). For $\begin{pmatrix} 2 & 3 \\ 3 & 4 \end{pmatrix}$, $d = 8 - 9 = -1$: $(1, 1, 0)$. For the
+oscillator, $d = k/(4m) > 0$ and $a = k/2 > 0$: $(2, 0, 0)$.
 
 ## SageMath
 
@@ -9676,13 +9695,13 @@ Sage tests the criterion against `QuadraticForm` on random integer matrices, and
 ```{.python .sage}
 set_random_seed(8)
 def crit(S):
-    d, a = S.det(), S[0, 0] if S[0, 0] != 0 else S[1, 1]
+    d, a = S[0, 0] * S[1, 1] - S[0, 1]^2, S[0, 0] if S[0, 0] != 0 else S[1, 1]
     return (1, 1, 0) if d < 0 else ((2, 0, 0) if a > 0 else (0, 2, 0)) if d > 0 else "degenerate"
 ok = True
 for _ in range(50):
     a, b, c = [ZZ.random_element(-5, 6) for _ in range(3)]; S = matrix(QQ, [[a, b], [b, c]])
     sig = QuadraticForm(QQ, 2 * S).signature_vector()
-    ok = ok and (crit(S) == sig if S.det() != 0 else sig[2] > 0)
+    ok = ok and (crit(S) == sig if a * c - b^2 != 0 else sig[2] > 0)
 print("criterion agrees on 50 random forms:", ok)
 print("[[2, 3], [3, 4]]:", crit(matrix(QQ, [[2, 3], [3, 4]])), "; oscillator with k = 3, m = 2:", crit(diagonal_matrix(QQ, [3/2, 1/4])))
 ```
@@ -9850,15 +9869,15 @@ u = (1, 1, 0, 0) : matrix on u^perp [(0, 0, 0), (0, -1, 0), (0, 0, -1)] ; signat
 ### The Minkowski form
 
 Four facts about $\eta$ used throughout this section are collected here: a null vector, a timelike vector, symmetry
-and the determinant. The proposition states them; the examples and exercises after it compute with them, from single
+and non-degeneracy. The proposition states them; the examples and exercises after it compute with them, from single
 four-vectors to the Lorentz boosts that preserve the form.
 
 :::: {.statement-box}
 ::: {#prp-minkowski-values}
 #### Values of the Minkowski form
 
-$\eta(v, v) = 0$ for $v = (1, 1, 0, 0)$, $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$, $\eta^\top = \eta$ and
-$\det \eta = -1$.
+$\eta(v, v) = 0$ for $v = (1, 1, 0, 0)$, $\eta(w, w) = 1$ for $w = (1, 0, 0, 0)$, $\eta^\top = \eta$, and $\eta$ is
+non-degenerate.
 :::
 ::::
 
@@ -9894,26 +9913,27 @@ $v = (1, \mathbf n)$ is null exactly when $|\mathbf n| = 1$, since $\eta(v, v) =
 the light cone, a sphere $S^2$ of directions at each time.
 :::
 
-For a diagonal matrix the determinant is simply the product of the diagonal entries. The example computes it for
-$\eta$ and states the general rule.
+For a diagonal matrix non-degeneracy can be checked one basis vector at a time. The example does this for $\eta$ and
+states the general rule.
 
-::: {#exm-minkowski-det-hand}
-#### The determinant of a diagonal matrix
+::: {#exm-minkowski-nondeg-hand}
+#### Non-degeneracy by hand
 
-$\det \operatorname{diag}(1, -1, -1, -1) = 1 \cdot (-1) \cdot (-1) \cdot (-1) = -1$: the determinant of a diagonal matrix is
-the product of its diagonal entries, since every other term of the Leibniz expansion contains an off-diagonal zero.
+If $\eta(u, x) = 0$ for every $x$, then testing with $x = e_0, e_1, e_2, e_3$ gives $u^0 = 0$, $-u^1 = 0$, $-u^2 = 0$ and
+$-u^3 = 0$, so $u = 0$: $\eta$ is non-degenerate. The same test shows that a diagonal form is non-degenerate exactly
+when none of its diagonal entries is zero.
 :::
 
-A determinant's sign captures only part of the signature. The example explains what $\det\eta < 0$ does and does not
-say about the number of negative directions.
+Non-degeneracy captures only part of the signature, and it does not exclude null vectors. The example explains what
+it does and does not say about $\eta$.
 
-::: {#exm-minkowski-sign-det}
-#### What the sign of the determinant records
+::: {#exm-minkowski-nondeg-limits}
+#### What non-degeneracy records
 
-$\det \eta < 0$ shows that $\eta$ is non-degenerate and that the number $q$ of negative directions is odd; it does
-not fix $q$ ($q = 1$ would give the same sign as $q = 3$): $\det \operatorname{diag}(1, -1, 1, 1) = -1$ as well. For a
-diagonal matrix with entries $\pm 1$ the determinant is $(-1)^q$, and its sign is the same in every basis
-(@exr-nondegenerate-basis-independent). The signature itself is found by the methods of @exr-signature-3x3.
+Non-degeneracy says that the number of zero directions in the signature is $0$; it does not fix the number $q$ of
+negative directions: $\operatorname{diag}(1, -1, 1, 1)$, with $q = 1$, is non-degenerate as well. Nor does it forbid
+$\eta(v, v) = 0$ for $v \neq 0$: the null vector $v = (1, 1, 0, 0)$ pairs to zero with itself, but $\eta(v, e_0) = 1$, so
+$v$ does not pair to zero with everything. The signature itself is found by the methods of @exr-signature-3x3.
 :::
 
 A moving observer's four-velocity is a boosted copy of $w$. The example checks that it is still a unit timelike
@@ -9966,9 +9986,9 @@ under $\eta \to -\eta$ and which do not [@gourgoulhon2013special, Remark 1.7].
 ::: {#exm-minkowski-convention}
 #### The facts in the other convention
 
-With $g = -\eta = \operatorname{diag}(-1, 1, 1, 1)$, $g(w, w) = -1$, $g(v, v) = 0$, $g^\top = g$, and $\det g = (-1)^4 \det \eta
-= -1$. The value on the time direction changes sign; the null vectors, the symmetry and, in four dimensions, the
-determinant do not. In three dimensions $\det(-\eta) = -\det \eta$ would change sign too.
+With $g = -\eta = \operatorname{diag}(-1, 1, 1, 1)$, $g(w, w) = -1$, $g(v, v) = 0$, $g^\top = g$, and $g$ is non-degenerate,
+since $g(u, x) = 0$ for all $x$ means $\eta(u, x) = 0$ for all $x$. The value on the time direction changes sign; the
+null vectors, the symmetry and the non-degeneracy do not, in any dimension.
 :::
 ::::
 
@@ -10271,58 +10291,62 @@ eta on null pairs: [[0, 1, 2/5, 1], [1, 0, 1/5, 1], [2/5, 1/5, 0, 1], [1, 1, 1, 
 ::::
 :::
 
-The determinant fact of the proposition constrains every linear map that preserves $\eta$. The exercise derives two
-consequences: the determinant of such a map is $\pm 1$, and its time-time entry is at least $1$ in absolute value.
+The values of the proposition constrain every linear map that preserves $\eta$. The exercise derives two
+consequences: such a map is invertible, with an inverse read off from $\eta$, and its time-time entry is at least $1$ in
+absolute value.
 
 ::: {#exr-minkowski-det-boost}
 #### Maps that preserve $\eta$
 
-Let $\Lambda$ be a $4 \times 4$ matrix with $\Lambda^\top \eta \Lambda = \eta$. Prove that $\det \Lambda = \pm 1$ and
-$|\Lambda^0{}_0| \geq 1$, and give one example of each sign of $\det\Lambda$ and of $\Lambda^0{}_0$.
+Let $\Lambda$ be a $4 \times 4$ matrix with $\Lambda^\top \eta \Lambda = \eta$. Prove that $\Lambda$ is invertible with
+$\Lambda^{-1} = \eta\Lambda^\top\eta$ and that $|\Lambda^0{}_0| \geq 1$, and give one example of each sign of
+$\Lambda^0{}_0$ and one that reverses a space axis.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-Taking determinants (@thm-determinant-product, @thm-determinant-transpose), $(\det\Lambda)^2 \det\eta = \det\eta$, and $\det\eta = -1 \neq 0$ (@prp-minkowski-values), so
-$(\det\Lambda)^2 = 1$. The $(0, 0)$ entry of $\Lambda^\top \eta \Lambda = \eta$ reads $\eta(\Lambda e_0, \Lambda e_0) =
+Since $\eta^2 = \mathbf I$, $(\eta\Lambda^\top\eta)\Lambda = \eta(\Lambda^\top\eta\Lambda) = \eta^2 = \mathbf I$. So $\Lambda\mathbf x
+= \mathbf 0$ forces $\mathbf x = \eta\Lambda^\top\eta\Lambda\mathbf x = \mathbf 0$: the kernel of $\Lambda$ is $\{\mathbf 0\}$, so by
+rank-nullity (@def-linear-map) $\Lambda$ is also surjective, hence invertible, and multiplying $(\eta\Lambda^\top\eta)\Lambda
+= \mathbf I$ on the right by $\Lambda^{-1}$ gives $\Lambda^{-1} = \eta\Lambda^\top\eta$. The $(0, 0)$ entry of $\Lambda^\top \eta \Lambda = \eta$ reads $\eta(\Lambda e_0, \Lambda e_0) =
 \eta(e_0, e_0) = 1$, that is $(\Lambda^0{}_0)^2 - \sum_k (\Lambda^k{}_0)^2 = 1$, so $(\Lambda^0{}_0)^2 \geq 1$. The boost of
-@exr-lorentz-boost has $\det = 1$ and $\Lambda^0{}_0 = \cosh u \geq 1$; the reflection $\operatorname{diag}(1, -1, 1, 1)$
-has $\det = -1$; the time reversal $\operatorname{diag}(-1, 1, 1, 1)$ has $\Lambda^0{}_0 = -1$.
+@exr-lorentz-boost has $\Lambda^0{}_0 = \cosh u \geq 1$; the time reversal $\operatorname{diag}(-1, 1, 1, 1)$ has
+$\Lambda^0{}_0 = -1$; the reflection $\operatorname{diag}(1, -1, 1, 1)$ reverses the $x$-axis.
 
 ## SageMath
 
-Check on the three examples and a product of them: Sage verifies $\Lambda^\top\eta\Lambda = \eta$ and prints $\det\Lambda$ and
-$\Lambda^0{}_0$.
+Check on the three examples and a product of them: Sage verifies $\Lambda^\top\eta\Lambda = \eta$ and the formula for the
+inverse, and prints $\Lambda^0{}_0$.
 
 ```{.python .sage}
 eta = diagonal_matrix(QQ, [1, -1, -1, -1])
 boost = matrix(QQ, [[5/4, 3/4, 0, 0], [3/4, 5/4, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
 P, T = diagonal_matrix(QQ, [1, -1, 1, 1]), diagonal_matrix(QQ, [-1, 1, 1, 1])
 for name, L in [("boost", boost), ("parity", P), ("time reversal", T), ("T * boost * P", T * boost * P)]:
-    print(name, ": preserves eta:", L.transpose() * eta * L == eta, "; det =", L.det(), "; Lambda^0_0 =", L[0, 0])
+    print(name, ": preserves eta:", L.transpose() * eta * L == eta, "; inverse = eta L^T eta:", L.inverse() == eta * L.transpose() * eta, "; Lambda^0_0 =", L[0, 0])
 ```
 
 ```{.text .sage-output}
-boost : preserves eta: True ; det = 1 ; Lambda^0_0 = 5/4
-parity : preserves eta: True ; det = -1 ; Lambda^0_0 = 1
-time reversal : preserves eta: True ; det = -1 ; Lambda^0_0 = -1
-T * boost * P : preserves eta: True ; det = 1 ; Lambda^0_0 = -5/4
+boost : preserves eta: True ; inverse = eta L^T eta: True ; Lambda^0_0 = 5/4
+parity : preserves eta: True ; inverse = eta L^T eta: True ; Lambda^0_0 = 1
+time reversal : preserves eta: True ; inverse = eta L^T eta: True ; Lambda^0_0 = -1
+T * boost * P : preserves eta: True ; inverse = eta L^T eta: True ; Lambda^0_0 = -5/4
 ```
 ::::
 :::
 
-The determinant of a Hermitian $2 \times 2$ matrix is the Minkowski form in disguise (@exm-symmetric-det-pauli). The last
-exercise combines this with the multiplicativity of the determinant to produce maps that preserve $\eta$ from $2 \times 2$
-matrices, the link between spin and Lorentz transformations.
+The quadratic form of @exm-symmetric-det-pauli is the Minkowski form in disguise. The last exercise uses it to produce
+maps that preserve $\eta$ from $2 \times 2$ matrices, the link between spin and Lorentz transformations.
 
 ::: {#exr-minkowski-pauli}
 #### Spacetime as Hermitian matrices
 
-Write $\mathbf H(x) = x^0 + x^1\sigma_1 + x^2\sigma_2 + x^3\sigma_3$. Show that the symmetric form $B(\mathbf H, \mathbf K) =
-\tfrac12(\operatorname{tr}\mathbf H \operatorname{tr}\mathbf K - \operatorname{tr}(\mathbf H \mathbf K))$ has components $\eta_{\mu\nu}$ in the basis $\mathbf I,
-\sigma_1, \sigma_2, \sigma_3$, so that $\det \mathbf H(x) = \eta(x, x)$. For $\mathbf U = \operatorname{diag}(e^{i\alpha}, e^{-i\alpha})$, show
+Write $\mathbf H(x) = x^0 + x^1\sigma_1 + x^2\sigma_2 + x^3\sigma_3$ and $s(\mathbf X) = X_{11} + X_{22}$ for the sum of the diagonal
+entries. Show that the symmetric form $B(\mathbf H, \mathbf K) = \tfrac12(s(\mathbf H) s(\mathbf K) - s(\mathbf H \mathbf K))$ has components $\eta_{\mu\nu}$ in the basis $\mathbf I,
+\sigma_1, \sigma_2, \sigma_3$, so that $B(\mathbf H(x), \mathbf H(x)) = \eta(x, x)$, and that $B(\mathbf X, \mathbf X) = X_{11}X_{22} -
+X_{12}X_{21}$ for every $2 \times 2$ matrix $\mathbf X$. For $\mathbf U = \operatorname{diag}(e^{i\alpha}, e^{-i\alpha})$, show
 that $\mathbf H \mapsto \mathbf U \mathbf H \mathbf U^\dagger$ maps $\mathbf H(x)$ to $\mathbf H(\Lambda x)$ for a linear $\Lambda$ that preserves $\eta$, and identify
 $\Lambda$.
 :::
@@ -10331,15 +10355,17 @@ $\Lambda$.
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-With $\operatorname{tr}\mathbf I = 2$, $\operatorname{tr}\sigma_k = 0$, $\sigma_k^2 = \mathbf I$ and $\operatorname{tr}(\sigma_j\sigma_k) = 0$ for
+With $s(\mathbf I) = 2$, $s(\sigma_k) = 0$, $\sigma_k^2 = \mathbf I$ and $s(\sigma_j\sigma_k) = 0$ for
 $j \neq k$ (@exm-dual-basis-pauli): $B(\mathbf I, \mathbf I) = \tfrac12(4 - 2) = 1$, $B(\sigma_k, \sigma_k) = \tfrac12(0 - 2) = -1$, $B(\mathbf I, \sigma_k)
-= \tfrac12(0 - 0) = 0$ and $B(\sigma_j, \sigma_k) = 0$ for $j \neq k$: the components are $\eta_{\mu\nu}$. Since $\det \mathbf X =
-\tfrac12((\operatorname{tr}\mathbf X)^2 - \operatorname{tr}(\mathbf X^2))$ for $2 \times 2$ matrices (@exr-trcyc-det-from-traces), $\det \mathbf H(x) = B(\mathbf H, \mathbf H) = \eta(x, x)$. The matrix
-$\mathbf U \mathbf H \mathbf U^\dagger$ is Hermitian and depends linearly on $\mathbf H$, so it is $\mathbf H(\Lambda x)$ for a linear $\Lambda$; and $\det(\mathbf U \mathbf H \mathbf U^\dagger) =
-\det \mathbf U \det \mathbf H \overline{\det \mathbf U} = \det \mathbf H$ since $|\det \mathbf U| = 1$ (@thm-determinant-product, @exr-dettrans-unitary), so $\eta(\Lambda x, \Lambda x) = \eta(x, x)$, and by polarisation
-$\Lambda$ preserves $\eta$. Explicitly, $\mathbf H(x) = \begin{pmatrix} x^0 + x^3 & x^1 - ix^2 \\ x^1 + ix^2 & x^0 - x^3 \end{pmatrix}$, and
-$\mathbf U \mathbf H \mathbf U^\dagger$ multiplies the upper-right entry by $e^{2i\alpha}$ and the lower-left by $e^{-2i\alpha}$, leaving the diagonal
-unchanged. So $x^0, x^3$ are fixed and $x^1 + ix^2 \mapsto e^{-2i\alpha}(x^1 + ix^2)$: $\Lambda$ is the rotation by the angle
+= \tfrac12(0 - 0) = 0$ and $B(\sigma_j, \sigma_k) = 0$ for $j \neq k$: the components are $\eta_{\mu\nu}$, and
+$B(\mathbf H(x), \mathbf H(x)) = \eta_{\mu\nu}x^\mu x^\nu = \eta(x, x)$. For $\mathbf X = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$,
+$s(\mathbf X) = a + d$ and $s(\mathbf X^2) = a^2 + 2bc + d^2$, so $B(\mathbf X, \mathbf X) =
+\tfrac12((a + d)^2 - a^2 - 2bc - d^2) = ad - bc$. The matrix $\mathbf U \mathbf H \mathbf U^\dagger$ is Hermitian and depends linearly on $\mathbf H$, so it is
+$\mathbf H(\Lambda x)$ for a linear $\Lambda$. Explicitly, $\mathbf H(x) = \begin{pmatrix} x^0 + x^3 & x^1 - ix^2 \\ x^1 + ix^2 & x^0 -
+x^3 \end{pmatrix}$, and $\mathbf U \mathbf H \mathbf U^\dagger$ multiplies the upper-right entry by $e^{2i\alpha}$ and the lower-left by
+$e^{-2i\alpha}$, leaving the diagonal unchanged. The product of the two off-diagonal entries does not change, so $B(\mathbf U \mathbf H
+\mathbf U^\dagger, \mathbf U \mathbf H \mathbf U^\dagger) = B(\mathbf H, \mathbf H)$, that is $\eta(\Lambda x, \Lambda x) = \eta(x, x)$, and by
+polarisation $\Lambda$ preserves $\eta$. So $x^0, x^3$ are fixed and $x^1 + ix^2 \mapsto e^{-2i\alpha}(x^1 + ix^2)$: $\Lambda$ is the rotation by the angle
 $-2\alpha$ about the third axis.
 
 ## SageMath
@@ -10349,12 +10375,13 @@ Sage computes the components of $B$ in the Pauli basis and the matrix $\Lambda$ 
 ```{.python .sage}
 i = QQbar(I)
 s = [identity_matrix(QQbar, 2), matrix(QQbar, [[0, 1], [1, 0]]), matrix(QQbar, [[0, -i], [i, 0]]), matrix(QQbar, [[1, 0], [0, -1]])]
-B = lambda H, K: (H.trace() * K.trace() - (H * K).trace()) / 2
+sd = lambda M: M[0, 0] + M[1, 1]                                 # sum of the diagonal entries
+B = lambda H, K: (sd(H) * sd(K) - sd(H * K)) / 2
 print("B(s_mu, s_nu):", [[B(a, b) for b in s] for a in s])
 al = var("alpha", domain="real")
 sS = [m.change_ring(SR) for m in s]
 U = diagonal_matrix(SR, [exp(I * al), exp(-I * al)])
-comp = lambda H: [((sS[k] * H).trace() / 2).simplify_full() for k in range(4)]      # x^k = tr(s_k H)/2
+comp = lambda H: [(sd(sS[k] * H) / 2).simplify_full() for k in range(4)]      # x^k = sd(s_k H)/2
 Lam = matrix(SR, 4, 4, lambda r, c: comp(U * sS[c] * U.conjugate_transpose())[r])
 print("Lambda =", [[e.trig_reduce() for e in row] for row in Lam.rows()])
 print("Lambda^T eta Lambda == eta:", (Lam.transpose() * diagonal_matrix([1, -1, -1, -1]) * Lam).simplify_full().apply_map(lambda e: e.simplify_trig()) == diagonal_matrix([1, -1, -1, -1]))
@@ -10383,7 +10410,8 @@ For more on this topic, see @axler2024linear [Secs. 9B and 9D], @lee2013introduc
 ### Multilinear maps
 
 Linear functionals take one vector and bilinear forms take two; the next step is to allow any number of arguments. The
-definition requires linearity in each slot separately, and the determinant is the picture to keep in mind.
+definition requires linearity in each slot separately, and the signed area of a parallelogram is the picture to keep
+in mind.
 
 :::: {.statement-box}
 ::: {#def-multilinear-map}
@@ -10433,27 +10461,28 @@ argument too, but its values are vectors, not numbers; each of its components $e
 in the sense of @def-multilinear-map.
 :::
 
-Seen as a function of its $n$ columns, $\det$ is multilinear and alternating. The example records both properties and
-reads the two-dimensional case as a signed area.
+On the plane, the signed area of the parallelogram spanned by two vectors is bilinear and changes sign when the two
+are swapped. The example records both properties and gives the second one its name.
 
 ::: {#exm-multilinear-det}
-#### The determinant
+#### Signed area
 
-$(v_1, \dots, v_n) \mapsto \det(v_1 | \dots | v_n)$ on $\mathbb{R}^n$ is $n$-linear: each term of the Leibniz
-expansion (@def-determinant) is a product of one entry from each column. It is **alternating**: it changes sign when two arguments are
-swapped. For $n = 2$, $\det(u, v) = u^1 v^2 - u^2 v^1$ is the signed area of the parallelogram spanned by $u$ and $v$.
+$\omega(u, v) = u^1 v^2 - u^2 v^1$ on $\mathbb{R}^2$ is bilinear: each term is a product of one coordinate of $u$ and one
+of $v$. It is **alternating**: it changes sign when the two arguments are swapped, and $\omega(u, u) = 0$. Its value is
+the signed area of the parallelogram spanned by $u$ and $v$; the triple product of @exm-multilinear-dot-triple is the
+signed volume on $\mathbb{R}^3$, and it is alternating in the same way.
 :::
 
 Multilinear maps need not have vectors of $\mathbb{R}^n$ as arguments; matrices will do. The example multiplies $m$
-matrices and takes the trace, the sum of the diagonal entries [@axler2024linear, Example 9.26].
+matrices and takes the sum of the diagonal entries [@axler2024linear, Example 9.26].
 
 ::: {#exm-multilinear-trace}
-#### The trace of a product
+#### The diagonal sum of a product
 
-On the space of $n \times n$ matrices, $(\mathbf X_1, \dots, \mathbf X_m) \mapsto \operatorname{tr}(\mathbf X_1 \cdots \mathbf X_m)$ is $m$-linear:
+On the space of $n \times n$ matrices, $(\mathbf X_1, \dots, \mathbf X_m) \mapsto \sum_i (\mathbf X_1 \cdots \mathbf X_m)_{ii}$ is $m$-linear:
 the product is linear in each factor when the others are fixed, and taking the sum of the diagonal entries is linear.
-For $m = 2$ and the matrix units $\mathbf E_{12}$, $\mathbf E_{21}$ of $2 \times 2$ matrices, $\operatorname{tr}(\mathbf E_{12}\mathbf E_{21}) =
-\operatorname{tr}(\mathbf E_{21}\mathbf E_{12}) = 1$ while $\operatorname{tr}(\mathbf E_{12}\mathbf E_{12}) = 0$.
+For $m = 2$ and the matrix units $\mathbf E_{12}$, $\mathbf E_{21}$ of $2 \times 2$ matrices, $\mathbf E_{12}\mathbf E_{21} = \mathbf E_{11}$ and
+$\mathbf E_{21}\mathbf E_{12} = \mathbf E_{22}$ both have diagonal sum $1$, while $\mathbf E_{12}\mathbf E_{12} = \mathbf 0$ has diagonal sum $0$.
 :::
 
 Angular momentum gives a first physical multilinear map. The example takes its component along a fixed direction,
@@ -10469,28 +10498,28 @@ m\dot{\mathbf x} = m\omega(-A\sin\omega t, B\cos\omega t, 0)$ and $L_z = m\omega
 = m\omega AB$, constant in time.
 :::
 
-In four dimensions the determinant becomes the Levi-Civita symbol of Minkowski space. The example writes it as a
+In four dimensions the signed area and the signed volume continue to the Levi-Civita symbol of Minkowski space. The example writes it as a
 four-linear map of four-vectors and evaluates it on two lists.
 
 ::: {#exm-multilinear-levi-civita}
 #### The Levi-Civita symbol on Minkowski space
 
 On $\mathbb{R}^4$ with coordinates $x^\mu$, $\epsilon(u, v, w, z) = \epsilon_{\mu\nu\rho\sigma} u^\mu v^\nu w^\rho
-z^\sigma$ with $\epsilon_{0123} = +1$ is $4$-linear and alternating; it is the determinant of the matrix with columns
-$u, v, w, z$. It gives $\epsilon(e_0, e_1, e_2, e_3) = 1$ and $\epsilon(e_0, e_1, e_2, e_0 + e_3) = 1$, but
+z^\sigma$ with $\epsilon_{0123} = +1$ is $4$-linear and alternating. It gives $\epsilon(e_0, e_1, e_2, e_3) = 1$ and $\epsilon(e_0, e_1, e_2, e_0 + e_3) = 1$, but
 $\epsilon(e_1, e_0, e_2, e_3) = -1$.
 :::
 
-The curvature of spacetime is the multilinear map with the most physics in it. The example also shows a function of
-two vectors, sectional curvature, that is not multilinear, to mark the boundary of the notion.
+The rotational inertia of a rigid body is a multilinear map with much physics in it. The example also shows a
+function of one vector, the moment of inertia about an axis, that is not linear, to mark the boundary of the notion.
 
-::: {#exm-multilinear-riemann}
-#### Curvature
+::: {#exm-multilinear-inertia}
+#### Moments of inertia
 
-In general relativity the curvature at a point is the Riemann tensor, a $4$-linear map $R(\alpha, u, v, w)$ of one
-covector and three vectors. The sectional curvature $K(v, w)$ of the plane of two vectors $v, w$ is a ratio of two
-expressions that are each multilinear in the list $(v, w, w, v)$; it is not bilinear, since $K(2v, w) = K(v, w)$:
-numerator and denominator both pick up a factor $4$.
+For point masses $m_k$ at $\mathbf x_k$, $I(\mathbf u, \mathbf v) = \sum_k m_k\big((\mathbf x_k \cdot \mathbf x_k)(\mathbf u \cdot \mathbf v) -
+(\mathbf x_k \cdot \mathbf u)(\mathbf x_k \cdot \mathbf v)\big)$ is bilinear on $\mathbb{R}^3$, with the components $I_{ij}$ of the
+inertia tensor of @exm-dim-inertia. The moment of inertia about the axis of $\mathbf v \neq 0$, $K(\mathbf v) = I(\mathbf v, \mathbf v) /
+(\mathbf v \cdot \mathbf v)$, is a ratio of two expressions that are each bilinear in the list $(\mathbf v, \mathbf v)$; it is not
+linear, since $K(2\mathbf v) = K(\mathbf v)$: numerator and denominator both pick up a factor $4$.
 :::
 
 Linearity in each slot is not linearity on the product space. The example shows that the two notions exclude each
@@ -10534,7 +10563,7 @@ trilinear: $(u, v, w) \mapsto u \cdot (v \times w)$; $(u, v, w) \mapsto |u|\,(v 
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-The triple product $u \cdot (v \times w) = \det(u | v | w)$ is trilinear (@exm-multilinear-det). $|u|\,(v \cdot w)$
+The triple product $u \cdot (v \times w)$ is trilinear (@exm-multilinear-dot-triple). $|u|\,(v \cdot w)$
 is not linear in $u$: $|{-u}| = |u|$, not $-|u|$, so for $v \cdot w \neq 0$ the value does not change sign with $u$.
 $(u \cdot v)(v \cdot w)$ is quadratic in $v$: replacing $v$ by $2v$ multiplies it by $4$, not $2$. The first map is
 trilinear; the second fails in the first slot and the third in the second slot.
@@ -10666,8 +10695,8 @@ Each term is a product of one coordinate of $x$, one of $y$ and one of $z$, and 
 is trilinear (@exm-multilinear-product). For $y = x$ the terms cancel in pairs: $x^1x^2z^3 - x^2x^1z^3 = 0$, $-x^3x^2z^1
 + x^2x^3z^1 = 0$ and $-x^1x^3z^2 + x^3x^1z^2 = 0$; the cases $z = x$ and $z = y$ cancel in the same way. Then
 $0 = \alpha(x + y, x + y, z) = \alpha(x, y, z) + \alpha(y, x, z)$ by trilinearity, and likewise for the other pairs
-of slots: $\alpha$ changes sign under every swap. It is the determinant of the $3 \times 3$ matrix of the first three
-coordinates of $x, y, z$.
+of slots: $\alpha$ changes sign under every swap. It is the triple product $x' \cdot (y' \times z')$ of the vectors
+$x', y', z'$ of the first three coordinates of $x, y, z$.
 
 ## SageMath
 
@@ -10679,13 +10708,13 @@ def alpha(x, y, z):
     return x[0]*y[1]*z[2] - x[1]*y[0]*z[2] - x[2]*y[1]*z[0] - x[0]*y[2]*z[1] + x[2]*y[0]*z[1] + x[1]*y[2]*z[0]
 print("alpha(x, x, z) =", alpha(X, X, Z).expand(), "; alpha(x, y, x) =", alpha(X, Y, X).expand(), "; alpha(x, y, y) =", alpha(X, Y, Y).expand())
 print("alpha(y, x, z) + alpha(x, y, z) =", (alpha(Y, X, Z) + alpha(X, Y, Z)).expand(), "; alpha(x, z, y) + alpha(x, y, z) =", (alpha(X, Z, Y) + alpha(X, Y, Z)).expand())
-print("equal to the determinant of the first three coordinates:", bool(alpha(X, Y, Z) == matrix(SR, [X[:3], Y[:3], Z[:3]]).det()))
+print("equal to the triple product of the first three coordinates:", bool(alpha(X, Y, Z) == X[:3].dot_product(Y[:3].cross_product(Z[:3]))))
 ```
 
 ```{.text .sage-output}
 alpha(x, x, z) = 0 ; alpha(x, y, x) = 0 ; alpha(x, y, y) = 0
 alpha(y, x, z) + alpha(x, y, z) = 0 ; alpha(x, z, y) + alpha(x, y, z) = 0
-equal to the determinant of the first three coordinates: True
+equal to the triple product of the first three coordinates: True
 ```
 ::::
 :::
@@ -10706,25 +10735,25 @@ conversely that a bilinear form with $B(v, v) = 0$ for all $v$ is antisymmetric.
 
 Swapping two equal arguments changes nothing but, by the alternating property, changes the sign: $T(\dots, v,
 \dots, v, \dots) = -T(\dots, v, \dots, v, \dots)$, so the value is $0$. Conversely, $0 = B(v + w, v + w) = B(v, v) +
-B(v, w) + B(w, v) + B(w, w) = B(v, w) + B(w, v)$, so $B(w, v) = -B(v, w)$. For the determinant this says that a
-matrix with two equal columns has determinant zero.
+B(v, w) + B(w, v) + B(w, w) = B(v, w) + B(w, v)$, so $B(w, v) = -B(v, w)$. For the triple product this says that
+$u \cdot (v \times w)$ vanishes when two of the three vectors are equal.
 
 ## SageMath
 
-Check on $\det$ of $3 \times 3$ matrices and on the bilinear form $B(v, w) = v^1 w^2 - v^2 w^1$ of $\mathbb{R}^2$:
+Check on the triple product of $\mathbb{R}^3$ and on the bilinear form $B(v, w) = v^1 w^2 - v^2 w^1$ of $\mathbb{R}^2$:
 Sage evaluates both on repeated and swapped arguments.
 
 ```{.python .sage}
 u, v = vector(QQ, [1, 2, 3]), vector(QQ, [0, 1, -1])
-D = lambda a, b, c: matrix(QQ, [a, b, c]).transpose().det()
-print("det(u | v | u) =", D(u, v, u), "; det(u | u | v) =", D(u, u, v))
+D = lambda a, b, c: a.dot_product(b.cross_product(c))
+print("u.(v x u) =", D(u, v, u), "; u.(u x v) =", D(u, u, v))
 B = lambda v, w: v[0] * w[1] - v[1] * w[0]
 p, q = vector(QQ, [3, -1]), vector(QQ, [2, 5])
 print("B(p, p) =", B(p, p), "; B(p, q) =", B(p, q), "; B(q, p) =", B(q, p))
 ```
 
 ```{.text .sage-output}
-det(u | v | u) = 0 ; det(u | u | v) = 0
+u.(v x u) = 0 ; u.(u x v) = 0
 B(p, p) = 0 ; B(p, q) = 17 ; B(q, p) = -17
 ```
 ::::
@@ -10753,11 +10782,11 @@ sums in slots $i$ and $j$ gives, as before, a sign change under the swap of slot
 
 ## SageMath
 
-Check on $\mathbb{R}^3$ with $T(u, v, w) = \det(u | v | w)$, which vanishes on equal neighbours: Sage evaluates it with
-equal first and third arguments and with those two arguments swapped.
+Check on $\mathbb{R}^3$ with the triple product $T(u, v, w) = u \cdot (v \times w)$, which vanishes on equal neighbours:
+Sage evaluates it with equal first and third arguments and with those two arguments swapped.
 
 ```{.python .sage}
-T = lambda a, b, c: matrix(QQ, [a, b, c]).transpose().det()
+T = lambda a, b, c: a.dot_product(b.cross_product(c))
 u, v, w = vector(QQ, [1, 2, 3]), vector(QQ, [0, 1, -1]), vector(QQ, [2, 0, 1])
 print("T(u, v, v) =", T(u, v, v), "; T(u, v, u) =", T(u, v, u), "; T(u, v, w) =", T(u, v, w), "; T(w, v, u) =", T(w, v, u))
 ```
@@ -10790,11 +10819,11 @@ vectors is dependent (@def-dimension), so $T$ vanishes on every list: $T = 0$.
 
 ## SageMath
 
-Check on $\mathbb{R}^3$ with $T = \det$: Sage evaluates it on the dependent list $(u, v, 2u - 3v)$ and on an
-independent one.
+Check on $\mathbb{R}^3$ with the triple product $T(u, v, w) = u \cdot (v \times w)$: Sage evaluates it on the dependent
+list $(u, v, 2u - 3v)$ and on an independent one.
 
 ```{.python .sage}
-T = lambda a, b, c: matrix(QQ, [a, b, c]).transpose().det()
+T = lambda a, b, c: a.dot_product(b.cross_product(c))
 u, v, w = vector(QQ, [1, 2, 3]), vector(QQ, [0, 1, -1]), vector(QQ, [2, 0, 1])
 print("T(u, v, 2u - 3v) =", T(u, v, 2 * u - 3 * v), "; T(u, v, w) =", T(u, v, w))
 print("rank of (u, v, 2u - 3v):", matrix(QQ, [u, v, 2 * u - 3 * v]).rank())
@@ -10852,14 +10881,15 @@ T(u, v, w) = -2500 ; linear in the first slot: True
 :::
 
 On $\mathbb{R}^n$ with $n = k$ a non-zero alternating map is non-zero on every independent list; for $k < n$ this
-fails. The exercise asks for an example on $\mathbb{R}^3$, and contrasts it with the determinant
+fails. The exercise asks for an example on $\mathbb{R}^3$, and contrasts it with the signed area on $\mathbb{R}^2$
 [@axler2024linear, Exercise 9B.7].
 
 ::: {#exr-multilinear-alternating-r3}
 #### Fewer arguments than dimensions
 
 Give a non-zero alternating bilinear form $\alpha$ on $\mathbb{R}^3$ and a linearly independent pair $v_1, v_2$ with
-$\alpha(v_1, v_2) = 0$. Why can this not happen for the determinant on $\mathbb{R}^2$?
+$\alpha(v_1, v_2) = 0$. Why can this not happen for the signed area $\omega(u, v) = u^1 v^2 - u^2 v^1$ on
+$\mathbb{R}^2$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -10869,8 +10899,8 @@ $\alpha(v_1, v_2) = 0$. Why can this not happen for the determinant on $\mathbb{
 $\alpha(u, v) = u^1 v^2 - u^2 v^1$ is bilinear, alternating ($\alpha(u, u) = 0$) and non-zero ($\alpha(e_1, e_2) = 1$),
 but $\alpha(e_1, e_3) = 0$ although $e_1, e_3$ are independent: $\alpha$ only sees the first two coordinates. On
 $\mathbb{R}^2$, an independent pair $v_1, v_2$ is a basis (@def-dimension), so $e_1 = a v_1 + b v_2$, $e_2 = c v_1 +
-d v_2$ and $1 = \det(e_1, e_2) = (ad - bc)\det(v_1, v_2)$ by bilinearity and $\det(v_i, v_i) = 0$; hence
-$\det(v_1, v_2) \neq 0$.
+d v_2$ and $1 = \omega(e_1, e_2) = (ad - bc)\,\omega(v_1, v_2)$ by bilinearity, $\omega(v_i, v_i) = 0$ and $\omega(v_2,
+v_1) = -\omega(v_1, v_2)$; hence $\omega(v_1, v_2) \neq 0$.
 
 ## SageMath
 
@@ -10889,7 +10919,7 @@ alpha(e1, e2) = 1 ; alpha(e1, e3) = 0 ; rank of (e1, e3): 2
 :::
 
 Every multilinear map can be turned into an alternating one by summing over permutations of its arguments with signs.
-The last exercise proves this and finds the determinant as the result for the simplest trilinear product
+The last exercise proves this and finds the triple product as the result for the simplest trilinear product
 [@axler2024linear, Exercise 9B.5].
 
 ::: {#exr-multilinear-antisymmetrise}
@@ -10912,25 +10942,25 @@ $(\operatorname{Alt}\beta)(v_{\tau(1)}, \dots, v_{\tau(k)}) = \sum_\sigma \opera
 \tau\sigma$, and $\operatorname{sgn}(\sigma) = -\operatorname{sgn}(\rho)$ because $\rho$ differs from $\sigma$ by a
 swap of two entries. The sum is $-(\operatorname{Alt}\beta)(v_1, \dots, v_k)$. For $\beta(u, v, w) = u^1 v^2 w^3$
 the six terms are $\pm$ products of one coordinate of each argument, $\sum_\sigma \operatorname{sgn}(\sigma)
-x_{\sigma(1)}^1 x_{\sigma(2)}^2 x_{\sigma(3)}^3$ with $(x_1, x_2, x_3) = (u, v, w)$: the Leibniz expansion of
-$\det(u | v | w)$, the form of @exr-multilinear-six-terms.
+x_{\sigma(1)}^1 x_{\sigma(2)}^2 x_{\sigma(3)}^3$ with $(x_1, x_2, x_3) = (u, v, w)$: the six terms of the triple
+product $u \cdot (v \times w)$, the form of @exr-multilinear-six-terms.
 
 ## SageMath
 
 Check on $\mathbb{R}^3$: Sage sums over the permutations of $(1, 2, 3)$ with their signs and compares with the
-determinant on symbolic vectors.
+triple product on symbolic vectors.
 
 ```{.python .sage}
 U = [vector(SR, var("u1 u2 u3")), vector(SR, var("v1 v2 v3")), vector(SR, var("w1 w2 w3"))]
 beta = lambda a, b, c: a[0] * b[1] * c[2]
 alt = sum(s.sign() * beta(*[U[s(i + 1) - 1] for i in range(3)]) for s in Permutations(3))
 print("Alt beta =", alt.expand())
-print("equals det(u | v | w):", bool(alt == matrix(SR, U).transpose().det()))
+print("equals u.(v x w):", bool(alt == U[0].dot_product(U[1].cross_product(U[2]))))
 ```
 
 ```{.text .sage-output}
 Alt beta = -u3*v2*w1 + u2*v3*w1 + u3*v1*w2 - u1*v3*w2 - u2*v1*w3 + u1*v2*w3
-equals det(u | v | w): True
+equals u.(v x w): True
 ```
 ::::
 :::
@@ -11050,8 +11080,8 @@ tensor product and reads off the degeneracies of its energy levels.
 ::: {#exm-tensor-space-oscillator}
 #### The two-dimensional oscillator
 
-The states of a one-dimensional oscillator are spanned by the eigenstates $\lvert n\rangle$, $n = 0, 1, 2, \dots$, of
-energy $(n + \tfrac12)\hbar\omega$. Keeping the levels $n < N$ gives a space $V_N$ of dimension $N$, and the
+The states of a one-dimensional oscillator are spanned by the states $\lvert n\rangle$, $n = 0, 1, 2, \dots$, of
+definite energy $(n + \tfrac12)\hbar\omega$. Keeping the levels $n < N$ gives a space $V_N$ of dimension $N$, and the
 two-dimensional oscillator has the basis $\lvert n_1\rangle \otimes \lvert n_2\rangle$ of $V_N \otimes V_N$, with energy
 $(n_1 + n_2 + 1)\hbar\omega$. The level $n_1 + n_2 = n < N$ contains the $n + 1$ states $(n_1, n_2) = (0, n), \dots,
 (n, 0)$: degeneracies $1, 2, 3, \dots$.
@@ -11543,7 +11573,7 @@ notes that the identity needs three elementary terms, matching the rank-three ar
 #### Rank-one matrices
 
 A $3 \times 3$ matrix is elementary in $\mathbb{R}^3 \otimes \mathbb{R}^3$ exactly when it has rank at most one
-(@exr-elementary-rank-criterion); the identity matrix is a sum $e_1 \otimes e_1 + e_2 \otimes e_2 + e_3 \otimes e_3$
+the identity matrix is a sum $e_1 \otimes e_1 + e_2 \otimes e_2 + e_3 \otimes e_3$
 of three and no fewer (@fig-tensor-grid, rank three).
 :::
 
@@ -11602,7 +11632,7 @@ freedom there is in writing a non-zero elementary tensor [@axler2024linear, Exer
 ::: {#exm-elementary-zero}
 #### When the product vanishes
 
-$v \otimes w = 0$ exactly when $v = 0$ or $w = 0$ (@exr-elementary-zero-proof): $0 \otimes w = 0$ by bilinearity, and
+$v \otimes w = 0$ exactly when $v = 0$ or $w = 0$: $0 \otimes w = 0$ by bilinearity, and
 $v \otimes 0 = 0$ likewise. A non-zero elementary tensor determines its factors up to a scalar: $v \otimes w = v'
 \otimes w' \neq 0$ exactly when $v' = \lambda v$ and $w' = \lambda^{-1} w$ for some $\lambda \neq 0$, since the
 columns of the array $(v^i w^a)$ span the line of $v$.
@@ -12087,15 +12117,16 @@ u * v: (2, 0) ; a: (0, 1) ; v * a: (1, 1) ; V.tensor((1, 1)): (1, 1)
 ```
 :::
 
-The tensors of general relativity and the fields of electromagnetism each have a definite type. The example lists
-them, from the type $(1, 3)$ Riemann tensor down to the type $(0, 0)$ scalar curvature.
+The tensors of mechanics, relativity and electromagnetism each have a definite type. The example lists them, from the
+type $(0, 4)$ Levi-Civita symbol down to a type $(0, 0)$ number.
 
-::: {#exm-type-riemann}
-#### Curvature tensors
+::: {#exm-type-physics}
+#### Tensors of physics
 
-The Riemann tensor $R^\rho{}_{\sigma\mu\nu}$ is of type $(1, 3)$, the Ricci tensor $R_{\sigma\nu}$ of type $(0, 2)$, the
-scalar curvature $R$ of type $(0, 0)$ (a number); the field strength $F_{\mu\nu}$ is of type $(0, 2)$ and the
-energy-momentum tensor $T^{\mu\nu}$ of type $(2, 0)$.
+The Levi-Civita symbol $\epsilon_{\mu\nu\rho\sigma}$ of @exm-multilinear-levi-civita is of type $(0, 4)$, the inertia
+tensor $I_{ij}$ of @exm-multilinear-inertia of type $(0, 2)$, a four-velocity $u^\mu$ of type $(1, 0)$ and a mass of type
+$(0, 0)$ (a number); the field strength $F_{\mu\nu}$ is of type $(0, 2)$ and the energy-momentum tensor $T^{\mu\nu}$ of
+type $(2, 0)$.
 :::
 
 On Minkowski space a vector and a covector with the same physical content have different components. The example lowers
@@ -12175,14 +12206,14 @@ v^i w^j: (2, 0) ; g^ij T_jk: (1, 1) ; alpha_i v^i: -2 (a number)
 :::
 
 A tensor of type $(r, s)$ in dimension $n$ has $n^{r + s}$ components, one for each choice of its indices. The exercise
-asks for the count and for the $256$ components of the Riemann tensor in four dimensions, before symmetries are taken
-into account.
+asks for the count and for the $256$ components of the Levi-Civita symbol in four dimensions, before its symmetries are
+taken into account.
 
 ::: {#exr-type-count-components}
 #### Counting components
 
-How many components does a tensor of type $(r, s)$ on an $n$-dimensional space have? How many for the Riemann
-tensor in four dimensions before symmetries are taken into account?
+How many components does a tensor of type $(r, s)$ on an $n$-dimensional space have? How many for the Levi-Civita
+symbol $\epsilon_{\mu\nu\rho\sigma}$ in four dimensions before symmetries are taken into account?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -12190,7 +12221,7 @@ tensor in four dimensions before symmetries are taken into account?
 ## Proof
 
 Each of the $r + s$ indices runs over $n$ values, so there are $n^{r + s}$ components: $4^4 = 256$ for
-$R^\rho{}_{\sigma\mu\nu}$ in four dimensions (its symmetries reduce the independent ones to $20$). The count does not
+$\epsilon_{\mu\nu\rho\sigma}$ in four dimensions (being alternating, it is fixed by the single number $\epsilon_{0123}$). The count does not
 depend on how the indices are split between upper and lower.
 
 ## SageMath
@@ -12198,7 +12229,7 @@ depend on how the indices are split between upper and lower.
 Sage counts the index tuples for a few types in dimension $4$.
 
 ```{.python .sage}
-for (r, s) in [(1, 0), (0, 2), (2, 0), (1, 3)]:
+for (r, s) in [(1, 0), (0, 2), (2, 0), (0, 4)]:
     print("type", (r, s), ":", len(list(cartesian_product([range(4)] * (r + s)))), "components = 4^", r + s)
 ```
 
@@ -12206,7 +12237,7 @@ for (r, s) in [(1, 0), (0, 2), (2, 0), (1, 3)]:
 type (1, 0) : 4 components = 4^ 1
 type (0, 2) : 16 components = 4^ 2
 type (2, 0) : 16 components = 4^ 2
-type (1, 3) : 256 components = 4^ 4
+type (0, 4) : 256 components = 4^ 4
 ```
 ::::
 :::
@@ -12582,15 +12613,16 @@ $u' = (1, 1, 3)$, $v' = (1, -1, -1)$, and $(u \otimes v)'^{ij} = u'^i v'^j$ is $
 & -1 \\ 3 & -3 & -3 \end{pmatrix}$.
 :::
 
-The determinant on $\mathbb{R}^3$ is a type $(0, 3)$ tensor, and its components are a famous symbol. The example
+The triple product on $\mathbb{R}^3$ is a type $(0, 3)$ tensor, and its components are a famous symbol. The example
 computes them [@lee2013introduction, Example 12.11(c)].
 
 ::: {#exm-components-determinant}
-#### The components of the determinant
+#### The components of the triple product
 
-As a trilinear map of three vectors, $\det$ on $\mathbb{R}^3$ has components $\det(e_i, e_j, e_k) = \epsilon_{ijk}$: $+1$
-for $(i, j, k)$ an even permutation of $(1, 2, 3)$, $-1$ for an odd one (@def-permutation-sign), $0$ when an index repeats. So $\det(u, v, w) =
-\epsilon_{ijk}u^iv^jw^k$, and only $6$ of the $27$ components are non-zero.
+As a trilinear map of three vectors, $\tau(u, v, w) = u \cdot (v \times w)$ on $\mathbb{R}^3$ has components $\tau(e_i,
+e_j, e_k) = \epsilon_{ijk}$: $+1$ for $(i, j, k) = (1, 2, 3), (2, 3, 1), (3, 1, 2)$, $-1$ for $(2, 1, 3), (1, 3, 2), (3,
+2, 1)$, and $0$ when an index repeats, since $e_1 \cdot (e_2 \times e_3) = 1$ and the triple product changes sign under
+every swap. So $\tau(u, v, w) = \epsilon_{ijk}u^iv^jw^k$, and only $6$ of the $27$ components are non-zero.
 :::
 
 A tensor acts on its arguments by summing its components against theirs. The example writes this out for a type
@@ -12644,16 +12676,16 @@ $x'^2 + p'^2$. The phase-space form $\omega$ of @exm-bilinear-symplectic keeps i
 = \lambda\lambda^{-1}\omega(e_1, e_2)$.
 :::
 
-The tensor is the same object in every basis; only its array changes. The example names the trace and the determinant
-of a type $(1, 1)$ tensor as invariants and explains why the determinant of a metric picks up a factor.
+The tensor is the same object in every basis; only its array changes. The example computes one number from the
+arrays in two bases and finds the same value.
 
 ::: {#exm-components-basis-independent}
 #### What does not depend on the basis
 
-The tensor is the same object in every basis; only the array changes. The determinant of a type $(1, 1)$ tensor
-and its trace are basis independent (@thm-determinant-product, @prp-trace-cyclic), while the determinant of a type $(0, 2)$ tensor is multiplied by $(\det
-\mathbf A)^2$ (@exr-components-bilinear-transform): that is why $\sqrt{|\det g|}$ carries a factor $|\det \mathbf A|$ and appears in
-volume elements.
+The tensor is the same object in every basis; only the array changes. The dot product on $\mathbb{R}^2$ has
+components $\delta_{ij}$ in the standard basis and $B'_{ij} = f_i \cdot f_j$, the array $\begin{pmatrix} 5 & 4 \\ 4 & 5
+\end{pmatrix}$, in the basis $f_1 = (2, 1)$, $f_2 = (1, 2)$. The vector $v = (5, 4)$ has coordinates $(2, 1)$ in $f$, and
+$B'_{ij}v'^iv'^j = 5 \cdot 4 + 2 \cdot 4 \cdot 2 + 5 \cdot 1 = 41 = 5^2 + 4^2$: the arrays differ, the number does not.
 :::
 
 The transformation rule is not a convention that could be chosen differently. The last example shows what goes wrong
@@ -12826,39 +12858,45 @@ A^-1 T A = [(1, 0, -1), (1, 0, -1), (3, 0, -3)] ; u' (x) a' = [(1, 0, -1), (1, 0
 ::::
 :::
 
-A type $(0, 2)$ tensor transforms with two factors of $\mathbf A$, and its determinant picks up $(\det \mathbf A)^2$. The exercise
-derives this and contrasts it with the invariant determinant of a type $(1, 1)$ tensor.
+A type $(0, 2)$ tensor transforms with two factors of $\mathbf A$, one of them transposed. The exercise derives this and
+shows which properties of the array survive the change, in contrast with a type $(1, 1)$ tensor.
 
 ::: {#exr-components-bilinear-transform}
 #### Two lower indices
 
 Show that the components of a type $(0, 2)$ tensor transform as $B'_{ij} = A^k{}_i A^l{}_j B_{kl}$, and use it to
-explain why $\det\mathbf B' = (\det \mathbf A)^2 \det\mathbf B$ while for a type $(1, 1)$ tensor $\det\mathbf T' = \det\mathbf T$.
+show that $\mathbf B'$ is symmetric, or invertible, exactly when $\mathbf B$ is. Show that for a type $(1, 1)$ tensor, with $\mathbf T' =
+\mathbf A^{-1}\mathbf T\mathbf A$, symmetry of the array is not preserved.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Proof
 
-$B'_{ij} = B(e'_i, e'_j) = B(A^k{}_i e_k, A^l{}_j e_l) = A^k{}_i A^l{}_j B_{kl}$, that is, $\mathbf B' = \mathbf A^\top \mathbf B \mathbf A$, whose
-determinant is $\det \mathbf A^\top \det\mathbf B \det \mathbf A = (\det \mathbf A)^2 \det\mathbf B$ by the product rule for determinants
-(@thm-determinant-product) and $\det \mathbf A^\top = \det \mathbf A$ (@thm-determinant-transpose). A type $(1, 1)$
-tensor transforms as $\mathbf T' = \mathbf A^{-1} \mathbf T \mathbf A$, and $\det(\mathbf A^{-1} \mathbf T \mathbf A) = (\det \mathbf A)^{-1}\det\mathbf T \det \mathbf A = \det\mathbf T$.
+$B'_{ij} = B(e'_i, e'_j) = B(A^k{}_i e_k, A^l{}_j e_l) = A^k{}_i A^l{}_j B_{kl}$, that is, $\mathbf B' = \mathbf A^\top \mathbf B \mathbf A$. Then
+$\mathbf B'^\top = \mathbf A^\top \mathbf B^\top \mathbf A$, which equals $\mathbf B'$ exactly when $\mathbf B^\top = \mathbf B$, by multiplying on the left
+by $(\mathbf A^\top)^{-1}$ and on the right by $\mathbf A^{-1}$. If $\mathbf B$ is invertible, $\mathbf B'$ has the inverse $\mathbf A^{-1}\mathbf B^{-1}(\mathbf
+A^\top)^{-1}$, and conversely $\mathbf B = (\mathbf A^\top)^{-1}\mathbf B'\mathbf A^{-1}$ is invertible when $\mathbf B'$ is. A type $(1, 1)$
+tensor transforms as $\mathbf T' = \mathbf A^{-1} \mathbf T \mathbf A$, with different factors on the two sides: for $\mathbf A$ below and $\mathbf T =
+\operatorname{diag}(1, 2, 3)$, $\mathbf T' = \begin{pmatrix} 1 & 0 & 0 \\ 1 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}$ is not symmetric.
 
 ## SageMath
 
-Check on the change of basis $e'_1 = 2e_1 + e_2$, $e'_2 = e_2$, $e'_3 = e_3$, with $\det \mathbf A = 2$: Sage compares the
-determinants for a sample $\mathbf B$ and $\mathbf T$.
+Check on the change of basis $e'_1 = 2e_1 + e_2$, $e'_2 = e_2$, $e'_3 = e_3$: Sage transforms a sample symmetric $\mathbf B$
+and the diagonal $\mathbf T$, and tests symmetry and invertibility.
 
 ```{.python .sage}
 A = matrix(QQ, [[2, 0, 0], [1, 1, 0], [0, 0, 1]])
 B = matrix(QQ, [[1, 2, 0], [2, -1, 1], [0, 1, 3]])
-T = matrix(QQ, [[1, 2, 0], [0, 3, 1], [0, 0, 5]])
-print("det A =", A.det(), "; det B =", B.det(), "; det(A^T B A) =", (A.transpose() * B * A).det(), "; det T =", T.det(), "; det(A^-1 T A) =", (A.inverse() * T * A).det())
+T = diagonal_matrix(QQ, [1, 2, 3])
+Bp, Tp = A.transpose() * B * A, A.inverse() * T * A
+print("B' =", Bp.rows(), "; symmetric:", Bp.is_symmetric(), "; invertible:", B.is_invertible(), Bp.is_invertible())
+print("T' =", Tp.rows(), "; symmetric:", Tp.is_symmetric())
 ```
 
 ```{.text .sage-output}
-det A = 2 ; det B = -16 ; det(A^T B A) = -64 ; det T = 15 ; det(A^-1 T A) = 15
+B' = [(11, 3, 1), (3, -1, 1), (1, 1, 3)] ; symmetric: True ; invertible: True True
+T' = [(1, 0, 0), (1, 2, 0), (0, 0, 3)] ; symmetric: False
 ```
 ::::
 :::
@@ -13106,8 +13144,8 @@ $3 \times 3$ instance and the reason the answer is the same in every basis.
 
 Contracting a type $(1, 1)$ tensor gives its trace $T^i{}_i$; for the tensor with components
 $\begin{pmatrix} 1 & 2 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 5 \end{pmatrix}$ the trace is $1 + 3 + 5 = 9$. In another basis the
-matrix is $\mathbf A^{-1}\mathbf T \mathbf A$, and $\operatorname{tr}(\mathbf A^{-1}\mathbf T \mathbf A) = \operatorname{tr} \mathbf T$
-(@exr-contraction-trace-invariance), so the trace is $9$ in every basis.
+matrix is $\mathbf A^{-1}\mathbf T \mathbf A$, and $\operatorname{tr}(\mathbf A^{-1}\mathbf T \mathbf A) = \operatorname{tr} \mathbf T$, since the
+contraction does not depend on the basis (@def-contraction), so the trace is $9$ in every basis.
 :::
 
 The identity map is the type $(1, 1)$ tensor $\delta^i{}_j$, and its contraction counts dimensions. The example records
@@ -13154,14 +13192,16 @@ $a(u)\, v^j = -2\,(1, 0, -1) = (-2, 0, 2)$, and contracting $j$ with $k$ gives $
 Two different vectors come from the same tensor.
 :::
 
-The Ricci tensor and the scalar curvature are contractions of the Riemann tensor. The example records both, the second
-requiring the inverse metric to raise an index first.
+The invariants of the electromagnetic field are contractions of the field strength. The example records one of them,
+which requires the inverse of $\eta$ to raise both indices first.
 
-::: {#exm-contraction-ricci}
-#### Ricci tensor and scalar curvature
+::: {#exm-contraction-field-invariant}
+#### An invariant of the field
 
-The Ricci tensor is the contraction $R_{\sigma\nu} = R^\rho{}_{\sigma\rho\nu}$ of the Riemann tensor, and the scalar
-curvature is the further contraction $R = g^{\sigma\nu} R_{\sigma\nu}$ after raising an index with the inverse metric.
+Raising both indices of $F_{\mu\nu}$ with the inverse $\eta^{\mu\nu}$ gives $F^{\mu\nu} = \eta^{\mu\alpha}\eta^{\nu\beta}
+F_{\alpha\beta}$, and contracting it with $F_{\mu\nu}$ gives the number $F_{\mu\nu}F^{\mu\nu}$. With $F_{0i} = E_i$ and
+$F_{ij} = -\epsilon_{ijk}B_k$, the terms with one index $0$ give $-2|\mathbf E|^2$ and the others $2|\mathbf B|^2$, so
+$F_{\mu\nu}F^{\mu\nu} = 2(|\mathbf B|^2 - |\mathbf E|^2)$.
 :::
 
 Invariant masses are full contractions on Minkowski space. The example computes the square of a four-momentum as a
@@ -13688,8 +13728,8 @@ the count of independent components.
 #### Counting on spacetime
 
 On $\mathbb{R}^4$ a four-vector has $4$ components, a type $(0, 2)$ tensor such as $\eta_{\mu\nu}$ or $F_{\mu\nu}$ has
-$16$, and the Riemann tensor $4^4 = 256$. Symmetry cuts the independent ones: a symmetric $g_{\mu\nu}$ has $10$ and an
-antisymmetric $F_{\mu\nu}$ has $6$, three electric and three magnetic (@exr-symmetric-tensors-dim).
+$16$, and the Levi-Civita symbol $4^4 = 256$. Symmetry cuts the independent ones: a symmetric $g_{\mu\nu}$ has $10$ and an
+antisymmetric $F_{\mu\nu}$ has $6$, three electric and three magnetic.
 :::
 
 A quantum register of $n$ qubits lives in a tensor power of $\mathbb{C}^2$. The example counts the complex dimension and
@@ -13962,7 +14002,8 @@ number of basis maps: 12 ; rank: 12 ; product of dimensions: 12
 ::::
 :::
 
-Alternating forms with as many arguments as dimensions form a line, spanned by the determinant. The exercise proves this
+Alternating forms with as many arguments as dimensions form a line, spanned by the triple product on $\mathbb{R}^3$. The
+exercise proves this
 for $\mathbb{R}^3$ from the components [@axler2024linear, 9.37].
 
 ::: {#exr-tensordim-alternating}
@@ -13970,7 +14011,7 @@ for $\mathbb{R}^3$ from the components [@axler2024linear, 9.37].
 
 Show that every alternating trilinear form $T$ on $\mathbb{R}^3$ has components $T_{ijk} = T_{123}\,\epsilon_{ijk}$, and
 conclude that the alternating trilinear forms are a one-dimensional subspace of the $27$-dimensional space of type
-$(0, 3)$ tensors, spanned by $\det$.
+$(0, 3)$ tensors, spanned by the triple product $\tau$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -13980,8 +14021,8 @@ $(0, 3)$ tensors, spanned by $\det$.
 $T_{ijk} = T(e_i, e_j, e_k)$ vanishes when two indices are equal (@exr-multilinear-alternating). When $(i, j, k)$ is a
 permutation of $(1, 2, 3)$, sorting it by swaps changes the sign once per swap, so $T_{ijk} = \pm T_{123}$ with the sign
 of the permutation: $T_{ijk} = T_{123}\epsilon_{ijk}$. By @prp-tensor-dimension (components determine the tensor) $T =
-T_{123}\det$, using @exm-components-determinant; and $\det$ is alternating and non-zero, so the subspace is the line
-spanned by $\det$.
+T_{123}\tau$, using @exm-components-determinant; and $\tau$ is alternating and non-zero, so the subspace is the line
+spanned by $\tau$.
 
 ## SageMath
 
@@ -14145,10 +14186,9 @@ contraction of the map seen as a tensor. This section builds the determinant fro
 @sec-tensor-products: the sign of a permutation, the one-dimensional space of alternating forms of top degree, the
 determinant of a linear map and of a matrix with the Leibniz formula, and its three rules (products, transposes,
 invertibility). It then defines the trace, proves that $\operatorname{tr}(\mathbf A \mathbf B) = \operatorname{tr}(\mathbf B \mathbf A)$, and ends with
-the partial trace on $V \otimes W$, which turns a state of two spins into a state of one. The determinant prepares the
-volume elements of coordinate changes in the chapter on real analysis, the orientations and volume forms of
-differential geometry, and the groups $SO(3)$, $SU(2)$ and the Lorentz group, all defined by a condition on a
-determinant; the trace prepares the characters of group theory and the density matrices of quantum mechanics.
+the partial trace on $V \otimes W$, which turns a state of two spins into a state of one. The determinant measures the
+area and volume elements of coordinate changes, and it singles out the rotations, the spin rotations and the Lorentz
+transformations by a condition on their matrices; the trace gives the expectation values of quantum mechanics.
 
 For more on this topic, see @axler2024linear [Secs. 8D, 9B and 9C], @lee2013introduction [App. B, pp. 628-634],
 @keskivakkuri2022mathematical [Sec. 3.6.5, pp. 93-95] and @scott2023problems [Ch. 5].
@@ -14156,8 +14196,8 @@ For more on this topic, see @axler2024linear [Secs. 8D, 9B and 9C], @lee2013intr
 ### The sign of a permutation
 
 A determinant is a sum over all the ways of rearranging $n$ columns, each rearrangement counted with a sign. The
-rearrangements are the permutations of @def-bijection, the bijections of $\{1, \dots, n\}$ to itself; the group they
-form is studied in the chapter on group theory, and here only their sign is needed. The definition counts the pairs
+rearrangements are the permutations of @def-bijection, the bijections of $\{1, \dots, n\}$ to itself, and here only
+their sign is needed. The definition counts the pairs
 that a permutation puts out of order, which gives every permutation a well-defined sign.
 
 :::: {.statement-box}
@@ -14293,7 +14333,7 @@ example shows two sortings of different lengths and explains why the definition 
 
 $(3, 1, 2)$ is sorted by two swaps of positions, $(1, 2)$ then $(2, 3)$: $(3, 1, 2) \to (1, 3, 2) \to (1, 2, 3)$. It is
 also sorted by four: $(1, 2)$, $(1, 3)$, $(1, 2)$, $(1, 3)$ give $(1, 3, 2), (2, 3, 1), (3, 2, 1), (1, 2, 3)$. The
-number of swaps is not a property of the permutation, but its parity is (@exr-sign-any-swap), and the number of
+number of swaps is not a property of the permutation, but its parity is, and the number of
 inversions, here $2$, is fixed by the list itself.
 :::
 ::::
@@ -14753,7 +14793,7 @@ side, one of positive and one of negative area, and the sense of rotation that d
 
 For $n = 2$, $\omega_e(u, v) = u^1 v^2 - u^2 v^1$. For $u = (3, 1)$, $v = (1, 2)$ and $w = (1, -2)$, $\omega_e(u, v)
 = 6 - 1 = 5$ and $\omega_e(u, w) = -6 - 1 = -7$. The absolute value is the area of the parallelogram spanned by the two
-vectors (@exr-topform-triangle), and the sign is positive exactly when the rotation from the first vector to the second
+vectors, and the sign is positive exactly when the rotation from the first vector to the second
 by less than half a turn is counterclockwise.
 
 ![The parallelograms spanned by $u = (3, 1)$, $v = (1, 2)$ and by $u$, $w = (1, -2)$, with signed areas $5$ and
@@ -14784,7 +14824,7 @@ area $\omega_f(e_1, e_2) = \tfrac13$.
 :::
 
 The vectors need not be arrows: the theorem holds on any space of dimension $n$. The example takes polynomials of
-degree at most one and finds a familiar expression from differential equations.
+degree at most one and finds a familiar expression in their values and slopes.
 
 ::: {#exm-topform-polynomials}
 #### The Wronskian at a point
@@ -14852,7 +14892,7 @@ arguments the alternating forms are no longer multiples of one, and with more th
 #### Fewer or more arguments
 
 On $\mathbb{R}^3$ the alternating bilinear maps $(u, v) \mapsto u^1v^2 - u^2v^1$ and $(u, v) \mapsto u^2v^3 - u^3v^2$
-are not multiples of each other: they form part of a three-dimensional space (@exr-topform-two-forms). With four
+are not multiples of each other: they form part of a three-dimensional space. With four
 arguments on $\mathbb{R}^3$ every alternating map is $0$ (@exm-multilinear-alternating-zero). Only for $k = n$ arguments
 is there one form up to a factor.
 :::
@@ -15305,7 +15345,8 @@ Triangular matrices have all but one Leibniz term equal to zero. The example eva
 
 $\det \begin{pmatrix} 2 & 5 & -1 \\ 0 & 3 & 4 \\ 0 & 0 & -1 \end{pmatrix} = 2 \cdot 3 \cdot (-1) = -6$, the product of
 the diagonal entries; the entries above the diagonal do not matter. For a diagonal matrix $\det
-\operatorname{diag}(a_1, \dots, a_n) = a_1 \cdots a_n$ (@exm-minkowski-det-hand).
+\operatorname{diag}(a_1, \dots, a_n) = a_1 \cdots a_n$, since every other term of the Leibniz formula contains an
+off-diagonal zero; for the Minkowski form, $\det \eta = 1 \cdot (-1) \cdot (-1) \cdot (-1) = -1$.
 :::
 
 In three dimensions the determinant is the signed volume of the image of the unit cube. The figure shows the cube and
@@ -15347,7 +15388,6 @@ For $x = r\cos\varphi$, $y = r\sin\varphi$, the changes $(\mathrm dr, \mathrm d\
 $\begin{pmatrix} \cos\varphi & -r\sin\varphi \\ \sin\varphi & r\cos\varphi \end{pmatrix} \begin{pmatrix} \mathrm dr \\
 \mathrm d\varphi \end{pmatrix}$ to first order. The determinant of this matrix is $r\cos^2\varphi + r\sin^2\varphi = r$,
 so the rectangle of sides $\mathrm dr$, $\mathrm d\varphi$ becomes a piece of area $r\, \mathrm dr\, \mathrm d\varphi$.
-The chapter on real analysis calls this matrix the Jacobian of the polar map.
 :::
 
 Cylindrical coordinates add a height to polar coordinates, and the determinant does not notice the extra direction.
@@ -15374,8 +15414,8 @@ determinant: rho
 ```
 :::
 
-The Lorentz transformations preserve the Minkowski form, and their determinants are $\pm 1$ by @exr-minkowski-det-boost.
-The example computes the determinants of a boost, of parity and of time reversal.
+The Lorentz transformations preserve the Minkowski form. The example computes the determinants of a boost, of parity
+and of time reversal, and finds $\pm 1$.
 
 ::: {#exm-det-lorentz}
 #### Boosts, parity and time reversal
@@ -15799,8 +15839,7 @@ det J = r^2*sin(theta)
 
 Applying two maps in turn scales volumes twice, so the determinant of a composition should be the product of the
 determinants. With the definition by alternating forms this takes one line, while from the Leibniz formula it would
-take a page. The theorem states the rule and its two consequences for inverses and changes of basis, which the earlier
-sections used without proof (@exr-nondegenerate-basis-independent, @exr-minkowski-det-boost, @exr-components-bilinear-transform).
+take a page. The theorem states the rule and its two consequences for inverses and changes of basis.
 
 :::: {.statement-box}
 ::: {#thm-determinant-product}
@@ -15872,13 +15911,14 @@ reflection again.
 :::
 
 A change of basis replaces the matrix $\mathbf T$ of a map by $\mathbf A^{-1}\mathbf T \mathbf A$, and the theorem says that the determinant does not
-notice. The example points to a computation of the chapter's closing exercises.
+notice. The example checks this on one matrix and the basis $f$.
 
 ::: {#exm-detprod-change-basis}
 #### Changing the basis
 
-In @exr-la-map-tensor the matrix $\mathbf T = \begin{pmatrix} 1 & 3 \\ 0 & 2 \end{pmatrix}$ becomes $\mathbf T' = \mathbf A^{-1}\mathbf T \mathbf A = \tfrac13
-\begin{pmatrix} 8 & 10 \\ -1 & 1 \end{pmatrix}$ in the basis $f$. Its entries all change, but $\det \mathbf T' = \tfrac19(8 + 10) =
+With $\mathbf A$ the matrix of columns $f_1 = (2, 1)$, $f_2 = (1, 2)$, the matrix $\mathbf T = \begin{pmatrix} 1 & 3 \\ 0 & 2
+\end{pmatrix}$ becomes $\mathbf T' = \mathbf A^{-1}\mathbf T \mathbf A = \tfrac13 \begin{pmatrix} 8 & 10 \\ -1 & 1 \end{pmatrix}$ in the basis
+$f$. Its entries all change, but $\det \mathbf T' = \tfrac19(8 + 10) =
 2 = \det \mathbf T$.
 :::
 
@@ -16359,13 +16399,13 @@ the mnemonic with the row form of the cofactor expansion.
 #### The cross product as a determinant
 
 Expanding "$\det$" of the array with rows $(e_1, e_2, e_3)$, $(u^1, u^2, u^3)$, $(v^1, v^2, v^3)$ along its first row
-(@exr-dettrans-row-expansion) gives $e_1(u^2v^3 - u^3v^2) - e_2(u^1v^3 - u^3v^1) + e_3(u^1v^2 - u^2v^1) = u \times v$.
+gives $e_1(u^2v^3 - u^3v^2) - e_2(u^1v^3 - u^3v^1) + e_3(u^1v^2 - u^2v^1) = u \times v$.
 Replacing the first row by $w$ gives $w \cdot (u \times v)$, the determinant of the matrix with rows $w, u, v$, which by
-the theorem is $\omega_e(w, u, v)$ (@exr-dettrans-cross-product).
+the theorem is $\omega_e(w, u, v)$.
 :::
 
 Antisymmetric matrices change sign under transposition, and in odd dimension this forces their determinant to vanish.
-The example records the argument used in @exr-nondegenerate-odd-antisymmetric.
+The example gives a second, shorter proof of @exr-nondegenerate-odd-antisymmetric.
 
 ::: {#exm-dettrans-antisymmetric}
 #### Antisymmetric matrices in odd dimension
@@ -16393,7 +16433,7 @@ The Lorentz transformations preserve the Minkowski form instead of the dot produ
 #### Lorentz transformations
 
 $\Lambda^\top\eta\Lambda = \eta$ gives $\det\Lambda^\top \det\eta \det\Lambda = \det\eta$, that is $(\det\Lambda)^2(-1) =
--1$, so $\det\Lambda = \pm 1$; this is the computation of @exr-minkowski-det-boost, now with both rules proved. The
+-1$, so $\det\Lambda = \pm 1$; this adds the determinant to what @exr-minkowski-det-boost found without it. The
 determinant splits the Lorentz transformations into proper ones, such as boosts and rotations, and improper ones, such
 as parity.
 :::
@@ -16418,8 +16458,7 @@ derivatives. The example computes it for polar coordinates and finds the square 
 
 With $\mathbf J$ the polar matrix of @exm-det-polar, $g = \mathbf J^\top \mathbf J = \begin{pmatrix} 1 & 0 \\ 0 & r^2 \end{pmatrix}$, the
 metric $\mathrm ds^2 = \mathrm dr^2 + r^2\, \mathrm d\varphi^2$. Its determinant is $r^2 = (\det \mathbf J)^2$, so
-$\sqrt{\det g} = r$ is the area element: this is why $\sqrt{|\det g|}$ appears in integrals on curved spaces
-(@exm-components-basis-independent).
+$\sqrt{\det g} = r$ is the area element.
 :::
 
 Transposing and conjugating are different operations, and only the first leaves the determinant alone. The last example
@@ -16728,7 +16767,7 @@ Spherical coordinates have a metric too, and its determinant gives the volume el
 #### The spherical metric
 
 For the matrix $\mathbf J$ of @exr-det-spherical, compute $g = \mathbf J^\top \mathbf J$ and show that $\sqrt{\det g} = r^2\sin\theta$ for
-$0 < \theta < \pi$. Which metric does $g$ induce on the sphere $r = 1$?
+$0 < \theta < \pi$. What is the $\theta, \varphi$ block of $g$ on the sphere $r = 1$?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -16740,7 +16779,7 @@ r(\cos\theta\cos\varphi, \cos\theta\sin\varphi, -\sin\theta)$, $\partial_\varphi
 0)$, with squared lengths $1$, $r^2$, $r^2\sin^2\theta$ and pairwise dot products $0$. So $g = \operatorname{diag}(1, r^2,
 r^2\sin^2\theta)$ and $\det g = r^4\sin^2\theta = (\det \mathbf J)^2$, as @exr-dettrans-gram predicts; for $0 < \theta < \pi$,
 $\sqrt{\det g} = r^2\sin\theta$. On $r = 1$ the $\theta, \varphi$ block is $\operatorname{diag}(1, \sin^2\theta)$, the
-round metric of $S^2$.
+matrix of dot products of @exm-nondegenerate-sphere.
 
 ## SageMath
 
@@ -16808,8 +16847,8 @@ adj A = [(10, 4, -2), (-4, 8, -4), (1, -2, 7)] ; A adj A = [(24, 0, 0), (0, 24, 
 
 A map that squashes some volume to zero cannot be undone, and one that keeps every volume non-zero can. The theorem
 makes this precise: the determinant decides invertibility, and with it the solvability of linear systems and the test
-for bases. It is the fact behind the determinant tests used earlier in the chapter (@exr-independence-determinant,
-@def-nondegenerate).
+for bases. It turns the elimination of @exr-independence-determinant and the matrix test of @def-nondegenerate into the
+computation of one number.
 
 :::: {.statement-box}
 ::: {#thm-determinant-invertible}
@@ -16837,7 +16876,7 @@ The first example records it.
 #### The inverse of a two by two matrix
 
 If $ad - bc \neq 0$, $\begin{pmatrix} a & b \\ c & d \end{pmatrix}^{-1} = \dfrac1{ad - bc}\begin{pmatrix} d & -b \\ -c &
-a \end{pmatrix}$, and multiplying out gives the identity (@exr-detinv-two-by-two). For $\begin{pmatrix} 3 & 1 \\ 1 & 2
+a \end{pmatrix}$, and multiplying out gives the identity. For $\begin{pmatrix} 3 & 1 \\ 1 & 2
 \end{pmatrix}$, of determinant $5$, the inverse is $\tfrac15\begin{pmatrix} 2 & -1 \\ -1 & 3 \end{pmatrix}$.
 :::
 
@@ -17780,14 +17819,15 @@ tr rho = 1 ; tr(rho sigma_k) = [r1, r2, r3]
 :::
 
 Near the identity the determinant changes, to first order, by the trace. The last exercise proves it from the Leibniz
-formula and connects the determinant-one groups to traceless matrices [@axler2024linear, Exercise 9C.16].
+formula and connects matrices of determinant one to traceless matrices [@axler2024linear, Exercise 9C.16].
 
 ::: {#exr-trace-derivative-det}
 #### The trace as a derivative of the determinant
 
 Show that $\det(\mathbf I + \varepsilon \mathbf T) = 1 + \varepsilon\operatorname{tr} \mathbf T + (\text{terms in } \varepsilon^2, \dots,
 \varepsilon^n)$. Deduce that if $\det(\mathbf I + \varepsilon \mathbf X + \varepsilon^2 \mathbf Y) = 1$ for all small $\varepsilon$, then
-$\operatorname{tr} \mathbf X = 0$, and check $\operatorname{tr}(i\sigma_k) = 0$ for the directions of $SU(2)$ at $\mathbf I$.
+$\operatorname{tr} \mathbf X = 0$, and check $\operatorname{tr}(i\sigma_k) = 0$ for the matrices $i\sigma_k$, which give the spin
+rotations $\cos\varepsilon\,\mathbf I + i\sin\varepsilon\,\sigma_k$ near $\mathbf I$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -17893,8 +17933,7 @@ momentum cannot act on a finite-dimensional space [@scott2023problems, Problem 5
 
 If operators $x$ and $p$ on a space of dimension $n$ satisfied $xp - px = i\hbar 1$, taking traces would give $0 =
 i\hbar n$. The relation therefore needs an infinite-dimensional space, such as the functions on the line; the harmonic
-oscillator's states $\lvert 0\rangle, \lvert 1\rangle, \dots$ form an infinite sequence for the same reason
-(@exr-trcyc-no-commutator).
+oscillator's states $\lvert 0\rangle, \lvert 1\rangle, \dots$ form an infinite sequence for the same reason.
 :::
 
 The Pauli matrices have commutators $[\sigma_j, \sigma_k] = \sigma_j\sigma_k - \sigma_k\sigma_j$ that are again Pauli
@@ -18173,11 +18212,11 @@ g0 g1 + g1 g0 = 0: True ; dets: 1 1 ; traces: 0 0
 ::::
 :::
 
-The trace of products gives the standard bilinear form on the Lie algebra of $SU(2)$. The exercise computes it on the
-basis $i\sigma_k$ and compares with the normalisation of the notation tables.
+The trace of products gives the standard bilinear form on the real span of the matrices $i\sigma_k$. The exercise
+computes it on the basis $i\sigma_k$ and compares with the normalisation of the notation tables.
 
 ::: {#exr-trcyc-su2-form}
-#### The trace form on su(2)
+#### The trace form on the span of the $i\sigma_k$
 
 Compute $\operatorname{tr}((i\sigma_a)(i\sigma_b))$, and show that for $T_a = -\tfrac i2\sigma_a$,
 $\operatorname{tr}(T_aT_b) = -\tfrac12\delta_{ab}$. Is the form $\operatorname{tr}(\mathbf X \mathbf Y)$ positive or negative on the real
@@ -18211,8 +18250,8 @@ print(matrix(QQbar, 3, 3, lambda a, b: (T[a] * T[b]).trace()))
 ::::
 :::
 
-For $2 \times 2$ matrices the determinant can be written with traces alone. The exercise derives the formula used in
-@exm-symmetric-det-pauli and @exr-minkowski-pauli from @exr-trace-cayley-hamilton.
+For $2 \times 2$ matrices the determinant can be written with traces alone. The exercise derives the formula, which rewrites the quadratic form of
+@exm-symmetric-det-pauli and @exr-minkowski-pauli, from @exr-trace-cayley-hamilton.
 
 ::: {#exr-trcyc-det-from-traces}
 #### The determinant from traces
@@ -18345,8 +18384,10 @@ $\operatorname{tr}_V L : W \to W$ with matrix $L^{ia}{}_{ib}$.
 A change of basis $f'_b = C^c{}_b f_c$ in $W$ transforms the upper index $a$ with $C^{-1}$ and the lower index $b$ with $C$,
 as for any tensor (@def-tensor-components): $L'^{ia}{}_{jb} = (C^{-1})^a{}_cL^{ic}{}_{jd}C^d{}_b$. Setting $a = b$ and
 summing, $(C^{-1})^a{}_cC^d{}_a = \delta^d{}_c$ leaves $L^{ic}{}_{jc}$: the contraction of an upper and a lower index of
-the same space does not see the basis, as in @def-contraction. A change of basis in $V$ transforms $i$ and $j$ as the
-indices of a linear map of $V$ (@exr-ptrace-change-basis), so $\operatorname{tr}_W L$ is one linear map of $V$. Finally
+the same space does not see the basis, as in @def-contraction. A change of basis $e'_j = A^k{}_j e_k$ in $V$ transforms $i$ with
+$A^{-1}$ and $j$ with $A$, as for any tensor, and the sum over $a$ does not involve these indices; so the components
+$(\operatorname{tr}_W L)^i{}_j$ transform as the matrix of a linear map of $V$, and $\operatorname{tr}_W L$ is one linear map of
+$V$. Finally
 $\operatorname{tr}(\operatorname{tr}_W L) = L^{ia}{}_{ia}$, the sum of the diagonal entries of the matrix of $L$, which is
 $\operatorname{tr} L$.
 
@@ -18359,7 +18400,7 @@ basic rule [@keskivakkuri2022mathematical, Sec. 3.6.5, eqs. (3.214)-(3.215)].
 
 For $L = A \otimes B$, $L^{ia}{}_{jb} = A^i{}_jB^a{}_b$, so $(\operatorname{tr}_W L)^i{}_j = A^i{}_jB^a{}_a$:
 $\operatorname{tr}_W(A \otimes B) = (\operatorname{tr} B)\, A$, and likewise $\operatorname{tr}_V(A \otimes B) =
-(\operatorname{tr} A)\, B$ (@exr-ptrace-product-maps).
+(\operatorname{tr} A)\, B$.
 :::
 
 The identity of $V \otimes W$ is $1_V \otimes 1_W$, and its partial trace counts the dimension of the part traced out. The
@@ -18876,8 +18917,7 @@ minimal polynomial, which decides diagonalisability. When eigenvectors are too f
 gap, and the Jordan form describes every complex linear map by blocks. The last unit leaves the eigenvectors of $T$
 and uses the dot product of @sec-bilinear-forms instead: every matrix, even a rectangular one, has orthonormal input
 and output directions with stretching factors, its singular values, and every square matrix is a rotation times a
-stretch. The spectral theorem for Hermitian operators, which joins the two pictures, is proved in a later chapter on
-Hilbert spaces; the normal modes, spin states and stability criteria of the later chapters all start here.
+stretch. The normal modes, spin states and stability criteria of physics all start here.
 
 For more on this topic, see @axler2024linear [Chs. 5 and 8, Secs. 7E-7F], @scott2023problems [Ch. 6] and
 @knauf2018mathematical [Sec. 6.3.2].
@@ -19425,7 +19465,7 @@ at most $n$. Only the identity permutation picks all $n$ diagonal entries, and i
 determinant of the map $\lambda - T$ does not depend on the basis, so neither does $p_T$. By @def-eigenvalue, $\lambda$ is
 an eigenvalue iff $\det(T - \lambda) = 0$, and $\det(\lambda - T) = (-1)^n\det(T - \lambda)$
 (@exm-det-scalings, @thm-determinant-product). Finally, every non-constant complex polynomial has a root (the fundamental
-theorem of algebra, proved in the chapter on complex analysis), so dividing off one root at a time factors $p_T$ into
+theorem of algebra), so dividing off one root at a time factors $p_T$ into
 $n$ linear factors [@axler2024linear, 5.7 and 8.26; @scott2023problems, Problem 6.6].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
@@ -20029,7 +20069,7 @@ where composing boosts multiplies stretching factors.
 
 The $(t, x)$ block of the boost $\Lambda(u)$ is $\mathbf P \mathbf D \mathbf P^{-1}$ with $\mathbf P = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$ and $\mathbf D =
 \operatorname{diag}(e^u, e^{-u})$ (@exm-eig-boost). In the coordinates $t + x$ and $t - x$ it multiplies the first by $e^u$
-and the second by $e^{-u}$. Two boosts along $x$ therefore compose by adding rapidities (@exr-diag-boosts).
+and the second by $e^{-u}$. Two boosts along $x$ therefore compose by adding rapidities.
 :::
 
 The inertia tensor of a rigid body is a symmetric matrix, and its eigenvectors are the principal axes about which the
@@ -20502,7 +20542,6 @@ of @exr-charpoly-hermitian, where both multiplicities of the double root are $2$
 
 For $\mathbf A = \begin{pmatrix} 4 & i & 1 \\ -i & 4 & -i \\ 1 & i & 4 \end{pmatrix}$, $\dim E_3 = 2$ equals the algebraic
 multiplicity of $3$ and $\dim E_6 = 1$ that of $6$. So $(1, 0, -1)$, $(i, -1, 0)$, $(1, -i, 1)$ is a basis of eigenvectors.
-Every Hermitian matrix behaves like this, as the spectral theorem of a later chapter shows.
 :::
 
 A spin in a magnetic field has two energy levels unless the field vanishes. The example applies part (3) to the Hamiltonian
@@ -20702,7 +20741,7 @@ dim E_8 = 4 ; det(T - 2) = 0 ; det(T - 6) = -64
 :::
 
 Exponential functions with different rates are eigenvectors of the derivative for different eigenvalues. The exercise
-uses part (1) to prove their independence without a Wronskian [@axler2024linear, Exercise 5A.35].
+uses part (1) to prove their independence without solving a linear system [@axler2024linear, Exercise 5A.35].
 
 ::: {#exr-diagcrit-exponentials}
 #### Independent exponentials
@@ -20995,7 +21034,8 @@ a spin rotation from its trace.
 
 $\mathbf U = \operatorname{diag}(e^{-i\theta/2}, e^{i\theta/2})$ has $\lambda_1\lambda_2 = 1 = \det \mathbf U$ and $\lambda_1 + \lambda_2 =
 2\cos\tfrac\theta2 = \operatorname{tr} \mathbf U$ (@exm-trace-su2). For every $\mathbf U \in SU(2)$ the eigenvalues are $e^{\pm i\alpha}$
-with $2\cos\alpha = \operatorname{tr} \mathbf U$, since $|\lambda| = 1$ for unitary matrices (@exr-treig-unitary).
+with $2\cos\alpha = \operatorname{tr} \mathbf U$, since $|\lambda| = 1$ for unitary matrices: $\mathbf U\mathbf v = \lambda\mathbf v$ gives $|\lambda|^2\mathbf v^\dagger\mathbf v =
+\mathbf v^\dagger\mathbf U^\dagger\mathbf U\mathbf v = \mathbf v^\dagger\mathbf v$.
 :::
 
 A boost has the eigenvalues $e^u$, $e^{-u}$, $1$, $1$. The example recovers its trace and determinant from them, as computed
@@ -21333,7 +21373,8 @@ True 1 ; axis: [
 ::::
 :::
 
-If an invertible $\mathbf B$ anticommutes with $\mathbf A$, the spectrum of $\mathbf A$ is symmetric under $\lambda \mapsto -\lambda$. The
+If an invertible $\mathbf B$ anticommutes with $\mathbf A$, the set of eigenvalues of $\mathbf A$ is symmetric under $\lambda \mapsto
+-\lambda$. The
 exercise proves it with the characteristic polynomial and deduces that $\mathbf A$ is traceless, as for the Pauli matrices
 (@exr-trcyc-anticommute).
 
@@ -21410,7 +21451,7 @@ print(K.trace(), K.det(), sum(ev) == K.trace(), prod(ev) == K.det())
 An eigenvector spans a line that $T$ maps into itself. More generally, a subspace $U \subseteq V$ is **invariant** under
 $T$ if $T(U) \subseteq U$; then $T$ restricts to a linear map of $U$, which is the first step of every decomposition of
 $T$ into simpler pieces. A polynomial $q(z) = a_0 + a_1z + \dots + a_kz^k$ can be applied to $T$, giving $q(T) = a_0 + a_1T
-+ \dots + a_kT^k$, and the kernels and images of such maps are invariant (@exr-minpoly-invariant). The definition singles
++ \dots + a_kT^k$, and the kernels and images of such maps are invariant. The definition singles
 out the shortest polynomial that annihilates $T$; it detects diagonalisability, which the characteristic polynomial does
 not.
 
@@ -21504,7 +21545,8 @@ rotation of space and for a boost.
 
 The rotation of space about $z$ keeps the axis and the $(x, y)$ plane, so both are invariant; for $0 < \theta < \pi$ the
 plane contains no invariant line. A boost along $x$ keeps the two light rays $\operatorname{span}(1, \pm 1, 0, 0)$, the
-$(t, x)$ plane and the $(y, z)$ plane. Every eigenspace and every kernel of $q(T)$ is invariant (@exr-minpoly-invariant).
+$(t, x)$ plane and the $(y, z)$ plane. Every eigenspace and every kernel of $q(T)$ is invariant, since $q(T)$ commutes with $T$: $q(T)v = 0$ gives $q(T)Tv =
+Tq(T)v = 0$.
 :::
 
 A spin $1$ has three values of $S_z$, and its matrix satisfies a cubic relation. The example finds it, the analogue of
@@ -21902,7 +21944,10 @@ contains $E_\lambda$, it is invariant under $T$, and $T - \lambda$ is nilpotent 
 ::::
 
 Every eigenvector is a generalised eigenvector with $k = 1$, so $E_\lambda \subseteq G_\lambda$. The kernels $\ker(T -
-\lambda)^k$ grow with $k$ and stop growing by $k = n$ (@exr-geneig-stabilise), so a vector killed by some power of $T -
+\lambda)^k$ grow with $k$, and once two consecutive ones agree all later ones do: if $\ker(T - \lambda)^{k+1} = \ker(T -
+\lambda)^k$ and $(T - \lambda)^{k+2}v = 0$, then $(T - \lambda)v$ lies in $\ker(T - \lambda)^{k+1} = \ker(T - \lambda)^k$, so
+$(T - \lambda)^{k+1}v = 0$. Until then the dimensions grow strictly and stay at most $n$, so the kernels stop growing by $k =
+n$, and a vector killed by some power of $T -
 \lambda$ is killed by the $n$-th, and $G_\lambda$ is exactly the set of generalised eigenvectors with $0$. It is the kernel
 of a polynomial in $T$, hence invariant (@exr-minpoly-invariant), and $(T - \lambda)^n$ vanishes on it [@axler2024linear,
 8.1-8.11].
@@ -21929,7 +21974,7 @@ $T(a, b, c) = (b, c, 0)$ sends $\mathbf e_3 \mapsto \mathbf e_2 \mapsto \mathbf 
 :::
 
 For a diagonalisable map nothing new appears. The example shows that its generalised eigenvectors are its eigenvectors,
-a fact proved in @exr-geneig-diagonalisable.
+here on a diagonal matrix.
 
 ::: {#exm-geneig-diagonalisable}
 #### Diagonalisable maps
@@ -22385,8 +22430,10 @@ with algebraic multiplicities $d_1, \dots, d_m$.
 :::
 ::::
 
-*Proof sketch.* For (1), take $\lambda = \lambda_1$ and $S = T - \lambda$. Then $V = \ker S^n \oplus S^n(V)$
-(@exr-jform-fitting), and both summands are invariant under $T$ (@exr-minpoly-invariant). On $S^n(V)$, $\lambda$ is not an
+*Proof sketch.* For (1), take $\lambda = \lambda_1$ and $S = T - \lambda$. Then $V = \ker S^n \oplus S^n(V)$: the
+kernels $\ker S^k$ stop growing by $k = n$, as shown after @def-generalised-eigenvector, so $\ker S^{2n} = \ker S^n$; if $v =
+S^nu$ lies in $\ker S^n$, then $S^{2n}u = 0$, $u \in \ker S^n$ and $v = 0$, so the sum is direct, and it is all of $V$ by
+rank-nullity. Both summands are invariant under $T$ (@exr-minpoly-invariant), and both summands are invariant under $T$ (@exr-minpoly-invariant). On $S^n(V)$, $\lambda$ is not an
 eigenvalue, since its eigenvectors there would lie in $\ker S^n$ too; so by induction on the dimension $S^n(V)$ splits into
 the generalised eigenspaces of the other eigenvalues. In a basis adapted to the splitting, $p_T$ is the product of the
 characteristic polynomials of the blocks, and on $G_\lambda$ it is $(z - \lambda)^{\dim G_\lambda}$ (@exr-geneig-nilpotent),
@@ -22484,7 +22531,7 @@ it $\Lambda = \mathbf J_3(1)$. By part (3), $\dim\ker \mathbf N = 1$ forces one 
 :::
 
 Powers of a Jordan block grow polynomially as well as exponentially. The example computes them, the source of the secular
-terms $m\lambda^{m-1}$ in iterated maps and $te^{\lambda t}$ in differential equations.
+terms $m\lambda^{m-1}$ in iterated maps and $te^{\lambda t}$ in critically damped motion.
 
 ::: {#exm-jform-powers}
 #### Powers of a block
@@ -22713,7 +22760,7 @@ for A in (block_diagonal_matrix(jordan_block(1, 1), jordan_block(5, 2), jordan_b
 :::
 
 The eigenvalues of a power are the powers of the eigenvalues, with the same multiplicities. The exercise proves this from
-the Jordan form and turns it into a formula for $\operatorname{tr}T^k$, the power sums used to compute characters.
+the Jordan form and turns it into a formula for $\operatorname{tr}T^k$, the power sums of the eigenvalues.
 
 ::: {#exr-jform-power-trace}
 #### Traces of powers
@@ -22881,9 +22928,7 @@ $\mu\,\mathbf w^\dagger \mathbf w = \mathbf w^\dagger \mathbf S \mathbf w = (\ma
 singular and has a real unit vector $\mathbf v_1$ in its kernel. Its orthogonal complement $\mathbf v_1^\perp$, of dimension $n - 1$
 (@exr-nondegenerate-orthogonal-complement), is invariant: if $\mathbf x \cdot \mathbf v_1 = 0$, then $\mathbf S \mathbf x \cdot \mathbf v_1 = \mathbf x \cdot \mathbf S \mathbf v_1 = \mu\, \mathbf x
 \cdot \mathbf v_1 = 0$. Repeating the argument inside $\mathbf v_1^\perp$, where $\mathbf S$ is still symmetric for the dot product, gives
-orthonormal eigenvectors $\mathbf v_1, \dots, \mathbf v_n$ with eigenvalues $\mu_i = \mathbf v_i \cdot \mathbf S \mathbf v_i = |\mathbf A \mathbf v_i|^2 \geq 0$. (This is the real
-case of the spectral theorem for Hermitian matrices, since a real symmetric matrix is Hermitian; the Hilbert spaces
-chapter proves it in general as @thm-spectral-theorem-hermitian.) Order them so that $\mu_1 \geq \dots
+orthonormal eigenvectors $\mathbf v_1, \dots, \mathbf v_n$ with eigenvalues $\mu_i = \mathbf v_i \cdot \mathbf S \mathbf v_i = |\mathbf A \mathbf v_i|^2 \geq 0$. Order them so that $\mu_1 \geq \dots
 \geq \mu_r > 0 = \mu_{r+1} = \dots$, put $\sigma_i = \sqrt{\mu_i}$ and $\mathbf u_i = \mathbf A \mathbf v_i/\sigma_i$ for $i \leq r$. Then $\mathbf u_i \cdot
 \mathbf u_j = \mathbf v_i \cdot \mathbf S \mathbf v_j/(\sigma_i\sigma_j) = \delta_{ij}$, and $\mathbf A \mathbf v_i = \mathbf 0$ for $i > r$ since $|\mathbf A \mathbf v_i|^2 = \mu_i = 0$; so the $\mathbf u_i$
 span the image and $r$ is the rank. Complete $\mathbf u_1, \dots, \mathbf u_r$ by an orthonormal basis of their orthogonal complement,
@@ -23003,7 +23048,7 @@ compares them for the matrix of @exm-svd-ellipse and notes what is not unique.
 #### Singular values are not eigenvalues
 
 For $\mathbf A = \begin{pmatrix} 3 & 0 \\ 4 & 5 \end{pmatrix}$ the eigenvalues are $5, 3$ and the singular values $3\sqrt5 \approx 6.71$,
-$\sqrt5 \approx 2.24$; only the products agree, $15 = |\det \mathbf A|$ (@exr-svd-det). The singular values are unique, but $\mathbf U$ and $\mathbf V$
+$\sqrt5 \approx 2.24$; only the products agree, $15 = |\det \mathbf A|$. The singular values are unique, but $\mathbf U$ and $\mathbf V$
 are not: $(\mathbf u_i, \mathbf v_i)$ can be replaced by $(-\mathbf u_i, -\mathbf v_i)$, and for equal singular values by any rotation within the pair.
 :::
 ::::
@@ -23055,7 +23100,7 @@ Find the singular values of $T(x, y) = (-4y, x)$ on $\mathbb{C}^2$, and compare 
 
 $\mathbf A = \begin{pmatrix} 0 & -4 \\ 1 & 0 \end{pmatrix}$ has $\mathbf A^\dagger \mathbf A = \operatorname{diag}(1, 16)$, so the singular values are
 $4$ and $1$ (@thm-svd). The eigenvalues solve $\lambda^2 + 4 = 0$: $\pm 2i$, of absolute value $2$, between the two singular
-values (@exr-svd-eigenvalue-bound).
+values.
 
 ## SageMath
 
@@ -23368,9 +23413,12 @@ $\mathbf A$ is invertible. For a complex $\mathbf A$ the same holds with $\mathb
 
 From @thm-svd with $m = n$, $\mathbf A = \mathbf U\boldsymbol\Sigma \mathbf V^\top = (\mathbf U \mathbf V^\top)(\mathbf V\boldsymbol\Sigma \mathbf V^\top)$. The first factor is orthogonal,
 $(\mathbf U \mathbf V^\top)^\top \mathbf U \mathbf V^\top = \mathbf V \mathbf U^\top \mathbf U \mathbf V^\top = \mathbf I$, and the second is symmetric with the orthonormal eigenvectors $\mathbf v_i$ and the
-eigenvalues $\sigma_i \geq 0$, and $\mathbf S^2 = \mathbf V\boldsymbol\Sigma^2\mathbf V^\top = \mathbf A^\top \mathbf A$. Uniqueness of $\mathbf S$ is @exr-polardec-unique. If $\mathbf A$ is
-invertible, so is $\mathbf S$, since $\det \mathbf S = \sigma_1\cdots\sigma_n = |\det \mathbf A| \neq 0$ (@exr-svd-det), and $\mathbf Q = \mathbf A \mathbf S^{-1}$ is
-determined [@axler2024linear, 7.93; @scott2023problems, Problem 6.27].
+eigenvalues $\sigma_i \geq 0$, and $\mathbf S^2 = \mathbf V\boldsymbol\Sigma^2\mathbf V^\top = \mathbf A^\top \mathbf A$. For uniqueness, let $\mathbf S'$ be symmetric with
+non-negative eigenvalues and $\mathbf S'^2 = \mathbf A^\top \mathbf A$. By the argument in the proof of @thm-svd, $\mathbf S'$ has an
+orthonormal basis of eigenvectors. An eigenvector $\mathbf x$ with $\mathbf S'\mathbf x = \nu\mathbf x$, $\nu \geq 0$, has $\mathbf A^\top \mathbf A\mathbf x =
+\nu^2\mathbf x$, so it lies in the span of the $\mathbf v_i$ with $\sigma_i^2 = \nu^2$, on which $\mathbf S$ acts as $\sigma_i = \nu$; so
+$\mathbf S\mathbf x = \mathbf S'\mathbf x$ on a basis, and $\mathbf S = \mathbf S'$. If $\mathbf A$ is invertible, so is $\mathbf S = (\mathbf U \mathbf V^\top)^\top \mathbf A$,
+a product of invertible matrices, and $\mathbf Q = \mathbf A \mathbf S^{-1}$ is determined [@axler2024linear, 7.93; @scott2023problems, Problem 6.27].
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The extreme cases are a pure stretch and a pure rotation, where one factor is the identity. The first example records them.
@@ -23423,7 +23471,7 @@ computes both factors for a shear of amount $2$.
 $\mathbf F = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}$ has $\mathbf F^\top \mathbf F = \begin{pmatrix} 1 & 2 \\ 2 & 5 \end{pmatrix}$, with eigenvalues
 $3 \pm 2\sqrt2 = (\sqrt2 \pm 1)^2$: the principal stretches are $\sqrt2 \pm 1$. The stretch $\mathbf S = \tfrac1{\sqrt2}\begin{pmatrix}
 1 & 1 \\ 1 & 3 \end{pmatrix}$ and the rotation $\mathbf Q = \mathbf F \mathbf S^{-1} = \tfrac1{\sqrt2}\begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}$, by
-$-45°$, satisfy $\mathbf F = \mathbf Q \mathbf S$ (@exr-polardec-shear).
+$-45°$, satisfy $\mathbf F = \mathbf Q \mathbf S$.
 :::
 
 The factors can also be taken in the other order, with a different stretch. The example finds the left polar
@@ -23433,8 +23481,7 @@ decomposition from the right one.
 #### Stretch first or rotate first
 
 $\mathbf A = \mathbf Q \mathbf S = (\mathbf Q \mathbf S \mathbf Q^\top)\mathbf Q = \mathbf S'\mathbf Q$ with $\mathbf S' = \mathbf Q \mathbf S \mathbf Q^\top$, symmetric with the same eigenvalues as $\mathbf S$ and $\mathbf S'^2 = \mathbf Q \mathbf A^\top \mathbf A \mathbf Q^\top =
-\mathbf A \mathbf A^\top$. For $\mathbf A$ of @exm-polardec-two-by-two, $\mathbf S' = \sqrt{\mathbf A \mathbf A^\top}$ has the eigenvectors $\mathbf u_i$ instead of $\mathbf v_i$
-(@exr-polardec-left).
+\mathbf A \mathbf A^\top$. For $\mathbf A$ of @exm-polardec-two-by-two, $\mathbf S' = \sqrt{\mathbf A \mathbf A^\top}$ has the eigenvectors $\mathbf u_i$ instead of $\mathbf v_i$.
 :::
 
 A Lorentz transformation of the plane $(t, x)$ together with a rotation of space splits into a boost and a rotation. The
@@ -23447,11 +23494,11 @@ eigenvalues.
 In $2 + 1$ dimensions let $\Lambda = \mathbf R \mathbf B$ with $\mathbf B$ the boost along $x$ of $\beta = \tfrac35$ and $\mathbf R$ a rotation of the $(x,
 y)$ plane. $\mathbf B$ is symmetric with eigenvalues $2, \tfrac12, 1$ (@exm-eig-boost), and $\mathbf R$ is orthogonal, so $\Lambda = \mathbf R \mathbf B$ is the
 polar decomposition, and by uniqueness $\mathbf B = \sqrt{\Lambda^\top\Lambda}$: the boost can be read off any Lorentz
-transformation (@exr-polardec-lorentz).
+transformation.
 :::
 
-The spinor version of the same splitting writes an element of $SL(2, \mathbb{C})$ as a spin rotation times a Hermitian
-boost. The example does this for a diagonal element.
+The spinor version of the same splitting writes a complex $2 \times 2$ matrix of determinant $1$ as a spin rotation
+times a Hermitian boost. The example does this for a diagonal element.
 
 ::: {#exm-polardec-spinor}
 #### Spin rotations and spinor boosts
@@ -23479,7 +23526,7 @@ shear and on a symmetric matrix.
 
 For the shear of @exm-polardec-shear, $\mathbf Q \mathbf S \neq \mathbf S \mathbf Q$, so $\mathbf F \neq \mathbf S \mathbf Q$. For a symmetric $\mathbf A$ with eigenvalues of both signs, $\mathbf S$ has
 the eigenvalues $|\lambda_i|$ and $\mathbf Q$ the signs, on the same eigenvectors, and the factors commute. In general $\mathbf Q \mathbf S = \mathbf S \mathbf Q$ iff
-$\mathbf A^\top \mathbf A = \mathbf A \mathbf A^\top$ for invertible $\mathbf A$ (@exr-polardec-normal).
+$\mathbf A^\top \mathbf A = \mathbf A \mathbf A^\top$ for invertible $\mathbf A$.
 :::
 ::::
 
