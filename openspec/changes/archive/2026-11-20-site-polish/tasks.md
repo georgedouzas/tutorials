@@ -57,7 +57,7 @@
 
 ## 5. Integration
 
-- [ ] 5.1 Run a full `quarto render`. Verify: no warnings, no unresolved cross-references, and `audit/check.py` is
+- [x] 5.1 Run a full `quarto render`. Verify: no warnings, no unresolved cross-references, and `audit/check.py` is
   unchanged.
 - [x] 5.2 Update the main specs through archive, after review. Verify:
   `openspec validate site-polish --strict` passes.
