@@ -50,8 +50,8 @@ entry of the table of contents.
 ### Requirement: One sidebar per tutorial
 Each page of a tutorial SHALL show a sidebar headed by the tutorial's name that lists only that tutorial's overview,
 chapters and glossary, in reading order, with the current page marked, and a link back to the list of all tutorials.
-The home page SHALL list the tutorials; the navbar SHALL show the site title linking to the home page and SHALL NOT
-repeat the word "Tutorials" in a second item.
+The home page SHALL list the tutorials. On the home page the navbar title SHALL be the site title; on a tutorial's
+pages it SHALL be that tutorial's title, linking to its landing page. The navbar SHALL NOT have a "Tutorials" dropdown.
 
 #### Scenario: Reader is in a chapter
 - **WHEN** a reader views a chapter of Fundamentals of Theoretical Physics
@@ -59,11 +59,11 @@ repeat the word "Tutorials" in a second item.
 
 #### Scenario: Switching tutorial
 - **WHEN** a reader in a chapter wants another tutorial
-- **THEN** the sidebar's "All tutorials" link or the navbar title leads to the home page, which lists every tutorial
+- **THEN** the sidebar's "All tutorials" link leads to the home page, which lists every tutorial
 
-#### Scenario: Navbar without duplicates
-- **WHEN** a reader views any page on a wide screen
-- **THEN** the navbar shows the site title once, search, the dark-mode toggle and the GitHub link, and no "Tutorials" dropdown
+#### Scenario: Navbar title
+- **WHEN** a reader views a chapter of Kaluza-Klein Theories
+- **THEN** the navbar shows "Kaluza-Klein Theories" linking to its landing page, search, the dark-mode toggle and the GitHub link, and no "Tutorials" dropdown
 
 #### Scenario: Cross-references still resolve
 - **WHEN** the cross-reference index is rebuilt from the sidebars and the site is rendered
@@ -152,8 +152,9 @@ Each planned chapter (a placeholder page) SHALL carry a small "planned" mark nex
 - **THEN** Cosmology carries the "planned" mark and Gauge theories does not
 
 ### Requirement: Topic filter on the home page
-The home page SHALL show every tutorial topic as a chip above the tracks, broad topics first. Selecting chips SHALL
-show the tutorials that have any selected topic, hide a track with none, and keep the selection in the page address.
+The home page SHALL show every tutorial topic as a chip in a left column beside the tracks, broad topics first; on a
+phone the column sits above the tracks and starts folded. Selecting chips SHALL show the tutorials that have any
+selected topic, hide a track with none, and keep the selection in the page address.
 
 #### Scenario: Filtering by a topic
 - **WHEN** a reader selects the Gauge Theories chip
@@ -163,9 +164,9 @@ show the tutorials that have any selected topic, hide a track with none, and kee
 - **WHEN** a reader opens the home page address ending in `#topics=Gauge%20Theories`
 - **THEN** the page opens with that chip selected and the same tutorials shown
 
-### Requirement: Topics on a landing page link to the filter
-The topics in a tutorial's title block SHALL link to the home page filtered by that topic.
+### Requirement: Landing pages do not show topics
+A tutorial's categories SHALL feed the home page's topic filter and SHALL NOT be shown on its landing page.
 
-#### Scenario: Following a topic
-- **WHEN** a reader clicks the General Relativity topic on the theoretical physics landing page
-- **THEN** the home page opens showing the tutorials with that topic
+#### Scenario: Opening a landing page
+- **WHEN** a reader opens the theoretical physics landing page
+- **THEN** its title block shows the title and subtitle and no topic chips

@@ -1,44 +1,48 @@
 <!--
-Topics (openspec/changes/site-polish). Each tutorial's `categories` are its topics.
-- Home page: a row of topic chips above the two tracks. Selecting chips shows the tutorials that have any selected
-  topic and hides a track with none left. The selection lives in the URL hash (#topics=A,B), so it survives reloads
-  and can be linked. The chips are built from the cards, so a new topic needs no edit here.
-- A tutorial's landing page: the topics in its title block link to the home page filtered by that topic.
+Site script, included on every page.
+- Navbar title: on a tutorial's pages it is the tutorial's title (read from the sidebar's section link) and links to
+  the tutorial's landing page; on the home page it stays the site title.
+- Home page: the topic filter in the left column (.home-aside). Each tutorial's `categories` are its topics.
+  Selecting topics shows the tutorials that have any selected topic and hides a track with none left. The selection
+  lives in the URL hash (#topics=A,B), so it survives reloads and can be linked. The topics are read from the cards,
+  so a new topic needs no edit here.
 -->
 <script>
 (() => {
-  const BROAD = ["Mathematics", "Physics", "Machine Learning"]; // shown first, in this order
-  const decode = (b64) => { try { return decodeURIComponent(atob(b64)); } catch { return ""; } };
+  // Navbar title = the current tutorial.
+  const section = document.querySelector("#quarto-sidebar .sidebar-item-section > .sidebar-item-container > a");
   const brand = document.querySelector("a.navbar-brand");
-  const homeUrl = (brand && brand.getAttribute("href")) || "index.html";
-
-  // Landing pages: title-block topics become links to the filtered home page.
-  document.querySelectorAll(".quarto-title .quarto-categories .quarto-category").forEach((el) => {
-    const t = el.textContent.trim();
-    const a = document.createElement("a");
-    a.className = "topic-link";
-    a.textContent = t;
-    a.title = `Tutorials on ${t}`;
-    a.href = `${homeUrl}#topics=${encodeURIComponent(t)}`;
-    el.replaceWith(a);
-  });
+  if (section && brand) {
+    const title = brand.querySelector(".navbar-title");
+    if (title) title.textContent = section.textContent.trim();
+    brand.setAttribute("href", section.getAttribute("href"));
+  }
 
   if (!document.body.classList.contains("home")) return;
+  const BROAD = ["Mathematics", "Physics", "Machine Learning"]; // shown first, in this order
+  const decode = (b64) => { try { return decodeURIComponent(atob(b64)); } catch { return ""; } };
   const cards = [...document.querySelectorAll(".quarto-listing [data-categories]")];
-  if (!cards.length) return;
+  const aside = document.querySelector(".home-aside");
+  if (!cards.length || !aside) return;
   const cardTopics = cards.map((c) => decode(c.getAttribute("data-categories")).split(",").filter(Boolean));
   const all = [...new Set(cardTopics.flat())];
-  const topics = [...BROAD.filter((t) => all.includes(t)), ...all.filter((t) => !BROAD.includes(t))];
+  const topics = [...BROAD.filter((t) => all.includes(t)), ...all.filter((t) => !BROAD.includes(t)).sort()];
 
-  const box = document.createElement("div");
+  const box = document.createElement("nav");
   box.className = "topic-filter";
-  box.innerHTML = `<div class="topic-filter-head"><span class="topic-filter-title">Filter by topic</span>
-    <button type="button" class="topic-filter-clear" hidden>Clear</button>
-    <span class="topic-filter-count" aria-live="polite"></span></div>
-    <div class="topic-filter-list" role="group" aria-label="Filter tutorials by topic"></div>`;
-  const firstTrack = document.querySelector("#quarto-document-content section.level2");
-  (firstTrack ? firstTrack.parentNode : document.querySelector("#quarto-document-content"))
-    .insertBefore(box, firstTrack || null);
+  box.setAttribute("aria-label", "Filter tutorials by topic");
+  // A <details>: always open beside the tracks; on a phone it starts folded unless topics are selected.
+  box.innerHTML = `<details class="topic-filter-fold"><summary class="topic-filter-head">
+    <span class="topic-filter-title">Filter by topic</span>
+    <button type="button" class="topic-filter-clear" hidden>Clear</button></summary>
+    <div class="topic-filter-count" aria-live="polite"></div>
+    <div class="topic-filter-list" role="group"></div></details>`;
+  aside.appendChild(box);
+  const fold = box.querySelector("details");
+  const wide = window.matchMedia("(min-width: 992px)");
+  const syncFold = () => { if (wide.matches) fold.open = true; };
+  wide.addEventListener("change", syncFold);
+  fold.querySelector("summary").addEventListener("click", (e) => { if (wide.matches) e.preventDefault(); });
 
   const list = box.querySelector(".topic-filter-list");
   const clear = box.querySelector(".topic-filter-clear");
@@ -79,9 +83,11 @@ Topics (openspec/changes/site-polish). Each tutorial's `categories` are its topi
     count.textContent = sel.size ? `${shown} of ${cards.length} tutorials` : "";
   };
 
-  apply(readHash());
+  const initial = readHash();
+  fold.open = wide.matches || initial.size > 0;
+  apply(initial);
   window.addEventListener("hashchange", () => apply(readHash()));
-  clear.addEventListener("click", () => { writeHash(new Set()); apply(new Set()); });
+  clear.addEventListener("click", (e) => { e.preventDefault(); writeHash(new Set()); apply(new Set()); });
   list.addEventListener("click", (e) => {
     const chip = e.target.closest(".topic-chip");
     if (!chip) return;

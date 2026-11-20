@@ -479,8 +479,7 @@ nav[role="doc-toc"] {
 }
 
 .listing-category,
-.quarto-category,
-.topic-link {
+.quarto-category {
   border: 1px solid var(--site-border);
   padding: 0.1rem 0.45rem;
   border-radius: 4px;
@@ -869,21 +868,45 @@ pre code {
 
 /* ------------------------------------------------------------------ Site polish (openspec/changes/site-polish) */
 
-// Landing pages: categories as plain chips in the title block.
+// Landing pages: a tutorial's categories feed the home page's topic filter and are not shown in its title block.
 .quarto-title .quarto-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: 0.75rem;
+  display: none;
 }
 
-// Home page: no sidebar, one centred column holding the two reading tracks.
+// Home page: the topic filter in a left column, the two reading tracks beside it.
 body.home {
   main.content,
   #title-block-header {
     width: 100%;
-    max-width: 68rem;
+    max-width: 80rem;
     margin-inline: auto;
+  }
+
+  .home-layout {
+    display: grid;
+    grid-template-columns: 13.5rem minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .home-aside {
+    position: sticky;
+    top: 5.5rem;
+    padding-right: 1.25rem;
+    border-right: 1px solid var(--site-border);
+  }
+
+  @media (max-width: 991.98px) {
+    .home-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.5rem;
+    }
+
+    .home-aside {
+      position: static;
+      padding-right: 0;
+      border-right: 0;
+    }
   }
 
   #quarto-document-content {
@@ -962,21 +985,46 @@ nav[role="doc-toc"] > ul > li:only-child {
   }
 }
 
-// Topics: the home page's filter chips and the linked topics on a landing page.
+// Topics: the home page's filter, in its left column.
 .topic-filter {
-  margin: 1.5rem 0 0.5rem;
-  padding: 1rem 1.1rem 1.1rem;
-  border: 1px solid var(--site-border);
-  border-radius: 10px;
-  background: var(--site-surface);
+  margin-top: 0.4rem;
   font-family: var(--site-font-sans);
 }
 
 .topic-filter-head {
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
   gap: 0.75rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.topic-filter-fold > summary {
+  list-style: none;
+  cursor: default;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  // On a phone the heading folds the topics away.
+  @media (max-width: 991.98px) {
+    cursor: pointer;
+
+    .topic-filter-title::after {
+      content: " ▸";
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .topic-filter-fold[open] .topic-filter-title::after {
+    content: " ▾";
+  }
+}
+
+.topic-filter-count:empty {
+  display: none;
 }
 
 .topic-filter-title {
@@ -988,7 +1036,7 @@ nav[role="doc-toc"] > ul > li:only-child {
 }
 
 .topic-filter-count {
-  margin-left: auto;
+  margin-bottom: 0.4rem;
   color: var(--site-muted);
   font-size: 0.8rem;
 }
@@ -1005,8 +1053,15 @@ nav[role="doc-toc"] > ul > li:only-child {
 
 .topic-filter-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+
+  // Below the sidebar breakpoint the filter sits above the tracks: chips in rows.
+  @media (max-width: 991.98px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 .topic-chip {
@@ -1040,15 +1095,6 @@ nav[role="doc-toc"] > ul > li:only-child {
 
 .topic-chip-broad {
   font-weight: 600;
-}
-
-a.topic-link {
-  text-decoration: none;
-
-  &:hover {
-    border-color: var(--site-accent);
-    color: var(--site-accent) !important;
-  }
 }
 
 // Planned chapters in a sidebar.
@@ -1094,4 +1140,16 @@ a.topic-link {
 // plain text "All tutorials".
 #quarto-sidebar .sidebar-menu-container > ul > li:first-child > .sidebar-item-container > a .menu-text::before {
   content: "← ";
+}
+
+// The navbar title is the current tutorial's title: cut a long one short on a phone.
+@media (max-width: 767.98px) {
+  .navbar-brand .navbar-title {
+    display: inline-block;
+    max-width: 70vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
 }
