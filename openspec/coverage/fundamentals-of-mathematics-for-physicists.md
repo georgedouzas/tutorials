@@ -37,12 +37,12 @@ sources).
 | 5 Partial differentiation | Partial derivatives, chain rule, Jacobians | covered | real-analysis `sec-calculus` | |
 | 5 Partial differentiation | Stationary values under constraints (Lagrange multipliers); implicit functions | section gap | real-analysis | Only used inside an exercise of hilbert-spaces-operators; no statement. |
 | 6 Multiple integrals | Multiple integrals, change of variables | covered | real-analysis `sec-multiple-integrals` | |
-| 7 Vector algebra | Vectors, scalar and vector products | partly covered | linear-algebra `sec-vector-spaces`; cross and triple products go with the vector-calculus gap of real-analysis | |
+| 7 Vector algebra | Vectors, scalar and vector products | covered | linear-algebra `sec-vector-spaces`; cross and triple products in real-analysis `sec-vector-calculus` (def-cross-product) | |
 | 8 Matrices and vector spaces | Vector spaces, linear maps, inner products | covered | linear-algebra `sec-vector-spaces`, `sec-linear-maps-dual`; hilbert-spaces-operators `sec-hilbert-spaces` | |
 | 8 Matrices and vector spaces | Determinants, trace, eigenvalues, diagonalisation | section gap | linear-algebra | No determinant statement anywhere; eigenvalues only as def-eigenvalue in differential-equations `sec-linear-systems` and the Hermitian spectral theorem in `sec-spectral-theory`. |
 | 9 Normal modes | Normal modes of coupled oscillators | belongs to fundamentals-of-theoretical-physics | classical-mechanics `sec-small-oscillations` | Taught there with statements; the linear algebra is in differential-equations `sec-linear-systems`. |
-| 10 Vector calculus | grad, div, curl, curvilinear coordinates | section gap | real-analysis | Forms and exterior derivative are in differential-geometry, but the vector-calculus operators of $\mathbb{R}^3$ have no unit. |
-| 11 Line, surface and volume integrals | Line and surface integrals, divergence and Stokes theorems | partly covered | differential-geometry `sec-vector-fields-forms-tensors` (thm-stokes); gap in real-analysis (classical integral theorems) | |
+| 10 Vector calculus | grad, div, curl, curvilinear coordinates | covered | real-analysis `sec-vector-calculus` (def-grad-div-curl, prp-curvilinear-operators) | Forms and exterior derivative stay in differential-geometry. |
+| 11 Line, surface and volume integrals | Line and surface integrals, divergence and Stokes theorems | covered | real-analysis `sec-vector-calculus` (def-line-integral, def-surface-integral, thm-green, thm-divergence, thm-stokes-surface); differential-geometry `sec-vector-fields-forms-tensors` (thm-stokes) | |
 | 12 Fourier series | Fourier series, Parseval | covered | fourier-analysis `sec-fourier-series` | |
 | 13 Integral transforms | Fourier transform, convolution | covered | fourier-analysis `sec-fourier-transform` | |
 | 13 Integral transforms | Laplace transform | section gap | fourier-analysis | Mentioned only in passing (hilbert-spaces-operators heat-kernel heuristic). |
@@ -228,8 +228,8 @@ sources).
 | sets-relations-topology | Metric spaces: metrics, completeness, contraction mapping (also covered by the cited problem book cheung2024metric) | Lee App. A; Keski-Vakkuri §4.1 | done (sec-metric-spaces) |
 | linear-algebra | Determinants and trace (including partial traces) | Axler 8D, 9C; Riley ch. 8; Keski-Vakkuri §3.6.5; Lee App. B | done (sec-determinants-trace) |
 | linear-algebra | Eigenvalues, diagonalisation and Jordan form (with singular value and polar decomposition as a unit) | Axler ch. 5, 7C-7F, 8; Riley ch. 8 | done (sec-eigenvalues) |
-| real-analysis | Inverse and implicit function theorems; constrained extrema and Lagrange multipliers | Lee App. C; Riley ch. 5 | open |
-| real-analysis | Vector calculus: grad, div, curl, curvilinear coordinates, line and surface integrals, the classical integral theorems | Riley ch. 10-11; Lee ch. 11, 16 | open |
+| real-analysis | Inverse and implicit function theorems; constrained extrema and Lagrange multipliers | Lee App. C; Riley ch. 5 | done (sec-inverse-implicit) |
+| real-analysis | Vector calculus: grad, div, curl, curvilinear coordinates, line and surface integrals, the classical integral theorems | Riley ch. 10-11; Lee ch. 11, 16 | done (sec-vector-calculus) |
 | complex-analysis | Asymptotic evaluation of integrals: steepest descent, stationary phase | Riley ch. 25 | open |
 | differential-equations | Further special functions: Hermite, Laguerre and Chebyshev polynomials, hypergeometric and confluent hypergeometric functions | Riley ch. 18; Zhu WBI8MVKP ch. 7 (supplement) | open |
 | differential-equations | First-order PDEs and the method of characteristics | Riley ch. 20; Lee ch. 9; Rudolph I.12.2 | open |

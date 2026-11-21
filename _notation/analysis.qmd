@@ -2,6 +2,10 @@
 
 | Symbol | Meaning |
 |---|---|
+| $\sup S$, $\inf S$ | supremum (least upper bound) and infimum (greatest lower bound) of a set of reals; $\max S$, $\min S$ when attained |
+| $\limsup a_n$, $\liminf a_n$ | upper and lower limits of a sequence, $\lim_n\sup_{k \geq n}a_k$ and $\lim_n\inf_{k \geq n}a_k$ |
+| $H_n$ | harmonic number $1 + \tfrac12 + \dots + \tfrac1n$ |
+| $n!!$ | double factorial, $n(n - 2)(n - 4)\cdots$ down to $1$ or $2$ |
 | $\varepsilon$ | small positive number, as in $\lvert x - a\rvert < \varepsilon$ and the $i\varepsilon$ prescription |
 | $\lvert z\rvert$ | absolute value or modulus of a number |
 | $z^*$ | complex conjugate |
@@ -10,11 +14,26 @@
 | $\operatorname{Res}_{z_0} f$ | residue of $f$ at $z_0$ |
 | $\log$ | natural logarithm; $\log_2$ is written out where a quantity is in bits |
 | $\operatorname{sgn}$ | sign function; $\operatorname{sgn}\sigma$ is also the sign of a permutation |
+| $C^k$, $C^\infty$ | functions with continuous partial derivatives up to order $k$, of every order |
+| $T_n$, $R_n$ | Taylor polynomial of degree $n$ and its remainder, $f = T_n + R_n$ |
+| $\operatorname{arsinh}$, $\operatorname{artanh}$ | inverse hyperbolic sine and tangent |
+| $L(f, P)$, $U(f, P)$ | lower and upper (Darboux) sums of $f$ for a partition $P$; for a grid partition of a box, $L(F, P)$ and $U(F, P)$ |
+| $[G]_a^b$ | $G(b) - G(a)$ |
+| $\operatorname{vol}(D)$, $d^nx$ | volume (area for $n = 2$) of a region $D \subseteq \mathbb R^n$, $\int_D 1\,d^nx$; the volume element of $\int_D f(\mathbf x)\,d^nx$ |
 | $\dot x$, $\ddot x$ | first and second derivatives with respect to time |
 | $\partial_i$ | partial derivative $\partial/\partial x^i$ |
 | $\nabla f$, $\nabla_{\mathbf x} f$ | gradient (with respect to $\mathbf x$) |
 | $\Delta = \nabla^2$ | Laplacian, $\partial_1^2 + \dots + \partial_n^2$ |
-| $J_f$ | Jacobian matrix of a map $f$ |
+| $\nabla\cdot\mathbf F$ | divergence of a vector field, $\partial_iF_i$ |
+| $\nabla\times\mathbf F$ | curl of a vector field on $\mathbb R^3$, $(\nabla\times\mathbf F)_i = \epsilon_{ijk}\partial_jF_k$ |
+| $h_i$, $\hat{\mathbf e}_i$ | scale factors and unit vectors of orthogonal curvilinear coordinates; $\hat{\mathbf e}_\rho, \hat{\mathbf e}_\varphi, \hat{\mathbf e}_z$ (cylindrical), $\hat{\mathbf e}_r, \hat{\mathbf e}_\theta, \hat{\mathbf e}_\varphi$ (spherical) |
+| $\int_{\boldsymbol\gamma}\mathbf F\cdot d\mathbf r$, $\oint_{\boldsymbol\gamma}$ | line integral along a curve $\boldsymbol\gamma$; circulation around a closed curve |
+| $ds$ | arc-length element, $\lVert\boldsymbol\gamma'(t)\rVert\,dt$ |
+| $dS$, $d\mathbf S$ | surface element $\lVert\mathbf N\rVert\,du\,dv$ and vector surface element $\mathbf N\,du\,dv$, $\mathbf N = \Phi_u\times\Phi_v$ |
+| $\hat{\mathbf n}$ | unit normal of a surface or curve |
+| $\mathbf J_F$, $J_f$ | Jacobian matrix $(\partial_jF_i)$ of a map $F$, bold as a matrix; $\det\mathbf J_F$ is the Jacobian determinant |
+| $\partial_{\mathbf x}F$, $\partial_{\mathbf y}F$ | partial Jacobian matrices of $F(\mathbf x, \mathbf y)$ with respect to the variables $\mathbf x$ and $\mathbf y$, so $\mathbf J_F = (\partial_{\mathbf x}F \;\; \partial_{\mathbf y}F)$ |
+| $\mathbf H_f$ | Hessian matrix $(\partial_i\partial_jf)$ of a function $f$ |
 | $\mathcal L$ | a Lagrangian: the Lagrangian density of a field theory, or $\mathcal L(\mathbf x, \lambda)$ of a constrained optimisation problem |
 | $\hat f(k)$ | Fourier transform, $\hat f(k) = \int f(x)\, e^{-ikx}\, dx$ |
 | $c_n$ | Fourier coefficients, $c_n = \frac{1}{2\pi}\int_0^{2\pi} f(x)\, e^{-inx}\, dx$ |

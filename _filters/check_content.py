@@ -212,6 +212,7 @@ def _timeout(*a):
 signal.signal(signal.SIGALRM, _timeout)
 for code in blocks:
     ns = dict(base)
+    forget()  # assumptions are global to the Sage process, not to the namespace
     buf = io.StringIO()
     signal.alarm(%d)
     try:
