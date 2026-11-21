@@ -32,8 +32,20 @@
 | $\omega_0$, $\gamma$, $\omega_d$ | natural frequency, damping constant and damped frequency $\sqrt{\omega_0^2 - \gamma^2}$ of the oscillator $\ddot q + 2\gamma\dot q + \omega_0^2q = F(t)$ |
 | $\langle f, g\rangle_w$, $\lVert f\rVert_w$ | weighted inner product $\int_a^bf(x)^*g(x)w(x)\,dx$ of functions on an interval, for a weight $w > 0$, and its norm $\langle f, f\rangle_w^{1/2}$ |
 | $P_n$ | Legendre polynomial of degree $n$, $\frac{1}{2^nn!}\frac{d^n}{dx^n}(x^2 - 1)^n$ |
+| $P_l^m$ | associated Legendre function $(1 - u^2)^{m/2}\frac{d^m}{du^m}P_l(u)$, $0 \leq m \leq l$ |
+| $\mathbf n(\theta, \varphi)$ | the point $(\sin\theta\cos\varphi, \sin\theta\sin\varphi, \cos\theta)^\top$ of the unit sphere $S^2$ |
+| $\Delta_{S^2}$, $\nabla_{S^2}$ | Laplacian and gradient on the unit sphere, of the extension constant along rays |
+| $d\Omega$, $\langle f, g\rangle_{S^2}$ | solid-angle element $\sin\theta\,d\theta\,d\varphi$; inner product $\int_{S^2}f^*g\,d\Omega$ on the sphere |
+| $\mathcal P_l$, $\operatorname{Harm}_l$, $\mathcal Y_l$ | homogeneous polynomials of degree $l$ in $x, y, z$; the harmonic ones; their restrictions to $S^2$, the spherical harmonics of degree $l$ |
+| $Y_{lm}$, $f_{lm}$ | spherical harmonic of degree $l$ and order $m$ (Condon-Shortley phase); the coefficient $\langle Y_{lm}, f\rangle_{S^2}$ |
+| $q_{lm}$, $Q_{ij}$ | multipole moments $\int\rho\,r^lY_{lm}^*$ and quadrupole tensor $\int\rho\,(3x_ix_j - r^2\delta_{ij})$ of a charge distribution |
 | $J_\nu$, $I_\nu$ | Bessel function and modified Bessel function of order $\nu$ |
 | $j_{\nu,k}$ | $k$-th positive zero of $J_\nu$ |
+| $\kappa$, $c$ | diffusivity of the heat equation $u_t = \kappa\nabla^2u$; wave speed of $u_{tt} = c^2u_{xx}$ |
+| $K(t, x)$ | heat kernel $(4\pi\kappa t)^{-1/2}e^{-x^2/(4\kappa t)}$ |
+| $m_u(\mathbf a, \rho)$ | average of $u$ over the circle or sphere of radius $\rho$ about $\mathbf a$ |
+| $\Delta_h$ | five-point discrete Laplacian on a square grid of spacing $h$ |
+| $r$, $C$ | mesh ratio $\kappa\tau/\Delta x^2$ and Courant number $c\tau/\Delta x$ of a finite-difference scheme with steps $\tau$, $\Delta x$ |
 | $\partial_i$ | partial derivative $\partial/\partial x^i$ |
 | $u_x$, $u_y$, $u_{xy}$ | partial derivatives $\partial_xu$, $\partial_yu$, $\partial_y\partial_xu$ of a function of $(x, y)$, written as subscripts |
 | $f'(z)$ | complex derivative of a function of a complex variable |
@@ -57,6 +69,12 @@
 | $\partial_{\mathbf x}F$, $\partial_{\mathbf y}F$ | partial Jacobian matrices of $F(\mathbf x, \mathbf y)$ with respect to the variables $\mathbf x$ and $\mathbf y$, so $\mathbf J_F = (\partial_{\mathbf x}F \;\; \partial_{\mathbf y}F)$ |
 | $\mathbf H_f$ | Hessian matrix $(\partial_i\partial_jf)$ of a function $f$ |
 | $\mathcal L$ | a Lagrangian: the Lagrangian density of a field theory, or $\mathcal L(\mathbf x, \lambda)$ of a constrained optimisation problem |
+| $J[y]$ | a functional: a number assigned to a function $y$, as in $J[y] = \int_a^bL(x, y, y')\,dx$ |
+| $L(x, y, y')$, $\partial_yL$, $\partial_{y'}L$ | integrand of a functional $\int L\,dx$ and its partial derivatives in the slots of $y$ and $y'$; for a field, $\partial L/\partial u$ and $\partial L/\partial(\partial_iu)$ |
+| $\delta J[y; \eta]$ | first variation (Gateaux derivative) $\frac{d}{d\varepsilon}J[y + \varepsilon\eta]\big\vert_{\varepsilon = 0}$ of a functional at $y$ in the direction $\eta$ |
+| $\frac{\delta J}{\delta y}$, $\frac{\delta J}{\delta y(x)}$ | functional derivative: the function with $\delta J[y; \eta] = \int\frac{\delta J}{\delta y}\,\eta\,dx$ for every variation $\eta$ |
+| $\delta^2J[y; \eta]$ | second variation $\frac{d^2}{d\varepsilon^2}J[y + \varepsilon\eta]\big\vert_{\varepsilon = 0}$ of a functional at $y$ in the direction $\eta$ |
+| $R[y]$ | Rayleigh quotient $\int(py'^2 + qy^2)\,dx/\int wy^2\,dx$ of a Sturm-Liouville problem |
 | $\hat f(k)$ | Fourier transform, $\hat f(k) = \int f(x)\, e^{-ikx}\, dx$ |
 | $\check g(x)$ | inverse Fourier transform, $\check g(x) = \frac{1}{2\pi}\int g(k)\, e^{ikx}\, dk$ |
 | $\operatorname{sinc}$ | $\operatorname{sinc}u = \sin u/u$, with $\operatorname{sinc}0 = 1$ |
@@ -74,6 +92,13 @@
 | $f * g$ | convolution |
 | $\delta(x)$, $\delta^n(\mathbf x)$ | Dirac delta |
 | $\Theta(x)$ | Heaviside step function |
+| $\delta_\varepsilon$ | delta sequence: functions $\geq 0$ of unit integral concentrating at $\mathbf 0$ as $\varepsilon \to 0^+$ |
+| $C^k_c(\mathbb R^n)$ | functions of class $C^k$ that vanish outside a bounded set |
+| $G$, $G(x, \xi)$ | fundamental solution $G(\mathbf x)$ of a differential operator; Green's function $G(x, \xi)$ of a boundary value problem, with $x_< = \min(x, \xi)$, $x_> = \max(x, \xi)$ |
+| $G_{\mathrm{ret}}$, $G_F$ | retarded Green's function; Feynman Green's function $\frac{i}{2\omega}e^{-i\omega\lvert t\rvert}$ of $\frac{d^2}{dt^2} + \omega^2$ |
+| $\mathcal L[f](s)$, $F(s)$ | Laplace transform $\int_0^\infty f(t)e^{-st}\,dt$, always written with its function in brackets (plain $\mathcal L$ is a Lagrangian) |
+| $\sigma_0(f)$, $\sigma_a(f)$ | growth abscissa (infimum of the exponents $a$ with $\lvert f(t)\rvert \leq Me^{at}$) and abscissa of absolute convergence of a Laplace transform |
+| $H(s)$ | transfer function $1/p(s)$ of a linear equation $p(d/dt)y = f$ with constant coefficients |
 | $\operatorname{PV}$ | Cauchy principal value of an integral or a distribution, as in $\operatorname{PV}\frac1x$ |
 | $\mathcal S(\mathbb R^n)$ | Schwartz space |
 | $\mathcal D(\Omega)$ | test functions with compact support in $\Omega$ |

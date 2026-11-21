@@ -48,7 +48,7 @@ one `##` section per agent run.
 - [ ] 4.5 Write Calculus of variations from the chapter template (functionals and the Euler-Lagrange equations;
   constraints, the second variation and Rayleigh-Ritz), ten and ten throughout; remove its planned badge in
   `_quarto.yml`; mark the proposed chapter written in the coverage record.
-- [ ] 4.6 Fourier analysis (gap: the Laplace transform and its inversion).
+- [x] 4.6 Fourier analysis (gap: the Laplace transform and its inversion).
 - [ ] 4.7 Hilbert spaces and operators (by section).
 - [ ] 4.8 Probability.
 - [ ] 4.9 Differential geometry (by section; gaps: submanifolds and the rank theorem; orientation and integration;

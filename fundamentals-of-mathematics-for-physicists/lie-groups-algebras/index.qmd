@@ -6803,6 +6803,743 @@ M_{13})$ is mapped to $-\tfrac12(M_{13} - M_{02}) = J_1$; the $K_a$, with the op
 :::
 ::::
 
+## Harmonic analysis on compact groups {#sec-compact-harmonic-analysis}
+
+Fourier series expand a function on the circle in the modes $e^{in\varphi}$, and the spherical harmonics of
+@sec-harmonic-analysis expand a function on the sphere $S^2$ in the eigenfunctions of its Laplacian. On a compact Lie
+group the modes are the matrix coefficients of the irreducible unitary representations, orthogonal by Schur's
+relations for the invariant integration on the group. This section defines them, states the Peter-Weyl theorem, which
+makes them a complete orthonormal system, describes the mode expansion of a function on a coset space $S/R$, and
+collects the explicit identities for $SU(2)$ and the sphere in a final proposition.
+
+### Matrix coefficients
+
+On a compact group the role of the harmonics is played by the matrix elements of the irreducible unitary
+representations, and the role of the orthogonality of modes by Schur's orthogonality relations. The definition
+introduces the matrix coefficients, the characters, the invariant integration they are orthogonal for, and the
+Wigner functions of $SU(2)$ in Euler angles [@mukunda2022continuous, Secs. 3.3.4-3.3.5, eqs. (3.48)-(3.54)].
+
+:::: {.statement-box}
+::: {#def-matrix-coefficient}
+#### Matrix coefficient
+
+For a compact Lie group $G$ and a unitary representation $D$ of dimension $d$ on $\mathbb{C}^d$
+(@def-representation), the **matrix coefficients** are the functions $D_{ij}(g) = \langle e_i, D(g)e_j\rangle$ on
+$G$, and the **character** is $\chi(g) = \operatorname{tr}D(g) = \sum_iD_{ii}(g)$, a function constant on
+conjugacy classes (a **class function**). The **Haar measure** $dg$ is the unique measure on $G$ invariant under
+left and right translations with $\int_Gdg = 1$; for $SU(2)$ in the Euler-angle parametrisation $g(\varphi, \theta,
+\psi) = e^{-i\varphi J_3}e^{-i\theta J_2}e^{-i\psi J_3}$ with $0 \leq \varphi < 2\pi$, $0 \leq \theta \leq \pi$, $0
+\leq \psi < 4\pi$ it is $dg = \sin\theta\,d\theta\,d\varphi\,d\psi/16\pi^2$. The **Schur orthogonality relations**
+state that for irreducible unitary representations $D^r, D^s$,
+$$
+\int_GD^r_{ij}(g)\,D^s_{kl}(g)^*\,dg = \frac{\delta_{rs}\delta_{ik}\delta_{jl}}{d_r}, \qquad
+\int_G\chi_r\chi_s^*\,dg = \delta_{rs},
+$$ {#eq-schur-orthogonality}
+the counterpart of @eq-mode-orthogonality, proved from Schur's lemma (@thm-schur) by averaging $D^r(g)AD^s(g)^{-1}$
+over $G$. For $SU(2)$ the coefficients of the spin-$j$ representation are the **Wigner functions** $D^j_{mn}(\varphi,
+\theta, \psi) = e^{-im\varphi}d^j_{mn}(\theta)e^{-in\psi}$ with $d^j(\theta) = e^{-i\theta J_2}$ in the weight basis
+of @def-spin-j, and the characters are $\chi_j(\theta) = \sum_{m = -j}^je^{im\theta} = \frac{\sin((2j +
+1)\theta/2)}{\sin(\theta/2)}$ for the class of rotations by the angle $\theta$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The circle group is the case in which everything is already known: its irreducible representations are the
+characters $e^{in\varphi}$, and Schur orthogonality is the orthogonality of the Fourier modes. The first example
+makes this translation, which shows that Fourier series are a chapter of representation theory.
+
+::: {#exm-sph-u1-coefficients}
+#### $U(1)$
+
+The irreducible unitary representations of $U(1) = \{e^{i\varphi}\}$ are one-dimensional, $D_n(e^{i\varphi}) =
+e^{in\varphi}$ for $n \in \mathbb{Z}$ (every irreducible representation of an abelian group is one-dimensional
+by Schur's lemma), the Haar measure is $d\varphi/2\pi$, and @eq-schur-orthogonality reads
+$\frac{1}{2\pi}\int_0^{2\pi}e^{in\varphi}e^{-im\varphi}d\varphi = \delta_{nm}$, which is @eq-mode-orthogonality.
+The matrix coefficients are the Fourier modes and the characters coincide with them, $U(1)$ being abelian.
+:::
+
+The spin-$\tfrac12$ representation of $SU(2)$ is the group itself, and its matrix coefficients in Euler angles can
+be written out and integrated by hand. The second example gives the matrix and verifies one Schur integral.
+
+::: {#exm-sph-su2-half}
+#### Spin $\tfrac12$
+
+With $J_3 = \tfrac12\sigma_3$ and $J_2 = \tfrac12\sigma_2$,
+$$
+D^{1/2}(\varphi, \theta, \psi) = \begin{pmatrix} e^{-i(\varphi + \psi)/2}\cos\tfrac\theta2 & -e^{-i(\varphi -
+\psi)/2}\sin\tfrac\theta2 \\ e^{i(\varphi - \psi)/2}\sin\tfrac\theta2 & e^{i(\varphi + \psi)/2}\cos\tfrac\theta2
+\end{pmatrix},
+$$
+unitary with determinant $1$; the range $\psi \in [0, 4\pi)$ is needed because $D^{1/2}(\varphi, \theta, \psi +
+2\pi) = -D^{1/2}(\varphi, \theta, \psi)$. Then $\int|D^{1/2}_{11}|^2dg = \frac{1}{16\pi^2}\int\cos^2\tfrac\theta2
+\sin\theta\,d\theta\,d\varphi\,d\psi = \frac{8\pi^2}{16\pi^2}\int_0^\pi\frac{1 + \cos\theta}{2}\sin\theta\,d\theta =
+\frac12$, which is $1/d$ for $d = 2$, and all sixteen Schur integrals of @eq-schur-orthogonality come out as
+$\tfrac12\delta_{ik}\delta_{jl}$ (@prp-spherical-harmonics).
+:::
+
+The spin-$1$ representation is the vector representation of $SO(3)$ in the weight basis, and its middle column
+is made of the spherical harmonics with $l = 1$. The third example writes the $d^1$ matrix, identifies the
+column, and gives the characters.
+
+::: {#exm-sph-su2-spin-one}
+#### Spin $1$ and the harmonics $Y_{1m}$
+
+In the weight basis $m = 1, 0, -1$ with $J_\pm$ the matrices of @sec-weights-su2,
+$$
+d^1(\theta) = e^{-i\theta J_2} = \begin{pmatrix} \tfrac12(1 + \cos\theta) & -\tfrac{1}{\sqrt2}\sin\theta & \tfrac12(1
+- \cos\theta) \\ \tfrac{1}{\sqrt2}\sin\theta & \cos\theta & -\tfrac{1}{\sqrt2}\sin\theta \\ \tfrac12(1 - \cos\theta)
+& \tfrac{1}{\sqrt2}\sin\theta & \tfrac12(1 + \cos\theta)\end{pmatrix},
+$$
+verified by $d' = -iJ_2d$, $d(0) = 1$ (@prp-spherical-harmonics). The middle column of $D^1 = e^{-im\varphi}d^1_{mn}
+e^{-in\psi}$ does not depend on $\psi$ and equals $D^1_{m0}(\varphi, \theta, \psi) = \sqrt{\tfrac{4\pi}{3}}\,
+Y_{1m}(\theta, \varphi)^*$: the harmonics are matrix coefficients. The characters are $\chi_{1/2} =
+2\cos\tfrac\theta2$ and $\chi_1 = 1 + 2\cos\theta = \operatorname{tr}d^1(\theta)$, with $\chi_{1/2}^2 = \chi_0 +
+\chi_1$, the decomposition $D^{1/2}\otimes D^{1/2} = D^0 \oplus D^1$ (@sec-branching).
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The Haar measure of $SU(2)$ is determined by its invariance, and the Euler-angle formula can be checked against
+left translations. The first exercise verifies the two easy invariances and the normalisation, and identifies the
+measure with the volume form of the round $S^3$.
+
+::: {#exr-sph-haar}
+#### The Haar measure of $SU(2)$
+
+Show that $dg = \sin\theta\,d\theta\,d\varphi\,d\psi/16\pi^2$ has total mass $1$, is invariant under left
+multiplication by $e^{-i\alpha J_3}$ (which shifts $\varphi$) and right multiplication by $e^{-i\beta J_3}$ (which
+shifts $\psi$), and is proportional to the volume form of the round metric on $S^3 \cong SU(2)$; why is this
+enough to identify it with the Haar measure?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\int_0^\pi\sin\theta\,d\theta\int_0^{2\pi}d\varphi\int_0^{4\pi}d\psi = 2\cdot2\pi\cdot4\pi = 16\pi^2$. Left
+multiplication by $e^{-i\alpha J_3}$ sends $(\varphi, \theta, \psi)$ to $(\varphi + \alpha, \theta, \psi)$ and right
+multiplication by $e^{-i\beta J_3}$ to $(\varphi, \theta, \psi + \beta)$; $d\varphi$ and $d\psi$ are invariant
+under shifts, and $\sin\theta\,d\theta$ does not involve them. The Euler angles are coordinates on $S^3$ in which
+the round metric is $\tfrac14(d\theta^2 + d\varphi^2 + d\psi^2 + 2\cos\theta\,d\varphi\,d\psi)$, with volume form
+$\tfrac18\sin\theta\,d\theta\,d\varphi\,d\psi$; the round metric is bi-invariant (it is the Killing form up to
+scale, @def-invariant-metric), so its volume form is bi-invariant, and the Haar measure is unique, so the two
+agree after normalisation. Invariance under the one-parameter subgroups generated by $J_3$ alone would not
+suffice; the bi-invariance of the metric supplies the rest.
+:::
+
+Schur's relations for spin $\tfrac12$ are sixteen integrals of trigonometric polynomials over the Euler angles,
+and Sage can do them all. The second exercise asks for them and for the vanishing of the integrals between spin
+$\tfrac12$ and spin $1$.
+
+::: {#exr-sph-schur}
+#### Schur orthogonality in Sage
+
+Compute $\int D^{1/2}_{ij}(D^{1/2}_{kl})^*\,dg$ for all $i, j, k, l$ and $\int D^{1/2}_{ij}(D^1_{kl})^*\,dg$
+for a few $(i, j, k, l)$ with Sage, and compare with @eq-schur-orthogonality.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+The sixteen spin-$\tfrac12$ integrals are $\tfrac12$ when $(i, j) = (k, l)$ and $0$ otherwise, and every mixed
+integral vanishes; the $\psi$ and $\varphi$ integrations kill all terms whose phases do not match, and the
+remaining $\theta$ integrals are elementary:
+
+```python
+th, ph, psi = var("theta phi psi")
+def haar(f):
+    return integrate(integrate(integrate(f * sin(th), psi, 0, 4 * pi), ph, 0, 2 * pi), th, 0, pi) / (16 * pi ** 2)
+Dh = matrix(SR, [[exp(-I * (ph + psi) / 2) * cos(th / 2), -exp(-I * (ph - psi) / 2) * sin(th / 2)], [exp(I * (ph - psi) / 2) * sin(th / 2), exp(I * (ph + psi) / 2) * cos(th / 2)]])
+d1 = matrix(SR, [[(1 + cos(th)) / 2, -sin(th) / sqrt(2), (1 - cos(th)) / 2], [sin(th) / sqrt(2), cos(th), -sin(th) / sqrt(2)], [(1 - cos(th)) / 2, sin(th) / sqrt(2), (1 + cos(th)) / 2]])
+D1 = diagonal_matrix(SR, [exp(-I * ph), 1, exp(I * ph)]) * d1 * diagonal_matrix(SR, [exp(-I * psi), 1, exp(I * psi)])
+vals = {}
+for i in range(2):
+    for j in range(2):
+        for k in range(2):
+            for l in range(2):
+                vals[(i, j, k, l)] = haar((Dh[i, j] * conjugate(Dh[k, l])).simplify_full()).simplify_full()
+print("non-zero integrals int D_ij D_kl^* dg for spin 1/2:", {key: v for key, v in vals.items() if v != 0})
+print("all equal to delta_ik delta_jl / 2:", all(v == (QQ(1) / 2 if (i, j) == (k, l) else 0) for (i, j, k, l), v in vals.items()))
+mixed = [haar((Dh[i, j] * conjugate(D1[k, l])).simplify_full()).simplify_full() for (i, j, k, l) in [(0, 0, 0, 0), (0, 0, 1, 1), (0, 1, 0, 1), (1, 0, 2, 1), (1, 1, 2, 2)]]
+print("integrals between spin 1/2 and spin 1 for five index choices:", mixed)
+```
+
+*Output:*
+
+```text
+non-zero integrals int D_ij D_kl^* dg for spin 1/2: {(0, 0, 0, 0): 1/2, (0, 1, 0, 1): 1/2, (1, 0, 1, 0): 1/2, (1, 1, 1, 1): 1/2}
+all equal to delta_ik delta_jl / 2: True
+integrals between spin 1/2 and spin 1 for five index choices: [0, 0, 0, 0, 0]
+```
+:::
+
+Characters are orthonormal for the Haar measure, and since they are class functions the integral reduces to one
+over the rotation angle with a specific weight. The third exercise derives this reduced form, verifies it with
+Sage, and uses it to decompose a tensor product.
+
+::: {#exr-sph-characters}
+#### Characters and the Weyl integration formula
+
+Show that for a class function $f$ on $SU(2)$, $\int_{SU(2)}f\,dg = \frac1\pi\int_0^{2\pi}f(\theta)\sin^2\tfrac\theta2\,d\theta$,
+where $\theta$ is the rotation angle (the Weyl integration formula for $SU(2)$, which may be derived from the
+eigenvalues $e^{\pm i\theta/2}$ of the matrix $g$); verify with Sage that the characters $\chi_j$, $j \leq
+\tfrac32$, are orthonormal for this measure, and decompose $\chi_{1/2}\chi_1$ into characters.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+Every $g \in SU(2)$ is conjugate to $\operatorname{diag}(e^{i\theta/2}, e^{-i\theta/2})$ with $\theta \in [0,
+2\pi]$, and the Haar measure pushed forward to the angle is the Weyl measure $\frac1\pi\sin^2\tfrac\theta2\,d\theta
+= \frac{1}{2\pi}(1 - \cos\theta)d\theta$, the density of $\theta$ for a uniformly random rotation, which
+integrates to $1$. Then $\frac1\pi\int_0^{2\pi}\chi_j\chi_{j'}^*\sin^2\tfrac\theta2\,d\theta = \delta_{jj'}$, and
+$\chi_{1/2}\chi_1 = 2\cos\tfrac\theta2(1 + 2\cos\theta) = \chi_{1/2} + \chi_{3/2}$, that is, $D^{1/2}\otimes D^1 =
+D^{1/2}\oplus D^{3/2}$, whose coefficients are the integrals $\frac1\pi\int\chi_{1/2}\chi_1\chi_j^*\sin^2\tfrac\theta2$:
+
+```python
+th = var("theta")
+chi = lambda j: sum(cos(m * th) for m in [j - i for i in range(int(2 * j) + 1)])
+w = sin(th / 2) ** 2 / pi
+js = [0, 1/2, 1, 3/2]
+G = matrix(SR, [[integrate(chi(a) * chi(b) * w, th, 0, 2 * pi) for b in js] for a in js])
+print("Gram matrix of chi_0, chi_1/2, chi_1, chi_3/2 for the Weyl measure:"); print(G)
+print("the Weyl measure has total mass 1:", integrate(w, th, 0, 2 * pi))
+coeffs = [integrate(chi(1/2) * chi(1) * chi(j) * w, th, 0, 2 * pi) for j in js]
+print("coefficients of chi_{1/2} chi_1 in chi_0, chi_1/2, chi_1, chi_3/2:", coeffs)
+print("chi_{1/2} chi_1 = chi_{1/2} + chi_{3/2} as functions:", bool((chi(1/2) * chi(1) - chi(1/2) - chi(3/2)).trig_reduce().simplify_full() == 0))
+```
+
+*Output:*
+
+```text
+Gram matrix of chi_0, chi_1/2, chi_1, chi_3/2 for the Weyl measure:
+[1 0 0 0]
+[0 1 0 0]
+[0 0 1 0]
+[0 0 0 1]
+the Weyl measure has total mass 1: 1
+coefficients of chi_{1/2} chi_1 in chi_0, chi_1/2, chi_1, chi_3/2: [0, 1, 0, 1]
+chi_{1/2} chi_1 = chi_{1/2} + chi_{3/2} as functions: True
+```
+:::
+::::
+
+### The Peter-Weyl theorem
+
+The matrix coefficients of all irreducible representations together form a complete orthogonal system on the
+group, which is the theorem of Peter and Weyl, the Fourier theory of compact groups. The theorem states it in
+three forms, as a basis, as an expansion, and as a decomposition of the regular representation, and records the
+two instances that this chapter is about [@mukunda2022continuous, Sec. 7.2.1, eqs. (7.45)-(7.47)].
+
+:::: {.statement-box}
+::: {#thm-peter-weyl}
+#### The Peter-Weyl theorem
+
+Let $G$ be a compact Lie group and let $\{D^r\}$ be a complete set of pairwise inequivalent irreducible unitary
+representations, of dimensions $d_r$. (i) The functions $\sqrt{d_r}\,D^r_{ij}$, over all $r$, $i$, $j$, form an
+orthonormal basis of the square-integrable functions on $G$: every such $f$ has the expansion
+$$
+f(g) = \sum_rd_r\sum_{i, j = 1}^{d_r}\hat f^r_{ji}D^r_{ij}(g), \qquad \hat f^r = \int_Gf(g)\,D^r(g)^{-1}\,dg,
+$$ {#eq-peter-weyl}
+convergent in mean square, with $\int|f|^2dg = \sum_rd_r\operatorname{tr}(\hat f^r{}^\dagger\hat f^r)$ (Parseval),
+uniformly if $f$ is smooth. (ii) The characters $\chi_r$ form an orthonormal basis of the square-integrable class
+functions. (iii) Under left translation $(L_hf)(g) = f(h^{-1}g)$ the space of functions on $G$ decomposes as
+$\bigoplus_r(D^r)^{\oplus d_r}$, each irreducible representation occurring as many times as its dimension, the
+$d_r$ copies being spanned by the columns $j$ of $D^r_{ij}$. Statement (i) contains Fourier series ($G = U(1)$,
+$D^n = e^{in\varphi}$, $d_n = 1$) and the expansion of functions on $SU(2)$ in Wigner functions; the spherical
+harmonics are the special case of functions on $SU(2)$ independent of $\psi$ (@def-coset-mode-expansion).
+*Argument.* Orthonormality is @eq-schur-orthogonality. Completeness is the content of the theorem: the convolution
+operators $f \mapsto \int k(g^{-1}h)f(h)dh$ with continuous $k$ are compact and self-adjoint for $k(g^{-1}) =
+k(g)^*$, their eigenspaces are finite-dimensional and invariant under translation, hence sums of matrix
+coefficients, and they approximate the identity as $k$ runs through an approximate identity; the spectral theorem
+of the next chapter then gives the density of the matrix coefficients.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+For $U(1)$ the theorem is the $L^2$ theory of Fourier series, and reading the three statements in that case is
+the best way to understand them. The first example makes the dictionary explicit.
+
+::: {#exm-sph-pw-u1}
+#### Fourier series as Peter-Weyl
+
+For $G = U(1)$ the matrix coefficients are $e^{in\varphi}$, all of dimension $1$, and (i) is the statement that
+$\{e^{in\varphi}\}$ is an orthonormal basis of the square-integrable functions on the circle for the measure
+$d\varphi/2\pi$: @thm-fourier-convergence (3) and @thm-parseval. Every function is a class function, so (ii)
+says the same thing, and (iii) says that the translation $f(\varphi) \mapsto f(\varphi - \alpha)$ acts on the
+$n$-th mode by the phase $e^{-in\alpha}$, each character occurring once.
+:::
+
+For $SU(2)$ the theorem organises all functions on the three-sphere by spin, and the dimensions count the
+degeneracies of its Laplacian. The second example states the decomposition, the dimension count and the class
+functions.
+
+::: {#exm-sph-pw-su2}
+#### Functions on $SU(2) \cong S^3$
+
+The functions on $SU(2)$ decompose into the spans of the Wigner functions $D^j_{mn}$, $j = 0, \tfrac12, 1, \dots$,
+of dimensions $(2j + 1)^2 = 1, 4, 9, \dots$; the Laplacian of the round unit $S^3$ has eigenvalue $-4j(j + 1) = -
+n(n + 2)$ with $n = 2j$ on the span of the $D^j_{mn}$, of multiplicity $(n + 1)^2$ (@exr-sph-coset-degeneracies).
+The class functions are the functions of the rotation angle $\theta$ alone, and (ii) is their expansion in the
+characters $\chi_j(\theta)$, a Fourier series in $\theta/2$ with the Weyl measure (@exr-sph-characters): for
+instance $\cos\theta = \tfrac12(\chi_1 - \chi_0)$ (@exr-sph-class-function).
+:::
+
+For a finite group the Haar measure is the counting measure and Peter-Weyl is the decomposition of the regular
+representation, with the dimension formula as its numerical shadow. The third example checks this on the
+symmetric group $S_3$ of @sec-representations-schur.
+
+::: {#exm-sph-pw-finite}
+#### Finite groups
+
+For a finite group $G$, $\int f\,dg = \frac{1}{|G|}\sum_gf(g)$ and (i) says that the $\sum_rd_r^2$ matrix
+coefficients form a basis of the $|G|$-dimensional space of all functions on $G$: $\sum_rd_r^2 = |G|$. For $S_3$
+the irreducible representations have dimensions $1, 1, 2$ (trivial, sign, the two-dimensional one of
+@sec-representations-schur) and $1 + 1 + 4 = 6 = |S_3|$; (iii) is the statement that the regular representation
+of $S_3$ contains the two-dimensional representation twice. The characters are orthonormal for
+$\frac{1}{|G|}\sum_g$, which is the character table's orthogonality.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+The dimension formula is the first consequence of the theorem that can be checked by counting. The first
+exercise does so for the cyclic groups and $S_3$, and then derives the formula from statement (iii).
+
+::: {#exr-sph-pw-dimension}
+#### The dimension formula
+
+Verify $\sum_rd_r^2 = |G|$ for $\mathbb{Z}_n$ and for $S_3$, and derive it from statement (iii) of
+@thm-peter-weyl by computing the dimension of the space of functions on a finite group in two ways.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\mathbb{Z}_n$ is abelian, so all irreducible representations are one-dimensional, the $n$ characters $k \mapsto
+e^{2\pi ijk/n}$, and $\sum d_r^2 = n$; for $S_3$, $1 + 1 + 4 = 6$. In general, the space of functions on $G$ has
+dimension $|G|$, and (iii) says it is $\bigoplus_r(D^r)^{\oplus d_r}$, of dimension $\sum_rd_r\cdot d_r$. The same
+count for a compact Lie group gives the (infinite) orthonormal basis of (i), with the Parseval identity replacing
+the finite dimension count.
+:::
+
+The Weyl integration formula quoted in @exr-sph-characters has a derivation from the geometry of conjugacy
+classes, and the second exercise sketches it. The class of angle $\theta$ is a two-sphere in $S^3$ whose area is
+the density.
+
+::: {#exr-sph-pw-weyl}
+#### The Weyl measure from the geometry of $S^3$
+
+Identify $SU(2)$ with the unit sphere $S^3 \subset \mathbb{R}^4$ through $g = a_0 + i(a_1\sigma_1 + a_2\sigma_2 +
+a_3\sigma_3)$, $\sum a_\mu^2 = 1$, show that the rotation angle is given by $\cos(\theta/2) = a_0$, that the
+conjugacy class of angle $\theta$ is the two-sphere $a_0 = \cos(\theta/2)$ of radius $\sin(\theta/2)$, and deduce
+the Weyl measure $\frac1\pi\sin^2\frac\theta2\,d\theta$ from the uniform measure on $S^3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\operatorname{tr}g = 2a_0$ and $\operatorname{tr}g = \chi_{1/2} = 2\cos(\theta/2)$, so $a_0 = \cos(\theta/2)$;
+conjugation $g \mapsto hgh^{-1}$ preserves the trace and acts on $(a_1, a_2, a_3)$ by rotations (this is the
+double cover $SU(2) \to SO(3)$), so the class of angle $\theta$ is the set $a_0 = \cos(\theta/2)$, $a_1^2 + a_2^2 +
+a_3^2 = \sin^2(\theta/2)$, a two-sphere of radius $\sin(\theta/2)$ and area $4\pi\sin^2(\theta/2)$. Slicing the
+uniform measure on $S^3$ (total volume $2\pi^2$) by $a_0 = \cos(\theta/2)$ gives the density $4\pi\sin^2(\theta/2)
+\cdot\tfrac12d\theta/2\pi^2 = \frac1\pi\sin^2\frac\theta2\,d\theta$, the factor $\tfrac12$ from $da_0 =
+-\tfrac12\sin(\theta/2)d\theta$ combined with the slant $1/\sin(\theta/2)$ of the slicing; it integrates to $1$
+over $[0, 2\pi]$.
+:::
+
+Expanding a class function in characters is a Fourier series with respect to the Weyl measure, and the third
+exercise asks Sage to compute the coefficients for two functions of the rotation angle. The results illustrate
+the finite and the infinite case.
+
+::: {#exr-sph-class-function}
+#### Expanding class functions
+
+With Sage, expand $\cos\theta$ and $\cos^2(\theta/2)$ in the characters $\chi_j$ by computing the coefficients
+$\frac1\pi\int_0^{2\pi}f\,\chi_j\sin^2\frac\theta2\,d\theta$ for $j \leq 2$, and then expand $f(\theta) =
+\theta(2\pi - \theta)$, which needs infinitely many characters.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$\cos\theta = \tfrac12(\chi_1 - \chi_0)$ and $\cos^2(\theta/2) = \tfrac12(1 + \cos\theta) = \tfrac14(\chi_0 +
+\chi_1)$, which is also $\tfrac14\chi_{1/2}^2$. The quadratic $f = \theta(2\pi - \theta)$ has the coefficient
+$-2(2j + 1)/j^2(j + 1)^2$ for every integer $j \geq 1$ and zero for half-integer $j$: writing $\chi_j\sin^2\tfrac\theta2 =
+\tfrac12[\cos j\theta - \cos(j + 1)\theta]$, the coefficient is $\tfrac12(a_j - a_{j + 1})$ with $a_n = -4/n^2$ the
+cosine coefficients of $f$, which decay like $1/n^2$ because the periodic extension of $f$ is continuous with a
+kink (@exr-fs-coefficients-decay); the difference decays like $4/j^3$:
+
+```python
+th = var("theta")
+chi = lambda j: sum(cos(m * th) for m in [j - i for i in range(int(2 * j) + 1)])
+w = sin(th / 2) ** 2 / pi
+c = lambda f, j: integrate(f * chi(j) * w, th, 0, 2 * pi)
+js = [0, 1/2, 1, 3/2, 2]
+print("cos theta:        ", [c(cos(th), j) for j in js])
+print("cos^2(theta/2):   ", [c(cos(th / 2) ** 2, j) for j in js])
+q = th * (2 * pi - th)
+cq = [c(q, j) for j in js]
+print("theta(2pi - theta):", cq, "; numerically", [v.n(digits=5) for v in cq])
+print("the coefficients for integer j are -2(2j + 1)/(j^2 (j + 1)^2):", [bool(c(q, j) == -2 * (2 * j + 1) / (j ** 2 * (j + 1) ** 2)) for j in [1, 2, 3, 4]], "; j^3 times the coefficient for j = 2, 4, 8:", [(j ** 3 * c(q, j)).n(digits=4) for j in [2, 4, 8]])
+```
+
+*Output:*
+
+```text
+cos theta:         [-1/2, 0, 1/2, 0, 0]
+cos^2(theta/2):    [1/4, 0, 1/4, 0, 0]
+theta(2pi - theta): [2/3*(3*pi + pi^3)/pi, 0, -3/2, 0, -5/18] ; numerically [8.5797, 0.00000, -1.5000, 0.00000, -0.27778]
+the coefficients for integer j are -2(2j + 1)/(j^2 (j + 1)^2): [True, True, True, True] ; j^3 times the coefficient for j = 2, 4, 8: [-2.222, -2.880, -3.358]
+```
+:::
+::::
+
+### Mode expansion on a coset space
+
+A function on a coset space $S/R$ is a function on $S$ that is constant along the cosets, and the Peter-Weyl
+expansion restricted to such functions keeps only the matrix coefficients whose right index is invariant under
+$R$. The definition states this and works out what it says for the sphere, where it reproduces the spherical
+harmonics, and records how the Laplacian acts on each mode [@mukunda2022continuous, Secs. 7.2.2 and 7.3.2, eqs. (7.75)-(7.77)].
+
+:::: {.statement-box}
+::: {#def-coset-mode-expansion}
+#### Mode expansion on a coset space
+
+Let $R \subset S$ be a closed subgroup of a compact Lie group and $S/R$ the coset space (@def-coset-space). A
+function on $S/R$ is a function $f$ on $S$ with $f(gh) = f(g)$ for all $h \in R$, and the Peter-Weyl expansion of
+such an $f$ contains only the coefficients $D^r_{ij}$ whose index $j$ runs over an orthonormal basis of the
+**$R$-singlets** in $D^r$, the vectors $v$ with $D^r(h)v = v$ for all $h \in R$ (the trivial representation in the
+restriction of $D^r$ to $R$, @sec-branching): the **mode expansion on $S/R$** is
+$$
+f(gR) = \sum_rd_r\sum_{i = 1}^{d_r}\sum_{j \in \text{singlets}}\hat f^r_{ji}\,D^r_{ij}(g),
+$$ {#eq-coset-expansion}
+so each irreducible representation $r$ of $S$ contributes to the functions on $S/R$ as many copies of $r$ as the
+number $n_r$ of $R$-singlets in $r$, and the Laplacian of an $S$-invariant metric on a symmetric coset acts on the
+modes of type $r$ by minus the Casimir, $\Delta D^r_{ij} = -C_2(r)D^r_{ij}$, in the normalisation in which $C_2 =
+j(j + 1)$ for $SU(2)$. For $S^2 = SU(2)/U(1)$ with $U(1) = \{e^{-i\psi J_3}\}$, the singlets of spin $j$ are the
+weight vectors with $n = 0$, one for every integer $j = l$ and none for half-integer $j$; the modes are $D^l_{m0}
+(\varphi, \theta, \psi) = \sqrt{4\pi/(2l + 1)}\,Y_{lm}(\theta, \varphi)^*$, independent of $\psi$, and
+@eq-coset-expansion is the expansion @eq-spherical-expansion in spherical harmonics with eigenvalues $-l(l +
+1)$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The sphere is the case to keep in mind: the modes are the harmonics, each integer spin appearing exactly once,
+and the Laplacian is the Casimir. The first example spells this out with the explicit spin-$1$ column.
+
+::: {#exm-sph-coset-s2}
+#### $S^2 = SU(2)/U(1)$
+
+The functions on $SU(2)$ independent of $\psi$ are the functions on $S^2$, with $(\theta, \varphi)$ the
+spherical coordinates of the point $g\cdot\hat z$. Among the Wigner functions $D^j_{mn} = e^{-im\varphi}d^j_{mn}(\theta)
+e^{-in\psi}$, those independent of $\psi$ have $n = 0$, which exists only for integer $j = l$; for $l = 1$ the
+middle column of @exm-sph-su2-spin-one is $\sqrt{4\pi/3}\,Y_{1m}^*$ (@prp-spherical-harmonics). Each $l$
+appears once, with multiplicity $2l + 1$ in $m$, and $\Delta = -\mathbf L^2$ gives the eigenvalue $-l(l + 1)$:
+@eq-spherical-expansion is @eq-coset-expansion.
+:::
+
+A product of circles is a coset space of a product of $U(1)$'s with trivial isotropy, and the modes are products
+of Fourier modes with the eigenvalues adding. The second example treats the torus, the model for every flat
+compact space.
+
+::: {#exm-sph-coset-torus}
+#### The torus $T^2 = U(1) \times U(1)$
+
+With $R$ trivial, every function on $S = U(1) \times U(1)$ is a function on $S/R$, the irreducible
+representations are the characters $e^{i(n_1\varphi_1 + n_2\varphi_2)}$, all one-dimensional with one singlet
+each, and @eq-coset-expansion is the double Fourier series $f = \sum_{n_1, n_2}c_{n_1n_2}e^{i(n_1\varphi_1 +
+n_2\varphi_2)}$ with $c_{n_1n_2} = \frac{1}{4\pi^2}\int f e^{-i(n_1\varphi_1 + n_2\varphi_2)}$. For the flat metric
+$r_1^2d\varphi_1^2 + r_2^2d\varphi_2^2$ the Laplacian has eigenvalue $-(n_1^2/r_1^2 + n_2^2/r_2^2)$ on each mode,
+and the eigenvalues are no longer integers times a common scale when $r_1/r_2$ is irrational.
+:::
+
+The group itself is the coset space with $R = \{e\}$, where every representation appears with multiplicity
+equal to its dimension, and the three-sphere is the case worked out in detail. The third example gives its mode
+expansion and spectrum, which @exr-sph-coset-degeneracies derives.
+
+::: {#exm-sph-coset-s3}
+#### $S^3 = SU(2)$
+
+With $R$ trivial every vector of $D^j$ is a singlet, so spin $j$ contributes $2j + 1$ copies of itself and the
+modes are all the $D^j_{mn}$, $(2j + 1)^2$ of them for each $j$, including the half-integer spins absent on
+$S^2$: a function on $S^3$ may be odd under $\psi \to \psi + 2\pi$. With the round metric of the unit
+three-sphere, $\Delta D^j_{mn} = -4j(j + 1)D^j_{mn} = -n(n + 2)D^j_{mn}$ for $n = 2j$, the factor $4$ relating the
+bi-invariant metric of @exr-sph-haar to the Casimir normalisation, and the multiplicity of $-n(n + 2)$ is $(n +
+1)^2$: $1, 4, 9, 16, \dots$ for $n = 0, 1, 2, 3, \dots$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+Counting singlets is the computation that decides which representations appear on a coset space, and for the
+sphere it is a one-line inspection of the weights. The first exercise does it for $S^2$ and for the real
+projective plane, where an additional reflection halves the spectrum.
+
+::: {#exr-sph-coset-singlets}
+#### Counting singlets
+
+Show that the restriction of the spin-$j$ representation of $SU(2)$ to $U(1) = \{e^{-i\psi J_3}\}$ contains the
+trivial representation once if $j$ is an integer and not at all if $j$ is a half-integer; then determine which
+$Y_{lm}$ are functions on $\mathbb{RP}^2 = S^2/\{\pm1\}$, the sphere with antipodal points identified.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$e^{-i\psi J_3}$ acts on the weight vector of weight $n$ by $e^{-in\psi}$, $\psi \in [0, 4\pi)$, and this is
+trivial exactly when $n = 0$; the weights of spin $j$ are $j, j - 1, \dots, -j$, which contain $0$ exactly when
+$j$ is an integer, once (@def-spin-j). So the functions on $S^2$ carry every integer spin once and no
+half-integer spin, as @def-coset-mode-expansion states. The antipodal map $\mathbf n \mapsto -\mathbf n$ is
+$(\theta, \varphi) \mapsto (\pi - \theta, \varphi + \pi)$, under which $Y_{lm} \mapsto (-1)^lY_{lm}$ (parity of
+the harmonic polynomial of degree $l$), so the functions on $\mathbb{RP}^2$ are spanned by the $Y_{lm}$ with
+even $l$, the eigenvalues $-l(l + 1) = 0, -6, -20, \dots$ with multiplicities $1, 5, 9, \dots$.
+:::
+
+Expanding a function on the sphere in the Wigner functions $D^1_{m0}$ rather than in the $Y_{1m}$ is the same
+computation up to the normalisation $\sqrt{4\pi/3}$ and a conjugation, and Sage can do both. The second exercise
+does this for a function with $l = 1$ content and checks @eq-coset-expansion against @eq-spherical-expansion.
+
+::: {#exr-sph-coset-modes}
+#### Modes on $S^2$ as Wigner functions
+
+Build $D^1_{m0}(\varphi, \theta)$ from the matrix $d^1(\theta)$ in Sage, verify that the three functions are
+orthogonal with $\int|D^1_{m0}|^2d\Omega = 4\pi/3$, expand $f = \cos\theta + \sin\theta\cos\varphi$ in them, and
+compare with the expansion in $Y_{1m}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$D^1_{m0} = (-e^{-i\varphi}\sin\theta/\sqrt2,\ \cos\theta,\ e^{i\varphi}\sin\theta/\sqrt2)$ for $m = 1, 0, -1$,
+with $\int|D^1_{m0}|^2d\Omega = 4\pi/3 = 4\pi/(2l + 1)$ as Schur's relation predicts after integrating out
+$\psi$; the coefficients of $f$ in the $D^1_{m0}$ are those in the $Y_{1m}^*$ times $\sqrt{3/4\pi}$:
+
+```python
+th, ph = var("theta phi")
+d1 = matrix(SR, [[(1 + cos(th)) / 2, -sin(th) / sqrt(2), (1 - cos(th)) / 2], [sin(th) / sqrt(2), cos(th), -sin(th) / sqrt(2)], [(1 - cos(th)) / 2, sin(th) / sqrt(2), (1 + cos(th)) / 2]])
+D = [exp(-I * m * ph) * d1[1 - m, 1] for m in [1, 0, -1]]
+print("D^1_{m0} for m = 1, 0, -1:", D)
+def inner(f, g):
+    return integrate(integrate((f * conjugate(g)).simplify_full() * sin(th), ph, 0, 2 * pi), th, 0, pi).simplify_full()
+G = matrix(SR, [[inner(a, b) for b in D] for a in D])
+print("Gram matrix of the D^1_{m0} (expected 4 pi/3 times the identity):"); print(G)
+f = cos(th) + sin(th) * cos(ph)
+cD = [inner(f, Dm) / inner(Dm, Dm) for Dm in D]
+print("coefficients of f in the D^1_{m0}:", [v.simplify_full() for v in cD])
+Y = [spherical_harmonic(1, m, th, ph) for m in [1, 0, -1]]
+cY = [inner(f, Ym) for Ym in Y]
+print("coefficients of f in the Y_1m:", [v.simplify_full() for v in cY])
+print("D^1_{m0} = sqrt(4 pi/3) Y_1m^*:", all(bool((D[i] - sqrt(4 * pi / 3) * conjugate(Y[i])).simplify_full() == 0) for i in range(3)))
+print("the two expansions agree: sum c_D D = sum c_Y Y = f:", bool((sum(cD[i] * D[i] for i in range(3)) - f).simplify_full() == 0) and bool((sum(cY[i] * Y[i] for i in range(3)) - f).simplify_full() == 0))
+```
+
+*Output:*
+
+```text
+D^1_{m0} for m = 1, 0, -1: [-1/2*sqrt(2)*e^(-I*phi)*sin(theta), cos(theta), 1/2*sqrt(2)*e^(I*phi)*sin(theta)]
+Gram matrix of the D^1_{m0} (expected 4 pi/3 times the identity):
+[4/3*pi      0      0]
+[     0 4/3*pi      0]
+[     0      0 4/3*pi]
+coefficients of f in the D^1_{m0}: [-1/2*sqrt(2), 1, 1/2*sqrt(2)]
+coefficients of f in the Y_1m: [-1/3*sqrt(3)*sqrt(2)*sqrt(pi), 2/3*sqrt(3)*sqrt(pi), 1/3*sqrt(3)*sqrt(2)*sqrt(pi)]
+D^1_{m0} = sqrt(4 pi/3) Y_1m^*: True
+the two expansions agree: sum c_D D = sum c_Y Y = f: True
+```
+:::
+
+The multiplicity of an eigenvalue of the Laplacian on $S/R$ is the number of singlets times the dimension, a
+form of the Frobenius reciprocity theorem; on the group itself it is the square of the dimension. The third
+exercise derives these counts and the eigenvalues on $S^3$.
+
+::: {#exr-sph-coset-degeneracies}
+#### Degeneracies on $S/R$
+
+Show from @eq-coset-expansion that the modes of type $r$ on $S/R$ span a space of dimension $n_rd_r$, so that the
+eigenvalue $-C_2(r)$ of the Laplacian has multiplicity $\sum_{r : C_2(r) = \lambda}n_rd_r$; apply this to $S^2$
+and to $S^3$, and derive the eigenvalues $-n(n + 2)$ of the round unit $S^3$ from the Casimir and the relation
+between the bi-invariant metric and the round one.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For fixed $r$ the index $i$ takes $d_r$ values and $j$ takes $n_r$ values, and the $D^r_{ij}$ are linearly
+independent by Schur orthogonality, so the modes of type $r$ span $n_rd_r$ dimensions; different $r$ with the
+same Casimir add up. On $S^2$, $n_l = 1$ and $d_l = 2l + 1$, so $-l(l + 1)$ has multiplicity $2l + 1$; on $S^3$,
+$n_j = d_j = 2j + 1$ and $-C_2(j)$ has multiplicity $(2j + 1)^2$. On $SU(2)$ the Laplacian of the bi-invariant
+metric $-\tfrac12\operatorname{tr}(g^{-1}dg)^2$ acts on $D^j$ as $-\mathbf J^2 = -j(j + 1)$ in the normalisation
+where the left-invariant vector fields are the $J_a$ (@sec-lie-groups); the round unit $S^3$ metric of
+@exr-sph-haar is one quarter of this metric (the Euler-angle expression $\tfrac14(d\theta^2 + \dots)$), and
+scaling a metric by $\tfrac14$ multiplies the Laplacian by $4$, giving $-4j(j + 1) = -n(n + 2)$ for $n = 2j$ with
+multiplicity $(n + 1)^2$, the spectrum quoted in @exm-sph-coset-s3.
+:::
+::::
+
+### Worked computations
+
+The eigenvalue equations, orthonormality and ladder relations of the spherical harmonics, the harmonic
+polynomials and their dimension count, the addition theorem, and on $SU(2)$ the spin-$1$ Wigner matrix, Schur
+orthogonality, the characters and the identification of $D^1_{m0}$ with the harmonics are all exact symbolic
+computations. The proposition lists them in two groups, on the sphere and on $SU(2)$.
+
+:::: {.statement-box}
+::: {#prp-spherical-harmonics}
+#### Spherical harmonics and the matrix coefficients of $SU(2)$
+
+(i) On the sphere: $\Delta Y_{lm} = -l(l + 1)Y_{lm}$ for all $l \leq 3$, $|m| \leq l$; $Y_{00}$, $Y_{10}$ and
+$Y_{11}$ have the values of @exm-sph-low-harmonics; the $Y_{lm}$ with $l \leq 2$ are orthonormal; $L_zY_{lm} =
+mY_{lm}$ and $L_+Y_{lm} = \sqrt{(l - m)(l + m + 1)}\,Y_{l, m + 1}$ for $l \leq 2$; $r^lY_{lm}$ are the harmonic
+polynomials $z$, $x + iy$, $2z^2 - x^2 - y^2$, $z(x + iy)$, $(x + iy)^2$ up to normalisation; the harmonic
+homogeneous polynomials of degree $l \leq 6$ form a space of dimension $2l + 1$; and the addition theorem holds
+for $l = 1$. (ii) On $SU(2)$: $d^1(\theta)$ satisfies $d' = -iJ_2d$, $d(0) = 1$, is orthogonal with determinant
+$1$, and $[J_3, J_\pm] = \pm J_\pm$, $[J_+, J_-] = 2J_3$; $D^1_{m0} = \sqrt{4\pi/3}\,Y_{1m}^*$; the Haar
+measure has volume $1$ and $D^{1/2}$ is unitary of determinant $1$; Schur orthogonality holds for $j = \tfrac12$
+(with $\tfrac12$), for $j = 1$ (with $\tfrac13$) and between them (zero); and the characters $\chi_j$, $j \leq
+\tfrac32$, are orthonormal for the Weyl measure, with $\chi_{1/2}^2 = \chi_0 + \chi_1$ and $\chi_1 =
+\operatorname{tr}d^1$.
+:::
+::::
+
+:::: {.callout-note .examples-fold collapse="true" title="Examples"}
+The eigenvalue equation is proved for an explicit harmonic by applying the Laplacian of @eq-sphere-laplacian and
+simplifying, and the ladder relation by applying $L_+$. The first example does both for $l = 1$.
+
+::: {#exm-sph-sage-laplacian}
+#### Simplifying to zero
+
+For $Y_{10} \propto \cos\theta$, $\frac{1}{\sin\theta}\partial_\theta(\sin\theta\,\partial_\theta\cos\theta) = -
+\frac{1}{\sin\theta}\partial_\theta\sin^2\theta = -2\cos\theta$, so $\Delta Y_{10} + 2Y_{10} = 0$. For $Y_{11}
+\propto \sin\theta\,e^{i\varphi}$ the $\theta$ part gives $\frac{\cos^2\theta - \sin^2\theta}{\sin\theta}$ and the
+$\varphi$ part $-\frac{1}{\sin\theta}$, which add up to $-2\sin\theta$ by $\cos^2\theta - 1 = -\sin^2\theta$: again
+$\Delta Y_{11} + 2Y_{11} = 0$. With $L_+ = e^{i\varphi}(\partial_\theta + i\cot\theta\,\partial_\varphi)$,
+$L_+Y_{10} = -\sqrt{\tfrac{3}{4\pi}}\sin\theta\,e^{i\varphi} = \sqrt2\,Y_{11}$, the ladder relation with
+$\sqrt{(1 - 0)(1 + 0 + 1)} = \sqrt2$.
+:::
+
+The number of independent harmonic polynomials of degree $l$ is computed by linear algebra over the rationals,
+without any reference to the sphere. The second example explains the rank computation that gives $2l + 1$.
+
+::: {#exm-sph-sage-dimension}
+#### Counting harmonic polynomials
+
+The monomials $x^ay^bz^c$ with $a + b + c = l$ number $\binom{l + 2}{2}$, and the Laplacian maps their span onto
+the polynomials of degree $l - 2$, of dimension $\binom{l}{2}$: the matrix of $\nabla^2$ in these bases over $\mathbb{Q}$ has full rank $\binom{l}{2}$, so its kernel has dimension $\binom{l + 2}{2} -
+\binom{l}{2} = 2l + 1$. This is the dimension of the spin-$l$ representation, obtained here without
+representation theory.
+:::
+
+The identity $d^1(\theta) = e^{-i\theta J_2}$ can be proved without computing a matrix exponential, through the
+defining differential equation and initial condition, which characterise the exponential uniquely. The third
+example does this and records the other matrix identities.
+
+::: {#exm-sph-sage-wigner}
+#### The Wigner matrix by its differential equation
+
+$e^{-i\theta J_2}$ is the unique solution of $d' = -iJ_2d$ with $d(0) = 1$ (@def-matrix-exponential), so it
+suffices that the explicit $d^1(\theta)$ of @exm-sph-su2-spin-one satisfies both: $d^1(0) = 1$ is immediate, and
+differentiating the entries gives $d' + iJ_2d = 0$. The same matrix satisfies $d^1(d^1)^\top = 1$ and $\det d^1 = 1$,
+the spin-$1$ matrices satisfy their commutation relations, and assembling $D^1 = \operatorname{diag}(e^{-i\varphi}, 1, e^{i\varphi})\,d^1\,\operatorname{diag}(e^{-i\psi}, 1,
+e^{i\psi})$ gives a matrix whose middle column is $\sqrt{4\pi/3}\,Y_{1m}^*$.
+:::
+::::
+
+:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
+@prp-spherical-harmonics states orthonormality and the ladder relations for $l \leq 2$, and the first exercise
+extends both to $l = 3$ in Sage. The integrals are larger but of the same kind.
+
+::: {#exr-sph-l3-check}
+#### The harmonics with $l = 3$
+
+Verify with Sage that the seven $Y_{3m}$ are orthonormal, that $L_+Y_{3m} = \sqrt{(3 - m)(4 + m)}\,Y_{3, m + 1}$,
+and that $r^3Y_{33}$ is proportional to $(x + iy)^3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+All $28$ inner products are $\delta_{mm'}$, the six ladder relations hold after `canonicalize_radical`, and
+$r^3Y_{33} = -\sqrt{35/64\pi}\,(x + iy)^3$:
+
+```python
+th, ph = var("theta phi")
+Y = lambda m: spherical_harmonic(3, m, th, ph)
+def inner(f, g):
+    return integrate(integrate((f * conjugate(g)).simplify_full() * sin(th), ph, 0, 2 * pi), th, 0, pi).simplify_full()
+ms = list(range(-3, 4))
+G = matrix(SR, [[inner(Y(a), Y(b)) for b in ms] for a in ms])
+print("the Gram matrix of Y_3m, m = -3..3, is the identity:", bool(G == identity_matrix(7)))
+Lp = lambda f: exp(I * ph) * (diff(f, th) + I * cot(th) * diff(f, ph))
+ok = all(bool((Lp(Y(m)) - sqrt((3 - m) * (4 + m)) * Y(m + 1)).simplify_full().canonicalize_radical() == 0) for m in range(-3, 3))
+print("L_+ Y_3m = sqrt((3 - m)(4 + m)) Y_{3,m+1} for m = -3..2:", ok, "; L_+ Y_33 = 0:", bool(Lp(Y(3)).simplify_full() == 0))
+x, y, z = var("x y z")
+r = sqrt(x ** 2 + y ** 2 + z ** 2)
+cart = (r ** 3 * Y(3)).subs({th: acos(z / r), ph: atan2(y, x)})
+target = -sqrt(35 / (64 * pi)) * (x + I * y) ** 3
+print("r^3 Y_33 = -sqrt(35/64pi) (x + iy)^3 at three points:", all(bool(abs((cart - target).subs({x: a, y: b, z: c}).n()) < 1e-10) for a, b, c in [(1, 2, 3), (0.5, -0.7, 2.1), (3, 1, -0.4)]))
+```
+
+*Output:*
+
+```text
+the Gram matrix of Y_3m, m = -3..3, is the identity: True
+L_+ Y_3m = sqrt((3 - m)(4 + m)) Y_{3,m+1} for m = -3..2: True ; L_+ Y_33 = 0: True
+r^3 Y_33 = -sqrt(35/64pi) (x + iy)^3 at three points: True
+```
+:::
+
+Sage can compute the matrix exponential of $-i\theta J_2$ directly, and the second exercise compares the result
+with the explicit $d^1$. It also asks for $d^{1/2}$ by the same method and for the half-angle structure that
+distinguishes the two.
+
+::: {#exr-sph-wigner-exp}
+#### Matrix exponentials of $J_2$
+
+Compute $e^{-i\theta J_2}$ for the spin-$\tfrac12$ and the spin-$1$ matrices with Sage's matrix exponential (or
+from the series, using $J_2^2$), compare with $d^{1/2}(\theta) = \begin{pmatrix}\cos\frac\theta2 & -
+\sin\frac\theta2\\ \sin\frac\theta2 & \cos\frac\theta2\end{pmatrix}$ and with $d^1(\theta)$ of
+@exm-sph-su2-spin-one, and explain why spin $\tfrac12$ involves $\theta/2$ and spin $1$ involves $\theta$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+For spin $\tfrac12$, $J_2 = \sigma_2/2$ with $J_2^2 = \tfrac14$, so the series gives $\cos\frac\theta2 -
+2i\sin\frac\theta2J_2$; for spin $1$, $J_2^3 = J_2$, so $e^{-i\theta J_2} = 1 - iJ_2\sin\theta - J_2^2(1 -
+\cos\theta)$, which is $d^1(\theta)$. The eigenvalues of $J_2$ are $\pm\tfrac12$ in spin $\tfrac12$ and $0, \pm1$
+in spin $1$, so the exponentials contain $e^{\mp i\theta/2}$ and $e^{0}, e^{\mp i\theta}$ respectively: the
+half-angle is the double cover, $d^{1/2}(2\pi) = -1$ while $d^1(2\pi) = 1$:
+
+```python
+th = var("theta")
+sig2 = matrix(SR, [[0, -I], [I, 0]]); Jh = sig2 / 2
+dh = (cos(th / 2) * identity_matrix(2) - 2 * I * sin(th / 2) * Jh).simplify_full()
+print("spin 1/2: J_2^2 = 1/4:", bool(Jh ** 2 == identity_matrix(2) / 4), "; exp(-i theta J_2) =", dh.list())
+print("  equals d^{1/2}(theta):", bool((dh - matrix(SR, [[cos(th / 2), -sin(th / 2)], [sin(th / 2), cos(th / 2)]])).simplify_full() == 0))
+Jp = matrix(SR, [[0, sqrt(2), 0], [0, 0, sqrt(2)], [0, 0, 0]]); Jy = (Jp - Jp.transpose()) / (2 * I)
+print("spin 1: J_2^3 = J_2:", bool((Jy ** 3 - Jy).simplify_full() == 0))
+d1s = (identity_matrix(3) - I * Jy * sin(th) - Jy ** 2 * (1 - cos(th))).simplify_full()
+d1 = matrix(SR, [[(1 + cos(th)) / 2, -sin(th) / sqrt(2), (1 - cos(th)) / 2], [sin(th) / sqrt(2), cos(th), -sin(th) / sqrt(2)], [(1 - cos(th)) / 2, sin(th) / sqrt(2), (1 + cos(th)) / 2]])
+print("  1 - i J_2 sin theta - J_2^2 (1 - cos theta) = d^1(theta):", bool((d1s - d1).simplify_full() == 0))
+ode = (d1s.derivative(th) + I * Jy * d1s).simplify_full()
+print("  it satisfies d' = -i J_2 d:", ode.is_zero())
+print("d^{1/2}(2 pi) = -1 while d^1(2 pi) = 1:", bool(dh.subs({th: 2 * pi}) == -identity_matrix(2)) and bool(d1.subs({th: 2 * pi}) == identity_matrix(3)))
+```
+
+*Output:*
+
+```text
+spin 1/2: J_2^2 = 1/4: True ; exp(-i theta J_2) = [cos(1/2*theta), -sin(1/2*theta), sin(1/2*theta), cos(1/2*theta)]
+  equals d^{1/2}(theta): True
+spin 1: J_2^3 = J_2: True
+  1 - i J_2 sin theta - J_2^2 (1 - cos theta) = d^1(theta): True
+  it satisfies d' = -i J_2 d: True
+d^{1/2}(2 pi) = -1 while d^1(2 pi) = 1: True
+```
+:::
+
+The coefficient $\sqrt{(l - m)(l + m + 1)}$ in the ladder relation is fixed by the algebra and the normalisation.
+The third exercise derives it, which is the computation behind @def-spin-j specialised to functions on the
+sphere.
+
+::: {#exr-sph-ladder}
+#### The ladder coefficient
+
+Using $[L_z, L_\pm] = \pm L_\pm$, $L_-= L_+^\dagger$ for the inner product on the sphere, and $\mathbf L^2 = L_-L_+ +
+L_z^2 + L_z$, show that $L_+Y_{lm}$ is an eigenfunction of $L_z$ with eigenvalue $m + 1$ and of $\mathbf L^2$
+with eigenvalue $l(l + 1)$, that $\|L_+Y_{lm}\|^2 = (l - m)(l + m + 1)$, and hence that $L_+Y_{lm} = \sqrt{(l -
+m)(l + m + 1)}\,Y_{l, m + 1}$ up to a phase, which the Condon-Shortley convention fixes to $+1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+$L_zL_+Y_{lm} = (L_+L_z + L_+)Y_{lm} = (m + 1)L_+Y_{lm}$, and $\mathbf L^2$ commutes with $L_+$ (it is the
+Casimir), so $L_+Y_{lm}$ has the same $l$; since the eigenspace of $(l, m + 1)$ is one-dimensional, $L_+Y_{lm} =
+cY_{l, m + 1}$. Then $|c|^2 = \langle L_+Y_{lm}, L_+Y_{lm}\rangle = \langle Y_{lm}, L_-L_+Y_{lm}\rangle = \langle
+Y_{lm}, (\mathbf L^2 - L_z^2 - L_z)Y_{lm}\rangle = l(l + 1) - m^2 - m = (l - m)(l + m + 1)$. The phase of $c$ is a
+convention relating the phases of $Y_{l, m + 1}$ and $Y_{lm}$; with the $(-1)^m$ of @eq-spherical-harmonic it is
+$+1$, as @prp-spherical-harmonics records for $l \leq 2$. The same argument in @sec-weights-su2 gives
+the matrix elements of $J_\pm$ in every spin-$j$ representation, of which this is the realisation on functions.
+:::
+::::
+
 ## Exercises {#sec-lie-groups-algebras-exercises}
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
