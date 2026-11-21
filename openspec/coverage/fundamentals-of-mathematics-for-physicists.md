@@ -225,7 +225,7 @@ sources).
 
 | Existing chapter | Missing topic | Benchmarks | Status |
 |---|---|---|---|
-| sets-relations-topology | Metric spaces: metrics, completeness, contraction mapping (also covered by the cited problem book cheung2024metric) | Lee App. A; Keski-Vakkuri §4.1 | open |
+| sets-relations-topology | Metric spaces: metrics, completeness, contraction mapping (also covered by the cited problem book cheung2024metric) | Lee App. A; Keski-Vakkuri §4.1 | done (sec-metric-spaces) |
 | linear-algebra | Determinants and trace (including partial traces) | Axler 8D, 9C; Riley ch. 8; Keski-Vakkuri §3.6.5; Lee App. B | done (sec-determinants-trace) |
 | linear-algebra | Eigenvalues, diagonalisation and Jordan form (with singular value and polar decomposition as a unit) | Axler ch. 5, 7C-7F, 8; Riley ch. 8 | done (sec-eigenvalues) |
 | real-analysis | Inverse and implicit function theorems; constrained extrema and Lagrange multipliers | Lee App. C; Riley ch. 5 | open |

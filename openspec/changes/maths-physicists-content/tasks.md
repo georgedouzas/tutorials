@@ -41,7 +41,7 @@ Each task does for its chapter what 3.1 did: fill the recorded gaps, ten and ten
 audit, `_raised.txt`, coverage record, the same gates, and one commit. The chapters marked (by section) are done
 one `##` section per agent run.
 
-- [ ] 4.1 Sets, relations and topology (gap: metric spaces, completeness, contraction mapping).
+- [x] 4.1 Sets, relations and topology (gap: metric spaces, completeness, contraction mapping).
 - [ ] 4.2 Real analysis (gaps: inverse and implicit function theorems with Lagrange multipliers; vector calculus).
 - [ ] 4.3 Complex analysis (gap: steepest descent and stationary phase).
 - [ ] 4.4 Differential equations (gaps: further special functions; first-order PDEs and characteristics).
