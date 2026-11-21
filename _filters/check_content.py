@@ -22,6 +22,7 @@ For each chapter of <tutorial> (all chapters if none are named) it checks:
     the chapter introduction's list of the chapter's own sections, and a figure, equation or table named a few lines
     before it appears. Findings in raised chapters; elsewhere counted with --backlog.
 
+--as-raised: treat the chapters named on the command line as raised (for work in progress; _raised.txt untouched).
 _raised.txt: one chapter slug per line; "<chapter> <label> <reason>" records a statement exception (minimum three);
 "#" starts a comment. Exits 1 if anything is reported (backlog lines do not count).
 """
@@ -252,6 +253,9 @@ def check_sage(path, lines, update):
             findings.append(f"{a}: Sage block fails: {r['err'].strip().splitlines()[-1]}")
             continue
         got, shown = norm(r["out"]), norm("\n".join(lines[c:d]))
+        if not got:  # every block prints its result; silence means a Maxima question or a lost print
+            findings.append(f"{a}: Sage block prints nothing")
+            continue
         if got != shown:
             if update:
                 lines[c:d] = got.split("\n") if got else []
@@ -418,6 +422,8 @@ def main(argv):
     tut = args[0].rstrip("/")
     raised, exceptions = read_raised(tut)
     chapters = args[1:] or chapters_of(tut)
+    if "--as-raised" in flags:  # treat the named chapters as raised without editing _raised.txt
+        raised = raised | set(args[1:])
     backlog_total = [0, 0]
     pos = label_positions(tut)
     for ch in chapters:

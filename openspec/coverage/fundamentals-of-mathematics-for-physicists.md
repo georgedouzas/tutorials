@@ -60,7 +60,7 @@ sources).
 | 23 Integral equations | Fredholm equations, separable kernels, Neumann series | covered | hilbert-spaces-operators `sec-fredholm-operators`, `sec-banach-algebras` | |
 | 24 Complex variables | Holomorphic functions, contour integrals, residues | covered | complex-analysis `sec-holomorphic`, `sec-contour-integration`, `sec-residues` | |
 | 25 Applications of complex variables | Conformal maps, evaluation of integrals | covered | complex-analysis `sec-holomorphic`, `sec-residues` | |
-| 25 Applications of complex variables | Steepest descent, stationary phase, WKB | section gap | complex-analysis | Saddle-point evaluation is used by the physics tutorial but not taught here. |
+| 25 Applications of complex variables | Steepest descent, stationary phase, WKB | done (sec-asymptotics) | complex-analysis `sec-asymptotics` (thm-watson-lemma, thm-laplace-method, thm-steepest-descent, thm-stationary-phase) | WKB is an ODE method and is not part of that section. |
 | 26 Tensors | Tensors, components, contraction, transformation law | covered | linear-algebra `sec-tensor-products`; differential-geometry `sec-vector-fields-forms-tensors` | |
 | 27 Numerical methods | Root finding, quadrature, ODE and PDE schemes | partly covered | differential-equations `sec-linear-systems` (time stepping), `sec-pdes` (finite differences); probability `sec-statistics` (Monte Carlo) | A numerical-analysis chapter is out of scope: the landing page does not name it. |
 | 28 Group theory | Groups, subgroups, cosets, classes, homomorphisms | covered | group-theory `sec-groups`, `sec-cosets-quotients`, `sec-homomorphisms` | |
@@ -230,7 +230,7 @@ sources).
 | linear-algebra | Eigenvalues, diagonalisation and Jordan form (with singular value and polar decomposition as a unit) | Axler ch. 5, 7C-7F, 8; Riley ch. 8 | done (sec-eigenvalues) |
 | real-analysis | Inverse and implicit function theorems; constrained extrema and Lagrange multipliers | Lee App. C; Riley ch. 5 | done (sec-inverse-implicit) |
 | real-analysis | Vector calculus: grad, div, curl, curvilinear coordinates, line and surface integrals, the classical integral theorems | Riley ch. 10-11; Lee ch. 11, 16 | done (sec-vector-calculus) |
-| complex-analysis | Asymptotic evaluation of integrals: steepest descent, stationary phase | Riley ch. 25 | open |
+| complex-analysis | Asymptotic evaluation of integrals: steepest descent, stationary phase | Riley ch. 25 | done (sec-asymptotics) |
 | differential-equations | Further special functions: Hermite, Laguerre and Chebyshev polynomials, hypergeometric and confluent hypergeometric functions | Riley ch. 18; Zhu WBI8MVKP ch. 7 (supplement) | open |
 | differential-equations | First-order PDEs and the method of characteristics | Riley ch. 20; Lee ch. 9; Rudolph I.12.2 | open |
 | fourier-analysis | The Laplace transform and its inversion | Riley ch. 13, 25 | open |

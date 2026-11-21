@@ -43,7 +43,7 @@ one `##` section per agent run.
 
 - [x] 4.1 Sets, relations and topology (gap: metric spaces, completeness, contraction mapping).
 - [x] 4.2 Real analysis (gaps: inverse and implicit function theorems with Lagrange multipliers; vector calculus).
-- [ ] 4.3 Complex analysis (gap: steepest descent and stationary phase).
+- [x] 4.3 Complex analysis (gap: steepest descent and stationary phase).
 - [ ] 4.4 Differential equations (gaps: further special functions; first-order PDEs and characteristics).
 - [ ] 4.5 Write Calculus of variations from the chapter template (functionals and the Euler-Lagrange equations;
   constraints, the second variation and Rayleigh-Ritz), ten and ten throughout; remove its planned badge in

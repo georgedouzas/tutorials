@@ -11,7 +11,14 @@
 | $z^*$ | complex conjugate |
 | $\operatorname{Re}$, $\operatorname{Im}$ | real and imaginary parts |
 | $\operatorname{Arg}$, $\operatorname{Log}$ | principal argument, principal logarithm |
-| $\operatorname{Res}_{z_0} f$ | residue of $f$ at $z_0$ |
+| $\arg z$, $\log z$ | for complex $z \neq 0$: the sets of all arguments and of all logarithms of $z$ |
+| $\ln x$ | real natural logarithm of $x > 0$, written so where $\log z$ is many-valued |
+| $\sqrt z$, $z^a$ | principal square root and principal power $e^{a\operatorname{Log} z}$ of a complex number |
+| $D(z_0, r)$ | open disc $\{z \in \mathbb C : \lvert z - z_0\rvert < r\}$ |
+| $\operatorname{Res}_{z_0} f$, $\operatorname{Res}_\infty f$ | residue of $f$ at $z_0$; residue at infinity, $-\frac1{2\pi i}\oint_{C(0, \rho)}f\,dz$ for large $\rho$ |
+| $A(z_0, r, R)$ | open annulus $\{z : r < \lvert z - z_0\rvert < R\}$; for $r = 0$ the punctured disc |
+| $\operatorname{ord}_{z_0} f$ | order of the zero of a holomorphic $f$ at $z_0$ |
+| $n(\gamma, a)$ | winding number $\frac1{2\pi i}\oint_\gamma\frac{dz}{z - a}$ of a closed contour $\gamma$ around $a$ |
 | $\log$ | natural logarithm; $\log_2$ is written out where a quantity is in bits |
 | $\operatorname{sgn}$ | sign function; $\operatorname{sgn}\sigma$ is also the sign of a permutation |
 | $C^k$, $C^\infty$ | functions with continuous partial derivatives up to order $k$, of every order |
@@ -21,7 +28,16 @@
 | $[G]_a^b$ | $G(b) - G(a)$ |
 | $\operatorname{vol}(D)$, $d^nx$ | volume (area for $n = 2$) of a region $D \subseteq \mathbb R^n$, $\int_D 1\,d^nx$; the volume element of $\int_D f(\mathbf x)\,d^nx$ |
 | $\dot x$, $\ddot x$ | first and second derivatives with respect to time |
+| $W$ | Wronskian of solutions of a linear equation, $W = y_1y_2' - y_1'y_2$ for two |
+| $\omega_0$, $\gamma$, $\omega_d$ | natural frequency, damping constant and damped frequency $\sqrt{\omega_0^2 - \gamma^2}$ of the oscillator $\ddot q + 2\gamma\dot q + \omega_0^2q = F(t)$ |
+| $\langle f, g\rangle_w$, $\lVert f\rVert_w$ | weighted inner product $\int_a^bf(x)^*g(x)w(x)\,dx$ of functions on an interval, for a weight $w > 0$, and its norm $\langle f, f\rangle_w^{1/2}$ |
+| $P_n$ | Legendre polynomial of degree $n$, $\frac{1}{2^nn!}\frac{d^n}{dx^n}(x^2 - 1)^n$ |
+| $J_\nu$, $I_\nu$ | Bessel function and modified Bessel function of order $\nu$ |
+| $j_{\nu,k}$ | $k$-th positive zero of $J_\nu$ |
 | $\partial_i$ | partial derivative $\partial/\partial x^i$ |
+| $u_x$, $u_y$, $u_{xy}$ | partial derivatives $\partial_xu$, $\partial_yu$, $\partial_y\partial_xu$ of a function of $(x, y)$, written as subscripts |
+| $f'(z)$ | complex derivative of a function of a complex variable |
+| $\partial_z$, $\partial_{z^*}$ | Wirtinger derivatives $\tfrac12(\partial_x - i\partial_y)$ and $\tfrac12(\partial_x + i\partial_y)$ |
 | $\nabla f$, $\nabla_{\mathbf x} f$ | gradient (with respect to $\mathbf x$) |
 | $\Delta = \nabla^2$ | Laplacian, $\partial_1^2 + \dots + \partial_n^2$ |
 | $\nabla\cdot\mathbf F$ | divergence of a vector field, $\partial_iF_i$ |
@@ -29,6 +45,12 @@
 | $h_i$, $\hat{\mathbf e}_i$ | scale factors and unit vectors of orthogonal curvilinear coordinates; $\hat{\mathbf e}_\rho, \hat{\mathbf e}_\varphi, \hat{\mathbf e}_z$ (cylindrical), $\hat{\mathbf e}_r, \hat{\mathbf e}_\theta, \hat{\mathbf e}_\varphi$ (spherical) |
 | $\int_{\boldsymbol\gamma}\mathbf F\cdot d\mathbf r$, $\oint_{\boldsymbol\gamma}$ | line integral along a curve $\boldsymbol\gamma$; circulation around a closed curve |
 | $ds$ | arc-length element, $\lVert\boldsymbol\gamma'(t)\rVert\,dt$ |
+| $\int_\gamma f(z)\,dz$, $\oint_\gamma f(z)\,dz$ | contour integral of a function of a complex variable along a contour $\gamma$; along a closed contour |
+| $L(\gamma)$, $-\gamma$, $\gamma_1 + \gamma_2$ | length of a contour; the reversed contour; $\gamma_1$ followed by $\gamma_2$ |
+| $[z_1, z_2]$, $[z_1, \dots, z_n]$ | the segment from $z_1$ to $z_2$ as a contour, $t \mapsto z_1 + t(z_2 - z_1)$; the polygon through $z_1, \dots, z_n$ |
+| $C(z_0, r)$ | the circle $t \mapsto z_0 + re^{it}$, $t \in [0, 2\pi]$, traversed once anticlockwise |
+| $\partial T$ | boundary $[z_1, z_2, z_3, z_1]$ of the closed triangle $T$ with vertices $z_1, z_2, z_3$; of a rectangle, likewise |
+| $f^{(n)}$ | $n$-th derivative, real or complex |
 | $dS$, $d\mathbf S$ | surface element $\lVert\mathbf N\rVert\,du\,dv$ and vector surface element $\mathbf N\,du\,dv$, $\mathbf N = \Phi_u\times\Phi_v$ |
 | $\hat{\mathbf n}$ | unit normal of a surface or curve |
 | $\mathbf J_F$, $J_f$ | Jacobian matrix $(\partial_jF_i)$ of a map $F$, bold as a matrix; $\det\mathbf J_F$ is the Jacobian determinant |
@@ -36,13 +58,32 @@
 | $\mathbf H_f$ | Hessian matrix $(\partial_i\partial_jf)$ of a function $f$ |
 | $\mathcal L$ | a Lagrangian: the Lagrangian density of a field theory, or $\mathcal L(\mathbf x, \lambda)$ of a constrained optimisation problem |
 | $\hat f(k)$ | Fourier transform, $\hat f(k) = \int f(x)\, e^{-ikx}\, dx$ |
+| $\check g(x)$ | inverse Fourier transform, $\check g(x) = \frac{1}{2\pi}\int g(k)\, e^{ikx}\, dk$ |
+| $\operatorname{sinc}$ | $\operatorname{sinc}u = \sin u/u$, with $\operatorname{sinc}0 = 1$ |
+| $\Delta x$, $\Delta k$ | root-mean-square widths of $\lvert f\rvert^2$ and $\lvert\hat f\rvert^2$ about their means $\bar x$, $\bar k$ |
+| $F_m$, $\mathbf W$ | discrete Fourier transform $F_m = \sum_{n=0}^{N-1}f_ne^{-2\pi imn/N}$ and its matrix $\mathbf W_{mn} = e^{-2\pi imn/N}$ |
+| $f \circledast g$ | circular convolution of $N$-periodic sequences, $\sum_{l=0}^{N-1}f_lg_{n-l}$ |
 | $c_n$ | Fourier coefficients, $c_n = \frac{1}{2\pi}\int_0^{2\pi} f(x)\, e^{-inx}\, dx$ |
+| $a_n$, $b_n$ | real Fourier coefficients, $\frac1\pi\int_0^{2\pi}f(x)\cos nx\,dx$ and $\frac1\pi\int_0^{2\pi}f(x)\sin nx\,dx$ |
+| $f(x^\pm)$ | one-sided limits $\lim_{t \to 0^+}f(x \pm t)$ |
+| $\langle f, g\rangle$, $\lVert f\rVert$ | for periodic functions: mean-square inner product $\frac{1}{2\pi}\int_0^{2\pi}f^*g\,dx$ and norm $\langle f, f\rangle^{1/2}$ |
+| $S_Nf$, $\sigma_Nf$ | partial Fourier sum $\sum_{\lvert n\rvert \leq N}c_ne^{inx}$ and its Cesàro mean $\frac{1}{N+1}\sum_{k=0}^NS_kf$ |
+| $D_N$, $F_N$ | Dirichlet kernel $\sum_{\lvert n\rvert \leq N}e^{int}$ and Fejér kernel $\frac{1}{N+1}\sum_{k=0}^ND_k$ |
+| $L_N$ | Lebesgue constant $\frac{1}{2\pi}\int_{-\pi}^{\pi}\lvert D_N\rvert$ |
+| $\operatorname{Si}$ | sine integral, $\operatorname{Si}(x) = \int_0^x\frac{\sin t}{t}\,dt$ |
 | $f * g$ | convolution |
 | $\delta(x)$, $\delta^n(\mathbf x)$ | Dirac delta |
 | $\Theta(x)$ | Heaviside step function |
 | $\operatorname{PV}$ | Cauchy principal value of an integral or a distribution, as in $\operatorname{PV}\frac1x$ |
 | $\mathcal S(\mathbb R^n)$ | Schwartz space |
 | $\mathcal D(\Omega)$ | test functions with compact support in $\Omega$ |
+| $\lVert\varphi\rVert_{m,n}$ | Schwartz seminorm $\sup_x\lvert x^m\varphi^{(n)}(x)\rvert$ |
+| $\mathcal D'(\mathbb R)$, $\mathcal S'(\mathbb R)$ | distributions and tempered distributions |
+| $\langle T, \varphi\rangle$, $T_f$ | value of a distribution on a test function; the regular distribution $\langle T_f, \varphi\rangle = \int f\varphi$ |
+| $\delta_a$ | Dirac delta at $a$, $\langle\delta_a, \varphi\rangle = \varphi(a)$, also written $\delta(x - a)$ |
+| $\text{Ш}$ | Dirac comb $\sum_{n \in \mathbb Z}\delta(x - 2\pi n)$ |
+| $\operatorname{Pf}$ | finite part, as in $\operatorname{Pf}\frac{1}{x^2} = -\bigl(\operatorname{PV}\frac1x\bigr)'$ |
+| $x_+$ | positive part $\max(x, 0)$ |
 | $L^p(\Omega)$ | Lebesgue spaces |
 | $\ell^p$ | sequence spaces |
 | $H^s$ | Sobolev spaces |
@@ -54,8 +95,13 @@
 | $\operatorname{ran}$, $\operatorname{ind}$ | range, Fredholm index |
 | $\Gamma(s)$ | Gamma function |
 | $\zeta(s)$ | Riemann zeta function |
+| $B(a, b)$ | Beta function, $\int_0^1t^{a-1}(1 - t)^{b-1}dt = \Gamma(a)\Gamma(b)/\Gamma(a + b)$ |
+| $B_n$ | Bernoulli numbers, $\frac t{e^t - 1} = \sum_n B_n t^n/n!$ |
+| $\gamma$ | Euler's constant $\lim(H_n - \log n) = -\Gamma'(1)$, where no contour $\gamma$ is in play |
 | $\operatorname{erf}$ | error function |
 | $O(\cdot)$ | Landau symbol: bounded by a constant multiple of its argument |
+| $o(\cdot)$ | Landau symbol: small compared with its argument, $f = o(g)$ when $f/g \to 0$ |
+| $f \sim g$ | $f$ is asymptotic to $g$, $f/g \to 1$; $f \sim \sum_na_n\varphi_n$ is an asymptotic expansion |
 
 Conventions:
 
