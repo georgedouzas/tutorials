@@ -153,3 +153,71 @@
 ## Standard material (no source item)
 - Existence of connections by partitions of unity; locality and pointwise dependence; uniqueness of the tensor extension; Koszul formula proof; chart with Gamma(p) = 0; global solvability of linear systems along a curve from Picard-Lindelof; smooth dependence by bootstrapping thm-characteristics-cauchy (1); exponential map and normal coordinates; the polarisation argument for sectional curvature; holonomy of a cap of a surface of revolution; total curvature of closed surfaces of revolution.
 - Physics examples (Rindler inertial forces, rotating fluid, stressed disc, tidal tensor, dislocations and torsion, Foucault pendulum, Tomita-Chiao fibre, Thomas precession, freely falling frames, soap films and Young-Laplace, bead on a surface, cosmic string, Kretschmann scalar, Friedmann equation, dust universe, static universe) are standard material.
+
+# sec-flows-killing (task 4.9, flows and Killing vectors)
+
+## lee2013introduction
+- Ch. 9, Thm. 9.12 (fundamental theorem on flows, pp. 211-214) -> def-flow (1)-(4), proof of openness and smoothness of the flow domain adapted.
+- Ch. 9, Lemma 9.15, Thm. 9.16, Cor. 9.17 (uniform time, compact support, compact manifolds, pp. 215-216) -> def-one-parameter-group (3), (4); Cor. 9.14 (naturality, p. 215) -> exr-flw-naturality; Lemma 9.19 (escape lemma, p. 217) -> exr-flw-escape-lemma.
+- Ch. 9, Thm. 9.38 (L_V W = [V, W], p. 229) -> def-lie-derivative (3).
+- Ch. 9 Problems 9-1 (constant/injective/periodic) -> exr-flw-periodic; 9-3 (flows of four plane fields) -> exr-flw-lee-fields; 9-16 (L_V W depends on V near p) -> exm-flw-lie-depends; 9-18 (non-commuting flows) -> exr-flw-noncommuting.
+- Ch. 12, Props. 12.32, 12.36, Cor. 12.33, Thm. 12.37 (Lie derivatives of covariant tensors, formula for L_{fV}, d/dt of the pullback, pp. 321-324) -> def-lie-derivative (4)-(6), exr-flw-lie-fX; Problem 12-10 (pullback of mixed tensors by diffeomorphisms, p. 326) -> def-pullback; Problem 12-11 (L_[V,W] = [L_V, L_W]) -> def-lie-derivative (7).
+- Ch. 14, Lemma 14.13 (interior product is an antiderivation), Thm. 14.35 (Cartan's magic formula), Cor. 14.36 (pp. 358-359, 372-373) -> thm-flw-cartan (1)-(4).
+
+## carroll1997 (lecture notes; the Lie derivative and Killing material is in Ch. 5 of this version)
+- Ch. 5, eqs. (5.1)-(5.10), pp. 129-132 (pullbacks and pushforwards) -> def-pullback.
+- Ch. 5, eqs. (5.18)-(5.33), pp. 135-138 (Lie derivative, adapted coordinates (5.24), L_V U = [V, U], one-forms, metric 2 nabla_(mu V_nu)) -> def-lie-derivative, exm-flw-lie-adapted, def-killing (1).
+- Ch. 5, eqs. (5.39)-(5.42), p. 139 (symmetries, isometries, Killing's equation) -> def-killing (1), (2).
+- Ch. 5, eq. (5.43), p. 140 (conserved quantities along geodesics) -> thm-flw-conserved (1).
+- Ch. 5, pp. 140-141 (maximal symmetry, n(n+1)/2, Killing fields of R^2, closure under commutators stated as an exercise) -> thm-flw-killing-bound, def-maximally-symmetric, def-isometry-algebra (1), exm-killing-plane.
+
+## keskivakkuri2022mathematical
+- Secs. 4.3.6-4.3.8 (pullback, flow, Lie derivative, example of a (1,1) tensor) -> def-pullback, def-flow, def-lie-derivative, exr-lie-derivative-formula.
+- Sec. 4.4.3 (interior product and Lie derivative of forms) -> thm-flw-cartan.
+- Sec. 5.14, eqs. (5.386)-(5.391), pp. 226-228 (Killing equation, closure, conserved quantity, maximal symmetry, R^m) -> def-killing, def-isometry-algebra, thm-flw-conserved, def-maximally-symmetric (2).
+- Problem 4.16 ([L_X, L_Y] = L_[X,Y]) -> def-lie-derivative (7); Problem 5.8 (Killing vectors of S^2 and their commutators) -> prp-sphere-killing, prp-killing-brackets; Problem 5.9 (S^3 and R x S^3) -> exr-flw-sphere-killing-s3, exr-flw-maximal-s3.
+
+## rudolph2013differential
+- Sec. 2.2 (integral curves and flows): cited for def-flow and in the section's reading list only; the Part I PDF is not in local Zotero storage, so no further items were adapted from it.
+
+## torresdelcastillo2020differentiable
+- Existing citations kept (Ch. 2, Secs. 2.1-2.3; Sec. 6.1, eq. (6.39)).
+
+## Standard material (no source item)
+- Determination of a Killing field by its value and derivative at a point via the linear transport system along geodesics in normal coordinates; the invariance identity for the curvature of a maximally symmetric metric and the proof of constant sectional curvature (Riemannian case); conformal Killing fields and null geodesics; boost current of a scalar wave; centre of energy; Clairaut confinement on the torus; logistic flow; Liouville's theorem in the plane; ladder fields; the bracket as a commutator of flows.
+
+# Task 4.9: sec-frobenius and sec-symplectic (new sections)
+
+## lee2013introduction
+- Ch. 19, pp. 491-499 (distributions, integral manifolds, involutivity, Props. 19.3, Lemma 19.4, Lemma 19.5, Thm. 19.7, Prop. 19.8, Thm. 19.12 with the projected frame of its proof, Example 19.14) -> def-frb-distribution (1)-(3), thm-frb-frobenius (3), thm-frb-forms (1)-(3), exm-frb-contact (Example 19.1(d)), exm-frb-normalised-frame, exm-frb-saddle-chart (Example 19.14).
+- Ch. 9, Thm. 9.44, 9.46 (commuting vector fields, canonical form for commuting fields), pp. 231-236 -> thm-frb-frobenius (1), (2) (proved here with def-lie-derivative (6) and the inverse function theorem).
+- Problems 19-2 (dθ^i ∧ θ^1 ∧ ... ∧ θ^{n-k} = 0) and 19-3 (integrating factors) -> thm-frb-forms (3), (4), exr-frb-surface-factor; 19-4 -> exr-frb-octant; 19-5 -> exr-frb-lee-plane; 19-8 (level sets of submersions) -> thm-frb-forms (5); 19-13(a), (b) -> exr-frb-pde-compatible, exr-frb-pde-incompatible.
+- Ch. 22, pp. 565-570 (symplectic tensors, Lemma 22.3, Prop. 22.7 canonical form, Prop. 22.8 top power, Example 22.9, tautological form, Prop. 22.11, 22.12) -> def-spl-vector-space (2)-(4), def-spl-manifold (1)-(4), exr-spl-tautological (Prop. 22.12).
+- Ch. 22, pp. 571-578 (Darboux Thm. 22.13 with Moser-Weinstein proof: stated only, not proved; Hamiltonian vector fields formula (22.9), Prop. 22.16, Prop. 22.17, Poisson brackets) -> def-spl-hamiltonian, thm-spl-liouville, thm-spl-darboux (5) (stated with its reference).
+- Problems 22-1, 22-2 (isotropic, Lagrangian subspaces) -> exr-spl-isotropic, exm-spl-lagrangian; 22-3(b) (Z^T J Z = J) -> def-spl-vector-space (5); 22-5(a) -> exr-spl-not-exact; 22-7(a) -> exr-spl-product; 22-10 (cotangent lift of a diffeomorphism) -> def-spl-manifold (2); 22-16(a) (brackets of Hamiltonian fields) -> def-spl-hamiltonian (4).
+
+## keskivakkuri2022mathematical
+- Sec. 4.5, pp. 161-164 (symplectic form, Poisson bracket with the inverse matrix, Darboux coordinates, canonical one-form, L_{X_H}ω = 0, locally Hamiltonian fields) -> section intro of sec-symplectic, def-spl-hamiltonian (4), (6), thm-spl-darboux (4) (bracket matrix -W^{-1}), thm-spl-liouville (1). Its sign convention dH = -ι_{X_H}ω differs from the one used here (ι_{X_H}ω = dH with ω = Σ dq^i ∧ dp_i, as in Lee); the section names the difference.
+- Problem 4.13 (Hamilton's equations as a flow) -> def-spl-hamiltonian (1).
+
+## rudolph2013differential
+- Part I (Secs. 3.5, 7-8) is not in local Zotero storage (only Part II is), so nothing was adapted from it for these sections.
+
+## Standard material (no source item)
+- Commuting flows and the flat chart of a commuting frame built by composing flows; the contact planes of R^3 and the contact form of S^3; the Clifford tori and the circles of S^3 as flows; planes of simultaneity; the ideal and van der Waals gas entropy as integrating factors; the hyperboloids and mass shells; the dense line on the torus (pigeonhole argument).
+- Symplectic linear algebra: the standard matrix, the imaginary part of a Hermitian product, reciprocal eigenvalues, the Pfaffian in dimension four, compatibility with multiplication by i; polar and spherical momenta; kick and drift maps, symplectic vs explicit Euler; angular momentum and Laplace-Runge-Lenz brackets; the spin brackets on S^2; Liouville's equation of statistical mechanics; action-angle and time-energy charts of the oscillator; Darboux in dimension two by integrating the coefficient; Archimedes' chart of the sphere.
+
+# Final run (closing `## Exercises`, intro, def-maximally-symmetric)
+
+## carroll1997
+- Ch. 5, pp. 140-141 (maximally symmetric spaces, constant curvature R_abcd = K(g_ac g_bd - g_ad g_bc), de Sitter as a quadric) -> exr-dgint-de-sitter; def-maximally-symmetric (4) extended to every signature (proof by an orthonormal basis with signs; no new source).
+
+## keskivakkuri2022mathematical
+- Problem 5.5 (torus Christoffel symbols) -> exr-dgint-torus (b).
+- Sec. 4.5 (Hamiltonian fields, Poisson brackets) and Sec. 5.14 (Killing fields, conserved quantities along geodesics) -> exr-dgint-sphere-hamiltonian.
+
+## boskoff2024journey
+- Secs. 4.6-4.10 (second fundamental form, shape operator, Gauss's equation) -> exr-dgint-torus (c).
+
+## Standard material (no source item)
+- Two-dimensional de Sitter space as a quadric in R^{1,2} (geodesics in planes through 0 from the three conserved momenta); Clairaut confinement on the torus; the geodesic flow of S^2 in the phase space of the spherical chart, momentum functions J_X = p_i X^i with {J_X, J_Y} = -J_{[X, Y]}, and the invariant surfaces of (H, J_3) as integral manifolds.

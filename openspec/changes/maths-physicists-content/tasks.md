@@ -51,7 +51,7 @@ one `##` section per agent run.
 - [x] 4.6 Fourier analysis (gap: the Laplace transform and its inversion).
 - [ ] 4.7 Hilbert spaces and operators (by section).
 - [x] 4.8 Probability.
-- [ ] 4.9 Differential geometry (by section; gaps: submanifolds and the rank theorem; orientation and integration;
+- [x] 4.9 Differential geometry (by section; gaps: submanifolds and the rank theorem; orientation and integration;
   Hodge star and codifferential; Frobenius; symplectic forms).
 - [x] 4.10 Group theory (gaps: characters and the regular representation; the symmetric group, cycle types, Young
   diagrams).

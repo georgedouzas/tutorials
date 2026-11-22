@@ -88,7 +88,7 @@ sources).
 | 4.3 Differentiable manifolds: tangent vectors, one-forms, tensors, pullback, flows, Lie derivative | Calculus on manifolds | covered | differential-geometry `sec-vector-fields-forms-tensors`, `sec-flows-killing` | |
 | 4.4 Differential forms, exterior derivative, closed and exact forms | Forms | covered | differential-geometry `sec-vector-fields-forms-tensors` | |
 | 4.4.4 Integration of differential forms | Integration on manifolds | covered | differential-geometry done (sec-integration-manifolds) | Orientation, the integral of a form and Stokes' theorem (proved). |
-| 4.5 Classical mechanics and symplectic geometry | Symplectic geometry | section gap | differential-geometry | See the uncertain note under Section gaps. |
+| 4.5 Classical mechanics and symplectic geometry | Symplectic geometry | covered | differential-geometry done (sec-symplectic) | Approved by the owner; Darboux proved in dimension two only (general case stated). |
 | 5.1-5.2 Metric, lengths, induced metric | Metrics | covered | differential-geometry `sec-metrics` | |
 | 5.3-5.10 Connections, parallel transport, holonomy, geodesics, curvature, torsion | Connections and curvature | covered | differential-geometry `sec-connections-curvature` | |
 | 5.11 Non-coordinate basis | Frames and vielbeins | covered | differential-geometry `sec-vector-fields-forms-tensors` (def-frame); homogeneous-spaces-bundles `sec-coset-geometry`; spinors-dirac-operator `sec-spin-structures` | |
@@ -129,10 +129,10 @@ sources).
 | 16 Integration on manifolds | Integration of forms, Stokes, divergence theorem | covered | differential-geometry done (sec-integration-manifolds) | Divergence theorem in its R^3 form (thm-stokes (4)); the Riemannian version needs a metric. |
 | 17 De Rham cohomology | Cohomology groups, homotopy invariance, Mayer-Vietoris, degree | proposed chapter | homotopy-cohomology | Only def-closed-exact exists; Chern numbers and index theorems later rely on cohomology. |
 | 18 The de Rham theorem | Singular homology and cohomology | proposed chapter | homotopy-cohomology | In outline only. |
-| 19 Distributions and foliations | Frobenius theorem | section gap | differential-geometry | Low priority. |
+| 19 Distributions and foliations | Frobenius theorem | covered | differential-geometry done (sec-frobenius) | Integral manifolds are embedded; foliations as level sets of submersions only. |
 | 20 The exponential map | One-parameter subgroups, closed subgroup theorem, adjoint representation | covered | lie-groups-algebras `sec-lie-groups-algebras` | |
 | 21 Quotient manifolds | Quotients by group actions, homogeneous spaces | covered | homogeneous-spaces-bundles `sec-coset-geometry` | |
-| 22 Symplectic manifolds | Symplectic forms, Darboux, Hamiltonian vector fields, Poisson brackets | section gap | differential-geometry | See the uncertain note under Section gaps. |
+| 22 Symplectic manifolds | Symplectic forms, Darboux, Hamiltonian vector fields, Poisson brackets | covered | differential-geometry done (sec-symplectic) | Darboux proved in dimension two and for constant forms; the general case is stated, not proved. |
 | App. A Review of topology | Topological spaces, compactness, connectedness | covered | sets-relations-topology `sec-topology`, `sec-compact-connected` | |
 | App. A Review of topology | Homotopy, fundamental group, covering maps | proposed chapter | homotopy-cohomology | |
 | App. B Review of linear algebra | Vector spaces, linear maps, determinants, inner products | partly covered | linear-algebra `sec-vector-spaces`, `sec-linear-maps-dual`; determinant gap in linear-algebra | |
@@ -184,7 +184,7 @@ sources).
 | I.1 Differentiable manifolds | Manifolds, level sets, tangent spaces, submanifolds, transversality | partly covered | differential-geometry `sec-charts-manifolds`, `sec-vector-fields-forms-tensors`; submanifold gap in differential-geometry | |
 | I.2 Vector bundles | Tangent bundle, vector bundles, tensor bundles | covered | homogeneous-spaces-bundles `sec-fibre-bundles`; differential-geometry `sec-vector-fields-forms-tensors` | |
 | I.3.1-3.4 Vector fields, flows, Lie derivative | Flows | covered | differential-geometry `sec-flows-killing` | |
-| I.3.5 Distributions and foliations | Frobenius theorem | section gap | differential-geometry | As Lee ch. 19. |
+| I.3.5 Distributions and foliations | Frobenius theorem | covered | differential-geometry done (sec-frobenius) | As Lee ch. 19. |
 | I.3.6-3.9 Critical integral curves, Poincaré map, stability, invariant manifolds | Dynamical systems | partly covered | differential-equations `sec-odes` (phase portraits), `sec-linear-systems` (stability) | Nonlinear dynamics beyond this is out of scope. |
 | I.4.1-4.2 Differential forms, integration | Forms and integration | partly covered | differential-geometry `sec-vector-fields-forms-tensors`; integration gap | |
 | I.4.3 De Rham cohomology | Cohomology | proposed chapter | homotopy-cohomology | |
@@ -237,13 +237,13 @@ sources).
 | differential-geometry | Submanifolds, immersions, submersions and the rank theorem | Lee ch. 4-5; Rudolph I.1.6 | done (sec-submanifolds) |
 | differential-geometry | Orientation and integration on manifolds: partitions of unity, manifolds with boundary, integrals of forms, line integrals (Stokes' theorem is already stated) | Lee ch. 1, 2, 11, 15, 16; Keski-Vakkuri §4.4.4; Rudolph I.4.2 | done (sec-integration-manifolds) |
 | differential-geometry | Hodge star and codifferential | Rudolph I.4.5, II.2.7 | done (sec-hodge-star) |
-| differential-geometry | Distributions and the Frobenius theorem (low priority) | Lee ch. 19; Rudolph I.3.5 | open |
-| differential-geometry | Symplectic forms, Darboux's theorem, Hamiltonian vector fields and Poisson brackets (uncertain, see note) | Lee ch. 22; Rudolph I.7-8; Keski-Vakkuri §4.5 | open |
+| differential-geometry | Distributions and the Frobenius theorem (low priority) | Lee ch. 19; Rudolph I.3.5 | done (sec-frobenius) |
+| differential-geometry | Symplectic forms, Darboux's theorem, Hamiltonian vector fields and Poisson brackets (uncertain, see note) | Lee ch. 22; Rudolph I.7-8; Keski-Vakkuri §4.5 | done (sec-symplectic) |
 | group-theory | Characters, orthogonality of characters, the regular representation | Riley ch. 29; Keski-Vakkuri §3.4-3.5; Mukunda §1.11, 1.14 | done (sec-characters) |
 | group-theory | The symmetric group: cycle types, conjugacy classes, Young diagrams | Keski-Vakkuri §2.5-2.6; Mukunda ch. 2 | done (sec-symmetric-group) |
-| lie-groups-algebras | Casimir operators and the Dynkin index | Keski-Vakkuri §6.4.3 | open |
-| lie-groups-algebras | Dynkin diagrams and the classification of compact simple Lie algebras; the su(N) algebras | Mukunda ch. 5; Keski-Vakkuri §6.6, 6.9 | open |
-| lie-groups-algebras | Young tableaux for su(N) representations | Keski-Vakkuri §6.8, 6.10 | open |
+| lie-groups-algebras | Casimir operators and the Dynkin index | Keski-Vakkuri §6.4.3 | done (sec-casimirs) |
+| lie-groups-algebras | Dynkin diagrams and the classification of compact simple Lie algebras; the su(N) algebras | Mukunda ch. 5; Keski-Vakkuri §6.6, 6.9 | done (sec-dynkin) |
+| lie-groups-algebras | Young tableaux for su(N) representations | Keski-Vakkuri §6.8, 6.10 | done (sec-young-sun) |
 | lie-groups-algebras | The Lorentz and Poincaré groups | Keski-Vakkuri §6.12; Mukunda ch. 10 | open |
 
 ### Notes for the owner
