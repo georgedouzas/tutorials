@@ -45,7 +45,7 @@ one `##` section per agent run.
 - [x] 4.2 Real analysis (gaps: inverse and implicit function theorems with Lagrange multipliers; vector calculus).
 - [x] 4.3 Complex analysis (gap: steepest descent and stationary phase).
 - [ ] 4.4 Differential equations (gaps: further special functions; first-order PDEs and characteristics).
-- [ ] 4.5 Write Calculus of variations from the chapter template (functionals and the Euler-Lagrange equations;
+- [x] 4.5 Write Calculus of variations from the chapter template (functionals and the Euler-Lagrange equations;
   constraints, the second variation and Rayleigh-Ritz), ten and ten throughout; remove its planned badge in
   `_quarto.yml`; mark the proposed chapter written in the coverage record.
 - [x] 4.6 Fourier analysis (gap: the Laplace transform and its inversion).
