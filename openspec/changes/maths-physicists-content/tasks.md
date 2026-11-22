@@ -50,7 +50,7 @@ one `##` section per agent run.
   `_quarto.yml`; mark the proposed chapter written in the coverage record.
 - [x] 4.6 Fourier analysis (gap: the Laplace transform and its inversion).
 - [ ] 4.7 Hilbert spaces and operators (by section).
-- [ ] 4.8 Probability.
+- [x] 4.8 Probability.
 - [ ] 4.9 Differential geometry (by section; gaps: submanifolds and the rank theorem; orientation and integration;
   Hodge star and codifferential; Frobenius; symplectic forms).
 - [ ] 4.10 Group theory (gaps: characters and the regular representation; the symmetric group, cycle types, Young
@@ -68,5 +68,7 @@ one `##` section per agent run.
 
 - [ ] 5.1 Update the landing page, glossary and notation page for the new sections, chapters, terms and symbols;
   `check_content.py` reports nothing for the whole tutorial; full render with no warnings; `harvest.py` clean;
-  every chapter listed in `_raised.txt`; the reading notes in `reading-notes/` shown to the owner and, once
-  approved, written to Zotero in one batch.
+  every chapter listed in `_raised.txt`; the reading notes in `reading-notes/` written to Zotero. The owner asked
+  on 2026-11-22 for them to be written as they accumulate: the first batch (chapters 1-7 and the raised sections of
+  8 and 9) is in Zotero; run `~/.config/zotero-mcp/reading-notes-push/build.py` and `push.py --write` again for the
+  rest, which skips blocks already present.
