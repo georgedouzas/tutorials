@@ -1,0 +1,68 @@
+---
+title: "Complexity Science"
+description: "How collective behaviour emerges from simple interacting parts, from chaos and networks to criticality and information"
+image: "cover.svg"
+categories: [Complexity Science, Nonlinear Dynamics, Chaos, Fractals, Stochastic Processes, Phase Transitions, Cellular Automata, Pattern Formation, Networks, Self-Organized Criticality, Synchronization, Agent-Based Modelling, Evolutionary Game Theory, Information Theory, Time Series]
+order: 6
+---
+
+This tutorial covers the science of complex systems: systems of many interacting parts whose collective behaviour is
+not written into any one part. It starts with what makes a system complex and with the two engines of complexity,
+nonlinear dynamics and randomness. It moves through fractals and scaling, phase transitions, cellular automata, pattern
+formation, networks and the processes that spread on them, self-organized criticality, synchronization, collective
+motion, agent-based models and evolution. It ends with information and complexity measures, tipping points, and the
+reconstruction of dynamics and equations from data.
+
+Each chapter sets out definitions and results, works through examples, and gives exercises to try. Every example and
+solution is computed with scikit-complexity, so each model can be run and changed rather than only read. The
+mathematics comes from
+[Fundamentals of Mathematics for Physicists](../fundamentals-of-mathematics-for-physicists/index.qmd). Results of
+statistical physics, such as Landau theory, mean field and the Langevin equation, are stated in
+[Fundamentals of Theoretical Physics](../fundamentals-of-theoretical-physics/index.qmd), and the chapters link there
+instead of repeating them.
+
+::: {.start-reading}
+The chapters are listed in reading order in the sidebar, followed by the [glossary](glossary/index.qmd). [Start with the notation →](notation/index.qmd)
+:::
+
+## Prerequisites
+
+The chapters assume calculus and the following chapters of the other tutorials, and link to them where a result is
+used:
+
+- [Linear algebra](../fundamentals-of-mathematics-for-physicists/linear-algebra/index.qmd): eigenvalues, for
+  stability, network spectra and synchronization.
+- [Differential equations](../fundamentals-of-mathematics-for-physicists/differential-equations/index.qmd): flows,
+  linear systems and the diffusion equation, for dynamics and pattern formation.
+- [Probability](../fundamentals-of-mathematics-for-physicists/probability/index.qmd): random variables, limit theorems
+  and estimation, for random processes, scaling and statistics.
+- [Thermodynamics and statistical mechanics](../fundamentals-of-theoretical-physics/thermodynamics-statistical-mechanics/index.qmd):
+  ensembles, entropy and Landau theory, for phase transitions and criticality.
+
+## Software
+
+The computations of every chapter use [scikit-complexity](https://pypi.org/project/scikit-complexity/) 0.9.0, pinned
+to that version. It builds the models of the tutorial from a catalogue of ready-made systems, runs them with one
+simulation engine, and analyses the results: Lyapunov exponents, fractal dimensions, entropies, network measures and
+scaling laws. The recorded outputs on the pages come from that version.
+
+Main library:
+
+- [scikit-complexity](https://pypi.org/project/scikit-complexity/) 0.9.0: complex systems as scikit-learn-style
+  estimators, with a catalogue of systems by field and topic, simulation experiments and analysis functions.
+
+Other libraries, used for what scikit-complexity does not provide:
+
+- [NumPy](https://numpy.org) and [SciPy](https://scipy.org): arrays, linear algebra and numerical methods.
+- [NetworkX](https://networkx.org): graphs, their measures and algorithms.
+- [Mesa](https://mesa.readthedocs.io): agent-based models written by hand.
+- [powerlaw](https://github.com/jeffalstott/powerlaw): fitting and testing heavy-tailed distributions.
+
+All of them are installed, at the versions the pages were computed with, by one command run from the root of the
+[repository](https://github.com/georgedouzas/tutorials) (Python 3.12 and [uv](https://docs.astral.sh/uv/) required):
+
+```bash
+uv venv --python 3.12 .venv-complexity && uv pip install --python .venv-complexity/bin/python -r complexity-science/requirements.lock
+```
+
+This tutorial has its own [glossary](glossary/index.qmd).

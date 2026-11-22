@@ -159,6 +159,12 @@ Research for this change found the following.
   mathematics tutorial: checker, harvest, render.
 - The two tutorials may advance in parallel.
 
+**C8a. Complexity Science pilot decisions (owner, 2026-11-22).**
+- The pilot is approved as written.
+- "Complex system" is defined in the strict co-evolution sense (Thurner-Hanel-Klimek): the interactions evolve with the states. The prose says that later chapters use the wider usage, in which models such as Ising count as complex.
+- Every chapter ends with a short annotated References section listing its works with locators, because the bibliography filter drops the citeproc list.
+- scikit-complexity issues found while writing are reported to the owner, who maintains the package. Chapters work around them in place, with seeds passed to both the constructor and `simulate`.
+
 **C9. Notation and glossary.**
 - Each tutorial gets a notation page that includes the shared `_notation/` tables, plus new tables for its subject:
   - `_notation/complex-systems.qmd`: Lyapunov exponent λ, fractal dimension D, degree distribution P(k), order
@@ -166,6 +172,47 @@ Research for this change found the following.
   - `_notation/systems.qmd`: arrival rate λ, service rate μ, utilisation ρ, the quorum sizes N, R and W.
 - Clashes with existing symbols (λ is also an eigenvalue and the Poisson rate) are listed for the owner's decision.
 - Each tutorial gets a glossary page, like the physics tutorials.
+- **Complexity Science clashes, decided by the owner on 2026-11-22.** The tutorial keeps the field's standard symbols.
+  Each clash is listed with its meaning in this tutorial in "Conventions specific to this tutorial" on
+  `complexity-science/notation/index.qmd`, as the notation spec allows for stated deviations. Where two meanings meet
+  in one chapter, the complex-systems meaning takes a subscript (for example $\lambda_L$ for a Lyapunov exponent
+  beside Jacobian eigenvalues). The † marks of `_notation/complex-systems.qmd` now point to that section instead of
+  marking symbols as provisional. The clashes found while writing the table (2026-11-22) were:
+  - $\lambda$ (Lyapunov exponent) against the eigenvalue $\lambda$ (linear algebra), the Poisson mean
+    $\operatorname{Poisson}(\lambda)$ (probability), and the regularisation strength (machine learning). Stability
+    chapters use both Jacobian eigenvalues and Lyapunov exponents together. Options: keep $\lambda$ for Lyapunov
+    exponents and write eigenvalues $\mu$ there, or write Lyapunov exponents $\lambda_i$ only with an index.
+  - $D$ (fractal dimensions $D_0$, $D_2$, $D_q$) against the diffusion coefficient $D$ of random processes (Fick,
+    Langevin, Fokker-Planck), the diagonal degree matrix $\mathbf D$ in $\mathbf L = \mathbf D - \mathbf A$, the disc
+    $D(z_0, r)$ and the operator domain $D(T)$. Options: fractal dimensions always with an index ($D_0$, $D_2$,
+    $D_q$, $D_f$) and $D$ alone for diffusion.
+  - $C$ (clustering coefficient) against the correlation sum $C(\varepsilon)$ in the same table and the Courant number
+    $C$ (analysis).
+  - $r$ (Kuramoto order parameter) against the logistic-map parameter $r$ of the benchmarks ($x_{n+1} = rx_n(1 - x_n)$),
+    the mesh ratio $r$ (analysis), the compactification radius $r$ (physics) and the spectral radius $r(T)$. The
+    order parameter of the physics tutorial's Landau theory is $m$ (magnetisation).
+  - $\alpha$ (power-law exponent) against the critical exponent $\alpha$ of the specific heat (physics Landau theory),
+    the fine-structure constant, the significance level and step size (machine learning).
+  - $\tau$ (avalanche-size exponent, and the embedding delay of Takens' theorem) against proper time, a trajectory
+    (reinforcement learning) and the time step $\tau$ of finite differences.
+  - $\sigma$ (branching ratio) against the standard deviation $\sigma$; $\beta$ and $\gamma$ (SIR infection and
+    recovery rates) against the inverse temperature $\beta$, the critical exponents and the damping constant $\gamma$.
+  - $P(k)$ and $P(s)$ (degree and avalanche-size distributions) against the convention that $\mathbb P$ is a
+    probability and $p$ a density or mass function; $p$ (percolation occupation probability) against $p$ as a mass
+    function.
+  - $\langle k\rangle$ (mean degree; network science writes averages with angle brackets) against the convention that
+    $\langle\cdot\rangle$ is a quantum or thermal average and $\mathbb E$ the expectation.
+  - $\mathbf x^*$ (fixed point) against $z^*$ (complex conjugate) and $A^*$ (entrywise conjugate). Phase-oscillator
+    chapters use both.
+  - $N$ (number of nodes or agents) against the counting function $N(\lambda)$, the box count $N(\varepsilon)$ in the
+    same table, and the System Design quorum size $N$; $M$ (number of edges) against $M_X(s)$; $\ell$ (mean
+    path length) against the log-likelihood $\ell(\theta)$; $K$ (Kuramoto coupling) against the number of classes or
+    clusters $K$ and an integral operator $K$.
+  - $E$ (excess entropy) against the edge set $E$ of a graph in the same table; $h$ (entropy rate) against a
+    hypothesis $h$ (machine learning).
+  - Logarithm base: the shared tables measure entropy in nats, while Lindgren and most information-theory sources for
+    complex systems use bits. Options: keep nats and write $\log_2$ where bits are meant (the machine-learning
+    convention), or make bits this tutorial's convention.
 
 **C10. Labels and cross-references.**
 - `harvest.py` gains a "systems" label group holding both tutorials, so labels stay unique across the site.

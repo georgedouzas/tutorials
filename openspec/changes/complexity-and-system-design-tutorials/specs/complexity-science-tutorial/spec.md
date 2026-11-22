@@ -14,22 +14,29 @@ back to all tutorials. Previous and next links SHALL stay within the tutorial.
 - **THEN** the link leads to a page of the same tutorial, not to another tutorial
 
 ### Requirement: Complexity Science chapters
-The tutorial SHALL contain the chapters of its approved coverage record, written or as placeholders. The proposed list,
-which the owner approves or amends through the coverage record, is:
-- complex systems and emergence;
-- nonlinear dynamics and chaos;
-- fractals and scaling;
-- cellular automata;
-- networks;
-- self-organized criticality;
-- collective behaviour and synchronization;
-- agent-based models;
-- evolution and games;
-- information and complexity measures.
+The tutorial SHALL contain, written or as placeholders, the 17 chapters that the owner approved on 2026-11-22 in its
+coverage record (`openspec/coverage/complexity-science.md`), in that record's reading order.
 
 #### Scenario: Checking the chapter list
 - **WHEN** the sidebar is compared with the approved chapter list of the coverage record
 - **THEN** every approved chapter appears in reading order, either written or marked as planned
+
+#### Scenario: Reading the approved order
+- **WHEN** a reader lists the chapters in the sidebar
+- **THEN** they are, in order: complex systems and emergence; nonlinear dynamics and chaos; random processes and heavy
+  tails; fractals and scaling; phase transitions and percolation; cellular automata; pattern formation; networks;
+  spreading and dynamics on networks; self-organized criticality; synchronization; collective motion; agent-based
+  models; evolution and games; information and complexity measures; tipping points and resilience; time series and
+  model discovery
+
+### Requirement: Complexity Science links physics results instead of restating them
+Results that the physics tutorial states (Landau theory, mean field, the Langevin and Fokker-Planck equations) SHALL be
+cited in Complexity Science by cross-tutorial links, not restated. The chapters SHALL cover only what is specific to
+complex systems.
+
+#### Scenario: Using Landau theory
+- **WHEN** the phase-transitions chapter needs the mean-field critical exponents
+- **THEN** it links to the physics tutorial's Landau-theory section and does not restate the derivation
 
 ### Requirement: Complexity Science chapters follow the chapter template
 Every written chapter SHALL follow `openspec/templates/chapter.qmd`: ten examples and ten exercises after each

@@ -19,7 +19,7 @@ Site script, included on every page.
   }
 
   if (!document.body.classList.contains("home")) return;
-  const BROAD = ["Mathematics", "Physics", "Machine Learning"]; // shown first, in this order
+  const BROAD = ["Mathematics", "Physics", "Machine Learning", "Complexity Science", "Computer Science"]; // shown first, in this order
   const decode = (b64) => { try { return decodeURIComponent(atob(b64)); } catch { return ""; } };
   const cards = [...document.querySelectorAll(".quarto-listing [data-categories]")];
   const aside = document.querySelector(".home-aside");

@@ -1,0 +1,71 @@
+---
+body-classes: notation-page
+pagetitle: "Notation"
+---
+
+# Notation {#sec-complexity-science-notation}
+
+This page fixes the notation of the whole tutorial. The tables are shared with the other tutorials of the site, so a
+symbol means the same thing here as in
+[Fundamentals of Mathematics for Physicists](../../fundamentals-of-mathematics-for-physicists/index.qmd) and
+[Fundamentals of Theoretical Physics](../../fundamentals-of-theoretical-physics/index.qmd). The chapters follow this
+notation whatever notation their sources use; where a chapter quotes a source's convention, it says so and names the
+source. The last section lists what is particular to this tutorial.
+
+## Sets and logic
+
+{{< include ../../_notation/sets-logic.qmd >}}
+
+## Linear algebra
+
+{{< include ../../_notation/linear-algebra.qmd >}}
+
+## Analysis
+
+{{< include ../../_notation/analysis.qmd >}}
+
+## Probability and statistics
+
+{{< include ../../_notation/probability-statistics.qmd >}}
+
+## Units
+
+{{< include ../../_notation/units.qmd >}}
+
+## Complex systems
+
+{{< include ../../_notation/complex-systems.qmd >}}
+
+## Conventions specific to this tutorial {#sec-complexity-science-conventions}
+
+The symbols of the complex-systems table are used mainly in this tutorial. They are the standard symbols of the
+subject's literature, kept so that the chapters read like their sources. Those marked † also have another meaning in a
+shared table. The list below gives the meaning each one has in this tutorial. Where a chapter needs both meanings, the
+complex-systems meaning carries a subscript, such as $\lambda_L$ for a Lyapunov exponent beside the eigenvalues of a
+Jacobian, and the chapter says so where the symbol first appears.
+
+- $\lambda$, $\lambda_1 \geq \lambda_2 \geq \dots$: Lyapunov exponents. Beside eigenvalues (linear algebra), a Poisson
+  mean (probability) or a regularisation strength (machine learning) they are written $\lambda_L$, $\lambda_{L,1},
+  \dots$.
+- $D_0$, $D_2$, $D_q$: fractal dimensions, always with their index. $D$ alone is a diffusion coefficient, and the bold
+  $\mathbf D$ is the diagonal degree matrix of $\mathbf L = \mathbf D - \mathbf A$.
+- $C_i$, $C$: clustering coefficients; $C(\varepsilon)$, always with its argument, is the correlation sum.
+- $r$: the modulus of the Kuramoto order parameter. The parameter of the logistic map $x_{n+1} = rx_n(1 - x_n)$ is
+  also $r$, as in the sources; where both appear the Kuramoto modulus is written $r_K$.
+- $\alpha$: a power-law exponent. A critical exponent of the specific heat, a significance level or a step size is
+  named in words where it meets it.
+- $\tau$: an avalanche-size exponent, or the delay of a delay embedding; the chapter says which.
+- $\sigma$: a branching ratio, written $\sigma_b$ beside a standard deviation $\sigma$. $\beta$ and $\gamma$ are the
+  infection and recovery rates of epidemic models, and an inverse temperature is written $1/T$ there.
+- $P(k)$, $P(s)$: the degree and avalanche-size distributions, mass functions $P(k) = \mathbb P(k_i = k)$ for a node
+  drawn uniformly. $p$ is an occupation or link probability, and a mass function is then written $P$.
+- $\langle k\rangle$: the mean degree, an average over the nodes of one network. An expectation over random networks
+  is written $\mathbb E$.
+- $\mathbf x^*$, $x^*$: a fixed point. Where a fixed point and a complex conjugate meet, the conjugate is written
+  $\bar z$.
+- $N$: the number of elements, nodes or agents; $M$: the number of edges; $\ell$: the mean path length; $K$: a
+  coupling strength. The box count is always $N(\varepsilon)$, with its argument.
+- $E$: the excess entropy of a source; the edge set of a graph is $E$ only inside $G = (V, E)$.
+- $h$: the entropy rate of a source.
+- Logarithms are natural, as in the shared tables. An entropy in bits, as most of the sources give it, is written with
+  $\log_2$.
