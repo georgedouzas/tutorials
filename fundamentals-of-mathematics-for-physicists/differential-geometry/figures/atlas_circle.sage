@@ -1,0 +1,28 @@
+# The two angle charts of the circle and the transition map between them.
+load("../../_filters/figstyle.sage")
+import numpy as np
+import matplotlib.pyplot as plt
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(8.5, 3.8))
+eps = 0.06
+t = np.linspace(eps, 2*np.pi - eps, 300)
+a1.plot(np.cos(t), np.sin(t), color=ACCENT, lw=2.2)
+t2 = np.linspace(-np.pi + eps, np.pi - eps, 300)
+a1.plot(0.85*np.cos(t2), 0.85*np.sin(t2), color=STATEMENT, lw=2.2)
+a1.plot([1], [0], "o", mfc="white", mec=ACCENT, ms=7, mew=1.6)
+a1.plot([-0.85], [0], "o", mfc="white", mec=STATEMENT, ms=7, mew=1.6)
+a1.text(1.1, 0.0, r"$(1, 0)$", color=ACCENT, va="center")
+a1.text(-0.72, 0.0, r"$(-1, 0)$", color=STATEMENT, va="center")
+a1.text(0.0, 1.12, r"$\varphi \in (0, 2\pi)$", color=ACCENT, ha="center")
+a1.text(0.0, 0.55, r"$\varphi' \in (-\pi, \pi)$", color=STATEMENT, ha="center")
+a1.set_aspect("equal"); a1.set_xlim(-1.3, 1.6); a1.set_ylim(-1.3, 1.35); a1.axis("off")
+up = np.linspace(eps, np.pi - eps, 100); lo = np.linspace(np.pi + eps, 2*np.pi - eps, 100)
+a2.plot(up, up, color=EXERCISE, lw=2.2); a2.plot(lo, lo - 2*np.pi, color=EXERCISE, lw=2.2)
+a2.axhline(0, color=GRID, lw=0.8); a2.axvline(np.pi, color=GRID, lw=0.8, ls="--")
+a2.set_xticks([0, np.pi, 2*np.pi]); a2.set_xticklabels([r"$0$", r"$\pi$", r"$2\pi$"])
+a2.set_yticks([-np.pi, 0, np.pi]); a2.set_yticklabels([r"$-\pi$", r"$0$", r"$\pi$"])
+a2.set_xlabel(r"$\varphi$"); a2.set_ylabel(r"$\varphi'$")
+a2.text(0.5, 2.3, r"$\varphi' = \varphi$", color=EXERCISE)
+a2.text(4.4, -2.75, r"$\varphi' = \varphi - 2\pi$", color=EXERCISE)
+for s in ("top", "right"): a2.spines[s].set_visible(False)
+fig.tight_layout()
+save_matplotlib(fig, "atlas_circle")

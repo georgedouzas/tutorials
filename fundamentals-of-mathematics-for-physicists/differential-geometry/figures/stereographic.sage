@@ -1,0 +1,18 @@
+# Stereographic projection from the north pole, in a plane through the axis.
+load("../../_filters/figstyle.sage")
+g = circle((0, 0), 1, color=INK, thickness=1.5)
+g += line([(-3.2, 0), (3.2, 0)], color=MUTED, thickness=1)
+N = (0, 1); S = (0, -1)
+for t, lab in [(-0.9, r"$p$"), (0.35, r"$p'$")]:
+    p = (cos(t), sin(t))
+    u = p[0]/(1 - p[1])
+    g += line([N, (u, 0)], color=ACCENT, thickness=1.2)
+    g += point(p, color=ACCENT, size=40, zorder=5)
+    g += point((u, 0), color=STATEMENT, size=40, zorder=5)
+    g += text(lab, (p[0] + 0.15, p[1] - 0.12 if t < 0 else p[1] + 0.14), color=ACCENT, fontsize=12)
+    g += text(r"$u(%s)$" % lab.strip("$"), (u, -0.22), color=STATEMENT, fontsize=12)
+g += point(N, color=INK, size=40, zorder=5) + point(S, color=INK, size=40, zorder=5)
+g += text(r"$N$", (0.15, 1.15), color=INK, fontsize=12) + text(r"$S$", (0.17, -1.15), color=INK, fontsize=12)
+g += text(r"$Z = 0$", (-2.8, 0.15), color=MUTED, fontsize=11)
+g.axes(False)
+save_figure(g, "stereographic", figsize=(6, 3), aspect_ratio=1)

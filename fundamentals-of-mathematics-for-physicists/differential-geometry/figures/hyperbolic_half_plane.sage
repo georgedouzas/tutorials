@@ -1,0 +1,16 @@
+# Two curves between (-1, 1) and (1, 1) in the half-plane: the horizontal segment (length 2) and the circular arc of radius sqrt(2) (length 2 log(1 + sqrt 2)).
+load("../../_filters/figstyle.sage")
+t = var("t")
+g = Graphics()
+for y0 in [0.5, 1, 2]:
+    g += line([(-2.2, y0), (2.2, y0)], color=GRID, thickness=1)
+g += line([(-2.3, 0), (2.3, 0)], color=MUTED, thickness=1.5)
+g += line([(-1, 1), (1, 1)], color=STATEMENT, thickness=2.2)
+g += parametric_plot((sqrt(2)*cos(t), sqrt(2)*sin(t)), (t, pi/4, 3*pi/4), color=ACCENT, thickness=2.2)
+g += point([(-1, 1), (1, 1)], color=INK, size=40, zorder=5)
+g += text(r"$2$", (0, 0.85), color=STATEMENT, fontsize=12)
+g += text(r"$2\log(1 + \sqrt{2})$", (0, 1.58), color=ACCENT, fontsize=12)
+g += text(r"$y = 0$", (2.0, -0.15), color=MUTED, fontsize=11)
+g += text(r"$y = 2$", (-2.0, 2.12), color=MUTED, fontsize=10) + text(r"$y = 1/2$", (-1.95, 0.62), color=MUTED, fontsize=10)
+g.axes(False)
+save_figure(g, "hyperbolic_half_plane", figsize=(6, 3), aspect_ratio=1)
