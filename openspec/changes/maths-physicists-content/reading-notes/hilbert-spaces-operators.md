@@ -422,3 +422,103 @@ the sharp end-point constant sqrt(coth 1) through cosh(1 - x); the lattice-sum c
 <k>^s <= 2^s(<k-l>^s + <l>^s) and Young's l^2 x l^1 inequality; the critical-order counterexample on T^n through the product Fejér kernel;
 H^s(R) injectivity via the multiplier (1 + k^2)^s on S; Mathieu ground state; Volterra singular values; r_3 multiplicities on T^3; the
 wave-operator counterexample. Brezis and Evans are not in the library.
+
+## Traces run (sec-traces-heat-kernels, task 4.7)
+
+### reed1980methods
+
+Vol. I, Sec. VI.6: Thm. VI.18 (trace of a positive operator, basis independence by Parseval and exchange of sums) -> def-trace-class (5),
+exr-tc-basis-independence; Thm. VI.19-VI.21 (trace class is an ideal, ||A|| <= ||A||_1, compact, singular-value criterion) -> def-trace-class
+(1), (2), proved here with singular values instead of the polar decomposition; Thm. VI.22 (h) (product of two Hilbert-Schmidt operators is trace
+class) -> def-trace-class (2), thm-trc-mercer (1); Thm. VI.23 (Hilbert-Schmidt = L^2 kernels) -> thm-trc-mercer (1) (continuous case only);
+Thm. VI.24-VI.25 (absolute convergence of the diagonal sum, linearity, tr AB = tr BA) -> def-trace-class (3), (4); Thm. VI.26 (duality) ->
+exr-trc-norm-duality.
+
+### arcozzi2025
+
+Sec. 4.3.3 (trace of a positive compact operator, unitary invariance) -> def-trace-class (5), exr-tc-basis-independence; Sec. 4.4.1-4.4.2
+(continuous and L^2 kernels; Volterra as a Hilbert-Schmidt integral operator) -> thm-trc-mercer, exm-trc-volterra, exm-trc-mercer-volterra.
+
+### vassilevich2003heat (Zotero QLTSJVB9)
+
+Eqs. (2.18)-(2.20) (heat trace, heat kernel as eigenfunction series) -> def-heat-kernel, restricted to the model spaces; eq. (4.4) (circle heat
+trace by Poisson summation) -> def-heat-kernel (4), thm-heat-trace-asymptotics (1), exm-hk-circle; eqs. (2.21)-(2.22) (general expansion) cited
+only as context, not used; eqs. (2.23)-(2.27) (zeta function, Mellin relation, residues and zeta(0) from heat coefficients) ->
+def-zeta-regularisation (1), (2); eq. (2.33) (ln det = -zeta'(0)) -> def-zeta-regularisation (3).
+
+### gasinski2014exercises
+
+Problem 1.104 (Dini's theorem) -> proof of thm-trc-mercer (3); Problem 1.105 (the hypotheses of Dini's theorem cannot be dropped) ->
+exr-trc-dini.
+
+### Existing citations kept
+
+derezinski2022mathematics (Thm. 2.45, Prop. 2.47: Fredholm determinant in general) -> pointer after def-fredholm-determinant; alvarezgaume2005
+(Sec. 3.2, eqs. 3.65-3.66: Casimir plates) -> prp-casimir-energy, exm-ce-plates; ivrii2016weyl (Sec. 1.1) -> thm-heat-trace-asymptotics (4),
+exr-hta-weyl-law; buchbinder2021introduction (Sec. 13.4) -> section introduction.
+
+### Standard material without a library source
+
+Mercer's theorem (proved from the Hilbert-Schmidt theorem and Dini); the product lemma for infinite products and the Fredholm determinant for
+operators with an eigenbasis; Euler's sine product from the determinant of the Green's operator (log-derivative and the partial fractions of
+def-zeta-function (4)); the midpoint Euler-Maclaurin formula with periodic polynomial kernels (sphere heat trace to O(t^2)); Karamata's
+Tauberian argument (Weyl's law from the heat trace); continuation of spectral zeta functions from the heat expansion; zeta'(0) = -1/2 log 2pi by
+the second-order Euler-Maclaurin formula and Stirling's formula; Casimir energies (Dirichlet, periodic, mixed, antiperiodic, piston, string
+intercept); the Dirichlet square (area, perimeter and corner terms).
+
+## Final run (sec-banach-algebras and the closing Exercises, task 4.7)
+
+Read with pdftotext from the Zotero storage (read-only).
+
+### landsman1998
+
+Defs. 2.1.8-2.1.10 (Banach algebra, involution, C*-algebra) -> def-banach-algebra, def-c-star-algebra; Lemma 2.1.11 (half of the C*-identity
+suffices) -> exr-fan-star-isometric; Prop. 2.2.1 (unitisation) -> exr-fan-unitisation; Def. 2.2.2, Thm. 2.2.3, Lemmas 2.2.4-2.2.5, Cor. 2.2.6,
+Prop. 2.2.7, Lemma 2.2.8 (spectrum, Neumann series, Gelfand-Mazur, spectral radius, polynomial spectral mapping) -> def-algebra-spectrum,
+thm-neumann-series, thm-spectral-radius-formula, exr-fan-spectral-mapping-polynomial; Def. 2.3.1, Prop. 2.3.2, Thms. 2.3.3 and 2.3.5, Prop. 2.3.4
+(structure space, characters and maximal ideals, Gelfand transform, compactness) -> def-bal-character, thm-bal-gelfand (the compactness proof
+replaced by the Gelfand metric for separable algebras); Thm. 2.4.1, Prop. 2.4.3 (commutative Gelfand-Naimark) ->
+thm-bal-commutative-gelfand-naimark (separable case proved, general case stated); Thm. 2.5.1, Cors. 2.5.2-2.5.4 (permanence, real spectrum,
+functional calculus, uniqueness of the norm, contractive morphisms) -> thm-bal-cstar-spectrum (permanence proved without Gelfand-Naimark,
+real spectrum by Arens' argument), thm-continuous-functional-calculus; Sec. 2.6 (positivity, norm test) -> exr-bal-fc-positive-criterion;
+Def. 2.8.1, eqs. 2.103-2.104, Prop. 2.8.3, Construction 2.9.4, Prop. 2.9.5 (states, Cauchy-Schwarz, GNS, uniqueness) -> def-c-star-algebra,
+thm-bal-gns (the bound omega(b*a*ab) <= |a|^2 omega(b*b) proved with the square root of |a|^2 - a*a, avoiding Kaplansky-Fukamiya);
+Thm. 2.10.1 (Gelfand-Naimark) stated without proof after thm-bal-gns; Thm. 2.8.2 (states of C(X) as measures) not used (measure theory).
+
+### arcozzi2025
+
+Sec. 6.1.1, Exercise 6.1, Thm. 6.1 (Banach algebras, unitisation, commuting products) -> def-banach-algebra, exm-fan-wiener-algebra,
+exr-fan-unitisation, exr-fan-commuting-inverse; Thms. 6.2-6.4, 6.7 (open group of units, compact non-empty spectrum, Gelfand's formula) ->
+thm-neumann-series, thm-spectral-radius-formula; Sec. 6.4.1, Exercise 6.6, Lemmas 6.3-6.5, Cor. 6.3 (ideals, characters, maximal ideals
+closed) -> def-bal-character, thm-bal-gelfand (1)-(2); Thm. 6.10 (maximal ideals of C(X)) -> exm-bal-gt-ck; Exercises 6.7-6.8 (C^1[0, 1]) ->
+exm-bal-c1-algebra, exm-bal-gt-c1; Thms. 6.11-6.15 (quotient algebra, Mazur, Gelfand representation, compactness) -> thm-bal-gelfand; Sec. 7.1.4,
+eq. 7.1.9 -> exr-hso-uncertainty (kept).
+
+### reed1980methods
+
+Vol. I, Thm. VI.6 and Problem VI.11 (spectral radius, subadditivity) -> thm-spectral-radius-formula, exr-bal-srf-subadditive; Problem VI.10
+(Volterra spectral radius) -> exm-fan-volterra-radius, exr-bal-srf-volterra; Thm. VII.1, Problem VII.3 and remark (4) of Sec. VII.1
+(continuous functional calculus, C*-algebra generated by an operator) -> thm-continuous-functional-calculus,
+thm-bal-commutative-gelfand-naimark.
+
+### gasinski2014exercises
+
+Searched for Banach-algebra and spectral-radius problems; none in the functional-analysis part fitted this section beyond those already used
+in earlier sections, so no block cites it here.
+
+### izaac2018computational (existing citations kept)
+
+Problems P7.1 and P7.6, Sec. 7.2, eqs. 7.19-7.21 (power iteration) -> exm-fan-izaac-matrix, exr-fan-spectral-radius-sage,
+exr-fan-power-iteration-rate, exr-fan-izaac-hermitian, exr-bal-sp-izaac-poly.
+
+### Existing citations kept
+
+hall2013quantum (Sec. 10.3) -> thm-continuous-functional-calculus; derezinski2022mathematics, tornetta2022mathematical -> section pointer;
+scott2023problems (Problem 4.21), steebProblemsSolutionsQuantum2018 (Ch. 3, Problem 13), vassilevich2003heat (eq. 4.4) -> the closing exercises.
+
+### Standard material without a library source
+
+Gelfand metric on the characters of a separable algebra and the sequential-compactness proof (Lebesgue number, total boundedness); Wiener's
+lemma via characters; the one-sided Wiener algebra; Arens' argument for real spectra; spectral permanence by the limit (h - i/n)^{-1};
+the disc algebra with a non-C* involution; the Cayley transform; the thermofield double; the tight-binding band of the bilateral shift;
+Bose-Einstein occupations from the Neumann series; the quaternions as a real division algebra.

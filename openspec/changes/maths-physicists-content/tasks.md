@@ -49,7 +49,7 @@ one `##` section per agent run.
   constraints, the second variation and Rayleigh-Ritz), ten and ten throughout; remove its planned badge in
   `_quarto.yml`; mark the proposed chapter written in the coverage record.
 - [x] 4.6 Fourier analysis (gap: the Laplace transform and its inversion).
-- [ ] 4.7 Hilbert spaces and operators (by section).
+- [x] 4.7 Hilbert spaces and operators (by section).
 - [x] 4.8 Probability.
 - [x] 4.9 Differential geometry (by section; gaps: submanifolds and the rank theorem; orientation and integration;
   Hodge star and codifferential; Frobenius; symplectic forms).
