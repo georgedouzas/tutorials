@@ -1,0 +1,47 @@
+# Render the whole site on GitHub's machines and publish it to Posit Connect Cloud.
+# Secrets (repository settings > Secrets and variables > Actions):
+#   POSIT_CONNECT_CLOUD_ACCESS_TOKEN, POSIT_CONNECT_CLOUD_REFRESH_TOKEN  (required to publish)
+#   POSIT_CONNECT_CLOUD_ACCOUNT_ID                                        (only if the login has several accounts)
+# Without the tokens the site is still rendered (so a broken build shows up), and the publish step is skipped.
+name: Render and publish
+
+on:
+  push:
+    branches: [main, restructure-site]
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      POSIT_CONNECT_CLOUD_ACCESS_TOKEN: ${{ secrets.POSIT_CONNECT_CLOUD_ACCESS_TOKEN }}
+      POSIT_CONNECT_CLOUD_REFRESH_TOKEN: ${{ secrets.POSIT_CONNECT_CLOUD_REFRESH_TOKEN }}
+      POSIT_CONNECT_CLOUD_ACCOUNT_ID: ${{ secrets.POSIT_CONNECT_CLOUD_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # _environment points Quarto at .venv/bin/python, so build the same venv here
+      - name: Python environment for executed chapters
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install --quiet -r requirements.txt
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.11.9
+
+      - name: Render
+        run: quarto render
+
+      - name: Publish to Posit Connect Cloud
+        if: ${{ env.POSIT_CONNECT_CLOUD_ACCESS_TOKEN != '' }}
+        run: quarto publish posit-connect-cloud --no-prompt --no-browser --no-render
