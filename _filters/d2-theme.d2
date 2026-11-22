@@ -1,0 +1,39 @@
+# Shared theme for the tutorials' D2 diagrams (openspec/changes/complexity-and-system-design-tutorials, design C5).
+#
+# A diagram lives next to its figure as <chapter>/figures/<name>.d2 and starts with the line
+#     ...@../../../_filters/d2-theme
+# It is rendered from the chapter folder, by `check_content.py <tutorial> --figures` or by hand, with the pinned D2
+# (v0.9.0):
+#     d2 --layout=elk --pad=16 figures/<name>.d2 figures/<name>.svg
+#
+# The colours are the site palette (theme.scss), over D2's Neutral Default theme (id 0): ink and greys for text and
+# lines, the accent blue for strokes and container fills, red tints (AA) and green tints (AB) for special shapes. As
+# with the other figures, a diagram is drawn for a light page with a transparent background, and in dark mode the site
+# shows it on a light card (--site-figure-card in theme-dark.scss).
+
+vars: {
+  d2-config: {
+    theme-id: 0
+    theme-overrides: {
+      N1: "#1f2328"
+      N2: "#5b6470"
+      N3: "#8a929c"
+      N4: "#c9ced5"
+      N5: "#e2e5e9"
+      N6: "#f6f7f9"
+      N7: "#ffffff"
+      B1: "#1d5b99"
+      B2: "#3f74ad"
+      B3: "#9dbbdc"
+      B4: "#dbe6f2"
+      B5: "#eaf0f8"
+      B6: "#f4f7fb"
+      AA2: "#a33a2c"
+      AA4: "#f0d8d4"
+      AA5: "#f8ecea"
+      AB4: "#d6eadd"
+      AB5: "#ebf4ee"
+    }
+  }
+}
+style.fill: transparent

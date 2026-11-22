@@ -125,3 +125,31 @@
 ## Standard material (no source item)
 - The nondegeneracy argument of def-hod-codifferential (3) with a bump function, the proof of the divergence formula from the adjointness, the signature count N_k, the commutation of the star with Delta_H in every signature, and the integral identity of def-hod-laplacian (4) are written for this tutorial.
 - Examples: harmonic conjugates as *df = dh, the Mobius band, the boundary term on an interval, the tanh form without compact support, the flat and the Lorentzian torus, the line vortex, the vector Laplacian of e_r, the oblique chart, parabolic cylindrical coordinates, the magnetic monopole without potential, constant fields, the boost of a constant field, duality rotations, Gauss's law from a slice: standard material.
+
+# sec-connections-curvature, split into sec-connections-curvature, sec-levi-civita, sec-geodesics, sec-riemann, sec-cur-surfaces, sec-ricci (task 4.9)
+
+## carroll1997
+- Ch. 3, pp. 56-58, eqs. (3.1)-(3.17) (covariant derivative, inhomogeneous transformation of the connection, extension to one-forms and tensors) -> def-connection, def-covariant-derivative-vector, def-covariant-derivative-tensor.
+- Ch. 3, p. 59, eq. (3.17) (torsion; metric compatibility) -> def-torsion, def-metric-compatible.
+- Ch. 3, pp. 59-60, eqs. (3.18)-(3.21) (Christoffel symbols from compatibility and symmetry) -> def-levi-civita, def-christoffel.
+- Ch. 3, pp. 63-66, eqs. (3.37)-(3.40) (parallel transport, inner products preserved) -> def-parallel-field, def-parallel-transport.
+- Ch. 3, pp. 67-70, eqs. (3.44)-(3.53) (geodesic equation, affine parameter, geodesics as extremals of the proper time) -> def-geodesic (3)-(5); pp. 72-73 (exponential map, normal coordinates) -> def-geodesic-exponential.
+- Ch. 3, pp. 73-81, eqs. (3.61)-(3.90) (Riemann tensor as commutator, symmetries, Bianchi identities, flatness iff R = 0 sketched on pp. 76-77) -> def-riemann, def-riemann-lowered, thm-cur-flat (the converse is proved in full here by stagewise integration of the parallel frame and the Poincare lemma for one-forms).
+- Ch. 3, pp. 81-85, eqs. (3.90)-(3.95) (Ricci tensor, scalar, Einstein tensor and its conservation, the two-sphere, maximally symmetric form) -> def-ricci-tensor, def-scalar-curvature, def-einstein-tensor, prp-sphere-riemann, prp-sphere-curvature, def-sectional-curvature (3).
+- Ch. 7, eq. (7.29) (Schwarzschild) and Ch. 8 (Robertson-Walker) used for the physics examples exm-chr-schwarzschild, exm-chr-frw, exm-rie-frw, exm-ric-schwarzschild, exm-et-frw, exr-geo-schwarzschild-circular.
+
+## keskivakkuri2022mathematical
+- Secs. 5.3-5.10 (existing citations kept): connection, covariant derivative, torsion, compatibility, Christoffel symbols, Riemann and Ricci tensors; Problem 5.5 (torus) -> exr-torus-christoffel.
+
+## boskoff2024journey
+- Secs. 4.6-4.10, 4.12, 4.15, 7.1 (existing citations kept): second fundamental form, shape operator, Gauss's equation, theorema egregium, sphere symbols, gnomonic chart, half-plane geodesics -> def-sff-second-form, def-sff-shape-operator, thm-sff-gauss-equation (Codazzi-Mainardi now item (3)), exr-gauss-gnomonic, exm-hyp-semicircle.
+
+## godinho2014introduction, gray2019student, torresdelcastillo2020differentiable, blennow2022relativity, emam2021covariant
+- Existing citations kept (Thm. 3.2 Levi-Civita; Sec. 3.4 exponential map; Sec. 4.1 symmetries and sectional curvature; Sec. 4.3 Gauss-Bonnet; Einstein metrics and the three-sphere; Problems 2.3, 2.20, 2.41, 2.42, 2.46, 2.48 of Blennow).
+
+## lee2013introduction, rudolph2013differential
+- Not used for this section: Lee's Introduction to Smooth Manifolds has no chapter on connections (Lee's Riemannian Manifolds is not in the library); the connection material of Rudolph-Schmidt Part II was not consulted.
+
+## Standard material (no source item)
+- Existence of connections by partitions of unity; locality and pointwise dependence; uniqueness of the tensor extension; Koszul formula proof; chart with Gamma(p) = 0; global solvability of linear systems along a curve from Picard-Lindelof; smooth dependence by bootstrapping thm-characteristics-cauchy (1); exponential map and normal coordinates; the polarisation argument for sectional curvature; holonomy of a cap of a surface of revolution; total curvature of closed surfaces of revolution.
+- Physics examples (Rindler inertial forces, rotating fluid, stressed disc, tidal tensor, dislocations and torsion, Foucault pendulum, Tomita-Chiao fibre, Thomas precession, freely falling frames, soap films and Young-Laplace, bead on a surface, cosmic string, Kretschmann scalar, Friedmann equation, dust universe, static universe) are standard material.

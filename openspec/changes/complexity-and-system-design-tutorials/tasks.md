@@ -2,31 +2,34 @@
 
 ## 1. Software profiles and tooling (C3, C4, C5)
 
-- [ ] 1.1 Generalise `_filters/check_content.py` to read `<tutorial>/_software.yml` (tab label, fences, runner,
+- [x] 1.1 Generalise `_filters/check_content.py` to read `<tutorial>/_software.yml` (tab label, fences, runner,
   figure kinds, illustrative class). Accept "Proof" or "Solution" as the first tab. Keep SageMath as the default and
   `--sage` as an alias of `--run`. Verify: the checker reports exactly the same findings as before on every raised
   mathematics chapter.
-- [ ] 1.2 Add `_filters/figstyle.py`, ported from `_filters/figstyle.sage` (palette, SVG, Plotly interactive). Add D2
+- [x] 1.2 Add `_filters/figstyle.py`, ported from `_filters/figstyle.sage` (palette, SVG, Plotly interactive). Add D2
   rendering to `--figures`: `figures/<name>.d2` produces light and dark SVGs with site themes and a pinned D2 version.
   Verify: one sample Python figure and one sample D2 diagram regenerate, and both read well in light and dark mode.
-- [ ] 1.3 Create `.venv-complexity` (Python 3.12, `scikit-complexity==0.9.0`, powerlaw) and `.venv-systems` (Python
+  Done 2026-11-22: one light SVG per diagram (`_filters/d2-theme.d2`, imported by each source), shown on the
+  site's light figure card in dark mode like every other figure; D2's `--dark-theme` was not used, because its
+  `prefers-color-scheme` query follows the OS rather than the site's toggle.
+- [x] 1.3 Create `.venv-complexity` (Python 3.12, `scikit-complexity==0.9.0`, powerlaw) and `.venv-systems` (Python
   3.12, SimPy, NumPy, matplotlib). Each gets a pinned `requirements.lock` in its tutorial folder and a one-line setup
   command in `README.md`. Verify: both build on this machine, and a missing environment makes the checker report "not
   checked" for that tutorial only.
-- [ ] 1.4 Add a "systems" label group to `_filters/harvest.py`. Verify: `harvest.py` reports no problems.
+- [x] 1.4 Add a "systems" label group to `_filters/harvest.py`. Verify: `harvest.py` reports no problems.
 
 ## 2. Sources (C7)
 
 - [x] 2.1 Show `references-proposal.md` to the owner. Approved 2026-11-22: all 20 items, the optional commercial
   books as metadata-only records with a recorded reason, and the Xu vol. 1 fix.
-- [ ] 2.2 Add the approved items to Zotero with PDFs through the desktop connector, set their citation keys, add bib
+- [x] 2.2 Add the approved items to Zotero with PDFs through the desktop connector, set their citation keys, add bib
   entries with `zotero = {KEY}`, and fix `UBAGKN6G`. Verify: each new key resolves with
   `zotero_search_by_citation_key`, and each PDF opens.
-- [ ] 2.3 Rebuild the semantic index incrementally for the new items. Verify: a topic search finds them.
+- [x] 2.3 Rebuild the semantic index incrementally for the new items. Verify: a topic search finds them.
 
 ## 3. Coverage records and chapter lists (C6)
 
-- [ ] 3.1 Complexity Science: write `openspec/coverage/complexity-science.md`, with the benchmarks, tables of contents
+- [x] 3.1 Complexity Science: write `openspec/coverage/complexity-science.md`, with the benchmarks, tables of contents
   read from the PDFs, the mapping to the proposed chapters, and the gaps classified as proposed chapters or section
   gaps. Verify: every benchmark chapter is mapped or classified.
 - [ ] 3.2 System Design: write `openspec/coverage/system-design.md` the same way, including the classic papers as

@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 GROUPS = {
     "physics": ["fundamentals-of-mathematics-for-physicists", "fundamentals-of-theoretical-physics", "kaluza-klein-theories"],
     "machine-learning": ["fundamentals-of-mathematics-for-machine-learning", "fundamentals-of-machine-learning"],
+    "systems": ["complexity-science", "system-design"],
 }
 KINDS = {"def": "Definition", "thm": "Theorem", "lem": "Lemma", "cor": "Corollary", "prp": "Proposition",
          "cnj": "Conjecture", "exm": "Example", "exr": "Exercise", "rem": "Remark", "alg": "Algorithm",

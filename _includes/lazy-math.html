@@ -1,0 +1,39 @@
+<script>
+// Lazy maths: typeset formulas inside collapsed boxes (examples, exercises, solutions) only when a box is opened.
+// This runs at the end of <body>, before Pandoc's DOMContentLoaded loop that renders every ".math" span, so renaming
+// the class here keeps that loop away from formulas nobody has opened yet.
+(function () {
+  var BOX = ".callout-collapse";
+  function lazyIn(root) {
+    var spans = root.querySelectorAll(BOX + ":not(.show) span.math");
+    for (var i = 0; i < spans.length; i++) {
+      spans[i].classList.remove("math");
+      spans[i].classList.add("math-lazy");
+    }
+  }
+  function render(box) {
+    if (!window.katex) return;
+    var spans = box.querySelectorAll("span.math-lazy");
+    for (var i = 0; i < spans.length; i++) {
+      var s = spans[i];
+      // only formulas whose nearest collapsed box is this one; nested boxes wait for their own opening
+      if (s.closest(BOX) !== box) continue;
+      var tex = s.firstChild && s.firstChild.data;
+      s.classList.remove("math-lazy");
+      s.classList.add("math");
+      if (!tex) continue;
+      window.katex.render(tex, s, { displayMode: s.classList.contains("display"), throwOnError: false, macros: [], fleqn: false });
+    }
+  }
+  lazyIn(document);
+  document.addEventListener("show.bs.collapse", function (e) {
+    var box = e.target.closest(BOX) || e.target;
+    render(box);
+  });
+  // a box opened by other means (print, find-in-page, a link into it) is caught when it gains .show
+  window.addEventListener("beforeprint", function () {
+    var boxes = document.querySelectorAll(BOX);
+    for (var i = 0; i < boxes.length; i++) render(boxes[i]);
+  });
+})();
+</script>

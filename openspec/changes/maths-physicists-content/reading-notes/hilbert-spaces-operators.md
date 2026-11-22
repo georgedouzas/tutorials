@@ -383,3 +383,42 @@ The ran(A - mu) = H criterion with Hellinger-Toeplitz for boundedness of the inv
 (thm-unb-self-adjointness (5)); compact resolvent from thm-spectral-theorem-compact (6); Weyl's law on the circle, sphere and torus by
 counting (ellipse sandwich); deficiency computations by solving first- and second-order ODEs with continuous data; coherent states; the
 Robin wall bound state; the rotor partition function; r_2 facts mod 4 and mod 8; the twisted-momentum resolvent kernel.
+
+## Sobolev run (sec-sobolev-spaces, task 4.7)
+
+### gasinski2014exercises
+
+Sec. 1.1.4: Defs. 1.98, 1.105, Thm. 1.100, Prop. 1.107 -> def-weak-derivative (rebuilt as completions, no Lebesgue integral); Thm. 1.108 and
+Problem 1.189 (first eigenvalue) -> thm-sob-poincare-dirichlet (1); Thm. 1.109 and Problem 1.197 (compact embedding of the H^1 ball) ->
+thm-rellich (2). Problems: 1.144 (continuous function not in W^{1,2}) -> exr-sob-sqrt-borderline, exm-sob-powers; 1.191 (primitive of an L^2
+function) -> exr-sob-primitive; 1.192 (H^1(R) functions vanish at infinity) -> def-sobolev-space-rn (4), exr-sob-decay-pointwise; 1.195 (sup
+bound on an interval) -> def-weak-derivative (3), exr-sob-sharp-sup; 1.196 (Riesz representative of the mean on H^1_0(0, 1)) ->
+exr-sob-riesz-functional, exr-sob-orth-complement; 1.142-1.143 (zero weak derivative) -> exr-fan-zero-weak-derivative.
+
+### reed1980methods
+
+Vol. II, Sec. IX.6: definition of W_m by the Fourier transform -> def-sobolev-torus, def-sobolev-space-rn (as completions); Prop. 1 (W_m = weak
+derivatives in L^2) -> def-sobolev-torus (4); Lemma (a) (T, Delta T in W_m implies T in W_{m+2}) -> thm-elliptic-regularity (2); Thm. IX.24
+(Sobolev's lemma) -> thm-sobolev-embedding-torus, def-sobolev-space-rn (4); Thm. IX.25 (Weyl's lemma) -> thm-elliptic-regularity (4).
+
+### borodzik2019problems
+
+Sec. 2.3: Problem 2.3.13 (an H^{1/2} function that is unbounded) -> thm-sobolev-embedding-torus (4), exm-fan-critical-unbounded; Problem 2.3.36
+(sine series bounded in L^2 with a derivative bound) -> thm-rellich (1); Sec. 2.3 in general -> section introduction.
+
+### arcozzi2025
+
+Sec. 7.5 (momentum on C^1_c, its adjoint and closure) -> exr-sob-momentum-adjoint; Sec. 4.5 (Sturm-Liouville spaces and operators) ->
+thm-sob-poincare-dirichlet (2)-(4) in weak (Lax-Milgram) form; Sec. 3.8 (sesquilinear forms) through thm-sesquilinear-forms (4).
+
+### waterstraat2016
+
+Thm. 1.3.5 (compact resolvent) -> thm-rellich (4) (existing citation kept).
+
+### Standard material without a library source
+
+Weak derivatives as L^2 limits in the completion model (injectivity of the extension, the constant lemma, H^1_0 as zero boundary values);
+the sharp end-point constant sqrt(coth 1) through cosh(1 - x); the lattice-sum criterion by cube shells; the algebra property by
+<k>^s <= 2^s(<k-l>^s + <l>^s) and Young's l^2 x l^1 inequality; the critical-order counterexample on T^n through the product Fejér kernel;
+H^s(R) injectivity via the multiplier (1 + k^2)^s on S; Mathieu ground state; Volterra singular values; r_3 multiplicities on T^3; the
+wave-operator counterexample. Brezis and Evans are not in the library.
