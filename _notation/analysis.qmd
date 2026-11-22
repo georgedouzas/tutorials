@@ -41,11 +41,21 @@
 | $q_{lm}$, $Q_{ij}$ | multipole moments $\int\rho\,r^lY_{lm}^*$ and quadrupole tensor $\int\rho\,(3x_ix_j - r^2\delta_{ij})$ of a charge distribution |
 | $J_\nu$, $I_\nu$ | Bessel function and modified Bessel function of order $\nu$ |
 | $j_{\nu,k}$ | $k$-th positive zero of $J_\nu$ |
+| $H_n(x)$, $\psi_n$ | Hermite polynomial $(-1)^ne^{x^2}\frac{d^n}{dx^n}e^{-x^2}$ and Hermite function $H_ne^{-x^2/2}$ (with an argument or among special functions; a bare $H_n$ is the harmonic number) |
+| $(a)_k$ | Pochhammer symbol $a(a + 1)\cdots(a + k - 1)$, $(a)_0 = 1$ |
+| $L_n^\alpha$, $L_n$ | associated Laguerre polynomial $\frac{x^{-\alpha}e^x}{n!}\frac{d^n}{dx^n}(e^{-x}x^{n+\alpha})$, $\alpha > -1$; $L_n = L_n^0$ |
+| $T_n(x)$, $U_n(x)$ | Chebyshev polynomials of the first and second kind, $T_n(\cos\theta) = \cos n\theta$, $U_n(\cos\theta)\sin\theta = \sin(n + 1)\theta$ (among special functions; elsewhere $T_n$ is a Taylor polynomial) |
+| ${}_2F_1(a, b; c; z)$ | hypergeometric function $\sum_k\frac{(a)_k(b)_k}{(c)_kk!}z^k$ |
+| ${}_1F_1(a; c; z)$ | confluent hypergeometric (Kummer) function $\sum_k\frac{(a)_k}{(c)_kk!}z^k$ |
 | $\kappa$, $c$ | diffusivity of the heat equation $u_t = \kappa\nabla^2u$; wave speed of $u_{tt} = c^2u_{xx}$ |
 | $K(t, x)$ | heat kernel $(4\pi\kappa t)^{-1/2}e^{-x^2/(4\kappa t)}$ |
 | $m_u(\mathbf a, \rho)$ | average of $u$ over the circle or sphere of radius $\rho$ about $\mathbf a$ |
 | $\Delta_h$ | five-point discrete Laplacian on a square grid of spacing $h$ |
 | $r$, $C$ | mesh ratio $\kappa\tau/\Delta x^2$ and Courant number $c\tau/\Delta x$ of a finite-difference scheme with steps $\tau$, $\Delta x$ |
+| $F_{\mathbf x}$, $F_z$, $F_{\mathbf p}$ | gradients and partial derivative of $F(\mathbf x, z, \mathbf p)$ in a first-order equation $F(\mathbf x, u, \nabla u) = 0$, whose characteristic strips are curves $(\mathbf x(s), z(s), \mathbf p(s))$ |
+| $\mathbf X(t, \mathbf y)$, $J$ | position at time $t$ of the point that starts at $\mathbf y$ in the motion $\dot{\mathbf x} = \mathbf v(t, \mathbf x)$; its Jacobian determinant $\det\partial_{\mathbf y}\mathbf X$ |
+| $t_b$ | breaking time $-1/\inf u_0'$ of Burgers' equation $u_t + uu_x = 0$ with $u(0, \cdot) = u_0$ |
+| $u^\mp$ | values of a piecewise smooth function just left and right of a shock curve |
 | $\partial_i$ | partial derivative $\partial/\partial x^i$ |
 | $u_x$, $u_y$, $u_{xy}$ | partial derivatives $\partial_xu$, $\partial_yu$, $\partial_y\partial_xu$ of a function of $(x, y)$, written as subscripts |
 | $f'(z)$ | complex derivative of a function of a complex variable |
@@ -109,8 +119,19 @@
 | $\text{Ш}$ | Dirac comb $\sum_{n \in \mathbb Z}\delta(x - 2\pi n)$ |
 | $\operatorname{Pf}$ | finite part, as in $\operatorname{Pf}\frac{1}{x^2} = -\bigl(\operatorname{PV}\frac1x\bigr)'$ |
 | $x_+$ | positive part $\max(x, 0)$ |
-| $L^p(\Omega)$ | Lebesgue spaces |
+| $L^p(\Omega)$ | $L^p$ spaces; in Fundamentals of Mathematics for Physicists, $L^p[a, b]$ and $L^p(\mathbb R)$ are the completions of $C[a, b]$ and $C_c(\mathbb R)$ in $\lVert\cdot\rVert_p$ |
 | $\ell^p$ | sequence spaces |
+| $\lVert a\rVert_p$, $\lVert f\rVert_p$, $\lVert\cdot\rVert_\infty$ | $p$-norm $(\sum\lvert a_k\rvert^p)^{1/p}$ of a sequence or $(\int\lvert f\rvert^p)^{1/p}$ of a function; supremum norm |
+| $c_{00}$, $c_0$, $c$ | finitely supported, null and convergent sequences |
+| $\delta^{(n)}$ | the sequence with $1$ in place $n$ and $0$ elsewhere |
+| $C(K)$, $C_0(\mathbb R^n)$, $C_c(\mathbb R^n)$ | continuous functions on a compact space with $\lVert\cdot\rVert_\infty$; continuous functions vanishing at infinity; vanishing outside a bounded set |
+| $PC[a, b]$ | piecewise continuous functions: bounded and continuous except at finitely many points |
+| $[f]$ | element of $L^p$ defined by a piecewise continuous or integrably singular function $f$ |
+| $\tilde X$, $\tilde T$ | completion of a normed space $X$; extension of a bounded map $T$ to it |
+| $X^*$, $X^{**}$, $J$ | continuous dual and bidual of a normed space; canonical map $(Jx)(\varphi) = \varphi(x)$ |
+| $\operatorname{dist}(x, Z)$ | distance $\inf_{z \in Z}\lVert x - z\rVert$ from a point to a subset of a normed space |
+| $D(T)$, $\Gamma(T)$, $\lVert x\rVert_T$ | domain, graph $\{(x, Tx)\}$ and graph norm $\lVert x\rVert + \lVert Tx\rVert$ of a linear operator (not the Gamma function) |
+| $B_nf$, $\omega_f(\delta)$ | Bernstein polynomial $\sum_k f(k/n)\binom nk x^k(1 - x)^{n-k}$; modulus of continuity |
 | $H^s$ | Sobolev spaces |
 | $\mathcal H$ | Hilbert space |
 | $\mathcal H_k$ | reproducing-kernel Hilbert space of a kernel $k$ |

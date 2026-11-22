@@ -51,10 +51,10 @@ sources).
 | 16 Series solutions of ODEs | Frobenius method | covered | differential-equations `sec-sturm-liouville` | |
 | 17 Eigenfunction methods | Sturm-Liouville theory, orthogonal functions | covered | differential-equations `sec-sturm-liouville` | |
 | 18 Special functions | Legendre, Bessel, spherical harmonics, Gamma, Beta | covered | differential-equations `sec-sturm-liouville`; fourier-analysis `sec-harmonic-analysis`; complex-analysis `sec-analytic-continuation` | |
-| 18 Special functions | Hermite, Laguerre, Chebyshev, hypergeometric and confluent hypergeometric functions | section gap | differential-equations | Hermite and Laguerre are used by quantum-mechanics in the physics tutorial; no statements here. |
+| 18 Special functions | Hermite, Laguerre, Chebyshev, hypergeometric and confluent hypergeometric functions | covered | differential-equations `sec-special-functions` | done (sec-special-functions); Hermite and Laguerre are used by quantum-mechanics in the physics tutorial. |
 | 19 Quantum operators | Operator algebra, commutators, ladder operators | covered | hilbert-spaces-operators `sec-bounded-operators`, `sec-unbounded-operators`; lie-groups-algebras `sec-lie-representations` | |
 | 20 PDEs: general and particular solutions | Classification, second-order equations | covered | differential-equations `sec-pdes` | |
-| 20 PDEs: general and particular solutions | First-order PDEs and the method of characteristics | section gap | differential-equations | Characteristics named only for the wave equation. |
+| 20 PDEs: general and particular solutions | First-order PDEs and the method of characteristics | covered | differential-equations `sec-characteristics` | done (sec-characteristics). |
 | 21 PDEs: separation of variables and other methods | Separation of variables, Green's functions | covered | differential-equations `sec-pdes`, `sec-greens-functions` | |
 | 22 Calculus of variations | Euler-Lagrange equation, constraints, Rayleigh-Ritz | proposed chapter | calculus-of-variations | No statement in this tutorial; the physics tutorial's classical-mechanics states the Euler-Lagrange equations for particles only. |
 | 23 Integral equations | Fredholm equations, separable kernels, Neumann series | covered | hilbert-spaces-operators `sec-fredholm-operators`, `sec-banach-algebras` | |
@@ -118,7 +118,7 @@ sources).
 | 7 Lie groups | Lie groups, homomorphisms, covering groups, actions | covered | lie-groups-algebras `sec-lie-groups-algebras` | |
 | 8 Vector fields | Vector fields, brackets, Lie algebra of a Lie group | covered | differential-geometry `sec-vector-fields-forms-tensors`; lie-groups-algebras `sec-lie-groups-algebras` | |
 | 9 Integral curves and flows | Flows, Lie derivative | covered | differential-geometry `sec-flows-killing` | |
-| 9 Integral curves and flows | First-order PDEs | section gap | differential-equations | Same gap as Riley ch. 20. |
+| 9 Integral curves and flows | First-order PDEs | covered | differential-equations `sec-characteristics` | done (sec-characteristics). |
 | 10 Vector bundles | Vector bundles, sections, fibre bundles | covered | homogeneous-spaces-bundles `sec-fibre-bundles` | |
 | 11 The cotangent bundle | Covectors, differentials, pullbacks | covered | differential-geometry `sec-vector-fields-forms-tensors` | |
 | 11 The cotangent bundle | Line integrals, conservative covector fields | section gap | differential-geometry (with integration) | |
@@ -231,8 +231,8 @@ sources).
 | real-analysis | Inverse and implicit function theorems; constrained extrema and Lagrange multipliers | Lee App. C; Riley ch. 5 | done (sec-inverse-implicit) |
 | real-analysis | Vector calculus: grad, div, curl, curvilinear coordinates, line and surface integrals, the classical integral theorems | Riley ch. 10-11; Lee ch. 11, 16 | done (sec-vector-calculus) |
 | complex-analysis | Asymptotic evaluation of integrals: steepest descent, stationary phase | Riley ch. 25 | done (sec-asymptotics) |
-| differential-equations | Further special functions: Hermite, Laguerre and Chebyshev polynomials, hypergeometric and confluent hypergeometric functions | Riley ch. 18; Zhu WBI8MVKP ch. 7 (supplement) | open |
-| differential-equations | First-order PDEs and the method of characteristics | Riley ch. 20; Lee ch. 9; Rudolph I.12.2 | open |
+| differential-equations | Further special functions: Hermite, Laguerre and Chebyshev polynomials, hypergeometric and confluent hypergeometric functions | Riley ch. 18; Zhu WBI8MVKP ch. 7 (supplement) | done (sec-special-functions) |
+| differential-equations | First-order PDEs and the method of characteristics | Riley ch. 20; Lee ch. 9; Rudolph I.12.2 | done (sec-characteristics) |
 | fourier-analysis | The Laplace transform and its inversion | Riley ch. 13, 25 | done (sec-laplace-transform) |
 | differential-geometry | Submanifolds, immersions, submersions and the rank theorem | Lee ch. 4-5; Rudolph I.1.6 | open |
 | differential-geometry | Orientation and integration on manifolds: partitions of unity, manifolds with boundary, integrals of forms, line integrals (Stokes' theorem is already stated) | Lee ch. 1, 2, 11, 15, 16; Keski-Vakkuri §4.4.4; Rudolph I.4.2 | open |
