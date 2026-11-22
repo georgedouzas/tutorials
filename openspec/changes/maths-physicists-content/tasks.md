@@ -53,7 +53,7 @@ one `##` section per agent run.
 - [x] 4.8 Probability.
 - [ ] 4.9 Differential geometry (by section; gaps: submanifolds and the rank theorem; orientation and integration;
   Hodge star and codifferential; Frobenius; symplectic forms).
-- [ ] 4.10 Group theory (gaps: characters and the regular representation; the symmetric group, cycle types, Young
+- [x] 4.10 Group theory (gaps: characters and the regular representation; the symmetric group, cycle types, Young
   diagrams).
 - [ ] 4.11 Lie groups and algebras (by section; gaps: Casimirs and the Dynkin index; Dynkin diagrams and su(N);
   Young tableaux; the Lorentz and Poincaré groups).
