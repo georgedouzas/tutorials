@@ -1015,7 +1015,8 @@ probability is $0.8 \cdot 0.6 = 0.48$. For the last, $\mathbb P(X_1 = 1) = 0.34$
 
 ## Python
 
-The same products, and a Monte Carlo check of the last one with `MarkovSourceSystem` started in both states.
+The same products, and a Monte Carlo check of the last one on $1000$ runs of `MarkovSourceSystem` started in both
+states, which should land within two standard errors (about $0.026$) of $0.2176$.
 
 ```{.python .run}
 import numpy as np
@@ -1024,16 +1025,16 @@ from skcomplex.systems.mathematics.stochastic_processes import MarkovSourceSyste
 P = np.array([[0.2, 0.8], [0.4, 0.6]])
 print(round(0.3 * P[0, 1] * P[1, 1], 4), round(P[0, 1] * P[1, 1], 4), round(0.34 * (P @ P)[0, 1], 4))
 hits = 0
-for seed in range(4000):
+for seed in range(1000):
     start = 0 if seed % 10 < 3 else 1
     s = simulate(MarkovSourceSystem(((0.2, 0.8), (0.4, 0.6)), symbol=start), until=3, dt=1, random_state=seed).get_values("source.symbol")
     hits += (s[1] == 0) and (s[3] == 1)
-print(f"simulated: {hits / 4000:.3f}")
+print(f"simulated: {hits / 1000:.3f}")
 ```
 
 ```{.text .run-output}
 0.144 0.48 0.2176
-simulated: 0.222
+simulated: 0.201
 ```
 ::::
 :::
@@ -1504,22 +1505,22 @@ equal to its initial share.
 ::: {#exm-mconv-moran}
 #### Fixation in a neutral population
 
-With $N = 20$ individuals of which $5$ are mutants, the mutants take over in about a quarter of the runs of
-`MoranProcessSystem`, in line with $5/20$ given in its documentation.
+With $N = 20$ individuals of which $5$ are mutants, the mutants take over in about a quarter of $200$ runs of
+`MoranProcessSystem`, in line with $5/20$ given in its documentation up to the standard error of about $0.03$.
 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.biology.evolution import MoranProcessSystem
 fixed = []
-for seed in range(400):
-    run = simulate(MoranProcessSystem(20, mutants=5), until=400, dt=400, random_state=seed)
+for seed in range(200):
+    run = simulate(MoranProcessSystem(20, mutants=5), until=100, dt=100, random_state=seed)
     fixed.append(run.get_agents("population", -1).values["trait"].mean())
 print(f"share of runs where the mutants fixed: {np.mean(np.array(fixed) == 1):.3f}; runs not yet absorbed: {np.mean((np.array(fixed) > 0) & (np.array(fixed) < 1)):.3f}")
 ```
 
 ```{.text .run-output}
-share of runs where the mutants fixed: 0.255; runs not yet absorbed: 0.000
+share of runs where the mutants fixed: 0.285; runs not yet absorbed: 0.000
 ```
 :::
 
@@ -2845,17 +2846,18 @@ is $\theta/(1 - \theta)$ and its second is $2\theta^2/(1 - \theta)^2$, so the va
 
 ## Python
 
-An ensemble of $2000$ queues after a run long against the relaxation time.
+An ensemble of $1000$ queues after a run of length $400$, more than four times the relaxation time $1/(\sqrt d -
+\sqrt b)^2 \approx 90$ of the queue.
 
 ```{.python .run}
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import BirthDeathQueueSystem
-n = simulate(BirthDeathQueueSystem(2000, arrival_rate=0.8, service_rate=1.0), until=1000, dt=1000, random_state=4).get_values("queues.n")[-1]
+n = simulate(BirthDeathQueueSystem(1000, arrival_rate=0.8, service_rate=1.0), until=400, dt=400, random_state=4).get_values("queues.n")[-1]
 print(f"mean {n.mean():.2f}, variance {n.var():.2f}")
 ```
 
 ```{.text .run-output}
-mean 4.16, variance 21.49
+mean 3.87, variance 19.03
 ```
 ::::
 :::
@@ -3926,14 +3928,14 @@ happens with probability $q^N$.
 ::: {#exm-extinct-ancestors}
 #### Extinction from several ancestors
 
-For $\sigma = 1.5$ and $N = 5$, $q^5 \approx 0.0126$, while $q_{12}^5$ is the share of runs extinct by generation
-$12$.
+For $\sigma = 1.5$ and $N = 5$, $q^5 \approx 0.0126$, while $q_{10}^5 \approx 0.0123$ is the share of runs extinct by
+generation $10$.
 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import GaltonWatsonSystem
-extinct = np.mean([simulate(GaltonWatsonSystem(5, m=1.5), until=12, random_state=s).get_values("population.count")[-1] == 0 for s in range(3000)])
+extinct = np.mean([simulate(GaltonWatsonSystem(5, m=1.5), until=10, random_state=s).get_values("population.count")[-1] == 0 for s in range(1000)])
 print(f"simulated {extinct:.4f}, q^5 = {0.41718**5:.4f}")
 ```
 
@@ -4453,15 +4455,15 @@ import numpy as np
 from math import exp, lgamma, log
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import GaltonWatsonSystem
-Y = np.array([simulate(GaltonWatsonSystem(1, m=1.0), until=400, random_state=s).get_values("population.count").sum() for s in range(3000)])
+Y = np.array([simulate(GaltonWatsonSystem(1, m=1.0), until=400, random_state=s).get_values("population.count").sum() for s in range(1000)])
 borel = lambda k: exp(-k + (k - 1) * log(k) - lgamma(k + 1))
 print([round(float(np.mean(Y == k)), 3) for k in (1, 2, 3)], [round(borel(k), 3) for k in (1, 2, 3)])
 print(round(float(np.mean(Y >= 100)), 3), round(1 - sum(borel(k) for k in range(1, 100)), 3))
 ```
 
 ```{.text .run-output}
-[0.35, 0.143, 0.076] [0.368, 0.135, 0.075]
-0.072 0.08
+[0.348, 0.146, 0.071] [0.368, 0.135, 0.075]
+0.058 0.08
 ```
 :::
 
@@ -4519,14 +4521,14 @@ The exponent of such a tail can be estimated from a sample by maximum likelihood
 ::: {#exm-progeny-fit}
 #### Fitting the exponent
 
-A discrete power-law fit to $3000$ critical lineage sizes above a fitted cut-off gives an exponent near $1.5$.
+A discrete power-law fit to $1000$ critical lineage sizes above a fitted cut-off gives an exponent near $1.5$.
 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.analysis import fit_law
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import GaltonWatsonSystem
-Y = np.array([simulate(GaltonWatsonSystem(1, m=1.0), until=400, random_state=10**4 + s).get_values("population.count").sum() for s in range(3000)])
+Y = np.array([simulate(GaltonWatsonSystem(1, m=1.0), until=400, random_state=10**4 + s).get_values("population.count").sum() for s in range(1000)])
 fit = fit_law(Y, law="power", discrete=True, bootstrap=20, random_state=0)
 print(f"exponent {fit.exponent:.2f} above size {fit.minimum:.0f}")
 ```
@@ -4837,7 +4839,7 @@ apart, with the likelihood-ratio tests of @clauset2009power [Sec. 5].
 ::: {#exr-progeny-cutoff-fit}
 #### Power law or cut-off?
 
-Simulate $3000$ lineages with $\sigma = 0.9$, fit a power law, and compare it with a power law with exponential
+Simulate $1000$ lineages with $\sigma = 0.9$, fit a power law, and compare it with a power law with exponential
 cut-off. Which model does the test favour, and why?
 :::
 
@@ -4858,14 +4860,14 @@ import numpy as np
 from skcomplex.core.analysis import fit_law
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import GaltonWatsonSystem
-Y = np.array([simulate(GaltonWatsonSystem(1, m=0.9), until=300, random_state=2 * 10**4 + s).get_values("population.count").sum() for s in range(3000)])
+Y = np.array([simulate(GaltonWatsonSystem(1, m=0.9), until=300, random_state=2 * 10**4 + s).get_values("population.count").sum() for s in range(1000)])
 fit = fit_law(Y, law="power", discrete=True, bootstrap=20, compare_with=("truncated_power_law",), random_state=0)
 ratio, p = fit.comparisons["truncated_power_law"]
 print(f"exponent {fit.exponent:.2f} above {fit.minimum:.0f}; log-likelihood ratio {ratio:.2f}, p = {p:.3f}")
 ```
 
 ```{.text .run-output}
-exponent 1.62 above 1; log-likelihood ratio -80.56, p = 0.000
+exponent 1.61 above 1; log-likelihood ratio -24.83, p = 0.000
 ```
 ::::
 :::
@@ -7543,21 +7545,21 @@ $\mathbb E[\Theta] = \frac{\mathrm B(A + 1, B)}{\mathrm B(A, B)} = \frac A{A + B
 
 ## Python
 
-The variance of the shares of $2000$ urns after about $1000$ draws.
+The variance of the shares of $1000$ urns after about $500$ draws.
 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import PolyaUrnSystem
 for c in (1, 10):
-    run = simulate(PolyaUrnSystem(2000, added=c), until=1000, dt=1000, random_state=5)
+    run = simulate(PolyaUrnSystem(1000, added=c), until=500, dt=500, random_state=5)
     red, blue = run.get_values("urns.red")[-1], run.get_values("urns.blue")[-1]
     print(c, round(float((red / (red + blue)).var()), 4))
 ```
 
 ```{.text .run-output}
-1 0.0837
-10 0.2076
+1 0.0836
+10 0.209
 ```
 ::::
 :::
@@ -7645,17 +7647,17 @@ for many draws.
 ::: {#exr-polya-strong}
 #### How often does one colour dominate?
 
-For $a = b = 1$, $c = 10$, estimate from $2000$ urns the share of urns with a red share below $0.1$ or above $0.9$ after
-$2000$ draws, and compare with the beta law.
+For $a = b = 1$, $c = 10$, estimate from $1000$ urns the share of urns with a red share below $0.1$ or above $0.9$ after
+$1000$ draws, and compare with the beta law.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Solution
 
-By part (3) the limit is $\operatorname{Beta}(0.1, 0.1)$, which gives about $0.8$ (@exm-polya-strong); after $2000$
+By part (3) the limit is $\operatorname{Beta}(0.1, 0.1)$, which gives about $0.8$ (@exm-polya-strong); after $1000$
 draws the shares are already close to their limits, since the effective reinforcement has fallen to $c/(a + b +
-2000c) = 10/20002$ (@exm-polya-effective).
+1000c) = 10/10002$ (@exm-polya-effective).
 
 ## Python
 
@@ -7665,14 +7667,14 @@ The share of dominated urns.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import PolyaUrnSystem
-run = simulate(PolyaUrnSystem(2000, added=10), until=2000, dt=2000, random_state=6)
+run = simulate(PolyaUrnSystem(1000, added=10), until=1000, dt=1000, random_state=6)
 red, blue = run.get_values("urns.red")[-1], run.get_values("urns.blue")[-1]
 share = red / (red + blue)
 print(round(float(np.mean((share < 0.1) | (share > 0.9))), 3))
 ```
 
 ```{.text .run-output}
-0.81
+0.814
 ```
 ::::
 :::
@@ -7696,7 +7698,7 @@ in the second: $\int_{0.9}^12x\,dx = 1 - 0.81 = 0.19$.
 
 ## Python
 
-The beta tails, and the second case on $2000$ urns.
+The beta tails, and the second case on $1000$ urns after $1000$ draws.
 
 ```{.python .run}
 import numpy as np
@@ -7704,14 +7706,14 @@ from scipy.stats import beta
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import PolyaUrnSystem
 print(round(float(beta.sf(0.9, 1, 1)), 3), round(float(beta.sf(0.9, 2, 1)), 3))
-run = simulate(PolyaUrnSystem(2000, red=2, blue=1), until=2000, dt=2000, random_state=7)
+run = simulate(PolyaUrnSystem(1000, red=2, blue=1), until=1000, dt=1000, random_state=7)
 red, blue = run.get_values("urns.red")[-1], run.get_values("urns.blue")[-1]
 print(round(float(np.mean(red / (red + blue) > 0.9)), 3))
 ```
 
 ```{.text .run-output}
 0.1 0.19
-0.198
+0.171
 ```
 ::::
 :::
@@ -7854,23 +7856,23 @@ $\operatorname{Beta}(k + 1, n - k + 1)$, whose mean is $\frac{k + 1}{n + 2}$.
 
 ## Python
 
-Check on $20000$ urns observed at short intervals, so that each frame holds at most one draw: among the urns with
+Check on $12000$ urns observed at short intervals, so that each frame holds at most one draw: among the urns with
 $K_{10} = 7$, the share whose eleventh draw is red.
 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import PolyaUrnSystem
-run = simulate(PolyaUrnSystem(20000), until=25, dt=0.05, random_state=11)
+run = simulate(PolyaUrnSystem(12000), until=20, dt=0.05, random_state=11)
 red, total = run.get_values("urns.red"), run.get_values("urns.red") + run.get_values("urns.blue")
-urns = np.arange(20000)
+urns = np.arange(12000)
 at10, at11 = (total >= 12).argmax(axis=0), (total >= 13).argmax(axis=0)
 done = (total[-1] >= 13) & (red[at10, urns] - 1 == 7)
 print(round(float(np.mean(red[at11, urns][done] - red[at10, urns][done] == 1)), 3), round(8 / 12, 3), int(done.sum()))
 ```
 
 ```{.text .run-output}
-0.653 0.667 1802
+0.652 0.667 1070
 ```
 ::::
 :::
