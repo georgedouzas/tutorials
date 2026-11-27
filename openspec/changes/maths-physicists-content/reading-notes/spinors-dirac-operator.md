@@ -153,3 +153,36 @@ spin-3 (rudolph2017differential PDF 414-427) or are existing citations kept from
   def-spherical-harmonic (2), (6), thm-heat-trace-asymptotics (2), (3) (scalar Laplacians of T^2 and S^2 only), thm-chc-gauss-bonnet,
   def-zeta-regularisation. The trivialised form D = -iXK of the sphere operator, the trace argument for the S^2 multiplicities, and the
   frame-free proof of the Lichnerowicz formula are standard material written here without a textbook page read in this run.
+
+# Run spin-5 (task 4.14): sec-dirac-compact-spaces, and the sec-dirac-spheres citation check
+
+Zotero MCP was down; PDFs were read with pdftotext from ~/Zotero/storage (read-only).
+
+## Citation check for sec-dirac-spheres (followups item resolved)
+
+- trautman1995 (PDF "The Dirac operator on hypersurfaces", Sec. 8.1 and Prop. 8, journal pp. 1305-1308): spin-orbit operator, (D - m/2)(D + m/2 - 1) + Delta = 0,
+  spectrum +-(l + m/2) with multiplicity 2^nu binom(m+l-1, l); Sec. 8.2 projective spaces. Matches.
+- camporesi1995: eq. (3.9) (spin connection and Dirac operator), (3.10) (polar form on S^N), (3.44), (3.58) (degeneracies), (5.34) (spinor representations of
+  Spin(N+1)), (5.35) (D^2 = sum nabla nabla - R/4 in their sign), (5.44)-(5.48) (Casimirs, lambda^2 = (n + N/2)^2). The citation eqs. (3.9)-(3.10) in def-dirac-operator
+  was narrowed to eq. (3.9).
+- dolan2003: eq. (2) (iD with spin and gauge connection), eq. (5) (Lichnerowicz with Zeeman term), after eq. (26) (no zero modes for M = 0 by Lichnerowicz), after eq.
+  (32) (|M| = 1: gauge connection cancels the spin connection). Matches.
+- hull2005: Sec. 3.1, eqs. (3.1)-(3.2) (twisted reduction psi(x, y) = gamma_y[psi], gamma = exp(My)). Matches.
+
+## sec-dirac-compact-spaces
+
+- dolan2003 eqs. (13)-(16) (Laplacian as a difference of Casimirs, C2(H, T) = R/8, eq. (16)), (28)-(31) (monopole spectrum and |M| zero modes), (36)-(37), (43) (SO(5)
+  Casimirs, S^4), (59), (67) (nearly-Kahler), (69)-(70) (flag manifold charges) -> thm-parthasarathy (3) (quoted), exm-dcs-parthasarathy-monopole, exr-spd-s4-casimirs,
+  exm-spd-nearly-kahler, exr-spd-flag-restriction.
+- camporesi1995 eqs. (5.3), (5.34), (5.44)-(5.48) -> def-homogeneous-spinor-bundle, thm-frobenius-reciprocity, exm-spd-sn-frobenius, exm-spd-parthasarathy-sn,
+  exr-dcs-freudenthal.
+- trautman1995 Sec. 8.2 (RP^3) -> prp-s3-dirac (4), exm-dcs-rp3-bottom, exr-spd-rp3-spectrum.
+- aspinwall1996 Sec. 2.2 (holonomy: U(d/2) iff Kahler, SU(d/2) iff Ricci-flat Kahler), Sec. 2.6 (orbifolds), Sec. 4.1, eq. (89) (K3: 16 -> (4,2,1) + (4,1,2))
+  -> prp-calabi-yau-spinors (2) (quoted), def-orbifold-projection (4), exm-spd-t4-k3.
+- greene1997 Secs. 2.8-2.13 (holonomy, Dolbeault cohomology, Calabi-Yau manifolds, invariants; table of contents and section headings read) -> def-dolbeault-dirac (3)
+  (quoted), prp-calabi-yau-spinors (2).
+- rudolph2017differential Ex. 5.4.9 (S^4 = Sp(2)/(Sp(1) x Sp(1)) spin structure), Ex. 5.4.19 (canonical spin-c structure from a U(k) reduction), read in run spin-3 ->
+  exm-dcs-s4-coset, def-dolbeault-dirac (3).
+- Proved here without a textbook source: the left-invariant Dirac operator and its curvature from structure constants, the SU(2) spectrum by Peter-Weyl, the frame
+  and spin-structure description of homogeneous spinor bundles, Frobenius reciprocity by averaging over R, the spinor Casimir n(n-1)/8, D^2 = C2 + R/8 on S^2, the flat
+  Dolbeault identification on C, the SU(m)-invariant spinor count by weights, and the commutation of lifted isometries with D.
