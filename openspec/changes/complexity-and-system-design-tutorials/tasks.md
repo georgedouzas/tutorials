@@ -138,12 +138,12 @@
   `reading-notes/system-design.md`; added to `_raised.txt`, "planned" badge removed. Fan-out amplification, mapped to
   performance-and-queueing §1 by the coverage record, is proved here (§5) and should be recalled there. Gates passed:
   checker `--run --figures`, harvest, render.
-- [ ] 5.3 The owner reviews both pilots. Fold the decisions into design.md and the template notes before the
+- [x] 5.3 The owner reviews both pilots. Fold the decisions into design.md and the template notes before the
   remaining chapters start.
   - [x] Complexity Science: pilot approved as written (2026-11-22): "complex system" in the strict co-evolution
     sense with the wider usage flagged in prose; a short annotated References section with locators closes every
     chapter.
-  - [ ] System Design.
+  - [x] System Design: pilot approved as written (2026-11-27, "go with system design"); chapters 2-14 start.
 
 ## 6. Remaining chapters (C2, C8)
 
