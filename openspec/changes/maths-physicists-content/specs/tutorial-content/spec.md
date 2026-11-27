@@ -4,20 +4,26 @@
 
 Each definition, theorem and proposition SHALL be followed by at least three examples of increasing complexity
 and at least three exercises of increasing difficulty with collapsed solutions; examples SHALL include a figure
-or plot where the object can be drawn and an interactive figure where feasible. Three is a minimum, not a target: a
-central notion, one with several standard cases, or one for which a textbook offers good problems SHALL get more
-(design D21, D32).
-
-In Fundamentals of Mathematics for Physicists every definition, theorem, lemma, proposition and corollary SHALL
-have exactly ten examples and exactly ten exercises. This applies to every chapter listed in the tutorial's
-`_raised.txt`, and to every statement added after this change wherever it is. Every chapter of the tutorial SHALL be
-listed in `_raised.txt` once this change is complete. A statement that cannot support ten good examples or exercises
-SHALL be recorded as an exception with its reason, and SHALL have between three and ten of each.
+or plot where the object can be drawn and an interactive figure where feasible (design D21, D32). In Fundamentals of
+Mathematics for Physicists every definition, theorem, lemma, proposition and corollary SHALL have exactly ten
+examples and exactly ten exercises.
 
 #### Scenario: Definition inspected
 - **WHEN** the checker inspects a `def-`, `thm-` or `prp-` block
 - **THEN** at least three `exm-` blocks and at least three `exr-` blocks with solution callouts follow it before
   the next definition, theorem or proposition
+
+#### Scenario: Three is a minimum, not a target
+- **WHEN** a statement is a central notion, has several standard cases, or has a textbook that offers good problems
+- **THEN** it gets more than three examples and more than three exercises
+
+#### Scenario: Where the ten-and-ten rule applies
+- **WHEN** a statement of Fundamentals of Mathematics for Physicists is in a chapter listed in the tutorial's `_raised.txt`, or is added after this change in any chapter
+- **THEN** it has exactly ten examples and exactly ten exercises, unless it is a recorded exception
+
+#### Scenario: A statement that cannot support ten
+- **WHEN** a statement of Fundamentals of Mathematics for Physicists cannot support ten good examples or ten good exercises
+- **THEN** it is recorded as an exception with its reason, and has between three and ten examples and between three and ten exercises
 
 #### Scenario: Statement in a raised chapter of the mathematics tutorial
 - **WHEN** the content checker inspects a `def-`, `thm-`, `lem-`, `prp-` or `cor-` block in a chapter of Fundamentals of Mathematics for Physicists that is listed as raised
@@ -25,7 +31,7 @@ SHALL be recorded as an exception with its reason, and SHALL have between three 
 
 #### Scenario: Mathematics tutorial complete
 - **WHEN** this change is complete
-- **THEN** every chapter of Fundamentals of Mathematics for Physicists is listed as raised, and the content checker reports nothing missing for it
+- **THEN** every chapter of Fundamentals of Mathematics for Physicists is listed in `_raised.txt`, and the content checker reports nothing missing for it
 
 #### Scenario: Graded examples
 - **WHEN** a reader opens the Examples fold of a statement in a raised chapter
@@ -38,12 +44,9 @@ SHALL be recorded as an exception with its reason, and SHALL have between three 
 ### Requirement: Chapters contain exercises with folded solutions
 Each chapter SHALL contain exercises that ask the reader to compute something related to the chapter's results,
 each followed by a solution that is collapsed by default and gives the derivation theoretically, as a Sage
-computation, as a Lean statement and proof, or in all three forms.
-
-In Fundamentals of Mathematics for Physicists every exercise solution SHALL have two forms, shown as two tabs of the
-solution: **Proof**, the theoretical solution, and **SageMath**, code with the output it actually produced. The
-SageMath tab SHALL look different from the Proof tab and be labelled as SageMath. When the exercise asks for a proof,
-the SageMath tab SHALL check the claim on a concrete case and say that it is a check, not a proof.
+computation, as a Lean statement and proof, or in all three forms. In Fundamentals of Mathematics for Physicists
+every exercise solution SHALL have two tabs: **Proof**, the theoretical solution, and **SageMath**, code with the
+output it actually produced.
 
 #### Scenario: Reader attempts an exercise
 - **WHEN** a reader reaches an exercise
@@ -53,9 +56,13 @@ the SageMath tab SHALL check the claim on a concrete case and say that it is a c
 - **WHEN** a reader expands the solution of an exercise in a raised chapter of Fundamentals of Mathematics for Physicists
 - **THEN** it shows a Proof tab, open first, with the complete theoretical solution, and a SageMath tab of a different colour with the code and its output
 
+#### Scenario: The SageMath tab is distinct
+- **WHEN** a reader looks at the two tabs of a solution in Fundamentals of Mathematics for Physicists
+- **THEN** the SageMath tab looks different from the Proof tab and is labelled as SageMath
+
 #### Scenario: A proof exercise
-- **WHEN** an exercise asks the reader to prove a statement
-- **THEN** its SageMath tab verifies the statement on a named concrete instance and says it checks that instance only
+- **WHEN** an exercise of Fundamentals of Mathematics for Physicists asks the reader to prove a statement
+- **THEN** its SageMath tab checks the claim on a named concrete instance and says it is a check of that instance, not a proof
 
 #### Scenario: A Sage solution is given
 - **WHEN** an exercise's solution includes Sage code
@@ -68,16 +75,17 @@ the SageMath tab SHALL check the claim on a concrete case and say that it is a c
 ### Requirement: Every chapter uses the textbooks mapped to it
 Every chapter SHALL use the textbook sections that the reading notes map to it, for content, examples and exercises,
 cited at the point of use with section and problem numbers; a mapped section that turns out not to fit SHALL be
-recorded in the note with the reason (design T1-T3).
-
-New examples and exercises in Fundamentals of Mathematics for Physicists SHALL come first from the textbooks in the
-Zotero library mapped to the chapter. They SHALL be rewritten in the site notation and the tutorial's voice, and an
-adapted one SHALL cite its textbook with the example or problem number.
+recorded in the note with the reason (design T1-T3). New examples and exercises in Fundamentals of Mathematics for
+Physicists SHALL come first from the textbooks in the Zotero library mapped to the chapter.
 
 #### Scenario: A chapter written before the textbook rule
 - **WHEN** a reading note maps a textbook chapter to a book chapter written before the rule
 - **THEN** the book chapter cites that textbook for added material, and the note lists the sections and problems used,
   or records why a mapped section was not used
+
+#### Scenario: A textbook example or problem is adapted
+- **WHEN** an example or exercise of Fundamentals of Mathematics for Physicists is taken from a mapped textbook
+- **THEN** it is rewritten in the site notation and the tutorial's voice, and cites its textbook with the example or problem number
 
 #### Scenario: An adapted problem
 - **WHEN** an exercise of a raised chapter is adapted from a textbook problem

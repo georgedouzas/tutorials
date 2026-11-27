@@ -5,9 +5,7 @@ Each figure in the tutorial SHALL be produced by a committed script, and running
 figure file. The tutorial SHALL NOT embed hand-drawn or externally sourced images.
 
 In Fundamentals of Mathematics for Physicists the script SHALL be a SageMath script saved next to the figure as
-`figures/<name>.sage` in the chapter's folder. It writes the static image and, for a surface, a vector field, an orbit
-or a potential, the interactive version in `figures/interactive/`. The scripts are kept in the repo but are not
-published as pages.
+`figures/<name>.sage` in the chapter's folder.
 
 #### Scenario: Figure regeneration
 - **WHEN** a figure's generating script is run on a clean checkout
@@ -16,6 +14,18 @@ published as pages.
 #### Scenario: Image without a script
 - **WHEN** the document references an image file that no committed script produces
 - **THEN** the content checker fails and names the image
+
+#### Scenario: A SageMath figure script in the mathematics tutorial
+- **WHEN** a chapter of Fundamentals of Mathematics for Physicists has a figure `figures/<name>.svg`
+- **THEN** a SageMath script `figures/<name>.sage` in the same chapter folder writes the static image
+
+#### Scenario: An interactive figure in the mathematics tutorial
+- **WHEN** a figure script of Fundamentals of Mathematics for Physicists draws a surface, a vector field, an orbit or a potential
+- **THEN** it also writes the interactive version in the chapter's `figures/interactive/`
+
+#### Scenario: Figure scripts are not pages
+- **WHEN** the site is rendered
+- **THEN** the `.sage` figure scripts stay committed in the repo and none is published as a page
 
 #### Scenario: Re-running every figure of a chapter
 - **WHEN** the content checker re-runs the figure scripts of a raised chapter of the mathematics tutorial
