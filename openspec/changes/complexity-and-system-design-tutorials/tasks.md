@@ -41,8 +41,12 @@
 - [x] 3.1 Complexity Science: write `openspec/coverage/complexity-science.md`, with the benchmarks, tables of contents
   read from the PDFs, the mapping to the proposed chapters, and the gaps classified as proposed chapters or section
   gaps. Verify: every benchmark chapter is mapped or classified.
-- [ ] 3.2 System Design: write `openspec/coverage/system-design.md` the same way, including the classic papers as
+- [x] 3.2 System Design: write `openspec/coverage/system-design.md` the same way, including the classic papers as
   section sources. Verify as in 3.1.
+  Done 2026-11-27: benchmarks Xu vol. 1, Tan, Sinha-Chopra and Liu (TOCs from the PDFs); van Steen-Tanenbaum and the
+  SRE book listed as metadata only; the four architecture books and the 13 classic papers mapped as section sources.
+  Every benchmark chapter is mapped or classified. Proposed list of 14 chapters (two new chapters, two splits), awaiting
+  owner approval (task 3.3). Source gaps recorded, chiefly queueing theory.
 - [ ] 3.3 The owner approves the two chapter lists. Record rejected proposals with their reasons, and update the
   chapter-list requirements in this change if the lists differ from the proposal.
   - [x] Complexity Science: approved 2026-11-22, all 17 chapters in the coverage record's order and slugs, none
