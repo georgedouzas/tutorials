@@ -10,7 +10,7 @@ all tutorials. Previous and next links SHALL stay within the tutorial.
 - **THEN** the sidebar is headed by the tutorial's name and lists the notation page, the chapters in reading order and the glossary
 
 ### Requirement: System Design chapters
-The tutorial SHALL contain, written or as placeholders, the 14 chapters that the owner approved on 2026-11-27 in its
+The tutorial SHALL contain, written or as placeholders, the 15 chapters that the owner approved on 2026-11-27 in its
 coverage record (`openspec/coverage/system-design.md`), in that record's reading order.
 
 #### Scenario: Checking the chapter list
@@ -21,8 +21,14 @@ coverage record (`openspec/coverage/system-design.md`), in that record's reading
 - **WHEN** a reader lists the chapters in the sidebar
 - **THEN** they are, in order: estimation and the design process; the web stack; performance and queueing; storage and
   databases; replication and partitioning; consistency and consensus; caching; messaging and event streams;
-  distributed transactions; batch and stream processing; architecture styles; reliability and operations; case
-  studies: infrastructure services; case studies: applications
+  distributed transactions; batch and stream processing; architecture styles; reliability and operations; machine
+  learning, LLM and agent systems; case studies: infrastructure services; case studies: applications
+
+#### Scenario: Reading the ML, LLM and agent systems chapter
+- **WHEN** a reader opens the machine learning, LLM and agent systems chapter
+- **THEN** it treats models as components of a system (training and serving pipelines, LLM inference, retrieval,
+  agent orchestration, and their operation) and links to the machine-learning tutorials for how the models work
+- **AND** its code runs without network access or model weights, using simulations and stub models
 
 ### Requirement: System Design chapters follow the chapter template
 Every written chapter SHALL follow `openspec/templates/chapter.qmd`: ten examples and ten exercises after each

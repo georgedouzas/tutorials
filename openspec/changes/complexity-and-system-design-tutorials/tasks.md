@@ -151,6 +151,13 @@
   the gates of 5.1. Write reading notes to Zotero as each chapter is raised. Verify: every approved chapter is
   written, and `complexity-science` is in `_raised.txt`.
 - [ ] 6.2 Write the remaining System Design chapters the same way. Verify as in 6.1.
+  - [ ] 6.2a Chapter 13, ML, LLM and agent systems (`ml-llm-and-agent-systems`), added by the owner on 2026-11-27,
+    before the case studies. First add its sources to Zotero (C33 Publications, C31 Textbooks), approved the same day:
+    Sculley et al. 2015; Yu et al. 2022 (Orca); Kwon et al. 2023 (vLLM); Pope et al. 2022; Leviathan et al. 2023;
+    Lewis et al. 2020; Malkov and Yashunin 2018; Johnson, Douze and Jegou 2019, all with PDFs; Huyen 2022 and 2025 as
+    metadata-only records; the MCP specification as a web page. Create the placeholder folder and sidebar entry
+    (planned) between reliability-and-operations and case-studies-infrastructure. Verify: the sidebar lists 15
+    chapters in the approved order.
 
 ## 7. Close
 
