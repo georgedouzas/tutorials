@@ -22486,43 +22486,57 @@ twisted (psi(y + 2 pi e_1) = -psi): none, since a constant v = -v forces v = 0: 
 
 ## Twisted Dirac operators and index theorems {#sec-dirac-index}
 
-A gauge field changes the Dirac operator by a potential term and its square by a coupling of the field strength to the
-spin, which can cancel the positive curvature term of the Lichnerowicz formula and create zero modes. Their number,
-counted with chirality, is the index of the operator, a topological invariant given by the Atiyah-Singer index theorem as
-the integral of a characteristic form. This part couples the Dirac operator to gauge fields following @dolan2003 [Sec. 2] and @bilal2008 [Sec. 3.7, 10 and 11], computes the zero modes on the sphere with a monopole by hand, states the index
-theorem with the $\hat A$ genus and the Chern character, and evaluates it on spheres, $K3$ and Calabi-Yau threefolds,
-where it counts generations. The index is the Fredholm index of @def-fredholm-operator, and its invariance under
-deformations is @thm-index-stability; the gauge potentials are those of @def-gauge-potential, anti-Hermitian as in
-@sec-conventions-lie.
+A gauge field changes the Dirac operator by a potential term and its square by a coupling of the field strength to the spin, which can cancel the positive
+curvature term of the Lichnerowicz formula and create zero modes. Their number, counted with chirality, is the index of the operator, a topological invariant
+given by the Atiyah-Singer index theorem as the integral of a characteristic form. This section couples the Dirac operator to gauge fields following @dolan2003 [Sec.
+2] and @bilal2008 [Secs. 3.7, 10 and 11], proves the zero-mode count on the sphere with a monopole by solving the equation, states the index theorem, which is
+not proved here, and proves the cases it can check directly: the torus, the sphere, the sphere with a monopole and the Riemann-Roch count on $\mathbb{CP}^1$. The
+characteristic forms are those of @def-chc-a-hat and @def-chc-chern-character; the index is the Fredholm index of @def-fredholm-operator; the gauge potentials are
+anti-Hermitian, as in @sec-conventions-lie.
 
 ### Twisted Dirac operators
 
-A spinor that also carries a charge or a gauge index feels the gauge field through its covariant derivative. On the sphere
-with a magnetic monopole the spectrum of the resulting operator can be computed exactly; the figure shows it as a function
-of the monopole charge.
+A twisted Dirac operator acts on spinors that carry a gauge index. The figure shows, for the sphere with a monopole, the spectrum of its square, whose bottom is
+the zero modes counted below; the non-zero eigenvalues are quoted from @dolan2003 [eqs. (28)-(30)].
 
-![The eigenvalues $k(k + |M|)$ of $D_A^2$ on the unit sphere with a monopole of charge $M$ (@thm-monopole-index), for $k =
-0, \dots, 4$. The level $k = 0$ consists of the $|M|$ zero modes; at $M = 0$ it is absent and the spectrum is that of the
-untwisted sphere, $(j + \tfrac12)^2$ with lowest value $1$.](figures/sd-monopole-spectrum.svg){#fig-sd-monopole-spectrum width=65%}
+![The eigenvalues $k(k + |M|)$ of $D_A^2$ on the unit sphere with a monopole of charge $M$, for $k = 0, \dots, 4$ and $|M| = 0, \dots, 4$; the red levels $k = 0$ are the $|M|$ zero modes.](figures/sd-monopole-spectrum.svg){#fig-sd-monopole-spectrum width=65%}
 
 :::: {.statement-box}
 ::: {#def-twisted-dirac-operator}
 #### Twisted Dirac operator
 
-Let $E \to M$ be a Hermitian vector bundle with a unitary connection, given locally by an anti-Hermitian matrix-valued
-potential $A = A_\mu dx^\mu$ (@def-gauge-potential) with field strength $F = dA + A \wedge A$. The **twisted Dirac
-operator** on sections of $S \otimes E$ is
+Let $M$ carry a spin structure, and let $E \to M$ be a Hermitian vector bundle of rank $r$ with a unitary connection, given in local unitary frames by anti-Hermitian
+matrices of one-forms $A$, with $A' = g^{-1}Ag + g^{-1}dg$ under a change of frame by $g : U \to U(r)$ and field strength $F = dA + A \wedge A$ (@thm-chc-chern-weil). The
+**twisted Dirac operator** on sections of $\mathcal S \otimes E$ is
 $$
 D_A = i\gamma^a\big(\nabla_{e_a} \otimes 1 + 1 \otimes A(e_a)\big) ,
 $$ {#eq-spd-twisted-dirac}
-with $\nabla$ the spin connection. It is formally self-adjoint, anticommutes with $\gamma_* \otimes 1$ in even dimension, and
-satisfies $D_A^2 = \nabla^*\nabla + \tfrac14R - \tfrac12F_{ab}\gamma^a\gamma^b$ (@exm-spd-lichnerowicz-twisted) @dolan2003 [eqs. (2), (5)], @bilal2008 [eq. (11.14)].
+with $\nabla$ the spin connection, acting on the components $\psi$ in a spin frame and a unitary frame of $E$. Then:
+
+1. (**gauge covariance**) Under $\psi \mapsto g^{-1}\psi$ and $A \mapsto A'$, $D_A\psi \mapsto g^{-1}D_A\psi$: $D_A$ is a well-defined operator.
+2. (**symmetry, chirality**) On a compact manifold without boundary $D_A$ is formally self-adjoint, and for even $n$ it anticommutes with $\gamma_* \otimes 1$.
+3. (**Lichnerowicz**) $D_A^2 = \nabla^*\nabla + \tfrac14R - \tfrac12\gamma^a\gamma^bF_{ab}$, with $F_{ab} = F(e_a, e_b)$ and $\nabla^*\nabla$ the Laplacian of the combined connection.
+4. (**flat connections**) If $F = 0$ and $R \geq 0$ on a compact connected $M$, every zero mode of $D_A$ is parallel.
+
+@dolan2003 [eqs. (2), (4), (5)], @bilal2008 [eq. (11.14)].
 :::
 ::::
 
+*Proof.* (1) The spin part transforms as in @def-spin-connection (1) and commutes with $g$; for the gauge part, $d(g^{-1}\psi) + A'g^{-1}\psi = -g^{-1}dg\,g^{-1}\psi + g^{-1}d\psi +
+g^{-1}A\psi + g^{-1}dg\,g^{-1}\psi = g^{-1}(d\psi + A\psi)$, and $g$ commutes with $\gamma^a$.
+
+(2) The combined connection is compatible with Clifford multiplication (the gauge part commutes with $\gamma^a$) and with the Hermitian product (@def-spin-connection (5) and
+$A^\dagger = -A$), which are the only inputs of the proof of @def-dirac-operator (3); the same holds for @def-dirac-operator (4), since $\gamma_* \otimes 1$ commutes with $1
+\otimes A$.
+
+(3) The proof of @thm-lichnerowicz (1) uses only Clifford compatibility and gives $D_A^2 = \nabla^*\nabla - \tfrac12\gamma^a\gamma^b\mathcal R(e_a, e_b)$ with the curvature $\mathcal R$
+of the combined connection. In a frame $\mathcal R = R \otimes 1 + 1 \otimes F$, by the computation of @prp-spinor-curvature (1) applied to $\Omega \otimes 1 + 1 \otimes A$ (the two
+pieces commute), and @eq-spd-spinor-curvature gives $-\tfrac12\gamma^a\gamma^bR(e_a, e_b) = \tfrac14R$.
+
+(4) With $F = 0$ part (3) is the Lichnerowicz formula with the combined Laplacian, which is non-negative by @thm-lichnerowicz (2); the proof of @thm-lichnerowicz-vanishing (1) applies. $\square$
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-On the sphere a $U(1)$ bundle is a monopole, described by two potentials related by a gauge transformation on the overlap.
-The first example writes them down for any charge, generalising the Hopf connection of @def-hopf-connection.
+The monopole is the gauge field of a line bundle of degree $M$ on the sphere. The first example records its potentials.
 
 ::: {#exm-spd-monopole-potential}
 #### The monopole of charge $M$
@@ -22535,8 +22549,7 @@ gauge transformation $e^{-iM\varphi}$, single-valued iff $M \in \mathbb{Z}$. The
 The Hopf connection of @prp-hopf-chern, with $c_1 = -1$, has $M = -1$.
 :::
 
-On $S^4$ the analogue of the monopole is a homogeneous instanton of $SU(2)$. The second example records it, as given by
-@dolan2003 [eqs. (45)-(47)].
+On $S^4$ the instanton is the gauge field of an $SU(2)$ bundle. The second example states its properties, quoted from @dolan2003.
 
 ::: {#exm-spd-instanton}
 #### The instanton on $S^4$
@@ -22548,8 +22561,7 @@ $1$. For fermions in the spin-$J$ representation the index is $\tfrac23J(J + 1)(
 @dolan2003 [eqs. (45)-(47)].
 :::
 
-A flat connection has no field strength but can still change the spectrum through its holonomy. The third example identifies
-the twisted boundary conditions of the torus as such connections.
+Flat connections change the boundary conditions but not the curvature term. The third example connects them with twists.
 
 ::: {#exm-spd-flat-twist}
 #### Flat connections
@@ -22560,25 +22572,92 @@ Dirac operator on periodic spinors is the Dirac operator with the twisted bounda
 $\nabla^*\nabla$ now has no zero modes for $\alpha \notin \mathbb{Z}$: flat connections can only remove zero modes, never
 create them on a manifold with $R \geq 0$.
 :::
+
+On flat space a constant magnetic field is the simplest gauge field with $F \neq 0$. The fourth example writes the operator.
+
+::: {#exm-dix-constant-field}
+#### A constant magnetic field in the plane
+
+On $\mathbb R^2$ with $A = iB\,x\,dy$ ($B$ real), $F = iB\,dx \wedge dy$, $F_{12} = iB$, and $D_A = i[\sigma_1\partial_x + \sigma_2(\partial_y + iBx)]$. By part (3), $D_A^2 = -(\partial_x^2 + (\partial_y +
+iBx)^2) - \tfrac12(\sigma_1\sigma_2 - \sigma_2\sigma_1)iB = -(\partial_x^2 + (\partial_y + iBx)^2) + B\sigma_3$: the Landau Hamiltonian with the Zeeman term of a $g = 2$ particle.
+:::
+
+A gauge transformation by a constant phase changes nothing. The fifth example checks this.
+
+::: {#exm-dix-constant-gauge}
+#### Constant gauge transformations
+
+For $g = e^{i\lambda}$ constant, $A' = A$ and $\psi \mapsto e^{-i\lambda}\psi$: the operator is unchanged and the eigenspaces are only rephased, as part (1) requires.
+:::
+
+Electromagnetism is a $U(1)$ gauge field. The sixth example matches the convention of the electron in an electromagnetic field.
+
+::: {#exm-dix-electron}
+#### The electron
+
+On $\mathbb R^{1, 3}$ or $\mathbb R^3$ with $A = iqA^{\rm em}_\mu dx^\mu$, @eq-spd-twisted-dirac is $i\gamma^\mu(\partial_\mu + iqA^{\rm em}_\mu)$, the minimal coupling of @exm-sps-spinc-electron, and part (3) gives
+the Pauli term $-\tfrac12\gamma^a\gamma^bF_{ab} = \tfrac q2\gamma^a\gamma^bF^{\rm em}_{ab}$.
+:::
+
+Twisting by a trivial bundle with zero connection gives copies of the untwisted operator. The seventh example records this.
+
+::: {#exm-dix-trivial-twist}
+#### Trivial twist
+
+For $E = M \times \mathbb C^r$ with $A = 0$, $D_A = D \otimes \mathbf I_r$: $r$ copies of the Dirac operator, with every eigenvalue multiplied in multiplicity by $r$.
+:::
+
+The sphere with a monopole is the setting of the quantum Hall effect on a sphere. The eighth example writes the operator in coordinates.
+
+::: {#exm-dix-sphere-monopole-operator}
+#### The sphere with a monopole
+
+With @eq-spd-dirac-sphere and the potential $a_N$ of @exm-spd-monopole-potential, $D_A = i[\sigma_1(\partial_\theta + \tfrac12\cot\theta) + \sigma_2\sin^{-1}\theta(\partial_\varphi + ia_\varphi)]$, $a_\varphi =
+\tfrac M2(\cos\theta - 1)$, on the northern patch; by part (3) and $F_{12} = -\tfrac{iM}2$, $D_A^2 = \nabla^*\nabla + \tfrac12 - \tfrac M2\sigma_3$ (@exr-spd-lichnerowicz-check).
+:::
+
+On a torus a constant field strength needs a quantised flux. The ninth example states the condition.
+
+::: {#exm-dix-torus-flux}
+#### Flux on a torus
+
+On $T^2 = \mathbb R^2/2\pi\mathbb Z^2$ a line bundle with constant $F = iB\,dx \wedge dy$ has Chern number $c_1 = -\tfrac1{2\pi}\int_{T^2}B\,dx\,dy = -2\pi B$ in the convention $F = if$, which must be
+an integer (@def-chc-chern-class); the potential $iBx\,dy$ is not periodic in $x$ and is glued by the gauge transformation $e^{2\pi iBy}$, single-valued iff $2\pi B \in \mathbb Z$.
+:::
+
+A non-unitary connection breaks the symmetry of part (2). The last example shows it.
+
+::: {#exm-dix-non-unitary}
+#### A non-unitary potential
+
+On the circle with $A = c\,dy$, $c$ real, $D_A = i(\partial_y + c)$ has the eigenfunctions $e^{imy}$ with eigenvalues $-m + ic$, not real: $A$ is not anti-Hermitian, the connection is not unitary, and
+part (2) fails.
+:::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The two potentials of the monopole must give the same field strength and an integral Chern number. The first exercise checks
-both with Sage.
+The monopole potentials glue to a line bundle of degree $M$. The first exercise checks the flux.
 
 ::: {#exr-spd-monopole-flux}
 #### The monopole flux
 
-With Sage, compute $da_N$ and $da_S$ for the potentials of @exm-spd-monopole-potential, check that they agree, that $a_N$ is
+Compute $da_N$ and $da_S$ for the potentials of @exm-spd-monopole-potential, check that they agree, that $a_N$ is
 regular at $\theta = 0$ (its $\varphi$ component vanishes there like $\theta^2$) and $a_S$ at $\theta = \pi$, and compute
 $c_1 = -\tfrac{1}{2\pi}\int_{S^2}da$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Both give $-\tfrac M2\sin\theta\,d\theta \wedge d\varphi$, the components vanish quadratically at the respective poles, and
-$c_1 = M$:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+Both give $-\tfrac M2\sin\theta\,d\theta \wedge d\varphi$, the components vanish quadratically at the respective poles, and
+$c_1 = M$.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 th, ph, M = var("th ph M")
 aN = M / 2 * (cos(th) - 1); aS = M / 2 * (cos(th) + 1)       # phi components of a = a_phi dphi
 print("da_N = (%s) dtheta ^ dphi, da_S = (%s) dtheta ^ dphi" % (diff(aN, th), diff(aS, th)))
@@ -22587,18 +22666,16 @@ print("a_N near theta = 0:", aN.taylor(th, 0, 2), "; a_S near theta = pi:", aS.s
 print("c_1 = -(1/2pi) int da =", (-integrate(integrate(diff(aN, th), th, 0, pi), ph, 0, 2 * pi) / (2 * pi)).simplify_full())
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 da_N = (-1/2*M*sin(th)) dtheta ^ dphi, da_S = (-1/2*M*sin(th)) dtheta ^ dphi
 a_N - a_S = -M (the gauge transformation exp(-i M phi))
 a_N near theta = 0: -1/4*M*th^2 ; a_S near theta = pi: 1/4*M*u^2
 c_1 = -(1/2pi) int da = M
 ```
+::::
 :::
 
-The spectrum of the twisted operator must not depend on the gauge. The second exercise proves gauge covariance, which also
-shows that the two patches of the monopole define one operator.
+Gauge covariance is part (1). The second exercise proves it for $U(1)$.
 
 ::: {#exr-spd-gauge-covariance}
 #### Gauge covariance
@@ -22609,28 +22686,52 @@ patches of the monopole.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$(\nabla + A')(g\psi) = (dg)\psi + g\nabla\psi + gA\psi - (dg)\psi = g(\nabla + A)\psi$, and $\gamma^a$ commutes with $g$ (they
-act on different indices). For the monopole, $A_N - A_S = i(a_N - a_S) = -iM\,d\varphi$, which is $-dg\,g^{-1}$ for $g = e^{iM\varphi}$; so $A_N$ is the
-gauge transform of $A_S$ by $g$, the spinor fields on the two patches are related by $\psi_N = e^{iM\varphi}\psi_S$ on the overlap,
-and the two local operators are conjugate there. The transformation is single-valued exactly when $M$ is an integer.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$(\nabla + A')(g\psi) = (dg)\psi + g\nabla\psi + gA\psi - (dg)\psi = g(\nabla + A)\psi$, and $\gamma^a$ commutes with $g$, which acts on the gauge index; so $D_{A'}(g\psi) = gD_A\psi$, $D_{A'} = gD_Ag^{-1}$, and
+$D_A\psi = \lambda\psi$ iff $D_{A'}(g\psi) = \lambda g\psi$: the spectra agree. For the monopole, $A_N - A_S = i(a_N - a_S) = -iM\,d\varphi$, which is $-dg\,g^{-1}$ for $g = e^{iM\varphi}$; so $A_N$ is the gauge transform
+of $A_S$ by $g$, the fields on the two patches are related by $\psi_N = e^{iM\varphi}\psi_S$ on the overlap, and the two local operators are conjugate there. The transformation is single-valued exactly when $M$ is an
+integer.
+
+## SageMath
+
+The code checks $(\partial_\varphi + A'_\varphi)(g\psi) = g(\partial_\varphi + A_\varphi)\psi$ for $g = e^{iM\varphi}$ and an arbitrary function $\psi$.
+
+```{.python .sage}
+ph, M = var("ph M"); psi = function("psi")(ph); Aph = function("Aph")(ph)
+g = exp(I*M*ph); Ap = Aph - diff(g, ph)/g
+print(bool((diff(g*psi, ph) + Ap*g*psi - g*(diff(psi, ph) + Aph*psi)).simplify_full() == 0))
+```
+
+```{.text .sage-output}
+True
+```
+::::
 :::
 
-The instanton field strength of @exm-spd-instanton is self-dual, the property that makes it a minimum of the Yang-Mills action.
-The third exercise checks self-duality and the index formula on a few representations.
+The instanton field strength is self-dual. The third exercise checks it, with the quoted coframe.
 
 ::: {#exr-spd-instanton-check}
 #### Self-duality and the instanton index
 
-With Sage, represent the two-forms $F^i = e^i \wedge e^4 + \tfrac12\epsilon_{ijk}e^j \wedge e^k$ by antisymmetric $4 \times 4$
+Represent the two-forms $F^i = e^i \wedge e^4 + \tfrac12\epsilon_{ijk}e^j \wedge e^k$ by antisymmetric $4 \times 4$
 matrices in an orthonormal frame, apply the Hodge star ($(\star F)_{ab} = \tfrac12\epsilon_{abcd}F_{cd}$) and check $\star F^i =
 F^i$. Then tabulate $\tfrac23J(J + 1)(2J + 1)$ for $J = \tfrac12, \dots, 3$ and compare with the zero-mode numbers $\tfrac16(2I +
 1)(2I + 2)(2I + 3)$, $I = J - \tfrac12$, of @dolan2003 [eq. (44)].
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The three forms are self-dual, and the index and the zero-mode numbers agree for every $J$ ($1, 4, 10, 20, 35, 56$):
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+The three forms are self-dual, and the index and the zero-mode numbers agree for every $J$ ($1, 4, 10, 20, 35, 56$).
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 def sgn(*p): return Permutation([int(a) + 1 for a in p]).sign() if len(set(p)) == len(p) else 0
 def two_form(i):
     # components F_ab of F = (1/2) F_ab e^a ^ e^b (indices 0..3, the fourth direction is index 3)
@@ -22649,9 +22750,7 @@ for twoJ in range(1, 7):
     print("J = %s: index %s, zero modes (2I+1)(2I+2)(2I+3)/6 = %s" % (J, 2/3 * J * (J + 1) * (2 * J + 1), (2 * Ii + 1) * (2 * Ii + 2) * (2 * Ii + 3) / 6))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 F^1 components: [(0, 0, 0, 1), (0, 0, 1, 0), (0, -1, 0, 0), (-1, 0, 0, 0)]  self-dual: True
 F^2 components: [(0, 0, -1, 0), (0, 0, 0, 1), (1, 0, 0, 0), (0, -1, 0, 0)]  self-dual: True
 F^3 components: [(0, 1, 0, 0), (-1, 0, 0, 0), (0, 0, 0, 1), (0, 0, -1, 0)]  self-dual: True
@@ -22662,39 +22761,287 @@ J = 2: index 20, zero modes (2I+1)(2I+2)(2I+3)/6 = 20
 J = 5/2: index 35, zero modes (2I+1)(2I+2)(2I+3)/6 = 35
 J = 3: index 56, zero modes (2I+1)(2I+2)(2I+3)/6 = 56
 ```
+::::
+:::
+
+Part (3) on the plane gives the Landau Hamiltonian. The fourth exercise checks @exm-dix-constant-field.
+
+::: {#exr-dix-landau-square}
+#### $D_A^2$ in a constant field
+
+With $D_A = i[\sigma_1\partial_x + \sigma_2(\partial_y + iBx)]$, check $D_A^2 = -(\partial_x^2 + (\partial_y + iBx)^2) + B\sigma_3$ on a general spinor.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+This is part (3) with $R = 0$, $F_{12} = iB$: $-\tfrac12(\gamma^1\gamma^2F_{12} + \gamma^2\gamma^1F_{21}) = -\gamma^1\gamma^2F_{12} = -i\sigma_3\cdot iB = B\sigma_3$.
+
+## SageMath
+
+The code compares both sides.
+
+```{.python .sage}
+x, y, B = var("x y B"); u = function("u")(x, y); v = function("v")(x, y)
+s1, s2, s3 = matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]]), matrix(SR, [[1, 0], [0, -1]])
+p = matrix(SR, 2, 1, [u, v])
+Dx = lambda q: q.apply_map(lambda f: diff(f, x)); Dy = lambda q: q.apply_map(lambda f: diff(f, y)) + I*B*x*q
+D = lambda q: I*(s1*Dx(q) + s2*Dy(q))
+print((D(D(p)) + Dx(Dx(p)) + Dy(Dy(p)) - B*s3*p).simplify_full().list())
+```
+
+```{.text .sage-output}
+[0, 0]
+```
+::::
+:::
+
+Lowest Landau levels are zero modes of $D_A$. The fifth exercise finds them on the plane.
+
+::: {#exr-dix-lowest-landau}
+#### Zero modes in a constant field
+
+For $B > 0$ and $D_A$ of @exm-dix-constant-field, show that $\psi = (0, e^{-Bx^2/2}e^{iky})$ and its combinations over $k$ satisfy $D_A\psi = 0$, and that the upper component has no such solutions decaying in $x$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$D_A(0, v) = (i(\partial_x - i(\partial_y + iBx))v, 0)$, and for $v = h(x)e^{iky}$ this is $i(h' + (k + Bx)h)e^{iky}$, zero for $h = e^{-kx - Bx^2/2}$, which decays; the given $\psi$ is $k = 0$, and
+$e^{-kx - Bx^2/2}$ are shifted Gaussians. For $(u, 0)$ the equation is $h' - (k + Bx)h = 0$, with $h = e^{kx + Bx^2/2}$, which grows.
+
+## SageMath
+
+The code applies $D_A$.
+
+```{.python .sage}
+x, y, B, k = var("x y B k")
+s1, s2 = matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]])
+D = lambda q: I*(s1*q.apply_map(lambda f: diff(f, x)) + s2*(q.apply_map(lambda f: diff(f, y)) + I*B*x*q))
+print(D(matrix(SR, 2, 1, [0, exp(-k*x - B*x^2/2)*exp(I*k*y)])).simplify_full().list())
+```
+
+```{.text .sage-output}
+[0, 0]
+```
+::::
+:::
+
+Part (1) for a matrix gauge group needs the product rule. The sixth exercise checks it for $SU(2)$.
+
+::: {#exr-dix-su2-gauge}
+#### Gauge covariance for $SU(2)$
+
+On $\mathbb R$ with $D_A = i(\partial_x + A_x)$ acting on $\mathbb C^2$-valued functions, $A_x = -\tfrac i2\sigma_3$, and $g(x) = e^{-ix\sigma_1/2}$, check $D_{A'}(g^{-1}\psi) = g^{-1}D_A\psi$ for $\psi = (x, x^2)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+This is the computation of part (1) with $\gamma = 1$.
+
+## SageMath
+
+The code compares both sides.
+
+```{.python .sage}
+x = var("x")
+s1, s3 = matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[1, 0], [0, -1]])
+g = cos(x/2)*identity_matrix(SR, 2) - I*sin(x/2)*s1
+A = -I/2*s3; Ap = g.inverse()*A*g + g.inverse()*g.apply_map(lambda e: diff(e, x))
+psi = vector(SR, [x, x^2])
+DA = lambda M, p: I*(p.diff(x) + M*p)
+print((DA(Ap, g.inverse()*psi) - g.inverse()*DA(A, psi)).simplify_full())
+```
+
+```{.text .sage-output}
+(0, 0)
+```
+::::
+:::
+
+Part (2) says the spectrum is real. The seventh exercise checks the symmetry with a monopole on the sphere for two explicit fields.
+
+::: {#exr-dix-monopole-symmetric}
+#### Symmetry with a monopole
+
+With the operator of @exm-dix-sphere-monopole-operator for $M = 2$, compute $\int(\psi^\dagger D_A\chi - (D_A\psi)^\dagger\chi)\sin\theta\,d\theta\,d\varphi$ for $\psi = (\sin\theta, 0)$, $\chi = (\sin\theta, \sin\theta)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+By part (2) the integrand is $i\operatorname{div}V$ and the integral reduces to the boundary term $[\sin\theta V^\theta]_0^\pi$, which vanishes since the components are bounded.
+
+## SageMath
+
+The code integrates.
+
+```{.python .sage}
+th, ph = var("th ph"); M = 2
+s1, s2 = matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]])
+a = M/2*(cos(th) - 1)
+D = lambda p: I*(s1*(p.apply_map(lambda f: diff(f, th)) + cot(th)/2*p) + s2*(p.apply_map(lambda f: diff(f, ph)) + I*a*p)/sin(th))
+psi = matrix(SR, 2, 1, [sin(th), 0]); chi = matrix(SR, 2, 1, [sin(th), sin(th)])
+h = lambda p, q: (p.conjugate_transpose()*q)[0, 0]
+print(integrate(integrate(((h(psi, D(chi)) - h(D(psi), chi))*sin(th)).simplify_full(), ph, 0, 2*pi), th, 0, pi).simplify_full())
+```
+
+```{.text .sage-output}
+0
+```
+::::
+:::
+
+Part (4) says flat connections cannot create zero modes. The eighth exercise checks it on the twisted circle.
+
+::: {#exr-dix-flat-no-zero}
+#### A flat connection on the circle
+
+On the circle of radius $1$ with $A = i\alpha\,dy$, show that $D_A = i(\partial_y + i\alpha)$ on periodic functions has a zero mode only for $\alpha \in \mathbb Z$, and that it is then parallel.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+On $e^{imy}$, $D_A = -(m + \alpha)$, zero iff $\alpha = -m$; then $(\partial_y + i\alpha)e^{imy} = 0$, so the mode is parallel, as part (4) says.
+
+## SageMath
+
+The code finds the zero eigenvalues for several $\alpha$.
+
+```{.python .sage}
+for al in (0, 1/3, 1/2, 1, 2):
+    print(al, [m for m in range(-4, 5) if m + al == 0])
+```
+
+```{.text .sage-output}
+0 [0]
+1/3 []
+1/2 []
+1 [-1]
+2 [-2]
+```
+::::
+:::
+
+The flux on a torus is quantised. The ninth exercise checks the gluing of @exm-dix-torus-flux.
+
+::: {#exr-dix-torus-gluing}
+#### Gluing the potential on the torus
+
+For $A = iBx\,dy$ show that $A(x + 2\pi) = A(x) + g^{-1}dg$ with $g = e^{2\pi iBy}$, and that $g$ is periodic in $y$ exactly when $2\pi B \in \mathbb Z$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$A(x + 2\pi) - A(x) = 2\pi iB\,dy = g^{-1}dg$, and $g(y + 2\pi) = e^{4\pi^2iB}g(y)$, equal to $g$ iff $2\pi B \in \mathbb Z$.
+
+## SageMath
+
+The code checks the two identities.
+
+```{.python .sage}
+x, y, B = var("x y B"); g = exp(2*pi*I*B*y)
+print(bool(I*B*(x + 2*pi) - I*B*x == diff(g, y)/g), "; g(y + 2 pi)/g(y) =", (g.subs(y=y + 2*pi)/g).simplify_full())
+```
+
+```{.text .sage-output}
+True ; g(y + 2 pi)/g(y) = e^(4*I*pi^2*B)
+```
+::::
+:::
+
+The Pauli term of part (3) gives the magnetic moment. The last exercise combines @exm-dix-constant-field with @exr-dix-lowest-landau and reads off the energy of the spin states.
+
+::: {#exr-dix-zeeman}
+#### Spin up and spin down
+
+In the constant field, show that $D_A^2 = \Pi^2 + B\sigma_3$ with $\Pi^2 = -(\partial_x^2 + (\partial_y + iBx)^2)$, and that on $\psi = (0, e^{-Bx^2/2})$, $\Pi^2\psi = B\psi$, so $D_A^2\psi = 0$: the spin term cancels the
+zero-point energy for one spin.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\Pi^2e^{-Bx^2/2} = -(e^{-Bx^2/2})'' + B^2x^2e^{-Bx^2/2} = Be^{-Bx^2/2}$, and $\sigma_3 = -1$ on the lower component, so $D_A^2\psi = (B - B)\psi = 0$, consistent with $D_A\psi = 0$ (@exr-dix-lowest-landau).
+
+## SageMath
+
+The code applies $\Pi^2$.
+
+```{.python .sage}
+x, y, B = var("x y B"); f = exp(-B*x^2/2)
+Pi2 = lambda h: -(diff(h, x, 2) + diff(diff(h, y) + I*B*x*h, y) + I*B*x*(diff(h, y) + I*B*x*h))
+print((Pi2(f)/f).simplify_full())
+```
+
+```{.text .sage-output}
+B
+```
+::::
 :::
 ::::
 
 ### The index on the sphere
 
-On the sphere with a monopole the zero modes can be found by solving a first-order equation in one variable. The figure shows
-the zero modes for $M = 4$: four functions peaked at different latitudes, which form one multiplet of the rotation group.
+On the sphere with a monopole the zero-mode equation separates in the angle $\varphi$, and each Fourier mode is a first-order equation in $\theta$. The figure shows the
+densities of the zero modes for $M = 4$, which the theorem finds by solving these equations; they sit at different latitudes and together cover the sphere evenly.
 
-![The densities $|\psi_k|^2 \propto \sin^{2k}\tfrac\theta2\cos^{2(M - 1 - k)}\tfrac\theta2$ of the $M = 4$ zero modes on the
-unit sphere, normalised, for $k = 0, \dots, 3$. They have $U(1)$ charges $m = \tfrac12 + k$ and span the spin $\tfrac32$
-representation of $SU(2)$; the mode $k$ is concentrated at $\theta = 2\arctan\sqrt{k/(M - 1 - k)}$.](figures/sd-monopole-zero-modes.svg){#fig-sd-monopole-zero-modes width=65%}
-
-The theorem below is the central computation of this part: it finds all zero modes on the sphere with a monopole and their
-chirality, and so evaluates the index directly. The proof is a separation of variables in the coordinates of
-@exm-spd-dirac-sphere, and @dolan2003 [eqs. (24)-(32)] obtains the same result from Casimir operators.
+![The densities $|\psi_k|^2 \propto \sin^{2k}\tfrac\theta2\cos^{2(M - 1 - k)}\tfrac\theta2$ of the $M = 4$ zero modes on the unit sphere, $k = 0, 1, 2, 3$, as functions of $\theta$, normalised to unit
+integral.](figures/sd-monopole-zero-modes.svg){#fig-sd-monopole-zero-modes width=65%}
 
 :::: {.statement-box}
 ::: {#thm-monopole-index}
 #### Zero modes and index of the monopole
 
-On the unit sphere with the monopole of charge $M \neq 0$ of @exm-spd-monopole-potential, the twisted Dirac operator has
-exactly $|M|$ linearly independent zero modes, all of chirality $\operatorname{sgn}(M)$ for $\gamma_* = \sigma_3$; they form
-the irreducible representation of spin $\tfrac{|M| - 1}{2}$ of $SU(2)$. Hence
-$$
-\operatorname{ind}D_A^+ = \dim\ker D_A^+ - \dim\ker D_A^- = M = c_1 .
-$$ {#eq-spd-monopole-index}
-The non-zero eigenvalues of $D_A^2$ are $k(k + |M|)$, $k \geq 1$, with multiplicity $2(|M| + 2k)$ @dolan2003 [eqs. (28)-(32)].
+On the unit sphere with the monopole of charge $M \in \mathbb Z$ of @exm-spd-monopole-potential, $\gamma^a = \sigma_a$ and $\gamma_* = \sigma_3$, let $D_A$ be the operator of @exm-dix-sphere-monopole-operator.
+
+1. (**zero modes**) For $M \geq 1$, $\ker D_A^- = 0$ and $\ker D_A^+$ has dimension $M$, spanned by the fields with northern frame components $u_k = e^{i(k + 1/2)\varphi}\sin^k\tfrac\theta2\,\cos^{M -
+   1 - k}\tfrac\theta2$ in the upper entry, $k = 0, \dots, M - 1$. For $M \leq -1$ the zero modes are $|M|$ fields of negative chirality, and for $M = 0$ there are none.
+2. (**index**)
+   $$
+   \operatorname{ind}D_A^+ = \dim\ker D_A^+ - \dim\ker D_A^- = M = c_1 .
+   $$ {#eq-spd-monopole-index}
+3. (**Riemann-Roch on $\mathbb{CP}^1$**) With $z = \tan\tfrac\theta2\,e^{i\varphi}$, $u_k = e^{i\varphi/2}\cos^{M - 1}\tfrac\theta2\,z^k$, so $P \mapsto e^{i\varphi/2}\cos^{M - 1}\tfrac\theta2\,P(z)$ is an isomorphism from the
+   polynomials of degree at most $d = M - 1$ onto $\ker D_A^+$: the index of $D_A$ is $d + 1$, the Riemann-Roch number of $\mathcal O(d)$, for every $d \geq 0$.
+4. (**stated, not proved here**) The zero modes form the representation of spin $\tfrac{|M| - 1}2$ of $SU(2)$, and the non-zero eigenvalues of $D_A^2$ are $k(k + |M|)$, $k \geq 1$, with multiplicity
+   $2(|M| + 2k)$ @dolan2003 [eqs. (28)-(32)].
 :::
 ::::
 
+*Proof.* (1) On $0 < \theta < \pi$ write the northern frame components as $(u, v)$; they are antiperiodic in $\varphi$ (@exm-spd-sphere-spin-connection), so they expand in $e^{im\varphi}$, $m \in \mathbb Z +
+\tfrac12$, with coefficients $u_m(\theta) = \frac1{2\pi}\int_0^{2\pi}ue^{-im\varphi}d\varphi$, and $|u_m| \leq \sup|u|$. $D_A$ maps $(u, 0)$ to $(0, i[(\partial_\theta + \tfrac12\cot\theta)u + \frac i{\sin\theta}(\partial_\varphi + ia_\varphi)u])$ and
+commutes with $\partial_\varphi$, so $D_A(u, 0) = 0$ means for every $m$
+$$
+u_m' + \tfrac12\cot\theta\,u_m - \frac{m + a_\varphi}{\sin\theta}u_m = 0 ,
+$$
+a linear first-order equation whose solutions are the multiples of $g_m = \sin^{m - 1/2}\tfrac\theta2\cos^{M - m - 1/2}\tfrac\theta2$: indeed $(\log g_m)' = \tfrac12(m - \tfrac12)\cot\tfrac\theta2 - \tfrac12(M - m -
+\tfrac12)\tan\tfrac\theta2$, and with $\cot\theta = \tfrac12(\cot\tfrac\theta2 - \tan\tfrac\theta2)$, $\frac1{\sin\theta} = \tfrac12(\cot\tfrac\theta2 + \tan\tfrac\theta2)$ and $a_\varphi = -\tfrac M2\sin\theta\tan\tfrac\theta2$ this is
+$-\tfrac12\cot\theta + \frac{m + a_\varphi}{\sin\theta}$. A smooth section has bounded $|u| =
+|\psi|$ on the compact sphere, so $u_m = c_mg_m$ is bounded, which forces $c_m = 0$ unless $k = m - \tfrac12 \geq 0$ and $M - m - \tfrac12 = M - 1 - k \geq 0$. Hence $u = \sum_{k = 0}^{M - 1}c_ku_k$, which needs $M \geq
+1$. Conversely each $u_k$ is smooth: near the north pole the Cartesian components of the polar frame are $e^{-i\varphi\sigma_3/2}$ times the frame components (@exr-spd-circle-bounding), so the upper one
+is $e^{ik\varphi}\sin^k\tfrac\theta2\cos^{M - 1 - k}\tfrac\theta2 = (\tan\tfrac\theta2e^{i\varphi})^k\cos^{M - 1}\tfrac\theta2$, a power of the stereographic coordinate times a smooth function; near the south pole, after the
+gauge transformation $e^{-iM\varphi}$ to the regular potential $a_S$ and the polar frame there, which turns in the opposite sense, the component is $\overline{w}^{M - 1 - k}$ times a smooth function, $w =
+\cot\tfrac\theta2e^{-i\varphi}$ the southern coordinate, again smooth. For $(0, v)$ the equation has the opposite sign of the last term, with solutions $\sin^{-m - 1/2}\tfrac\theta2\cos^{m - M - 1/2}\tfrac\theta2$, bounded iff
+$-m - \tfrac12 \geq 0$ and $m - M - \tfrac12 \geq 0$, which needs $M \leq -1$ and gives $|M|$ fields by the same argument. A zero mode of $D_A$ has zero modes as chiral parts (@def-twisted-dirac-operator (2)), so these
+are all.
+
+(2) By (1) the index is $M$, and $c_1 = M$ (@exm-spd-monopole-potential).
+
+(3) $\sin^k\tfrac\theta2\cos^{M - 1 - k}\tfrac\theta2 = \tan^k\tfrac\theta2\cos^{M - 1}\tfrac\theta2$, so $u_k = e^{i\varphi/2}\cos^{M - 1}\tfrac\theta2\,z^k$, and by (1) the map is onto $\ker D_A^+$ and injective; $\ker D_A^- = 0$. Part
+(4) is quoted. $\square$
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The zero-mode equation separates in $\theta$ and $\varphi$. The first example solves it for the component that carries the
-zero modes when $M > 0$.
+The zero-mode equation is a first-order ordinary differential equation. The first example records its solution.
 
 ::: {#exm-spd-zero-mode-solution}
 #### Solving the zero-mode equation
@@ -22706,8 +23053,7 @@ whose solution is $g = \sin^{m - 1/2}\tfrac\theta2\,\cos^{M - m - 1/2}\tfrac\the
 $m = \tfrac12, \dots, M - \tfrac12$: $M$ solutions for $M > 0$ and none for $M \leq 0$.
 :::
 
-The zero modes are polynomials in a complex coordinate, as for the Dolbeault operator of @exm-spd-dolbeault-cp1. The second
-example rewrites them in the stereographic coordinate.
+The zero modes are polynomials in the stereographic coordinate, part (3). The second example writes them in that form.
 
 ::: {#exm-spd-zero-modes-polynomial}
 #### Zero modes as polynomials
@@ -22718,8 +23064,7 @@ With $m = \tfrac12 + k$, $k = 0, \dots, M - 1$, the solution is $u_k = e^{i\varp
 sections of the line bundle of degree $M - 1$ (@exm-spd-dolbeault-cp1). Their densities are drawn in @fig-sd-monopole-zero-modes.
 :::
 
-The same counting on the flat plane gives the index only after "marginally normalisable" modes are included. The third
-example compares with the computation of @bilal2008 [App. 14], which the sphere makes clean.
+On the plane the lowest Landau level is infinitely degenerate; on the sphere it is finite. The third example compares them.
 
 ::: {#exm-spd-plane-versus-sphere}
 #### The plane and the sphere
@@ -22730,8 +23075,7 @@ so for $\deg g = m - 1$, and the index $m$ counts both @bilal2008 [eqs. (A.5)-(A
 $\sin\theta\,d\theta\,d\varphi$ makes all $|M|$ modes genuinely normalisable: compactification removes the subtlety.
 :::
 
-Zero modes on the sphere are the lowest Landau level of a charged particle in the monopole field. The fourth example draws the
-connection made by @dolan2003 [Sec. 1].
+The zero modes are the lowest Landau level of a charged particle on the sphere. The fourth example identifies them with the quantum Hall states of Haldane's sphere.
 
 ::: {#exm-spd-landau}
 #### The lowest Landau level
@@ -22741,25 +23085,83 @@ Hamiltonian of a non-relativistic spin-$\tfrac12$ particle on the sphere in the 
 states have energy $0$ and degeneracy $|M|$, the zero modes, and they are Haldane's lowest Landau level on the sphere; the
 excited levels $k(k + |M|)$ are the higher Landau levels @dolan2003 [Sec. 1 and eqs. (29)-(31)].
 :::
+
+For $M = 1$ there is a single zero mode. The fifth example shows that it is the parallel spinor of @exr-spd-zero-mode-balance.
+
+::: {#exm-dix-m1}
+#### $M = 1$
+
+Part (1) gives $u_0 = e^{i\varphi/2}$, the parallel field of @exr-spd-zero-mode-balance, on which the gauge connection cancels the spin connection; the index is $1$.
+:::
+
+The Hopf bundle has $c_1 = -1$. The sixth example finds its zero mode.
+
+::: {#exm-dix-hopf}
+#### The Hopf bundle
+
+The Hopf connection has $M = -1$ (@exm-spd-monopole-potential), so by part (1) there is one zero mode, of negative chirality, $(0, e^{-i\varphi/2})$ by the solution of the lower equation with $m = -\tfrac12$, and
+the index is $-1$.
+:::
+
+Without a monopole the sphere has no zero modes. The seventh example checks that part (1) agrees with @thm-sphere-dirac-spectrum.
+
+::: {#exm-dix-m0}
+#### $M = 0$
+
+For $M = 0$ the bounds $k \geq 0$ and $M - 1 - k \geq 0$ are incompatible, so there are no zero modes, as @thm-sphere-dirac-spectrum (3) found from the spectrum $\pm(k + 1)$.
+:::
+
+The densities of the zero modes are binomial in $\sin^2\tfrac\theta2$. The eighth example finds where each is concentrated.
+
+::: {#exm-dix-densities}
+#### Where the zero modes live
+
+$|u_k|^2 = s^k(1 - s)^{M - 1 - k}$ with $s = \sin^2\tfrac\theta2$, maximal at $s = \tfrac k{M - 1}$ ($M \geq 2$): $u_0$ at the north pole, $u_{M - 1}$ at the south pole, the others on latitudes in between
+(@fig-sd-monopole-zero-modes), and $\sum_k\binom{M - 1}k|u_k|^2 = 1$, a uniform density.
+:::
+
+The radius does not change the count. The ninth example rescales the sphere.
+
+::: {#exm-dix-radius}
+#### The sphere of radius $r$
+
+On the sphere of radius $r$ the same potentials give the same Chern number and the operator is $D_A/r$ (@exr-dsp-scaling): the $|M|$ zero modes persist, while the non-zero eigenvalues of part (4) scale by
+$r^{-2}$. The index does not see the metric.
+:::
+
+Conjugation exchanges the two chiralities and the sign of the charge. The last example shows how the solutions for $M$ and $-M$ correspond.
+
+::: {#exm-dix-conjugation}
+#### $M$ and $-M$
+
+Complex conjugation maps $a_\varphi$ to $-a_\varphi$ after $A = ia \mapsto \bar A = -ia$, so it relates the charge $M$ to $-M$; combined with $\sigma_2$, it maps the upper solutions $u_k$ to lower solutions of charge $-M$,
+in agreement with part (1).
+:::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The regularity conditions of the first example decide the count. The first exercise checks them numerically for $M = 3$ by
-integrating $|u|^2$ near the poles.
+The count of part (1) can be checked by machine. The first exercise counts the admissible $m$.
 
 ::: {#exr-spd-zero-mode-count}
 #### Counting regular zero modes
 
-With Sage, for $M = 3$ and the half-integers $m$ from $-\tfrac92$ to $\tfrac72$, form $g_m(\theta)$ of @exm-spd-zero-mode-solution
+For $M = 3$ and the half-integers $m$ from $-\tfrac92$ to $\tfrac72$, form $g_m(\theta)$ of @exm-spd-zero-mode-solution
 and decide whether $\int_0^\pi|g_m|^2\sin\theta\,d\theta$ converges and whether $g_m$ is bounded. Do the same for the lower
 component, whose solution is $\sin^{-m - 1/2}\tfrac\theta2\cos^{m - M - 1/2}\tfrac\theta2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Exactly three values, $m = \tfrac12, \tfrac32, \tfrac52$, give bounded (indeed smooth) upper components; no value gives an
-admissible lower component. The index is $3 - 0 = 3 = M$:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+Exactly three values, $m = \tfrac12, \tfrac32, \tfrac52$, give bounded (indeed smooth) upper components; no value gives an
+admissible lower component. The index is $3 - 0 = 3 = M$.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 M = 3
 ms = [QQ(k) / 2 for k in range(-9, 9, 2)]
 def status(a, b):
@@ -22772,9 +23174,7 @@ nu = sum(1 for m in ms if upper[m] == "bounded"); nl = sum(1 for m in ms if lowe
 print("zero modes: %d of chirality +1 (upper), %d of chirality -1 (lower); index = %d" % (nu, nl, nu - nl))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 m =  -9/2: upper component excluded     lower component excluded
 m =  -7/2: upper component excluded     lower component excluded
 m =  -5/2: upper component excluded     lower component excluded
@@ -22786,26 +23186,33 @@ m =   5/2: upper component bounded      lower component excluded
 m =   7/2: upper component excluded     lower component excluded
 zero modes: 3 of chirality +1 (upper), 0 of chirality -1 (lower); index = 3
 ```
+::::
 :::
 
-The excited levels follow from the Casimir formula of @thm-parthasarathy with the gauge field. The second exercise derives
-them as in @dolan2003 [eqs. (27)-(31)].
+The zero modes form a representation of $SU(2)$, part (4). The second exercise checks the quoted Casimirs.
 
 ::: {#exr-spd-monopole-casimirs}
 #### The spectrum from Casimirs
 
 On the upper and lower components the $U(1)$ charge is $-\tfrac{M \mp 1}{2}$, and the Laplacian is $\nabla^*\nabla = j(j + 1) - (\tfrac{M \mp
 1}{2})^2$ on $V_j$. Using $D_A^2 = \nabla^*\nabla + \tfrac12 \mp \tfrac M2$, show that both give $E_j = \tfrac14((2j + 1)^2 -
-M^2)$, and with $j = \tfrac{|M| - 1}{2} + k$ that $E = k(k + |M|)$. With Sage, list the multiplicities of the first five levels for
+M^2)$, and with $j = \tfrac{|M| - 1}{2} + k$ that $E = k(k + |M|)$. List the multiplicities of the first five levels for
 $M = 3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
 $j(j + 1) - \tfrac14(M \mp 1)^2 + \tfrac12 \mp \tfrac M2 = j^2 + j + \tfrac14 - \tfrac{M^2}{4} = \tfrac14((2j + 1)^2 - M^2)$.
 For $M = 3$ the component of charge $-1$ starts at $j = 1$ and that of charge $-2$ at $j = 2$, so the level $k = 0$ has
-multiplicity $3$ and the level $k \geq 1$ has $2(3 + 2k)$:
+multiplicity $3$ and the level $k \geq 1$ has $2(3 + 2k)$.
 
-```python
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 from collections import Counter
 M = 3
 levels = Counter()
@@ -22818,19 +23225,17 @@ for E in sorted(levels)[:5]:
     print("E = %3s = k(k + |M|) with k = %s: multiplicity %3d, formula %s" % (E, k, levels[E], M if k == 0 else 2 * (M + 2 * k)))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 E =   0 = k(k + |M|) with k = 0: multiplicity   3, formula 3
 E =   4 = k(k + |M|) with k = 1: multiplicity  10, formula 10
 E =  10 = k(k + |M|) with k = 2: multiplicity  14, formula 14
 E =  18 = k(k + |M|) with k = 3: multiplicity  18, formula 18
 E =  28 = k(k + |M|) with k = 4: multiplicity  22, formula 22
 ```
+::::
 :::
 
-The sign of the index depends on conventions, while its absolute value does not. The third exercise traces the sign through the
-choices made in this chapter and compares with @dolan2003 [eq. (32)].
+The sign of the index depends on conventions. The third exercise sorts them out.
 
 ::: {#exr-spd-index-sign}
 #### The sign of the index
@@ -22841,59 +23246,298 @@ $c_1$, so @eq-spd-monopole-index is unchanged. @dolan2003 [eq. (32)] writes $\nu
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Exchanging $e_1$ and $e_2$ multiplies $\gamma^1\gamma^2$ by $-1$, hence $\gamma_*$, and reverses the orientation used to integrate
-$da$, hence $c_1$: both sides change sign together if one keeps the field fixed, and the formula holds in every orientation.
-@dolan2003 [eqs. (23)-(26), (32)] counts chirality with $\sigma_3 = \gamma_*$, as here, but labels the field oppositely: his
-operator (24) contains $+\tfrac M2\sigma_3$ where ours contains $-\tfrac M2\sigma_3$ (@exr-spd-lichnerowicz-check), so his
-monopole of charge $M$ is ours of charge $-M$, and $\nu = -M$ in his labels is $+M$ in ours. Under $M \mapsto -M$ the zero modes move to the other component (@exm-spd-zero-mode-solution) and the index
-changes sign: the index is odd in the field, as $c_1$ is.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+Exchanging $e_1$ and $e_2$ multiplies $\gamma^1\gamma^2$ by $-1$, hence $\gamma_* = -i\gamma^1\gamma^2$, and reverses the orientation used to integrate $da$, hence $c_1$ (@def-chern-number (5)): with the field fixed both sides
+of @eq-spd-monopole-index change sign together. @dolan2003 [eqs. (23)-(26), (32)] counts chirality with $\sigma_3 = \gamma_*$, as here, but labels the field oppositely: his squared operator contains $+\tfrac M2\sigma_3$
+where ours contains $-\tfrac M2\sigma_3$ (@exm-dix-sphere-monopole-operator), so his charge $M$ is our $-M$, and $\nu = -M$ in his labels is $+M$ in ours. Under $M \mapsto -M$ the zero modes move to the other
+component (@thm-monopole-index (1)) and the index changes sign, as $c_1$ does.
+
+## SageMath
+
+The code checks that $\gamma_* = -i\gamma^1\gamma^2$ changes sign when the two gamma matrices are exchanged.
+
+```{.python .sage}
+s1, s2 = matrix(QQbar, [[0, 1], [1, 0]]), matrix(QQbar, [[0, -I], [I, 0]])
+print(-I*s1*s2, "\n", -I*s2*s1)
+```
+
+```{.text .sage-output}
+[ 1  0]
+[ 0 -1]
+ [-1  0]
+[ 0  1]
+```
+::::
+:::
+
+The proof uses the explicit solution of the ordinary differential equation. The fourth exercise verifies it.
+
+::: {#exr-dix-ode-check}
+#### The solution of the zero-mode equation
+
+Check that $g_m = \sin^{m - 1/2}\tfrac\theta2\cos^{M - m - 1/2}\tfrac\theta2$ solves $g' + \tfrac12\cot\theta\,g - \frac{m + a_\varphi}{\sin\theta}g = 0$ with $a_\varphi = \tfrac M2(\cos\theta - 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$(\log g_m)' = \tfrac12(m - \tfrac12)\cot\tfrac\theta2 - \tfrac12(M - m - \tfrac12)\tan\tfrac\theta2$, and with $\cot\theta = \tfrac12(\cot\tfrac\theta2 - \tan\tfrac\theta2)$, $\frac1{\sin\theta} = \tfrac12(\cot\tfrac\theta2 +
+\tan\tfrac\theta2)$ and $\frac{\cos\theta - 1}{\sin\theta} = -\tan\tfrac\theta2$, the equation's coefficient is $\tfrac14(\cot - \tan) - \tfrac m2(\cot + \tan) + \tfrac M2\tan$, which is $-(\log g_m)'$.
+
+## SageMath
+
+The code substitutes the solution, with $\theta = 2t$.
+
+```{.python .sage}
+t, m, M = var("t m M"); assume(t > 0, t < pi/2)
+th = 2*t; g = sin(t)^(m - 1/2)*cos(t)^(M - m - 1/2)
+a = M/2*(cos(th) - 1)
+res = diff(g, t)/2 + cot(th)/2*g - (m + a)/sin(th)*g
+print((res/g).trig_expand().simplify_full())
+```
+
+```{.text .sage-output}
+0
+```
+::::
+:::
+
+The lower component has the opposite equation. The fifth exercise solves it.
+
+::: {#exr-dix-lower}
+#### The lower component
+
+Show that $h' + \tfrac12\cot\theta\,h + \frac{m + a_\varphi}{\sin\theta}h = 0$ has the solution $\sin^{-m - 1/2}\tfrac\theta2\cos^{m - M - 1/2}\tfrac\theta2$, and list the admissible $m$ for $M = -3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+The computation of @exr-dix-ode-check with $m \mapsto -m$, $M \mapsto -M$ in the coefficient. Boundedness needs $-m - \tfrac12 \geq 0$ and $m - M - \tfrac12 \geq 0$: for $M = -3$, $m = -\tfrac12, -\tfrac32, -\tfrac52$, three
+modes.
+
+## SageMath
+
+The code checks the solution and lists $m$.
+
+```{.python .sage}
+t, m, M = var("t m M"); assume(t > 0, t < pi/2)
+th = 2*t; h = sin(t)^(-m - 1/2)*cos(t)^(m - M - 1/2); a = M/2*(cos(th) - 1)
+print(((diff(h, t)/2 + cot(th)/2*h + (m + a)/sin(th)*h)/h).trig_expand().simplify_full())
+print([k + 1/2 for k in range(-5, 5) if -(k + 1/2) - 1/2 >= 0 and (k + 1/2) + 3 - 1/2 >= 0])
+```
+
+```{.text .sage-output}
+0
+[-5/2, -3/2, -1/2]
+```
+::::
+:::
+
+The proof excludes unbounded solutions. The sixth exercise shows one.
+
+::: {#exr-dix-unbounded}
+#### An excluded solution
+
+For $M = 2$ and $m = -\tfrac12$, show that $g_m$ is unbounded near $\theta = 0$, so it is not the component of a smooth spinor field.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$g_{-1/2} = \sin^{-1}\tfrac\theta2\cos^{2}\tfrac\theta2 \to \infty$ as $\theta \to 0$, while $|\psi|$ of a smooth field is bounded on $S^2$.
+
+## SageMath
+
+The code evaluates the limit.
+
+```{.python .sage}
+t = var("t")
+print(limit(sin(t)^(-1)*cos(t)^2, t=0, dir="+"))
+```
+
+```{.text .sage-output}
++Infinity
+```
+::::
+:::
+
+Part (3) identifies zero modes with polynomials. The seventh exercise checks the factorisation.
+
+::: {#exr-dix-polynomial-check}
+#### Zero modes as polynomials
+
+Check $u_k = e^{i\varphi/2}\cos^{M - 1}\tfrac\theta2\,z^k$ with $z = \tan\tfrac\theta2\,e^{i\varphi}$ for $M = 4$, $k = 0, \dots, 3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\tan^k\tfrac\theta2\cos^{M - 1}\tfrac\theta2 = \sin^k\tfrac\theta2\cos^{M - 1 - k}\tfrac\theta2$ and $e^{i\varphi/2}e^{ik\varphi} = e^{i(k + 1/2)\varphi}$.
+
+## SageMath
+
+The code compares both sides.
+
+```{.python .sage}
+th, ph = var("th ph"); M = 4; z = tan(th/2)*exp(I*ph)
+print(all(bool((exp(I*(k + 1/2)*ph)*sin(th/2)^k*cos(th/2)^(M - 1 - k) - exp(I*ph/2)*cos(th/2)^(M - 1)*z^k).simplify_full() == 0) for k in range(M)))
+```
+
+```{.text .sage-output}
+True
+```
+::::
+:::
+
+The zero modes have finite norm. The eighth exercise computes it with a Beta integral.
+
+::: {#exr-dix-norms}
+#### Norms of the zero modes
+
+Show that $\int|u_k|^2\sin\theta\,d\theta\,d\varphi = 4\pi\frac{k!\,(M - 1 - k)!}{M!}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+With $s = \sin^2\tfrac\theta2$, $ds = \tfrac12\sin\theta\,d\theta$, the integral is $2\pi\cdot2\int_0^1s^k(1 - s)^{M - 1 - k}ds = 4\pi B(k + 1, M - k) = 4\pi\frac{k!(M - 1 - k)!}{M!}$.
+
+## SageMath
+
+The code integrates for $M = 4$.
+
+```{.python .sage}
+th = var("th"); M = 4
+print([(k, (2*pi*integrate(sin(th/2)^(2*k)*cos(th/2)^(2*(M - 1 - k))*sin(th), th, 0, pi)).simplify_full(), 4*pi*factorial(k)*factorial(M - 1 - k)/factorial(M)) for k in range(M)])
+```
+
+```{.text .sage-output}
+[(0, pi, pi), (1, 1/3*pi, 1/3*pi), (2, 1/3*pi, 1/3*pi), (3, pi, pi)]
+```
+::::
+:::
+
+The zero modes are annihilated by $D_A$. The ninth exercise applies the operator to $u_1$ for $M = 3$.
+
+::: {#exr-dix-apply}
+#### Applying $D_A$
+
+With the operator of @exm-dix-sphere-monopole-operator and $M = 3$, check $D_A(u_1, 0) = 0$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+This is part (1) for $k = 1$: $u_1 = e^{3i\varphi/2}\sin\tfrac\theta2\cos\tfrac\theta2$ solves the equation of the proof with $m = \tfrac32$.
+
+## SageMath
+
+The code applies $D_A$, with $\theta = 2t$.
+
+```{.python .sage}
+t, ph = var("t ph"); M = 3; th = 2*t
+s1, s2 = matrix(SR, [[0, 1], [1, 0]]), matrix(SR, [[0, -I], [I, 0]])
+a = M/2*(cos(th) - 1)
+D = lambda p: I*(s1*(p.apply_map(lambda f: diff(f, t))/2 + cot(th)/2*p) + s2*(p.apply_map(lambda f: diff(f, ph)) + I*a*p)/sin(th))
+u = exp(3*I*ph/2)*sin(t)*cos(t)
+print([e.trig_expand().simplify_full() for e in D(matrix(SR, 2, 1, [u, 0])).list()])
+```
+
+```{.text .sage-output}
+[0, 0]
+```
+::::
+:::
+
+On a product of two spheres the zero modes multiply. The last exercise counts them on $S^2 \times S^2$.
+
+::: {#exr-dix-products}
+#### Two spheres with monopoles
+
+On $S^2 \times S^2$ with charges $M_1, M_2 \geq 1$, show that the products $u_k \otimes u'_l$ of the zero modes of the two factors are $M_1M_2$ zero modes of positive chirality, using that the product Dirac
+operator squares to $D_1^2 + D_2^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$D_1^2 + D_2^2$ vanishes on $u_k \otimes u'_l$, so these are zero modes; each factor has chirality $+1$ by part (1), so the product chirality $\gamma_* \otimes \gamma_*$ is $+1$; there are $M_1M_2$ of them.
+
+## SageMath
+
+The code counts.
+
+```{.python .sage}
+print([(M1, M2, M1*M2) for M1 in (1, 2, 3) for M2 in (1, 2)])
+```
+
+```{.text .sage-output}
+[(1, 1, 1), (1, 2, 2), (2, 1, 2), (2, 2, 4), (3, 1, 3), (3, 2, 6)]
+```
+::::
 :::
 ::::
 
 ### Index theorems
 
-The index on the sphere is the integral of the field strength, a characteristic class of the bundle. In higher dimensions the
-curvature of the manifold contributes as well, through the $\hat A$ genus, whose generating function is drawn in the figure.
+The index on the sphere is the integral of the field strength, a characteristic class of the bundle. In higher dimensions the curvature of the manifold contributes as well, through the $\hat A$ genus, whose generating
+function is drawn in the figure.
 
-![The generating function $\frac{x/2}{\sinh(x/2)}$ of the $\hat A$ genus (black) and its Taylor polynomials $1 - \tfrac{x^2}{24}$
-(blue) and $1 - \tfrac{x^2}{24} + \tfrac{7x^4}{5760}$ (red). Only even powers occur, so $\hat A$ contributes in dimensions divisible
-by four.](figures/sd-ahat-series.svg){#fig-sd-ahat-series width=62%}
+![The generating function $\frac{x/2}{\sinh(x/2)}$ of the $\hat A$ genus (black) and its Taylor polynomials $1 - \tfrac{x^2}{24}$ (blue) and $1 - \tfrac{x^2}{24} + \tfrac{7x^4}{5760}$ (red). Only even powers occur, so
+$\hat A$ contributes in dimensions divisible by four.](figures/sd-ahat-series.svg){#fig-sd-ahat-series width=62%}
 
 :::: {.statement-box}
 ::: {#def-a-hat-genus}
 #### $\hat A$ genus
 
-For a closed oriented manifold $M$ whose Pontryagin classes are written with formal roots, $\sum_jp_jt^j = \prod_j(1 + x_j^2t)$,
-the **$\hat A$ genus** is the characteristic class
+For a compact oriented Riemannian manifold $M$ of dimension $n$, the **$\hat A$ form** $\hat A(M)$ is the form $\hat A(\Omega)$ of @def-chc-a-hat; with formal roots, $\sum_kp_k = \prod_j(1 + x_j^2)$,
 $$
 \hat A(M) = \prod_j\frac{x_j/2}{\sinh(x_j/2)} = 1 - \frac{p_1}{24} + \frac{7p_1^2 - 4p_2}{5760} - \dots ,
 $$ {#eq-spd-ahat}
-represented by curvature forms ($\hat A = 1 + \tfrac{1}{(4\pi)^2}\tfrac1{12}\operatorname{tr}R^2 + \dots$); the number $\hat A[M]
-= \int_M\hat A(M)$ vanishes unless $\dim M$ is divisible by $4$ @bilal2008 [eqs. (11.15)-(11.16)].
+and the **$\hat A$ genus** is $\hat A[M] = \int_M\hat A(M)$, the integral of the component of degree $n$, which is $0$ unless $n \equiv 0 \bmod 4$. Then:
+
+1. (**the series**) $\frac{x/2}{\sinh(x/2)} = 1 - \frac{x^2}{24} + \frac{7x^4}{5760} + O(x^6)$ is even, and the product over the roots has the components $-\frac{p_1}{24}$ of degree four and $\frac{7p_1^2 - 4p_2}{5760}$ of
+   degree eight;
+2. (**curvature form**) $\hat A(M) = 1 + \frac1{(4\pi)^2}\frac1{12}\operatorname{tr}(\Omega \wedge \Omega) + \dots$, the form of @bilal2008 [eqs. (11.15)-(11.16)];
+3. (**flat tori, spheres, products**) $\hat A(M) = 1$ if $M$ is flat, has constant curvature, or has $n < 4$, so $\hat A[T^n] = \hat A[S^n] = 0$ for $n \geq 1$; and for a product metric $\hat A[M \times N] = \hat A[M]\hat A[N]$
+   when $\dim M + \dim N \leq 8$;
+4. (**stated, not proved here**) for $n = 4$, $\int_Mp_1 = 3\tau(M)$ with $\tau$ the signature (Hirzebruch's signature theorem), so $\hat A[M] = -\tfrac18\tau(M)$.
 :::
 ::::
 
+*Proof.* (1) $\sinh(x/2)/(x/2) = 1 + \frac{x^2}{24} + \frac{x^4}{1920} + O(x^6)$ is even, and so is its inverse $1 - \frac{x^2}{24} + (\frac1{576} - \frac1{1920})x^4 = 1 - \frac{x^2}{24} + \frac{7x^4}{5760}$. The product over the
+roots has degree-four part $-\frac1{24}\sum_jx_j^2 = -\frac{p_1}{24}$ and degree-eight part $\frac7{5760}\sum_jx_j^4 + \frac1{576}\sum_{i<j}x_i^2x_j^2 = \frac{7(p_1^2 - 2p_2) + 10p_2}{5760}$, which is $\frac{7p_1^2 -
+4p_2}{5760}$. (2) By @def-chc-a-hat (1), $-\frac{p_1}{24} = \frac1{24 \cdot 8\pi^2}\operatorname{tr}(\Omega \wedge \Omega) = \frac1{16\pi^2}\frac1{12}\operatorname{tr}(\Omega \wedge \Omega)$. (3) The first claim is
+@def-chc-a-hat (3) and (4); then the component of positive degree $n$ of $1$ is zero. For a product, $\hat A(\Omega) = \hat A(\Omega_1) \wedge \hat A(\Omega_2)$ (@def-chc-a-hat (2)), the top component of a product of
+forms on $M \times N$ is the product of the top components, and the integral of $\pi_1^*\alpha \wedge \pi_2^*\beta$ is $\int_M\alpha\int_N\beta$ by Fubini. (4) is quoted, together with (1). $\square$
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-Spheres have trivial Pontryagin classes in the degrees that matter. The first example evaluates the genus on them and compares with the absence of zero modes.
+Spheres have constant curvature. The first example evaluates the genus on them and compares with the absence of harmonic spinors.
 
 ::: {#exm-spd-ahat-spheres}
 #### Spheres
 
-$S^{4k}$ bounds the ball, so all its Pontryagin numbers vanish and $\hat A[S^{4k}] = 0$; this agrees with the absence of harmonic
-spinors on spheres (@thm-lichnerowicz-vanishing), since the index of the untwisted Dirac operator is $\hat A[M]$
-(@thm-atiyah-singer). On $S^2$ and $S^6$ the genus vanishes for dimensional reasons.
+By part (3), $\hat A[S^n] = 0$ for every $n \geq 1$; on $S^2$ and $S^6$ already for dimensional reasons. This agrees with the absence of harmonic spinors on round spheres (@thm-lichnerowicz-vanishing), which gives
+$\dim\ker D^+ - \dim\ker D^- = 0$ there.
 :::
 
-On a four-manifold the genus is $-p_1/24$, and $p_1$ is three times the signature. The second example evaluates it on $K3$ and on
-$\mathbb{CP}^2$, where the answer is not an integer.
+On a four-manifold the genus is $-p_1/24$, and $p_1$ is three times the signature. The second example evaluates it on $K3$ and on $\mathbb{CP}^2$, where the answer is not an integer.
 
 ::: {#exm-spd-ahat-four}
 #### $K3$ and $\mathbb{CP}^2$
 
-On a four-manifold $\hat A[M] = -\tfrac1{24}\int p_1 = -\tfrac18\tau(M)$ by the signature theorem $\int p_1 = 3\tau$. For $K3$,
-$\tau = -16$ @aspinwall1996 [eq. (20)] and $\hat A = 2$, the two parallel spinors of @prp-calabi-yau-spinors. For $\mathbb{CP}^2$, $\tau = 1$
-and $\hat A = -\tfrac18$, not an integer: the index theorem would be violated, which is another proof that $\mathbb{CP}^2$ is not spin
-(@exm-spd-cp2-not-spin).
+By part (4), $\hat A[M] = -\tfrac18\tau(M)$. For $K3$, $\tau = -16$ @aspinwall1996 [eq. (20)] and $\hat A = 2$, the number of parallel spinors of @prp-calabi-yau-spinors. For $\mathbb{CP}^2$, $\tau = 1$ and $\hat A =
+-\tfrac18$, not an integer, in contrast with the spin manifold $K3$; $\mathbb{CP}^2$ is not spin (@exm-spd-cp2-not-spin).
 :::
 
 Flat tori have vanishing curvature forms, hence vanishing genus. The third example compares with the zero modes found directly in the part on tori.
@@ -22901,27 +23545,91 @@ Flat tori have vanishing curvature forms, hence vanishing genus. The third examp
 ::: {#exm-spd-ahat-torus}
 #### Tori
 
-On $T^4$ the curvature vanishes, so $\hat A[T^4] = 0$; the periodic structure has two zero modes of each chirality and index $0$
-(@exm-spd-torus-six for the analogous count on $T^6$). The genus does not see the spin structure, but the index does not depend on
-it either: with the antiperiodic structures there are no zero modes, and the index is $0 - 0 = 0$.
+On $T^4$ the curvature vanishes, so $\hat A[T^4] = 0$; the periodic structure has two zero modes of each chirality, and $2 - 2 = 0$ (@exm-spd-torus-six for the analogous count on $T^6$). The genus does not see the
+spin structure, and neither does this difference: with the antiperiodic structures there are no zero modes, and $0 - 0 = 0$.
+:::
+
+Products of low-dimensional spaces have trivial $\hat A$ form. The fourth example takes two spheres.
+
+::: {#exm-dix-ahat-s2s2}
+#### $S^2 \times S^2$
+
+Each factor has $n = 2 < 4$, so $\hat A = 1$ on each, and $\hat A(S^2 \times S^2) = 1$ by @def-chc-a-hat (2): the genus is $0$, and in the twisted index only the bundle contributes.
+:::
+
+Negative curvature does not change the conclusion of part (3). The fifth example takes a compact hyperbolic manifold.
+
+::: {#exm-dix-ahat-hyperbolic}
+#### Hyperbolic manifolds
+
+A compact quotient of hyperbolic space has constant curvature $-1$, so $\hat A(M) = 1$ by part (3) and $\hat A[M] = 0$, although its scalar curvature is negative and the vanishing argument of
+@thm-lichnerowicz-vanishing does not apply.
+:::
+
+In four dimensions the form is a multiple of $\operatorname{tr}(\Omega \wedge \Omega)$. The sixth example writes the genus of $\mathbb{CP}^2$ as a form.
+
+::: {#exm-dix-ahat-cp2-form}
+#### The form on $\mathbb{CP}^2$
+
+With $x$ the hyperplane class, $\int x^2 = 1$, and $c(\mathbb{CP}^2) = (1 + x)^3$, the Pontryagin class is $p_1 = c_1^2 - 2c_2 = 9x^2 - 6x^2 = 3x^2$, so $\hat A = 1 - \tfrac18x^2$ in cohomology and $\hat A[\mathbb{CP}^2] = -\tfrac18$, as in @exm-spd-ahat-four.
+:::
+
+The genus is a topological invariant even when the form is not $1$. The seventh example deforms the round $S^4$.
+
+::: {#exm-dix-ahat-deformed}
+#### A deformed sphere
+
+On an ellipsoid $S^4$ the curvature is not constant and $\hat A(\Omega) - 1$ need not vanish pointwise, but its class does not depend on the metric (@def-chc-a-hat (1)), so $\hat A[S^4] = 0$ as for the round metric.
+:::
+
+In dimension eight the genus has two terms. The eighth example evaluates them on $K3 \times K3$.
+
+::: {#exm-dix-ahat-k3k3}
+#### $K3 \times K3$
+
+With $p_1 = p_1' + p_1''$ the sum of the classes of the factors, $\int p_1' = \int p_1'' = -48$ (from $\hat A[K3] = 2$), $p_1^2 = 2p_1'p_1''$ and $p_2 = p_1'p_1''$ in top degree, so $\int p_1^2 = 4608$, $\int p_2 = 2304$, and
+$\hat A[K3 \times K3] = \frac{7 \cdot 4608 - 4 \cdot 2304}{5760} = 4 = 2 \cdot 2$, as part (3) requires.
+:::
+
+The series has one coefficient in each even degree. The ninth example gives the next one.
+
+::: {#exm-dix-ahat-x6}
+#### The coefficient of $x^6$
+
+For one root, $\frac{x/2}{\sinh(x/2)} = 1 - \frac{x^2}{24} + \frac{7x^4}{5760} - \frac{31x^6}{967680} + O(x^8)$ (@fig-sd-ahat-series, whose script prints it).
+:::
+
+The genus in dimension four is odd under a change of orientation. The last example reverses $K3$.
+
+::: {#exm-dix-ahat-orientation}
+#### Reversing the orientation
+
+$p_1$ is a form that does not depend on the orientation, but its integral changes sign with it; so $\hat A[\overline{K3}] = -2$ for $K3$ with the opposite orientation, and $\tau(\overline{K3}) = 16$.
 :::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The coefficients in @eq-spd-ahat come from multiplying two power series. The first exercise does the multiplication with Sage for two formal roots.
+The coefficients in @eq-spd-ahat come from multiplying two power series. The first exercise does the multiplication for two formal roots.
 
 ::: {#exr-spd-ahat-expansion}
 #### Expanding the genus
 
-With Sage, expand $\frac{x/2}{\sinh(x/2)}$ to order $x^6$, form the product over two roots $x_1, x_2$, and write its parts of degree
+Expand $\frac{x/2}{\sinh(x/2)}$ to order $x^6$, form the product over two roots $x_1, x_2$, and write its parts of degree
 $2$ and $4$ in terms of $p_1 = x_1^2 + x_2^2$ and $p_2 = x_1^2x_2^2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The series is $1 - \tfrac{x^2}{24} + \tfrac{7x^4}{5760} - \tfrac{31x^6}{967680} + \dots$, and the product gives $-\tfrac{p_1}{24}$ and
-$\tfrac{7p_1^2 - 4p_2}{5760}$:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+The series is $1 - \tfrac{x^2}{24} + \tfrac{7x^4}{5760} - \tfrac{31x^6}{967680} + \dots$, and the product gives $-\tfrac{p_1}{24}$ and
+$\tfrac{7p_1^2 - 4p_2}{5760}$.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 x, x1, x2, P1, P2 = var("x x1 x2 P1 P2")
 f = (x / 2) / sinh(x / 2)
 print("(x/2)/sinh(x/2) =", f.taylor(x, 0, 6))
@@ -22932,17 +23640,15 @@ print("degree 2:", part(2), "= -p1/24:", bool((part(2) + p1 / 24).expand() == 0)
 print("degree 4:", part(4), "= (7 p1^2 - 4 p2)/5760:", bool((part(4) - (7 * p1 ^ 2 - 4 * p2) / 5760).expand() == 0))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 (x/2)/sinh(x/2) = -31/967680*x^6 + 7/5760*x^4 - 1/24*x^2 + 1
 degree 2: -1/24*x1^2 - 1/24*x2^2 = -p1/24: True
 degree 4: 7/5760*x1^4 + 1/576*x1^2*x2^2 + 7/5760*x2^4 = (7 p1^2 - 4 p2)/5760: True
 ```
+::::
 :::
 
-The genus is multiplicative, $\hat A(M \times N) = \hat A(M)\hat A(N)$, because the formal roots of a product are the union of
-the roots. The second exercise uses this to find manifolds with $\hat A \neq 0$ in dimension eight.
+The genus is multiplicative. The second exercise uses this on products.
 
 ::: {#exr-spd-ahat-products}
 #### Products
@@ -22952,26 +23658,50 @@ $\hat A[S^2 \times \Sigma] = 0$ for every surface $\Sigma$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$TM \oplus TN$ has the roots of both, so the product formula @eq-spd-ahat factorises, and the top-degree part of a product of
-forms on $M \times N$ is the product of the top-degree parts. $\hat A[K3 \times K3] = 4$, $\hat A[K3 \times T^4] = 0$. For $S^2
-\times \Sigma$ the dimension is $4$ but each factor has dimension $2$, where $\hat A$ has no top-degree part: the product is $0$.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+By @def-chc-a-hat (2), $\hat A(\Omega) = \hat A(\Omega_1) \wedge \hat A(\Omega_2)$ for the product metric, and the component of top degree $m + n$ of a product of forms on $M \times N$ is the product of the top components on
+the factors, whose integral is the product of the integrals (Fubini); so $\hat A[M \times N] = \hat A[M]\hat A[N]$, with $\hat A[X] = 0$ when $\dim X \not\equiv 0 \bmod 4$. With $\hat A[K3] = 2$ (@exm-spd-ahat-four) and
+$\hat A[T^4] = 0$ (@exm-spd-ahat-torus): $\hat A[K3 \times K3] = 4$, $\hat A[K3 \times T^4] = 0$. For $S^2 \times \Sigma$ each factor has dimension $2$, where $\hat A$ has no component of top degree, so the product is
+$0$.
+
+## SageMath
+
+The code multiplies the genera of the factors.
+
+```{.python .sage}
+A = {"K3": 2, "T4": 0, "S2": 0}
+print(A["K3"]*A["K3"], A["K3"]*A["T4"], A["S2"]*A["S2"])
+```
+
+```{.text .sage-output}
+4 0 0
+```
+::::
 :::
 
-The failure of integrality on $\mathbb{CP}^2$ is repaired by the spin-c structure. The third exercise computes the spin-c version of the
-genus and recovers @fig-sd-cp2-index.
+The same genus enters the index of spin-c operators. The third exercise evaluates it on $\mathbb{CP}^2$.
 
 ::: {#exr-spd-spinc-index}
 #### The spin-c index of $\mathbb{CP}^2$
 
-For a spin-c structure with determinant line $L$, the index is $\int\hat A(M)e^{c_1(L)/2}$. With Sage, take $p_1(\mathbb{CP}^2) = 3x^2$,
+For a spin-c structure with determinant line $L$, the index is $\int\hat A(M)e^{c_1(L)/2}$. Take $p_1(\mathbb{CP}^2) = 3x^2$,
 $c_1(L) = (2Q + 3)x$ and $\int x^2 = 1$, and show that the index is $\tfrac12(Q + 1)(Q + 2)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\hat A = 1 - \tfrac{x^2}{8}$ and $e^{(2Q + 3)x/2}$ has $x^2$ coefficient $\tfrac18(2Q + 3)^2$, so the index is $\tfrac18((2Q +
-3)^2 - 1) = \tfrac12(Q + 1)(Q + 2)$, the holomorphic Euler characteristic of @exr-spd-cp2-riemann-roch:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+$\hat A = 1 - \tfrac{x^2}{8}$ and $e^{(2Q + 3)x/2}$ has $x^2$ coefficient $\tfrac18(2Q + 3)^2$, so the index is $\tfrac18((2Q +
+3)^2 - 1) = \tfrac12(Q + 1)(Q + 2)$, the holomorphic Euler characteristic of @exr-spd-cp2-riemann-roch.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 x, Q = var("x Q")
 ahat = 1 - 3 * x ^ 2 / 24
 integrand = (ahat * exp((2 * Q + 3) * x / 2)).taylor(x, 0, 2)
@@ -22980,38 +23710,252 @@ print("A-hat(CP^2) = 1 - x^2/8; index =", ind.expand(), "=", ind.factor())
 print("equals (Q+1)(Q+2)/2:", bool(ind == (Q + 1) * (Q + 2) / 2), "; values Q = -3..3:", [ind.subs(Q=q) for q in range(-3, 4)])
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 A-hat(CP^2) = 1 - x^2/8; index = 1/2*Q^2 + 3/2*Q + 1 = 1/2*(Q + 2)*(Q + 1)
 equals (Q+1)(Q+2)/2: True ; values Q = -3..3: [1, 0, 0, 1, 3, 6, 10]
 ```
+::::
+:::
+
+Part (1) needs the series to be even. The fourth exercise proves it.
+
+::: {#exr-dix-ahat-even}
+#### An even function
+
+Show that $\frac{x/2}{\sinh(x/2)}$ is even, so that only $x_j^2$ enter @eq-spd-ahat.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\sinh$ is odd, so $\frac{-x/2}{\sinh(-x/2)} = \frac{x/2}{\sinh(x/2)}$, and the Taylor series of an even function has only even powers.
+
+## SageMath
+
+The code compares $f(-x)$ with $f(x)$.
+
+```{.python .sage}
+x = var("x"); f = (x/2)/sinh(x/2)
+print(bool(f.subs(x=-x) == f))
+```
+
+```{.text .sage-output}
+True
+```
+::::
+:::
+
+The degree-eight coefficient of part (1) holds for any number of roots. The fifth exercise checks it for three.
+
+::: {#exr-dix-ahat-degree8}
+#### Three roots
+
+For three roots, expand $\prod_{j = 1}^3\frac{x_j/2}{\sinh(x_j/2)}$ to degree eight and compare with $\frac{7p_1^2 - 4p_2}{5760}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+This is the computation of the proof of part (1), with $\sum_jx_j^4 = p_1^2 - 2p_2$ for any number of roots.
+
+## SageMath
+
+The code truncates each series and compares the degree-eight parts.
+
+```{.python .sage}
+R.<x1, x2, x3> = QQ[]
+f = lambda y: 1 - y^2/24 + 7*y^4/5760
+P = f(x1)*f(x2)*f(x3)
+deg8 = sum(c*m for c, m in P if m.degree() == 4)
+p1 = x1^2 + x2^2 + x3^2; p2 = x1^2*x2^2 + x1^2*x3^2 + x2^2*x3^2
+print(deg8 == (7*p1^2 - 4*p2)/5760)
+```
+
+```{.text .sage-output}
+True
+```
+::::
+:::
+
+Part (2) converts the Pontryagin class into a trace. The sixth exercise checks the constant.
+
+::: {#exr-dix-ahat-curvature-form}
+#### The constant in part (2)
+
+Using $p_1 = -\frac1{8\pi^2}\operatorname{tr}(\Omega \wedge \Omega)$, show that $-\frac{p_1}{24} = \frac1{(4\pi)^2}\frac1{12}\operatorname{tr}(\Omega \wedge \Omega)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$-\frac{p_1}{24} = \frac1{192\pi^2}\operatorname{tr}(\Omega \wedge \Omega)$ and $(4\pi)^2 \cdot 12 = 192\pi^2$.
+
+## SageMath
+
+The code compares the two constants.
+
+```{.python .sage}
+print(bool(1/(24*8*pi^2) == 1/((4*pi)^2*12)))
+```
+
+```{.text .sage-output}
+True
+```
+::::
+:::
+
+The degree-eight formula is consistent with the product rule. The seventh exercise checks it on a product of two four-manifolds.
+
+::: {#exr-dix-eight-product}
+#### Degree eight on a product
+
+For $M_1 \times M_2$ with $M_i$ of dimension four and $q_i = \int_{M_i}p_1$, show that $\frac{7p_1^2 - 4p_2}{5760}$ integrates to $\frac{q_1q_2}{576} = \hat A[M_1]\hat A[M_2]$, using $p_1 = p_1' + p_1''$, $p_2 = p_1'p_1''$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+The total Pontryagin class of the product is the product $(1 + p_1')(1 + p_1'')$, as the formal roots of the two factors together are the roots of the product; so $p_2 = p_1'p_1''$, and in top degree $(p_1' +
+p_1'')^2 = 2p_1'p_1''$ since $p_1'^2$ and $p_1''^2$ have degree eight on a four-manifold factor. Hence $\int\frac{7 \cdot 2p_1'p_1'' - 4p_1'p_1''}{5760} = \frac{10q_1q_2}{5760} = \frac{q_1q_2}{576} = (-\frac{q_1}{24})(-\frac{q_2}{24})$.
+
+## SageMath
+
+The code computes in the ring with $p_1'^2 = p_1''^2 = 0$ and reads the coefficient of $p_1'p_1''$.
+
+```{.python .sage}
+R.<a, b> = QQ[]; Q = R.quotient([a^2, b^2]); A, B = Q(a), Q(b)
+p1, p2 = A + B, A*B
+print((7*p1^2 - 4*p2)/5760, "  vs  ", (A/24)*(B/24))
+```
+
+```{.text .sage-output}
+1/576*abar*bbar   vs   1/576*abar*bbar
+```
+::::
+:::
+
+For a complex manifold the Pontryagin class comes from the Chern classes. The eighth exercise computes it for $\mathbb{CP}^2$.
+
+::: {#exr-dix-cp2-p1}
+#### $p_1$ of $\mathbb{CP}^2$
+
+For a complex bundle with Chern roots $y_j$, the real bundle has Pontryagin roots $x_j^2 = y_j^2$, so $p_1 = \sum_jy_j^2$. Show $p_1 = c_1^2 - 2c_2$, and with $c(\mathbb{CP}^2) = (1 + x)^3$ find $p_1 = 3x^2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\sum_jy_j^2 = (\sum_jy_j)^2 - 2\sum_{i<j}y_iy_j = c_1^2 - 2c_2$. With $c_1 = 3x$, $c_2 = 3x^2$: $p_1 = 9x^2 - 6x^2 = 3x^2$.
+
+## SageMath
+
+The code reads $c_1$, $c_2$ from $(1 + x)^3$.
+
+```{.python .sage}
+R.<x> = QQ[]; c = (1 + x)^3
+c1, c2 = c[1]*x, c[2]*x^2
+print(c1^2 - 2*c2)
+```
+
+```{.text .sage-output}
+3*x^2
+```
+::::
+:::
+
+A $K3$ surface has $c_1 = 0$ and $c_2 = 24$. The ninth exercise finds its genus from these numbers.
+
+::: {#exr-dix-k3-p1}
+#### $K3$ from its Chern numbers
+
+With $\int c_2(K3) = 24$ and $c_1 = 0$, find $\int p_1$ and $\hat A[K3]$, and compare with @exm-spd-ahat-four.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+By @exr-dix-cp2-p1, $p_1 = c_1^2 - 2c_2$, so $\int p_1 = -48$ and $\hat A[K3] = \frac{48}{24} = 2$, the value of @exm-spd-ahat-four.
+
+## SageMath
+
+The code evaluates.
+
+```{.python .sage}
+c1sq, c2 = 0, 24; p1 = c1sq - 2*c2
+print(p1, -p1/24)
+```
+
+```{.text .sage-output}
+-48 2
+```
+::::
+:::
+
+The coefficients of the series are Bernoulli numbers. The last exercise proves the formula.
+
+::: {#exr-dix-ahat-bernoulli}
+#### Bernoulli numbers
+
+With $\frac x{e^x - 1} = \sum_n\frac{B_n}{n!}x^n$, show that $\frac{x/2}{\sinh(x/2)} = \sum_{k \geq 0}\frac{(2 - 2^{2k})B_{2k}}{(2k)!\,4^k}x^{2k}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\frac x{e^x - 1} + \frac x2 = \frac x2\coth\frac x2$ is even, so $\frac x2\coth\frac x2 = \sum_k\frac{B_{2k}}{(2k)!}x^{2k}$ ($B_1 = -\tfrac12$, the odd $B_n$, $n \geq 3$, vanish), and $x\coth x = \sum_k\frac{2^{2k}B_{2k}}{(2k)!}x^{2k}$.
+With $\frac1{\sinh x} = \coth\frac x2 - \coth x$, $\frac x{\sinh x} = 2\cdot\frac x2\coth\frac x2 - x\coth x = \sum_k\frac{(2 - 2^{2k})B_{2k}}{(2k)!}x^{2k}$; replacing $x$ by $\tfrac x2$ divides the $k$-th term by $4^k$.
+
+## SageMath
+
+The code compares the formula with the series to order $x^{10}$.
+
+```{.python .sage}
+x = var("x"); s = ((x/2)/sinh(x/2)).series(x, 11)
+print(all(s.coefficient(x, 2*k) == (2 - 2^(2*k))*bernoulli(2*k)/(factorial(2*k)*4^k) for k in range(6)))
+```
+
+```{.text .sage-output}
+True
+```
+::::
 :::
 ::::
 
-The gauge field enters the index through the Chern character of the bundle. The definition fixes its normalisation in the
-conventions of the book, in which the monopole of charge $M$ of @exm-spd-monopole-potential has $\int\operatorname{ch}_1 = c_1 =
-M$.
+The gauge field enters the index through the Chern character of the bundle. The definition fixes its normalisation in the conventions of the book, in which the monopole of charge $M$ of @exm-spd-monopole-potential has
+$\int\operatorname{ch}_1 = c_1 = M$.
 
 :::: {.statement-box}
 ::: {#def-chern-character}
 #### Chern character
 
-For a Hermitian vector bundle $E$ with anti-Hermitian curvature $F$, the **Chern character** is the sum of closed forms
+For a Hermitian vector bundle $E$ of rank $n$ with a unitary connection of anti-Hermitian curvature $F$, the **Chern character** is the form of @def-chc-chern-character,
 $$
-\operatorname{ch}(E) = \operatorname{tr}\exp\Big(\frac{iF}{2\pi}\Big) = \operatorname{rank}E + \frac{i}{2\pi}\operatorname{tr}F
-+ \frac12\Big(\frac{i}{2\pi}\Big)^2\operatorname{tr}(F \wedge F) + \dots ,
+\operatorname{ch}(E) = \operatorname{tr}\exp\Big(\frac{iF}{2\pi}\Big) = \operatorname{rank}E + \frac{i}{2\pi}\operatorname{tr}F + \frac12\Big(\frac{i}{2\pi}\Big)^2\operatorname{tr}(F \wedge F) + \dots ,
 $$ {#eq-spd-chern-character}
-whose cohomology class does not depend on the connection. For a line bundle with $A = ia$, $F = if$ and $f = da$, $\operatorname{ch}_1 =
--\tfrac{1}{2\pi}f$ and $\int\operatorname{ch}_1 = c_1$ (@def-chern-number)
-[@rudolph2017differential, Remark 4.6.10 and eq. (5.8.52)];
-@bilal2008 [eq. (10.53)] writes the same exponential for his Hermitian field strength, a different convention for the potential.
+whose class does not depend on the connection @rudolph2017differential [Remark 4.6.10 and eq. (5.8.52)]; @bilal2008 [eq. (10.53)] writes the same exponential for his Hermitian field strength, a different convention for the
+potential. Then:
+
+1. (**line bundles**) for $n = 1$, $A = ia$ and $F = if$, $\operatorname{ch} = e^{-f/2\pi}$, $\operatorname{ch}_1 = -\tfrac1{2\pi}f$, and over a closed surface $\int\operatorname{ch}_1 = c_1$ (@def-chern-number); for the monopole of charge
+   $M$, $\int_{S^2}\operatorname{ch}_1 = M$;
+2. (**flat bundles**) if $F = 0$, $\operatorname{ch}(E) = n$, whatever the holonomy;
+3. (**traceless curvature**) if $\operatorname{tr}F = 0$, as for $SU(n)$ connections, $\operatorname{ch}_1 = 0$ and $\operatorname{ch}_2 = -\frac1{8\pi^2}\operatorname{tr}(F \wedge F) = -c_2$;
+4. (**sums and products**) $\operatorname{ch}(E \oplus E') = \operatorname{ch}E + \operatorname{ch}E'$ and $\operatorname{ch}(E \otimes E') = \operatorname{ch}E \wedge \operatorname{ch}E'$.
 :::
 ::::
 
+*Proof.* (1) For $n = 1$, $\frac{iF}{2\pi} = -\frac f{2\pi}$, a $2$-form, and $\operatorname{ch} = \exp(-\frac f{2\pi})$, whose degree-two part is $-\frac f{2\pi}$; its integral is $c_1$ by @def-chern-number, and $c_1 = M$ for the
+monopole (@exm-spd-monopole-potential). (2) Every term of positive degree contains $F$. (3) $\operatorname{ch}_1 = \frac i{2\pi}\operatorname{tr}F = 0$, and $\frac12(\frac i{2\pi})^2 = -\frac1{8\pi^2}$; with $c_1 = 0$,
+$\operatorname{ch}_2 = \frac12c_1^2 - c_2 = -c_2$ by @def-chc-chern-character (1). (4) is @def-chc-chern-character (2) and (3). $\square$
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-For a line bundle the Chern character is the exponential of the first Chern form. The first example evaluates it for the
-monopole.
+For a line bundle the Chern character is the exponential of the first Chern form. The first example evaluates it for the monopole.
 
 ::: {#exm-spd-ch-monopole}
 #### The monopole
@@ -23021,8 +23965,7 @@ For the monopole of charge $M$, $\operatorname{ch} = e^{-f/2\pi} = 1 - \tfrac{1}
 $rM$: the index of the twisted operator is additive over direct sums.
 :::
 
-For an $SU(2)$ bundle the trace of $F$ vanishes and the first non-trivial term is quadratic. The second example evaluates it for
-the instanton of @exm-spd-instanton.
+For $SU(2)$ bundles the first term vanishes and the second is the instanton number. The second example evaluates it.
 
 ::: {#exm-spd-ch-instanton}
 #### The instanton
@@ -23033,8 +23976,7 @@ spin-$J$ representation the trace is multiplied by the Dynkin index ratio $\tfra
 @exm-spd-instanton @dolan2003 [eq. (46)].
 :::
 
-A flat bundle has a Chern character equal to its rank. The third example contrasts this with the non-trivial holonomy of
-@exm-spd-flat-twist.
+A flat bundle has trivial Chern character. The third example draws the consequence for the twisted tori.
 
 ::: {#exm-spd-ch-flat}
 #### Flat bundles
@@ -23043,11 +23985,67 @@ If $F = 0$, $\operatorname{ch}(E) = \operatorname{rank}E$, whatever the holonomy
 not change any index. This is consistent with @exr-spd-spectral-flow, where the spectrum changes with the twist but no
 eigenvalue crosses zero for a fixed operator: the index $0$ of the circle is preserved along the whole family.
 :::
+
+The trivial bundle is the simplest case. The fourth example records it.
+
+::: {#exm-dix-ch-trivial}
+#### Trivial bundles
+
+The trivial bundle of rank $r$ with the trivial connection has $F = 0$, so $\operatorname{ch} = r$ by part (2); on a surface, $\operatorname{ch}$ has only the components $\operatorname{ch}_0$ and $\operatorname{ch}_1$ in any case.
+:::
+
+The Hopf bundle is the monopole of charge $-1$. The fifth example gives its Chern character.
+
+::: {#exm-dix-ch-hopf}
+#### The Hopf bundle
+
+For $M = -1$, $\int\operatorname{ch}_1 = -1$ by part (1), and $\operatorname{ch} = 1 + \operatorname{ch}_1$ on $S^2$.
+:::
+
+Tensor powers multiply the charge. The sixth example takes the $k$-th power of the monopole bundle.
+
+::: {#exm-dix-ch-tensor-power}
+#### Tensor powers
+
+The $k$-th tensor power of the bundle of charge $M$, with $k$ times the connection, has $f \mapsto kf$, so $\operatorname{ch} = e^{-kf/2\pi}$ and $\int\operatorname{ch}_1 = kM$, as part (4) gives.
+:::
+
+Conjugation reverses the odd components. The seventh example takes the dual of a line bundle.
+
+::: {#exm-dix-ch-dual}
+#### The dual bundle
+
+The dual of a line bundle with $A = ia$ has the connection $-ia$, so $f \mapsto -f$ and $\int\operatorname{ch}_1 \mapsto -\int\operatorname{ch}_1$: the dual of the monopole of charge $M$ has charge $-M$.
+:::
+
+On a torus a constant field has quantised flux. The eighth example computes its Chern character.
+
+::: {#exm-dix-ch-torus}
+#### Constant flux on a torus
+
+For $F = iB\,dx \wedge dy$ on $\mathbb R^2/2\pi\mathbb Z^2$ (@exm-dix-torus-flux), $f = B\,dx \wedge dy$ and $\int\operatorname{ch}_1 = -\tfrac1{2\pi}B(2\pi)^2 = -2\pi B$.
+:::
+
+The adjoint representation of $SU(2)$ is the spin-one representation. The ninth example compares its second Chern character with that of the fundamental.
+
+::: {#exm-dix-ch-adjoint}
+#### The adjoint bundle
+
+In the spin-$J$ representation $\operatorname{tr}(F \wedge F)$ is multiplied by $\tfrac23J(J + 1)(2J + 1)$ relative to the fundamental (@exm-spd-ch-instanton), which is $4$ for $J = 1$: the adjoint bundle of the
+instanton has $\int\operatorname{ch}_2 = 4$ up to orientation.
+:::
+
+A sum of line bundles adds the charges. The last example takes two monopoles.
+
+::: {#exm-dix-ch-sum}
+#### Two monopoles on one sphere
+
+For $E = L_{M_1} \oplus L_{M_2}$ on $S^2$, with $L_M$ the monopole bundle of charge $M$, part (4) gives $\operatorname{ch}E = 2 + \operatorname{ch}_1(L_{M_1}) + \operatorname{ch}_1(L_{M_2})$ and $\int\operatorname{ch}_1 = M_1 + M_2$.
+:::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The Chern character turns sums and products of bundles into sums and products of forms. The first exercise proves the two rules
-for line bundles.
+Part (4) is the basic computational rule. The first exercise recalls its proof.
 
 ::: {#exr-spd-ch-rules}
 #### Sums and products
@@ -23058,14 +24056,33 @@ product. Deduce $c_1(L \otimes L') = c_1(L) + c_1(L')$ for line bundles.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For the sum, $\exp$ of a block-diagonal matrix is block diagonal and the trace adds. For the product, $F \otimes 1$ and $1 \otimes
-F'$ commute (they are even forms acting on different factors), so $\exp(\tfrac{i}{2\pi}(F \otimes 1 + 1 \otimes F')) =
-\exp(\tfrac{i}{2\pi}F) \otimes \exp(\tfrac{i}{2\pi}F')$, and the trace of a tensor product is the product of traces. For line
-bundles the degree-two parts give $c_1(L \otimes L') = c_1(L) + c_1(L')$: the monopole charges add.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+These are @def-chc-chern-character (2) and (3): for the sum, $\exp$ of a block-diagonal matrix of forms is block diagonal and the trace adds; for the product, $F \otimes \mathbf I$ and $\mathbf I \otimes F'$
+commute (even forms acting on different factors), so $\exp(\tfrac i{2\pi}(F \otimes \mathbf I + \mathbf I \otimes F')) = \exp(\tfrac i{2\pi}F) \otimes \exp(\tfrac i{2\pi}F')$, and the trace of a Kronecker product is
+the product of the traces. For line bundles the parts of degree two give $c_1(L \otimes L') = c_1(L) + c_1(L')$: the monopole charges add.
+
+## SageMath
+
+The code checks $\operatorname{tr}\exp(\mathbf X \otimes \mathbf I + \mathbf I \otimes \mathbf Y) = \operatorname{tr}e^{\mathbf X}\operatorname{tr}e^{\mathbf Y}$ for commuting placeholders: diagonal matrices of formal
+variables, truncated at order three.
+
+```{.python .sage}
+R.<a, b, c> = PowerSeriesRing(QQ, default_prec=4)
+X = diagonal_matrix(R, [a, b]); Y = diagonal_matrix(R, [c])
+K = X.tensor_product(identity_matrix(R, 1)) + identity_matrix(R, 2).tensor_product(Y)
+ex = lambda D: sum(D.diagonal()[i].exp(4) for i in range(D.nrows()))
+print(ex(K) == ex(X)*ex(Y))
+```
+
+```{.text .sage-output}
+True
+```
+::::
 :::
 
-On the product of two spheres with monopoles the Chern character is a product of exponentials. The second exercise computes it
-and the resulting index, which is checked against the zero modes in @exr-spd-s2s2-index.
+On a product of spheres the Chern character has a top component. The second exercise computes it.
 
 ::: {#exr-spd-ch-s2s2}
 #### Two monopoles
@@ -23075,9 +24092,16 @@ On $S^2 \times S^2$ with charges $M_1$, $M_2$ on the factors, $\operatorname{ch}
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\operatorname{ch}_2 = \tfrac12(M_1\omega_1 + M_2\omega_2)^2 = M_1M_2\,\omega_1 \wedge \omega_2$, integral $M_1M_2$:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+$\operatorname{ch}_2 = \tfrac12(M_1\omega_1 + M_2\omega_2)^2 = M_1M_2\,\omega_1 \wedge \omega_2$, integral $M_1M_2$.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 R.<M1, M2, w1, w2> = QQ[]
 J = R.ideal([w1 ^ 2, w2 ^ 2])
 u = M1 * w1 + M2 * w2
@@ -23086,37 +24110,40 @@ print("ch =", ch)
 print("int ch_2 = coefficient of w1 w2:", ch.coefficient({w1: 1, w2: 1}))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 ch = M1*M2*w1*w2 + M1*w1 + M2*w2 + 1
 int ch_2 = coefficient of w1 w2: M1*M2
 ```
+::::
 :::
 
-The quadratic term of the Chern character for $SU(2)$ involves the trace of the square of a generator in each representation.
-The third exercise computes the factor $\tfrac23J(J + 1)(2J + 1)$ of @exm-spd-ch-instanton from these traces.
+The representation factor of the instanton is a ratio of traces. The third exercise computes it.
 
 ::: {#exr-spd-dynkin-ratio}
 #### The representation factor
 
-With Sage, compute $\operatorname{tr}(J_3^2)$ in the spin-$J$ representation for $J = \tfrac12, \dots, 3$, divide by its value
+Compute $\operatorname{tr}(J_3^2)$ in the spin-$J$ representation for $J = \tfrac12, \dots, 3$, divide by its value
 $\tfrac12$ in the fundamental, and compare with $\tfrac23J(J + 1)(2J + 1)$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\operatorname{tr}J_3^2 = \sum_{m = -J}^Jm^2 = \tfrac13J(J + 1)(2J + 1)$; divided by $\tfrac12$ it is $\tfrac23J(J + 1)(2J + 1)$:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+$\operatorname{tr}J_3^2 = \sum_{m = -J}^Jm^2 = \tfrac13J(J + 1)(2J + 1)$; divided by $\tfrac12$ it is $\tfrac23J(J + 1)(2J + 1)$.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 for twoJ in range(1, 7):
     J = twoJ / 2
     tr = sum((J - k) ^ 2 for k in range(twoJ + 1))
     print("J = %s: tr J_3^2 = %s, ratio = %s, (2/3) J (J+1)(2J+1) = %s" % (J, tr, tr / (1/2), 2/3 * J * (J + 1) * (2 * J + 1)))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 J = 1/2: tr J_3^2 = 1/2, ratio = 1, (2/3) J (J+1)(2J+1) = 1
 J = 1: tr J_3^2 = 2, ratio = 4, (2/3) J (J+1)(2J+1) = 4
 J = 3/2: tr J_3^2 = 5, ratio = 10, (2/3) J (J+1)(2J+1) = 10
@@ -23124,45 +24151,270 @@ J = 2: tr J_3^2 = 10, ratio = 20, (2/3) J (J+1)(2J+1) = 20
 J = 5/2: tr J_3^2 = 35/2, ratio = 35, (2/3) J (J+1)(2J+1) = 35
 J = 3: tr J_3^2 = 28, ratio = 56, (2/3) J (J+1)(2J+1) = 56
 ```
+::::
+:::
+
+Part (1) for the monopole is an integral. The fourth exercise evaluates it from the potential.
+
+::: {#exr-dix-ch-monopole-integral}
+#### The monopole integral
+
+With $a = \tfrac M2(\cos\theta - 1)d\varphi$, compute $\int_{S^2}\operatorname{ch}_1 = -\tfrac1{2\pi}\int_{S^2}da$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$da = -\tfrac M2\sin\theta\,d\theta \wedge d\varphi$, so $-\tfrac1{2\pi}\int da = \tfrac M{4\pi}\int_0^{2\pi}\int_0^\pi\sin\theta\,d\theta\,d\varphi = M$.
+
+## SageMath
+
+The code integrates.
+
+```{.python .sage}
+th, ph, M = var("th ph M")
+f = diff(M/2*(cos(th) - 1), th)
+print(-1/(2*pi)*integrate(integrate(f, th, 0, pi), ph, 0, 2*pi))
+```
+
+```{.text .sage-output}
+M
+```
+::::
+:::
+
+Part (3) gives the normalisation of the instanton number. The fifth exercise checks the constant and the trace for $\mathfrak{su}(2)$.
+
+::: {#exr-dix-ch-su2}
+#### The constant in part (3)
+
+Check $\tfrac12(\tfrac i{2\pi})^2 = -\tfrac1{8\pi^2}$, and that $\operatorname{tr}F = 0$ for $F = F^aT_a$ with $T_a = -\tfrac i2\sigma_a$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\tfrac12 \cdot \tfrac{-1}{4\pi^2} = -\tfrac1{8\pi^2}$, and the Pauli matrices are traceless.
+
+## SageMath
+
+The code checks both.
+
+```{.python .sage}
+print(bool((I/(2*pi))^2/2 == -1/(8*pi^2)), [(-I/2*matrix(QQbar, m)).trace() for m in ([[0, 1], [1, 0]], [[0, -I], [I, 0]], [[1, 0], [0, -1]])])
+```
+
+```{.text .sage-output}
+True [0, 0, 0]
+```
+::::
+:::
+
+The dual bundle has the transposed curvature with a sign. The sixth exercise proves the rule for its Chern character.
+
+::: {#exr-dix-ch-dual}
+#### The dual bundle
+
+The dual of a bundle with unitary connection has curvature $-F^{\mathsf T}$. Show that $\operatorname{ch}_k(E^*) = (-1)^k\operatorname{ch}_k(E)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\operatorname{tr}((-F^{\mathsf T})^k) = (-1)^k\operatorname{tr}((F^k)^{\mathsf T})$ up to reversing the order of the $2$-forms, which commute, and the trace of a transpose is the trace.
+
+## SageMath
+
+The code checks $\operatorname{tr}((-\mathbf X^{\mathsf T})^k) = (-1)^k\operatorname{tr}\mathbf X^k$ for a random $3 \times 3$ matrix, $k = 1, 2, 3$.
+
+```{.python .sage}
+set_random_seed(1); X = random_matrix(QQ, 3)
+print([((-X.T)^k).trace() == (-1)^k*(X^k).trace() for k in (1, 2, 3)])
+```
+
+```{.text .sage-output}
+[True, True, True]
+```
+::::
+:::
+
+The second Chern character is a combination of Chern classes. The seventh exercise derives it from formal roots.
+
+::: {#exr-dix-ch-newton2}
+#### $\operatorname{ch}_2$ from Chern roots
+
+With $\operatorname{ch} = \sum_je^{y_j}$ and $c = \prod_j(1 + y_j)$ for two roots, show $\operatorname{ch}_2 = \tfrac12c_1^2 - c_2$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\operatorname{ch}_2 = \tfrac12(y_1^2 + y_2^2) = \tfrac12((y_1 + y_2)^2 - 2y_1y_2) = \tfrac12c_1^2 - c_2$.
+
+## SageMath
+
+The code compares.
+
+```{.python .sage}
+R.<y1, y2> = QQ[]
+print((y1^2 + y2^2)/2 == (y1 + y2)^2/2 - y1*y2)
+```
+
+```{.text .sage-output}
+True
+```
+::::
+:::
+
+A flat connection on the torus has a Wilson line but no curvature. The eighth exercise computes its Chern character.
+
+::: {#exr-dix-ch-flat-u1}
+#### A Wilson line
+
+For $a = \alpha\,dy$ with $\alpha$ constant on $T^2$, compute $f$ and $\operatorname{ch}$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$f = da = 0$, so $\operatorname{ch} = 1$ by part (2), whatever $\alpha$.
+
+## SageMath
+
+The code differentiates.
+
+```{.python .sage}
+x, y, al = var("x y al")
+print(diff(al, x) - diff(0, y))
+```
+
+```{.text .sage-output}
+0
+```
+::::
+:::
+
+Tensor products add charges. The ninth exercise checks part (4) for line bundles on the sphere.
+
+::: {#exr-dix-ch-tensor}
+#### Tensor products of monopoles
+
+With $\operatorname{ch}(L_M) = 1 + M\omega$, $\omega^2 = 0$, $\int\omega = 1$, compute $\operatorname{ch}(L_2 \otimes L_3)$ and $\operatorname{ch}(L_2 \oplus L_3)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+By part (4), $(1 + 2\omega)(1 + 3\omega) = 1 + 5\omega$ and $(1 + 2\omega) + (1 + 3\omega) = 2 + 5\omega$: both have $\int\operatorname{ch}_1 = 5$, with ranks $1$ and $2$.
+
+## SageMath
+
+The code computes in $\mathbb Q[\omega]/(\omega^2)$.
+
+```{.python .sage}
+R.<w> = QQ[]; Q = R.quotient(w^2); W = Q(w)
+print((1 + 2*W)*(1 + 3*W), (1 + 2*W) + (1 + 3*W))
+```
+
+```{.text .sage-output}
+5*wbar + 1 5*wbar + 2
+```
+::::
+:::
+
+A non-trivial bundle can have zero Chern character in positive degree. The last exercise gives one.
+
+::: {#exr-dix-ch-rank-two}
+#### $L_M \oplus L_{-M}$
+
+On $S^2$, show that $E = L_M \oplus L_{-M}$ has $\int\operatorname{ch}_1 = 0$, although each summand has charge $\pm M$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+By part (4) and part (1), $\int\operatorname{ch}_1(E) = M + (-M) = 0$.
+
+## SageMath
+
+The code adds the charges.
+
+```{.python .sage}
+print([M + (-M) for M in range(1, 5)])
+```
+
+```{.text .sage-output}
+[0, 0, 0, 0]
+```
+::::
 :::
 ::::
 
-The index theorem states that the analytic index of the twisted Dirac operator, the difference of the numbers of zero modes,
-is the integral of the product of the two characteristic forms just defined. We state it in the form used by @bilal2008 [eqs. (3.47), (11.25)], with
-the sign fixed by the computation on the sphere.
+The Atiyah-Singer theorem says that the index of a twisted Dirac operator is the integral of the product of the two characteristic forms just defined. We state it in the form used by @bilal2008 [eqs. (3.47),
+(11.25)], with the sign fixed by the computation on the sphere. The general theorem is not proved here; the cases in part (3) are proved from the explicit zero modes found earlier in the chapter.
 
 :::: {.statement-box}
 ::: {#thm-atiyah-singer}
 #### Atiyah-Singer index theorem for Dirac operators
 
-Let $M$ be a closed oriented Riemannian spin manifold of even dimension $2r$ and $E \to M$ a Hermitian bundle with a unitary
-connection. The twisted Dirac operator $D_E^+ : \Gamma(S^+ \otimes E) \to \Gamma(S^- \otimes E)$ is Fredholm
-(@def-fredholm-operator), its index is invariant under deformations of the metric and the connection (@thm-index-stability),
-and
-$$
-\operatorname{ind}D_E^+ = \dim\ker D_E^+ - \dim\ker D_E^- = \int_M\big[\hat A(M)\operatorname{ch}(E)\big]_{2r} ,
-$$ {#eq-spd-atiyah-singer}
-with $S^\pm$ the chiralities of @eq-spd-chirality, the complex volume element of the orientation. In two dimensions $\operatorname{ind} = \int\operatorname{ch}_1(E) =
-c_1(E)$ for a line bundle; in four, $\operatorname{ind} = \operatorname{rank}(E)\,\hat A[M] + \int\operatorname{ch}_2(E)$
-[@rudolph2017differential, Thm. 5.8.14 and eq. (5.8.52)].
-@bilal2008 [eqs. (3.46)-(3.47), (11.15), (11.25)] states it with the chirality $i^r\gamma^1\cdots\gamma^{2r}$, which is opposite to ours for odd $r$.
+Let $M$ be a closed oriented Riemannian spin manifold of even dimension $2r$ and $E \to M$ a Hermitian bundle with a unitary connection, and let $D_E^\pm$ be the chiral parts of the twisted Dirac operator
+(@def-twisted-dirac-operator (2)), with $S^\pm$ the chiralities of @eq-spd-chirality.
+
+1. (**stated, not proved here**) $D_E^+ : \Gamma(S^+ \otimes E) \to \Gamma(S^- \otimes E)$ is Fredholm (@def-fredholm-operator), its index is invariant under deformations of the metric and the connection
+   (@thm-index-stability), and
+   $$
+   \operatorname{ind}D_E^+ = \dim\ker D_E^+ - \dim\ker D_E^- = \int_M\big[\hat A(M)\operatorname{ch}(E)\big]_{2r}
+   $$ {#eq-spd-atiyah-singer}
+   [@rudolph2017differential, Thm. 5.8.14 and eq. (5.8.52)]. @bilal2008 [eqs. (3.46)-(3.47), (11.15), (11.25)] states it with the chirality $i^r\gamma^1\cdots\gamma^{2r}$, which is opposite to ours for odd $r$.
+2. (**low dimensions**) The right side of @eq-spd-atiyah-singer is $\int_M\operatorname{ch}_1(E)$ for $2r = 2$ and $\operatorname{rank}(E)\,\hat A[M] + \int_M\operatorname{ch}_2(E)$ for $2r = 4$.
+3. (**cases proved here**) @eq-spd-atiyah-singer holds, both sides being equal to the number given:
+   a. $0$, on a flat torus $T^{2r}$, $r \geq 1$, with $E$ the flat line bundle of a twist $\boldsymbol\alpha$ (@def-scherk-schwarz-twist);
+   b. $0$, on the round sphere $S^{2r}$, $r \geq 1$, with $E$ trivial;
+   c. $M_0$, on the unit $S^2$ with the monopole bundle $L_{M_0}$ of charge $M_0$, and $M_1M_2$ on $S^2 \times S^2$ with $L_{M_1} \boxtimes L_{M_2}$, $M_1, M_2 \neq 0$, product gamma matrices $\gamma^a \otimes \mathbf I$,
+      $\gamma_* \otimes \gamma^b$ and chirality $\gamma_* \otimes \gamma_*$;
+   d. (**Riemann-Roch on $\mathbb{CP}^1$**) $d + 1$, on $S^2 = \mathbb{CP}^1$ with $L_{d + 1}$, $d \geq -1$, where $\ker D_E^+$ is the space of polynomials of degree at most $d$ and $\ker D_E^- = 0$.
 :::
 ::::
 
+*Proof.* (2) $\hat A(M) = 1 + \hat A_1 + \dots$ with $\hat A_1 = -\frac{p_1}{24}$ of degree four (@def-a-hat-genus (1)); in dimension two the component of degree two of $\hat A\operatorname{ch}$ is $\operatorname{ch}_1$, and in dimension four
+the component of degree four is $\operatorname{ch}_2 + \hat A_1\operatorname{ch}_0$ with $\operatorname{ch}_0 = \operatorname{rank}E$.
+
+(3a) The left side: by @prp-torus-spectrum (3) the kernel is $0$ unless $\boldsymbol\alpha \in \mathbb Z^{2r}$, when it consists of the $N = 2^r$ constant spinors (after the gauge transformation that removes an integer
+twist). The constant spinors of chirality $\pm1$ are the eigenspaces of the constant matrix $\gamma_*$, which anticommutes with the invertible $\gamma^1$, so $\gamma^1$ maps one eigenspace isomorphically onto the other:
+each has dimension $N/2$, and the index is $0$. The right side: $\hat A = 1$ (@def-a-hat-genus (3)) and $\operatorname{ch}E = 1$ (@def-chern-character (2)), whose component of degree $2r \geq 2$ is $0$.
+
+(3b) The scalar curvature $2r(2r - 1)$ is positive, so there are no harmonic spinors (@thm-lichnerowicz-vanishing (1)) and the index is $0$; on the right, $\hat A = 1$ (@def-a-hat-genus (3)) and $\operatorname{ch} = 1$.
+
+(3c) On $S^2$: the left side is $M_0$ by @thm-monopole-index (2), the right side $\int\operatorname{ch}_1 = M_0$ by part (2) and @def-chern-character (1). On $S^2 \times S^2$: the gamma matrices satisfy the Clifford relations,
+since $\gamma_*$ anticommutes with $\gamma^a$ and squares to $\mathbf I$, and $\gamma_* \otimes \gamma_*$ squares to $\mathbf I$ and anticommutes with all four. The spin connection and the gauge field are sums of those of
+the factors, so $D = D_1 \otimes \mathbf I + \gamma_* \otimes D_2$, with $D_i$ the operator of $L_{M_i}$ on the $i$-th factor. Since $D_1\gamma_* = -\gamma_*D_1$ and $D_1$, $D_2$ act on different variables, the cross terms
+cancel and $D^2 = D_1^2 \otimes \mathbf I + \mathbf I \otimes D_2^2$; so for $D\psi = 0$, $\|(D_1 \otimes \mathbf I)\psi\|^2 + \|(\mathbf I \otimes D_2)\psi\|^2 = \langle\psi, D^2\psi\rangle = 0$, using that $D_i$ is symmetric
+(@def-twisted-dirac-operator (2)) and $\gamma_*$ is unitary. For each point $x_2$ of the second factor, $\psi(\cdot, x_2)$ is then in $\ker D_1 \otimes \mathbb C^2$; with a basis $u_1, \dots, u_{|M_1|}$ of $\ker D_1$
+(@thm-monopole-index (1)), orthonormal in $L^2$, $\psi = \sum_ku_k \otimes v_k$ with $v_k(x_2) = \langle u_k, \psi(\cdot, x_2)\rangle$ smooth, and $(\mathbf I \otimes D_2)\psi = 0$ gives $D_2v_k = 0$ by linear independence of
+the $u_k$. Hence $\ker D = \ker D_1 \otimes \ker D_2$, of dimension $|M_1M_2|$, and every element has chirality $\operatorname{sgn}M_1 \cdot \operatorname{sgn}M_2$ (@thm-monopole-index (1)): the index is $M_1M_2$. On the right,
+$\hat A(S^2 \times S^2) = 1$ (@def-a-hat-genus (3)), and $\operatorname{ch} = \operatorname{ch}(L_{M_1}) \wedge \operatorname{ch}(L_{M_2})$ (@def-chern-character (4), for the pullbacks) has top component $\operatorname{ch}_1(L_{M_1})
+\wedge \operatorname{ch}_1(L_{M_2})$, whose integral is $M_1M_2$ by Fubini.
+
+(3d) For $d \geq 0$ this is @thm-monopole-index (3) with $M_0 = d + 1$, and the right side is $d + 1$ by (3c); for $d = -1$ both sides are $0$ (@thm-monopole-index (1)). Part (1) is quoted. $\square$
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-In two dimensions the theorem reduces to the integral of the field strength. The first example checks it against the explicit
-zero modes of the previous section.
+In two dimensions the theorem reduces to the integral of the field strength. The first example checks it against the explicit zero modes of the previous section.
 
 ::: {#exm-spd-as-sphere}
 #### The sphere
 
-On $S^2$, $\hat A = 1$ (no 4-form), so $\operatorname{ind}D_A^+ = \int\operatorname{ch}_1 = M$ for the monopole, as
-@thm-monopole-index found by solving the equations. The theorem also gives the answer on every surface: on a surface of genus $g$
-with a line bundle of degree $c_1 = M$ the index is $M$, independently of $g$ and of the metric.
+On $S^2$, $\hat A = 1$ (no $4$-form), so $\int\hat A\operatorname{ch} = \int\operatorname{ch}_1 = M$ for the monopole, and part (3c) proves that this is the index, as @thm-monopole-index found by solving the equations.
+Part (1) gives the answer on every surface: on a surface of genus $g$ with a line bundle of degree $c_1 = M$ the index is $M$, independently of $g$ and of the metric.
 :::
 
-In four dimensions both the manifold and the bundle contribute. The second example evaluates the two contributions on $S^4$ with
-the instanton and on $K3$ without gauge field.
+In four dimensions both the manifold and the bundle contribute. The second example evaluates the two contributions on $S^4$ with the instanton and on $K3$ without gauge field.
 
 ::: {#exm-spd-as-four}
 #### $S^4$ and $K3$
@@ -23173,8 +24425,7 @@ one, the index is $\hat A[K3] = 2$, the parallel spinors. With a bundle of rank 
 is $2r - k$ up to orientation conventions.
 :::
 
-The theorem is a statement about a family of operators, and it explains why zero modes can appear and disappear in pairs. The
-third example illustrates this with the flat twist of the torus.
+The theorem is a statement about a family of operators, and it explains why zero modes can appear and disappear in pairs. The third example illustrates this with the flat twist of the torus.
 
 ::: {#exm-spd-as-stability}
 #### Jumping kernels, constant index
@@ -23184,11 +24435,69 @@ otherwise, but the index is $1 - 1 = 0$ and $0 - 0 = 0$: zero modes disappear in
 the index requires (@thm-index-stability). On the sphere with a monopole, by contrast, no deformation can remove the $|M|$ zero
 modes, which all have the same chirality.
 :::
+
+On the two-torus part (3a) is a count of constant spinors. The fourth example makes it explicit.
+
+::: {#exm-dix-as-torus-two}
+#### The periodic two-torus
+
+On $T^2$ with the periodic structure, $\gamma_* = \sigma_3$ and the constant spinors $(1, 0)$ and $(0, 1)$ have chirality $+1$ and $-1$: the index is $1 - 1 = 0 = \int\operatorname{ch}_1$.
+:::
+
+In four dimensions there are four constant spinors. The fifth example counts them by chirality.
+
+::: {#exm-dix-as-torus-four}
+#### The periodic four-torus
+
+On $T^4$ with the periodic structure there are $N = 4$ zero modes, two of each chirality (part (3a)), and $\hat A[T^4] = 0$: the index $2 - 2 = 0$ agrees with part (2).
+:::
+
+The sphere $S^4$ has no harmonic spinors. The sixth example compares with the genus.
+
+::: {#exm-dix-as-s4}
+#### The four-sphere
+
+On the round $S^4$ without gauge field, part (3b) gives index $0 = \hat A[S^4]$; by part (1) the same holds for every metric on $S^4$, although only metrics of positive scalar curvature exclude harmonic spinors
+outright.
+:::
+
+Riemann-Roch counts polynomials. The seventh example takes $d = 2$.
+
+::: {#exm-dix-as-cp1-rr}
+#### Riemann-Roch for $d = 2$
+
+On $\mathbb{CP}^1$ with $L_3$, part (3d) gives the three zero modes $e^{i\varphi/2}\cos^2\tfrac\theta2\cdot\{1, z, z^2\}$, index $3 = d + 1$, the dimension of the quadratic polynomials.
+:::
+
+Direct sums add indices. The eighth example takes two monopoles on one sphere.
+
+::: {#exm-dix-as-sum}
+#### $L_{M_1} \oplus L_{M_2}$ on $S^2$
+
+On $E = L_{M_1} \oplus L_{M_2}$ the operator is block diagonal, so its zero modes are those of the two blocks, and by @thm-monopole-index (2) the index is $M_1 + M_2 = \int\operatorname{ch}_1(E)$
+(@exm-dix-ch-sum). For $M_2 = -M_1$ there are $2|M_1|$ zero modes but index $0$.
+:::
+
+Charges of opposite sign give negative chirality. The ninth example takes them on $S^2 \times S^2$.
+
+::: {#exm-dix-as-two-monopoles}
+#### Opposite charges on $S^2 \times S^2$
+
+For $M_1 = 2$, $M_2 = -1$, part (3c) gives $2$ zero modes of chirality $(+1)(-1) = -1$ and index $-2 = M_1M_2$.
+:::
+
+On a surface without gauge field the index vanishes. The last example applies part (1) to a surface of genus $g$.
+
+::: {#exm-dix-as-surface}
+#### Surfaces without gauge field
+
+For the untwisted operator on a closed surface of genus $g$ with any spin structure, part (1) gives index $\int\operatorname{ch}_1(\text{trivial}) = 0$: the harmonic spinors, if any, come in pairs of opposite chirality, as
+on the periodic torus of @exm-dix-as-torus-two.
+:::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The product of two spheres with monopoles has zero modes that are products of zero modes of the factors. The first exercise counts
-them and checks the theorem.
+The product of two spheres with monopoles has zero modes that are products of zero modes of the factors. The first exercise counts them and checks the theorem.
 
 ::: {#exr-spd-s2s2-index}
 #### $S^2 \times S^2$
@@ -23199,28 +24508,52 @@ $\int\hat A\operatorname{ch} = M_1M_2$ (@exr-spd-ch-s2s2), and repeat for $M_1 >
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\ker D^2 = \ker D_1^2 \otimes \ker D_2^2$ has dimension $M_1M_2$, and the chirality of a product is the product of the
-chiralities, $+1 \cdot +1 = +1$: index $M_1M_2$. For $M_1 > 0 > M_2$ the zero modes have chirality $+1 \cdot -1 = -1$, there are
-$M_1|M_2|$ of them, and the index is $-M_1|M_2| = M_1M_2$. Since $\hat A(S^2 \times S^2) = 1$ (both factors have $p_1 = 0$), this is
-$\int\operatorname{ch}_2$.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+This is @thm-atiyah-singer (3c) for $M_1, M_2 \geq 1$: the zero modes are the $M_1M_2$ products of zero modes of the factors, of chirality $+1$, so the index is $M_1M_2 = \int\operatorname{ch}_2$ (@exr-spd-ch-s2s2). For
+$M_1 > 0 > M_2$ the same argument, with the zero modes of the second factor of chirality $-1$ (@thm-monopole-index (1)), gives $M_1|M_2|$ zero modes of chirality $+1 \cdot (-1) = -1$, and the index is
+$-M_1|M_2| = M_1M_2$. Since $\hat A(S^2 \times S^2) = 1$ (@def-a-hat-genus (3)), this is $\int\hat A\operatorname{ch}$.
+
+## SageMath
+
+The code compares the zero-mode count with $\int\operatorname{ch}_2 = M_1M_2$ for several signs.
+
+```{.python .sage}
+def index(M1, M2):
+    n1, n2 = abs(M1), abs(M2); chi = sign(M1)*sign(M2)
+    return chi*n1*n2
+print([(M1, M2, index(M1, M2), M1*M2) for M1 in (2, -3) for M2 in (1, -2)])
+```
+
+```{.text .sage-output}
+[(2, 1, 2, 2), (2, -2, -4, -4), (-3, 1, -3, -3), (-3, -2, 6, 6)]
+```
+::::
 :::
 
-The heat-kernel proof of the theorem writes the index as a supertrace that does not depend on time. The second exercise checks this
-on $S^2$ with a monopole, using the spectrum of @thm-monopole-index.
+The heat-kernel proof of the theorem writes the index as a supertrace that does not depend on time. The second exercise checks this on $S^2$ with a monopole, using the spectrum of @thm-monopole-index.
 
 ::: {#exr-spd-supertrace}
 #### The index as a supertrace
 
 Show that $\operatorname{tr}(\gamma_*e^{-tD_A^2}) = \dim\ker D_A^+ - \dim\ker D_A^-$ for every $t > 0$, because non-zero eigenvalues of
-$D_A^2$ have equal multiplicities on the two chiralities (@exr-spd-spectrum-symmetric). With Sage, evaluate the supertrace on $S^2$
+$D_A^2$ have equal multiplicities on the two chiralities (@exr-spd-spectrum-symmetric). Evaluate the supertrace on $S^2$
 with $M = 3$ as a sum over the spectrum for several $t$, assigning half of the multiplicity $2(|M| + 2k)$ to each chirality.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The contributions of each level $k \geq 1$ cancel between the chiralities, and the supertrace equals $3$ for every $t$, while the
-ordinary trace grows like $\tfrac{2}{t}$:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+The contributions of each level $k \geq 1$ cancel between the chiralities, and the supertrace equals $3$ for every $t$, while the
+ordinary trace grows like $\tfrac{2}{t}$.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 M = 3
 for t in (0.05, 0.2, 1.0, 3.0):
     zero = M                                                       # k = 0: M modes of chirality +1
@@ -23231,18 +24564,16 @@ for t in (0.05, 0.2, 1.0, 3.0):
     print("t = %4.2f: supertrace = %.10f, trace = %10.4f, 2/t = %.4f" % (t, strace, trace, 2 / t))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 t = 0.05: supertrace = 3.0000000000, trace =    39.7407, 2/t = 40.0000
 t = 0.20: supertrace = 3.0000000000, trace =     9.9705, 2/t = 10.0000
 t = 1.00: supertrace = 3.0000000000, trace =     3.1838, 2/t = 2.0000
 t = 3.00: supertrace = 3.0000000000, trace =     3.0001, 2/t = 0.6667
 ```
+::::
 :::
 
-The index density is a local formula even though the index is global. The third exercise evaluates it in two dimensions as a
-function and integrates it, as in @bilal2008 [eq. (3.46)] for $r = 1$.
+The index density is a local formula even though the index is global. The third exercise evaluates it in two dimensions as a function and integrates it, as in @bilal2008 [eq. (3.46)] for $r = 1$.
 
 ::: {#exr-spd-index-density}
 #### The index density in two dimensions
@@ -23253,34 +24584,289 @@ density and its integral.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-On the sphere $F_{12} = \tfrac{iM}{2}$, the density is $\tfrac{M}{4\pi}$, constant, and the integral over the area $4\pi$ is $M$. On the
-plane Bilal's real field $F_{12} = -\tfrac{2m}{(1 + r^2)^2}$ has $\tfrac{1}{2\pi}\int F_{12}\,d^2x = -m$ @bilal2008 [eq. (A.2)], and with
-his opposite sign convention for the potential the index is $m$: the density is concentrated near the origin, but its integral is
-the same integer.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\operatorname{ch}_1 = \tfrac i{2\pi}F = \tfrac i{2\pi}F_{12}\,e^1 \wedge e^2$, so the density is $\tfrac i{2\pi}F_{12}$ times the area form. On the unit sphere $F_{12} = -\tfrac{iM}2$ (@exm-dix-sphere-monopole-operator), the
+density is $\tfrac M{4\pi}$, constant, and the integral over the area $4\pi$ is $M$. On the plane @bilal2008 [eq. (A.1)] uses a real field with $\tfrac1{2\pi}\int F_{12}\,d^2x = -m$ @bilal2008 [eq. (A.2)] for
+$F_{12} = -\tfrac{2m}{(1 + r^2)^2}$, and with his opposite sign convention for the potential the index is $m$: the density is concentrated near the origin, but its integral is the same integer.
+
+## SageMath
+
+The code integrates both densities.
+
+```{.python .sage}
+th, r, M, m = var("th r M m"); assume(r > 0)
+print((M/(4*pi)*2*pi*integrate(sin(th), th, 0, pi)).simplify_full())
+print((1/(2*pi)*2*pi*integrate(-2*m/(1 + r^2)^2*r, r, 0, oo)).simplify_full())
+```
+
+```{.text .sage-output}
+M
+-m
+```
+::::
+:::
+
+On the torus with flux the zero modes can be found explicitly. The fourth exercise finds them for the square torus.
+
+::: {#exr-dix-torus-zero-modes}
+#### The square torus with flux $N$
+
+On $T^2 = \mathbb R^2/2\pi\mathbb Z^2$ take $a = -\tfrac N{2\pi}x\,dy$, $N \geq 1$, with transition $\psi(x + 2\pi, y) = e^{iNy}\psi(x, y)$, $\psi(x, y + 2\pi) = \psi(x, y)$, and $\gamma^a = \sigma_a$. Show that $c_1 = N$, that there
+are no zero modes of negative chirality, and that the zero modes of positive chirality have upper component $\sum_mc_me^{imy}e^{mx - Nx^2/4\pi}$ with $c_m = c_{m - N}e^{N\pi - 2\pi m}$: exactly $N$ of them.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$f = da = -\tfrac N{2\pi}dx \wedge dy$ gives $c_1 = -\tfrac1{2\pi}\int f = N$, and $a(x + 2\pi) = a(x) - N\,dy$, so with $A = ia$, $A(x + 2\pi) = A(x) - dg\,g^{-1}$ for $g = e^{iNy}$, matching the transition
+(@exr-spd-gauge-covariance). By @def-twisted-dirac-operator (3), $D_A^2 = \nabla^*\nabla - iF_{12}\sigma_3 = \nabla^*\nabla - \tfrac N{2\pi}\sigma_3$, so on the lower component $\langle\psi, D_A^2\psi\rangle \geq \tfrac
+N{2\pi}\|\psi\|^2$ and there are no zero modes of negative chirality. For $(u, 0)$, $D_A(u, 0) = (0, i[\partial_xu + i\partial_yu - a_yu])$, so with $u = \sum_mu_m(x)e^{imy}$ (Fourier series in the periodic $y$, with
+$u_m$ smooth on $\mathbb R$) each coefficient solves $u_m' - mu_m + \tfrac N{2\pi}xu_m = 0$, so $u_m = c_me^{mx - Nx^2/4\pi}$. The transition says $u_m(x + 2\pi) = u_{m - N}(x)$, that is $c_me^{2\pi m - N\pi} = c_{m -
+N}$. So $c_0, \dots, c_{N - 1}$ determine all the others, and conversely for any choice the recursion gives $|c_{r + jN}| = |c_r|e^{-\pi Nj^2 + O(j)}$, so the series and all its derivatives converge uniformly on
+compact sets and define a smooth zero mode. The kernel has dimension exactly $N$, which is $\int\operatorname{ch}_1$, as part (1) predicts.
+
+## SageMath
+
+The code checks the ordinary differential equation and the transition rule for one coefficient.
+
+```{.python .sage}
+x, m, N, c = var("x m N c")
+u = c*exp(m*x - N*x^2/(4*pi))
+print((diff(u, x) - m*u + N/(2*pi)*x*u).simplify_full())
+um_shift = u.subs(x=x + 2*pi); u_prev = (c*exp(2*pi*m - N*pi))*exp((m - N)*x - N*x^2/(4*pi))
+print(bool((um_shift - u_prev).simplify_full() == 0))
+```
+
+```{.text .sage-output}
+0
+True
+```
+::::
+:::
+
+The torus of any area behaves in the same way. The fifth exercise uses the Lichnerowicz formula.
+
+::: {#exr-spd-torus-flux}
+#### Flux on a torus
+
+On $T^2$ of area $A$ with a $U(1)$ field of constant $F_{12} = -\tfrac{2\pi iN}{A}$ ($N \in \mathbb{Z}$, the Chern number), show that $D_A^2 = \nabla^*\nabla - \tfrac{2\pi N}{A}\sigma_3$ (with $\gamma^1 = \sigma_1$, $\gamma^2 = \sigma_2$), so that for $N > 0$
+zero modes can exist only on the upper component; conclude from @thm-atiyah-singer that there are exactly $N$ of them.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$R = 0$ and $-\tfrac12F_{ab}\gamma^a\gamma^b = -F_{12}\gamma^1\gamma^2 = \tfrac{2\pi iN}A\cdot i\sigma_3 = -\tfrac{2\pi N}A\sigma_3$, so @def-twisted-dirac-operator (3) gives $D_A^2 = \nabla^*\nabla - \tfrac{2\pi
+N}A\sigma_3$. On the lower component $\langle\psi, D_A^2\psi\rangle = \|\nabla\psi\|^2 + \tfrac{2\pi N}A\|\psi\|^2 > 0$ for $\psi \neq 0$, so all zero modes lie on the upper component, of chirality $+1$. For the square
+torus of side $2\pi$ there are exactly $N$ of them by @exr-dix-torus-zero-modes; for a general torus the count $N = \int\operatorname{ch}_1$ follows from @thm-atiyah-singer (1), stated, not proved here. These are the
+lowest Landau level on the torus, with degeneracy equal to the flux.
+
+## SageMath
+
+The code checks $-F_{12}\sigma_1\sigma_2 = -\tfrac{2\pi N}A\sigma_3$.
+
+```{.python .sage}
+N, A = var("N A")
+s1, s2, s3 = [matrix(SR, m) for m in ([[0, 1], [1, 0]], [[0, -I], [I, 0]], [[1, 0], [0, -1]])]
+F12 = -2*pi*I*N/A
+print((-F12*s1*s2 + 2*pi*N/A*s3).simplify_full())
+```
+
+```{.text .sage-output}
+[0 0]
+[0 0]
+```
+::::
+:::
+
+$\mathbb{CP}^2$ is not spin, but its spin-c operator has an index. The sixth exercise compares three computations of it.
+
+::: {#exr-spd-cp2-two-views}
+#### Two views of $\mathbb{CP}^2$
+
+Explain why the canonical spin-c Dirac operator of $\mathbb{CP}^2$ (@exm-spd-dolbeault-cp2), the spin-c index of @exr-spd-spinc-index at $Q = 0$
+and the zero-mode count of @dolan2003 [eq. (55)] at $Y = 0$ all give $1$, and identify the zero mode in each description.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+In the Dolbeault description of @exm-spd-dolbeault-cp2 the zero modes are the harmonic forms of type $(0, q)$, and $h^{0, 0} = 1$, $h^{0, 1} = h^{0, 2} = 0$: the zero mode is the constant function. The index of
+@exr-spd-spinc-index at $Q = 0$ is $\tfrac12 \cdot 1 \cdot 2 = 1$, which is $\int\hat Ae^{3x/2} = \tfrac98 - \tfrac18$. In Dolan's description the spinor charge cancels the background charge at $Y = 0$, and the
+zero mode is the $SU(3)$ singlet, $d(0, 0) = 1$ @dolan2003 [eq. (55)]. All three are the same constant spinor of the canonical structure; the agreement of the last two with the first is quoted, not proved here.
+
+## SageMath
+
+The code evaluates the spin-c index at $Q = 0$.
+
+```{.python .sage}
+x = var("x")
+print(((1 - 3*x^2/24)*exp(3*x/2)).series(x, 3).coefficient(x, 2))
+```
+
+```{.text .sage-output}
+1
+```
+::::
+:::
+
+The instanton has zero modes of one chirality. The seventh exercise identifies the one for $J = \tfrac12$.
+
+::: {#exr-spd-s4-instanton-modes}
+#### Zero modes of the instanton
+
+Using @exr-spd-instanton-check, show that for $J = \tfrac12$ there is one zero mode, invariant under $SO(5)$, and that its chirality
+is the one on which the gauge connection cancels the spin connection. Why are there no zero modes for $J = 0$?
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+For $J = \tfrac12$ the count of @exr-spd-instanton-check is $\tfrac23 \cdot \tfrac12 \cdot \tfrac32 \cdot 2 = 1$, a single zero mode, the "constant spinor" of @dolan2003 [after eq. (47)], invariant under $SO(5)$; it lies
+on the chirality whose $SU(2)$ factor of $\operatorname{Spin}(4)$ is the gauged one, where the gauge connection cancels the spin connection. This is quoted from Dolan, not proved here. For $J = 0$ the operator is the
+untwisted Dirac operator of $S^4$, whose scalar curvature is $12 > 0$, so it has no zero modes by @thm-lichnerowicz-vanishing (1), in agreement with $\tfrac23 \cdot 0 = 0$.
+
+## SageMath
+
+The code evaluates $\tfrac23J(J + 1)(2J + 1)$ for $J = 0, \tfrac12, 1$.
+
+```{.python .sage}
+print([(J, 2/3*J*(J + 1)*(2*J + 1)) for J in (0, 1/2, 1)])
+```
+
+```{.text .sage-output}
+[(0, 0), (1/2, 1), (1, 4)]
+```
+::::
+:::
+
+The proof of part (3a) uses that $\gamma_*$ is traceless. The eighth exercise checks it in dimensions two, four and six.
+
+::: {#exr-dix-chirality-split}
+#### Constant spinors split evenly
+
+With $\gamma_* = \sigma_3$ in two dimensions and $\gamma_* \otimes \sigma_3$ in each further step, show that $\operatorname{tr}\gamma_* = 0$ and that $\gamma^1$ maps the eigenspace $+1$ onto $-1$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+If $\gamma_*v = v$ then $\gamma_*\gamma^1v = -\gamma^1\gamma_*v = -\gamma^1v$, and $\gamma^1$ is invertible, so the eigenspaces have equal dimension and $\operatorname{tr}\gamma_* = 0$.
+
+## SageMath
+
+The code builds $\gamma_*$ as Kronecker powers of $\sigma_3$ and computes its trace.
+
+```{.python .sage}
+s3 = matrix(ZZ, [[1, 0], [0, -1]]); g = s3; out = []
+for r in (1, 2, 3):
+    out.append((2*r, g.trace(), g.nrows())); g = g.tensor_product(s3)
+print(out)
+```
+
+```{.text .sage-output}
+[(2, 0, 2), (4, 0, 4), (6, 0, 8)]
+```
+::::
+:::
+
+For negative charge Riemann-Roch counts the other chirality. The ninth exercise extends part (3d).
+
+::: {#exr-dix-rr-negative}
+#### Negative degree
+
+For $L_{d + 1}$ with $d \leq -2$, show from @thm-monopole-index (1) that $\ker D^+ = 0$ and $\dim\ker D^- = -d - 1$, so the index is $d + 1$ in every degree.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+With $M_0 = d + 1 \leq -1$ there are $|M_0| = -d - 1$ zero modes, all of negative chirality, so the index is $-(-d - 1) = d + 1$.
+
+## SageMath
+
+The code tabulates the two kernels.
+
+```{.python .sage}
+print([(d, max(d + 1, 0), max(-d - 1, 0), max(d + 1, 0) - max(-d - 1, 0)) for d in range(-4, 3)])
+```
+
+```{.text .sage-output}
+[(-4, 0, 3, -3), (-3, 0, 2, -2), (-2, 0, 1, -1), (-1, 0, 0, 0), (0, 1, 0, 1), (1, 2, 0, 2), (2, 3, 0, 3)]
+```
+::::
+:::
+
+Without zero modes the supertrace vanishes for every $t$. The last exercise checks it on $S^2$ with $M = 0$.
+
+::: {#exr-dix-supertrace-zero}
+#### The supertrace without a monopole
+
+On the unit $S^2$, show that $\gamma_*$ maps the eigenspace of $D$ for $\lambda$ onto that for $-\lambda$, so $\operatorname{tr}(\gamma_*e^{-tD^2}) = 0$ on each eigenspace of $D^2$; evaluate the truncated sum of
+@thm-sphere-dirac-spectrum (3).
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$D\gamma_* = -\gamma_*D$, so $\gamma_*$ maps $E_\lambda$ onto $E_{-\lambda}$; on $E_\lambda \oplus E_{-\lambda}$ it has no diagonal blocks, so its trace is $0$, and $\lambda \neq 0$ always (@thm-sphere-dirac-spectrum (3)). Each
+eigenspace $(k + 1)^2$ of $D^2$ has dimension $4(k + 1)$, split evenly between the chiralities.
+
+## SageMath
+
+The code adds the two chiralities with opposite signs.
+
+```{.python .sage}
+for t in (0.1, 1.0):
+    plus = sum(2*(k + 1)*exp(-t*(k + 1)^2) for k in range(200)); minus = plus
+    print(t, (plus - minus).n(), (plus + minus).n(digits=6))
+```
+
+```{.text .sage-output}
+0.100000000000000 0.000000000000000 19.6633
+1.00000000000000 0.000000000000000 1.61953
+```
+::::
 :::
 ::::
 
 ### Generations from the index
 
-On a six-dimensional Calabi-Yau space with the gauge field equal to the spin connection, the index of the Dirac operator twisted
-by the tangent bundle is half the Euler characteristic. The proposition states the computation, which counts the net number of
-chiral multiplets in such backgrounds, and records the same count on the nearly-Kähler cosets of @exm-spd-nearly-kahler.
+On a six-dimensional Calabi-Yau space with the gauge field equal to the spin connection, the index of the Dirac operator twisted by the tangent bundle is half the Euler characteristic. The proposition proves the
+characteristic-class identity behind this and states the count of chiral multiplets, which also holds on the nearly-Kähler cosets of @exm-spd-nearly-kahler.
 
 :::: {.statement-box}
 ::: {#prp-generations-euler}
 #### Half the Euler number
 
-Let $K$ be a compact Kähler manifold of complex dimension $3$ with $c_1(K) = 0$, and let $T = T^{1, 0}K$ carry the Levi-Civita
-(holonomy) connection. Then $\int_K\hat A(K)\operatorname{ch}(T) = \int_K\operatorname{ch}_3(T) = \tfrac12\int_Kc_3 = \tfrac12\chi(K)$,
-so the Dirac operator twisted by $T$ has index $\pm\tfrac12\chi(K)$, and its zero modes come in $\tfrac12|\chi(K)|$ net multiplets of one
-chirality; with the standard embedding these are the net generations of the heterotic string @braun2009 [Sec. 1]. The same rule, net number of families equal to half the Euler characteristic, holds for the
-nearly-Kähler cosets with $\chi = 2, 4, 6$ @chatzistavrakidis2009nk [Sec. 4].
+Let $K$ be a compact Kähler manifold of complex dimension $3$, and let $T = T^{1, 0}K$ carry the Levi-Civita connection, with Chern forms $c_k(T)$ (@def-chc-chern-class).
+
+1. (**the integrand**) $[\hat A(K)\operatorname{ch}(T)]_6 = \operatorname{ch}_3(T) - \tfrac{p_1}{24}c_1(T)$ and $\operatorname{ch}_3 = \tfrac16(c_1^3 - 3c_1c_2 + 3c_3)$, as forms.
+2. (**Calabi-Yau**) If the holonomy is in $SU(3)$, so that $c_1(T) = 0$ as a form, then $[\hat A(K)\operatorname{ch}(T)]_6 = \tfrac12c_3(T)$.
+3. (**stated, not proved here**) $\int_Kc_3 = \chi(K)$ (Chern-Gauss-Bonnet), so by @thm-atiyah-singer (1) the Dirac operator twisted by $T$ has index $\pm\tfrac12\chi(K)$, and its zero modes come in $\tfrac12|\chi(K)|$ net
+   multiplets of one chirality; with the standard embedding these are the net generations of the heterotic string @braun2009 [Sec. 1]. The same rule holds for the nearly-Kähler cosets with $\chi = 2, 4, 6$
+   @chatzistavrakidis2009nk [Sec. 4].
 :::
 ::::
 
+*Proof.* (1) $\hat A = 1 - \frac{p_1}{24} + \dots$ has components of degree $0, 4, 8, \dots$ (@def-a-hat-genus (1)), so the degree-six part of $\hat A\operatorname{ch}$ is $\operatorname{ch}_3 - \frac{p_1}{24}\operatorname{ch}_1$, and
+$\operatorname{ch}_1 = c_1$ (@def-chc-chern-character (1)). For the second identity let $\mathbf X = \frac i{2\pi}F$, a $3 \times 3$ matrix of commuting $2$-forms; then $\operatorname{ch}_3 = \frac16\operatorname{tr}\mathbf X^3$
+and $c_1$, $c_2$, $c_3$ are the elementary symmetric functions of $\mathbf X$, the coefficients of $\det(\mathbf I + \mathbf X)$. Newton's identity $\operatorname{tr}\mathbf X^3 = e_1^3 - 3e_1e_2 + 3e_3$ holds for matrices over any
+commutative ring: both sides are polynomials with integer coefficients in the entries, they agree on diagonalisable complex matrices (where they are the power sum and the elementary symmetric functions of the
+eigenvalues), which are dense, so they are equal as polynomials. It gives the formula. (2) With $c_1 = 0$, (1) gives $\frac16 \cdot 3c_3 = \frac12c_3$. Holonomy in $SU(3)$ means the curvature is in $\mathfrak{su}(3)$, so $\operatorname{tr}F = 0$ and $c_1 = \frac i{2\pi}\operatorname{tr}F = 0$.
+Part (3) is quoted. $\square$
+
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
-The quintic is the simplest Calabi-Yau threefold. The first example evaluates the proposition on it with the Hodge numbers of
-@fig-sd-hodge-diamonds.
+The quintic is the simplest Calabi-Yau threefold. The first example evaluates the proposition on it with the Hodge numbers of @fig-sd-hodge-diamonds.
 
 ::: {#exm-spd-generations-quintic}
 #### The quintic
@@ -23292,7 +24878,7 @@ $H^{0, 1}(T) \cong H^{2, 1}$ and $H^{0, 2}(T) \cong H^{2, 2} \cong H^{1, 1}$: $h
 Calabi-Yau spaces with small Euler characteristic were sought.
 :::
 
-The nearly-Kähler cosets give small Euler characteristics. The second example lists the families they produce and compares with the explicit reductions.
+The nearly-Kähler cosets give small Euler numbers. The second example lists them.
 
 ::: {#exm-spd-generations-cosets}
 #### The six-dimensional cosets
@@ -23302,7 +24888,7 @@ $3$ families, the values found by @chatzistavrakidis2009nk [Sec. 4.1-4.3] by an 
 three families are the three chiral multiplets associated with its three pairs of roots.
 :::
 
-Tori and products with tori have Euler characteristic zero. The third example states the consequence for the index and for the families.
+Tori and products with tori have vanishing Euler characteristic. The third example draws the consequence.
 
 ::: {#exm-spd-generations-torus}
 #### Tori give no net families
@@ -23311,11 +24897,68 @@ $\chi(T^6) = 0$ and $\chi(K3 \times T^2) = 24 \cdot 0 = 0$, so the twisted index
 chirality as of the other, in agreement with the count of @exm-spd-torus-six. A non-zero Euler characteristic is necessary for a net
 number of families from this mechanism.
 :::
+
+On a Calabi-Yau space the Euler number is read from the Hodge numbers. The fourth example writes the formula.
+
+::: {#exm-dix-gen-hodge}
+#### The Euler number from Hodge numbers
+
+For a Calabi-Yau threefold, $h^{0, 0} = h^{3, 3} = h^{3, 0} = h^{0, 3} = 1$, $h^{1, 0} = h^{2, 0} = 0$ and the diamond of @fig-sd-hodge-diamonds gives $\chi = \sum(-1)^{p + q}h^{p, q} = 2(h^{1, 1} - h^{2, 1})$; the net number of
+families is $|h^{1, 1} - h^{2, 1}|$.
+:::
+
+The vanishing of $c_1$ is a statement about the curvature. The fifth example explains why Ricci-flat Kähler metrics give it.
+
+::: {#exm-dix-gen-ricci}
+#### Why $c_1 = 0$ as a form
+
+On a Kähler manifold the Ricci form is $i\operatorname{tr}F$ up to a constant, so a Ricci-flat Kähler metric has $\operatorname{tr}F = 0$ and $c_1(T) = 0$ pointwise, the hypothesis of part (2).
+:::
+
+With three Chern roots summing to zero the third Chern character is a product. The sixth example records it.
+
+::: {#exm-dix-gen-roots}
+#### Roots summing to zero
+
+With roots $y_1 + y_2 + y_3 = 0$, $\sum_jy_j^3 = 3y_1y_2y_3$, so $\operatorname{ch}_3 = \tfrac16\sum_jy_j^3 = \tfrac12y_1y_2y_3 = \tfrac12c_3$, which is part (2) in roots.
+:::
+
+The bicubic is another Calabi-Yau threefold. The seventh example counts its net multiplets.
+
+::: {#exm-dix-gen-bicubic}
+#### The bicubic
+
+The hypersurface of bidegree $(3, 3)$ in $\mathbb{CP}^2 \times \mathbb{CP}^2$ has $c(T) = (1 + H_1)^3(1 + H_2)^3/(1 + 3H_1 + 3H_2)$ by adjunction (quoted), so $c_1 = 0$, and expanding as for the quintic gives $\chi = \int c_3 = -162$, hence $81$ net multiplets by part (3).
+:::
+
+Mirror symmetry exchanges the two Hodge numbers. The eighth example records the effect on the count.
+
+::: {#exm-dix-gen-mirror}
+#### Mirror pairs
+
+Exchanging $h^{1, 1}$ and $h^{2, 1}$ changes the sign of $\chi = 2(h^{1, 1} - h^{2, 1})$, so a mirror pair gives the same number of net multiplets, of opposite chirality.
+:::
+
+The rank of $T$ does not enter the index. The ninth example explains why.
+
+::: {#exm-dix-gen-rank}
+#### No term with the rank
+
+In @eq-spd-atiyah-singer the rank multiplies the degree-six part of $\hat A$, which is zero (@def-a-hat-genus (1)); so on a six-manifold $\operatorname{rank}(T) = 3$ does not appear, unlike the term $\operatorname{rank}(E)\hat A[M]$ in
+four dimensions.
+:::
+
+Three families need a small Euler number. The last example states the condition.
+
+::: {#exm-dix-gen-three}
+#### Three families
+
+Three net families need $\chi = \pm6$, that is $|h^{1, 1} - h^{2, 1}| = 3$; the quintic, with $|h^{1, 1} - h^{2, 1}| = 100$, is far from it.
+:::
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The identity $\operatorname{ch}_3 = \tfrac12c_3$ for $c_1 = 0$ is a statement about symmetric functions. The first exercise derives
-it with Sage.
+Part (1) is an identity between symmetric functions. The first exercise checks it with roots.
 
 ::: {#exr-spd-ch3-newton}
 #### $\operatorname{ch}_3$ in terms of Chern classes
@@ -23326,9 +24969,16 @@ With formal roots $y_1, y_2, y_3$ ($c = \prod(1 + y_i)$, $\operatorname{ch} = \s
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$\sum y_i^3 = e_1^3 - 3e_1e_2 + 3e_3$ by Newton's identity, and $\operatorname{ch}_3 = \tfrac16\sum y_i^3$:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+$\sum y_i^3 = e_1^3 - 3e_1e_2 + 3e_3$ by Newton's identity, and $\operatorname{ch}_3 = \tfrac16\sum y_i^3$.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 y1, y2, y3 = var("y1 y2 y3")
 c1 = y1 + y2 + y3; c2 = y1 * y2 + y1 * y3 + y2 * y3; c3 = y1 * y2 * y3
 ch3 = (y1 ^ 3 + y2 ^ 3 + y3 ^ 3) / 6
@@ -23336,29 +24986,34 @@ print("ch_3 - (c1^3 - 3 c1 c2 + 3 c3)/6 =", (ch3 - (c1 ^ 3 - 3 * c1 * c2 + 3 * c
 print("with c1 = 0: ch_3 = c3/2, so int ch_3 = chi/2; the term -(p1/24) ch_1 = -(p1/24) c1 vanishes")
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 ch_3 - (c1^3 - 3 c1 c2 + 3 c3)/6 = 0
 with c1 = 0: ch_3 = c3/2, so int ch_3 = chi/2; the term -(p1/24) ch_1 = -(p1/24) c1 vanishes
 ```
+::::
 :::
 
-On $SU(3)/(U(1) \times U(1))$ with two monopole charges the index and the zero-mode count were compared by @dolan2003 [eqs. (70)-(73)]. The second
-exercise repeats the comparison.
+The flag manifold has an explicit count of zero modes. The second exercise tabulates it.
 
 ::: {#exr-spd-flag-index}
 #### Zero modes on $SU(3)/(U(1) \times U(1))$
 
-With Sage, tabulate for $|T| \geq |Y|$ the zero-mode numbers $\tfrac18((|T| + 2)^2 - Y^2)(|T| + 2)$ of @dolan2003 [eq. (70)] and the
+Tabulate for $|T| \geq |Y|$ the zero-mode numbers $\tfrac18((|T| + 2)^2 - Y^2)(|T| + 2)$ of @dolan2003 [eq. (70)] and the
 index $\tfrac18M(N^2 - M^2)$ of @dolan2003 [eq. (71)] with $M = T + 2$, $N = Y$ (eq. (72)), for $0 \leq Y \leq T \leq 6$ with $T \equiv
 Y \pmod 2$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-The two agree up to sign in every case, and the sign is that of the chirality of the zero modes:
+:::: {.panel-tabset .solution-tabs}
+## Proof
 
-```python
+The two agree up to sign in every case, and the sign is that of the chirality of the zero modes.
+
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 print("  T  Y  zero modes  index")
 for T in range(0, 7):
     for Y in range(0, T + 1):
@@ -23369,9 +25024,7 @@ for T in range(0, 7):
         print("%3d %2d %11s %6s %s" % (T, Y, d, ind, "agree up to sign" if abs(ind) == d else "DIFFER"))
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
   T  Y  zero modes  index
   0  0           1     -1 agree up to sign
   1  1           3     -3 agree up to sign
@@ -23390,25 +25043,31 @@ for T in range(0, 7):
   6  4          48    -48 agree up to sign
   6  6          28    -28 agree up to sign
 ```
+::::
 :::
 
-The proposition uses the holonomy connection as the gauge field, and the index is then a property of the manifold alone. The third
-exercise checks the formula $\chi = \int c_3$ on $\mathbb{CP}^3$, a Kähler manifold that is not Calabi-Yau, and shows where the extra terms
-enter.
+Without $c_1 = 0$ the rule fails. The third exercise tests it on $\mathbb{CP}^3$.
 
 ::: {#exr-spd-cp3-twisted}
 #### Beyond $c_1 = 0$
 
-On $\mathbb{CP}^3$, $c(T) = (1 + x)^4$, $p_1 = 4x^2$ and $\int x^3 = 1$. With Sage, compute $\chi = \int c_3$, $\int\operatorname{ch}_3(T)$ and
+On $\mathbb{CP}^3$, $c(T) = (1 + x)^4$, $p_1 = 4x^2$ and $\int x^3 = 1$. Compute $\chi = \int c_3$, $\int\operatorname{ch}_3(T)$ and
 $\int[\hat A\operatorname{ch}(T)]_6$, and compare the last two with $\tfrac12\chi$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
 Since $T \oplus \mathcal{O} = \mathcal{O}(1)^{\oplus4}$, $\operatorname{ch}(T) = 4e^x - 1$ and $\int\operatorname{ch}_3(T) = \tfrac46 = \tfrac23$;
 with $\hat A = 1 - \tfrac{x^2}{6}$ the extra term $-\tfrac{x^2}{6}\operatorname{ch}_1 = -\tfrac{x^2}{6}\cdot4x$ contributes $-\tfrac23$, and
-the twisted index is $0$, not $\tfrac12\chi(\mathbb{CP}^3) = 2$: the rule of the proposition needs $c_1 = 0$:
+the twisted index is $0$, not $\tfrac12\chi(\mathbb{CP}^3) = 2$: the rule of the proposition needs $c_1 = 0$.
 
-```python
+## SageMath
+
+The code carries out the computation.
+
+```{.python .sage}
 x = var("x")
 c = ((1 + x) ^ 4).expand()
 chi = c.coefficient(x, 3)
@@ -23418,68 +25077,223 @@ tw = (ahat * ch).taylor(x, 0, 3).coefficient(x, 3)
 print("chi(CP^3) = int c_3 =", chi, "; int ch_3(T) =", ch.coefficient(x, 3), "; int [A-hat ch(T)]_6 =", tw, "; chi/2 =", chi / 2)
 ```
 
-*Output:*
-
-```text
+```{.text .sage-output}
 chi(CP^3) = int c_3 = 4 ; int ch_3(T) = 2/3 ; int [A-hat ch(T)]_6 = 0 ; chi/2 = 2
 ```
-:::
 ::::
+:::
 
-### Exercises
+The Euler number of the quintic follows from its Hodge numbers. The fourth exercise computes it.
 
-:::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The exercises of this part combine twisted operators, the explicit index on the sphere and the general index theorem. They prepare
-the last part, where the index decides whether chiral spinors can arise at all.
+::: {#exr-dix-gen-chi-quintic}
+#### $\chi$ of the quintic
 
-A constant magnetic field on a torus is the flat-space version of the monopole. The first integrative exercise computes the index and
-the zero modes from the theorem and the Lichnerowicz formula.
-
-::: {#exr-spd-torus-flux}
-#### Flux on a torus
-
-On $T^2$ of area $A$ with a $U(1)$ field of constant $F_{12} = -\tfrac{2\pi iN}{A}$ ($N \in \mathbb{Z}$, the Chern number), show that $D_A^2 = \nabla^*\nabla - \tfrac{2\pi N}{A}\sigma_3$ (with $\gamma^1 = \sigma_1$, $\gamma^2 = \sigma_2$), so that for $N > 0$
-zero modes can exist only on the upper component; conclude from @thm-atiyah-singer that there are exactly $N$ of them.
+With $h^{1, 1} = 1$ and $h^{2, 1} = 101$, compute $\chi$ and the net number of multiplets.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-$R = 0$ and $-\tfrac12F_{ab}\gamma^a\gamma^b = -F_{12}\gamma^1\gamma^2 = \tfrac{2\pi iN}{A}\cdot i\sigma_3 = -\tfrac{2\pi N}{A}\sigma_3$, as in
-@exr-spd-lichnerowicz-check. On the lower component $D_A^2 \geq \tfrac{2\pi N}{A} > 0$, so all zero modes lie on the upper component,
-of chirality $\gamma_* = \sigma_3 = +1$. The index is $\int\operatorname{ch}_1 = N$,
-so there are exactly $N$ zero modes: the lowest Landau level on the torus, with degeneracy equal to the flux.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+By @exm-dix-gen-hodge, $\chi = 2(1 - 101) = -200$, so $100$ net multiplets.
+
+## SageMath
+
+The code evaluates.
+
+```{.python .sage}
+h11, h21 = 1, 101; chi = 2*(h11 - h21)
+print(chi, abs(chi)//2)
+```
+
+```{.text .sage-output}
+-200 100
+```
+::::
 :::
 
-The spin-c structure of $\mathbb{CP}^2$ and the twisted Dirac operator are the same mathematics. The second integrative exercise relates the
-two descriptions of the single zero mode of the canonical structure.
+The same number follows from the Chern classes. The fifth exercise computes $c_3$ of the quintic.
 
-::: {#exr-spd-cp2-two-views}
-#### Two views of $\mathbb{CP}^2$
+::: {#exr-dix-gen-c3-quintic}
+#### $c_3$ of the quintic
 
-Explain why the canonical spin-c Dirac operator of $\mathbb{CP}^2$ (@exm-spd-dolbeault-cp2), the spin-c index of @exr-spd-spinc-index at $Q = 0$
-and the zero-mode count of @dolan2003 [eq. (55)] at $Y = 0$ all give $1$, and identify the zero mode in each description.
-:::
-
-::: {.callout-note .solution collapse="true" title="Solution"}
-In the Dolbeault description it is the constant function in $\Omega^{0, 0}$, $h^{0, 0} = 1$. In the index computation $\int\hat
-Ae^{3x/2} = \tfrac{9}{8} - \tfrac18 = 1$. In Dolan's description the spinor charge exactly cancels the background charge ($Y = 0$),
-so the zero mode is the $SU(3)$ singlet, a constant section: $d(0, 0) = (0 + 2)(0 + 4)/8 = 1$. All three are the same constant
-spinor of the canonical structure.
-:::
-
-The index theorem on $S^4$ and the representation theory of $SO(5)$ count the same zero modes. The third integrative exercise checks
-the agreement and the chirality on the instanton.
-
-::: {#exr-spd-s4-instanton-modes}
-#### Zero modes of the instanton
-
-Using @exr-spd-instanton-check, show that for $J = \tfrac12$ there is one zero mode, invariant under $SO(5)$, and that its chirality
-is the one on which the gauge connection cancels the spin connection. Why are there no zero modes for $J = 0$?
+For the quintic $X \subseteq \mathbb{CP}^4$, $c(T) = (1 + H)^5/(1 + 5H)$ restricted to $X$, with $\int_XH^3 = 5$. Compute $c_1$ and $\int_Xc_3$.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-For $J = \tfrac12$, $I = 0$ and $d(0, 0) = 1$: a single $SO(5)$-invariant zero mode, the "constant spinor" of @dolan2003 [after eq. (47)], on the chirality whose $SU(2)$ factor of $\operatorname{Spin}(4)$ is the gauged one, where the gauge connection cancels the spin
-connection exactly. For $J = 0$ the operator is the untwisted Dirac operator of $S^4$, which has no zero modes by
-@thm-lichnerowicz-vanishing, and the index $\tfrac23\cdot0 = 0$ agrees.
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$(1 + 5H + 10H^2 + 10H^3)(1 - 5H + 25H^2 - 125H^3) = 1 + 0 \cdot H + 10H^2 - 40H^3$ up to $H^4$, so $c_1 = 0$ and $\int_Xc_3 = -40 \cdot 5 = -200$, in agreement with @exr-dix-gen-chi-quintic. The formula for $c(T)$
+(adjunction) is quoted, not proved here.
+
+## SageMath
+
+The code expands the quotient as a power series.
+
+```{.python .sage}
+R.<H> = PowerSeriesRing(QQ, default_prec=4)
+c = ((1 + H)^5/(1 + 5*H)).truncate(4)
+print(c, " ; int c3 =", c[3]*5)
+```
+
+```{.text .sage-output}
+-40*H^3 + 10*H^2 + 1  ; int c3 = -200
+```
+::::
+:::
+
+The bicubic is handled in the same way. The sixth exercise computes its Euler number.
+
+::: {#exr-dix-gen-bicubic}
+#### $\chi$ of the bicubic
+
+For $X \subseteq \mathbb{CP}^2 \times \mathbb{CP}^2$ of bidegree $(3, 3)$, $c(T) = (1 + H_1)^3(1 + H_2)^3/(1 + 3H_1 + 3H_2)$ and $\int_X\alpha = \int_{\mathbb{CP}^2 \times \mathbb{CP}^2}\alpha\,(3H_1 + 3H_2)$, with $H_i^3 = 0$ and $\int H_1^2H_2^2
+= 1$. Compute $c_1$ and $\chi = \int_Xc_3$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+The degree-one part is $3H_1 + 3H_2 - (3H_1 + 3H_2) = 0$; expanding to degree three and multiplying by $3H_1 + 3H_2$ gives $\int_Xc_3 = -162$, as the code computes. The formulas for $c(T)$ and $\int_X$ are quoted,
+not proved here.
+
+## SageMath
+
+The code works in $\mathbb Q[H_1, H_2]/(H_1^3, H_2^3)$ and expands the inverse as a geometric series.
+
+```{.python .sage}
+R.<h1, h2> = QQ[]; Q = R.quotient([h1^3, h2^3]); H1, H2 = Q(h1), Q(h2)
+s = 3*H1 + 3*H2; inv = sum((-s)^k for k in range(5))
+c = (1 + H1)^3*(1 + H2)^3*inv
+deg = lambda e, d: sum(cf*Q(m) for cf, m in e.lift() if m.degree() == d)
+print("c1 =", deg(c, 1), "; chi =", (deg(c, 3)*s).lift().monomial_coefficient(h1^2*h2^2))
+```
+
+```{.text .sage-output}
+c1 = 0 ; chi = -162
+```
+::::
+:::
+
+The proof uses Newton's identity for matrices. The seventh exercise checks it for a traceless $3 \times 3$ matrix.
+
+::: {#exr-dix-gen-newton-matrix}
+#### Newton's identity for a matrix
+
+For a $3 \times 3$ matrix $\mathbf X$ with $\operatorname{tr}\mathbf X = 0$, show $\operatorname{tr}\mathbf X^3 = 3\det\mathbf X$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+Newton's identity of the proof with $e_1 = \operatorname{tr}\mathbf X = 0$ and $e_3 = \det\mathbf X$.
+
+## SageMath
+
+The code checks it for a generic traceless matrix.
+
+```{.python .sage}
+R = PolynomialRing(QQ, "a", 8); a = R.gens()
+X = matrix(R, [[a[0], a[1], a[2]], [a[3], a[4], a[5]], [a[6], a[7], -a[0] - a[4]]])
+print((X^3).trace() == 3*X.det())
+```
+
+```{.text .sage-output}
+True
+```
+::::
+:::
+
+A product with a torus has $c_3 = 0$. The eighth exercise checks $K3 \times T^2$.
+
+::: {#exr-dix-gen-k3t2}
+#### $K3 \times T^2$
+
+With $c(K3 \times T^2) = c(K3)c(T^2)$ and $c(T^2) = 1$, show $c_3 = 0$ and $\chi = 0$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$c(K3) = 1 + c_2(K3)$ has no degree-six part, so $c_3 = 0$, $\int c_3 = 0$ and by part (2) the integrand $\tfrac12c_3$ vanishes, as in @exm-spd-generations-torus.
+
+## SageMath
+
+The code reads the degree-three part of $1 + c_2$ in a graded ring.
+
+```{.python .sage}
+R.<t> = QQ[]; c = 1 + 24*t^2
+print(c.monomial_coefficient(t^3) if c.degree() >= 3 else 0)
+```
+
+```{.text .sage-output}
+0
+```
+::::
+:::
+
+The hypothesis $c_1 = 0$ is needed. The ninth exercise shows that a product of three spheres violates the rule.
+
+::: {#exr-dix-gen-cp1-cubed}
+#### $(\mathbb{CP}^1)^3$
+
+On $(\mathbb{CP}^1)^3$ with hyperplane classes $x_i$, $x_i^2 = 0$, $\int x_1x_2x_3 = 1$, $c(T) = \prod(1 + 2x_i)$ and $\operatorname{ch}(T) = \sum_ie^{2x_i}$. Compute $\int c_3$ and $\int[\hat A\operatorname{ch}(T)]_6$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$c_3 = 8x_1x_2x_3$, so $\int c_3 = 8 = \chi$. Each $e^{2x_i} = 1 + 2x_i$, so $\operatorname{ch}_3 = 0$; $\hat A = 1$ (@def-a-hat-genus (3), each factor of dimension two), so $\int[\hat A\operatorname{ch}]_6 = 0 \neq \tfrac12\chi = 4$: $c_1 =
+2\sum x_i \neq 0$, and part (2) does not apply.
+
+## SageMath
+
+The code computes in $\mathbb Q[x_1, x_2, x_3]/(x_i^2)$.
+
+```{.python .sage}
+R.<x1, x2, x3> = QQ[]; Q = R.quotient([x1^2, x2^2, x3^2]); X = [Q(v) for v in (x1, x2, x3)]
+c = prod(1 + 2*v for v in X); ch = sum(1 + 2*v for v in X)
+top = lambda e: e.lift().monomial_coefficient(x1*x2*x3)
+print("int c3 =", top(c), "; int ch3 =", top(ch))
+```
+
+```{.text .sage-output}
+int c3 = 8 ; int ch3 = 0
+```
+::::
+:::
+
+Half the Euler number must be an integer for the rule to make sense. The last exercise checks this on Calabi-Yau threefolds.
+
+::: {#exr-dix-gen-even}
+#### $\chi$ is even
+
+Show from @exm-dix-gen-hodge that $\chi$ of a Calabi-Yau threefold is even, so $\tfrac12\chi$ is an integer, and list $\tfrac12\chi$ for $(h^{1, 1}, h^{2, 1}) = (1, 101), (2, 83), (101, 1)$.
+:::
+
+::: {.callout-note .solution collapse="true" title="Solution"}
+:::: {.panel-tabset .solution-tabs}
+## Proof
+
+$\chi = 2(h^{1, 1} - h^{2, 1})$ is twice an integer; $\tfrac12\chi = -100, -81, 100$.
+
+## SageMath
+
+The code evaluates.
+
+```{.python .sage}
+print([(h11, h21, h11 - h21) for h11, h21 in ((1, 101), (2, 83), (101, 1))])
+```
+
+```{.text .sage-output}
+[(1, 101, -100), (2, 83, -81), (101, 1, 100)]
+```
+::::
 :::
 ::::
 

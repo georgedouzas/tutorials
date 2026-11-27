@@ -186,3 +186,20 @@ Zotero MCP was down; PDFs were read with pdftotext from ~/Zotero/storage (read-o
 - Proved here without a textbook source: the left-invariant Dirac operator and its curvature from structure constants, the SU(2) spectrum by Peter-Weyl, the frame
   and spin-structure description of homogeneous spinor bundles, Frobenius reciprocity by averaging over R, the spinor Casimir n(n-1)/8, D^2 = C2 + R/8 on S^2, the flat
   Dolbeault identification on C, the SU(m)-invariant spinor count by weights, and the commutation of lifted isometries with D.
+
+## sec-dirac-index
+
+Run spin-6 (raising sec-dirac-index, prefix `dix-`). Zotero MCP was down; the PDFs were read read-only with pdftotext from ~/Zotero/storage.
+
+- dolan2003 eqs. (28)-(32) (monopole spectrum j = (|M| - 1)/2 + k, E = k(k + |M|), |M| zero modes, nu = -M in Dolan's labels), (44), (46) (instanton zero modes and
+  representation factor), (55), (70)-(71) -> thm-monopole-index (4) (quoted), exr-spd-index-sign, exm-spd-as-four, exr-spd-cp2-two-views, exr-spd-flag-index.
+- bilal2008 eqs. (3.46)-(3.47), (11.15)-(11.16) (A-hat with 1/(4pi)^2 1/12 tr R^2), (11.25) (index = int A-hat ch with the sign (-)^(r+1)), (10.53), (A.1)-(A.2) ->
+  def-a-hat-genus (2), thm-atiyah-singer (1), exr-spd-index-density.
+- rudolph2017differential eqs. (4.7.15)-(4.7.16) (A-hat_1, A-hat_2), Remark 4.6.10, eq. (5.8.52) (ch), Thm. 5.8.14 (Atiyah-Singer, with a heat-kernel proof) ->
+  def-chern-character, thm-atiyah-singer (1) (stated, not proved here).
+- Proved here without a textbook source: the monopole zero modes by Fourier separation and boundedness at the poles (thm-monopole-index (1)-(3), including CP^1
+  Riemann-Roch as polynomials of degree <= d); the index cases of thm-atiyah-singer (3): flat tori with twists, round spheres, S^2 with a monopole, S^2 x S^2 by the
+  product operator; the square torus with flux N by Fourier series and quasi-periodicity (exr-dix-torus-zero-modes); the A-hat series coefficients and Bernoulli
+  formula; Newton's identity for ch_3.
+- Quoted, not proved here: the general Atiyah-Singer theorem, the SU(2) content and non-zero spectrum of the monopole (Dolan), Hirzebruch's signature theorem,
+  Chern-Gauss-Bonnet int c_3 = chi, adjunction for the quintic and the bicubic.
