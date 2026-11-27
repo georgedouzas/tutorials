@@ -213,6 +213,25 @@ Research for this change found the following.
   - Logarithm base: the shared tables measure entropy in nats, while Lindgren and most information-theory sources for
     complex systems use bits. Options: keep nats and write $\log_2$ where bits are meant (the machine-learning
     convention), or make bits this tutorial's convention.
+- **System Design clashes, 2026-11-27.** The Complexity Science decision is applied unchanged:
+  `_notation/systems.qmd` keeps the field's symbols, marks each clash †, and the "Conventions specific to this
+  tutorial" section of `system-design/notation/index.qmd` lists them. The clashes are:
+  - $\lambda$ (arrival rate) against the eigenvalue, the Lyapunov exponent and the regularisation strength; it agrees
+    with the Poisson mean;
+  - $\mu$ (service rate) against the mean and the bifurcation parameter; means are written $\mathbb E$ in this
+    tutorial;
+  - $\rho$ (utilisation) against the density and the resolvent set;
+  - $N$ (replication factor) against the counting process $N(t)$ (always with its argument), the number of elements
+    of Complexity Science and the Monte Carlo sample count;
+  - $W$ (mean time in the system, Little's law) against the write quorum size $W$ in the same table and the
+    Wronskian; a chapter that needs both writes the quorum sizes $q_R$, $q_W$. $R$ (read quorum) has no clash;
+  - $L$ against the likelihood $L(\theta)$ and the Laplacian $\mathbf L$; $T$ (response time) and $c$ (servers)
+    against the temperature and the speed of light; $A$ (availability) against the adjacency matrix and an event;
+  - $C(c, a)$ (Erlang C) against $C(e)$ (Lamport timestamp), told apart by their arguments and kept in different
+    chapters;
+  - $e \to e'$ (happens-before) against the map arrow; $m$, $k$, $n$ (Bloom filter), $d$ (count-min depth) and $r$
+    (token-bucket rate) against the magnetisation, degree, dimension, metric and the logistic and Kuramoto $r$.
+  The owner may still amend any of these when the pilot is reviewed (task 5.3).
 
 **C10. Labels and cross-references.**
 - `harvest.py` gains a "systems" label group holding both tutorials, so labels stay unique across the site.

@@ -1,0 +1,67 @@
+---
+body-classes: notation-page
+pagetitle: "Notation"
+---
+
+# Notation {#sec-system-design-notation}
+
+This page fixes the notation of the whole tutorial. The tables are shared with the other tutorials of the site, so a
+symbol means the same thing here as in
+[Fundamentals of Mathematics for Physicists](../../fundamentals-of-mathematics-for-physicists/index.qmd) and
+[Complexity Science](../../complexity-science/index.qmd). The chapters follow this notation whatever notation their
+sources use; where a chapter quotes a source's convention, it says so and names the source. The last section lists
+what is particular to this tutorial.
+
+## Sets and logic
+
+{{< include ../../_notation/sets-logic.qmd >}}
+
+## Probability and statistics
+
+{{< include ../../_notation/probability-statistics.qmd >}}
+
+## System design
+
+{{< include ../../_notation/systems.qmd >}}
+
+## Conventions specific to this tutorial {#sec-system-design-conventions}
+
+The symbols of the system-design table are the standard symbols of queueing theory and of the distributed-systems
+literature, kept so that the chapters read like their sources. Those marked † also have another meaning in a shared
+table, in another tutorial, or in this table. The list below gives the meaning each one has in this tutorial. Where a
+chapter needs both meanings, the less common one carries a subscript or is named in words, and the chapter says so
+where the symbol first appears.
+
+- $\lambda$: an arrival rate. It agrees with the Poisson mean of probability, since $N(t) \sim
+  \operatorname{Poisson}(\lambda t)$. An eigenvalue (linear algebra), a Lyapunov exponent (Complexity Science) or a
+  regularisation strength (machine learning) does not occur in this tutorial; where one would, it is named in words.
+- $\mu$: a service rate, and $1/\mu$ the mean service time. A mean in the sense of probability is written $\mathbb
+  E[\cdot]$ in this tutorial, never $\mu$; a measure is not used. The unit prefix in $\mu\mathrm s$ is upright.
+- $\rho$: utilisation, against the density $\rho$ of probability and the resolvent set $\rho(A)$ of analysis. A density
+  is written $p$ here.
+- $N$: the replication factor, as in Dynamo. The counting process $N(t)$ always carries its argument, and the number
+  $N$ of elements of Complexity Science or of Monte Carlo samples does not occur; a sample size is $n$.
+- $R$, $W$: the read and write quorum sizes, as in Dynamo, and $W$ also the mean time in the system, as in Little's law
+  $L = \lambda W$. The quorum sizes are used only with $N$, in replication and its case studies; the queueing $W$ is
+  used in performance and queueing and in messaging. A chapter that needs both writes the quorum sizes $q_R$ and $q_W$.
+  The Wronskian $W$ of analysis does not occur.
+- $L$: the mean number in the system, against the likelihood $L(\theta)$ (always with its argument) and the Laplacian
+  $\mathbf L$ (bold).
+- $T$: a response time, against the temperature $T$ of the physics tutorials, which does not occur here.
+- $c$: the number of servers, against the speed of light $c$, which does not occur here.
+- $C(c, a)$ and $C(e)$: Erlang C takes two arguments and a Lamport timestamp one event. They belong to different
+  chapters (performance and queueing; replication and partitioning). The clustering coefficient $C$ of Complexity
+  Science does not occur.
+- $A$, $A_i$: availability, against the adjacency matrix $\mathbf A$ (bold) and the events $A$ of probability; an
+  event is written $E$ in a chapter that also uses availability.
+- $e \to e'$: happens-before, between events; the arrow between sets, $f : X \to Y$, is a map. The context (events or
+  sets) tells them apart.
+- $m$, $k$, $n$: the Bloom-filter parameters, as in Bloom (1970) and Broder and Mitzenmacher (2004); $n$ is not a
+  dimension there, and $k$ is not a degree.
+- $d$: the depth of a count-min sketch, as in Cormode and Muthukrishnan (2005); a metric $d(x, y)$ always has its two
+  arguments.
+- $r$: the refill rate of a token bucket, against the logistic-map parameter and the Kuramoto modulus of Complexity
+  Science.
+- Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
+  Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
+- Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.

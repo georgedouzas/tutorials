@@ -30,11 +30,24 @@
   the desktop connector into Publications, tags Complexity Science and Machine Learning, bib entry with
   `zotero`/`zoteropdf`, and a `tutorial-reading-note` child note. The key resolves. Thurner's record `233Q4D2M` now
   lists Thurner, Hanel, Klimek.
+  Added 2026-11-27 for System Design (owner-approved with the chapter list, task 3.3), through the desktop connector,
+  tags Computer Science plus existing subfield tags, each with its citation key, a bib entry and a
+  `tutorial-reading-note` child note: `zukerman2013introduction` (`7EYVLVB5`, Textbooks, PDF `4BU53CJJ`),
+  `fischer1985impossibility` (`42SA3BV8`, PDF `X5XLVUIF`), `mattern1988virtual` (`45CZ9XKZ`, PDF `P884B9GR`),
+  `karger1997consistent` (`ZUEJZYGK`, PDF `CA685T3H`), `bloom1970space` (`A7ZGRBZJ`, metadata only: the ACM
+  open-access PDF refuses automated download and there is no author copy), `broder2004network` (`YCR6IT32`, PDF
+  `E9BBSTID`), `cormode2005improved` (`BQN95LQ6`, PDF `E8D7HJ5A`) and `dean2013tail` (`LKLVUIML`, PDF `48WKQDCF`),
+  all in Publications except Zukerman. Fidge 1988 was not added (no legal free copy reachable). The keys resolve.
 - [x] 2.3 Rebuild the semantic index incrementally for the new items. Verify: a topic search finds them.
   2026-11-22: re-run for Brunton-Proctor-Kutz 2016 (`update-db --fulltext`): 992 items, the new paper indexed with 59
   full-text chunks. The indexer reads `zotero.sqlite` without its write-ahead log, so a just-added item is missed until
   Zotero checkpoints; the run used a checkpointed copy (`--db-path`). The running MCP server keeps its old index
   handle, so topic searches find the paper after the server restarts.
+  2026-11-27: re-run for the eight System Design items (`update-db --fulltext --no-openai-batch` on a checkpointed
+  copy, no rebuild): 1001 items, 9 added (the eight items and one other new library item), 0 errors. Chunks:
+  Zukerman 7 (a book, so metadata and table of contents only), FLP 25, Mattern 45, Karger 57, Bloom 1 (metadata),
+  Broder-Mitzenmacher 53, Cormode-Muthukrishnan 45, Dean-Barroso 30. `update-db --db-path` saves that path into
+  `~/.config/zotero-mcp/config.json`; it was reset to `/Volumes/T7/Zotero/zotero.sqlite` afterwards.
 
 ## 3. Coverage records and chapter lists (C6)
 
@@ -47,17 +60,19 @@
   SRE book listed as metadata only; the four architecture books and the 13 classic papers mapped as section sources.
   Every benchmark chapter is mapped or classified. Proposed list of 14 chapters (two new chapters, two splits), awaiting
   owner approval (task 3.3). Source gaps recorded, chiefly queueing theory.
-- [ ] 3.3 The owner approves the two chapter lists. Record rejected proposals with their reasons, and update the
+- [x] 3.3 The owner approves the two chapter lists. Record rejected proposals with their reasons, and update the
   chapter-list requirements in this change if the lists differ from the proposal.
   - [x] Complexity Science: approved 2026-11-22, all 17 chapters in the coverage record's order and slugs, none
     rejected; recorded in `openspec/coverage/complexity-science.md`, with the decision that physics results are linked
     to the physics tutorial, not restated. The chapter-list requirement in
     `specs/complexity-science-tutorial/spec.md` now names the 17 chapters.
-  - [ ] System Design: after task 3.2.
+  - [x] System Design: approved 2026-11-27, all 14 chapters in the coverage record's order and slugs, none rejected;
+    recorded in `openspec/coverage/system-design.md`, with the source-gap items approved and added (task 2.2). The
+    chapter-list requirement in `specs/system-design-tutorial/spec.md` now names the 14 chapters in a scenario.
 
 ## 4. Scaffolding (C1, C9, C10)
 
-- [ ] 4.1 Create `complexity-science/` and `system-design/` from `openspec/templates/tutorial-index.qmd`, each with:
+- [x] 4.1 Create `complexity-science/` and `system-design/` from `openspec/templates/tutorial-index.qmd`, each with:
   - `_metadata.yml`;
   - `cover.svg`;
   - `index.qmd`, with categories, `order`, and a software section naming the pinned versions;
@@ -69,29 +84,35 @@
   Verify: both landing pages render.
   - [x] Complexity Science (2026-11-22): all seven files; categories, `order: 6`, prerequisites, and a software section
     with scikit-complexity 0.9.0 and the setup command. The landing page renders without warnings.
-  - [ ] System Design: pending.
-- [ ] 4.2 Add placeholder pages for every approved chapter ("in preparation", with sources and the coverage record in
+  - [x] System Design (2026-11-27): all seven files; categories (Computer Science plus subfields), `order: 7`,
+    prerequisites (maths probability, sets-relations-topology), and a software section with SimPy 4.1.2, `sqlite3`,
+    NumPy, matplotlib, D2 v0.9.0 and the `.venv-systems` setup command. The landing page renders without warnings.
+- [x] 4.2 Add placeholder pages for every approved chapter ("in preparation", with sources and the coverage record in
   a comment). Add both sidebars to `_quarto.yml` with "planned" marks. Verify: each sidebar lists the notation page,
   the chapters in order and the glossary.
   - [x] Complexity Science (2026-11-22): 17 placeholders and the sidebar (notation, 17 planned chapters, glossary).
-  - [ ] System Design: pending.
-- [ ] 4.3 Add the "Complexity science" and "Computer science" tracks and their listings to the root `index.qmd`. Add Complexity Science and
+  - [x] System Design (2026-11-27): 14 placeholders and the sidebar (notation, 14 planned chapters, glossary).
+- [x] 4.3 Add the "Complexity science" and "Computer science" tracks and their listings to the root `index.qmd`. Add Complexity Science and
   Computer Science to the broad topics in `_includes/topics.html`. Verify: the home page shows four tracks, and the
   site-design scenarios hold, including the "2 of 7 tutorials" count.
   - [x] Complexity Science (2026-11-22): track and listing after Machine learning; Complexity Science and Computer
     Science added to the broad topics. The "x of N tutorials" count is computed from the cards, so it needed no edit
     (it reads "of 6" until System Design exists).
-  - [ ] Computer science track and System Design listing: pending.
-- [ ] 4.4 Add `_notation/complex-systems.qmd` and `_notation/systems.qmd`. List symbol clashes for the owner (λ,
+  - [x] Computer science track and System Design listing (2026-11-27), after Complexity science; Computer Science was
+    already a broad topic. The count now reads "of 7".
+- [x] 4.4 Add `_notation/complex-systems.qmd` and `_notation/systems.qmd`. List symbol clashes for the owner (λ,
   ρ, N), and record the decisions. Verify: both notation pages render the shared and new tables.
   - [x] Complexity Science (2026-11-22): `_notation/complex-systems.qmd`, included by
     `complexity-science/notation/index.qmd`; the clashes are listed in design C9. Decided by the owner on 2026-11-22:
     keep the field's standard symbols, list each clash with its meaning in "Conventions specific to this tutorial" on
     the notation page, and use a subscript where two meanings meet in one chapter (recorded in design C9).
-  - [ ] `_notation/systems.qmd` and System Design's notation page: pending.
-- [ ] 4.5 Add both tutorials to the context list in `openspec/config.yaml`.
+  - [x] System Design (2026-11-27): `_notation/systems.qmd`, included by `system-design/notation/index.qmd` with the
+    sets-logic and probability tables; the clashes are listed in its "Conventions specific to this tutorial" section
+    and in design C9, following the owner's Complexity Science decision. The one clash inside the table ($W$ as mean
+    time in the system and as write quorum) is resolved by $q_R$, $q_W$ where both meet.
+- [x] 4.5 Add both tutorials to the context list in `openspec/config.yaml`.
   - [x] complexity-science added (2026-11-22); system-design listed as planned.
-  - [ ] Drop the "planned" mark for system-design once it exists.
+  - [x] "planned" mark dropped for system-design (2026-11-27).
 
 ## 5. Pilot chapters (C2, C8)
 

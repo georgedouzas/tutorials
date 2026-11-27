@@ -10,22 +10,19 @@ all tutorials. Previous and next links SHALL stay within the tutorial.
 - **THEN** the sidebar is headed by the tutorial's name and lists the notation page, the chapters in reading order and the glossary
 
 ### Requirement: System Design chapters
-The tutorial SHALL contain the chapters of its approved coverage record, written or as placeholders. The proposed list,
-which the owner approves or amends through the coverage record, is:
-- estimation and the design process;
-- the web stack;
-- performance and queueing;
-- storage and databases;
-- replication and partitioning;
-- consistency and consensus;
-- caching and asynchronous processing;
-- architecture styles;
-- reliability and operations;
-- case studies.
+The tutorial SHALL contain, written or as placeholders, the 14 chapters that the owner approved on 2026-11-27 in its
+coverage record (`openspec/coverage/system-design.md`), in that record's reading order.
 
 #### Scenario: Checking the chapter list
 - **WHEN** the sidebar is compared with the approved chapter list of the coverage record
 - **THEN** every approved chapter appears in reading order, either written or marked as planned
+
+#### Scenario: Reading the approved order
+- **WHEN** a reader lists the chapters in the sidebar
+- **THEN** they are, in order: estimation and the design process; the web stack; performance and queueing; storage and
+  databases; replication and partitioning; consistency and consensus; caching; messaging and event streams;
+  distributed transactions; batch and stream processing; architecture styles; reliability and operations; case
+  studies: infrastructure services; case studies: applications
 
 ### Requirement: System Design chapters follow the chapter template
 Every written chapter SHALL follow `openspec/templates/chapter.qmd`: ten examples and ten exercises after each

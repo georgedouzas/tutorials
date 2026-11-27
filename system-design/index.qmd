@@ -1,0 +1,68 @@
+---
+title: "System Design"
+description: "How large software systems are designed, from estimates and the web stack to replication, consensus, streams and case studies"
+image: "cover.svg"
+categories: [Computer Science, System Design, Distributed Systems, Queueing Theory, Databases, Consensus, Caching, Stream Processing, Software Architecture, Reliability Engineering]
+order: 7
+---
+
+This tutorial covers the design of large software systems: services that must stay fast, correct and available while
+their load, their data and their failures grow. It starts with the design process and with estimates of load, storage
+and availability, then follows a request through the web stack and measures performance with queueing theory. It moves
+through storage and databases, replication and partitioning, consistency and consensus, caching, messaging, distributed
+transactions, and batch and stream processing. It ends with architecture styles, reliability and operations, and case
+studies of infrastructure services and applications.
+
+Each chapter sets out definitions and results, works through examples, and gives exercises to try. Results with a
+published proof, such as Little's law, quorum intersection or the CAP theorem, are stated as theorems and proved, and
+design patterns are stated as definitions. Quantitative examples and solutions are computed by code that runs, and
+architectures are drawn as diagrams from their sources. The probability comes from
+[Fundamentals of Mathematics for Physicists](../fundamentals-of-mathematics-for-physicists/index.qmd), and some
+random processes and network models from [Complexity Science](../complexity-science/index.qmd).
+
+::: {.start-reading}
+The chapters are listed in reading order in the sidebar, followed by the [glossary](glossary/index.qmd). [Start with the notation →](notation/index.qmd)
+:::
+
+## Prerequisites
+
+The chapters assume programming experience and the following chapters of the other tutorials, and link to them where a
+result is used:
+
+- [Probability](../fundamentals-of-mathematics-for-physicists/probability/index.qmd): independence, random variables,
+  the exponential and Poisson distributions and limit theorems, for availability, queueing, hashing and sketches.
+- [Sets, relations and topology](../fundamentals-of-mathematics-for-physicists/sets-relations-topology/index.qmd):
+  relations and orders, for happens-before and consistency models.
+
+## Software
+
+Every computation runs in plain Python 3.12, with [SimPy](https://simpy.readthedocs.io) 4.1.2 for discrete-event
+simulation and the standard library's `sqlite3` for storage and indexing. Simulations use fixed seeds, so the recorded
+outputs on the pages can be reproduced. Code that would need a live service, such as a database server, a message
+broker or a load generator, is shown as illustrative code: it is marked as not run, and it has no recorded output.
+
+Main libraries:
+
+- [SimPy](https://simpy.readthedocs.io) 4.1.2: discrete-event simulation, for queues, retries, replication and
+  consensus protocols.
+- [`sqlite3`](https://docs.python.org/3/library/sqlite3.html): the SQLite database in the standard library, for
+  schemas, indexes, transactions and full-text search.
+
+Other libraries:
+
+- [NumPy](https://numpy.org): arrays, random numbers and percentiles.
+- [matplotlib](https://matplotlib.org): plots of the simulations.
+- [D2](https://d2lang.com) v0.9.0: the language in which the architecture, data-flow and sequence diagrams are
+  written.
+
+The Python libraries are installed, at the versions the pages were computed with, into the `.venv-systems`
+environment by one command run from the root of the [repository](https://github.com/georgedouzas/tutorials) (Python
+3.12 and [uv](https://docs.astral.sh/uv/) required):
+
+```bash
+uv venv --python 3.12 .venv-systems && uv pip install --python .venv-systems/bin/python -r system-design/requirements.lock
+```
+
+The diagrams are regenerated with D2 v0.9.0 on the `PATH`.
+
+This tutorial has its own [glossary](glossary/index.qmd).

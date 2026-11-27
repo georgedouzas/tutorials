@@ -4,8 +4,11 @@ Coverage record for the new System Design tutorial (`system-design/`), written f
 `complexity-and-system-design-tutorials` (design C6). The tutorial has no pages yet, so this record maps the benchmark
 tables of contents to the *proposed* chapter list rather than to written sections.
 
-**Status: proposed, awaiting owner approval (task 3.3).** No chapter page is created before the owner approves the list
-below. Rejected proposals will be kept here with the owner's reason.
+**Approved 2026-11-27 (owner).** All 14 chapters of the list below are approved, in its reading order and with its
+slugs; none was rejected. The owner also approved adding these sources to Zotero, to close the source gaps (added
+2026-11-27, see "Source gaps"): Zukerman's queueing textbook, Fischer-Lynch-Paterson 1985, Mattern 1988 (Fidge 1988
+if a legal free copy exists), Karger et al. 1997, Bloom 1970, Broder-Mitzenmacher 2004, Cormode-Muthukrishnan 2005,
+and Dean-Barroso 2013. The placeholders, sidebar, notation page and landing page were created the same day (task 4).
 
 Scope (proposal): "estimation and the design process, the web stack, performance and queueing, storage and databases,
 replication and partitioning, consistency and consensus, caching and asynchronous processing, architecture styles,
@@ -404,7 +407,9 @@ All are in Zotero, with bib entries in `references/references.bib`. Section name
 | `kreps2011kafka` (BLHD3E5S) | yes | §3.1 Efficiency on a single partition; §3.2 Distributed coordination (consumer groups, partitions); §3.3 Delivery guarantees | messaging-and-event-streams §3-4 |
 | | | §4 Usage at LinkedIn | batch-and-stream-processing §2 (log-based pipelines) |
 
-## Proposed chapter list (reading order)
+## Approved chapter list (reading order)
+
+Approved by the owner on 2026-11-27 as proposed (14 chapters).
 
 Chapters from the proposal keep their wording; **new** marks a proposed chapter, **split** a proposed split of a listed
 chapter. "(gap)" marks a section that comes from a section gap. Software support uses three kinds:
@@ -434,10 +439,10 @@ chapter. "(gap)" marks a section that comes from a section gap. Software support
 
 | Slug | Title | Position (after) | Depends on | Zotero sources | Reason (benchmarks and size) | Decision | Status |
 |---|---|---|---|---|---|---|---|
-| caching / messaging-and-event-streams | Caching; Messaging and event streams | consistency-and-consensus (both, in that order) | caching: replication-and-partitioning (§4 consistent hashing), consistency-and-consensus (§1); messaging: performance-and-queueing, caching | Caching: `sinhaSystemDesignGuide2024` ch. 6; `tanAcingSystemDesign2024` ch. 4; `liuSystemDesignInterview2020` ch. 5; `burrows2006chubby`. Messaging: `sinhaSystemDesignGuide2024` ch. 7; `kreps2011kafka`; `saltzer1984end`; `gilbertSoftwareArchitecturePatterns2024` ch. 4-5; `tanAcingSystemDesign2024` ch. 5 | Split of the listed "caching and asynchronous processing". Each half is a whole chapter in Sinha-Chopra (ch. 6 and ch. 7), and each has long sections in Tan and Liu. Together they need eleven sections, against five to seven elsewhere. Their questions differ: hit ratios and invalidation on one side, delivery semantics, ordering and replay on the other. If the owner prefers one chapter, both section lists stand as written. | awaiting owner | proposed |
-| distributed-transactions | Distributed transactions | messaging-and-event-streams | storage-and-databases (§4), consistency-and-consensus, messaging-and-event-streams | `tanAcingSystemDesign2024` ch. 5, App. D; `liuSystemDesignInterview2020` ch. 5 (distributed transaction, concurrency control); `gilbertSoftwareArchitecturePatterns2024` ch. 8; `corbett2012spanner`; `pachecoPrinciplesSoftwareArchitecture2024` ch. 10 | A whole chapter in Tan (ch. 5) and in Gilbert (ch. 8), plus an appendix (Tan D) and a long Liu section. No listed chapter contains it: consensus decides one value, while atomic commitment, sagas and outboxes coordinate several databases or services. Spanner is a classic paper that would otherwise have no home. Five sections. | awaiting owner | proposed |
-| batch-and-stream-processing | Batch and stream processing | distributed-transactions | storage-and-databases, messaging-and-event-streams | `dean2004mapreduce`; `reisFundamentalsDataEngineering2022` ch. 2-3, 6-8; `liuSystemDesignInterview2020` ch. 5 (batch, stream, Lambda); `tanAcingSystemDesign2024` ch. 4, 17; `kreps2011kafka` §4 | Covers the candidate "data pipelines and batch processing". It has a whole book among the sources (Reis-Housley), several sections in Liu and Tan, and a classic paper (MapReduce). No listed chapter contains it: the proposal's "asynchronous processing" is about messaging, not bulk computation. Six sections, including the sketches. | awaiting owner | proposed |
-| case-studies-infrastructure / case-studies-applications | Case studies: infrastructure services; Case studies: applications | reliability-and-operations (both, in that order) | all earlier chapters | Xu ch. 4, 6, 8-15; Tan ch. 7-17; Sinha ch. 9-14; Liu ch. 6; `decandia2007dynamo` | Split of the listed "case studies". The benchmarks hold 35 designs: Xu 11, Tan 11, Sinha 6, Liu 8. With overlaps merged there are 15 distinct topics. Each needs ten examples and ten exercises, so one chapter would have 15 sections. The split groups building blocks (shorteners, limiters, stores, crawlers, CDNs, counters) and user-facing products (feeds, chat, media, sync, editing, booking, location), with seven and eight sections. | awaiting owner | proposed |
+| caching / messaging-and-event-streams | Caching; Messaging and event streams | consistency-and-consensus (both, in that order) | caching: replication-and-partitioning (§4 consistent hashing), consistency-and-consensus (§1); messaging: performance-and-queueing, caching | Caching: `sinhaSystemDesignGuide2024` ch. 6; `tanAcingSystemDesign2024` ch. 4; `liuSystemDesignInterview2020` ch. 5; `burrows2006chubby`. Messaging: `sinhaSystemDesignGuide2024` ch. 7; `kreps2011kafka`; `saltzer1984end`; `gilbertSoftwareArchitecturePatterns2024` ch. 4-5; `tanAcingSystemDesign2024` ch. 5 | Split of the listed "caching and asynchronous processing". Each half is a whole chapter in Sinha-Chopra (ch. 6 and ch. 7), and each has long sections in Tan and Liu. Together they need eleven sections, against five to seven elsewhere. Their questions differ: hit ratios and invalidation on one side, delivery semantics, ordering and replay on the other. If the owner prefers one chapter, both section lists stand as written. | approved 2026-11-27 | approved |
+| distributed-transactions | Distributed transactions | messaging-and-event-streams | storage-and-databases (§4), consistency-and-consensus, messaging-and-event-streams | `tanAcingSystemDesign2024` ch. 5, App. D; `liuSystemDesignInterview2020` ch. 5 (distributed transaction, concurrency control); `gilbertSoftwareArchitecturePatterns2024` ch. 8; `corbett2012spanner`; `pachecoPrinciplesSoftwareArchitecture2024` ch. 10 | A whole chapter in Tan (ch. 5) and in Gilbert (ch. 8), plus an appendix (Tan D) and a long Liu section. No listed chapter contains it: consensus decides one value, while atomic commitment, sagas and outboxes coordinate several databases or services. Spanner is a classic paper that would otherwise have no home. Five sections. | approved 2026-11-27 | approved |
+| batch-and-stream-processing | Batch and stream processing | distributed-transactions | storage-and-databases, messaging-and-event-streams | `dean2004mapreduce`; `reisFundamentalsDataEngineering2022` ch. 2-3, 6-8; `liuSystemDesignInterview2020` ch. 5 (batch, stream, Lambda); `tanAcingSystemDesign2024` ch. 4, 17; `kreps2011kafka` §4 | Covers the candidate "data pipelines and batch processing". It has a whole book among the sources (Reis-Housley), several sections in Liu and Tan, and a classic paper (MapReduce). No listed chapter contains it: the proposal's "asynchronous processing" is about messaging, not bulk computation. Six sections, including the sketches. | approved 2026-11-27 | approved |
+| case-studies-infrastructure / case-studies-applications | Case studies: infrastructure services; Case studies: applications | reliability-and-operations (both, in that order) | all earlier chapters | Xu ch. 4, 6, 8-15; Tan ch. 7-17; Sinha ch. 9-14; Liu ch. 6; `decandia2007dynamo` | Split of the listed "case studies". The benchmarks hold 35 designs: Xu 11, Tan 11, Sinha 6, Liu 8. With overlaps merged there are 15 distinct topics. Each needs ten examples and ten exercises, so one chapter would have 15 sections. The split groups building blocks (shorteners, limiters, stores, crawlers, CDNs, counters) and user-facing products (feeds, chat, media, sync, editing, booking, location), with seven and eight sections. | approved 2026-11-27 | approved |
 
 ## Section gaps
 
@@ -475,25 +480,25 @@ proof is a theorem or proposition and is proved; FLP is stated only.
 | Result | Chapter (§) | Statement (short) | Source of statement and proof |
 |---|---|---|---|
 | Availability of series and parallel systems | estimation-and-the-design-process §5 | With independent failures, a chain of components is up with probability $\prod a_i$ and a redundant group with $1 - \prod (1 - a_i)$ | Elementary probability (maths `sec-probability-spaces`, independence); figures from Xu 2, Sinha 2. No paper needed. |
-| Fan-out tail amplification | performance-and-queueing §1 | If each of $n$ independent calls is slow with probability $p$, a request that waits for all of them is slow with probability $1 - (1 - p)^n$ | Elementary; motivated by MapReduce §3.6 (stragglers). Dean & Barroso, "The Tail at Scale", is not in the library (source gap). |
-| Little's law | performance-and-queueing §2 | $L = \lambda W$ for a stable system with long-run averages | **Source gap**: no queueing text in the library. |
-| M/M/1 | performance-and-queueing §3 | For $\rho = \lambda/\mu < 1$: $\pi_n = (1 - \rho)\rho^n$, $L = \rho/(1 - \rho)$, $W = 1/(\mu - \lambda)$ | **Source gap**, as above. The birth-death chain uses Markov chains from ML maths `sec-msf-stochastic-processes` and Complexity Science `random-processes` §2. |
-| M/M/c and Erlang C | performance-and-queueing §4 | Stationary distribution, probability of waiting $C(c, a)$, mean wait | **Source gap**, as above. |
+| Fan-out tail amplification | performance-and-queueing §1 | If each of $n$ independent calls is slow with probability $p$, a request that waits for all of them is slow with probability $1 - (1 - p)^n$ | Elementary; motivated by MapReduce §3.6 (stragglers). `dean2013tail` (added 2026-11-27). |
+| Little's law | performance-and-queueing §2 | $L = \lambda W$ for a stable system with long-run averages | `zukerman2013introduction` (added 2026-11-27), with its proof. |
+| M/M/1 | performance-and-queueing §3 | For $\rho = \lambda/\mu < 1$: $\pi_n = (1 - \rho)\rho^n$, $L = \rho/(1 - \rho)$, $W = 1/(\mu - \lambda)$ | `zukerman2013introduction`. The birth-death chain uses Markov chains from ML maths `sec-msf-stochastic-processes` and Complexity Science `random-processes` §2. |
+| M/M/c and Erlang C | performance-and-queueing §4 | Stationary distribution, probability of waiting $C(c, a)$, mean wait | `zukerman2013introduction`. |
 | Quorum intersection | replication-and-partitioning §2 | If $R + W > N$, every read quorum meets every write quorum, so a read sees the latest acknowledged write when there are no concurrent writes and no sloppy quorums | Statement: Dynamo §4.5, Sinha 5 ("Using r and w"), Xu 6. Proof by counting (pigeonhole), in the chapter. Gifford 1979 (weighted voting) is the original but not in the library (optional). |
 | Lamport clock condition and total order | replication-and-partitioning §3 | Rules IR1-IR2 give $a \to b \Rightarrow C(a) < C(b)$; ties broken by process order give a total order extending $\to$ | `lamport1978time`, "Logical Clocks" and "Ordering the Events Totally", with the paper's proof. |
-| Vector clocks characterise causality | replication-and-partitioning §3 | $a \to b \iff V(a) < V(b)$ | Used by Dynamo §4.4 and Xu 6 without proof. **Source gap**: Fidge 1988 or Mattern 1988 needed for the converse. |
+| Vector clocks characterise causality | replication-and-partitioning §3 | $a \to b \iff V(a) < V(b)$ | Used by Dynamo §4.4 and Xu 6 without proof. Both directions: `mattern1988virtual` (added 2026-11-27). |
 | Physical clock synchronisation | replication-and-partitioning §3 (stated) | Lamport's THEOREM bounding clock skew under rule IR2' | `lamport1978time`, "Physical Clocks". Stated, with the proof referred to the paper. |
-| Consistent hashing load | replication-and-partitioning §4 | With $n$ nodes at uniform random positions, each node owns an expected $1/n$ of the ring, and a join moves an expected $K/(n+1)$ of $K$ keys. The largest arc is $\Theta(\log n / n)$ with high probability, and $v$ virtual nodes per node reduce the spread | Expectations proved in the chapter from uniform spacings (maths `sec-random-variables`). Dynamo §4.2 and §6.2 give the virtual-node motivation and the measured skew. **Source gap** for the high-probability bound: Karger et al. 1997. |
-| Bloom-filter false-positive rate | storage-and-databases §3 | With $m$ bits, $k$ hashes and $n$ keys, $p \approx (1 - e^{-kn/m})^k$, minimised at $k = (m/n)\ln 2$ | Stated in Sinha 3 and Liu App. 5, used in Bigtable §6. **Source gap** for the proof: Bloom 1970 (cited by Bigtable) or Broder & Mitzenmacher 2004. The chapter's derivation uses the independence approximation explicitly. |
+| Consistent hashing load | replication-and-partitioning §4 | With $n$ nodes at uniform random positions, each node owns an expected $1/n$ of the ring, and a join moves an expected $K/(n+1)$ of $K$ keys. The largest arc is $\Theta(\log n / n)$ with high probability, and $v$ virtual nodes per node reduce the spread | Expectations proved in the chapter from uniform spacings (maths `sec-random-variables`). Dynamo §4.2 and §6.2 give the virtual-node motivation and the measured skew. High-probability bound: `karger1997consistent` (added 2026-11-27). |
+| Bloom-filter false-positive rate | storage-and-databases §3 | With $m$ bits, $k$ hashes and $n$ keys, $p \approx (1 - e^{-kn/m})^k$, minimised at $k = (m/n)\ln 2$ | Stated in Sinha 3 and Liu App. 5, used in Bigtable §6. Proof: `broder2004network`; original: `bloom1970space` (metadata only); both added 2026-11-27. The chapter's derivation uses the independence approximation explicitly. |
 | UUID collision bound | replication-and-partitioning §7 | The birthday bound $1 - e^{-n^2/2N}$ for $n$ random IDs in a space of size $N$ | Maths probability `exr-prob-birthday`; Xu 7, Liu 5 for the setting. |
 | CAP theorem (Gilbert-Lynch) | consistency-and-consensus §2 | In the asynchronous model, no read/write register is both atomic and available in all fair executions, including those in which messages are lost (Theorem 1, Corollary 1.1). The same holds in the partially synchronous model (Theorem 2) | `gilbert2002brewer` §2-4, with the paper's proofs. The spec's CAP scenario. |
-| FLP impossibility (stated) | consistency-and-consensus §3 | No deterministic consensus protocol in the asynchronous model tolerates one crash failure | Stated in Sinha 3, cited by Paxos Made Simple [1]. **Source gap**: Fischer, Lynch & Paterson 1985 is not in the library, so the statement can only cite Sinha-Chopra until it is added. |
+| FLP impossibility (stated) | consistency-and-consensus §3 | No deterministic consensus protocol in the asynchronous model tolerates one crash failure | Stated in Sinha 3, cited by Paxos Made Simple [1]. `fischer1985impossibility` (added 2026-11-27). |
 | Paxos safety | consistency-and-consensus §4 | Only a proposed value is chosen, only one value is chosen, and a learner learns only a chosen value (via invariant P2c) | `lamport2001paxos` §2.2, with the paper's argument. |
 | Raft safety | consistency-and-consensus §5 | Election Safety, Log Matching, Leader Completeness and State Machine Safety | `ongaro2014search` Fig. 3, §5.2-5.4; Leader Completeness and State Machine Safety proved at the paper's level (§5.4.3). |
 | Two-phase commit: safety and blocking | distributed-transactions §1 | 2PC never commits at one participant and aborts at another; a participant that has voted yes cannot decide while the coordinator is unreachable | Tan App. D (description). The blocking argument is in the chapter. **Source gap** for a textbook proof: van Steen-Tanenbaum once its PDF is attached. |
 | Spanner external consistency | distributed-transactions §2 | With TrueTime bounds and commit wait, if $T_1$ commits before $T_2$ starts then $s_1 < s_2$ | `corbett2012spanner` §4.1.2, with the paper's proof. |
 | Token-bucket bound | reliability-and-operations §3 | A bucket of capacity $b$ refilled at rate $r$ admits at most $b + rt$ requests in any interval of length $t$ | Algorithm from Xu 4 and Tan 8; proof elementary, in the chapter. |
-| Count-min error bound | batch-and-stream-processing §6 | With width $\lceil e/\varepsilon \rceil$ and depth $\lceil \ln(1/\delta) \rceil$, the estimate exceeds the true count by more than $\varepsilon N$ with probability at most $\delta$ | Used in Tan 17 and Sinha 3 without proof. **Source gap**: Cormode & Muthukrishnan 2005. |
+| Count-min error bound | batch-and-stream-processing §6 | With width $\lceil e/\varepsilon \rceil$ and depth $\lceil \ln(1/\delta) \rceil$, the estimate exceeds the true count by more than $\varepsilon N$ with probability at most $\delta$ | Used in Tan 17 and Sinha 3 without proof. `cormode2005improved` (added 2026-11-27), with its proof. |
 | HyperLogLog standard error (stated) | batch-and-stream-processing §6 | Relative standard error about $1.04/\sqrt{m}$ | Sinha 3, Liu App. 5. Stated only; Flajolet et al. 2007 is not in the library. |
 
 ## Prerequisites from other tutorials
@@ -539,6 +544,24 @@ would go through the same approval as references-proposal.md.
   HyperLogLog.
 - **Tail latency (optional)**: Dean & Barroso 2013, "The Tail at Scale", CACM.
 
+**Closed on 2026-11-27 (owner-approved).** Added to Zotero through the desktop connector, each with its citation key,
+a bib entry with `zotero`/`zoteropdf`, and a `tutorial-reading-note` child note:
+
+| Citation key | Zotero item | PDF | Closes |
+|---|---|---|---|
+| `zukerman2013introduction` | `7EYVLVB5` (Textbooks) | `4BU53CJJ`, arXiv v27 (2025) | queueing: Little's law, M/M/1, M/M/c, Erlang C |
+| `fischer1985impossibility` | `42SA3BV8` | `X5XLVUIF`, MIT TDS group copy | FLP |
+| `mattern1988virtual` | `45CZ9XKZ` | `P884B9GR`, author's copy (ETH) | vector clocks, both directions |
+| `karger1997consistent` | `ZUEJZYGK` | `CA685T3H`, authors' copy (MIT) | consistent hashing, high-probability bound |
+| `bloom1970space` | `A7ZGRBZJ` | none: the ACM open-access PDF refuses automated download, and there is no author copy | Bloom filters (original) |
+| `broder2004network` | `YCR6IT32` | `E9BBSTID`, author's copy (Harvard) | Bloom-filter false-positive rate |
+| `cormode2005improved` | `BQN95LQ6` | `E8D7HJ5A`, authors' preprint (Internet Archive copy of Cormode's DIMACS page) | count-min error bound |
+| `dean2013tail` | `LKLVUIML` | `48WKQDCF`, author-hosted (barroso.org) | tail latency, fan-out |
+
+Fidge 1988 was not added: its author-hosted copy (QUT) no longer resolves, and no other legal free copy was found.
+Mattern 1988 alone proves that vector clocks characterise causality. HyperLogLog (Flajolet et al. 2007) stays stated
+only.
+
 **In Zotero without a readable PDF:**
 - `brewer2012cap`: no PDF (IEEE paywall, HTML reprint only; recorded in its reading note). It may support commentary
   but no locator-backed section.
@@ -575,6 +598,14 @@ commercial metadata-only books (design C7).
   - $R$, $W$: quorum sizes;
   - $m$, $k$, $n$: Bloom-filter parameters;
   - $C(c, a)$: Erlang C.
+
+  **Decided 2026-11-27**, following the owner's Complexity Science decision (design C9): the field's symbols are kept,
+  each clash is listed in "Conventions specific to this tutorial" on `system-design/notation/index.qmd`, and where two
+  meanings meet in one chapter one of them takes a subscript or is named in words. The clash found inside the new
+  table, $W$ as the mean time in the system and as the write quorum, is resolved by writing the quorum sizes $q_R$,
+  $q_W$ in any chapter that needs both.
+- **Decisions of 2026-11-27.** All 14 chapters approved as proposed (none rejected); the source-gap items above
+  approved and added. The spec's chapter-list requirement now names the 14 chapters (task 3.3).
 - **Citation keys.** The benchmarks and architecture books carry Better BibTeX auto-keys (for example
   `tanAcingSystemDesign2024`) and are not yet in `references/references.bib`. Xu vol. 1 keeps
   `SystemDesignInterview2021` (references-proposal). Short keys can be pinned when bib entries are added for the pilot.

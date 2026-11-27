@@ -1,0 +1,42 @@
+### Symbols for system design
+
+Symbols marked † are the subject's standard symbols and also have another meaning in a shared table or in another
+tutorial. The conventions section of the System Design notation page lists each one with its meaning in that tutorial
+and says how the two meanings are told apart where they meet.
+
+| Symbol | Meaning |
+|---|---|
+| $A$ †, $A_i$ | steady-state availability of a system and of its component $i$: the long-run fraction of time it is up |
+| $\mathrm{MTTF}$, $\mathrm{MTTR}$ | mean time to failure and mean time to repair; $A = \mathrm{MTTF}/(\mathrm{MTTF} + \mathrm{MTTR})$ |
+| $T$ † | response (sojourn) time of a request: from its arrival to the end of its service |
+| $t_q$ | the $q$-quantile of a latency, $\mathbb P(T \leq t_q) = q$; the p99 latency is $t_{0.99}$ |
+| $N(t)$ † | counting process: the number of arrivals in $(0, t]$; a Poisson process of rate $\lambda$ when $N(t) \sim \operatorname{Poisson}(\lambda t)$ with independent increments |
+| $\lambda$ † | arrival rate (requests per unit time) |
+| $\mu$ † | service rate of one server; the mean service time is $1/\mu$ |
+| $c$ † | number of servers of a queue |
+| $\rho$ † | utilisation (traffic intensity), $\rho = \lambda/(c\mu)$; $\rho = \lambda/\mu$ for one server |
+| $a$ | offered load in erlangs, $a = \lambda/\mu$ |
+| $Q(t)$, $\pi_n$ | number of requests in the system at time $t$ (waiting or in service); its stationary probabilities $\pi_n = \lim_{t\to\infty}\mathbb P(Q(t) = n)$ |
+| $L$ †, $L_q$ | mean number of requests in the system and in the queue |
+| $W$ †, $W_q$ | mean time in the system and mean waiting time in the queue, as in Little's law $L = \lambda W$ |
+| $\mathrm{M/M/1}$, $\mathrm{M/M/}c$ | Kendall's notation: arrival process / service-time distribution / number of servers (M: Markovian, that is Poisson arrivals or exponential service) |
+| $C(c, a)$ † | Erlang C: the probability that an arriving request waits, in an M/M/$c$ queue with offered load $a$ |
+| $N$ † | replication factor: the number of replicas of a data item |
+| $R$ †, $W$ † | read and write quorum sizes: the replicas that must answer a read, and acknowledge a write |
+| $e \to e'$ † | happens-before: event $e$ may causally affect event $e'$ |
+| $e \parallel e'$ | concurrency: neither $e \to e'$ nor $e' \to e$ |
+| $C(e)$ † | Lamport timestamp of event $e$ |
+| $V(e)$, $V(e)[i]$ | vector timestamp of event $e$ and its component for process $i$; $V \leq V'$ componentwise, $V < V'$ when also $V \neq V'$ |
+| $h : U \to [0, 1)$ | hash function onto the ring of consistent hashing, positions read modulo 1 |
+| $K$, $v$ | number of keys; number of virtual nodes per physical node |
+| $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
+| $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
+| $w$, $d$ † | width and depth of a count-min sketch; $\varepsilon$, $\delta$ its error and failure probability |
+| $b$, $r$ † | capacity and refill rate of a token bucket |
+
+Conventions:
+
+- Sizes and rates carry their units: $\mathrm{B}$ for bytes and $\mathrm{b}$ for bits, decimal prefixes ($1\,\mathrm{GB} =
+  10^9\,\mathrm{B}$) and binary ones ($1\,\mathrm{GiB} = 2^{30}\,\mathrm{B}$), and $\mathrm{req/s}$ for requests per
+  second.
+- Times are in seconds unless a unit is given, with $\mathrm{ms}$ and $\mu\mathrm s$ for latencies.
