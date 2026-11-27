@@ -317,3 +317,95 @@ proof for a two-valued factor with a floor; the general mechanisms of power laws
   `sec-random-variables`, `sec-limit-theorems`; sets-relations-topology `thm-contraction-mapping`; complex-analysis
   `def-beta-function`. ML maths `def-markov-property`. Physics `sec-nonequilibrium-statistical-mechanics` (placeholder)
   for Langevin and Fokker-Planck.
+
+## Chapter 4: fractals-and-scaling (task 6.1, 2026-11-27)
+
+Read with `pdftotext -layout` from `~/Zotero/storage` (read-only); nothing written to Zotero. Sections: §1
+`sec-self-similarity-dimension`, §2 `sec-fractal-growth`, §3 `sec-scaling-laws`, §4 `sec-measuring-power-laws`, §5 `sec-scaling-in-time`,
+§6 `sec-allometric-scaling`, following the coverage plan. Multiplicative and preferential mechanisms (coverage §3) are linked to Chapter 3
+(`prp-multiplicative-process`, `prp-polya-urn`) and appear only in examples; the estimator of the exponent, derived in Chapter 3 as an exercise
+(`exr-heavy-mle`), is proved here with its exact law (`prp-power-law-mle`). All cited keys already had bib entries.
+
+### Thurner, Hanel and Klimek (2018)
+
+- PDF page = printed page + 13. Read Ch. 3 in full (pp. 93-139), with Problems 3.1-3.10.
+- Used: definition of scaling eqs. (3.1)-(3.3) and footnote 2 (log-periodic) (`thm-scale-invariance`, `exm-scaling-log-periodic`); Galileo's bones
+  Fig. 3.1 (`exm-scaling-galileo`, `exr-scaling-galileo`, `exm-allometry-galileo`); Table 3.1, Sec. 3.2.1 three distribution functions and eq. (3.4)
+  (`def-zipf-law`, `exm-zipf-frequency-distribution`, `exr-zipf-frequency-tail`); multiplicative processes eqs. (3.9)-(3.12) (`exm-zipf-cities`);
+  preferential processes and Simon's model eqs. (3.13)-(3.17) (`exm-zipf-simon`, `exr-zipf-simon-meanfield`); SSR processes Secs. 3.3.5.1-3.3.5.5,
+  eqs. (3.18)-(3.23), Fig. 3.5 (`prp-ssr-zipf`, all its examples and exercises); other mechanisms eqs. (3.30)-(3.31) (`exm-scaling-random-times`,
+  `exm-zipf-typewriting`, `exm-zipf-least-effort`, `exr-zipf-least-effort`); MLE Secs. 3.4.1-3.4.2 eqs. (3.32)-(3.48), Fig. 3.8 (`prp-power-law-mle`,
+  `exm-mle-bayes`, `exr-mle-posterior`, `exm-mle-bounded`, `exr-mle-bounded`); Sec. 3.5 self-similarity, Koch curve, dimension eq. (3.49)-(3.52), box
+  counting, Fig. 3.11 (§1 intro, `def-box-counting-dimension`, `exm-box-koch`, `exm-box-coastline`, `exm-scaling-dimension`); Sec. 3.5.3 eqs.
+  (3.53)-(3.56) (`sec-scaling-in-time`, `exm-hurst-multifractal`, `exm-hurst-heart`, `exr-hurst-moments`); Sec. 3.6 eqs. (3.57)-(3.68), Tables 3.4-3.5,
+  Fig. 3.12 (`def-allometric-scaling`, `prp-wbe-quarter-law` and its units).
+- Problems adapted: 3.1 (`exr-scaling-solutions`), 3.2 (`exr-scaling-candidates`), 3.3 (`exr-scaling-q-exponential`), 3.6 (`prp-ssr-zipf`(a), proved
+  without the differential approximation), 3.7 (`exr-scaling-random-times`), 3.8 (`exr-hurst-moments`), 3.9 (`exr-wbe-volume`), 3.10
+  (`exr-wbe-aorta-length`).
+- Remarks: the "exact power law" of eq. (3.23) is exact only asymptotically; the exact stationary law is a ratio of Gamma functions
+  (`prp-ssr-zipf`(b)). In the WBE derivation the neglected 1 of eq. (3.66) gives the correction factor (1 - n^{-(N+1)/3})^{-3/4} of `prp-wbe-quarter-law`.
+  In the PDF text layer Table 3.5 gives the metabolic-rate prediction as "3/3", presumably 3/4 (not used in the chapter).
+
+### Charbonneau, *Natural Complexity* (2017)
+
+- PDF page = printed page + 17. Read Secs. 3.1-3.8 (pp. 53-78), Sec. 4.5 (pp. 98-100) and App. B (pp. 308-320).
+- Used: DLA algorithm and representative run, Figs. 3.1-3.3 (`def-diffusion-limited-aggregation`, `exm-dla-cluster`, `exm-dla-tips`,
+  `exr-dla-capture-sites`); zoo of aggregates Figs. 3.4-3.5 (`exm-dla-competition`, `exm-dla-density-walkers`); Koch fractal eq. (3.1), Fig. 3.6
+  (`exm-box-koch`, `exr-box-koch-length`, `exm-similarity-statistical`); mass-radius Fig. 3.7-3.8 (D = 1.665) and box counting Figs. 3.9-3.11 (D = 1.591)
+  (`exm-dla-line`, `exm-dla-square`, `exr-dla-box-counting`); scale invariance Sec. 3.6 and footnote 5 (`exm-dla-scale-range`, `exm-scaling-power`);
+  Exercises 3.7.1 and 3.7.3 (`exr-dla-line-square`, `exr-dla-lattice-size`); fitting range of percolation clusters Sec. 4.5 (`exm-csn-finite-size`);
+  App. B.3-B.6 eqs. (B.7)-(B.18), Fig. B.3 (`exm-mle-charbonneau`).
+
+### Clauset, Shalizi and Newman (2009)
+
+- arXiv version of the PDF, cited by section and equation. Read Secs. 1-5 (pp. 1-21) and Apps. A-D (pp. 31-37).
+- Used: Box 1 (`def-power-law-test`, `exm-csn-recipe`); Sec. 3.1 eq. (3.7) and Fig. B.1 (`exm-mle-discrete`, `exr-mle-discrete`); Sec. 3.3 Fig. 3.3
+  (`exm-mle-cutoff`, `exm-csn-cutoff`); Sec. 4.1 semiparametric bootstrap, (1/4)eps^-2 synthetic sets, p > 0.1 (`exm-csn-own-fit`,
+  `exm-csn-semiparametric`, `exm-csn-number`, `exr-csn-precision`, `exr-csn-synthetic`); Fig. 4.1a-c (`exm-csn-looks-straight`, `fig-power-law-ccdf`,
+  `exr-csn-exponential`, `exr-csn-lognormal`); Sec. 5.1-5.2 and App. C (`exm-csn-ratio`, `exm-csn-nested`, `exr-csn-ratio`, `exr-csn-truncated`);
+  App. B.1-B.2, Propositions B.2 and B.4, inverse-gamma law of the estimator (`prp-power-law-mle`, `exm-mle-bias`, `exm-mle-unknown-cutoff`).
+
+### Datseris and Parlitz (2022)
+
+- PDF page = printed page + 8. Read Secs. 5.1.3-5.4.4 and the exercises (pp. 72-86).
+- Used: Koch snowflake and fractal dimension Sec. 5.3.1; self-similarity of the Hénon attractor Sec. 5.3.2; box counting Fig. 5.5 (`exm-box-henon`);
+  generalised dimension eq. (5.6), correlation sum eq. (5.7), Theiler window Fig. 5.1, Fig. 5.6 (D = 1.22) (`def-correlation-dimension`,
+  `exm-correlation-henon`, `exm-correlation-theiler`); Secs. 5.4.2-5.4.3 sample size and noise (`exm-correlation-sample-size`,
+  `exr-correlation-high-dimension`, `exm-correlation-noise`, `exr-correlation-noisy-henon`); Kaplan-Yorke dimension eq. (5.9) (`exr-box-kaplan-yorke`).
+  Exercise 5.6 (box dimension of the Koch snowflake) underlies `exm-box-koch`.
+
+### Dilão, *Dynamical System and Chaos* (2023)
+
+- Read Sec. 5.2 (pp. 141-144) and Sec. 5.4 (pp. 148-150).
+- Used: capacity dimension eq. (5.4), correlation integral eqs. (5.5)-(5.6), Lorenz correlation dimension 2.03 Fig. 5.7, delay reconstruction eq. (5.7)
+  and Fig. 5.8 (`exm-correlation-lorenz`, `exr-correlation-embedding`); stochastic function systems eq. (5.9), Examples 5.8-5.9, Fig. 5.12
+  (`thm-similarity-dimension` intro, `exm-similarity-cantor`, `exm-similarity-gasket`, `exm-correlation-weighted-cantor`).
+
+### Lindgren, *Information Theory for Complex Systems* (2024)
+
+- Read Sec. 6.2 (pp. 108-112).
+- Used: D_T <= D_F <= D_E eq. (6.23), resolution-dependent dimension eqs. (6.24)-(6.26), Mandelbrot's ball of thread, Britain D = 1.25, Koch curve
+  eq. (6.27) (`def-box-counting-dimension` remark, `exm-box-ball-of-thread`, `exm-box-coastline`).
+
+### Downey, *Think Complexity* (2018)
+
+- E-book without page numbers. Read Ch. 4 "Heavy-Tailed Distributions" and "Barabási-Albert Model", Ch. 7 "Fractals" and "Fractals and
+  Percolation Models".
+- Used: rule-18 slope 1.57 (`exm-box-sierpinski`); heavy-tailed degree distributions on log-log axes (`exm-csn-downey`).
+
+### Jensen, *Complexity Science* (2023)
+
+- PDF page = printed page + 22. Read Secs. 10.3-10.4 (pp. 296-306).
+- Used: 1/f spectrum of traffic eq. (10.79), switching signal eqs. (10.80)-(10.81) (`exm-hurst-spectrum`, `exm-memory-telegraph`,
+  `exr-memory-telegraph`); Hurst exponent eqs. (10.82)-(10.86) (`def-hurst-exponent`); persistent walk eqs. (10.87)-(10.97), Fig. 10.7
+  (`exm-hurst-jensen-walk`, `exm-memory-persistent-walk`, `exr-memory-persistent-walk`, `exr-memory-batch-means`); time-dependent H(t)
+  (`exm-memory-crossover`).
+
+### Mathematics, physics and Complexity Science links (cross-references, not references)
+
+- Maths: sets-relations-topology `thm-contraction-mapping`, `sec-metric-spaces`; real-analysis `sec-series`, `def-series`; probability
+  `def-maximum-likelihood`, `thm-cramer-rao`, `def-confidence-interval`, `thm-strong-law-large-numbers`, `thm-central-limit-theorem`,
+  `sec-statistics`; fourier-analysis `def-fourier-transform`. Physics: thermodynamics-statistical-mechanics `def-critical-exponent`.
+- Earlier chapters: `def-strange-attractor`, `exm-strange-henon`, `fig-henon-attractor`, `def-lyapunov-spectrum`, `prp-volume-contraction`,
+  `sec-period-doubling` (Ch. 2); `def-heavy-tail`, `exr-heavy-mle`, `exr-heavy-standard-error`, `exr-heavy-xmin`, `prp-multiplicative-process`,
+  `prp-polya-urn`, `thm-markov-convergence`, `prp-first-return` (Ch. 3); `prp-additive-fluctuations` (Ch. 1).
