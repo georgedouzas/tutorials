@@ -30,6 +30,10 @@
 | $SO(n)$, $SU(n)$, $U(n)$, $O(n)$ | matrix groups |
 | $\mathfrak{so}(1, 3)$, $\mathfrak{su}(n)$, $\mathfrak{sl}(2, \mathbb C)$ | their Lie algebras (Fraktur) |
 | $S/R$ | coset space of a Lie group $S$ by a closed subgroup $R$ |
+| $\pi : S \to S/R$, $o = eR$, $\tau_g$ | projection onto the coset space, its base point, the action $p \mapsto g \cdot p$ |
+| $X \cdot o$, $\rho_o$ | infinitesimal action $\frac{d}{dt}e^{tX} \cdot o\vert_{t=0}$; isotropy representation $h \mapsto d(\tau_h)_o$ |
+| $\operatorname{Gr}_k(\mathbb R^n)$ | Grassmannian of $k$-dimensional subspaces of $\mathbb R^n$ |
+| $L(y)$, $e^a$, $\omega = e^iQ_i$ | coset representative; coset vielbein and $R$-connection, the components of $L^{-1}dL$ along $\mathfrak k$ and $\mathfrak r$ |
 | $\mathfrak s = \mathfrak r \oplus \mathfrak k$ | reductive decomposition of the Lie algebra of $S$: $\mathfrak r$ of $R$, $\mathfrak k$ its complement |
 | $\operatorname{Ad}_g$, $\operatorname{ad}_X$ | adjoint representations of the group and of the algebra |
 | $T_a$ | anti-Hermitian generators, $[T_a, T_b] = f_{ab}{}^c\, T_c$ |
@@ -49,6 +53,13 @@
 | $\theta = g^{-1}dg$, $\sigma^A$ | Maurer-Cartan form and its components, the left-invariant one-forms |
 | $\mathbf R(t)$, $\mathbf n \cdot \mathbf L$ | rotation by $t$ about the third axis; $n_aL_a$, whose exponential $e^{t\,\mathbf n \cdot \mathbf L}$ is the rotation by $t$ about the unit vector $\mathbf n$ |
 | $\mathcal J_a$, $K_a$ | rotation and boost generators of $\mathfrak{so}(1, 3)$ |
+| $SO^+(1, 3)$, $\Lambda_P$, $\Lambda_T$ | proper orthochronous Lorentz group ($\det\Lambda = 1$, $\Lambda^0{}_0 \geq 1$); parity $\operatorname{diag}(1, -1, -1, -1)$ and time reversal $\operatorname{diag}(-1, 1, 1, 1)$ |
+| $\mathbf B(\mathbf u)$, $\hat{\mathbf R}$ | boost taking $\mathbf e_0$ to the four-velocity $\mathbf u$; the rotation $\operatorname{diag}(1, \mathbf R)$ |
+| $A_a$, $B_a$, $\rho_{(j_1, j_2)}$ | the commuting combinations $\frac12(\mathcal J_a \mp iK_a)$ of $\mathfrak{so}(1, 3)_{\mathbb C}$; its representation on $V_{j_1} \otimes V_{j_2}$ |
+| $\mathbf X(\mathbf x)$, $\Lambda(\mathbf A)$ | Hermitian matrix $x^\mu\sigma_\mu$ of a four-vector; Lorentz transformation $\mathbf X \mapsto \mathbf A\mathbf X\mathbf A^\dagger$ of $\mathbf A \in SL(2, \mathbb C)$ |
+| $N \rtimes H$, $IO(1, 3)$, $ISO^+(1, 3)$, $ISO(2)$ | semidirect product; Poincaré group $\mathbb R^4 \rtimes O(1, 3)$, its restricted part $\mathbb R^4 \rtimes SO^+(1, 3)$; $\mathbb R^2 \rtimes SO(2)$ |
+| $P_\mu$, $W_\mu$, $P^2$, $W^2$ | translation generators; Pauli-Lubanski vector; the Casimirs $P_0^2 - \sum_aP_a^2$, $W_0^2 - \sum_aW_a^2$ |
+| $G_{\mathbf p}$, $\mathfrak g_{\mathbf p}$, $\Pi_1$, $\Pi_2$ | little group of the momentum $\mathbf p$ in $SO^+(1, 3)$ and its Lie algebra; the null-rotation generators $K_1 - \mathcal J_2$, $K_2 + \mathcal J_1$ |
 | $\boldsymbol\omega$, $\boldsymbol\Omega$ | angular velocity in the body, $\mathbf R^{-1}\dot{\mathbf R} = \boldsymbol\omega \cdot \mathbf L$, and in space, $\dot{\mathbf R}\mathbf R^{-1} = \boldsymbol\Omega \cdot \mathbf L$ |
 | $\rho$ | representation, $\rho: G \to GL(V)$ |
 | $\bar\rho$ | conjugate representation |
@@ -76,6 +87,12 @@
 | $\mathfrak{usp}(2n)$ | compact symplectic algebra, $\mathfrak u(2n) \cap \mathfrak{sp}(2n, \mathbb C)$ |
 | $A_r$, $B_r$, $C_r$, $D_r$, $G_2$ | types of root systems and Dynkin diagrams ($D_r$ here is not the dihedral group $D_n$) |
 | $\langle f\rangle$ | average of a continuous function over $SU(2)$ |
+| $\int_Gf(g)\,dg$ | normalised invariant (Haar) integral over a compact group, $\int_G1\,dg = 1$ |
+| $C(G)$, $L^2(G)$, $L^2_{\rm class}(G)$ | continuous functions on a compact group with $\langle f_1, f_2\rangle = \int_Gf_1^*f_2\,dg$; their completion; the closure of the continuous class functions |
+| $D^r_{ij}$, $d_r$, $\mathcal M(D)$ | matrix coefficients of the representation $D^r$, its dimension; the span of the matrix coefficients of $D$ |
+| $\hat f^r$, $f * k$ | Fourier coefficient $\int_Gf(g)D^r(g)^{-1}\,dg$ of a function on a compact group; convolution $\int_Gf(h)k(h^{-1}g)\,dh$ |
+| $\mathbf t(\alpha)$, $\chi_j(\alpha)$ | the diagonal element $e^{\alpha T_3}$ of $SU(2)$ with class angle $\alpha$; the character of $D^j$ there |
+| $V_r^H$, $n_r$ | vectors of $D^r$ fixed by a subgroup $H$ (the $H$-singlets) and their number |
 | $\mathbf E_{ij}$, $M_{ij}$ | matrix units; rotation generators $\mathbf E_{ij} - \mathbf E_{ji}$ of $\mathbb R^n$ |
 | $\mathbf 1$, $\mathbf 3$, $\bar{\mathbf 3}$, $\mathbf 8$ | irreducible representations labelled by their dimension |
 | $\operatorname{Hol}$ | holonomy group |

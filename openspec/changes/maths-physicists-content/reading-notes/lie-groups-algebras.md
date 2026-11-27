@@ -166,3 +166,90 @@
   highest weight vectors of P_{a,b} (thm-ysu-dimension (3)); the Fischer inner product (thm-ysu-dimension (3), (4));
   the Pieri case Lambda^k x V (thm-ysu-products (2)); determination of a unitary representation by its weights
   (thm-ysu-products (1)). Georgi's Lie Algebras in Particle Physics is not in the library.
+
+# Task 4.11, sec-compact-harmonic-analysis (Harmonic analysis on compact groups)
+
+## mukunda2022continuous
+
+- Sec. 1.3, Eqs. 1.61-1.74 (mean value over a finite group, its invariances, the averaged intertwiner T_S, orthogonality of
+  UIR matrix elements and characters): thm-cha-schur-orthogonality (1)-(3) and its intro, def-matrix-coefficient intro.
+- Sec. 3.3.2, Eqs. 3.33-3.36 (invariant integration over SO(3) in Euler angles; functions independent of the third angle
+  integrate over S^2): thm-cha-haar intro, exm-cha-haar-so3, def-coset-mode-expansion (5) intro.
+- Secs. 3.3.4-3.3.5, Eqs. 3.49-3.55 (SO(3) characters as geometric series, class-function inner product with sin^2(alpha/2),
+  orthogonality and completeness of the D-functions, the spherical harmonics as D-functions): thm-cha-su2-characters (3)-(5),
+  exm-cha-su2-so3, exm-cha-pw-so3, def-coset-mode-expansion.
+- Sec. 3.5.2, Eqs. 3.87-3.89 (the SU(2) average in Euler angles with 1/16pi^2, on S^3, and the one-dimensional Weyl formula for
+  class functions): thm-cha-haar (6), thm-cha-su2-characters (2).
+- Sec. 3.5.3 (i) (every representation of SU(2) is equivalent to a unitary one): thm-cha-complete-reducibility intro.
+- Sec. 5.11 and Sec. 7.2.1, Eqs. 7.45-7.47 (invariant normalised volume element, orthogonality and completeness of UIR matrix
+  elements; stated there without proof): thm-cha-haar, thm-peter-weyl intro. The induced-representation material of Sec. 7.2
+  was not used (it belongs to the later homogeneous-spaces chapter).
+
+## keskivakkuri2022mathematical
+
+- Sec. 6.3, Theorems 6.1-6.2 (finite-dimensional representations of a compact Lie group are equivalent to unitary ones;
+  Peter-Weyl part II, complete reducibility; both stated with "Proof omitted"): thm-cha-complete-reducibility intro (proved
+  here by averaging with thm-cha-haar).
+
+## landsman1998
+
+- Sec. 3.7, Eq. 3.71 and Prop. 3.7.2 (convolution f * g(x) = int f(xy^-1) g(y) dy on a unimodular group with Haar measure, the
+  involution f*(x) = f(x^-1)^*): the convolution operators T_k of thm-peter-weyl (1) (kernel condition k(g^-1) = k(g)^*).
+
+## arcozzi2025
+
+- Sec. 4.2.3 (self-adjoint compact operators and their spectral decomposition): cited in the thm-peter-weyl intro; the proof
+  uses the tutorial's own thm-spectral-theorem-compact and def-compact-operator.
+
+## Standard material without a library source
+
+- Haar integral as the normalised integral of the wedge of the left-invariant forms, unimodularity from |det Ad| = 1 on a
+  compact group, uniqueness by the interchange of two invariant averages (thm-cha-haar (1)-(5)); the convolution proof of
+  Peter-Weyl (compactness by finite-rank approximation of the kernel, eigenspaces as translation-invariant spaces of matrix
+  coefficients, approximate identity); the derivation of the SU(2) Weyl formula from the Euler-angle integral via polar
+  coordinates in the disc; the classification of SU(2) representations by Fejer's theorem on the half angle; the
+  identification of D^l_m0 with Y_lm through the Casimir and the rotation weight. Problems: Catalan moments of tr g
+  (exr-cha-su2-catalan), plaquette integral 2 I_1(beta)/beta (exm-cha-su2-plaquette, exr-cha-su2-plaquette), rotor partition
+  function (exr-cha-pw-rotor), twirling (exr-cha-haar-twirl).
+
+# Lie final run: sec-lorentz-poincare (Poincaré units) and the closing exercises
+
+## mukunda2022continuous
+
+- Sec. 10.5, Eqs. 10.119-10.123 (Poincaré group as the semidirect product of SO(3,1) and the translations, composition
+  law, inverse, the normal translation subgroup): prp-lor-poincare (1)-(3), exr-lor-poin-inverse.
+- Sec. 10.5, Eqs. 10.124-10.129 (commutation relations in covariant and three-dimensional form): eq-lor-poincare-brackets,
+  prp-lor-poincare (4), exm-lor-poin-sage. Rewritten with real (anti-Hermitian) generators; the Hermitian form is
+  exr-lor-cas-hermitian.
+- Sec. 10.5, Eq. 10.134 (the double cover SL(2,C) semidirect T4): exr-lor-poin-cover.
+- Sec. 10.5, Eqs. 10.135-10.137 (Casimirs -P^2 and W^2, Pauli-Lubanski vector, P.W = 0, [P, W] = 0): thm-lor-casimirs
+  (definitions and parts (3), (4)); the proofs from the brackets are written out here (the source only states them).
+- Sec. 10.5, Eqs. 10.140-10.145 and Table 10.1 (orbit types and representatives, little groups SU(2), E(2), SU(1,1), the
+  screw generators K1 + J2, K2 - J1 and their brackets, helicities): thm-lor-little-groups, exm-lor-lg-photon,
+  exr-lor-lg-sl2-lifts, exr-lor-lg-null-preimages, exr-lor-lg-helicity. The induced-representation construction
+  (Eqs. 10.146-10.155) is not used; the intro of the chapter and of the units say it is not constructed.
+- Problem P5.2 (roots of a rank-two algebra): exr-lrep-int-so4 (kept, rewritten).
+
+## keskivakkuri2022mathematical
+
+- Sec. 6.12.2 (Poincaré algebra, Casimirs, little groups): cited in the intros of prp-lor-poincare and thm-lor-little-groups.
+
+## guidry2022symmetry
+
+- Ch. 15 (Poincaré group, Pauli-Lubanski vector, Wigner classification): cited in the intros of thm-lor-casimirs and
+  thm-lor-little-groups.
+
+## pal2015introductory, torresdelcastillo2020differentiable
+
+- Kept citations of the old closing exercises: Pal Sec. 10.3.6 (exr-lrep-int-octet, rewritten with Young diagram, Casimir
+  and Dynkin index), Torres del Castillo Sec. 7.2.3 (exr-lg-int-su2-so3, rewritten with a complete proof).
+  exr-lg-int-affine, exr-lg-int-heisenberg and exr-lrep-int-decuplet were removed (no references).
+
+## Standard material without a library source
+
+- Semidirect products in general (prp-lor-poincare (1), exr-lor-poin-internal), the dihedral group as Z_n semidirect Z_2,
+  the 5 x 5 matrix realisation and its Lie algebra, the vector-operator lemma and the epsilon-identity proof of the
+  Casimirs, nilpotency of the light-cone momenta in finite dimensions (exr-lor-cas-nilpotent), spin zero of the scalar
+  field (exr-lor-cas-scalar-proof), the iso(2) Casimir, the explicit isomorphism of the lifted photon little group with
+  C semidirect U(1) via (alpha beta, alpha^2), the Killing-form test separating so(3), iso(2), so(1,2) and so(4), so(1,3),
+  the contraction SO(3) -> ISO(2) (exm-lor-lg-contraction), the Wigner-rotation cocycle.

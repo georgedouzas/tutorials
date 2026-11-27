@@ -244,7 +244,7 @@ sources).
 | lie-groups-algebras | Casimir operators and the Dynkin index | Keski-Vakkuri §6.4.3 | done (sec-casimirs) |
 | lie-groups-algebras | Dynkin diagrams and the classification of compact simple Lie algebras; the su(N) algebras | Mukunda ch. 5; Keski-Vakkuri §6.6, 6.9 | done (sec-dynkin) |
 | lie-groups-algebras | Young tableaux for su(N) representations | Keski-Vakkuri §6.8, 6.10 | done (sec-young-sun) |
-| lie-groups-algebras | The Lorentz and Poincaré groups | Keski-Vakkuri §6.12; Mukunda ch. 10 | open |
+| lie-groups-algebras | The Lorentz and Poincaré groups | Keski-Vakkuri §6.12; Mukunda ch. 10 | done (sec-lorentz-poincare) |
 
 ### Notes for the owner
 

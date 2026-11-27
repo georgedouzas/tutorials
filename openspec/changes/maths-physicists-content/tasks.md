@@ -55,7 +55,7 @@ one `##` section per agent run.
   Hodge star and codifferential; Frobenius; symplectic forms).
 - [x] 4.10 Group theory (gaps: characters and the regular representation; the symmetric group, cycle types, Young
   diagrams).
-- [ ] 4.11 Lie groups and algebras (by section; gaps: Casimirs and the Dynkin index; Dynkin diagrams and su(N);
+- [x] 4.11 Lie groups and algebras (by section; gaps: Casimirs and the Dynkin index; Dynkin diagrams and su(N);
   Young tableaux; the Lorentz and Poincaré groups).
 - [ ] 4.12 Homogeneous spaces and bundles.
 - [ ] 4.13 Write Homotopy and cohomology from the chapter template (homotopy and the fundamental group, covering

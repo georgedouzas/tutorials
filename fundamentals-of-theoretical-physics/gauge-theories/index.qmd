@@ -9753,7 +9753,7 @@ where the sum runs over the plaquettes, each counted once with one orientation (
 $$
 Z = \int\prod_{x, \mu}dU_\mu(x)\,e^{-S_W[U]}, \qquad \langle O\rangle = \frac1Z\int\prod_{x, \mu}dU_\mu(x)\,O[U]\,e^{-S_W[U]},
 $$ {#eq-lgt-partition-function}
-with the normalised Haar measure $dU$ of $G$ on each link (@def-matrix-coefficient; for $\mathbb{Z}_2$ it is $\frac12\sum_{\sigma = \pm1}$). The action and the measure are gauge invariant, $S_W \geq 0$, and $S_W = 0$ exactly when every plaquette is $1$ [@williams2023introduction, eq. 9.2.63; @boudreau2018applied, eqs. 24.55 and 24.67].
+with the normalised Haar measure $dU$ of $G$ on each link (@thm-cha-haar; for $\mathbb{Z}_2$ it is $\frac12\sum_{\sigma = \pm1}$). The action and the measure are gauge invariant, $S_W \geq 0$, and $S_W = 0$ exactly when every plaquette is $1$ [@williams2023introduction, eq. 9.2.63; @boudreau2018applied, eqs. 24.55 and 24.67].
 :::
 ::::
 
@@ -9849,7 +9849,7 @@ Show that $S_W$ and the product measure $\prod dU_\mu(x)$ are invariant under @e
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
-Each $\operatorname{Re}\operatorname{tr}U_P$ is invariant by @def-lgt-plaquette. The measure on the link $(x, \mu)$ is transformed by $U \mapsto g(x)^{-1}Ug(x + a\hat\mu)$, a left and a right translation, under which the Haar measure is invariant (@def-matrix-coefficient); the transformation acts on each link separately, so the product measure is invariant too.
+Each $\operatorname{Re}\operatorname{tr}U_P$ is invariant by @def-lgt-plaquette. The measure on the link $(x, \mu)$ is transformed by $U \mapsto g(x)^{-1}Ug(x + a\hat\mu)$, a left and a right translation, under which the Haar measure is invariant (@thm-cha-haar); the transformation acts on each link separately, so the product measure is invariant too.
 :::
 
 The action is non-negative and vanishes only at the identity. The second exercise proves this for any unitary group from the eigenvalues.
