@@ -1,0 +1,49 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+users: Users {
+  shape: person
+}
+
+clients: Clients {
+  web: Web app
+  mobile: Mobile app
+}
+
+cdn: CDN
+
+system: Photo-sharing service {
+  lb: Load balancer
+  app: Application servers {
+    style.multiple: true
+  }
+  cache: Cache {
+    shape: cylinder
+  }
+  db: Metadata database {
+    shape: cylinder
+  }
+  queue: Queue {
+    shape: queue
+  }
+  workers: Thumbnail workers {
+    style.multiple: true
+  }
+  objects: Object store {
+    shape: cylinder
+  }
+
+  lb -> app: HTTPS
+  app -> cache: read
+  app -> db: read, write
+  app -> objects: put photo
+  app -> queue: photo uploaded
+  queue -> workers
+  workers -> objects: put thumbnails
+}
+
+users -> clients
+clients -> system.lb: API calls
+clients -> cdn: GET photo
+cdn -> system.objects: on miss

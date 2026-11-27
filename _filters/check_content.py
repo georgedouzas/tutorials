@@ -586,6 +586,8 @@ def check_figures(chdir, text, run, p=SAGE_PROFILE, tools=None):
                 findings.append(f"{ref}: figures/{name} failed: {p_.stderr.strip()[-300:]}")
             elif not os.path.exists(target) or os.path.getmtime(target) <= before:
                 findings.append(f"{ref}: figures/{name} did not write it")
+            elif script.endswith(".d2"):
+                os.chmod(target, 0o644)  # d2 writes 0600; the site and git expect world-readable figures
     return findings
 
 

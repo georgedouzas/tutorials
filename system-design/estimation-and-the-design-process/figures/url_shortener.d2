@@ -1,0 +1,31 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+user: User {
+  shape: person
+}
+
+shortener: URL shortener {
+  lb: Load balancer
+  web: Web servers {
+    style.multiple: true
+  }
+  ids: ID generator
+  cache: Cache {
+    shape: cylinder
+  }
+  db: URL database {
+    shape: cylinder
+  }
+
+  lb -> web
+  web -> ids: next ID
+  web -> cache: "short -> long"
+  web -> db: "read on miss, write"
+}
+
+user -> shortener.lb: "POST shorten, GET short URL"
+shortener.lb -> user: "short URL, or 301 redirect" {
+  style.stroke-dash: 3
+}

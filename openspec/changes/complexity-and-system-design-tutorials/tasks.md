@@ -125,8 +125,19 @@
   `def-lyapunov-exponent`), each with ten examples and ten exercises, three closing exercises, a References section,
   four scripted figures (one interactive), eight cited works (seven tagged `textbook`); reading notes in
   `reading-notes/complexity-science.md`; added to `_raised.txt`. Gates passed: checker, harvest, render.
-- [ ] 5.2 Write the System Design pilot, "Estimation and the design process", in the same way, with D2 diagrams and
+- [x] 5.2 Write the System Design pilot, "Estimation and the design process", in the same way, with D2 diagrams and
   runnable Python estimates. Verify as in 5.1.
+  Done 2026-11-27 (System Design part): six sections (§6 cost is the recorded section gap), ten statements
+  (`def-requirements-specification`, `def-design-process`, `def-architectural-characteristic`, `prp-latency-budget`,
+  `def-load-estimate`, `prp-estimate-error`, `def-availability`, `prp-series-parallel-availability`, `prp-fan-out-tail`,
+  `def-total-cost-of-ownership`), each with ten examples and ten exercises, three closing exercises, a References section,
+  five figures (three D2 diagrams, one of them the solution of a diagram exercise with its source in the tab, and two
+  Python plots), eight cited works (six books tagged `textbook`, bib entries added for the six with their Zotero keys);
+  runs in `.venv-systems` (NumPy, `sqlite3`, SimPy), one illustrative block; notation symbols added to
+  `_notation/systems.qmd` with their clashes in the conventions section; glossary entries; reading notes in
+  `reading-notes/system-design.md`; added to `_raised.txt`, "planned" badge removed. Fan-out amplification, mapped to
+  performance-and-queueing §1 by the coverage record, is proved here (§5) and should be recalled there. Gates passed:
+  checker `--run --figures`, harvest, render.
 - [ ] 5.3 The owner reviews both pilots. Fold the decisions into design.md and the template notes before the
   remaining chapters start.
   - [x] Complexity Science: pilot approved as written (2026-11-22): "complex system" in the strict co-evolution

@@ -1,0 +1,30 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+client: Client {
+  shape: person
+}
+
+path: "Feed request, budget 200 ms at p99" {
+  net: "1. Network round trip\n80 ms"
+  lb: "2. Load balancer and TLS\n5 ms"
+  app: "3. Application logic\n40 ms"
+  cache: "4. Cache lookup\n5 ms" {
+    shape: cylinder
+  }
+  db: "5. Database query on a miss\n50 ms" {
+    shape: cylinder
+  }
+  render: "6. Serialise response\n20 ms"
+
+  net -> lb -> app -> cache
+  cache -> db: miss
+  db -> render
+  cache -> render: hit {
+    style.stroke-dash: 3
+  }
+}
+
+client -> path.net: request
+path.render -> client: response
