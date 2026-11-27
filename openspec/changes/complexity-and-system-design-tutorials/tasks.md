@@ -158,6 +158,10 @@
     metadata-only records; the MCP specification as a web page. Create the placeholder folder and sidebar entry
     (planned) between reliability-and-operations and case-studies-infrastructure. Verify: the sidebar lists 15
     chapters in the approved order.
+    Sources added 2026-11-27: vLLM QB6EASIT, Pope 6BCHDD7J, Leviathan EQUXGEEE, Lewis CJ94P4P6, HNSW P36H543E,
+    FAISS FVADVXSZ (arXiv, with PDFs); Sculley and Orca with PDFs through the desktop connector; Huyen 2022 XQFA9HUS
+    and 2025 C2DA4KIQ (metadata only, Textbooks); MCP specification N34WTTKC (webpage). Placeholder and sidebar entry
+    added. Remaining: re-index Zotero, then write the chapter in its turn.
 
 ## 7. Close
 
