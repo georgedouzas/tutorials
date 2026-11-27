@@ -409,3 +409,86 @@ Read with `pdftotext -layout` from `~/Zotero/storage` (read-only); nothing writt
 - Earlier chapters: `def-strange-attractor`, `exm-strange-henon`, `fig-henon-attractor`, `def-lyapunov-spectrum`, `prp-volume-contraction`,
   `sec-period-doubling` (Ch. 2); `def-heavy-tail`, `exr-heavy-mle`, `exr-heavy-standard-error`, `exr-heavy-xmin`, `prp-multiplicative-process`,
   `prp-polya-urn`, `thm-markov-convergence`, `prp-first-return` (Ch. 3); `prp-additive-fluctuations` (Ch. 1).
+
+## Chapter 5: phase-transitions-and-percolation (task 6.1, 2026-11-27)
+
+The Zotero MCP server was unreachable ("Connection refused"); by the coordinator's approval the PDFs were read read-only with `pdftotext -layout` from
+`~/Zotero/storage`, attachment folders taken from the bib `zoteropdf` fields. Nothing was written to Zotero. Sections: §1 `sec-ising-monte-carlo`,
+§2 `sec-order-and-slowing-down`, §3 `sec-percolation`, §4 `sec-finite-size-scaling`, §5 `sec-absorbing-states`, following the coverage plan (§2 of the plan,
+critical points and correlations, is split between the physics tutorial, which states critical exponents, correlation length and Landau theory and is
+linked, and §2 here, which proves Peierls' theorem and defines the autocorrelation time). The XY model (coverage section gap) is not written.
+
+### Jensen, *Complexity Science* (2023)
+
+- PDF page = printed page + 22. Read Secs. 6.2-6.6.2 (pp. 119-140).
+- Used: Ising Hamiltonian eq. (6.29), mean-field solution eqs. (6.33)-(6.44), Table 6.1, lower and upper critical dimensions (§1 intro, `exm-mc-graph`,
+  `exm-peierls-chain`, `exm-peierls-three-temperatures`, `exr-conv-estimate-tc`); response and fluctuations eqs. (6.45)-(6.50) (`exr-mc-heat-capacity`,
+  `exr-conv-susceptibility`); correlation function eqs. (6.55)-(6.60), $\tau \propto \xi^z$ (§2 intro, `def-autocorrelation-time`); susceptibility as a sum
+  of correlations eq. (6.66); domain walls of the chain Sec. 6.6.2 (`prp-peierls` intro).
+
+### Bertin, *Statistical Physics of Complex Systems* (2021)
+
+- Printed pages from the running heads. Read Secs. 1.4-1.4.3 (pp. 18-27) and 3.2.2 (pp. 95-98).
+- Used: fully connected Ising model eqs. (1.83)-(1.95) and switching between $\pm m_0$ (`exm-mc-curie-weiss`, `exm-conv-symmetry`, `exm-autocorr-tunnelling`);
+  mean-field approximation eqs. (1.96)-(1.101); RG transform and decimation of the Ising chain eqs. (1.102)-(1.121) (§4 intro, `prp-triangular-rg` intro,
+  `exm-rg-ising-chain`, `exr-rg-ising-chain`, `exm-rg-defocusing`); reaction-diffusion model and absorbing transitions eqs. (3.28)-(3.34), DP class, mean-field
+  exponents, $d_c = 4$ (`sec-absorbing-states`, `exm-cp-reaction-diffusion`, `prp-mean-field-absorbing`, `exm-mfabs-diffusion`, `exm-mfabs-correlations`).
+
+### Argun, Callegari and Volpe, *Simulation of Complex Systems* (2021)
+
+- Pages numbered by chapter. Read Secs. 2.1-2.3 (pp. 2-1 to 2-7) with Exercises 2.1-2.4.
+- Used: Monte Carlo method eq. (2.1), heat-bath update of the Ising model eq. (2.2) and Fig. 2.2, snapshots Fig. 2.3, magnetisation regimes Fig. 2.4
+  (`def-spin-flip-dynamics`, `exm-mc-local-field`, `exm-mc-snapshots`, `fig-ising-snapshots`, `exm-conv-heat-bath`). Exercises adapted: 2.2(c)-(d)
+  (`exr-mc-paramagnet`), 2.3 (`exr-mc-antiferromagnet`), 2.4 (`exr-mc-three-regimes`, `exr-conv-estimate-tc`).
+
+### Charbonneau, *Natural Complexity* (2017)
+
+- PDF page = printed page + 17. Read Ch. 4 in full (pp. 80-105).
+- Used: 1-D percolation eqs. (4.1)-(4.3) (`exm-perc-chain`, `exr-perc-chain-sizes`); 2-D lattices and clusters Secs. 4.2-4.3, Figs. 4.2, 4.5-4.6, eqs. (4.6)-(4.7)
+  (`def-site-percolation`, `exm-perc-snapshots`, `exm-perc-strength`, `exr-perc-half`); cluster-size PDFs Figs. 4.7-4.8, $\alpha = 1.85$
+  (`exm-perc-size-distribution`, `exr-perc-fisher`); fractal clusters Sec. 4.4; fit ranges Sec. 4.5 (`exm-csn`-type remarks); criticality Sec. 4.6 and
+  footnote 5 (`def-finite-size-scaling` intro, `exm-fss-xi-equals-l`). Exercises adapted: 4.7.4 (`exr-perc-box-dimension`), 4.7.6 (`exr-perc-ant`).
+
+### Thurner, Hanel and Klimek (2018)
+
+- PDF page = printed page + 13. Read Sec. 3.3.1 (pp. 101-105).
+- Used: criticality, critical exponents eq. (3.6) and Table 3.2, universality, percolation eqs. (3.7)-(3.8) with $\sigma = 36/91$, $\nu = 4/3$
+  (`exm-perc-off-critical`, `exm-perc-fractal`, `exm-perc-universality`, `exm-pbound-exponential-decay`, `exm-fss-ising-chi`).
+
+### Downey, *Think Complexity* (2018)
+
+- Read Ch. 7, "Percolation", "Phase Change", "Fractals and Percolation Models".
+- Used: percolation CA, spanning probabilities at $q = 0.55, 0.6, 0.65$, random-walk estimate of $q_{\mathrm{crit}} \approx 0.59$, cluster dimension $1.85$
+  (`exm-perc-spanning`, `exr-perc-random-walk`, `exm-perc-fire`, `exm-fss-downey`).
+
+### Satz, *More than the Sum of the Parts* (2022)
+
+- Read Ch. 3 (pp. 21-26).
+- Used: continuum percolation of coins, critical filling and the $32\%$ empty share, site percolation as a forest fire, bond threshold $\frac12$
+  (`exm-perc-continuum`, `exr-perc-uncovered`, `exm-perc-fire`, `exr-perc-bond`).
+
+### Gros, *Complex and Adaptive Dynamical Systems* (2015)
+
+- PDF page = printed page + 17. Read Sec. 6.4.1 (pp. 198-199).
+- Used: absorbing and active states of the conserved sandpile, Fig. 6.9, self-organisation towards the critical density (`exm-cp-sandpile`,
+  `exr-cp-sandpile-threshold`).
+
+### Böttcher and Herrmann, *Computational Statistical Physics* (2021)
+
+- Key `bottcherComputationalStatisticalPhysics2021` (Zotero EPSUIJ5B, PDF IJX33AMY; read with pdftotext, read-only). Read Sec. 2.3 (pp. 24-33), Secs. 5.3-5.4
+  (pp. 85-89) and Sec. 11.1 (pp. 127-129).
+- Used as the source of quoted constants only: percolation $\beta = 5/36$ (Fig. 2.8), $\tau = 187/91$, $\sigma = 36/91$ (eqs. 2.2-2.3), $\gamma = 43/18$ (eq. 2.5),
+  $\nu = 4/3$ (eq. 2.10), $d_f = 91/48$, 3-D $\tau = 2.1892(1)$, $d_f = 2.5226(1)$; Ising Metropolis $z_\sigma = 2.166(7)$ (eq. 5.9) and cluster algorithms
+  against critical slowing down; Binder cumulant limits (eqs. 5.14-5.19, no numerical value at $T_c$); contact-process rates $\lambda n_i/(2d)$ (eq. 11.1),
+  Table 11.1 ($\lambda_c$ = 3.2978, 1.64872, 1.31683 in $d$ = 1, 2, 3; $\beta$ = 0.2767, 0.580, 0.818; $\delta$ = 0.15944, 0.4510, 0.7398), DP $p_c = 0.6447$
+  in 1+1 (Fig. 11.1), the Janssen-Grassberger conjecture (p. 129).
+
+### Physics, mathematics and Complexity Science links (cross-references, not references)
+
+- Physics thermodynamics-statistical-mechanics: `sec-ensembles`, `def-canonical-ensemble`, `prp-ensemble-identities`, `sec-landau-theory`, `def-critical-exponent`,
+  `def-correlation-length`, `prp-curie-weiss-exact`, `exm-tsb-metropolis-two-state`, `exm-tsb-lattice-gas`, `exm-lan-onsager`, `exm-crl-susceptibility-sum`,
+  `exm-crl-ising-chain`, `exr-tsb-chain-percolation`, `exm-tsb-cayley-threshold`, `exr-tsb-cayley-exponents`; renormalisation `sec-wilsonian-rg`.
+- Earlier chapters: `thm-markov-convergence`, `exr-mchain-detailed-balance`, `exm-mconv-metropolis`, `prp-birth-death`, `sec-markov-chains`,
+  `sec-master-equation`, `sec-branching-processes`, `thm-extinction-probability` (Ch. 3); `def-bifurcation`, `prp-one-dim-bifurcations` (Ch. 2);
+  `prp-variance-of-sums`, `exm-memory-persistent-walk`, `thm-scale-invariance`, `exm-scaling-two-variables`, `def-box-counting-dimension`,
+  `sec-measuring-power-laws`, `sec-scaling-laws` (Ch. 4).
