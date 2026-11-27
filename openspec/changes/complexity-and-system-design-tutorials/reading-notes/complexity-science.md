@@ -492,3 +492,45 @@ linked, and §2 here, which proves Peierls' theorem and defines the autocorrelat
   `sec-master-equation`, `sec-branching-processes`, `thm-extinction-probability` (Ch. 3); `def-bifurcation`, `prp-one-dim-bifurcations` (Ch. 2);
   `prp-variance-of-sums`, `exm-memory-persistent-walk`, `thm-scale-invariance`, `exm-scaling-two-variables`, `def-box-counting-dimension`,
   `sec-measuring-power-laws`, `sec-scaling-laws` (Ch. 4).
+
+## Chapter 6: cellular-automata (task 6.1, 2026-11-27)
+
+PDFs read read-only with `pdftotext -layout` from `~/Zotero/storage` (attachment folders from the bib `zoteropdf` fields); nothing written to Zotero.
+Sections: §1 `sec-elementary-ca`, §2 `sec-life`, §3 `sec-universality`, §4 `sec-langtons-ant`, §5 `sec-boolean-networks` (the coverage section gap,
+closed with one section). Lenia, noisy automata and Gardens of Eden are not treated.
+
+### Downey, *Think Complexity* (2018)
+
+- Key `downeyThinkComplexity2018` (PDF 2FIW8VKJ). The ebook has no printed page numbers; cited by chapter and section title. Read Ch. 5 in full (A Simple CA,
+  Wolfram's Experiment, Classifying CAs, Randomness, Determinism, Spaceships, Universality, Falsifiability, What Is This a Model Of?, Implementing CAs,
+  Cross-Correlation, CA Tables, Exercises 5-1 to 5-5) and Ch. 6 in full (Conway's GoL, Life Patterns, Conway's Conjecture, Realism, Instrumentalism,
+  Implementing Life, Exercises 6-1 to 6-5).
+- Used: Rule 50 table and numbering, triangle of influence, classes, Rule 18 and 30, PRNGs, Rule 110 spaceships, Turing machines, Church-Turing thesis,
+  principle of computational equivalence and falsifiability; Life rules, beehive, toad, glider, r-pentomino census (1103 steps), Gosper's gun, Conway's
+  conjecture, Turing completeness of Life, the weighted kernel, Highlife and its replicator, Langton's ant (more than 10,000 steps, period 104).
+
+### Charbonneau, *Natural Complexity* (2017)
+
+- Key `charbonneauNaturalComplexityModeling2017` (PDF RNV4L6HW). Read Ch. 2, pp. 23-51 (Secs. 2.1-2.7).
+- Used: four verbal rules and their numbers 254, 250, 90, 30 (footnote 2), classes I-IV and the random-start convention (footnote 3), lattices and
+  neighbourhoods (Fig. 2.5, footnote 4), growth rules (2.1) and Fig. 2.9, the ant and the highway on clean and noisy lattices (Fig. 2.11), torus wrapping,
+  emergence (Sec. 2.5), Exercises 1, 2 and 5 of Sec. 2.6.
+
+### Lindgren, *Information Theory for Complex Systems* (2024)
+
+- Key `lindgrenInformationTheoryComplex2024` (PDF J3EYSWSK). Read Secs. 4.1-4.3, pp. 47-58.
+- Used: von Neumann's 29-state automaton, Life and the glider (Fig. 4.1), universality and the halting problem (p. 48), 7-state universal rule, Rule 110
+  (Fig. 4.2), Table 4.1, 88 rules up to symmetry, the classes with Rules 160, 213, 22 and 110 (Fig. 4.3), damage in Rule 22 (Fig. 4.4).
+
+### Gros, *Complex and Adaptive Dynamical Systems* (2015)
+
+- Key `grosComplexAdaptiveDynamical2015` (PDF U9F6TD42). Read Sec. 6.3-6.3.1 (pp. 191-194) and Ch. 7, Secs. 7.1-7.5.2 (pp. 217-248).
+- Used: rule counts $2^{512}$ and $2^{18}$, Life's table, block, blinker, glider, universality; Boolean variables and networks, coupling functions (Tables 7.1,
+  7.2), quenched/annealed and synchronous/serial updates, Fig. 7.3, attractors and basins, Hamming distance and overlap (eqs. 7.4-7.6), mean-field and bifurcation
+  phase diagrams (eqs. 7.7-7.12, Figs. 7.5-7.7), scale-free networks (eqs. 7.13-7.17), $K = 1$ loops and modules, $K = 2$, $K = N$ random walk (eqs.
+  7.22-7.28), edge of chaos, yeast cell cycle (Fig. 7.12, 7 fixpoints, basin 1764; the printed 72 % does not match 1764/2048 = 86 %).
+
+### Links (cross-references, not references)
+
+- Earlier chapters: `def-emergent-property`, `def-lyapunov-exponent` (Ch. 1); `def-attractor` (Ch. 2); `thm-similarity-dimension` (Ch. 4); Landau theory of
+  the physics tutorial (`sec-landau-theory`). Maths group-theory `lem-cos-burnside`.
