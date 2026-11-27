@@ -1,0 +1,128 @@
+# Reading notes: spinors-dirac-operator (task 4.14, run spin-1: sec-clifford-algebras, split into sec-clifford-algebras, sec-clf-gamma-matrices, sec-clf-reality)
+
+Lawson-Michelsohn is not in the library; Rudolph-Schmidt Part II Ch. 5 was used in its place for the algebraic theory.
+
+## rudolph2017differential
+
+- Sec. 5.1 (pp. 354-364): Def. 5.1.1 and Prop. 5.1.2 (universal property), Cor. 5.1.3 (uniqueness) -> def-clifford-algebra
+  (2), (3) and its proof; Props. 5.1.4, 5.1.5, Rem. 5.1.6 (parity automorphism, canonical anti-automorphism, grading) ->
+  def-clf-involutions (1)-(5); Cor. 5.1.8, Rem. 5.1.9 (dimension 2^n, basis) -> prp-clifford-basis (1); Prop. 5.1.10
+  (exterior-algebra model eps(v) + iota(v)) -> the model W in the proof of def-clifford-algebra and exm-clf-exterior;
+  Props. 5.1.16, Rem. 5.1.17 (Cl^0(r+1,s) = Cl(s,r), Cl^0(r,s+1) = Cl(r,s)) -> def-clf-involutions (7); Ex. 5.1.13
+  (Cl for r+s <= 2) -> thm-clf-classification (1), exm-clf-class-two, exr-clf-class-two-check (Exercise 5.1.2);
+  Prop. 5.1.15 (tensor isomorphisms, Exercise 5.1.3) -> thm-clf-classification (2), in the form M_2(Cl(p,q)); Rem.
+  5.1.18 and Exercise 5.1.5 (periodicity) -> thm-clf-classification (3), (4), proved here with the omega_4 change of
+  generators instead of H (x) H = M_4(R); Prop. 5.1.19 -> thm-clf-classification (5); Rem. 5.1.20 (explicit gammas by
+  tensor products) -> def-gamma-matrices-general; Ex. 5.1.21 (Minkowski gammas with sigma, sigma-tilde; Exercise 5.1.6)
+  -> prp-clf-gamma-traces (2), exm-spd-minkowski-cl.
+- Lemma 5.2.1 (2) (twisted adjoint of a vector is a reflection) -> exr-clf-reflection.
+- Sec. 5.3, Lemma 5.3.4 (chirality element) -> def-chirality-matrix; Prop. 5.3.6 and the discussion of irreducible
+  modules (cited to simple-algebra theory there) -> thm-pauli-uniqueness, proved here directly with the J_k eigenspaces.
+
+## zhelnorovich2019spinors
+
+- Sec. 1.1 items 1-11, eqs. (1.1)-(1.29) (pp. 1-11): trace and independence of the gamma products (prp-clifford-basis (3)-(5),
+  exr-spd-trace-zero, exr-spd-centre), the Fierz expansion and Pauli identity (eq-spd-fierz, exm-spd-basis-two), the
+  commutant (exr-spd-commutant), Pauli's theorem with the averaging formula (thm-pauli-uniqueness, exr-spd-pauli-average);
+  eq. (1.21) normalisation of gamma_{2nu+1} (def-chirality-matrix remark); eqs. (1.38)-(1.43) recursion (exr-spd-recursion);
+  eqs. (1.44)-(1.55), (1.127) (exm-spd-transpose-sets, def-charge-conjugation-matrix, exr-spd-charge-basis).
+- Sec. 1.6.2-1.6.3, eqs. (1.120), (1.135)-(1.142): real and imaginary representations (exm-spd-majorana-four,
+  exr-spd-imaginary-rep, def-majorana-condition).
+
+## keskivakkuri2022mathematical
+
+- Sec. 2.8.1, eqs. (2.80)-(2.82) (Pauli matrices, product rule, completeness relation) -> prp-clf-gamma-traces (1),
+  exr-clf-tr-pauli-check. Sec. 6.12.1 (Lorentz group, mostly-minus metric) consulted for conventions only. The book has no
+  Clifford-algebra chapter.
+
+## vanproeyen1999 (already cited by the chapter; not re-read in this run)
+
+- Sec. 3, eqs. (3.3)-(3.28), Tables 1-2: kept citations in def-gamma-matrices-general, def-chirality-matrix,
+  def-charge-conjugation-matrix (table of epsilon_C, here proved by a binomial count), def-majorana-condition,
+  thm-majorana-classification (here proved by the shifts (p,q) -> (p+1,q+1), (p+8,q), (p,q+8) and eight base cases).
+
+## trautman1995 (already cited; not re-read)
+
+- Prop. 2: kept in thm-pauli-uniqueness and exr-spd-reducible (Cartan spinors).
+
+# Run spin-2 (task 4.14): sec-spin-groups, split into sec-spin-groups and sec-spn-spinors
+
+## rudolph2017differential
+
+- Sec. 5.2 (pp. 365-375, PDF 379-389): Lemma 5.2.1 (twisted adjoint, reflections, kernel K* 1) -> def-spin-group (2), (4) and
+  its proof; Rem. 5.2.2 (parity of Clifford-group elements) -> exr-spn-parity; Thm. 5.2.3 and Rem. 5.2.4 (exact sequences,
+  special Clifford group; Cartan-Dieudonne cited there, proved here) -> thm-spn-double-cover (1)-(3),
+  exr-spn-special-clifford-group; Lemma 5.2.6 (norm on the Clifford group) -> def-spin-group (3), exr-spn-clifford-norm;
+  footnote 8 (Pin with N = +-1) -> the convention of def-spin-group; Cor. 5.2.8 (double cover of the identity component,
+  path from -1 to 1) -> thm-spn-double-cover (4), thm-spn-topology (4), exr-spn-rudolph-path; Rem. 5.2.9 (fundamental
+  groups) -> thm-spn-topology (5); Ex. 5.2.10 (Spin(1,3) = SL(2,C) in two realisations, Spin(3) = SU(2)) ->
+  thm-spn-double-cover (5), (6); Ex. 5.2.11 (Spin(2,1) and SL(2,R)) -> exm-spn-spin-two-one (inclusion only);
+  Prop. 5.2.15, Rem. 5.2.16, eqs. (5.2.24)-(5.2.31) -> prp-spin-lie-algebra (1), exr-spn-ad-matrix, exr-spn-inverse-ad.
+
+## zhelnorovich2019spinors
+
+- Sec. 1.2.1, eqs. (1.57)-(1.65) (pp. 19-21, PDF 33-35): spinor matrices defined up to sign, normalisation S^T E S = E ->
+  exr-spn-charge-conjugation-invariant (S^T C S = N(S) C); kept citations eq. (3.45), Sec. 3.1.3, eqs. (1.66)-(1.69), (3.44),
+  Sec. 1.5 in exm-spd-spin-two, exm-spd-spin-lorentz, prp-spin-lie-algebra, def-weyl-representation.
+
+## keskivakkuri2022mathematical
+
+- Sec. 6.12.1 (p. 307, PDF 318): (1/2, 0), (0, 1/2) and (1/2, 0) x (0, 1/2) = vector -> exm-spd-weyl-four,
+  exr-spn-vector-from-weyl. Problem 6.4 (p. 309, PDF 320; exponential of sl(2,R) not onto) -> exm-spn-exp-not-onto
+  (adapted to Spin+(1,1)).
+
+## Earlier chapters used (no Zotero source)
+
+- thm-hom-double-cover, thm-lor-sl2c, prp-lor-components, prp-hhg-applications (2), thm-htp-lifting,
+  thm-htp-double-cover-group, def-htp-covering-map, thm-pauli-uniqueness, prp-clifford-basis, thm-majorana-classification,
+  thm-schur. Cartan-Dieudonne, the compactness/covering argument of thm-spn-topology and the irreducibility proof of
+  def-weyl-representation are standard material written here without a textbook source.
+
+# Run spin-3 (task 4.14): sec-spin-structures (frames, spin structures, model spaces, spin connection, curvature, spin-c)
+
+## rudolph2017differential
+
+- Sec. 5.4 (pp. 393-400, PDF 407-414): Def. 5.4.1 and Rem. 5.4.2 (spin structure as a Spin(n)-bundle over the oriented frame
+  bundle, equivalence) -> def-spin-structure; Thm. 5.4.3, Cor. 5.4.5 (w2 criterion, H^1(M; Z2) classification; proved there with
+  classifying spaces) -> thm-spin-obstruction (5), stated as not proved, while parts (1)-(4) prove the fundamental-group version with
+  double covers; Exs. 5.4.8-5.4.10 (2-connected manifolds, S^4 via Sp(2), projective spaces) -> prp-sps-model-spaces, exm-spd-spin-sphere,
+  exr-spd-projective (RP^n proved here for odd n by the volume element, not by w1, w2); Ex. 5.4.12 (2^{2g} on surfaces) -> exm-spd-surfaces-spin
+  (quoted); Ex. 5.4.13 (complex manifolds, c1 mod 2) -> thm-spin-obstruction (5), exm-spd-cp2-not-spin (quoted); Def. 5.4.14 and eq. (5.4.10)
+  (spin connection as the lift of the Levi-Civita form) -> def-spin-connection; Def. 5.4.15, Prop. 5.4.17, Ex. 5.4.18, Ex. 5.4.19, Thm. 5.4.21
+  -> def-spinc-structure (1)-(3), (5) (quoted parts), exm-sps-spinc-from-spin, exm-spd-spinc-kahler.
+- Sec. 5.5 (pp. 400-406, PDF 414-420): Def. 5.5.3 (spinor bundle), Def. 5.5.9 (Hermitian Clifford module, self-adjoint Clifford
+  multiplication), Ex. 5.5.11 (spin connection is Clifford), Rem. 5.5.6 (spin-c spinor bundle) -> def-spin-structure (4)-(6),
+  def-spin-connection (4), def-spinc-structure.
+- Sec. 5.6 (pp. 410-413, PDF 424-427): eq. (5.6.5) (curvature 1/4 g(R e_k, e_l) c_l c_k), Lemma 5.6.2 ([R, c(Z)] = c(R Z)), proof of Thm. 5.6.4
+  (the contraction to Sc/4 with the Bianchi identity), eq. (5.6.12) (spin-c connection with tau/2) -> prp-spinor-curvature (1)-(2),
+  exr-spd-ricci-contraction, def-spinc-structure (4). The Lichnerowicz formula itself was not used (it belongs to the next section).
+
+## carroll1997
+
+- Sec. 3, pp. 88-95 (PDF 95-102): eqs. (3.114)-(3.123) (vielbeins, inverse vielbeins), (3.125)-(3.127) (local Lorentz transformations),
+  (3.128)-(3.133) (spin connection from the Christoffel symbols, tetrad postulate), (3.134) (inhomogeneous law), (3.137)-(3.138) (structure
+  equations), (3.142)-(3.144) (antisymmetry, solving de^a = -omega^a_b ^ e^b) -> def-spin-connection (1)-(3), eq-sps-vielbein,
+  exr-sps-vielbein-check, exr-sps-tetrad-postulate, exm-sps-rindler (frame of Carroll's method, Rindler coframe chosen here).
+
+## keskivakkuri2022mathematical
+
+- Sec. 5.11 (pp. 210-214, PDF 221-225): eqs. (5.282)-(5.288) (sphere of radius r, non-coordinate basis, its commutator) ->
+  exr-sps-gram-schmidt; eqs. (5.289)-(5.297) (connection one-forms, antisymmetry, Cartan's equations) -> def-spin-connection (3);
+  eqs. (5.298)-(5.312) (sphere: omega^2_1 = cos(theta) dphi, curvature forms, R = 2/r^2) -> exm-spd-sphere-spin-connection,
+  exm-sps-sphere-radius, exm-sps-radius-curvature, exm-spd-sphere-spinor-curvature.
+
+## trautman1995, dolan2003, aspinwall1996, zhelnorovich2019spinors (existing citations, not re-read)
+
+- Kept: trautman1995 Secs. 4.1, 4.3, 6.1 (circle, spheres, projective spaces) in def-spin-structure, exm-spd-spin-circle,
+  exm-spd-spin-sphere, exr-spd-circle-bounding, prp-sps-model-spaces; dolan2003 Sec. 2, eqs. (4), (55)-(56) in prp-spinor-curvature,
+  exm-spd-spinc-cp2, exr-spd-cp2-index-table, fig-sd-cp2-index; aspinwall1996 eq. (10), Sec. 2.2 in exm-spd-cp2-not-spin,
+  exm-spd-spinc-kahler; zhelnorovich2019spinors Sec. 2.2, eqs. (2.56), (2.61), (2.68) in def-spin-connection, exm-spd-frame-change.
+
+## Earlier chapters used (no Zotero source)
+
+- def-principal-bundle, def-fib-associated-bundle, exr-fbun-so3-frames, exm-principal-coset (bundles); def-htp-covering-map, thm-htp-lifting,
+  thm-htp-circle, prp-htp-product, thm-htp-sphere-simply-connected, thm-htp-double-cover-group, def-chc-euler-class (3) (frame connection
+  forms and their gauge law), def-chc-chern-class (homotopy-cohomology); def-levi-civita, def-riemann, def-riemann-lowered (differential
+  geometry); thm-spn-topology, thm-spn-double-cover, prp-spin-lie-algebra (this chapter). The classification by double covers and monodromy,
+  the volume-element proof for RP^n (n odd), the Spin(n+1) -> S^n structure and the Spin^c(2) = U(1)^2 degree argument on S^2 are standard
+  material written here without a textbook source.
