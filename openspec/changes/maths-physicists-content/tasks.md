@@ -57,7 +57,7 @@ one `##` section per agent run.
   diagrams).
 - [x] 4.11 Lie groups and algebras (by section; gaps: Casimirs and the Dynkin index; Dynkin diagrams and su(N);
   Young tableaux; the Lorentz and Poincaré groups).
-- [ ] 4.12 Homogeneous spaces and bundles.
+- [x] 4.12 Homogeneous spaces and bundles.
 - [ ] 4.13 Write Homotopy and cohomology from the chapter template (homotopy and the fundamental group, covering
   spaces, higher homotopy groups and the exact sequence of a fibration; de Rham cohomology, homotopy invariance,
   Mayer-Vietoris, degree; Chern-Weil, Chern classes, Euler class), ten and ten throughout; remove its planned badge;

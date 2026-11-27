@@ -8,8 +8,20 @@ and says how the two meanings are told apart where they meet.
 |---|---|
 | $A$ †, $A_i$ | steady-state availability of a system and of its component $i$: the long-run fraction of time it is up |
 | $\mathrm{MTTF}$, $\mathrm{MTTR}$ | mean time to failure and mean time to repair; $A = \mathrm{MTTF}/(\mathrm{MTTF} + \mathrm{MTTR})$ |
+| $\Delta$ | a period of time: a measurement window, or the retention period of stored data |
+| $\mathrm{SLA}$, $\mathrm{SLO}$ | service level agreement (a contractual target with a remedy) and service level objective (an internal target) |
+| $n$ † | number of components of a system, of replicas in a redundant group, or of servers a request fans out to |
 | $T$ † | response (sojourn) time of a request: from its arrival to the end of its service |
-| $t_q$ | the $q$-quantile of a latency, $\mathbb P(T \leq t_q) = q$; the p99 latency is $t_{0.99}$ |
+| $t_q$ | the $q$-quantile of a latency, $t_q = \inf\{t : \mathbb P(T \leq t) \geq q\}$, so $\mathbb P(T \leq t_q) = q$ for a continuous law; the p99 latency is $t_{0.99}$ |
+| $\tau_i$, $\varepsilon_i$ † | latency budget of stage $i$ of a request path, and the probability $\mathbb P(T_i > \tau_i)$ that the stage exceeds it |
+| $U$ † | number of daily active users |
+| $\nu_o$ † | mean number of requests of operation $o$ per active user per day |
+| $\kappa$ † | peak factor: the ratio of the peak request rate to the mean rate |
+| $s_o$ † | mean size in bytes of the payload of one request of operation $o$ |
+| $D$ † | volume of stored data after a retention period, replicas included |
+| $\beta$ † | bandwidth: bytes per second through an interface |
+| $\phi_i$, $\Phi$ † | error factors of an estimate: $x/\phi \leq \hat x \leq \phi x$ |
+| $\mathrm{TCO}$, $\mathrm{CapEx}$, $\mathrm{OpEx}$ | total cost of ownership; capital and operating expenses |
 | $N(t)$ † | counting process: the number of arrivals in $(0, t]$; a Poisson process of rate $\lambda$ when $N(t) \sim \operatorname{Poisson}(\lambda t)$ with independent increments |
 | $\lambda$ † | arrival rate (requests per unit time) |
 | $\mu$ † | service rate of one server; the mean service time is $1/\mu$ |
