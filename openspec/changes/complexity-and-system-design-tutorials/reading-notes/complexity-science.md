@@ -205,3 +205,115 @@ systems (`exm-pb-relaxation`, `exr-pb-slow-fast`, `exm-volume-van-der-pol`), erg
 ### Strogatz (2015)
 
 - Metadata only (no PDF); not cited.
+
+## Chapter 3: random-processes (task 6.1, 2026-11-27)
+
+Read with `pdftotext -layout` from `~/Zotero/storage` (read-only); keys and item numbers checked with the Zotero tools
+(nothing written to Zotero). Sections: §1 `sec-random-walks-first-passage`, §2 `sec-markov-chains`, §3
+`sec-master-equation`, §4 `sec-branching-processes`, §5 `sec-heavy-tails`, §6 `sec-levy-flights`, §7 `sec-path-dependent`.
+By the owner's decision the coverage plan's §3 (Langevin, Fokker-Planck, Ornstein-Uhlenbeck) and §4 (escape, stochastic
+resonance) are not written: they are linked to the physics tutorial's `nonequilibrium-statistical-mechanics` chapter
+(still a placeholder). Lévy flights became a section of their own; multiplicative and preferential processes (mapped to
+fractals-and-scaling §3 in the coverage record) appear in §7 only as the mechanism of path-dependent growth, with the
+proof for a two-valued factor with a floor; the general mechanisms of power laws are left to fractals-and-scaling.
+
+### Jensen, *Complexity Science* (2023)
+
+- PDF page = printed page + 22. Read Ch. 5 in full (pp. 93-109), Sec. 10.1 (pp. 280-283), Sec. 10.2 (pp. 293-296), Sec.
+  10.7 (pp. 313-316) and the exercises of Sec. 10.9 (pp. 319-321).
+- Used: Box 5.1 random sums eqs. (5.3)-(5.17) (`exr-gw-compound`, `exr-gw-generating-moments`); eqs. (5.18)-(5.26)
+  generation sizes and mean (`def-galton-watson`, `thm-extinction-probability`); Fig. 5.3 (`fig-branching-extinction`);
+  eqs. (5.27)-(5.36) total progeny (`prp-total-progeny`, `exr-progeny-mean`); eq. (5.28), stated there without proof, with
+  k_0 ~ (1 - mu)^-2 (`exm-progeny-cutoff`, derived here for Poisson offspring); eqs. (5.37)-(5.42) time to extinction
+  (`exm-extinct-critical`, `exm-extinct-subcritical`, `exr-extinct-critical-rate`, made rigorous); Sec. 5.2 tree as a
+  random walk eq. (5.43) (`exm-progeny-walk`); Exercises 1-3 of Sec. 5.4 (`exr-heavy-normalise`, `exr-heavy-moments`,
+  `exr-heavy-scale-free`, `exm-gw-affine`, `exr-gw-affine`, `exm-gw-geometric`, `exr-gw-geometric`,
+  `exr-extinct-geometric`). Sec. 10.1 eqs. (10.1)-(10.4) (`exm-firstret-paths`); Sec. 10.2 first passage by images, eqs.
+  (10.52)-(10.61) (`exm-firstret-continuum`, `exr-firstret-continuum-limit`); Sec. 10.7 master equation, Glauber rates and
+  detailed balance eqs. (10.114)-(10.119) (`exm-mconv-glauber`, `exm-mconv-metropolis`, `exm-master-glauber`,
+  `exm-bdeath-potential`); Sec. 10.9 Exercise 4 telegraph signal (`exm-master-two-state`, `exr-master-telegraph`).
+- Misprint found: eq. (10.60) has (Dt)^{3/2} in the denominator; normalisation requires D^{1/2} t^{3/2} (the integral of
+  the printed density is 1/D). The chapter uses the corrected form and says so.
+
+### Thurner, Hanel and Klimek (2018)
+
+- PDF page = printed page + 13. Read Sec. 2.1.1 (pp. 34-35), Secs. 2.3.2-2.4.1 (pp. 59-69), Secs. 2.5-2.5.3 (pp.
+  75-86), Secs. 3.3.3-3.3.4 (pp. 106-110) and Sec. 6.6.1.1 (pp. 383-385).
+- Used: stable processes eqs. (2.37)-(2.44), Lévy flights Sec. 2.3.2.5 and footnote 12 (`def-stable-law` intro,
+  `exm-stable-*`, `def-levy-flight`); Pareto, Zipf, Student distributions Sec. 2.4.1 (`def-heavy-tail`,
+  `exm-heavy-zipf`, `exm-heavy-student`); Poisson process Sec. 2.5.1.4 (`exm-master-poisson`); Markov processes and the
+  random walk Sec. 2.5.1.5 (`sec-markov-chains` intro, `exm-mchain-ring`); path dependence and non-ergodicity Sec. 2.5.2,
+  reinforcement Sec. 2.5.3 (`sec-path-dependent` intro, `exm-polya-nonergodic`, `exm-polya-lock-in`, `exm-mult-gamble`);
+  multiplicative processes with constraints eqs. (3.9)-(3.12) and Fig. 3.4 (`prp-multiplicative-process`,
+  `exm-mult-cities`, `exr-mult-cities`, `exm-mult-lognormal-test`); preferential processes eqs. (3.13)-(3.17) and Simon's
+  model (`exm-mult-preferential`, `exr-mult-preferential`, `exm-polya-simon`, `exr-mult-simon`); the Pólya urn eqs.
+  (6.107)-(6.108) (`prp-polya-urn`, `exm-polya-effective`, `exm-polya-colours`, `exm-polya-strong`).
+- Thurner's Pareto exponent is the density exponent minus 1 (eq. (2.46)); converted to the tutorial's alpha.
+
+### Gros, *Complex and Adaptive Dynamical Systems* (2015)
+
+- PDF page = printed page + 17. Read Secs. 3.2.1-3.2.2 (pp. 92-98) and 6.5.1-6.5.2 (pp. 200-206).
+- Used: diffusion and Lévy flights eq. (3.34), Fig. 3.9 and Table 3.1 (`sec-levy-flights`, `exm-levy-figure`,
+  `exm-levy-scaling`, `exr-levy-regimes`, `exm-levy-foraging`); Markov chains, absorbing states, master equation eq.
+  (3.37), two-state chain eqs. (3.38)-(3.39), random surfer eq. (3.40) (`def-markov-chain`, `exm-mchain-two-state`,
+  `exm-mchain-absorbing`, `exm-mchain-pagerank`, `exm-mconv-pagerank-rate`); branching theory of SOC, binary branching
+  eqs. (6.22)-(6.28) (`exm-progeny-avalanches`, `exm-progeny-catalan`); Galton-Watson process eqs. (6.31)-(6.33) and
+  Fig. 6.12 (`thm-extinction-probability`, `exm-gw-binary`, `exm-gw-names`, `exm-extinct-binary`).
+
+### Bertin, *Statistical Physics of Complex Systems* (2021)
+
+- Printed pages from the running heads. Read Secs. 2.1.1-2.1.3 (pp. 40-44), 2.4-2.4.2 (pp. 63-67), 2.5.1 (pp. 70-72),
+  3.2.1-3.2.3 (pp. 94-99), 8.1.2 (pp. 237-240) and App. B.2 (pp. 262-263).
+- Used: Markovian processes and the master equation eqs. (2.1)-(2.12) (`def-master-equation`, `exr-master-limit`,
+  `exr-mchain-detailed-balance`); largest events and superdiffusion eqs. (2.106)-(2.120) (`exm-heavy-maximum`,
+  `exr-heavy-frechet`, `exm-gclt-largest-term`, `exm-levy-largest-jump`, `exm-levy-scaling`); first return times eqs.
+  (2.129)-(2.136) (`prp-first-return`); birth-death processes and queues eqs. (3.20)-(3.27) (`prp-birth-death`,
+  `exm-bdeath-queue`, `exr-bdeath-queue-moments`); fully connected absorbing process eqs. (3.35)-(3.39) and Exercise 3.3
+  (`exm-master-absorbing`, `exm-bdeath-revived`); generalised central limit theorem eqs. (8.4)-(8.14) and Fig. 8.1
+  (`thm-generalised-clt`, `def-stable-law`, `exm-stable-tails`, `exm-gclt-skewness`); Gillespie algorithm App. B.2
+  (`exm-master-gillespie`).
+
+### Gusak, Kukush, Kulik, Mishura and Pilipenko, *Theory of Stochastic Processes* (2010)
+
+- Zotero `ALSR5FDK`, PDF `HY944QFF`; key `gusakTheoryStochasticProcesses2010`; new bib entry (`textbook`, a problem book).
+- Read Ch. 10, theoretical grounds and Problems 10.1-10.49 (pp. 137-147), and Problems 7.49-7.55 (pp. 85-86).
+- Used: Theorems 10.1-10.4 (recurrence criterion, random-walk recurrence, ergodic theorem) and 10.6-10.9 (continuous-time
+  chains, Kolmogorov equations) (`thm-markov-convergence` intro, `exm-firstret-dimensions`, `exm-levy-recurrence`,
+  `def-master-equation`). Problems adapted: 10.7 (`exm-mchain-gusak-two`, `exr-mchain-path-probabilities`), 10.8 and
+  10.16 (`exr-mchain-chapman-kolmogorov`, `exr-mchain-limit`, `exr-mconv-independent-start`), 10.11-10.12
+  (`exm-bdeath-gambler`, `exr-bdeath-stake`, `exm-bdeath-biased-gambler`, `exr-bdeath-unfair`), 10.15 (`exr-mconv-kac`),
+  10.30 (`exr-firstret-plane`), 10.39 (`exm-mchain-two-classes`, `exr-mconv-reducible`), 10.42 (`exm-mchain-ehrenfest`),
+  10.46 (`prp-birth-death`), 7.54 (`exr-gw-martingale`).
+
+### Clauset, Shalizi and Newman, "Power-law distributions in empirical data" (2009)
+
+- Zotero `EVY388V4`, PDF `RPTC7KWZ`; key `clauset2009power`. Read Secs. 1-3.1 (pp. 1-6), Sec. 3.3 (pp. 9-11), the
+  outline of Secs. 4-5 and Box 1.
+- Used: definition eqs. (1.1)-(2.7) and Table 2.1 (`def-heavy-tail`, `exm-heavy-zipf`, `exm-heavy-ccdf-figure`,
+  `exr-heavy-normalise`); MLE eqs. (3.1)-(3.2) (`exr-heavy-mle`, `exr-heavy-standard-error`); least squares App. A
+  (`exr-heavy-least-squares`); the lower cut-off by the KS statistic eq. (3.9) and Fig. 3.3 (`exr-heavy-xmin`);
+  likelihood-ratio tests Sec. 5 (`exr-heavy-cauchy-fit`, `exr-progeny-cutoff-fit`, `exm-mult-lognormal-test`).
+
+### Argun, Callegari and Volpe, *Simulation of Complex Systems* (2021)
+
+- Zotero `KM792SUI`, PDF `RBT3MGWJ`; key `argunSimulationComplexSystems2021`; new bib entry (`textbook`). Pages are
+  numbered by chapter (6-1, ...). Read Ch. 6 opening, Sec. 6.1 (pp. 6-1 to 6-4) and the Lévy walk of Sec. 6.3 (pp. 6-7 to
+  6-8).
+- Used: anomalous diffusion exponent, ensemble and time-averaged MSD eqs. (6.1)-(6.3), Exercise 6.1, Fig. 6.5
+  (`exm-levy-ergodicity`, `exr-levy-brownian-ergodic`); Lévy walk algorithm and Exercise 6.5 (`exm-levy-walk`,
+  `exr-levy-walk-exponent`); foraging birds Fig. 6.1 (`exm-levy-foraging`). Ch. 7 (multiplicative noise) is cited in the
+  §7 reading list by chapter only.
+
+### Charbonneau, *Natural Complexity* (2017)
+
+- PDF page = printed page + 17. Read App. C.4-C.5 (pp. 325-334).
+- Used: exponential and power-law deviates eqs. (C.4)-(C.5) (`exm-master-gillespie`, `exm-heavy-sampling`,
+  `exr-levy-sampling`); the classical random walk eqs. (C.8)-(C.20) (§1 reading list).
+
+### Mathematics, machine-learning and physics tutorials (cross-tutorial links, not references)
+
+- Probability: `def-random-walk`, `prp-rw-diffusion-limit`, `thm-central-limit-theorem`, `thm-weak-law-large-numbers`,
+  `thm-strong-law-large-numbers`, `def-characteristic-function`, `def-maximum-likelihood`, `exr-pbr-stirling`,
+  `sec-random-variables`, `sec-limit-theorems`; sets-relations-topology `thm-contraction-mapping`; complex-analysis
+  `def-beta-function`. ML maths `def-markov-property`. Physics `sec-nonequilibrium-statistical-mechanics` (placeholder)
+  for Langevin and Fokker-Planck.
