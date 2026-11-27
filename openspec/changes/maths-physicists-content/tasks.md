@@ -62,7 +62,7 @@ one `##` section per agent run.
   spaces, higher homotopy groups and the exact sequence of a fibration; de Rham cohomology, homotopy invariance,
   Mayer-Vietoris, degree; Chern-Weil, Chern classes, Euler class), ten and ten throughout; remove its planned badge;
   mark it written in the coverage record.
-- [ ] 4.14 Spinors and the Dirac operator (by section).
+- [x] 4.14 Spinors and the Dirac operator (by section).
 
 ## 5. Close
 

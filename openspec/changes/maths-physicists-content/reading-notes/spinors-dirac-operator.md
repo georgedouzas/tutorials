@@ -203,3 +203,17 @@ Run spin-6 (raising sec-dirac-index, prefix `dix-`). Zotero MCP was down; the PD
   formula; Newton's identity for ch_3.
 - Quoted, not proved here: the general Atiyah-Singer theorem, the SU(2) content and non-zero spectrum of the monopole (Dolan), Hirzebruch's signature theorem,
   Chern-Gauss-Bonnet int c_3 = chi, adjunction for the quintic and the bicubic.
+
+## sec-chirality-problem and the closing exercises
+
+Run spin-7 (raising sec-chirality-problem, prefix `chp-`, and the closing exercises of the chapter).
+
+- Proved here without a textbook source: the counting of massless four-dimensional spinors by the chiral kernels (thm-chirality-no-go (1)); the antilinear map
+  J = T o (complex conjugation), T from Pauli's theorem with T gamma^{a*} = gamma^a T, which commutes with Spin(n) and the spin connection, anticommutes with D and
+  satisfies J gamma_* = (-1)^{n/2} gamma_* J, so that n_R = n_L for n = 2 mod 4 (thm-chirality-no-go (2)); the product rule for the index (4); and the counts on
+  S^2 and S^2 x S^2 with monopoles (prp-chiral-zero-modes-gauge (2)-(3)).
+- Quoted, not proved here: n_R - n_L = A-hat[K] and int A-hat ch(E) (thm-atiyah-singer (1)); the SU(2) representation content (dolan2003 eqs. (28)-(32)); the coset rule
+  (dolan2009 Sec. 2.3, eqs. (2.45)-(2.47); dolan2003 eqs. (16), (31)-(32), (44)-(47)); the counting rule of manousselis2000 eqs. (12)-(15); Landau levels on the
+  torus; adjunction for hypersurfaces.
+- Bicubic in CP^2 x CP^2 (exm-dix-gen-bicubic): chi = -162 is not in greene1997, braun2009 or aspinwall1996 (searched the local PDFs and the Zotero semantic index);
+  marked as quoted without a source read.
