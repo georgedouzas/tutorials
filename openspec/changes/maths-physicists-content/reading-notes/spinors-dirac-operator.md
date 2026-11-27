@@ -126,3 +126,30 @@ Lawson-Michelsohn is not in the library; Rudolph-Schmidt Part II Ch. 5 was used 
   geometry); thm-spn-topology, thm-spn-double-cover, prp-spin-lie-algebra (this chapter). The classification by double covers and monodromy,
   the volume-element proof for RP^n (n odd), the Spin(n+1) -> S^n structure and the Spin^c(2) = U(1)^2 degree argument on S^2 are standard
   material written here without a textbook source.
+
+# Run spin-4 (task 4.14): sec-dirac-spheres (Dirac operator, Lichnerowicz, tori, spheres, vanishing)
+
+The Zotero server refused connections during this run, so no new pages were read; the citations below are of pages read in run
+spin-3 (rudolph2017differential PDF 414-427) or are existing citations kept from the earlier text.
+
+## rudolph2017differential
+
+- Sec. 5.5, Def. 5.5.12 and footnote 30 (p. 406, PDF 420: D = i c o g^-1 o nabla, the factor i for self-adjointness) -> def-dirac-operator.
+- Sec. 5.6, Thm. 5.6.1 (Weitzenboeck formula, frame proof), Lemma 5.6.2, Thm. 5.6.4 and Cor. 5.6.5 (Lichnerowicz, Rg = Sc/4) (pp. 410-413,
+  PDF 424-427) -> thm-lichnerowicz (1)-(2), thm-lichnerowicz-vanishing.
+
+## Existing citations kept, not re-read in this run
+
+- trautman1995 Sec. 8.1, Prop. 8 (spin-orbit operator on S^n) -> thm-sphere-dirac-spectrum (1), (5), exm-spd-sn-from-laplacian.
+- camporesi1995 eqs. (3.9)-(3.10), (3.44), (3.58), (5.35), (5.44)-(5.48) -> def-dirac-operator, thm-sphere-dirac-spectrum (5),
+  exm-spd-sn-representations, exm-dsp-s3-quoted.
+- dolan2003 eq. (2), eq. (5), after eqs. (26), (32) -> def-dirac-operator, exm-spd-lichnerowicz-twisted, thm-lichnerowicz-vanishing,
+  exr-spd-zero-mode-balance.
+- hull2005 Sec. 3.1, eqs. (3.1)-(3.2) -> def-scherk-schwarz-twist.
+
+## Earlier chapters used
+
+- thm-stokes, def-christoffel (3), def-metric-compatible, def-levi-civita (uniqueness, scaling), thm-parseval, def-spherical-laplacian,
+  def-spherical-harmonic (2), (6), thm-heat-trace-asymptotics (2), (3) (scalar Laplacians of T^2 and S^2 only), thm-chc-gauss-bonnet,
+  def-zeta-regularisation. The trivialised form D = -iXK of the sphere operator, the trace argument for the S^2 multiplicities, and the
+  frame-free proof of the Lichnerowicz formula are standard material written here without a textbook page read in this run.
