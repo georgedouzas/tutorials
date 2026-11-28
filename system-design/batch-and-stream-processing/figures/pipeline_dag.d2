@@ -1,0 +1,19 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+logs: "Ingest view logs"
+snap: "Snapshot metadata\n(CDC)"
+stage: "Staging tables"
+facts: "Fact table:\nviews"
+dims: "Dimension:\nphotos"
+agg: "Daily aggregates"
+dash: "Dashboards and\ntop photos"
+
+logs -> stage
+snap -> stage
+stage -> facts
+stage -> dims
+facts -> agg
+dims -> agg
+agg -> dash

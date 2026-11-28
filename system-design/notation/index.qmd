@@ -167,6 +167,14 @@ where the symbol first appears.
 - $T_i$, $C_i$, $s$, $p$, $f$, $R$, $c$, $h$, $k$, $n$: in the distributed-transactions chapter, saga steps and compensations, commit timestamps, the pivot's
   index, a dual write's failure probability, a reconciliation's duration, the confirmed fraction and length of holds, contending requests and participants,
   against the transactions $T_i$ of the storage chapter (the same idea), and the other uses of these letters, which do not occur in the sections that use them.
+- $d$, $\delta$, $m$, $w$, $e$, $S$, $p$: in the batch-and-stream chapter, $d$ is a column's number of distinct values in the analytical-storage
+  section and a count-min sketch's depth in the approximation section; $\delta$ is a watermark's delay in the stream section and the sketch's
+  failure probability in the approximation section; $m$ is the largest event time seen in the stream section and the number of HyperLogLog
+  registers in the approximation section; $w_j$ (always indexed) is a column's width, $w$ the sketch's; $e$ is an event time in the stream section
+  and Euler's number in the count-min theorem; $S$ is a set of columns and a window's slide; $p$ is a probability $p_i$ (indexed) and the
+  register bits of HyperLogLog. Each pair is in different sections, and each statement defines its symbols.
+- $M$, $R$, $P$, $K$, $N$, $D$, $c$, $s$, $X$, $q$: the batch-and-stream chapter's task counts, pairs, keys, rows, partitions, workers, sample rate,
+  sampled count and rank bits, against the other uses of these letters in other chapters, which do not occur there.
 - Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
   Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
 - Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.

@@ -652,3 +652,40 @@ services. Statements: `def-atomic-commit`, `thm-two-phase-commit`, `def-truetime
 
 - D2: `figures/twopc_sequence.d2`, `figures/saga_orchestration.d2`. Python: `figures/commit_wait.py`.
 - Run blocks: plain Python, NumPy and `sqlite3` (the outbox relay over two database files in the working directory); all seeded.
+
+## Chapter 10: batch-and-stream-processing (task 6.2, 2026-11-28)
+
+Outline (approved row 10): §1 MapReduce; §2 pipelines and orchestration; §3 analytical storage; §4 stream processing; §5 Lambda and Kappa; §6
+approximate aggregation. Statements: `def-mapreduce`, `prp-mapreduce`, `def-pipeline`, `prp-dag`, `def-analytical-storage`, `prp-columnar`,
+`def-stream-processing`, `prp-windows`, `def-lambda-kappa`, `def-approximate`, `thm-count-min`, `prp-cardinality`.
+
+### Sources
+
+- MapReduce (`dean2004mapreduce`, Zotero 3WXTGZ3B), Secs. 2-5 read: model, examples (word count, grep, URL counts, reverse links, term vectors,
+  inverted index, sort), execution, master, fault tolerance and semantics, locality, granularity (M = 200,000, R = 5,000), backups (44%),
+  partitioning, ordering, combiner, side effects, bad records, local execution, grep and sort measurements.
+- Count-min (`cormode2005improved`, Zotero BQN95LQ6), Secs. 1-4.1 and 5.2: data structure, w = ceil(e/eps), d = ceil(ln 1/delta), Theorem 1 with
+  its Markov proof (reproduced), Theorem 2 (median, quoted), range queries, heavy hitters.
+- Liu Ch. 5 (Batch Processing, Stream Processing, Late and Out of Order Events, Watermark, Checkpointing, Lambda Architecture, Sampling, Columnar
+  Store), Ch. 6 (Number of Unique Users; Top Watched YouTube Video), App. 5 (HyperLogLog, Count-Min Sketch; bit-pattern examples corrected in
+  `exr-apx-liu-bits`, memory in `exr-hll-liu-memory`).
+- Reis Ch. 2 pp. 33, 64-65; Ch. 3 pp. 98-100, 104-106; Ch. 5 pp. 157-158, 162; Ch. 6 pp. 213-216; Ch. 7 pp. 236-237, 246-247; Ch. 8 pp. 283-285,
+  297-298; App. A pp. 391-394 (page numbers read from the extracted footers).
+- Tan Secs. 3.3.6, 3.6 (pp. 70-71), 4.5 (pp. 88-90), 4.6 (pp. 93-95), 4.6.4 (pp. 97-98), 17.7-17.9 (pp. 386-392); the "second highest" procedure
+  examined in `exr-apx-tan-second`, the merged-heaps slip (C = 10, not 11) in `exr-mrp-tan-heaps`.
+- Sinha Ch. 3 count-min walk-through and HyperLogLog ("2^(L+1)" of a harmonic mean of ranks examined in `exr-apx-sinha-hll`).
+- Gilbert Ch. 4 "Optimizing throughput"; Kafka Sec. 4.
+
+### Gaps, proved and quoted
+
+- HyperLogLog paper (Flajolet et al. 2007) not in Zotero: added to the bib as `flajolet2007hyperloglog` for approval (metadata from memory, to
+  verify), not cited. The estimator's form follows the books; its constant c_m is calibrated by simulation; no accuracy bound is claimed.
+- Proved: `prp-mapreduce`, `prp-dag` (incl. Graham's list-scheduling bound), `prp-columnar`, `prp-windows`, `thm-count-min` (the paper's proof),
+  `prp-cardinality`. Quoted: count-min Theorems 2 and 4.
+- Unsourced standard notions: the HyperLogLog estimator's constant and layout (p, q bits, 6-bit registers); the list-scheduling bound; "disorder"
+  as a name; Bernoulli sampling as a term; conservative update; Kahn's procedure by name (not named in the chapter).
+
+### Figures and software
+
+- D2: `figures/mapreduce_flow.d2`, `figures/pipeline_dag.d2`, `figures/lambda_kappa.d2`. Python: `figures/watermark.py`.
+- Run blocks: plain Python, NumPy and `sqlite3`; all seeded; longest block about 7 s.

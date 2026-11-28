@@ -1,0 +1,37 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+input: "Input splits" {
+  direction: down
+  s0: "split 0"
+  s1: "split 1"
+  s2: "split 2"
+}
+map: "Map tasks" {
+  direction: down
+  m0: "map + combine"
+  m1: "map + combine"
+  m2: "map + combine"
+}
+reduce: "Reduce tasks" {
+  direction: down
+  r0: "sort + reduce\n(partition 0)"
+  r1: "sort + reduce\n(partition 1)"
+}
+output: "Output files" {
+  direction: down
+  o0: "part 0"
+  o1: "part 1"
+}
+input.s0 -> map.m0
+input.s1 -> map.m1
+input.s2 -> map.m2
+map.m0 -> reduce.r0
+map.m0 -> reduce.r1
+map.m1 -> reduce.r0
+map.m1 -> reduce.r1
+map.m2 -> reduce.r0
+map.m2 -> reduce.r1
+reduce.r0 -> output.o0
+reduce.r1 -> output.o1

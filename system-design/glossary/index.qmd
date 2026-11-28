@@ -9,6 +9,8 @@ chapters are written.
 
 ## A
 
+- **Analytical storage** (OLTP and OLAP, row and column layouts, run-length and dictionary encoding, partitions, warehouses,
+  lakes, star schemas): @def-analytical-storage (@sec-batch-and-stream-processing)
 - **Architectural characteristic**: @def-architectural-characteristic (@sec-estimation-and-the-design-process)
 - **Atomic commitment and two-phase commit** (participants, votes, agreement, validity, prepared and in-doubt participants,
   blocking): @def-atomic-commit (@sec-distributed-transactions)
@@ -26,6 +28,7 @@ chapters are written.
 - **Bloom filter false-positive rate** (probability of a zero bit, optimal number of hash functions, bits per key):
   @prp-bloom-false-positive (@sec-storage-and-databases)
 - **B-tree height** (minimum degree, pages read per lookup): @prp-btree-height (@sec-storage-and-databases)
+- **Bytes scanned, runs and pruning**: @prp-columnar (@sec-batch-and-stream-processing)
 - **Byzantine faults and Byzantine quorums** (equivocation, $3f + 1$ replicas, vouched-for values): @def-byzantine
   (@sec-consistency-and-consensus)
 
@@ -52,11 +55,14 @@ chapters are written.
 - **Content delivery network** (edge servers, cache key, freshness lifetime, hit ratio, purge and versioning):
   @def-cdn (@sec-the-web-stack)
 - **Coordination services** (locks, sessions, leases, fencing tokens, lock-delay): @def-coordination (@sec-consistency-and-consensus)
+- **Count-min sketch, error of** (one-sided error, width and depth, merging): @thm-count-min (@sec-batch-and-stream-processing)
 
 ## D
 
 - **Data model** (relational, key-value, document, wide-column and graph; access patterns): @def-data-model
   (@sec-storage-and-databases)
+- **Data pipelines and orchestration** (ingestion, bounded and unbounded data, ETL and ELT, DAGs, idempotent tasks,
+  backfills): @def-pipeline (@sec-batch-and-stream-processing)
 - **Delivery semantics** (at most once, at least once, exactly once, effectively once, idempotency keys, end-to-end
   argument): @def-delivery-semantics (@sec-messaging-and-event-streams)
 - **Design process**: @def-design-process (@sec-estimation-and-the-design-process)
@@ -68,6 +74,8 @@ chapters are written.
   (@sec-performance-and-queueing)
 - **Event sourcing, CQRS and change data capture** (snapshots, projections, dual writes, transactional outbox):
   @def-event-sourcing (@sec-messaging-and-event-streams)
+- **Event time, windows, watermarks and checkpoints** (tumbling, sliding and session windows, late events):
+  @def-stream-processing (@sec-batch-and-stream-processing)
 - **Eviction policies and the independent reference model** (LRU, LFU, FIFO, random, Zipf laws): @def-eviction (@sec-caching)
 - **Exponential distribution and Poisson process** (no memory, competition, Erlang arrival times, Poisson counts):
   @def-poisson-process (@sec-performance-and-queueing)
@@ -108,6 +116,7 @@ chapters are written.
 
 ## L
 
+- **Lambda and Kappa architectures** (batch, speed and serving layers, replay): @def-lambda-kappa (@sec-batch-and-stream-processing)
 - **Leader-follower replication** (replication log, synchronous and asynchronous replication, lag, read-after-write, failover):
   @def-leader-follower (@sec-replication-and-partitioning)
 - **Leases, fencing tokens and lock-delay, safety of**: @prp-lease-fencing (@sec-consistency-and-consensus)
@@ -124,6 +133,8 @@ chapters are written.
 
 ## M
 
+- **MapReduce** (map, shuffle, reduce, combiner, master, backup tasks): @def-mapreduce (@sec-batch-and-stream-processing)
+- **MapReduce, output of** (any split, combiners, re-execution, hot keys): @prp-mapreduce (@sec-batch-and-stream-processing)
 - **Messages, queues and workers** (synchronous and asynchronous calls, brokers, worker pools, acknowledgements,
   backlog): @def-message-queue (@sec-messaging-and-event-streams)
 - **M/M/1 queue** (stationary law, mean and distribution of the response time): @thm-mm1 (@sec-performance-and-queueing)
@@ -169,6 +180,8 @@ chapters are written.
   (@sec-consistency-and-consensus)
 - **Real-time delivery** (short and long polling, server-sent events, WebSocket, heartbeats): @def-real-time-delivery
   (@sec-the-web-stack)
+- **Registers, merging and samples** (HyperLogLog registers, Bernoulli sample variance): @prp-cardinality
+  (@sec-batch-and-stream-processing)
 - **Replay of an event log** (snapshots, projections, ordered application, rebuild time):
   @prp-replay (@sec-messaging-and-event-streams)
 - **Request path** (DNS, TCP, TLS and HTTP; round-trip time, intermediaries): @def-request-path (@sec-the-web-stack)
@@ -185,6 +198,7 @@ chapters are written.
   @def-saga (@sec-distributed-transactions)
 - **Sagas, outcomes and compensations of** (reverse compensation, additive compensations, pivot): @prp-saga
   (@sec-distributed-transactions)
+- **Samples, count-min sketches and HyperLogLog**: @def-approximate (@sec-batch-and-stream-processing)
 - **Secondary indexes and request routing** (local and global indexes, scatter-gather, partition maps, location
   hierarchies): @def-request-routing (@sec-replication-and-partitioning)
 - **Serialisability and two-phase locking** (precedence graph, lock points): @prp-serializability
@@ -195,9 +209,14 @@ chapters are written.
 
 ## T
 
+- **Topological order and the critical path** (list scheduling bounds, reruns): @prp-dag (@sec-batch-and-stream-processing)
 - **Total cost of ownership** (capital and operating expenses, unit cost): @def-total-cost-of-ownership
   (@sec-estimation-and-the-design-process)
 - **Transactions and isolation levels** (ACID, schedules, conflicts, anomalies, snapshot isolation, two-phase locking,
   optimistic control): @def-transaction-isolation (@sec-storage-and-databases)
 - **Two-phase commit: safety, blocking and cost** (agreement, in-doubt participants, messages, coordinator groups):
   @thm-two-phase-commit (@sec-distributed-transactions)
+
+## W
+
+- **Windows and watermarks, guarantees of** (disorder, batch equality, checkpoints): @prp-windows (@sec-batch-and-stream-processing)

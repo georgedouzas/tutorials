@@ -1,0 +1,29 @@
+...@../../../_filters/d2-theme
+
+direction: down
+
+lambda: "Lambda" {
+  label.near: bottom-center
+  direction: right
+  src: "Immutable\nevent log"
+  batch: "Batch layer\n(recompute nightly)"
+  speed: "Speed layer\n(stream, recent data)"
+  serve: "Serving layer\n(batch view + speed view)"
+  src -> batch
+  src -> speed
+  batch -> serve
+  speed -> serve
+}
+
+kappa: "Kappa" {
+  label.near: bottom-center
+  direction: right
+  log: "Retained\nevent log"
+  proc: "Stream processor"
+  replay: "New processor\n(replay from start)"
+  view: "Serving view"
+  log -> proc
+  log -> replay: "on change"
+  proc -> view
+  replay -> view: "replaces when caught up" {style.stroke-dash: 3}
+}
