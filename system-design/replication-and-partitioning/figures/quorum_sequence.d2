@@ -1,0 +1,23 @@
+...@../../../_filters/d2-theme
+
+shape: sequence_diagram
+
+client: "Client"
+coord: "Coordinator"
+r1: "Replica 1"
+r2: "Replica 2"
+r3: "Replica 3"
+
+client -> coord: "put(k, v2)"
+coord -> r1: "store v2"
+coord -> r2: "store v2"
+coord -> r3: "store v2 (delayed, not yet stored)"
+r1 -> coord: "ack"
+r2 -> coord: "ack"
+coord -> client: "ok (W = 2 acks)"
+client -> coord: "get(k)"
+coord -> r2: "read"
+coord -> r3: "read"
+r2 -> coord: "v2"
+r3 -> coord: "v1 (stale)"
+coord -> client: "v2, the newest of R = 2 replies"

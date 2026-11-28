@@ -1,0 +1,36 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+single: "Leader-follower" {
+  label.near: bottom-center
+  direction: down
+  leader: "Leader\n(all writes)"
+  f1: "Follower 1"
+  f2: "Follower 2"
+  leader -> f1: "log"
+  leader -> f2: "log"
+}
+
+multi: "Multi-leader" {
+  label.near: bottom-center
+  direction: down
+  l1: "Leader 1"
+  l2: "Leader 2"
+  l3: "Leader 3"
+  l1 <-> l2
+  l2 <-> l3
+  l1 <-> l3
+}
+
+leaderless: "Leaderless" {
+  label.near: bottom-center
+  direction: down
+  c: "Coordinator\n(waits for W or R)"
+  r1: "Replica 1"
+  r2: "Replica 2"
+  r3: "Replica 3"
+  c -> r1
+  c -> r2
+  c -> r3
+}

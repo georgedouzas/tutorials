@@ -123,6 +123,20 @@ where the symbol first appears.
   rate $r$, a relation $r$ (no index) and the token lifetime $\ell$.
 - $d$, $b$: in the full-text section, $d$ is a document and $b$ the length-normalisation constant of BM25, against the
   power-of-$d$-choices parameter and the page size of the web-stack chapter.
+- $e_i$ and $e$: in the replication chapter, $e_1, e_2, \dots$ (always indexed) are entries of a replication log, and $e$,
+  $e'$ (unindexed) are events of the happens-before relation; the two meet only in that chapter's first and third
+  sections, which do not share them.
+- $k$, $f$, $m$: in the replication chapter, $k$ is the number of followers a semi-synchronous leader waits for, $f$ the
+  number of followers and $m = nv$ the number of positions on a hash ring, against the Bloom-filter $k$, $m$ and $f$ of
+  the storage chapter; in the heartbeat proposition $k$ counts heartbeats in a timeout. Each section states its $k$.
+- $D$, $q$, $H$: in the failure-detection section, a delay bound, a loss probability and a number of heartbeats, against
+  the stored volume and service demand $D$, the quantile level $q$ and the B-tree height $H$ of other chapters, which do
+  not occur there.
+- $\theta$: a timeout, of a long poll in the web-stack chapter and of a heartbeat detector in the replication chapter.
+- $S$, $G$: a node's share of the ring and the length of one arc. Dynamo's $S$ for the number of nodes is written $n$
+  here.
+- $b$: in the identifier section, a number of random bits, against the page size, token-bucket capacity and BM25
+  constant of other chapters.
 - Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
   Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
 - Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.

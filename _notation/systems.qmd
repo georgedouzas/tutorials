@@ -60,6 +60,13 @@ and says how the two meanings are told apart where they meet.
 | $V(e)$, $V(e)[i]$ | vector timestamp of event $e$ and its component for process $i$; $V \leq V'$ componentwise, $V < V'$ when also $V \neq V'$ |
 | $h : U \to [0, 1)$ | hash function onto the ring of consistent hashing, positions read modulo 1 |
 | $K$, $v$ | number of keys; number of virtual nodes per physical node |
+| $e_1, e_2, \dots$ † | entries of a replication log, applied in order by every replica |
+| $k$ †, $f$ † | followers whose acknowledgement a semi-synchronous leader waits for, and the number of followers |
+| $G$, $S$ † | length of one arc of a hash ring, and a node's share: the total length of the arcs it owns |
+| $D$ †, $q$ † | bound on the delivery delay of a heartbeat, and the probability that a heartbeat is lost |
+| $T_{\mathrm{fail}}$ | period without a counter increase after which gossip membership considers a member failed |
+| $H$ † | number of heartbeats sent in a period |
+| $b$ †, $N_b$, $P_{\mathrm{col}}$ | random bits of an identifier, the $N_b = 2^b$ possible values, and the probability that two of $n$ identifiers collide |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
 | $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |

@@ -25,6 +25,10 @@ chapters are written.
 
 ## C
 
+- **Collisions of random identifiers** (birthday bounds, bits needed, structured identifiers): @prp-id-collision
+  (@sec-replication-and-partitioning)
+- **Consistent hashing** (keys moved by modular and consistent hashing, largest share, virtual nodes): @thm-consistent-hashing
+  (@sec-replication-and-partitioning)
 - **Content delivery network** (edge servers, cache key, freshness lifetime, hit ratio, purge and versioning):
   @def-cdn (@sec-the-web-stack)
 
@@ -43,11 +47,24 @@ chapters are written.
 
 ## F
 
+- **Failover** (writes lost, semi-synchronous acknowledgement, choosing the follower to promote): @prp-failover-loss
+  (@sec-replication-and-partitioning)
+- **Failure detectors and gossip membership** (completeness, accuracy, heartbeats, timeouts, seeds): @def-failure-detector
+  (@sec-replication-and-partitioning)
 - **Functional dependencies and normal forms** (keys, 1NF, 2NF, 3NF, BCNF, decomposition, denormalisation):
   @def-normal-forms (@sec-storage-and-databases)
 
+## H
+
+- **Happens-before, logical clocks and version vectors** (concurrency, Lamport and vector clocks, LWW, CRDTs):
+  @def-happens-before (@sec-replication-and-partitioning)
+- **Heartbeat detector** (detection time, false suspicions, choice of timeout): @prp-heartbeat-detector
+  (@sec-replication-and-partitioning)
+
 ## I
 
+- **Identifier schemes** (auto-increment, ticket server, stride, UUID versions 4 and 7, Snowflake): @def-unique-id
+  (@sec-replication-and-partitioning)
 - **Index, B-tree, LSM tree and Bloom filter** (covering index, memtable, SSTable, tombstone, compaction):
   @def-storage-engine (@sec-storage-and-databases)
 - **Interface of a web service** (REST, RPC and GraphQL; safe and idempotent operations, idempotency keys, pagination,
@@ -57,15 +74,21 @@ chapters are written.
 
 ## L
 
+- **Leader-follower replication** (replication log, synchronous and asynchronous replication, lag, read-after-write, failover):
+  @def-leader-follower (@sec-replication-and-partitioning)
+- **Little's law**: @thm-littles-law (@sec-performance-and-queueing)
 - **Load balancer** (layer 4 and layer 7, assignment rules, health checks, global load balancing): @def-load-balancer
   (@sec-the-web-stack)
-- **Little's law**: @thm-littles-law (@sec-performance-and-queueing)
 - **Load estimate**: @def-load-estimate (@sec-estimation-and-the-design-process)
+- **Logical and vector clocks** (clock condition, exact characterisation of happens-before): @thm-logical-clocks
+  (@sec-replication-and-partitioning)
 - **Lossless decomposition** (Heath's theorem, spurious rows): @prp-lossless-decomposition (@sec-storage-and-databases)
 
 ## M
 
 - **M/M/1 queue** (stationary law, mean and distribution of the response time): @thm-mm1 (@sec-performance-and-queueing)
+- **Multi-leader and leaderless replication** (quorums, read repair, sloppy quorums, hinted handoff, Merkle trees):
+  @def-quorum-replication (@sec-replication-and-partitioning)
 
 ## O
 
@@ -76,10 +99,16 @@ chapters are written.
 - **Operational bounds** (utilisation law, response time law, bottleneck bound, knee population): @prp-operational-bounds
   (@sec-performance-and-queueing)
 
+## P
+
+- **Partitioning schemes** (range, hash and consistent hashing, virtual nodes, rebalancing, hot keys): @def-partitioning
+  (@sec-replication-and-partitioning)
+
 ## Q
 
 - **Quantile estimate from order statistics** (distribution-free intervals, samples needed for a percentile):
   @prp-quantile-estimate (@sec-performance-and-queueing)
+- **Quorum intersection** ($R + W > N$, probability of a stale read): @thm-quorum-intersection (@sec-replication-and-partitioning)
 
 ## R
 
@@ -93,6 +122,8 @@ chapters are written.
 
 ## S
 
+- **Secondary indexes and request routing** (local and global indexes, scatter-gather, partition maps, location
+  hierarchies): @def-request-routing (@sec-replication-and-partitioning)
 - **Serialisability and two-phase locking** (precedence graph, lock points): @prp-serializability
   (@sec-storage-and-databases)
 - **Stateless service** (session state, sticky sessions, session replication; vertical, horizontal and automatic

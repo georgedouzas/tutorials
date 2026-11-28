@@ -424,3 +424,74 @@ full-text search and inverted indexes (the gap section). Statements: `def-data-m
 - D2: `figures/lsm_paths.d2` (LSM write and read paths), `figures/gfs_architecture.d2` (GFS). Python: `figures/bloom_fp.py`
   (false-positive rate against bits per key, approximation and seeded simulations).
 - Run blocks: the standard library (`sqlite3` with FTS5 and dbstat, `heapq`, `graphlib`, `threading`) and NumPy; all seeded.
+
+## Chapter 5: replication-and-partitioning (task 6.2, 2026-11-28)
+
+Outline (approved row 5 of `openspec/coverage/system-design.md`): §1 leader-follower replication; §2 multi-leader and leaderless replication,
+quorums, sloppy quorums, hinted handoff, anti-entropy; §3 ordering events; §4 partitioning; §5 secondary indexes and request routing; §6 failure
+detection and membership; §7 unique identifiers (gap section). Statements: `def-leader-follower`, `prp-failover-loss`, `def-quorum-replication`,
+`thm-quorum-intersection`, `def-happens-before`, `thm-logical-clocks`, `def-partitioning`, `thm-consistent-hashing`, `def-request-routing`,
+`def-failure-detector`, `prp-heartbeat-detector`, `def-unique-id`, `prp-id-collision`.
+
+### DeCandia et al., "Dynamo" (`decandia2007dynamo`)
+
+- Read Secs. 4.1-4.9 (pp. 209-213), 5 (read repair, p. 213), 6 and 6.1-6.3 (pp. 214-216). Used: ring, MD5, virtual nodes, preference lists,
+  coordinator and $W - 1$ acknowledgements, $R + W > N$ and latency of the slowest replica, $(3,2,2)$, vector clocks and $D_1$-$D_5$, clock
+  truncation, cart merge and resurfacing deletions, sloppy quorum, hinted handoff, $W = 1$, Merkle trees per key range, gossip every second,
+  seeds and logical partitions, local failure detection, explicit membership, partitioning strategies 1-3 and membership size, imbalance
+  15%/10-20%, LWW for sessions, read-mostly $R = 1$, $W = N$, durability window.
+
+### Lamport (`lamport1978time`), Mattern (`mattern1988virtual`), Karger et al. (`karger1997consistent`)
+
+- Lamport pp. 558-562: happened-before definition, irreflexivity assumption, clock condition and failing converse, C1, C2, IR1, IR2, total order
+  $\Rightarrow$ and its non-uniqueness, strong clock condition. Proved in the chapter: the clock condition (`thm-logical-clocks` (a)).
+- Mattern Secs. 6-8 and 10 (section attribution read from the two-column layout): defect of scalar clocks, vector clock tick and sup rules,
+  Definition 4, non-transitive concurrency, Theorems 10 and 11 (stated as "easy to see"; proved in the chapter as (b), (c) via counts of the past),
+  version vectors of Parker et al.
+- Karger Secs. 4.1-4.2, Thm. 4.1: balance, monotonicity, spread, load, $\kappa\log C$ points per bucket, proof sketch. The chapter proves exact
+  moments instead (arc law $(1-s)^{m-1}$, covariance from the constant sum, $\operatorname{Var}S = (n-1)/(n^2(nv+1))$) and the union bound on the
+  largest arc; Karger's high-probability balance is cited, not proved.
+
+### GFS and Bigtable (already in the bib)
+
+- GFS Secs. 2.6.3 (operation log) and 5.1.1-5.1.3 (master replication, shadow masters). Bigtable Secs. 2, 5 (tablets 100-200 MB, ten to a
+  thousand per server, clients rarely see the master), 5.1 (three-level hierarchy, $2^{34}$ tablets, 3 and 6 round trips) and 5.2 (Chubby locks,
+  master polling, servers killing themselves).
+
+### New reference (not in Zotero): `rfc9562`
+
+- RFC 9562, Secs. 5.4 (UUIDv4, 122 random bits), 5.7 (UUIDv7 layout, 48-bit ms timestamp, 74 bits), 6.2 (monotonicity and counters), 6.4
+  (distributed generation), 6.7 (collision resistance), 6.11 (sorting and index locality). Read from https://www.rfc-editor.org/rfc/rfc9562.txt.
+
+### Benchmarks
+
+- Xu: Ch. 1 "Database replication", "Database scaling" (sharding by `user_id % 4`, resharding, celebrity problem); Ch. 5 (rehashing, ring, add and
+  remove, two issues, virtual nodes with the 5%/10% measurement, affected keys, wrap-up claim that consistent hashing mitigates hot keys, corrected in
+  `exr-pt-hot-claims`); Ch. 6 (replication over N, quorum configurations and "strong consistency is guaranteed", corrected in `exr-thq-xu-strong`;
+  consistency models; versioning and vector clocks; failure detection with two sources and gossip; sloppy quorum; hinted handoff; Merkle trees with
+  12 keys and 1M buckets); Ch. 7 (requirements, multi-master, UUID with the 100-year claim checked in `exr-id-xu-uuid`, ticket server, Snowflake
+  layout, 69 years, 4096 per ms, clock synchronisation).
+- Tan: Secs. 3.5-3.5.5 (pp. 66-70; "DynamoDB uses a gossip protocol called vector clocks", corrected in `exr-fd-tan-claim`), 4.3-4.3.4 (pp. 79-85:
+  single-leader with secondary leader, multi-level replication, multi-leader races including DELETE/INSERT, leaderless with $n/2 + 1$ quorums).
+- Sinha: Ch. 3 "Consistent hashing" (ring, dummy points, cascade); Ch. 5 (modulo routing, virtual nodes, primary-secondary and peer-to-peer, preference
+  lists, $(n, r, w)$ Table 5.1, the claim that larger $r$ "prioritizes availability", corrected in `exr-thq-sinha-claim`, sloppy quorum, hinted handoff,
+  Merkle trees, membership gossip).
+- Liu: Ch. 5 "Replication" (purposes, sync and async, read your own write, inconsistent replicas, follower and leader failure, leader-leader,
+  leaderless, replication factor), "Sharding Strategies" (vertical and horizontal, hash key, consistent hashing and its non-solution for hot keys, range
+  key and the tweet options, outlier keys, scatter-gather, hotspots), "Conflict Resolution" (LWW, CRDT counter), "ID Generator" (UUID, auto increment,
+  multiple machines, ZooKeeper zxid, Snowflake with 10 machine bits), "Service Discovery and Request Routing" (shard discovery table, two options).
+
+### Proved by the chapter, quoted, conventions
+
+- Proved: `prp-failover-loss`, `thm-quorum-intersection`, `thm-logical-clocks`, `thm-consistent-hashing` (a)-(d), `prp-heartbeat-detector`,
+  `prp-id-collision`; exercises prove Merkle equal-root and comparison cost, the gossip end-game bound, G-counter and PN-counter convergence,
+  monotonicity, Mattern's Theorem 11, the impossibility of an exact scalar clock.
+- Quoted: Karger's high-probability balance (Thm. 4.1); the $\log_2 n + \ln n$ rounds of push gossip are only compared with simulation, not proved.
+- Isolation of the simulations: all distributed behaviour is simulated in one process; no real cluster.
+
+### Figures and software
+
+- D2: `figures/topologies.d2`, `figures/quorum_sequence.d2`. Python: `figures/ring.py` (ring with virtual nodes), `figures/vnode_balance.py`
+  (relative sd of a share against $v$, formula and simulation).
+- Run blocks: standard library (`sqlite3` log shipping between two files, `hashlib`, `bisect`, `graphlib`, `uuid`) and NumPy; all seeded; `zlib.crc32`
+  instead of `hash()` where a run must be reproducible.
