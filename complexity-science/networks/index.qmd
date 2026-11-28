@@ -528,7 +528,7 @@ fraction. For a random directed graph with link probability $p$, $R \approx p$; 
 A random directed graph with $p = 0.1$, drawn as a matrix.
 
 ```{.python .run}
-# Fallback to NumPy: the package has no directed random graph and no reciprocity (pending package issue).
+# Fallback to NumPy: the package has no directed random graph and no reciprocity (scikit-complexity #66).
 import numpy as np
 rng = np.random.default_rng(3)
 A = (rng.random((300, 300)) < 0.1).astype(float)
@@ -569,7 +569,7 @@ from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.networks import HolmeKimSystem
 G = simulate(HolmeKimSystem(300), until=296, random_state=4).get_network(-1).get_graph()
 c = motifs(G).counts[0]
-# Fallback to NetworkX for the check: the package has no overall clustering (transitivity) (pending package issue).
+# Fallback to NetworkX for the check: the package has no overall clustering (transitivity) (scikit-complexity #65).
 print(c, "; 3T/(P + 3T) =", round(3 * c["triangle"] / (c["path"] + 3 * c["triangle"]), 5), "; transitivity", round(nx.transitivity(G), 5))
 ```
 
@@ -742,7 +742,7 @@ Clustering coefficients come from the diagonal of $\mathbf A^3$. Their average i
 #### Clustering by the cube
 
 For a Holme-Kim graph, the $C_i = (\mathbf A^3)_{ii}/(k_i(k_i - 1))$ of the nodes with $k_i \geq 2$, with $C_i = 0$ for the others, the package's convention, average to the clustering of the package. One node has degree $1$: in
-the package's graph the newest node has received only its first link when the run stops, which is pending as a package issue.
+the package's graph the newest node has received only its first link when the run stops, recorded as scikit-complexity #61.
 
 ```{.python .run}
 import networkx as nx
@@ -2695,7 +2695,7 @@ The Newman-Watts variant adds shortcuts. The package has no Newman-Watts model, 
 Adding $25$ random shortcuts to a ring lattice of $500$ nodes and $z = 10$, $1\%$ of its links, more than halves the mean distance and leaves the clustering almost unchanged.
 
 ```{.python .run}
-# Fallback for the shortcuts: the package has no Newman-Watts model (pending package issue).
+# Fallback for the shortcuts: the package has no Newman-Watts model (scikit-complexity #70).
 import numpy as np
 from skcomplex.core.analysis import network_measures
 from skcomplex.core.engine.runtime import simulate
@@ -2868,8 +2868,8 @@ Show that the Watts-Strogatz model has exactly $Nz/2$ links, mean degree $z$, an
 ## Solution
 
 Each of the $Nm$ links is replaced by one link, never by a duplicate, since $j$ is not yet linked to $i$; so $L = Nm = Nz/2$ and $\langle k\rangle = 2L/N = z$. Node $i$ is the kept end of its $m$ links $\{i, i + a\}$, so
-$k_i \geq m$. The package's graph has the right number of links and mean degree, but a minimum degree below $m = 4$: its rewiring does not always keep the end of the visited node, a deviation from the definition that is pending as
-a package issue.
+$k_i \geq m$. The package's graph has the right number of links and mean degree, but a minimum degree below $m = 4$: its rewiring does not always keep the end of the visited node, a deviation from the definition recorded as
+scikit-complexity #63.
 
 ## Python
 
@@ -3813,7 +3813,7 @@ the **preferential attachment** rule. With an offset $C > -m$, the rule $\Pi_j \
 ::::
 
 Each step adds $m$ links, so after $t$ steps $\sum_lk_l = 2mt$ up to the seed. The package's `BarabasiAlbertSystem(n_nodes, edges=m, seed_nodes=...)` starts from a complete seed and adds one node per step; it must be run for
-`n_nodes - seed_nodes` steps to reach `n_nodes` nodes, since its default run stops earlier (a pending package issue). `HolmeKimSystem` adds triangle closure and `DavidsenEbelBornholdtSystem` produces hubs without growth.
+`n_nodes - seed_nodes` steps to reach `n_nodes` nodes, since its default run stops earlier (scikit-complexity #59). `HolmeKimSystem` adds triangle closure and `DavidsenEbelBornholdtSystem` produces hubs without growth.
 
 @fig-degree-tails compares the degree tails of three models of the same mean degree.
 
@@ -4209,7 +4209,7 @@ Compute the overall clustering of package Holme-Kim graphs of $1000$ nodes for `
 
 Each triad step closes a triangle with the first contact and one of its neighbours, so the number of triangles grows roughly in proportion to `triad`, while the number of connected triples, set by the degrees, changes little; the
 clustering rises roughly linearly. With `triad` $= 0$ the model is Barabási-Albert growth, whose clustering is about $0.02$ at this size, as in @exm-sf-holme-kim. The package's graphs do not follow this: their clustering is about $0.1$ even
-at `triad` $= 0$, a deviation that is pending as a package issue; NetworkX's Holme-Kim generator, printed as the check, shows the expected trend.
+at `triad` $= 0$, a deviation recorded as scikit-complexity #62; NetworkX's Holme-Kim generator, printed as the check, shows the expected trend.
 
 ## Python
 
@@ -4219,7 +4219,7 @@ The package's motif counts, and NetworkX's generator.
 from skcomplex.core.analysis import motifs
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.networks import HolmeKimSystem
-# Check with NetworkX: the package's triad parameter barely changes the clustering (pending package issue).
+# Check with NetworkX: the package's triad parameter barely changes the clustering (scikit-complexity #62).
 import networkx as nx
 for triad in (0.0, 0.4, 0.8):
     c = motifs(simulate(HolmeKimSystem(1000, triad=triad), until=996, random_state=9).get_network(-1).get_graph()).counts[0]
@@ -4658,7 +4658,7 @@ For $m = 2$ and $C = 2$ the fitted exponent rises above that of $C = 0$, though 
 network at $C = 0$ shares.
 
 ```{.python .run}
-# Fallback for C > 0: the package's Barabasi-Albert model has no attachment offset (pending package issue).
+# Fallback for C > 0: the package's Barabasi-Albert model has no attachment offset (scikit-complexity #70).
 import numpy as np
 from skcomplex.core.analysis import fit_law
 from skcomplex.core.engine.runtime import simulate
@@ -4802,10 +4802,10 @@ the discreteness at small $m$.
 
 ## Python
 
-The algorithm is the lesson, since the package has no random-attachment growth (pending package issue). The run prints the measured survival function, the continuum law and the geometric law.
+The algorithm is the lesson, since the package has no random-attachment growth (scikit-complexity #70). The run prints the measured survival function, the continuum law and the geometric law.
 
 ```{.python .run}
-# Fallback: the package has no growth model with uniform attachment (pending package issue).
+# Fallback: the package has no growth model with uniform attachment (scikit-complexity #70).
 import numpy as np
 from skcomplex.core.analysis import distribution
 rng = np.random.default_rng(8)
@@ -5096,7 +5096,7 @@ with $\delta$ the Kronecker delta. For a community $c$, $L_c$ denotes the number
 The term $k_ik_j/(2L)$ is the expected number of links between $i$ and $j$ when the stubs of the configuration model are paired at random. The package's `network_measures(kind='communities')` maximises $Q$ approximately by the Louvain
 method, which Thurner and coauthors and Jensen describe: move single nodes to the neighbouring community that raises $Q$ most, merge each community into a supernode, and repeat [@thurnerIntroductionTheoryComplex2018, Sec. 4.6.4.2;
 @jensenComplexityScienceStudy2023, Sec. 8.3]. It also offers label propagation and reports the agreement with a reference partition. The package gives the modularity of the partitions it finds, not of a given one, so the examples
-compute $Q$ of given partitions from the definition, which the package's Louvain value checks where the two partitions coincide (a pending package issue).
+compute $Q$ of given partitions from the definition, which the package's Louvain value checks where the two partitions coincide (scikit-complexity #69).
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The first example computes the modularity of an obvious split. Two cliques of five nodes joined by one link are two communities.
@@ -5255,7 +5255,7 @@ divisive steps, and the modularity of each level is computed from the definition
 On the karate club, the levels of Girvan-Newman reach a modularity of about $0.40$ at five communities, below Louvain's $0.42$: the divisive method does not optimise $Q$, it only records it.
 
 ```{.python .run}
-# Fallback to NetworkX for the divisive steps: the package has no edge betweenness or Girvan-Newman method (pending package issue).
+# Fallback to NetworkX for the divisive steps: the package has no edge betweenness or Girvan-Newman method (scikit-complexity #69).
 import itertools
 import networkx as nx
 import numpy as np
@@ -5292,7 +5292,7 @@ The modularity matrix gives a spectral bisection. Thurner writes $Q = \mathbf s^
 On a stochastic block model of two blocks, the signs of the leading eigenvector of $\mathbf M$ recover the blocks exactly, with a modularity slightly above that of the package's Louvain partition, which misplaces some nodes.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvector: the package has no spectral community method (pending package issue).
+# Fallback to NumPy for the eigenvector: the package has no spectral community method (scikit-complexity #69).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import network_measures
@@ -6336,7 +6336,7 @@ $\mathcal L = \mathbf I - \mathbf D^{-1/2}\mathbf A\mathbf D^{-1/2}$. The **alge
 ::::
 
 The sign of the Laplacian makes it positive semidefinite, as the proposition below shows; Gros notes that, up to this sign, $(\mathbf Lf)_i = \sum_jA_{ij}(f_i - f_j)$ is a discrete Laplace operator, which governs diffusion on the network
-[@grosComplexAdaptiveDynamical2015, Sec. 1.1.4]. The package has no graph spectra (a pending package issue): `network_measures` has no spectral kind, and `spectrum` computes power spectra of series. The eigenvalues in this
+[@grosComplexAdaptiveDynamical2015, Sec. 1.1.4]. The package has no graph spectra (scikit-complexity #67): `network_measures` has no spectral kind, and `spectrum` computes power spectra of series. The eigenvalues in this
 section come from NumPy, and the graphs and every other measure from the package.
 
 @fig-semicircle shows the spectrum of a sparse random graph.
@@ -6352,7 +6352,7 @@ The first example writes out the Laplacian of Thurner's network of @exm-nm-thurn
 The Laplacian has the degrees $2, 3, 2, 3$ on the diagonal and $-1$ for every link; its eigenvalues are $0, 2, 4, 4$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import numpy as np
 A = np.array([[0, 1, 0, 1], [1, 0, 1, 1], [0, 1, 0, 1], [1, 1, 1, 0]])
 L = np.diag(A.sum(axis=1)) - A
@@ -6400,7 +6400,7 @@ For the package's Erdős-Rényi graph with $N = 500$ and $z = 50$, the largest e
 of the semicircle law (4.30) with $m_2 = p(1 - p)$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -6425,7 +6425,7 @@ Sparse random graphs follow Gros's form of the semicircle law. His eq. (1.15) gi
 For $N = 1000$ and $z = 25$, the share of eigenvalues in $[-5, 5]$ is close to the integral of the semicircle density over this interval, about $0.61$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from scipy.integrate import quad
@@ -6451,7 +6451,7 @@ Gros lists the normalised Laplacian spectra of complete and complete bipartite g
 The complete graph on $6$ nodes has eigenvalues $0$ and $6/5$ five times; the complete bipartite graph $K_{2, 4}$ has $0$, $1$ four times, and $2$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 def normalised(G):
@@ -6476,7 +6476,7 @@ A Fiedler vector splits a network at its bottleneck. Thurner and coauthors descr
 On a two-block network of $300$ nodes, the signs of the Fiedler vector recover the blocks up to a single node, as the package's Louvain partition nearly does.
 
 ```{.python .run}
-# Fallback to NumPy for the Fiedler vector: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the Fiedler vector: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import network_measures
@@ -6502,7 +6502,7 @@ The algebraic connectivity measures how well a network holds together. It is sma
 For $N = 20$, $\mu_2$ is $N = 20$ for the complete graph, $2 - 2\cos(2\pi/N) \approx 0.098$ for the ring and $2 - 2\cos(\pi/N) \approx 0.025$ for the path.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 for name, G in (("complete", nx.complete_graph(20)), ("ring", nx.cycle_graph(20)), ("path", nx.path_graph(20))):
@@ -6527,7 +6527,7 @@ The Laplacian of a ring is a discrete second derivative. Its eigenvectors are Fo
 On a ring of $N$ nodes, $(\mathbf Lf)_j = 2f_j - f_{j - 1} - f_{j + 1}$, and $f_j = e^{2\pi\mathrm iqj/N}$ has eigenvalue $2 - 2\cos(2\pi q/N)$; for small $q/N$ this is $(2\pi q/N)^2$, the eigenvalue of $-\partial_x^2$ with unit spacing.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 N = 12
@@ -6550,7 +6550,7 @@ Moments of the spectral density count closed walks. Gros's eq. (1.16) is @prp-wa
 For the package's Holme-Kim graph, $\frac1N\sum_j\lambda_j^3 = \operatorname{tr}\mathbf A^3/N = 6T/N$, with $T$ the triangle count of `motifs`.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import motifs
@@ -6574,7 +6574,7 @@ Directed random graphs have complex eigenvalues. Thurner and coauthors state Gir
 For a random directed graph with $N = 500$ and $p = 0.05$, all eigenvalues but the Perron-Frobenius one near $Np$ lie in a disk of radius about $\sqrt{Np(1 - p)} \approx 4.9$.
 
 ```{.python .run}
-# Fallback to NumPy: the package has no directed random graph and no graph spectra (pending package issues).
+# Fallback to NumPy: the package has no directed random graph and no graph spectra (scikit-complexity #66, #67).
 import numpy as np
 rng = np.random.default_rng(5)
 A = (rng.random((500, 500)) < 0.05).astype(float)
@@ -6610,7 +6610,7 @@ $\mathbf L = (N - 1)\mathbf I - (\mathbf J - \mathbf I) = N\mathbf I - \mathbf J
 $N = 7$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import numpy as np
 print(np.round(np.linalg.eigvalsh(7 * np.eye(7) - np.ones((7, 7))), 6).tolist())
 ```
@@ -6641,7 +6641,7 @@ gives $\mathbf Af = \pm\sqrt{N - 1}f$, and the vectors vanishing on the hub with
 A star of $8$ nodes.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 A = nx.to_numpy_array(nx.star_graph(7))
@@ -6674,7 +6674,7 @@ before $\mathcal L$ is defined, do not count.
 A Barabási-Albert graph of the package.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -6781,7 +6781,7 @@ likewise at the other end. $f_j$ is positive for $j < (N - 1)/2$ and negative be
 $N = 9$.
 
 ```{.python .run}
-# Fallback to NumPy: the package has no graph spectra (pending package issue).
+# Fallback to NumPy: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 N = 9
@@ -6816,7 +6816,7 @@ $(\mathbf A_1 \otimes \mathbf A_2)(\mathbf x \otimes \mathbf y) = (\mathbf A_1\m
 The package's graph against the products.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.systems.mathematics.networks import KroneckerGraphSystem
@@ -6851,7 +6851,7 @@ The karate club is connected, so $\mathbf A$ is irreducible and its leading eige
 NumPy's eigenvector and the package's centrality.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvector: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvector: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import network_measures
@@ -6889,7 +6889,7 @@ A spanning tree of a ring omits exactly one of its $N$ links. For the complete g
 The products for $N = 8$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 for name, G, direct in (("ring", nx.cycle_graph(8), 8), ("complete", nx.complete_graph(8), 8 ** 6)):
@@ -6925,7 +6925,7 @@ eigenvector $\mathbf D^{1/2}\mathbf 1$, its symmetric partner $-1$ gives $\mathc
 The Kronecker product of a path of four nodes and a link.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.systems.mathematics.networks import KroneckerGraphSystem
@@ -6989,7 +6989,7 @@ The first example checks the quadratic form. It holds for every vector.
 For a random vector on the karate club, $\mathbf x^{\mathsf T}\mathbf L\mathbf x$ equals the sum of squared differences over its $78$ links.
 
 ```{.python .run}
-# Fallback to NumPy for the Laplacian: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the Laplacian: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 G = nx.karate_club_graph()
@@ -7012,7 +7012,7 @@ Zero eigenvalues count components. Below the giant-component threshold, a random
 For the package's Erdős-Rényi graph with $N = 500$ and $z = 0.8$, the number of Laplacian eigenvalues below $10^{-9}$ equals the number of components that `clusters` reports.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import clusters
@@ -7037,7 +7037,7 @@ The bounds on $\lambda_1$ are close in regular networks and far apart in heavy-t
 For a cubic configuration model all three numbers are $3$; for an Erdős-Rényi graph $\lambda_1$ is near $\langle k\rangle + 1$; for a Barabási-Albert graph it is near $\sqrt{k_{\max}}$ times a modest factor, far above $\langle k\rangle$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -7068,7 +7068,7 @@ The normalised Laplacian reaches $2$ only for bipartite components. Gros states 
 The ring of $10$ nodes, bipartite, has largest normalised eigenvalue $2$; the ring of $11$ nodes, with an odd cycle, has $1 + \cos(\pi/11) \approx 1.959$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 for N in (10, 11):
@@ -7093,7 +7093,7 @@ A weak bridge gives a small algebraic connectivity. The network is connected, bu
 Two cliques of $10$ nodes joined by one link have $\mu_2 \approx 0.17$, while the same nodes as one clique have $\mu_2 = 20$; adding links between the cliques raises $\mu_2$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 G = nx.disjoint_union(nx.complete_graph(10), nx.complete_graph(10))
@@ -7119,7 +7119,7 @@ Shortcuts raise the algebraic connectivity. The ring lattice mixes slowly, its W
 For $N = 500$ and $z = 10$, $\mu_2$ grows by a factor of about $60$ from the ring lattice to rewiring $0.1$, as the mean distance falls.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -7145,7 +7145,7 @@ The largest eigenvalue of a scale-free network grows with its size. The bound $\
 Along one package run, $\lambda_1$ increases as the network grows from $250$ to $4000$ nodes, staying above $\sqrt{k_{\max}}$.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 import scipy.sparse.linalg as sla
@@ -7174,7 +7174,7 @@ The leading eigenvector of a regular network is constant. Then the upper and low
 For a $k$-regular network, $\mathbf A\mathbf 1 = k\mathbf 1$, so $\lambda_1 = k = \langle k\rangle = k_{\max}$ and the eigenvector centrality is uniform; the ring lattice of @prp-ring-lattice with $z = 6$ is an example.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import network_measures
@@ -7199,7 +7199,7 @@ opposite signs.
 For the two cliques with three bridges of @exm-ls-bridge, the Fiedler vector has one sign on each clique, so the cut by signs crosses only the three bridges.
 
 ```{.python .run}
-# Fallback to NumPy for the Fiedler vector: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the Fiedler vector: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 G = nx.disjoint_union(nx.complete_graph(10), nx.complete_graph(10))
@@ -7223,7 +7223,7 @@ The bounds also hold for the semicircle networks of @exm-lap-er-spectrum. There 
 For $N = 500$ and $z = 50$, $\langle k\rangle \leq \lambda_1 \leq k_{\max}$, with $\lambda_1$ less than one unit above $\langle k\rangle$ and far below $k_{\max}$: in a dense homogeneous network the lower bound is nearly sharp.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -7260,7 +7260,7 @@ The new link adds $1$ to $L_{aa}$ and $L_{bb}$ and $-1$ to $L_{ab}$ and $L_{ba}$
 Every eigenvalue before and after one added link.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -7299,7 +7299,7 @@ of the block spectra, so $0$ appears once per component.
 Two disjoint networks of the package.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.systems.mathematics.networks import ConfigurationModelSystem
@@ -7335,7 +7335,7 @@ $v_j = v_i$ for its neighbours; spreading through the connected network, $\mathb
 The star of $26$ nodes.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 print(round(float(np.linalg.eigvalsh(nx.to_numpy_array(nx.star_graph(25)))[-1]), 6))
@@ -7367,7 +7367,7 @@ $\lambda_1^2 \geq \mathbf 1^{\mathsf T}\mathbf A^2\mathbf 1/N = \sum_ik_i^2/N = 
 The bounds and $\lambda_1$, with the package's moments.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import network_measures
@@ -7405,7 +7405,7 @@ Conversely a bipartite component gives $y = \pm\sqrt{k_i}$ by side, Gros's eq. (
 A path and a triangle, then the path alone.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 def top(G):
@@ -7441,7 +7441,7 @@ $i$ is Fiedler's bound. A Barabási-Albert graph with $m = 2$ has $\mu_2 \leq 2N
 The package's graph.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -7477,7 +7477,7 @@ The bulk of Gros's semicircle ends at $2\sqrt z$, so the second largest eigenval
 The two largest eigenvalues.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -7516,7 +7516,7 @@ The Barabási-Albert graph has the larger $\lambda_1$, growing like $\sqrt{k_{\m
 The thresholds from the leading eigenvalues.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -7554,7 +7554,7 @@ times), $9$ (twice) and $5$ (six times).
 The package's graph.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.systems.mathematics.networks import KroneckerGraphSystem
@@ -7589,7 +7589,7 @@ $\mathbf x^{\mathsf T}(\mathbf D + \mathbf A)\mathbf x = \sum_{\{i, j\}}(x_i + x
 The smallest signless eigenvalues of an even and an odd ring.
 
 ```{.python .run}
-# Fallback to NumPy for the eigenvalues: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the eigenvalues: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 for N in (10, 11):
@@ -7638,7 +7638,7 @@ $w_{ij}$, strengths $s_i = \sum_jw_{ij}$ and degrees $k_i$, the **disparity filt
 Under the null hypothesis that the observations of $i$ and $j$ are independent samples of a bivariate normal distribution, $t_{ij}$ follows Student's $t$ distribution with $T - 2$ degrees of freedom [@thurnerIntroductionTheoryComplex2018,
 Sec. 4.7.1.2], a classical result that the examples check by simulation. The Bonferroni filter controls the probability of any false link, the family-wise error rate, and the Benjamini-Hochberg filter the expected share of false
 links among the links kept, the false discovery rate [@thurnerIntroductionTheoryComplex2018, Sec. 4.7.2.2]. The package simulates the data and analyses the networks, but has no correlation matrices, multiple-testing filters, spanning
-trees or backbones (a pending package issue), so these come from NumPy, SciPy and NetworkX.
+trees or backbones (scikit-complexity #68), so these come from NumPy, SciPy and NetworkX.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 The first example builds data with a known structure from the package's random walks. Each of $60$ variables is the sum of the walk of its group and a walk of its own, so variables of the same group are correlated.
@@ -7650,7 +7650,7 @@ With group walks of rate $1$ and individual walks of rate $4$, the increments of
 within-group pairs and almost no others, and the package's Louvain communities of this network are the three groups.
 
 ```{.python .run}
-# Fallback for the correlation matrix and p-values: the package has no correlation networks (pending package issue).
+# Fallback for the correlation matrix and p-values: the package has no correlation networks (scikit-complexity #68).
 import networkx as nx
 import numpy as np
 from scipy import stats
@@ -7717,7 +7717,7 @@ Independent data produce false links. Thurner and coauthors count $pN(N - 1)/2$ 
 For $100$ independent random walks of the package, $T = 500$, about $0.05 \times 4950 \approx 248$ pairs pass the uncorrected level $0.05$, and essentially none pass the Bonferroni level.
 
 ```{.python .run}
-# Fallback for the correlation matrix and p-values: the package has no correlation networks (pending package issue).
+# Fallback for the correlation matrix and p-values: the package has no correlation networks (scikit-complexity #68).
 import numpy as np
 from scipy import stats
 from skcomplex.core.engine.runtime import simulate
@@ -7742,7 +7742,7 @@ The Benjamini-Hochberg filter keeps more true links than Bonferroni at a control
 On the grouped data of @exm-cn-groups, Benjamini-Hochberg at $Q = 0.05$ keeps more of the within-group pairs than Bonferroni, and the share of between-group links among those kept stays below $Q$.
 
 ```{.python .run}
-# Fallback for the correlations and the filter: the package has no correlation networks (pending package issue).
+# Fallback for the correlations and the filter: the package has no correlation networks (scikit-complexity #68).
 import numpy as np
 from scipy import stats
 from skcomplex.core.engine.runtime import simulate
@@ -7780,7 +7780,7 @@ NetworkX's spanning tree is printed as the check.
 Kruskal's algorithm sorts the pairs by correlation and adds a pair whenever it joins two pieces of the growing forest. On the grouped data the tree has $59$ links, almost all within groups, and its total weight equals NetworkX's.
 
 ```{.python .run}
-# Fallback to NetworkX for the check: the package has no spanning trees (pending package issue).
+# Fallback to NetworkX for the check: the package has no spanning trees (scikit-complexity #68).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -8747,10 +8747,10 @@ giant component of @exr-hg-single.
 
 ## Python
 
-The cascade rule applied by hand on two copies of one package layer, with NetworkX for the members of the giant component, since the package's `clusters` reports only the sizes of the components of a graph (a pending package issue).
+The cascade rule applied by hand on two copies of one package layer, with NetworkX for the members of the giant component, since the package's `clusters` reports only the sizes of the components of a graph (scikit-complexity #69).
 
 ```{.python .run}
-# Fallback to NetworkX for the component members (pending package issue).
+# Fallback to NetworkX for the component members (scikit-complexity #69).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import clusters
@@ -8990,7 +8990,7 @@ a random graph of mean degree $3$ already has partitions of modularity above $0.
 The package's graphs, NumPy's Laplacian and the package's communities.
 
 ```{.python .run}
-# Fallback to NumPy for the Laplacian: the package has no graph spectra (pending package issue).
+# Fallback to NumPy for the Laplacian: the package has no graph spectra (scikit-complexity #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import clusters, network_measures
@@ -9046,7 +9046,7 @@ high clustering of a correlation network says nothing about direct interactions,
 The data from the package's random walks, the filter from SciPy, the measures from the package.
 
 ```{.python .run}
-# Fallback for the correlation matrix and filter: the package has no correlation networks (pending package issue).
+# Fallback for the correlation matrix and filter: the package has no correlation networks (scikit-complexity #68).
 import networkx as nx
 import numpy as np
 from scipy import stats

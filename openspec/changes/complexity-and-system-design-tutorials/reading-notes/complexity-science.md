@@ -623,3 +623,36 @@ can do uses scikit-complexity 0.9.0; NumPy, SciPy and NetworkX fallbacks carry a
 
 - Earlier chapters: `def-galton-watson`, `thm-extinction-probability`, `sec-heavy-tails` (random-processes), `prp-power-law-mle` (fractals-and-scaling), `sec-percolation` (phase-transitions-and-percolation).
   Maths linear-algebra `def-eigenvalue`.
+
+## Chapter 9: dynamics-on-networks (task 6.1, 2026-11-28)
+
+PDFs read read-only with `pdftotext -layout` from `~/Zotero/storage`; nothing written to Zotero. Sections: §1 `sec-random-walks`, §2 `sec-epidemics`,
+§3 `sec-cascades`, §4 `sec-adaptive-networks`, following row 9 of the coverage plan. Design C11 applies: every computation the package can do uses
+scikit-complexity 0.9.0; fallbacks carry a comment naming the package issue.
+
+### Thurner, Hanel and Klimek (2018)
+
+- Key `thurnerIntroductionTheoryComplex2018` (PDF YSNMV9AR). Read Secs. 4.8 (pp. 193-207) and 4.10 (pp. 211-218).
+- Used: co-evolution (4.52); walk model and centralities (4.53)-(4.71) with PageRank's $\alpha = 0.85$; SI with immunization (4.72), SIS thresholds and
+  $R'$ (4.73), immunization on scale-free networks (4.74, literature value), SIR (4.75); adaptive SIS (bistability, oscillations); voter model (4.76) and
+  the coevolving voter model; DebtRank (4.77)-(4.81), expected systemic loss (4.82)-(4.83), credit risk (4.84)-(4.86).
+
+### Jensen (2023), Gros (2015), Bertin (2021), Datseris and Parlitz (2022), Charbonneau (2017)
+
+- `jensenComplexityScienceStudy2023` (PDF 6MWNDKQZ): Sec. 8.5.2 (pp. 212-216), random walk, stationary distribution, first passage, $r_i = 2L/k_i$ (8.85)-(8.99).
+- `grosComplexAdaptiveDynamical2015` (PDF U9F6TD42): Sec. 1.3 (pp. 27-31), failures and attacks (1.52)-(1.63), $\alpha_c = 3.4788$, Fig. 1.10.
+- `bertinStatisticalPhysicsComplex2021` (PDF KDKI5MLF): Secs. 6.2.1-6.2.2 (pp. 188-194), SIR reactions and mean field (6.16)-(6.24), heterogeneous mean field (6.25)-(6.31).
+- `datserisNonlinearDynamicsConcise2022` (PDF PW4T2U9L): Secs. 10.1.3 (pp. 160-161) and 10.3 (pp. 166-169), robustness, SIR (10.6), $r_0$, herd immunity, Fig. 10.8 parameters, the ABM of Code 10.1 and Fig. 10.9.
+- `charbonneauNaturalComplexityModeling2017` (PDF RNV4L6HW): Secs. 9.1-9.4 (pp. 198-213), walker epidemics, eq. (9.4) and its values 0.18, 0.56, 0.85, 0.97.
+
+### Notes and discrepancies
+
+- The Watts (2002) cascade, Motter-Lai overload and Bardoscia fire-sale models appear only through the package's documented systems; no primary text read, cited as literature models.
+- The SIR extinction probability $1/R_0$, the quenched-threshold localization on BA graphs, the consensus-time scalings and the voter-random-walk duality are marked as literature results.
+- The package's `VoterSystem` updates in random-sequential sweeps; the martingale of `prp-voter-martingale` holds for single uniform updates, implemented by hand and compared.
+- Seeds: a NumPy generator seeded with the same integer as a package system can correlate with it (found on `ConfigurationModelSystem(random_state=2)` with `default_rng(2)`); the chapter offsets NumPy seeds by 1000.
+
+### Links
+
+- Earlier chapters: `prp-giant-component`, `prp-walk-counting`, `prp-laplacian-spectrum`, `def-laplacian`, `def-er-graph`, `prp-ba-degree`, `sec-networks` (networks); `def-galton-watson`,
+  `thm-extinction-probability` (random-processes); `prp-linearised-stability` (nonlinear-dynamics-and-chaos).

@@ -10,7 +10,7 @@ import numpy as np  # noqa: E402
 from skcomplex.core.engine.runtime import simulate  # noqa: E402
 from skcomplex.systems.mathematics.networks import RandomGraphEnsemblesSystem  # noqa: E402
 
-# The eigenvalues come from NumPy: the package has no graph spectra (pending package issue).
+# The eigenvalues come from NumPy: the package has no graph spectra (scikit-complexity #67).
 G = simulate(RandomGraphEnsemblesSystem(2000, mean_degree=25.0, steps=20), until=20, random_state=2).get_network(-1).get_graph()
 w = np.linalg.eigvalsh(nx.to_numpy_array(G))
 z = 2 * G.number_of_edges() / G.number_of_nodes()
