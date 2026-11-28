@@ -1,0 +1,16 @@
+...@../../../_filters/d2-theme
+
+direction: down
+
+core: "Core system\n(orders, payment)"
+registry: "Registry" {shape: page}
+contract: "Plugin contract\n(quote, submit)" {style.stroke-dash: 3}
+p1: "Lisbon shop\nplugin"
+p2: "Athens shop\nplugin"
+p3: "Berlin shop\nplugin"
+
+core -> registry: "looks up"
+core -> contract: "calls"
+contract -> p1
+contract -> p2
+contract -> p3

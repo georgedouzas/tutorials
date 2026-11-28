@@ -1,0 +1,45 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+web: "Web app"
+phone: "Phone app"
+gw: "API gateway"
+bff: "Mobile BFF"
+web -> gw
+phone -> bff
+
+svc: "Services" {
+  direction: down
+  upload: "Upload" {
+    direction: right
+    s: "Service"
+    p: "Sidecar"
+    d: "DB" {shape: cylinder}
+    s -> p
+    s -> d
+  }
+  feed: "Feed" {
+    direction: right
+    s: "Service"
+    p: "Sidecar"
+    d: "DB" {shape: cylinder}
+    s -> p
+    s -> d
+  }
+  accounts: "Accounts" {
+    direction: right
+    s: "Service"
+    p: "Sidecar"
+    d: "DB" {shape: cylinder}
+    s -> p
+    s -> d
+  }
+}
+reg: "Service registry" {shape: page}
+
+gw -> svc.upload.p
+gw -> svc.feed.p
+bff -> svc.feed.p
+bff -> svc.accounts.p
+svc.upload.p -> reg: "lookup" {style.stroke-dash: 3}

@@ -1,0 +1,13 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+upload: "Upload service"
+bucket: "Object storage" {shape: cylinder}
+trigger: "PhotoUploaded\nevent" {shape: queue}
+fn: "Thumbnail function\n(runs per event)"
+
+upload -> bucket: "store photo"
+upload -> trigger: "publish"
+trigger -> fn: "invoke"
+fn -> bucket: "read photo,\nwrite thumbnail"

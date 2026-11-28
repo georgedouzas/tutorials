@@ -1,0 +1,32 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+mono: "Monolithic deployment: one unit" {
+  label.near: bottom-center
+  Upload; Feed; Search; Notify; Accounts; Prints
+  Upload -> Accounts
+  Upload -> Feed
+  Upload -> Search
+  Upload -> Notify
+  Feed -> Accounts
+  Prints -> Accounts
+  Prints -> Notify
+}
+
+dist: "Distributed deployment: six units" {
+  label.near: bottom-center
+  Upload: {style.multiple: true}
+  Feed: {style.multiple: true}
+  Search: {style.multiple: true}
+  Notify: {style.multiple: true}
+  Accounts: {style.multiple: true}
+  Prints: {style.multiple: true}
+  Upload -> Accounts: {style.stroke-dash: 3}
+  Upload -> Feed: {style.stroke-dash: 3}
+  Upload -> Search: {style.stroke-dash: 3}
+  Upload -> Notify: {style.stroke-dash: 3}
+  Feed -> Accounts: {style.stroke-dash: 3}
+  Prints -> Accounts: {style.stroke-dash: 3}
+  Prints -> Notify: {style.stroke-dash: 3}
+}

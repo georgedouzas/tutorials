@@ -1,0 +1,37 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+layered: "Layered monolith" {
+  label.near: bottom-center
+  direction: down
+  pres: "Presentation\n(upload, feed, prints screens)"
+  work: "Workflow\n(upload, feed, prints logic)"
+  pers: "Persistence\n(all tables)"
+  db: "One database" {shape: cylinder}
+  pres -> work -> pers -> db
+}
+
+modular: "Modular monolith" {
+  label.near: bottom-center
+  direction: right
+  up: "Upload module" {
+    direction: down
+    api: "Interface"
+    tables: "Upload tables" {shape: cylinder}
+    api -> tables
+  }
+  feed: "Feed module" {
+    direction: down
+    api: "Interface"
+    tables: "Feed tables" {shape: cylinder}
+    api -> tables
+  }
+  pr: "Prints module" {
+    direction: down
+    api: "Interface"
+    tables: "Prints tables" {shape: cylinder}
+    api -> tables
+  }
+  up.api -> feed.api
+}

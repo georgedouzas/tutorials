@@ -1,0 +1,30 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+s1: "1. Start" {
+  label.near: bottom-center
+  direction: down
+  f: "Facade"
+  m: "Monolith\n(feed, search, upload)"
+  f -> m: "all"
+}
+
+s2: "2. During" {
+  label.near: bottom-center
+  direction: down
+  f: "Facade"
+  m: "Monolith\n(search, upload)"
+  n: "Feed service"
+  f -> m: "search, upload"
+  f -> n: "feed"
+}
+
+s3: "3. End" {
+  label.near: bottom-center
+  direction: down
+  f: "Facade"
+  n: "Feed, search and\nupload services"
+  gone: "Monolith removed" {style.stroke-dash: 3; style.opacity: 0.5}
+  f -> n: "all"
+}

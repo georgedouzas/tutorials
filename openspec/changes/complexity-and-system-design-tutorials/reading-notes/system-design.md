@@ -689,3 +689,40 @@ approximate aggregation. Statements: `def-mapreduce`, `prp-mapreduce`, `def-pipe
 
 - D2: `figures/mapreduce_flow.d2`, `figures/pipeline_dag.d2`, `figures/lambda_kappa.d2`. Python: `figures/watermark.py`.
 - Run blocks: plain Python, NumPy and `sqlite3`; all seeded; longest block about 7 s.
+
+## Chapter 11: architecture-styles (task 6.2, 2026-11-28)
+
+Outline (approved row 11, with the owner's scope change: technical debt, fitness functions, ADRs and design inside a service go to the planned
+Fundamentals of Software Engineering tutorial, mentioned without a link): §1 components, coupling and deployment; §2 layered and modular monolith;
+§3 microkernel; §4 microservices (service-level boundaries only); §5 event-driven architecture; §6 serverless and managed services; §7 evolving an
+architecture (distributed monoliths, strangler fig, code and data migrations). Statements: `def-components`, `prp-coupling`, `def-layered`,
+`def-microkernel`, `def-microservices`, `prp-service-calls`, `def-event-driven`, `def-serverless`, `prp-cold-start`, `def-evolution`,
+`prp-phased-migration`.
+
+### Sources
+
+- Gandhi et al. (Head First Software Architecture) Ch. 4 pp. 127, 136, 145-153 (components, afferent and efferent coupling, Law of Demeter); Ch. 5
+  pp. 170-177 (partitioning, monolithic and distributed deployment); Ch. 6 pp. 192-206 (layered); Ch. 7 pp. 218-236 (modular monolith); Ch. 8
+  pp. 251-264 (microkernel); Ch. 10 pp. 307-320, 326-329 (microservices, granularity, shared code); Ch. 11 pp. 351-370 (event-driven).
+- Pacheco Ch. 1 (types of monolith, modular monolith); Ch. 2 "Binary coupling", "Advanced isolation"; Ch. 3 "What is a distributed monolith?",
+  "Traits of distributed monoliths", "Temporal coupling" (the booking chain), "Embrace async with an Event-Driven Architecture", "Types of
+  distributed monoliths"; Ch. 4 "Sidecar pattern", "Sidebar: Service meshes"; Ch. 9 "Red vs green migrations", "Lazy migrations", "Strangler
+  Fig", "Converting a classical/distributed monolith to proper SOA", "Amazon two-way doors"; Ch. 10 "Data migration patterns", "Cold data".
+- Tan Sec. 1.4.10 pp. 22-23 (FaaS, cold start); Sec. 5.1 p. 110; Secs. 6.1-6.4 pp. 123-128 (gateway, mesh, discovery); App. A pp. 395-397
+  (monolith vs services, Table A.1, Prime Video merge).
+- Sinha Ch. 4 "Application gateways". Gilbert Ch. 1 (autonomous services, bulkheads, BFF). Reis Ch. 3 "Principle 6"; Ch. 4 pp. 142-145
+  (distributed monolith pattern, Hadoop example, serverless, containers, cost crossover).
+
+### Gaps, proved and quoted
+
+- No new references.
+- Proved: `prp-coupling`, `prp-service-calls`, `prp-cold-start` (the strong law by link), `prp-phased-migration`.
+- Unsourced standard notions: instability I = C_e/(C_a + C_e) (the books read give only C_a and C_e); "registry" as the microkernel's
+  name for its plugin list; the independence assumptions in the availability products; the compatibility formalisation of phased migrations
+  (reads-set and write-format pairs) and its 3-step lower bound; the facade-routing formalisation of the strangler fig; the Poisson warm-copy model.
+
+### Figures and software
+
+- D2: `figures/deployment_models.d2`, `figures/layered_modular.d2`, `figures/microkernel.d2`, `figures/microservices.d2`,
+  `figures/event_driven.d2`, `figures/serverless.d2`, `figures/strangler_fig.d2`.
+- Run blocks: plain Python and NumPy, all seeded. Illustrative: a FastAPI service skeleton, a function handler, a Kubernetes Deployment.

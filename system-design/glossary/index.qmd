@@ -38,10 +38,14 @@ chapters are written.
 - **Cache patterns** (hit ratio, cache-aside, read-through, write-through, write-back, write-around): @def-cache-patterns (@sec-caching)
 - **CAP properties and PACELC** (atomic consistency, availability, partitions, CP and AP): @def-cap (@sec-consistency-and-consensus)
 - **CAP theorem** (asynchronous and partially synchronous models): @thm-cap (@sec-consistency-and-consensus)
+- **Cold starts, concurrency and the cost crossover** (warm period, cold fraction, functions against servers): @prp-cold-start
+  (@sec-architecture-styles)
 - **Collisions of random identifiers** (birthday bounds, bits needed, structured identifiers): @prp-id-collision
   (@sec-replication-and-partitioning)
 - **Commit wait and physical clocks** (external consistency from the start and commit-wait rules, length of the wait,
   Lamport's condition): @thm-commit-wait (@sec-distributed-transactions)
+- **Components, coupling and deployment models** (logical components, dependency graph, afferent, efferent and total coupling, instability,
+  technical and domain partitioning, monolithic and distributed deployment): @def-components (@sec-architecture-styles)
 - **Conditional writes, unique slots and holds** (lost updates, double bookings, capacity held, optimistic retries):
   @prp-reservation (@sec-distributed-transactions)
 - **Consensus and replicated state machines** (agreement, validity, termination, crash faults): @def-consensus (@sec-consistency-and-consensus)
@@ -56,6 +60,8 @@ chapters are written.
   @def-cdn (@sec-the-web-stack)
 - **Coordination services** (locks, sessions, leases, fencing tokens, lock-delay): @def-coordination (@sec-consistency-and-consensus)
 - **Count-min sketch, error of** (one-sided error, width and depth, merging): @thm-count-min (@sec-batch-and-stream-processing)
+- **Coupling, sums, ranges and reach of** (total coupling, instability bounds, change propagation, network calls per request): @prp-coupling
+  (@sec-architecture-styles)
 
 ## D
 
@@ -67,6 +73,8 @@ chapters are written.
   argument): @def-delivery-semantics (@sec-messaging-and-event-streams)
 - **Design process**: @def-design-process (@sec-estimation-and-the-design-process)
 - **Distributed caches** (partitioned, replicated hot keys, local caches, cold and warm caches): @def-distributed-cache (@sec-caching)
+- **Distributed monoliths, the strangler fig and migrations** (binary and temporal coupling, facade, code and data migrations, lazy
+  migration, two-way doors): @def-evolution (@sec-architecture-styles)
 
 ## E
 
@@ -76,6 +84,8 @@ chapters are written.
   @def-event-sourcing (@sec-messaging-and-event-streams)
 - **Event time, windows, watermarks and checkpoints** (tumbling, sliding and session windows, late events):
   @def-stream-processing (@sec-batch-and-stream-processing)
+- **Event-driven architecture** (events and messages, initiating and derived events, database topologies): @def-event-driven
+  (@sec-architecture-styles)
 - **Eviction policies and the independent reference model** (LRU, LFU, FIFO, random, Zipf laws): @def-eviction (@sec-caching)
 - **Exponential distribution and Poisson process** (no memory, competition, Erlang arrival times, Poisson counts):
   @def-poisson-process (@sec-performance-and-queueing)
@@ -117,6 +127,7 @@ chapters are written.
 ## L
 
 - **Lambda and Kappa architectures** (batch, speed and serving layers, replay): @def-lambda-kappa (@sec-batch-and-stream-processing)
+- **Layered architecture and modular monolith** (layers, tiers, modules): @def-layered (@sec-architecture-styles)
 - **Leader-follower replication** (replication log, synchronous and asynchronous replication, lag, read-after-write, failover):
   @def-leader-follower (@sec-replication-and-partitioning)
 - **Leases, fencing tokens and lock-delay, safety of**: @prp-lease-fencing (@sec-consistency-and-consensus)
@@ -137,6 +148,11 @@ chapters are written.
 - **MapReduce, output of** (any split, combiners, re-execution, hot keys): @prp-mapreduce (@sec-batch-and-stream-processing)
 - **Messages, queues and workers** (synchronous and asynchronous calls, brokers, worker pools, acknowledgements,
   backlog): @def-message-queue (@sec-messaging-and-event-streams)
+- **Microkernel architecture** (core, plugins, contract, registry, encapsulated and distributed plugins): @def-microkernel
+  (@sec-architecture-styles)
+- **Microservices and their infrastructure** (data ownership, granularity disintegrators and integrators, API gateway, backend for
+  frontend, service discovery and registry, sidecars and service meshes, shared libraries and services, contracts): @def-microservices
+  (@sec-architecture-styles)
 - **M/M/1 queue** (stationary law, mean and distribution of the response time): @thm-mm1 (@sec-performance-and-queueing)
 - **Multi-leader and leaderless replication** (quorums, read repair, sloppy quorums, hinted handoff, Merkle trees):
   @def-quorum-replication (@sec-replication-and-partitioning)
@@ -162,6 +178,8 @@ chapters are written.
   (@sec-replication-and-partitioning)
 - **Paxos** (proposers, acceptors, learners, two phases, Multi-Paxos): @def-paxos (@sec-consistency-and-consensus)
 - **Paxos safety** (P2c, P2b, one chosen value): @thm-paxos-safety (@sec-consistency-and-consensus)
+- **Phased format changes, lazy migration and the strangler fig** (compatible versions, the shortest reversible schedule, backfill,
+  facade routing): @prp-phased-migration (@sec-architecture-styles)
 - **Physical clocks, TrueTime and external consistency** (drift, skew, strong clock condition, start rule, commit
   wait): @def-truetime (@sec-distributed-transactions)
 - **Publish-subscribe** (topics, subscriptions, push and pull, retention):
@@ -203,6 +221,9 @@ chapters are written.
   hierarchies): @def-request-routing (@sec-replication-and-partitioning)
 - **Serialisability and two-phase locking** (precedence graph, lock points): @prp-serializability
   (@sec-storage-and-databases)
+- **Serverless functions, managed services and containers** (function as a service, cold start): @def-serverless (@sec-architecture-styles)
+- **Service calls, availability and latency of** (sequential and parallel calls, sidecars, events through a broker): @prp-service-calls
+  (@sec-architecture-styles)
 - **Stampedes, store requests at expiry** (with and without coalescing, jitter): @prp-stampede (@sec-caching)
 - **Stateless service** (session state, sticky sessions, session replication; vertical, horizontal and automatic
   scaling): @def-stateless-service (@sec-the-web-stack)

@@ -1,0 +1,18 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+user: "User"
+upload: "Upload service"
+broker: "Broker" {shape: queue}
+feed: "Feed service"
+search: "Search service"
+notify: "Notify service"
+
+user -> upload: "upload"
+upload -> broker: "PhotoUploaded\n(initiating)"
+broker -> feed
+broker -> search
+broker -> notify
+feed -> broker: "FeedUpdated\n(derived)" {style.stroke-dash: 3}
+search -> broker: "PhotoIndexed\n(derived)" {style.stroke-dash: 3}
