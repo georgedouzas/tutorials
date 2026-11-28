@@ -1,0 +1,47 @@
+...@../../../_filters/d2-theme
+
+direction: down
+
+users: Clients {
+  shape: person
+}
+
+gslb: "Global load balancing\n(GeoDNS or anycast)"
+
+east: "Data centre US-East" {
+  label.near: bottom-center
+  l4: "L4 load balancers\n(per connection)"
+  l7: "L7 load balancers\n(per request, TLS ends here)" {
+    style.multiple: true
+  }
+  pool: "Application servers" {
+    style.multiple: true
+  }
+  l4 -> l7: "hash of the connection"
+  l7 -> pool: "least connections,\nhealth checks"
+}
+
+west: "Data centre US-West" {
+  label.near: bottom-center
+  l4: "L4 load balancers\n(per connection)"
+  l7: "L7 load balancers\n(per request, TLS ends here)" {
+    style.multiple: true
+  }
+  pool: "Application servers" {
+    style.multiple: true
+  }
+  l4 -> l7: "hash of the connection"
+  l7 -> pool: "least connections,\nhealth checks"
+}
+
+users -> gslb: "1. resolve the name"
+users -> east.l4: "2. connect to the address\nof the nearest data centre"
+users -> west.l4: "or, if US-East is down" {
+  style.stroke-dash: 3
+}
+gslb -> east.l4: "health and capacity" {
+  style.stroke-dash: 3
+}
+gslb -> west.l4: "health and capacity" {
+  style.stroke-dash: 3
+}

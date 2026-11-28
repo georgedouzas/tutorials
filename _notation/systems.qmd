@@ -8,7 +8,7 @@ and says how the two meanings are told apart where they meet.
 |---|---|
 | $A$ †, $A_i$ | steady-state availability of a system and of its component $i$: the long-run fraction of time it is up |
 | $\mathrm{MTTF}$, $\mathrm{MTTR}$ | mean time to failure and mean time to repair; $A = \mathrm{MTTF}/(\mathrm{MTTF} + \mathrm{MTTR})$ |
-| $\Delta$ | a period of time: a measurement window, or the retention period of stored data |
+| $\Delta$ | a period of time: a measurement window, the retention period of stored data, the freshness lifetime (TTL) of a cached response, or the period of short polling |
 | $\mathrm{SLA}$, $\mathrm{SLO}$ | service level agreement (a contractual target with a remedy) and service level objective (an internal target) |
 | $n$ † | number of components of a system, of replicas in a redundant group, or of servers a request fans out to |
 | $T$ † | response (sojourn) time of a request: from its arrival to the end of its service |
@@ -22,6 +22,17 @@ and says how the two meanings are told apart where they meet.
 | $\beta$ † | bandwidth: bytes per second through an interface |
 | $\phi_i$, $\Phi$ † | error factors of an estimate: $x/\phi \leq \hat x \leq \phi x$ |
 | $\mathrm{TCO}$, $\mathrm{CapEx}$, $\mathrm{OpEx}$ | total cost of ownership; capital and operating expenses |
+| $\mathrm{RTT}$ | round-trip time between two machines: from sending a short message to receiving the immediate reply |
+| $t_{\mathrm{srv}}$ | server time: from the arrival of a complete request to the sending of the first byte of its response |
+| $X_j$ | number of requests (or sessions) assigned to server $j$ of a pool |
+| $d$ † | number of servers sampled by the power-of-$d$-choices rule of a load balancer |
+| $\Delta_h$ | interval between the health-check probes of a load balancer |
+| $h$ † | hit ratio of a cache: the long-run fraction of requests answered from a fresh stored response |
+| $b$ † | page size of a paginated operation |
+| $N_e(T)$ | number of events generated for a client in $(0, T]$ |
+| $\theta$ † | timeout of a held long-poll request |
+| $\Delta_{\mathrm{hb}}$ | interval between heartbeats |
+| $\ell$ † | lifetime of an access token |
 | $N(t)$ † | counting process: the number of arrivals in $(0, t]$; a Poisson process of rate $\lambda$ when $N(t) \sim \operatorname{Poisson}(\lambda t)$ with independent increments |
 | $\lambda$ † | arrival rate (requests per unit time) |
 | $\mu$ † | service rate of one server; the mean service time is $1/\mu$ |

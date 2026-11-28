@@ -1,0 +1,16 @@
+...@../../../_filters/d2-theme
+
+shape: sequence_diagram
+
+resolver: DNS resolver
+client: Client
+server: Server
+
+client -> resolver: "query A (cache miss)"
+resolver -> client: "address, TTL"
+client -> server: "TCP SYN"
+server -> client: "SYN-ACK"
+client -> server: "ACK + TLS ClientHello"
+server -> client: "ServerHello ... Finished"
+client -> server: "Finished + GET /feed?page=1"
+server -> client: "200 OK, after the server time"

@@ -137,3 +137,146 @@ section gap of the coverage record).
 - Run blocks: plain Python, NumPy, `sqlite3` (`exr-process-sqlite-feed`, `exr-load-sqlite-row-size`) and SimPy
   (`exm-fanout-simulation`, `exr-fanout-synchronised`). One illustrative block (`exm-load-measure-capacity`, a load test).
 - Prices in §6 are round assumptions stated as such in the text, apart from Xu's $0.02 per GB for the CDN.
+
+## Chapter 2: the-web-stack (task 6.2, 2026-11-27)
+
+Books read with `pdftotext -layout` from `~/Zotero/storage` (read-only); Liu by PDF page ranges with `pdftotext -f/-l`
+after `zotero_get_pdf_outline` on `BS5WB6W7`. Tan's printed pages were taken from the running heads. Xu, Sinha-Chopra,
+Pacheco-Sgro and Gilbert have no printed page numbers in their PDF text and are cited by chapter and section heading.
+Standards were downloaded as text from rfc-editor.org (and the OpenID and WHATWG pages as HTML) into the session
+scratchpad and read there. Sections: §1 `sec-request-path`, §2 `sec-load-balancing`, §3 `sec-cdn`,
+§4 `sec-stateless-scaling`, §5 `sec-apis`, §6 `sec-real-time`, §7 `sec-auth` (the recorded section gap).
+
+### Xu, vol. 1 (`SystemDesignInterview2021`)
+
+- Read: Ch. 1 in full (single server and request flow, database, vertical vs horizontal, load balancer, replication,
+  cache, CDN and its considerations, stateful and stateless tiers, data centres and GeoDNS, message queue, scaling the
+  data tier); Ch. 12 Step 1-2 (polling, long polling, WebSocket, stateless and stateful services, scalability with the
+  10 kB-per-connection figure) and "User disconnection" (heartbeat every 5 s, x = 30 s).
+- Used: §1 intro, `exm-net-xu-request-flow`; §2 intro, `exm-lb-xu-pool`; §3 intro, `def-cdn` prose, `exm-cdn-xu-workflow`,
+  `exm-cdn-versioning`, `exm-ttl-unpopular`, `exm-ttl-xu-trade-off`; §4 intro, `exm-scale-xu-stateful`,
+  `exm-scale-xu-stateless`, `exm-scale-vertical-limits`, `exm-scale-vertical-advantages` (Stack Overflow),
+  `exm-scale-autoscaling`, `exm-scale-chat-stateful`; §6 intro, `exm-rt-xu-receiver`, `exm-rt-xu-heartbeat`,
+  `exm-rt-connection-memory`, `exm-poll-long-count`, `exm-poll-heartbeats`, `exr-rt-memory`.
+
+### Tan (`tanAcingSystemDesign2024`)
+
+- Read: Secs. 1.4-1.4.5 (pp. 6-13), 3.1-3.1.2 (pp. 56-59), 6.1.2 (p. 124), 6.7-6.7.6 (pp. 137-143), 12.7.1 (pp. 282-283),
+  Ch. 13 Secs. 13.1-13.4, 13.6 start, 13.7 (pp. 287-297, 306), App. B (pp. 403-412).
+- Used: §1 `exm-net-geodns`, `exm-net-osi` (Table 6.2); §2 intro, `exm-lb-l4-l7`, `exm-lb-tls-termination`,
+  `exm-lb-nginx`; §3 intro, `exm-cdn-tan-static`, `exm-cdn-tan-webp`, `exm-cdn-signed-url`, `exm-cdn-versioning`; §4 intro,
+  `exm-scale-vertical-limits`, `exm-scale-sticky-cookies`, `exm-scale-replication-ring`, `exm-scale-idempotent-not-stateless`;
+  §5 `exm-api-retry-rule` (request deduplication), `exm-api-graphql`, `exm-api-versioning`, `exr-api-encoding-size`,
+  `exr-api-over-fetching`, `exr-api-offset-shift`, the subsection intro and `exm-page-tan-thumbnails`,
+  `exm-page-previous-last`, `exm-page-version`; §6 `exr-rt-tan-p2p`; §7 intro, section prose, `exm-auth-two-questions`,
+  `exm-auth-simple-login`, `exm-auth-timeouts`, `exm-auth-tan-memory`, `exr-auth-password-hash`, the OAuth subsection
+  intro, `exm-oauth-tan-roles`, `exm-oauth-token-request`, `exm-oauth-channels`, `exm-oauth-implicit`, `exm-oauth-oidc`,
+  `exr-oauth-tan-state`, `exr-oauth-nonce`, `exr-oauth-scopes`.
+- Problems found in the book and used as exercises: HTTP "creates a new connection for every request" (p. 142; RFC 9112
+  Sec. 9.3 says the opposite) in `exr-net-persistent`; "WebSocket allows p2p communication, so no backend is required"
+  (p. 142) in `exr-rt-tan-p2p`; idempotent called the reason for horizontal scalability (p. 10) in
+  `exm-scale-idempotent-not-stateless`; `Max-Age: 86400` cookie syntax (p. 404) in `exm-auth-simple-login` and
+  `exr-auth-cookie-attributes`; the state said to return with the access token (p. 409; RFC 6749 Secs. 4.1.2 and 5.1) in
+  `exr-oauth-tan-state`; the nonce called "server-provided" (p. 408; OIDC Core Sec. 2) in `exr-oauth-nonce`; the implicit
+  flow recommended for SPAs (Table B.2, p. 412; withdrawn by RFC 9700 Sec. 2.1.2) in `exm-oauth-implicit`. Tan's
+  "left as a simple exercise to the reader" (p. 283) is proved as `prp-api-keyset-pagination`.
+
+### Sinha and Chopra (`sinhaSystemDesignGuide2024`)
+
+- Read: Ch. 2 "Scalability" (vertical and horizontal); Ch. 4 in full (DNS: name servers, records, hierarchy, iterative
+  and recursive queries, caching, scalability, reliability, consistency; load balancers: placement, advantages, global and
+  local, DNS and GSLB, algorithms, static and dynamic, stateful and stateless, OSI layers, deployment tiers,
+  implementations; application gateways); Ch. 8 "REST APIs" to "Rate limiting".
+- Used: §1 `exm-net-dns-hierarchy`, `exm-net-dns-ttl`, `exr-net-layers`, `exr-net-dns-failover`, `exr-net-recursive-load`;
+  §2 intro and definition, `exm-lb-placement`, `exm-lb-l4-l7`, `exm-lb-least-connections`, `exm-lb-gslb`, `exm-lb-tiers`,
+  `exr-lb-dns-round-robin`; §4 `exm-scale-vertical-advantages`; §5 section intro, `exm-api-rest-grpc`; §7 intro,
+  `exm-auth-rbac`, `exm-auth-api-keys`.
+- Problem found: the box "Can you guess which mechanism is preferred to reduce the load on the DNS infrastructure? ... it
+  is not recursive" (Ch. 4, "DNS querying") credits the query direction with what the shared resolver cache does; used in
+  `exr-net-recursive-load`.
+
+### Liu (`liuSystemDesignInterview2020`)
+
+- Read (PDF pages): Ch. 2 Step 2 (pp. 42-48); Ch. 5 "API Design" (pp. 123-124), "Real-Time Data Update" (pp. 148-157),
+  "Security" (pp. 247-249), "Networking", "API Gateway", "Content Delivery Network" (pp. 275-285), "Service Discovery and
+  Request Routing" (pp. 292-293); App. 6 (p. 439); Apps. 2-3 as in chapter 1.
+- Used: §1 intro, `exm-net-dns-ttl`, `exm-net-anycast`, `exm-net-osi`, `exr-net-default-port`, `exm-rtt-same-dc`,
+  `exm-rtt-atlantic`; §2 "For more"; §3 `exm-cdn-liu-considerations`, `exm-cdn-photoshare`; §5 intro, `exm-api-liu-quantity`,
+  `exm-api-identifiers`, `exm-page-liu`; §6 intro, `exm-rt-liu-uses`, `exm-rt-short-polling`, `exm-rt-liu-ws-balancer`,
+  `exr-rt-choose`, `exr-rt-liu-sse`, `exr-rt-routing-table`, `exm-poll-liu-cost`; §7 intro, `exm-auth-liu-transfer`,
+  `exm-auth-encryption-in-transit`, `exr-auth-transfer-fix`.
+- Problems found: "HTTP's ... default port is 8080" (p. 275; RFC 9110 Sec. 4.2.1 gives 80) in `exr-net-default-port`; SSE
+  described as a connection the client "doesn't keep ... open" (p. 150) in `exr-rt-liu-sse`. Liu's TLS sketch (encrypt with
+  the server's public key) describes RSA key transport, which TLS 1.3 removed; it is not used.
+
+### Pacheco and Sgro (`pachecoPrinciplesSoftwareArchitecture2024`)
+
+- Zotero `VTG294QD`, PDF `8NWGUMWE`; key from the Zotero record (BBT). Bib entry added (tagged `textbook`, as the coverage
+  record treats it as a section source).
+- Read: Ch. 6 "Contract first", "Coding contracts with OpenAPI", "Backward compatibility" (Codes 6.1-6.3, the versioning
+  strategies).
+- Used: §5 intro, `exm-api-breaking`, `exm-api-versioning`, `exr-api-compatibility-check`, `exr-api-pacheco-label`.
+- Problem found: the text introduces the addition of `getUserByEmail` as "a breaking change" while Code 6.2 and the
+  following text call it non-breaking; `exr-api-pacheco-label`.
+
+### Gilbert (`gilbertSoftwareArchitecturePatterns2024`)
+
+- Zotero `GRGM4CJ3`, PDF `3ALMIXPC`. Bib entry added with `edition = {2}` from the copyright page ("Second edition:
+  February 2024"); the Zotero record says edition 1 and was not changed (no writes to Zotero).
+- Read: Ch. 5 "Deterministic identifiers"; Ch. 6 "Focusing on user activities" and "Choosing between REST and GraphQL";
+  Ch. 10 "Encryption in transit", "Federated identity", "Securing the frontend", "OpenID Connect", "Passing the JWT to BFF
+  services", "JWT authorizer".
+- Used: §5 `exm-api-gilbert-choice`, `exm-api-identifiers`; §7 `exm-auth-gilbert-authorizer`,
+  `exm-auth-encryption-in-transit`, `exm-oauth-oidc`, `exr-oauth-id-token-as-bearer`.
+
+### Reis and Housley (`reisFundamentalsDataEngineering2022`)
+
+- Read: App. B "Regions", "Direct Network Connections to the Clouds", "CDNs" (pp. 400-402).
+- Used: §3 `exm-cdn-cost` (9 and 2 cents per GB, p. 402).
+
+### Mitzenmacher, Richa and Sitaraman, "The Power of Two Random Choices" (2001), new
+
+- Not in Zotero. Downloaded from the first author's page (`handbook2001.pdf`, the authors' preprint of the Handbook of
+  Randomized Computing chapter); key `mitzenmacher2001power`, bib entry added without Zotero fields. Read Sec. 1 (pp. 1-5 of
+  the preprint: the balls-and-bins results, Azar-Broder-Karlin-Upfal, applications, load balancing with limited information).
+  The TPDS paper (Mitzenmacher 2001, the supermarket model) was opened but only its abstract and introduction read, and it
+  is not cited.
+- Used: §2 intro, the quoted theorem after `prp-lb-random-assignment` (stated as quoted, not proved), `exm-lbr-two-choices`,
+  `exm-lbr-stale`, `exr-lbr-max-simulation`, `exr-lbr-two-choices`.
+- Owner action: the item should be added to Zotero (with its PDF) if it is to stay; it was not written there.
+
+### Standards (all new, not in Zotero; bib entries added)
+
+- RFC 1035 Secs. 2.3.4, 3.2.1 (UDP limit, TTL); RFC 9293 Sec. 3.5 (three-way handshake, data on SYN buffered until
+  ESTABLISHED); RFC 8446 Secs. 1.2, 2, 2.1, 2.3 (TLS 1.3 handshake, HelloRetryRequest, 0-RTT); RFC 5246 Sec. 7.3 Figure 1
+  (TLS 1.2 handshake); RFC 9110 Secs. 4.2.1-4.2.2, 9.2.1-9.2.3, 9.3.3 (ports, safe and idempotent methods, retries, POST);
+  RFC 9111 Secs. 4.2, 4.3, 5.2.2.1, 5.2.2.5, 5.2.2.7, 5.2.2.10 (freshness, validation, max-age, no-store, private,
+  s-maxage); RFC 9112 Secs. 2.1, 2.2, 9.3 (message format, persistence); RFC 6202 Secs. 1-2.2 (short and long polling,
+  "three network transits"); RFC 6455 Secs. 1.1-1.3, 5.2, 5.5.2-5.5.3 (handshake and accept key example, framing, Ping and
+  Pong); WHATWG HTML Sec. 9.2 (server-sent events: introduction, `Last-Event-ID`, stream format, authoring notes); RFC 6265
+  Secs. 4.1.1, 4.1.2.2, 4.1.2.5-4.1.2.6, 6.1 (cookie syntax and attributes, limits); RFC 6749 Secs. 1.1, 1.3.1, 1.4, 1.5,
+  4.1-4.1.3, 4.4, 5.1, 10.12; RFC 6750 Sec. 1.2; RFC 7515 App. A.1 (the HMAC key); RFC 7519 Secs. 3.1, 4.1.4 (example JWT,
+  exp); RFC 7636 Secs. 1, 4.1-4.6, App. B (PKCE and its test vector); RFC 9700 Secs. 2.1.1-2.1.2; OpenID Connect Core 1.0
+  (errata set 2) Secs. 2 and 3.1.3.7.
+- The test vectors are recomputed in the chapter: the WebSocket accept value (`exr-rt-accept-key`), the RFC 7519 JWT
+  signature with the RFC 7515 key (`exr-auth-verify-jwt`) and the RFC 7636 S256 challenge (`exr-oauth-pkce-vector`).
+
+### Cross-tutorial and earlier chapter
+
+- Probability: `def-binomial-distribution` (Bernoulli, binomial, geometric, Poisson, no memory), `prp-probability-rules`
+  (union bound), `thm-strong-law-large-numbers`, `thm-poisson-limit`.
+- Chapter 1: `exm-req-photoshare`, `exm-req-workload-assumptions`, `exm-load-servers`, `exm-load-photoshare-bandwidth`,
+  `exm-budget-ocean`, `fig-request-path`, `prp-latency-budget`, `prp-series-parallel-availability`, `def-load-estimate`,
+  `exm-cost-xu-cdn`, `exm-process-api`, `exr-process-idempotent`, `exr-process-cache-hit-ratio`, `exr-req-light-bound`,
+  `exm-req-staleness`, `exr-load-chat`.
+
+### Figures and software
+
+- D2: `figures/request_sequence.d2` (sequence of a new request), `figures/lb_topology.d2` (global and local balancers),
+  `figures/oauth_code_flow.d2` (authorisation-code grant with PKCE), `figures/client_credentials.d2` (solution of
+  `exr-oauth-client-credentials`, source shown in the tab). Python: `figures/lb_algorithms.py` (rules compared, static and
+  dynamic), `figures/ttl_hit_ratio.py` (hit ratio against lambda*Delta with simulations). Rasterised with `qlmanage`
+  (WebKit), which honours D2's label masks; `rsvg-convert` does not and shows lines through edge labels.
+- Run blocks: standard library (`http.client`, `sqlite3`, `hashlib`, `hmac`, `base64`, `urllib`, `http.cookies`), NumPy and
+  SimPy (`exm-rtt-simulation`, `exr-rtt-simulate-tls12`, `exm-poll-simulation`). Illustrative: the curl session
+  (`exm-net-curl-session`) and the nginx configuration (`exm-lb-nginx`), both `{.code .illustrative}`.

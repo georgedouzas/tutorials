@@ -1,0 +1,21 @@
+...@../../../_filters/d2-theme
+
+shape: sequence_diagram
+
+owner: "Resource owner\n(user)"
+agent: "User agent\n(browser)"
+client: "Client\n(print app)"
+as: "Authorization\nserver"
+rs: "Resource\nserver"
+
+owner -> agent: "Print my photos"
+agent -> client: "GET /print"
+client -> agent: "302 to /authorize?response_type=code\n&client_id, redirect_uri, scope, state,\ncode_challenge (S256)"
+agent -> as: "(A) GET /authorize?..."
+as -> owner: "(B) log in and consent to the scope, in the browser"
+as -> agent: "(C) 302 to redirect_uri?code&state"
+agent -> client: "GET /callback?code&state"
+client -> as: "(D) POST /token: code, redirect_uri,\ncode_verifier, client credentials"
+as -> client: "(E) access_token, expires_in,\nrefresh_token (and id_token)"
+client -> rs: "GET /photos, Authorization: Bearer"
+rs -> client: "200 OK, photos within the scope"

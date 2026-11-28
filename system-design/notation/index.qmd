@@ -82,6 +82,21 @@ where the symbol first appears.
   the Gaussian distribution function $\Phi(z)$ (always with its argument); a factor never has an argument.
 - $p$: in the estimation chapter, the probability that one call is slow, as in $\operatorname{Bern}(p)$; a density is
   written $p(x)$, with its argument.
+- $h$: the hit ratio of a cache, as in the web-stack chapter, against the hash function $h : U \to [0, 1)$ of consistent
+  hashing (another chapter, always written with its domain and range). A heartbeat interval is written
+  $\Delta_{\mathrm{hb}}$, never $h$.
+- $d$: in the web-stack chapter, the number of servers sampled by the power-of-$d$-choices rule, as in Mitzenmacher,
+  Richa and Sitaraman; the depth of a count-min sketch is another chapter's.
+- $b$: the page size of a paginated operation, against the capacity $b$ of a token bucket (another chapter).
+- $\theta$: the timeout of a long poll. The parameter vector $\theta$ of the machine-learning tutorials does not occur
+  here.
+- $\ell$: the lifetime of an access token, against the mean path length $\ell$ of Complexity Science and the
+  log-likelihood $\ell(\theta)$ (always with its argument), which do not occur here.
+- $\Delta$, $\Delta_h$, $\Delta_{\mathrm{hb}}$: periods of time. Without a subscript, $\Delta$ is the period that the
+  section at hand defines (a measurement window, a retention period, a freshness lifetime, a polling period); the
+  subscripts mark the health-check and heartbeat intervals.
+- $\mathrm{RTT}$ and $t_{\mathrm{srv}}$ are written upright or with an upright subscript, so that they cannot be read
+  as products of single-letter symbols.
 - Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
   Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
 - Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.
