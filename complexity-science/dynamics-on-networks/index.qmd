@@ -235,7 +235,7 @@ Katz prestige counts walks of all lengths with weights $\alpha^n$. By @prp-walk-
 For the karate club with $\alpha = 0.1 < 1/\lambda_1 \approx 0.149$, the series of walk counts summed to length $200$ equals the matrix inverse, and its two leading nodes are those of the package's eigenvector centrality.
 
 ```{.python .run}
-# Fallback to NumPy for the inverse: the package has no Katz centrality or graph spectra (scikit-complexity #67).
+# Fallback to NumPy for the inverse: the package has no Katz centrality or graph spectra (scikit-complexity #72, #67).
 import networkx as nx
 import numpy as np
 from skcomplex.core.analysis import network_measures
@@ -291,7 +291,7 @@ From the first-passage equations $m_{i0} = 1 + \sum_{k \neq 0}P_{ik}m_{k0}$, der
 on an Erdős-Rényi graph of the same size and mean degree $6$.
 
 ```{.python .run}
-# Fallback to NumPy for the linear system: the package has no first-passage times on networks (new package issue).
+# Fallback to NumPy for the linear system: the package has no first-passage times on networks (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -434,7 +434,7 @@ $(\mathbf I - \alpha\mathbf A)\sum_n\alpha^n\mathbf A^n = \mathbf I$, a telescop
 The partial sums at $\alpha$ just below and just above $1/\lambda_1$ for the karate club.
 
 ```{.python .run}
-# Fallback to NumPy: the package has no Katz centrality or graph spectra (scikit-complexity #67).
+# Fallback to NumPy: the package has no Katz centrality or graph spectra (scikit-complexity #72, #67).
 import networkx as nx
 import numpy as np
 A = nx.to_numpy_array(nx.karate_club_graph(), weight=None)
@@ -543,7 +543,7 @@ times to reach $0$ satisfy $m_3 = 1 + m_2$, $m_2 = 1 + (m_1 + m_3)/2$, $m_1 = 1 
 The linear system.
 
 ```{.python .run}
-# Fallback to NumPy for the linear system: the package has no first-passage times on networks (new package issue).
+# Fallback to NumPy for the linear system: the package has no first-passage times on networks (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 A = nx.to_numpy_array(nx.path_graph(4))
@@ -656,10 +656,10 @@ an oscillating, slowly decaying excess on node $0$.
 
 ## Python
 
-The walk's master equation $\mathbf p(t + 1) = \mathbf p(t)\mathbf P$ from a start at node $0$, since the package's walkers start at random nodes and the package has no master equation for a network walk (a new package issue).
+The walk's master equation $\mathbf p(t + 1) = \mathbf p(t)\mathbf P$ from a start at node $0$, since the package's walkers start at random nodes and the package has no master equation for a network walk (scikit-complexity #72).
 
 ```{.python .run}
-# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (new package issue).
+# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
@@ -784,7 +784,7 @@ The return time is the inverse of the stationary probability. On the star, the h
 On a star with $N - 1 = 8$ leaves, $r_{\text{hub}} = 16/8 = 2$ and $r_{\text{leaf}} = 16$; the first-step equations of @exr-rw-passage-equations give the same values.
 
 ```{.python .run}
-# Fallback to NumPy for the linear system: the package has no first-passage times on networks (new package issue).
+# Fallback to NumPy for the linear system: the package has no first-passage times on networks (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 A = nx.to_numpy_array(nx.star_graph(8))
@@ -809,7 +809,7 @@ Odd cycles make the walk aperiodic. A ring of odd length converges, a ring of ev
 Started at node $0$, the probability of being at node $0$ after $t$ steps converges to $1/N$ on a ring of $11$ nodes, and alternates between $0$ and about $2/N$ on a ring of $10$.
 
 ```{.python .run}
-# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (new package issue).
+# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 for N in (10, 11):
@@ -918,7 +918,7 @@ Bipartite walks converge on average. The average of two consecutive distribution
 On the even ring of @exm-st-parity, the average of $p_0(t)$ and $p_0(t + 1)$ is $0.1 = 1/N$ for large $t$.
 
 ```{.python .run}
-# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (new package issue).
+# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 A = nx.to_numpy_array(nx.cycle_graph(10))
@@ -1107,7 +1107,7 @@ $\boldsymbol\pi\mathbf P' = (\boldsymbol\pi + \boldsymbol\pi\mathbf P)/2 = \bold
 The lazy walk on the even ring.
 
 ```{.python .run}
-# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (new package issue).
+# Fallback to NumPy for the master equation: the package's walkers cannot be started at a chosen node (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 A = nx.to_numpy_array(nx.cycle_graph(10))
@@ -1286,7 +1286,7 @@ The off-diagonal entries of $(\mathbf I - \mathbf P)\mathbf M$ are $m_{ij} - \su
 All first-passage times.
 
 ```{.python .run}
-# Fallback to NumPy for the linear systems: the package has no first-passage times on networks (new package issue).
+# Fallback to NumPy for the linear systems: the package has no first-passage times on networks (scikit-complexity #72).
 import networkx as nx
 import numpy as np
 A = nx.to_numpy_array(nx.karate_club_graph(), weight=None)
@@ -1600,7 +1600,7 @@ Datseris and Parlitz compare agent-based SIR epidemics on three networks of $100
 With $\tau = 0.1$ and $p = 14$, averaged over $20$ runs, the epidemic is fastest on the Barabási-Albert network, whose hubs are reached early, and slowest on the Watts-Strogatz network, whose long paths delay it; after $60$ days all three have reached about nine tenths of the agents.
 
 ```{.python .run}
-# Fallback to NumPy for the agent rule: the package has no individual-level SIR on a given network (new package issue).
+# Fallback to NumPy for the agent rule: the package has no individual-level SIR on a given network (scikit-complexity #71).
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.networks import BarabasiAlbertSystem, RandomGraphEnsemblesSystem
@@ -4586,7 +4586,7 @@ The first example implements the voter model of the definition. The algorithm is
 On a star of $11$ nodes with only the hub holding $+1$, $m_w(0) = 0$, so the hub's opinion wins half of the time; with only one leaf holding $+1$, it wins with probability $1/20$.
 
 ```{.python .run}
-# Fallback to NumPy for the node-by-node update: the package's voter model updates in sweeps (new package issue).
+# Fallback to NumPy for the node-by-node update: the package's voter model updates in sweeps (scikit-complexity #73).
 import networkx as nx
 import numpy as np
 def voter(G, s, rng, max_updates=10 ** 6):
@@ -5329,10 +5329,10 @@ the run gives their rank correlation. The undirected reading discards the direct
 
 ## Python
 
-The package's DebtRanks and PageRank, with the impact matrix built from the loans of a small explicit network, since the package's random banking network does not expose its loans (a new package issue).
+The package's DebtRanks and PageRank, with the impact matrix built from the loans of a small explicit network, since the package's random banking network does not expose its loans (scikit-complexity #74).
 
 ```{.python .run}
-# The loans are drawn here because DebtrankSystem does not expose the matrix of its random network (new package issue).
+# The loans are drawn here because DebtrankSystem does not expose the matrix of its random network (scikit-complexity #74).
 import networkx as nx
 import numpy as np
 from scipy.stats import spearmanr

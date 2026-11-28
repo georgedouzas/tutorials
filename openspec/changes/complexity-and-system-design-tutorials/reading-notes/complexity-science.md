@@ -656,3 +656,40 @@ scikit-complexity 0.9.0; fallbacks carry a comment naming the package issue.
 
 - Earlier chapters: `prp-giant-component`, `prp-walk-counting`, `prp-laplacian-spectrum`, `def-laplacian`, `def-er-graph`, `prp-ba-degree`, `sec-networks` (networks); `def-galton-watson`,
   `thm-extinction-probability` (random-processes); `prp-linearised-stability` (nonlinear-dynamics-and-chaos).
+
+## Chapter 10: self-organized-criticality (task 6.1, 2026-11-28)
+
+PDFs read read-only with `pdftotext -layout` from `~/Zotero/storage`; nothing written to Zotero. Sections: §1 `sec-sandpile`, §2 `sec-avalanche-statistics`,
+§3 `sec-branching-soc`, §4 `sec-soc-in-nature`, §5 `sec-one-over-f`, §6 `sec-bak-sneppen`, and the coverage gap §7 `sec-record-dynamics`, following row 10 of
+the coverage plan. Design C11 applies: every computation the package can do uses scikit-complexity 0.9.0; fallbacks carry a comment naming the package issue.
+
+### Gros (2015)
+
+- `grosComplexAdaptiveDynamical2015` (PDF U9F6TD42): Secs. 6.2-6.6 (pp. 188-213). Used: $1/f$ noise, the Lorentzian and the superposition (6.17)-(6.18), p. 190-191;
+  forest fire without and with lightning, pp. 194-195; sandpile and the avalanche of Fig. 6.8, pp. 195-199; binary branching, generating function and
+  exponents (6.22)-(6.29), pp. 199-204; Bak-Sneppen model and random-neighbour solution (6.35)-(6.44), pp. 206-212.
+
+### Jensen (2023)
+
+- `jensenComplexityScienceStudy2023` (PDF 6MWNDKQZ): Secs. 12.1-12.2 (pp. 357-375). Used: the $1/f^2$ footnote, p. 357; sandpile rules and finite-size scaling;
+  mean field R2-MF (12.4)-(12.15), pp. 361-364; forest fire, pp. 367-370; records (12.16)-(12.33), pp. 371-375.
+
+### Charbonneau (2017), Downey (2018), Thurner et al. (2018), Bertin (2021)
+
+- `charbonneauNaturalComplexityModeling2017` (PDF RNV4L6HW): Chs. 5-8 (pp. 106-196): forest fire 6.1-6.5 (pp. 130-148), traffic 7.1, 7.5-7.6 (pp. 154-170),
+  OFC 8.1 and 8.4 (pp. 178-191).
+- `downeyThinkComplexity2018` (PDF 2FIW8VKJ): Ch. 8 (no page numbers), the sandpile, heavy tails, fractals and pink noise with slope $-1.58$.
+- `thurnerIntroductionTheoryComplex2018` (PDF YSNMV9AR): Secs. 2.5.4 (pp. 86-88), 3.3.2 (pp. 105-106), 5.4.4 (pp. 261-263), the threshold near $2/3$ and eq. (5.29).
+- `bertinStatisticalPhysicsComplex2021` (PDF KDKI5MLF): Sec. 8.2.3 (pp. 250-252), records (8.42)-(8.45).
+
+### Notes and discrepancies
+
+- Jensen eq. 12.18 has $x_{N-1}$ for $x_{t-1}$; eq. 12.28 has $e^{-k}$ for $e^{-\lambda}$; eq. 12.32 has "$<$" for "$>$"; rule R4 of the forest fire reads $T \to F$ for $E \to T$.
+- Charbonneau p. 190 gives recurrence periods "at $\alpha = 1.0$, $1.5$, $0.2$", which must be $0.10$, $0.15$, $0.20$; he quotes the 8-neighbour percolation threshold
+  $0.4072$ for a fire that spreads to four neighbours.
+- Charbonneau's traffic model is not Nagel-Schreckenberg; the chapter uses the package's Nagel-Schreckenberg model, cited as a literature model.
+- Literature values, not read in a primary source: BTW exponents $\tau \approx 1.2$-$1.3$, Manna $D \approx 2.75$, $\tau \approx 1.27$, the upper critical dimension $4$,
+  the one-dimensional Bak-Sneppen exponent $1.07$, the critical survival $2/(vt)$, $\operatorname{Var}Z_n = n$, records of a random walk $\sqrt{4n/\pi}$, the
+  site-percolation threshold $0.593$, the Zapperi-Lauritsen-Stanley self-organised branching process.
+- Measured on small lattices and short runs, the fitted exponents are far from the literature: sandpile $\tau \approx 1.05$ (bounded fit) against $1.22$ from moments;
+  crackling $\gamma \approx 1.5$; the mean-field $\gamma$ of the branching process $1.64$ against $2$; the forest-fire balance holds to a few per cent.
