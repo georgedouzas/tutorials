@@ -173,6 +173,12 @@ where the symbol first appears.
   registers in the approximation section; $w_j$ (always indexed) is a column's width, $w$ the sketch's; $e$ is an event time in the stream section
   and Euler's number in the count-min theorem; $S$ is a set of columns and a window's slide; $p$ is a probability $p_i$ (indexed) and the
   register bits of HyperLogLog. Each pair is in different sections, and each statement defines its symbols.
+- $Z$, $V$, $\beta_m$, $\delta_1$, $\delta_2$, $\rho$, $E$: in the approximation section of the batch-and-stream chapter, $Z$ is HyperLogLog's indicator, against the think time $Z$ of a closed
+  system and the standard normal $Z$; $V$ is the number of empty registers, against the components $V$ of the architecture-styles chapter and the versions $V_k$ (always indexed); $\beta_m$ (always
+  indexed) is the standard-error constant, against the bandwidth $\beta$; $\delta_1(n)$, $\delta_2(n)$ (always indexed, with their argument) are the small oscillations of the paper's Theorem 1,
+  against the sketch's failure probability $\delta$. The paper's $\rho(s)$ is called the rank here, since $\rho$ is utilisation, and its estimates $E$, $E^\ast$ are written $\hat n$, $\hat n^\ast$,
+  since $E$ is a set of edges in the architecture-styles chapter; $E$ is kept only in quotations and in the quoted part (e) of the cardinality proposition, where it is the uncorrected
+  estimate. None of these meet in one section.
 - $M$, $R$, $P$, $K$, $N$, $D$, $c$, $s$, $X$, $q$: the batch-and-stream chapter's task counts, pairs, keys, rows, partitions, workers, sample rate,
   sampled count and rank bits, against the other uses of these letters in other chapters, which do not occur there.
 - $I$, $V$, $a_i$, $t_i$, $d$, $s$, $h$, $b$, $C$, $\tau$, $R_k$, $w_k$, $X$, $p$, $t$: in the architecture-styles chapter, $I(v)$ is a component's instability
@@ -182,6 +188,13 @@ where the symbol first appears.
   $C_a$, $C_e$, $C_t$ (always subscripted); $\tau$ a warm period; $R_k$ and $w_k$ (always indexed) the formats a version reads and writes, against the
   reduce-task count $R$ and the writes $w_i(x)$; $X$ a storage format; $p$ and $t$ a daily write probability and a number of days. Each statement
   defines its symbols, and the pairs that share a letter are in different sections.
+- $N$, $G$, $\beta$, $\tau$, $w$, $C$, $A$, $R$, $r$, $k$, $L$, $W$, $K$, $Q$, $\rho$, $f_i$, $T_i$, $\delta$, $a$, $c$, $\ell$: in the reliability chapter, $N$ and $G$ count an SLO window's valid
+  and good requests; $\beta$ is a burn rate, not a bandwidth; $\tau$ an incident's duration in the SLO section, against the serverless warm period; $w$ an alert's window; $C$ a backend's accepted
+  attempts per round and, in the regions section, a unit's capacity; $A$ and $R$ a throttling client's accepts and requests, and $A_k$, $R_k$ (indexed) the attempts and rejections of a storm,
+  against the availability $A$ and the formats $R_k$ of other chapters; $r$ is a retry budget's ratio in the fault-tolerance section and a token bucket's refill rate in the overload section; $k$ a
+  breaker's threshold; $L$ and $W$ a window limiter's limit and window, and $L$ the peak load in the regions section; $K$ the throttling multiplier; $Q$ a queue limit; $\rho$ a bucket ratio, not a
+  utilisation; $f_i$, $T_i$ (indexed) a rollout stage's fraction and duration; $\delta$ a bad version's excess failure probability; $a$ a region's availability; $c$ a correlated-failure probability;
+  $\ell$ a replication lag, against a token's lifetime. Each statement defines its symbols, and the pairs that share a letter are in different sections.
 - Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
   Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
 - Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.

@@ -726,3 +726,77 @@ architecture (distributed monoliths, strangler fig, code and data migrations). S
 - D2: `figures/deployment_models.d2`, `figures/layered_modular.d2`, `figures/microkernel.d2`, `figures/microservices.d2`,
   `figures/event_driven.d2`, `figures/serverless.d2`, `figures/strangler_fig.d2`.
 - Run blocks: plain Python and NumPy, all seeded. Illustrative: a FastAPI service skeleton, a function handler, a Kubernetes Deployment.
+
+## Chapter 12: reliability-and-operations (task 6.2, 2026-11-28)
+
+Outline (approved row 12, with the owner's scope rules: §5 treats canaries, flags, rollbacks, zero-downtime change and chaos testing as
+reliability mechanisms only, CI/CD pipelines and release engineering left to the planned Fundamentals of Software Engineering tutorial, mentioned
+without a link; §7 kept operational). §1 SLIs, SLOs, error budgets; §2 fault tolerance; §3 overload control; §4 observability; §5 safe change;
+§6 multi-region and recovery; §7 security operations. Statements: `def-slo`, `prp-error-budget`, `def-fault-tolerance`, `prp-retry-load`,
+`prp-circuit-breaker`, `def-overload`, `thm-rate-limits`, `prp-overload`, `def-observability`, `prp-monitoring`, `def-safe-change`,
+`prp-rollout`, `def-multi-region`, `prp-regions`, `def-security-operations`.
+
+### Sources
+
+- SRE book (`beyer2016site`, Zotero AMEY7JDS has no PDF): read in the free online edition at sre.google/sre-book (fetched 2026-11-28), Chs. 3
+  (Embracing Risk: Measuring Service Risk, Motivation for Error Budgets, Forming Your Error Budget, Benefits), 4 (Service Level Objectives:
+  Indicators, Objectives, Agreements, Aggregation, Defining Objectives, Choosing Targets, Control Measures, the Chubby planned outage), 6
+  (Monitoring Distributed Systems: Definitions, Symptoms Versus Causes, Black-Box Versus White-Box, The Four Golden Signals, Worrying About Your
+  Tail, Resolution, Tying These Principles Together), 21 (Handling Overload: degraded responses, Per-Customer Limits, Client-Side Throttling with
+  the rejection-probability formula, read from its equation image, Handling Overload Errors, Deciding to Retry) and 22 (Addressing Cascading
+  Failures: Server Overload, Service Unavailability, Preventing Server Overload, Queue Management, Load Shedding and Graceful Degradation,
+  Retries, Latency and Deadlines, New Rollouts). The online edition has no page numbers; cited by chapter and section.
+- Tan Sec. 1.4.5 "Gradual rollouts and rollbacks" pp. 11-12; Sec. 2.5 pp. 34-40; Secs. 3.2-3.3 pp. 59-65; Sec. 3.7.1 p. 72; Sec. 3.9 p. 73;
+  Sec. 8.9 pp. 187-193.
+- Xu Ch. 1 "Data centers"; Ch. 4 (rate limiter, algorithms, placement, Redis INCR/EXPIRE); Ch. 6 "Handling data center outage".
+- Sinha Ch. 2 "Availability", "Reliability", "Fault tolerance"; Ch. 8 "Rate limiting" to "Distributed tracing".
+- Liu Ch. 5 "Timeout", "Exponential Backoff"; Ch. 6 "Rate Limiter Failure Scenario".
+- Gilbert Ch. 4 "Backpressure and rate limiting"; Ch. 7 "Egress – circuit breaker"; Ch. 9 (regional disruptions, topologies, health checks,
+  query and command failover); Ch. 10 (shared responsibility, encryption in transit, least privilege, envelope encryption, crypto-shredding,
+  shared secrets, identity access management, auditing); Ch. 11 (small batch size, decoupling deployment from release, feature flags, fail forward
+  fast, zero-downtime deployments, canary acceptance, regional canaries); Ch. 12 (USE, RED, anomaly detection, synthetics, timeouts and retries).
+- Pacheco Ch. 7 "Strategies for testing in production", "Chaos Testing", "Netflix Simian Army".
+- Reis Ch. 3 "Principle 2: Plan for Failure" p. 79; Ch. 10 pp. 371-376; App. B pp. 399-401.
+
+### Gaps, proved and quoted
+
+- No new references.
+- Proved: `prp-error-budget`, `prp-retry-load`, `prp-circuit-breaker`, `thm-rate-limits`, `prp-overload`, `prp-monitoring` (Chebyshev by link),
+  `prp-rollout`, `prp-regions`. Nothing quoted without proof.
+- Unsourced standard notions: the fault/failure distinction; the burn rate and burn-rate alerting (in the SRE workbook, not read); the counter,
+  gauge and histogram metric kinds; "kill switch"; measuring the RPO in time; tail-based trace sampling; hedged requests (exercise only); the
+  circuit-breaker run-length formula and the token-bucket bound (proved, no source states them); the formalisation of retry storms as rounds.
+
+### Figures and software
+
+- D2: `figures/failure_domains.d2`, `figures/circuit_breaker.d2`, `figures/multi_region.d2`. Python: `figures/retry_storm.py` (SimPy),
+  `figures/token_bucket.py`.
+- Run blocks: plain Python, NumPy and SimPy, all seeded. Illustrative: Prometheus-style rules and queries, a rollout configuration, IAM role
+  statements, Redis commands.
+
+## Chapter 10 revision: HyperLogLog (2026-11-28)
+
+Supersedes the chapter 10 gap note on the HyperLogLog paper. Source: `flajolet2007hyperloglog` (Zotero E9QU92FR, PDF EEPUSUQG), DMTCS proc. AH (AofA 07),
+pp. 137-156. The Zotero item has no PDF attachment (checked with the MCP tools and in a copy of zotero.sqlite); the open-access PDF was read from
+the publisher (dmtcs.episciences.org/3545) in the scratchpad, read-only, and nothing was written to Zotero. The PDF has since been attached in Zotero (E9QU92FR, PDF EEPUSUQG).
+
+- Read in full: Introduction (bit-pattern observable p. 139; 2048 registers, 5 bits, 2%, 1.5 kB p. 140; Fig. 1 p. 140); Sec. 1 (Eqs. (1)-(3),
+  Fig. 2 and Definition 1 p. 141; Theorem 1 p. 142); Sec. 2.1 (register law p. 143); Secs. 2.2-3.1 (Mellin and depoissonization proof, not
+  reproduced); Sec. 3.2 (alpha_m = 1/(m J_0(m)), beta_m = sqrt(m) sqrt(J_1/J_0^2 - 1), Eq. (29), pp. 149-150); Sec. 4 (Fig. 3 program and
+  alpha_16, alpha_32, alpha_64, 0.7213/(1 + 1.079/m) p. 151; small-range correction m log(m/V) below 5m/2 pp. 151-152; large-range correction
+  -2^L log(1 - E/2^L) p. 152; registers 0..L+1-log2 m and 5 bits p. 152; 65/95/99% within 1, 2, 3 sigma p. 152; Fig. 4 p. 153; merge by max,
+  note 4 p. 154).
+- Changed: `def-approximate` item 3 (indicator Z, alpha_m by its integral, raw and corrected estimates; c_m removed) and its commentary;
+  `exm-apx-hll-calibrate` (integral 0.7092 vs Figure 3's 0.709, simulation kept as a check); `exr-apx-sinha-hll`, `exr-apx-liu-bits`,
+  `exr-apx-memory-compare`; `prp-cardinality` part (e) quoted (Theorem 1 with its hypotheses) and the paper's versions of (a)-(c);
+  `exm-hll-estimate` (seeded check of 1.04/sqrt(m) at m = 256, 400 trials: 0.0623), `exm-hll-bits`, `exm-hll-small` (raw estimate and the
+  small-range correction), `exr-hll-registers-size` (large-range correction), `exr-hll-union-not-sum`, `exr-hll-max-error`,
+  `exr-hll-liu-memory`; integrative exercise 2; chapter introduction and references.
+- Proved: `prp-cardinality` (a)-(d) unchanged. Quoted: Theorem 1 (bias < 5e-5, standard error beta_m/sqrt(m) + delta_2 with |delta_2| < 5e-4
+  for m >= 16; beta_16..beta_128 and beta_inf), the Gaussian 65/95/99% remark. Checked numerically: alpha_16, alpha_32, alpha_64 from the
+  integral (0.6731, 0.6971, 0.7092) and beta_16..beta_128 (1.1062, 1.0708, 1.0545, 1.0466) against the paper's values.
+- Notes on the paper: Fig. 3's second test, read literally, would undo the small-range correction; the chapter reads the three cases as
+  exclusive. The paper's 65% within one sigma is its own figure (a Gaussian gives 68%). The large-range threshold 2^L/30 for L = p + q bits is the
+  chapter's extension of Fig. 3's 2^32/30.
+- Notation: `_notation/systems.qmd` gains Z, alpha_m, n-hat, n-hat-star, V, beta_m, E_n, Var_n (c_m removed); clashes (Z, V, beta_m,
+  delta_1, delta_2, the paper's rho and E) recorded in `system-design/notation/index.qmd`.

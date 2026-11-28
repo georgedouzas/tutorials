@@ -1,0 +1,13 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+closed: "Closed\n(calls pass, failures counted)"
+open: "Open\n(calls fail at once)"
+half: "Half-open\n(one probe passes)"
+
+closed -> open: "failures reach threshold"
+open -> half: "open timeout elapses"
+half -> closed: "probe succeeds"
+half -> open: "probe fails"
+closed -> closed: "success resets count"

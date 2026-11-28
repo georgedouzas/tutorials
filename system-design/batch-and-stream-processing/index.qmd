@@ -10,15 +10,16 @@ unbounded ... The advantage of stream processing over batch is that the output w
 and "Stream Processing"]. This chapter defines MapReduce, data pipelines, analytical storage, stream processing with windows and watermarks, the Lambda and
 Kappa architectures, and approximate aggregation with sketches.
 
-The claims are of two kinds. MapReduce, pipelines, columnar storage, stream processing, Lambda and Kappa, and sketches are definitions. Six results with
-complete proofs make them precise: MapReduce's output and its combiner, the scheduling of a pipeline's DAG, the bytes a columnar scan reads, what windows and
-watermarks guarantee, the error of the count-min sketch, and the behaviour of cardinality registers and samples. The count-min theorem is Cormode and
+The claims are of two kinds. MapReduce, pipelines, columnar storage, stream processing, Lambda and Kappa, and sketches are definitions. Six results make
+them precise: MapReduce's output and its combiner, the scheduling of a pipeline's DAG, the bytes a columnar scan reads, what windows and watermarks
+guarantee, the error of the count-min sketch, and the behaviour of cardinality registers and samples. All are proved completely except one part of the
+last, HyperLogLog's bias and standard error, which is Theorem 1 of Flajolet and others and is quoted from their paper. The count-min theorem is Cormode and
 Muthukrishnan's, proved here as they prove it.
 
 The sources are the benchmark books, @liuSystemDesignInterview2020 [Ch. 5 and App. 5], @reisFundamentalsDataEngineering2022 [Chs. 2, 3, 6, 7, 8 and
 App. A], @tanAcingSystemDesign2024 [Secs. 4.5-4.6 and Ch. 17], @sinhaSystemDesignGuide2024 [Ch. 3] and @gilbertSoftwareArchitecturePatterns2024 [Ch. 4], with
-three papers: @dean2004mapreduce on MapReduce, @cormode2005improved on the count-min sketch and @kreps2011kafka on log pipelines. The HyperLogLog paper of
-Flajolet and others was not available; HyperLogLog is taken from the books. The probability comes from
+four papers: @dean2004mapreduce on MapReduce, @cormode2005improved on the count-min sketch, @flajolet2007hyperloglog on HyperLogLog and @kreps2011kafka on
+log pipelines. The probability comes from
 [Probability and statistics](../../fundamentals-of-mathematics-for-physicists/probability/index.qmd).
 
 The chapter has six sections. @sec-mapreduce defines MapReduce and proves its output. @sec-pipelines defines pipelines and orchestration and proves how a DAG
@@ -4717,10 +4718,10 @@ recompute after fixes    batch or replay
 
 Some questions about large streams can be answered within a small error from a small summary. Tan: "Estimation algorithms trade off accuracy for lower complexity. Examples of
 estimation algorithms include HyperLogLog for cardinality (COUNT DISTINCT) estimate in the Presto distributed SQL query engine and count-min sketch for estimating frequencies of events in
-a stream of data" [@tanAcingSystemDesign2024, Sec. 3.6, pp. 70-71]. This section defines sampling, the count-min sketch and HyperLogLog's registers, and proves the count-min error bound
-and the properties of registers and samples.
+a stream of data" [@tanAcingSystemDesign2024, Sec. 3.6, pp. 70-71]. This section defines sampling, the count-min sketch and HyperLogLog, proves the count-min error bound
+and the properties of registers and samples, and quotes HyperLogLog's accuracy from its paper.
 
-For more on this topic, see @cormode2005improved [Secs. 3-4], @sinhaSystemDesignGuide2024 [Ch. 3, "Count-min sketch" and "HyperLogLog"], @tanAcingSystemDesign2024 [Secs. 4.5 and 17.7]
+For more on this topic, see @cormode2005improved [Secs. 3-4], @flajolet2007hyperloglog [Secs. 1-4], @sinhaSystemDesignGuide2024 [Ch. 3, "Count-min sketch" and "HyperLogLog"], @tanAcingSystemDesign2024 [Secs. 4.5 and 17.7]
 and @liuSystemDesignInterview2020 [Ch. 5, "Sampling", and App. 5, "HyperLogLog" and "Count-Min Sketch"].
 
 ### Samples, count-min sketches and cardinality registers
@@ -4735,17 +4736,35 @@ A sample keeps a fraction of the events, a sketch keeps a fixed table of counter
 2. A **count-min sketch** with width $w$ and depth $d$ is a table of $d \times w$ counters, initially zero, with hash functions $h_1, \dots, h_d$ from items to $\{1, \dots, w\}$. An update
    $(i, c)$ adds $c$ to the counter $(j, h_j(i))$ of every row $j$; the **point query** for item $i$ returns $\hat a_i = \min_j\mathrm{count}[j, h_j(i)]$.
 3. A **HyperLogLog** sketch hashes each item to $p + q$ bits: the first $p$ bits choose one of $m = 2^p$ **registers**, and the **rank** of the item is the position of the first $1$ among the
-   remaining $q$ bits ($q + 1$ if there is none). Each register holds the largest rank of the items assigned to it, $M_j$ ($0$ if none). The number of distinct items is estimated by
-   $\hat n = c_m\, m^2 / \sum_j 2^{-M_j}$, a harmonic mean of the $2^{M_j}$, with a constant $c_m$.
+   remaining $q$ bits ($q + 1$ if there is none). Each register holds the largest rank of the items assigned to it, $M_j$ ($0$ if none). With the **indicator**
+   $Z = \bigl(\sum_{j=1}^m 2^{-M_j}\bigr)^{-1}$, the **raw estimate** of the number of distinct items is $\hat n = \alpha_m m^2 Z$, a normalised harmonic mean of the $2^{M_j}$, with the constant
+   $$
+   \alpha_m = \Bigl(m\int_0^\infty\Bigl(\log_2\frac{2 + u}{1 + u}\Bigr)^m du\Bigr)^{-1}.
+   $$
+   The **corrected estimate** $\hat n^\ast$ is $m\ln(m/V)$ if $\hat n \leq \frac52 m$ and the number $V$ of registers equal to $0$ is positive; $-2^{p+q}\ln(1 - \hat n/2^{p+q})$ if
+   $\hat n > 2^{p+q}/30$; and $\hat n$ otherwise.
 :::
 
 ::::
 
 Item 2 is the paper's data structure: "a two-dimensional array counts with width w and depth d", where "when an update $(i_t, c_t)$ arrives ... $c_t$ is added to one count in each row; the counter
-is determined by $h_j$", and "the answer to $Q(i)$ is given by $\hat a_i = \min_j\mathrm{count}[j, h_j(i)]$" [@cormode2005improved, Secs. 3 and 4.1]. Item 3 follows Sinha's description, which
-splits the hashes "randomly into k buckets", keeps the maximal run of trailing zeros in each and uses a harmonic mean [@sinhaSystemDesignGuide2024, Ch. 3, "HyperLogLog"]; the estimator's exact
-form and its constant $c_m$ are those of the HyperLogLog paper of Flajolet and others, which was not available. This chapter calibrates $c_m$ by simulation and quotes no accuracy bound for the
-estimator.
+is determined by $h_j$", and "the answer to $Q(i)$ is given by $\hat a_i = \min_j\mathrm{count}[j, h_j(i)]$" [@cormode2005improved, Secs. 3 and 4.1]. Item 3 is the HyperLogLog paper's
+algorithm. Its Figure 2 takes "the binary address determined by the first b bits of x" as the register (the paper's $b$ is the chapter's $p$), lets $\rho(s)$ be "the position of the leftmost
+1-bit ($\rho(0001\cdots) = 4$)" (the chapter's rank), sets $M[j] := \max(M[j], \rho(w))$ for the remaining bits $w$, computes "the 'indicator' function" $Z$ and returns $E := \alpha_m m^2Z$; the
+integral is its Equation (3) [@flajolet2007hyperloglog, Sec. 1, Eqs. (1)-(3) and Fig. 2, p. 141]. In its notation $\alpha_m = 1/(mJ_0(m))$ with $J_0(m) = \int_0^\infty f(u)^m\,du$ and
+$f(u) = \log_2\frac{2 + u}{1 + u}$, and $\alpha_m \sim 1/(2\log 2) \approx 0.72134$ as $m \to \infty$ [@flajolet2007hyperloglog, Sec. 3.2, Eq. (29), pp. 149-150]. Its program, Figure 3, starts the
+registers at $0$ instead of $-\infty$, as item 3 does, hashes on $32$ bits and tabulates "$\alpha_{16} = 0.673$; $\alpha_{32} = 0.697$; $\alpha_{64} = 0.709$; $\alpha_m = 0.7213/(1 + 1.079/m)$ for
+$m \geq 128$" [@flajolet2007hyperloglog, Sec. 4, Fig. 3, p. 151]. Started at $0$ or at $-\infty$, the registers give the same $Z$ whenever no register is empty, since every rank is at least $1$.
+
+The corrections are the paper's too. Below $n = \frac52 m$ "nonlinear distortions start appearing", and since $n$ items thrown into $m$ registers leave about $me^{-n/m}$ of them empty, "upon
+observing V empty bins amongst a total of m ... n must be close to m log(m/V)"; near $2^L$ items, for an $L$-bit hash, collisions make $E$ count about $2^L(1 - e^{-n/2^L})$ distinct hash values,
+and "the inversion of that relation then gives us the approximate equation $n = -2^L\log(1 - E/2^L)$" [@flajolet2007hyperloglog, Sec. 4 (ii)-(iii), pp. 151-152]. The paper's $\log$ is the natural
+logarithm. Figure 3 states both corrections for $L = 32$, with the thresholds $E \leq \frac52 m$ and $E > \frac1{30}2^{32}$; item 3 writes them for $L = p + q$, which extends the large-range
+threshold by the chapter's choice. Read literally, the figure's second test ("if $E \leq \frac1{30}2^{32}$ then set $E^\ast := E$") would undo the first; its comments "small range correction",
+"intermediate range—no correction" and "large range correction" show three exclusive cases, which is how item 3 reads them.
+
+Sinha's description splits the hashes "randomly into k buckets", keeps the maximal run of trailing zeros in each and uses a harmonic mean [@sinhaSystemDesignGuide2024, Ch. 3, "HyperLogLog"]:
+trailing bits instead of the paper's leading bits, which for uniform bits gives the same law.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Item 1 on the views. One view in a hundred is kept.
@@ -4855,17 +4874,23 @@ print(M)
 ```
 :::
 
-The chapter takes $c_m$ from a simulation. The run finds the constant that makes the estimator unbiased on average.
+Item 3's constant from its integral, against the paper's table. A simulation checks both.
 
 ::: {#exm-apx-hll-calibrate}
-#### Calibrating the constant
+#### The constant $\alpha_{64}$
 
-For $m = 64$ registers and sets of $10^4$ distinct items, the mean of $m^2/\sum 2^{-M_j}$ divided by $n$ gives $1/c_m$; the run reports $c_{64}$ and the relative spread of the estimates.
+For $m = 64$ the integral gives $\alpha_{64} = 0.7092$, the paper's $0.709$, and the formula for $m \geq 128$ would give $0.7093$. A simulation with sets of $10^4$ distinct items finds the
+constant that makes $m^2Z$ unbiased on average, $n$ divided by the mean of $m^2Z$, and the relative spread of $\alpha_{64}m^2Z$; the paper's standard error for $m = 64$ is
+$\beta_{64}/\sqrt{64} = 1.054/8 = 0.132$ [@flajolet2007hyperloglog, Theorem 1, p. 142].
 
 ```{.python .run}
 import numpy as np
+m = 64
+u = np.linspace(0, 400, 400001) / m                      # the integrand is concentrated near u = 0
+alpha = 1 / (m * np.trapezoid(np.log2((2 + u) / (1 + u)) ** m, u))
+print(f"alpha_64: integral {alpha:.4f}, Figure 3 0.709, 0.7213/(1 + 1.079/m) = {0.7213 / (1 + 1.079 / m):.4f}")
 rng = np.random.default_rng(82)
-m, n, q = 64, 10000, 50
+n, q = 10000, 50
 raw = []
 for _ in range(400):
     reg = rng.integers(0, m, n)
@@ -4873,12 +4898,12 @@ for _ in range(400):
     M = np.zeros(m); np.maximum.at(M, reg, ranks)
     raw.append(m * m / np.sum(2.0 ** -M))
 raw = np.array(raw)
-c = n / raw.mean()
-print(f"c_64 = {c:.3f}, relative spread of the estimates {np.std(c * raw) / n:.3f}")
+print(f"simulated constant {n / raw.mean():.3f}; relative spread of alpha m^2 Z {np.std(alpha * raw) / n:.3f}, beta_64/sqrt(m) = {1.054 / 8:.3f}")
 ```
 
 ```{.text .run-output}
-c_64 = 0.707, relative spread of the estimates 0.128
+alpha_64: integral 0.7092, Figure 3 0.709, 0.7213/(1 + 1.079/m) = 0.7093
+simulated constant 0.707; relative spread of alpha m^2 Z 0.128, beta_64/sqrt(m) = 0.132
 ```
 :::
 
@@ -4971,21 +4996,25 @@ rows [[2, 9, 3, 4], [4, 3, 9, 2], [3, 4, 2, 9]] | Tan's value 4 | estimates {'a'
 ::::
 :::
 
-The second exercise checks Sinha's formula. Taking $2^{L+1}$ of a harmonic mean of ranks is not HyperLogLog's estimator.
+The second exercise checks Sinha's formula against the paper's. Taking $2^{L+1}$ of a harmonic mean of ranks is not HyperLogLog's estimator.
 
 ::: {#exr-apx-sinha-hll}
 #### Sinha's estimate
 
-Sinha estimates the number of visitors as $2^{L+1}$ where $L$ is the harmonic mean of the $k$ bucket maxima [@sinhaSystemDesignGuide2024, Ch. 3, "HyperLogLog"]. With $k = 64$ buckets and
-$n = 10^4$ distinct items, compare it with item 3's estimator.
+Sinha estimates the number of visitors as $2^{L+1}$ where $L$ is the harmonic mean of the $k$ bucket maxima [@sinhaSystemDesignGuide2024, Ch. 3, "HyperLogLog"]. Compare it with the paper's
+estimator $E = \alpha_m m^2Z$ [@flajolet2007hyperloglog, Eq. (3), p. 141]: which mean is taken, of what, and where is the factor $m$? Then compute both with $k = m = 64$ buckets and $n = 10^4$
+distinct items.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Solution
 
-Sinha's estimate ignores that each bucket sees only $n/k$ items, so it estimates the items per bucket, not $n$, and the harmonic mean of the ranks is not the harmonic mean of the $2^{M_j}$. The run
-shows it far below $n$, by a factor of about $13$, while item 3's estimate, with the constant calibrated in @exm-apx-hll-calibrate, is close.
+The paper's estimator is "a normalized version of the harmonic mean of the $2^{M^{(j)}}$" [@flajolet2007hyperloglog, Sec. 1, p. 141]: each register sees about $n/m$ items, so its maximum
+"should be close to $\log_2(n/m)$", the harmonic mean $mZ$ of the $2^{M_j}$ "is then likely to be of the order of $n/m$", and "$m^2Z$ should be of the order of $n$", with $\alpha_m$ removing "a
+systematic multiplicative bias". Sinha's formula takes the harmonic mean of the ranks $M_j$, not of the $2^{M_j}$, exponentiates afterwards, and has no factor $m$, so it estimates neither $n$ nor
+$n/m$. The run shows it below $n$ by a factor of about $13$, while item 3's estimate with the paper's $\alpha_{64} = 0.709$ is $17\%$ high, about $1.3$ times its standard error of $13\%$ for $m = 64$ (@exm-apx-hll-calibrate): of the
+right order, and no closer, with so few registers.
 
 ## Python
 
@@ -4998,11 +5027,11 @@ m, n = 64, 10000
 reg = rng.integers(0, m, n); ranks = rng.geometric(0.5, n)
 M = np.zeros(m); np.maximum.at(M, reg, ranks)
 L = m / np.sum(1 / np.maximum(M, 1))
-print(f"Sinha 2^(L+1) = {2 ** (L + 1):.0f}, item 3 with c=0.71: {0.71 * m * m / np.sum(2.0 ** -M):.0f}, true {n}")
+print(f"Sinha 2^(L+1) = {2 ** (L + 1):.0f}, item 3 with alpha_64 = 0.709: {0.709 * m * m / np.sum(2.0 ** -M):.0f}, true {n}")
 ```
 
 ```{.text .run-output}
-Sinha 2^(L+1) = 757, item 3 with c=0.71: 11733, true 10000
+Sinha 2^(L+1) = 757, item 3 with alpha_64 = 0.709: 11716, true 10000
 ```
 ::::
 :::
@@ -5013,30 +5042,35 @@ The third exercise reads Liu's intuition. The counts given are of endings, not b
 #### Leading or trailing bits
 
 Liu writes that "50% of the numbers' bits start with 1 (001, 101, 011, 111)" and "If you see a number's starting bit of 100, that means you've probably seen eight numbers"
-[@liuSystemDesignInterview2020, App. 5, "HyperLogLog"]. Check the examples, and restate the intuition correctly.
+[@liuSystemDesignInterview2020, App. 5, "HyperLogLog"]. Check the examples against the paper's statement of the same idea, "observing in the stream S at the beginning of a string a
+bit-pattern $0^{\rho-1}1$ is more or less a likely indication that the cardinality n of S is at least $2^\rho$" [@flajolet2007hyperloglog, Introduction, p. 139], and restate the intuition correctly.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Solution
 
-$001, 101, 011, 111$ all end in $1$; numbers ending in $10$ are $010, 110$, a quarter; ending in $100$, only $100$, an eighth. So Liu's examples count trailing bits. The intuition: a pattern of probability
-$2^{-r}$, such as $r - 1$ zeros then a one at a fixed end, is seen about once in $2^r$ distinct hashes, so its presence suggests about $2^r$ items, which is what a register's rank records.
+$001, 101, 011, 111$ all end in $1$; numbers ending in $10$ are $010, 110$, a quarter; ending in $100$, only $100$, an eighth. So Liu's examples count trailing bits, and his "starting bit of
+100" is the paper's pattern $0^{\rho - 1}1$ with $\rho = 3$, $001$, read from the other end. The intuition: a pattern of probability $2^{-\rho}$, such as $\rho - 1$ zeros then a one at a fixed end,
+is seen about once in $2^\rho$ distinct hashes, so its presence suggests at least about $2^\rho$ items, which is what a register's rank records. Either end serves when the bits are uniform and
+independent; the paper uses the beginning (rank $= \rho$, the leftmost $1$), and its "more or less a likely indication" is why one register is not enough and $m$ of them are averaged.
 
 ## Python
 
-The fractions of 3-bit numbers by ending.
+The fractions of 3-bit numbers by ending, and the paper's pattern at the beginning.
 
 ```{.python .run}
 nums = [format(i, "03b") for i in range(8)]
 for end in ("1", "10", "100"):
-    print(end, [n for n in nums if n.endswith(end)])
+    print("ending", end, [n for n in nums if n.endswith(end)])
+print("starting 001", [n for n in nums if n.startswith("001")])
 ```
 
 ```{.text .run-output}
-1 ['001', '011', '101', '111']
-10 ['010', '110']
-100 ['100']
+ending 1 ['001', '011', '101', '111']
+ending 10 ['010', '110']
+ending 100 ['100']
+starting 001 ['001']
 ```
 ::::
 :::
@@ -5235,19 +5269,20 @@ For $10^9$ distinct daily viewers, compare a set of $8$-byte identifiers, a bitm
 :::: {.panel-tabset .solution-tabs}
 ## Solution
 
-Set: $8\,\mathrm{GB}$ plus overhead; bitmap over identifiers up to $2^{33}$: $1\,\mathrm{GB}$; registers: $12\,\mathrm{kB}$, with an error the simulation of @exm-apx-hll-calibrate suggests is about
-$1/\sqrt m$, $0.8\%$, though no bound is proved here.
+Set: $8\,\mathrm{GB}$ plus overhead; bitmap over identifiers up to $2^{33}$: $1\,\mathrm{GB}$; registers: $12\,\mathrm{kB}$, with a standard error of about $1.04/\sqrt m = 0.81\%$, the paper's
+result for large $n$ [@flajolet2007hyperloglog, Theorem 1, p. 142]. The set and the bitmap are exact.
 
 ## Python
 
-The sizes.
+The sizes and the standard error.
 
 ```{.python .run}
-print(f"set {1e9 * 8 / 1e9:.0f} GB, bitmap {2 ** 33 / 8 / 1e9:.1f} GB, registers {2 ** 14 * 6 / 8 / 1e3:.1f} kB")
+m = 2 ** 14
+print(f"set {1e9 * 8 / 1e9:.0f} GB, bitmap {2 ** 33 / 8 / 1e9:.1f} GB, registers {m * 6 / 8 / 1e3:.1f} kB, standard error {1.04 / m ** 0.5:.2%}")
 ```
 
 ```{.text .run-output}
-set 8 GB, bitmap 1.1 GB, registers 12.3 kB
+set 8 GB, bitmap 1.1 GB, registers 12.3 kB, standard error 0.81%
 ```
 ::::
 :::
@@ -5963,12 +5998,12 @@ print(w, d, f"{w * d * 4 / 1e6:.1f} MB, error bound {1e-5 * 5e9:.0f}")
 
 ### Registers and samples
 
-A register's value has a simple distribution, registers merge exactly, and a sample's estimate is unbiased with a known variance. The proposition proves the three facts behind
-the distinct counts and samples of this section.
+A register's value has a simple distribution, registers merge exactly, and a sample's estimate is unbiased with a known variance. The proposition proves these facts behind the
+distinct counts and samples of this section, and quotes the accuracy of HyperLogLog's estimate from its paper.
 
 :::: {.statement-box}
 ::: {#prp-cardinality}
-#### Registers, merging and samples
+#### Registers, merging, samples and the accuracy of HyperLogLog
 
 Let the hashes of distinct items be independent and uniformly distributed on bit strings of length $p + q$.
 
@@ -5979,6 +6014,17 @@ Let the hashes of distinct items be independent and uniformly distributed on bit
 (c) A register takes one of the $q + 2$ values $0, \dots, q + 1$, so it can be stored in $\lceil\log_2(q + 2)\rceil$ bits; for $p + q = 64$ and $p = 14$, in $6$ bits.
 
 (d) In a Bernoulli sample of rate $s$ from $N$ events, the estimate $X/s$ of $N$ has mean $N$ and variance $N(1 - s)/s$, so its relative standard deviation is $\sqrt{(1 - s)/(sN)}$.
+
+(e) (Quoted from @flajolet2007hyperloglog [Sec. 1, Definition 1 and Theorem 1, pp. 141-142].) Let the hashed values be an "ideal multiset of cardinality n", "a sequence obtained by arbitrary
+replications and permutations applied to n uniform identically distributed random variables over the real interval [0, 1]", and let the algorithm of @def-approximate, item 3, with $m \geq 3$
+registers started at $-\infty$ and without corrections, return the estimate $E = \alpha_m m^2Z$. Write $\mathbb E_n$ and $\operatorname{Var}_n$ for the mean and variance in this model. Then
+
+  (i) "the estimate E is asymptotically almost unbiased in the sense that" $\frac1n\mathbb E_n(E) = 1 + \delta_1(n) + o(1)$ as $n \to \infty$, "where $|\delta_1(n)| < 5 \cdot 10^{-5}$ as soon as
+  $m \geq 16$";
+
+  (ii) "the standard error defined as" $\frac1n\sqrt{\operatorname{Var}_n(E)}$ satisfies, as $n \to \infty$, $\frac1n\sqrt{\operatorname{Var}_n(E)} = \frac{\beta_m}{\sqrt m} + \delta_2(n) + o(1)$,
+  "where $|\delta_2(n)| < 5 \cdot 10^{-4}$ as soon as $m \geq 16$, the constants $\beta_m$ being bounded, with $\beta_{16} = 1.106$, $\beta_{32} = 1.070$, $\beta_{64} = 1.054$, $\beta_{128} = 1.046$,
+  and $\beta_\infty = \sqrt{3\log(2) - 1} = 1.03896$".
 :::
 
 ::::
@@ -5992,10 +6038,23 @@ with $0$ for none.
 (c) Ranks are $1, \dots, q + 1$, and an empty register is $0$. For $p = 14$, $q = 50$, there are $52$ values, and $2^6 = 64 \geq 52$.
 
 (d) $X$, the number of events kept, is binomial with parameters $N$ and $s$ ([binomial distribution](../../fundamentals-of-mathematics-for-physicists/probability/index.qmd#def-binomial-distribution)),
-with mean $Ns$ and variance $Ns(1 - s)$. Dividing by $s$ gives mean $N$ and variance $N(1 - s)/s$. $\square$
+with mean $Ns$ and variance $Ns(1 - s)$. Dividing by $s$ gives mean $N$ and variance $N(1 - s)/s$.
+
+(e) is quoted. The paper proves it by poissonization, Mellin transforms and analytic depoissonization, and obtains $\alpha_m = 1/(mJ_0(m))$ and
+$\beta_m = \sqrt m\sqrt{J_1(m)/J_0(m)^2 - 1}$ with $J_s(m) = \int_0^\infty u^sf(u)^m\,du$ [@flajolet2007hyperloglog, Secs. 2-3, pp. 142-150]. $\square$
+
+The paper states parts (a) to (c) in its own terms. For part (a), the rank "is geometrically distributed according to $\mathbb P(Y \geq k) = 2^{1-k}$", and the maximum of $\nu$ ranks satisfies
+$\mathbb P(M = k) = (1 - \frac1{2^k})^\nu - (1 - \frac1{2^{k-1}})^\nu$, the difference of part (a)'s law at $k$ and $k - 1$ [@flajolet2007hyperloglog, Sec. 2.1, p. 143]. For part (b), "given an
+arbitrary partitioning of the original file into subfiles, it suffices to collect register values and apply componentwise a max operation" [p. 154, note 4]. For part (c), register "values a priori
+range in the interval $0 \dots L + 1 - \log_2 m$", which is $0, \dots, q + 1$ for an $L = p + q$ bit hash, and "with hashed values of 32 bits, this means that 5 bits ('short bytes') are
+sufficient" [Sec. 4, p. 152].
 
 Part (a) is the source of the "rarer pattern, more items" intuition of Liu and Sinha: the median of $M$ is about $\log_2 n$. Parts (b) and (c) are why distinct counts merge across days and hosts in a
-fixed, small memory; the accuracy of the estimator of @def-approximate is left to the simulation of @exm-apx-hll-calibrate.
+fixed, small memory. Part (e) is the accuracy: a relative error "typically about $1.04/\sqrt m$" [@flajolet2007hyperloglog, Abstract; Fig. 1, p. 140], $6.5\%$ for $m = 256$ and $0.81\%$ for
+$m = 2^{14}$. Its hypotheses matter. The model is one of ideal hashes, uniform reals with infinitely many bits; the statement is asymptotic in $n$; and it is about the registers started at
+$-\infty$, which agree with item 3's registers started at $0$ when no register is empty, "with an overwhelming probability, as soon as $n \gg m\log m$" [Sec. 4 (i), p. 151]. For smaller $n$ the
+small-range correction takes over. The paper adds that the estimates are "approximately Gaussian", so they "are expected to be within $\sigma$, $2\sigma$, $3\sigma$ of the exact count in
+respectively 65%, 95%, 99% of all the cases", with $\sigma \approx 1.04/\sqrt m$ [Sec. 4, p. 152]; a Gaussian gives $68\%$ for the first.
 
 :::: {.callout-note .examples-fold collapse="true" title="Examples"}
 Part (a) against a simulation. The register of $1000$ items is usually near $\log_2 1000 \approx 10$.
@@ -6065,28 +6124,36 @@ True
 ```
 :::
 
-Item 3's estimator with the calibrated constant. Its error is a few per cent with $256$ registers.
+Part (e) by simulation. The standard error of $256$ registers is about $6.5\%$.
 
 ::: {#exm-hll-estimate}
 #### Estimating distinct viewers
 
-With $m = 256$ and the constant $0.72$ from a calibration like @exm-apx-hll-calibrate, the estimates of $10^5$ distinct viewers in ten trials are within a few per cent.
+With $m = 256$, the paper's $\alpha_{256} = 0.7213/(1 + 1.079/256)$ and $n = 10^5$ distinct viewers, ideal hashes are simulated $400$ times. Here $n/m \approx 390$, so no register is empty and the
+raw estimate is the paper's $E$. The mean relative error should be near $0$ and the standard error near $1.04/\sqrt{256} = 0.065$; the run also counts the estimates within $\sigma$, $2\sigma$ and
+$3\sigma$, against the paper's $65\%$, $95\%$ and $99\%$.
 
 ```{.python .run}
 import numpy as np
 rng = np.random.default_rng(96)
 m, n = 256, 100000
-est = []
-for _ in range(10):
+alpha = 0.7213 / (1 + 1.079 / m)                           # Figure 3, m >= 128
+rel = []
+for _ in range(400):
     reg = rng.integers(0, m, n); ranks = rng.geometric(0.5, n)
     M = np.zeros(m); np.maximum.at(M, reg, ranks)
-    est.append(0.72 * m * m / np.sum(2.0 ** -M))
-print(np.round(np.array(est) / n, 3))
+    rel.append(alpha * m * m / np.sum(2.0 ** -M) / n - 1)
+rel = np.array(rel); s = 1.04 / np.sqrt(m)
+print(f"mean error {rel.mean():+.4f}, standard error {rel.std():.4f}, 1.04/sqrt(m) = {s:.4f}")
+print("within 1, 2, 3 sigma:", [round(float(np.mean(np.abs(rel) <= k * s)), 3) for k in (1, 2, 3)])
 ```
 
 ```{.text .run-output}
-[0.97  1.085 0.991 0.948 0.966 1.07  1.008 0.989 0.989 1.008]
+mean error -0.0024, standard error 0.0623, 1.04/sqrt(m) = 0.0650
+within 1, 2, 3 sigma: [0.667, 0.97, 0.998]
 ```
+
+With $400$ trials the measured standard error is itself uncertain by about $0.065/\sqrt{800} \approx 0.002$, so $0.062$ agrees with the theorem's $0.065$.
 :::
 
 Part (c) for a common layout. Sixteen thousand registers fit in twelve kilobytes.
@@ -6095,7 +6162,8 @@ Part (c) for a common layout. Sixteen thousand registers fit in twelve kilobytes
 #### Six bits a register
 
 With $p = 14$, $m = 16384$ registers of $6$ bits take $12\,\mathrm{kB}$; Sinha's "5 bits ... so let's say a byte" for a $30$-bit hash [@sinhaSystemDesignGuide2024, Ch. 3, "HyperLogLog"] is the same count,
-$\lceil\log_2 32\rceil = 5$.
+$\lceil\log_2 32\rceil = 5$. The paper's design point is smaller still: "using m = 2048, hashing on 32 bits, and short bytes of 5 bit length each: cardinalities till values over N = $10^9$ can be
+estimated with a typical accuracy of 2% using 1.5kB (kilobyte) of storage" [@flajolet2007hyperloglog, Introduction, p. 140].
 
 ```{.python .run}
 import math
@@ -6159,19 +6227,25 @@ Part (a) for few items. With few items many registers are empty.
 ::: {#exm-hll-small}
 #### Small sets
 
-With $m = 1024$ registers and $n = 100$ items, about $1024\,e^{-100/1024} \approx 929$ registers are empty, and the harmonic-mean estimator is biased; counting empty registers, as in the linear counting
-of the storage chapter's Bloom filter analysis (@prp-bloom-false-positive), does better for small $n$.
+With $m = 1024$ registers and $n = 100$ items, about $1024\,e^{-100/1024} \approx 929$ registers are empty, and part (e), which needs $n \gg m\log m$, says nothing; each empty register adds
+$2^0 = 1$ to $1/Z$, so the raw estimate is near $\alpha_m m \approx 0.72m$ whatever the small $n$, the paper's "0.7m when n = 0 (!)" [@flajolet2007hyperloglog, Sec. 4 (ii), p. 151]. The raw estimate
+is below $\frac52 m$, so item 3's small-range correction $m\ln(m/V)$ applies: it counts empty registers, the linear counting of the storage chapter's Bloom filter analysis
+(@prp-bloom-false-positive), which the paper takes from the Hit Counting algorithm of Whang and others [Sec. 4 (ii), pp. 151-152].
 
 ```{.python .run}
 import numpy as np
 rng = np.random.default_rng(98)
 m, n = 1024, 100
-empty = m - len(np.unique(rng.integers(0, m, n)))
-print("empty registers", empty, "| m ln(m / empty) =", round(m * np.log(m / empty)))
+alpha = 0.7213 / (1 + 1.079 / m)
+reg = rng.integers(0, m, n); ranks = rng.geometric(0.5, n)
+M = np.zeros(m); np.maximum.at(M, reg, ranks)
+raw = alpha * m * m / np.sum(2.0 ** -M)
+V = int(np.sum(M == 0))
+print(f"raw {raw:.0f} (<= 5m/2 = {2.5 * m:.0f}), empty registers V = {V}, m ln(m/V) = {m * np.log(m / V):.0f}, true {n}")
 ```
 
 ```{.text .run-output}
-empty registers 928 | m ln(m / empty) = 101
+raw 785 (<= 5m/2 = 2560), empty registers V = 928, m ln(m/V) = 101, true 100
 ```
 :::
 
@@ -6229,28 +6303,36 @@ The second exercise applies part (c). The number of bits grows doubly logarithmi
 ::: {#exr-hll-registers-size}
 #### Registers for other hash lengths
 
-How many bits does a register need for $32$-bit and $128$-bit hashes with $p = 14$?
+How many bits does a register need for $32$-bit and $128$-bit hashes with $p = 14$? Compare with the paper's range $0, \dots, L + 1 - \log_2 m$ [@flajolet2007hyperloglog, Sec. 4, p. 152].
+With $32$-bit hashes, from which estimate does the paper correct for collisions, and what does the correction make of $10^9$ distinct daily viewers?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Solution
 
-$q = 18$: $20$ values, $5$ bits. $q = 114$: $116$ values, $7$ bits. The number of distinct items a register can tell apart grows exponentially with its bits.
+$q = 18$: $20$ values, $5$ bits. $q = 114$: $116$ values, $7$ bits. The paper's range for $L = 32$, $m = 2^{14}$ is $0, \dots, 19$, the same $20$ values. The number of distinct items a register
+can tell apart grows exponentially with its bits. With $32$-bit hashes the large-range correction starts at $E > 2^{32}/30 \approx 1.4 \times 10^8$. $10^9$ items have about
+$2^{32}(1 - e^{-10^9/2^{32}}) \approx 8.9 \times 10^8$ distinct hash values, which is what the raw estimate counts, and $-2^{32}\ln(1 - E/2^{32})$ maps that back to $10^9$. A $64$-bit hash makes
+the correction unnecessary for any count of this chapter, at the cost of one more bit a register.
 
 ## Python
 
-The counts.
+The counts and the correction.
 
 ```{.python .run}
 import math
-for b in (32, 64, 128): print(b, math.ceil(math.log2(b - 14 + 2)))
+for b in (32, 64, 128): print(b, "bits:", math.ceil(math.log2(b - 14 + 2)), "bits a register")
+n, L = 1e9, 32
+seen = 2 ** L * (1 - math.exp(-n / 2 ** L))               # distinct 32-bit hash values among n items
+print(f"threshold 2^32/30 = {2 ** 32 / 30:.3g}; distinct hashes of 1e9 items {seen:.3g}; corrected {-2 ** L * math.log(1 - seen / 2 ** L):.3g}")
 ```
 
 ```{.text .run-output}
-32 5
-64 6
-128 7
+32 bits: 5 bits a register
+64 bits: 6 bits a register
+128 bits: 7 bits a register
+threshold 2^32/30 = 1.43e+08; distinct hashes of 1e9 items 8.92e+08; corrected 1e+09
 ```
 ::::
 :::
@@ -6271,22 +6353,23 @@ The sum gives $2 \times 10^4$; the union has $1.2 \times 10^4$, which the merged
 
 ## Python
 
-A simulation with the calibrated estimator.
+A simulation with the paper's constant $\alpha_{512}$.
 
 ```{.python .run}
 import numpy as np
 rng = np.random.default_rng(99)
 m = 512
+alpha = 0.7213 / (1 + 1.079 / m)
 reg_of = rng.integers(0, m, 12000); rank_of = rng.geometric(0.5, 12000)   # a fixed "hash" per viewer id
 def regs(ids):
     M = np.zeros(m); np.maximum.at(M, reg_of[ids], rank_of[ids]); return M
-est = lambda M: 0.72 * m * m / np.sum(2.0 ** -M)
+est = lambda M: alpha * m * m / np.sum(2.0 ** -M)
 mon, tue = regs(np.arange(10000)), regs(np.arange(2000, 12000))
 print(f"sum of daily estimates {est(mon) + est(tue):.0f} | merged estimate {est(np.maximum(mon, tue)):.0f} | true union 12000")
 ```
 
 ```{.text .run-output}
-sum of daily estimates 20953 | merged estimate 12904 | true union 12000
+sum of daily estimates 20947 | merged estimate 12900 | true union 12000
 ```
 ::::
 :::
@@ -6433,19 +6516,19 @@ Using a single register ($m = 1$), the estimate $2^M$ of $n = 1000$: find from p
 :::: {.panel-tabset .solution-tabs}
 ## Solution
 
-$2^M > 8000$ means $M \geq 13$: $1 - (1 - 2^{-12})^{1000} = 0.22$. One register gives order-of-magnitude answers; many registers, averaged by a harmonic mean, reduce the spread, as the calibration
-shows.
+$2^M > 8000$ means $M \geq 13$: $1 - (1 - 2^{-12})^{1000} = 0.22$. One register gives order-of-magnitude answers. Many registers, averaged by a harmonic mean, reduce the relative standard error
+to about $1.04/\sqrt m$ by part (e): $13\%$ for $m = 64$ and $3.3\%$ for $m = 1024$, for large $n$.
 
 ## Python
 
-The probability.
+The probability and the standard errors.
 
 ```{.python .run}
-print(round(1 - (1 - 2 ** -12) ** 1000, 3))
+print("one register:", round(1 - (1 - 2 ** -12) ** 1000, 3), "| standard error with m = 64, 1024:", [round(1.04 / m ** 0.5, 3) for m in (64, 1024)])
 ```
 
 ```{.text .run-output}
-0.217
+one register: 0.217 | standard error with m = 64, 1024: [0.13, 0.033]
 ```
 ::::
 :::
@@ -6496,26 +6579,30 @@ The tenth exercise checks Liu's size for HyperLogLog. A count is not a sketch.
 #### Liu's memory estimate
 
 Liu sizes the HyperLogLog option as one $8$-byte count per video, $1\,\mathrm{GB}$ for $10^8$ videos [@liuSystemDesignInterview2020, Ch. 6, "Number of Unique Users"]. What does a sketch per video actually
-need, and why is a count not enough?
+need, with $m = 1024$ registers of the paper's $5$ bits for $32$-bit hashes and of $6$ bits for $64$-bit hashes (part (c)), what standard error does it give (part (e)), and why is a count not enough?
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
 :::: {.panel-tabset .solution-tabs}
 ## Solution
 
-A count cannot be updated without knowing whether a viewer is new; the sketch must be kept, $m$ registers per video: $768$ bytes for $m = 1024$, $77\,\mathrm{GB}$ in all (@exm-apx-liu-unique). The
-estimate itself is a number derived from the registers when queried.
+A count cannot be updated without knowing whether a viewer is new; the sketch must be kept, $m$ registers per video: $768$ bytes at $6$ bits, $77\,\mathrm{GB}$ in all (@exm-apx-liu-unique), or
+$640$ bytes and $64\,\mathrm{GB}$ at the paper's $5$ bits, which suffice for $32$-bit hashes [@flajolet2007hyperloglog, Sec. 4, p. 152] and for $5 \times 10^4$ viewers a video, far below the
+large-range threshold. The standard error is $1.04/\sqrt{1024} \approx 3.2\%$. Liu's $1\,\mathrm{GB}$ is the size of the answers, one number per video derived from the registers when queried, not
+of the sketches that produce them; it is $64$ to $77$ times too small.
 
 ## Python
 
-The two sizes.
+The sizes and the standard error.
 
 ```{.python .run}
-print(f"Liu {1e8 * 10 / 1e9:.0f} GB | sketches {1e8 * 1024 * 6 / 8 / 1e9:.0f} GB")
+for bits in (6, 5):
+    print(f"{bits}-bit registers: {1024 * bits / 8:.0f} B per video, {1e8 * 1024 * bits / 8 / 1e9:.0f} GB in all", end=" | ")
+print(f"Liu {1e8 * 10 / 1e9:.0f} GB | standard error {1.04 / 1024 ** 0.5:.1%}")
 ```
 
 ```{.text .run-output}
-Liu 1 GB | sketches 77 GB
+6-bit registers: 768 B per video, 77 GB in all | 5-bit registers: 640 B per video, 64 GB in all | Liu 1 GB | standard error 3.2%
 ```
 ::::
 :::
@@ -6572,23 +6659,23 @@ probability $0.999$ (@thm-count-min). (b) Give the registers for distinct viewer
 ## Solution
 
 (a) An hour has about $2.1 \times 10^8$ views: $\varepsilon = 4.8 \times 10^{-6}$, $w = 5.7 \times 10^5$, $d = 7$, $16\,\mathrm{MB}$, plus a heap of candidates. (b) $2^{14}$ registers, $12\,\mathrm{kB}$ per
-hour; the day's registers are the maxima of the hours' (part (b)). (c) None: the top list may err near the cut, by at most $1000$ views per photo with high probability, and the distinct count has the
-estimator's spread; a nightly batch can give exact values.
+hour; the day's registers are the maxima of the hours' (part (b)). (c) None: the top list may err near the cut, by at most $1000$ views per photo with high probability, and the distinct count has a
+standard error of about $1.04/\sqrt{2^{14}} = 0.81\%$ (part (e)); a nightly batch can give exact values.
 
 ## Python
 
-The sizes.
+The sizes and the standard error.
 
 ```{.python .run}
 import math
 N = 5e9 / 24
 eps = 1000 / N
 w, d = math.ceil(math.e / eps), math.ceil(math.log(1000))
-print(f"N {N:.2e}, w {w}, d {d}, {w * d * 4 / 1e6:.0f} MB")
+print(f"N {N:.2e}, w {w}, d {d}, {w * d * 4 / 1e6:.0f} MB, distinct-count standard error {1.04 / 2 ** 7:.2%}")
 ```
 
 ```{.text .run-output}
-N 2.08e+08, w 566309, d 7, 16 MB
+N 2.08e+08, w 566309, d 7, 16 MB, distinct-count standard error 0.81%
 ```
 ::::
 :::
@@ -6633,6 +6720,9 @@ The chapter cites the following works, with the parts it uses.
 - @dean2004mapreduce [Secs. 2-5]: the programming model and its examples, execution, the master, fault tolerance and its semantics, locality, task granularity, backup tasks, partitioning,
   ordering, the combiner, side effects, skipping bad records, local execution, and the grep and sort measurements.
 - @cormode2005improved [Secs. 2-4 and 5.2]: the count-min sketch, its sizes, Theorem 1 with its proof, the median estimator for negative updates (quoted), range queries and heavy hitters.
+- @flajolet2007hyperloglog [Introduction; Secs. 1-4; Figs. 1-3; Definition 1 and Theorem 1]: the bit-pattern observable, the algorithm and its estimator, the constant $\alpha_m$ (Equation (3),
+  Sec. 3.2 and the values of Figure 3), the register law, Theorem 1 on bias and standard error (quoted), the constants $\beta_m$, the small- and large-range corrections, register sizes, merging
+  by maximum and the Gaussian spread of the estimates.
 - @kreps2011kafka [Sec. 4]: a log pipeline from frontends to a warehouse and its latency.
 - @liuSystemDesignInterview2020 [Ch. 5, "Batch Processing", "Stream Processing", "Watermark", "Checkpointing", "Lambda Architecture", "Sampling", "Columnar Store"; Ch. 6, "Number of Unique Users"
   and "Top Watched YouTube Video"; App. 5]: batch questions, event and processing time, late events, watermarks and their trade-off, checkpoints, the two lanes, sampling, columnar stores, and the
@@ -6641,5 +6731,5 @@ The chapter cites the following works, with the parts it uses.
   clustering, warehouses, lakes and lakehouses, ingestion frequency, windows and watermarks, star schemas, and file formats.
 - @tanAcingSystemDesign2024 [Secs. 3.3.6, 3.6, 4.5, 4.6, 17.7-17.9]: checkpoints, accuracy, aggregation tiers, sampling, ETL and DAGs, Lambda and Kappa, the count-min sketch and the top-K dashboard;
   its procedure for the second most frequent item is examined in @exr-apx-tan-second, and its merged-heaps example checked in @exr-mrp-tan-heaps.
-- @sinhaSystemDesignGuide2024 [Ch. 3, "Count-min sketch" and "HyperLogLog"]: the count-min walk-through and the description of HyperLogLog; its estimate $2^{L+1}$ is examined in @exr-apx-sinha-hll.
+- @sinhaSystemDesignGuide2024 [Ch. 3, "Count-min sketch" and "HyperLogLog"]: the count-min walk-through and the description of HyperLogLog; its estimate $2^{L+1}$ is examined against the paper's in @exr-apx-sinha-hll.
 - @gilbertSoftwareArchitecturePatterns2024 [Ch. 4, "Optimizing throughput"]: batch sizes and iterator age in stream processors.

@@ -1,0 +1,30 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+users: "Users"
+router: "Global router\n(latency-based)"
+health: "Regional\nhealth check" {shape: page}
+
+eu: "Region EU" {
+  label.near: bottom-center
+  direction: down
+  z1: "Zone 1: feed, upload"
+  z2: "Zone 2: feed, upload"
+  z3: "Zone 3: feed, upload"
+  db: "Database" {shape: cylinder}
+}
+us: "Region US" {
+  label.near: bottom-center
+  direction: down
+  z1: "Zone 1: feed, upload"
+  z2: "Zone 2: feed, upload"
+  z3: "Zone 3: feed, upload"
+  db: "Database" {shape: cylinder}
+}
+
+users -> router
+router -> eu: "nearest"
+router -> us: "nearest"
+eu.db <-> us.db: "replication"
+health -> router: "healthy regions" {style.stroke-dash: 3}

@@ -9,6 +9,9 @@ chapters are written.
 
 ## A
 
+- **Adaptive throttling, bounded queues and goodput** (sent and rejected requests, latency of a bounded queue, useful throughput under overload): @prp-overload
+  (@sec-reliability-and-operations)
+- **Admission bounds of rate limiters** (token bucket, sliding window log, fixed window and sliding window counters): @thm-rate-limits (@sec-reliability-and-operations)
 - **Analytical storage** (OLTP and OLAP, row and column layouts, run-length and dictionary encoding, partitions, warehouses,
   lakes, star schemas): @def-analytical-storage (@sec-batch-and-stream-processing)
 - **Architectural characteristic**: @def-architectural-characteristic (@sec-estimation-and-the-design-process)
@@ -18,6 +21,7 @@ chapters are written.
   @def-auth-session-token (@sec-the-web-stack)
 - **Availability** (with downtime, nines, error budget, SLO and SLA): @def-availability
   (@sec-estimation-and-the-design-process)
+- **Availability, capacity and failover of regions** (correlated failures, $N + k$, lost writes, failover time): @prp-regions (@sec-reliability-and-operations)
 
 ## B
 
@@ -38,6 +42,7 @@ chapters are written.
 - **Cache patterns** (hit ratio, cache-aside, read-through, write-through, write-back, write-around): @def-cache-patterns (@sec-caching)
 - **CAP properties and PACELC** (atomic consistency, availability, partitions, CP and AP): @def-cap (@sec-consistency-and-consensus)
 - **CAP theorem** (asynchronous and partially synchronous models): @thm-cap (@sec-consistency-and-consensus)
+- **Circuit breaker, calls through** (outage calls, closing after recovery, false openings, rate thresholds): @prp-circuit-breaker (@sec-reliability-and-operations)
 - **Cold starts, concurrency and the cost crossover** (warm period, cold fraction, functions against servers): @prp-cold-start
   (@sec-architecture-styles)
 - **Collisions of random identifiers** (birthday bounds, bits needed, structured identifiers): @prp-id-collision
@@ -71,6 +76,8 @@ chapters are written.
   backfills): @def-pipeline (@sec-batch-and-stream-processing)
 - **Delivery semantics** (at most once, at least once, exactly once, effectively once, idempotency keys, end-to-end
   argument): @def-delivery-semantics (@sec-messaging-and-event-streams)
+- **Deployment and release, staged rollouts, flags, rollbacks, testing in production and chaos testing** (canary, blue-green, failing forward,
+  kill switch, zero-downtime change, compare and discard): @def-safe-change (@sec-reliability-and-operations)
 - **Design process**: @def-design-process (@sec-estimation-and-the-design-process)
 - **Distributed caches** (partitioned, replicated hot keys, local caches, cold and warm caches): @def-distributed-cache (@sec-caching)
 - **Distributed monoliths, the strangler fig and migrations** (binary and temporal coupling, facade, code and data migrations, lazy
@@ -89,6 +96,8 @@ chapters are written.
 - **Eviction policies and the independent reference model** (LRU, LFU, FIFO, random, Zipf laws): @def-eviction (@sec-caching)
 - **Exponential distribution and Poisson process** (no memory, competition, Erlang arrival times, Poisson counts):
   @def-poisson-process (@sec-performance-and-queueing)
+- **Exposure of a staged rollout, canary detection and chaos discovery** (excess failures, canary size, hashed stages): @prp-rollout
+  (@sec-reliability-and-operations)
 
 ## F
 
@@ -98,6 +107,8 @@ chapters are written.
   (@sec-replication-and-partitioning)
 - **Failure handling for messages** (retries with backoff and jitter, poison messages, dead-letter queues, backpressure,
   batching): @def-failure-handling (@sec-messaging-and-event-streams)
+- **Faults, failures, service level indicators, objectives and error budgets** (fault tolerance, failure domain, blast radius, burn rate):
+  @def-slo (@sec-reliability-and-operations)
 - **Functional dependencies and normal forms** (keys, 1NF, 2NF, 3NF, BCNF, decomposition, denormalisation):
   @def-normal-forms (@sec-storage-and-databases)
 
@@ -107,6 +118,8 @@ chapters are written.
   @def-happens-before (@sec-replication-and-partitioning)
 - **Heartbeat detector** (detection time, false suspicions, choice of timeout): @prp-heartbeat-detector
   (@sec-replication-and-partitioning)
+- **Histogram quantiles, merged measurements and alert rates** (bucket error, merging hosts, threshold alerts, anomaly thresholds):
+  @prp-monitoring (@sec-reliability-and-operations)
 - **HTTP validation and cache warming** (entity tags, 304, no-cache, must-revalidate, no-store): @def-http-caching (@sec-caching)
 
 ## I
@@ -131,6 +144,8 @@ chapters are written.
 - **Leader-follower replication** (replication log, synchronous and asynchronous replication, lag, read-after-write, failover):
   @def-leader-follower (@sec-replication-and-partitioning)
 - **Leases, fencing tokens and lock-delay, safety of**: @prp-lease-fencing (@sec-consistency-and-consensus)
+- **Least privilege, secrets, encryption and audit** (break-glass access, rotation, TLS termination, envelope encryption, crypto-shredding,
+  continuous auditing): @def-security-operations (@sec-reliability-and-operations)
 - **Linearisability, consequences of** (sequential consistency, reads after completed writes): @prp-linearisability (@sec-consistency-and-consensus)
 - **Little's law**: @thm-littles-law (@sec-performance-and-queueing)
 - **Load balancer** (layer 4 and layer 7, assignment rules, health checks, global load balancing): @def-load-balancer
@@ -154,6 +169,8 @@ chapters are written.
   frontend, service discovery and registry, sidecars and service meshes, shared libraries and services, contracts): @def-microservices
   (@sec-architecture-styles)
 - **M/M/1 queue** (stationary law, mean and distribution of the response time): @thm-mm1 (@sec-performance-and-queueing)
+- **Monitoring, logs, metrics, traces, alerts and audits** (black-box and white-box, symptoms and causes, golden signals, USE and RED,
+  synthetics, anomaly detection, silent errors): @def-observability (@sec-reliability-and-operations)
 - **Multi-leader and leaderless replication** (quorums, read repair, sloppy quorums, hinted handoff, Merkle trees):
   @def-quorum-replication (@sec-replication-and-partitioning)
 
@@ -196,6 +213,8 @@ chapters are written.
 - **Raft** (terms, elections, log replication, commitment): @def-raft (@sec-consistency-and-consensus)
 - **Raft safety** (election safety, log matching, leader completeness, state machine safety): @thm-raft-safety
   (@sec-consistency-and-consensus)
+- **Rate limiters, quotas, client-side throttling, load shedding and failure modes** (token and leaky buckets, window counters and logs,
+  fail open and closed): @def-overload (@sec-reliability-and-operations)
 - **Real-time delivery** (short and long polling, server-sent events, WebSocket, heartbeats): @def-real-time-delivery
   (@sec-the-web-stack)
 - **Registers, merging and samples** (HyperLogLog registers, Bernoulli sample variance): @prp-cardinality
@@ -209,6 +228,7 @@ chapters are written.
   @def-response-time (@sec-performance-and-queueing)
 - **Retries and dead-letter queues** (attempts, backoff, head-of-line blocking, retry amplification): @prp-retry-dlq
   (@sec-messaging-and-event-streams)
+- **Retry load, retry budgets, storms and deadlines**: @prp-retry-load (@sec-reliability-and-operations)
 
 ## S
 
@@ -224,12 +244,16 @@ chapters are written.
 - **Serverless functions, managed services and containers** (function as a service, cold start): @def-serverless (@sec-architecture-styles)
 - **Service calls, availability and latency of** (sequential and parallel calls, sidecars, events through a broker): @prp-service-calls
   (@sec-architecture-styles)
+- **Spending, burning and detecting an error budget** (incident spend, exhaustion time, burn-rate alerts, request- and time-based
+  availability): @prp-error-budget (@sec-reliability-and-operations)
 - **Stampedes, store requests at expiry** (with and without coalescing, jitter): @prp-stampede (@sec-caching)
 - **Stateless service** (session state, sticky sessions, session replication; vertical, horizontal and automatic
   scaling): @def-stateless-service (@sec-the-web-stack)
 
 ## T
 
+- **Timeouts, retry policies, circuit breakers, bulkheads, fallbacks and cascading failures** (deadline propagation, retry budgets,
+  graceful degradation): @def-fault-tolerance (@sec-reliability-and-operations)
 - **Topological order and the critical path** (list scheduling bounds, reruns): @prp-dag (@sec-batch-and-stream-processing)
 - **Total cost of ownership** (capital and operating expenses, unit cost): @def-total-cost-of-ownership
   (@sec-estimation-and-the-design-process)
@@ -241,3 +265,8 @@ chapters are written.
 ## W
 
 - **Windows and watermarks, guarantees of** (disorder, batch equality, checkpoints): @prp-windows (@sec-batch-and-stream-processing)
+
+## Z
+
+- **Zones, regions, regional topologies, failover, recovery objectives and backups** (primary-secondary, active-active, health checks,
+  RTO and RPO, $N + k$): @def-multi-region (@sec-reliability-and-operations)

@@ -121,7 +121,9 @@ and says how the two meanings are told apart where they meet.
 | $s$ †, $X$ † | rate of a Bernoulli sample, and the number of sampled events |
 | $w$ †, $d$ †, $\varepsilon$ †, $\delta$ † | width, depth, error and failure probability of a count-min sketch (as in the earlier row) |
 | $a_i$, $\hat a_i$, $\lVert a\rVert_1$ | count of item $i$, its count-min estimate, and the total count |
-| $p$ †, $q$ †, $m$ †, $M_j$, $c_m$ | HyperLogLog: bits choosing a register, rank bits, number of registers $m = 2^p$, value of register $j$, and the estimator's constant |
+| $p$ †, $q$ †, $m$ †, $M_j$ | HyperLogLog: bits choosing a register, rank bits, number of registers $m = 2^p$, and value of register $j$ |
+| $Z$ †, $\alpha_m$, $\hat n$, $\hat n^\ast$, $V$ † | HyperLogLog (Flajolet and others): the indicator $Z = (\sum_j 2^{-M_j})^{-1}$, the bias constant $\alpha_m$, the raw estimate $\hat n = \alpha_m m^2Z$ (their $E$), the range-corrected estimate (their $E^\ast$), and the number of registers equal to $0$ |
+| $\beta_m$ †, $\mathbb E_n$, $\operatorname{Var}_n$ | HyperLogLog's standard-error constant, $\beta_\infty = \sqrt{3\ln 2 - 1}$; mean and variance when the cardinality is $n$ |
 | $V$ †, $E$, $u \to v$ | components and dependency edges of a dependency graph, and the edge from $u$ to the component $v$ it depends on |
 | $C_a(v)$, $C_e(v)$, $C_t(v)$ | afferent, efferent and total coupling of a component $v$ |
 | $I(v)$ † | instability of a component, $C_e/(C_a + C_e)$ |
@@ -134,6 +136,23 @@ and says how the two meanings are told apart where they meet.
 | $V_k$ †, $R_k$ †, $w_k$ † | version $k$ of a service, the formats it reads, and the format it writes |
 | $X$ †, $J$ | two storage formats, old and new (as XML and JSON) |
 | $p$ †, $t$ † | probability that a record is written on a given day, and number of days of a lazy migration |
+| $N$ †, $G$ † | valid and good requests in an SLO window |
+| $A^*$ | the target of an SLO; its error budget is $(1 - A^*)N$ |
+| $\beta$ †, $\beta_0$ | burn rate of an error budget, and the threshold of a burn-rate alert |
+| $\varphi$, $\tau$ † | fraction of requests an incident fails, and its duration |
+| $w$ † | averaging window of an alert |
+| $C$ †, $A_k$ †, $R_k$ † | attempts a backend accepts per round; attempts and rejections in round $k$ of a retry storm |
+| $r$ † | retry budget: the largest ratio of retries to new requests |
+| $k$ †, $T_o$ | failures that open a circuit breaker, and its open timeout |
+| $L$ †, $W$ † | limit and window of a window-based rate limiter; $c_j$ the admitted count of window $j$ |
+| $K$ †, $R$ †, $A$ † | multiplier of adaptive throttling, and a client's requests and accepts over its window |
+| $Q$ †, $\mu$ | queue limit of a server, and its capacity in requests per unit time |
+| $b_j$, $\rho$ † | upper bound of histogram bucket $j$, and the ratio of consecutive bounds |
+| $z$ | threshold of an anomaly rule, in standard deviations |
+| $f_i$ †, $T_i$ †, $\delta$ † | fraction served the new version in rollout stage $i$, the stage's duration, and the excess failure probability of a bad version |
+| $a$ †, $c$ † | availability of one region, and probability of a correlated failure of all regions |
+| $\ell$ †, $\lambda_w$ | replication lag between regions, and the rate of acknowledged writes |
+| $\theta_d$, $\theta_r$, $\theta_w$ | times to detect a regional failure, to move traffic and to warm up the new region |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
 | $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |
