@@ -569,3 +569,50 @@ stampede protection; §4 distributed caches; §5 HTTP caching and cache warming.
 
 - D2: `figures/cache_flows.d2`. Python: `figures/hit_curve.py` (LRU, LFU and the IRM bound), `figures/stampede.py` (store requests per expiry).
 - Run blocks: plain Python and NumPy; LRU/LFU/FIFO/random replays on seeded Zipf traces; stampede simulations without SimPy.
+
+## Chapter 8: messaging-and-event-streams (task 6.2, 2026-11-28)
+
+Outline (approved row 8): §1 synchronous and asynchronous work, queues and workers; §2 publish-subscribe and topics; §3 delivery semantics,
+idempotence, the end-to-end argument; §4 the partitioned log; §5 failure handling; §6 event sourcing, CQRS and change data capture.
+Statements: `def-message-queue`, `prp-backlog`, `def-pubsub`, `def-delivery-semantics`, `prp-idempotent-consumer`, `def-partitioned-log`,
+`prp-consumer-group`, `def-failure-handling`, `prp-retry-dlq`, `def-event-sourcing`, `prp-replay`. The M/M/1 and M/M/c results are recalled
+from chapter 3 (`thm-mm1`, `thm-erlang-c`, `thm-littles-law`) in `prp-backlog` (d), not proved again.
+
+### Sources
+
+- Kafka paper (`kreps2011kafka`, Zotero BLHD3E5S), read whole: Sec. 2 (pull model, "overkill" guarantees), Sec. 3 (point-to-point and
+  publish/subscribe models), 3.1 (segments, byte offsets "increasing but not consecutive", cumulative acknowledgement, in-memory segment index,
+  page cache, sendfile, stateless broker, 7-day retention, rewind), 3.2 (consumer groups, partition as unit of parallelism, over-partitioning,
+  ZooKeeper registries, Algorithm 1, rebalance retries), 3.3 (at-least-once, per-partition order, CRC), 4 (auditing counts, Hadoop loader storing
+  data and offsets together), 5 (producer without acknowledgements, batching, 9 vs 144 bytes overhead).
+  Corrections turned into exercises: Algorithm 1's `N = |P_T|/|C_T|` with integer division leaves `N_p mod N_c` partitions unowned
+  (`exr-cg-kafka-integer`); "70% more space" is 65% from the stated overheads (`exr-plog-space`); the 2011 producer path was at most once
+  (`exr-dl-kafka-producer`).
+- Saltzer-Reed-Clark (`saltzer1984end`, Zotero RW4NCIZ2), read whole; cited by section name (the PDF is a reprint paginated 1-10):
+  Introduction (the argument), "End-to-end caretaking", "Performance aspects", "Delivery guarantees", "Duplicate message suppression",
+  "Transaction management" (SWALLOW versions), "Identifying the ends". The two-phase-commit passages are not quoted (that topic is chapter 9).
+- Xu Ch. 1 "Message queue"; Liu Ch. 5 ("Synchronous and Asynchronous", "Reasons for Asynchronous Processing", "Batch vs Stream Processing",
+  "Message Queue", "Publisher Subscriber", "Delivery Semantics and Guarantees", "Custom Queue", "Buffering", "Idempotency", "Conflict Resolution",
+  "Database and Queue"); Sinha Ch. 7 (distributed queue advantages, pub/sub, Kafka; "read once and in order" corrected in `exr-plog-sinha`);
+  Tan Secs. 3.3.4, 3.3.6, 3.3.7 (pp. 62-63), 4.6.2-4.6.3 (pp. 95-97; superset claim checked against its own Table 4.1 in
+  `exr-ps-tan-superset`), 5.1-5.4 (pp. 110-114; "CDC ... lower latency" examined in `exr-es-tan-latency`); Gandhi Ch. 3 pp. 86-90 (text from
+  the sd-pilot extraction); Gilbert Chs. 1, 4, 5, 7 (sections named in the chapter); Pacheco Ch. 2 ("What is event sourcing?", CQRS sidebar),
+  Ch. 3 ("Embrace async with an Event-Driven Architecture"; "same topic and consumer group" refined in `exm-cg-pacheco`), Ch. 8 ("Apache Kafka",
+  "Kafka and CQRS / ES"; dual write examined in `exr-es-pacheco-dual`); Reis Ch. 5 pp. 159-161, 178-181 and Ch. 7 pp. 248-249.
+
+### Proved, quoted, conventions
+
+- Proved: `prp-backlog` (a)-(c) in the fluid model; `prp-idempotent-consumer` (acknowledgement order, atomic deduplication, idempotent commuting
+  effects, version guard); `prp-consumer-group` (range assignment, per-key order, duplicates or losses by commit order); `prp-retry-dlq`
+  (attempts and DLQ probability, poison delay, head-of-line bound, n_a^layers amplification); `prp-replay` (snapshots, projections, ordered
+  application with a buffer, rebuild time).
+- Recalled by link, proved in chapter 3: `prp-backlog` (d) (M/M/c and M/M/1 means).
+- Standard notions with no source read: the name "effectively once"; the fluid model of a queue; "consumer lag" as end minus committed offset;
+  the name "transactional outbox" (Liu describes the mechanism as a transactional database queue, Tan the log-tailing alternative); the range
+  assignment with remainders (the paper's text says "range-partitions", its pseudocode drops the remainder); full jitter as a uniform draw.
+- No new references.
+
+### Figures and software
+
+- D2: `figures/topologies.d2`, `figures/consumer_groups.d2`, `figures/outbox.d2`. Python: `figures/backlog.py` (SimPy burst against the fluid line).
+- Run blocks: plain Python, NumPy, SimPy and `sqlite3`; all seeded; Erlang C by the stable Erlang B recursion.

@@ -132,7 +132,8 @@ where the symbol first appears.
 - $D$, $q$, $H$: in the failure-detection section, a delay bound, a loss probability and a number of heartbeats, against
   the stored volume and service demand $D$, the quantile level $q$ and the B-tree height $H$ of other chapters, which do
   not occur there.
-- $\theta$: a timeout, of a long poll in the web-stack chapter and of a heartbeat detector in the replication chapter.
+- $\theta$: a timeout, of a long poll in the web-stack chapter and of a heartbeat detector in the replication chapter,
+  and a message's time to live in the messaging chapter.
 - $S$, $G$: a node's share of the ring and the length of one arc. Dynamo's $S$ for the number of nodes is written $n$
   here.
 - $b$: in the identifier section, a number of random bits, against the page size, token-bucket capacity and BM25
@@ -149,6 +150,16 @@ where the symbol first appears.
 - $C$, $s$, $r$: in the caching chapter, a cache capacity, a Zipf exponent and a regeneration time, against Erlang C
   and the Lamport timestamp (both written with arguments), the payload sizes $s_o$ (always indexed) and the refill rate
   of a token bucket.
+- $q$, $r$, $s$: in the messaging chapter, the quotient and remainder of $N_p$ by $N_c$ in the consumer-group
+  proposition, and the failure probability of an attempt and the longest duration of an attempt in the retry
+  proposition, against the quantile level, quorum size and loss probability $q$, the regeneration time and refill rate
+  $r$, and the Zipf exponent $s$ of other chapters. Each is defined in its statement, and the two meanings of $q$ are
+  in different sections.
+- $A$, $D$, $S$, $b$, $k$, $h$, $e_j$: in the messaging chapter, the arrivals and departures of the fluid model
+  (written with the argument $t$), a number of subscriptions, a batch size, a number of events between snapshots or
+  commits, a hash onto partitions and the events of an event-sourced log, against the availability $A$, the delay
+  bound and stored volume $D$, a node's share $S$, the other uses of $b$ and $k$, the hit ratio $h$ and the entries
+  $e_j$ of a replication log.
 - Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
   Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
 - Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.

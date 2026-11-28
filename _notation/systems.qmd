@@ -81,6 +81,22 @@ and says how the two meanings are told apart where they meet.
 | $p_k$, $P_C$ | popularity of key $k$ under the independent reference model, and the total popularity of the $C$ most popular keys |
 | $s$ †, $H_{K,s}$ | exponent of a Zipf law, and the normalising sum $\sum_{j \leq K}j^{-s}$ |
 | $r$ †, $J$ | time to regenerate a cached value, and the width of the TTL jitter interval |
+| $B(t)$ | backlog of a queue at time $t$: messages arrived and not yet processed |
+| $\lambda_1$, $\lambda_0$ | arrival rates of a queue during and after a burst |
+| $A(t)$ †, $D(t)$ † | arrivals and departures by time $t$ in the fluid model of a queue |
+| $S$ † | number of subscriptions of a topic |
+| $f_m$, $k(m)$ | effect of message $m$ on a consumer's state, and its idempotency key |
+| $x(m)$, $v(m)$, $t(m)$ | key, value and version set by a versioned message $m$ |
+| $N_p$, $N_c$ | number of partitions of a topic, and of consumers in a consumer group |
+| $q$ †, $r$ †, $s_j$ | in the range assignment, $N_p = qN_c + r$ with $0 \leq r < N_c$, and consumer $j$'s first partition $s_j = jq + \min(j, r)$ |
+| $o_c$, $o_u$ | committed offset of a partition, and its first unprocessed offset |
+| $n_a$, $t_0$ | maximum number of processing attempts, and the delay before the first retry |
+| $q$ †, $s$ † | probability that an attempt fails transiently, and the longest duration of an attempt |
+| $n_\ell$ | number of layers that retry a failing call |
+| $b$ † | number of messages in a batch |
+| $\Sigma_j$, $\operatorname{apply}$ | state after the first $j$ events $e_1, \dots, e_j$ † of an event-sourced log, and the function that applies an event to a state |
+| $k$ † | number of events between snapshots, or between commits of an offset |
+| $\theta$ † | time to live of a message in a queue |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
 | $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |

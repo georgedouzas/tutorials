@@ -1,0 +1,35 @@
+...@../../../_filters/d2-theme
+
+direction: down
+
+topic: "Topic: uploads" {
+  direction: right
+  p0: "Partition 0\noffsets 0, 1, 2, ..."
+  p1: "Partition 1\noffsets 0, 1, 2, ..."
+  p2: "Partition 2\noffsets 0, 1, 2, ..."
+  p3: "Partition 3\noffsets 0, 1, 2, ..."
+}
+
+ga: "Group: thumbnails" {
+  label.near: bottom-center
+  direction: right
+  a1: "Consumer A1"
+  a2: "Consumer A2"
+}
+
+gb: "Group: search" {
+  label.near: bottom-center
+  direction: right
+  b1: "Consumer B1"
+  b2: "Consumer B2"
+  b3: "Consumer B3"
+}
+
+topic.p0 -> ga.a1
+topic.p1 -> ga.a1
+topic.p2 -> ga.a2
+topic.p3 -> ga.a2
+topic.p0 -> gb.b1 {style.stroke-dash: 3}
+topic.p1 -> gb.b1 {style.stroke-dash: 3}
+topic.p2 -> gb.b2 {style.stroke-dash: 3}
+topic.p3 -> gb.b3 {style.stroke-dash: 3}

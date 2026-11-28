@@ -1,0 +1,37 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+queue: "Point-to-point queue" {
+  label.near: bottom-center
+  direction: right
+  producer: "Upload handler\n(producer)"
+  q: "Queue" {shape: queue}
+  w1: "Worker 1"
+  w2: "Worker 2"
+  w3: "Worker 3"
+  producer -> q: "message"
+  q -> w1: "m1"
+  q -> w2: "m2"
+  q -> w3: "m3"
+}
+
+topic: "Publish-subscribe topic" {
+  label.near: bottom-center
+  direction: right
+  producer: "Upload handler\n(publisher)"
+  t: "Topic"
+  s1: "Subscription:\nthumbnails" {shape: queue}
+  s2: "Subscription:\nfeed" {shape: queue}
+  s3: "Subscription:\nsearch" {shape: queue}
+  c1: "Thumbnail\nworkers"
+  c2: "Feed\nservice"
+  c3: "Search\nindexer"
+  producer -> t: "message"
+  t -> s1: "copy"
+  t -> s2: "copy"
+  t -> s3: "copy"
+  s1 -> c1
+  s2 -> c2
+  s3 -> c3
+}

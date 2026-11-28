@@ -17,6 +17,8 @@ chapters are written.
 
 ## B
 
+- **Backlog of a queue under a burst** (fluid model, drain time, waits, random arrivals):
+  @prp-backlog (@sec-messaging-and-event-streams)
 - **Block, file and object storage** (blocks, files and directories, network-attached storage, buckets and keys,
   distributed file system, chunks and master): @def-storage-kinds (@sec-storage-and-databases)
 - **Bloom filter false-positive rate** (probability of a zero bit, optimal number of hash functions, bits per key):
@@ -39,6 +41,8 @@ chapters are written.
   (@sec-consistency-and-consensus)
 - **Consistent hashing** (keys moved by modular and consistent hashing, largest share, virtual nodes): @thm-consistent-hashing
   (@sec-replication-and-partitioning)
+- **Consumer groups** (range assignment, order per key, duplicates and losses after a crash):
+  @prp-consumer-group (@sec-messaging-and-event-streams)
 - **Content delivery network** (edge servers, cache key, freshness lifetime, hit ratio, purge and versioning):
   @def-cdn (@sec-the-web-stack)
 - **Coordination services** (locks, sessions, leases, fencing tokens, lock-delay): @def-coordination (@sec-consistency-and-consensus)
@@ -47,6 +51,8 @@ chapters are written.
 
 - **Data model** (relational, key-value, document, wide-column and graph; access patterns): @def-data-model
   (@sec-storage-and-databases)
+- **Delivery semantics** (at most once, at least once, exactly once, effectively once, idempotency keys, end-to-end
+  argument): @def-delivery-semantics (@sec-messaging-and-event-streams)
 - **Design process**: @def-design-process (@sec-estimation-and-the-design-process)
 - **Distributed caches** (partitioned, replicated hot keys, local caches, cold and warm caches): @def-distributed-cache (@sec-caching)
 
@@ -54,6 +60,8 @@ chapters are written.
 
 - **Erlang C formula** (the M/M/c queue, probability of waiting, mean wait): @thm-erlang-c
   (@sec-performance-and-queueing)
+- **Event sourcing, CQRS and change data capture** (snapshots, projections, dual writes, transactional outbox):
+  @def-event-sourcing (@sec-messaging-and-event-streams)
 - **Eviction policies and the independent reference model** (LRU, LFU, FIFO, random, Zipf laws): @def-eviction (@sec-caching)
 - **Exponential distribution and Poisson process** (no memory, competition, Erlang arrival times, Poisson counts):
   @def-poisson-process (@sec-performance-and-queueing)
@@ -64,6 +72,8 @@ chapters are written.
   (@sec-replication-and-partitioning)
 - **Failure detectors and gossip membership** (completeness, accuracy, heartbeats, timeouts, seeds): @def-failure-detector
   (@sec-replication-and-partitioning)
+- **Failure handling for messages** (retries with backoff and jitter, poison messages, dead-letter queues, backpressure,
+  batching): @def-failure-handling (@sec-messaging-and-event-streams)
 - **Functional dependencies and normal forms** (keys, 1NF, 2NF, 3NF, BCNF, decomposition, denormalisation):
   @def-normal-forms (@sec-storage-and-databases)
 
@@ -77,6 +87,8 @@ chapters are written.
 
 ## I
 
+- **Idempotent consumers** (acknowledgement order, deduplication, commuting effects, version checks):
+  @prp-idempotent-consumer (@sec-messaging-and-event-streams)
 - **Identifier schemes** (auto-increment, ticket server, stride, UUID versions 4 and 7, Snowflake): @def-unique-id
   (@sec-replication-and-partitioning)
 - **Independent reference model, best hit ratio under** (top-$C$ popularity): @prp-irm-bound (@sec-caching)
@@ -104,6 +116,8 @@ chapters are written.
 
 ## M
 
+- **Messages, queues and workers** (synchronous and asynchronous calls, brokers, worker pools, acknowledgements,
+  backlog): @def-message-queue (@sec-messaging-and-event-streams)
 - **M/M/1 queue** (stationary law, mean and distribution of the response time): @thm-mm1 (@sec-performance-and-queueing)
 - **Multi-leader and leaderless replication** (quorums, read repair, sloppy quorums, hinted handoff, Merkle trees):
   @def-quorum-replication (@sec-replication-and-partitioning)
@@ -119,10 +133,14 @@ chapters are written.
 
 ## P
 
+- **Partitioned logs** (offsets, partition keys, retention and replay, consumer groups, committed offsets, lag):
+  @def-partitioned-log (@sec-messaging-and-event-streams)
 - **Partitioning schemes** (range, hash and consistent hashing, virtual nodes, rebalancing, hot keys): @def-partitioning
   (@sec-replication-and-partitioning)
 - **Paxos** (proposers, acceptors, learners, two phases, Multi-Paxos): @def-paxos (@sec-consistency-and-consensus)
 - **Paxos safety** (P2c, P2b, one chosen value): @thm-paxos-safety (@sec-consistency-and-consensus)
+- **Publish-subscribe** (topics, subscriptions, push and pull, retention):
+  @def-pubsub (@sec-messaging-and-event-streams)
 
 ## Q
 
@@ -137,11 +155,15 @@ chapters are written.
   (@sec-consistency-and-consensus)
 - **Real-time delivery** (short and long polling, server-sent events, WebSocket, heartbeats): @def-real-time-delivery
   (@sec-the-web-stack)
+- **Replay of an event log** (snapshots, projections, ordered application, rebuild time):
+  @prp-replay (@sec-messaging-and-event-streams)
 - **Request path** (DNS, TCP, TLS and HTTP; round-trip time, intermediaries): @def-request-path (@sec-the-web-stack)
-- **Response time, throughput, percentiles and utilisation** (empirical quantile, tail latency, capacity):
-  @def-response-time (@sec-performance-and-queueing)
 - **Requirements specification** (functional and non-functional requirements, workload assumptions):
   @def-requirements-specification (@sec-estimation-and-the-design-process)
+- **Response time, throughput, percentiles and utilisation** (empirical quantile, tail latency, capacity):
+  @def-response-time (@sec-performance-and-queueing)
+- **Retries and dead-letter queues** (attempts, backoff, head-of-line blocking, retry amplification): @prp-retry-dlq
+  (@sec-messaging-and-event-streams)
 
 ## S
 

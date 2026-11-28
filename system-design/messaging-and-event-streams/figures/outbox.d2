@@ -1,0 +1,28 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+service: "Upload service"
+
+db: "Database" {
+  direction: down
+  tx: "One transaction" {
+    photos: "photos table\n(insert row)"
+    outbox: "outbox table\n(insert event)"
+  }
+  log: "Transaction log"
+}
+
+relay: "Relay\n(publishes unsent rows,\nthen marks them sent)"
+cdc: "Change data capture\n(tails the log)"
+topic: "Topic: uploads"
+feed: "Feed read model"
+search: "Search index"
+
+service -> db.tx: "commit"
+db.tx.outbox -> relay: "poll"
+relay -> topic: "publish"
+db.log -> cdc: "read" {style.stroke-dash: 3}
+cdc -> topic: "publish" {style.stroke-dash: 3}
+topic -> feed: "consume"
+topic -> search: "consume"
