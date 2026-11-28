@@ -840,3 +840,39 @@ learning linked). §1 the ML system; §2 model serving; §3 serving LLMs; §4 RA
 - D2: `figures/ml_pipeline.d2`, `figures/rag_pipeline.d2`, `figures/agent_loop.d2`.
 - Run blocks: plain Python, NumPy and SimPy, seeded; stub models only, no network, no weights (dynamic batching and static vs continuous batching in
   SimPy, IVF vs brute force in NumPy, a stub agent with retries, budgets and an idempotency table).
+
+## Chapter 14: case-studies-infrastructure (task 6.2, 2026-11-28)
+
+Outline (approved row 14, §1-§7): URL shortener, rate-limiting service, distributed key-value store, notification service, web crawler, CDN,
+counting and top-K. Each section composes earlier results by link (load estimate, identifier collisions, rate-limiter bounds, quorum
+intersection, idempotent consumers, retries and DLQs, CDN TTL hit ratio, count-min) without re-proving them. Statements: `def-url-shortener`,
+`def-rate-limiter-service`, `def-kv-store-design`, `def-notification-service`, `def-web-crawler`, `prp-crawl-rate` (the one new result),
+`def-cdn-design`, `def-topk-dashboard`.
+
+### Sources
+
+- Xu Ch. 4 (placement, headers, Redis INCR/EXPIRE), Ch. 6 (requirements, partition, replication, quorum consensus, vector clocks, write and
+  read paths), Ch. 8 (estimate, API, 301/302, base-62 and its examples, flows, wrap-up), Ch. 9 (estimate, components, politeness, priority,
+  freshness, frontier storage, robots.txt, performance optimisation, spider traps), Ch. 10 (volumes, settings, templates, data loss, dedupe,
+  rate limiting, retries, queue monitoring).
+- Tan Sec. 8.4 p. 175, 8.6 pp. 177-179, 8.7-8.8, 8.10 p. 193; Ch. 9 Secs. 9.1-9.2 pp. 196-200, 9.9 pp. 216-218; Secs. 10.1-10.2 pp. 224-226;
+  Ch. 13 Secs. 13.1 p. 288, 13.4-13.9 pp. 294-306; Ch. 17 Secs. 17.1-17.3 pp. 375-377, 17.8-17.9 p. 390.
+- Sinha Ch. 5 "Using r and w"; Ch. 9 "Estimates and calculations", "Core challenge" (options A-D).
+- Liu Ch. 6 "Distributed Counter" (write throughput, row shards, idempotency), "Rate Limiter Failure Scenario".
+- Dynamo (decandia2007dynamo, Zotero PDF YQD73CUU) Secs. 2.2, 4 (Table 1, 4.6), 6 and 6.2.
+
+### Gaps, proved and quoted
+
+- No new references.
+- Proved: `prp-crawl-rate`. Everything else recalled by link.
+- Errors in the sources, examined in exercises: Xu's URL storage multiplies the ten years twice (36.5 TB, not 365 TB); Sinha's base-62 example
+  is wrong from the first division (9234529445 is "ke7i7t" in his alphabet, not "keoeNx"); Sinha says a larger r favours availability over
+  consistency (the reverse); Tan's rate-limiter storage product counts bits; Liu rounds the day to 10^5 s.
+- Unsourced standard notions: scrambling sequential aliases by a modular bijection; signed URLs; near-duplicate detection by shingles; the
+  freshness formula for Poisson page changes; tombstones; per-host parallel connections.
+
+### Figures and software
+
+- D2: `figures/url_shortener.d2`, `rate_limiter.d2`, `kv_store.d2`, `notifications.d2`, `web_crawler.d2`, `cdn.d2`, `topk.d2`.
+- Run blocks: plain Python and NumPy, seeded: base-62 and collision checks, a token bucket on bursty traffic, a three-node in-process store with
+  quorums, hints and read repair, deduplicated delivery with retries, a heap-based polite frontier, an edge hit-ratio simulation, count-min top-K.

@@ -1,0 +1,24 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+user: "Client"
+geodns: "GeoDNS"
+site: "Nearby site" {
+  label.near: bottom-center
+  direction: down
+  lb: "Load balancer"
+  gw: "API gateway\n(TLS, auth, rate limit, logs)"
+  meta: "Metadata service" {shape: cylinder}
+  storage: "Storage service\n(3 replicas)" {shape: cylinder}
+  lb -> gw
+  gw -> meta: "which hosts?"
+  gw -> storage: "stream asset"
+}
+origin: "Origin"
+secrets: "Secrets service"
+
+user -> geodns: "resolve"
+user -> site.lb: "request"
+site.gw -> origin: "miss: fetch" {style.stroke-dash: 3}
+site.gw -> secrets: "keys" {style.stroke-dash: 3}

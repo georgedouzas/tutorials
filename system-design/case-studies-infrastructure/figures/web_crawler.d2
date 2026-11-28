@@ -1,0 +1,28 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+seeds: "Seed URLs"
+frontier: "URL frontier" {
+  direction: down
+  front: "Front queues\n(priority)"
+  back: "Back queues\n(one host each)"
+  front -> back
+}
+dl: "Downloaders" {style.multiple: true}
+dns: "DNS cache"
+parse: "Content parser"
+cseen: "Content seen?"
+store: "Content storage" {shape: cylinder}
+extract: "URL extractor"
+filter: "URL filter"
+useen: "URL seen?\n(Bloom filter)"
+
+seeds -> frontier.front
+frontier.back -> dl: "polite: delta per host"
+dl -> dns: "resolve"
+dl -> parse -> cseen
+cseen -> store: "new"
+cseen -> extract
+extract -> filter -> useen
+useen -> frontier.front: "new URLs"

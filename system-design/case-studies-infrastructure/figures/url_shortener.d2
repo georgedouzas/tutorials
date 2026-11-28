@@ -1,0 +1,23 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+client: "Client"
+lb: "Load balancer"
+web: "Web servers\n(stateless)" {style.multiple: true}
+limiter: "Rate limiter"
+ids: "Identifier service" {
+  direction: down
+  range: "Range server"
+  counters: "Counter servers" {style.multiple: true}
+  range -> counters: "blocks of k"
+}
+cache: "Alias cache" {shape: cylinder}
+db: "Alias table\n(partitioned by alias)" {shape: cylinder}
+
+client -> lb -> web
+web -> limiter: "shorten: check"
+web -> ids.counters
+web -> db: "put / get"
+web -> cache: "get alias"
+web -> client: "301 / 302" {style.stroke-dash: 3}

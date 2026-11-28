@@ -1,0 +1,27 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+events: "Sales events"
+log: "Partitioned log" {shape: queue}
+stream: "Streaming path" {
+  direction: down
+  cm: "Count-min sketch\nper minute"
+  heap: "Top candidates"
+  cm -> heap
+}
+batch: "Batch path" {
+  direction: down
+  mr: "MapReduce\nhourly, daily"
+  exact: "Exact buckets" {shape: cylinder}
+  mr -> exact
+}
+serve: "Serving layer"
+dash: "Dashboard"
+
+events -> log
+log -> stream.cm
+log -> batch.mr
+stream.heap -> serve: "approximate, recent"
+batch.exact -> serve: "exact, overwrites"
+serve -> dash

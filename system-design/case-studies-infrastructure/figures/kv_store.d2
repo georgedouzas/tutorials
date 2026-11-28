@@ -1,0 +1,24 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+client: "Client"
+coord: "Coordinator"
+ring: "Ring (N = 3 replicas per key)" {
+  direction: down
+  n1: "Node A\n(zone 1)"
+  n2: "Node B\n(zone 2)"
+  n3: "Node C\n(zone 3)"
+  n4: "Node D\n(stand-in, hints)"
+  n1 -> n2: "gossip" {style.stroke-dash: 3}
+  n2 -> n3: "gossip" {style.stroke-dash: 3}
+  n3 -> n1: "anti-entropy" {style.stroke-dash: 3}
+}
+engine: "Per node: commit log,\nmemtable, SSTables,\nBloom filters" {shape: page}
+
+client -> coord: "put / get"
+coord -> ring.n1
+coord -> ring.n2
+coord -> ring.n3
+coord -> ring.n4: "if a replica is down" {style.stroke-dash: 3}
+ring.n2 -> engine {style.stroke-dash: 3}

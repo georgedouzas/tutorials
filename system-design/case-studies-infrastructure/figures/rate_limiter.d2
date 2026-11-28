@@ -1,0 +1,27 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+gw: "Gateways / sidecars" {style.multiple: true}
+lim: "Limiter hosts" {
+  direction: down
+  s1: "Shard 1\n(counters)"
+  s2: "Shard 2\n(counters)"
+  s3: "Shard n\n(counters)"
+}
+rules: "Rules service" {
+  direction: down
+  cache: "Rules cache" {shape: cylinder}
+  leader: "Leader" {shape: cylinder}
+  follower: "Followers" {shape: cylinder; style.multiple: true}
+  leader -> follower: "replicate"
+}
+admin: "Administrators"
+
+gw -> lim.s1: "allow? (key)"
+gw -> lim.s2
+gw -> lim.s3
+lim.s2 -> rules.cache: "read rules"
+rules.cache -> rules.follower: "miss"
+admin -> rules.leader: "write rules"
+lim.s1 -> gw: "allow / 429" {style.stroke-dash: 3}

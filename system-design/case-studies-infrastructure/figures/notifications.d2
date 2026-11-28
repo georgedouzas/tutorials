@@ -1,0 +1,36 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+senders: "Senders\n(services, scheduler)" {style.multiple: true}
+api: "Notification API"
+settings: "Settings and\ntemplates" {shape: cylinder}
+log: "Notification log" {shape: cylinder}
+queues: "Channel queues" {
+  direction: down
+  push: "Push" {shape: queue}
+  sms: "SMS" {shape: queue}
+  email: "Email" {shape: queue}
+}
+workers: "Workers\n(dedupe, retry)" {style.multiple: true}
+providers: "Providers" {
+  direction: down
+  apns: "APNs / FCM"
+  smsp: "SMS provider"
+  mail: "Email provider"
+}
+dlq: "Dead-letter queues" {shape: queue}
+
+senders -> api
+api -> settings: "check, render"
+api -> log: "persist"
+api -> queues.push
+api -> queues.sms
+api -> queues.email
+queues.push -> workers
+queues.sms -> workers
+queues.email -> workers
+workers -> providers.apns
+workers -> providers.smsp
+workers -> providers.mail
+workers -> dlq: "after 3 attempts" {style.stroke-dash: 3}

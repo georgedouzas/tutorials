@@ -72,8 +72,12 @@ chapters are written.
   @prp-consumer-group (@sec-messaging-and-event-streams)
 - **Content delivery network** (edge servers, cache key, freshness lifetime, hit ratio, purge and versioning):
   @def-cdn (@sec-the-web-stack)
+- **Content delivery network service** (GeoDNS, API gateway, metadata and storage services, origin pulls, fingerprinted assets):
+  @def-cdn-design (@sec-case-studies-infrastructure)
 - **Coordination services** (locks, sessions, leases, fencing tokens, lock-delay): @def-coordination (@sec-consistency-and-consensus)
 - **Cost and recall of an inverted-file index, chunk coverage and semantic caching**: @prp-retrieval (@sec-ml-llm-and-agent-systems)
+- **Counting and top-K service** (streaming count-min path, batch exact buckets, serving layer, sharded hot counters): @def-topk-dashboard
+  (@sec-case-studies-infrastructure)
 - **Count-min sketch, error of** (one-sided error, width and depth, merging): @thm-count-min (@sec-batch-and-stream-processing)
 - **Coupling, sums, ranges and reach of** (total coupling, instability bounds, change propagation, network calls per request): @prp-coupling
   (@sec-architecture-styles)
@@ -90,8 +94,11 @@ chapters are written.
   kill switch, zero-downtime change, compare and discard): @def-safe-change (@sec-reliability-and-operations)
 - **Design process**: @def-design-process (@sec-estimation-and-the-design-process)
 - **Distributed caches** (partitioned, replicated hot keys, local caches, cold and warm caches): @def-distributed-cache (@sec-caching)
+- **Distributed key-value store** (ring, preference lists, quorums, vector clocks, hinted handoff, anti-entropy, LSM engine):
+  @def-kv-store-design (@sec-case-studies-infrastructure)
 - **Distributed monoliths, the strangler fig and migrations** (binary and temporal coupling, facade, code and data migrations, lazy
   migration, two-way doors): @def-evolution (@sec-architecture-styles)
+- **Duration and rate of a polite crawl** (worker and host bounds, polite scheduling): @prp-crawl-rate (@sec-case-studies-infrastructure)
 
 ## E
 
@@ -186,6 +193,11 @@ chapters are written.
 - **Multi-leader and leaderless replication** (quorums, read repair, sloppy quorums, hinted handoff, Merkle trees):
   @def-quorum-replication (@sec-replication-and-partitioning)
 
+## N
+
+- **Notification service** (settings, templates, notification log, channel queues, retries, dead letters, deduplication):
+  @def-notification-service (@sec-case-studies-infrastructure)
+
 ## O
 
 - **OAuth 2.0 authorisation-code grant** (roles, PKCE, access and refresh tokens; OpenID Connect and the ID token):
@@ -229,6 +241,7 @@ chapters are written.
   (@sec-consistency-and-consensus)
 - **Rate limiters, quotas, client-side throttling, load shedding and failure modes** (token and leaky buckets, window counters and logs,
   fail open and closed): @def-overload (@sec-reliability-and-operations)
+- **Rate-limiting service** (rules store, sharded or replicated counters, failing open or closed): @def-rate-limiter-service (@sec-case-studies-infrastructure)
 - **Real-time delivery** (short and long polling, server-sent events, WebSocket, heartbeats): @def-real-time-delivery
   (@sec-the-web-stack)
 - **Registers, merging and samples** (HyperLogLog registers, Bernoulli sample variance): @prp-cardinality
@@ -280,8 +293,13 @@ chapters are written.
 - **Two-phase commit: safety, blocking and cost** (agreement, in-doubt participants, messages, coordinator groups):
   @thm-two-phase-commit (@sec-distributed-transactions)
 
+## U
+
+- **URL shortener** (301 and 302 redirects, base-62 aliases, range-allocated counters, alias cache): @def-url-shortener (@sec-case-studies-infrastructure)
+
 ## W
 
+- **Web crawler** (frontier, front and back queues, politeness, content and URL seen checks, recrawling): @def-web-crawler (@sec-case-studies-infrastructure)
 - **Windows and watermarks, guarantees of** (disorder, batch equality, checkpoints): @prp-windows (@sec-batch-and-stream-processing)
 
 ## Z
