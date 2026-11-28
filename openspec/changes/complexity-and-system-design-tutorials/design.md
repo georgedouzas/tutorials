@@ -238,6 +238,18 @@ Research for this change found the following.
 - Links from Complexity Science to the mathematics tutorials (probability, differential equations, linear algebra)
   are cross-tutorial links, which the forward-reference rule allows.
 
+**C11. scikit-complexity wherever possible (owner decision, 2026-11-28).**
+- Every Complexity Science computation uses scikit-complexity whenever the package has the system, solver or
+  analysis. This applies to simulations, Lyapunov exponents, dispersion relations, defects, fits and graph models.
+- When a feature is missing or broken, a GitHub issue is filed on `georgedouzas/scikit-complexity` before falling back
+  to NumPy, SciPy or NetworkX code. The fallback block names the issue in a comment or in the prose.
+- Speed alone is not a reason to fall back. A run that is too slow is shortened, or filed as a performance issue after
+  it is re-timed on a lightly loaded machine.
+- Hand-written code stays only where the point of the block is the algorithm itself, such as a Benettin iteration
+  written out to teach how the Lyapunov spectrum is computed. In that case the package result is printed alongside it
+  as a check.
+- Chapters written before this decision (1–7) are audited and converted.
+
 ## Risks / Trade-offs
 
 - **scikit-complexity is young and heavy.**

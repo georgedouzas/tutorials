@@ -150,6 +150,10 @@
 - [ ] 6.1 Write the remaining Complexity Science chapters in reading order, one section per run, each section passing
   the gates of 5.1. Write reading notes to Zotero as each chapter is raised. Verify: every approved chapter is
   written, and `complexity-science` is in `_raised.txt`.
+  - [ ] 6.1a Audit chapters 1-7 under design C11 (2026-11-28): replace hand-written NumPy/SciPy/NetworkX code with
+    scikit-complexity where the package has the feature, file an issue for each missing or broken feature, and name it
+    beside every remaining fallback. Verify: each chapter passes the checker, harvest and render again, and the audit
+    report lists every remaining fallback with its issue number or its teaching reason.
 - [ ] 6.2 Write the remaining System Design chapters the same way. Verify as in 6.1.
   - [ ] 6.2a Chapter 13, ML, LLM and agent systems (`ml-llm-and-agent-systems`), added by the owner on 2026-11-27,
     before the case studies. First add its sources to Zotero (C33 Publications, C31 Textbooks), approved the same day:
