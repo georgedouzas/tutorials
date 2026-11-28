@@ -1,0 +1,26 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+app: "Application\nwith client library"
+
+master: "Master" {
+  label.near: bottom-center
+  ns: "Namespace\n/photos/part-0001"
+  map: "File to chunks,\nchunk to locations"
+}
+
+servers: "Chunkservers" {
+  label.near: bottom-center
+  cs1: "Chunkserver 1\nchunks 2ef0, 7a13"
+  cs2: "Chunkserver 2\nchunks 2ef0, 91c4"
+  cs3: "Chunkserver 3\nchunks 2ef0, 7a13"
+}
+
+app -> master: "1. file name, chunk index"
+master -> app: "2. chunk handle, replica locations"
+app -> servers.cs1: "3. chunk handle, byte range"
+servers.cs1 -> app: "4. data"
+master -> servers: "instructions and heartbeats" {
+  style.stroke-dash: 3
+}

@@ -105,6 +105,24 @@ where the symbol first appears.
   chapters do not share the symbol, and $D_k$ always carries its resource.
 - $T_q$ and $t_q$: the waiting time of a request (uppercase, a random variable) and the $q$-quantile of the response time
   (lowercase, a number); $T_{(j)}$ is an order statistic.
+- $X \to Y$: in the storage chapter, a functional dependency between sets of attributes; happens-before relates events
+  and a map relates sets, and the arguments tell the three apart. In the same chapter $T_i \to T_j$ is an edge of a
+  precedence graph, between transactions.
+- $T_i$: in the storage chapter, a transaction; the response time $T$ and the stage times $T_i$ of the estimation chapter
+  do not occur there.
+- $\pi_S(r)$: a projection, always with its attribute set and relation, against the stationary probabilities $\pi_n$ of
+  the performance chapter and the number $\pi$.
+- $t$, $H$: the minimum degree and the height of a B-tree, as in the textbooks; times are not written $t$ in the
+  B-tree section, and the entropy $H$ of Complexity Science does not occur.
+- $h_1, \dots, h_k$: the hash functions of a Bloom filter, always with an index, against the hit ratio $h$ and the ring
+  hash $h : U \to [0, 1)$.
+- $p$, $p'$, $f$, $\zeta$: in the Bloom-filter section, $p = e^{-kn/m}$ and $p' = (1 - 1/m)^{kn}$, as in Broder and
+  Mitzenmacher, and $f$ the approximate false-positive rate; $\zeta$ replaces their $\rho$, which is utilisation here.
+  The probability $p$ of the estimation chapter does not occur in that section.
+- $r_i(x)$, $\ell_i(x)$: a read and a lock acquisition, always with a transaction index and an item, against the refill
+  rate $r$, a relation $r$ (no index) and the token lifetime $\ell$.
+- $d$, $b$: in the full-text section, $d$ is a document and $b$ the length-normalisation constant of BM25, against the
+  power-of-$d$-choices parameter and the page size of the web-stack chapter.
 - Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
   Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
 - Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.

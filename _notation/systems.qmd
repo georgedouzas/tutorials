@@ -62,6 +62,19 @@ and says how the two meanings are told apart where they meet.
 | $K$, $v$ | number of keys; number of virtual nodes per physical node |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
+| $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |
+| $p'$, $p$ †, $\zeta$ | Bloom filter: the probability $(1 - 1/m)^{kn}$ that a bit is still $0$, its approximation $e^{-kn/m}$, and the fraction of bits that are $0$ |
+| $f$ † | the approximate false-positive rate $(1 - e^{-kn/m})^k$ of a Bloom filter, as a function of $k$ |
+| $X \to Y$ † | functional dependency: rows that agree on the attributes $X$ agree on $Y$ |
+| $X^+$ | closure of the attribute set $X$ under the functional dependencies |
+| $\pi_S(r)$ †, $r_1 \bowtie r_2$ | projection of the relation $r$ on the attributes $S$, and natural join |
+| $t$ †, $H$ † | minimum degree and height of a B-tree |
+| $T_i$ †, $r_i(x)$ †, $w_i(x)$ | transaction $i$, and its read and write of the item $x$ |
+| $\ell_i(x)$ †, $u_i(x)$ | acquisition and release of a lock on $x$ by $T_i$ |
+| $\sigma_i$ | lock point of $T_i$: the time at which it acquires its last lock |
+| $\mathcal D$, $\lvert d \rvert$ | a collection of documents, and the number of terms of a document $d$ |
+| $\mathrm{tf}_{t,d}$, $\mathrm{df}_t$ | term frequency of $t$ in $d$, and document frequency of $t$ in $\mathcal D$ |
+| $k_1$, $b$ † | the constants of BM25, $1.2$ and $0.75$ in SQLite |
 | $w$, $d$ † | width and depth of a count-min sketch; $\varepsilon$, $\delta$ its error and failure probability |
 | $b$, $r$ † | capacity and refill rate of a token bucket |
 

@@ -1,0 +1,34 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+client: "Client" {
+  shape: person
+}
+
+memory: "Memory" {
+  label.near: bottom-center
+  memtable: "Memtable\n(sorted, mutable)"
+  filters: "Bloom filter\nof each SSTable"
+}
+
+disk: "Disk" {
+  label.near: bottom-center
+  log: "Commit log\n(append only)"
+  sst: "SSTables, newest first\n(sorted, immutable)" {
+    style.multiple: true
+  }
+}
+
+client -> disk.log: "write 1: append"
+client -> memory.memtable: "write 2: insert"
+memory.memtable -> disk.sst: "flush when full"
+client -> memory.memtable: "read 1: look up" {
+  style.stroke-dash: 3
+}
+client -> memory.filters: "read 2: ask each filter" {
+  style.stroke-dash: 3
+}
+memory.filters -> disk.sst: "read 3: only on \"possibly\"" {
+  style.stroke-dash: 3
+}

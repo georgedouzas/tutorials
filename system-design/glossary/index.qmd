@@ -15,6 +15,14 @@ chapters are written.
 - **Availability** (with downtime, nines, error budget, SLO and SLA): @def-availability
   (@sec-estimation-and-the-design-process)
 
+## B
+
+- **Block, file and object storage** (blocks, files and directories, network-attached storage, buckets and keys,
+  distributed file system, chunks and master): @def-storage-kinds (@sec-storage-and-databases)
+- **Bloom filter false-positive rate** (probability of a zero bit, optimal number of hash functions, bits per key):
+  @prp-bloom-false-positive (@sec-storage-and-databases)
+- **B-tree height** (minimum degree, pages read per lookup): @prp-btree-height (@sec-storage-and-databases)
+
 ## C
 
 - **Content delivery network** (edge servers, cache key, freshness lifetime, hit ratio, purge and versioning):
@@ -22,6 +30,8 @@ chapters are written.
 
 ## D
 
+- **Data model** (relational, key-value, document, wide-column and graph; access patterns): @def-data-model
+  (@sec-storage-and-databases)
 - **Design process**: @def-design-process (@sec-estimation-and-the-design-process)
 
 ## E
@@ -31,10 +41,19 @@ chapters are written.
 - **Exponential distribution and Poisson process** (no memory, competition, Erlang arrival times, Poisson counts):
   @def-poisson-process (@sec-performance-and-queueing)
 
+## F
+
+- **Functional dependencies and normal forms** (keys, 1NF, 2NF, 3NF, BCNF, decomposition, denormalisation):
+  @def-normal-forms (@sec-storage-and-databases)
+
 ## I
 
+- **Index, B-tree, LSM tree and Bloom filter** (covering index, memtable, SSTable, tombstone, compaction):
+  @def-storage-engine (@sec-storage-and-databases)
 - **Interface of a web service** (REST, RPC and GraphQL; safe and idempotent operations, idempotency keys, pagination,
   backward compatibility and versions): @def-web-api (@sec-the-web-stack)
+- **Inverted index** (analyser, posting lists, Boolean and phrase queries, tf-idf): @def-inverted-index
+  (@sec-storage-and-databases)
 
 ## L
 
@@ -42,6 +61,7 @@ chapters are written.
   (@sec-the-web-stack)
 - **Little's law**: @thm-littles-law (@sec-performance-and-queueing)
 - **Load estimate**: @def-load-estimate (@sec-estimation-and-the-design-process)
+- **Lossless decomposition** (Heath's theorem, spurious rows): @prp-lossless-decomposition (@sec-storage-and-databases)
 
 ## M
 
@@ -73,6 +93,8 @@ chapters are written.
 
 ## S
 
+- **Serialisability and two-phase locking** (precedence graph, lock points): @prp-serializability
+  (@sec-storage-and-databases)
 - **Stateless service** (session state, sticky sessions, session replication; vertical, horizontal and automatic
   scaling): @def-stateless-service (@sec-the-web-stack)
 
@@ -80,3 +102,5 @@ chapters are written.
 
 - **Total cost of ownership** (capital and operating expenses, unit cost): @def-total-cost-of-ownership
   (@sec-estimation-and-the-design-process)
+- **Transactions and isolation levels** (ACID, schedules, conflicts, anomalies, snapshot isolation, two-phase locking,
+  optimistic control): @def-transaction-isolation (@sec-storage-and-databases)

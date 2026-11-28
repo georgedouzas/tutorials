@@ -344,3 +344,83 @@ Zukerman read with `pdftotext -layout` from `~/Zotero/storage/4BU53CJJ` (read-on
   closed system with the operational bounds).
 - Run blocks: NumPy, the standard library and SimPy (`exm-mm1-simulation`, `exm-mmc-simulation`); all seeded. Illustrative: the
   open and closed load generators of `exm-oc-load-script`.
+
+## Chapter 4: storage-and-databases (task 6.2, 2026-11-28)
+
+Outline (approved row 4 of `openspec/coverage/system-design.md`): §1 data models; §2 schema design and normalisation; §3 indexes, B-trees,
+LSM trees, SSTables and Bloom filters; §4 single-node transactions and isolation; §5 file, block and object storage, with GFS; §6
+full-text search and inverted indexes (the gap section). Statements: `def-data-model`, `def-normal-forms`, `prp-lossless-decomposition`,
+`def-storage-engine`, `prp-btree-height`, `prp-bloom-false-positive`, `def-transaction-isolation`, `prp-serializability`,
+`def-storage-kinds`, `def-inverted-index`.
+
+### Chang et al., "Bigtable" (`chang2006bigtable`)
+
+- Read Secs. 2 (data model, Webtable, single-row atomicity, column families, timestamps), 4 (SSTable: "persistent, ordered immutable
+  map", 64 KB blocks, block index, one disk seek; pp. 3-4), 5.3 (commit log with redo records, memtable, merged view; p. 6), 5.4 (minor,
+  merging and major compactions, deletion entries; p. 6), 6 (Bloom filters per locality group; p. 6).
+- Used: `def-data-model` item 4, `exm-dm-webtable`, `exm-se-bigtable-sstable`, `exm-se-xu-paths`, `exm-se-bigtable-bloom`,
+  `exr-se-compaction`, `exr-dm-acid-claim`.
+
+### Ghemawat, Gobioff and Leung, "The Google File System" (`ghemawat2003google`)
+
+- Read Secs. 1, 2.1-2.7 (architecture, single master, 64 MB chunks and lazy allocation, hot spots, under 64 bytes of metadata per
+  chunk, operation log, consistency model and Table 1, implications for applications), 3.1-3.3 (leases of 60 s, the seven write steps,
+  pipelined data flow with B/T + RL, record append at least once) and 4.2 (replica placement across racks).
+- Used: §5 intro, `def-storage-kinds` item 4, `fig-st-gfs`, `exm-st-gfs-metadata`, `exm-st-gfs-consistency`, `exr-st-master-memory`,
+  `exr-st-chunk-size`, `exr-st-small-file-space`, `exr-st-pipeline`, `exr-st-record-append`, `exr-st-replica-loss`, `exr-st-regions`,
+  `exr-storage-and-databases-int-3`.
+
+### Broder and Mitzenmacher, "Network Applications of Bloom Filters" (`broder2004network`)
+
+- Read Sec. 2.1 (journal pp. 486-490): the model of perfectly random hashes, $p'$ and $p$, the conditional rate $(1-\rho)^k$, the
+  partitioned variant, the derivative and the symmetry argument for $k = (m/n)\ln 2$, $0.6185^{m/n}$, and the Azuma-Hoeffding tail
+  bound $2e^{-2\varepsilon^2m^2/(nk)}$ cited from Mitzenmacher.
+- Used: `def-storage-engine` item 4, `prp-bloom-false-positive` (parts (a)-(c) proved in the chapter, with the convexity argument for
+  the maximum of $\ln p\ln(1-p)$ that the survey leaves to "symmetry"; part (d) quoted), `exm-bf-*`, `exr-bf-derivative`,
+  `exr-bf-partitioned`, `exr-bf-too-many-k`, `exr-bf-p-close`. Bloom (1970) is metadata only and is not cited.
+
+### SQLite documentation (new references, not in Zotero)
+
+- `sqliteQueryPlanner` (queryplanner.html, Secs. 1.1-1.7): full scans, rowid lookup, index lookup with two binary searches, $(K+1)\log N$,
+  covering indexes. `sqliteEQP` (eqp.html, Secs. 1.1-1.2): SCAN and SEARCH, USE TEMP B-TREE. `sqliteDbstat` (dbstat.html, Secs. 1-2):
+  the page paths of a b-tree. `sqliteIsolation` (isolation.html): connections isolated, serializable by serialising writes, rollback and
+  WAL modes, snapshot isolation in WAL, SQLITE_BUSY_SNAPSHOT, BEGIN IMMEDIATE, shared cache with read_uncommitted as the only dirty read.
+  `sqliteTransaction` (lang_transaction.html, Sec. 2.2): deferred, immediate and exclusive transactions. `sqliteFTS5` (fts5.html, Secs. 1,
+  3, 4.3.3, 5.1.1 with its three formula images, 6.1 and 6.5): query syntax, phrases, NEAR, porter tokenizer, bm25 with $k_1 = 1.2$, $b =
+  0.75$, the merged b-trees of the index and tombstones.
+- Observed, not documented: FTS5's bm25 uses natural logarithms, and returns about $-10^{-6}$ per phrase when the formula's IDF is
+  $\leq 0$ (term in at least half the rows); `exr-ii-bm25` shows it.
+- Used throughout §§3, 4 and 6 and in the integrative exercises; every behaviour cited is run in SQLite 3.54.1.
+
+### Benchmarks and section sources
+
+- Xu: Ch. 1 "Which databases to use?"; Ch. 6 "Write path", "Read path". Used: `exm-dm-relational-default`, `exm-se-xu-paths`.
+- Tan: Sec. 2.4.2 (pp. 31-33, lock columns "not normalized", compare-and-set UPDATE), Sec. 2.6 (pp. 40-43: LIKE, Elasticsearch,
+  query vs filter context, whose analogy is reversed: `exr-ii-tan-contexts`), Sec. 4.1 (pp. 77-79), Sec. 4.3.5 (pp. 85-87, HDFS; its
+  "entire 64 MB block" claim is reconciled with GFS's lazy allocation in `exr-st-small-file-space`), Sec. 4.7 (pp. 98-99).
+- Sinha-Chopra: Ch. 3 "Bloom filters" (m = 10, k = 2 example), Ch. 5 "NoSQL databases", Ch. 11 "Data flow and indexing" and
+  "Relevance scoring and ranking" (pp. 222-224).
+- Liu: Ch. 5 "Schema Design" (normalization vs denormalization), "Indexing Strategies" (sorted table, not hashmaps, primary,
+  secondary, composite), "Databases" (relational with the ACID reminder, document, columnar, wide column), "Concurrency Control and
+  Transaction" (counter, pessimistic locking, lock scope, write skew with phantoms, predicate locks, materialised slots, optimistic
+  locking), "Cold Storage", "Full-Text Search" (analyser, posting lists, n-grams, merge k lists, MapReduce); App. 5 "Bloom Filter" and
+  "TF / IDF" (no formula). Liu's "Consistency" is atomicity: `exr-tx-liu-consistency`.
+- Reis-Housley: Ch. 5 p. 166; Ch. 6 pp. 199-208 (file, local disk, NAS, cloud file systems, block, RAID, SAN, object storage,
+  buckets, prefix listing); Ch. 8 pp. 290-294 (normalisation, Tables 8-1 to 8-8; the open question on `Orders` is `exr-nf-orders-3nf`;
+  the "6NF in the Boyce-Codd system" remark is corrected in `exr-nf-bcnf-remark`).
+- Pacheco-Sgro: Ch. 8 "NoSQL databases". Gilbert: Ch. 13 "Polyglot persistence", "Duplicate data is good".
+
+### Proved by the chapter, quoted, conventions
+
+- Proved: Heath's lossless decomposition (with the inclusion and a lossy counterexample), the B-tree height bounds, Bloom parts
+  (a)-(c), the precedence-graph criterion and the serialisability of 2PL (lock-point argument), merge intersection, heap merge, and
+  the exercise-level results (closure, BCNF ⇒ 3NF, snapshot isolation excludes dirty and non-repeatable reads and lost updates, strict
+  2PL excludes dirty reads, wait-for cycles, gap encoding).
+- Quoted: the Bloom concentration bound (part (d)). The isolation levels, normal forms and tf-idf formula are definitions; the tf-idf
+  formula $\mathrm{tf}\cdot\ln(|\mathcal D|/\mathrm{df})$ is the chapter's convention, since Liu and Sinha give none.
+
+### Figures and software
+
+- D2: `figures/lsm_paths.d2` (LSM write and read paths), `figures/gfs_architecture.d2` (GFS). Python: `figures/bloom_fp.py`
+  (false-positive rate against bits per key, approximation and seeded simulations).
+- Run blocks: the standard library (`sqlite3` with FTS5 and dbstat, `heapq`, `graphlib`, `threading`) and NumPy; all seeded.
