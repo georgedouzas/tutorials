@@ -6,7 +6,7 @@
   labels of `sec-sup-transformers`, `sec-sup-large-language-models`, `sec-sup-vision-language-models` and
   `sec-rl-imitation-llm` that Fundamentals of AI links to instead of restating. Verify: each listed label resolves
   with `harvest.py`.
-- [ ] 1.2 Narrow System Design chapter 13 in the change `complexity-and-system-design-tutorials` to the composition
+- [x] 1.2 Narrow System Design chapter 13 in the change `complexity-and-system-design-tutorials` to the composition
   view (D3). Edit three places:
   - the chapter-13 scenario of `specs/system-design-tutorial/spec.md`;
   - its row in `openspec/coverage/system-design.md`, so that §3 covers capacity, batching as a service-level knob and

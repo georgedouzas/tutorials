@@ -27,7 +27,9 @@ coverage record (`openspec/coverage/system-design.md`), in that record's reading
 #### Scenario: Reading the ML, LLM and agent systems chapter
 - **WHEN** a reader opens the machine learning, LLM and agent systems chapter
 - **THEN** it treats models as components of a system (training and serving pipelines, LLM inference, retrieval,
-  agent orchestration, and their operation) and links to the machine-learning tutorials for how the models work
+  agent orchestration, and their operation): capacity, batching as a service-level knob, SLOs, cost, rollout and
+  failure, using internal quantities such as the KV-cache size as given, and it names Fundamentals of AI (and the
+  machine-learning tutorials) as the home of how models, attention, quantization and decoding work
 - **AND** its code runs without network access or model weights, using simulations and stub models
 
 ### Requirement: System Design chapters follow the chapter template
