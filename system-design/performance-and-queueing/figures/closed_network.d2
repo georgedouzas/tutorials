@@ -1,0 +1,25 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+users: "M virtual users\nthink time Z = 10 ms" {
+  shape: person
+}
+
+service: "Feed service" {
+  app: "Application server\nD = 0.5 ms" {
+    shape: queue
+  }
+  db: "Database\n2 ms per query, D = 0.6 ms" {
+    shape: queue
+  }
+  app -> db: "30% of requests"
+}
+
+users -> service.app: "request, throughput X"
+service.app -> users: "response (70%)" {
+  style.stroke-dash: 3
+}
+service.db -> users: "response (30%)" {
+  style.stroke-dash: 3
+}

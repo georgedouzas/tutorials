@@ -280,3 +280,67 @@ scratchpad and read there. Sections: §1 `sec-request-path`, §2 `sec-load-balan
 - Run blocks: standard library (`http.client`, `sqlite3`, `hashlib`, `hmac`, `base64`, `urllib`, `http.cookies`), NumPy and
   SimPy (`exm-rtt-simulation`, `exr-rtt-simulate-tls12`, `exm-poll-simulation`). Illustrative: the curl session
   (`exm-net-curl-session`) and the nginx configuration (`exm-lb-nginx`), both `{.code .illustrative}`.
+
+## Chapter 3: performance-and-queueing (task 6.2, 2026-11-28)
+
+Zukerman read with `pdftotext -layout` from `~/Zotero/storage/4BU53CJJ` (read-only), after `zotero_get_pdf_outline` on
+`7EYVLVB5`; printed page numbers from the running heads. Sections: §1 `sec-latency-throughput`, §2 `sec-littles-law`,
+§3 `sec-mm1`, §4 `sec-mmc`, §5 `sec-open-closed`. No new references were needed.
+
+### Zukerman, *Introduction to Queueing Theory and Stochastic Teletraffic Models* (`zukerman2013introduction`)
+
+- Read: Sec. 2.2 (orderly and memoryless point processes, Bernoulli and Poisson processes, pp. 74-80: three-condition definition,
+  exponential inter-arrival times, memorylessness, inspection paradox and Homework 2.3, superposition, competition of
+  exponentials, small-interval conditions); Secs. 3.1-3.8 (Kendall notation, utilisation, Little's formula and its two forms and
+  graphical proof, delay and loss systems, work conservation, PASTA and Homeworks 3.3-3.5, pp. 106-116); Sec. 4.1 (confidence
+  intervals, p. 118); Ch. 6 intro and Secs. 6.1-6.6, 6.9, 6.11-6.12 (M/M/1: generator, balance equations, measures, delayed
+  customers, delay distribution, dimensioning, multiplexing, pp. 130-146); Ch. 9 (M/M/k: steady state, Erlang C and its table,
+  mean queue and delay, delayed customers, dimensioning, utilisation, Homeworks 9.9-9.10, pp. 178-184).
+- Used: chapter intro; §1 `def-response-time` item 3, `exm-lat-utilisation`, `exm-qest-zukerman-means`; §2 intro,
+  `thm-littles-law` (the chapter proves the sample-path version; Zukerman's argument assumes the system empties, which
+  `exr-little-window-error` makes exact), `exm-little-park`, `exm-little-utilisation`, `exm-little-always-full`,
+  `exm-little-queue-form`, `exr-little-blocking`; §3 intro, `def-poisson-process` (inter-arrival definition; independent increments
+  and superposition quoted), `exm-pois-competition`, `exm-pois-inspection`, `thm-mm1` (birth-death property, ergodicity and PASTA
+  quoted, everything else proved), `exm-mm1-dimension-mean`, `exm-mm1-dimension-percentile`, `exm-mm1-multiplexing`,
+  `exm-mm1-delayed`, `exr-mm1-balance`, `exr-mm1-dimension`; §4 intro, `thm-erlang-c` (same quoted facts), `exm-mmc-two-servers`,
+  `exm-mmc-zukerman-table`, `exm-mmc-dimension`, `exm-mmc-square-root`, `exm-mmc-hospital`, `exm-mmc-utilisation`,
+  `exr-mmc-table`, `exr-mmc-two-proof`, `exr-mmc-hospital-rule`; §5 `exm-oc-zukerman-closed`, `exm-opb-zukerman`.
+- Not used: the Z-transform derivations, M/G/1 and the Pollaczek-Khinchine formula (not read in detail; `exr-mm1-constant-service`
+  only simulates constant service), Engset, Jackson networks.
+- The operational bounds of `prp-operational-bounds` (utilisation law, response time law, asymptotic bounds, knee) are not in
+  Zukerman; they are proved in the chapter from Little's law and the definitions, with Zukerman's Homework 3.3 as an instance.
+
+### Dean and Barroso, "The Tail at Scale" (`dean2013tail`)
+
+- Re-read pp. 74-78 (text without layout): sources of variability including "Queueing" (p. 76), keeping low-level queues short
+  (p. 76), hedged requests (p. 77), probing queues and the remark on two choices (p. 77), tied requests (p. 78).
+- Used: §1 intro, `exm-lat-dean-sources`, `exm-lat-fan-out` (recalls `prp-fan-out-tail` of chapter 1 by link), `exm-pois-not-poisson`.
+
+### Dean and Ghemawat, "MapReduce" (`dean2004mapreduce`)
+
+- Read Sec. 3.6 (backup tasks, the 44% slowdown without them). Used: `exm-lat-stragglers`, `exr-lat-backup`.
+
+### Benchmarks and section sources
+
+- Tan: Ch. 3 intro (p. 55, bandwidth vs throughput, "Throughput/bandwidth is the inverse of latency") and Sec. 3.4 (pp. 65-66).
+  Used: §1 intro, `exm-lat-tan`, `exm-lat-tan-bandwidth`, `exm-qest-p999`, `exm-little-tan-inverse`, `exr-little-tan`. The inverse
+  claim, set aside in the chapter-1 notes, is corrected by Little's law ($X = L/W$).
+- Sinha-Chopra: Ch. 2 "Latency". Used: `exm-lat-sinha-factors`.
+- Pacheco-Sgro: Ch. 7 "Practical stress testing" (stress vs load testing, Gatling, Code 7.4). Used: §5 intro,
+  `exm-oc-stress-findings`, `exm-oc-gatling`, `exr-oc-stress-plan`.
+- Gilbert: Ch. 12 "The USE method", "Capacity and concurrency limits" (60% alert), "The RED method". Used: `exm-lat-red`,
+  `exm-oc-use`, §4 "For more".
+
+### Cross-tutorial
+
+- Probability: `def-binomial-distribution` (binomial, geometric, Poisson), `prp-probability-rules`,
+  `thm-strong-law-large-numbers`, `thm-poisson-limit`. Complexity Science random-processes: `def-master-equation`,
+  `prp-birth-death` (stationary law of birth-death processes, used for M/M/1 and M/M/c).
+
+### Figures and software
+
+- D2: `figures/closed_network.d2` (closed queueing network). Python: `figures/mm1_response.py` (mean and p99 against
+  utilisation, with simulations), `figures/mmc_erlang_c.py` (Erlang C against servers), `figures/closed_bounds.py` (simulated
+  closed system with the operational bounds).
+- Run blocks: NumPy, the standard library and SimPy (`exm-mm1-simulation`, `exm-mmc-simulation`); all seeded. Illustrative: the
+  open and closed load generators of `exm-oc-load-script`.
