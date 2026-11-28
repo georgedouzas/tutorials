@@ -7,11 +7,38 @@ order: 7
 ---
 
 This tutorial covers the design of large software systems: services that must stay fast, correct and available while
-their load, their data and their failures grow. It starts with the design process and with estimates of load, storage
-and availability, then follows a request through the web stack and measures performance with queueing theory. It moves
-through storage and databases, replication and partitioning, consistency and consensus, caching, messaging, distributed
-transactions, and batch and stream processing. It ends with architecture styles, reliability and operations, and case
-studies of infrastructure services and applications.
+their load, their data and their failures grow. It has fifteen chapters, in reading order:
+
+1. [Estimation and the design process](estimation-and-the-design-process/index.qmd): the design process, architectural
+   characteristics and trade-offs, units and latency numbers, and estimates of load, availability and cost.
+2. [The web stack](the-web-stack/index.qmd): the request path, load balancing, content delivery networks, stateless
+   services, interfaces, real-time delivery, and authentication and authorisation.
+3. [Performance and queueing](performance-and-queueing/index.qmd): latency, throughput and percentiles, Little's law,
+   the M/M/1 queue, multi-server queues and capacity planning, and open and closed systems.
+4. [Storage and databases](storage-and-databases/index.qmd): data models, schema design and normalisation, indexes and
+   storage engines, transactions and isolation, file, block and object storage, and full-text search.
+5. [Replication and partitioning](replication-and-partitioning/index.qmd): leader-follower, multi-leader and leaderless
+   replication, ordering events, partitioning, secondary indexes, failure detection and unique identifiers.
+6. [Consistency and consensus](consistency-and-consensus/index.qmd): consistency models, the CAP theorem, consensus,
+   Paxos, Raft, coordination services and Byzantine faults.
+7. [Caching](caching/index.qmd): where caches sit, eviction and hit ratio, invalidation and stampedes, distributed
+   caches, and HTTP caching.
+8. [Messaging and event streams](messaging-and-event-streams/index.qmd): queues, publish-subscribe, delivery semantics
+   and idempotence, the partitioned log, failure handling, and event sourcing and change data capture.
+9. [Distributed transactions](distributed-transactions/index.qmd): two-phase commit, global time and Spanner, sagas,
+   the transactional outbox, and concurrency across services.
+10. [Batch and stream processing](batch-and-stream-processing/index.qmd): MapReduce, pipelines and orchestration,
+    analytical storage, stream processing, the Lambda and Kappa architectures, and approximate aggregation.
+11. [Architecture styles](architecture-styles/index.qmd): components and coupling, layered and modular monoliths, the
+    microkernel, microservices, event-driven and serverless architectures, and evolving an architecture.
+12. [Reliability and operations](reliability-and-operations/index.qmd): SLOs and error budgets, fault tolerance,
+    overload control, observability, safe change, multi-region deployment and security operations.
+13. [ML, LLM and agent systems](ml-llm-and-agent-systems/index.qmd): the ML system, model serving, serving large
+    language models, retrieval-augmented generation, agents, and operating AI systems.
+14. [Case studies: infrastructure](case-studies-infrastructure/index.qmd): a URL shortener, a rate-limiting service, a
+    key-value store, a notification service, a web crawler, a CDN, and counting and top-K.
+15. [Case studies: applications](case-studies-applications/index.qmd): a news feed, chat, search autocomplete, media
+    upload and streaming, file sync, collaborative editing with a convergent list CRDT, booking, and location services.
 
 Each chapter sets out definitions and results, works through examples, and gives exercises to try. Results with a
 published proof, such as Little's law, quorum intersection or the CAP theorem, are stated as theorems and proved, and
@@ -31,8 +58,9 @@ result is used:
 
 - [Probability](../fundamentals-of-mathematics-for-physicists/probability/index.qmd): independence, random variables,
   the exponential and Poisson distributions and limit theorems, for availability, queueing, hashing and sketches.
-- [Sets, relations and topology](../fundamentals-of-mathematics-for-physicists/sets-relations-topology/index.qmd):
-  relations and orders, for happens-before and consistency models.
+- [Random processes](../complexity-science/random-processes/index.qmd), [Networks](../complexity-science/networks/index.qmd)
+  and [Dynamics on networks](../complexity-science/dynamics-on-networks/index.qmd) in Complexity Science: birth-death
+  processes for queues, graphs and modularity for service dependencies, and random walks for crawling.
 
 ## Software
 

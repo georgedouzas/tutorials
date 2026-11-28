@@ -1,0 +1,22 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+clients: "Editors\n(local replica)" {style.multiple: true}
+router: "Router\n(document to owner)"
+owner: "Collaboration server\n(owner of the document)" {
+  direction: down
+  ops: "Order or merge operations"
+  presence: "Presence map"
+}
+acl: "Access control"
+log: "Operation log" {shape: queue}
+docs: "Document service\n(snapshots)" {shape: cylinder}
+
+clients -> router: "join"
+router -> acl: "check"
+clients <-> owner.ops: "WebSocket: operations"
+clients -> owner.presence: "cursors, heartbeats"
+owner.ops -> log: "append"
+log -> docs: "snapshot every\n1000 operations"
+docs -> owner.ops: "load on open" {style.stroke-dash: 3}

@@ -1,0 +1,23 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+clients: "Devices" {style.multiple: true}
+lb: "Load balancer"
+api: "API servers"
+blocks: "Block servers\n(chunk, compress, encrypt)" {style.multiple: true}
+obj: "Object storage\n(blocks by hash)" {shape: cylinder}
+cold: "Cold storage" {shape: cylinder}
+meta: "Metadata DB\n(files, versions, block lists)" {shape: cylinder}
+mcache: "Metadata cache" {shape: cylinder}
+notify: "Notification service\n(long polling)"
+
+clients -> blocks: "missing blocks"
+blocks -> obj
+obj -> cold: "rarely used" {style.stroke-dash: 3}
+clients -> lb: "commit version"
+lb -> api
+api -> mcache
+api -> meta: "conditional commit"
+api -> notify: "new version"
+notify -> clients: "changed" {style.stroke-dash: 3}

@@ -26,6 +26,7 @@ chapters are written.
 - **Availability** (with downtime, nines, error budget, SLO and SLA): @def-availability
   (@sec-estimation-and-the-design-process)
 - **Availability, capacity and failover of regions** (correlated failures, $N + k$, lost writes, failover time): @prp-regions (@sec-reliability-and-operations)
+- **Availability of series and parallel systems**: @prp-series-parallel-availability (@sec-estimation-and-the-design-process)
 
 ## B
 
@@ -38,6 +39,7 @@ chapters are written.
   distributed file system, chunks and master): @def-storage-kinds (@sec-storage-and-databases)
 - **Bloom filter false-positive rate** (probability of a zero bit, optimal number of hash functions, bits per key):
   @prp-bloom-false-positive (@sec-storage-and-databases)
+- **Booking service** (units and slots, overlap checks, uniqueness constraints, holds, stale search, payment saga): @def-booking-service (@sec-case-studies-applications)
 - **B-tree height** (minimum degree, pages read per lookup): @prp-btree-height (@sec-storage-and-databases)
 - **Bytes scanned, runs and pruning**: @prp-columnar (@sec-batch-and-stream-processing)
 - **Byzantine faults and Byzantine quorums** (equivocation, $3f + 1$ replicas, vouched-for values): @def-byzantine
@@ -49,9 +51,12 @@ chapters are written.
 - **Cache patterns** (hit ratio, cache-aside, read-through, write-through, write-back, write-around): @def-cache-patterns (@sec-caching)
 - **CAP properties and PACELC** (atomic consistency, availability, partitions, CP and AP): @def-cap (@sec-consistency-and-consensus)
 - **CAP theorem** (asynchronous and partially synchronous models): @thm-cap (@sec-consistency-and-consensus)
+- **Chat service** (WebSocket chat servers, service discovery, message identifiers, sync queues, device cursors, presence, live fan-out): @def-chat-service (@sec-case-studies-applications)
 - **Circuit breaker, calls through** (outage calls, closing after recovery, false openings, rate thresholds): @prp-circuit-breaker (@sec-reliability-and-operations)
 - **Cold starts, concurrency and the cost crossover** (warm period, cold fraction, functions against servers): @prp-cold-start
   (@sec-architecture-styles)
+- **Collaborative editing** (sessions, operations, operational transformation and TP1, CRDTs and strong eventual consistency, list CRDTs, tombstones, presence): @def-collaborative-editing
+  (@sec-case-studies-applications)
 - **Collisions of random identifiers** (birthday bounds, bits needed, structured identifiers): @prp-id-collision
   (@sec-replication-and-partitioning)
 - **Commit wait and physical clocks** (external consistency from the start and commit-wait rules, length of the wait,
@@ -74,6 +79,7 @@ chapters are written.
   @def-cdn (@sec-the-web-stack)
 - **Content delivery network service** (GeoDNS, API gateway, metadata and storage services, origin pulls, fingerprinted assets):
   @def-cdn-design (@sec-case-studies-infrastructure)
+- **Convergence of a list CRDT** (total order of identifiers, convergence, order and intention, deletes): @prp-list-crdt (@sec-case-studies-applications)
 - **Coordination services** (locks, sessions, leases, fencing tokens, lock-delay): @def-coordination (@sec-consistency-and-consensus)
 - **Cost and recall of an inverted-file index, chunk coverage and semantic caching**: @prp-retrieval (@sec-ml-llm-and-agent-systems)
 - **Counting and top-K service** (streaming count-min path, batch exact buckets, serving layer, sharded hot counters): @def-topk-dashboard
@@ -88,6 +94,7 @@ chapters are written.
   (@sec-storage-and-databases)
 - **Data pipelines and orchestration** (ingestion, bounded and unbounded data, ETL and ELT, DAGs, idempotent tasks,
   backfills): @def-pipeline (@sec-batch-and-stream-processing)
+- **Delay and requests of real-time delivery**: @prp-rt-polling (@sec-the-web-stack)
 - **Delivery semantics** (at most once, at least once, exactly once, effectively once, idempotency keys, end-to-end
   argument): @def-delivery-semantics (@sec-messaging-and-event-streams)
 - **Deployment and release, staged rollouts, flags, rollbacks, testing in production and chaos testing** (canary, blue-green, failing forward,
@@ -126,8 +133,11 @@ chapters are written.
   (@sec-replication-and-partitioning)
 - **Failure handling for messages** (retries with backoff and jitter, poison messages, dead-letter queues, backpressure,
   batching): @def-failure-handling (@sec-messaging-and-event-streams)
+- **Fan-out amplifies the tail**: @prp-fan-out-tail (@sec-estimation-and-the-design-process)
 - **Faults, failures, service level indicators, objectives and error budgets** (fault tolerance, failure domain, blast radius, burn rate):
   @def-slo (@sec-reliability-and-operations)
+- **File storage and sync** (fixed and content-defined blocks, block servers, metadata database, delta sync, deduplication, sync conflicts, cold storage): @def-file-sync
+  (@sec-case-studies-applications)
 - **Functional dependencies and normal forms** (keys, 1NF, 2NF, 3NF, BCNF, decomposition, denormalisation):
   @def-normal-forms (@sec-storage-and-databases)
 
@@ -139,6 +149,7 @@ chapters are written.
   (@sec-replication-and-partitioning)
 - **Histogram quantiles, merged measurements and alert rates** (bucket error, merging hosts, threshold alerts, anomaly thresholds):
   @prp-monitoring (@sec-reliability-and-operations)
+- **Hit ratio and origin load of an expiring cache**: @prp-cdn-ttl-hit-ratio (@sec-the-web-stack)
 - **HTTP validation and cache warming** (entity tags, 304, no-cache, must-revalidate, no-store): @def-http-caching (@sec-caching)
 
 ## I
@@ -159,6 +170,7 @@ chapters are written.
 ## L
 
 - **Lambda and Kappa architectures** (batch, speed and serving layers, replay): @def-lambda-kappa (@sec-batch-and-stream-processing)
+- **Latency budgets of sequential stages**: @prp-latency-budget (@sec-estimation-and-the-design-process)
 - **Layered architecture and modular monolith** (layers, tiers, modules): @def-layered (@sec-architecture-styles)
 - **Leader-follower replication** (replication log, synchronous and asynchronous replication, lag, read-after-write, failover):
   @def-leader-follower (@sec-replication-and-partitioning)
@@ -170,6 +182,8 @@ chapters are written.
 - **Load balancer** (layer 4 and layer 7, assignment rules, health checks, global load balancing): @def-load-balancer
   (@sec-the-web-stack)
 - **Load estimate**: @def-load-estimate (@sec-estimation-and-the-design-process)
+- **Load under round-robin and random assignment**: @prp-lb-random-assignment (@sec-the-web-stack)
+- **Location services** (geohash, quadtree, proximity search, ride matching, regional shards): @def-location-service (@sec-case-studies-applications)
 - **Locks, optimistic checks and reservations across services** (lost update, double booking, versions, holds,
   materialised slots): @def-cross-service-concurrency (@sec-distributed-transactions)
 - **Logical and vector clocks** (clock condition, exact characterisation of happens-before): @thm-logical-clocks
@@ -180,6 +194,7 @@ chapters are written.
 
 - **MapReduce** (map, shuffle, reduce, combiner, master, backup tasks): @def-mapreduce (@sec-batch-and-stream-processing)
 - **MapReduce, output of** (any split, combiners, re-execution, hot keys): @prp-mapreduce (@sec-batch-and-stream-processing)
+- **Media upload and streaming** (pre-signed uploads, processing DAG, transcoding and segments, adaptive bitrate, long-tail serving): @def-media-service (@sec-case-studies-applications)
 - **Messages, queues and workers** (synchronous and asynchronous calls, brokers, worker pools, acknowledgements,
   backlog): @def-message-queue (@sec-messaging-and-event-streams)
 - **Microkernel architecture** (core, plugins, contract, registry, encapsulated and distributed plugins): @def-microkernel
@@ -195,6 +210,7 @@ chapters are written.
 
 ## N
 
+- **News feed** (fan-out on write and on read, hybrid, feed cache, hydration, ranking): @def-news-feed (@sec-case-studies-applications)
 - **Notification service** (settings, templates, notification log, channel queues, retries, dead letters, deduplication):
   @def-notification-service (@sec-case-studies-infrastructure)
 
@@ -213,6 +229,7 @@ chapters are written.
 
 ## P
 
+- **Pagination under concurrent changes**: @prp-api-keyset-pagination (@sec-the-web-stack)
 - **Partitioned logs** (offsets, partition keys, retention and replay, consumer groups, committed offsets, lag):
   @def-partitioned-log (@sec-messaging-and-event-streams)
 - **Partitioning schemes** (range, hash and consistent hashing, virtual nodes, rebalancing, hot keys): @def-partitioning
@@ -225,6 +242,7 @@ chapters are written.
   wait): @def-truetime (@sec-distributed-transactions)
 - **Prefill and decode, the KV cache, batching policies and cost per token** (continuous batching, paged KV cache, speculative
   decoding as given): @def-llm-serving (@sec-ml-llm-and-agent-systems)
+- **Propagation of estimation errors**: @prp-estimate-error (@sec-estimation-and-the-design-process)
 - **Publish-subscribe** (topics, subscriptions, push and pull, retention):
   @def-pubsub (@sec-messaging-and-event-streams)
 
@@ -258,6 +276,7 @@ chapters are written.
 - **Retrieval-augmented generation, chunking, approximate nearest-neighbour indexes, hybrid search, semantic caches and retrieval metrics**
   (IVF, HNSW, reciprocal rank fusion, recall@K, MRR): @def-rag (@sec-ml-llm-and-agent-systems)
 - **Retry load, retry budgets, storms and deadlines**: @prp-retry-load (@sec-reliability-and-operations)
+- **Round trips of a request**: @prp-net-round-trips (@sec-the-web-stack)
 
 ## S
 
@@ -266,6 +285,7 @@ chapters are written.
 - **Sagas, outcomes and compensations of** (reverse compensation, additive compensations, pivot): @prp-saga
   (@sec-distributed-transactions)
 - **Samples, count-min sketches and HyperLogLog**: @def-approximate (@sec-batch-and-stream-processing)
+- **Search autocomplete** (prefixes, trie with top k per node, data gathering, sampling, sharding, filters): @def-autocomplete (@sec-case-studies-applications)
 - **Secondary indexes and request routing** (local and global indexes, scatter-gather, partition maps, location
   hierarchies): @def-request-routing (@sec-replication-and-partitioning)
 - **Serialisability and two-phase locking** (precedence graph, lock points): @prp-serializability

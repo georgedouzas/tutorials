@@ -1,0 +1,26 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+client: "Browser\n(cache)"
+cdn: "CDN"
+lb: "Load balancer"
+svc: "Autocomplete servers\n(trie, top k per node)" {style.multiple: true}
+filter: "Filter layer"
+gather: "Data gathering" {
+  direction: down
+  logs: "Search logs" {shape: cylinder}
+  agg: "Aggregator\n(sampled, weekly)"
+  build: "Trie builder"
+  store: "Trie store" {shape: cylinder}
+}
+
+client -> cdn: "prefix"
+cdn -> lb: "miss"
+lb -> svc
+svc -> filter
+client -> gather.logs: "searches" {style.stroke-dash: 3}
+gather.logs -> gather.agg
+gather.agg -> gather.build: "counts"
+gather.build -> gather.store
+gather.store -> svc: "ship new trie"

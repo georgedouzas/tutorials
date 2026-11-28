@@ -1,0 +1,34 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+client: "Clients" {style.multiple: true}
+lb: "Load balancer"
+post: "Post service"
+fanout: "Fan-out service"
+queue: "Fan-out queue" {shape: queue}
+workers: "Fan-out workers" {style.multiple: true}
+graph: "Follower graph" {shape: cylinder}
+feed_svc: "Feed service"
+caches: "Caches" {
+  direction: down
+  feed: "Feed cache\n(post IDs per user)" {shape: cylinder}
+  posts: "Post cache" {shape: cylinder}
+  users: "User cache" {shape: cylinder}
+}
+db: "Post store" {shape: cylinder}
+cdn: "CDN"
+
+client -> lb
+lb -> post: "publish"
+post -> db
+post -> fanout
+fanout -> graph: "followers"
+fanout -> queue
+queue -> workers
+workers -> caches.feed: "append ID"
+lb -> feed_svc: "get feed"
+feed_svc -> caches.feed: "IDs"
+feed_svc -> caches.posts: "hydrate,\ncelebrity posts"
+feed_svc -> caches.users
+client -> cdn: "media" {style.stroke-dash: 3}

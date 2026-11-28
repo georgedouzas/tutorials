@@ -1,0 +1,31 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+clients: "Clients" {style.multiple: true}
+discovery: "Service discovery"
+chat: "Chat servers\n(WebSocket)" {style.multiple: true}
+idgen: "ID generator"
+sync: "Sync queues\n(per recipient)" {shape: queue}
+kv: "Message store\n(key-value)" {shape: cylinder}
+presence: "Presence servers"
+pstore: "Presence store" {shape: cylinder}
+push: "Push notifications"
+fan: "Live fan-out" {
+  direction: down
+  map: "stream to servers" {shape: cylinder}
+  agg: "Aggregator"
+}
+
+clients -> discovery: "which server?"
+clients <-> chat: "WebSocket"
+chat -> idgen
+chat -> kv: "store"
+chat -> sync: "copy per member"
+sync -> chat: "deliver"
+sync -> push: "offline" {style.stroke-dash: 3}
+clients -> presence: "heartbeat"
+presence -> pstore
+chat -> fan.agg: "reactions"
+fan.agg -> fan.map
+fan.agg -> chat: "batched counts"

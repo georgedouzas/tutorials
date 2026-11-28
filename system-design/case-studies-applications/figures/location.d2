@@ -1,0 +1,24 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+drivers: "Drivers\n(every 10 s)" {style.multiple: true}
+riders: "Riders" {style.multiple: true}
+loc: "Location service"
+shard: "Region shard" {
+  direction: down
+  pos: "Position cache\n(driver to point)" {shape: cylinder}
+  index: "Geohash index\n(cell to drivers)" {shape: cylinder}
+}
+match: "Matching service"
+rides: "Ride store\n(assign if free)" {shape: cylinder}
+places: "Places quadtree\n(restaurants)" {shape: cylinder}
+
+drivers -> loc: "position"
+loc -> shard.pos
+loc -> shard.index: "on change of cell"
+riders -> match: "request ride"
+match -> shard.index: "cell + 8 neighbours"
+match -> shard.pos: "distances"
+match -> rides: "conditional write"
+riders -> places: "nearby search" {style.stroke-dash: 3}

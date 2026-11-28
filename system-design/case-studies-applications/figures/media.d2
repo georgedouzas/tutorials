@@ -1,0 +1,34 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+client: "Clients" {style.multiple: true}
+api: "API servers"
+meta: "Metadata DB\nand cache" {shape: cylinder}
+orig: "Original storage" {shape: cylinder}
+events: "Completion events" {shape: queue}
+dag: "Processing DAG" {
+  direction: down
+  split: "Split into segments"
+  enc: "Encoders\n(per rendition)" {style.multiple: true}
+  side: "Thumbnails,\ncontent check"
+  merge: "Merge, package"
+}
+out: "Rendition storage" {shape: cylinder}
+cdn: "CDN\n(popular head)"
+player: "Players\n(adaptive bitrate)" {style.multiple: true}
+
+client -> api: "start upload"
+api -> meta
+api -> client: "pre-signed URL" {style.stroke-dash: 3}
+client -> orig: "parts"
+orig -> events
+events -> dag.split
+dag.split -> dag.enc
+dag.split -> dag.side
+dag.enc -> dag.merge
+dag.merge -> out
+dag.merge -> meta: "ready"
+out -> cdn
+player -> cdn: "segments"
+player -> out: "long tail" {style.stroke-dash: 3}

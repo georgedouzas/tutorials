@@ -876,3 +876,43 @@ intersection, idempotent consumers, retries and DLQs, CDN TTL hit ratio, count-m
 - D2: `figures/url_shortener.d2`, `rate_limiter.d2`, `kv_store.d2`, `notifications.d2`, `web_crawler.d2`, `cdn.d2`, `topk.d2`.
 - Run blocks: plain Python and NumPy, seeded: base-62 and collision checks, a token bucket on bursty traffic, a three-node in-process store with
   quorums, hints and read repair, deduplicated delivery with retries, a heap-based polite frontier, an edge hit-ratio simulation, count-min top-K.
+
+## Chapter 15: case-studies-applications (task 6.2, 2026-11-28)
+
+Statements: `def-news-feed`, `def-chat-service`, `def-autocomplete`, `def-media-service`, `def-file-sync`, `def-collaborative-editing`,
+`prp-list-crdt` (the one new result), `def-booking-service`, `def-location-service`.
+
+### Sources
+
+- Xu Ch. 11 (DAU, fanout on write/read, hybrid, cache architecture, hydration, mute), Ch. 12 (requirements, service discovery, storage,
+  message ID, small group flow, cur_max_message_id, presence, WeChat's 500), Ch. 13 (estimate, trie and top k per node, complexities,
+  browser caching, update options, delete/filter, shard map, Unicode), Ch. 14 (estimate and CDN cost, DAG model, streaming flow, resumable
+  chunks, pre-signed URL, cost-saving), Ch. 15 (estimate, block servers and 4 MB, delta sync, compression, strong consistency, sync
+  conflicts, long polling, save storage space).
+- Tan Sec. 7.1 p. 148, 7.16 p. 162; 11.6 p. 252, 11.8 p. 260, 11.10 p. 263; 12.6.1 p. 272; 14.1 p. 309; 15.2.1-15.2.5 pp. 334-335,
+  15.7 p. 345, 15.8 p. 350; 16.3 p. 360.
+- Sinha Ch. 10 (estimate, Option B quadtree and base-4/base-32 labels, San Francisco geohash, prefix query, quadtree vs geohash), Ch. 11
+  (processing requirements), Ch. 13 (collaboration service, flow, OT, presence, integration), Ch. 14 (processing estimation, adaptive
+  streaming). Sinha Ch. 12 (Instagram) was not used.
+- Liu Ch. 5 "Conflict-Free Replicated Data Type (CRDT)", "Pass Chunk Delta with Rsync"; Ch. 6 "Emoji Broadcasting" (Fan-out Factor),
+  "Cloud File Storage" (File Upload options), "Ridesharing Service" (Driver Location Update, Location Storage Search, Match Making
+  Concurrency, Bursty Requests); App. 5 "EdgeRank", "Operational Transform", "Z-Score".
+
+### Gaps, proved and quoted
+
+- No new references. Candidates, not read and not added: Shapiro, Preguiça, Baquero and Zawirski (2011) on CRDTs; Ellis and Gibbs (1989)
+  on OT.
+- Proved: `prp-list-crdt` (identifier order, convergence, order and intention, deletes); TP1 for delete/delete, insert/delete and
+  insert/insert transformations (exercises); the 3 x 3 neighbour rule for proximity search (exercise).
+- Errors in the sources, examined in exercises: Sinha Ch. 10 divides 10M by "6*60*24" (463/s for six hours, not 1200), "5 * 1200 ~ 60000"
+  (6000), the base-4 label 0231 0101 0131 0131 is 756096285 and "qj278x", not 121610608 and "2mtt6s", and the query "9a8yy%" should be
+  "9q8yy%"; Sinha Ch. 11 calls the average 1,200 tweets/s the peak; Xu's ~240 upload QPS is 231.
+- Unsourced standard notions: content-defined chunking; TP1; strong eventual consistency; the list CRDT with dense identifiers and
+  tombstones; the geohash bit interleaving (checked against Sinha's "9q8yyk8yt"); tombstone collection.
+
+### Figures and software
+
+- D2: `figures/news_feed.d2`, `chat.d2`, `autocomplete.d2`, `media.d2`, `file_sync.d2`, `collab.d2`, `booking.d2`, `location.d2`.
+- Run blocks: plain Python, NumPy and `sqlite3`, seeded: a push/pull/hybrid cost model, chat sync by cursors, a trie with top k per node,
+  a CDN head/tail cost split, fixed and gear-hash chunking with SHA-256 deduplication, an OT transform and a list CRDT, booking with a
+  primary key on (room, night), geohash proximity search and a quadtree.

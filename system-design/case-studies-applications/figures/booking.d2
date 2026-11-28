@@ -1,0 +1,28 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+guests: "Guests" {style.multiple: true}
+search: "Search and\navailability service"
+cache: "Search cache" {shape: cylinder}
+replica: "Read replicas" {shape: cylinder}
+holds: "Holds\n(few minutes)" {shape: cylinder}
+booking: "Booking service"
+leader: "Leader DB\nPRIMARY KEY (room, night)" {shape: cylinder}
+saga: "Payment saga" {
+  direction: down
+  pay: "Payment service"
+  notify: "Confirmations"
+}
+
+guests -> search: "search"
+search -> cache
+search -> replica
+search -> holds: "hide held"
+guests -> booking: "book"
+booking -> holds: "place hold"
+booking -> leader: "one transaction"
+leader -> replica: "replicate" {style.stroke-dash: 3}
+booking -> saga.pay
+saga.pay -> saga.notify
+saga.pay -> booking: "failed: release" {style.stroke-dash: 3}

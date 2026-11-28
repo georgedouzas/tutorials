@@ -154,7 +154,7 @@
     scikit-complexity where the package has the feature, file an issue for each missing or broken feature, and name it
     beside every remaining fallback. Verify: each chapter passes the checker, harvest and render again, and the audit
     report lists every remaining fallback with its issue number or its teaching reason.
-- [ ] 6.2 Write the remaining System Design chapters the same way. Verify as in 6.1.
+- [x] 6.2 Write the remaining System Design chapters the same way. Verify as in 6.1.
   - [ ] 6.2a Chapter 13, ML, LLM and agent systems (`ml-llm-and-agent-systems`), added by the owner on 2026-11-27,
     before the case studies. First add its sources to Zotero (C33 Publications, C31 Textbooks), approved the same day:
     Sculley et al. 2015; Yu et al. 2022 (Orca); Kwon et al. 2023 (vLLM); Pope et al. 2022; Leviathan et al. 2023;
