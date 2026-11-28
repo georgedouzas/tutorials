@@ -811,7 +811,7 @@ learning linked). §1 the ML system; §2 model serving; §3 serving LLMs; §4 RA
 
 ### Sources
 
-- The Zotero items QB6EASIT, 6BCHDD7J, EQUXGEEE, CJ94P4P6, P36H543E and FVADVXSZ have no attachment in the local Zotero (no child items, no storage
+- The Zotero items GB6EBSTV, 332SZHL9, U8Y7LPBR, X7RSQIJ6, N4K5TQCL and CS7QV4NI have no attachment in the local Zotero (no child items, no storage
   directory), so their arXiv PDFs (2309.06180, 2211.05102, 2211.17192, 2005.11401, 1603.09320, 1702.08734) were downloaded to the scratchpad and read
   with pdftotext; the same for ReAct (2210.03629), Reflexion (2303.11366), Toolformer (2302.04761) and Arunkumar et al. (2601.12560), which have no
   PDFs either. Sculley (PD2JD6S3), Orca (ZTDSHFFR), Wang et al. (F9ZU84ZN), Kamath (GB3GPKL6) and Berryman (HBERLVF2) read from Zotero storage.
