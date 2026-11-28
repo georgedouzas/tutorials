@@ -50,10 +50,12 @@ from its catalogue: `LogisticMapSystem`, `HenonMapSystem`, `IntermittencyMapSyst
 `LorenzSystem`, `RosslerSystem`, `HyperchaoticRosslerSystem`, `SaddleNodeFormSystem`, `CuspFormSystem`, `HopfFormSystem`,
 `SubcriticalHopfFormSystem`, `VanDerPolSystem`, `DuffingSystem`, `PendulumSystem`, `LotkaVolterraSystem`,
 `FiniteTimeBlowUpSystem` and `MackeyGlassSystem`, and models that the catalogue lacks, such as the
-transcritical and pitchfork normal forms, are written with its generic `DynamicalSystem`. They are run by `simulate`
+transcritical and pitchfork normal forms, the damped pendulum, the saddle-node channel map and Datseris and Parlitz's
+intermittency map, are written with its generic `DynamicalSystem`. They are run by `simulate`
 and analysed with `stability`, `lyapunov`, `section` and `ergodicity` and the experiments `orbit_diagram` and
-`basin_stability`. NumPy and SciPy are used only for closed formulas, for a few matrix computations and for
-integrating a set of nearby initial points at once.
+`basin_stability`, and `events` measures laminar phases. NumPy and SciPy are used only for closed formulas, root
+finding on composed maps, a few matrix computations, and two algorithms that are the lesson of their exercises: the
+Benettin iteration and the stretching of small circles by the Hénon map, each printed against `lyapunov`.
 
 ## Flows, maps, fixed points and stability {#sec-flows-maps-stability}
 
@@ -2070,18 +2072,21 @@ in $1$. For a small tetrahedron the flow is nearly linear, so its volume follows
 
 ## Python
 
-The four corners are integrated with SciPy, from a state on the attractor reached by a `simulate` run.
+The four corners are integrated by `simulate` with tight tolerances, from a state on the attractor reached by a first run.
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
 from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
 from skcomplex.systems.mathematics.dynamical_systems import LorenzSystem
 trajectory = simulate(LorenzSystem(), until=20, dt=0.01)
 x0 = np.array([trajectory.get_values(f"lorenz.{c}")[-1] for c in "xyz"])
-f = lambda t, u: [10 * (u[1] - u[0]), u[0] * (28 - u[2]) - u[1], u[0] * u[1] - 8 / 3 * u[2]]
 corners = [x0] + [x0 + 1e-6 * e for e in np.eye(3)]
-ends = [solve_ivp(f, (0, 0.1), c, rtol=1e-12, atol=1e-14).y[:, -1] for c in corners]
+tight = ScipyODESolver(rtol=1e-12, atol=1e-14)
+def end(c):
+    run = simulate(LorenzSystem(x=c[0], y=c[1], z=c[2]), until=0.1, dt=0.1, solver=tight)
+    return np.array([run.get_values(f"lorenz.{k}")[-1] for k in "xyz"])
+ends = [end(c) for c in corners]
 volume = lambda p: abs(np.linalg.det(np.array(p[1:]) - p[0])) / 6
 print(f"volume ratio {volume(ends) / volume(corners):.4f}, exp(-41/30) = {np.exp(-41 / 30):.4f}")
 ```
@@ -2268,11 +2273,16 @@ comes close to the bottom: each moves on an energy ellipse, so its distance stay
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
-f = lambda t, u: [u[1], -9.81 * np.sin(u[0])]
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.physics.mechanics import PendulumSystem
+tight = ScipyODESolver(rtol=1e-10, atol=1e-12)
+def end(c):
+    run = simulate(PendulumSystem(theta=c[0], omega=c[1], g=9.81), until=20, dt=20, solver=tight)
+    return run.get_values("bob.theta")[-1], run.get_values("bob.theta_d1")[-1]
 angles = np.linspace(0, 2 * np.pi, 120, endpoint=False)
 circle = 0.05 * np.c_[np.cos(angles), np.sin(angles)]
-ends = np.array([solve_ivp(f, (0, 20), c, rtol=1e-10, atol=1e-12).y[:, -1] for c in circle])
+ends = np.array([end(c) for c in circle])
 area = lambda p: 0.5 * abs(np.dot(p[:, 0], np.roll(p[:, 1], 1)) - np.dot(p[:, 1], np.roll(p[:, 0], 1)))
 print(f"area before {area(circle):.6f}, after {area(ends):.6f}; smallest distance from the bottom at t = 20: {np.hypot(*ends.T).min():.4f}")
 ```
@@ -4649,14 +4659,15 @@ Check on the damped pendulum with $\gamma = 0.3$: the area enclosed by one loop 
 itself. The energy at successive upward crossings of $x = 0$ decreases.
 
 ```{.python .run}
-import numpy as np
-from scipy.integrate import solve_ivp
-f = lambda t, u: [u[1], -0.3 * u[1] - 9.81 * np.sin(u[0])]
-crossing = lambda t, u: u[0]
-crossing.direction = 1
-solution = solve_ivp(f, (0, 30), [1.0, 0.0], events=crossing, rtol=1e-10, atol=1e-12)
-speeds = solution.y_events[0][:, 1]
-print("energy at successive crossings:", (0.5 * speeds**2).round(4)[:6])
+from sage.all__sagemath_symbolics import sin
+from skcomplex.core.analysis import section
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
+damped = DynamicalSystem(states={"theta": 1.0, "omega": 0.0}, parameters={"c": 0.3, "g": 9.81}, element="bob",
+                         equations={"theta": lambda s: s.target.omega,
+                                    "omega": lambda s: -s.target.c * s.target.omega - s.target.g * sin(s.target.theta)})
+crossings = section(damped, state="bob.theta", value=0.0, direction=1, until=30, solver=ScipyODESolver(rtol=1e-10, atol=1e-12))
+print("energy at successive crossings:", (0.5 * crossings.values["bob.omega"]**2).round(4)[:6])
 ```
 
 ```{.text .run-output}
@@ -5237,21 +5248,23 @@ $\exp\int_0^T\mu(1 - x^2)\,dt$.
 
 ## Python
 
-The integral along the cycle and a direct return-map estimate, with SciPy for the events.
+The integral along the cycle and a direct return-map estimate, with `section` for the crossings of $x = 0$.
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
-f = lambda t, u: [u[1], (1 - u[0]**2) * u[1] - u[0]]
-up = lambda t, u: u[0]
-up.direction = 1
-cycle = solve_ivp(f, (0, 100), [2.0, 0.0], events=up, rtol=1e-11, atol=1e-12, dense_output=True)
-t0, t1 = cycle.t_events[0][-2:]
-ts = np.linspace(t0, t1, 20001)
-divergence = np.trapezoid(1 - cycle.sol(ts)[0]**2, ts)
-v_star = cycle.y_events[0][-1][1]
-nxt = solve_ivp(f, (0, 20), [0.0, v_star + 1e-4], events=up, rtol=1e-11, atol=1e-12)
-v_next = [v for t, v in zip(nxt.t_events[0], nxt.y_events[0][:, 1]) if t > 1][0]
+from skcomplex.core.analysis import section
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.physics.nonlinear_oscillators import VanDerPolSystem
+tight = ScipyODESolver(rtol=1e-11, atol=1e-12)
+up = dict(state="oscillator.x", value=0.0, direction=1, solver=tight)
+cycle = section(VanDerPolSystem(x=2.0, v=0.0), until=100, **up)
+t0, t1 = cycle.times[-2:]
+v_star = cycle.values["oscillator.x_d1"][-1]
+orbit = simulate(VanDerPolSystem(x=0.0, v=v_star), until=t1 - t0, dt=(t1 - t0) / 20000, solver=tight)
+divergence = np.trapezoid(1 - orbit.get_values("oscillator.x")**2, orbit.times)
+nxt = section(VanDerPolSystem(x=0.0, v=v_star + 1e-4), until=20, **up)
+v_next = [v for t, v in zip(nxt.times, nxt.values["oscillator.x_d1"]) if t > 1][0]
 print(f"period {t1 - t0:.4f}; exp(integral) = {np.exp(divergence):.5f}; return ratio {(v_next - v_star) / 1e-4:.5f}")
 ```
 
@@ -5324,10 +5337,13 @@ $e^{-2\mu T} = e^{-\pi} \approx 0.0432$.
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
-mu, a = 0.25, -1.0
-f = lambda t, u: [mu * u[0] - u[1] + a * u[0] * (u[0]**2 + u[1]**2), u[0] + mu * u[1] + a * u[1] * (u[0]**2 + u[1]**2)]
-flow = lambda u: solve_ivp(f, (0, 2 * np.pi), u, rtol=1e-12, atol=1e-13).y[:, -1]
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.mathematics.dynamical_systems import HopfFormSystem
+tight = ScipyODESolver(rtol=1e-12, atol=1e-13)
+def flow(u):
+    run = simulate(HopfFormSystem(x=u[0], y=u[1], mu=0.25, omega=1.0, a=-1.0), until=2 * np.pi, dt=2 * np.pi, solver=tight)
+    return np.array([run.get_values("form.x")[-1], run.get_values("form.y")[-1]])
 p, h = np.array([0.5, 0.0]), 1e-6
 M = np.column_stack([(flow(p + h * e) - flow(p - h * e)) / (2 * h) for e in np.eye(2)])
 print(f"eigenvalues {np.sort(np.linalg.eigvals(M).real).round(4)}, exp(-pi) = {np.exp(-np.pi):.4f}")
@@ -5786,10 +5802,11 @@ The cycle at $R_1$ by iteration.
 
 ```{.python .run}
 import numpy as np
-r, x = 1 + np.sqrt(5), 0.3
-for _ in range(1000):
-    x = r * x * (1 - x)
-print(f"R_1 = {r:.6f}; cycle {sorted([round(x, 6), round(r * x * (1 - x), 6)])}; R_1/4 = {r / 4:.6f}")
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
+r = 1 + np.sqrt(5)
+x = simulate(LogisticMapSystem(x=0.3, r=r), until=1001).get_values("map.x")
+print(f"R_1 = {r:.6f}; cycle {sorted([round(float(x[-2]), 6), round(float(x[-1]), 6)])}; R_1/4 = {r / 4:.6f}")
 ```
 
 ```{.text .run-output}
@@ -6018,12 +6035,12 @@ Iteration to the cycle, then the product.
 
 ```{.python .run}
 import numpy as np
-r, x = 3.835, 0.3
-for _ in range(5000):
-    x = r * x * (1 - x)
-cycle = [x, r * x * (1 - x)]
-cycle.append(r * cycle[1] * (1 - cycle[1]))
-print(f"cycle {np.round(sorted(cycle), 5)}, returns: {abs(r * cycle[2] * (1 - cycle[2]) - x) < 1e-9}, multiplier {np.prod([r * (1 - 2 * c) for c in cycle]):.4f}")
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
+r = 3.835
+x = simulate(LogisticMapSystem(x=0.3, r=r), until=5003).get_values("map.x")
+cycle = x[5000:5003]
+print(f"cycle {np.round(sorted(cycle), 5)}, returns: {abs(x[5003] - x[5000]) < 1e-9}, multiplier {np.prod([r * (1 - 2 * c) for c in cycle]):.4f}")
 ```
 
 ```{.text .run-output}
@@ -7063,7 +7080,7 @@ following a cloud of initial states.
 ::: {#exr-absorbing-cloud}
 #### A shrinking cloud
 
-Sample $2000$ points uniformly in a small cube of side $1$ on the attractor and follow them for $t = 0.2$. Compare the volume of the
+Sample $400$ points uniformly in a small cube of side $1$ on the attractor and follow them for $t = 0.2$. Compare the volume of the
 image, estimated by the determinant of the covariance of the points, with $e^{-41 \cdot 0.2/3}$.
 :::
 
@@ -7077,26 +7094,27 @@ the covariance scales with the square of the volume. So $\sqrt{\det\operatorname
 
 ## Python
 
-The cloud is integrated with SciPy as one vectorised system.
+Each point of the cloud is a `simulate` run.
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
 from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
 from skcomplex.systems.mathematics.dynamical_systems import LorenzSystem
 start = simulate(LorenzSystem(), until=30, dt=0.01)
 centre = np.array([start.get_values(f"lorenz.{c}")[-1] for c in "xyz"])
-cloud = centre + np.random.default_rng(11).uniform(-0.5, 0.5, (2000, 3))
-def f(t, u):
-    x, y, z = u.reshape(3, -1)
-    return np.concatenate([10 * (y - x), x * (28 - z) - y, x * y - 8 / 3 * z])
-end = solve_ivp(f, (0, 0.2), cloud.T.ravel(), rtol=1e-9, atol=1e-11).y[:, -1].reshape(3, -1).T
-ratio = np.sqrt(np.linalg.det(np.cov(end.T)) / np.linalg.det(np.cov(cloud.T)))
+cloud = centre + np.random.default_rng(11).uniform(-0.5, 0.5, (400, 3))
+solver = ScipyODESolver(rtol=1e-9, atol=1e-11)
+def end(p):
+    run = simulate(LorenzSystem(x=p[0], y=p[1], z=p[2]), until=0.2, dt=0.2, solver=solver)
+    return [run.get_values(f"lorenz.{c}")[-1] for c in "xyz"]
+final = np.array([end(p) for p in cloud])
+ratio = np.sqrt(np.linalg.det(np.cov(final.T)) / np.linalg.det(np.cov(cloud.T)))
 print(f"volume ratio {ratio:.4f}, exp(-41 * 0.2 / 3) = {np.exp(-41 * 0.2 / 3):.4f}")
 ```
 
 ```{.text .run-output}
-volume ratio 0.0651, exp(-41 * 0.2 / 3) = 0.0650
+volume ratio 0.0653, exp(-41 * 0.2 / 3) = 0.0650
 ```
 ::::
 :::
@@ -7498,10 +7516,13 @@ shrinks like $e^{n\lambda_{L,2}}$.
 
 ## Python
 
-The points are iterated with NumPy.
+The points are iterated with NumPy, as the exercise spells out the method, and the largest exponent is computed by
+`lyapunov` for comparison.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import lyapunov
+from skcomplex.systems.mathematics.dynamical_systems import HenonMapSystem
 a, b = 1.4, 0.3
 x, y = 0.1, 0.1
 for _ in range(1000):
@@ -7517,7 +7538,8 @@ for base in range(100):
         px, py = 1 - a * px**2 + py, b * px
         cx, cy = 1 - a * cx**2 + cy, b * cx
     logs.append(np.log(np.hypot(px - cx, py - cy).max() / 1e-6) / 20)
-print(f"growth rate per step over 100 circles: mean {np.mean(logs):.3f}, range [{min(logs):.3f}, {max(logs):.3f}]; lambda_L1 = 0.42")
+largest = lyapunov(HenonMapSystem(x=0.1, y=0.1), until=50000, transient=1000).exponents[0]
+print(f"growth rate per step over 100 circles: mean {np.mean(logs):.3f}, range [{min(logs):.3f}, {max(logs):.3f}]; lambda_L1 = {largest:.2f}")
 ```
 
 ```{.text .run-output}
@@ -7728,24 +7750,23 @@ where it stays $1$.
 
 ## Python
 
-The iteration is done with NumPy for all states at once, marking an orbit as escaped once $\lvert x\rvert > 10$.
+Each state is a `HenonMapSystem` run, and an orbit counts as escaped from the first step with $\lvert x\rvert > 10$.
 
 ```{.python .run}
 import numpy as np
-a, b = 1.43, 0.3
-x = 0.1 + 1e-3 * np.random.default_rng(15).standard_normal(100)
-y = np.full(100, 0.1)
-alive = np.ones(100, bool)
-for n in range(1, 8001):
-    x, y = np.where(alive, 1 - a * x**2 + y, 0.0), np.where(alive, b * x, 0.0)
-    alive &= np.abs(x) < 10
-    if n in (500, 2000, 8000):
-        print(f"after {n} steps: bounded fraction {alive.mean():.2f}")
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import HenonMapSystem
+starts = 0.1 + 1e-3 * np.random.default_rng(15).standard_normal(100)
+with np.errstate(over="ignore", invalid="ignore"):
+    x = np.array([simulate(HenonMapSystem(x=x0, y=0.1, a=1.43, b=0.3), until=8000).get_values("map.x")[1:] for x0 in starts])
+    alive = np.logical_and.accumulate(np.abs(x) < 10, axis=1)
+for n in (500, 2000, 8000):
+    print(f"after {n} steps: bounded fraction {alive[:, n - 1].mean():.2f}")
 ```
 
 ```{.text .run-output}
 after 500 steps: bounded fraction 0.11
-after 2000 steps: bounded fraction 0.01
+after 2000 steps: bounded fraction 0.00
 after 8000 steps: bounded fraction 0.00
 ```
 ::::
@@ -7855,10 +7876,14 @@ must be small: the map sends $\delta = -1$ straight to $\varepsilon$, so from $-
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
 eps = 1e-4
-d, steps = -0.1, 0
-while d < 0.1:
-    d, steps = d + eps + d**2, steps + 1
+channel = DynamicalSystem(states={"d": -0.1}, equations={"d": lambda s: s.target.d + s.target.eps + s.target.d**2},
+                          parameters={"eps": eps}, time="discrete", element="channel")
+with np.errstate(over="ignore", invalid="ignore"):  # the map blows up after leaving the channel
+    d = simulate(channel, until=1000).get_values("channel.d")
+steps = int(np.argmax(d >= 0.1))
 print(f"map steps {steps}; T_0.1 = {2 / np.sqrt(eps) * np.arctan(0.1 / np.sqrt(eps)):.1f}; pi / sqrt(eps) = {np.pi / np.sqrt(eps):.1f}")
 ```
 
@@ -7892,14 +7917,15 @@ $\pi/\sqrt\varepsilon$.
 
 ```{.python .run}
 import numpy as np
-def series(eps, n=20000, x=0.3):
-    out = np.empty(n)
-    for k in range(n):
-        x = ((1 + eps) * x + (1 - eps) * x**2) % 1.0
-        out[k] = x
-    return out
+from skcomplex.core.components.laws.utils import mod
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def datseris(eps):
+    return DynamicalSystem(states={"x": 0.3}, parameters={"eps": eps}, time="discrete", element="map",
+                           equations={"x": lambda s: mod((1 + s.target.eps) * s.target.x + (1 - s.target.eps) * s.target.x**2, 1)})
 for eps in (1e-3, 5e-2):
-    print(f"eps = {eps}: fraction of steps with x < 0.05: {np.mean(series(eps) < 0.05):.3f}")
+    x = simulate(datseris(eps), until=20000).get_values("map.x")[1:]
+    print(f"eps = {eps}: fraction of steps with x < 0.05: {np.mean(x < 0.05):.3f}")
 ```
 
 ```{.text .run-output}
@@ -7988,19 +8014,20 @@ the orbit. Laminar steps near $x = 0$ contribute about $\ln(1 + \varepsilon) \ap
 roughly the share of bursts times their stretching.
 
 ```{.python .run}
-import numpy as np
+from skcomplex.core.analysis import lyapunov
+from skcomplex.core.components.laws.utils import mod
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def datseris(eps):
+    return DynamicalSystem(states={"x": 0.3}, parameters={"eps": eps}, time="discrete", element="map",
+                           equations={"x": lambda s: mod((1 + s.target.eps) * s.target.x + (1 - s.target.eps) * s.target.x**2, 1)})
 for eps in (1e-3, 1e-2, 5e-2):
-    x, total = 0.3, 0.0
-    for k in range(200000):
-        total += np.log(abs((1 + eps) + 2 * (1 - eps) * x))
-        x = ((1 + eps) * x + (1 - eps) * x**2) % 1.0
-    print(f"eps = {eps}: lambda_L = {total / 200000:.4f}")
+    print(f"eps = {eps}: lambda_L = {lyapunov(datseris(eps), until=200000).exponents[0]:.4f}")
 ```
 
 ```{.text .run-output}
-eps = 0.001: lambda_L = 0.2382
-eps = 0.01: lambda_L = 0.3332
-eps = 0.05: lambda_L = 0.4438
+eps = 0.001: lambda_L = 0.2340
+eps = 0.01: lambda_L = 0.3355
+eps = 0.05: lambda_L = 0.4448
 ```
 :::
 
@@ -8079,11 +8106,14 @@ Step counts through the channel.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
 for eps, beta in ((1e-4, 4.0), (4e-4, 1.0)):
-    d, steps, L = -0.1 / beta, 0, 0.1 / beta
-    while d < L:
-        d, steps = d + eps + beta * d**2, steps + 1
-    print(f"eps = {eps}, beta = {beta}: {steps} steps; pi / sqrt(eps beta) = {np.pi / np.sqrt(eps * beta):.1f}")
+    channel = DynamicalSystem(states={"d": -0.1 / beta}, parameters={"eps": eps, "beta": beta}, time="discrete", element="channel",
+                              equations={"d": lambda s: s.target.d + s.target.eps + s.target.beta * s.target.d**2})
+    with np.errstate(over="ignore", invalid="ignore"):  # the map blows up after leaving the channel
+        d = simulate(channel, until=1000).get_values("channel.d")
+    print(f"eps = {eps}, beta = {beta}: {int(np.argmax(d >= 0.1 / beta))} steps; pi / sqrt(eps beta) = {np.pi / np.sqrt(eps * beta):.1f}")
 ```
 
 ```{.text .run-output}
@@ -8117,10 +8147,13 @@ Step counts and the formula.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
 for eps in (1e-1, 1e-2, 1e-3, 1e-4):
-    d, steps = -0.1, 0
-    while d < 0.1:
-        d, steps = d + eps + d**2, steps + 1
+    channel = DynamicalSystem(states={"d": -0.1}, equations={"d": lambda s: s.target.d + s.target.eps + s.target.d**2},
+                              parameters={"eps": eps}, time="discrete", element="channel")
+    with np.errstate(over="ignore", invalid="ignore"):  # the map blows up after leaving the channel
+        steps = int(np.argmax(simulate(channel, until=1000).get_values("channel.d") >= 0.1))
     T = 2 / np.sqrt(eps) * np.arctan(0.1 / np.sqrt(eps))
     print(f"eps = {eps}: steps {steps}, T_0.1 = {T:.1f}, ratio {steps / T:.3f}")
 ```
@@ -8159,14 +8192,12 @@ Long runs at both values, with laminar stretches found from the third difference
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import events
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
 def mean_laminar(r, n=400000):
-    x, xs = 0.3, np.empty(n)
-    for k in range(n):
-        x = r * x * (1 - x)
-        xs[k] = x
-    laminar = np.abs(xs[3:] - xs[:-3]) < 1e-3
-    edges = np.flatnonzero(np.diff(np.r_[0, laminar.astype(int), 0]) != 0)
-    lengths = edges[1::2] - edges[::2]
+    x = simulate(LogisticMapSystem(x=0.3, r=r), until=n).get_values("map.x")[1:]
+    lengths = np.asarray(events(x[3:] - x[:-3], kind="laminar-durations", threshold=1e-3).durations)
     return lengths[lengths > 10].mean()
 rc = 1 + np.sqrt(8)
 a, b = mean_laminar(rc - 1e-4), mean_laminar(rc - 1e-5)
@@ -8174,7 +8205,7 @@ print(f"mean laminar lengths {a:.1f} and {b:.1f}; ratio {b / a:.2f}")
 ```
 
 ```{.text .run-output}
-mean laminar lengths 67.3 and 260.9; ratio 3.87
+mean laminar lengths 67.9 and 265.4; ratio 3.91
 ```
 ::::
 :::
@@ -8201,10 +8232,13 @@ reinjection close to $0$ gives arbitrarily long phases.
 The step count of the map.
 
 ```{.python .run}
-x, steps = 1e-3, 0
-while x < 0.5:
-    x, steps = x + x**2, steps + 1
-print(f"steps {steps}, 1/x0 - 2 = {1 / 1e-3 - 2:.0f}")
+import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
+marginal = DynamicalSystem(states={"x": 1e-3}, equations={"x": lambda s: s.target.x + s.target.x**2}, time="discrete", element="map")
+with np.errstate(over="ignore", invalid="ignore"):  # the map blows up after passing 1/2
+    x = simulate(marginal, until=1200).get_values("map.x")
+print(f"steps {int(np.argmax(x >= 0.5))}, 1/x0 - 2 = {1 / 1e-3 - 2:.0f}")
 ```
 
 ```{.text .run-output}
@@ -8381,11 +8415,13 @@ The two statistics for each $\varepsilon$.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.components.laws.utils import mod
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
 for eps in (-0.1, 1e-4, 0.05):
-    x, xs = 0.3, np.empty(10000)
-    for k in range(10000):
-        x = ((1 + eps) * x + (1 - eps) * x**2) % 1.0
-        xs[k] = x
+    datseris = DynamicalSystem(states={"x": 0.3}, parameters={"eps": eps}, time="discrete", element="map",
+                               equations={"x": lambda s: mod((1 + s.target.eps) * s.target.x + (1 - s.target.eps) * s.target.x**2, 1)})
+    xs = simulate(datseris, until=10000).get_values("map.x")[1:]
     high = xs > 0.5
     print(f"eps = {eps}: share near 0 {np.mean(xs < 0.01):.3f}; excursions above 0.5: {int(np.sum(high[1:] & ~high[:-1]))}")
 ```
@@ -8482,16 +8518,16 @@ b\rvert = 0.3$.
 The periods from `orbit_diagram`, and the conjugacy check of (a) at $r = 3.2$.
 
 ```{.python .run}
+from skcomplex.core.engine.runtime import simulate
 from skcomplex.core.experiments import orbit_diagram
-from skcomplex.systems.mathematics.dynamical_systems import HenonMapSystem
+from skcomplex.systems.mathematics.dynamical_systems import HenonMapSystem, LogisticMapSystem
 result = orbit_diagram(HenonMapSystem(), "map.a", [0.3, 0.45], "map.x", transient=5000, keep=16, decimals=6)
 print(f"a_1 = {0.75 * 0.7**2:.4f}; periods at a = 0.3, 0.45: {result.periods.tolist()}")
 r = 3.2
 a = r * (r - 2) / 4
 k = 4 / (r - 2)
-u, x = 0.3, k * (0.3 - 0.5)
-for _ in range(10):
-    u, x = r * u * (1 - u), 1 - a * x**2
+u = simulate(LogisticMapSystem(x=0.3, r=r), until=10).get_values("map.x")[-1]
+x = simulate(HenonMapSystem(x=k * (0.3 - 0.5), y=0.0, a=a, b=0.0), until=10).get_values("map.x")[-1]
 print(f"after 10 steps: x = {x:.6f}, conjugate of u = {k * (u - 0.5):.6f}")
 ```
 

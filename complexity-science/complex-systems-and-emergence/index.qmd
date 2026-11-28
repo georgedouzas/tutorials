@@ -37,12 +37,16 @@ Every definition and proposition is followed by ten examples and ten exercises, 
 in two tabs: the argument, then a computation with its recorded output. The computations use scikit-complexity 0.9.0
 throughout. The systems come from its catalogue (`skcomplex.systems`): `LogisticMapSystem`, `TentMapSystem`,
 `IsingSystem`, `CurieWeissSystem`, `IdealGasSystem`, `GameOfLifeSystem`, `MajorityRuleSystem`,
-`GalamMajoritySystem`, `SchellingSystem`, `CoevolvingVoterSystem`, `VicsekSystem`, `KuramotoSystem` and
-`BernoulliProcessSystem`, found with `all_systems`. They are run by `simulate` (`skcomplex.core.engine.runtime`) and
-measured with the analyses `stability`, `lyapunov`, `emergence`, `domains`, `distribution`, `complexity`,
-`signatures` and `applicable_analyses` (`skcomplex.core.analysis`) and the experiment `orbit_diagram`
-(`skcomplex.core.experiments`). NumPy is used only where the package has no ready function: block-majority
-coarse-graining of a lattice, sums of independent random variables, and a few closed formulas.
+`GalamMajoritySystem`, `SchellingSystem`, `CoevolvingVoterSystem`, `VicsekSystem`, `KuramotoSystem`,
+`BernoulliProcessSystem`, `HopfieldSystem` and `CoupledMapLatticesOnNetworksSystem`, found with `all_systems`, and one
+small system of two equations written with `DynamicalSystem`. They are run by `simulate`
+(`skcomplex.core.engine.runtime`) and measured with the analyses `stability`, `lyapunov`, `emergence`, `domains`, `distribution`, `complexity`,
+`signatures`, `neighbors` and `applicable_analyses` (`skcomplex.core.analysis`) and the experiment `orbit_diagram`
+(`skcomplex.core.experiments`). NumPy is used only where the package has no ready function, and each such block names the
+package issue that asks for it: block-majority coarse-graining of a lattice (issue #30), the energy and interaction
+graph of a lattice (#49), majority groups drawn with replacement (#50), an ensemble of logistic maps (#51) and the
+neighbours of a flock within a radius (#52). NumPy also computes sums of independent random variables, a few closed
+formulas, and two toy rules that are spelled out in their exercises.
 
 ## What a complex system is {#sec-what-is-a-complex-system}
 
@@ -285,6 +289,7 @@ Check on $L = 5$: the weight matrices are built from the shifts of the torus and
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #49: the lattice interaction graph is not public, so the weight matrix is built from the shifts
 L = 5
 idx = np.arange(L * L).reshape(L, L)
 def weights(shifts):
@@ -375,6 +380,7 @@ directly for every site and compared with the formula.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #49: IsingSystem has no energy function, so the energy is written out
 rng = np.random.default_rng(0)
 L, J, h = 8, 1.0, 0.3
 s = rng.choice([-1, 1], size=(L, L))
@@ -558,7 +564,7 @@ from skcomplex.systems.physics.active_matter import VicsekSystem
 side = 10.0
 run = simulate(VicsekSystem(300, size=side, eta=0.1, seed=4), until=100, random_state=4)
 x = run.get_values("flock.x")
-def pairs(pos):
+def pairs(pos):  # scikit-complexity #52: no pairs-within-a-radius analysis yet
     d = pos[:, None, :] - pos[None, :, :]
     d -= side * np.round(d / side)
     close = (d ** 2).sum(-1) <= 1.0
@@ -597,15 +603,16 @@ last section of the chapter shows), so the two maps synchronise; for $\varepsilo
 
 ## Python
 
-The pair is iterated with NumPy, since only the rule is needed.
+The pair is `CoupledMapLatticesOnNetworksSystem` on two nodes joined by one edge, started from $x = 0.3$, $y = 0.31$.
 
 ```{.python .run}
-f = lambda x: 4 * x * (1 - x)
+import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.physics.synchronization import CoupledMapLatticesOnNetworksSystem
 for eps in (0.0, 0.4):
-    x, y = 0.3, 0.31
-    for _ in range(2000):
-        x, y = (1 - eps) * f(x) + eps * f(y), (1 - eps) * f(y) + eps * f(x)
-    print(f"eps = {eps}: |x - y| = {abs(x - y):.3e}")
+    pair = CoupledMapLatticesOnNetworksSystem(2, degree=1, r=4.0, epsilon=eps)
+    x = simulate(pair, until=2000, initial_state={"maps.x": np.array([0.3, 0.31])}).get_values("maps.x")[-1]
+    print(f"eps = {eps}: |x - y| = {abs(x[0] - x[1]):.3e}")
 ```
 
 ```{.text .run-output}
@@ -988,7 +995,7 @@ from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.active_matter import VicsekSystem
 side, N = 10.0, 300
 x = simulate(VicsekSystem(N, size=side, eta=0.1, seed=7), until=200, random_state=7).get_values("flock.x")
-def mean_degree(pos):
+def mean_degree(pos):  # scikit-complexity #52: no degrees-within-a-radius analysis yet
     d = pos[:, None, :] - pos[None, :, :]
     d -= side * np.round(d / side)
     return (((d ** 2).sum(-1) <= 1.0).sum() - N) / N
@@ -1028,6 +1035,7 @@ The kinds and locations of the residents at a frame come from `get_agents`.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import neighbors
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.social.segregation import SchellingSystem
 run = simulate(SchellingSystem(20, 20, density=0.8, minority=0.3, threshold=0.5), until=50, random_state=0)
@@ -1036,12 +1044,7 @@ def state(frame):
     return np.asarray(agents.ids), np.asarray(agents.values["kind"]), np.asarray(agents.locations)
 def like_share(kind, loc):
     grid = -np.ones((20, 20)); grid[loc[:, 0], loc[:, 1]] = kind
-    shares = []
-    for k, (r, c) in zip(kind, loc):
-        nb = [grid[(r + a) % 20, (c + b) % 20] for a in (-1, 0, 1) for b in (-1, 0, 1) if (a, b) != (0, 0)]
-        nb = [v for v in nb if v >= 0]
-        shares.append(np.mean([v == k for v in nb]) if nb else 1.0)
-    return np.mean(shares)
+    return neighbors(grid, kind="like-share", empty=-1).share[0]
 ids0, kind0, loc0 = state(0)
 ids1, kind1, loc1 = state(len(run.times) - 1)
 start = dict(zip(ids0, map(tuple, loc0))); end = dict(zip(ids1, map(tuple, loc1)))
@@ -1051,7 +1054,7 @@ print(f"mean like share: start {like_share(kind0, loc0):.2f}, end {like_share(ki
 
 ```{.text .run-output}
 residents: 320, moved: 106
-mean like share: start 0.64, end 0.89
+mean like share: start 0.63, end 0.88
 ```
 ::::
 :::
@@ -1114,19 +1117,22 @@ order 1, $s \approx w$, and both then approach $c$ over a time of order $1/\epsi
 
 ## Python
 
-The two equations are integrated by Euler steps of $0.01$.
+The two equations are a `DynamicalSystem`, integrated by the package's default solver.
 
 ```{.python .run}
-s, w, c, eps, dt = 0.0, 2.0, 1.0, 0.05, 0.01
-for step in range(1, 20001):
-    s, w = s + dt * (-s + w), w + dt * eps * (c - s)
-    if step in (500, 2000, 20000):
-        print(f"t = {step * dt:5.0f}: s = {s:.4f}, w = {w:.4f}, s - w = {s - w:+.4f}")
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
+node = DynamicalSystem(states={"s": 0.0, "w": 2.0}, parameters={"c": 1.0, "eps": 0.05}, element="node",
+                       equations={"s": lambda v: -v.target.s + v.target.w, "w": lambda v: v.target.eps * (v.target.c - v.target.s)})
+run = simulate(node, until=200, dt=1.0)
+s, w = run.get_values("node.s"), run.get_values("node.w")
+for t in (5, 20, 200):
+    print(f"t = {t:5.0f}: s = {s[t]:.4f}, w = {w[t]:.4f}, s - w = {s[t] - w[t]:+.4f}")
 ```
 
 ```{.text .run-output}
-t =     5: s = 1.8853, w = 1.8552, s - w = +0.0300
-t =    20: s = 1.4094, w = 1.3878, s - w = +0.0216
+t =     5: s = 1.8849, w = 1.8553, s - w = +0.0296
+t =    20: s = 1.4095, w = 1.3879, s - w = +0.0216
 t =   200: s = 1.0000, w = 1.0000, s - w = +0.0000
 ```
 ::::
@@ -1182,8 +1188,8 @@ dynamics. The ninth exercise proves this, which is the principle of associative 
 
 Let $\mathbf p \in \{-1, 1\}^N$ with $N \geq 2$, and let $w_{ij} = p_ip_j$ for $i \neq j$ and $w_{ii} = 0$ (the weights
 Hebb's rule produces from zero after presenting $\mathbf p$, up to a factor). Prove that $\mathbf p$ is a fixed point of
-$s_i \mapsto \operatorname{sign}(\sum_jw_{ij}s_j)$ and that so is $-\mathbf p$. Check that a pattern with 10 of 100
-signs flipped returns to $\mathbf p$ in one step.
+$s_i \mapsto \operatorname{sign}(\sum_jw_{ij}s_j)$ and that so is $-\mathbf p$. Check that a pattern of 100 signs, each
+flipped with probability $0.1$, returns to $\mathbf p$ in one sweep.
 :::
 
 ::: {.callout-note .solution collapse="true" title="Solution"}
@@ -1193,23 +1199,26 @@ signs flipped returns to $\mathbf p$ in one step.
 $\sum_jw_{ij}p_j = \sum_{j \neq i}p_ip_j^2 = (N - 1)p_i$, whose sign is $p_i$ because $N \geq 2$. So $\mathbf p$ is
 fixed, and by linearity in $\mathbf s$ so is $-\mathbf p$. If $\mathbf s$ differs from $\mathbf p$ in $k$ places, then
 $\sum_jw_{ij}s_j = p_i\sum_{j \neq i}p_js_j$, and $\sum_{j \neq i}p_js_j \geq N - 1 - 2k$, which is positive when $k <
-(N - 1)/2$: one step restores $\mathbf p$.
+(N - 1)/2$: one step restores $\mathbf p$. Updating the neurons one at a time, as `HopfieldSystem` does, gives the
+same bound at every update, since an update never adds a wrong sign; one sweep restores $\mathbf p$ as well.
 
 ## Python
 
-Check on $N = 100$ with 10 flipped signs.
+Check on $N = 100$ with `HopfieldSystem`, storing $\mathbf p$ and flipping each sign with probability $0.1$.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.neural_networks import HopfieldSystem
 rng = np.random.default_rng(1)
 p = rng.choice([-1, 1], 100)
-W = np.outer(p, p); np.fill_diagonal(W, 0)
-s = p.copy(); s[rng.choice(100, 10, replace=False)] *= -1
-print("errors before:", int((s != p).sum()), "after one step:", int((np.sign(W @ s) != p).sum()))
+run = simulate(HopfieldSystem(p[None, :], noise=0.1, random_state=3), until=1, random_state=1)
+errors = [int((np.asarray(run.get_agents("neurons", t).values["spin"]) != p).sum()) for t in (0, 1)]
+print("errors before:", errors[0], "after one sweep:", errors[1])
 ```
 
 ```{.text .run-output}
-errors before: 10 after one step: 0
+errors before: 8 after one sweep: 0
 ```
 ::::
 :::
@@ -1670,13 +1679,13 @@ amplified fluctuations. The two fixed points of the coarse-graining match the tw
 
 ## Python
 
-The block majority is computed with NumPy reshaping, since scikit-complexity does not coarse-grain lattices by blocks.
+The block majority is computed with NumPy reshaping, since scikit-complexity 0.9.0 does not coarse-grain lattices by blocks (issue #30).
 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
-def block_majority(s):
+def block_majority(s):  # scikit-complexity #30: block-spin coarse-graining is not in 0.9.0
     L = s.shape[0] // 3
     return np.sign(s[:3 * L, :3 * L].reshape(L, 3, L, 3).sum(axis=(1, 3)))
 for T, start in [(1.8, "up"), (3.5, "random")]:
@@ -2508,7 +2517,7 @@ neighbours to watch, residents have no reason to move.
 #### Segregation
 
 Let $P$ be "the mean share of like neighbours exceeds $0.8$". In the run of @exr-complex-schelling-moves it rises from
-$0.64$ to $0.89$, so $P$ holds. In the non-interacting version no resident sees any neighbour, nobody moves, and the
+$0.63$ to $0.88$, so $P$ holds. In the non-interacting version no resident sees any neighbour, nobody moves, and the
 share stays at its random initial value: $P$ fails. Segregation is emergent, even though, as Downey stresses, no
 resident wants it [@downeyThinkComplexity2018, Ch. 9].
 :::
@@ -3222,7 +3231,7 @@ import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 s = simulate(IsingSystem(16), until=1, random_state=8).get_lattice("spins.spin")[0]
-E = lambda s: -(s * np.roll(s, 1, 0) + s * np.roll(s, 1, 1)).sum()
+E = lambda s: -(s * np.roll(s, 1, 0) + s * np.roll(s, 1, 1)).sum()  # scikit-complexity #49: no energy function yet
 print(f"m(s) = {s.mean():+.4f}, m(-s) = {(-s).mean():+.4f}; E(s) = {E(s):.0f}, E(-s) = {E(-s):.0f}")
 ```
 
@@ -3797,11 +3806,9 @@ Check on $x_0 = 0.2$: the three rules after 200 steps (the last two values of th
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
 x = simulate(LogisticMapSystem(x=0.2, r=3.2), until=200).get_values("map.x")
-y = 0.2
-for _ in range(200):
-    y = y * (1 - y)
+y = simulate(LogisticMapSystem(x=0.2, r=1.0), until=200).get_values("map.x")
 print(f"linear growth: x_200 = 3.2^200 * 0.2 = {3.2**200 * 0.2:.3e}")
-print(f"no growth factor: x_200 = {y:.5f}")
+print(f"no growth factor: x_200 = {y[-1]:.5f}")
 print(f"logistic map: x_199, x_200 = {x[-2]:.4f}, {x[-1]:.4f}")
 ```
 
@@ -3879,32 +3886,28 @@ tolerant residents produce a segregated city.
 
 ## Python
 
-The like share is computed from the residents' kinds and locations at the last frame, as in
+The like share is computed by `neighbors` from the residents' kinds and locations at the last frame, as in
 @exr-complex-schelling-moves.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import neighbors
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.social.segregation import SchellingSystem
 def like_share(agents):
-    kind, loc = np.asarray(agents.values["kind"]), np.asarray(agents.locations)
-    grid = -np.ones((20, 20)); grid[loc[:, 0], loc[:, 1]] = kind
-    shares = []
-    for k, (r, c) in zip(kind, loc):
-        nb = [grid[(r + a) % 20, (c + b) % 20] for a in (-1, 0, 1) for b in (-1, 0, 1) if (a, b) != (0, 0)]
-        nb = [v for v in nb if v >= 0]
-        shares.append(np.mean([v == k for v in nb]) if nb else 1.0)
-    return np.mean(shares)
+    grid = -np.ones((20, 20)); loc = np.asarray(agents.locations)
+    grid[loc[:, 0], loc[:, 1]] = agents.values["kind"]
+    return neighbors(grid, kind="like-share", empty=-1).share[0]
 for threshold in (0.0, 0.3, 0.5, 0.7):
     run = simulate(SchellingSystem(20, 20, density=0.8, minority=0.5, threshold=threshold), until=50, random_state=1)
     print(f"threshold {threshold}: final like share {like_share(run.get_agents('residents', len(run.times) - 1)):.3f}")
 ```
 
 ```{.text .run-output}
-threshold 0.0: final like share 0.512
-threshold 0.3: final like share 0.763
-threshold 0.5: final like share 0.856
-threshold 0.7: final like share 0.952
+threshold 0.0: final like share 0.510
+threshold 0.3: final like share 0.756
+threshold 0.5: final like share 0.858
+threshold 0.7: final like share 0.954
 ```
 ::::
 :::
@@ -4675,10 +4678,11 @@ fluctuations of order $N^{-1/2}$.
 
 ## Python
 
-The rule is simulated with NumPy; scikit-complexity's Galam system uses partitions instead.
+The rule is simulated with NumPy; scikit-complexity's Galam system uses partitions instead (issue #50).
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #50: GalamMajoritySystem draws disjoint groups, so the sampled groups are simulated here
 rng = np.random.default_rng(12)
 N, p_mf = 1000, 0.55
 s = rng.random(N) < 0.55
@@ -5073,10 +5077,12 @@ and since $f(x)$ stays in the interval, induction gives $|x_n - 0.6| \leq 0.75^n
 Check on $x_0 = 0.45$: the ratio of the distance to the bound stays at most $1$.
 
 ```{.python .run}
-x, worst = 0.45, 0.0
-for n in range(1, 21):
-    x = 2.5 * x * (1 - x)
-    worst = max(worst, abs(x - 0.6) / (0.75**n * 0.15))
+import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
+x = simulate(LogisticMapSystem(x=0.45, r=2.5), until=20).get_values("map.x")
+n = np.arange(1, 21)
+worst = (np.abs(x[1:] - 0.6) / (0.75**n * 0.15)).max()
 print(f"largest ratio |x_n - 0.6| / (0.75^n |x_0 - 0.6|) over 20 steps: {worst:.4f}")
 ```
 
@@ -5228,21 +5234,14 @@ The distance is measured every two steps from $x_+$.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
 r = 3.5
-f = lambda x: r * x * (1 - x)
 xp = (r + 1 + np.sqrt((r - 3) * (r + 1))) / (2 * r)
-x = xp + 1e-8
-for n in range(1, 400):
-    x = f(f(x))
-    if abs(x - xp) > 1e-2:
-        print(f"distance exceeds 1e-2 after {2 * n} steps; predicted about {2 * np.log(1e6) / np.log(1.25):.0f}")
-        break
-for _ in range(500):
-    x = f(x)
-orbit = [x]
-for _ in range(3):
-    orbit.append(f(orbit[-1]))
-print("values afterwards:", sorted(round(v, 4) for v in orbit))
+x = simulate(LogisticMapSystem(x=xp + 1e-8, r=r), until=1400).get_values("map.x")
+n = int(np.argmax(np.abs(x[2::2] - xp) > 1e-2)) + 1
+print(f"distance exceeds 1e-2 after {2 * n} steps; predicted about {2 * np.log(1e6) / np.log(1.25):.0f}")
+print("values afterwards:", sorted(round(float(v), 4) for v in x[2 * n + 500:2 * n + 504]))
 ```
 
 ```{.text .run-output}
@@ -5279,10 +5278,10 @@ Check on $r = 1.5$ and $r = 2$ for 99 initial values in $(0, 1)$, after 400 step
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
 for r in (1.5, 2.0):
-    x = np.linspace(0.01, 0.99, 99)
-    for _ in range(400):
-        x = r * x * (1 - x)
+    x = np.array([simulate(LogisticMapSystem(x=x0, r=r), until=400).get_values("map.x")[-1] for x0 in np.linspace(0.01, 0.99, 99)])
     print(f"r = {r}: largest distance from 1 - 1/r: {np.abs(x - (1 - 1 / r)).max():.2e}")
 ```
 
@@ -5570,9 +5569,9 @@ periodic signal.
 ```{.python .run}
 import numpy as np
 from skcomplex.core.analysis import complexity
-x = np.empty(5000); x[0] = 0.3
-for i in range(4999):
-    x[i + 1] = 4 * x[i] * (1 - x[i])
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
+x = simulate(LogisticMapSystem(x=0.3, r=4.0), until=4999).get_values("map.x")
 series = np.column_stack([x, np.random.default_rng(0).random(5000), np.sin(0.3 * np.arange(5000))])
 result = complexity(series, dimension=5)
 for name, h, c in zip(["logistic r = 4", "white noise", "sine"], result.entropy, result.complexity):
@@ -5652,17 +5651,14 @@ By induction: for $n = 1$ it is trivial, and $f^{n + 1} = f \circ f^n$ gives $(f
 Check on $r = 3.7$, $x_0 = 0.3$, $n = 10$.
 
 ```{.python .run}
-r, x0, n = 3.7, 0.3, 10
-f = lambda x: r * x * (1 - x)
-def fn(x):
-    for _ in range(n):
-        x = f(x)
-    return x
-product, x = 1.0, x0
-for _ in range(n):
-    product *= r * (1 - 2 * x); x = f(x)
-h = 1e-7
-print(f"product {product:.4f}; central difference {(fn(x0 + h) - fn(x0 - h)) / (2 * h):.4f}")
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
+r, x0, n, h = 3.7, 0.3, 10, 1e-7
+orbit = lambda x: simulate(LogisticMapSystem(x=x, r=r), until=n).get_values("map.x")
+product = 1.0
+for x in orbit(x0)[:n]:
+    product *= r * (1 - 2 * x)
+print(f"product {product:.4f}; central difference {(orbit(x0 + h)[-1] - orbit(x0 - h)[-1]) / (2 * h):.4f}")
 ```
 
 ```{.text .run-output}
@@ -5773,12 +5769,13 @@ Check on $x_0 = 0.3$: the ratio of the product of derivatives to the formula is 
 
 ```{.python .run}
 import numpy as np
-x0, x, product, worst = 0.3, 0.3, 1.0, 0.0
-for n in range(1, 26):
-    product *= abs(4 * (1 - 2 * x)); x = 4 * x * (1 - x)
-    formula = 2**n * np.sqrt(x * (1 - x) / (x0 * (1 - x0)))
-    worst = max(worst, abs(product / formula - 1))
-print(f"largest relative difference for n = 1..25: {worst:.2e}")
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
+x0 = 0.3
+x = simulate(LogisticMapSystem(x=x0, r=4.0), until=25).get_values("map.x")
+product = np.cumprod(np.abs(4 * (1 - 2 * x[:-1])))
+formula = 2.0 ** np.arange(1, 26) * np.sqrt(x[1:] * (1 - x[1:]) / (x0 * (1 - x0)))
+print(f"largest relative difference for n = 1..25: {np.abs(product / formula - 1).max():.2e}")
 ```
 
 ```{.text .run-output}
@@ -5929,20 +5926,20 @@ classical value $\int_0^\pi\ln|\cos u|\,du = -\pi\ln 2$.
 ## Python
 
 The integral is computed with SciPy's adaptive quadrature in the variable $\theta$, and the time average along an orbit
-with NumPy.
+is the exponent that `lyapunov` returns.
 
 ```{.python .run}
 import numpy as np
 from scipy.integrate import quad
+from skcomplex.core.analysis import lyapunov
+from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem
 space, _ = quad(lambda t: np.log(abs(4 * np.cos(np.pi * t))), 0, 1, points=[0.5], limit=200)
-x, total = 0.3, 0.0
-for _ in range(100000):
-    total += np.log(abs(4 * (1 - 2 * x))); x = 4 * x * (1 - x)
-print(f"space average {space:.5f}; time average {total / 100000:.5f}; ln 2 = {np.log(2):.5f}")
+time = lyapunov(LogisticMapSystem(x=0.3, r=4.0), until=100000).exponents[0]
+print(f"space average {space:.5f}; time average {time:.5f}; ln 2 = {np.log(2):.5f}")
 ```
 
 ```{.text .run-output}
-space average 0.69315; time average 0.69314; ln 2 = 0.69315
+space average 0.69315; time average 0.69315; ln 2 = 0.69315
 ```
 ::::
 :::
@@ -5978,6 +5975,7 @@ populations give the spread of the mean.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #51: LogisticMapSystem has no ensemble form, so the 2 x 10^6 maps are iterated with NumPy
 rng = np.random.default_rng(13)
 N, M = 10**4, 200
 x = np.sin(np.pi * rng.random((M, N)) / 2) ** 2
@@ -6030,7 +6028,7 @@ does not create order from a symmetric start, but it amplifies the fluctuations 
 
 ## Python
 
-The block majorities are computed with NumPy for 2000 chains.
+The block majorities are computed with NumPy for 2000 chains (issue #30).
 
 ```{.python .run}
 import numpy as np
@@ -6045,7 +6043,7 @@ s = np.where(rng.random((2000, 3**10)) < 0.5, 1, -1)
 for k in range(9):
     if k in (0, 4, 8):
         print(f"level {k}: sd of m_k = {s.mean(1).std():.4f}, predicted {3 ** (-(10 - k) / 2):.4f}")
-    s = np.sign(s.reshape(2000, -1, 3).sum(2))
+    s = np.sign(s.reshape(2000, -1, 3).sum(2))  # scikit-complexity #30: block majority is not in 0.9.0
 ```
 
 ```{.text .run-output}

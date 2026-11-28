@@ -6,18 +6,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from figstyle import *  # noqa: E402,F403
 
 import numpy as np  # noqa: E402
+from skcomplex.core.analysis import lyapunov  # noqa: E402
 from skcomplex.core.experiments import orbit_diagram  # noqa: E402
 from skcomplex.systems.mathematics.dynamical_systems import LogisticMapSystem  # noqa: E402
 
 rs = np.linspace(2.5, 4.0, 1200)
 orbits = orbit_diagram(LogisticMapSystem(x=0.2), "map.r", rs, "map.x", transient=600, keep=120)
-x, total = np.full(rs.shape, 0.2), np.zeros(rs.shape)
-for _ in range(300):
-    x = rs * x * (1 - x)
-for _ in range(3000):
-    x = rs * x * (1 - x)
-    total += np.log(np.abs(rs * (1 - 2 * x)) + 1e-300)
-lyap = total / 3000
+system = LogisticMapSystem(x=0.2)
+lyap = np.array([lyapunov(system, until=3300, transient=300, parameters={"map.r": r}).exponents[0] for r in rs])
 
 fig, (top, bottom) = plt.subplots(2, 1, figsize=(6.4, 5.6), dpi=220, sharex=True, gridspec_kw={"height_ratios": [3, 2]})
 counts = [len(points) for points in orbits.points]

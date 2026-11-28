@@ -38,9 +38,11 @@ theorem is followed by ten examples and ten exercises, each exercise with a hidd
 output. The computations use scikit-complexity 0.9.0. The systems come from its catalogue: `FisherKPPSystem`, `SchnakenbergSystem`, `BrusselatorSystem`,
 `GrayScottSystem`, `SwiftHohenbergSystem`, `FitzhughNagumoSystem`, `HodgepodgeSystem` and `KuramotoSivashinskySystem`. They are run by `simulate` and analysed with
 `stability` (its kind `'dispersion'` linearises a lattice field around a uniform state), `spectrum` (its kind `'structure-factor'` measures the wavelength of a
-pattern) and `defects` (phase singularities and their charges). NumPy and SciPy are used for closed-form checks, for a spectral solver of the
-Kuramoto-Sivashinsky equation with its Lyapunov exponents, which the package's `lyapunov` does not yet compute for this system, and for small direct
-integrations.
+pattern) and `defects` (phase singularities and their charges). Models that the catalogue lacks, the travelling-wave equations of fronts, a FitzHugh-Nagumo cell and fibre and a bistable line, are
+written with its generic `DynamicalSystem` and `ReactionDiffusionSystem`. NumPy and SciPy are used for closed-form checks, for the
+numerical methods that some exercises study (Downey's update rules and the spectral scheme), and for a spectral solver of the
+Kuramoto-Sivashinsky equation with its Lyapunov exponents, which the package's `lyapunov` does not yet compute for this system
+(issue #45).
 
 ## Reaction-diffusion fronts {#sec-fronts}
 
@@ -585,24 +587,21 @@ being unique and attracting.
 
 ## Python
 
-The solver and the speed between $t = 40$ and $t = 80$.
+A `ReactionDiffusionSystem` on a line with zero-flux ends, and the speed between $t = 40$ and $t = 80$.
 
 ```{.python .run}
 import numpy as np
-alpha, h, dt, N = 0.25, 0.25, 0.02, 1200
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import ReactionDiffusionSystem
+alpha, h, N = 0.25, 0.25, 1200
 x = np.arange(N) * h
-u = (x < 50).astype(float)
-def position(u):
-    return x[int(np.argmax(u < 0.5))]
-marks = {}
-for n in range(1, int(80 / dt) + 1):
-    lap = np.zeros_like(u)
-    lap[1:-1] = (u[2:] - 2 * u[1:-1] + u[:-2]) / h ** 2
-    lap[0], lap[-1] = 2 * (u[1] - u[0]) / h ** 2, 2 * (u[-2] - u[-1]) / h ** 2
-    u = u + dt * (u * (1 - u) * (u - alpha) + lap)
-    if n in (int(40 / dt), int(80 / dt)):
-        marks[n * dt] = position(u)
-print(f"measured speed {(marks[80.0] - marks[40.0]) / 40:.4f}, predicted {np.sqrt(2) * (0.5 - alpha):.4f}")
+line = ReactionDiffusionSystem(states={"u": (x < 50).astype(float)}, parameters={"alpha": alpha}, diffusivities={"u": 1.0},
+                               equations={"u": lambda s: s.target.u * (1 - s.target.u) * (s.target.u - s.target.alpha)},
+                               shape=N, spacing=h, boundary="reflecting", element="line")
+u = simulate(line, until=80, dt=40, solver=ScipyODESolver(method="RK45")).get_values("line.u")
+position = [x[int(np.argmax(row < 0.5))] for row in u]
+print(f"measured speed {(position[2] - position[1]) / 40:.4f}, predicted {np.sqrt(2) * (0.5 - alpha):.4f}")
 ```
 
 ```{.text .run-output}
@@ -811,12 +810,18 @@ For $c = 1.5$ the trajectory from $(1, 0)$ along its unstable direction reaches 
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def profile(c, start, until, dt, rtol=1e-11, atol=1e-14):
+    front = DynamicalSystem(states={"U": start[0], "W": start[1]}, parameters={"c": c}, element="front",
+                            equations={"U": lambda s: s.target.W, "W": lambda s: -s.target.c * s.target.W - s.target.U * (1 - s.target.U)})
+    run = simulate(front, until=until, dt=dt, solver=ScipyODESolver(rtol=rtol, atol=atol))
+    return run.times, run.get_values("front.U"), run.get_values("front.W")
 for c in (1.5, 2.0):
     lam = (-c + np.sqrt(c * c + 4)) / 2
-    start = [1 - 1e-6, -1e-6 * lam]
-    sol = solve_ivp(lambda z, y: [y[1], -c * y[1] - y[0] * (1 - y[0])], (0, 80), start, rtol=1e-10, atol=1e-13, max_step=0.05)
-    print(f"c = {c}: smallest U along the trajectory {sol.y[0].min():.4f}")
+    _, U, _ = profile(c, [1 - 1e-6, -1e-6 * lam], until=80, dt=0.05, rtol=1e-10, atol=1e-30)
+    print(f"c = {c}: smallest U along the trajectory {U.min():.4f}")
 ```
 
 ```{.text .run-output}
@@ -834,12 +839,17 @@ Aligned at $U = \frac14$, the numerical front of speed $2$ and the exact front o
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def profile(c, start, until, dt, rtol=1e-11, atol=1e-14):
+    front = DynamicalSystem(states={"U": start[0], "W": start[1]}, parameters={"c": c}, element="front",
+                            equations={"U": lambda s: s.target.W, "W": lambda s: -s.target.c * s.target.W - s.target.U * (1 - s.target.U)})
+    run = simulate(front, until=until, dt=dt, solver=ScipyODESolver(rtol=rtol, atol=atol))
+    return run.times, run.get_values("front.U"), run.get_values("front.W")
 c = 2.0
 lam = (-c + np.sqrt(c * c + 4)) / 2
-sol = solve_ivp(lambda z, y: [y[1], -c * y[1] - y[0] * (1 - y[0])], (0, 60), [1 - 1e-8, -1e-8 * lam], rtol=1e-11, atol=1e-14, dense_output=True)
-z = np.linspace(0, 60, 60001)
-U2 = sol.sol(z)[0]
+z, U2, _ = profile(c, [1 - 1e-8, -1e-8 * lam], until=60, dt=0.001)
 z2 = z - np.interp(0.25, U2[::-1], z[::-1])
 Ue = lambda s: (1 + np.exp(s / np.sqrt(6))) ** -2
 zs = np.linspace(-10, 20, 3001)
@@ -908,22 +918,29 @@ Part (a) also bounds every front from the side of high speeds. Fronts with $c \g
 ::: {#exm-ff-family}
 #### A family of fronts
 
-The shooting of @exm-ff-too-slow, repeated for $c = 2, 2.5, 3, 4$, gives trajectories that stay in $[0, 1]$ and decrease monotonically: a whole family of fronts, one per speed $c \geq 2$, of which the dynamics from
+The shooting of @exm-ff-too-slow, repeated for $c = 2, 2.5, 3, 4$, gives trajectories that stay in $[0, 1]$, up to round-off of order $10^{-32}$ near $0$, and decrease monotonically: a whole family of fronts, one per speed $c \geq 2$, of which the dynamics from
 localized initial data selects $c = 2$.
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def profile(c, start, until, dt, rtol=1e-11, atol=1e-30):
+    front = DynamicalSystem(states={"U": start[0], "W": start[1]}, parameters={"c": c}, element="front",
+                            equations={"U": lambda s: s.target.W, "W": lambda s: -s.target.c * s.target.W - s.target.U * (1 - s.target.U)})
+    run = simulate(front, until=until, dt=dt, solver=ScipyODESolver(rtol=rtol, atol=atol))
+    return run.times, run.get_values("front.U"), run.get_values("front.W")
 for c in (2.0, 2.5, 3.0, 4.0):
     lam = (-c + np.sqrt(c * c + 4)) / 2
-    sol = solve_ivp(lambda z, y: [y[1], -c * y[1] - y[0] * (1 - y[0])], (0, 250), [1 - 1e-8, -1e-8 * lam], rtol=1e-11, atol=1e-14, max_step=0.05)
-    print(f"c = {c}: U in [{sol.y[0].min():.2e}, {sol.y[0].max():.6f}], monotone {bool((np.diff(sol.y[0]) <= 1e-12).all())}")
+    _, U, _ = profile(c, [1 - 1e-8, -1e-8 * lam], until=250, dt=0.05)
+    print(f"c = {c}: U in [{U.min():.2e}, {U.max():.6f}], monotone {bool((np.diff(U) <= 1e-12).all())}")
 ```
 
 ```{.text .run-output}
-c = 2.0: U in [2.49e-87, 1.000000], monotone True
-c = 2.5: U in [1.66e-43, 1.000000], monotone True
-c = 3.0: U in [4.59e-32, 1.000000], monotone True
+c = 2.0: U in [-3.03e-32, 1.000000], monotone True
+c = 2.5: U in [-5.12e-32, 1.000000], monotone True
+c = 3.0: U in [4.43e-33, 1.000000], monotone True
 c = 4.0: U in [9.99e-21, 1.000000], monotone True
 ```
 :::
@@ -951,10 +968,15 @@ The zeros of a numerical solution.
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
-sol = solve_ivp(lambda z, y: [y[1], -(1 + 0.5 * np.sin(z)) * y[0]], (0, 40), [1.0, 0.0], max_step=0.01, rtol=1e-10)
-signs = np.sign(sol.y[0])
-zeros = sol.t[1:][signs[1:] != signs[:-1]]
+from sage.all__sagemath_symbolics import sin
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
+oscillator = DynamicalSystem(states={"y": 1.0, "w": 0.0}, element="sturm",
+                             equations={"y": lambda s: s.target.w, "w": lambda s: -(1 + 0.5 * sin(s.t)) * s.target.y})
+run = simulate(oscillator, until=40, dt=0.01, solver=ScipyODESolver(rtol=1e-10))
+signs = np.sign(run.get_values("sturm.y"))
+zeros = run.times[1:][signs[1:] != signs[:-1]]
 print(len(zeros), "zeros; largest gap", round(float(np.diff(zeros).max()), 3), "<= pi sqrt 2 =", round(np.pi * np.sqrt(2), 3))
 ```
 
@@ -1016,11 +1038,18 @@ The integral along each shooting trajectory, where $U' = V$ is the second compon
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def profile(c, start, until, dt, rtol=1e-11, atol=1e-14):
+    front = DynamicalSystem(states={"U": start[0], "W": start[1]}, parameters={"c": c}, element="front",
+                            equations={"U": lambda s: s.target.W, "W": lambda s: -s.target.c * s.target.W - s.target.U * (1 - s.target.U)})
+    run = simulate(front, until=until, dt=dt, solver=ScipyODESolver(rtol=rtol, atol=atol))
+    return run.times, run.get_values("front.U"), run.get_values("front.W")
 for c in (2.0, 2.5, 3.0, 4.0):
     lam = (-c + np.sqrt(c * c + 4)) / 2
-    sol = solve_ivp(lambda z, y: [y[1], -c * y[1] - y[0] * (1 - y[0])], (0, 120), [1 - 1e-9, -1e-9 * lam], rtol=1e-11, atol=1e-14, max_step=0.02)
-    print(f"c = {c}: integral {np.trapezoid(sol.y[1] ** 2, sol.t):.5f}, 1/(6c) = {1 / (6 * c):.5f}")
+    z, _, W = profile(c, [1 - 1e-9, -1e-9 * lam], until=120, dt=0.02)
+    print(f"c = {c}: integral {np.trapezoid(W ** 2, z):.5f}, 1/(6c) = {1 / (6 * c):.5f}")
 ```
 
 ```{.text .run-output}
@@ -1084,9 +1113,17 @@ continuously differentiable, forces $U \equiv 0$. The same applies at $U = 1$. F
 The trajectory through $(0, 0)$ for the Fisher flow stays there.
 
 ```{.python .run}
-from scipy.integrate import solve_ivp
-sol = solve_ivp(lambda z, y: [y[1], -2 * y[1] - y[0] * (1 - y[0])], (0, 10), [0.0, 0.0])
-print("largest |U| from (0, 0):", float(abs(sol.y[0]).max()))
+import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def profile(c, start, until, dt, rtol=1e-11, atol=1e-14):
+    front = DynamicalSystem(states={"U": start[0], "W": start[1]}, parameters={"c": c}, element="front",
+                            equations={"U": lambda s: s.target.W, "W": lambda s: -s.target.c * s.target.W - s.target.U * (1 - s.target.U)})
+    run = simulate(front, until=until, dt=dt, solver=ScipyODESolver(rtol=rtol, atol=atol))
+    return run.times, run.get_values("front.U"), run.get_values("front.W")
+_, U, _ = profile(2.0, [0.0, 0.0], until=10, dt=0.1, rtol=1e-6, atol=1e-9)
+print("largest |U| from (0, 0):", float(abs(U).max()))
 ```
 
 ```{.text .run-output}
@@ -1154,17 +1191,16 @@ The position of the level $u = \frac12$ at $t = 40$ and $t = 120$.
 
 ```{.python .run}
 import numpy as np
-alpha, h, dt, N = 0.6, 0.25, 0.02, 1200
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import ReactionDiffusionSystem
+alpha, h, N = 0.6, 0.25, 1200
 x = np.arange(N) * h
-u = (x < 200).astype(float)
-marks = {}
-for n in range(1, int(120 / dt) + 1):
-    lap = np.zeros_like(u)
-    lap[1:-1] = (u[2:] - 2 * u[1:-1] + u[:-2]) / h ** 2
-    lap[0], lap[-1] = 2 * (u[1] - u[0]) / h ** 2, 2 * (u[-2] - u[-1]) / h ** 2
-    u = u + dt * (u * (1 - u) * (u - alpha) + lap)
-    if n in (int(40 / dt), int(120 / dt)):
-        marks[round(n * dt)] = float(np.interp(0.5, u[::-1], x[::-1]))
+line = ReactionDiffusionSystem(states={"u": (x < 200).astype(float)}, parameters={"alpha": alpha}, diffusivities={"u": 1.0},
+                               equations={"u": lambda s: s.target.u * (1 - s.target.u) * (s.target.u - s.target.alpha)},
+                               shape=N, spacing=h, boundary="reflecting", element="line")
+u = simulate(line, until=120, dt=40, solver=ScipyODESolver(method="RK45")).get_values("line.u")
+marks = {40: float(np.interp(0.5, u[1][::-1], x[::-1])), 120: float(np.interp(0.5, u[3][::-1], x[::-1]))}
 print(f"measured speed {(marks[120] - marks[40]) / 80:.4f}, predicted {np.sqrt(2) * (0.5 - alpha):.4f}")
 ```
 
@@ -1385,20 +1421,18 @@ From noise, the growing band produces a stationary pattern. Its wavelength is cl
 ::: {#exm-tu-pattern}
 #### A Turing pattern from noise
 
-A direct explicit integration of the Schnakenberg system on a $64 \times 64$ torus, from the steady state plus noise of size $0.01$, gives after $200$ time units a pattern of spots whose structure factor peaks at a
-wavelength of about $13$ cells, the wavelength $2\pi/q$ of a mode in the unstable band. The time step $0.005$ respects the stability limit $h^2/(4D_v)$ of the explicit scheme.
+`SchnakenbergSystem` on a $64 \times 64$ torus, from the steady state plus noise of size $0.01$, gives after $200$ time units a pattern of spots whose structure factor peaks at a
+wavelength of about $13$ cells, the wavelength $2\pi/q$ of a mode in the unstable band.
 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.analysis import spectrum
-a, b, Du, Dv, N, dt = 0.1, 0.9, 1.0, 40.0, 64, 0.005
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.chemistry.pattern_formation import SchnakenbergSystem
+a, b, N = 0.1, 0.9, 64
 rng = np.random.default_rng(1)
-u = a + b + 0.01 * rng.standard_normal((N, N))
-v = b / (a + b) ** 2 + 0.01 * rng.standard_normal((N, N))
-lap = lambda f: np.roll(f, 1, 0) + np.roll(f, -1, 0) + np.roll(f, 1, 1) + np.roll(f, -1, 1) - 4 * f
-for _ in range(int(200 / dt)):
-    uuv = u * u * v
-    u, v = u + dt * (a - u + uuv + Du * lap(u)), v + dt * (b - uuv + Dv * lap(v))
+start = {"cells.u": (a + b + 0.01 * rng.standard_normal((N, N))).ravel(), "cells.v": (b / (a + b) ** 2 + 0.01 * rng.standard_normal((N, N))).ravel()}
+u = simulate(SchnakenbergSystem((N, N), a=a, b=b, Du=1.0, Dv=40.0), until=200, dt=200, initial_state=start).get_values("cells.u")[-1].reshape(N, N)
 factor = spectrum(u, kind="structure-factor")
 k = factor.wavenumbers[factor.power.argmax()]
 print(f"spread of u {u.std():.3f}; peak wavenumber {k:.3f}, wavelength {2 * np.pi / k:.1f}")
@@ -1492,7 +1526,7 @@ only makes it more negative: every mode decays. The package's dispersion relatio
 from skcomplex.core.analysis import stability
 from skcomplex.systems.chemistry.pattern_formation import GrayScottSystem
 r = stability(GrayScottSystem((32, 32)), kind="dispersion")
-print("uniform state", {k: round(float(v), 6) for k, v in r.uniform.items()}, "; largest growth rate", round(float(r.growth_rates.max()), 6))
+print("uniform state", {k: round(float(v), 6) + 0.0 for k, v in r.uniform.items()}, "; largest growth rate", round(float(r.growth_rates.max()), 6))
 ```
 
 ```{.text .run-output}
@@ -1712,11 +1746,11 @@ r = stability(BrusselatorSystem((32, 32), a=2.0, b=3.0, Dv=10.0), kind="dispersi
 lam = (2 * np.cos(r.wavenumbers) - 2).sum(axis=1)
 A, D = np.array([[2.0, 4.0], [-3.0, -4.0]]), np.diag([1.0, 10.0])
 own = np.array([np.linalg.eigvals(A + l * D).real.max() for l in lam])
-print("largest difference:", float(np.abs(own - r.growth_rates).max()), "; unstable modes:", int((r.growth_rates > 0).sum()))
+print("largest difference below 1e-12:", bool(np.abs(own - r.growth_rates).max() < 1e-12), "; unstable modes:", int((r.growth_rates > 0).sum()))
 ```
 
 ```{.text .run-output}
-largest difference: 1.4210854715202004e-14 ; unstable modes: 96
+largest difference below 1e-12: True ; unstable modes: 96
 ```
 ::::
 :::
@@ -1919,26 +1953,21 @@ The power at four times and the dispersion relation of the package for the same 
 ```{.python .run}
 import numpy as np
 from skcomplex.core.analysis import stability
+from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.chemistry.pattern_formation import SchnakenbergSystem
 smax = stability(SchnakenbergSystem((64, 64)), kind="dispersion").growth_rates.max()
-a, b, Du, Dv, N, dt = 0.1, 0.9, 1.0, 40.0, 64, 0.005
+a, b, N = 0.1, 0.9, 64
 rng = np.random.default_rng(1)
-u = a + b + 0.01 * rng.standard_normal((N, N))
-v = b / (a + b) ** 2 + 0.01 * rng.standard_normal((N, N))
-lap = lambda f: np.roll(f, 1, 0) + np.roll(f, -1, 0) + np.roll(f, 1, 1) + np.roll(f, -1, 1) - 4 * f
-power = {0: ((u - u.mean()) ** 2).sum()}
-for n in range(1, int(30 / dt) + 1):
-    uuv = u * u * v
-    u, v = u + dt * (a - u + uuv + Du * lap(u)), v + dt * (b - uuv + Dv * lap(v))
-    if n % int(10 / dt) == 0:
-        power[round(n * dt)] = ((u - u.mean()) ** 2).sum()
+start = {"cells.u": (a + b + 0.01 * rng.standard_normal((N, N))).ravel(), "cells.v": (b / (a + b) ** 2 + 0.01 * rng.standard_normal((N, N))).ravel()}
+u = simulate(SchnakenbergSystem((N, N), a=a, b=b, Du=1.0, Dv=40.0), until=30, dt=10, initial_state=start).get_values("cells.u")
+power = {10 * n: ((row - row.mean()) ** 2).sum() for n, row in enumerate(u)}
 print({t: f"{p:.3e}" for t, p in power.items()})
 print(f"rates 0 to 10: {np.log(power[10] / power[0]) / 10:.4f}, 10 to 20: {np.log(power[20] / power[10]) / 10:.4f}, 20 to 30: {np.log(power[30] / power[20]) / 10:.4f}; 2 sigma_max {2 * smax:.4f}")
 ```
 
 ```{.text .run-output}
-{0: '4.120e-01', 10: '2.826e+01', 20: '4.478e+03', 30: '4.741e+03'}
-rates 0 to 10: 0.4228, 10 to 20: 0.5066, 20 to 30: 0.0057; 2 sigma_max 0.8218
+{0: '4.120e-01', 10: '2.848e+01', 20: '4.480e+03', 30: '4.741e+03'}
+rates 0 to 10: 0.4236, 10 to 20: 0.5058, 20 to 30: 0.0057; 2 sigma_max 0.8218
 ```
 ::::
 :::
@@ -2439,25 +2468,23 @@ For $d = 6 < d_c \approx 8.57$ every mode decays and the spread falls below its 
 
 ## Python
 
-The two integrations, with time steps within the explicit stability limit.
+The two integrations with `SchnakenbergSystem`.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.chemistry.pattern_formation import SchnakenbergSystem
 a, b, N = 0.1, 0.9, 48
-lap = lambda f: np.roll(f, 1, 0) + np.roll(f, -1, 0) + np.roll(f, 1, 1) + np.roll(f, -1, 1) - 4 * f
 for d in (6.0, 20.0):
-    dt = 0.2 / (4 * d)
     rng = np.random.default_rng(4)
-    u = a + b + 0.01 * rng.standard_normal((N, N))
-    v = b / (a + b) ** 2 + 0.01 * rng.standard_normal((N, N))
-    for _ in range(int(40 / dt)):
-        uuv = u * u * v
-        u, v = u + dt * (a - u + uuv + lap(u)), v + dt * (b - uuv + d * lap(v))
+    start = {"cells.u": (a + b + 0.01 * rng.standard_normal((N, N))).ravel(),
+             "cells.v": (b / (a + b) ** 2 + 0.01 * rng.standard_normal((N, N))).ravel()}
+    u = simulate(SchnakenbergSystem((N, N), a=a, b=b, Du=1.0, Dv=d), until=40, dt=40, initial_state=start).get_values("cells.u")[-1]
     print(f"d = {d}: spread of u at t = 40 {u.std():.2e}")
 ```
 
 ```{.text .run-output}
-d = 6.0: spread of u at t = 40 2.61e-06
+d = 6.0: spread of u at t = 40 2.59e-06
 d = 20.0: spread of u at t = 40 7.34e-01
 ```
 ::::
@@ -2606,12 +2633,17 @@ Kicks of $0.2$ and $0.4$ decay; kicks of $0.6$ and more produce an excursion to 
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
 from scipy.optimize import brentq
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def cell(u0, v0):
+    return DynamicalSystem(states={"u": u0, "v": v0}, parameters={"a": a, "b": b, "eps": eps}, element="cell",
+                           equations={"u": lambda s: s.target.u - s.target.u ** 3 / 3 - s.target.v,
+                                      "v": lambda s: s.target.eps * (s.target.u + s.target.a - s.target.b * s.target.v)})
 a, b, eps = 0.7, 0.8, 0.02
 ur = brentq(lambda u: u - u ** 3 / 3 - (u + a) / b, -3, 0)
 vr = (ur + a) / b
-peak = lambda du: solve_ivp(lambda t, y: [y[0] - y[0] ** 3 / 3 - y[1], eps * (y[0] + a - b * y[1])], (0, 300), [ur + du, vr], max_step=0.1).y[0].max()
+peak = lambda du: simulate(cell(ur + du, vr), until=300, dt=0.1).get_values("cell.u").max()
 print({du: round(float(peak(du)), 3) for du in (0.2, 0.4, 0.6, 1.0)}, "; threshold", round(float(brentq(lambda d: peak(d) - 0.5, 0.2, 1.0)), 3))
 ```
 
@@ -2629,17 +2661,21 @@ A cell excited at $t = 0$ is kicked again by $\Delta u = 1$ at times $t_2$; it f
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
 from scipy.optimize import brentq
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
+def cell(u0, v0):
+    return DynamicalSystem(states={"u": u0, "v": v0}, parameters={"a": a, "b": b, "eps": eps}, element="cell",
+                           equations={"u": lambda s: s.target.u - s.target.u ** 3 / 3 - s.target.v,
+                                      "v": lambda s: s.target.eps * (s.target.u + s.target.a - s.target.b * s.target.v)})
 a, b, eps = 0.7, 0.8, 0.02
-f = lambda t, y: [y[0] - y[0] ** 3 / 3 - y[1], eps * (y[0] + a - b * y[1])]
 ur = brentq(lambda u: u - u ** 3 / 3 - (u + a) / b, -3, 0)
 vr = (ur + a) / b
-first = solve_ivp(f, (0, 400), [ur + 1.0, vr], dense_output=True, max_step=0.1)
-for t2 in (40, 80, 120, 160, 200):
-    u2, v2 = first.sol(t2)
-    second = solve_ivp(f, (0, 100), [u2 + 1.0, v2], max_step=0.1)
-    print(f"kick at t = {t2}: second peak {second.y[0].max():.3f}")
+first = simulate(cell(ur + 1.0, vr), until=200, dt=40)
+for k, t2 in enumerate((40, 80, 120, 160, 200), start=1):
+    u2, v2 = first.get_values("cell.u")[k], first.get_values("cell.v")[k]
+    second = simulate(cell(u2 + 1.0, v2), until=100, dt=0.1).get_values("cell.u")
+    print(f"kick at t = {t2}: second peak {second.max():.3f}")
 ```
 
 ```{.text .run-output}
@@ -2662,23 +2698,24 @@ $9.2$ units of length, every $10$ time units.
 ```{.python .run}
 import numpy as np
 from scipy.optimize import brentq
-a, b, eps, N, h, dt = 0.7, 0.8, 0.02, 800, 0.5, 0.02
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import ReactionDiffusionSystem
+def fibre(u, v, D=1.0):
+    return ReactionDiffusionSystem(states={"u": u, "v": v}, parameters={"a": a, "b": b, "eps": eps}, diffusivities={"u": D},
+                                   equations={"u": lambda s: s.target.u - s.target.u ** 3 / 3 - s.target.v,
+                                              "v": lambda s: s.target.eps * (s.target.u + s.target.a - s.target.b * s.target.v)},
+                                   shape=N, spacing=h, boundary="reflecting", element="fibre")
+a, b, eps, N, h = 0.7, 0.8, 0.02, 800, 0.5
 ur = brentq(lambda u: u - u ** 3 / 3 - (u + a) / b, -3, 0)
 u, v = np.full(N, ur), np.full(N, (ur + a) / b)
 u[45:55] = 1.5
-front = []
-for n in range(int(200 / dt)):
-    lap = np.empty(N)
-    lap[1:-1] = (u[2:] - 2 * u[1:-1] + u[:-2]) / h ** 2
-    lap[0], lap[-1] = 2 * (u[1] - u[0]) / h ** 2, 2 * (u[-2] - u[-1]) / h ** 2
-    u, v = u + dt * (u - u ** 3 / 3 - v + lap), v + dt * eps * (u + a - b * v)
-    if n % int(10 / dt) == 0:
-        front.append(int(np.flatnonzero(u > 0)[-1]))
+front = [int(np.flatnonzero(row > 0)[-1]) for row in simulate(fibre(u, v), until=190, dt=10, solver=ScipyODESolver(method="RK45")).get_values("fibre.u")]
 print("front every 10 time units:", front[1:8], "; mean advance", round(float(np.mean(np.diff(front[2:]))), 2), "sites")
 ```
 
 ```{.text .run-output}
-front every 10 time units: [72, 90, 109, 127, 146, 164, 183] ; mean advance 18.47 sites
+front every 10 time units: [72, 91, 109, 128, 146, 165, 183] ; mean advance 18.47 sites
 ```
 :::
 
@@ -2692,24 +2729,28 @@ Two pulses started near the two ends of the line meet in the middle; afterwards 
 ```{.python .run}
 import numpy as np
 from scipy.optimize import brentq
-a, b, eps, N, h, dt = 0.7, 0.8, 0.02, 800, 0.5, 0.02
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import ReactionDiffusionSystem
+def fibre(u, v, D=1.0):
+    return ReactionDiffusionSystem(states={"u": u, "v": v}, parameters={"a": a, "b": b, "eps": eps}, diffusivities={"u": D},
+                                   equations={"u": lambda s: s.target.u - s.target.u ** 3 / 3 - s.target.v,
+                                              "v": lambda s: s.target.eps * (s.target.u + s.target.a - s.target.b * s.target.v)},
+                                   shape=N, spacing=h, boundary="reflecting", element="fibre")
+a, b, eps, N, h = 0.7, 0.8, 0.02, 800, 0.5
 ur = brentq(lambda u: u - u ** 3 / 3 - (u + a) / b, -3, 0)
 u, v = np.full(N, ur), np.full(N, (ur + a) / b)
 u[45:55] = u[745:755] = 1.5
-for n in range(1, int(300 / dt) + 1):
-    lap = np.empty(N)
-    lap[1:-1] = (u[2:] - 2 * u[1:-1] + u[:-2]) / h ** 2
-    lap[0], lap[-1] = 2 * (u[1] - u[0]) / h ** 2, 2 * (u[-2] - u[-1]) / h ** 2
-    u, v = u + dt * (u - u ** 3 / 3 - v + lap), v + dt * eps * (u + a - b * v)
-    if n % int(50 / dt) == 0:
-        print(f"t = {n * dt:.0f}: excited sites {int((u > 0).sum())}")
+for t, row in zip(range(0, 301, 50), simulate(fibre(u, v), until=300, dt=50, solver=ScipyODESolver(method="RK45")).get_values("fibre.u")):
+    if t > 0:
+        print(f"t = {t}: excited sites {int((row > 0).sum())}")
 ```
 
 ```{.text .run-output}
 t = 50: excited sites 142
-t = 100: excited sites 110
+t = 100: excited sites 112
 t = 150: excited sites 110
-t = 200: excited sites 64
+t = 200: excited sites 60
 t = 250: excited sites 0
 t = 300: excited sites 0
 ```
@@ -2920,30 +2961,31 @@ With $\tilde x = x/\sqrt D$, $\partial_{\tilde x}^2 = D\partial_x^2$, the kineti
 
 ## Python
 
-The pulse front speed in sites per time unit for both diffusion constants, with a time step inside the stability limit $h^2/(2D)$.
+The pulse front speed in sites per time unit for both diffusion constants.
 
 ```{.python .run}
 import numpy as np
 from scipy.optimize import brentq
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import ReactionDiffusionSystem
+def fibre(u, v, D=1.0):
+    return ReactionDiffusionSystem(states={"u": u, "v": v}, parameters={"a": a, "b": b, "eps": eps}, diffusivities={"u": D},
+                                   equations={"u": lambda s: s.target.u - s.target.u ** 3 / 3 - s.target.v,
+                                              "v": lambda s: s.target.eps * (s.target.u + s.target.a - s.target.b * s.target.v)},
+                                   shape=N, spacing=h, boundary="reflecting", element="fibre")
 a, b, eps, N, h = 0.7, 0.8, 0.02, 1200, 0.5
 ur = brentq(lambda u: u - u ** 3 / 3 - (u + a) / b, -3, 0)
 for D in (1.0, 4.0):
-    dt = 0.02 / D
     u, v = np.full(N, ur), np.full(N, (ur + a) / b)
     u[45:55] = 1.5
-    marks = []
-    for n in range(1, int(100 / dt) + 1):
-        lap = np.empty(N)
-        lap[1:-1] = (u[2:] - 2 * u[1:-1] + u[:-2]) / h ** 2
-        lap[0], lap[-1] = 2 * (u[1] - u[0]) / h ** 2, 2 * (u[-2] - u[-1]) / h ** 2
-        u, v = u + dt * (u - u ** 3 / 3 - v + D * lap), v + dt * eps * (u + a - b * v)
-        if n in (int(50 / dt), int(100 / dt)):
-            marks.append(np.flatnonzero(u > 0)[-1] * h)
+    rows = simulate(fibre(u, v, D), until=100, dt=50, solver=ScipyODESolver(method="RK45")).get_values("fibre.u")
+    marks = [np.flatnonzero(row > 0)[-1] * h for row in rows[1:]]
     print(f"D = {D}: speed {(marks[1] - marks[0]) / 50:.3f}")
 ```
 
 ```{.text .run-output}
-D = 1.0: speed 0.920
+D = 1.0: speed 0.930
 D = 4.0: speed 1.860
 ```
 ::::
@@ -2969,25 +3011,17 @@ $\lfloor N_r/k_1\rfloor + \lfloor N_a/k_2\rfloor$, and divides the sum in Rule 2
 
 ## Python
 
-One node with $s = 50$ on an empty lattice, under Charbonneau's rules with $g = 10$, for $r = 0.1$ and $r = 100$.
+One node with $s = 50$ on an empty lattice, under Charbonneau's rules with $g = 10$, for $r = 0.1$ and $r = 100$. They are `HodgepodgeSystem` with $n = 255$, $k_1 = r$ and $k_2 = a = 0.1$.
 
 ```{.python .run}
 import numpy as np
-def step(s, A=255, r=0.1, a=0.1, g=10):
-    nb = [np.roll(np.roll(s, i, 0), j, 1) for i in (-1, 0, 1) for j in (-1, 0, 1) if (i, j) != (0, 0)]
-    Nr = sum(((x > 0) & (x < A)).astype(int) for x in nb)
-    Na = sum((x == A).astype(int) for x in nb)
-    S = s + sum(nb)
-    rest = np.minimum(np.floor(Nr / r + Na / a), A)
-    recovering = np.minimum(np.floor(S / (Nr + 1)) + g, A)
-    return np.where(s == 0, rest, np.where(s == A, 0, recovering)).astype(int)
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.chemistry.kinetics import HodgepodgeSystem
 for r in (0.1, 100):
-    s = np.zeros((9, 9), dtype=int)
+    s = np.zeros((9, 9))
     s[4, 4] = 50
-    values = []
-    for _ in range(4):
-        s = step(s, r=r)
-        values.append(int(s[4, 4]))
+    run = simulate(HodgepodgeSystem((9, 9), n=255, k1=r, k2=0.1, g=10), until=4, initial_state={"cells.level": s.ravel()})
+    values = np.asarray(run.get_values("cells.level")).reshape(-1, 9, 9)[1:, 4, 4].astype(int).tolist()
     print(f"r = {r}: centre over four steps {values}")
 ```
 
@@ -3019,25 +3053,19 @@ Charbonneau's rules and the positions of active nodes along the central row, out
 
 ```{.python .run}
 import numpy as np
-def step(s, A=255, r=0.1, a=0.1, g=10):
-    nb = [np.roll(np.roll(s, i, 0), j, 1) for i in (-1, 0, 1) for j in (-1, 0, 1) if (i, j) != (0, 0)]
-    Nr = sum(((x > 0) & (x < A)).astype(int) for x in nb)
-    Na = sum((x == A).astype(int) for x in nb)
-    S = s + sum(nb)
-    rest = np.minimum(np.floor(Nr / r + Na / a), A)
-    recovering = np.minimum(np.floor(S / (Nr + 1)) + g, A)
-    return np.where(s == 0, rest, np.where(s == A, 0, recovering)).astype(int)
-s = np.zeros((200, 200), dtype=int)
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.chemistry.kinetics import HodgepodgeSystem
+s = np.zeros((200, 200))
 s[90:110, 90:110] = 250
-for _ in range(100):
-    s = step(s)
+run = simulate(HodgepodgeSystem((200, 200), n=255, k1=0.1, k2=0.1, g=10), until=100, dt=100, initial_state={"cells.level": s.ravel()})
+s = np.asarray(run.get_values("cells.level"))[-1].reshape(200, 200)
 active = np.flatnonzero(s[100, 100:] == 255)
 active = active[active > 20]
 print("active nodes right of the block:", active.tolist(), "; spacings", np.diff(active).tolist())
 ```
 
 ```{.text .run-output}
-active nodes right of the block: [44, 66, 88] ; spacings [22, 22]
+active nodes right of the block: [42, 64, 86] ; spacings [22, 22]
 ```
 ::::
 :::
@@ -3141,23 +3169,24 @@ The number of excited sites every $50$ time units.
 ```{.python .run}
 import numpy as np
 from scipy.optimize import brentq
-a, b, eps, N, h, dt = 0.7, 0.8, 0.02, 800, 0.5, 0.02
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import ReactionDiffusionSystem
+def fibre(u, v, D=1.0):
+    return ReactionDiffusionSystem(states={"u": u, "v": v}, parameters={"a": a, "b": b, "eps": eps}, diffusivities={"u": D},
+                                   equations={"u": lambda s: s.target.u - s.target.u ** 3 / 3 - s.target.v,
+                                              "v": lambda s: s.target.eps * (s.target.u + s.target.a - s.target.b * s.target.v)},
+                                   shape=N, spacing=h, boundary="reflecting", element="fibre")
+a, b, eps, N, h = 0.7, 0.8, 0.02, 800, 0.5
 ur = brentq(lambda u: u - u ** 3 / 3 - (u + a) / b, -3, 0)
 u, v = np.full(N, ur), np.full(N, (ur + a) / b)
 u[45:55] = 1.5
-counts = []
-for n in range(1, int(500 / dt) + 1):
-    lap = np.empty(N)
-    lap[1:-1] = (u[2:] - 2 * u[1:-1] + u[:-2]) / h ** 2
-    lap[0], lap[-1] = 2 * (u[1] - u[0]) / h ** 2, 2 * (u[-2] - u[-1]) / h ** 2
-    u, v = u + dt * (u - u ** 3 / 3 - v + lap), v + dt * eps * (u + a - b * v)
-    if n % int(50 / dt) == 0:
-        counts.append(int((u > 0).sum()))
+counts = [int((row > 0).sum()) for row in simulate(fibre(u, v), until=500, dt=50, solver=ScipyODESolver(method="RK45")).get_values("fibre.u")[1:]]
 print("excited sites every 50 time units:", counts)
 ```
 
 ```{.text .run-output}
-excited sites every 50 time units: [71, 55, 55, 55, 55, 54, 55, 55, 0, 0]
+excited sites every 50 time units: [71, 56, 55, 55, 55, 55, 55, 55, 0, 0]
 ```
 ::::
 :::
@@ -3957,48 +3986,24 @@ The first example runs the package's default. Two runs that start $10^{-8}$ apar
 #### Sensitive dependence
 
 On the package's domain $L = 32\pi$, two initial conditions differing by $10^{-8}\sin(2\pi x/L)$ separate roughly exponentially and differ by order one after about $150$ time units, while the field stays bounded. The
-run uses the package's scheme written out in NumPy, which the third example below checks against the package.
+run uses `KuramotoSivashinskySystem`.
 
 ```{.python .run}
 import numpy as np
-def ks_step(N, L, dt):
-    k = 2 * np.pi * np.fft.rfftfreq(N, d=L / N)
-    lin = k ** 2 - k ** 4
-    E, E2 = np.exp(dt * lin), np.exp(dt * lin / 2)
-    r = np.exp(1j * np.pi * (np.arange(1, 33) - 0.5) / 32)
-    LR = dt * lin[:, None] + r[None, :]
-    Q = dt * np.real(np.mean((np.exp(LR / 2) - 1) / LR, axis=1))
-    f1 = dt * np.real(np.mean((-4 - LR + np.exp(LR) * (4 - 3 * LR + LR ** 2)) / LR ** 3, axis=1))
-    f2 = dt * np.real(np.mean((2 + LR + np.exp(LR) * (-2 + LR)) / LR ** 3, axis=1))
-    f3 = dt * np.real(np.mean((-4 - 3 * LR - LR ** 2 + np.exp(LR) * (4 - LR)) / LR ** 3, axis=1))
-    g = -0.5j * k * (np.abs(k) < (2 / 3) * k.max())
-    nl = lambda v: g * np.fft.rfft(np.fft.irfft(v, N) ** 2)
-    def step(v):
-        Nv = nl(v)
-        a = E2 * v + Q * Nv
-        Na = nl(a)
-        b = E2 * v + Q * Na
-        Nb = nl(b)
-        c = E2 * a + Q * (2 * Nb - Nv)
-        return E * v + Nv * f1 + 2 * (Na + Nb) * f2 + nl(c) * f3
-    return step
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.physics.fluids import KuramotoSivashinskySystem
 N, L = 128, 32 * np.pi
 x = (np.arange(N) + 1) * L / N
 u0 = np.cos(x / 16) * (1 + np.sin(x / 16))
-step = ks_step(N, L, 0.25)
-a, b = np.fft.rfft(u0), np.fft.rfft(u0 + 1e-8 * np.sin(2 * np.pi * x / L))
-diffs, top = [], 0.0
-for n in range(1, 1601):
-    a, b = step(a), step(b)
-    if n % 200 == 0:
-        ua = np.fft.irfft(a, N)
-        diffs.append(f"{np.abs(ua - np.fft.irfft(b, N)).max():.1e}")
-        top = max(top, float(np.abs(ua).max()))
-print("largest difference every 50 time units:", diffs, "; largest |u|", round(top, 2))
+a = np.asarray(simulate(KuramotoSivashinskySystem(N, length=L), until=400, dt=50, initial_state={"line.u": u0}).get_values("line.u"))
+b = np.asarray(simulate(KuramotoSivashinskySystem(N, length=L), until=400, dt=50,
+                        initial_state={"line.u": u0 + 1e-8 * np.sin(2 * np.pi * x / L)}).get_values("line.u"))
+diffs = [f"{np.abs(a[n] - b[n]).max():.1e}" for n in range(1, 9)]
+print("largest difference every 50 time units:", diffs, "; largest |u|", round(float(np.abs(a[1:]).max()), 2))
 ```
 
 ```{.text .run-output}
-largest difference every 50 time units: ['1.1e-06', '4.0e-05', '1.8e-01', '4.4e+00', '4.3e+00', '4.9e+00', '4.3e+00', '4.1e+00'] ; largest |u| 2.9
+largest difference every 50 time units: ['1.1e-06', '4.0e-05', '1.8e-01', '4.4e+00', '4.3e+00', '4.3e+00', '4.8e+00', '4.0e+00'] ; largest |u| 2.78
 ```
 :::
 
@@ -4099,36 +4104,13 @@ For $L = 10$ the field settles into a nonuniform state whose Fourier amplitudes 
 
 ```{.python .run}
 import numpy as np
-def ks_step(N, L, dt):
-    k = 2 * np.pi * np.fft.rfftfreq(N, d=L / N)
-    lin = k ** 2 - k ** 4
-    E, E2 = np.exp(dt * lin), np.exp(dt * lin / 2)
-    r = np.exp(1j * np.pi * (np.arange(1, 33) - 0.5) / 32)
-    LR = dt * lin[:, None] + r[None, :]
-    Q = dt * np.real(np.mean((np.exp(LR / 2) - 1) / LR, axis=1))
-    f1 = dt * np.real(np.mean((-4 - LR + np.exp(LR) * (4 - 3 * LR + LR ** 2)) / LR ** 3, axis=1))
-    f2 = dt * np.real(np.mean((2 + LR + np.exp(LR) * (-2 + LR)) / LR ** 3, axis=1))
-    f3 = dt * np.real(np.mean((-4 - 3 * LR - LR ** 2 + np.exp(LR) * (4 - LR)) / LR ** 3, axis=1))
-    g = -0.5j * k * (np.abs(k) < (2 / 3) * k.max())
-    nl = lambda v: g * np.fft.rfft(np.fft.irfft(v, N) ** 2)
-    def step(v):
-        Nv = nl(v)
-        a = E2 * v + Q * Nv
-        Na = nl(a)
-        b = E2 * v + Q * Na
-        Nb = nl(b)
-        c = E2 * a + Q * (2 * Nb - Nv)
-        return E * v + Nv * f1 + 2 * (Na + Nb) * f2 + nl(c) * f3
-    return step
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.physics.fluids import KuramotoSivashinskySystem
 for L in (10.0, 18.0):
-    step = ks_step(64, L, 0.25)
-    v = np.fft.rfft(0.1 * np.random.default_rng(1).standard_normal(64))
-    for _ in range(8000):
-        v = step(v)
-    before = np.abs(v)
-    for _ in range(400):
-        v = step(v)
-    print(f"L = {L}: spread {np.fft.irfft(v, 64).std():.3f}; relative change of the amplitudes over the last 100 units {np.abs(np.abs(v) - before).max() / before.max():.3e}")
+    u0 = 0.1 * np.random.default_rng(1).standard_normal(64)
+    u = np.asarray(simulate(KuramotoSivashinskySystem(64, length=L), until=2100, dt=100, initial_state={"line.u": u0}).get_values("line.u"))
+    before, after = np.abs(np.fft.rfft(u[-2])), np.abs(np.fft.rfft(u[-1]))
+    print(f"L = {L}: spread {u[-1].std():.3f}; relative change of the amplitudes over the last 100 units {np.abs(after - before).max() / before.max():.3e}")
 ```
 
 ```{.text .run-output}
@@ -4156,6 +4138,7 @@ close to $0$: two of them belong to the conserved mean and to translations along
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #45: lyapunov fails on KuramotoSivashinskySystem, so the exponents come from the NumPy scheme
 def ks_step(N, L, dt):
     k = 2 * np.pi * np.fft.rfftfreq(N, d=L / N)
     lin = k ** 2 - k ** 4
@@ -4233,6 +4216,7 @@ shorter runs here give slightly different values from @exm-ks-largest for $L = 2
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #45: lyapunov fails on KuramotoSivashinskySystem, so the exponents come from the NumPy scheme
 def ks_step(N, L, dt):
     k = 2 * np.pi * np.fft.rfftfreq(N, d=L / N)
     lin = k ** 2 - k ** 4
@@ -4524,50 +4508,27 @@ small residual change remains after $2000$ time units, a slow approach or a slow
 
 ## Python
 
-The relative change of the amplitudes over the last $100$ of $2100$ time units, with the NumPy solver of @exm-ks-solver.
+The relative change of the amplitudes over the last $100$ of $2100$ time units, with `KuramotoSivashinskySystem`.
 
 ```{.python .run}
 import numpy as np
-def ks_step(N, L, dt):
-    k = 2 * np.pi * np.fft.rfftfreq(N, d=L / N)
-    lin = k ** 2 - k ** 4
-    E, E2 = np.exp(dt * lin), np.exp(dt * lin / 2)
-    r = np.exp(1j * np.pi * (np.arange(1, 33) - 0.5) / 32)
-    LR = dt * lin[:, None] + r[None, :]
-    Q = dt * np.real(np.mean((np.exp(LR / 2) - 1) / LR, axis=1))
-    f1 = dt * np.real(np.mean((-4 - LR + np.exp(LR) * (4 - 3 * LR + LR ** 2)) / LR ** 3, axis=1))
-    f2 = dt * np.real(np.mean((2 + LR + np.exp(LR) * (-2 + LR)) / LR ** 3, axis=1))
-    f3 = dt * np.real(np.mean((-4 - 3 * LR - LR ** 2 + np.exp(LR) * (4 - LR)) / LR ** 3, axis=1))
-    g = -0.5j * k * (np.abs(k) < (2 / 3) * k.max())
-    nl = lambda v: g * np.fft.rfft(np.fft.irfft(v, N) ** 2)
-    def step(v):
-        Nv = nl(v)
-        a = E2 * v + Q * Nv
-        Na = nl(a)
-        b = E2 * v + Q * Na
-        Nb = nl(b)
-        c = E2 * a + Q * (2 * Nb - Nv)
-        return E * v + Nv * f1 + 2 * (Na + Nb) * f2 + nl(c) * f3
-    return step
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.physics.fluids import KuramotoSivashinskySystem
 for L in (8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0):
-    step = ks_step(64, L, 0.25)
-    v = np.fft.rfft(0.1 * np.random.default_rng(1).standard_normal(64))
-    for _ in range(8000):
-        v = step(v)
-    before = np.abs(v)
-    for _ in range(400):
-        v = step(v)
-    print(f"L = {L:.0f}: relative change {np.abs(np.abs(v) - before).max() / before.max():.3e}")
+    u0 = 0.1 * np.random.default_rng(1).standard_normal(64)
+    u = np.asarray(simulate(KuramotoSivashinskySystem(64, length=L), until=2100, dt=100, initial_state={"line.u": u0}).get_values("line.u"))
+    before, after = np.abs(np.fft.rfft(u[-2])), np.abs(np.fft.rfft(u[-1]))
+    print(f"L = {L:.0f}: relative change {np.abs(after - before).max() / before.max():.3e}")
 ```
 
 ```{.text .run-output}
-L = 8: relative change 1.857e-16
+L = 8: relative change 1.985e-16
 L = 10: relative change 2.846e-16
 L = 12: relative change 5.199e-16
 L = 14: relative change 1.397e-02
-L = 16: relative change 1.857e-16
+L = 16: relative change 7.770e-16
 L = 18: relative change 3.571e-01
-L = 20: relative change 2.488e-02
+L = 20: relative change 3.592e-02
 ```
 ::::
 :::
@@ -4594,6 +4555,7 @@ The estimate over $1500$ time units after a transient of $300$.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #45: lyapunov fails on KuramotoSivashinskySystem, so the exponents come from the NumPy scheme
 def ks_step(N, L, dt):
     k = 2 * np.pi * np.fft.rfftfreq(N, d=L / N)
     lin = k ** 2 - k ** 4

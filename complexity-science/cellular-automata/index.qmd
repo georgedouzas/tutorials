@@ -43,7 +43,9 @@ the argument, then a computation with its recorded output. The computations use 
 catalogue: `ElementaryAutomatonSystem`, `GameOfLifeSystem`, `HighlifeSystem`, `TuringMachineSystem`, `LangtonsAntSystem`,
 `RandomBooleanNetworkSystem` and `YeastCellCycleSystem`. They are run by `simulate`, and the analysis `automaton` computes the difference
 patterns of damage spreading. NumPy is used for exhaustive
-enumerations of rules and of small state spaces, and for checking the package against a direct implementation.
+enumerations of rules, for checking the package against a direct implementation, and where the package lacks a feature, each block
+naming the issue: iterating every configuration of a small state space at once (issue #56), Langton's ant on the unbounded plane or on a
+given background (#57), and annealed, asynchronous or very large Boolean networks (#58).
 
 ## Elementary cellular automata {#sec-elementary-ca}
 
@@ -344,6 +346,7 @@ import itertools
 import numpy as np
 N, W = 12, 30
 f = np.array([(W >> k) & 1 for k in range(8)])
+# scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
 def step(x):
     return f[4 * np.roll(x, 1) + 2 * x + np.roll(x, -1)]
 longest_transient = longest_period = 0
@@ -600,6 +603,7 @@ one step. For even $N$ the kernel holds the alternating configuration $0101\dots
 Exhaustive search over the ring, by integer arithmetic on bit strings.
 
 ```{.python .run}
+# scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
 def orbit_lengths(N):
     mask = (1 << N) - 1
     rot = lambda x, k: ((x << k) | (x >> (N - k))) & mask
@@ -776,24 +780,28 @@ column is a small sample; Downey's statement concerns the batteries of tests app
 
 ## Python
 
-The package's centre column for the first $500$ steps, checked against a NumPy implementation that keeps only the centre cell, which then runs for
-$20000$ steps.
+The centre column of `ElementaryAutomatonSystem` on a ring of $2n + 3$ cells for $20000$ steps, run in chunks of $2000$ steps, with step $500$
+checked against the rule table applied directly.
 
 ```{.python .run}
 import collections
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.computer_science.automata import ElementaryAutomatonSystem
-n = 20000
+n, chunk = 20000, 2000
 f = np.array([(30 >> k) & 1 for k in range(8)], dtype=np.uint8)
-x = np.zeros(2 * n + 3, dtype=np.uint8)
+x = np.zeros(2 * n + 3)
 x[n + 1] = 1
+y = x.astype(np.uint8)
+for _ in range(500):
+    y = f[4 * np.roll(y, 1) + 2 * y + np.roll(y, -1)]
 column = []
-for _ in range(n):
-    column.append(int(x[n + 1]))
-    x = f[4 * np.roll(x, 1) + 2 * x + np.roll(x, -1)]
-package = np.asarray(simulate(ElementaryAutomatonSystem(30, size=1003), until=499).get_values("cells.alive"))[:, 501].astype(int)
-print("agrees with the package for 500 steps:", package.tolist() == column[:500])
+for _ in range(n // chunk):
+    rows = np.asarray(simulate(ElementaryAutomatonSystem(30, size=2 * n + 3, initial=x), until=chunk).get_values("cells.alive"))
+    column.extend(rows[:-1, n + 1].astype(int).tolist())
+    x = rows[-1]
+    if len(column) == chunk:
+        print("agrees with the rule table after 500 steps:", bool((rows[500] == y).all()))
 for m in (2000, n):
     bits = "".join(map(str, column[:m]))
     for k in (2, 3):
@@ -802,7 +810,7 @@ for m in (2000, n):
 ```
 
 ```{.text .run-output}
-agrees with the package for 500 steps: True
+agrees with the rule table after 500 steps: True
 2000 2 {'00': 0.2741, '01': 0.2376, '10': 0.2376, '11': 0.2506}
 2000 3 {'000': 0.1502, '001': 0.1241, '010': 0.1146, '011': 0.1231, '100': 0.1241, '101': 0.1136, '110': 0.1231, '111': 0.1271}
 20000 2 {'00': 0.2425, '01': 0.2516, '10': 0.2516, '11': 0.2544}
@@ -1992,6 +2000,7 @@ Vectorised over all configurations, with the image of each configuration stored 
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
 codes = np.arange(2 ** 16)
 X = ((codes[:, None] >> np.arange(16)) & 1).reshape(-1, 4, 4)
 n = sum(np.roll(np.roll(X, a, 1), b, 2) for a in (-1, 0, 1) for b in (-1, 0, 1) if (a, b) != (0, 0))
@@ -2470,14 +2479,16 @@ Counts, the two steps, and $\tau G$, in coordinates relative to the offset.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import GameOfLifeSystem
 def counts(cells):
     x = np.zeros((9, 9), dtype=int)
     for i, j in cells:
         x[i + 2, j + 2] = 1
     return x, sum(np.roll(np.roll(x, a, 0), b, 1) for a in (-1, 0, 1) for b in (-1, 0, 1)) - x
 def step(cells):
-    x, n = counts(cells)
-    y = np.where(x == 1, (n == 2) | (n == 3), n == 3)
+    x, _ = counts(cells)
+    y = np.asarray(simulate(GameOfLifeSystem(x.shape, initial=x), until=1).get_values("cells.alive"))[1].reshape(x.shape)
     return sorted((int(i) - 2, int(j) - 2) for i, j in np.argwhere(y))
 G = [(0, 1), (1, 2), (2, 0), (2, 1), (2, 2)]
 x, n = counts(G)
@@ -2979,8 +2990,9 @@ an automaton of radius $1$ in the sense of the elementary rules, with more state
 [@downeyThinkComplexity2018, Ch. 5, "Universality"].
 :::
 
-Machines can compute with inputs on the tape. The package starts on a blank tape, so the machines with inputs below run on a short direct implementation, which is checked
-against the package on the busy beaver in an exercise.
+Machines can compute with inputs on the tape. The machines below run on `TuringMachineSystem` with the input written on the tape as its initial
+state; the head starts on the middle cell, so the input is placed around it. A short direct implementation is checked against the package on
+the busy beaver in an exercise.
 
 ::: {#exm-tm-unary-addition}
 #### Adding in unary
@@ -2989,15 +3001,21 @@ On the tape $1^a01^b$, the machine with $\delta(A, 1) = (1, R, A)$, $\delta(A, 0
 fills the gap, runs to the end and erases the last one, leaving $1^{a + b}$.
 
 ```{.python .run}
-def run(table, tape, state="A", limit=10_000):
-    tape, pos, t = dict(enumerate(tape)), 0, 0
-    while state != "H" and t < limit:
-        write, move, state = table[(state, tape.get(pos, 0))]
-        tape[pos], pos, t = write, pos + {"L": -1, "N": 0, "R": 1}[move], t + 1
-    return t, state == "H", "".join(str(tape.get(i, 0)) for i in range(min(tape), max(tape) + 1)).strip("0")
+import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import TuringMachineSystem
+def run(table, tape, start=0, limit=100):
+    size = 2 * (len(tape) + limit) + 3
+    middle, cells = size // 2, np.zeros(size)
+    cells[middle - start:middle - start + len(tape)] = tape
+    trajectory = simulate(TuringMachineSystem(size, table=table), until=limit, initial_state={"tape.symbol": cells})
+    halted = np.asarray(trajectory.get_values("tape.head")).max(axis=1) == len({state for state, _ in table})
+    t = int(np.argmax(halted)) if halted.any() else limit
+    return t, bool(halted.any()), np.asarray(trajectory.get_values("tape.symbol"))[t].astype(int), middle
 add = {("A", 1): (1, "R", "A"), ("A", 0): (1, "R", "B"), ("B", 1): (1, "R", "B"), ("B", 0): (0, "L", "C"), ("C", 1): (0, "N", "H")}
 for a, b in ((2, 3), (4, 1), (0, 5)):
-    print(f"{a} + {b}:", run(add, [1] * a + [0] + [1] * b))
+    t, halted, tape, _ = run(add, [1] * a + [0] + [1] * b)
+    print(f"{a} + {b}:", (t, halted, "".join(map(str, tape)).strip("0")))
 ```
 
 ```{.text .run-output}
@@ -3016,15 +3034,20 @@ The machine $\delta(A, 1) = (1, R, A)$, $\delta(A, 0) = (0, N, H)$ halts on ever
 $\delta(A, 1) = (1, N, H)$ halts exactly on the tapes with a $1$ somewhere to the right of the head, and on a blank tape it writes ones forever.
 
 ```{.python .run}
-def run(table, tape, state="A", limit=1000):
-    tape, pos, t = dict(enumerate(tape)), 0, 0
-    while state != "H" and t < limit:
-        write, move, state = table[(state, tape.get(pos, 0))]
-        tape[pos], pos, t = write, pos + {"L": -1, "N": 0, "R": 1}[move], t + 1
-    return t, state == "H"
+import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import TuringMachineSystem
+def run(table, tape, start=0, limit=100):
+    size = 2 * (len(tape) + limit) + 3
+    middle, cells = size // 2, np.zeros(size)
+    cells[middle - start:middle - start + len(tape)] = tape
+    trajectory = simulate(TuringMachineSystem(size, table=table), until=limit, initial_state={"tape.symbol": cells})
+    halted = np.asarray(trajectory.get_values("tape.head")).max(axis=1) == len({state for state, _ in table})
+    t = int(np.argmax(halted)) if halted.any() else limit
+    return t, bool(halted.any()), np.asarray(trajectory.get_values("tape.symbol"))[t].astype(int), middle
 seek = {("A", 0): (1, "R", "A"), ("A", 1): (1, "N", "H")}
 for tape in ([0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 1], []):
-    print(tape, "-> steps, halted:", run(seek, tape))
+    print(tape, "-> steps, halted:", run(seek, tape, limit=1000)[:2])
 ```
 
 ```{.text .run-output}
@@ -3118,7 +3141,7 @@ and "obviously simple" may make the claim unfalsifiable, and that it reads as a 
 ::::
 
 :::: {.callout-note .exercises-fold collapse="true" title="Exercises"}
-The first exercise checks the direct implementation used in the examples. It must agree with the package where both apply.
+The first exercise checks a direct implementation of a machine. It must agree with the package where both apply.
 
 ::: {#exr-tm-simulator}
 #### A direct implementation
@@ -3213,19 +3236,25 @@ carry, including at the blank to the left of a number of all ones, since the bla
 
 ## Python
 
-The direct implementation on the numbers $0$ to $8$ and $1023$, with the head on the last digit.
+`TuringMachineSystem` on the numbers $0$ to $8$ and $1023$, with the head on the last digit.
 
 ```{.python .run}
-def run(table, tape, start, state="A"):
-    tape, pos = dict(enumerate(tape)), start
-    while state != "H":
-        write, move, state = table[(state, tape.get(pos, 0))]
-        tape[pos], pos = write, pos + {"L": -1, "N": 0, "R": 1}[move]
-    return int("".join(str(tape.get(i, 0)) for i in range(min(tape), max(tape) + 1)), 2)
+import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import TuringMachineSystem
+def run(table, tape, start=0, limit=100):
+    size = 2 * (len(tape) + limit) + 3
+    middle, cells = size // 2, np.zeros(size)
+    cells[middle - start:middle - start + len(tape)] = tape
+    trajectory = simulate(TuringMachineSystem(size, table=table), until=limit, initial_state={"tape.symbol": cells})
+    halted = np.asarray(trajectory.get_values("tape.head")).max(axis=1) == len({state for state, _ in table})
+    t = int(np.argmax(halted)) if halted.any() else limit
+    return t, bool(halted.any()), np.asarray(trajectory.get_values("tape.symbol"))[t].astype(int), middle
 inc = {("A", 1): (0, "L", "A"), ("A", 0): (1, "N", "H")}
 for n in list(range(9)) + [1023]:
     digits = [int(d) for d in bin(n)[2:]]
-    print(n, "->", run(inc, digits, len(digits) - 1), end="; ")
+    _, _, tape, middle = run(inc, digits, start=len(digits) - 1, limit=20)
+    print(n, "->", int("".join(map(str, tape[:middle + 1])), 2), end="; ")
 print()
 ```
 
@@ -3587,16 +3616,17 @@ which is a fixed point. For Rule 110 the procedure never stops on a finite nonze
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import ElementaryAutomatonSystem
+def rows(W, x, limit):
+    size = len(x) + 2 * limit + 4
+    start = np.zeros(size)
+    start[limit + 2:limit + 2 + len(x)] = x
+    return np.asarray(simulate(ElementaryAutomatonSystem(W, size=size, initial=start), until=limit).get_values("cells.alive"))
 def wait(W, x, limit=200):
-    f = np.array([(W >> k) & 1 for k in range(8)])
-    x = np.asarray(x)
-    for t in range(limit):
-        p = np.pad(x, 2)
-        y = f[4 * p[:-2] + 2 * p[1:-1] + p[2:]]
-        if (y == np.pad(x, 1)).all():
-            return f"fixed point after {t} steps"
-        x = y
-    return f"no fixed point within {limit} steps"
+    r = rows(W, x, limit)
+    fixed = (r[1:] == r[:-1]).all(axis=1)
+    return f"fixed point after {int(np.argmax(fixed))} steps" if fixed.any() else f"no fixed point within {limit} steps"
 x = np.random.default_rng(11).integers(0, 2, 30)
 for W in (4, 160, 110):
     print(f"Rule {W}:", wait(W, x))
@@ -3622,6 +3652,7 @@ import numpy as np
 N = 12
 f = np.array([(110 >> k) & 1 for k in range(8)])
 X = ((np.arange(2 ** N)[:, None] >> np.arange(N)) & 1)
+# scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
 def step(X):
     return f[4 * np.roll(X, 1, axis=1) + 2 * X + np.roll(X, -1, axis=1)]
 Y = X.copy()
@@ -3822,20 +3853,21 @@ semi-decision.
 
 ## Python
 
-The procedure with the comparison made after removing the padding.
+The procedure on `ElementaryAutomatonSystem`, with a ring wide enough that the configuration never wraps around.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import ElementaryAutomatonSystem
+def rows(W, x, limit):
+    size = len(x) + 2 * limit + 4
+    start = np.zeros(size)
+    start[limit + 2:limit + 2 + len(x)] = x
+    return np.asarray(simulate(ElementaryAutomatonSystem(W, size=size, initial=start), until=limit).get_values("cells.alive"))
 def wait(W, x, limit=300):
-    f = np.array([(W >> k) & 1 for k in range(8)])
-    x = np.asarray(x)
-    for t in range(limit):
-        p = np.pad(x, 2)
-        y = f[4 * p[:-2] + 2 * p[1:-1] + p[2:]]
-        if (y == np.pad(x, 1)).all():
-            return f"fixed point at t = {t}"
-        x = y
-    return "no answer within the limit"
+    r = rows(W, x, limit)
+    fixed = (r[1:] == r[:-1]).all(axis=1)
+    return f"fixed point at t = {int(np.argmax(fixed))}" if fixed.any() else "no answer within the limit"
 x = np.random.default_rng(13).integers(0, 2, 40)
 for W in (4, 32, 160, 250, 110):
     print(f"Rule {W}:", wait(W, x))
@@ -3877,6 +3909,7 @@ import numpy as np
 f = np.array([(110 >> k) & 1 for k in range(8)], dtype=np.uint8)
 for N in range(6, 13):
     X = ((np.arange(2 ** N)[:, None] >> np.arange(N)) & 1).astype(np.uint8)
+    # scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
     step = lambda X: f[4 * np.roll(X, 1, axis=1) + 2 * X + np.roll(X, -1, axis=1)]
     for _ in range(2 ** N):
         X = step(X)
@@ -3918,15 +3951,17 @@ Steps to the fixed point from random configurations and their mirror images.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import ElementaryAutomatonSystem
+def rows(W, x, limit):
+    size = len(x) + 2 * limit + 4
+    start = np.zeros(size)
+    start[limit + 2:limit + 2 + len(x)] = x
+    return np.asarray(simulate(ElementaryAutomatonSystem(W, size=size, initial=start), until=limit).get_values("cells.alive"))
 def steps(W, x, limit=100):
-    f = np.array([(W >> k) & 1 for k in range(8)])
-    for t in range(limit):
-        p = np.pad(x, 2)
-        y = f[4 * p[:-2] + 2 * p[1:-1] + p[2:]]
-        if (y == np.pad(x, 1)).all():
-            return t
-        x = y
-    return None
+    r = rows(W, x, limit)
+    fixed = (r[1:] == r[:-1]).all(axis=1)
+    return int(np.argmax(fixed)) if fixed.any() else None
 rng = np.random.default_rng(14)
 for W in (4, 160):
     same = all(steps(W, x) == steps(W, x[::-1]) for x in rng.integers(0, 2, (200, 25)))
@@ -3962,16 +3997,18 @@ The leftmost live cell over $50$ steps from random finite configurations.
 
 ```{.python .run}
 import numpy as np
-f = np.array([(90 >> k) & 1 for k in range(8)])
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.computer_science.automata import ElementaryAutomatonSystem
+def rows(W, x, limit):
+    size = len(x) + 2 * limit + 4
+    start = np.zeros(size)
+    start[limit + 2:limit + 2 + len(x)] = x
+    return np.asarray(simulate(ElementaryAutomatonSystem(W, size=size, initial=start), until=limit).get_values("cells.alive"))
 rng, ok = np.random.default_rng(15), True
 for _ in range(100):
     x = rng.integers(0, 2, 20)
     x[0] = 1
-    left = []
-    for t in range(50):
-        left.append(int(np.flatnonzero(x)[0]) - t)
-        p = np.pad(x, 2)
-        x = f[4 * p[:-2] + 2 * p[1:-1] + p[2:]]
+    left = [int(np.flatnonzero(row)[0]) for row in rows(90, x, 49)]
     ok &= all(b - a == -1 for a, b in zip(left, left[1:]))
 print("the leftmost live cell moves one cell to the left at every step:", ok)
 ```
@@ -4184,6 +4221,7 @@ From $(0, 0)$ heading north on white, the ant turns east and moves to $(0, 1)$, 
 west to $(0, -1)$. After four steps it has painted a $2 \times 2$ block black and returned to its start, and the fifth step is its first left turn.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, path = {}, (0, 0), 0, [(0, 0)]
 for _ in range(10):
@@ -4210,6 +4248,7 @@ displacement is two rows down and two columns left per period: the highway runs 
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, path = {}, (0, 0), 0, [(0, 0)]
 for _ in range(12_000):
@@ -4243,6 +4282,7 @@ L = 80
 run = simulate(LangtonsAntSystem((L, L)), until=11_000)
 colours = np.asarray(run.get_values("cells.color")).reshape(-1, L, L)
 ants = np.asarray(run.get_values("cells.ant")).reshape(-1, L, L)
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 c, (i, j), h, agree = np.zeros((L, L), dtype=int), (L // 2, L // 2), 0, True
 for t in range(1, 11_001):
@@ -4278,6 +4318,7 @@ The highway leaves an ordered trail. Its colours repeat, so the number of black 
 The number of black cells is $720$ at step $10\,000$ and grows by $12$ in every period of $104$ steps once the highway runs: each period paints a new stretch of road.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, black = {}, (0, 0), 0, []
 for _ in range(12_000):
@@ -4305,6 +4346,7 @@ highways that are interrupted where it meets a black cell.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 rng, L = np.random.default_rng(16), 1001
 base = (rng.random((L, L)) < 0.001).astype(int)
@@ -4354,6 +4396,7 @@ From $(c', p', h')$ the previous position is $p = p' - \mathbf e_{h'}$, the prev
 Running $5000$ steps forward and $5000$ backward returns the white lattice with the ant at the start, heading north.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h = {}, (0, 0), 0
 for _ in range(5000):
@@ -4381,6 +4424,7 @@ Every step changes the heading by $\pm1$, so north-south and east-west headings 
 first $12\,000$ steps, every cell with even row plus column is entered by a vertical move and every cell with odd row plus column by a horizontal one.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, axes = {}, (0, 0), 0, {}
 for _ in range(12_000):
@@ -4404,6 +4448,7 @@ The initial colouring can be anything, finite or not. On a checkerboard the ant 
 Started on the checkerboard colouring $c(i, j) = (i + j) \bmod 2$, the ant's distance from the start grows linearly from the beginning, by one cell every two steps, without any transient.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 flips, p, h, far = {}, (0, 0), 0, []
 for t in range(1, 2001):
@@ -4485,6 +4530,7 @@ A $50 \times 50$ torus with random colours.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 L = 50
 c0 = np.random.default_rng(17).integers(0, 2, (L, L))
@@ -4528,6 +4574,7 @@ Windows around the ant at times $10\,400 + 104k$, translated back by $k$ displac
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, snaps = {}, (0, 0), 0, {}
 for t in range(1, 11_000):
@@ -4567,6 +4614,7 @@ $M h_{t + 1}$; it flips the cell $Mp_t$ and moves along $\mathbf e_{Mh_{t + 1}}$
 The two runs, the second compared with the reflection $j \mapsto -j$.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 def path(background, n=11_000):
     flips, p, h, out = {}, (0, 0), 0, []
@@ -4607,6 +4655,7 @@ returns. The returns all happen in the transient; the run finds $28$, the last a
 The returns, from the direct implementation.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, returns = {}, (0, 0), 0, []
 for t in range(1, 12_001):
@@ -4645,6 +4694,7 @@ two values show.
 The running maximum of the distance.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, far, best = {}, (0, 0), 0, {}, 0
 for t in range(1, 12_001):
@@ -4721,6 +4771,7 @@ the initial state returns to it. The return times found by a direct run are $8, 
 Direct runs until the initial state recurs.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 for L in range(2, 7):
     c, i, j, h, t = [[0] * L for _ in range(L)], 0, 0, 0, 0
@@ -4765,6 +4816,7 @@ Three backgrounds, one seed.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 rng, L = np.random.default_rng(18), 4001
 for density in (0.1, 0.5, 0.9):
@@ -4876,6 +4928,7 @@ The first example looks at the cell used in the proof. On a white lattice it is 
 At the starting cell, the ant's turns on its $29$ visits in the first $12\,000$ steps alternate exactly between right and left, as part (b) says, starting with a right turn on white.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, turns = {}, (0, 0), 0, []
 for _ in range(12_000):
@@ -4903,6 +4956,7 @@ ones, as on the white lattice.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 L = 1001
 base = np.random.default_rng(19).integers(0, 2, (L, L))
@@ -4931,6 +4985,7 @@ $104$ steps.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 L = 1001
 base = np.random.default_rng(19).integers(0, 2, (L, L))
@@ -4961,6 +5016,7 @@ lists how many times.
 
 ```{.python .run}
 import collections
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 L = 3
 c, (i, j), h, visits = [[0] * L for _ in range(L)], (0, 0), 0, collections.Counter()
@@ -4986,6 +5042,7 @@ For the white lattice, the cell with the smallest row and, among those, the larg
 ant moves south-west, so the corner stops changing and the southern-western corner moves instead.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, visited = {}, (0, 0), 0, {(0, 0)}
 for t in range(1, 12_001):
@@ -5056,6 +5113,7 @@ followed, on every third visit at least, by an exit to the east, and in the hori
 $2 \times 2$ square forever, and its trajectory is bounded; the run shows both.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 for name, turn in (("RLR", {0: 1, 1: -1, 2: 1}), ("RRR", {0: 1, 1: 1, 2: 1})):
     colour, p, h, best = {}, (0, 0), 0, 0
@@ -5097,6 +5155,7 @@ Ten colourings, $20\,000$ steps each, and the set of axes seen per parity.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 rng, L, ok = np.random.default_rng(20), 501, True
 for _ in range(10):
@@ -5138,6 +5197,7 @@ The sequences of turns per cell.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 L = 501
 base = np.random.default_rng(21).integers(0, 2, (L, L))
@@ -5214,6 +5274,7 @@ $3$ and $5$ the ant moves thousands of rows along the cylinder in the run; on wi
 The range of rows in $50\,000$ steps, and for each width the first recurrence of the full state within $2000$ steps.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 for L in range(2, 7):
     colour, (i, j), h, rows, seen, period = {}, (0, 0), 0, [], {}, None
@@ -5260,6 +5321,7 @@ Five random colourings of the $3 \times 3$ torus.
 
 ```{.python .run}
 import numpy as np
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 L, rng = 3, np.random.default_rng(22)
 for _ in range(5):
@@ -5305,6 +5367,7 @@ left only after the highway started, since the blob of the transient reaches onl
 First exit and last presence for each box.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, dist = {}, (0, 0), 0, [0]
 for _ in range(12_000):
@@ -5349,6 +5412,7 @@ successor and the previous colour could not be read back.
 Forward $3000$ steps with $\pi(v) = v + 1 \bmod 3$ and turns right, left, right, then back.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 turn = {0: 1, 1: -1, 2: 1}
 colour, p, h = {}, (0, 0), 0
@@ -5393,6 +5457,7 @@ All colourings of the $3 \times 3$ box and all headings, with the ant at its cen
 
 ```{.python .run}
 import itertools
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 longest = 0
 for bits in itertools.product((0, 1), repeat=9):
@@ -5435,6 +5500,7 @@ whether some colouring gives infinitely many returns together with an unbounded 
 The set of cells visited during the last $1000$ of $12\,000$ steps on the white lattice and its overlap with the cells visited before step $9000$: none, the ant has left.
 
 ```{.python .run}
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 colour, p, h, path = {}, (0, 0), 0, []
 for _ in range(12_000):
@@ -5474,6 +5540,7 @@ The turn sequence at the most visited cell of a $20\,000$-step run of the $RRL$ 
 
 ```{.python .run}
 import collections
+# scikit-complexity #57: LangtonsAntSystem has no unbounded plane or initial colours, so the ant is followed by hand
 D = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 turn = {0: 1, 1: 1, 2: -1}
 colour, p, h, seq = {}, (0, 0), 0, collections.defaultdict(list)
@@ -5763,6 +5830,7 @@ for node, inputs in YEAST_INPUTS.items():
         W[index[node], index[source]] = weight
 decays = np.array([n in YEAST_DECAYING for n in YEAST_NODES])
 X = np.array(list(itertools.product((0, 1), repeat=11)))
+# scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
 def step(X):
     a = X @ W.T
     return np.where(a > 0, 1, np.where(a < 0, 0, np.where(decays, 0, X)))
@@ -6124,6 +6192,7 @@ for node, inputs in YEAST_INPUTS.items():
         W[index[node], index[source]] = weight
 decays = np.array([n in YEAST_DECAYING for n in YEAST_NODES])
 X = np.array(list(itertools.product((0, 1), repeat=11)))
+# scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
 for _ in range(50):
     a = X @ W.T
     X = np.where(a > 0, 1, np.where(a < 0, 0, np.where(decays, 0, X)))
@@ -6178,6 +6247,7 @@ for K in (2, 3):
         tables = np.array([f.table for f in system.interactions])
         succ = tables[np.arange(N), sum(X[:, inputs[:, k]] << (K - 1 - k) for k in range(K))] @ (1 << np.arange(N))
         s = np.arange(2 ** N)
+        # scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
         for _ in range(2 ** N):
             s = succ[s]
         cycle_of = {}
@@ -6234,6 +6304,7 @@ for K in (1, 2, 3):
         tables = np.array([f.table for f in system.interactions])
         succ = tables[np.arange(N), sum(X[:, inputs[:, k]] << (K - 1 - k) for k in range(K))] @ (1 << np.arange(N))
         s = np.arange(2 ** N)
+        # scikit-complexity #56: no analysis of all configurations yet, so the global map is iterated with NumPy
         for _ in range(2 ** N):
             s = succ[s]
         on_cycles = X[np.unique(s)]
@@ -6279,6 +6350,7 @@ for node, inputs in YEAST_INPUTS.items():
     for source, weight in inputs:
         W[index[node], index[source]] = weight
 decays = np.array([n in YEAST_DECAYING for n in YEAST_NODES])
+# scikit-complexity #58: no asynchronous update yet, so the nodes are updated with NumPy
 def update(x, i):
     a = W[i] @ x
     return 1 if a > 0 else 0 if a < 0 else (0 if decays[i] else x[i])
@@ -6420,6 +6492,7 @@ x = rng.integers(0, 2, N)
 y = x.copy()
 y[:200] ^= 1
 a = 0.99
+# scikit-complexity #58: no annealed, asynchronous or large-network variant yet, so the network is iterated with NumPy
 for t in range(10):
     inputs = np.array([rng.choice(N, K, replace=False) for _ in range(N)])
     tables = (rng.random((N, 2 ** K)) >= p).astype(int)
@@ -6906,6 +6979,7 @@ for p in (0.05, 0.1464, 0.4):
     y = x.copy()
     y[:100] ^= 1
     D = []
+    # scikit-complexity #58: no annealed, asynchronous or large-network variant yet, so the network is iterated with NumPy
     for t in range(101):
         D.append((x != y).mean())
         x = tables[np.arange(N), sum(x[inputs[:, k]] << (K - 1 - k) for k in range(K))]
@@ -6988,6 +7062,7 @@ x = rng.integers(0, 2, N)
 y = x.copy()
 y[:200] ^= 1
 D = [200]
+# scikit-complexity #58: no annealed, asynchronous or large-network variant yet, so the network is iterated with NumPy
 for t in range(6):
     inputs = rng.integers(0, N, (N, K))
     tables = rng.integers(0, 2, (N, 2 ** K))

@@ -11,7 +11,7 @@ from skcomplex.core.engine.runtime import simulate  # noqa: E402
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem  # noqa: E402
 
 
-def block_majority(s):
+def block_majority(s):  # scikit-complexity #30: block-spin coarse-graining is not in 0.9.0
     L = s.shape[0] // 3
     return np.sign(s[:3 * L, :3 * L].reshape(L, 3, L, 3).sum(axis=(1, 3)))
 

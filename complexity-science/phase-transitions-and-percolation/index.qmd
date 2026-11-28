@@ -48,8 +48,10 @@ hidden solution in two tabs: the argument, then a computation with its recorded 
 systems come from its catalogue: `IsingSystem`, `PottsSystem`, `CurieWeissSystem`, `SitePercolationSystem`, `ContinuumPercolationSystem`,
 `ContactProcessSystem` and `AbsorbingBirthDeathSystem`. They are run by `simulate` and analysed with `clusters` (labels, sizes, percolation
 measures and spanning probabilities), `correlation` (autocorrelation times and correlation lengths), `data_collapse` (finite-size scaling
-and crossings) and `fit_law`. NumPy is used for exact enumerations of small systems and for the block renormalisation of a lattice, which
-the package does not provide (issue #30).
+and crossings), `scaling` (exponents of power laws), `markov` (spectral gaps of exact transition matrices), `domains` (wall densities),
+and `fit_law`; mean-field equations are written with `DynamicalSystem`. NumPy is used for exact enumerations of small systems, for
+sampling independent site occupations, for the block renormalisation of a lattice, which the package does not provide (issue #30), and
+for the energy of a lattice configuration, which `IsingSystem` does not expose (issue #49).
 
 ## The Ising model and Monte Carlo {#sec-ising-monte-carlo}
 
@@ -419,6 +421,7 @@ from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 T = 2.5
 spins = np.asarray(simulate(IsingSystem(32, temperature=T, random_state=3), until=1000, random_state=3).get_values("spins.spin"))[500::25].reshape(-1, 32, 32)
+# scikit-complexity #49: the neighbour sum of the lattice is not public, so it is written out
 field = sum(np.roll(spins, shift, axis) for shift in (1, -1) for axis in (1, 2))
 dE = 2 * spins * field
 print(f"Metropolis {np.minimum(1, np.exp(-dE / T)).mean():.3f}, heat bath {(1 / (1 + np.exp(dE / T))).mean():.3f}")
@@ -504,6 +507,7 @@ from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 for T in (1.8, 2.27, 3.0):
     s = np.asarray(simulate(IsingSystem(16, temperature=T, random_state=5), until=3500, random_state=5).get_values("spins.spin"))[500:].reshape(-1, 16, 16)
+    # scikit-complexity #49: IsingSystem has no energy function, so the energy is written out
     E = -(s * (np.roll(s, 1, 1) + np.roll(s, 1, 2))).sum(axis=(1, 2))
     print(f"T = {T}: E/N = {E.mean() / 256:.4f}, C/N = {E.var() / (256 * T**2):.3f}")
 ```
@@ -542,6 +546,7 @@ from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 T = 2.5
 codes = np.arange(2**16)
 s = (2 * ((codes[:, None] >> np.arange(16)) & 1) - 1).reshape(-1, 4, 4)
+# scikit-complexity #49: IsingSystem has no energy function, so the energy is written out
 E = -(s * (np.roll(s, 1, 1) + np.roll(s, 1, 2))).sum(axis=(1, 2))
 w = np.exp(-(E - E.min()) / T)
 w /= w.sum()
@@ -709,6 +714,7 @@ from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 for start in ("up", "random"):
     s = np.asarray(simulate(IsingSystem(32, temperature=2.6, initial=start, random_state=8), until=3000, random_state=8).get_values("spins.spin")).reshape(-1, 32, 32)
+    # scikit-complexity #49: IsingSystem has no energy function, so the energy is written out
     E = -(s * (np.roll(s, 1, 1) + np.roll(s, 1, 2))).sum(axis=(1, 2)) / 1024
     print(f"{start}: E/N at t = 0, 10, 100: {E[[0, 10, 100]].round(3).tolist()}, mean after 500 sweeps {E[500:].mean():.4f}")
 ```
@@ -739,6 +745,7 @@ the chain must cross an energy barrier to reverse the magnetisation.
 ```{.python .run}
 import itertools
 import numpy as np
+from skcomplex.core.analysis import markov
 n = 6
 states = [np.array(s) for s in itertools.product([-1, 1], repeat=n)]
 index = {tuple(s): k for k, s in enumerate(states)}
@@ -751,7 +758,7 @@ for T in (3.0, 1.5, 0.75):
             t[i] *= -1
             P[k, index[tuple(t)]] = min(1, np.exp(-(H(t) - H(s)) / T)) / n
         P[k, k] = 1 - P[k].sum()
-    print(f"T = {T}: second eigenvalue modulus {np.sort(np.abs(np.linalg.eigvals(P)))[-2]:.5f}")
+    print(f"T = {T}: second eigenvalue modulus {1 - markov(P, kind='spectral-gap', matrix='transition').spectral_gap:.5f}")
 ```
 
 ```{.text .run-output}
@@ -1133,6 +1140,7 @@ from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 for sampler in ("metropolis", "heat-bath"):
     s = np.asarray(simulate(IsingSystem(16, temperature=2.5, sampler=sampler, random_state=15), until=6000, random_state=15).get_values("spins.spin"))[500:].reshape(-1, 16, 16)
+    # scikit-complexity #49: IsingSystem has no energy function, so the energy is written out
     E = -(s * (np.roll(s, 1, 1) + np.roll(s, 1, 2))).sum(axis=(1, 2)) / 256
     print(f"{sampler}: E/N = {E.mean():.4f}, <|m|> = {np.abs(s.mean(axis=(1, 2))).mean():.4f}")
 ```
@@ -1167,6 +1175,7 @@ The gap at four low temperatures and the fitted slope.
 ```{.python .run}
 import itertools
 import numpy as np
+from skcomplex.core.analysis import markov
 n = 6
 states = [np.array(s) for s in itertools.product([-1, 1], repeat=n)]
 index = {tuple(s): k for k, s in enumerate(states)}
@@ -1180,7 +1189,7 @@ for T in temps:
             t[i] *= -1
             P[k, index[tuple(t)]] = min(1, np.exp(-(H(t) - H(s)) / T)) / n
         P[k, k] = 1 - P[k].sum()
-    gaps.append(1 - np.sort(np.abs(np.linalg.eigvals(P)))[-2])
+    gaps.append(markov(P, kind="spectral-gap", matrix="transition").spectral_gap)
 print("gaps:", [f"{g:.3e}" for g in gaps], f"slope of log gap against 1/T: {np.polyfit(1 / np.array(temps), np.log(gaps), 1)[0]:.3f}")
 ```
 
@@ -2035,14 +2044,14 @@ Three sizes and the slope.
 
 ```{.python .run}
 import numpy as np
-from skcomplex.core.analysis import correlation
+from skcomplex.core.analysis import correlation, scaling
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 sizes, taus = (8, 16, 32, 64), []
 for L in sizes:
     m = np.asarray(simulate(IsingSystem(L, temperature=2.269, random_state=26), until=40500, random_state=26).get_values("spins.spin"))[500:].mean(axis=1)
     taus.append(correlation(np.abs(m), kind="auto", max_lag=8000).time[0])
-print("tau_int:", np.round(taus, 1).tolist(), f"z = {np.polyfit(np.log(sizes), np.log(taus), 1)[0]:.2f}")
+print("tau_int:", np.round(taus, 1).tolist(), f"z = {scaling(np.column_stack([sizes, taus]), kind="allometric").exponent:.2f}")
 ```
 
 ```{.text .run-output}
@@ -2076,6 +2085,7 @@ from skcomplex.core.analysis import correlation
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 s = np.asarray(simulate(IsingSystem(32, temperature=2.269, random_state=27), until=10500, random_state=27).get_values("spins.spin"))[500:].reshape(-1, 32, 32)
+# scikit-complexity #49: IsingSystem has no energy function, so the energy is written out
 E = -(s * (np.roll(s, 1, 1) + np.roll(s, 1, 2))).mean(axis=(1, 2))
 m = np.abs(s.mean(axis=(1, 2)))
 print(f"tau_int: energy {correlation(E, kind='auto').time[0]:.1f}, |m| {correlation(m, kind='auto').time[0]:.1f}")
@@ -2317,15 +2327,16 @@ The wall density after the quench, minus its equilibrium value at $T = 1.5$.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import domains, scaling
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
 s = np.asarray(simulate(IsingSystem(128, temperature=1.5, random_state=43), until=160, random_state=43).get_values("spins.spin")).reshape(-1, 128, 128)
-walls = ((s != np.roll(s, 1, 1)).mean(axis=(1, 2)) + (s != np.roll(s, 1, 2)).mean(axis=(1, 2))) / 2
+walls = np.array([domains(f, kind="interface-density").density[0] for f in s])
 eq = np.asarray(simulate(IsingSystem(128, temperature=1.5, initial="up", random_state=44), until=300, random_state=44).get_values("spins.spin")).reshape(-1, 128, 128)[100:]
-background = (((eq != np.roll(eq, 1, 1)).mean() + (eq != np.roll(eq, 1, 2)).mean()) / 2)
+background = np.mean([domains(f, kind="interface-density").density[0] for f in eq])
 times = np.array([10, 20, 40, 80, 160])
 excess = walls[times] - background
-print("wall density:", walls[times].round(4).tolist(), f"exponent of the excess {np.polyfit(np.log(times), np.log(excess), 1)[0]:.2f}")
+print("wall density:", walls[times].round(4).tolist(), f"exponent of the excess {scaling(np.column_stack([times, excess]), kind="allometric").exponent:.2f}")
 ```
 
 ```{.text .run-output}
@@ -2853,10 +2864,10 @@ The mean sizes and the fit.
 
 ```{.python .run}
 import numpy as np
-from skcomplex.core.analysis import clusters
+from skcomplex.core.analysis import clusters, scaling
 rng, ps = np.random.default_rng(12), np.array([0.4, 0.5, 0.55, 0.58])
 S = np.array([np.mean([clusters(rng.random((512, 512)) < p, kind="percolation").mean_size for _ in range(3)]) for p in ps])
-print("S:", S.round(1).tolist(), f"effective gamma {-np.polyfit(np.log(0.5927 - ps[1:]), np.log(S[1:]), 1)[0]:.2f}, exact 43/18 = {43 / 18:.2f}")
+print("S:", S.round(1).tolist(), f"effective gamma {-scaling(np.column_stack([0.5927 - ps[1:], S[1:]]), kind="allometric").exponent:.2f}, exact 43/18 = {43 / 18:.2f}")
 ```
 
 ```{.text .run-output}
@@ -2887,7 +2898,7 @@ Blind ants on the largest cluster, without periodic wrapping.
 
 ```{.python .run}
 import numpy as np
-from skcomplex.core.analysis import clusters
+from skcomplex.core.analysis import clusters, scaling
 rng = np.random.default_rng(13)
 steps = np.array([(1, 0), (-1, 0), (0, 1), (0, -1)])
 for p in (0.5927, 0.8):
@@ -2902,7 +2913,7 @@ for p in (0.5927, 0.8):
         pos[ok] = trial[ok]
         if t in (10, 30, 100, 300, 1000):
             msd.append(((pos - start) ** 2).sum(axis=1).mean())
-    print(f"p = {p}: MSD exponent {np.polyfit(np.log([10, 30, 100, 300, 1000]), np.log(msd), 1)[0]:.2f}")
+    print(f"p = {p}: MSD exponent {scaling(np.column_stack([[10, 30, 100, 300, 1000], msd]), kind="allometric").exponent:.2f}")
 ```
 
 ```{.text .run-output}
@@ -3249,13 +3260,13 @@ Boxes as stacked grids, the centre's label and the boundary labels.
 
 ```{.python .run}
 import numpy as np
-from scipy.ndimage import label
+from skcomplex.core.analysis import clusters
 rng = np.random.default_rng(18)
 for n in (2, 4, 6, 8):
     side, hits = 2 * n + 1, 0
     for g in rng.random((20000, side, side)) < 0.3:
         g[n, n] = True
-        lab, _ = label(g)
+        lab = clusters(g, kind="labels").labels
         boundary = np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]])
         hits += lab[n, n] in boundary
     print(f"n = {n}: estimate {hits / 20000:.4f}, bound {4 / 3 * 0.9**n:.4f}")
@@ -3396,12 +3407,12 @@ Mean cluster size of the centre.
 
 ```{.python .run}
 import numpy as np
-from scipy.ndimage import label
+from skcomplex.core.analysis import clusters
 rng = np.random.default_rng(20)
 for p in (0.1, 0.2, 0.3):
     sizes = []
     for g in rng.random((5000, 31, 31)) < p:
-        lab, _ = label(g)
+        lab = clusters(g, kind="labels").labels
         sizes.append(0 if lab[15, 15] == 0 else (lab == lab[15, 15]).sum())
     print(f"p = {p}: E|C(0)| = {np.mean(sizes):.3f} +- {np.std(sizes) / np.sqrt(5000):.3f}, bound {p * (1 + p) / (1 - 3 * p):.3f}")
 ```
@@ -3577,11 +3588,12 @@ At $h = 0$ on a finite lattice $\langle m\rangle = 0$, so the susceptibility per
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
+from skcomplex.core.analysis import scaling
 sizes, chi = (8, 16, 32, 64), []
 for L in sizes:
     m = np.asarray(simulate(IsingSystem(L, temperature=2.269, random_state=29), until=20500, random_state=29).get_values("spins.spin"))[500:].mean(axis=1)
     chi.append(L * L * (m**2).mean() / 2.269)
-print("chi/N:", np.round(chi, 2).tolist(), f"slope {np.polyfit(np.log(sizes), np.log(chi), 1)[0]:.2f}, gamma/nu = 1.75")
+print("chi/N:", np.round(chi, 2).tolist(), f"slope {scaling(np.column_stack([sizes, chi]), kind="allometric").exponent:.2f}, gamma/nu = 1.75")
 ```
 
 ```{.text .run-output}
@@ -3684,13 +3696,13 @@ Interpolated quantiles of the spanning curves.
 
 ```{.python .run}
 import numpy as np
-from skcomplex.core.analysis import clusters
+from skcomplex.core.analysis import clusters, scaling
 rng, ps = np.random.default_rng(25), np.linspace(0.45, 0.75, 31)
 sizes, widths = (16, 32, 64), []
 for L in sizes:
     curve = np.maximum.accumulate([clusters(rng.random((200, L, L)) < p, kind="spanning").probability for p in ps])
     widths.append(np.interp(0.9, curve, ps) - np.interp(0.1, curve, ps))
-print("widths:", np.round(widths, 4).tolist(), f"exponent {np.polyfit(np.log(sizes), np.log(widths), 1)[0]:.2f}, -1/nu = -0.75")
+print("widths:", np.round(widths, 4).tolist(), f"exponent {scaling(np.column_stack([sizes, widths]), kind="allometric").exponent:.2f}, -1/nu = -0.75")
 ```
 
 ```{.text .run-output}
@@ -3833,12 +3845,13 @@ Both estimators from the same runs.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import IsingSystem
+from skcomplex.core.analysis import scaling
 sizes, var_abs, second = (8, 16, 32), [], []
 for L in sizes:
     m = np.asarray(simulate(IsingSystem(L, temperature=2.269, random_state=32), until=40500, random_state=32).get_values("spins.spin"))[500:].mean(axis=1)
     var_abs.append(L * L * np.abs(m).var() / 2.269)
     second.append(L * L * (m**2).mean() / 2.269)
-fit = lambda y: np.polyfit(np.log(sizes), np.log(y), 1)[0]
+fit = lambda y: scaling(np.column_stack([sizes, y]), kind="allometric").exponent
 print(f"slope of N Var|m|/T {fit(var_abs):.3f}, slope of N<m^2>/T {fit(second):.3f}, gamma/nu = 1.75")
 ```
 
@@ -3969,12 +3982,12 @@ Central differences of the spanning probability.
 
 ```{.python .run}
 import numpy as np
-from skcomplex.core.analysis import clusters
+from skcomplex.core.analysis import clusters, scaling
 rng, sizes, slopes = np.random.default_rng(31), (16, 32, 64), []
 for L in sizes:
     up, down = (clusters(rng.random((1000, L, L)) < p, kind="spanning").probability for p in (0.6027, 0.5827))
     slopes.append((up - down) / 0.02)
-print("slopes:", np.round(slopes, 2).tolist(), f"1/nu = {np.polyfit(np.log(sizes), np.log(slopes), 1)[0]:.3f}, exact 0.75")
+print("slopes:", np.round(slopes, 2).tolist(), f"1/nu = {scaling(np.column_stack([sizes, slopes]), kind="allometric").exponent:.3f}, exact 0.75")
 ```
 
 ```{.text .run-output}
@@ -4085,6 +4098,7 @@ import numpy as np
 rng, p = np.random.default_rng(33), 0.4
 sites = rng.random((300, 300)) < p
 a, b, c = sites[0::2, 0::2], sites[0::2, 1::2], sites[1::2, 0::2]
+# scikit-complexity #30: block coarse-graining of a lattice is not in 0.9.0
 blocks = (a.astype(int) + b + c) >= 2
 print(f"block occupation {blocks.mean():.4f}, R(p) = {3 * p**2 - 2 * p**3:.4f}")
 ```
@@ -4345,6 +4359,7 @@ The block correlation and occupation.
 ```{.python .run}
 import numpy as np
 sites = np.random.default_rng(34).random((600, 600)) < 0.5
+# scikit-complexity #30: block coarse-graining of a lattice is not in 0.9.0
 blocks = (sites[0::2, 0::2].astype(int) + sites[0::2, 1::2] + sites[1::2, 0::2]) >= 2
 x, y = blocks[:, :-1].ravel(), blocks[:, 1:].ravel()
 print(f"occupation {blocks.mean():.4f}, correlation of neighbours {np.corrcoef(x, y)[0, 1]:.4f}")
@@ -4751,17 +4766,19 @@ stable, a transcritical bifurcation (@def-bifurcation).
 The equation integrated at three rates.
 
 ```{.python .run}
-import numpy as np
-from scipy.integrate import solve_ivp
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.general.dynamics import DynamicalSystem
 for lam in (0.8, 1.0, 1.5):
-    rho = solve_ivp(lambda t, r: lam * r * (1 - r) - r, (0, 200), [0.5], t_eval=[200]).y[0, 0]
-    print(f"lambda = {lam}: rho(200) = {rho:.4f}, fixed point {max(0.0, 1 - 1 / lam):.4f}")
+    field = DynamicalSystem(states={"rho": 0.5}, parameters={"lam": lam}, element="cp",
+                            equations={"rho": lambda s: s.target.lam * s.target.rho * (1 - s.target.rho) - s.target.rho})
+    rho = simulate(field, until=200, dt=200).get_values("cp.rho")[-1]
+    print(f"lambda = {lam}: rho(200) = {round(float(rho), 4) + 0.0:.4f}, fixed point {max(0.0, 1 - 1 / lam):.4f}")
 ```
 
 ```{.text .run-output}
 lambda = 0.8: rho(200) = 0.0000, fixed point 0.0000
 lambda = 1.0: rho(200) = 0.0050, fixed point 0.0000
-lambda = 1.5: rho(200) = 0.3334, fixed point 0.3333
+lambda = 1.5: rho(200) = 0.3333, fixed point 0.3333
 ```
 ::::
 :::
@@ -5109,15 +5126,20 @@ The explicit solution can be compared with a numerical integration. The two agre
 ::: {#exm-mfabs-solution}
 #### The solution in closed form
 
-For $\varepsilon = 0.5$, $a = 1$, $\rho_0 = 0.05$, the closed form and SciPy's integrator agree at $t = 1, 5, 20$, with $\rho \to 0.5$.
+For $\varepsilon = 0.5$, $a = 1$, $\rho_0 = 0.05$, the closed form and the package's integrator agree at $t = 1, 5, 20$, with $\rho \to 0.5$.
 
 ```{.python .run}
 import numpy as np
-from scipy.integrate import solve_ivp
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.core.engine.solvers import ScipyODESolver
+from skcomplex.systems.general.dynamics import DynamicalSystem
 eps, a, r0 = 0.5, 1.0, 0.05
 closed = lambda t: eps * r0 * np.exp(eps * t) / (eps + a * r0 * (np.exp(eps * t) - 1))
 t = np.array([1.0, 5.0, 20.0])
-numeric = solve_ivp(lambda t, r: eps * r - a * r**2, (0, 20), [r0], t_eval=t, rtol=1e-10).y[0]
+field = DynamicalSystem(states={"rho": r0}, parameters={"eps": eps, "a": a}, element="mf",
+                        equations={"rho": lambda s: s.target.eps * s.target.rho - s.target.a * s.target.rho**2})
+run = simulate(field, until=20, dt=1.0, solver=ScipyODESolver(rtol=1e-10, atol=1e-12))
+numeric = run.get_values("mf.rho")[t.astype(int)]
 print("closed:", closed(t).round(6).tolist(), "numeric:", numeric.round(6).tolist())
 ```
 
@@ -5279,6 +5301,7 @@ Stationary densities and decay rates from the closed form of part (a), evaluated
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 eps_values = np.array([0.02, 0.05, 0.1, 0.2])
 rho = lambda t, eps: 1 / (1 / eps + (2 - 1 / eps) * np.exp(-eps * t))
 stationary = [rho(1e4 / eps, eps) for eps in eps_values]
@@ -5288,7 +5311,7 @@ for eps in signed:
     t1, t2 = 8 / abs(eps), 12 / abs(eps)
     target = max(eps, 0.0)
     rates.append(np.log(abs(rho(t1, eps) - target) / abs(rho(t2, eps) - target)) / (t2 - t1))
-print(f"beta = {np.polyfit(np.log(eps_values), np.log(stationary), 1)[0]:.3f}, nu_par = {-np.polyfit(np.log(np.abs(signed)), np.log(1 / np.array(rates)), 1)[0]:.3f}")
+print(f"beta = {scaling(np.column_stack([eps_values, stationary]), kind="allometric").exponent:.3f}, nu_par = {-scaling(np.column_stack([np.abs(signed), 1 / np.array(rates)]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}

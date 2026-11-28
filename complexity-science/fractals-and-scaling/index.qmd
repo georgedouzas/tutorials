@@ -408,9 +408,9 @@ Check on the Cantor set of generation $12$: the ratio $N(\varepsilon)/N(\varepsi
 
 ```{.python .run}
 import numpy as np
-left = np.array([0.0])
-for _ in range(12):
-    left = np.concatenate([left / 3, left / 3 + 2 / 3])
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.fractals import CantorSetSystem
+left = simulate(CantorSetSystem(), until=12).structures[-1]["cantor"].matrices[:, 0, 2]
 def boxes(eps):
     return np.unique(np.concatenate([np.floor(left / eps), np.floor((left + 3.0**-12) / eps)])).size
 ratios = [boxes(3.0**-k * f) / boxes(3.0**-k) for k in range(2, 9) for f in (1.0, 0.8, 0.6, 0.4)]
@@ -418,7 +418,7 @@ print(f"ratios between {min(ratios):.3f} and {max(ratios):.3f}")
 ```
 
 ```{.text .run-output}
-ratios between 1.000 and 2.143
+ratios between 1.000 and 1.737
 ```
 ::::
 :::
@@ -496,9 +496,9 @@ The endpoints of generation $9$ give a grid picture of $\mathcal C \times \mathc
 ```{.python .run}
 import numpy as np
 from skcomplex.core.analysis import scaling
-left = np.array([0])
-for _ in range(9):
-    left = np.concatenate([left, left + 2 * 3 ** (9 - _ - 1)])
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.fractals import CantorSetSystem
+left = np.rint(simulate(CantorSetSystem(), until=9).structures[-1]["cantor"].matrices[:, 0, 2] * 3**9).astype(int)
 row = np.zeros(3**9, dtype=bool)
 row[left] = True
 dust = np.outer(row, row)
@@ -1248,15 +1248,14 @@ $4^{-j}$ meets is exact on the left endpoints.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.fractals import CantorSetSystem
 trajectory = simulate(CantorSetSystem(ratio=0.25), until=8)
 print("intervals:", int(trajectory.get_values("cantor.size")[-1]), "lengths:", trajectory.get_values("cantor.length")[-1].round(8))
-left = np.array([0.0])
-for _ in range(8):
-    left = np.concatenate([0.25 * left, 0.25 * left + 0.75])
+left = trajectory.structures[-1]["cantor"].matrices[:, 0, 2]
 counts = [np.unique(np.floor(left * 4**j + 1e-9)).size for j in range(1, 9)]
-print("counts:", counts, "slope", round(np.polyfit(np.arange(1, 9) * np.log(4), np.log(counts), 1)[0], 4))
+print("counts:", counts, "slope", round(scaling(np.column_stack([4.0 ** np.arange(1, 9), counts]), kind="allometric").exponent, 4))
 ```
 
 ```{.text .run-output}
@@ -2039,13 +2038,14 @@ with lines of slope $1$ and $2$ for comparison.](figures/dla_cluster.svg){#fig-d
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import DiffusionLimitedAggregationSystem
+from skcomplex.core.analysis import scaling
 run = simulate(DiffusionLimitedAggregationSystem(800, size=81, random_state=2), until=2000, random_state=2)
 agents = run.get_agents("walkers", -1)
 cells = np.asarray(agents.locations)[np.asarray(agents.values["stuck"]) > 0]
 r = np.hypot(*(cells - 40).T)
 radii = np.array([2, 4, 8, 16])
 mass = np.array([(r <= R).sum() for R in radii])
-print("particles:", len(cells), "M(R):", mass.tolist(), f"slope {np.polyfit(np.log(radii), np.log(mass), 1)[0]:.3f}")
+print("particles:", len(cells), "M(R):", mass.tolist(), f"slope {scaling(np.column_stack([radii, mass]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}
@@ -2157,6 +2157,7 @@ The two sets and their fitted slopes.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 i, j = np.mgrid[-100:101, -100:101]
 line = (j == 0)
 square = (np.abs(i) <= 50) & (np.abs(j) <= 50)
@@ -2164,7 +2165,7 @@ radii = np.arange(2, 41)
 for name, occupied in (("line", line), ("square", square)):
     r = np.hypot(i[occupied], j[occupied])
     mass = np.array([(r <= R).sum() for R in radii])
-    print(f"{name}: M(2) = {mass[0]}, M(40) = {mass[-1]}, slope {np.polyfit(np.log(radii), np.log(mass), 1)[0]:.4f}")
+    print(f"{name}: M(2) = {mass[0]}, M(40) = {mass[-1]}, slope {scaling(np.column_stack([radii, mass]), kind="allometric").exponent:.4f}")
 ```
 
 ```{.text .run-output}
@@ -2237,6 +2238,7 @@ Pascal's triangle modulo $2$, the counts $c_k$ and the mass-radius slope from th
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 rows = [np.array([1])]
 for _ in range(255):
     rows.append(np.concatenate([[1], (rows[-1][:-1] + rows[-1][1:]) % 2, [1]]))
@@ -2245,7 +2247,7 @@ points = np.array([(i, j - i / 2) for i, row in enumerate(rows) for j in np.flat
 r = np.hypot(*points.T)
 radii = 2.0 ** np.arange(2, 8)
 mass = np.array([(r <= R).sum() for R in radii])
-print(f"mass-radius slope {np.polyfit(np.log(radii), np.log(mass), 1)[0]:.4f}, log 3 / log 2 = {np.log(3) / np.log(2):.4f}")
+print(f"mass-radius slope {scaling(np.column_stack([radii, mass]), kind="allometric").exponent:.4f}, log 3 / log 2 = {np.log(3) / np.log(2):.4f}")
 ```
 
 ```{.text .run-output}
@@ -2323,6 +2325,7 @@ The cluster after $250$, $500$, $1000$ and $2000$ steps, with $R_g$ about the se
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import DiffusionLimitedAggregationSystem
+from skcomplex.core.analysis import scaling
 run = simulate(DiffusionLimitedAggregationSystem(800, size=81, random_state=2), until=2000, random_state=2)
 rows = []
 for frame in (250, 500, 1000, 2000):
@@ -2330,7 +2333,7 @@ for frame in (250, 500, 1000, 2000):
     cells = np.asarray(agents.locations)[np.asarray(agents.values["stuck"]) > 0]
     rows.append((len(cells), np.sqrt((((cells - 40) ** 2).sum(axis=1)).mean())))
 m, rg = np.array(rows).T
-print("M:", m.astype(int).tolist(), "R_g:", rg.round(2).tolist(), f"1/slope {1 / np.polyfit(np.log(m), np.log(rg), 1)[0]:.3f}")
+print("M:", m.astype(int).tolist(), "R_g:", rg.round(2).tolist(), f"1/slope {1 / scaling(np.column_stack([m, rg]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}
@@ -2366,15 +2369,16 @@ Three clusters of $600$ walkers on $81 \times 81$ nodes.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import DiffusionLimitedAggregationSystem
+from skcomplex.core.analysis import scaling
 radii, total, single = np.array([2, 4, 8, 16]), 0, []
 for seed in (11, 12, 13):
     run = simulate(DiffusionLimitedAggregationSystem(600, size=81, random_state=seed), until=1500, random_state=seed)
     agents = run.get_agents("walkers", -1)
     r = np.hypot(*(np.asarray(agents.locations)[np.asarray(agents.values["stuck"]) > 0] - 40).T)
     mass = np.array([(r <= R).sum() for R in radii])
-    single.append(round(float(np.polyfit(np.log(radii), np.log(mass), 1)[0]), 3))
+    single.append(round(float(scaling(np.column_stack([radii, mass]), kind="allometric").exponent), 3))
     total = total + mass
-print("single slopes:", sorted(single), f"slope of the sum {np.polyfit(np.log(radii), np.log(total), 1)[0]:.3f}")
+print("single slopes:", sorted(single), f"slope of the sum {scaling(np.column_stack([radii, total]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}
@@ -2530,13 +2534,14 @@ The two runs with $400$ walkers.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.statistical_mechanics import DiffusionLimitedAggregationSystem
+from skcomplex.core.analysis import scaling
 radii = np.array([2, 4, 8])
 for size in (41, 61):
     run = simulate(DiffusionLimitedAggregationSystem(400, size=size, random_state=21), until=1500, random_state=21)
     agents = run.get_agents("walkers", -1)
     r = np.hypot(*(np.asarray(agents.locations)[np.asarray(agents.values["stuck"]) > 0] - size // 2).T)
     mass = np.array([(r <= R).sum() for R in radii])
-    print(f"size {size}: M(R) = {mass.tolist()}, slope {np.polyfit(np.log(radii), np.log(mass), 1)[0]:.3f}")
+    print(f"size {size}: M(R) = {mass.tolist()}, slope {scaling(np.column_stack([radii, mass]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}
@@ -3161,10 +3166,11 @@ For $10\,000$ values of a Pareto law with $\alpha = 2$, the rank plot has slope 
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 x = np.sort((1 - np.random.default_rng(7).random(10000)) ** -1.0)[::-1]
 k = np.arange(1, x.size + 1)
 inside = (k >= 10) & (k <= 1000)
-print("top five:", x[:5].round(1).tolist(), f"slope {np.polyfit(np.log(k[inside]), np.log(x[inside]), 1)[0]:.3f}")
+print("top five:", x[:5].round(1).tolist(), f"slope {scaling(np.column_stack([k[inside], x[inside]]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}
@@ -3186,12 +3192,13 @@ has had the longest time to grow, sits above the line.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.social.spreading import SimonYuleSystem
+from skcomplex.core.analysis import scaling
 run = simulate(SimonYuleSystem(innovation=0.1, words_per_step=100), until=500, random_state=1)
 counts = np.sort(np.asarray(run.get_agents("words", -1).values["count"]))[::-1]
 k = np.arange(1, counts.size + 1)
 inside = (k >= 10) & (k <= 1000)
 print(f"{counts.size} distinct words in {int(counts.sum())}; top counts {counts[:4].astype(int).tolist()}")
-print(f"rank slope {np.polyfit(np.log(k[inside]), np.log(counts[inside]), 1)[0]:.3f}, predicted -(1 - a) = -0.9")
+print(f"rank slope {scaling(np.column_stack([k[inside], counts[inside]]), kind="allometric").exponent:.3f}, predicted -(1 - a) = -0.9")
 ```
 
 ```{.text .run-output}
@@ -3267,11 +3274,12 @@ below $-2$ further down; no single $\zeta$ describes it, although each decade lo
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 x = np.sort(np.random.default_rng(8).lognormal(0, 2, 10000))[::-1]
 k = np.arange(1, x.size + 1)
 for lo, hi in ((1, 10), (10, 100), (100, 1000), (1000, 10000)):
     inside = (k >= lo) & (k <= hi)
-    print(f"ranks {lo}-{hi}: slope {np.polyfit(np.log(k[inside]), np.log(x[inside]), 1)[0]:.3f}")
+    print(f"ranks {lo}-{hi}: slope {scaling(np.column_stack([k[inside], x[inside]]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}
@@ -3319,11 +3327,12 @@ The ratio of $x_{(k)}$ to the formula, and the rank slope, for $n = 10^5$.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 alpha, n = 2.5, 10**5
 x = np.sort((1 - np.random.default_rng(9).random(n)) ** (-1 / (alpha - 1)))[::-1]
 k = np.array([10, 100, 1000, 10000])
 print("ratios:", np.round(x[k - 1] / (k / n) ** (-1 / (alpha - 1)), 3).tolist(),
-      f"slope {np.polyfit(np.log(k), np.log(x[k - 1]), 1)[0]:.4f}, -1/(alpha - 1) = {-1 / (alpha - 1):.4f}")
+      f"slope {scaling(np.column_stack([k, x[k - 1]]), kind="allometric").exponent:.4f}, -1/(alpha - 1) = {-1 / (alpha - 1):.4f}")
 ```
 
 ```{.text .run-output}
@@ -3434,11 +3443,12 @@ A text of $3 \times 10^5$ keystrokes with the defaults $L = 5$, $q = 0.2$; the s
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.social.language import RandomTypewritingSystem
+from skcomplex.core.analysis import scaling
 run = simulate(RandomTypewritingSystem(random_state=1), until=300, random_state=1)
 counts = np.sort(np.asarray(run.get_agents("words", -1).values["count"]))[::-1]
 k = np.arange(1, counts.size + 1)
 inside = (k >= 10) & (k <= 3000)
-print(f"{counts.size} distinct words; slope {np.polyfit(np.log(k[inside]), np.log(counts[inside]), 1)[0]:.3f}, "
+print(f"{counts.size} distinct words; slope {scaling(np.column_stack([k[inside], counts[inside]]), kind="allometric").exponent:.3f}, "
       f"predicted {-(1 - np.log(0.8) / np.log(5)):.3f}")
 ```
 
@@ -3627,7 +3637,7 @@ $2000$ firms after $2000$ steps; sizes relative to the mean.
 
 ```{.python .run}
 import numpy as np
-from skcomplex.core.analysis import fit_law
+from skcomplex.core.analysis import fit_law, scaling
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.economics.finance import MultiplicativeProcessSystem
 run = simulate(MultiplicativeProcessSystem(n_firms=2000, sigma=0.2, c=0.3), until=2000, random_state=3)
@@ -3636,7 +3646,7 @@ x = np.sort(x / x.mean())[::-1]
 k = np.arange(1, x.size + 1)
 inside = (k >= 5) & (k <= 500)
 fit = fit_law(x, law="power", bootstrap=0, compare_with=())
-print(f"rank slope {np.polyfit(np.log(k[inside]), np.log(x[inside]), 1)[0]:.3f}; alpha {fit.exponent:.3f} above {fit.minimum:.2f}")
+print(f"rank slope {scaling(np.column_stack([k[inside], x[inside]]), kind="allometric").exponent:.3f}; alpha {fit.exponent:.3f} above {fit.minimum:.2f}")
 ```
 
 ```{.text .run-output}
@@ -3669,12 +3679,13 @@ The local slopes of the two samples.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 rng = np.random.default_rng(12)
 samples = {"Pareto": (1 - rng.random(10000)) ** -1.0, "lognormal": rng.lognormal(0, 2, 10000)}
 k = np.arange(1, 10001)
 for name, x in samples.items():
     x = np.sort(x)[::-1]
-    slopes = [np.polyfit(np.log(k[lo - 1 : hi]), np.log(x[lo - 1 : hi]), 1)[0] for lo, hi in ((10, 100), (100, 1000), (1000, 10000))]
+    slopes = [scaling(np.column_stack([k[lo - 1 : hi], x[lo - 1 : hi]]), kind="allometric").exponent for lo, hi in ((10, 100), (100, 1000), (1000, 10000))]
     print(name, np.round(slopes, 3).tolist())
 ```
 
@@ -3918,24 +3929,22 @@ $\mathbb P = 1/i$. The number of visits has mean $H_{N - 1}$ and variance $\sum_
 
 ## Python
 
-$20\,000$ runs on $1000$ states.
+$20\,000$ runs on $1000$ states, the first four runs of each of $5000$ balls of `SampleSpaceReducingSystem`.
 
 ```{.python .run}
 import numpy as np
-rng, N = np.random.default_rng(13), 1000
-lengths = []
-for _ in range(20000):
-    j, n = N, 0
-    while j > 1:
-        j = rng.integers(1, j)
-        n += 1
-    lengths.append(n)
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.stochastic_processes import SampleSpaceReducingSystem
+N = 1000
+run = simulate(SampleSpaceReducingSystem(5000, n_states=N, lam=1.0), until=100, random_state=13)
+levels = np.array([run.get_agents("balls", f).values["level"] for f in range(len(run.times))])
+lengths = np.concatenate([np.diff(np.flatnonzero(column == N))[:4] - 1 for column in levels.T])
 i = np.arange(1, N)
 print(f"mean {np.mean(lengths):.3f} (H = {(1 / i).sum():.3f}), variance {np.var(lengths):.3f} (formula {(1 / i * (1 - 1 / i)).sum():.3f})")
 ```
 
 ```{.text .run-output}
-mean 7.466 (H = 7.484), variance 5.924 (formula 5.841)
+mean 7.443 (H = 7.484), variance 5.796 (formula 5.841)
 ```
 ::::
 :::
@@ -4120,21 +4129,20 @@ The eigenvector and the formula.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import markov
 N, nu = 12, 0.7
 P = np.full((N, N), (1 - nu) / N)
 for j in range(2, N + 1):
     P[j - 1, : j - 1] += nu / (j - 1)
 P[0] = 0
 P[0, N - 1] = 1
-w, v = np.linalg.eig(P.T)
-pi = np.real(v[:, np.argmin(np.abs(w - 1))])
-pi /= pi.sum()
+pi = markov(P, kind="stationary", matrix="transition").stationary
 formula = np.cumprod(np.concatenate([[1], np.arange(1, N - 1) / (np.arange(1, N - 1) + nu)]))
 print("max deviation for i <= N - 1:", float(np.abs(pi[: N - 1] / pi[0] - formula).max()), "pi_N/pi_1:", round(pi[-1] / pi[0], 4))
 ```
 
 ```{.text .run-output}
-max deviation for i <= N - 1: 3.3306690738754696e-16 pi_N/pi_1: 1.1011
+max deviation for i <= N - 1: 2.220446049250313e-16 pi_N/pi_1: 1.1011
 ```
 ::::
 :::
@@ -4204,13 +4212,13 @@ The stationary vector for the uniform restart.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import markov
 N = 10
 P = np.zeros((N, N))
 for j in range(2, N + 1):
     P[j - 1, : j - 1] = 1 / (j - 1)
 P[0] = 1 / N
-w, v = np.linalg.eig(P.T)
-pi = np.real(v[:, np.argmin(np.abs(w - 1))])
+pi = markov(P, kind="stationary", matrix="transition").stationary
 print("i * pi_i / pi_1:", np.round(np.arange(1, N + 1) * pi / pi[0], 6).tolist())
 ```
 
@@ -5717,11 +5725,12 @@ The fitted exponents.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 x = np.cumsum(np.random.default_rng(37).standard_normal(10**5))
 taus = np.unique(np.logspace(0, 3, 15).astype(int))
 for q in (1, 2, 3, 4):
     v = [np.mean(np.abs(x[t:] - x[:-t]) ** q) for t in taus]
-    print(f"q = {q}: H(q) = {np.polyfit(np.log(taus), np.log(v), 1)[0]:.3f}")
+    print(f"q = {q}: H(q) = {scaling(np.column_stack([taus, v]), kind="allometric").exponent:.3f}")
 ```
 
 ```{.text .run-output}
@@ -5828,12 +5837,13 @@ The averaged periodogram and its low-frequency slope.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.soft_matter import FractionalBrownianMotionSystem
+from skcomplex.core.analysis import scaling
 paths = simulate(FractionalBrownianMotionSystem(4, H=0.8, D=0.5, n_dim=1), until=8192, dt=1.0, random_state=8).get_values("walkers.x")
 xi = np.diff(np.asarray(paths)[:, :, 0], axis=0)
 power = (np.abs(np.fft.rfft(xi - xi.mean(axis=0), axis=0)) ** 2).mean(axis=1)[1:]
 freq = np.arange(1, power.size + 1)
 low = freq <= 0.05 * freq.size
-beta = -np.polyfit(np.log(freq[low]), np.log(power[low]), 1)[0]
+beta = -scaling(np.column_stack([freq[low], power[low]]), kind="allometric").exponent
 print(f"beta = {beta:.3f}, (1 + beta)/2 = {(1 + beta) / 2:.3f}")
 ```
 
@@ -5940,11 +5950,12 @@ The ensemble mean squared displacement.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.physics.soft_matter import FractionalBrownianMotionSystem
+from skcomplex.core.analysis import scaling
 t = 2 ** np.arange(0, 10)
 for H in (0.3, 0.7):
     x = np.asarray(simulate(FractionalBrownianMotionSystem(200, H=H, D=0.5, n_dim=1), until=512, dt=1.0, random_state=9).get_values("walkers.x"))[:, :, 0]
     msd = ((x[t] - x[0]) ** 2).mean(axis=1)
-    print(f"H = {H}: slope {np.polyfit(np.log(t), np.log(msd), 1)[0]:.3f}, 2H = {2 * H}")
+    print(f"H = {H}: slope {scaling(np.column_stack([t, msd]), kind="allometric").exponent:.3f}, 2H = {2 * H}")
 ```
 
 ```{.text .run-output}
@@ -6146,26 +6157,25 @@ from below with a correction of order $1/n$.
 
 ## Python
 
-The exact values and a simulation of $5000$ sequences in the stationary state.
+The exact values and $5000$ walks of `RandomWalkWithMemorySystem`, whose velocity is the AR(1) sequence, started in the
+stationary state; the position after $1000$ steps is $S_{1000}$.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.engine.runtime import simulate
+from skcomplex.systems.mathematics.stochastic_processes import RandomWalkWithMemorySystem
 phi = 0.8
 c0 = 1 / (1 - phi**2)
 exact = lambda n: c0 + 2 * sum((n - k) * c0 * phi**k for k in range(1, n)) / n
 print({n: round(exact(n), 3) for n in (10, 100, 1000)})
-rng = np.random.default_rng(42)
-x = rng.standard_normal(5000) * np.sqrt(c0)
-total = np.zeros(5000)
-for _ in range(1000):
-    total += x
-    x = phi * x + rng.standard_normal(5000)
-print(f"simulated Var S_1000 / 1000 = {total.var() / 1000:.3f}")
+start = {"walkers.v": np.random.default_rng(42).standard_normal(5000) * np.sqrt(c0)}
+x = simulate(RandomWalkWithMemorySystem(5000, alpha=phi, sigma=1.0), until=1000, dt=1000, initial_state=start, random_state=42).get_values("walkers.x")[-1]
+print(f"simulated Var S_1000 / 1000 = {x.var() / 1000:.3f}")
 ```
 
 ```{.text .run-output}
 {10: 15.082, 100: 23.889, 1000: 24.889}
-simulated Var S_1000 / 1000 = 25.072
+simulated Var S_1000 / 1000 = 25.287
 ```
 ::::
 :::
@@ -7225,13 +7235,14 @@ The fitted exponent of the longest vessel against the blood volume.
 import numpy as np
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.biology.physiology import WestBrownEnquistSystem
+from skcomplex.core.analysis import scaling
 volumes, lengths = [], []
 for depth in range(3, 8):
     tree = WestBrownEnquistSystem(depth, n=2)
     run = simulate(tree, until=0.0, observables=tree.observables)
     volumes.append(run.get_values("blood_volume")[-1])
     lengths.append(2 ** ((depth - 1) / 3))
-print(f"exponent {np.polyfit(np.log(volumes), np.log(lengths), 1)[0]:.4f}, limit 0.25")
+print(f"exponent {scaling(np.column_stack([volumes, lengths]), kind="allometric").exponent:.4f}, limit 0.25")
 ```
 
 ```{.text .run-output}
@@ -7373,11 +7384,12 @@ The factor and the apparent exponent from the formula of the proposition.
 
 ```{.python .run}
 import numpy as np
+from skcomplex.core.analysis import scaling
 n = 2
 print({N: round((1 - n ** (-(N + 1) / 3)) ** -0.75, 5) for N in (5, 10, 20, 30)})
 N = np.arange(5, 11)
 V = n**N * (n ** ((N + 1) / 3) - 1) / (n ** (1 / 3) - 1)
-print(f"apparent exponent over depths 5-10: {np.polyfit(np.log(V), np.log(n**N), 1)[0]:.4f}")
+print(f"apparent exponent over depths 5-10: {scaling(np.column_stack([V, n**N]), kind="allometric").exponent:.4f}")
 ```
 
 ```{.text .run-output}
@@ -7607,7 +7619,7 @@ The simulation, the exact interval, the rank slope and the test.
 ```{.python .run}
 import numpy as np
 from scipy.stats import gamma
-from skcomplex.core.analysis import fit_law
+from skcomplex.core.analysis import fit_law, scaling
 from skcomplex.core.engine.runtime import simulate
 from skcomplex.systems.mathematics.stochastic_processes import ExponentialGrowthAtRandomTimesSystem
 run = simulate(ExponentialGrowthAtRandomTimesSystem(4000, mu=1.0, lam=1.0), until=40, random_state=11)
@@ -7619,7 +7631,7 @@ k = np.arange(1, x.size + 1)
 inside = (k >= 10) & (k <= 1000)
 fit = fit_law(x, law="power", bootstrap=40, compare_with=("lognormal",), random_state=0)
 ratio, p = fit.comparisons["lognormal"]
-print(f"alpha = {1 + x.size / s:.3f}, exact 95% interval ({1 + lo / s:.3f}, {1 + hi / s:.3f}); rank slope {np.polyfit(np.log(k[inside]), np.log(ranks[inside]), 1)[0]:.3f}")
+print(f"alpha = {1 + x.size / s:.3f}, exact 95% interval ({1 + lo / s:.3f}, {1 + hi / s:.3f}); rank slope {scaling(np.column_stack([k[inside], ranks[inside]]), kind="allometric").exponent:.3f}")
 print(f"free fit: alpha {fit.exponent:.3f} above {fit.minimum:.2f}, p = {fit.p_value:.2f}; lognormal R = {ratio:.2f} (p = {p:.2f})")
 ```
 
@@ -7666,7 +7678,7 @@ def stuck(frame):
 cells = stuck(-1)
 r = np.hypot(*(cells - 40).T)
 radii = np.array([2, 4, 8, 16])
-d_f = np.polyfit(np.log(radii), np.log([(r <= R).sum() for R in radii]), 1)[0]
+d_f = scaling(np.column_stack([radii, [(r <= R).sum() for R in radii]]), kind="allometric").exponent
 pairs = [(len(c), np.sqrt(((c - 40) ** 2).sum(axis=1).mean())) for c in (stuck(f) for f in (300, 500, 800, 1200, 2000))]
 growth = scaling(np.array(pairs), kind="allometric", resamples=200, random_state=0)
 grid = np.zeros((80, 80), dtype=bool)
