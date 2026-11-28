@@ -5,7 +5,7 @@
 Agents write step-by-step instructions with the exact values. The owner carries them out, because they involve
 payment, OAuth clients and secrets.
 
-- [ ] 1.1 Buy `proofandcode.dev` with Cloudflare Registrar. Verify: the zone shows as Active in the Cloudflare dashboard.
+- [x] 1.1 Buy `proofandcode.dev` with Cloudflare Registrar. Verify: the zone shows as Active in the Cloudflare dashboard.
 - [ ] 1.2 Create the Zero Trust organisation, choosing its team name and the Free plan. Verify: Zero Trust → Settings
   shows the team domain `<team>.cloudflareaccess.com`.
 - [ ] 1.3 Create the Google OAuth client and the GitHub OAuth app, each with the callback
