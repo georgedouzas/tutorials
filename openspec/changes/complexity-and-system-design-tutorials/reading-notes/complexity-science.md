@@ -534,3 +534,40 @@ closed with one section). Lenia, noisy automata and Gardens of Eden are not trea
 
 - Earlier chapters: `def-emergent-property`, `def-lyapunov-exponent` (Ch. 1); `def-attractor` (Ch. 2); `thm-similarity-dimension` (Ch. 4); Landau theory of
   the physics tutorial (`sec-landau-theory`). Maths group-theory `lem-cos-burnside`.
+
+## Chapter 7: pattern-formation (task 6.1, 2026-11-28)
+
+PDFs read read-only with `pdftotext -layout` from `~/Zotero/storage`; nothing written to Zotero. Sections: §1 `sec-fronts`, §2 `sec-turing`,
+§3 `sec-excitable-media`, §4 `sec-spatiotemporal-chaos`, following row 7 of the coverage plan.
+
+### Gros, *Complex and Adaptive Dynamical Systems* (2015)
+
+- Key `grosComplexAdaptiveDynamical2015` (PDF U9F6TD42). Read Ch. 4 introduction and Secs. 4.1-4.2 (pp. 111-126).
+- Used: reaction-diffusion and Fisher normal form (eqs. 4.2-4.4), front ansatz and phase plane (4.5-4.8), exact front (4.10-4.12), tails (4.13),
+  sum rules (4.14-4.17), linearised kernel and velocity selection (4.18-4.21), stability potential (4.22-4.23); Turing instability of superposed
+  systems (4.24-4.27), pattern formation and mode competition (4.28-4.32, Fig. 4.4), Gray-Scott fixed points and the absence of a Turing instability
+  (4.33-4.42).
+
+### Datseris and Parlitz, *Nonlinear Dynamics* (2022)
+
+- Key `datserisNonlinearDynamicsConcise2022` (PDF PW4T2U9L). Read Ch. 11, pp. 175-192.
+- Used: reaction-diffusion systems and linear stability (eqs. 11.1-11.10), admissible wavenumbers, the Brusselator (11.11-11.12, Figs. 11.1-11.3),
+  finite differences, excitable media and FitzHugh-Nagumo (11.14), annihilation, phase (11.15) and topological charge (11.16), extensive chaos and
+  Kuramoto-Sivashinsky (11.17-11.18, Fig. 11.7), cardiac arrhythmias and transient chaos (Sec. 11.3.3), Exercises 11.1, 11.2, 11.5, 11.7, 11.8,
+  11.10, 11.11.
+
+### Charbonneau, *Natural Complexity* (2017)
+
+- Key `charbonneauNaturalComplexityModeling2017` (PDF RNV4L6HW). Read Ch. 11, pp. 249-274.
+- Used: excitable systems and the activation-recovery cycle (Fig. 11.1), the hodgepodge machine rules (11.6-11.9), isolated-node growth, waves and the
+  wavelength estimate (Fig. 11.3, pp. 259-260), patterns (Fig. 11.5), nodal sawtooth (Fig. 11.6), spirals and symmetry breaking (Secs. 11.5-11.6).
+
+### Downey, *Think Complexity* (2018)
+
+- Key `downeyThinkComplexity2018` (PDF 2FIW8VKJ). Read Ch. 7, "Diffusion" and "Reaction-Diffusion".
+- Used: diffusion as a cellular automaton, Gray-Scott with $r_a = 0.5$, $r_b = 0.25$ and the three parameter sets of Figs. 7-2 to 7-4.
+
+### Links (cross-references, not references)
+
+- Earlier chapters: `def-flow-map`, `prp-linearised-stability`, `def-bifurcation`, `prp-hopf-normal-form`, `def-lyapunov-spectrum` (Ch. 2). Maths
+  differential-equations `def-heat-equation`, fourier-analysis `sec-fourier-series`.
