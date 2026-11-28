@@ -19316,12 +19316,12 @@ Sage expands $Z$ at $0$ and compares the low-temperature sum with three terms at
 x = var("x")
 Z = 1/(2*sinh(x/2))
 print(Z.series(x, 5))
-print((Z.subs(x=3) - sum(exp(-(n + 1/2)*3) for n in range(3))).n(digits=5), (exp(-(3 + 1/2)*3)).n(digits=5))
+print((Z.subs(x=3) - sum(exp(-(n + 1/2)*3) for n in range(3))).n(100).n(digits=5), (exp(-(3 + 1/2)*3)).n(digits=5))
 ```
 
 ```{.text .sage-output}
 1*x^(-1) + (-1/24)*x + 7/5760*x^3 + Order(x^5)
-0.000028849 0.000027536
+0.000028979 0.000027536
 ```
 ::::
 :::
@@ -21335,13 +21335,13 @@ z = 1
 for nu in (5, 20, 80):
     val = quad(lambda t: math.cos(nu*(2*t**3 - 3*z*t**2 - 12*z**2*t))/(1 + t**2), -6, 6, limit=20000)[0]
     lead = sqrt(pi/(9*z*nu))*(cos(7*nu*z^3 - pi/4)/(1 + z^2) + cos(20*nu*z^3 - pi/4)/(1 + 4*z^2))
-    print(nu, round(val, 6), lead.n(digits=6), " nu*|val - lead| =", (nu*abs(val - lead)).n(digits=4))
+    print(nu, round(val, 6), lead.n(digits=6), " nu*|val - lead| =", (nu*abs(RealField(100)(val) - RealField(100)(lead))).n(digits=4))
 ```
 
 ```{.text .sage-output}
-5 -0.111115 -0.111119  nu*|val - lead| = 0.00001431
-20 0.010963 0.0108336  nu*|val - lead| = 0.002825
-80 0.019948 0.0199512  nu*|val - lead| = 0.001011
+5 -0.111115 -0.111119  nu*|val - lead| = 0.00001436
+20 0.010963 0.0108336  nu*|val - lead| = 0.002585
+80 0.019948 0.0199512  nu*|val - lead| = 0.0002395
 ```
 ::::
 :::

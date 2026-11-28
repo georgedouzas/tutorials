@@ -41,7 +41,7 @@
 | $q_{lm}$, $Q_{ij}$ | multipole moments $\int\rho\,r^lY_{lm}^*$ and quadrupole tensor $\int\rho\,(3x_ix_j - r^2\delta_{ij})$ of a charge distribution |
 | $J_\nu$, $I_\nu$ | Bessel function and modified Bessel function of order $\nu$ |
 | $j_{\nu,k}$ | $k$-th positive zero of $J_\nu$ |
-| $H_n(x)$, $\psi_n$ | Hermite polynomial $(-1)^ne^{x^2}\frac{d^n}{dx^n}e^{-x^2}$ and Hermite function $H_ne^{-x^2/2}$ (with an argument or among special functions; a bare $H_n$ is the harmonic number) |
+| $H_n(x)$, $\psi_n$ | Hermite polynomial $(-1)^ne^{x^2}\frac{d^n}{dx^n}e^{-x^2}$ and Hermite function $H_ne^{-x^2/2}$ (with an argument or among special functions; a bare $H_n$ is the harmonic number); $\mathrm{He}_n(x) = 2^{-n/2}H_n(x/\sqrt2)$, the monic (probabilists') Hermite polynomial |
 | $(a)_k$ | Pochhammer symbol $a(a + 1)\cdots(a + k - 1)$, $(a)_0 = 1$ |
 | $L_n^\alpha$, $L_n$ | associated Laguerre polynomial $\frac{x^{-\alpha}e^x}{n!}\frac{d^n}{dx^n}(e^{-x}x^{n+\alpha})$, $\alpha > -1$; $L_n = L_n^0$ |
 | $T_n(x)$, $U_n(x)$ | Chebyshev polynomials of the first and second kind, $T_n(\cos\theta) = \cos n\theta$, $U_n(\cos\theta)\sin\theta = \sin(n + 1)\theta$ (among special functions; elsewhere $T_n$ is a Taylor polynomial) |
@@ -105,7 +105,7 @@
 | $\delta_\varepsilon$ | delta sequence: functions $\geq 0$ of unit integral concentrating at $\mathbf 0$ as $\varepsilon \to 0^+$ |
 | $C^k_c(\mathbb R^n)$ | functions of class $C^k$ that vanish outside a bounded set |
 | $G$, $G(x, \xi)$ | fundamental solution $G(\mathbf x)$ of a differential operator; Green's function $G(x, \xi)$ of a boundary value problem, with $x_< = \min(x, \xi)$, $x_> = \max(x, \xi)$ |
-| $G_{\mathrm{ret}}$, $G_F$ | retarded Green's function; Feynman Green's function $\frac{i}{2\omega}e^{-i\omega\lvert t\rvert}$ of $\frac{d^2}{dt^2} + \omega^2$ |
+| $G_{\mathrm{ret}}$, $G_{\mathrm{adv}}$, $G_F$ | retarded and advanced Green's functions; Feynman Green's function $\frac{i}{2\omega}e^{-i\omega\lvert t\rvert}$ of $\frac{d^2}{dt^2} + \omega^2$ |
 | $\mathcal L[f](s)$, $F(s)$ | Laplace transform $\int_0^\infty f(t)e^{-st}\,dt$, always written with its function in brackets (plain $\mathcal L$ is a Lagrangian) |
 | $\sigma_0(f)$, $\sigma_a(f)$ | growth abscissa (infimum of the exponents $a$ with $\lvert f(t)\rvert \leq Me^{at}$) and abscissa of absolute convergence of a Laplace transform |
 | $H(s)$ | transfer function $1/p(s)$ of a linear equation $p(d/dt)y = f$ with constant coefficients |
@@ -195,7 +195,8 @@
 | $B(a, b)$ | Beta function, $\int_0^1t^{a-1}(1 - t)^{b-1}dt = \Gamma(a)\Gamma(b)/\Gamma(a + b)$ |
 | $B_n$ | Bernoulli numbers, $\frac t{e^t - 1} = \sum_n B_n t^n/n!$ |
 | $\gamma$ | Euler's constant $\lim(H_n - \log n) = -\Gamma'(1)$, where no contour $\gamma$ is in play |
-| $\operatorname{erf}$ | error function |
+| $\operatorname{erf}$, $\operatorname{erfc}$, $\operatorname{erfi}$ | error function $\frac2{\sqrt\pi}\int_0^xe^{-t^2}dt$; complementary error function $1 - \operatorname{erf}$; imaginary error function $\frac2{\sqrt\pi}\int_0^xe^{t^2}dt$ |
+| $\operatorname{Ai}$ | Airy function, $\operatorname{Ai}(x) = \frac1{2\pi}\int e^{i(t^3/3 + xt)}\,dt$ |
 | $O(\cdot)$ | Landau symbol: bounded by a constant multiple of its argument |
 | $o(\cdot)$ | Landau symbol: small compared with its argument, $f = o(g)$ when $f/g \to 0$ |
 | $f \sim g$ | $f$ is asymptotic to $g$, $f/g \to 1$; $f \sim \sum_na_n\varphi_n$ is an asymptotic expansion |

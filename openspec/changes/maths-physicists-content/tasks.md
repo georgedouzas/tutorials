@@ -66,7 +66,7 @@ one `##` section per agent run.
 
 ## 5. Close
 
-- [ ] 5.1 Update the landing page, glossary and notation page for the new sections, chapters, terms and symbols;
+- [x] 5.1 Update the landing page, glossary and notation page for the new sections, chapters, terms and symbols;
   `check_content.py` reports nothing for the whole tutorial; full render with no warnings; `harvest.py` clean;
   every chapter listed in `_raised.txt`; the reading notes in `reading-notes/` written to Zotero. The owner asked
   on 2026-11-22 for them to be written as they accumulate: the first batch (chapters 1-7 and the raised sections of

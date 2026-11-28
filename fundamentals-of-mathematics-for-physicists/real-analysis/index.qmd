@@ -26296,11 +26296,11 @@ for n in [5, 10, 50]:
 a = lambda n: log(factorial(n)) - (n + 1/2)*log(n) + n
 for n in [1, 2, 10, 100]:
     d = (a(n) - a(n + 1)).n(100)
-    print("n =", n, ": a_n =", a(n).n(digits=10), "; 0 < a_n - a_{n+1} < 1/(12n) - 1/(12(n+1)):", bool(0 < d < 1/(12*n) - 1/(12*(n + 1))))
+    print("n =", n, ": a_n =", a(n).n(100).n(digits=10), "; 0 < a_n - a_{n+1} < 1/(12n) - 1/(12(n+1)):", bool(0 < d < 1/(12*n) - 1/(12*(n + 1))))
 W = lambda m: prod(QQ(4*k^2)/(4*k^2 - 1) for k in range(1, m + 1))
 print("W_m = 2^(4m) (m!)^4/((2m)!^2 (2m+1)) for m <= 30:", all(W(m) == 2^(4*m)*factorial(m)^4/(factorial(2*m)^2*(2*m + 1)) for m in range(1, 31)))
 print("W_m for m = 10, 100, 1000:", [W(m).n(digits=8) for m in [10, 100, 1000]], "; pi/2 =", (pi/2).n(digits=8))
-print("e^(a_1000) =", exp(a(1000)).n(digits=10), "; sqrt(2 pi) =", sqrt(2*pi).n(digits=10))
+print("e^(a_1000) =", exp(a(1000)).n(100).n(digits=10), "; sqrt(2 pi) =", sqrt(2*pi).n(digits=10))
 ```
 
 ```{.text .sage-output}
@@ -26310,10 +26310,10 @@ n = 50 : integral bounds hold: True ; 1 <= log n! - (n log n - n) <= log(n+1) + 
 n = 1 : a_n = 1.000000000 ; 0 < a_n - a_{n+1} < 1/(12n) - 1/(12(n+1)): True
 n = 2 : a_n = 0.9602792292 ; 0 < a_n - a_{n+1} < 1/(12n) - 1/(12(n+1)): True
 n = 10 : a_n = 0.9272690966 ; 0 < a_n - a_{n+1} < 1/(12n) - 1/(12(n+1)): True
-n = 100 : a_n = 0.9197718650 ; 0 < a_n - a_{n+1} < 1/(12n) - 1/(12(n+1)): True
+n = 100 : a_n = 0.9197718638 ; 0 < a_n - a_{n+1} < 1/(12n) - 1/(12(n+1)): True
 W_m = 2^(4m) (m!)^4/((2m)!^2 (2m+1)) for m <= 30: True
 W_m for m = 10, 100, 1000: [1.5338519, 1.5668937, 1.5704039] ; pi/2 = 1.5707963
-e^(a_1000) = 2.506837264 ; sqrt(2 pi) = 2.506628275
+e^(a_1000) = 2.506837169 ; sqrt(2 pi) = 2.506628275
 ```
 ::::
 :::
