@@ -27,6 +27,8 @@ chapters are written.
 
 ## C
 
+- **Cache load, latency and staleness**: @prp-cache-load (@sec-caching)
+- **Cache patterns** (hit ratio, cache-aside, read-through, write-through, write-back, write-around): @def-cache-patterns (@sec-caching)
 - **CAP properties and PACELC** (atomic consistency, availability, partitions, CP and AP): @def-cap (@sec-consistency-and-consensus)
 - **CAP theorem** (asynchronous and partially synchronous models): @thm-cap (@sec-consistency-and-consensus)
 - **Collisions of random identifiers** (birthday bounds, bits needed, structured identifiers): @prp-id-collision
@@ -46,11 +48,13 @@ chapters are written.
 - **Data model** (relational, key-value, document, wide-column and graph; access patterns): @def-data-model
   (@sec-storage-and-databases)
 - **Design process**: @def-design-process (@sec-estimation-and-the-design-process)
+- **Distributed caches** (partitioned, replicated hot keys, local caches, cold and warm caches): @def-distributed-cache (@sec-caching)
 
 ## E
 
 - **Erlang C formula** (the M/M/c queue, probability of waiting, mean wait): @thm-erlang-c
   (@sec-performance-and-queueing)
+- **Eviction policies and the independent reference model** (LRU, LFU, FIFO, random, Zipf laws): @def-eviction (@sec-caching)
 - **Exponential distribution and Poisson process** (no memory, competition, Erlang arrival times, Poisson counts):
   @def-poisson-process (@sec-performance-and-queueing)
 
@@ -69,15 +73,18 @@ chapters are written.
   @def-happens-before (@sec-replication-and-partitioning)
 - **Heartbeat detector** (detection time, false suspicions, choice of timeout): @prp-heartbeat-detector
   (@sec-replication-and-partitioning)
+- **HTTP validation and cache warming** (entity tags, 304, no-cache, must-revalidate, no-store): @def-http-caching (@sec-caching)
 
 ## I
 
 - **Identifier schemes** (auto-increment, ticket server, stride, UUID versions 4 and 7, Snowflake): @def-unique-id
   (@sec-replication-and-partitioning)
+- **Independent reference model, best hit ratio under** (top-$C$ popularity): @prp-irm-bound (@sec-caching)
 - **Index, B-tree, LSM tree and Bloom filter** (covering index, memtable, SSTable, tombstone, compaction):
   @def-storage-engine (@sec-storage-and-databases)
 - **Interface of a web service** (REST, RPC and GraphQL; safe and idempotent operations, idempotency keys, pagination,
   backward compatibility and versions): @def-web-api (@sec-the-web-stack)
+- **Invalidation and stampede protection** (expiry, write-invalidate, versioned keys, coalescing, jitter): @def-invalidation (@sec-caching)
 - **Inverted index** (analyser, posting lists, Boolean and phrase queries, tf-idf): @def-inverted-index
   (@sec-storage-and-databases)
 
@@ -142,6 +149,7 @@ chapters are written.
   hierarchies): @def-request-routing (@sec-replication-and-partitioning)
 - **Serialisability and two-phase locking** (precedence graph, lock points): @prp-serializability
   (@sec-storage-and-databases)
+- **Stampedes, store requests at expiry** (with and without coalescing, jitter): @prp-stampede (@sec-caching)
 - **Stateless service** (session state, sticky sessions, session replication; vertical, horizontal and automatic
   scaling): @def-stateless-service (@sec-the-web-stack)
 

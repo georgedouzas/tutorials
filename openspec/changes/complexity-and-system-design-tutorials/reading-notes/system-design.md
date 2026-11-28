@@ -538,3 +538,34 @@ Statements: `def-consistency-models`, `prp-linearisability`, `def-cap`, `thm-cap
 - Run blocks: plain Python and NumPy; brute-force linearisability checker; seeded single-process simulations of single-decree Paxos (loss, reordering,
   several proposers) and of Raft (elections, AppendEntries, crashes, loss) that check the safety properties on every run, with deliberately broken
   variants (no promise, own value, no election restriction, forgotten votes) that do violate them. SimPy was not needed.
+
+## Chapter 7: caching (task 6.2, 2026-11-28)
+
+Outline (approved row 7): §1 where caches sit and the access patterns; §2 eviction and hit ratio, Zipf workloads; §3 invalidation, consistency,
+stampede protection; §4 distributed caches; §5 HTTP caching and cache warming. Statements: `def-cache-patterns`, `prp-cache-load`, `def-eviction`,
+`prp-irm-bound`, `def-invalidation`, `prp-stampede`, `def-distributed-cache`, `def-http-caching`. The TTL hit ratio is recalled from chapter 2
+(`prp-cdn-ttl-hit-ratio`) by link, not proved again.
+
+### Sources
+
+- Tan Secs. 4.8-4.12 (pp. 99-107): benefits and limits, cache-aside, read-through, write-through, write-back, write-around, caching as a service and
+  request coalescing, what to cache, fingerprinting, dependent responses, replacement policies (random, LRU, FIFO, LIFO), cache warming. Tan Ch. 13 not
+  needed: chapter 2 covered HTTP caching at the edge.
+- Liu Ch. 5 "Cache Strategies" (purposes, hit rate, what to cache, write-through/back/around with delete-on-update, invalidation options, eviction LRU/LFU and
+  their failure cases, custom eviction, failures) and "Thundering Herd" (cache blocking with timeout).
+- Xu Ch. 1 "Cache tier" (calls cache-aside "read-through", corrected in `exm-cp-xu-name`), "Considerations for using cache".
+- Sinha Ch. 6 (eviction policies incl. MRU, questioned in `exr-ev-sinha-mru`; O(1) LRU; co-located and standalone caches; consistent hashing; replicas).
+- Chubby Sec. 2.7 (consistent write-through cache with invalidations; why invalidate rather than update).
+- RFC 9111 (already in the bib, approved with chapter 2), Secs. 4.2.4, 4.3, 4.3.3, 5.2.2.2, 5.2.2.4, 5.2.2.5, re-read for validation and directives.
+
+### Proved, quoted, conventions
+
+- Proved: `prp-cache-load` (load, latency, staleness bounded by the TTL counted from the store read), `prp-irm-bound` (no online policy beats the top-C
+  popularity under the IRM; static top-C reaches it; Zipf brackets), `prp-stampede` (Poisson stampede size, coalescing, jitter bound).
+- The independent reference model and Zipf law are the chapter's definitions; no source on them was read (the benchmark books mention skew only
+  informally). No new references.
+
+### Figures and software
+
+- D2: `figures/cache_flows.d2`. Python: `figures/hit_curve.py` (LRU, LFU and the IRM bound), `figures/stampede.py` (store requests per expiry).
+- Run blocks: plain Python and NumPy; LRU/LFU/FIFO/random replays on seeded Zipf traces; stampede simulations without SimPy.

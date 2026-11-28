@@ -76,6 +76,11 @@ and says how the two meanings are told apart where they meet.
 | $L$ †, $\rho$ † | length of a lease, and the bound on relative clock drift: one clock runs at most $1 + \rho$ times as fast as another |
 | $\tau$ † | a fencing token (lock generation number) |
 | $q$ † | size of a quorum |
+| $t_c$, $t_s$, $t_w$ | times of a cache read, a store read and a cache write |
+| $C$ † | capacity of a cache, in keys |
+| $p_k$, $P_C$ | popularity of key $k$ under the independent reference model, and the total popularity of the $C$ most popular keys |
+| $s$ †, $H_{K,s}$ | exponent of a Zipf law, and the normalising sum $\sum_{j \leq K}j^{-s}$ |
+| $r$ †, $J$ | time to regenerate a cached value, and the width of the TTL jitter interval |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
 | $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |

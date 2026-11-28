@@ -1,0 +1,27 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+aside: "Cache-aside read" {
+  label.near: bottom-center
+  direction: right
+  app: "Application"
+  cache: "Cache"
+  store: "Store"
+  app -> cache: "1. get(k)"
+  cache -> app: "2. miss"
+  app -> store: "3. read k"
+  app -> cache: "4. put(k, v)"
+}
+
+through: "Write-through" {
+  label.near: bottom-center
+  direction: right
+  app: "Application"
+  cache: "Cache"
+  store: "Store"
+  app -> cache: "1. write(k, v)"
+  cache -> store: "2. write(k, v)"
+  store -> cache: "3. ok"
+  cache -> app: "4. ok"
+}
