@@ -153,6 +153,21 @@ and says how the two meanings are told apart where they meet.
 | $a$ †, $c$ † | availability of one region, and probability of a correlated failure of all regions |
 | $\ell$ †, $\lambda_w$ | replication lag between regions, and the rate of acknowledged writes |
 | $\theta_d$, $\theta_r$, $\theta_w$ | times to detect a regional failure, to move traffic and to warm up the new region |
+| $a(u)$, $a_0$, $a_\infty$, $T$ † | accuracy of a model at age $u$, at training, in the long run, and its decay time |
+| $P$ †, $K$ †, $c$ † | retraining period, cost of one retraining, and cost per unit time of lost accuracy |
+| $s$ †, $e$ †, $e_s$ | fraction of requests with skewed features, and error rates on consistent and skewed requests |
+| $s(B) = s_0 + s_1B$, $B_{\max}$, $\tau$ † | time to run a batch of $B$ requests, the maximum batch size, and the maximum wait of dynamic batching |
+| $h$ †, $c_1$, $c_2$ | share of requests a cascade's cheap model handles, and the cost per request of its two models |
+| $n_p$ †, $n_o$ | prompt and output tokens of an LLM request |
+| $\kappa$, $M$ †, $W$ †, $\ell$ †, $\beta$ † | KV-cache bytes per token, accelerator memory, memory for weights, maximum sequence length, and KV block size |
+| $t(b) = t_0 + t_1b$, $\theta$ † | decode step time for a batch of $b$ sequences, and a target time per output token |
+| $N$ †, $d$ †, $C$ †, $n_p$ † | vectors in an index, their dimension, the cells of an inverted-file index, and the cells it probes |
+| $c$ †, $o$ † | chunk size and overlap, in tokens |
+| $\phi$ †, $c_m$, $c_\ell$, $k_{\mathrm{rrf}}$ | false-hit fraction of a semantic cache, costs of a model call and a lookup, and the constant of reciprocal rank fusion |
+| $c_t$, $o_t$, $a_t$ † | an agent's context, observation and action at step $t$ |
+| $p$ †, $v$, $r$ †, $q$ †, $g$, $S$ † | step success probability, detection probability of a checker, attempts per step, resulting step reliability, per-step completion probability, and step cap |
+| $\varepsilon$ †, $\alpha$ †, $s$ †, $w$ † | margin and failure probability of an evaluation, and a judge's acceptance rates of correct and wrong answers |
+| $\mu_i$ †, $f_i$ †, $D_i$, $\delta$ † | miss and false-block rates of guardrail $i$, the score difference on item $i$, and the disagreement rate of two versions |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
 | $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |

@@ -9,9 +9,13 @@ chapters are written.
 
 ## A
 
+- **Accuracy between retrainings and the cost of skew** (average accuracy, exponential decay, retraining cost, train-serve skew): @prp-freshness
+  (@sec-ml-llm-and-agent-systems)
 - **Adaptive throttling, bounded queues and goodput** (sent and rejected requests, latency of a bounded queue, useful throughput under overload): @prp-overload
   (@sec-reliability-and-operations)
 - **Admission bounds of rate limiters** (token bucket, sliding window log, fixed window and sliding window counters): @thm-rate-limits (@sec-reliability-and-operations)
+- **Agent loop, tools, planning and reflection, workflows, the Model Context Protocol, durable tool calls, budgets and multi-agent systems**:
+  @def-agent (@sec-ml-llm-and-agent-systems)
 - **Analytical storage** (OLTP and OLAP, row and column layouts, run-length and dictionary encoding, partitions, warehouses,
   lakes, star schemas): @def-analytical-storage (@sec-batch-and-stream-processing)
 - **Architectural characteristic**: @def-architectural-characteristic (@sec-estimation-and-the-design-process)
@@ -27,6 +31,9 @@ chapters are written.
 
 - **Backlog of a queue under a burst** (fluid model, drain time, waits, random arrivals):
   @prp-backlog (@sec-messaging-and-event-streams)
+- **Batch and online inference, dynamic batching, cascades, shadow and canary rollout, and drift**: @def-model-serving (@sec-ml-llm-and-agent-systems)
+- **Batching trade-off and the economics of cascades** (throughput limit, batching delay, capacity, cascade cost): @prp-dynamic-batching
+  (@sec-ml-llm-and-agent-systems)
 - **Block, file and object storage** (blocks, files and directories, network-attached storage, buckets and keys,
   distributed file system, chunks and master): @def-storage-kinds (@sec-storage-and-databases)
 - **Bloom filter false-positive rate** (probability of a zero bit, optimal number of hash functions, bits per key):
@@ -51,6 +58,8 @@ chapters are written.
   Lamport's condition): @thm-commit-wait (@sec-distributed-transactions)
 - **Components, coupling and deployment models** (logical components, dependency graph, afferent, efferent and total coupling, instability,
   technical and domain partitioning, monolithic and distributed deployment): @def-components (@sec-architecture-styles)
+- **Compounding steps, verification, budgets, idempotency and voting** (agent reliability): @prp-agent-reliability (@sec-ml-llm-and-agent-systems)
+- **Concurrency, the batch knob, cost per token and batching waste** (LLM serving capacity): @prp-llm-capacity (@sec-ml-llm-and-agent-systems)
 - **Conditional writes, unique slots and holds** (lost updates, double bookings, capacity held, optimistic retries):
   @prp-reservation (@sec-distributed-transactions)
 - **Consensus and replicated state machines** (agreement, validity, termination, crash faults): @def-consensus (@sec-consistency-and-consensus)
@@ -64,6 +73,7 @@ chapters are written.
 - **Content delivery network** (edge servers, cache key, freshness lifetime, hit ratio, purge and versioning):
   @def-cdn (@sec-the-web-stack)
 - **Coordination services** (locks, sessions, leases, fencing tokens, lock-delay): @def-coordination (@sec-consistency-and-consensus)
+- **Cost and recall of an inverted-file index, chunk coverage and semantic caching**: @prp-retrieval (@sec-ml-llm-and-agent-systems)
 - **Count-min sketch, error of** (one-sided error, width and depth, merging): @thm-count-min (@sec-batch-and-stream-processing)
 - **Coupling, sums, ranges and reach of** (total coupling, instability bounds, change propagation, network calls per request): @prp-coupling
   (@sec-architecture-styles)
@@ -87,6 +97,8 @@ chapters are written.
 
 - **Erlang C formula** (the M/M/c queue, probability of waiting, mean wait): @thm-erlang-c
   (@sec-performance-and-queueing)
+- **Evaluation pipelines, guardrails, prompt injection, tool permissions, traces and cost control**: @def-ai-operations (@sec-ml-llm-and-agent-systems)
+- **Evaluation set size, judge correction, layered guardrails and paired comparison**: @prp-evaluation (@sec-ml-llm-and-agent-systems)
 - **Event sourcing, CQRS and change data capture** (snapshots, projections, dual writes, transactional outbox):
   @def-event-sourcing (@sec-messaging-and-event-streams)
 - **Event time, windows, watermarks and checkpoints** (tumbling, sliding and session windows, late events):
@@ -199,6 +211,8 @@ chapters are written.
   facade routing): @prp-phased-migration (@sec-architecture-styles)
 - **Physical clocks, TrueTime and external consistency** (drift, skew, strong clock condition, start rule, commit
   wait): @def-truetime (@sec-distributed-transactions)
+- **Prefill and decode, the KV cache, batching policies and cost per token** (continuous batching, paged KV cache, speculative
+  decoding as given): @def-llm-serving (@sec-ml-llm-and-agent-systems)
 - **Publish-subscribe** (topics, subscriptions, push and pull, retention):
   @def-pubsub (@sec-messaging-and-event-streams)
 
@@ -228,6 +242,8 @@ chapters are written.
   @def-response-time (@sec-performance-and-queueing)
 - **Retries and dead-letter queues** (attempts, backoff, head-of-line blocking, retry amplification): @prp-retry-dlq
   (@sec-messaging-and-event-streams)
+- **Retrieval-augmented generation, chunking, approximate nearest-neighbour indexes, hybrid search, semantic caches and retrieval metrics**
+  (IVF, HNSW, reciprocal rank fusion, recall@K, MRR): @def-rag (@sec-ml-llm-and-agent-systems)
 - **Retry load, retry budgets, storms and deadlines**: @prp-retry-load (@sec-reliability-and-operations)
 
 ## S
@@ -257,6 +273,8 @@ chapters are written.
 - **Topological order and the critical path** (list scheduling bounds, reruns): @prp-dag (@sec-batch-and-stream-processing)
 - **Total cost of ownership** (capital and operating expenses, unit cost): @def-total-cost-of-ownership
   (@sec-estimation-and-the-design-process)
+- **Training and serving pipelines, feature stores, versioning and ML technical debt** (model registry, train-serve skew, CACE,
+  feedback loops, undeclared consumers, prediction bias): @def-ml-system (@sec-ml-llm-and-agent-systems)
 - **Transactions and isolation levels** (ACID, schedules, conflicts, anomalies, snapshot isolation, two-phase locking,
   optimistic control): @def-transaction-isolation (@sec-storage-and-databases)
 - **Two-phase commit: safety, blocking and cost** (agreement, in-doubt participants, messages, coordinator groups):

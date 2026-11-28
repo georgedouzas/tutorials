@@ -1,0 +1,26 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+index: "Indexing" {
+  label.near: bottom-center
+  direction: right
+  docs: "Documents" {shape: page}
+  chunk: "Chunk"
+  emb: "Embed"
+  docs -> chunk -> emb
+}
+vdb: "Vector index" {shape: cylinder}
+query: "Query" {
+  label.near: bottom-center
+  direction: right
+  q: "Question"
+  qemb: "Embed"
+  ret: "Retrieve\ntop K"
+  gen: "Model"
+  ans: "Answer"
+  q -> qemb -> ret -> gen -> ans
+  q -> gen: "question" {style.stroke-dash: 3}
+}
+index.emb -> vdb: "store"
+vdb -> query.ret: "nearest chunks"

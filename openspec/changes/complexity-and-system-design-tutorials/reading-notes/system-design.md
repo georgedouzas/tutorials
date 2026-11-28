@@ -800,3 +800,43 @@ the publisher (dmtcs.episciences.org/3545) in the scratchpad, read-only, and not
   chapter's extension of Fig. 3's 2^32/30.
 - Notation: `_notation/systems.qmd` gains Z, alpha_m, n-hat, n-hat-star, V, beta_m, E_n, Var_n (c_m removed); clashes (Z, V, beta_m,
   delta_1, delta_2, the paper's rho and E) recorded in `system-design/notation/index.qmd`.
+
+## Chapter 13: ml-llm-and-agent-systems (task 6.2, 2026-11-28)
+
+Outline (row 13 as narrowed in 0de2f9a): models as components; internal quantities (KV-cache size, what continuous batching, paged KV caches and
+speculative decoding buy) taken as given, mechanisms left to the planned Fundamentals of AI tutorial (named, not linked; Fundamentals of machine
+learning linked). §1 the ML system; §2 model serving; §3 serving LLMs; §4 RAG; §5 agents; §6 operating AI systems. Statements: `def-ml-system`,
+`prp-freshness`, `def-model-serving`, `prp-dynamic-batching`, `def-llm-serving`, `prp-llm-capacity`, `def-rag`, `prp-retrieval`, `def-agent`,
+`prp-agent-reliability`, `def-ai-operations`, `prp-evaluation`.
+
+### Sources
+
+- The Zotero items QB6EASIT, 6BCHDD7J, EQUXGEEE, CJ94P4P6, P36H543E and FVADVXSZ have no attachment in the local Zotero (no child items, no storage
+  directory), so their arXiv PDFs (2309.06180, 2211.05102, 2211.17192, 2005.11401, 1603.09320, 1702.08734) were downloaded to the scratchpad and read
+  with pdftotext; the same for ReAct (2210.03629), Reflexion (2303.11366), Toolformer (2302.04761) and Arunkumar et al. (2601.12560), which have no
+  PDFs either. Sculley (PD2JD6S3), Orca (ZTDSHFFR), Wang et al. (F9ZU84ZN), Kamath (GB3GPKL6) and Berryman (HBERLVF2) read from Zotero storage.
+  The MCP specification (2025-06-18: overview, architecture, tools) fetched from modelcontextprotocol.io.
+- Sculley Secs. 1-5, 7. Orca Abstract, Secs. 2-4 (4.2 max batch size). vLLM Abstract, Secs. 1-3, 4.4. Pope Abstract, Secs. 1-2. Leviathan Abstract,
+  Secs. 1, 3.1 (Eq. 1), 3.3 (Def. 3.7, Thm. 3.8; quoted, not proved). Lewis Abstract, Fig. 1, Sec. 2. FAISS Secs. 2, 6. HNSW Abstract, Sec. 1. ReAct
+  Abstract, Secs. 1-2. Reflexion Abstract. Toolformer Abstract. Wang et al. Secs. 2 (2.1.2), 3. Arunkumar et al. Abstract, Sec. 1.
+  Kamath Sec. 7.2 p. 276, 7.3 p. 279, 7.4.2 p. 284 (RRF), 7.4.3.1 p. 287, 7.5.1 pp. 295-297, 7.6.3 p. 310, 8.5.3-8.5.4 pp. 337-339, 8.7.2 pp. 352-354,
+  8.8 pp. 354-361. Berryman and Ziegler Ch. 3 p. 55, Ch. 4 p. 82, Ch. 9 p. 200.
+- Huyen 2022 (XQFA9HUS) and 2025 (C2DA4KIQ) are metadata only: not read, not cited, although the outline names chapters of both.
+
+### Gaps, proved and quoted
+
+- New bib entries (Zotero keys as BBT citation keys): kwonEfficientMemoryManagement2023, popeEfficientlyScalingTransformer2022,
+  leviathanFastInferenceTransformers2022, lewisRetrievalAugmentedGenerationKnowledgeIntensive2020, malkovEfficientRobustApproximate2016,
+  johnsonBillionscaleSimilaritySearch2017, react2023, reflexion2023, toolformer2023, vAgenticArtificialIntelligence2026, wangSurveyLargeLanguage2024,
+  sculleyHiddenTechnicalDebt2015, yuOrcaDistributedServing2022, berrymanPromptEngineeringLLMs2025, HttpsModelcontextprotocolioSpecification.
+- Proved: `prp-freshness`, `prp-dynamic-batching`, `prp-llm-capacity` (under an assumed linear step-time model), `prp-retrieval`,
+  `prp-agent-reliability`, `prp-evaluation` (Chebyshev by link). Quoted: Leviathan's Eq. (1) and Theorem 3.8 (in an example), the KV-cache formula.
+- Unsourced standard notions: feature store, train-serve skew, batch versus online inference, model cascade, data and concept drift, the population
+  stability index, time to first token and time per output token, chunk overlap, semantic cache, durable and idempotent tool calls and budgets for
+  agents, the linear batch and step time models, the HNSW layer ratio in an example.
+
+### Figures and software
+
+- D2: `figures/ml_pipeline.d2`, `figures/rag_pipeline.d2`, `figures/agent_loop.d2`.
+- Run blocks: plain Python, NumPy and SimPy, seeded; stub models only, no network, no weights (dynamic batching and static vs continuous batching in
+  SimPy, IVF vs brute force in NumPy, a stub agent with retries, budgets and an idempotency table).

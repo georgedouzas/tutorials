@@ -1,0 +1,25 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+user: "User"
+host: "Host (agent runtime)" {
+  direction: down
+  loop: "Loop:\ncontext, budget"
+  log: "Run log\n(calls, results, keys)" {shape: cylinder}
+  client: "Protocol client"
+  loop -> log: "record"
+  loop -> client: "tool call"
+}
+model: "Model"
+servers: "Tool servers" {
+  direction: down
+  photos: "Photos"
+  prints: "Prints"
+}
+
+user -> host.loop: "goal / confirm"
+host.loop -> model: "context"
+model -> host.loop: "thought, tool call\nor final answer"
+host.client -> servers.photos: "tools/call"
+host.client -> servers.prints: "tools/call"

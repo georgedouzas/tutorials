@@ -1,0 +1,31 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+train: "Training pipeline" {
+  label.near: bottom-center
+  direction: right
+  logs: "Logged data\nand labels" {shape: cylinder}
+  feat: "Feature\ncomputation"
+  fit: "Train"
+  eval: "Evaluate"
+  logs -> feat -> fit -> eval
+}
+store: "Feature store\n(offline / online)" {shape: cylinder}
+registry: "Model registry" {shape: cylinder}
+
+serve: "Serving pipeline" {
+  label.near: top-center
+  direction: right
+  req: "Request"
+  sfeat: "Feature\nlookup"
+  model: "Model"
+  pred: "Prediction"
+  req -> sfeat -> model -> pred
+}
+
+train.feat -> store: "write"
+store -> serve.sfeat
+train.eval -> registry: "register"
+registry -> serve.model
+serve.pred -> train.logs: "log" {style.stroke-dash: 3}
