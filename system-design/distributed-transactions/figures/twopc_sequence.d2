@@ -1,0 +1,19 @@
+...@../../../_filters/d2-theme
+
+shape: sequence_diagram
+
+coord: "Coordinator"
+p1: "Participant 1\n(photos)"
+p2: "Participant 2\n(billing)"
+
+coord -> p1: "prepare"
+coord -> p2: "prepare"
+p1 -> p1: "log prepared"
+p2 -> p2: "log prepared"
+p1 -> coord: "yes"
+p2 -> coord: "yes"
+coord -> coord: "log commit"
+coord -> p1: "commit"
+coord -> p2: "commit"
+p1 -> coord: "ack"
+p2 -> coord: "ack"

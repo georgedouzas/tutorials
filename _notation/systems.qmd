@@ -97,6 +97,18 @@ and says how the two meanings are told apart where they meet.
 | $\Sigma_j$, $\operatorname{apply}$ | state after the first $j$ events $e_1, \dots, e_j$ † of an event-sourced log, and the function that applies an event to a state |
 | $k$ † | number of events between snapshots, or between commits of an offset |
 | $\theta$ † | time to live of a message in a queue |
+| $n$ † | number of participants of a distributed transaction |
+| $C_i(t)$ †, $\kappa$ †, $\varepsilon$ † | reading of physical clock $i$ at physical time $t$, its drift bound $\lvert dC_i/dt - 1\rvert < \kappa$, and the skew bound $\lvert C_i(t) - C_j(t)\rvert < \varepsilon$; for TrueTime, $\varepsilon$ is half the width of an interval |
+| $\mu$ †, $\tau$ †, $\xi$, $d$ † | in Lamport's synchronisation: least delay of a relation between events, interval between messages on an arc, unpredictable delay, and diameter of the network |
+| $[\mathit{earliest}, \mathit{latest}]$ | the interval returned by TrueTime's $\mathrm{TT.now}()$ |
+| $s$ †, $s_i$, $\varepsilon_{\max}$ | commit timestamp (of transaction $T_i$), and the largest half-width of TrueTime intervals |
+| $T_i$ †, $C_i$ † | steps and compensating transactions of a saga |
+| $\delta_i$, $\gamma_j$ | additive changes made by a saga's steps and by other transactions |
+| $p$ † | index of a saga's pivot step |
+| $f$ †, $P$, $R$ † | failure probability of a dual write's second write; period and duration of reconciliation |
+| $\Delta_p$ | polling interval of an outbox relay |
+| $\lambda_h$, $c$ †, $h$ † | rate of reservation holds, fraction confirmed, and length of an unconfirmed hold |
+| $k$ † | number of requests contending for one item |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
 | $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |

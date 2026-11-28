@@ -616,3 +616,39 @@ from chapter 3 (`thm-mm1`, `thm-erlang-c`, `thm-littles-law`) in `prp-backlog` (
 
 - D2: `figures/topologies.d2`, `figures/consumer_groups.d2`, `figures/outbox.d2`. Python: `figures/backlog.py` (SimPy burst against the fluid line).
 - Run blocks: plain Python, NumPy, SimPy and `sqlite3`; all seeded; Erlang C by the stable Erlang B recursion.
+
+## Chapter 9: distributed-transactions (task 6.2, 2026-11-28)
+
+Outline (approved row 9): §1 atomic commitment and 2PC; §2 global time and Spanner; §3 sagas; §4 the transactional outbox, CDC, dual writes and
+reconciliation (this chapter owns the outbox; chapter 8's `def-event-sourcing` item 4 and `fig-es-outbox` are recalled by link); §5 concurrency across
+services. Statements: `def-atomic-commit`, `thm-two-phase-commit`, `def-truetime`, `thm-commit-wait`, `def-saga`, `prp-saga`, `def-outbox`,
+`prp-outbox`, `def-cross-service-concurrency`, `prp-reservation`.
+
+### Sources
+
+- Spanner (`corbett2012spanner`, Zotero 8PTIQPRD), read Secs. 1, 2.3, 3, 4.1-4.2, 5.1-5.3: TrueTime API and implementation (sawtooth 1-7 ms, 30 s
+  polls, 200 us/s drift), start and commit-wait rules with the proof of external consistency, 2PC over Paxos (coordinator skips prepare, client drives
+  2PC), Table 4 (2PC latency vs participants), commit wait about 5 ms, Paxos about 9 ms, TrueTime tails and evictions.
+- Lamport 1978 (`lamport1978time`, Zotero P7QRNYR2), pp. 562-563: anomalous behaviour, strong clock condition, PC1/PC2, eps/(1-kappa) <= mu (proved
+  here), IR1'/IR2' and the synchronisation theorem (quoted; its appendix proof not reproduced).
+- Tan App. D pp. 418-421 (2PC; "inconsistency" claim corrected in `exr-ac-tan-inconsistency`), Secs. 5.3, 5.5, 5.6 pp. 112-120 (sagas; "a saga
+  has no state" and "double the events" examined in `exr-sg-stateless`, `exr-sg-double`), 3.3.8 p. 63, 2.4.2 pp. 31-32, 15.2.2-15.2.5, 15.7-15.8
+  pp. 334-335, 345-350 (check-then-insert booking examined in `exr-hold-select-insert`).
+- Liu Ch. 5: "Distributed Transaction" (money transfer, blob and metadata), "Database and Queue", "Concurrency Control and Transaction",
+  "Pessimistic Locking", "Write Skew With Phantom Data", "Optimistic Locking", "Change Product Requirement to Simplify".
+- Gilbert Ch. 4 "Stream-first event sourcing", Ch. 5 "Database-first event sourcing", Ch. 8 "Employing the Saga pattern", "Compensating
+  transactions", "Abort events". Gandhi Ch. 10 pp. 314, 326-329. Pacheco Ch. 10 "Table diff", "Change Data Capture", "Dual writing". Kafka Sec. 4.
+
+### Gaps, proved and quoted
+
+- Garcia-Molina and Salem 1987 ("Sagas") is not in Zotero; added to the bib as `garciamolina1987sagas` (metadata from memory, to verify) for
+  approval, not cited. Van Steen-Tanenbaum and Kleppmann have no PDF in Zotero and were not used.
+- Proved: `thm-two-phase-commit` (a)-(d) ((d) relative to the consensus properties of chapter 6), `thm-commit-wait` (a)-(c), `prp-saga`,
+  `prp-outbox`, `prp-reservation`. Quoted: `thm-commit-wait` (d), Lamport's theorem.
+- Standard notions with no source read: the agreement/validity/non-triviality list of atomic commitment; "in doubt" and "blocking" as terms; saga
+  isolation as a property (implied by Gilbert); the high-water-mark relay and its skip; the name "polling relay"; the ABA problem of wrapped versions.
+
+### Figures and software
+
+- D2: `figures/twopc_sequence.d2`, `figures/saga_orchestration.d2`. Python: `figures/commit_wait.py`.
+- Run blocks: plain Python, NumPy and `sqlite3` (the outbox relay over two database files in the working directory); all seeded.

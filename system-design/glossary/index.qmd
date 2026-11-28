@@ -10,6 +10,8 @@ chapters are written.
 ## A
 
 - **Architectural characteristic**: @def-architectural-characteristic (@sec-estimation-and-the-design-process)
+- **Atomic commitment and two-phase commit** (participants, votes, agreement, validity, prepared and in-doubt participants,
+  blocking): @def-atomic-commit (@sec-distributed-transactions)
 - **Authentication and authorisation** (credentials, sessions, bearer tokens, JSON Web Tokens):
   @def-auth-session-token (@sec-the-web-stack)
 - **Availability** (with downtime, nines, error budget, SLO and SLA): @def-availability
@@ -35,6 +37,10 @@ chapters are written.
 - **CAP theorem** (asynchronous and partially synchronous models): @thm-cap (@sec-consistency-and-consensus)
 - **Collisions of random identifiers** (birthday bounds, bits needed, structured identifiers): @prp-id-collision
   (@sec-replication-and-partitioning)
+- **Commit wait and physical clocks** (external consistency from the start and commit-wait rules, length of the wait,
+  Lamport's condition): @thm-commit-wait (@sec-distributed-transactions)
+- **Conditional writes, unique slots and holds** (lost updates, double bookings, capacity held, optimistic retries):
+  @prp-reservation (@sec-distributed-transactions)
 - **Consensus and replicated state machines** (agreement, validity, termination, crash faults): @def-consensus (@sec-consistency-and-consensus)
 - **Consensus quorums** (majorities, $2f + 1$ processes, FLP): @prp-consensus-quorums (@sec-consistency-and-consensus)
 - **Consistency models** (linearisable, sequential, causal, eventual, session guarantees): @def-consistency-models
@@ -110,6 +116,8 @@ chapters are written.
 - **Load balancer** (layer 4 and layer 7, assignment rules, health checks, global load balancing): @def-load-balancer
   (@sec-the-web-stack)
 - **Load estimate**: @def-load-estimate (@sec-estimation-and-the-design-process)
+- **Locks, optimistic checks and reservations across services** (lost update, double booking, versions, holds,
+  materialised slots): @def-cross-service-concurrency (@sec-distributed-transactions)
 - **Logical and vector clocks** (clock condition, exact characterisation of happens-before): @thm-logical-clocks
   (@sec-replication-and-partitioning)
 - **Lossless decomposition** (Heath's theorem, spurious rows): @prp-lossless-decomposition (@sec-storage-and-databases)
@@ -130,6 +138,10 @@ chapters are written.
   (@sec-performance-and-queueing)
 - **Operational bounds** (utilisation law, response time law, bottleneck bound, knee population): @prp-operational-bounds
   (@sec-performance-and-queueing)
+- **Outbox, guarantees of** (at-least-once publication, duplicates, skipped rows, reconciliation bound): @prp-outbox
+  (@sec-distributed-transactions)
+- **Outbox relays and reconciliation** (polling and log-tailing relays, dual writes, table diffs): @def-outbox
+  (@sec-distributed-transactions)
 
 ## P
 
@@ -139,6 +151,8 @@ chapters are written.
   (@sec-replication-and-partitioning)
 - **Paxos** (proposers, acceptors, learners, two phases, Multi-Paxos): @def-paxos (@sec-consistency-and-consensus)
 - **Paxos safety** (P2c, P2b, one chosen value): @thm-paxos-safety (@sec-consistency-and-consensus)
+- **Physical clocks, TrueTime and external consistency** (drift, skew, strong clock condition, start rule, commit
+  wait): @def-truetime (@sec-distributed-transactions)
 - **Publish-subscribe** (topics, subscriptions, push and pull, retention):
   @def-pubsub (@sec-messaging-and-event-streams)
 
@@ -167,6 +181,10 @@ chapters are written.
 
 ## S
 
+- **Sagas** (compensating transactions, pivot and retriable steps, choreography, orchestration, abort events):
+  @def-saga (@sec-distributed-transactions)
+- **Sagas, outcomes and compensations of** (reverse compensation, additive compensations, pivot): @prp-saga
+  (@sec-distributed-transactions)
 - **Secondary indexes and request routing** (local and global indexes, scatter-gather, partition maps, location
   hierarchies): @def-request-routing (@sec-replication-and-partitioning)
 - **Serialisability and two-phase locking** (precedence graph, lock points): @prp-serializability
@@ -181,3 +199,5 @@ chapters are written.
   (@sec-estimation-and-the-design-process)
 - **Transactions and isolation levels** (ACID, schedules, conflicts, anomalies, snapshot isolation, two-phase locking,
   optimistic control): @def-transaction-isolation (@sec-storage-and-databases)
+- **Two-phase commit: safety, blocking and cost** (agreement, in-doubt participants, messages, coordinator groups):
+  @thm-two-phase-commit (@sec-distributed-transactions)

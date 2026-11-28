@@ -1,0 +1,14 @@
+...@../../../_filters/d2-theme
+
+shape: sequence_diagram
+
+orch: "Orchestrator"
+shop: "Print shop"
+pay: "Payments"
+
+orch -> shop: "reserve slot"
+shop -> orch: "slot reserved"
+orch -> pay: "charge card"
+pay -> orch: "charge failed"
+orch -> shop: "release slot (compensation)"
+shop -> orch: "slot released"
