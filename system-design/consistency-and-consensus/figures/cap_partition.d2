@@ -1,0 +1,16 @@
+...@../../../_filters/d2-theme
+
+shape: sequence_diagram
+
+c1: "Client 1"
+g1: "Node in G1"
+g2: "Node in G2"
+c2: "Client 2"
+
+c1 -> g1: "write v1"
+g1 -> g2: "update (lost)" {
+  style.stroke-dash: 3
+}
+g1 -> c1: "ok"
+c2 -> g2: "read (starts after the write ended)"
+g2 -> c2: "v0"

@@ -495,3 +495,46 @@ detection and membership; §7 unique identifiers (gap section). Statements: `def
   (relative sd of a share against $v$, formula and simulation).
 - Run blocks: standard library (`sqlite3` log shipping between two files, `hashlib`, `bisect`, `graphlib`, `uuid`) and NumPy; all seeded; `zlib.crc32`
   instead of `hash()` where a run must be reproducible.
+
+## Chapter 6: consistency-and-consensus (task 6.2, 2026-11-28)
+
+Outline (approved row 6 of `openspec/coverage/system-design.md`): §1 consistency models and session guarantees; §2 CAP and PACELC; §3 consensus,
+replicated state machines, FLP; §4 Paxos; §5 Raft; §6 coordination services (locks, leases, fencing); §7 Byzantine faults (gap, low priority).
+Statements: `def-consistency-models`, `prp-linearisability`, `def-cap`, `thm-cap`, `def-consensus`, `prp-consensus-quorums`, `def-paxos`,
+`thm-paxos-safety`, `def-raft`, `thm-raft-safety`, `def-coordination`, `prp-lease-fencing`, `def-byzantine`.
+
+### Primary sources (all in Zotero; no new references)
+
+- Gilbert-Lynch (`gilbert2002brewer`), Secs. 2.1-2.3, 3.1 (Theorem 1 with proof, Corollary 1.1), 3.2.1-3.2.3, 4.1-4.4 (Theorem 2, timeout
+  algorithm, Delayed-t consistency, Definition 3). Proved in the chapter: Theorems 1 and 2 and the constructions; Corollary 1.1 quoted.
+- FLP (`fischer1985impossibility`), Abstract, Sec. 2 (model, partially/totally correct, admissible runs, p. 377), Sec. 3 Theorem 1 (quoted, not proved).
+- Paxos Made Simple (`lamport2001paxos`), Secs. 2.1-2.5 and 3 (requirements, P1-P2c derivation, phases, learning, progress, implementation, state
+  machine with no-ops). Proved: safety (P2c invariant, P2b by strong induction, one value, validity).
+- Raft (`ongaro2014search`), Secs. 2, 3, 5.1-5.6, 6, 8 and Figure 3. The PDF in Zotero is the extended technical report (May 2014); section numbers
+  agree with the conference paper in the bib. Proved: Election Safety, Log Matching, Leader Completeness (the paper's step-by-step argument written out),
+  State Machine Safety.
+- Chubby (`burrows2006chubby`), Abstract, Secs. 1, 2.1, 2.2, 2.4, 2.6, 2.8, 2.9. Proved: lease safety under bounded drift, fencing tokens, lock-delay
+  under a delay bound.
+- Brewer 2012 (`brewer2012cap`): metadata only, no abstract; not cited. PACELC is taken from Sinha.
+
+### Benchmarks
+
+- Sinha: Ch. 2 strong and eventual consistency; Ch. 3 CAP, PACELC (acronym expanded with a spurious "Consistency Level", corrected in
+  `exr-cap-sinha-acronym`), Paxos (1990 date and "Simple Paxos" merging phases, corrected in `exr-pax-sinha-claims`), Raft (claims that GFS and
+  ZooKeeper use Raft, corrected in `exr-raft-sinha-uses`), BGP (two inconsistent bounds, corrected in `exr-byz-sinha-bounds`), Byzantine faults,
+  BFT, FLP (the "triangle" reading, corrected in `exr-cons-sinha-triangle`).
+- Xu: Ch. 6 CAP (n3 "goes down" as a partition, corrected in `exr-cap-xu-n3`), consistency models.
+- Tan: Sec. 3.5 (linearizability wording, discussed in `exr-cmod-tan`; table of systems), Sec. 3.5.2 coordination service.
+
+### Definitions taken as the chapter's own
+
+- Sequential and causal consistency and the four session guarantees are standard definitions not taken from a read source (the benchmark books name only
+  strong and eventual consistency); flagged in the report.
+
+### Figures and software
+
+- D2: `figures/cap_partition.d2`, `figures/raft_sequence.d2`, `figures/chubby_cell.d2`. Python: `figures/raft_split.py` (split-vote probability, exact
+  spacing formula and simulation).
+- Run blocks: plain Python and NumPy; brute-force linearisability checker; seeded single-process simulations of single-decree Paxos (loss, reordering,
+  several proposers) and of Raft (elections, AppendEntries, crashes, loss) that check the safety properties on every run, with deliberately broken
+  variants (no promise, own value, no election restriction, forgotten votes) that do violate them. SimPy was not needed.

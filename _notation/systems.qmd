@@ -67,6 +67,15 @@ and says how the two meanings are told apart where they meet.
 | $T_{\mathrm{fail}}$ | period without a counter increase after which gossip membership considers a member failed |
 | $H$ † | number of heartbeats sent in a period |
 | $b$ †, $N_b$, $P_{\mathrm{col}}$ | random bits of an identifier, the $N_b = 2^b$ possible values, and the probability that two of $n$ identifiers collide |
+| $\mathrm{inv}(o)$, $\mathrm{res}(o)$, $o \prec o'$ | invocation and response times of an operation, and real-time precedence: $\mathrm{res}(o) < \mathrm{inv}(o')$ |
+| $G_1$, $G_2$ † | the two sides of a network partition |
+| $t_{\mathrm{msg}}$ | delivery bound of the partially synchronous model: a message arrives within $t_{\mathrm{msg}}$ or is lost |
+| $f$ † | the number of processes that may fail (crash or Byzantine) |
+| $(n, v)$, $n_p$ | a Paxos proposal with number $n$ and value $v$, and the highest prepare number an acceptor has answered |
+| $T$ †, $U$ | Raft terms |
+| $L$ †, $\rho$ † | length of a lease, and the bound on relative clock drift: one clock runs at most $1 + \rho$ times as fast as another |
+| $\tau$ † | a fencing token (lock generation number) |
+| $q$ † | size of a quorum |
 | $m$ †, $k$ †, $n$ † | Bloom filter: number of bits, of hash functions, and of inserted keys |
 | $p_{\mathrm{fp}}$ | false-positive probability of a Bloom filter, $p_{\mathrm{fp}} \approx (1 - e^{-kn/m})^k$ |
 | $h_1, \dots, h_k$ † | the hash functions of a Bloom filter, onto the positions $\{1, \dots, m\}$ |

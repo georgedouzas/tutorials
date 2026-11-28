@@ -22,15 +22,24 @@ chapters are written.
 - **Bloom filter false-positive rate** (probability of a zero bit, optimal number of hash functions, bits per key):
   @prp-bloom-false-positive (@sec-storage-and-databases)
 - **B-tree height** (minimum degree, pages read per lookup): @prp-btree-height (@sec-storage-and-databases)
+- **Byzantine faults and Byzantine quorums** (equivocation, $3f + 1$ replicas, vouched-for values): @def-byzantine
+  (@sec-consistency-and-consensus)
 
 ## C
 
+- **CAP properties and PACELC** (atomic consistency, availability, partitions, CP and AP): @def-cap (@sec-consistency-and-consensus)
+- **CAP theorem** (asynchronous and partially synchronous models): @thm-cap (@sec-consistency-and-consensus)
 - **Collisions of random identifiers** (birthday bounds, bits needed, structured identifiers): @prp-id-collision
   (@sec-replication-and-partitioning)
+- **Consensus and replicated state machines** (agreement, validity, termination, crash faults): @def-consensus (@sec-consistency-and-consensus)
+- **Consensus quorums** (majorities, $2f + 1$ processes, FLP): @prp-consensus-quorums (@sec-consistency-and-consensus)
+- **Consistency models** (linearisable, sequential, causal, eventual, session guarantees): @def-consistency-models
+  (@sec-consistency-and-consensus)
 - **Consistent hashing** (keys moved by modular and consistent hashing, largest share, virtual nodes): @thm-consistent-hashing
   (@sec-replication-and-partitioning)
 - **Content delivery network** (edge servers, cache key, freshness lifetime, hit ratio, purge and versioning):
   @def-cdn (@sec-the-web-stack)
+- **Coordination services** (locks, sessions, leases, fencing tokens, lock-delay): @def-coordination (@sec-consistency-and-consensus)
 
 ## D
 
@@ -76,6 +85,8 @@ chapters are written.
 
 - **Leader-follower replication** (replication log, synchronous and asynchronous replication, lag, read-after-write, failover):
   @def-leader-follower (@sec-replication-and-partitioning)
+- **Leases, fencing tokens and lock-delay, safety of**: @prp-lease-fencing (@sec-consistency-and-consensus)
+- **Linearisability, consequences of** (sequential consistency, reads after completed writes): @prp-linearisability (@sec-consistency-and-consensus)
 - **Little's law**: @thm-littles-law (@sec-performance-and-queueing)
 - **Load balancer** (layer 4 and layer 7, assignment rules, health checks, global load balancing): @def-load-balancer
   (@sec-the-web-stack)
@@ -103,6 +114,8 @@ chapters are written.
 
 - **Partitioning schemes** (range, hash and consistent hashing, virtual nodes, rebalancing, hot keys): @def-partitioning
   (@sec-replication-and-partitioning)
+- **Paxos** (proposers, acceptors, learners, two phases, Multi-Paxos): @def-paxos (@sec-consistency-and-consensus)
+- **Paxos safety** (P2c, P2b, one chosen value): @thm-paxos-safety (@sec-consistency-and-consensus)
 
 ## Q
 
@@ -112,6 +125,9 @@ chapters are written.
 
 ## R
 
+- **Raft** (terms, elections, log replication, commitment): @def-raft (@sec-consistency-and-consensus)
+- **Raft safety** (election safety, log matching, leader completeness, state machine safety): @thm-raft-safety
+  (@sec-consistency-and-consensus)
 - **Real-time delivery** (short and long polling, server-sent events, WebSocket, heartbeats): @def-real-time-delivery
   (@sec-the-web-stack)
 - **Request path** (DNS, TCP, TLS and HTTP; round-trip time, intermediaries): @def-request-path (@sec-the-web-stack)

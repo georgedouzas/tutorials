@@ -137,6 +137,15 @@ where the symbol first appears.
   here.
 - $b$: in the identifier section, a number of random bits, against the page size, token-bucket capacity and BM25
   constant of other chapters.
+- $f$: in the consistency chapter, the number of faulty processes; in the replication chapter, the number of followers.
+  The two chapters do not share it.
+- $G_1$, $G_2$: the sides of a partition in the CAP section, against the arc length $G$ of consistent hashing (no
+  index).
+- $T$, $U$: Raft terms in the Raft section, against the response time $T$, which does not occur there.
+- $L$, $\rho$, $\tau$: a lease length, a clock-drift bound and a fencing token in the coordination section, against the
+  mean number in the system, utilisation and the latency budget $\tau_i$ (always indexed) of other chapters.
+- $q$: a quorum size in the consensus and Byzantine sections, against the loss probability $q$ of the heartbeat
+  proposition and the quantile level of $t_q$.
 - Little's law and the M/M/1 results are written $L = \lambda W$, $L_q = \lambda W_q$, as in most of the literature.
   Zukerman writes $E[Q] = \lambda E[D]$, with $Q$ the number in the system and $D$ the delay; the chapters translate.
 - Logarithms are natural, as in the shared tables; $\log_2$ is written out for sizes in bits.

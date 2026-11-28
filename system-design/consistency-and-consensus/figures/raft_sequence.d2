@@ -1,0 +1,19 @@
+...@../../../_filters/d2-theme
+
+shape: sequence_diagram
+
+client: "Client"
+s1: "S1 (candidate, then leader)"
+s2: "S2"
+s3: "S3"
+
+s1 -> s2: "RequestVote(term 2, last entry)"
+s1 -> s3: "RequestVote(term 2, last entry)"
+s2 -> s1: "vote granted"
+s1 -> s2: "AppendEntries(term 2, heartbeat)"
+s1 -> s3: "AppendEntries(term 2, heartbeat)"
+client -> s1: "command"
+s1 -> s2: "AppendEntries(entry 7, prev 6)"
+s1 -> s3: "AppendEntries(entry 7, prev 6)"
+s2 -> s1: "success"
+s1 -> client: "result (entry 7 on a majority)"

@@ -1,0 +1,28 @@
+...@../../../_filters/d2-theme
+
+direction: right
+
+clients: "Clients" {
+  label.near: bottom-center
+  c1: "Application server\n(holds lock, sequencer 17)"
+  c2: "Application server\n(waiting for lock)"
+}
+
+cell: "Coordination cell" {
+  label.near: bottom-center
+  master: "Master\n(elected by majority, master lease)"
+  r2: "Replica"
+  r3: "Replica"
+  r4: "Replica"
+  r5: "Replica"
+  master -> r2: "consensus"
+  master -> r3
+  master -> r4
+  master -> r5
+}
+
+storage: "Protected resource\n(checks sequencers)"
+
+clients.c1 -> cell.master: "KeepAlive (lease 12 s)"
+clients.c2 -> cell.master: "acquire lock"
+clients.c1 -> storage: "write + sequencer 17"
