@@ -571,3 +571,55 @@ PDFs read read-only with `pdftotext -layout` from `~/Zotero/storage`; nothing wr
 
 - Earlier chapters: `def-flow-map`, `prp-linearised-stability`, `def-bifurcation`, `prp-hopf-normal-form`, `def-lyapunov-spectrum` (Ch. 2). Maths
   differential-equations `def-heat-equation`, fourier-analysis `sec-fourier-series`.
+
+## Chapter 8: networks (task 6.1, 2026-11-28)
+
+PDFs read read-only with `pdftotext -layout` from `~/Zotero/storage`; nothing written to Zotero. Sections: §1 `sec-graph-measures`, §2 `sec-random-graphs`,
+§3 `sec-small-worlds`, §4 `sec-scale-free`, §5 `sec-communities`, §6 `sec-spectra`, following row 8 of the coverage plan, and the two gap sections
+§7 `sec-correlation-networks` and §8 `sec-generalised-networks`, one section each as the gap rows say. Under design C11 every computation the package
+can do uses scikit-complexity 0.9.0; NumPy, SciPy and NetworkX fallbacks carry a comment naming the pending package issue.
+
+### Thurner, Hanel and Klimek, *Introduction to the Theory of Complex Systems* (2018)
+
+- Key `thurnerIntroductionTheoryComplex2018` (PDF YSNMV9AR). Read Secs. 4.2-4.7 (pp. 144-193) and 4.9 (pp. 207-211).
+- Used: adjacency matrices (eqs. 4.1-4.3), incidence and $\mathbf A = \mathbf B\mathbf B^{\mathsf T} - \mathbf D$ (4.4-4.5), degrees (4.6-4.8), assortativity (4.9-4.10),
+  closeness and betweenness (4.11, Fig. 4.6), clustering (4.12-4.14), reciprocity; ER ensembles and moments (4.15-4.25), thresholds (Sec. 4.4.3.3), giant
+  component (4.27-4.29), Perron-Frobenius, Wigner and Girko (4.30, Fig. 4.9); configuration model, rewiring, friendship paradox (4.31-4.33), superposition (4.34);
+  Milgram, Watts-Strogatz (Fig. 4.11), scale-free laws (4.35-4.36), preferential attachment and BA (4.37-4.39), BA diameter and clustering (literature values),
+  DEB model; minimum cut, Laplacian (4.40), hierarchical clustering, Girvan-Newman (4.41), modularity (4.42-4.44), Louvain, extremal optimisation; correlation
+  networks (4.45-4.51), filtering, Bonferroni, Benjamini-Hochberg, MST, disparity filter; hypergraphs, power graphs, multiplex and multilayer networks.
+- Discrepancies: the threshold for components of three nodes is printed $N^{-2/3}$ (Sec. 4.4.3.3); the counting argument gives $N^{-3/2}$ (exercise
+  `exr-er-three`). The rank-sum offset in eq. (4.50) is printed $n_g(n_g - 1)/2$; $U_1 + U_2 = n_1n_2$ needs $n_g(n_g + 1)/2$ (exercise `exr-cn-u`).
+  The superposition model of Sec. 4.5.2 draws $p$ per link; the package draws it per subgraph and places the subgraphs side by side.
+
+### Gros, *Complex and Adaptive Dynamical Systems* (2015)
+
+- Key `grosComplexAdaptiveDynamical2015` (PDF U9F6TD42). Read Secs. 1.1-1.5 (pp. 1-38).
+- Used: small-world effect and Table 1.1 (literature values), (1.1)-(1.3), bipartite networks and Fig. 1.1, degree distributions (1.4)-(1.8), spectra and the
+  semicircle law (1.9)-(1.15, Fig. 1.5), moments (1.16), Laplacians (1.17)-(1.20) with the listed spectra; generalised random graphs (1.21)-(1.29), generating
+  functions (1.30)-(1.42), component sizes and the giant component (1.43)-(1.51, Fig. 1.9); attack robustness (1.63, Fig. 1.10, literature values); lattices
+  (1.64)-(1.65), Watts-Strogatz and Newman-Watts (Figs. 1.12-1.13); BA with offset (1.66)-(1.75) and random attachment (1.76)-(1.80).
+
+### Jensen, *Complexity Science* (2023)
+
+- Key `jensenComplexityScienceStudy2023` (PDF 6MWNDKQZ). Read Secs. 8.1-8.4 (pp. 177-203).
+- Used: connectance (8.1), Table 8.1, eigenvector centrality by iteration, modularity (8.31)-(8.34) and self-loops, Louvain, gravity null model (8.35)-(8.37),
+  generating functions (8.38)-(8.44), the giant cluster (8.45)-(8.58), the exponential law and the threshold $\ln 3$ (8.59)-(8.64, Fig. 8.8).
+
+### Downey, *Think Complexity* (2018)
+
+- Key `downeyThinkComplexity2018` (PDF 2FIW8VKJ; no page numbers, cited by chapter and section title). Read Chs. 2-4.
+- Used: probability of connectivity ($\ln n/n$), ring lattices and WS graphs, clustering $0.5$ for $k = 4$, BFS; the Facebook data (C $0.61$, L $3.7$, degree
+  sd $52.4$), the WS fit ($k = 44$, $p = 0.05$: C $0.63$, L $3.2$) and Table 4-1, all literature values.
+
+### Charbonneau, *Natural Complexity* (2017) and Bertin, *Statistical Physics of Complex Systems* (2021)
+
+- Key `charbonneauNaturalComplexityModeling2017` (PDF RNV4L6HW). Read Sec. 9.6 (pp. 215-219): the four 12-node networks of Fig. 9.8, travel distances
+  $3.27$ and $4.33$ (checked), costs (not used: their link counting is not stated).
+- Key `bertinStatisticalPhysicsComplex2021` (PDF KDKI5MLF). Read Sec. 6.1 (pp. 181-188): random, small-world and preferential-attachment networks; cited for
+  further reading only.
+
+### Links (cross-references, not references)
+
+- Earlier chapters: `def-galton-watson`, `thm-extinction-probability`, `sec-heavy-tails` (random-processes), `prp-power-law-mle` (fractals-and-scaling), `sec-percolation` (phase-transitions-and-percolation).
+  Maths linear-algebra `def-eigenvalue`.
